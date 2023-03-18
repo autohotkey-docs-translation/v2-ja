@@ -61,11 +61,13 @@ StrPut(source_string, ansi_buf)</pre>
 <p>In general, if a script calls a function via DllCall which accepts a string as a parameter, one or more of the following approaches must be taken:</p>
 <ol>
   <li>If both Unicode (W) and ANSI (A) versions of the function are available, omit the W or A suffix and use the "Str" type for input parameters or the return value. For example, the DeleteFile function is exported from kernel32.dll as <code>DeleteFileA</code> and <code>DeleteFileW</code>. Since <code>DeleteFile</code> itself doesn't really exist, DllCall automatically tries <code>DeleteFileW</code>:
+  
   <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
 DllCall("DeleteFile", "Str", filename)</pre>
   <p>In both cases, the address of the original unmodified string is passed to the function.</p>
   <p>In some cases this approach may backfire, as DllCall adds the W suffix only if no function could be found with the original name. For example, shell32.dll exports ExtractIconExW, ExtractIconExA and ExtractIconEx with no suffix, with the last two being equivalent. In that case, omitting the W suffix causes the ANSI version to be called.</p></li>
   <li>If the function accepts a specific type of string as input, the script may use the appropriate string type:
+  
   <pre>DllCall("DeleteFileA", "AStr", filename)
 DllCall("DeleteFileW", "WStr", filename)</pre></li>
   <li>If the function has a string parameter used for output, the script must allocate a buffer as described <a href="#Buffer">above</a> and pass it to the function. If the parameter accepts input, the script must also convert the input string to the appropriate format; <a href="lib/StrPut.htm">StrPut</a> can be used for this.</li>

@@ -27,7 +27,7 @@ translateData = {
   "Skip navigation":true,
   "Hide or show the sidebar":true,
   "Go to the homepage":true,
-  "en":true,
+  "en":"ja",
   "Change the language":true,
   "v1":"v2",
   "Change the version":true,
