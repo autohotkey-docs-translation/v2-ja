@@ -20,7 +20,7 @@
   <li><a href="#BuiltIn">Built-in Methods for ListViews</a></li>
   <li><a href="#Events">Events</a></li>
   <li><a href="#IL">ImageLists</a> (the means by which icons are added to a ListView)</li>
-  <li><a href="#Remarks">Remarks</a></li>
+  <li><a href="#Remarks">備考</a></li>
   <li><a href="#Examples">Examples</a></li>
 </ul>
 <h2 id="Intro">Introduction and Simple Example</h2>
@@ -114,7 +114,7 @@ LV_DoubleClick(LV, RowNumber)
     <p>Adds a new row to the bottom of the list, and returns the new <a href="#RowNumber">row number</a>, which is not necessarily the last row if the ListView has the <a href="#Sort">Sort</a> or <a href="#SortDesc">SortDesc</a> style.</p>
     <pre class="Syntax">NewRowNumber := LV.<span class="func">Add</span>(<span class="optional">Options, Col1, Col2, ...</span>)</pre>
     <dl>
-      <dt id="RowOptions">Options</dt>
+      <dt id="RowOptions">オプション</dt>
       <dd>
 <p>Type: <a href="../Concepts.htm#strings">String</a></p>
 <p>A string containing zero or more words from the list below (not case sensitive). Separate each word from the next with a space or tab. To remove an option, precede it with a minus sign. To add an option, a plus sign is permitted but not required.</p>
@@ -143,7 +143,7 @@ LV_DoubleClick(LV, RowNumber)
         <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
         <p>The row number for the newly inserted row. Any rows at or beneath <em>RowNumber</em> are shifted downward to make room for the new row. If <em>RowNumber</em> is greater than the number of rows in the list (even as high as 2147483647), the new row is added to the end of the list.</p>
       </dd>
-      <dt>Options</dt>
+      <dt>オプション</dt>
       <dd>
         <p>Type: <a href="../Concepts.htm#strings">String</a></p>
         <p>See <a href="#RowOptions">row options</a>.</p>
@@ -166,7 +166,7 @@ LV_DoubleClick(LV, RowNumber)
         <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
         <p>The row to modify. If <em>RowNumber</em> is 0, <u>all</u> rows in the control are modified (in this case the return value is 1 on complete success and 0 if any part of the operation failed).</p>
       </dd>
-      <dt>Options</dt>
+      <dt>オプション</dt>
       <dd>
         <p>Type: <a href="../Concepts.htm#strings">String</a></p>
         <p>The <a href="#ColN">ColN option</a> may be used to update specific columns without affecting the others. For other options, see <a href="#RowOptions">row options</a>.</p>
@@ -201,7 +201,7 @@ LV_DoubleClick(LV, RowNumber)
         <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
         <p>The column to modify. The first column is number 1 (not 0).</p>
       </dd>
-      <dt id="ColOptions">Options</dt>
+      <dt id="ColOptions">オプション</dt>
       <dd>
     <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>A string containing zero or more words from the list below (not case sensitive). Separate each word from the next with a space or tab. To remove an option, precede it with a minus sign. To add an option, a plus sign is permitted but not required.</p>
@@ -250,7 +250,7 @@ LV_DoubleClick(LV, RowNumber)
         <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
         <p>The column number of the newly inserted column. Any column at or on the right side of <em>ColumnNumber</em> are shifted to the right to make room for the new column. The first column is 1 (not 0). The maximum number of columns in a ListView is 200. If <em>ColumnNumber</em> is larger than the number of columns currently in the control, the new column is added next to the last column on the right side. The newly inserted column starts off with empty contents beneath it unless it is the first column, in which case it inherits the old first column's contents and the old first column acquires blank contents.</p>
       </dd>
-      <dt>Options</dt>
+      <dt>オプション</dt>
       <dd>
         <p>Type: <a href="../Concepts.htm#strings">String</a></p>
         <p>The new column's attributes -- such as whether or not it uses <a href="#Integer">integer sorting</a> -- always start off at their defaults unless changed via <em><a href="#ColOptions">Options</a></em>.</p>
@@ -460,7 +460,7 @@ MyGui.Show</pre>
   <p>
     
     Note: It is normally not necessary to destroy ImageLists because once attached to a ListView, they are destroyed automatically when the ListView or its parent window is destroyed. However, if the ListView shares ImageLists with other ListViews (by having <code>0x40</code> in its options), the script should explicitly destroy the ImageList after destroying all the ListViews that use it. Similarly, if the script replaces one of a ListView's old ImageLists with a new one, it should explicitly destroy the old one.</p>
-<h2 id="Remarks">Remarks</h2>
+<h2 id="Remarks">備考</h2>
 <p><a href="Gui.htm#Submit">Gui.Submit</a> has no effect on a ListView control.</p>
 <p>After a column is sorted -- either by means of the user clicking its header or the script calling <code>LV.<a href="#ModifyCol">ModifyCol</a>(1, "Sort")</code> -- any subsequently added rows will appear at the bottom of the list rather than obeying the sort order. The exception to this is the <a href="#Sort">Sort</a> and <a href="#SortDesc">SortDesc</a> styles, which move newly added rows into the correct positions.</p>
 <p id="Enter">To detect when the user has pressed <kbd>Enter</kbd> while a ListView has focus, use a <a href="GuiControls.htm#DefaultButton">default button</a> (which can be hidden if desired). 事例:</p>

@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>Hotstrings - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="Learn details about hotstrings in general, ending characters, options, long replacements, context-sensitive hotstrings, function hotstrings, etc." />
-<meta name="keywords" content="auto-replace,autotext,autocorrect,auto text,auto correct,abbreviation expansion,abbreviation,abbreviations,autoreplace,auto replace,text,expander,free,type,typing,word,words">
+<title>ホットストリング - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ホットストリング全般、末尾文字、オプション、長い置換、文脈依存型ホットストリング、関数ホットストリングなどについての詳細を説明します。" />
+<meta name="keywords" content="自動置換、自動テキスト、自動修正、自動テキスト、自動修正、略語展開、略語、自動置換、自動置換、テキスト、エキスパンダー、無料、タイプ、タイピング、単語、言葉">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,148 +11,148 @@
 </head>
 <body>
 
-<h1>Hotstrings</h1>
+<h1>ホットストリングス</h1>
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#intro">導入と簡単な例</a></li>
-  <li><a href="#EndChars">Ending Characters</a></li>
-  <li><a href="#Options">Options</a></li>
-  <li><a href="#continuation">Long Replacements</a></li>
-  <li><a href="#variant">Context-sensitive Hotstrings</a></li>
-  <li><a href="#AutoCorrect">AutoCorrect</a></li>
-  <li><a href="#remarks">Remarks</a></li>
-  <li><a href="#Function">Named Function Hotstrings</a></li>
-  <li><a href="#Helper">Hotstring Helper</a></li>
+  <li><a href="#EndChars">エンディングキャラクター</a></li>
+  <li><a href="#Options">オプション</a></li>
+  <li><a href="#continuation">ロングリプレイスメント</a></li>
+  <li><a href="#variant">コンテキストに応じたホットストリング</a></li>
+  <li><a href="#AutoCorrect">オートコレクト</a></li>
+  <li><a href="#remarks">備考</a></li>
+  <li><a href="#Function">名前付き関数ホットストリング</a></li>
+  <li><a href="#Helper">ホットストリングヘルパー</a></li>
 </ul>
 
 <h2 id="intro">導入と簡単な例</h2>
-<p>Although hotstrings are mainly used to expand abbreviations as you type them (auto-replace), they can also be used to launch any scripted action. In this respect, they are similar to <a href="Hotkeys.htm">hotkeys</a> except that they are typically composed of more than one character (that is, a string).</p>
-<p>To define a hotstring, enclose the triggering abbreviation between pairs of colons as in this example:</p>
+<p>ホットストリングは、主に略語を入力しながら展開する（自動置換）ために使用されますが、任意のスクリプトアクションを起動するためにも使用することができます。この点では、一般的に複数の文字（つまり文字列）で構成されていることを除けば、<a href="Hotkeys.htm">ホットキーと似て</a>います。</p>
+<p>ホットストリングを定義するには、次の例のように、トリガーとなる略語をコロンのペアで囲みます。</p>
 <pre>::btw::by the way</pre>
-<p>In the above example, the abbreviation btw will be automatically replaced with "by the way" whenever you type it (however, by default you must type an <a href="#EndChars">ending character</a> after typing btw, such as <kbd>Space</kbd>, <kbd>.</kbd>, or <kbd>Enter</kbd>).</p>
-<p id="auto">The "by the way" example above is known as an auto-replace hotstring because the typed text is automatically erased and replaced by the string specified after the second pair of colons. By contrast, a hotstring may also be defined to perform any custom action as in the following examples. Note that the functions must appear <u>beneath</u> the hotstring:</p>
+<p>上記の例では、btwという略語を入力すると、自動的に「by the way」に置き換えられます（ただし、デフォルトではbtwを入力した後に、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enterなどの</kbd><a href="#EndChars">終了文字を</a>入力する必要があります）。</p>
+<p id="auto">上記の「by way」の例は、入力されたテキストが自動的に消去され、2つ目のコロンの後に指定された文字列に置き換えられるため、自動置き換えホットストリングとして知られています。これに対して、ホットストリングは、以下の例のように、任意のカスタムアクションを実行するように定義することもできる。なお、関数はホットストリングの<u>下に</u>表示する必要があります。</p>
 <pre>::btw::
 {
     MsgBox 'You typed "btw".'
 }
 
-:*:]d::<em>; This hotstring replaces "]d" with the current date and time via the functions below.</em>
+:*:]d::<em>; このホットストリングは、"]d "を以下の関数で現在の日付と時刻に置き換えます。</em>
 {
-    SendInput <a href="lib/FormatTime.htm">FormatTime</a>(, "M/d/yyyy h:mm tt")<em>; It will look like 9/1/2005 3:53 PM</em>
+    SendInput <a href="lib/FormatTime.htm">FormatTime</a>(, "M/d/yyyy h:mm tt")<em>; 2005年9月1日 3:53 PM</em>
 }</pre>
-<p>In the above, the braces serve to define a <a href="Functions.htm">function body</a> for each hotstring. The opening brace may also be specified on the same line as the double-colon to support the <a href="lib/Block.htm#otb">OTB (One True Brace) style</a>.</p>
-<p>Even though the two examples above are not auto-replace hotstrings, the abbreviation you type is erased by default. This is done via automatic backspacing, which can be disabled via the <a href="#b0">b0 option</a>.</p>
-<p id="ThisHotkey">When a hotstring is triggered, the name of the hotstring is passed as its first parameter named <code>ThisHotkey</code> (which excludes the trailing colons). 事例:</p>
-<pre>:X:btw::MsgBox ThisHotkey  <em>; Reports :X:btw</em></pre>
-<p>With few exceptions, this is similar to the built-in variable <a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>. The parameter name can be changed by using a <a href="#Function">named function</a>.</p>
+<p>上記では、中括弧は各ホットストリングに対して<a href="Functions.htm">関数体を</a>定義する役割を果たします。また、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイルを</a>サポートするために、ダブルコロンと同じ行に開始ブレースを指定することができる。</p>
+<p>上の2つの例は自動置換ホットストリングでないにもかかわらず、入力した略語はデフォルトで消去されます。これは自動バックスペースによって行われますが、<a href="#b0">b0オプションによって</a>無効にすることができます。</p>
+<p id="ThisHotkey">ホットストリングがトリガーされると、ホットストリングの名前が<code>ThisHotkeyという</code>最初のパラメータとして渡されます（末尾のコロンを除いたものです）。事例:</p>
+<pre>:X:btw::MsgBox ThisHotkey<em>;レポート :X:btw</em></pre>
+<p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkeyと</a>同様です。パラメータ名は、<a href="#Function">名前付き関数を</a>使用することで変更することができます。</p>
 
-<h2 id="EndChars">Ending Characters</h2>
-<p>Unless the <a href="#Asterisk">asterisk option</a> is in effect, you must type an <em>ending character</em> after a hotstring's abbreviation to trigger it. Ending characters initially consist of the following: <strong>-()[]{}':;"/\,.?!`n `t</strong> (note that `n is <kbd>Enter</kbd>, `t is <kbd>Tab</kbd>, and there is a plain space between `n and `t). This set of characters can be changed by editing the following example, which sets the new ending characters for <u>all</u> hotstrings, not just the ones beneath it:</p>
+<h2 id="EndChars">エンディングキャラクター</h2>
+<p><a href="#Asterisk">アスタリスクオプションが</a>有効でない限り、ホットストリングの略語の後に<em>終了文字を</em>入力しないと発動しません。エンディングキャラクターは、当初は以下のような構成になっています。<strong>-()[]{}':;"/\,.?!`n `t</strong> (note that `n is <kbd>Enter</kbd>, `t is <kbd>Tab</kbd>, and there is a plain space between `n and `t). この文字のセットは、以下の例を編集することで変更できます。この例では、その下にある文字だけでなく、<u>すべての</u>ホットストリングに新しい終了文字を設定します。</p>
 <pre>#Hotstring EndChars -()[]{}:;'"/\,.?!`n `t</pre>
-<p>The ending characters can be changed while the script is running by calling the <a href="lib/Hotstring.htm">Hotstring</a> function as demonstrated below:</p>
+<p>スクリプトの実行中に、以下のように<a href="lib/Hotstring.htm">Hotstring</a>関数を呼び出して、終了文字を変更することができます。</p>
 <pre>Hotstring("EndChars", "-()[]{}:;")</pre>
 
-<h2 id="Options">Options</h2>
-<p>A hotstring's default behavior can be changed in two possible ways:</p>
+<h2 id="Options">オプション</h2>
+<p>ホットストリングのデフォルトの動作は、2つの方法で変更することが可能です。</p>
 <ol>
-  <li>The <a href="lib/_Hotstring.htm">#Hotstring</a> directive, which affects all hotstrings physically beneath that point in the script. The following example puts the C and R options into effect: <code>#Hotstring <strong>c r</strong></code>.</li>
-  <li>Putting options inside a hotstring's first pair of colons. The following example puts the C and * options (case sensitive and "ending character not required") into effect for a single hotstring: <code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
+  <li>スクリプトのそのポイントより物理的に下のすべてのホットストリングに影響を与える<a href="lib/_Hotstring.htm">#Hotstring</a>ディレクティブです。次の例では、CとRのオプションを有効にしています。<code>#Hotstring <strong>c r</strong></code>.</li>
+  <li>ホットストリングの最初のコロンのペアの中にオプションを入れる。次の例では、1つのホットストリングに対して、Cと*のオプション（大文字と小文字を区別し、「終端文字は不要」）を有効にしています。<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
 </ol>
-<p>The list below describes each option. When specifying more than one option using the methods above, spaces optionally may be included between them.</p>
-<p id="Asterisk"><strong>*</strong> (asterisk):An ending character (e.g. <kbd>Space</kbd>, <kbd>.</kbd>, or <kbd>Enter</kbd>) is not required to trigger the hotstring. 事例:</p>
+<p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定する場合、オプションの間にスペースを任意に含めることができる。</p>
+<p id="Asterisk"><strong>*</strong> (asterisk):ホットストリングのトリガーには、終了文字（<kbd>スペース</kbd>、<kbd>.</kbd>、<kbd>Enterなど</kbd>）は必要ありません。事例:</p>
 <pre>:*:j@::jsmith@somedomain.com</pre>
-<p>The example above would send its replacement the moment you type the @ character. When using the <a href="lib/_Hotstring.htm">#Hotstring directive</a>, use <strong>*0</strong> to turn this option back off.</p>
-<p id="Question"><strong>?</strong> (question mark): The hotstring will be triggered even when it is inside another word; that is, when the character typed immediately before it is alphanumeric. For example, if <code>:?:al::airline</code> is a hotstring, typing "practical " would produce "practicairline ". Use <strong>?0</strong> to turn this option back off.</p>
-<p id="b0"><strong>B0</strong> (B followed by a zero): Automatic backspacing is <u>not</u> done to erase the abbreviation you type. Use a plain <strong>B</strong> to turn backspacing back on after it was previously turned off. A script may also do its own backspacing via {bs 5}, which sends <kbd>Backspace</kbd> five times. Similarly, it may send <kbd>←</kbd> five times via {left 5}. For example, the following hotstring produces "&lt;em&gt;&lt;/em&gt;" and moves the caret 5 places to the left (so that it's between the tags):</p>
+<p>上の例では、@を入力した瞬間にその置換を送信することになります。<a href="lib/_Hotstring.htm">Hotstringディレクティブを</a>使用する場合、このオプションをオフに戻すには<strong>*0を</strong>使用します。</p>
+<p id="Question"><strong>?</strong> (question mark):ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airlineが</code>ホットストリングである場合、「practical」と入力すると、「practicairline」が出力されます。このオプションをオフに戻すには、<strong>?0を</strong>使用します。</p>
+<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うもの<u>では</u>ありません。プレーン<strong>Bを</strong>使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>バックス</kbd>ペースを5回送信することもできます。同様に、{left 5}を介して<kbd>←を</kbd>5回送信することもできる。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
 <pre>:*b0:&lt;em&gt;::&lt;/em&gt;{left 5}</pre>
-<p id="C"><strong>C</strong>: Case sensitive: When you type an abbreviation, it must exactly match the case defined in the script. Use <strong>C0</strong> to turn case sensitivity back off.</p>
-<p id="C1"><strong>C1</strong>: Do not conform to typed case. Use this option to make <a href="#auto">auto-replace hotstrings</a> case insensitive and prevent them from conforming to the case of the characters you actually type. Case-conforming hotstrings (which are the default) produce their replacement text in all caps if you type the abbreviation in all caps. If you type the first letter in caps, the first letter of the replacement will also be capitalized (if it is a letter). If you type the case in any other way, the replacement is sent exactly as defined. When using the <a href="lib/_Hotstring.htm">#Hotstring directive</a>, <strong>C0</strong> can be used to turn this option back off, which makes hotstrings conform again.</p>
-<p id="Kn"><strong>Kn</strong>: Key-delay: This rarely-used option sets the delay between keystrokes produced by auto-backspacing or <a href="#auto">auto-replacement</a>. Specify the new delay for <strong>n</strong>; for example, specify k10 to have a 10ms delay and k-1 to have no delay. The exact behavior of this option depends on which <a href="#SendMode">sending mode</a> is in effect:</p>
+<p id="C"><strong>C</strong>:大文字小文字を区別します。略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C</strong>0で大文字小文字の区別をオフに戻す。</p>
+<p id="C1"><strong>C1</strong>:型番の大文字と小文字を一致させないでください。このオプションを使用すると、<a href="#auto">自動置換ホットストリングの</a>大文字と小文字を区別せず、実際に入力する文字の大文字と小文字を一致させないようにすることができます。大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブを</a>使用する場合、<strong>C0を</strong>使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
+<p id="Kn"><strong>Kn</strong>:キーディレイです。このオプションはほとんど使用されませんが、オートバックスペースや<a href="#auto">オートリプレースメントによって</a>生じるキーストローク間の遅延を設定します。<strong>nの</strong>新しい遅延を指定します。例えば、10msの遅延がある場合はk10を、遅延がない場合はk-1を指定します。このオプションの正確な動作は、どの<a href="#SendMode">送信モードが</a>有効であるかに依存します。</p>
 <ul>
-  <li>SI (SendInput): Key-delay is ignored because a delay is not possible in this mode. The exception to this is when SendInput is <a href="lib/Send.htm#SendInputUnavail">unavailable</a>, in which case hotstrings revert to SendPlay mode below (which does obey key-delay).</li>
-  <li>SP (SendPlay): A delay of length zero is the default, which for SendPlay is the same as -1 (no delay). In this mode, the delay is actually a <a href="lib/SetKeyDelay.htm#dur">PressDuration</a> rather than a delay between keystrokes.</li>
-  <li>SE (SendEvent): A delay of length zero is the default. Zero is recommended for most purposes since it is fast but still cooperates well with other processes (due to internally doing a <a href="lib/Sleep.htm">Sleep 0</a>). Specify k-1 to have no delay at all, which is useful to make auto-replacements faster if your CPU is frequently under heavy load. When set to -1, a script's process-priority becomes an important factor in how fast it can send keystrokes. To raise a script's priority, use <code><a href="lib/ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>.</li>
+  <li>SI (SendInput):このモードではディレイができないため、Key-delayは無視されます。例外として、SendInputが利用<a href="lib/Send.htm#SendInputUnavail">できない</a>場合は、Hotstringsは以下のSendPlayモード（キーディレイに従う）に戻ります。</li>
+  <li>SP (SendPlay):長さ0のディレイがデフォルトで、SendPlayの場合は-1（ディレイなし）と同じです。このモードでは、遅延はキーストローク間の遅延ではなく、実際には<a href="lib/SetKeyDelay.htm#dur">PressDurationと</a>なります。</li>
+  <li>SE (SendEvent):長さゼロのディレイがデフォルトです。Zeroは高速でありながら、他のプロセスとの協調性が高いため（内部的に<a href="lib/Sleep.htm">Sleep 0を</a>行うため）、ほとんどの用途で推奨されます。k-1を指定すると、全く遅延しないので、CPUに負荷がかかることが多い場合、自動置換を高速化するのに有効です。1 に設定すると、スクリプトのプロセス優先度がキー入力の送信速度の重要な要素となります。スクリプトの優先度を上げるには、<code><a href="lib/ProcessSetPriority.htm">ProcessSetPriority</a>"High "</code>を使用します。</li>
 </ul>
-<p id="O"><strong>O</strong>: Omit the ending character of <a href="#auto">auto-replace hotstrings</a> when the replacement is produced. This is useful when you want a hotstring to be kept unambiguous by still requiring an ending character, but don't actually want the ending character to be shown on the screen. For example, if <code>:o:ar::aristocrat</code> is a hotstring, typing "ar" followed by the spacebar will produce "aristocrat" with no trailing space, which allows you to make the word plural or possessive without having to press <kbd>Backspace</kbd>. Use <strong>O0</strong> (the letter O followed by a zero) to turn this option back off.</p>
-<p id="Pn"><strong>Pn</strong>: The <a href="misc/Threads.htm">priority</a> of the hotstring (e.g. P1). This rarely-used option has no effect on <a href="#auto">auto-replace hotstrings</a>.</p>
-<p id="raw"><strong>R</strong>: Send the replacement text <a href="lib/Send.htm#SendRaw">raw</a>; that is, without translating {Enter} to <kbd>Enter</kbd>, ^c to <kbd>Ctrl</kbd>+<kbd>C</kbd>, etc. Use <strong>R0</strong> to turn this option back off, or override it with <strong>T</strong>.</p>
-<p class="note"><strong>Note:</strong> <a href="#T">Text mode</a> may be more reliable. The R and T options are mutually exclusive.</p>
-<p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>: Specify the letter S to make the hotstring <a href="lib/_SuspendExempt.htm">exempt</a> from <a href="lib/Suspend.htm">Suspend</a>. Specify S0 (S with the number 0) to remove the exemption, allowing the hotstring to be suspended. When applied as a default option, either <code>S</code> or <code>#SuspendExempt</code> will make the hotstring exempt; that is, to override the directive, <code>S0</code> must be used explicitly in the hotstring.</p>
-<p id="SendMode"><strong>SI</strong> or <strong>SP</strong> or <strong>SE</strong>: Sets the method by which <a href="#auto">auto-replace hotstrings</a> send their keystrokes. These options are mutually exclusive: only one can be in effect at a time. The following describes each option:</p>
+<p id="O"><strong>O</strong>:<a href="#auto">自動置換されたホットストリングの</a>末尾文字を、置換が行われる際に省略する。これは、ホットストリングに終端文字を必要とすることで曖昧さをなくしたいけれども、実際には終端文字を画面に表示させたくない場合に有効です。例えば、<code>:o:ar::aristocratが</code>ホットストリングである場合、arと入力した後にスペースキーを押すと、末尾にスペースがないaristocratとなり、<kbd>バックスペースを</kbd>押すことなく複数形や所有格にすることが可能です。このオプションをオフに戻すには、<strong>O0</strong>（アルファベットのOの後にゼロが続く）を使用します。</p>
+<p id="Pn"><strong>Pn</strong>:ホットストリングの<a href="misc/Threads.htm">優先順位</a>（例：P1）。このめったに使われないオプションは、<a href="#auto">自動置換ホットストリングには</a>影響しません。</p>
+<p id="raw"><strong>R</strong>:つまり、{Enter}を<kbd>Enterに</kbd>、^cを<kbd>Ctrl</kbd><kbd>+</kbd><kbd>Cなどに</kbd>変換せずに、<a href="lib/Send.htm#SendRaw">生のまま</a>置換テキストを送信します。<strong>R</strong>0でこのオプションをオフに戻すか、<strong>Tで</strong>上書きしてください。</p>
+<p class="note"><strong>注）</strong> <a href="#T">テキストモードの</a>方が信頼性が高い場合があります。RとTのオプションは相互に排他的です。</p>
+<p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>:ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象</a>外にする場合は、「S」を指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code>S</code>または<code>#SuspendExemptの</code>いずれかがホットストリングを免除する。つまり、指令を上書きするには、ホットストリング内で<code>S0を</code>明示的に使用する必要がある。</p>
+<p id="SendMode"><strong>SI</strong> or <strong>SP</strong> or <strong>SE</strong>:<a href="#auto">自動置換ホットストリングが</a>キー入力を送信する方法を設定します。これらのオプションは相互に排他的です。同時に1つだけ有効にすることができます。以下、各オプションについて説明します。</p>
 <ul>
-  <li>SI stands for <a href="lib/Send.htm#SendInputDetail">SendInput</a>, which typically has superior speed and reliability than the other modes. Another benefit is that like SendPlay below, SendInput postpones anything you type during a hotstring's <a href="#auto">auto-replacement text</a>. This prevents your keystrokes from being interspersed with those of the replacement. When SendInput is <a href="lib/Send.htm#SendInputUnavail">unavailable</a>, hotstrings automatically use SendPlay instead.</li>
-  <li>SP stands for <a href="lib/Send.htm#SendPlayDetail">SendPlay</a>, which may allow hotstrings to work in a broader variety of games.</li>
-  <li>SE stands for <a href="lib/Send.htm#SendEvent">SendEvent</a>.</li>
+  <li>SIは<a href="lib/Send.htm#SendInputDetail">SendInputの</a>略で、通常、他のモードよりも速度や信頼性に優れています。もう一つの利点は、以下のSendPlayと同様に、SendInputはホットストリングの<a href="#auto">自動置換テキスト</a>中に入力したものを延期することです。これにより、自分のキー入力と交換者のキー入力が混在することを防ぎます。SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合、ホットストリングは自動的にSendPlayを代わりに使用します。</li>
+  <li>SPは<a href="lib/Send.htm#SendPlayDetail">SendPlayの</a>略で、より幅広いゲームでホットストリングが使えるようになる可能性があります。</li>
+  <li>SEは<a href="lib/Send.htm#SendEvent">SendEventの</a>略です。</li>
 </ul>
-<p>If none of the above options are used, the default mode is SendInput. However, unlike the SI option, SendEvent is used instead of SendPlay when SendInput is unavailable.</p>
-<p id="T"><strong>T</strong>: Send the replacement text using <a href="lib/Send.htm#SendText">Text mode</a>. That is, send each character by character code, without translating {Enter} to <kbd>Enter</kbd>, ^c to <kbd>Ctrl</kbd>+<kbd>C</kbd>, etc. and without translating each character to a keystroke. This option is put into effect automatically for hotstrings that have a <a href="#continuation">continuation section</a>. Use <strong>T0</strong> or <strong>R0</strong> to turn this option back off, or override it with <strong>R</strong>.</p>
-<p id="X"><strong>X</strong>: Execute. Instead of replacement text, the hotstring accepts a function call or expression to execute. For example, <code>:X:~mb::MsgBox</code> would cause a message box to be displayed when the user types "~mb" instead of auto-replacing it with the word "MsgBox". This is most useful when defining a large number of hotstrings which call functions, as it would otherwise require three lines per hotstring.</p>
-<p>This option should not be used with the <a href="lib/Hotstring.htm">Hotstring</a> function. To make a hotstring call a function when triggered, pass the function by reference.</p>
-<p id="z"><strong>Z</strong>: This rarely-used option resets the hotstring recognizer after each triggering of the hotstring. In other words, the script will begin waiting for an entirely new hotstring, eliminating from consideration anything you previously typed. This can prevent unwanted triggerings of hotstrings. To illustrate, consider the following hotstring:</p>
+<p>上記のオプションを使用しない場合、デフォルトのモードはSendInputです。ただし、SIオプションとは異なり、SendInputが利用できない場合はSendPlayの代わりにSendEventが使用されます。</p>
+<p id="T"><strong>T</strong>:<a href="lib/Send.htm#SendText">テキストモードを使って</a>、置換テキストを送信する。つまり、{Enter}を<kbd>Enter</kbd>、^cを<kbd>Ctrl</kbd><kbd>+</kbd><kbd>Cなどに</kbd>変換せず、各文字をキーストロークに変換せずに、文字コードで送信する。このオプションは、<a href="#continuation">継続セクションを</a>持つホットストリングに自動的に適用されます。このオプションをオフに戻すには<strong>T0</strong>または<strong>R0を</strong>使用し、<strong>Rで</strong>オーバーライドします。</p>
+<p id="X"><strong>X</strong>:実行する。ホットストリングは、置換テキストの代わりに、実行する関数コールまたは式を受け付けます。例えば、<code>:X:~mb::MsgBoxと</code>すると、ユーザーが「~mb」と入力したときに、「MsgBox」という単語に自動置換されるのではなく、メッセージボックスが表示されるようになります。これは、関数を呼び出す多数のホットストリングを定義する場合に最も便利で、そうでなければホットストリングごとに3行必要だからです。</p>
+<p>このオプションは、<a href="lib/Hotstring.htm">Hotstring</a>関数と一緒に使用しないでください。ホットストリングがトリガーされたときに関数を呼び出すようにするには、関数を参照で渡します。</p>
+<p id="z"><strong>Z</strong>:このオプションはほとんど使用されませんが、ホットストリングがトリガーされるたびに、ホットストリング認識装置をリセットします。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります。これにより、ホットストリングの不要なトリガーを防ぐことができます。説明のために、次のようなホットストリングを考えてみましょう。</p>
 <pre>:b0*?:11::
 {
     SendInput "xx"
 }</pre>
-<p>Since the above lacks the Z option, typing 111 (three consecutive 1's) would trigger the hotstring twice because the middle 1 is the <em>last</em> character of the first triggering but also the <em>first</em> character of the second triggering. By adding the letter Z in front of b0, you would have to type four 1's instead of three to trigger the hotstring twice. Use <strong>Z0</strong> to turn this option back off.</p>
-<h2 id="continuation">Long Replacements</h2>
-<p>Hotstrings that produce a large amount of replacement text can be made more readable and maintainable by using a <a href="Scripts.htm#continuation">continuation section</a>. 事例:</p>
+<p>上記にはZオプションがないので、111（3つの連続した1）を入力すると、真ん中の1が最初のトリガーの<em>最後の</em>文字でありながら、2番目のトリガーの<em>最初の</em>文字でもあるため、ホットストリングが2回トリガーされます。b0の前に文字Zを追加することで、ホットストリングを2回発動させるためには、3回ではなく4回1を入力する必要があります。このオプションをオフに戻すには、<strong>Z0を</strong>使用します。</p>
+<h2 id="continuation">ロングリプレイスメント</h2>
+<p>大量の置換テキストを生成するHotstringsは、<a href="Scripts.htm#continuation">継続セクションを</a>使用することで、より読みやすく、保守的にすることができます。事例:</p>
 <pre>::text1::
 (
-Any text between the top and bottom parentheses is treated literally.
-By default, the hard carriage return (Enter) between the previous line and this one is also preserved.
-By default, the indentation (tab) to the left of this line is preserved.
+上下の括弧の間のテキストは、文字通りに扱われます。
+デフォルトでは、前の行とこの行の間のハードキャリッジリターン（Enter）も保持されます。
+デフォルトでは、この行の左側のインデント（タブ）が保持されます。
 )</pre>
-<p>See <a href="Scripts.htm#continuation">continuation section</a> for how to change these default behaviors. The presence of a continuation section also causes the hotstring to default to <a href="#T">Text mode</a>. The only way to override this special default is to specify an opposing option in each hotstring that has a continuation section (e.g. <code>:t0:text1::</code> or <code>:r:text2::</code>).</p>
-<h2 id="variant">Context-sensitive Hotstrings</h2>
-<p>The <a href="lib/_HotIf.htm">#HotIf</a> directive can be used to make selected hotstrings context sensitive. Such hotstrings send a different replacement, perform a different action, or do nothing at all depending on any condition, such as the type of window that is active. 事例:</p>
+<p>これらのデフォルトの動作を変更する方法については、<a href="Scripts.htm#continuation">続きのセクションを</a>参照してください。また、継続セクションがあると、ホットストリングのデフォルトが<a href="#T">テキスト</a>モードになります。この特別なデフォルトを上書きする唯一の方法は、継続セクションを持つ各ホットストリングで反対側のオプションを指定することです（例<code>： :t0:text1::</code>や<code>:r:text2::</code>など）。</p>
+<h2 id="variant">コンテキストに応じたホットストリング</h2>
+<p><a href="lib/_HotIf.htm">HotIf</a>ディレクティブを使用することで、選択したホットストリングをコンテキストセンシティブにすることができます。このようなホットストリングは、アクティブなウィンドウの種類などの条件によって、異なる置換を送信したり、異なるアクションを実行したり、まったく何もしなかったりします。事例:</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 ::btw::This replacement text will appear only in Notepad.
 #HotIf
 ::btw::This replacement text appears in windows other than Notepad.</pre>
 
-<h2 id="AutoCorrect">AutoCorrect</h2>
-<p>The following script uses hotstrings to correct about 4700 common English misspellings on-the-fly. It also includes a <kbd>Win</kbd>+<kbd>H</kbd> hotkey to make it easy to add more misspellings:</p>
-<p>Download: <a href="https://www.autohotkey.com/download/AutoCorrect.ahk">AutoCorrect.ahk</a> (127 KB)</p>
-<p>Author: <a href="http://www.biancolo.com/blog/autocorrect/">Jim Biancolo</a> and <a href="https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings">Wikipedia's Lists of Common Misspellings</a></p>
+<h2 id="AutoCorrect">オートコレクト</h2>
+<p>以下のスクリプトは、ホットストリングを使用して、一般的な英語のスペルミス約4700個をその場で修正します。また、<kbd>Win</kbd><kbd>+</kbd> <kbd>Hの</kbd>ホットキーを搭載しているので、より多くの誤字脱字を簡単に追加することができます。</p>
+<p>ダウンロード:<a href="https://www.autohotkey.com/download/AutoCorrect.ahk">AutoCorrect.ahk</a> (127 KB)</p>
+<p>著者:<a href="http://www.biancolo.com/blog/autocorrect/">ジム・ビアンコロと</a> <a href="https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings">ウィキペディアのよくある誤字脱字リスト</a></p>
 
-<h2 id="remarks">Remarks</h2>
-<p><a href="Variables.htm#Expressions">Expressions</a> are not currently supported within the replacement text. To work around this, don't make such hotstrings <a href="#auto">auto-replace</a>. Instead, use the <a href="lib/Send.htm#SendInput">SendInput</a> function beneath the abbreviation, followed by a line containing only the word Return.</p>
-<p>To send an extra space or tab after a replacement, include the space or tab at the end of the replacement but make the last character an accent/backtick (`). 事例:</p>
+<h2 id="remarks">備考</h2>
+<p>現在、置換テキスト内の<a href="Variables.htm#Expressions">表現は</a>サポートされていません。これを回避するためには、このようなホットストリングを<a href="#auto">自動置換</a>しないようにします。代わりに、省略形の下に<a href="lib/Send.htm#SendInput">SendInput</a>関数を使用し、その後にReturnという単語だけを含む行が続きます。</p>
+<p>置換の後にスペースやタブを追加して送信するには、置換の最後にスペースやタブを含め、最後の文字をアクセント/バックティック(`)にします。事例:</p>
 <pre>:*:btw::By the way `</pre>
-<p id="ReplaceBrace">For an auto-replace hotstring which doesn't use the <a href="#T">Text</a> or <a href="#raw">Raw</a> mode, sending a <code>{</code> alone, or one preceded only by white-space, requires it being enclosed in a pair of brackets, for example <code>:*:brace::{{}</code> and <code>:*:space_brace:: {{}</code>. Otherwise it is interpreted as the opening brace for the hotstring's function to support the <a href="lib/Block.htm#otb">OTB (One True Brace) style</a>.</p>
-<p id="NoMouse">By default, any click of the left or right mouse button will reset the hotstring recognizer. In other words, the script will begin waiting for an entirely new hotstring, eliminating from consideration anything you previously typed (if this is undesirable, specify the line <code><a href="lib/_Hotstring.htm">#Hotstring</a> NoMouse</code> anywhere in the script). This "reset upon mouse click" behavior is the default because each click typically moves the text insertion point (caret) or sets keyboard focus to a new control/field. In such cases, it is usually desirable to: 1) fire a hotstring even if it lacks the <a href="#Question">question mark option</a>; 2) prevent a firing when something you type after clicking the mouse accidentally forms a valid abbreviation with what you typed before.</p>
-<p id="focus-reset">The hotstring recognizer checks the active window each time a character is typed, and resets if a different window is active than before. If the active window changes but reverts before any characters are typed, the change is not detected (but the hotstring recognizer may be reset for some other reason). The hotstring recognizer can also be reset by calling <code><a href="lib/Hotstring.htm#Reset">Hotstring "Reset"</a></code>.</p>
-<p>The built-in variable <strong>A_EndChar</strong> contains the ending character that you typed to trigger the most recent non-auto-replace hotstring. If no ending character was required (due to the <a href="#Asterisk">* option</a>), it will be blank. A_EndChar is useful when making hotstrings that use the Send function or whose behavior should vary depending on which ending character you typed. To send the ending character itself, use <code>SendText A_EndChar</code> (<a href="lib/Send.htm">SendText</a> is used because characters such as !{} would not be sent correctly by the normal Send function).</p>
-<p>Although single-colons within hotstring definitions do not need to be <a href="misc/EscapeChar.htm">escaped</a> unless they precede the double-colon delimiter, backticks and those semicolons having a space or tab to their left must always be escaped. See <a href="misc/EscapeChar.htm">Escape Sequences</a> for a complete list.</p>
-<p>Although the <a href="lib/Send.htm">Send function</a>'s special characters such as {Enter} are supported in <a href="#auto">auto-replacement text</a> (unless the <a href="#raw">raw option</a> is used), the hotstring abbreviations themselves do not use this. Instead, specify `n for <kbd>Enter</kbd> and `t (or a literal tab) for <kbd>Tab</kbd> (see <a href="misc/EscapeChar.htm">Escape Sequences</a> for a complete list). For example, the hotstring <code>:*:ab`t::</code> would be triggered when you type "ab" followed by a tab.</p>
-<p>Spaces and tabs are treated literally within hotstring definitions. For example, the following would produce two different results: <code>::btw::by the way</code> and <code>::btw:: by the way</code>.</p>
-<p>Each hotstring abbreviation can be no more than 40 characters long. The program will warn you if this length is exceeded. By contrast, the length of hotstring's replacement text is limited to about 5000 characters when the <a href="#SendMode">sending mode</a> is at its default of SendInput. That limit can be removed by switching to one of the other <a href="#SendMode">sending modes</a>, or by using <a href="lib/Send.htm#SendPlayDetail">SendPlay</a> or <a href="lib/Send.htm#SendEvent">SendEvent</a> in the body of the hotstring.</p>
-<p>The order in which hotstrings are defined determines their precedence with respect to each other. In other words, if more than one hotstring matches something you type, only the one listed first in the script will take effect. Related topic: <a href="#variant">context-sensitive hotstrings</a>.</p>
-<p>Any backspacing you do is taken into account for the purpose of detecting hotstrings. However, the use of <kbd>↑</kbd>, <kbd>→</kbd>, <kbd>↓</kbd>, <kbd>←</kbd>, <kbd>PgUp</kbd>, <kbd>PgDn</kbd>, <kbd>Home</kbd>, and <kbd>End</kbd> to navigate within an editor will cause the hotstring recognition process to reset. In other words, it will begin waiting for an entirely new hotstring.</p>
-<p>A hotstring may be typed even when the active window is ignoring your keystrokes. In other words, the hotstring will still fire even though the triggering abbreviation is never visible. In addition, you may still press <kbd>Backspace</kbd> to undo the most recently typed keystroke (even though you can't see the effect).</p>
-<p>A hotstring's function can be called explicitly by the script only if the function has been named. See <a href="#Function">Named Function Hotstrings</a>.</p>
-<p>Hotstrings are not monitored and will not be triggered while input is blocked by an invisible <a href="lib/InputHook.htm">Input hook</a>.</p>
-<p id="InputLevel">By default, hotstrings are never triggered by keystrokes produced by any AutoHotkey script. This avoids the possibility of an infinite loop where hotstrings trigger each other over and over. This behaviour can be controlled with <a href="lib/_InputLevel.htm">#InputLevel</a> and <a href="lib/SendLevel.htm">SendLevel</a>. However, auto-replace hotstrings always use send level 0 and therefore never trigger <a href="lib/_UseHook.htm">hook hotkeys</a> or hotstrings.</p>
-<p>Hotstrings can be created dynamically by means of the <a href="lib/Hotstring.htm">Hotstring</a> function, which can also modify, disable, or enable the script's existing hotstrings individually.</p>
-<p>The <a href="lib/InputHook.htm">InputHook</a> function is more flexible than hotstrings for certain purposes. For example, it allows your keystrokes to be invisible in the active window (such as a game). It also supports non-character ending keys such as <kbd>Esc</kbd>.</p>
-<p>The <a href="lib/InstallKeybdHook.htm">keyboard hook</a> is automatically used by any script that contains hotstrings.</p>
-<p>Hotstrings behave identically to hotkeys in the following ways:</p>
+<p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{だけ</code>、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace::{{}</code>. それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイルを</a>サポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
+<p id="NoMouse">デフォルトでは、マウスの左ボタンまたは右ボタンをクリックすると、ホットストリング認識機能がリセットされます。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります（これが望ましくない場合は、スクリプトのどこかに<code><a href="lib/_Hotstring.htm">#Hotstring</a>NoMouseという</code>行を指定してください）。クリックするたびにテキスト挿入点（キャレット）が移動したり、キーボードフォーカスが新しいコントロール/フィールドに設定されるのが普通なので、この「マウスクリックでリセット」動作がデフォルトになっています。このような場合、通常は、以下のようにすることが望ましい。1) ホットストリングが<a href="#Question">クエスチョンマークオプションを欠いていても</a>発射する。2) マウスをクリックした後に入力したものが、誤って前に入力したものと有効な略語を形成した場合に発射されるのを防止する。</p>
+<p id="focus-reset">ホットストリングレコグナイザーは、文字が入力されるたびにアクティブなウィンドウをチェックし、以前とは異なるウィンドウがアクティブな場合はリセットされます。アクティブウィンドウが変更され、文字が入力される前に元に戻った場合、変更は検出されません（ただし、他の理由でホットストリング認識装置がリセットされる場合があります）。ホットストリングレコグナイザーをリセットするには、次のようにします。 <code><a href="lib/Hotstring.htm#Reset">ホットストリング "Reset"</a></code>.</p>
+<p>内蔵変数<strong>A_EndCharには</strong>、直近の自動置換でないホットストリングを起動するために入力した終了文字が格納されます。終端文字が必要ない場合<a href="#Asterisk">（*オプションの</a>ため）、空白となります。A_EndCharは、Send関数を使用するホットストリングや、入力した終端文字によって動作が変化するホットストリングを作成する場合に便利です。終了文字そのものを送信する場合は、<code>SendText A_EndCharを</code>使用します<a href="lib/Send.htm">（SendTextを</a>使用するのは、!{}などの文字が通常のSend関数では正しく送信されないためです）。</p>
+<p>ホットストリング定義内のシングルコロンは、ダブルコロンデリミタの前でなければ<a href="misc/EscapeChar.htm">エスケープ</a>する必要はありませんが、バックスティックおよびその左にスペースまたはタブを持つセミコロンは常にエスケープする必要があります。全リストは「<a href="misc/EscapeChar.htm">エスケープシーケンス</a>」を参照してください。</p>
+<p><a href="lib/Send.htm">送信機能の</a>特殊文字である{Enter}などは<a href="#auto">自動置換テキストで</a>サポートされていますが（<a href="#raw">rawオプションが</a>使用されていない場合）、ホットストリングの略語そのものはこれを使用しません。代わりに、<kbd>Enterには</kbd>`n、<kbd>Tabには</kbd>`t（またはリテラルタブ）を指定します（完全なリストは<a href="misc/EscapeChar.htm">エスケープシーケンスを</a>参照してください）。例えば、ホットストリング<code>:*:ab`t::</code>は、"ab" の後にタブを入力したときにトリガーされるでしょう。</p>
+<p>スペースとタブは、ホットストリング定義内で文字通り扱われます。たとえば、次のようにすると、2つの異なる結果が得られます。<code>::btw::by the way</code> and <code>::btw::ところで、</code>。</p>
+<p>各ホットストリングの略号の長さは40文字以内とします。この長さを超えると、プログラムは警告を発します。一方、<a href="#SendMode">送信モードが</a>デフォルトのSendInputの場合、hotstringの置換テキストの長さは約5000文字に制限されています。この制限は、他の<a href="#SendMode">送信</a>モードに切り替えるか、ホットストリングのボディで<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>または<a href="lib/Send.htm#SendEvent">SendEventを</a>使用することで解除することができます。</p>
+<p>ホットストリングの定義順は、互いの優先順位を決定する。つまり、入力した内容に複数のホットストリングがマッチした場合、スクリプトで最初にリストされたものだけが有効になります。関連トピック<a href="#variant">コンテキストに応じたホットストリング</a></p>
+<p>ホットストリングスを検出する目的で、あなたが行ったバックスペースは考慮されます。ただし、エディター内での移動に<kbd>↑</kbd>、<kbd>→</kbd>、<kbd>↓</kbd>、<kbd>←</kbd>、<kbd>PgUp</kbd>、<kbd>PgDn</kbd>、<kbd>Home</kbd>、<kbd>Endを</kbd>使用すると、ホットストリングの認識処理がリセットされます。つまり、まったく新しいホットストリングを待つようになるのです。</p>
+<p>ホットストリングは、アクティブウィンドウがキーストロークを無視しているときでも入力できる場合があります。つまり、トリガーとなる略語が一度も見えていなくても、ホットストリングは発射されるのです。さらに、<kbd>Backspaceを押して</kbd>、直近に入力したキー操作を取り消すこともできます（効果は確認できませんが）。</p>
+<p>ホットストリングの関数は、関数に名前が付けられている場合にのみ、スクリプトから明示的に呼び出すことができます。<a href="#Function">名前付き関数ホットストリング</a>」を参照してください。</p>
+<p>ホットストリングは監視されず、不可視の<a href="lib/InputHook.htm">Inputフックによって</a>入力がブロックされている間はトリガーされない。</p>
+<p id="InputLevel">デフォルトでは、ホットストリングは、AutoHotkeyスクリプトによって生成されたキーストロークによってトリガーされることはありません。これにより、ホットストリングが何度もトリガーする無限ループの可能性を回避することができます。この動作は、<a href="lib/_InputLevel.htm">#InputLevelと</a> <a href="lib/SendLevel.htm">SendLevelで</a>制御することができます。ただし、自動置換ホットストリングは常に送信レベル0を使用するため、<a href="lib/_UseHook.htm">フックホットキーや</a>ホットストリングがトリガーされることはない。</p>
+<p>ホットストリングは、<a href="lib/Hotstring.htm">Hotstring</a>関数によって動的に作成することができ、スクリプトの既存のホットストリングを個別に変更、無効化、有効化することも可能です。</p>
+<p><a href="lib/InputHook.htm">InputHook</a>関数は、特定の目的のためにホットストリングよりも柔軟性があります。例えば、アクティブなウィンドウ（ゲームなど）において、キー操作を見えなくすることができます。また、<kbd>Escなどの</kbd>非文字の終了キーにも対応しています。</p>
+<p><a href="lib/InstallKeybdHook.htm">キーボードフックは</a>、ホットストリングを含むすべてのスクリプトで自動的に使用されます。</p>
+<p>ホットストリングの動作は、以下の点でホットキーと同じです。</p>
 <ul>
-  <li>They are affected by the <a href="lib/Suspend.htm">Suspend</a> function.</li>
-  <li>They obey <a href="lib/_MaxThreads.htm">#MaxThreads</a> and <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a> (but not <a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>).</li>
-  <li>Scripts containing hotstrings are automatically <a href="Scripts.htm#persistent">persistent</a>.</li>
-  <li>Non-auto-replace hotstrings will create a new <a href="misc/Threads.htm">thread</a> when launched. In addition, they will update the built-in hotkey variables such as <a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>.</li>
+  <li>それらは<a href="lib/Suspend.htm">Suspend</a>機能の影響を受けます。</li>
+  <li>これらは<a href="lib/_MaxThreads.htm">#MaxThreadsと</a> <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkeyに</a>従います（<a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBufferは</a>従いません）。</li>
+  <li>ホットストリングを含むスクリプトは自動的に<a href="Scripts.htm#persistent">永続化</a>されます。</li>
+  <li>自動置換でないホットストリングは、起動時に新しい<a href="misc/Threads.htm">スレッドが</a>作成されます。また、<a href="Variables.htm#ThisHotkey">A_ThisHotkeyなどの</a>内蔵ホットキー変数も更新される予定です。</li>
 </ul>
-<p>Known limitation: On some systems in Java applications, hotstrings might interfere with the user's ability to type diacritical letters (via dead keys).  To work around this, <a href="lib/Suspend.htm">Suspend</a> can be turned on temporarily (which disables all hotstrings).</p>
+<p>既知の制限です。Javaアプリケーションの一部のシステムでは、ホットストリングが、（デッドキーによって）ユーザーがダイアクリティカル文字を入力する能力を妨害する可能性があります。これを回避するために、<a href="lib/Suspend.htm">サスペンドを</a>一時的にオンにすることができます（これはすべてのホットストリングを無効にします）。</p>
 
-<h2 id="Function">Named Function Hotstrings</h2>
-<p>If the function of a hotstring is ever needed to be called without triggering the hotstring itself, one or more hotstrings can be assigned a named <a href="Functions.htm">function</a> by simply defining it immediately after the hotstring's double-colon, as in this example:</p>
-<pre><em>; This example also demonstrates one way to implement case conformity in a script.</em>
-:C:BTW::<em>; Typed in all-caps.</em>
-:C:Btw::<em>; Typed with only the first letter upper-case.</em>
-: :btw::<em>; Typed in any other combination.</em>
-    case_conform_btw(hs)<em>; hs will hold the name of the hotstring which triggered the function.</em>
+<h2 id="Function">名前付き関数ホットストリング</h2>
+<p>ホットストリングの関数を、ホットストリング自体をトリガーせずに呼び出す必要がある場合、この例のように、ホットストリングのダブルコロンの直後に<a href="Functions.htm">関数を</a>定義するだけで、1つまたは複数のホットストリングに名前付き<a href="Functions.htm">関数を</a>割り当てることができます。</p>
+<pre><em>; この例は、スクリプトで大文字と小文字の一致を実現する方法の1つも示しています。</em>
+:C:BTW::<em>; オールキャプスで入力。</em>
+:C:Btw::<em>; 最初の文字だけ大文字で入力した。</em>
+: :btw::<em>; 他の組み合わせで入力した。</em>
+    case_conform_btw(hs)<em>; hsには、この関数のトリガーとなったホットストリングの名前が入ります。</em>
     {
         if (hs == ":C:BTW")
             Send "BY THE WAY"
@@ -162,13 +162,13 @@ By default, the indentation (tab) to the left of this line is preserved.
             Send "by the way"
     }
 </pre>
-<p>If the function <em>case_conform_btw</em> is ever called explicitly by the script, the first parameter (hs) must be passed a value.</p>
-<p><a href="Hotkeys.htm">Hotkeys</a> can also be defined this way. Multiple hotkeys or hotstrings can be stacked together to call the same function.</p>
-<p>There must only be whitespace or comments between the hotstring and the function name.</p>
-<p>Naming the function also encourages self-documenting hotstrings, like in the code above where the function name describes the hotstring.</p>
-<p>The <a href="lib/Hotstring.htm">Hotstring</a> function can also be used to assign a function or function object to a hotstring.</p>
+<p>関数<em>case_conform_btwが</em>スクリプトによって明示的に呼び出されることがある場合、最初のパラメータ（hs）には値を渡さなければならない。</p>
+<p><a href="Hotkeys.htm">ホットキーも</a>このように定義することができます。複数のホットキーやホットストリングを重ねて、同じ機能を呼び出すことができます。</p>
+<p>ホットストリングと関数名の間には、空白またはコメントのみでなければなりません。</p>
+<p>また、関数に名前をつけることで、上のコードのように、関数名がホットストリングを説明するような、ホットストリングの自己文書化を促進します。</p>
+<p>また、<a href="lib/Hotstring.htm">Hotstring</a>機能を使って、関数や関数オブジェクトをHotstringに割り当てることもできます。</p>
 
-<h2 id="Helper">Hotstring Helper</h2>
-<p>Take a look at the <a href="lib/Hotstring.htm#ExHelper">first example</a> in the example section of the <a href="lib/Hotstring.htm">Hotstring</a> function's page, which might be useful if you are a heavy user of hotstrings. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>
+<h2 id="Helper">ホットストリングヘルパー</h2>
+<p><a href="lib/Hotstring.htm">Hotstring</a>関数のページのexampleセクションの<a href="lib/Hotstring.htm#ExHelper">最初の例を見てみて</a>ください。Hotstringのヘビーユーザーであれば役に立つかもしれません。<kbd>Win</kbd><kbd>+</kbd> <kbd>H</kbd>（または任意の他のホットキー）を押すことで、現在選択されているテキストをホットストリングに変換することができます。例えば、ワープロで「by the way」を選択している場合、<kbd>Win</kbd><kbd>+</kbd> <kbd>Hを</kbd>押すと、その省略形（例：btw）の入力を促し、新しいホットストリングをスクリプトに追加して有効にします。</p>
 </body>
 </html>

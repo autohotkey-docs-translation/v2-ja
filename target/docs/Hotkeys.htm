@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>Hotkeys - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="Learn details about hotkeys in general, modifier symbols, context-sensitive hotkeys, custom combinations, mouse wheel hotkeys, function hotkeys, etc." />
+<title>ホットキー - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="一般的なホットキー、修飾記号、文脈依存型ホットキー、カスタムコンビネーション、マウスホイールホットキー、ファンクションホットキーなどの詳細について説明します。" />
 <meta name="keywords" content="hotkey,hotkeys,hot key,hot keys,shortcut,shortcuts,shortcut key,shortcut keys,keyboard shortcut,keyboard shortcuts,button,buttons,click,press">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,58 +11,58 @@
 </head>
 <body>
 
-<h1>Hotkeys <span class="headnote">(Mouse, Joystick and Keyboard Shortcuts)</span></h1>
+<h1>ホットキー<span class="headnote">（マウス、ジョイスティック、キーボードショートカット）</span></h1>
 
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#Intro">導入と簡単な例</a></li>
-  <li><a href="#Symbols">Hotkey Modifier Symbols</a></li>
-  <li><a href="#Context">Context-sensitive Hotkeys</a></li>
-  <li><a href="#combo">Custom Combinations</a></li>
-  <li><a href="#Features">Other Features</a></li>
-  <li><a href="#Wheel">Mouse Wheel Hotkeys</a></li>
-  <li><a href="#Remarks">Hotkey Tips and Remarks</a></li>
-  <li><a href="#alttab">Alt-Tab Hotkeys</a></li>
-  <li><a href="#Function">Named Function Hotkeys</a></li>
+  <li><a href="#Symbols">ホットキーモディファイアの記号</a></li>
+  <li><a href="#Context">文脈依存のホットキー</a></li>
+  <li><a href="#combo">カスタムコンビネーション</a></li>
+  <li><a href="#Features">その他の機能</a></li>
+  <li><a href="#Wheel">マウスホイールホットキー</a></li>
+  <li><a href="#Remarks">ホットキーのヒントと備考</a></li>
+  <li><a href="#alttab">Alt-Tabのホットキー</a></li>
+  <li><a href="#Function">名前付き機能ホットキー</a></li>
 </ul>
 
 <h2 id="Intro">導入と簡単な例</h2>
-<p>Hotkeys are sometimes referred to as shortcut keys because of their ability to easily trigger an action (such as launching a program or <a href="misc/Macros.htm">keyboard macro</a>). In the following example, the hotkey <kbd>Win</kbd>+<kbd>N</kbd> is configured to launch Notepad. The pound sign [#] stands for <kbd>Win</kbd>, which is known as a <em>modifier key</em>:</p>
+<p>ホットキーは、アクション（プログラムの起動や<a href="misc/Macros.htm">キーボードマクロなど</a>）を簡単に起動できることから、ショートカットキーと呼ばれることもあります。次の例では、ホットキー<kbd>Win</kbd><kbd>+</kbd> <kbd>Nが</kbd>メモ帳を起動するように設定されています。ポンド記号[#]は<kbd>Winの</kbd>略で、<em>修飾キーと</em>呼ばれるものです。</p>
 <pre>#n::
 {
     Run "notepad"
 }</pre>
-<p>In the above, the braces serve to define a <a href="Functions.htm">function body</a> for the hotkey. The opening brace may also be specified on the same line as the double-colon to support the <a href="lib/Block.htm#otb">OTB (One True Brace) style</a>. However, if a hotkey needs to execute only a single line, that line can be listed to the right of the double-colon. In other words, the braces are implicit:</p>
+<p>上記では、中括弧はホットキーの<a href="Functions.htm">関数体を</a>定義する役割を果たします。また、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイルを</a>サポートするために、ダブルコロンと同じ行に開始ブレースを指定することができる。ただし、ホットキーが1つの行だけを実行する必要がある場合は、その行をダブルコロンの右側にリストアップすることができます。つまり、中括弧は暗黙の了解なのです。</p>
 <pre>#n::Run "notepad"</pre>
-<p id="ThisHotkey">When a hotkey is triggered, the name of the hotkey is passed as its first parameter named <code>ThisHotkey</code> (which excludes the trailing colons). 事例:</p>
+<p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkeyという</code>最初のパラメータとして渡されます（末尾のコロンは除外されます）。事例:</p>
 <pre>#n::MsgBox ThisHotkey  <em>; Reports #n</em></pre>
-<p>With few exceptions, this is similar to the built-in variable <a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>. The parameter name can be changed by using a <a href="#Function">named function</a>.</p>
-<p>To use more than one modifier with a hotkey, list them consecutively (the order does not matter). The following example uses <code>^!s</code> to indicate <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>:</p>
+<p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkeyと</a>同様です。パラメータ名は、<a href="#Function">名前付き関数を</a>使用することで変更することができます。</p>
+<p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd><kbd>+</kbd><kbd>Alt+Sを</kbd>示すために<code>^!sを</code>使用しています。</p>
 <pre>^!s::
 {
-    <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"<em>; This line sends keystrokes to the active (foremost) window.</em>
+    <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"<em>; この行は、アクティブ（最前面）ウィンドウにキーストロークを送信します。</em>
 }</pre>
-<h2 id="Symbols">Hotkey Modifier Symbols</h2>
-<p>You can use the following modifier symbols to define hotkeys:</p>
+<h2 id="Symbols">ホットキーモディファイアの記号</h2>
+<p>以下の修飾記号を使用して、ホットキーを定義することができます。</p>
 <table class="info fixed">
   <tr>
-    <th class="center" style="width:30px">Symbol</th>
+    <th class="center" style="width:30px">シンボル</th>
     <th abbr="Descr">Description</th>
   </tr>
   <tr>
     <td class="center bold">#</td>
     <td>
-      <p>Win (Windows logo key).</p>
-      <p id="win-l">Hotkeys that include <kbd>Win</kbd> (e.g. #a) will wait for <kbd>Win</kbd> to be released before sending any text containing an <kbd>L</kbd> keystroke. This prevents usages of <a href="lib/Send.htm">Send</a> within such a hotkey from locking the PC. This behavior applies to all sending modes except <a href="lib/Send.htm#SendPlayDetail">SendPlay</a> (which doesn't need it), <a href="lib/Send.htm#blind">blind mode</a> and <a href="lib/Send.htm#SendText">text mode</a>.</p>
-      <p class="note"><strong>Note:</strong> Pressing a hotkey which includes <kbd>Win</kbd> may result in extra simulated keystrokes (<kbd>Ctrl</kbd> by default). See <a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>.</p>
+      <p>Win（Windowsロゴキー）です。</p>
+      <p id="win-l"><kbd>Winを</kbd>含むホットキー（例：#a）は、<kbd>Lの</kbd>キーストロークを含むテキストを送信する前に、<kbd>Winが</kbd>解除されるのを待ちます。これにより、このようなホットキー内で<a href="lib/Send.htm">送信を</a>使用した場合、PCがロックされるのを防ぐことができます。この動作は、<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>（必要ない）、<a href="lib/Send.htm#blind">ブラインドモード</a>、<a href="lib/Send.htm#SendText">テキストモード</a>以外のすべての送信モードに適用されます。</p>
+      <p class="note"><strong>注：</strong> <kbd>Winを</kbd>含むホットキーを押すと、余分なシミュレーションキー<kbd>（</kbd>デフォルトでは<kbd>Ctrl</kbd>）を押すことになる場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
     </td>
   </tr>
   <tr>
     <td class="center bold">!</td>
     <td>
       <p><kbd>Alt</kbd></p>
-      <p class="note"><strong>Note:</strong> Pressing a hotkey which includes <kbd>Alt</kbd> may result in extra simulated keystrokes (<kbd>Ctrl</kbd> by default). See <a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>.</p>
+      <p class="note"><strong>注意：</strong> <kbd>Altを</kbd>含むホットキーを押すと、余分なシミュレーションキー<kbd>（</kbd>デフォルトでは<kbd>Ctrl</kbd>）が発生する場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
     </td>
   </tr>
   <tr>
@@ -75,179 +75,179 @@
   </tr>
   <tr>
     <td class="center bold">&amp;</td>
-    <td>An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See <a href="#combo">below</a> for details.</td>
+    <td>アンパサンドは、任意の2つのキーまたはマウスボタンの間に使用し、カスタムホットキーに結合することができます。詳しくは<a href="#combo">下記を</a>ご覧ください。</td>
   </tr>
   <tr id="LeftRight">
     <td class="center bold">&lt;</td>
-    <td>Use the left key of the pair. e.g. &lt;!a is the same as !a except that only the left <kbd>Alt</kbd> will trigger it.</td>
+    <td>ペアの左キーを使用します。例：&lt;!a は、左<kbd>Alt</kbd>だけがトリガーになることを除けば、!a と同じです。</td>
   </tr>
   <tr>
     <td class="center bold">&gt;</td>
-    <td>Use the right key of the pair.</td>
+    <td>ペアのうち右側のキーを使用します。</td>
   </tr>
   <tr id="AltGr">
     <td class="center bold">&lt;^&gt;!</td>
-    <td><p><kbd>AltGr</kbd> (<a href="https://en.wikipedia.org/wiki/AltGr_key">alternate graph, or alternate graphic</a>). If your keyboard layout has <kbd>AltGr</kbd> instead of a right <kbd>Alt</kbd> key, this series of symbols can usually be used to stand for <kbd>AltGr</kbd>. 事例:</p>
+    <td><p><kbd>AltGr</kbd><a href="https://en.wikipedia.org/wiki/AltGr_key">（オルタネートグラフ、代替グラフィック</a>）。キーボードレイアウトに右<kbd>Alt</kbd>キーの代わりに<kbd>AltGrが</kbd>ある場合、この一連の記号は通常<kbd>AltGrを</kbd>表すために使用することができます。事例:</p>
       <pre>&lt;^&gt;!m::MsgBox "You pressed AltGr+m."
 &lt;^&lt;!m::MsgBox "You pressed LeftControl+LeftAlt+m."</pre>
-      <p>Alternatively, to make <kbd>AltGr</kbd> itself into a hotkey, use the following hotkey (without any hotkeys like the above present):</p>
+      <p>また、<kbd>AltGr</kbd>自体をホットキーにするには、以下のホットキーを使用します（上記のようなホットキーが存在しない状態）。</p>
       <pre>LControl &amp; RAlt::MsgBox "You pressed AltGr itself."</pre></td>
   </tr>
   <tr id="wildcard">
     <td class="center bold">*</td>
-    <td><p>Wildcard:Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with <a href="misc/Remap.htm">remapping</a> keys or buttons. 事例:</p>
-      <pre>*#c::Run "calc.exe"  <em>; Win+C, Shift+Win+C, Ctrl+Win+C, etc. will all trigger this hotkey.</em>
-*ScrollLock::Run "notepad"  <em>; Pressing ScrollLock will trigger this hotkey even when modifier key(s) are down.</em></pre>
-      <p>Wildcard hotkeys always use the keyboard hook, as do any hotkeys eclipsed by a wildcard hotkey. For example, the presence of <code>*a::</code> would cause <code>^a::</code> to always use the hook.</p></td>
+    <td><p>ワイルドカード:余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピングと</a>セットで使われることが多いです。事例:</p>
+      <pre>*#c::Run "calc.exe"<em>Win+C、Shift+Win+C、Ctrl+Win+Cなど、すべてこのホットキーがトリガーされます。</em>
+*ScrollLock::Run "notepad"<em>; 修飾キーが押されていても、ScrollLockを押すとこのホットキーが起動します。</em></pre>
+      <p>ワイルドカードホットキーは、ワイルドカードホットキーに取って代わられたホットキーと同様に、常にキーボードフックを使用します。例えば、<code>*a::</code>があると、<code>^a::</code>は常にフックを使用するようになります。</p></td>
   </tr>
   <tr id="Tilde">
     <td class="center bold">~</td>
-    <td><p>When the hotkey fires, its key's native function will not be blocked (hidden from the system). In both of the below examples, the user's click of the mouse button will be sent to the active window:</p>
+    <td><p>ホットキーが起動しても、そのキーのネイティブ機能はブロックされない（システムから隠される）。以下の例では、いずれもユーザーがマウスボタンをクリックすると、アクティブウィンドウに送信されます。</p>
       <pre>~RButton::MsgBox "You clicked the right mouse button."
 ~RButton &amp; C::MsgBox "You pressed C while holding down the right mouse button."</pre>
-      <p>Unlike the other prefix symbols, the tilde prefix is allowed to be present on some of a hotkey's <a href="lib/_HotIf.htm#variant">variants</a> but absent on others. However, if a tilde is applied to the <a href="#prefix">prefix key</a> of any custom combination which has not been turned off or suspended, it affects the behavior of that prefix key for <em>all</em> combinations.</p>
-      <p>Special hotkeys that are substitutes for <a href="#alttab">alt-tab</a> always ignore the tilde prefix.</p>
-      <p>If the tilde prefix is applied to a custom modifier key (<a href="#prefix">prefix key</a>) which is also used as its own hotkey, that hotkey will fire when the key is pressed instead of being delayed until the key is released.  For example, the <em>~RButton</em> hotkey above is fired as soon as the button is pressed.</p>
-      <p>If the tilde prefix is applied only to the custom combination and not the non-combination hotkey, the key's native function will still be blocked. For example, in the script below, holding <kbd>Menu</kbd> will show the tooltip and will not trigger a context menu:</p>
+      <p>他の接頭語記号と異なり、チルダ接頭語は、ホットキーのいくつかの<a href="lib/_HotIf.htm#variant">バリエーションに</a>存在し、他のバリエーションには存在しないことが許されています。ただし、オフやサスペンドされていないカスタムコンビネーションの<a href="#prefix">プレフィックスキーに</a>チルダを適用すると、<em>すべての</em>コンビネーションに対してそのプレフィックスキーの動作に影響を与えます。</p>
+      <p><a href="#alttab">alt-tabの</a>代用となる特殊なホットキーは、常にチルデの接頭辞を無視します。</p>
+      <p>ホットキーとして使用されるカスタム修飾キー<a href="#prefix">（プレフィックスキー</a>）にチルダプレフィックスを適用した場合、そのホットキーはキーを離すまで遅延されるのではなく、キーを押したときに起動するようになります。例えば、上記の<em>~RButtonの</em>ホットキーは、ボタンが押されるとすぐに起動します。</p>
+      <p>チルダ接頭辞がカスタムコンビネーションにのみ適用され、コンビネーション以外のホットキーには適用されない場合、そのキーのネイティブ機能はブロックされたままとなります。例えば、以下のスクリプトでは、「<kbd>メニュー</kbd>」を押すと、ツールチップが表示され、コンテキストメニューは起動しません。</p>
       <pre>AppsKey::ToolTip "Press &lt; or &gt; to cycle through windows."
 AppsKey Up::ToolTip
 ~AppsKey &amp; &lt;::Send "!+{Esc}"
 ~AppsKey &amp; &gt;::Send "!{Esc}"</pre>
-      <p>If at least one variant of a keyboard hotkey has the tilde modifier, that hotkey always uses the keyboard hook.</p>
+      <p>キーボードホットキーの少なくとも1つのバリエーションがチルダ修飾子を持つ場合、そのホットキーは常にキーボードフックを使用します。</p>
     </td>
   </tr>
   <tr id="prefixdollar">
     <td class="center bold">$</td>
     <td>
-      <p>This is usually only necessary if the script uses the <a href="lib/Send.htm">Send</a> function to send the keys that comprise the hotkey itself, which might otherwise cause it to trigger itself. The $ prefix forces the <a href="lib/InstallKeybdHook.htm">keyboard hook</a> to be used to implement this hotkey, which as a side-effect prevents the <a href="lib/Send.htm">Send</a> function from triggering it. The $ prefix is equivalent to having specified <code><a href="lib/_UseHook.htm">#UseHook</a></code> somewhere above the definition of this hotkey.</p>
-      <p>The $ prefix has no effect for mouse hotkeys, since they always use the mouse hook. It also has no effect for hotkeys which already require the keyboard hook, including any keyboard hotkeys with the <a href="#Tilde">tilde (~)</a> or <a href="#wildcard">wildcard (*)</a> modifiers, key-up hotkeys and custom combinations. To determine whether a particular hotkey uses the keyboard hook, use <a href="lib/ListHotkeys.htm">ListHotkeys</a>.</p>
-      <p><a href="lib/_InputLevel.htm">#InputLevel</a> and <a href="lib/SendLevel.htm">SendLevel</a> provide additional control over which hotkeys and hotstrings are triggered by the Send function.</p>
+      <p>これは通常、スクリプトが<a href="lib/Send.htm">Send</a>関数を使用してホットキーそのものを構成するキーを送信する場合にのみ必要で、そうでない場合はそれ自体がトリガーされる可能性があります。プレフィックスの$は、このホットキーの実装に<a href="lib/InstallKeybdHook.htm">キーボードフックを</a>使用することを強制し、副作用として<a href="lib/Send.htm">Send</a>関数がトリガーするのを防ぎます。$プレフックスは、<code><a href="lib/_UseHook.htm">#ユースフック</a></code>を指定したのと同じです。 このホットキーの定義の上のどこかにあります。</p>
+      <p>$プレフックスは、マウスホットキーは常にマウスフックを使用するため、$接頭辞はマウスホットキーには影響しません。また、<a href="#Tilde">チルダ（~）</a>または<a href="#wildcard">ワイルドカード（*）</a>修飾子を持つキーボードホットキー、キーアップホットキー、カスタムコンビネーションなど、すでにキーボードフックを必要としているホットキーには効果がありません。特定のホットキーがキーボードフックを使用しているかどうかを判断するには、<a href="lib/ListHotkeys.htm">ListHotkeysを</a>使用します。</p>
+      <p><a href="lib/_InputLevel.htm">#InputLevelと</a> <a href="lib/SendLevel.htm">SendLevelは</a>、Send関数によってトリガーされるホットキーとホットストリングをさらにコントロールすることができます。</p>
     </td>
   </tr>
   <tr id="keyup">
     <td class="center">UP</td>
-    <td><p>The word UP may follow the name of a hotkey to cause the hotkey to fire upon release of the key rather than when the key is pressed down. The following example <a href="misc/Remap.htm">remaps</a> the left <kbd>Win</kbd> to become the left <kbd>Ctrl</kbd>:</p>
+    <td><p>ホットキーの名前の後にUPという単語を付けると、キーを押したときではなく、キーを離したときにホットキーが起動するようにすることができます。次の例では、左<kbd>Winを</kbd>左<kbd>Ctrlに</kbd><a href="misc/Remap.htm">再マッピングして</a>います。</p>
       <pre>*LWin::Send "{LControl down}"
 *LWin Up::Send "{LControl up}"
 </pre>
-      <p>"Up" can also be used with normal hotkeys as in this example: <code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. It also works with <a href="#combo">combination hotkeys</a> (e.g. <code>F1 &amp; e Up::</code>)</p>
-      <p>Limitations: 1) "Up" does not work with <a href="KeyList.htm">joystick buttons</a>; and 2) An "Up" hotkey without a normal/down counterpart hotkey will completely take over that key to prevent it from getting stuck down. One way to prevent this is to add a <a href="#Tilde">tilde prefix</a> (e.g. <code>~LControl up::</code>)</p>
-      <p>"Up" hotkeys and their key-down counterparts (if any) always use the keyboard hook.</p>
-      <p>On a related note, a technique similar to the above is to make a hotkey into a prefix key. The advantage is that although the hotkey will fire upon release, it will do so only if you did not press any other key while it was held down. 事例:</p>
-      <pre>LControl &amp; F1::return  <em>; Make left-control a prefix by using it in front of "&amp;" at least once.</em>
+      <p>"Up "は、この例のように通常のホットキーでも使用することができます。<code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. <a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します。</p>
+      <p>制限:1）「上」は<a href="KeyList.htm">ジョイスティックボタンでは</a>動作しません。2）「上」のホットキーで通常／下対応のホットキーがない場合、そのキーが完全に引き継がれ、「下」がスタックするのを防ぎます。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞を</a>付けることです（例<code>：~LControl up::</code>)</p>
+      <p>"アップ "ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
+      <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例:</p>
+      <pre>LControl &amp; F1::return<em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とする。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
-<p class="note"><strong>注意</strong>:See the <a href="KeyList.htm">Key List</a> for a complete list of keyboard keys and mouse/joystick buttons.</p>
-<p>Multiple hotkeys can be stacked vertically to have them perform the same action. 事例:</p>
+<p class="note"><strong>注意</strong>:キーボードのキーとマウス／ジョイスティックのボタンの完全なリストは、「<a href="KeyList.htm">キーリスト</a>」を参照してください。</p>
+<p>複数のホットキーを縦に重ねて、同じ動作をさせることができます。事例:</p>
 <pre>^Numpad0::
 ^Numpad1::
 {
     MsgBox "Pressing either Ctrl+Numpad0 or Ctrl+Numpad1 will display this."
 }
 </pre>
-<p>A key or key-combination can be disabled for the entire system by having it do nothing. The following example disables the right-side <kbd>Win</kbd>:</p>
+<p>キーやキーの組み合わせは、何もしないことでシステム全体の機能を無効にすることができます。次の例では、右側の<kbd>Winを</kbd>無効にしています。</p>
 <pre>RWin::return</pre>
 
-<h2 id="Context">Context-sensitive Hotkeys</h2>
-<p>The <a href="lib/_HotIf.htm">#HotIf</a> directive can be used to make a hotkey perform a different action (or none at all) depending on a specific condition. 事例:</p>
+<h2 id="Context">文脈依存のホットキー</h2>
+<p><a href="lib/_HotIf.htm">HotIf</a>ディレクティブを使用すると、特定の条件によってホットキーに異なる動作をさせることができます（または全くさせないこともできます）。事例:</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
-^a::MsgBox "You pressed Ctrl-A while Notepad is active. Pressing Ctrl-A in any other window will pass the Ctrl-A keystroke to that window."
+^a::MsgBox "You pressed Ctrl-A while Notepad is active. 他のウィンドウでCtrl-Aを押すと、そのウィンドウにCtrl-Aのキーストロークが渡されます。"
 #c::MsgBox "You pressed Win-C while Notepad is active."
 
 #HotIf
 #c::MsgBox "You pressed Win-C while any window except Notepad is active."
 
-#HotIf MouseIsOver("ahk_class Shell_TrayWnd")<em>; For MouseIsOver, see <a href="lib/_HotIf.htm#ExVolume">#HotIf example 1</a>.</em>
-WheelUp::Send "{Volume_Up}"<em>; Wheel over taskbar: increase/decrease volume.</em>
+#HotIf MouseIsOver("ahk_class Shell_TrayWnd")<em>; MouseIsOver については、<a href="lib/_HotIf.htm#ExVolume">#HotIf の例 1</a>を参照してください。</em>
+WheelUp::Send "{Volume_Up}"<em>; タスクバー上のホイール：音量の増加/減少。</em>
 WheelDown::Send "{Volume_Down}"<em>;</em>
 </pre>
 
-<h2 id="combo">Custom Combinations</h2>
-<p>Normally shortcut key combinations consist of optional prefix/modifier keys (Ctrl, Alt, Shift and LWin/RWin) and a single suffix key. The standard modifier keys are designed to be used in this manner, so normally have no immediate effect when pressed down.</p>
-<p>A custom combination of two keys (including mouse but not joystick buttons) can be defined by using " &amp; " between them. Because they are intended for use with prefix keys that are not normally used as such, custom combinations have the following special behavior:</p>
+<h2 id="combo">カスタムコンビネーション</h2>
+<p>通常、ショートカットキーの組み合わせは、任意のプレフィックス/モディファイアキー（Ctrl、Alt、Shift、LWin/RWin）と1つのサフィックスキーで構成されます。標準装備の修飾キーは、このような使い方を想定して設計されているため、通常は押してもすぐには効果がありません。</p>
+<p>2つのキー（マウスは含むがジョイスティックボタンは含まない）の間に" &amp; "を使用することで、カスタムな組み合わせを定義することができます。カスタムコンビネーションは、通常使用されないプレフィックスキーでの使用を想定しているため、以下のような特殊な動作をします。</p>
 <ul>
-  <li>The prefix key loses its native function, unless it is a standard modifier key or toggleable key such as <kbd>CapsLock</kbd>.</li>
-  <li>If the prefix key is also used as a suffix in another hotkey, by default that hotkey is fired upon release, and is not fired at all if it was used to activate a custom combination. If there is both a key-down hotkey and a <a href="#keyup">key-up</a> hotkey, both hotkeys are fired at once. The fire-on-release effect is disabled if the <a href="#Tilde">tilde prefix</a> is applied to the prefix key in at least one active custom combination or the suffix hotkey itself.</li>
+  <li>プレフィックスキーは、標準的な修飾キーや<kbd>CapsLockの</kbd>ようなトグル可能なキーでない限り、本来の機能を失います。</li>
+  <li>プレフィックスキーが他のホットキーのサフィックスとしても使用されている場合、デフォルトではそのホットキーはリリース時に起動され、カスタムコンビネーションの起動に使用されている場合は全く起動されません。キーダウンホットキーと<a href="#keyup">キーアップホットキーが</a>両方ある場合、両方のホットキーが同時に起動します。少なくとも1つのアクティブなカスタムコンビネーションまたはサフィックスホットキー自体のプレフィックスキーに<a href="#Tilde">チルダプレフィックスが</a>適用されている場合、ファイアオンリリース効果は無効となります。</li>
 </ul>
-<p class="note"><strong>Note:</strong> For combinations with standard modifier keys, it is usually better to use the standard syntax. For example, use <code>&lt;+s::</code> rather than <code>LShift &amp; s::</code>.</p>
-<p>In the below example, you would hold down Numpad0 then press the second key to trigger the hotkey:</p>
+<p class="note"><strong>注：</strong>標準的な修飾キーとの組み合わせの場合、通常は標準的な構文を使用する方がよい。例えば、<code>LShift &amp; s::</code>ではなく、<code>&lt;+s:</code>: を使用します。</p>
+<p>以下の例では、Numpad0を押した後、2番目のキーを押してホットキーを起動します。</p>
 <pre id="prefix">Numpad0 &amp; Numpad1::MsgBox "You pressed Numpad1 while holding down Numpad0."
 Numpad0 &amp; Numpad2::Run "Notepad"</pre>
-<p><strong>The prefix key loses its native function:</strong> In the above example, Numpad0 becomes a <em>prefix key</em>; but this also causes Numpad0 to lose its original/native function when it is pressed by itself. To avoid this, a script may configure Numpad0 to perform a new action such as one of the following:</p>
-<pre>Numpad0::WinMaximize "A"   <em>; Maximize the active/foreground window.</em>
-Numpad0::Send "{Numpad0}"  <em>; Make the <i>release</i> of Numpad0 produce a Numpad0 keystroke. See comment below.</em></pre>
-<p><strong>Fire on release:</strong> The presence of one of the above custom combination hotkeys causes the <em>release</em> of Numpad0 to perform the indicated action, but only if you did not press any other keys while Numpad0 was being held down.  This behaviour can be avoided by applying the <a href="#Tilde">tilde prefix</a> to either hotkey.</p>
-<p id="combo_mods"><strong>Modifiers:</strong> Unlike a normal hotkey, custom combinations act as though they have the <a href="#wildcard">wildcard (*)</a> modifier by default. For example, <code>1 &amp; 2::</code> will activate even if <kbd>Ctrl</kbd> or <kbd>Alt</kbd> is held down when <kbd>1</kbd> and <kbd>2</kbd> are pressed, whereas <code>^1::</code> would be activated only by <kbd>Ctrl</kbd>+<kbd>1</kbd> and not <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>.</p>
-<p>Combinations of three or more keys are not supported. Combinations which your keyboard hardware supports can usually be detected by using <a href="lib/_HotIf.htm">#HotIf</a> and <a href="lib/GetKeyState.htm">GetKeyState</a>, but the results may be inconsistent. 事例:</p>
-<pre><em>; Press AppsKey and Alt in any order, then slash (/).</em>
+<p><strong>プレフィックスキーが本来の機能を失う。</strong>上記の例では、Numpad0が<em>プレフィックスキーに</em>なりますが、Numpad0が単独で押された場合、本来の機能を失うことになります。これを避けるために、スクリプトでNumpad0に次のような新しいアクションを実行させるように設定することができる。</p>
+<pre>Numpad0::WinMaximize "A"<em>; アクティブ／フォアグラウンドウィンドウを最大化する。</em>
+Numpad0::Send "{Numpad0}"<em>;Numpad0 の<i>リリースで</i>Numpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
+<p><strong>リリース時に発射</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離すと</em>指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞を</a>付けることで回避できます。</p>
+<p id="combo_mods"><strong>モディファイア</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl+1</kbd>で起動し、<kbd>Ctrl+</kbd><kbd>Alt</kbd><kbd>+1</kbd>では起動しないでしょう。</p>
+<p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIfと</a> <a href="lib/GetKeyState.htm">GetKeyStateを</a>使用して検出することができますが、結果は一貫していない場合があります。事例:</p>
+<pre><em>; AppsKey と Alt を任意の順番で押して、スラッシュ（/）を押します。</em>
 #HotIf GetKeyState("AppsKey", "P")
 Alt &amp; /::MsgBox "Hotkey activated."
 
-<em>; If the keys are swapped, Alt must be pressed first (use one at a time):</em>
+<em>; キーが入れ替わっている場合は、Altを先に押す必要があります（一度に1つずつ使用します）。</em>
 #HotIf GetKeyState("Alt", "P")
 AppsKey &amp; /::MsgBox "Hotkey activated."
 
 <em>; [ &amp; ] &amp; \::</em>
 #HotIf GetKeyState("[") &amp;&amp; GetKeyState("]")
 \::MsgBox</pre>
-<p><strong>Keyboard hook:</strong> Custom combinations involving keyboard keys always use the keyboard hook, as do any hotkeys which use the prefix key as a suffix. For example, <code>a &amp; b::</code> causes <code>^a::</code> to always use the hook.</p>
+<p><strong>キーボードフック。</strong>キーボードフック：キーボードキーを使ったカスタムコンビネーションは常にキーボードフックを使用し、接尾辞としてプリフィックスキーを使用するホットキーも同様です。例えば、<code>a &amp; b::</code>では、<code>^a::</code>は常にフックを使用するようになります。</p>
 
-<h2 id="Features">Other Features</h2>
-<p><strong>NumLock, CapsLock, and ScrollLock:</strong> These keys may be forced to be "AlwaysOn" or "AlwaysOff". 事例:<code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
-<p><strong>Overriding Explorer's hotkeys:</strong> Windows' built-in hotkeys such as <kbd>Win</kbd>+<kbd>E</kbd> (#e) and <kbd>Win</kbd>+<kbd>R</kbd> (#r) can be individually overridden simply by assigning them to an action in the script. See the <a href="misc/Override.htm">override page</a> for details.</p>
-<p><strong>Substitutes for Alt-Tab:</strong> Hotkeys can provide an alternate means of alt-tabbing. For example, the following two hotkeys allow you to alt-tab with your right hand:</p>
-<pre>RControl &amp; RShift::AltTab  <em>; Hold down right-control then press right-shift repeatedly to move forward.</em>
-RControl &amp; Enter::ShiftAltTab  <em>; Without even having to release right-control, press Enter to reverse direction.</em></pre>
-<p>For more details, see <a href="#alttab">Alt-Tab</a>.</p>
+<h2 id="Features">その他の機能</h2>
+<p><strong>NumLock、CapsLock、およびScrollLock。</strong>これらのキーは、強制的に「AlwaysOn」または「AlwaysOff」にすることができます。事例:<code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
+<p><strong>エクスプローラーのホットキーをオーバーライドする。</strong> <kbd>Win</kbd><kbd>+</kbd> <kbd>E</kbd>（#e）、<kbd>Win</kbd><kbd>+</kbd> <kbd>R</kbd>（#r）などのWindowsの内蔵ホットキーは、スクリプト内のアクションに割り当てるだけで、個別にオーバーライドすることができます。詳しくは<a href="misc/Override.htm">オーバーライドページを</a>ご覧ください。</p>
+<p><strong>Alt-Tabの代替となるもの。</strong>ホットキーは、Alt-Tabの代替手段を提供することができます。例えば、以下の2つのホットキーで、右手でalt-tabすることができます。</p>
+<pre>RControl &amp; RShift::AltTab<em>; 右コンを押しながら、右シフトを繰り返し押して前進します。</em>
+RControl &amp; Enter::ShiftAltTab<em>; 右クリックを離すことなく、Enterキーを押すと方向が反転します。</em></pre>
+<p>詳しくは、「<a href="#alttab">Alt-Tab</a>」をご覧ください。</p>
 
-<h2 id="Wheel">Mouse Wheel Hotkeys</h2>
-<p>Hotkeys that fire upon turning the mouse wheel are supported via the key names WheelDown and WheelUp. Here are some examples of mouse wheel hotkeys:</p>
+<h2 id="Wheel">マウスホイールホットキー</h2>
+<p>マウスのホイールを回転させることで発動するホットキーは、WheelDownとWheelUpのキー名でサポートされています。ここでは、マウスホイールのホットキーの例を紹介します。</p>
 <pre>MButton &amp; WheelDown::MsgBox "You turned the mouse wheel down while holding down the middle button."
 ^!WheelUp::MsgBox "You rotated the wheel up while holding down Control+Alt."</pre>
-<p id="HWheel">If the mouse supports it, horizontal scrolling can be detected via the key names WheelLeft and WheelRight. Some mice have a single wheel which can be scrolled up and down or tilted left and right. Generally in those cases, WheelLeft or WheelRight signals are sent repeatedly while the wheel is held to one side, to simulate continuous scrolling. This typically causes the hotkeys to execute repeatedly.</p>
-<p>The built-in variable <strong>A_EventInfo</strong> contains the amount by which the wheel was turned, which is typically 120. However, A_EventInfo can be greater or less than 120 under the following circumstances:</p>
+<p id="HWheel">マウスがサポートしている場合、WheelLeftとWheelRightのキー名で水平スクロールを検出することができます。マウスによっては、ホイールが1つで、上下スクロールや左右に傾けることができるものもあります。一般的には、ホイールを片側に寄せた状態でWheelLeftやWheelRightの信号を繰り返し送信し、連続スクロールを模擬します。これにより、通常、ホットキーが繰り返し実行されることになります。</p>
+<p>内蔵変数<strong>A_EventInfoには</strong>、車輪が回転した量（通常120）が格納される。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
 <ul>
-  <li>If the mouse hardware reports distances of less than one notch, A_EventInfo may be less than 120;</li>
-  <li>If the wheel is being turned quickly (depending on the type of mouse), A_EventInfo may be greater than 120. A hotkey like the following can help analyze your mouse: <code>~WheelDown::ToolTip A_EventInfo</code></li>
+  <li>マウスのハードウェアが1ノッチ未満の距離を報告する場合、A_EventInfoは120未満である可能性があります。</li>
+  <li>マウスの種類によっては）ホイールを素早く回している場合、A_EventInfoが120より大きくなる場合があります。以下のようなホットキーは、マウスの解析に役立ちます。<code>~WheelDown::ToolTip A_EventInfo</code></li>
 </ul>
-<p>Some of the most useful hotkeys for the mouse wheel involve alternate modes of scrolling a window's text. For example, the following pair of hotkeys scrolls horizontally instead of vertically when you turn the wheel while holding down the left <kbd>Ctrl</kbd>:</p>
-<pre>~LControl &amp; WheelUp::<em>; Scroll left.</em>
+<p>マウスホイールを使った便利なホットキーの中には、ウィンドウのテキストをスクロールさせる別のモードがあります。例えば、以下のホットキーのペアは、左<kbd>Ctrlを</kbd>押しながらホイールを回すと、垂直方向ではなく水平方向にスクロールします。</p>
+<pre>~LControl &amp; WheelUp::<em>; 左にスクロールします。</em>
 {
-    Loop 2<em>; &lt;-- Increase this value to scroll faster.</em>
-        SendMessage 0x0114, 0, 0, ControlGetFocus("A")<em>; 0x0114 is WM_HSCROLL and the 0 after it is SB_LINELEFT.</em>
+    Loop 2<em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
+        SendMessage 0x0114, 0, 0, ControlGetFocus("A")<em>; 0x0114 は WM_HSCROLL、その次の 0 は SB_LINELEFT です。</em>
 }
 
 ~LControl &amp; WheelDown::<em>; Scroll right.</em>
 {
-    Loop 2<em>; &lt;-- Increase this value to scroll faster.</em>
-        SendMessage 0x0114, 1, 0, ControlGetFocus("A")<em>; 0x0114 is WM_HSCROLL and the 1 after it is SB_LINERIGHT.</em>
+    Loop 2<em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
+        SendMessage 0x0114, 1, 0, ControlGetFocus("A")<em>; 0x0114 は WM_HSCROLL、その次の 1 は SB_LINERIGHT です。</em>
 }</pre>
-<p>Finally, since mouse wheel hotkeys generate only down-events (never up-events), they cannot be used as <a href="#keyup">key-up hotkeys</a>.</p>
+<p>最後に、マウスホイールのホットキーはダウンイベントのみを生成するため（アップイベントは生成しない）、<a href="#keyup">キーアップホットキーとして</a>使用することはできません。</p>
 
-<h2 id="Remarks">Hotkey Tips and Remarks</h2>
-<p>Each numpad key can be made to launch two different hotkey subroutines depending on the state of <kbd>NumLock</kbd>. Alternatively, a numpad key can be made to launch the same subroutine regardless of the state. 事例:</p>
+<h2 id="Remarks">ホットキーのヒントと備考</h2>
+<p>それぞれのテンキーは、<kbd>NumLockの</kbd>状態に応じて2つの異なるホットキーサブルーチンを起動させることができます。また、テンキーは状態に関係なく同じサブルーチンを起動するようにすることもできます。事例:</p>
 <pre>NumpadEnd::
 Numpad1::
 {
     MsgBox "This hotkey is launched regardless of whether NumLock is on."
 }
 </pre>
-<p>If the <a href="#Tilde">tilde (~) operator</a> is used with a <a href="#prefix">prefix key</a> even once, it changes the behavior of that prefix key for all combinations. For example, in both of the below hotkeys, the active window will receive all right-clicks even though only one of the definitions contains a tilde:</p>
+<p><a href="#Tilde">チルダ（~）演算</a>子を<a href="#prefix">プレフィックスキーに</a>一度でも使用すると、そのプレフィックスキーの動作をすべての組み合わせで変更します。例えば、以下の2つのホットキーでは、定義のうち1つだけがチルダを含んでいても、アクティブなウィンドウはすべての右クリックを受けます。</p>
 <pre>~RButton &amp; LButton::MsgBox "You pressed the left mouse button while holding down the right."
 RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down the right button."</pre>
-<p>The <a href="lib/Suspend.htm">Suspend</a> function can temporarily disable all hotkeys except for ones you make exempt. For greater selectivity, use <a href="lib/_HotIf.htm">#HotIf</a>.</p>
-<p>By means of the <a href="lib/Hotkey.htm">Hotkey</a> function, hotkeys can be created dynamically while the script is running. The Hotkey function can also modify, disable, or enable the script's existing hotkeys individually.</p>
-<p>Joystick hotkeys do not currently support modifier prefixes such as ^ (Ctrl) and # (Win). However, you can use <a href="lib/GetKeyState.htm">GetKeyState</a> to mimic this effect as shown in the following example:</p>
+<p><a href="lib/Suspend.htm">サスペンド</a>機能は、一時的に免除したもの以外のホットキーを無効にすることができます。より選択性を高めたい場合は、<a href="lib/_HotIf.htm">#HotIfを</a>ご利用ください。</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>機能により、スクリプトの実行中に動的にホットキーを作成することができます。また、ホットキー機能は、スクリプトの既存のホットキーを個別に変更、無効化、有効化することができます。</p>
+<p>ジョイスティックホットキーは、現在、^（Ctrl）や#（Win）などの修飾語の接頭辞をサポートしていません。しかし、次の例に示すように、<a href="lib/GetKeyState.htm">GetKeyStateを</a>使用して、この効果を模倣することができます。</p>
 <pre>Joy2::
 {
-    if not GetKeyState("Control")<em>; Neither the left nor right Control key is down.</em>
-        return<em>; i.e. Do nothing.</em>
+    if not GetKeyState("Control")<em>; 左右のコントロールキーが押されていない。</em>
+        return<em>; すなわち、何もしない。</em>
     MsgBox "You pressed the first joystick's second button while holding down the Control key."
 }</pre>
-<p>There may be times when a hotkey should wait for its own modifier keys to be released before continuing. Consider the following example:</p>
+<p>ホットキーは、それ自身の修飾キーが解除されるまで待ってから続行する必要がある場合があります。次のような例を考えてみましょう。</p>
 <pre>^!s::Send "{Delete}"</pre>
-<p>Pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> would cause the system to behave as though you pressed <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> (due to the system's aggressive detection of this hotkey). To work around this, use <a href="lib/KeyWait.htm">KeyWait</a> to wait for the keys to be released; for example:</p>
+<p><kbd>Ctrl+</kbd><kbd>Alt</kbd> <kbd>+Sを</kbd>押すと、<kbd>Ctrl</kbd><kbd>+</kbd> <kbd>Alt+Delを</kbd>押したかのように動作します（このホットキーをシステムが積極的に検知するため）。これを回避するには、<a href="lib/KeyWait.htm">KeyWaitを</a>使用して、キーが解放されるのを待ちます。</p>
 <pre>^!s::
 {
     KeyWait "Control"
@@ -255,53 +255,53 @@ RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down 
     Send "{Delete}"
 }
 </pre>
-<p>If a hotkey like <code>#z::</code> produces an error like "Invalid Hotkey", your system's keyboard layout/language might not have the specified character ("Z" in this case). Try using a different character that you know exists in your keyboard layout.</p>
-<p>A hotkey's function can be called explicitly by the script only if the function has been named. See <a href="#Function">Named Function Hotkeys</a>.</p>
-<p>One common use for hotkeys is to start and stop a repeating action, such as a series of keystrokes or mouse clicks. For an example of this, see <a href="FAQ.htm#repeat">this FAQ topic</a>.</p>
-<p>Finally, each script is <a href="misc/Threads.htm">quasi multi-threaded</a>, which allows a new hotkey to be launched even when a previous hotkey subroutine is still running. For example, new hotkeys can be launched even while a <a href="lib/MsgBox.htm">message box</a> is being displayed by the current hotkey.</p>
+<p><code>z::の</code>ようなホットキーで「Invalid Hotkey」のようなエラーが発生する場合、システムのキーボードレイアウト/言語に指定された文字（この場合は「Z」）がない可能性があります。キーボードレイアウトに存在することが分かっている別の文字を使用してみてください。</p>
+<p>ホットキーの機能は、その関数に名前が付けられている場合にのみ、スクリプトから明示的に呼び出すことができます。<a href="#Function">名前付き機能ホットキー</a>」を参照してください。</p>
+<p>ホットキーの一般的な使い方として、一連のキー操作やマウスクリックなど、繰り返しの動作を開始したり停止したりすることが挙げられます。この例については、<a href="FAQ.htm#repeat">このFAQのトピックを</a>参照してください。</p>
+<p>最後に、各スクリプトは<a href="misc/Threads.htm">準マルチスレッド</a>であり、前のホットキーサブルーチンがまだ実行中であっても、新しいホットキーを起動することが可能です。例えば、現在のホットキーで<a href="lib/MsgBox.htm">メッセージボックスを</a>表示している最中でも、新しいホットキーを起動させることができます。</p>
 
-<h2 id="alttab"><span id="AltTabDetail"></span>Alt-Tab Hotkeys</h2>
-<p>Alt-Tab hotkeys simplify the mapping of new key combinations to the system's Alt-Tab hotkeys, which are used to invoke a menu for switching tasks (activating windows).</p>
-<p>Each Alt-Tab hotkey must be either a single key or a combination of two keys, which is typically achieved via the ampersand symbol (&amp;). In the following example, you would hold down the right <kbd>Alt</kbd> and press <kbd>J</kbd> or <kbd>K</kbd> to navigate the alt-tab menu:</p>
+<h2 id="alttab"><span id="AltTabDetail"></span>Alt-Tabのホットキー</h2>
+<p>Alt-Tabホットキーは、タスクの切り替え（ウィンドウのアクティブ化）のためのメニューを呼び出すために使用されるシステムのAlt-Tabホットキーに、新しいキーの組み合わせを簡単にマッピングすることができます。</p>
+<p>Alt-Tabの各ホットキーは、単一のキーまたは2つのキーの組み合わせでなければならず、通常はアンパサンドシンボル（&amp;）で実現します。次の例では、右の<kbd>Altを</kbd>押しながら、<kbd>J</kbd>または<kbd>Kを押して</kbd>、alt-tabメニューを操作することになります。</p>
 <pre>RAlt &amp; j::AltTab
 RAlt &amp; k::ShiftAltTab</pre>
-<p><em>AltTab</em> and <em>ShiftAltTab</em> are two of the special commands that are only recognized when used on the same line as a hotkey. Here is the complete list:</p>
-<p><strong>AltTab</strong>: If the alt-tab menu is visible, move forward in it. Otherwise, display the menu (only if the hotkey is a combination of two keys; otherwise, it does nothing).</p>
-<p><strong>ShiftAltTab</strong>: Same as above except move backward in the menu.</p>
-<p><strong>AltTabMenu</strong>: Show or hide the alt-tab menu.</p>
-<p><strong>AltTabAndMenu</strong>: If the alt-tab menu is visible, move forward in it. Otherwise, display the menu.</p>
-<p><strong>AltTabMenuDismiss</strong>: Close the Alt-tab menu.</p>
-<p>To illustrate the above, the mouse wheel can be made into an entire substitute for Alt-tab. With the following hotkeys in effect, clicking the middle button displays the menu and turning the wheel navigates through it:</p>
+<p><em>AltTabと</em> <em>ShiftAltTabは</em>、ホットキーと同じ行で使用した場合のみ認識される特殊コマンドのひとつです。以下、全リストです。</p>
+<p><strong>AltTab</strong>:alt-tabメニューが表示されている場合は、その中を進んでください。それ以外の場合は、メニューを表示します（ホットキーが2つのキーの組み合わせの場合のみ、それ以外の場合は何もしません）。</p>
+<p><strong>ShiftAltTab</strong>:メニューの後方に移動する以外は、上記と同じです。</p>
+<p><strong>AltTabMenu</strong>:alt-tabメニューの表示／非表示を切り替える。</p>
+<p><strong>AltTabAndMenu</strong>:alt-tabメニューが表示されている場合は、その中を進んでください。それ以外の場合は、メニューを表示します。</p>
+<p><strong>AltTabMenuDismiss</strong>:Alt-tabメニューを閉じる。</p>
+<p>上記を説明すると、マウスホイールをまるごとAlt-tabの代用品にすることができる。以下のホットキーが有効な場合、中央のボタンをクリックするとメニューが表示され、ホイールを回すとメニューの中を移動します。</p>
 <pre>MButton::AltTabMenu
 WheelDown::AltTab
 WheelUp::ShiftAltTab</pre>
-<p>To cancel the Alt-Tab menu without activating the selected window, press or send <kbd>Esc</kbd>. In the following example, you would hold the left <kbd>Ctrl</kbd> and press <kbd>CapsLock</kbd> to display the menu and advance forward in it. Then you would release the left <kbd>Ctrl</kbd> to activate the selected window, or press the mouse wheel to cancel. Define the <a href="#AltTabWindow">AltTabWindow</a> window group as shown below before running this example.</p>
+<p>選択したウィンドウをアクティブにせずにAlt-Tabメニューをキャンセルするには、<kbd>Escを</kbd>押すか送信してください。次の例では、左<kbd>Ctrlを</kbd>押しながら<kbd>CapsLockを</kbd>押すと、メニューが表示され、その中で先に進むことができます。そして、左<kbd>Ctrlを</kbd>離すと選択したウィンドウがアクティブになり、マウスホイールを押すとキャンセルされます。この例を実行する前に、<a href="#AltTabWindow">AltTabWindow</a>ウィンドウグループを以下のように定義してください。</p>
 <pre>LCtrl &amp; CapsLock::AltTab
-#HotIf WinExist("ahk_group AltTabWindow")  <em>; Indicates that the alt-tab menu is present on the screen.</em>
-*MButton::Send "{Blind}{Escape}"  <em>; The * prefix allows it to fire whether or not Alt is held down.</em>
+#HotIf WinExist("ahk_group AltTabWindow")<em>;alt-tab メニューが画面上に存在することを示す。</em>
+*MButton::Send "{Blind}{Escape}"<em>; Altが押されていても押されていなくても発射されるように、*の接頭辞を付けています。</em>
 #HotIf</pre>
-<p>If the script sent <code>{Alt Down}</code> (such as to invoke the Alt-Tab menu), it might also be necessary to send <code>{Alt Up}</code> as shown in the example further below.</p>
+<p>スクリプトで<code>{Alt Down}を</code>送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}も</code>送信する必要がある場合があります。</p>
 
-<h3 id="AltTabRemarks">General Remarks</h3>
-<p>Currently, all special Alt-tab actions must be assigned directly to a hotkey as in the examples above (i.e. they cannot be used as though they were functions). They are <span class="red">not affected by <a href="lib/_HotIf.htm">#HotIf</a></span>.</p>
-<p>An alt-tab action may take effect on key-down and/or key-up regardless of whether the <code>up</code> keyword is used, and cannot be combined with another action on the same key. For example, using both <code>F1::AltTabMenu</code> and <code>F1 up::OtherAction()</code> is unsupported.</p>
-<p id="AltTabWindow">Custom alt-tab actions can also be created via hotkeys. As the identity of the alt-tab menu differs between OS versions, it may be helpful to use a window group as shown below. For the examples above and below which use <code>ahk_group AltTabWindow</code>, this window group is expected to be defined during <a href="Scripts.htm#auto">script startup</a>. Alternatively, <code>ahk_group AltTabWindow</code> can be replaced with the appropriate <code>ahk_class</code> for your system.</p>
-<pre>GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"  <em>; Windows 10</em>
-GroupAdd "AltTabWindow", "ahk_class TaskSwitcherWnd"  <em>; Windows Vista, 7, 8.1</em>
-GroupAdd "AltTabWindow", "ahk_class #32771"  <em>; Older, or with classic alt-tab enabled</em></pre>
-<p>In the following example, you would press <kbd>F1</kbd> to display the menu and advance forward in it. Then you would press <kbd>F2</kbd> to activate the selected window, or press <kbd>Esc</kbd> to cancel:</p>
-<pre>*F1::Send "{Alt down}{tab}"<em>; Asterisk is required in this case.</em>
-!F2::Send "{Alt up}"<em>; Release the Alt key, which activates the selected window.</em>
+<h3 id="AltTabRemarks">総論</h3>
+<p>現在、Alt-tabの特殊な動作は、上記の例のようにホットキーに直接割り当てる必要があります（つまり、機能のように使用することはできません）。彼らは<span class="red"><a href="lib/_HotIf.htm">#HotIfの</a>影響を</span>受けません。</p>
+<p>alt-tabアクションは、<code>up</code>キーワードが使用されているかどうかにかかわらず、キーダウンおよび/またはキーアップで有効になる可能性があり、同じキー上の他のアクションと組み合わせることはできません。例えば、<code>F1::AltTabMenu</code>と<code>F1 up::OtherAction()</code>の両方を使用することはサポートされていません。</p>
+<p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code>ahk_group AltTabWindowを</code>使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code>ahk_group AltTabWindowは</code>、お使いのシステムに適した<code>ahk_classに</code>置き換えることができます。</p>
+<pre>GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"<em>; Windows 10</em>
+GroupAdd "AltTabWindow", "ahk_class TaskSwitcherWnd"<em>; Windows Vista, 7, 8.1</em>
+GroupAdd "AltTabWindow", "ahk_class #32771"<em>; オールド、またはクラシックなalt-tabを有効にした場合。</em></pre>
+<p>次の例では、<kbd>F1</kbd>キーを押してメニューを表示し、その中で先に進むことになります。そして、選択したウィンドウをアクティブにするには<kbd>F2</kbd>キーを、キャンセルするには<kbd>Esc</kbd>キーを押します。</p>
+<pre>*F1::Send "{Alt down}{tab}"<em>; この場合、アスタリスクが必要です。</em>
+!F2::Send "{Alt up}"<em>; Altキーを離すと、選択したウィンドウがアクティブになります。</em>
 #HotIf WinExist("ahk_group AltTabWindow")
-~*Esc::Send "{Alt up}"<em>; When the menu is cancelled, release the Alt key automatically.
+~*Esc::Send "{Alt up}"<em>; メニューがキャンセルされたときは、自動的にAltキーを離します。
 ;*Esc::Send "{Esc}{Alt up}"  ; Without tilde (~), Escape would need to be sent.</em>
 #HotIf</pre>
 
-<h2 id="Function">Named Function Hotkeys</h2>
-<p>If the function of a hotkey is ever needed to be called without triggering the hotkey itself, one or more hotkeys can be assigned a named <a href="Functions.htm">function</a> by simply defining it immediately after the hotkey's double-colon as in this example:</p>
-<pre><em>; Ctrl+Shift+O to open containing folder in Explorer.
-; Ctrl+Shift+E to open folder with current file selected.
-; Supports SciTE and Notepad++.</em>
+<h2 id="Function">名前付き機能ホットキー</h2>
+<p>ホットキーの機能を、ホットキー自体をトリガーすることなく呼び出す必要がある場合、この例のように、ホットキーのダブルコロンの直後に定義するだけで、1つまたは複数のホットキーに名前付き<a href="Functions.htm">機能を</a>割り当てることができます。</p>
+<pre><em>; Ctrl+Shift+Oで、エクスプローラーに含まれるフォルダを開くことができます。
+; Ctrl+Shift+E で現在のファイルが選択されているフォルダを開きます。
+; SciTEとNotepad++をサポートします。</em>
 ^+o::
 ^+e::
 editor_open_folder(hk)
@@ -313,11 +313,11 @@ editor_open_folder(hk)
             else
                 Run Format('explorer.exe "{1}"', path[1])
     }</pre>
-<p>If the function <em>editor_open_folder</em> is ever called explicitly by the script, the first parameter (hk) must be passed a value.</p>
-<p><a href="Hotstrings.htm">Hotstrings</a> can also be defined this way. Multiple hotkeys or hotstrings can be stacked together to call the same function.</p>
-<p>There must only be whitespace or comments between the hotkey and the function name.</p>
-<p>Naming the function also encourages self-documenting hotkeys, like in the code above where the function name describes the hotkey.</p>
-<p>The <a href="lib/Hotkey.htm">Hotkey</a> function can also be used to assign a function or function object to a hotkey.</p>
+<p>関数<em>editor_open_folderが</em>スクリプトから明示的に呼び出される場合、最初のパラメータ（hk）には値を渡さなければなりません。</p>
+<p><a href="Hotstrings.htm">ホットストリングは</a>、このように定義することもできます。複数のホットキーやホットストリングを重ねて、同じ機能を呼び出すことができます。</p>
+<p>ホットキーと機能名の間には、空白またはコメントのみでなければなりません。</p>
+<p>また、関数に名前を付けることで、上記のコードのように、関数名がホットキーを説明するような、ホットキーの自己文書化を促進します。</p>
+<p>また、<a href="lib/Hotkey.htm">ホットキー</a>機能を使って、機能や機能オブジェクトをホットキーに割り当てることができます。</p>
 
 </body>
 </html>

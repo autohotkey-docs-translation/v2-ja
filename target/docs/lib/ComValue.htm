@@ -72,7 +72,7 @@ sc.Run("Example", &amp;some_var)
 MsgBox some_var</pre>
 <p>However, some methods require a more specific variant type, such as <code>VT_BYREF | VT_I4</code>. In such cases, the first approach shown above must be used, replacing 0x400C with the appropriate variant type.</p>
 
-<h2 id="Remarks">General Remarks</h2>
+<h2 id="Remarks">総論</h2>
 <p>When this function is used to wrap an <a href="https://learn.microsoft.com/windows/win32/winauto/idispatch-interface">IDispatch</a> or IUnknown interface pointer (passed as an integer), the wrapper object assumes responsibility for automatically releasing the pointer when appropriate. Therefore, if the script intends to use the pointer after calling this function, it must call <code><a href="ObjAddRef.htm">ObjAddRef</a>(DispPtr)</code> first. By contrast, this is not necessary if <em>Value</em> is itself a ComValue or ComObject.</p>
 <p>Conversion from VT_UNKNOWN to VT_DISPATCH results in a call to <a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>, which may produce an interface pointer different to the original, and will throw an exception if the object does not implement IDispatch. By contrast, if <em>Value</em> is an integer and <em>VarType</em> is VT_DISPATCH, the value is used directly, and therefore must be an IDispatch-compatible interface pointer.</p>
 <p>The <em>VarType</em> of a wrapper object can be retrieved using <a href="ComObjType.htm">ComObjType</a>.</p>

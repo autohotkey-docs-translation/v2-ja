@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="description" content="Learn how to write hotkeys." />
+<meta name="description" content="ホットキーの書き方について説明します。" />
 <meta name="ahk:equiv-v1" content="Tutorial.htm#s2" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>How to Write Hotkeys | AutoHotkey v2</title>
+<title>ホットキーの書き方｜AutoHotkey v2</title>
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
 <script src="../static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>How to Write Hotkeys</h1>
-<p>A hotkey is a key or key combination that triggers an action. For example, <kbd>Win</kbd>+<kbd>E</kbd> normally launches File Explorer, and <kbd>F1</kbd> often activates an app-specific help function. AutoHotkey has the power to define hotkeys that can be used anywhere <em>or</em> only within specific apps, performing any action that you are able to express with code.</p>
-<p>The most common way to define a hotkey is to write the <em>hotkey name</em> followed by double-colon, then the action:</p>
+<h1>ホットキーの書き方</h1>
+<p>ホットキーは、アクションをトリガーするキーまたはキーの組み合わせです。例えば、<kbd>Win</kbd><kbd>+</kbd> <kbd>Eは</kbd>通常ファイルエクスプローラーを起動し、<kbd>F</kbd>1はアプリ固有のヘルプ機能を起動することが多い。AutoHotkeyは、どこでも使えるホット<em>キーや、</em>特定のアプリ内だけで使えるホットキーを定義し、コードで表現できるあらゆるアクションを実行することができる機能を備えています。</p>
+<p>ホットキーを定義する最も一般的な方法は、<em>ホットキー名の</em>後にダブルコロン、そしてアクションを記述することです。</p>
 <pre>#n::Run "notepad"</pre>
-<p>This example defines a hotkey that runs Notepad whenever you press <kbd>Win</kbd>+<kbd>N</kbd>. To learn how to try it out, refer to <a href="RunExamples.htm">How to Run Example Code</a>.</p>
-<p>For more about running programs, see <a href="RunPrograms.htm">How to Run Programs</a>.</p>
-<p>If multiple lines are required, use braces to mark the start and end of the hotkey's action. This is called a <a href="../lib/Block.htm">block</a>.</p>
+<p>この例では、<kbd>Win</kbd><kbd>+</kbd><kbd>Nを</kbd>押すたびにメモ帳を実行するホットキーを定義しています。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
+<p>プログラムの実行については、「<a href="RunPrograms.htm">プログラムを実行する方法</a>」を参照してください。</p>
+<p>複数行が必要な場合は、中括弧を使ってホットキーの動作の開始と終了をマークしてください。これを<a href="../lib/Block.htm">ブロックと</a>呼びます。</p>
 <pre>#n::
 {
     if WinExist("ahk_class Notepad")
-        WinActivate<em>; Activate the window found above</em>
+        WinActivate<em>; 上記のウィンドウをアクティブにします。</em>
     else
-        Run "notepad"<em>; Open a new Notepad window</em>
+        Run "notepad"<em>; メモ帳の新規ウィンドウを開く</em>
 }</pre>
-<p>The opening brace can also be written on the same line as the hotkey, after <code>::</code>.</p>
-<p>The block following a double-colon hotkey is implicitly the body of a <a href="../Functions.htm">function</a>, but that is only important when you define your own <a href="../Concepts.htm#variables">variables</a>. For now, just know that blocks are used to group multiple lines as a single action or <em>statement</em> (see <a href="../Concepts.htm#control-flow">Control Flow</a> if you want to know more about this).</p>
+<p>また、冒頭のブレースは、ホットキーと同じ行に、<code>::の</code>後に書くことができます。</p>
+<p>ダブルコロンホットキーに続くブロックは暗黙のうちに<a href="../Functions.htm">関数</a>本体となりますが、これは独自の<a href="../Concepts.htm#variables">変数を</a>定義する場合にのみ重要です。とりあえず、ブロックは複数の行を1つのアクションや<em>ステートメントとして</em>まとめるために使われるということだけは知っておいてください（このことについて詳しく知りたい方は、「<a href="../Concepts.htm#control-flow">コントロールフロー</a>」を参照してください）。</p>
 
-<h2>Basic Hotkeys</h2>
-<p>For most hotkeys, the <em>hotkey name</em> consists of optional modifier symbols immediately followed by a single letter or symbol, or a <a href="../KeyList.htm">key name</a>. Try making the following changes to the example above:</p>
+<h2>基本的なホットキー</h2>
+<p>ほとんどのホットキーでは、<em>ホットキー名は</em>、オプションの修飾記号の直後に1つの文字または記号が続くか、または<a href="../KeyList.htm">キー名</a>で構成されています。上の例で、次のように変更してみてください。</p>
 <ul>
-  <li>Remove <code>#</code> to make the hotkey activate whenever you press <kbd>N</kbd> on its own. Keep in mind that if something goes wrong, you can always <a href="RunExamples.htm#bailing-out">exit the script</a>.</li>
-  <li>Replace <code>#</code> with <code>^</code> for Ctrl, <code>!</code> for Alt or <code>+</code> for Shift, or try combinations.</li>
-  <li>Replace <code>#</code> with <code>&lt;^</code> to make it activate only when the <em>left</em> Ctrl key is pressed, or <code>&gt;^</code> for the right Ctrl key, or <em>both</em> to require both keys.</li>
+  <li><code>#</code>を削除すると<kbd>Nを</kbd>単独で押したときにホットキーが有効になります。何か問題が発生した場合は、いつでも<a href="RunExamples.htm#bailing-out">スクリプトを終了</a>できることを念頭に置いておいてください。</li>
+  <li><code>#</code>を、Ctrlの<code>^</code>、Altの<code>!</code>、Shiftの<code>+</code>に置き換えたり、組み合わせを試したりしてください。</li>
+  <li><code>#</code>を<code>&lt;^</code>に置き換えると、<em>左</em>Ctrlキーが押されたときだけ有効になり、<code>&gt;^</code>に置き換えると右Ctrlキーが押されたときだけ有効になり、<em>両方の</em>Ctrlキーが必要なときは<em>両方に</em>なります。</li>
   <li>Replace <code>n</code> with any other letter or symbol (except <code>:</code>).</li>
   <li>Replace <code>n</code> with any name from the <a href="../KeyList.htm">key list</a>.</li>
 </ul>
@@ -54,7 +54,7 @@
 <p>To make a hotkey fire only when you release the key instead of when you press it, use the <a href="../Hotkeys.htm#keyup">UP suffix</a>.</p>
 <p><strong>Related:</strong> <a href="../Hotkeys.htm#Symbols">Hotkey Modifier Symbols</a>, <a href="../KeyList.htm">List of Keys</a></p>
 
-<h2>Context-sensitive Hotkeys</h2>
+<h2>文脈依存のホットキー</h2>
 <p>The <a href="../lib/_HotIf.htm">#HotIf</a> directive can be used to specify a condition that must be met for the hotkey to activate, such as:</p>
 <ul>
   <li>If a window of a specific app is active when you press the hotkey.</li>
@@ -63,7 +63,7 @@
 </ul>
 <p>事例:</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
-^a::MsgBox "You pressed Ctrl-A while Notepad is active. Pressing Ctrl-A in any other window will pass the Ctrl-A keystroke to that window."
+^a::MsgBox "You pressed Ctrl-A while Notepad is active. 他のウィンドウでCtrl-Aを押すと、そのウィンドウにCtrl-Aのキーストロークが渡されます。"
 #c::MsgBox "You pressed Win-C while Notepad is active."
 
 #HotIf
@@ -80,7 +80,7 @@
 <p>Correctly identifying which window you want the hotkey to affect sometimes requires using criteria other than the window title. To learn more, see <a href="ManageWindows.htm">How to Manage Windows</a>.</p>
 <p><strong>Related:</strong> <a href="../lib/_HotIf.htm">#HotIf</a>, <a href="../Language.htm#expressions">Expressions</a>, <a href="../lib/WinActive.htm">WinActive</a></p>
 
-<h2>Custom Combinations</h2>
+<h2>カスタムコンビネーション</h2>
 <p>A <em>custom combination</em> is a hotkey that combines two keys which aren't normally meant to be used in combination. For example, <code>Numpad0 &amp; Numpad1::</code> defines a hotkey which activates when you hold Numpad0 and press Numpad1.</p>
 <p>When you use a key as a prefix in a custom combination, AutoHotkey assumes that you don't want the normal function of the key to activate, since that would interfere with its use as a modifier key. There are two ways to restore the key's normal function:</p>
 <ol>
@@ -95,7 +95,7 @@ CapsLock &amp; Space::MsgBox "Success!"</pre>
 <p>It is necessary to press Ctrl first in this example. This has the advantage that Space and CapsLock perform their normal function if you are not holding Ctrl.</p>
 <p><strong>Related:</strong> <a href="../Hotkeys.htm#combo">Custom Combinations</a></p>
 
-<h2>Other Features</h2>
+<h2>その他の機能</h2>
 <p>AutoHotkey's hotkeys have some other features that are worth exploring. While most applications are limited to combinations of Ctrl, Alt, Shift and sometimes Win with one other key (and often not all keys on the keyboard are supported), AutoHotkey isn't so limited. For further reading, see <a href="../Hotkeys.htm">Hotkeys</a>.</p>
 
 </body>

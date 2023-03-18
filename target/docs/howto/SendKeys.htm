@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="description" content="Learn how to send keystrokes or text with AutoHotkey." />
+<meta name="description" content="AutoHotkeyでキーストロークやテキストを送信する方法についてご紹介します。" />
 <meta name="ahk:equiv-v1" content="Tutorial.htm#s3" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>How to Send Keystrokes | AutoHotkey v2</title>
+<title>キー入力の送信方法｜AutoHotkey v2</title>
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
 <script src="../static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>How to Send Keystrokes</h1>
+<h1>キー入力の送信方法</h1>
 <pre>Send "Hello, world{!}{Left}^+{Left}"</pre>
-<p>Sending keystrokes (or keys for short) is the most common method of automating programs, because it is the one that works most generally. More direct methods tend to work only in particular types of app.</p>
-<p>There are broadly two parts to learning how to send keys:</p>
+<p>キーストローク（略してキー）の送信は、最も一般的に機能するため、プログラムを自動化する方法として最も一般的です。より直接的な方法は、特定のタイプのアプリにのみ有効な傾向があります。</p>
+<p>鍵の送り方を学ぶには、大きく分けて2つのパートがあります。</p>
 <ol>
-  <li>How to write the code so that the program knows which keys you want to send.</li>
-  <li>How to use the available modes and options to get the right end result.</li>
+  <li>どのキーを送りたいのか、プログラムがわかるようにコードを書く方法。</li>
+  <li>正しい結果を得るために、利用可能なモードやオプションをどのように使用するか。</li>
 </ol>
-<p>It is important to understand that sending a key does not perfectly replicate the act of physically pressing the key, even if you slow it down to human speeds. But before we go into that, we'll cover some basics.</p>
+<p>キーを送信することで、人間の速度まで遅くしても、物理的にキーを押す行為が完全に再現されるわけではないことを理解しておく必要があります。しかし、その前に、いくつかの基本的なことを説明します。</p>
 
-<h2>Trying the examples</h2>
-<p>If you run an example like <code>SendText "Hi!"</code>, the text will be immediately sent to the active (focused) window, which might be less than useful depending on how you ran the example. It's usually better to define a hotkey, run the example to load it up, and press the hotkey when you want to test its effect. Some of the examples below will use numbered hotkeys like <code>^1::</code> (<kbd>Ctrl</kbd> and a number, so you can try multiple examples at once if there are no duplicates), but you can change that to whatever suits you.</p>
-<p>To learn how to customize the hotkeys or create your own, see <a href="WriteHotkeys.htm">How to Write Hotkeys</a>.</p>
-<p>If you're not sure how to try out the examples, see <a href="RunExamples.htm">How to Run Example Code</a>.</p>
+<h2>例題を試してみる</h2>
+<p><code>SendText "Hi!"</code>のような例を実行すると、テキストはアクティブ（フォーカス）なウィンドウに即座に送信されるので、例の実行方法によってはあまり役に立たないかもしれません。通常は、ホットキーを定義し、サンプルを実行してロードし、その効果を試したいときにホットキーを押すのがよいでしょう。以下のいくつかの例では、<code>^1::</code><kbd>（Ctrlと</kbd>数字、重複がなければ一度に複数の例を試すことができます）のような番号付きのホットキーを使用しますが、あなたの好みに合わせて変更することができます。</p>
+<p>ホットキーのカスタマイズや独自に作成する方法については、「<a href="WriteHotkeys.htm">ホットキーの書き方</a>」を参照してください。</p>
+<p>例題を試す方法がわからない場合は、「<a href="RunExamples.htm">例題コードを実行する方法</a>」をご覧ください。</p>
 
-<h2>How to write the code</h2>
-<p>When sending keys, you generally want to either send a key or key combination for its effect (like <kbd>Ctrl</kbd>+<kbd>C</kbd> to copy to the clipboard), or type some text. Typing text is simpler, so we'll start there: just call the <a href="../lib/Send.htm">SendText</a> function, <a href="../Concepts.htm#pass-parameters">passing</a> it the exact text you want to send.</p>
+<h2>コードの書き方</h2>
+<p>キーを送信する場合、一般的には、キーまたはキーの組み合わせを送信してその効果を得るか（クリップボードにコピーする<kbd>Ctrl</kbd><kbd>+</kbd> <kbd>Cの</kbd>ような）、何らかのテキストを入力することになります。文字入力の方が簡単なので、まずはそこから。<a href="../lib/Send.htm">SendText</a>関数を呼び出し、送信したいテキストを正確に<a href="../Concepts.htm#pass-parameters">渡すだけ</a>です。</p>
 <pre>^1::SendText "To Whom It May Concern"</pre>
-<p>Technically SendText actually sends Unicode character packets and not keystrokes, and that makes it much more reliable for characters that are normally typed with a key-combination like <kbd>Shift</kbd>+<kbd>2</kbd> or <kbd>AltGr</kbd>+<kbd>a</kbd>.</p>
+<p>技術的には、SendTextは実際にはキーストロークではなく、Unicodeの文字パケットを送信します。</p>
 
-<h3>Rules of quoted strings</h3>
-<p>SendText sends the text verbatim, but keep in mind the rules of the <a href="../Language.htm">language</a>. For instance, <a href="../Language.htm#strings">literal text</a> must be enclosed in quote marks (double <code>"</code> or single <code>'</code>), and the quote marks themselves aren't "seen" by the SendText function. To send a literal quote mark, you can enclose it in the opposite type of quote mark. 事例:</p>
+<h3>引用符で囲まれた文字列のルール</h3>
+<p>SendTextは、テキストをそのまま送信しますが、<a href="../Language.htm">言語の</a>ルールに注意してください。例えば、<a href="../Language.htm#strings">リテラルテキストは</a>引用符（ダブル<code>「</code>またはシングル<code>「</code>」）で囲む必要があり、引用符そのものはSendText関数には「見えない」のです。文字通りの引用符を送るには、逆のタイプの引用符で囲むとよいでしょう。事例:</p>
 <pre>^2::SendText 'Quote marks are also known as "quotes".'</pre>
-<p>Alternatively, use an <a href="../misc/EscapeChar.htm">escape sequence</a>. Inside a quoted string, <code>`"</code> translates to a literal <code>"</code> and <code>`'</code> translates to a literal <code>'</code>. 事例:</p>
+<p>または、<a href="../misc/EscapeChar.htm">エスケープシーケンスを</a>使用します。引用符で囲まれた文字列の中では、<code>`"</code>はリテラル<code>"</code>に、<code>`'</code>はリテラル<code>'</code>に変換されます。事例:</p>
 <pre>^3::{
     SendText "Double quote (`")"
     SendText 'Single quote (`')'
 }</pre>
-<p>You can also alternate the quote marks:</p>
+<p>引用符を交互に並べることも可能です。</p>
 <pre>^4::SendText 'Double (") and' . " single (') quote"</pre>
-<p>The two strings are joined together (<a href="../Variables.htm#concat">concatenated</a>) before being passed to the SendText function. The dot (<code>.</code>) can be omitted, but that makes it harder to see where one ends and the other begins.</p>
-<p>As you've seen above, the escape character <code>`</code> (known by <em>backquote</em>, <em>backtick</em>, <em>grave accent</em> and other names) has special meaning, so if you want to send that character literally (or send the corresponding key), you need to double it up, as in <code>Send "``"</code>. Other common escape sequences include <code>`n</code> for linefeed (Enter) and <code>`t</code> for tab. See <a href="../misc/EscapeChar.htm">Escape Sequences</a> for more.</p>
+<p>2つの文字列は、SendText関数に渡される前に結合<a href="../Variables.htm#concat">（コンカチネート</a>）されます。ドット(<code>.</code>)は省略可能ですが、その場合、一方が終わり、他方が始まるのがわかりづらくなります。</p>
+<p>上で見たように、エスケープ文字<code>`（</code> <em>backquote</em>、<em>backtick</em>、<em>grave accentなどの</em>名前で知られている）には特別な意味があるので、その文字を文字通り送りたい（または対応するキーを送りたい）場合は、<code>「`」を送るという</code>ように二重にする必要があります。その他によく使われるエスケープシーケンスとして、改行（Enter）を表す<code>`n</code>、タブを表す<code>`tが</code>あります。詳しくは「<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>」をご覧ください。</p>
 
-<h3>Sending keys and key combinations</h3>
-<p><a href="../lib/Send.htm">SendText</a> is best for sending text verbatim, but it can't send keys that don't produce text, like <kbd>Left</kbd> or <kbd>Home</kbd>. <a href="../lib/Send.htm">Send</a>, <a href="../lib/Send.htm">SendInput</a>, <a href="../lib/Send.htm">SendPlay</a>, <a href="../lib/Send.htm">SendEvent</a> and <a href="../lib/ControlSend.htm">ControlSend</a> can send both text and key combinations, or keys which don't produce text. To do all of this, they add special meaning to the following symbols: <code>^!+#{}</code></p>
-<p>The first four symbols correspond to the standard modifier keys, Ctrl (<code>^</code>), Alt (<code>!</code>), Shift (<code>+</code>) and Win (<code>#</code>). They can be used in combination, but otherwise affect only the next key.</p>
-<p>To send a key by name, or to send any one of the above symbols literally, enclose it in braces. 事例:</p>
+<h3>キーとキーの組み合わせの送信</h3>
+<p><a href="../lib/Send.htm">SendTextは</a>テキストをそのまま送信するのに適していますが、<kbd>Leftや</kbd> <kbd>Homeの</kbd>ようなテキストを生成しないキーは送信できません。<a href="../lib/Send.htm">Send</a>、<a href="../lib/Send.htm">SendInput</a>、<a href="../lib/Send.htm">SendPlay</a>、<a href="../lib/Send.htm">SendEvent</a>、<a href="../lib/ControlSend.htm">ControlSendは</a>、テキストとキーの組み合わせ、またはテキストを生成しないキーの両方を送信できます。そのために、次のようなシンボルに特別な意味を持たせている。<code>^!+#{}</code></p>
+<p>最初の4つの記号は、標準的な修飾キーであるCtrl<code>（^）、</code>Alt（<code>！</code>）、Shift<code>（+）、</code>Win<code>（#）に</code>対応していますこれらは組み合わせて使うことができますが、それ以外は次のキーにしか影響しません。</p>
+<p>キーを名前で送る場合、または上記の記号のいずれかを文字どおり送る場合は、中括弧で囲んでください。事例:</p>
 <ul>
   <li><code>^+{Left}</code> produces <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Left</kbd></li>
   <li><code>^{+}{Left}</code> produces <kbd>Ctrl</kbd>+<kbd>+</kbd> followed by <kbd>Left</kbd></li>
   <li><code>^+Left</code> produces <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> followed literally by the letters <code>eft</code></li>
 </ul>
-<p>When you press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>"</kbd>, the following example sends two quote marks and then moves the insertion point to the left, ready to type inside the quote marks:</p><!-- span works around a highlighter bug (4/12/22) -->
+<p><kbd>Ctrl</kbd><kbd>+</kbd><kbd>Shift+</kbd><kbd>"を</kbd>押すと、次の例では2つの引用符が送られ、挿入点が左に移動して引用符の内側を入力できる状態になります。</p><!-- span works around a highlighter bug (4/12/22) -->
 
 <pre><span class="no-highlight">^+"</span>::Send '""{Left}'</pre>
-<p>For any single character other than <code>^!+#{}</code>, Send translates it to the corresponding key combination and presses and releases that combination. For example, <code>Send "aB"</code> presses and releases <kbd>A</kbd> and then presses and releases <kbd>Shift</kbd>+<kbd>B</kbd>. Similarly, any key name enclosed in braces is pressed and released by default. For example, <code>Send "{Ctrl}a"</code> would press and release <kbd>Ctrl</kbd>, then press and release <kbd>A</kbd>; probably not what you want.</p>
-<p>To only press (hold down) or release a key, enclose the key name in braces, followed by a space and then the word "down" or "up". The following example causes <kbd>Ctrl</kbd>+<kbd>CapsLock</kbd> to act as a toggle for <kbd>Shift</kbd>:</p>
+<p>Sendは、<code>^!+#{}</code>以外の任意の1文字について、それを対応するキーの組み合わせに変換し、その組み合わせを押したり離したりする。例えば、<code>Send "aB "</code>は、<kbd>Aを押して</kbd>離し、<kbd>Shift</kbd><kbd>+</kbd><kbd>Bを押して</kbd>離します。同様に、中括弧で囲まれたキー名は、デフォルトで押したり離したりされます。例えば、<code>「{Ctrl}a」と送信</code>すると、<kbd>Ctrlを</kbd>押したまま離し、<kbd>Aを</kbd>押したまま離すことになり、おそらく望むところではありません。</p>
+<p>キーを押す（押し続ける）、または離すだけなら、キー名を中括弧で囲み、その後にスペースを入れ、「down」または「up」という言葉を入れます。次の例では、<kbd>Ctrl+</kbd><kbd>CapsLockが</kbd> <kbd>Shiftの</kbd>トグルとして機能するようにします。</p>
 <pre>*^CapsLock::{
     if GetKeyState("Shift")
         Send "{Shift up}"
@@ -64,76 +64,76 @@
         Send "{Shift down}"
 }</pre>
 
-<h3>Hotkeys vs. Send</h3>
-<p class="warning"><strong>Warning:</strong> Hotkeys and Send have some differences that you should be aware of.</p>
-<p>Although <a href="../Hotkeys.htm">hotkeys</a> also use the symbols <code>^!+#</code> and the same key names, there are several important differences:</p>
+<h3>ホットキーと送信の比較</h3>
+<p class="warning"><strong>ご注意</strong>ホットキーと送信には、注意しなければならない違いがあります。</p>
+<p><a href="../Hotkeys.htm">ホットキーも</a>記号<code>^!+#</code>と同じキー名を使用しますが、いくつかの重要な違いがあります。</p>
 <ul>
-  <li>Other hotkey modifier symbols are not supported by Send. For example, <code>&gt;^a::</code> corresponds to <kbd>RCtrl</kbd>+<kbd>A</kbd>, but to send that combination, you need to spell out the key name in full, as in <code>Send "{RCtrl down}a{RCtrl up}"</code>.</li>
-  <li>Key names are never enclosed in braces within hotkeys, but must always be enclosed in braces for Send (if longer than one character).</li>
-  <li>Send is case-sensitive. For example, <code>Send "^A"</code> sends the combination of <kbd>Ctrl</kbd> with <em>upper-case</em> "a", so <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>. By contrast, <code>^a::</code> and <code>^A::</code> are equivalent.</li>
+  <li>その他のホットキー修飾記号は、Sendではサポートされていません。例えば、<code>&gt;^a::</code>は<kbd>RCtrl</kbd><kbd>+</kbd>Aに対応しますが、この組み合わせを送信するには、<code>「{RCtrl down}a{RCtrl up}」と送信する</code>ように、キー名をフルスペルで記述する必要があります。</li>
+  <li>キー名は、ホットキー内では中括弧で囲むことはありませんが、Sendでは必ず中括弧で囲む必要があります（1文字より長い場合）。</li>
+  <li>送信は大文字と小文字を区別します。例えば、<code>「^A」を送ると</code>、<kbd>Ctrlと</kbd> <em>大文字の</em>「a」の組み合わせになるので、<kbd>Ctrl+</kbd><kbd>Shift</kbd><kbd>+Aで</kbd>送信します。これに対して、<code>^a::</code>と<code>^A::</code>は等価である。</li>
 </ul>
-<p>This is because Send serves multiple purposes, whereas hotkeys are optimized for key combinations.</p>
-<p>On a related note, <a href="../Hotstrings.htm">hotstrings</a> are exclusively for detecting text entry, so the symbols <code>^!+#{}</code> have no special meaning within the hotstring trigger text. However, a hotstring's <em>replacement</em> text uses the same syntax as Send (except when the <a href="../Hotstrings.htm#T">T option</a> is used). Whenever you type "{" with the following hotstring active, it sends "}" and then <kbd>Left</kbd> to move the insertion point back between the braces:</p>
+<p>これは、Sendが複数の目的を果たすのに対し、ホットキーはキーの組み合わせに最適化されているためです。</p>
+<p>なお、<a href="../Hotstrings.htm">ホットストリングは</a>テキスト入力の検出専用なので、ホットストリングトリガーのテキスト内では、記号<code>^!+#{}</code>は特別な意味を持ちません。ただし、ホットストリングの<em>置換</em>テキストは、Sendと同じ構文を使用します（<a href="../Hotstrings.htm#T">Tオプションを</a>使用した場合を除く）。Whenever you type "{" with the following hotstring active, it sends "}" and then <kbd>Left</kbd> to move the insertion point back between the braces:</p>
 <pre>:*?B0:{::{}}{Left}</pre>
 
-<h3>Blind mode</h3>
-<p>Normally, Send assumes that any modifier keys you are physically holding down should not be combined with the keys you are asking it to send. For instance, if you are holding <kbd>Ctrl</kbd> and you call <code>Send "Hi"</code>, Send will automatically release <kbd>Ctrl</kbd> before sending "Hi" and press it back down afterward.</p>
-<p>Sometimes what you want is to send some keys in combination with other modifiers that were previously pressed or sent. To do this, you can use the <code>{Blind}</code> prefix. While running the following example, try focusing a non-empty text editor or input field and pressing <kbd>1</kbd> or <kbd>2</kbd> while holding <kbd>Ctrl</kbd> or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>:</p>
+<h3>ブラインドモード</h3>
+<p>通常、Sendは、物理的に押している修飾キーが、送信を要求しているキーと組み合わされてはいけないと仮定しています。例えば、<kbd>Ctrlを</kbd>押しながら<code>Sendを「Hi</code>」と呼ぶと、Sendは「Hi」を送信する前に<kbd>Ctrlを</kbd>自動的に離し、送信後にCtrlを押し戻すようにします。</p>
+<p>あるキーを、以前に押したり送ったりした他のモディファイアと組み合わせて送りたいことがあります。そのためには、接頭辞として<code>{Blind}を</code>使用することができます。以下の例を実行しながら、空でないテキストエディターや入力フィールドにフォーカスし、<kbd>Ctrl</kbd>または<kbd>Ctrl+</kbd><kbd>Shiftを</kbd>押したまま<kbd>1</kbd>または<kbd>2を押してみて</kbd>ください。</p>
 <pre>*^1::Send "{Blind}{Home}"
 *^2::Send "{Blind}{End}"</pre>
-<p>For more about <code>{Blind}</code>, see <a href="../lib/Send.htm#Blind">Blind mode</a>.</p>
+<p><code>{Blind}については</code>、「<a href="../lib/Send.htm#Blind">ブラインドモード</a>」を参照してください。</p>
 
 <h3>その他</h3>
-<p>Send supports a few other special constructs, such as:</p>
+<p>Sendは、他にもいくつかの特殊な構成要素をサポートしています。</p>
 <ul>
-  <li><code>{U+00B5}</code> to send a Unicode character by its ordinal value (character code).</li>
-  <li><code>{ASC 0181}</code> to send an Alt+Numpad sequence.</li>
-  <li><code class="no-highlight">{Click <i>Options</i>}</code> to click or move the mouse.</li>
+  <li><code>{U+00B5}</code>Unicodeの文字を序列値（文字コード）で送信します。</li>
+  <li><code>{ASC 0181}</code>Alt+Numpad のシーケンスを送信する。</li>
+  <li><code class="no-highlight">{Click<i>Options}</i></code> マウスをクリックしたり動かしたりします。</li>
 </ul>
-<p>For a full list, see <a href="../lib/Send.htm#keynames">Key names</a>.</p>
+<p>全リストは、「<a href="../lib/Send.htm#keynames">主要な名称</a>」をご覧ください。</p>
 
-<h2>Modes and options</h2>
-<p>Sending a key does not perfectly replicate the act of physically pressing the key. The operating system provides several different ways to send keys, with different caveats for each. Sometimes to get the result you want, you will need to not only try different methods but also tweak the timing.</p>
-<p>The <a href="../lib/Send.htm#Send_variants">main methods</a> are SendInput, SendEvent and SendPlay. SendInput is generally the most reliable, so by default, Send is synonymous with SendInput. <a href="../lib/SendMode.htm">SendMode</a> can be used to make Send synonymous with SendEvent or SendPlay instead. The documentation describes other pros and cons of <a href="../lib/Send.htm#SendInputDetail">SendInput</a> and <a href="../lib/Send.htm#SendPlayDetail">SendPlay</a> at length, but I would suggest just trying SendEvent or SendPlay when you have issues with SendInput.</p>
-<p class="warning"><strong>Warning:</strong> SendPlay doesn't tend to work on modern systems unless you <a href="../Program.htm#Installer_uiAccess">run with UI access</a>.</p>
-<p>Another option worth trying is <a href="../lib/ControlSend.htm">ControlSend</a>. This doesn't use an official method of sending keystrokes, but instead sends messages directly to the window that you specify. The main advantage is that the window usually doesn't need to be active to receive these messages. But since it bypasses the normal processing of keyboard input by the system, sometimes it doesn't work.</p>
+<h2>モードとオプション</h2>
+<p>キーを送信しても、物理的にキーを押すという行為を完全に再現することはできません。OSでは、キーを送信する方法がいくつか用意されており、それぞれに注意点があります。時には、望む結果を得るために、さまざまな方法を試すだけでなく、タイミングを微調整することも必要です。</p>
+<p><a href="../lib/Send.htm#Send_variants">主なメソッドは</a>SendInput、SendEvent、SendPlayです。一般的にSendInputが最も信頼性が高いので、デフォルトではSendはSendInputと同義である。<a href="../lib/SendMode.htm">SendModeを</a>使用することで、SendをSendEventまたはSendPlayと同義にすることができます。ドキュメントには<a href="../lib/Send.htm#SendInputDetail">SendInputと</a> <a href="../lib/Send.htm#SendPlayDetail">SendPlayの</a>他の長所と短所が長々と書かれていますが、SendInputで問題があったときにSendEventやSendPlayを試してみるだけでもいいと思います。</p>
+<p class="warning"><strong>警告です。</strong>SendPlayは、<a href="../Program.htm#Installer_uiAccess">UIアクセスで実行</a>しない限り、最新のシステムで動作しない傾向があります。</p>
+<p>また、<a href="../lib/ControlSend.htm">ControlSendも試して</a>みる価値のあるオプションです。これは、キー操作を送信する公式な方法を使わず、指定したウィンドウに直接メッセージを送信します。主な利点は、これらのメッセージを受信するためにウィンドウが通常アクティブである必要がないことです。しかし、システムによるキーボード入力の通常処理をバイパスするため、うまくいかないこともあります。</p>
 
-<h3>Timing and delays</h3>
-<p>Sometimes you can get away with sending a flood of keystrokes faster than humanly possible, and sometimes you can't. There are generally two situations where you might need a delay:</p>
+<h3>タイミングと遅延</h3>
+<p>人並み以上の速さでキー入力の洪水を送っても大丈夫な場合もあれば、そうでない場合もあります。ディレイが必要になる場面は、一般的に2つあると思います。</p>
 <ul>
-  <li>A keypress is supposed to trigger some change within the target app (such as showing a new control or window), and sending another keypress before that happens will have the wrong effect.</li>
-  <li>The app can't keep up with a rapid stream of keystrokes, and you need to slow them all down.</li>
+  <li>キープレスは、ターゲットアプリ内で何らかの変化（新しいコントロールやウィンドウの表示など）を引き起こすものであり、その前に別のキープレスを送信すると、間違った効果をもたらします。</li>
+  <li>キーストロークの急激な流れにアプリがついていけず、すべてをスローダウンさせる必要があります。</li>
 </ul>
-<p>For the first case, you can simply call Send, then <a href="../lib/Sleep.htm">Sleep</a>, then Send, and so on.</p>
-<p><a href="../lib/SetKeyDelay.htm">SetKeyDelay</a> exists for the second case. This function can set a delay to be performed between each keystroke, and the duration of the keystroke (i.e. the delay between pressing and releasing the key).</p>
+<p>最初の場合は、「Send」→「<a href="../lib/Sleep.htm">Sleep</a>」→「Send」と呼び出すだけでよいです。</p>
+<p><a href="../lib/SetKeyDelay.htm">SetKeyDelay</a> 2番目のケースに存在します。この機能は、各キーストロークの間に実行される遅延と、キーストロークの持続時間（つまり、キーを押してから離すまでの遅延）を設定できます。</p>
 <pre>^1::{
-    SetKeyDelay 75, 25  <em>; 75ms between keys, 25ms between down/up.</em>
+    SetKeyDelay 75, 25<em>; キー間75ms、ダウン/アップ間25ms。</em>
     SendEvent "You should see the keys{bs 4}text appear gradually."
 }</pre>
-<p class="warning"><strong>Warning:</strong> SendInput does not support key delays, nor does Send by default.</p>
-<p>In order to make SetKeyDelay effective, you must generally either use <code>SendMode "Event"</code> or call SendEvent, SendPlay or ControlSend instead of Send or SendText.</p>
+<p class="warning"><strong>警告</strong>SendInputはキーディレイをサポートしておらず、デフォルトのSendもサポートしていません。</p>
+<p>SetKeyDelayを有効にするためには、一般的に<code>SendMode "Event "</code>を使用するか、SendやSendTextの代わりにSendEvent、SendPlay、ControlSendを呼ぶ必要があります。</p>
 
-<h2>Sending a lot of text</h2>
-<p>One way to send multiple lines of text is to use a <a href="../Scripts.htm#continuation-section">continuation section</a>:</p>
+<h2>テキストを大量に送信する</h2>
+<p>複数行の文章を送る方法として、<a href="../Scripts.htm#continuation-section">継続部分を</a>利用する方法があります。</p>
 <pre>SendText "
 (
-    Leading indentation is stripped out,
-    based on the first line.
-Line breaks are kept
-    unless you use the "Join" option.
+    先頭のインデントが取り除かれます。
+    を1行目としています。
+改行が保持されます
+    "Join "オプションを使用しない限り。
 )"</pre>
-<p>Although it is generally quite fast, SendText still has to send each character one at a time, while Send generally needs to send at least twice as many messages (key-down <em>and</em> key-up). This adds up to a noticeable delay when sending a large amount of text. It can also become unreliable, as a longer delay means higher risk of conflict with input by the user, the keyboard focus shifting, or other conditions changing.</p>
-<p>Generally it is faster and more reliable to instead place the text on the clipboard and <em>paste</em> it. 事例:</p>
+<p>一般的にかなり高速ですが、SendTextはまだ各文字を一度に送信する必要があり、Sendは一般的に少なくとも2倍のメッセージ（<em>キーダウン・キーアップ</em>）を送信する必要があります。そのため、大量のテキストを送信する際には、顕著な遅延が発生します。また、遅延が長くなると、ユーザーの入力と衝突したり、キーボードのフォーカスがずれたり、その他の条件が変化するリスクが高くなるため、信頼性が低くなる可能性があります。</p>
+<p>一般的には、クリップボードにテキストを置き、それを<em>貼り</em>付ける方が、より速く、より確実です。事例:</p>
 <pre>^1::{
-    old_clip := ClipboardAll()<em>; Save all clipboard content</em>
+    old_clip := ClipboardAll()<em>; クリップボードの内容をすべて保存する</em>
     A_Clipboard := "
     (Join`s
-        This text is placed on the clipboard,
-        and will be pasted below by sending Ctrl+V.
+        このテキストは、クリップボードに置かれます。
+        で、Ctrl+Vを送ると下に貼り付けられます。
 )"
     Send "^v"
-    Sleep 500<em>; Wait a bit for Ctrl+V to be processed</em>
-    A_Clipboard := old_clip<em>; Restore previous clipboard content</em>
+    Sleep 500<em>; Ctrl+V が処理されるまで少し待つ。</em>
+    A_Clipboard := old_clip<em>; 以前のクリップボードの内容を復元する</em>
 }</pre>
 
 </body>

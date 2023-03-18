@@ -78,7 +78,7 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p>The range of valid return values depends on whether the exe running the script is 32-bit or 64-bit. Non-empty return values must be between -2<sup>31</sup> and 2<sup>32</sup>-1 for 32-bit scripts (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 4</code>) and between -2<sup>63</sup> and 2<sup>63</sup>-1 for 64-bit scripts (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 8</code>).</p>
 <p>If there are multiple functions monitoring a given message number, they are called one by one until one returns a non-empty value.</p>
 
-<h2 id="Remarks">General Remarks</h2>
+<h2 id="Remarks">総論</h2>
 <p>Unlike a normal function-call, the arrival of a monitored message calls the function as a new <a href="../misc/Threads.htm">thread</a>. Because of this, the function starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>. These defaults can be changed during <a href="../Scripts.htm#auto">script startup</a>.</p>
 <p>Messages sent to a control (rather than being posted) are not monitored because the system routes them directly to the control behind the scenes. This is seldom an issue for system-generated messages because most of them are posted.</p>
 <p>If the script is intended to stay running in an idle state to monitor for incoming messages, it may be necessary to call the <a href="Persistent.htm">Persistent</a> function to prevent the script from exiting. OnMessage does not automatically make the script persistent, as it is sometimes unnecessary or undesired. For instance, when OnMessage is used to monitor input to a GUI window (such as in the <a href="#ExLButtonDown">WM_LBUTTONDOWN example</a>), it is often more appropriate to allow the script to exit automatically when the last GUI window is closed.</p>
@@ -99,7 +99,7 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">Examples</h2>
 <div class="ex" id="ExLButtonDown">
-<p><a class="ex_number" href="#ExLButtonDown"></a>  Monitors mouse clicks in a GUI window. Related topic: <a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
+<p><a class="ex_number" href="#ExLButtonDown"></a> Monitors mouse clicks in a GUI window. 関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
 <pre>MyGui := Gui(, "Example Window")
 MyGui.Add("Text",, "Click anywhere in this window.")
 MyGui.Add("Edit", "w200")
@@ -123,7 +123,7 @@ WM_LBUTTONDOWN(wParam, lParam, msg, hwnd)
 </div>
 
 <div class="ex" id="ExShutdown">
-<p><a class="ex_number" href="#ExShutdown"></a>  Detects system shutdown/logoff and allows the user to abort it. On Windows Vista and later, the system displays a user interface showing which program is blocking shutdown/logoff and allowing the user to force shutdown/logoff. On older OSes, the script displays a confirmation prompt. Related topic: <a href="OnExit.htm">OnExit</a></p>
+<p><a class="ex_number" href="#ExShutdown"></a> Detects system shutdown/logoff and allows the user to abort it. On Windows Vista and later, the system displays a user interface showing which program is blocking shutdown/logoff and allowing the user to force shutdown/logoff. On older OSes, the script displays a confirmation prompt. 関連トピック<a href="OnExit.htm">OnExit</a></p>
 <pre><em>; The following DllCall is optional: it tells the OS to shut down this script first (prior to all other applications).</em>
 DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
 OnMessage(0x0011, On_WM_QUERYENDSESSION)

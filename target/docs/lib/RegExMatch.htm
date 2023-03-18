@@ -57,7 +57,7 @@
 <p><strong>Syntax errors:</strong> If the pattern contains a syntax error, an <a href="Error.htm">Error</a> is thrown with a message in the following form: <em>Compile error N at offset M: description</em>. In that string, <em>N</em> is the PCRE error number, <em>M</em> is the position of the offending character inside the regular expression, and <em>description</em> is the text describing the error.</p>
 <p><strong>Execution errors:</strong> If an error occurs during the <em>execution</em> of the regular expression, an <a href="Error.htm">Error</a> is thrown. The <em>Extra</em> property of the error object contains the PCRE error number. Although such errors are rare, the ones most likely to occur are "too many possible empty-string matches" (-22), "recursion too deep" (-21), and "reached match limit" (-8). If these happen, try to redesign the pattern to be more restrictive, such as replacing each * with a ?, +, or a limit like {0,3} wherever feasible.</p>
 
-<h2 id="Options">Options</h2>
+<h2 id="Options">オプション</h2>
 <p>See <a href="../misc/RegEx-QuickRef.htm#Options">Options</a> for modifiers such as <span class="regex"><span class="red">i)</span>abc</span>, which turns off case-sensitivity in the pattern "abc".</p>
 
 <h2 id="MatchObject">Match Object (RegExMatchInfo)</h2>
@@ -82,7 +82,7 @@
 <p>To improve performance, the 100 most recently used regular expressions are kept cached in memory (in compiled form).</p>
 <p>The <a href="../misc/RegEx-QuickRef.htm#Study">study option (S)</a> can sometimes improve the performance of a regular expression that is used many times (such as in a loop).</p>
 
-<h2 id="Remarks">Remarks</h2>
+<h2 id="Remarks">備考</h2>
 <p id="NamedSubPat">A subpattern may be given a name such as the word <em>Year</em> in the pattern <span class="regex">(?P&lt;Year&gt;\d{4})</span>. Such names may consist of up to 32 alphanumeric characters and underscores. Note that named subpatterns are also numbered, so if an <a href="../misc/RegEx-QuickRef.htm#subpat">unnamed subpattern</a> occurs after "Year", it would be stored in <code>OutputVar[2]</code>, not <code>OutputVar[1]</code>.</p>
 <p>Most characters like abc123 can be used literally inside a regular expression. However, the characters <strong>\.*?+[{|()^$</strong> must be preceded by a backslash to be seen as literal. For example, <strong>\.</strong> is a literal period and <strong>\\</strong> is a literal backslash. Escaping can be avoided by using \Q...\E. 事例:<span class="regex">\QLiteral Text\E</span>.</p>
 <p>Within a regular expression, special characters such as tab and newline can be escaped with either an accent (`) or a backslash (\). For example, `t is the same as \t except when the <b>x</b> option is used.</p>

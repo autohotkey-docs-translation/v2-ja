@@ -28,7 +28,7 @@
       <p>If the asterisk is present, upward navigation may optionally be restricted to a folder other than Desktop. This is done by preceding the asterisk with the absolute path of the uppermost folder followed by exactly one space or tab. For example, <code>"C:\My Folder *C:\My Folder\Projects"</code> would not allow the user to navigate any higher than C:\My Folder (but the initial selection would be C:\My Folder\Projects).</p>
     </dd>
 
-  <dt>Options</dt>
+  <dt>オプション</dt>
   <dd>
       <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
       <p>One of the following numbers:</p>
@@ -53,11 +53,11 @@
 <pre>Folder := RegExReplace(DirSelect(), "\\$")  <em>; Removes the trailing backslash, if present.</em></pre>
 <p>An empty string is also returned if the system refused to show the dialog, but this is very rare.</p>
 
-<h2 id="Remarks">Remarks</h2>
+<h2 id="Remarks">備考</h2>
 <p>A folder-selection dialog usually looks like this:</p>
 <img src="../static/dlg_folder.png" alt="DirSelect" />
 <p>A GUI window may display a modal folder-selection dialog by means of the <a href="Gui.htm#OwnDialogs">+OwnDialogs</a> option. A modal dialog prevents the user from interacting with the GUI window until the dialog is dismissed.</p>
-<p>Known limitation: A <a href="SetTimer.htm">timer</a> that launches during the display of a DirSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. To work around this, avoid using timers whose subroutines take a long time to finish, or disable all timers during the dialog:</p>
+<p>既知の制限です。A <a href="SetTimer.htm">timer</a> that launches during the display of a DirSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. To work around this, avoid using timers whose subroutines take a long time to finish, or disable all timers during the dialog:</p>
 <pre><a href="Thread.htm">Thread</a> "NoTimers"
 SelectedFolder := DirSelect(, 3)
 Thread "NoTimers", false</pre>

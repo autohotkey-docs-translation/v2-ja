@@ -365,9 +365,9 @@ SystemCursor(cmd)<em>; cmd = "Show|Hide|Toggle|Reload"</em>
 <div class="ex" id="ExStruct">
 <p><a class="ex_number" href="#ExStruct"></a>  Structure example. Pass the address of a RECT structure to GetWindowRect(), which sets the structure's members to the positions of the left, top, right, and bottom sides of a window (relative to the screen).</p>
 <pre>Run "Notepad"
-WinWait "Untitled - Notepad"  <em>; This also sets the "<a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a>" for use with WinExist below.</em>
-Rect := Buffer(16)  <em>; A RECT is a struct consisting of four 32-bit integers (i.e. 4*4=16).</em>
-DllCall("GetWindowRect", "Ptr", WinExist(), "Ptr", Rect)  <em>; WinExist returns an HWND.</em>
+WinWait "無題-メモ帳"<em>; This also sets the "<a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a>" for use with WinExist below.</em>
+Rect := Buffer(16)<em>; A RECT is a struct consisting of four 32-bit integers (i.e. 4*4=16).</em>
+DllCall("GetWindowRect", "Ptr", WinExist(), "Ptr", Rect)<em>; WinExist returns an HWND.</em>
 L := NumGet(Rect, 0, "Int"), T := NumGet(Rect, 4, "Int")
 R := NumGet(Rect, 8, "Int"), B := NumGet(Rect, 12, "Int")
 MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>Advanced Hotkey Features | AutoHotkey v2</title>
-<meta name="description" content="Learn advanced hotkey features such as using any keys as modifiers or automating game actions on the screen." />
+<title>高度なホットキー機能｜AutoHotkey v2</title>
+<meta name="description" content="任意のキーをモディファイアとして使用したり、画面上でゲームのアクションを自動化するなど、高度なホットキー機能を学ぶことができます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,90 +10,90 @@
 </head>
 
 <body>
-<h1>Advanced Hotkey Features</h1>
+<h1>高度なホットキー機能</h1>
 
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#general">General</a>
+  <li><a href="#general">一般</a>
     <ul>
-      <li><a href="#easy-to-reach">Remap easy to reach but rarely used keys</a></li>
-      <li><a href="#keys-as-modifiers">Use any keys as modifiers</a></li>
-      <li><a href="#AltTab">Make the mouse wheel perform alt-tabbing</a></li>
-      <li><a href="#keyboard-to-mouse">Make a keyboard key become a mouse button</a></li>
-      <li><a href="#context-sensitive">Make your hotkeys context-sensitive</a></li>
-      <li><a href="#hotstrings">Define abbreviations that expand as you type them</a></li>
+      <li><a href="#easy-to-reach">手の届きやすい、でもあまり使わないキーをリマップ</a></li>
+      <li><a href="#keys-as-modifiers">任意のキーをモディファイアとして使用する</a></li>
+      <li><a href="#AltTab">マウスホイールでalt-tabbingを行うようにする</a></li>
+      <li><a href="#keyboard-to-mouse">キーボードのキーをマウスのボタンにする</a></li>
+      <li><a href="#context-sensitive">ホットキーに文脈依存性を持たせる</a></li>
+      <li><a href="#hotstrings">入力すると展開される略語の定義</a></li>
     </ul>
   </li>
-  <li><a href="#gaming">Gaming</a>
+  <li><a href="#gaming">ゲーミング</a>
     <ul>
-      <li><a href="#wear-and-tear">Reduce wear and tear on your fingers</a></li>
-      <li><a href="#mouse-hotkeys">Create mouse hotkeys</a></li>
-      <li><a href="#pass-through">Create "pass-through" hotkeys</a></li>
-      <li><a href="#game-actions">Automate game actions on the screen</a></li>
-      <li><a href="#keyboard-hook">Use the keyboard hook</a></li>
+      <li><a href="#wear-and-tear">指の摩耗を軽減する</a></li>
+      <li><a href="#mouse-hotkeys">マウスのホットキーの作成</a></li>
+      <li><a href="#pass-through">パススルー」ホットキーの作成</a></li>
+      <li><a href="#game-actions">画面上でゲームの動作を自動化する</a></li>
+      <li><a href="#keyboard-hook">キーボードフックを使用する</a></li>
     </ul>
   </li>
-  <li><a href="#related">Related Topics</a></li>
+  <li><a href="#related">関連する話題</a></li>
 </ul>
 
-<h2 id="general">General</h2>
+<h2 id="general">一般</h2>
 
-<h3 id="easy-to-reach">Remap easy to reach but rarely used keys</h3>
-<p>Some of the easiest keys to reach on the keyboard are also the least frequently used. Make these keys do something useful! For example, if you rarely use the right <kbd>Alt</kbd>, make it perform the action you do most often:</p>
+<h3 id="easy-to-reach">手の届きやすい、でもあまり使わないキーをリマップ</h3>
+<p>キーボードで最も届きやすいキーは、最も使用頻度の低いキーでもあります。このキーに便利な機能を持たせてください例えば、右の<kbd>Altを</kbd>ほとんど使わないのであれば、一番よく使う動作をさせる。</p>
 <pre>RAlt::MsgBox "You pressed the right ALT key."</pre>
-<p>You can even do the above without losing the native function of the right <kbd>Alt</kbd> by assigning the right <kbd>Alt</kbd> to be a "prefix" for at least one other hotkey. In the below example, the right <kbd>Alt</kbd> has become a prefix, which automatically allows it to modify <strong>all</strong> other keys as it normally would. But if you press and release the right <kbd>Alt</kbd> without having used it to modify another key, its hotkey action (above) will take effect immediately:</p>
+<p>右<kbd>Altを</kbd>少なくとも1つの他のホットキーの「接頭辞」に割り当てることで、右<kbd>Altの</kbd>本来の機能を失わずに上記のことを行うことも可能です。下の例では、右の<kbd>Altが</kbd>プレフィックスになり、自動的に他の<strong>すべての</strong>キーを通常と同じように変更できるようになりました。しかし、他のキーの変更に使用せずに右<kbd>Altを押して</kbd>離すと、そのホットキーの動作（上記）が直ちに有効になります。</p>
 <pre>RAlt &amp; j::AltTab</pre>
 
-<h3 id="keys-as-modifiers">Use any keys as modifiers</h3>
-<p>Don't be limited to using only <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Shift</kbd>, and <kbd>Win</kbd> as modifiers; you can combine <strong>any</strong> two keys or mouse buttons to form a custom hotkey. 事例:Hold down Numpad0 and press Numpad1 to launch a hotkey (<code>Numpad0 &amp; Numpad1::</code>); hold down <kbd>CapsLock</kbd> and press another key, or click a mouse button (<code>CapsLock &amp; RButton::</code>). In this case, <kbd>CapsLock</kbd>'s state (on or off) is not changed when it is used to launch the hotkey. For details, see <a href="Hotkeys.htm#combo">custom combinations of keys</a>.</p>
+<h3 id="keys-as-modifiers">任意のキーをモディファイアとして使用する</h3>
+<p><kbd>Ctrl</kbd>、<kbd>Alt</kbd>、<kbd>Shift</kbd>、<kbd>Winの</kbd>4つのキーだけで<strong>なく</strong>、2つのキーやマウスのボタンを組み合わせて、カスタムホットキーを作成することができます。事例:Numpad0を押しながらNumpad1を押すとホットキーが起動し<code>（Numpad0 &amp; Numpad1::</code>）、<kbd>CapsLockを</kbd>押しながら他のキーを押すか、マウスボタンをクリックする<code>（CapsLock &amp; RButton::</code>）．この場合、ホットキーの起動に使用されても、<kbd>CapsLockの</kbd>状態（オンまたはオフ）は変更されません。詳しくは、<a href="Hotkeys.htm#combo">キーのカスタムコンビネーションを</a>ご覧ください。</p>
 
-<h3 id="AltTab">Make the mouse wheel perform alt-tabbing</h3>
-<p>Convert the mouse wheel (or any other keys of your choice) into a complete substitute for Alt-Tab. Click the wheel to show or hide the menu, and turn it to navigate through the menu. The wheel will still function normally whenever the Alt-Tab menu isn't visible. Syntax:</p>
+<h3 id="AltTab">マウスホイールでalt-tabbingを行うようにする</h3>
+<p>マウスホイール（または他の任意のキー）をAlt-Tabの完全な代用品に変換します。ホイールをクリックするとメニューの表示／非表示が切り替わり、回すとメニューの移動ができます。Alt-Tabメニューが表示されていない場合でも、ホイールは正常に機能します。構文:</p>
 <pre>MButton::AltTabMenu
 WheelDown::AltTab
 WheelUp::ShiftAltTab</pre>
 
-<h3 id="keyboard-to-mouse">Make a keyboard key become a mouse button</h3>
-<p>Make a keyboard key <strong>become</strong> a mouse button, or have an action repeated continuously while you're holding down a key or mouse button. See the <a href="misc/Remap.htm#RemapMouse">remapping page</a> for examples.</p>
+<h3 id="keyboard-to-mouse">キーボードのキーをマウスのボタンにする</h3>
+<p>キーボードの<strong>キーが</strong>マウスのボタンになったり、キーやマウスのボタンを押している間、動作が連続的に繰り返されるようにする。例については、<a href="misc/Remap.htm#RemapMouse">リマッピングページを</a>ご覧ください。</p>
 
-<h3 id="context-sensitive">Make your hotkeys context-sensitive</h3>
-<p>Have your easiest-to-reach hotkeys perform an action appropriate to the type of window you're working with. In the following example, the right <kbd>Ctrl</kbd> performs a different action depending on whether Notepad or Calculator is the active window:</p>
+<h3 id="context-sensitive">ホットキーに文脈依存性を持たせる</h3>
+<p>作業中のウィンドウの種類に応じたアクションを、最も簡単にアクセスできるホットキーで実行できるようにします。次の例では、右<kbd>Ctrlは</kbd>、メモ帳と電卓のどちらがアクティブなウィンドウであるかによって、異なる動作をします。</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
-RControl::Send "^s"<em>; Save the current file in Notepad.</em>
+RControl::Send "^s"<em>; 現在のファイルをメモ帳に保存する。</em>
 
 #HotIf WinActive("Calculator")
-RControl::Send "^c!{tab}^v"<em>; Copy the Calculator's result into the previously active window.</em></pre>
+RControl::Send "^c!{tab}^v"<em>; 電卓で計算した結果を、それまでアクティブだったウィンドウにコピーします。</em></pre>
 <p>See <a href="lib/_HotIf.htm">#HotIf</a> for details.</p>
 
-<h3 id="hotstrings">Define abbreviations that expand as you type them</h3>
-<p>Also known as <a href="Hotstrings.htm">hotstrings</a>. No special training or scripting experience is needed.  For example, a script containing the following lines would expand ceo, cfo, and btw wherever you type them:</p>
+<h3 id="hotstrings">入力すると展開される略語の定義</h3>
+<p><a href="Hotstrings.htm">ホットストリングスとも</a>呼ばれる。特別なトレーニングやスクリプトの経験は必要ありません。例えば、以下の行を含むスクリプトは、ceo、cfo、btwをどこに入力しても展開します。</p>
 <pre>::ceo::Chief Executive Officer
 ::cfo::Chief Financial Officer
 ::btw::by the way</pre>
 
-<h2 id="gaming">Gaming</h2>
+<h2 id="gaming">ゲーミング</h2>
 
-<h3 id="wear-and-tear">Reduce wear and tear on your fingers</h3>
-<p>Reduce wear and tear on your fingers by using virtually <a href="KeyList.htm">any key</a> as a hotkey, including single letters, arrow keys, Numpad keys, and even the modifier keys themselves (Ctrl, Alt, Win, and Shift).</p>
+<h3 id="wear-and-tear">指の摩耗を軽減する</h3>
+<p>アルファベット1文字、矢印キー、テンキー、修飾キー（Ctrl、Alt、Win、Shift）など、ほぼ<a href="KeyList.htm">すべてのキーを</a>ホットキーとして使用できるため、指の消耗を抑えることができます。</p>
 
-<h3 id="mouse-hotkeys">Create mouse hotkeys</h3>
-<p>Create mouse hotkeys, including the mouse wheel button (MButton) and the turning of the wheel up/down or left/right (WheelUp, WheelDown, WheelLeft, and WheelRight). You can also combine a keyboard key with a mouse button. For example, control-right-button would be expressed as <code>^RButton::</code>.</p>
+<h3 id="mouse-hotkeys">マウスのホットキーの作成</h3>
+<p>マウスのホイールボタン（MButton）、ホイールの上下左右の回転（WheelUp, WheelDown, WheelLeft, WheelRight）など、マウスのホットキーを作成します。また、キーボードのキーとマウスのボタンを組み合わせることもできます。例えば、control-right-buttonは、<code>^RButton::</code>と表現されます。</p>
 
-<h3 id="pass-through">Create "pass-through" hotkeys</h3>
-<p>For example, the left mouse button can trigger a hotkey action even while the click itself is being sent  into the game normally (syntax: <code>~LButton::</code>).</p>
+<h3 id="pass-through">パススルー」ホットキーの作成</h3>
+<p>例えば、マウスの左ボタンをクリックすると、クリックそのものが普通にゲームに送られていても、ホットキーアクションをトリガーすることができます（シンタックス:<code>~LButton::</code>).</p>
 
-<h3 id="game-actions">Automate game actions on the screen</h3>
-<p>Use functions such as <a href="lib/PixelSearch.htm">PixelSearch</a>, <a href="lib/PixelGetColor.htm">PixelGetColor</a>, and <a href="lib/ImageSearch.htm">ImageSearch</a> to automate game actions.</p>
+<h3 id="game-actions">画面上でゲームの動作を自動化する</h3>
+<p><a href="lib/PixelSearch.htm">PixelSearch</a>、<a href="lib/PixelGetColor.htm">PixelGetColor</a>、<a href="lib/ImageSearch.htm">ImageSearchなどの</a>関数を使用して、ゲームアクションを自動化することができます。</p>
 
-<h3 id="keyboard-hook">Use the keyboard hook</h3>
-<p>Have the option of using the <a href="lib/_UseHook.htm">keyboard hook</a> to implement hotkeys, which might be more responsive than other hotkey methods while the CPU is under load in a game. The hook might also be able to override any restrictions a game may have about which keys can be "mapped" to game actions.</p>
+<h3 id="keyboard-hook">キーボードフックを使用する</h3>
+<p><a href="lib/_UseHook.htm">キーボードフックを使って</a>ホットキーを実装するオプションがあり、ゲームでCPUに負荷がかかっているときに、他のホットキー方式よりも反応が良くなる可能性があります。また、どのキーをゲームのアクションに「マッピング」するかというゲーム側の制限を、フックで上書きすることもできるかもしれません。</p>
 
-<h2 id="related">Related Topics</h2>
+<h2 id="related">関連する話題</h2>
 <ul>
-  <li><a href="Hotkeys.htm">Hotkeys</a></li>
-  <li><a href="Hotstrings.htm">Hotstrings</a></li>
-  <li><a href="misc/Remap.htm">Remapping Keys</a></li>
+  <li><a href="Hotkeys.htm">ホットキー</a></li>
+  <li><a href="Hotstrings.htm">ホットストリングス</a></li>
+  <li><a href="misc/Remap.htm">キーのリマッピング</a></li>
 </ul>
 
 </body>

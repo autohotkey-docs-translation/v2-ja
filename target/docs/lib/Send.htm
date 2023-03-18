@@ -36,7 +36,7 @@
     </style>
     <table id="modifierkeys" class="info">
       <tr>
-        <th>Symbol</th>
+        <th>シンボル</th>
         <th>Key</th>
         <th>Press</th>
         <th>Release</th>
@@ -97,7 +97,7 @@
 <p><code>`n</code>, <code>`r</code> and <code>`r`n</code> are all translated to a single <kbd>Enter</kbd>, unlike the default behavior and Raw mode, which translate <code>`r`n</code> to two <kbd>Enter</kbd>. <code>`t</code> is translated to <kbd>Tab</kbd> and <code>`b</code> to <kbd>Backspace</kbd>, but all other characters are sent without translation.</p>
 <p>Like the Blind mode, the Text mode ignores <a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a> (that is, the state of <kbd>CapsLock</kbd> is not changed) and does not <a href="../Hotkeys.htm#win-l">wait for <kbd>Win</kbd> to be released</a>. This is because the Text mode typically does not depend on the state of <kbd>CapsLock</kbd> and cannot trigger the system <kbd>Win</kbd>+<kbd>L</kbd> hotkey. However, this only applies when <em>Keys</em> begins with <code>{Text}</code> or <code>{Blind}{Text}</code>.</p>
 
-<h3 id="Blind">Blind mode</h3>
+<h3 id="Blind">ブラインドモード</h3>
 <p id="blind">The Blind mode can be enabled with <code>{Blind}</code>, which gives the script more control by disabling a number of things that are normally done automatically to make things work as expected. <code>{Blind}</code> must be the first item in the string to enable the Blind mode. It has the following effects:</p>
 <ul>
   <li>The Blind mode avoids releasing the modifier keys (Alt, Ctrl, Shift, and Win) if they started out in the down position, unless the modifier is <a href="#blind-exclude">excluded</a>. For example, the hotkey <code>+s::Send "{Blind}abc"</code> would send ABC rather than abc because the user is holding down <kbd>Shift</kbd>.</li>
@@ -514,7 +514,7 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p id="DownR"><strong>DownR</strong> (where "R" stands for <a href="../misc/Remap.htm">remapping</a>, which is its main use) tells subsequent sends that if the key is automatically released, it should be pressed down again when send is finished. For example, <code>Send "{Control DownR}"</code> followed later by <code>Send "a"</code> would produce <kbd>A</kbd>, not <kbd>Ctrl</kbd>+<kbd>A</kbd>, but will leave <kbd>Ctrl</kbd> in the pressed state for use with keyboard shortcuts. In other words, <em>DownR</em> has an effect similar to physically pressing the key.</p>
 <p>If a character does not correspond to a virtual key on the current keyboard layout, it cannot be "pressed" or "released". For example, <code>Send "{µ up}"</code> has no effect on most layouts, and <code>Send "{µ down}"</code> is equivalent to <code>Send "µ"</code>.</p>
 
-<h2 id="Remarks">General Remarks</h2>
+<h2 id="Remarks">総論</h2>
 <p id="characters"><strong>Characters vs. keys</strong>: By default, characters are sent by first translating them to keystrokes. If this translation is not possible (that is, if the current keyboard layout does not contain a key or key combination which produces that character), the character is sent by one of following fallback methods:</p>
 <ul id="fallback">
   <li>SendEvent and SendInput use <a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendinput">SendInput()</a> with the <a href="https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-keybdinput#keyeventf_unicode">KEYEVENTF_UNICODE flag</a>.</li>
