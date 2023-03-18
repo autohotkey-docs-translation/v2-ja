@@ -21,7 +21,7 @@
   <dt>[DllFile\]Function</dt>
   <dd>
       <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
-      <p>The DLL or EXE file name followed by a backslash and the name of the function. 事例:<code>"MyDLL\MyFunction"</code> (the file extension ".dll" is the default when omitted). If an absolute path isn't specified, <em>DllFile</em> is assumed to be in the system's PATH or <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>. Note that DllCall expects a path with backslashes (\). Forward slashes (/) are not supported.</p>
+      <p>The DLL or EXE file name followed by a backslash and the name of the function. 例えば、<code>"MyDLL\MyFunction"</code> (the file extension ".dll" is the default when omitted). If an absolute path isn't specified, <em>DllFile</em> is assumed to be in the system's PATH or <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>. Note that DllCall expects a path with backslashes (\). Forward slashes (/) are not supported.</p>
       <p id="std"><em>DllFile</em> may be omitted when calling a function that resides in User32.dll, Kernel32.dll, ComCtl32.dll, or Gdi32.dll. For example, <code>"User32\IsWindowVisible"</code> produces the same result as <code>"IsWindowVisible"</code>.</p>
       <p>If no function can be found by the given name, a "W" (Unicode) suffix is automatically appended. For example, <code>"MessageBox"</code> is the same as <code>"MessageBoxW"</code>.</p>
       <p>Performance can be dramatically improved when making <em>repeated</em> calls to a DLL by <a href="#load">loading it beforehand</a>.</p>
@@ -39,7 +39,7 @@
   <dd>
       <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p id="cdecl">The word <em>Cdecl</em> is normally omitted because most functions use the standard calling convention rather than the "C" calling convention (functions such as wsprintf that accept a varying number of arguments are one exception to this). Note that most object-oriented C++ functions use the <i>thiscall</i> convention, which is not supported.</p>
-      <p>If present, the word <em>Cdecl</em> should be listed before the return type (if any). Separate each word from the next with a space or tab. 事例:<code>"Cdecl Str"</code>.</p>
+      <p>If present, the word <em>Cdecl</em> should be listed before the return type (if any). Separate each word from the next with a space or tab. 例えば、<code>"Cdecl Str"</code>.</p>
       <p>Since a separate "C" calling convention does not exist in 64-bit code, <i>Cdecl</i> may be specified but has no effect on 64-bit builds of AutoHotkey.</p>
       <p><em>ReturnType</em>: If the function returns a 32-bit signed integer (Int), BOOL, or nothing at all, <em>ReturnType</em> may be omitted. Otherwise, specify one of the argument types from the <a href="#types">types table</a> below. The <a href="#asterisk">asterisk suffix</a> is also supported.</p>
   </dd>
@@ -161,12 +161,12 @@ str := StrGet(buf, "cp0")  <em>; Retrieve ANSI string from buffer.</em>
 <p>The built-in variable <a href="../Variables.htm#LastError">A_LastError</a> contains the result of the operating system's GetLastError() function.</p>
 
 <h2 id="load">Performance</h2>
-<p>When making repeated calls to a DLL, performance can be dramatically improved by loading it explicitly (<em>this is not necessary for a <a href="#std">standard DLL</a> such as User32 because it is always resident</em>). This practice avoids the need for DllCall to internally call LoadLibrary and FreeLibrary each time. 事例:</p>
+<p>When making repeated calls to a DLL, performance can be dramatically improved by loading it explicitly (<em>this is not necessary for a <a href="#std">standard DLL</a> such as User32 because it is always resident</em>). This practice avoids the need for DllCall to internally call LoadLibrary and FreeLibrary each time. 例えば、</p>
 <pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; Avoids the need for DllCall in the loop to load the library.</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
 DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; To conserve memory, the DLL may be unloaded after using it.</em></pre>
-<p>Even faster performance can be achieved by looking up the function's address beforehand. 事例:</p>
+<p>Even faster performance can be achieved by looking up the function's address beforehand. 例えば、</p>
 <pre><em>; In the following example, if the DLL isn't yet loaded, use LoadLibrary in place of GetModuleHandle.</em>
 <strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
 Loop 500

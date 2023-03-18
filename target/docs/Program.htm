@@ -101,7 +101,7 @@
 <p><strong>Known issue:</strong> Keyboard shortcuts for menu items do not work while the script is displaying a <a href="lib/MsgBox.htm">message box</a> or other dialog.</p>
 <p>The built-in variable <a href="Variables.htm#ScriptHwnd">A_ScriptHwnd</a> contains the unique ID (HWND) of the script's main window.</p>
 <p>Closing this window with <a href="lib/WinClose.htm">WinClose</a> (even from another script) causes the script to exit, but most other methods just hide the window and leave the script running.</p>
-<p>Minimizing the main window causes it to automatically be hidden. This is done to prevent any owned windows (such as GUI windows or certain dialog windows) from automatically being minimized, but also has the effect of hiding the main window's taskbar button. To instead allow the main window to be minimized normally, override the default handling with <a href="lib/OnMessage.htm">OnMessage</a>. 事例:</p>
+<p>Minimizing the main window causes it to automatically be hidden. This is done to prevent any owned windows (such as GUI windows or certain dialog windows) from automatically being minimized, but also has the effect of hiding the main window's taskbar button. To instead allow the main window to be minimized normally, override the default handling with <a href="lib/OnMessage.htm">OnMessage</a>. 例えば、</p>
 <pre>; This prevents the main window from hiding on minimize:
 OnMessage 0x0112, PreventAutoMinimize<em>; WM_SYSCOMMAND = 0x0112</em>
 OnMessage 0x0005, PreventAutoMinimize<em>; WM_SIZE = 0x0005
@@ -196,7 +196,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <p>For example, <code>_H, 64, !ANSI</code> would prefer AutoHotkey_H if available, 64-bit if compatible with the system, and finally Unicode over ANSI.</p>
 <p>Although the Launcher Settings GUI presents drop-down lists with options such as "Unicode 32-bit", a list of substrings can be manually entered.</p>
 <p>Additional (higher-priority) criteria can be specified on the command line with the <a href="#SlashRunWith">/RunWith</a> launcher switch.</p>
-<p>Criteria can be specified within the script by using the <a href="lib/_Requires.htm">#Requires</a> directive, either as a requirement (if supported by the target AutoHotkey version), or appended to the directive as a comment beginning with "prefer" and ending with a full stop or line ending. 事例:</p>
+<p>Criteria can be specified within the script by using the <a href="lib/_Requires.htm">#Requires</a> directive, either as a requirement (if supported by the target AutoHotkey version), or appended to the directive as a comment beginning with "prefer" and ending with a full stop or line ending. 例えば、</p>
 <pre>#Requires AutoHotkey v1.1.35 <em>; prefer 64-bit, Unicode.  More comments.</em></pre>
 
 <h3 id="launcher-run">Run *Launch</h3>
@@ -334,7 +334,7 @@ HKCU\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey</pre>
   <li>Registers the <em>UIAccess</em> shell verb, which appears in Explorer's context menu as "Run with UI access". By default this executes the <a href="#launcher">launcher</a>, which tries to select an appropriate UIA.exe file to run the script.</li>
 </ul>
 <p>The <a href="#launcher">launcher</a> can also be configured to run v1 scripts, v2 scripts or both with UI Access by default, but this option has no effect if a UIA.exe file does not exist for the selected version and build.</p>
-<p>Scripts which need to run other scripts with UI access can simply <a href="lib/Run.htm">Run</a> the appropriate UIA.exe file with the normal <a href="#cmd">command line parameters</a>. Alternatively, if the <em>UIAccess</em> shell verb is registered, it can be used via Run. 事例:<code>Run '*UIAccess "Script.ahk"'</code></p>
+<p>Scripts which need to run other scripts with UI access can simply <a href="lib/Run.htm">Run</a> the appropriate UIA.exe file with the normal <a href="#cmd">command line parameters</a>. Alternatively, if the <em>UIAccess</em> shell verb is registered, it can be used via Run. 例えば、<code>Run '*UIAccess "Script.ahk"'</code></p>
 <p><strong>Known limitations</strong>:</p>
 <ul>
   <li>UIA is only effective if the file is in a trusted location; i.e. a Program Files sub-directory.</li>

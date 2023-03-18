@@ -22,35 +22,35 @@
 </ul>
 <span id="Variables"></span><h2 id="Intro">変数</h2>
 <p>See <a href="Concepts.htm#variables">Variables</a> for general explanation and details about how variables work.</p>
-<p id="assigning"><strong>Storing values in variables</strong>:To store a string or number in a variable, use the <a href="#AssignOp">colon-equal operator (:=)</a> followed by a number, quoted string or any other type of <a href="Language.htm#expressions">expression</a>. 事例:</p>
+<p id="assigning"><strong>Storing values in variables</strong>:To store a string or number in a variable, use the <a href="#AssignOp">colon-equal operator (:=)</a> followed by a number, quoted string or any other type of <a href="Language.htm#expressions">expression</a>. 例えば、</p>
 <pre>MyNumber := 123
 MyString := "This is a literal string."
 CopyOfVar := Var</pre>
 <p>A variable cannot be explicitly deleted, but its previous value can be released by assigning a new value, such as an empty string:</p>
 <pre>MyVar := ""</pre>
-<p>A variable can also be assigned a value indirectly, by <a href="#ref">taking its reference</a> and using a <a href="#deref">double-deref</a> or passing it to a function. 事例:</p>
+<p>A variable can also be assigned a value indirectly, by <a href="#ref">taking its reference</a> and using a <a href="#deref">double-deref</a> or passing it to a function. 例えば、</p>
 <pre><a href="lib/MouseGetPos.htm">MouseGetPos</a> &amp;x, &amp;y</pre>
 <p>Reading the value of a variable which has not been assigned a value is considered an error. <a href="lib/IsSet.htm">IsSet</a> can be used to detect this condition.</p>
-<p id="retrieving"><strong>Retrieving the contents of variables</strong>:To include the contents of a variable in a string, use <a href="#concat">concatenation</a> or <a href="lib/Format.htm">Format</a>. 事例:</p>
+<p id="retrieving"><strong>Retrieving the contents of variables</strong>:To include the contents of a variable in a string, use <a href="#concat">concatenation</a> or <a href="lib/Format.htm">Format</a>. 例えば、</p>
 <pre><a href="lib/MsgBox.htm">MsgBox</a> "The value of Var is " . Var . "."
 MsgBox "The value in the variable named Var is " Var "."
 MsgBox Format("Var has the value {1}.", Var)
 </pre>
-<p>Sub-expressions can be combined with strings in the same way. 事例:</p>
+<p>Sub-expressions can be combined with strings in the same way. 例えば、</p>
 <pre>MsgBox("The sum of X and Y is " . (X + Y))
 </pre>
 <p><strong>Comparing variables</strong>: Please read the expressions section below for important notes about the different kinds of comparisons.</p>
 <h2 id="Expressions">Expressions</h2>
 <p class="note">See <a href="Language.htm#expressions">Expressions</a> for a structured overview and further explanation.</p>
 <p>Expressions are used to perform one or more operations upon a series of variables, literal strings, and/or literal numbers.</p>
-<p>Plain words in expressions are interpreted as variable names. Consequently, literal strings must be enclosed in double quotes to distinguish them from variables. 事例:</p>
+<p>Plain words in expressions are interpreted as variable names. Consequently, literal strings must be enclosed in double quotes to distinguish them from variables. 例えば、</p>
 <pre>if (CurrentSetting &gt; 100 or FoundColor != "Blue")
     MsgBox "The setting is too high or the wrong color is present."</pre>
-<p>In the example above, "Blue" appears in quotes because it is a literal string. Single-quote marks (') and double-quote marks (") function identically, except that a string enclosed in single-quote marks can contain literal double-quote marks and vice versa. Therefore, to include an <em>actual</em> quote mark inside a literal string, <a href="misc/EscapeChar.htm">escape</a> the quote mark or enclose the string in the opposite type of quote mark. 事例:</p>
+<p>In the example above, "Blue" appears in quotes because it is a literal string. Single-quote marks (') and double-quote marks (") function identically, except that a string enclosed in single-quote marks can contain literal double-quote marks and vice versa. Therefore, to include an <em>actual</em> quote mark inside a literal string, <a href="misc/EscapeChar.htm">escape</a> the quote mark or enclose the string in the opposite type of quote mark. 例えば、</p>
 <pre>MsgBox "She said, <span class="red">`"</span>An apple a day.<span class="red">`"</span>"
 MsgBox <span class="red">'</span>She said, "An apple a day."<span class="red">'</span></pre>
 <p><strong>Empty strings</strong>: To specify an empty string in an expression, use an empty pair of quotes. For example, the statement <code>if (MyVar != "")</code> would be true if <em>MyVar</em> is not blank.</p>
-<p><strong>Storing the result of an expression</strong>:To assign a result to a variable, use the <a href="#AssignOp">:= operator</a>. 事例:</p>
+<p><strong>Storing the result of an expression</strong>:To assign a result to a variable, use the <a href="#AssignOp">:= operator</a>. 例えば、</p>
 <pre>NetPrice := Price * (1 - Discount/100)</pre>
 <p id="Boolean"><strong>Boolean values</strong>: When an expression is required to evaluate to true or false (such as an IF-statement), a blank or zero result is considered false and all other results are considered true. For example, the statement <code>if ItemCount</code> would be false only if ItemCount is blank or 0. Similarly, the expression <code>if not ItemCount</code> would yield the opposite result.</p>
 <p>Operators such as NOT/&gt;/=/&lt; automatically produce a true or false value: they yield 1 for true and 0 for false. However, the AND/OR operators always produce one of the input values. For example, in the following expression, the variable <em>Done</em> is assigned 1 if A_Index is greater than 5 or the value of <em>FoundIt</em> in all other cases:</p>
@@ -61,7 +61,7 @@ MsgBox <span class="red">'</span>She said, "An apple a day."<span class="red">'<
 ContinueSearch := true</pre>
 <p id="numbers"><strong>Integers and floating point</strong>: Within an expression, numbers are considered to be floating point if they contain a decimal point or scientific notation; otherwise, they are integers. For most operators -- such as addition and multiplication -- if either of the inputs is a floating point number, the result will also be a floating point number.</p>
 <p>Within expressions and non-expressions alike, integers may be written in either hexadecimal or decimal format. Hexadecimal numbers all start with the prefix 0x. For example, <code>Sleep 0xFF</code> is equivalent to <code>Sleep 255</code>. Floating point numbers can optionally be written in scientific notation, with or without a decimal point (e.g. <code>1e4</code> or <code>-2.1E-4</code>).</p>
-<p>Within expressions, unquoted literal numbers such as <code>128</code>, <code>0x7F</code> and <code>1.0</code> are converted to pure numbers before the script begins executing, so converting the number to a string may produce a value different to the original literal value. 事例:</p>
+<p>Within expressions, unquoted literal numbers such as <code>128</code>, <code>0x7F</code> and <code>1.0</code> are converted to pure numbers before the script begins executing, so converting the number to a string may produce a value different to the original literal value. 例えば、</p>
 <pre>MsgBox(0x7F)  <em>; Shows 128</em>
 MsgBox(1.00)  <em>; Shows 1.0</em></pre>
 
@@ -84,7 +84,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
       <p class="note"><strong>Note:</strong> The <u>result</u> of the sub-expression <em>Expr</em> must be the name or partial name of the variable or property to be accessed.</p>
       <p>Percent signs cannot be used directly within <em>Expr</em> due to ambiguity, but can be nested within parentheses. Otherwise, <em>Expr</em> can be any expression.</p>
       <p>If there are any adjoining <em>%Expr%</em> sequences and partial <a href="Concepts.htm#names">names</a> (without any spaces or other characters between them), they are combined to form a single name.</p>
-      <p>An <a href="lib/Error.htm">Error</a> is typically thrown if the variable does not already exist, or if it is uninitialized and its value is being read. The <a href="#or-maybe">or-maybe operator (??)</a> can be used to avoid that case by providing a default value. 事例:<code>%'novar'% ??42</code>.</p>
+      <p>An <a href="lib/Error.htm">Error</a> is typically thrown if the variable does not already exist, or if it is uninitialized and its value is being read. The <a href="#or-maybe">or-maybe operator (??)</a> can be used to avoid that case by providing a default value. 例えば、<code>%'novar'% ??42</code>.</p>
       <p>Although this is historically known as a "double-deref", this term is inaccurate when <em>Expr</em> does not contain a variable (first deref), and also when the resulting variable is the target of an assignment, not being dereferenced (second deref).</p>
     </td>
   </tr>
@@ -129,7 +129,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
     <td>
       <p><strong>Unary minus (-)</strong>: Inverts the sign of its operand.</p>
       <p><strong>Unary plus (+)</strong>: <code>+N</code> is equivalent to <code>-(-N)</code>. This has no effect when applied to a pure number, but can be used to convert numeric strings to pure numbers.</p>
-      <p><strong>Logical-not (!)</strong>:If the operand is blank or 0, the result of applying logical-not is 1, which means "true". Otherwise, the result is 0 (false). 事例:<code>!x or !(y and z)</code>. Note:The word NOT is synonymous with <strong>!</strong> except that <strong>!</strong> has a higher precedence. Consecutive unary operators such as <code><strong>!!</strong>Var</code> are allowed because they are evaluated in right-to-left order.</p>
+      <p><strong>Logical-not (!)</strong>:If the operand is blank or 0, the result of applying logical-not is 1, which means "true". Otherwise, the result is 0 (false). 例えば、<code>!x or !(y and z)</code>. Note:The word NOT is synonymous with <strong>!</strong> except that <strong>!</strong> has a higher precedence. Consecutive unary operators such as <code><strong>!!</strong>Var</code> are allowed because they are evaluated in right-to-left order.</p>
       <p><strong>Bitwise-not (~)</strong>: This inverts each bit of its operand. As 64-bit signed integers are used, a positive input value will always give a negative result and vice versa. For example, <code>~0xf0f</code> evaluates to -0xf10 (-3856), which is binary equivalent to 0xfffffffffffff0f0. If an unsigned 32-bit value is intended, the result can be truncated with <code><i>result</i> &amp; 0xffffffff</code>. If the operand is a floating point value, a <a href="lib/Error.htm#TypeError">TypeError</a> is thrown.</p>
       <p id="ref"><strong>Reference (&amp;)</strong>:Creates a VarRef, which is a value representing a reference to a variable. A VarRef can then be used to indirectly access the target variable. For example, <code>ref := &amp;target</code> followed by <code>%ref% := 1</code> would assign the value 1 to <em>target</em>. The VarRef would typically be passed to a function, but could be stored in an array or property. こちらもご覧ください。<a href="#deref">Dereference</a>, <a href="Functions.htm#ByRef">ByRef</a>.</p>
       <p>Taking a reference to a built-in variable such as <a href="lib/A_Clipboard.htm">A_Clipboard</a> is currently not supported, except when being passed directly to an <em>OutputVar</em> parameter of a built-in function.</p>
@@ -196,7 +196,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
       <pre>Var := "The color is " <strong>.</strong> FoundColor  <em>; Explicit concat</em>
 Var := "The color is " FoundColor    <em>; Auto-concat</em>
 </pre>
-      <p>Sub-expressions can also be concatenated. 事例:<code>Var := "The net price is " <strong>.</strong> Price * (1 - Discount/100)</code>.</p>
+      <p>Sub-expressions can also be concatenated. 例えば、<code>Var := "The net price is " <strong>.</strong> Price * (1 - Discount/100)</code>.</p>
       <p>A line that begins with a period (or any other operator) is automatically <a href="Scripts.htm#continuation">appended to</a> the line above it.</p>
       <p>The entire <a href="lib/StrLen.htm">length</a> of each input is used, even if it includes binary zero. For example, <code>Chr(0x2010) Chr(0x0000) Chr(0x4030)</code> produces the following string of bytes (due to UTF-16-LE encoding): 0x10, 0x20, 0, 0, 0x30, 0x40. The result has an additional null-terminator (binary zero) which is not included in the length.</p>
       <p><strong>Other uses</strong>: If there is no space or tab to the right of a period (dot), it is interpreted as either a literal <a href="#numbers">floating-point number</a> or <a href="#objdot">member access</a>. For example, <code>1.1</code> and <code>(.5)</code> are numbers, <code>A_Args.Has(3)</code> is a method call and <code>A_Args.Length</code> is a property access.</p>
@@ -243,7 +243,7 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
       <td class="center bold">AND<br>
       
       &amp;&amp;</td>
-      <td><p>Both of these are <strong>logical-AND</strong>. 事例:<code>x &gt; 3 and x &lt; 10</code>.</p>
+      <td><p>Both of these are <strong>logical-AND</strong>. 例えば、<code>x &gt; 3 and x &lt; 10</code>.</p>
         <p>In an expression where <strong>all</strong> operands resolve to <em>True</em>, the <strong>last</strong> operand that resolved to <em>True</em> is returned. Otherwise, the <strong>first</strong> operand that resolves to <em>False</em> is returned. Effectively, only when all operands are true, will the result be true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (left to right) in order to enhance performance.</p>
         <pre>A := 1, B := {}, C := 20, D := True, E := "String" <em>; <strong>All</strong> operands are truthy and will be evaluated</em>
 MsgBox(A &amp;&amp; B &amp;&amp; C &amp;&amp; D &amp;&amp; E) <em>; The <strong>last</strong> truthy operand is returned ("String")</em></pre>
@@ -255,7 +255,7 @@ MsgBox(A &amp;&amp; B &amp;&amp; ++C &amp;&amp; D &amp;&amp; E) <em>; The <stron
       <td class="center bold">OR<br>
       
       ||</td>
-      <td><p>Both of these are <strong>logical-OR</strong>. 事例:<code>x &lt;= 3 or x &gt;= 10</code>.</p>
+      <td><p>Both of these are <strong>logical-OR</strong>. 例えば、<code>x &lt;= 3 or x &gt;= 10</code>.</p>
         <p>In an expression where <strong>at least</strong> one operand resolves to <em>True</em>, the <strong>first</strong> operand that resolved to <em>True</em> is returned. Otherwise, the <strong>last</strong> operand that resolves to <em>False</em> is returned. Effectively, provided at least one operand is true, the result will be true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (left to right) in order to enhance performance.</p>
         <pre>A := "", B := False, C := 0, D := "String", E := 20 <em>; <strong>At least</strong> one operand is truthy. All operands up until D (including) will be evaluated</em>
 MsgBox(A || B || C || D || ++E) <em>; The <strong>first</strong> truthy operand is returned ("String"). E is not evaluated and is never incremented</em></pre>
@@ -267,7 +267,7 @@ MsgBox(A || B || C) <em>; The <strong>last</strong> falsey operand is returned (
     <td class="center bold">??</td>
     <td>
       <p><strong>Or maybe</strong>, otherwise known as the coalescing operator. If the left operand (which must be a variable) has a value, it becomes the result and the right branch is skipped. Otherwise, the right operand becomes the result. In other words, <code>A ?? B</code> behaves like <code>A || B</code> (<a href="#or">logical-OR</a>) except that the condition is <code>IsSet(A)</code>.</p>
-      <p>This is typically used to provide a default value when it is known that a variable or optional parameter might not already have a value. 事例:</p>
+      <p>This is typically used to provide a default value when it is known that a variable or optional parameter might not already have a value. 例えば、</p>
       <pre>MsgBox MyVar ?? "Default value"</pre>
       <p>Since the variable is expected to sometimes be <a href="Concepts.htm#uninitialized-variables">uninitialized</a>, no error is thrown in that case. Unlike <code>IsSet(A) ? A : B</code>, a <a href="lib/_Warn.htm#VarUnset">VarUnset warning</a> may still be shown at load-time if there are other references to the variable but no assignments.</p>
     </td>
@@ -311,8 +311,8 @@ MsgBox(A || B || C) <em>; The <strong>last</strong> falsey operand is returned (
     <td><p><strong>Assign</strong>. Performs an operation on the contents of a variable and stores the result back in the same variable. The simplest assignment operator is colon-equals (:=), which stores the result of an expression in a variable. For a description of what the other operators do, see their related entries in this table. For example, <code>Var //= 2</code> performs <a href="#IntegerDivide">integer division</a> to divide <em>Var</em> by 2, then stores the result back in <em>Var</em>. Similarly, <code>Var <strong>.=</strong> "abc"</code> is a shorthand way of writing <code>Var := Var <strong>.</strong> "abc"</code>.</p>
       <p>Unlike most other operators, assignments are evaluated from right to left. Consequently, a line such as <code>Var1 := Var2 := 0</code> first assigns 0 to <em>Var2</em> then assigns <em>Var2</em> to <em>Var1</em>.</p>
     <p>If an assignment is used as the input for some other operator, its value is the variable itself. For example,  the expression <code>(Var+=2) &gt; 50</code> is true if the newly-increased value in <em>Var</em> is greater than 50. It is also valid to combine an assignment with the <a href="#ref">reference operator</a>, as in <code>&amp;(Var := "initial value")</code>.</p>
-    <p>The precedence of the assignment operators is automatically raised when it would avoid a syntax error or provide more intuitive behavior. 事例:<code>not x:=y</code> is evaluated as <code>not (x:=y)</code>. Similarly, <code>++Var := X</code> is evaluated as <code>++(Var := X)</code>; and <code>Z&gt;0 ? X:=2 : Y:=2</code> is evaluated as <code>Z&gt;0 ? (X:=2) : (Y:=2)</code>.</p>
-    <p>The target variable can be <em>un-set</em> by combining a direct assignment (<code>:=</code>) with the <code>unset</code> keyword or the <a href="#maybe">maybe (<em>var</em>?)</a> operator. 事例:<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
+    <p>The precedence of the assignment operators is automatically raised when it would avoid a syntax error or provide more intuitive behavior. 例えば、<code>not x:=y</code> is evaluated as <code>not (x:=y)</code>. Similarly, <code>++Var := X</code> is evaluated as <code>++(Var := X)</code>; and <code>Z&gt;0 ? X:=2 : Y:=2</code> is evaluated as <code>Z&gt;0 ? (X:=2) : (Y:=2)</code>.</p>
+    <p>The target variable can be <em>un-set</em> by combining a direct assignment (<code>:=</code>) with the <code>unset</code> keyword or the <a href="#maybe">maybe (<em>var</em>?)</a> operator. 例えば、<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
     <p>An assignment can also target a property of an object, such as <code>myArray.Length += n</code> or <code>myArray[i] .= t</code>. When assigning to a property, the result of the sub-expression is the value being assigned, not a variable reference.</p>
     </td>
   </tr>
@@ -337,7 +337,7 @@ sumfn := Sum</pre>
   </tr>
   <tr id="comma">
     <td class="center bold">,</td>
-    <td><p><strong>Comma (multi-statement)</strong>. Commas may be used to write multiple sub-expressions on a single line. This is most commonly used to group together multiple assignments or function calls. 事例:<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. Such statements are executed in order from left to right.</p>
+    <td><p><strong>Comma (multi-statement)</strong>. Commas may be used to write multiple sub-expressions on a single line. This is most commonly used to group together multiple assignments or function calls. 例えば、<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. Such statements are executed in order from left to right.</p>
       <p class="note"><strong>注意</strong>:A line that begins with a comma (or any other operator) is automatically <a href="Scripts.htm#continuation">appended to</a> the line above it. こちらもご覧ください。<a href="#CommaPerf">comma performance</a>.</p>
       <p>Comma is also used to delimit the parameters of a function call or control flow statement. To include a multi-statement expression in a parameter list, enclose it in an extra set of parentheses. For example, <code>MyFn((x, y))</code> evaluates both x and y but passes y as the first and only parameter of MyFn.</p>
     </td>
@@ -385,7 +385,7 @@ sumfn := Sum</pre>
     <td class="center"><strong>{a: b, c: d}</strong></td>
     <td>
       <p><strong>Object literal</strong>. Create an <a href="lib/Object.htm">Object</a>. Each pair consists of a literal property name <code>a</code> and a property value expression <code>b</code>. For example, <code>x := {a: b}</code> is equivalent to <code>x := Object(), x.a := b</code>. <a href="lib/Object.htm#Base">Base</a> may be set within the object literal, but all other properties are set as <em>own value properties</em>, potentially overriding properties inherited from the base object.</p>
-      <p>To use a dynamic property name, enclose the sub-expression in percent signs. 事例:<code>{%nameVar%:valueVar}</code>.</p>
+      <p>To use a dynamic property name, enclose the sub-expression in percent signs. 例えば、<code>{%nameVar%:valueVar}</code>.</p>
     </td>
   </tr>
 </table>
@@ -492,7 +492,7 @@ sumfn := Sum</pre>
   <tr id="AhkPath">
     <td>A_AhkPath</td>
     <td>
-      <p>For non-compiled or <a href="Program.htm#embedded-scripts">embedded</a> scripts:The full path and name of the EXE file that is actually running the current script. 事例:C:\Program Files\AutoHotkey\AutoHotkey.exe</p>
+      <p>For non-compiled or <a href="Program.htm#embedded-scripts">embedded</a> scripts:The full path and name of the EXE file that is actually running the current script. 例えば、C:\Program Files\AutoHotkey\AutoHotkey.exe</p>
       <p>For <a href="Scripts.htm#ahk2exe">compiled scripts</a> based on a <a href="Scripts.htm#ahk2exe-base">.bin file</a>, the value is determined by reading the installation directory from the registry and appending "\AutoHotkey.exe". If AutoHotkey is not installed, the value is blank. The example below is equivalent:</p>
       <pre>InstallDir := RegRead("HKLM\SOFTWARE\AutoHotkey", "InstallDir", "")
 AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
@@ -582,7 +582,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
   </tr>
   <tr id="TickCount">
     <td>A_TickCount</td>
-    <td><p>The number of milliseconds that have elapsed since the system was started, up to 49.7 days. By storing A_TickCount in a variable, elapsed time can later be measured by subtracting that variable from the latest A_TickCount value. 事例:</p>
+    <td><p>The number of milliseconds that have elapsed since the system was started, up to 49.7 days. By storing A_TickCount in a variable, elapsed time can later be measured by subtracting that variable from the latest A_TickCount value. 例えば、</p>
         <pre>StartTime := A_TickCount
 Sleep 1000
 ElapsedTime := A_TickCount - StartTime
@@ -732,7 +732,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="TimeIdle">
     <td>A_TimeIdle</td>
-    <td>The number of milliseconds that have elapsed since the system last received keyboard, mouse, or other input. This is useful for determining whether the user is away. Physical input from the user as well as artificial input generated by <strong>any</strong> program or script (such as the <a href="lib/Send.htm">Send</a> or <a href="lib/MouseMove.htm">MouseMove</a> functions) will reset this value back to zero. Since this value tends to increase by increments of 10, do not check whether it is equal to another value. Instead, check whether it is greater or less than another value. 事例:
+    <td>The number of milliseconds that have elapsed since the system last received keyboard, mouse, or other input. This is useful for determining whether the user is away. Physical input from the user as well as artificial input generated by <strong>any</strong> program or script (such as the <a href="lib/Send.htm">Send</a> or <a href="lib/MouseMove.htm">MouseMove</a> functions) will reset this value back to zero. Since this value tends to increase by increments of 10, do not check whether it is equal to another value. Instead, check whether it is greater or less than another value. 例えば、
 <pre>if A_TimeIdle &gt; 600000
     MsgBox "The last keyboard or mouse activity was at least 10 minutes ago."</pre></td>
   </tr>
@@ -803,13 +803,13 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="ComSpec">
     <td>A_ComSpec</td>
-    <td><p>Contains the same string as the environment's ComSpec variable. Often used with <a href="lib/Run.htm">Run/RunWait</a>. 事例:</p>
+    <td><p>Contains the same string as the environment's ComSpec variable. Often used with <a href="lib/Run.htm">Run/RunWait</a>. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Windows\system32\cmd.exe</pre>
     </td>
   </tr>
   <tr id="Temp">
     <td>A_Temp</td>
-    <td><p>The full path and name of the folder designated to hold temporary files. It is retrieved from one of the following locations (in order):1) the <a href="Concepts.htm#environment-variables">environment variables</a> TMP, TEMP, or USERPROFILE; 2) the Windows directory. 事例:</p>
+    <td><p>The full path and name of the folder designated to hold temporary files. It is retrieved from one of the following locations (in order):1) the <a href="Concepts.htm#environment-variables">environment variables</a> TMP, TEMP, or USERPROFILE; 2) the Windows directory. 例えば、</p>
     <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Local\Temp</pre>
   </td>
   </tr>
@@ -842,7 +842,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="WinDir">
     <td>A_WinDir</td>
-    <td>The Windows directory. 事例:<code>C:\Windows</code></td>
+    <td>The Windows directory. 例えば、<code>C:\Windows</code></td>
   </tr>
   <tr id="ProgramFiles">
     <td>A_ProgramFiles</td>
@@ -859,77 +859,77 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   <tr id="AppData">
     <td>A_AppData</td>
     <td>
-      <p>The full path and name of the folder containing the current user's application-specific data. 事例:</p>
+      <p>The full path and name of the folder containing the current user's application-specific data. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming</pre>
     </td>
   </tr>
   <tr id="AppDataCommon">
     <td>A_AppDataCommon</td>
     <td>
-      <p>The full path and name of the folder containing the all-users application-specific data. 事例:</p>
+      <p>The full path and name of the folder containing the all-users application-specific data. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\ProgramData</pre>
     </td>
   </tr>
   <tr id="Desktop">
     <td>A_Desktop</td>
     <td>
-      <p>The full path and name of the folder containing the current user's desktop files. 事例:</p>
+      <p>The full path and name of the folder containing the current user's desktop files. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\Desktop</pre>
     </td>
   </tr>
   <tr id="DesktopCommon">
     <td>A_DesktopCommon</td>
     <td>
-      <p>The full path and name of the folder containing the all-users desktop files. 事例:</p>
+      <p>The full path and name of the folder containing the all-users desktop files. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\Public\Desktop</pre>
     </td>
   </tr>
   <tr id="StartMenu">
     <td>A_StartMenu</td>
     <td>
-      <p>The full path and name of the current user's Start Menu folder. 事例:</p>
+      <p>The full path and name of the current user's Start Menu folder. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu</pre>
     </td>
   </tr>
   <tr id="StartMenuCommon">
     <td>A_StartMenuCommon</td>
     <td>
-      <p>The full path and name of the all-users Start Menu folder. 事例:</p>
+      <p>The full path and name of the all-users Start Menu folder. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu</pre>
     </td>
   </tr>
   <tr id="Programs">
     <td>A_Programs</td>
     <td>
-      <p>The full path and name of the Programs folder in the current user's Start Menu. 事例:</p>
+      <p>The full path and name of the Programs folder in the current user's Start Menu. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs</pre>
     </td>
   </tr>
   <tr id="ProgramsCommon">
     <td>A_ProgramsCommon</td>
     <td>
-      <p>The full path and name of the Programs folder in the all-users Start Menu. 事例:</p>
+      <p>The full path and name of the Programs folder in the all-users Start Menu. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu\Programs</pre>
   </td>
   </tr>
   <tr id="Startup">
     <td>A_Startup</td>
     <td>
-      <p>The full path and name of the Startup folder in the current user's Start Menu. 事例:</p>
+      <p>The full path and name of the Startup folder in the current user's Start Menu. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</pre>
   </td>
   </tr>
   <tr id="StartupCommon">
     <td>A_StartupCommon</td>
     <td>
-      <p>The full path and name of the Startup folder in the all-users Start Menu. 事例:</p>
+      <p>The full path and name of the Startup folder in the all-users Start Menu. 例えば、</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</pre>
   </td>
   </tr>
   <tr id="MyDocuments">
     <td>A_MyDocuments</td>
     <td>
-      <p>The full path and name of the current user's "My Documents" folder. Unlike most of the similar variables, if the folder is the root of a drive, the final backslash is not included (e.g. it would contain <code>M:</code> rather than <code>M:\</code>). 事例:</p>
+      <p>The full path and name of the current user's "My Documents" folder. Unlike most of the similar variables, if the folder is the root of a drive, the final backslash is not included (e.g. it would contain <code>M:</code> rather than <code>M:\</code>). 例えば、</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\Documents</pre>
   </td>
   </tr>
