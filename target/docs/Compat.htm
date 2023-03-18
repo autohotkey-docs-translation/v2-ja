@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
-<title>Binary Compatibility | AutoHotkey v2</title>
-<meta name="description" content="This document contains some topics which are sometimes important when dealing with external libraries or sending messages to a control or window." />
+<title>バイナリ互換性｜AutoHotkey v2</title>
+<meta name="description" content="本書では、外部ライブラリとの連携や、コントロールやウィンドウへのメッセージ送信の際に重要となるトピックをいくつか紹介します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,86 +10,84 @@
 </head>
 <body>
 
-<h1>Binary Compatibility</h1>
+<h1>バイナリ互換性</h1>
 
-<p>This document contains some topics which are sometimes important when dealing with external libraries or sending messages to a control or window.</p>
+<p>本書では、外部ライブラリとの連携や、コントロールやウィンドウへのメッセージ送信の際に重要となるトピックをいくつか紹介します。</p>
 
 <ul>
-  <li><a href="#Format">Unicode vs ANSI</a>
+  <li><a href="#Format">ユニコードとANSIの比較</a>
     <ul>
-      <li><a href="#Buffer">Buffer</a></li>
-      <li><a href="#DllCall">DllCall</a></li>
+      <li><a href="#Buffer">バッファー</a></li>
+      <li><a href="#DllCall">DllCall(ディーエルコール)</a></li>
       <li><a href="#NumPutGet">NumPut / NumGet</a></li>
     </ul>
   </li>
-  <li><a href="#ptr">Pointer Size</a></li>
+  <li><a href="#ptr">ポインタサイズ</a></li>
 </ul>
 
-<h2 id="Format">Unicode vs ANSI</h2>
-<p class="note"><strong>Note:</strong> This section builds on topics covered in other parts of the documentation: <a href="Concepts.htm#strings">Strings</a>, <a href="Concepts.htm#string-encoding">String Encoding</a>.</p>
-<p>Within a string (text value), the numeric character code and size (in bytes) of each character depends on the <a href="Concepts.htm#string-encoding">encoding</a> of the string. These details are typically important for scripts which do any of the following:</p>
+<h2 id="Format">ユニコードとANSIの比較</h2>
+<p class="note"><strong>注：</strong>このセクションは、ドキュメントの他の部分でカバーされているトピックを構築しています。<a href="Concepts.htm#strings">文字列</a>、<a href="Concepts.htm#string-encoding">文字列のエンコード</a>。</p>
+<p>文字列（テキスト値）の中で、各文字の数値文字コードとサイズ（バイト数）は、文字列の<a href="Concepts.htm#string-encoding">エンコーディングに</a>依存します。これらの詳細は、通常、次のいずれかを実行するスクリプトで重要です。</p>
 <ul>
-  <li>Pass strings to external functions via <a href="#DllCall">DllCall</a>.</li>
-  <li>Pass strings via <a href="lib/PostMessage.htm">PostMessage</a> or <a href="lib/SendMessage.htm">SendMessage</a>.</li>
-  <li>Manipulate strings directly via <a href="#NumPutGet">NumPut/NumGet</a>.</li>
-  <li>Allocate a <a href="#Buffer">Buffer</a> to hold a specific number of characters.</li>
+  <li><a href="#DllCall">DllCallで</a>外部関数に文字列を渡します。</li>
+  <li><a href="lib/PostMessage.htm">PostMessageや</a> <a href="lib/SendMessage.htm">SendMessageで</a>文字列を渡す。</li>
+  <li><a href="#NumPutGet">NumPut/NumGetで</a>文字列を直接操作することができます。</li>
+  <li>特定の文字数を保持する<a href="#Buffer">Bufferを</a>確保する。</li>
 </ul>
-<p>AutoHotkey v2 natively uses Unicode (UTF-16), but some external libraries or window messages might require ANSI strings.</p>
-<p><strong>ANSI:</strong> Each character is <strong>one byte</strong> (8 bits).  Character codes above 127 depend on your system's language settings (or the codepage chosen when the text was encoded, such as when it is written to a file).</p>
-<p><strong>Unicode:</strong> Each character is <strong>two bytes</strong> (16 bits).  Character codes are as defined by the <a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a> format.</p>
-<p class="Indent"><em>Semantic note:</em> Technically, some Unicode characters are represented by <i>two</i> 16-bit code units, collectively known as a "surrogate pair."  Similarly, some <a href="https://learn.microsoft.com/windows/win32/intl/code-pages">ANSI code pages</a> (commonly known as <a href="https://learn.microsoft.com/windows/win32/intl/double-byte-character-sets">Double Byte Character Sets</a>) contain some double-byte characters.  However, for practical reasons these are almost always treated as two individual units (referred to as "characters" for simplicity).</p>
+<p>AutoHotkey v2はネイティブでUnicode（UTF-16）を使用しますが、一部の外部ライブラリやウィンドウメッセージではANSI文字列を必要とする場合があります。</p>
+<p><strong>ANSI：</strong>1文字が<strong>1バイト</strong>（8ビット）です。127以上の文字コードは、お使いのシステムの言語設定（または、ファイルへの書き込みなど、テキストをエンコードする際に選択されたコードページ）に依存します。</p>
+<p><strong>ユニコードです。</strong>各文字は<strong>2バイト</strong>（16ビット）です。文字コードは、<a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a>形式で定義されたものです。</p>
+<p class="Indent"><em>意味：</em>技術的には、一部のUnicode文字は<i>2つの</i>16ビットコードユニットで表され、集合的に "サロゲートペア "として知られています。同様に、いくつかの<a href="https://learn.microsoft.com/windows/win32/intl/code-pages">ANSIコードページ</a>（一般に<a href="https://learn.microsoft.com/windows/win32/intl/double-byte-character-sets">ダブルバイト文字セットとして</a>知られている）には、いくつかのダブルバイト文字が含まれています。しかし、実用上の理由から、これらはほとんどの場合、2つの個別のユニット（簡単のために「文字」と呼ばれる）として扱われます。</p>
 
-<h3 id="Buffer">Buffer</h3>
-<p>When allocating a <a href="lib/Buffer.htm">Buffer</a>, take care to calculate the correct number of <em>bytes</em> for whichever encoding is required. For example:</p>
-<pre>ansi_buf  := Buffer(capacity_in_chars)
+<h3 id="Buffer">バッファー</h3>
+<p><a href="lib/Buffer.htm">Bufferを</a>割り当てる際には、必要なエンコーディングに応じた正しい<em>バイト</em>数を計算するように注意してください。事例:</p>
+<pre>ansi_buf := Buffer(capacity_in_chars)
 utf16_buf := Buffer(capacity_in_chars * 2)</pre>
-<p>If an ANSI or UTF-8 string will be written into the buffer with <a href="lib/StrPut.htm">StrPut</a>, do not use <a href="lib/StrLen.htm">StrLen</a> to determine the buffer size, as the ANSI or UTF-8 length may differ from the native (UTF-16) length. Instead, use <a href="lib/StrPut.htm#ExEncoding">StrPut</a> to calculate the required buffer size. For example:</p>
+<p><a href="lib/StrPut.htm">StrPutで</a>ANSIまたはUTF-8の文字列をバッファに書き込む場合、ANSIまたはUTF-8の長さがネイティブ（UTF-16）の長さと異なる場合があるので、バッファのサイズを決めるのに<a href="lib/StrLen.htm">StrLenを</a>使用しないでください。代わりに、<a href="lib/StrPut.htm#ExEncoding">StrPutを</a>使用して必要なバッファサイズを計算します。事例:</p>
 <pre>required_bytes := StrPut(source_string, "cp0")
 ansi_buf := Buffer(required_bytes)
 StrPut(source_string, ansi_buf)</pre>
 
-<h3 id="DllCall">DllCall</h3>
-<p>When the "Str" type is used, it means a string in the native format of the current build.  Since some functions may require or return strings in a particular format, the following string types are available:</p>
+<h3 id="DllCall">DllCall(ディーエルコール)</h3>
+<p>Str "型が使用される場合、現在のビルドのネイティブフォーマットの文字列を意味します。関数によっては、特定の形式の文字列を要求したり、返したりすることがあるため、次のような文字列型を用意しています。</p>
 <table class="info">
-  <tr><th>&nbsp;</th><th class="center">Char Size</th><th>C / Win32 Types</th><th>Encoding</th></tr>
+  <tr><th>&nbsp;</th><th class="center">文字サイズ</th><th>C / Win32 Types</th><th>エンコード</th></tr>
   <tr><td class="Syntax center">WStr</td><td class="center">16-bit</td><td>wchar_t*, WCHAR*, LPWSTR, LPCWSTR</td><td>UTF-16</td></tr>
-  <tr><td class="Syntax center">AStr</td><td class="center">8-bit</td><td>char*, CHAR*, LPSTR, LPCSTR</td><td>ANSI (the system default ANSI code page)</td></tr>
-  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>Equivalent to <b>WStr</b> in AutoHotkey v2.</td></tr>
+  <tr><td class="Syntax center">AStr</td><td class="center">8-bit</td><td>char*, CHAR*, LPSTR, LPCSTR</td><td>ANSI（システムデフォルトのANSIコードページ）</td></tr>
+  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>AutoHotkey v2 の<b>WStr</b>に相当する。</td></tr>
 </table>
-<p>If "Str" or "WStr" is used for a parameter, the address of the string is passed to the function. For "AStr", a temporary ANSI copy of the string is created and its address is passed instead. As a general rule, "AStr" should not be used for an output parameter since the buffer is only large enough to hold the input string.</p>
-<p class="note"><b>Note:</b> "AStr" and "WStr" are equally valid for parameters and the function's return value.</p>
-<p>In general, if a script calls a function via DllCall which accepts a string as a parameter, one or more of the following approaches must be taken:</p>
+<p>パラメータに "Str" または "WStr" を使用した場合、文字列のアドレスが関数に渡されます。AStr "の場合、文字列の一時的なANSIコピーが作成され、そのアドレスが代わりに渡される。バッファは入力文字列を保持するのに十分な大きさしかないため、原則として "AStr "を出力パラメータに使用するべきではありません。</p>
+<p class="note"><b>注：</b>"AStr "および "WStr "は、パラメータおよび関数の戻り値に対して同様に有効です。</p>
+<p>一般に、スクリプトがDllCallを介して、文字列をパラメータとして受け付ける関数を呼び出す場合、以下のアプローチのうちの1つ以上を取る必要があります。</p>
 <ol>
-  <li>If both Unicode (W) and ANSI (A) versions of the function are available, omit the W or A suffix and use the "Str" type for input parameters or the return value. For example, the DeleteFile function is exported from kernel32.dll as <code>DeleteFileA</code> and <code>DeleteFileW</code>. Since <code>DeleteFile</code> itself doesn't really exist, DllCall automatically tries <code>DeleteFileW</code>:
-  
+  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に "Str "型を使用します。例えば、DeleteFile関数は、<code>DeleteFileAと</code> <code>DeleteFileWとして</code>kernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileWを</code>試行する。
   <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
 DllCall("DeleteFile", "Str", filename)</pre>
-  <p>In both cases, the address of the original unmodified string is passed to the function.</p>
-  <p>In some cases this approach may backfire, as DllCall adds the W suffix only if no function could be found with the original name. For example, shell32.dll exports ExtractIconExW, ExtractIconExA and ExtractIconEx with no suffix, with the last two being equivalent. In that case, omitting the W suffix causes the ANSI version to be called.</p></li>
-  <li>If the function accepts a specific type of string as input, the script may use the appropriate string type:
-  
+  <p>どちらの場合も、修正されていない元の文字列のアドレスが関数に渡されます。</p>
+  <p>DllCallは、元の名前の関数が見つからなかった場合にのみ、Wサフィックスを追加するため、この方法が裏目に出る場合もあります。例えば、shell32.dllはExtractIconExW、ExtractIconExA、ExtractIconExをサフィックスなしでエクスポートし、最後の2つは同等である。その場合、Wサフィックスを省略すると、ANSIバージョンが呼び出されることになります。</p></li>
+  <li>関数が入力として特定のタイプの文字列を受け入れる場合、スクリプトは適切な文字列タイプを使用することができます。
   <pre>DllCall("DeleteFileA", "AStr", filename)
 DllCall("DeleteFileW", "WStr", filename)</pre></li>
-  <li>If the function has a string parameter used for output, the script must allocate a buffer as described <a href="#Buffer">above</a> and pass it to the function. If the parameter accepts input, the script must also convert the input string to the appropriate format; <a href="lib/StrPut.htm">StrPut</a> can be used for this.</li>
+  <li>関数に出力用の文字列パラメータがある場合、スクリプトは<a href="#Buffer">上記の</a>ようにバッファを確保し、それを関数に渡す必要があります。パラメータが入力を受け付ける場合、スクリプトは入力文字列を適切な形式に変換する必要があります。このために<a href="lib/StrPut.htm">StrPutを</a>使用することができます。</li>
 </ol>
 
 <h3 id="NumPutGet">NumPut / NumGet</h3>
-<p>When NumPut or NumGet are used with strings, the offset and type must be correct for the given type of string.  The following may be used as a guide:</p>
+<p>NumPutまたはNumGetが文字列と共に使用される場合、オフセットと型は与えられた文字列の型に対して正しくなければならない。以下は目安としてお使いください。</p>
 <pre><em>;  8-bit/ANSI   strings:  size_of_char=1  type_of_char="UChar"
 ; 16-bit/UTF-16 strings:  size_of_char=2  type_of_char="UShort"</em>
 <i>n</i>th_char := NumGet(buffer_or_address, (<i>n</i>-1)*size_of_char, type_of_char)
 NumPut(type_of_char, <i>n</i>th_char, buffer_or_address, (<i>n</i>-1)*size_of_char)</pre>
-<p>For the first character, <em>n</em> should have the value 1.</p>
+<p>最初の文字については、<em>nは</em>値1でなければならない。</p>
 
-<h2 id="ptr">Pointer Size</h2>
-<p>Pointers are 4 bytes in 32-bit builds and 8 bytes in 64-bit builds. Scripts using structures or DllCalls may need to account for this to run correctly on both platforms. Specific areas which are affected include:</p>
+<h2 id="ptr">ポインタサイズ</h2>
+<p>ポインターは32ビットビルドでは4バイト、64ビットビルドでは8バイトです。構造体やDllCallを使用するスクリプトは、両方のプラットフォームで正しく実行するために、これを考慮する必要があります。影響を受ける具体的な地域は以下の通りです。</p>
 <ul>
-  <li>Offset calculation for fields in structures which contain one or more pointers.</li>
-  <li>Size calculation for structures containing one or more pointers.</li>
-  <li>Type names used with <a href="lib/DllCall.htm">DllCall</a>, <a href="lib/NumPut.htm">NumPut</a> or <a href="lib/NumGet.htm">NumGet</a>.</li>
+  <li>1つ以上のポインタを含む構造体のフィールドのオフセット計算を行う。</li>
+  <li>1つ以上のポインタを含む構造体のサイズを計算する。</li>
+  <li><a href="lib/DllCall.htm">DllCall</a>、<a href="lib/NumPut.htm">NumPut</a>、<a href="lib/NumGet.htm">NumGetで</a>使用される型名です。</li>
 </ul>
-<p>For size and offset calculations, use <a href="Variables.htm#PtrSize">A_PtrSize</a>. For DllCall, NumPut and NumGet, use the <a href="lib/DllCall.htm">Ptr</a> type where appropriate.</p>
-<p>Remember that the offset of a field is usually the total size of all fields preceding it. Also note that handles (including types like HWND and HBITMAP) are essentially pointer-types.</p>
+<p>サイズとオフセットの計算には、<a href="Variables.htm#PtrSize">A_PtrSizeを</a>使用します。DllCall、NumPut、NumGetについては、適宜<a href="lib/DllCall.htm">Ptr</a>型を使用する。</p>
+<p>フィールドのオフセットは、通常、そのフィールドに先行するすべてのフィールドの合計サイズであることを忘れないでください。また、ハンドル（HWNDやHBITMAPなどの型も含む）は基本的にポインタ型であることに注意してください。</p>
 <pre><em>/*
   typedef struct _PROCESS_INFORMATION {
     HANDLE hProcess;    // Ptr

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta name="description" content="Learn how to activate or manipulate windows." />
 <meta name="ahk:equiv-v1" content="misc/WinTitle.htm" />
@@ -43,7 +43,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <pre>WinMinimize "A"</pre>
 
 <h2 id="lfw">Last Found Window</h2>
-<p>When <a href="../lib/WinWait.htm">WinWait</a>, <a href="../lib/WinExist.htm">WinExist</a>, <a href="../lib/WinActive.htm">WinActive</a>, <a href="../lib/WinWaitActive.htm">WinWaitActive</a> or <a href="../lib/WinWaitActive.htm">WinWaitNotActive</a> find a matching window, they set it as the <a href="../misc/WinTitle.htm#LastFoundWindow"><em>last found window</em></a>. Most window functions allow the window title (and related parameters) to be omitted, and will in that case default to the last found window. For example:</p>
+<p>When <a href="../lib/WinWait.htm">WinWait</a>, <a href="../lib/WinExist.htm">WinExist</a>, <a href="../lib/WinActive.htm">WinActive</a>, <a href="../lib/WinWaitActive.htm">WinWaitActive</a> or <a href="../lib/WinWaitActive.htm">WinWaitNotActive</a> find a matching window, they set it as the <a href="../misc/WinTitle.htm#LastFoundWindow"><em>last found window</em></a>. Most window functions allow the window title (and related parameters) to be omitted, and will in that case default to the last found window. 事例:</p>
 <pre>Run "notepad.exe"
 WinWait "Untitled - Notepad"
 WinActivate
@@ -57,11 +57,11 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 WinWait "ahk_class Notepad"
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
-<p>A window class is distinguished from a title by using the word "ahk_class" as shown above. To combine multiple criteria, list the window title first. For example: "Untitled ahk_class Notepad".</p>
+<p>A window class is distinguished from a title by using the word "ahk_class" as shown above. To combine multiple criteria, list the window title first. 事例:"Untitled ahk_class Notepad".</p>
 <p><strong>Related:</strong> <a href="../misc/WinTitle.htm#ahk_class">ahk_class</a></p>
 
 <h2 id="exe">Process Name/Path</h2>
-<p>Windows can be identified by the process which created them by using the word "ahk_exe" followed by the name or path of the process. For example:</p>
+<p>Windows can be identified by the process which created them by using the word "ahk_exe" followed by the name or path of the process. 事例:</p>
 <pre>Run "notepad.exe"
 WinWait "ahk_exe notepad.exe"
 WinActivate
@@ -77,7 +77,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 <p>We need three commas in a row; two of them are just to skip the unused <em>WorkingDir</em> and <em>Options</em> parameters of the Run function, since the one we want (<em>OutputVarPID</em>) is the fourth parameter.</p>
 <p>Ampersand (&amp;) is the <a href="../Variables.htm#ref">reference operator</a>. This is used to pass the <code>notepad_pid</code> variable to the Run function <em>by reference</em> (in other words, to pass the variable itself instead of its value), allowing the function to assign a new value to the variable. Then <code>notepad_pid</code> becomes a placeholder for the actual process ID.</p>
 <p>The <a href="../Concepts.htm#strings">string</a> "ahk_pid " is <a href="../Variables.htm#concat">concatenated</a> with the process ID contained by the notepad_pid variable by simply writing them in sequence, separated by whitespace. The result is a string like "ahk_pid 1040", but the number isn't predictable.</p>
-<p>If the new process might create multiple windows, a window title and other criteria can be combined by delimiting them with spaces. The window title must always come first. For example: <code>"Untitled ahk_class Notepad ahk_pid " notepad_pid</code>.</p>
+<p>If the new process might create multiple windows, a window title and other criteria can be combined by delimiting them with spaces. The window title must always come first. 事例:<code>"Untitled ahk_class Notepad ahk_pid " notepad_pid</code>.</p>
 <p><strong>Related:</strong> <a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a></p>
 
 <h2 id="hwnd">Window ID (HWND)</h2>
@@ -105,7 +105,7 @@ if WinWait("ahk_pid " notepad_pid,, 5)
 }</pre>
 <p>The <a href="../lib/Block.htm">block</a> below the if statement is executed only if WinWait finds a matching window. If it times out, the block is skipped and execution continues after the closing brace (if there is any code after it).</p>
 <p>Note that the parentheses after "WinWait" are required when we want to use the function's result in an <a href="../Language.htm#expressions">expression</a> (such as the condition of an <a href="../lib/If.htm">if statement</a>). You can think of the <a href="../Language.htm#function-calls">function call</a> itself as a substitute for the result of the function. For instance, if WinWait finds a match before timing out, the result is non-zero. <code>if 1</code> would execute the block below the if statement, whereas <code>if 0</code> would skip it.</p>
-<p>Another way to write it is to return early (in other words, abort) if the wait times out. For example:</p>
+<p>Another way to write it is to return early (in other words, abort) if the wait times out. 事例:</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if !WinWait("ahk_pid " notepad_pid,, 5)
     return

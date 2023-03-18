@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>#ErrorStdOut - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The #ErrorStdOut directive sends any syntax error that prevents a script from launching to the standard error stream (stderr) rather than displaying a dialog." />
@@ -16,9 +16,9 @@
 
 <pre class="Syntax"><span class="func">#ErrorStdOut</span> <span class="optional">Encoding</span></pre>
 
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
-  <dt>Encoding</dt>
+  <dt>エンコード</dt>
   <dd>
     <p>An <a href="FileEncoding.htm">encoding string</a> specifying how to encode the output. For example, <code>#ErrorStdOut "UTF-8"</code> encodes error messages as UTF-8 before sending them to stderr. Whatever program is capturing the output must support UTF-8, and in some cases may need to be configured to expect it. If omitted, it defaults to CP0.</p>
     <p class="note"><strong>Note:</strong> This parameter is not an expression, but can be enclosed in quote marks (either 'single' or "double").</p>
@@ -28,10 +28,10 @@
 <h2 id="Remarks">Remarks</h2>
 <p>Errors are written to stderr instead of stdout. The command prompt and fancy editors usually display both.</p>
 <p>This allows fancy editors such as TextPad, SciTE, Crimson, and EditPlus to jump to the offending line when a syntax error occurs. Since the #ErrorStdOut directive would have to be added to every script, it is usually better to set up your editor to use the <a href="../Scripts.htm#cmd">command line switch</a> <strong>/ErrorStdOut</strong> when launching any AutoHotkey script (see further below for setup instructions).</p>
-<p>Because AutoHotkey is not a console program, errors will not appear at the command prompt directly. This can be worked around by 1) compiling the script with the <a href="../misc/Ahk2ExeDirectives.htm#ConsoleApp">Ahk2Exe ConsoleApp directive</a>, or 2) capturing the script's output via piping or redirection. For example:</p>
+<p>Because AutoHotkey is not a console program, errors will not appear at the command prompt directly. This can be worked around by 1) compiling the script with the <a href="../misc/Ahk2ExeDirectives.htm#ConsoleApp">Ahk2Exe ConsoleApp directive</a>, or 2) capturing the script's output via piping or redirection. 事例:</p>
 <pre class="no-highlight">"C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut "My Script.ahk" <strong>2&gt;&amp;1 |more</strong>
 "C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut "My Script.ahk" <strong>2&gt;"Syntax-Error Log.txt"</strong></pre>
-<p>You can also pipe the output directly to the clipboard by using the operating system's built-in clip command. For example:</p>
+<p>You can also pipe the output directly to the clipboard by using the operating system's built-in clip command. 事例:</p>
 <pre class="no-highlight">"C:\Program Files\AutoHotkey\AutoHotkey.exe" /ErrorStdOut "My Script.ahk" <strong>2&gt;&amp;1 |clip</strong></pre>
 <p class="note"><strong>Note:</strong> <code>2&gt;&amp;1</code> causes stderr to be redirected to stdout, while <code>2&gt;<i>Filename</i></code> redirects only stderr to a file.</p>
 <p>Like other directives, #ErrorStdOut cannot be executed conditionally.</p>
@@ -63,7 +63,7 @@
   <li>Press OK. The newly added item should now exist in the Tools menu.</li>
 </ol>
 
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="FileAppend.htm">FileAppend</a> (because it can also send text to stderr or stdout)</p>
 <h2 id="Examples">Examples</h2>
 <div class="ex" id="ExBasic">

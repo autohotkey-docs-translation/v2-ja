@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta name="description" content="Learn how to send keystrokes or text with AutoHotkey." />
 <meta name="ahk:equiv-v1" content="Tutorial.htm#s3" />
@@ -31,9 +31,9 @@
 <p>Technically SendText actually sends Unicode character packets and not keystrokes, and that makes it much more reliable for characters that are normally typed with a key-combination like <kbd>Shift</kbd>+<kbd>2</kbd> or <kbd>AltGr</kbd>+<kbd>a</kbd>.</p>
 
 <h3>Rules of quoted strings</h3>
-<p>SendText sends the text verbatim, but keep in mind the rules of the <a href="../Language.htm">language</a>. For instance, <a href="../Language.htm#strings">literal text</a> must be enclosed in quote marks (double <code>"</code> or single <code>'</code>), and the quote marks themselves aren't "seen" by the SendText function. To send a literal quote mark, you can enclose it in the opposite type of quote mark. For example:</p>
+<p>SendText sends the text verbatim, but keep in mind the rules of the <a href="../Language.htm">language</a>. For instance, <a href="../Language.htm#strings">literal text</a> must be enclosed in quote marks (double <code>"</code> or single <code>'</code>), and the quote marks themselves aren't "seen" by the SendText function. To send a literal quote mark, you can enclose it in the opposite type of quote mark. 事例:</p>
 <pre>^2::SendText 'Quote marks are also known as "quotes".'</pre>
-<p>Alternatively, use an <a href="../misc/EscapeChar.htm">escape sequence</a>. Inside a quoted string, <code>`"</code> translates to a literal <code>"</code> and <code>`'</code> translates to a literal <code>'</code>. For example:</p>
+<p>Alternatively, use an <a href="../misc/EscapeChar.htm">escape sequence</a>. Inside a quoted string, <code>`"</code> translates to a literal <code>"</code> and <code>`'</code> translates to a literal <code>'</code>. 事例:</p>
 <pre>^3::{
     SendText "Double quote (`")"
     SendText 'Single quote (`')'
@@ -46,7 +46,7 @@
 <h3>Sending keys and key combinations</h3>
 <p><a href="../lib/Send.htm">SendText</a> is best for sending text verbatim, but it can't send keys that don't produce text, like <kbd>Left</kbd> or <kbd>Home</kbd>. <a href="../lib/Send.htm">Send</a>, <a href="../lib/Send.htm">SendInput</a>, <a href="../lib/Send.htm">SendPlay</a>, <a href="../lib/Send.htm">SendEvent</a> and <a href="../lib/ControlSend.htm">ControlSend</a> can send both text and key combinations, or keys which don't produce text. To do all of this, they add special meaning to the following symbols: <code>^!+#{}</code></p>
 <p>The first four symbols correspond to the standard modifier keys, Ctrl (<code>^</code>), Alt (<code>!</code>), Shift (<code>+</code>) and Win (<code>#</code>). They can be used in combination, but otherwise affect only the next key.</p>
-<p>To send a key by name, or to send any one of the above symbols literally, enclose it in braces. For example:</p>
+<p>To send a key by name, or to send any one of the above symbols literally, enclose it in braces. 事例:</p>
 <ul>
   <li><code>^+{Left}</code> produces <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Left</kbd></li>
   <li><code>^{+}{Left}</code> produces <kbd>Ctrl</kbd>+<kbd>+</kbd> followed by <kbd>Left</kbd></li>
@@ -123,7 +123,7 @@ Line breaks are kept
     unless you use the "Join" option.
 )"</pre>
 <p>Although it is generally quite fast, SendText still has to send each character one at a time, while Send generally needs to send at least twice as many messages (key-down <em>and</em> key-up). This adds up to a noticeable delay when sending a large amount of text. It can also become unreliable, as a longer delay means higher risk of conflict with input by the user, the keyboard focus shifting, or other conditions changing.</p>
-<p>Generally it is faster and more reliable to instead place the text on the clipboard and <em>paste</em> it. For example:</p>
+<p>Generally it is faster and more reliable to instead place the text on the clipboard and <em>paste</em> it. 事例:</p>
 <pre>^1::{
     old_clip := ClipboardAll()<em>; Save all clipboard content</em>
     A_Clipboard := "

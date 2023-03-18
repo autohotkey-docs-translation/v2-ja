@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta name="description" content="Learn how to run programs with AutoHotkey." />
 <meta name="ahk:equiv-v1" content="Tutorial.htm#s4" />
@@ -17,7 +17,7 @@
 <p>This example launches Notepad. To learn how to try it out, refer to <a href="RunExamples.htm">How to Run Example Code</a>.</p>
 <p>At this stage, we haven't defined a hotkey (in other words, assigned a keyboard shortcut), so the instructions are carried out immediately. In this case, the script has nothing else to do, so it automatically exits. If you prefer to make useful hotkeys while learning, check out <a href="WriteHotkeys.htm">How to Write Hotkeys</a> first.</p>
 <p class="note"><strong>Note:</strong> Run can also be used to open documents, folders and URLs.</p>
-<p>To launch other programs, simply replace the path in the example above with the path of the program you wish to launch. Some programs have their paths registered with the system, in which case you can get away with just passing the filename of the program, with or (sometimes) without the ".exe" extension. For example:</p>
+<p>To launch other programs, simply replace the path in the example above with the path of the program you wish to launch. Some programs have their paths registered with the system, in which case you can get away with just passing the filename of the program, with or (sometimes) without the ".exe" extension. 事例:</p>
 <pre>Run "notepad"</pre>
 
 <h2>Command-line Parameters</h2>
@@ -63,9 +63,9 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>Often a command line needs to include some <a href="../Concepts.htm#variables">variables</a>. For example, the location of the "Program Files" directory can vary between systems, and a script can take this into account by using the <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a> variable. If the variable contains the entire command line, simply pass the variable to the Run function to execute it.</p>
 <pre>Run A_ComSpec  <em>; Start a command prompt (almost always cmd.exe).</em>
 Run A_MyDocuments  <em>; Open the user's Documents folder.</em></pre>
-<p>Including a variable <em>inside</em> a quoted string won't work; instead, we use <a href="../Variables.htm#concat">concatenation</a> to join literal strings together with variables. For example:</p>
+<p>Including a variable <em>inside</em> a quoted string won't work; instead, we use <a href="../Variables.htm#concat">concatenation</a> to join literal strings together with variables. 事例:</p>
 <pre>Run 'notepad.exe "' A_MyDocuments '\AutoHotkey.ahk"'</pre>
-<p>Another method is to use <a href="../lib/Format.htm">Format</a> to perform substitution. For example:</p>
+<p>Another method is to use <a href="../lib/Format.htm">Format</a> to perform substitution. 事例:</p>
 <pre>Run Format('notepad.exe "{1}\AutoHotkey.ahk"', A_MyDocuments)</pre>
 <p class="note"><strong>Note:</strong> Format can perform additional formatting at the same time, such as padding with 0s or spaces, or formatting numbers as hexadecimal instead of decimal.</p>
 
@@ -74,7 +74,7 @@ Run A_MyDocuments  <em>; Open the user's Documents folder.</em></pre>
 <p><em>WorkingDir</em> specifies the working directory for the new process. If you specify a relative path for the program, it is relative to this directory. Relative paths in command line parameters are often also relative to this directory, but that depends on the program.</p>
 <pre>Run "cmd", "C:\"  <em>; Open a command prompt at C:\</em></pre>
 <p><em>Options</em> can often be used to run a program minimized or hidden, instead of having it pop up on screen, but some programs ignore it.</p>
-<p><em>OutputVarPID</em> gives you the process ID, which is often used with <a href="../lib/WinWait.htm">WinWait</a> or <a href="../lib/WinWaitActive.htm">WinWaitActive</a> and <a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a> to wait until the program shows a window on screen, or to identify one of its windows. For example:</p>
+<p><em>OutputVarPID</em> gives you the process ID, which is often used with <a href="../lib/WinWait.htm">WinWait</a> or <a href="../lib/WinWaitActive.htm">WinWaitActive</a> and <a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a> to wait until the program shows a window on screen, or to identify one of its windows. 事例:</p>
 <pre>Run "notepad",,, &amp;pid
 WinWaitActive "ahk_pid " pid
 SendText "Hello, world!"</pre>

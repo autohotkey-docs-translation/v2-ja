@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>MouseClickDrag - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The MouseClickDrag function clicks and holds the specified mouse button, moves the mouse to the destination coordinates, then releases the button." />
@@ -15,13 +15,13 @@
 <p>Clicks and holds the specified mouse button, moves the mouse to the destination coordinates, then releases the button.</p>
 
 <pre class="Syntax"><span class="func">MouseClickDrag</span> WhichButton, X1, Y1, X2, Y2 <span class="optional">, Speed, Relative</span></pre>
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>WhichButton</dt>
   <dd>
     <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-    <p>The button to click: Left, Right, Middle (or just the first letter of each of these). Specify X1 for the fourth button and X2 for the fifth. For example: <code>MouseClickDrag "X1", ...</code>.</p>
+    <p>The button to click:Left, Right, Middle (or just the first letter of each of these). Specify X1 for the fourth button and X2 for the fifth. 事例:<code>MouseClickDrag "X1", ...</code>.</p>
     <p>Left and Right correspond to the primary button and secondary button. If the user swaps the buttons via system settings, the physical positions of the buttons are swapped but the effect stays the same.</p>
   </dd>
 
@@ -41,7 +41,7 @@
   <dd>
     <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>The speed to move the mouse in the range 0 (fastest) to 100 (slowest).</p>
-    <p class="note"><strong>Note</strong>: A speed of 0 will move the mouse instantly.</p>
+    <p class="note"><strong>注意</strong>:A speed of 0 will move the mouse instantly.</p>
     <p>If omitted, the default speed (as set by <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a> or 2 otherwise) will be used.</p>
     <p><em>Speed</em> is ignored for <a href="SendMode.htm">SendInput/Play modes</a>; they move the mouse instantaneously (though <a href="SetMouseDelay.htm">SetMouseDelay</a> has a mode that applies to SendPlay). To visually move the mouse more slowly -- such as a script that performs a demonstration for an audience -- use <code><a href="Send.htm#Click">SendEvent {Click 100 200}</a></code> or <code><a href="SendMode.htm">SendMode</a> Event</code> (optionally in conjuction with <a href="BlockInput.htm">BlockInput</a>).</p>
   </dd>
@@ -57,14 +57,14 @@
 
 <h2 id="Remarks">Remarks</h2>
 <p>This function uses the sending method set by <a href="SendMode.htm">SendMode</a>.</p>
-<p>Dragging can also be done via the various Send functions, which is more flexible because the mode can be specified via the function name. For example:</p>
+<p>Dragging can also be done via the various Send functions, which is more flexible because the mode can be specified via the function name. 事例:</p>
 <pre>SendEvent "{Click 6 52 Down}{click 45 52 Up}"</pre>
 <p>Another advantage of the method above is that unlike MouseClickDrag, it automatically compensates when the user has swapped the left and right mouse buttons via the system's control panel.</p>
 <p>The <a href="SendMode.htm">SendPlay mode</a> is able to successfully generate mouse events in a broader variety of games than the other modes. However, dragging via SendPlay might not work in RichEdit controls (and possibly others) such as those of WordPad and Metapad.</p>
 <p>Some applications and games may have trouble tracking the mouse if it moves too quickly. The <em>speed</em> parameter or <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a> can be used to reduce the speed (in the default <a href="SendMode.htm">SendEvent mode</a> only).</p>
 <p>The <a href="BlockInput.htm">BlockInput</a> function can be used to prevent any physical mouse activity by the user from disrupting the simulated mouse events produced by the mouse functions. However, this is generally not needed for the <a href="SendMode.htm">SendInput/Play</a> modes because they automatically postpone the user's physical mouse activity until afterward.</p>
 <p>There is an automatic delay after every click-down and click-up of the mouse (except for <a href="SendMode.htm">SendInput mode</a>). This delay also occurs after the movement of the mouse during the drag operation. Use <a href="SetMouseDelay.htm">SetMouseDelay</a> to change the length of the delay.</p>
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="CoordMode.htm">CoordMode</a>, <a href="SendMode.htm">SendMode</a>, <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="Click.htm">Click</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseGetPos.htm">MouseGetPos</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="BlockInput.htm">BlockInput</a></p>
 <h2 id="Examples">Examples</h2>
 <div class="ex" id="ExBasic">

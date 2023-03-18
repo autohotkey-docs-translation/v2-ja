@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>Scripting Language | AutoHotkey v2</title>
 <meta name="description" content="Learn details about the language such as comments, expressions, control flow statements, structure of a script, etc." />
@@ -13,20 +13,20 @@
 <p>An AutoHotkey script is basically a set of instructions for the program to follow, written in a custom language exclusive to AutoHotkey. This language bears some similarities to several other scripting languages, but also has its own unique strengths and pitfalls. This document describes the language and also tries to point out common pitfalls.</p>
 <p class="note">See <a href="Concepts.htm">Concepts and Conventions</a> for more general explanation of various concepts utilised by AutoHotkey.</p>
 
-<h2 id="toc">Table of Contents</h2>
+<h2 id="toc">目次</h2>
 <ul>
   <li><a href="#general-conventions">General Conventions</a></li>
   <li><a href="#comments">Comments</a></li>
   <li><a href="#expressions">Expressions</a>
   <ul>
     <li><a href="#strings">Strings / Text</a></li>
-    <li><a href="#variables">Variables</a></li>
+    <li><a href="#variables">変数</a></li>
     <li><a href="#constants">Constants</a></li>
     <li><a href="#operators">Operators</a></li>
     <li><a href="#function-calls">Function Calls</a>
     <ul>
       <li><a href="#function-call-statements">Function Call Statements</a></li>
-      <li><a href="#optional-parameters">Optional Parameters</a></li>
+      <li><a href="#optional-parameters">オプションのパラメータ</a></li>
     </ul></li>
     <li><a href="#operators-for-objects">Operators for Objects</a></li>
     <li><a href="#expression-statements">Expression Statements</a></li>
@@ -40,7 +40,7 @@
   <li><a href="#structure-of-a-script">Structure of a Script</a>
   <ul>
     <li><a href="#global-code">Global Code</a></li>
-    <li><a href="#functions">Functions</a></li>
+    <li><a href="#functions">機能紹介</a></li>
     <li><a href="#-include">#Include</a></li>
   </ul></li>
   <li><a href="#misc">Miscellaneous</a>
@@ -81,9 +81,9 @@ Methods?
 
 <h2 id="comments">Comments</h2>
 <p><em>Comments</em> are portions of text within the script which are ignored by the program. They are typically used to add explanation or disable parts of the code.</p>
-<p>Scripts can be commented by using a semicolon at the beginning of a line. For example:</p>
+<p>Scripts can be commented by using a semicolon at the beginning of a line. 事例:</p>
 <pre><em>; This entire line is a comment.</em></pre>
-<p>Comments may also be added at the end of a line, in which case the semicolon must have at least one space or tab to its left. For example:</p>
+<p>Comments may also be added at the end of a line, in which case the semicolon must have at least one space or tab to its left. 事例:</p>
 <pre>Run "Notepad"  <em>; This is a comment on the same line as a function call.</em></pre>
 <p>In addition, the <code><em>/*</em></code> and <code><em>*/</em></code> symbols can be used to comment out an entire section, as in this example:</p>
 <pre><em>/*
@@ -106,10 +106,10 @@ MsgBox "This line is not commented out."
 <h3 id="strings">Strings / Text</h3>
 <p class="note">For a more general explanation of strings, see <a href="Concepts.htm#strings">Strings</a>.</p>
 <p>A <em>string</em>, or <em>string of characters</em>, is just a text value. In an expression, literal text must be enclosed in single or double quotation marks to differentiate it from a variable name or some other expression. This is often referred to as a <em>quoted literal string</em>, or just <em>quoted string</em>. For example, <code>"this is a quoted string"</code> and <code>'so is this'</code>.</p>
-<p>To include an <em>actual</em> quote character inside a quoted string, use the <code>`"</code> or <code>`'</code> <a href="misc/EscapeChar.htm#quote">escape sequence</a> or enclose the character in the opposite type of quote mark. For example: <code>'She said, "An apple a day."'</code>.</p>
+<p>To include an <em>actual</em> quote character inside a quoted string, use the <code>`"</code> or <code>`'</code> <a href="misc/EscapeChar.htm#quote">escape sequence</a> or enclose the character in the opposite type of quote mark. 事例:<code>'She said, "An apple a day."'</code>.</p>
 <p>Quoted strings can contain other <a href="misc/EscapeChar.htm">escape sequences</a> such as <code>`t</code> (tab), <code>`n</code> (linefeed), and <code>`r</code> (carriage return).</p>
 
-<h3 id="variables">Variables</h3>
+<h3 id="variables">変数</h3>
 <p class="note">For a basic explanation and general details about variables, see <a href="Concepts.htm#variables">Variables</a>.</p>
 <p><em>Variables</em> can be used in an expression simply by writing the variable's name. For example, <code>A_ScreenWidth/2</code>. However, variables cannot be used inside a quoted string. Instead, variables and other values can be combined with text through a process called <a href="Variables.htm#concat"><em>concatenation</em></a>. There are two ways to <em>concatenate</em> values in an expression:</p>
 <ul>
@@ -117,7 +117,7 @@ MsgBox "This line is not commented out."
   <li>Explicit concatenation: <code>"The value is " . MyVar</code></li>
 </ul>
 <p>Implicit concatenation is also known as <em>auto-concat</em>. In both cases, the spaces preceding the variable and dot are mandatory.</p>
-<p>The <a href="lib/Format.htm">Format</a> function can also be used for this purpose. For example:</p>
+<p>The <a href="lib/Format.htm">Format</a> function can also be used for this purpose. 事例:</p>
 <pre>MsgBox Format("You are using AutoHotkey v{1} {2}-bit.", A_AhkVersion, A_PtrSize*8)</pre>
 <p>To assign a value to a variable, use the <code>:=</code> <a href="Variables.htm#AssignOp">assignment operator</a>, as in <code>MyVar := "Some text"</code>.</p>
 <p><em>Percent signs</em> within an expression are used to create <a href="#dynamic-variables">dynamic variable references</a>, but these are rarely needed.</p>
@@ -146,10 +146,10 @@ MsgBox "This line is not commented out."
 <p><em>Functions</em> take a varying number of inputs, perform some action or calculation, and then <a href="Concepts.htm#return-a-value"><em>return</em></a> a result. The inputs of a function are called <a href="Concepts.htm#parameters"><em>parameters</em></a> or <em>arguments</em>. A function is <a href="Concepts.htm#call"><em>called</em></a> simply by writing the target function followed by parameters enclosed in parentheses. For example, <code>GetKeyState("Shift")</code> returns (evaluates to) 1 if <kbd>Shift</kbd> is being held down or 0 otherwise.</p>
 <p class="warning"><strong>Note:</strong> There must not be any space between the function and open parenthesis.</p>
 <p>For those new to programming, the requirement for parentheses may seem cryptic or verbose at first, but they are what allows a function call to be combined with other operations. For example, the expression <code>GetKeyState("Shift", "P") and GetKeyState("Ctrl", "P")</code> returns 1 only if both keys are being physically held down.</p>
-<p>Although a function call expression usually begins with a literal function name, the target of the call can be any expression which produces a <a href="misc/Functor.htm">function object</a>. In the expression <code>GetKeyState("Shift")</code>, <em>GetKeyState</em> is actually a variable reference, although it usually refers to a read-only variable containing a built-in function.</p>
+<p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクトを</a>生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という表現では、<em>GetKeyStateは</em>実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
 
 <h4 id="function-call-statements">Function Call Statements</h4>
-<p>If the return value of the function is not needed and the function name is written at the start of the line (or in other contexts which allow a <a href="Concepts.htm#statement">statement</a>, such as following <code>else</code> or a <a href="Hotkeys.htm">hotkey</a>), the parentheses can be omitted. In this case, the remainder of the line is taken as the function's parameter list. For example:</p>
+<p>If the return value of the function is not needed and the function name is written at the start of the line (or in other contexts which allow a <a href="Concepts.htm#statement">statement</a>, such as following <code>else</code> or a <a href="Hotkeys.htm">hotkey</a>), the parentheses can be omitted. In this case, the remainder of the line is taken as the function's parameter list. 事例:</p>
 <pre>result := MsgBox("This one requires parentheses.",, "OKCancel")
 MsgBox "This one doesn't. The result was " result "."</pre>
 <p>Parentheses can also be omitted when calling a <a href="Concepts.htm#methods">method</a> in this same context, but only when the target object is either a variable or a directly named property, such as <code>myVar.myMethod</code> or <code>myVar.myProp.myMethod</code>.</p>
@@ -163,7 +163,7 @@ MsgBox "This one doesn't. The result was " result "."</pre>
   <li>Function call statements cannot be <a href="Functions.htm#VariadicCall">variadic</a>, although they can pass a fixed number of parameters to a variadic function.</li>
 </ul>
 
-<h4 id="optional-parameters">Optional Parameters</h4>
+<h4 id="optional-parameters">オプションのパラメータ</h4>
 <p>Optional parameters can simply be left blank, but the delimiting comma is still required unless all subsequent parameters are also omitted. For example, the <a href="lib/Run.htm">Run</a> function can accept between one and four parameters. All of the following are valid:</p>
 <pre>
 Run "notepad.exe", "C:\"
@@ -188,7 +188,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><code>Alpha.%vBeta%</code>, <code>Alpha.%vBeta%[Param]</code> and <code>Alpha.%vBeta%()</code> are also member access, but <em>vBeta</em> is a variable or sub-expression. This allows the name of the property or method to be determined while the script is running. Parentheses are required when calling a method this way.</p>
 <p><code>Alpha[Index]</code> accesses the <em>default property</em> of <code>Alpha</code>, giving <code>Index</code> as a parameter. Both <em>Alpha</em> and <em>Index</em> are variables in this case, and could be replaced with virtually any sub-expression. This syntax is usually used to retrieve an element of an <a href="lib/Array.htm">Array</a> or <a href="lib/Map.htm">Map</a>.</p>
 <p id="array-literal"><code>[A, B, C]</code> creates an <a href="lib/Array.htm">Array</a> with the initial contents A, B and C (all variables in this case), where A is element 1.</p>
-<p id="object-literal"><code>{Prop1: Value1, Prop2: Value2}</code> creates an <a href="lib/Object.htm">Object</a> with properties literally named <em>Prop1</em> and <em>Prop2</em>. A value can later be retrieved by using the <em>member access</em> syntax described above. To evaluate a property name as an expression, enclose it in percent signs. For example: <code>{%NameVar%: ValueVar}</code>.</p>
+<p id="object-literal"><code>{Prop1:Value1, Prop2:Value2}</code> creates an <a href="lib/Object.htm">Object</a> with properties literally named <em>Prop1</em> and <em>Prop2</em>. A value can later be retrieved by using the <em>member access</em> syntax described above. To evaluate a property name as an expression, enclose it in percent signs. 事例:<code>{%NameVar%:ValueVar}</code>.</p>
 <p><code>MyFunc(Params*)</code> is a <a href="Functions.htm#VariadicCall">variadic function call</a>. The asterisk must immediately precede the closing parenthesis at the end of the function's parameter list. <em>Params</em> must be a variable or sub-expression which returns an <a href="lib/Array.htm">Array</a> or other enumerable object. Although it isn't valid to use <code>Params*</code> just anywhere, it can be used in an array literal (<code>[A, B, C, ArrayToAppend*]</code>) or property parameter list (<code>Alpha.Beta[Params*]</code> or <code>Alpha[Params*]</code>).</p>
 
 <h3 id="expression-statements">Expression Statements</h3>
@@ -290,7 +290,7 @@ Loop Parse t, "`n"
 <h3 id="subroutines">Subroutines</h3>
 <p>A <em>subroutine</em> (also <em>sub</em> or <em>procedure</em>) is a reusable block of code which can be executed on demand. A subroutine is created by defining a <em>function</em> (see below). These terms are generally interchangeable for AutoHotkey v2, where functions are the only type of subroutine.</p>
 
-<h3 id="functions">Functions</h3>
+<h3 id="functions">機能紹介</h3>
 <p><strong>Related:</strong> <a href="Functions.htm">Functions</a> (all about defining functions)</p>
 <p>Aside from calling the many useful <a href="lib/index.htm">predefined functions</a>, a script can define its own functions. These functions can generally be used two ways:</p>
 <ol>
@@ -299,8 +299,7 @@ Loop Parse t, "`n"
 </ol>
 <p>There are multiple ways to define a function:</p>
 <ul>
-  <li>A <a href="Functions.htm">function definition</a> combining a name, parentheses and a <a href="lib/Block.htm">block</a> of code. This defines a function which can be executed by name with a <a href="#function-calls">function call</a> or <a href="#function-call-statements">function call statement</a>. For example:
-
+  <li>A <a href="Functions.htm">function definition</a> combining a name, parentheses and a <a href="lib/Block.htm">block</a> of code. This defines a function which can be executed by name with a <a href="#function-calls">function call</a> or <a href="#function-call-statements">function call statement</a>. 事例:
 <pre>SayHello()<em>; Define the SayHello function.</em>
 {
     MsgBox "Hello!"
@@ -308,16 +307,14 @@ Loop Parse t, "`n"
 
 SayHello<em>; Call the SayHello function.</em></pre>
   </li>
-  <li>A <a href="Hotkeys.htm">hotkey</a> or <a href="Hotstrings.htm">hotstring</a> definition, combining a hotkey or hotstring with a single <a href="Concepts.htm#statement">statement</a> or a <a href="lib/Block.htm">block</a> of code. This type of function cannot be called directly, but is executed whenever the hotkey or hotstring is activated. For example:
-
+  <li>A <a href="Hotkeys.htm">hotkey</a> or <a href="Hotstrings.htm">hotstring</a> definition, combining a hotkey or hotstring with a single <a href="Concepts.htm#statement">statement</a> or a <a href="lib/Block.htm">block</a> of code. This type of function cannot be called directly, but is executed whenever the hotkey or hotstring is activated. 事例:
 <pre>#w::Run "wordpad"<em>; Press Win-W to run Wordpad.</em>
 #n::<em>; Press Win-N to run Notepad.</em>
 {
     Run "notepad"
 }</pre>
   </li>
-  <li>A <a href="Variables.htm#fat-arrow">fat arrow expression</a> defines a function which evaluates an <a href="#expressions">expression</a> and <a href="Concepts.htm#return-a-value">returns</a> its result, instead of executing a block of code. Such functions usually have no name as they are passed directly to another function. For example:
-    
+  <li>A <a href="Variables.htm#fat-arrow">fat arrow expression</a> defines a function which evaluates an <a href="#expressions">expression</a> and <a href="Concepts.htm#return-a-value">returns</a> its result, instead of executing a block of code. Such functions usually have no name as they are passed directly to another function. 事例:
     <pre>SetTimer () =&gt; MsgBox("Hello!"), -1000  <em>; Says hello after 1 second.</em></pre>
   </li>
   <li>The fat arrow syntax can also be used outside of expressions as shorthand for a normal function or method definition. For example, the following is equivalent to the SayHello definition above, except that this one returns "OK":
@@ -331,7 +328,7 @@ SayHello<em>; Call the SayHello function.</em></pre>
   <li>When a variable is referenced but not used as the target of an <a href="Variables.htm#AssignOp">assignment</a> or the reference operator (<code>&amp;var</code>).</li>
   <li>When referring to a local variable of an outer function inside a <a href="Functions.htm#nested">nested function</a>.</li>
 </ul>
-<p>A function can optionally <a href="Concepts.htm#parameters">accept parameters</a>. Parameters are defined by listing them inside the parentheses. For example:</p>
+<p>A function can optionally <a href="Concepts.htm#parameters">accept parameters</a>. Parameters are defined by listing them inside the parentheses. 事例:</p>
 <pre>MyFunction(FirstParameter, Second, &amp;Third, Fourth:="")
 {
     <em>;...</em>
@@ -357,7 +354,7 @@ SayHello<em>; Call the SayHello function.</em></pre>
 <h3 id="dynamic-variables">Dynamic Variables</h3>
 <p>A <em>dynamic variable reference</em> takes a text value and interprets it as the name of a variable.</p>
 <p class="note"><strong>Note:</strong> A variable cannot be <em>created</em> by a dynamic reference, but existing variables can be assigned. This includes all variables which the script contains non-dynamic references to, even if they have not been assigned values.</p>
-<p>The most common form of dynamic variable reference is called a <em>double reference</em> or <em>double-deref</em>. Before performing a double reference, the name of the target variable is stored in a second variable. This second variable can then be used to assign a value to the target variable indirectly, using a double reference. For example:</p>
+<p>The most common form of dynamic variable reference is called a <em>double reference</em> or <em>double-deref</em>. Before performing a double reference, the name of the target variable is stored in a second variable. This second variable can then be used to assign a value to the target variable indirectly, using a double reference. 事例:</p>
 <pre>target := 42
 second := "target"
 MsgBox  second   <em>; Normal (single) variable reference =&gt; target</em>
@@ -365,14 +362,14 @@ MsgBox %second%  <em>; Double-deref =&gt; 42</em>
 </pre>
 <p>Currently, <code>second</code> must always contain a variable name in the second case; arbitrary expressions are not supported.</p>
 <p>A dynamic variable reference can also take one or more pieces of literal text and the content of one or more variables, and join them together to form a single variable name. This is done simply by writing the pieces of the name and percent-enclosed variables in sequence, without any spaces. For example, <code>MyArray%A_Index%</code> or <code>MyGrid%X%_%Y%</code>. This is used to access <em>pseudo-arrays</em>, described below.</p>
-<p>These techniques can also be applied to properties and methods of objects. For example:</p>
+<p>These techniques can also be applied to properties and methods of objects. 事例:</p>
 <pre>clr := {}
 for n, component in ["red", "green", "blue"]
     clr.%component% := Random(0, 255)
 MsgBox clr.red "," clr.green "," clr.blue</pre>
 
 <h4 id="pseudo-arrays">Pseudo-arrays</h4>
-<p>A <em>pseudo-array</em> is actually just a bunch of discrete variables, but with a naming pattern which allows them to be used like elements of an array. For example:</p>
+<p>A <em>pseudo-array</em> is actually just a bunch of discrete variables, but with a naming pattern which allows them to be used like elements of an array. 事例:</p>
 <pre>
 MyArray1 := "A"
 MyArray2 := "B"

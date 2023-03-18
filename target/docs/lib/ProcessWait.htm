@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>ProcessWait - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The ProcessWait function waits for the specified process to exist." />
@@ -17,7 +17,7 @@
 
 <pre class="Syntax">PID := <span class="func">ProcessWait</span>(PIDOrName <span class="optional">, Timeout</span>)</pre>
 
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
     <dt>PIDOrName</dt>
     <dd>
@@ -40,7 +40,7 @@
 <h2 id="Remarks">Remarks</h2>
 <p>Processes are checked every 100 milliseconds; the moment the condition is satisfied, the function stops waiting. In other words, rather than waiting for the timeout to expire, it immediately returns and continues execution of the script. Also, while the function is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
 
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="ProcessWaitClose.htm">ProcessWaitClose</a>, <a href="Run.htm">Run</a>, <a href="WinWait.htm">WinWait</a>, <a href="Process.htm">Process functions</a>, <a href="Win.htm">Win functions</a></p>
 
 <h2 id="Examples">Examples</h2>
@@ -53,13 +53,13 @@ if not NewPID
     MsgBox "The specified process did not appear within 5.5 seconds."
     return
 }
-<em>; Otherwise:</em>
+<em>; それ以外の場合。</em>
 MsgBox "A matching process has appeared (Process ID is " NewPID ")."
 ProcessSetPriority "Low", NewPID
-ProcessSetPriority "High"  <em>; Have the script set itself to high priority.</em>
+ProcessSetPriority "High"<em>; Have the script set itself to high priority.</em>
 WinClose "Untitled - Notepad"
 WaitPID := ProcessWaitClose(NewPID, 5)
-if WaitPID <em>; The PID still exists.</em>
+if WaitPID<em>; The PID still exists.</em>
     MsgBox "The process did not close within 5 seconds."</pre>
 </div>
 

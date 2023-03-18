@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>Scripts - Definition &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="Learn details about scripts in general, splitting long lines, compiling a script, passing command line parameters, codepage and debugging." />
@@ -18,7 +18,7 @@
   <li><a href="Language.htm">Scripting Language</a>: Specific details about syntax (how to write scripts).</li>
 </ul>
 
-<h2 id="toc">Table of Contents</h2>
+<h2 id="toc">目次</h2>
 <ul>
   <li><a href="#intro">Introduction</a></li>
   <li><a href="#auto">Script Startup (the Auto-execute Thread)</a>: Taking action immediately upon starting the script, and changing default settings.</li>
@@ -73,7 +73,7 @@ ProductIsAvailable := (Color = "Red") <strong>?</strong>
     ProductIsAvailableInColor(Product, Color)</pre>
 <p>Although the indentation used in the examples above is optional, it might improve clarity by indicating which lines belong to ones above them. Also, blank lines or <a href="Language.htm#comments">comments</a> may be added between or at the end of any of the lines in the above examples.</p>
 <p>A continuation operator cannot be used with an auto-replace hotstring or directive other than <a href="lib/_HotIf.htm">#HotIf</a>.</p>
-<p id="continuation-expr"><strong>Continuation by enclosure</strong>: If a line contains an expression or function/property definition with an unclosed <code>(</code>/<code>[</code>/<code>{</code>, it is joined with subsequent lines until the number of opening and closing symbols balances out. In other words, a sub-expression enclosed in parentheses, brackets or braces can automatically span multiple lines in most cases. For example:</p>
+<p id="continuation-expr"><strong>Continuation by enclosure</strong>:If a line contains an expression or function/property definition with an unclosed <code>(</code>/<code>[</code>/<code>{</code>, it is joined with subsequent lines until the number of opening and closing symbols balances out. In other words, a sub-expression enclosed in parentheses, brackets or braces can automatically span multiple lines in most cases. 事例:</p>
 <pre>
 myarray := [
   "item 1",
@@ -88,7 +88,7 @@ MsgBox(
 <p>Continuation expressions may contain both types of <a href="Language.htm#comments">comments</a>.</p>
 <p>Continuation expressions may contain normal <a href="#continuation-section">continuation sections</a>. Therefore, as with any line containing an expression, if a line begins with a non-escaped open parenthesis (<code>(</code>), it is considered to be the start of a continuation section unless there is a closing parenthesis (<code>)</code>) on the same line.</p>
 <p>Quoted strings cannot span multiple lines using this method alone. However, see above.</p>
-<p>Continuation by enclosure can be combined with a continuation operator. For example:</p>
+<p>Continuation by enclosure can be combined with a continuation operator. 事例:</p>
 <pre>myarray :=<em>; The assignment operator causes continuation.</em>
 [<em>; Brackets enclose the following two lines.</em>
   "item 1",
@@ -100,13 +100,13 @@ MsgBox(
   <li>An object literal cannot legally follow <code>)</code> or <code>]</code>, so if the brace follows either of those symbols (excluding whitespace), it is interpreted as the beginning of a block (such as for a function or property definition).</li>
   <li>For <a href="Language.htm#control-flow">control flow statements</a> which require a body (and therefore support OTB), the brace can be the start of an object literal only if it is preceded by an operator, such as <code>:= {</code> or <code>for x <strong>in</strong> {</code>. In particular, the brace in <code>Loop {</code> is always block-begin, and <code>If {</code> and <code>While {</code> are always errors.</li>
 </ul>
-<p>A brace can be safely used for line continuation with any function call, expression or control flow statement which does not require a body. For example:</p>
+<p>A brace can be safely used for line continuation with any function call, expression or control flow statement which does not require a body. 事例:</p>
 <pre>myfn() {
     return {
         key: "value"
     }
 }</pre>
-<p id="continuation-section"><strong>Continuation section</strong>: This method should be used to merge a large number of lines or when the lines are not suitable for the other methods. Although this method is especially useful for <a href="Hotstrings.htm">auto-replace hotstrings</a>, it can also be used with any <a href="Variables.htm#Expressions">expression</a>. For example:</p>
+<p id="continuation-section"><strong>Continuation section</strong>:This method should be used to merge a large number of lines or when the lines are not suitable for the other methods. Although this method is especially useful for <a href="Hotstrings.htm">auto-replace hotstrings</a>, it can also be used with any <a href="Variables.htm#Expressions">expression</a>. 事例:</p>
 <pre><em>; EXAMPLE #1:</em>
 Var := "
 (
@@ -126,7 +126,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>If the line above the continuation section ends with a <a href="Concepts.htm#names">name</a> character and the section does not start inside a quoted string, a single space is automatically inserted to separate the name from the contents of the continuation section.</p>
 <p id="continuation_quotes">Quote marks are automatically escaped (i.e. they are interpreted as literal characters) if the continuation section starts inside a quoted string, as in the examples above. Otherwise, quote marks act as they do normally; that is, continuation sections can contain expressions with quoted strings.</p>
 <p id="continuation_defaults">By default, leading spaces or tabs are omitted based on the indentation of the first line inside the continuation section. If the first line mixes spaces and tabs, only the first type of character is treated as indentation. If any line is indented less than the first line or with the wrong characters, all leading whitespace on that line is left as is.  </p>
-<p>The default behavior of a continuation section can be overridden by including one or more of the following options to the right of the section's opening parenthesis. If more than one option is present, separate each one from the previous with a space. For example: <code>( LTrim Join|</code>.</p>
+<p>The default behavior of a continuation section can be overridden by including one or more of the following options to the right of the section's opening parenthesis. If more than one option is present, separate each one from the previous with a space. 事例:<code>( LTrim Join|</code>.</p>
 <p id="Join"><strong>Join</strong>: Specifies how lines should be connected together. If this option is omitted, each line except the last will be followed by a linefeed character (`n). If the word <em>Join</em> is specified by itself, lines are connected directly to each other without any characters in between. Otherwise, the word <em>Join</em> should be followed immediately by as many as 15 characters. For example, <code>Join`s</code> would insert a space after each line except the last. Another example is <code>Join`r`n</code>, which inserts CR+LF between lines. Similarly, <code>Join|</code> inserts  a pipe between lines. To have the final line in the section also ended by a join-string, include a blank line immediately above the section's closing parenthesis.</p>
 <p id="LTrim"><strong>LTrim</strong>: Omits all spaces and tabs at the beginning of each line. This is usually unnecessary because of the <a href="#continuation_defaults">default "smart" behaviour</a>.</p>
 <p id="LTrim0"><strong>LTrim0</strong> (LTrim followed by a zero): Turns off the omission of spaces and tabs from the beginning of each line.</p>
@@ -135,7 +135,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p id="accent"><strong>`</strong> (accent): Treats each backtick character literally rather than as an <a href="misc/EscapeChar.htm">escape character</a>. This also prevents the translation of any explicitly specified escape sequences such as <code>`r</code> and <code>`t</code>.</p>
 <p id="non-continuation"><strong>(</strong> or <strong>)</strong>: If an opening or closing parenthesis appears to the right of the initial opening parenthesis (except as a parameter of the <a href="#Join">Join</a> option), the line is reinterpreted as an expression instead of the beginning of a continuation section. This enables expressions like <code>(x.y)[z]()</code> to be used at the start of a line, and also allows <a href="#continuation-expr">multi-line expressions</a> to start with a line like <code>((</code> or <code>(MyFunc(</code>.</p>
 <p><a href="misc/EscapeChar.htm">Escape sequences</a> such as `n (linefeed) and `t (tab) are supported inside the continuation section except when the <a href="#accent">accent (`) option</a> has been specified.</p>
-<p>When the <a href="#CommentOption">comment option</a> is absent, semicolon and /*..*/ comments are not supported within the interior of a continuation section because they are seen as literal text. However, comments can be included on the bottom and top lines of the section. For example:</p>
+<p>When the <a href="#CommentOption">comment option</a> is absent, semicolon and /*..*/ comments are not supported within the interior of a continuation section because they are seen as literal text. However, comments can be included on the bottom and top lines of the section. 事例:</p>
 <pre>FileAppend "<em>; Comment.
 ; Comment.</em>
 ( LTrim Join<em>; Comment.</em>
@@ -237,11 +237,11 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
         <td class="warning">The .bin file to be used. Default is the last .bin file name saved in the GUI interface.</td>
       </tr>
     </table>
-    <p>For example:</p>
+    <p>事例:</p>
     <pre class="no-highlight">Ahk2Exe.exe /in "MyScript.ahk" /icon "MyIcon.ico"</pre>
   </li>
 </ul>
-<p>Notes:</p>
+<p>注:</p>
 <ul>
   <li>Parameters containing spaces must be enclosed in double quotes.</li>
   <li>Compiling does not typically improve the performance of a script.</li>
@@ -362,11 +362,11 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
   <tr id="SlashScript">
     <td>/script</td>
     <td>
-      <p>When used with a compiled script based on an .exe file, this switch causes the program to ignore the main embedded script. This allows a compiled script .exe to execute external script files or embedded scripts other than the main one. Other switches not normally supported by compiled scripts can be used but must be listed to the right of this switch. For example:</p>
+      <p>When used with a compiled script based on an .exe file, this switch causes the program to ignore the main embedded script. This allows a compiled script .exe to execute external script files or embedded scripts other than the main one. Other switches not normally supported by compiled scripts can be used but must be listed to the right of this switch. 事例:</p>
       <pre class="no-highlight">CompiledScript.exe /script /ErrorStdOut MyScript.ahk "Script's arg 1"</pre>
       <p>If the current executable file does not have an embedded script, this switch is permitted but has no effect.</p>
       <p>This switch is not supported by compiled scripts which are based on a .bin file.</p>
-      <p>See also: <a href="#ahk2exe-base">Base Executable File (Ahk2Exe)</a></p>
+      <p>こちらもご覧ください。<a href="#ahk2exe-base">Base Executable File (Ahk2Exe)</a></p>
     </td>
     <td>N/A</td>
   </tr>

@@ -1,48 +1,48 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
-<title>Concepts and Conventions | AutoHotkey v2</title>
-<meta name="description" content="Learn details about some general concepts and conventions used by AutoHotkey, with focus on explanation rather than code." />
+<title>概念と慣習｜AutoHotkey v2</title>
+<meta name="description" content="AutoHotkeyで使用される一般的な概念や慣例について、コードよりも説明に重点を置いて詳しく説明します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
 <script src="static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>Concepts and Conventions</h1>
-<p>This document covers some general concepts and conventions used by AutoHotkey, with focus on explanation rather than code. The reader is not assumed to have any prior knowledge of scripting or programming, but should be prepared to learn new terminology.</p>
-<p>For more specific details about syntax, see <a href="Language.htm">Scripting Language</a>.</p>
+<h1>概念と慣習</h1>
+<p>この文書では、AutoHotkeyで使用される一般的な概念と規約を、コードよりも説明に重点を置いて説明しています。読者は、スクリプトやプログラミングの予備知識を持つことは想定していませんが、新しい用語を学ぶ準備はしておいてください。</p>
+<p>構文の具体的な内容については、「<a href="Language.htm">スクリプト言語</a>」を参照してください。</p>
 
-<h2 id="toc">Table of Contents</h2>
+<h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#values">Values</a>
+  <li><a href="#values">価値観</a>
   <ul>
-    <li><a href="#strings">Strings</a></li>
-    <li><a href="#numbers">Numbers</a></li>
-    <li><a href="#boolean">Boolean</a></li>
+    <li><a href="#strings">ストリングス</a></li>
+    <li><a href="#numbers">数字</a></li>
+    <li><a href="#boolean">ブーリアン</a></li>
     <li><a href="#nothing">Nothing</a></li>
-    <li><a href="#objects">Objects</a></li>
-    <li><a href="#object-protocol">Object Protocol</a></li>
+    <li><a href="#objects">オブジェクト</a></li>
+    <li><a href="#object-protocol">オブジェクトプロトコル</a></li>
   </ul></li>
-  <li><a href="#variables">Variables</a>
+  <li><a href="#variables">変数</a>
   <ul>
-    <li><a href="#uninitialized-variables">Uninitialized Variables</a></li>
-    <li><a href="#built-in-variables">Built-in Variables</a></li>
-    <li><a href="#environment-variables">Environment Variables</a></li>
-    <li><a href="#variable-references">Variable References (VarRef)</a></li>
-    <li><a href="#caching">Caching</a></li>
+    <li><a href="#uninitialized-variables">未初期化の変数</a></li>
+    <li><a href="#built-in-variables">組み込みの変数</a></li>
+    <li><a href="#environment-variables">環境変数</a></li>
+    <li><a href="#variable-references">変数参照（VarRef）</a></li>
+    <li><a href="#caching">キャッシング</a></li>
   </ul></li>
-  <li><a href="#functions">Functions</a>
+  <li><a href="#functions">機能紹介</a>
   <ul>
-    <li><a href="#methods">Methods</a></li>
+    <li><a href="#methods">メソッド</a></li>
   </ul></li>
-  <li><a href="#control-flow">Control Flow</a></li>
-  <li><a href="#details">Details</a>
+  <li><a href="#control-flow">制御フロー</a></li>
+  <li><a href="#details">詳細</a>
   <ul>
-    <li><a href="#string-encoding">String Encoding</a></li>
-    <li><a href="#pure-numbers">Pure Numbers</a></li>
-    <li><a href="#names">Names</a></li>
-    <li><a href="#references-to-objects">References to Objects</a></li>
+    <li><a href="#string-encoding">文字列のエンコード</a></li>
+    <li><a href="#pure-numbers">ピュアナンバーズ</a></li>
+    <li><a href="#names">名称</a></li>
+    <li><a href="#references-to-objects">オブジェクトへの言及</a></li>
   </ul></li>
 </ul><!-- TODO:
 Scope/declarations
@@ -52,215 +52,213 @@ Exception handling
 -->
 
 
-<h2 id="values">Values</h2>
-<p>A <em>value</em> is simply a piece of information within a program. For example, the name of a key to send or a program to run, the number of times a hotkey has been pressed, the title of a window to activate, or whatever else has some meaning within the program or script.</p>
-<p>AutoHotkey supports these types of values:</p>
+<h2 id="values">価値観</h2>
+<p><em>値とは</em>、簡単に言えば、プログラム内の情報のことです。例えば、送信するキーや実行するプログラムの名前、ホットキーが押された回数、起動するウィンドウのタイトルなど、プログラムやスクリプトの中で何らかの意味を持つものを指定します。</p>
+<p>AutoHotkeyは、このようなタイプの値をサポートしています。</p>
 <ul>
-  <li><a href="#strings">Strings</a> (text)</li>
-  <li><a href="#numbers">Numbers</a> (integers and floating-point numbers)</li>
-  <li><a href="#objects">Objects</a></li>
+  <li><a href="#strings">文字列</a>（テキスト）</li>
+  <li><a href="#numbers">数字</a>（整数、浮動小数点数）</li>
+  <li><a href="#objects">オブジェクト</a></li>
 </ul>
-<p>The <a href="lib/Type.htm">Type</a> function can be used to determine the type of a value.</p>
-<p>Some other related concepts:</p>
+<p><a href="lib/Type.htm">Type</a>関数は、値の型を決定するために使用することができます。</p>
+<p>その他、関連するコンセプトもあります。</p>
 <ul>
-  <li><a href="#boolean">Boolean</a></li>
+  <li><a href="#boolean">ブーリアン</a></li>
   <li><a href="#nothing">Nothing</a></li>
 </ul>
 
-<h3 id="strings">Strings</h3>
-<p>A <em>string</em> is simply text. Each string is actually a sequence or <em>string</em> of characters, but can be treated as a single entity. The <em>length</em> of a string is the number of characters in the sequence, while the <em>position</em> of a character in the string is merely that character's sequential number. By convention in AutoHotkey, the first character is at position 1.</p>
-<p id="numeric-strings"><strong>Numeric strings:</strong> A string of digits (or any other supported <a href="#numbers">number format</a>) is automatically interpreted as a number when a math operation or comparison requires it.</p>
-<p>How literal text should be written within the script depends on the context. For instance, in an expression, <a href="Language.htm#strings">strings</a> must be enclosed in quotation marks. In directives (excluding #HotIf) and auto-replace hotstrings, quotation marks are not needed.</p>
-<p>For a more detailed explanation of how strings work, see <a href="#string-encoding">String Encoding</a>.</p>
+<h3 id="strings">ストリングス</h3>
+<p><em>文字列は</em>単なるテキストです。各文字列は、実際には文字の配列または<em>文字列</em>ですが、1つの実体として扱うことができます。文字列の<em>長</em>さは、その文字列の文字数であり、文字列中のある文字の<em>位置は</em>、その文字の連番でしかありません。AutoHotkeyの慣例では、最初の文字はポジション1になります。</p>
+<p id="numeric-strings"><strong>数値の文字列。</strong>数値文字列：数字（またはその他のサポートされている<a href="#numbers">数値フォーマット</a>）の文字列は、数学演算や比較で必要とされる場合、自動的に数値として解釈されます。</p>
+<p>スクリプトの中でどのようにリテラルテキストを書くべきかは、文脈によって異なります。例えば、式の中では、<a href="Language.htm#strings">文字列は</a>引用符で囲む必要があります。ディレクティブ（#HotIfを除く）および自動置換ホットストリングでは、引用符は必要ありません。</p>
+<p>文字列の仕組みについてのより詳しい説明は、「<a href="#string-encoding">文字列のエンコード</a>」を参照してください。</p>
 
-<h3 id="numbers">Numbers</h3>
-<p>AutoHotkey supports these number formats:</p>
+<h3 id="numbers">数字</h3>
+<p>AutoHotkeyは、これらの数値フォーマットに対応しています。</p>
 <ul>
-  <li>Decimal integers, such as <code>123</code>, <code>00123</code> or <code>-1</code>.</li>
-  <li>Hexadecimal integers, such as <code>0x7B</code>, <code>0x007B</code> or <code>-0x1</code>.</li>
-  <li>Decimal floating-point numbers, such as <code>3.14159</code>.</li>
+  <li><code>123</code>、<code>00123</code> <code>、-1</code>などの10進数整数。</li>
+  <li><code>0x7B</code>、<code>0x007B</code>、<code>-0x1</code>などの16進数の整数値。</li>
+  <li><code>3.14159の</code>ような10進数の浮動小数点数。</li>
 </ul>
-<p>Hexadecimal numbers must use the <code>0x</code> or <code>0X</code> prefix, except where noted in the documentation. This prefix must be written after the <code>+</code> or <code>-</code> sign, if present, and before any leading zeroes. For example, <code>0x001</code> is valid, but <code>000x1</code> is not.</p>
-<p>Numbers written with a decimal point are always considered to be floating-point, even if the fractional part is zero. For example, <code>42</code> and <code>42.0</code> are usually interchangeable, but not always. Scientific notation is also recognized (e.g. <code>1.0e4</code> and <code>-2.1E-4</code>), but always produces a floating-point number even if no decimal point is present.</p>
-<p>The decimal separator is always a dot, even if the user's regional settings specify a comma.</p>
-<p id="number-default-format">When a number is converted to a string, it is formatted as decimal. Floating-point numbers are formatted with full precision (but discarding redundant trailing zeroes), which may in some cases reveal their <a href="#float-imprecision">inaccuracy</a>. Use the <a href="lib/Format.htm">Format</a> function to produce a numeric string in a different format. Floating-point numbers can also be formatted by using the <a href="lib/Math.htm#Round">Round</a> function.</p>
-<p>For details about the range and accuracy of numeric values, see <a href="#pure-numbers">Pure Numbers</a>.</p>
+<p>16進数の場合は、ドキュメントに記載されている場合を除き、<code>0x</code>または<code>0X</code>のプレフィックスを使用する必要があります。この接頭辞は、<code>＋</code>または<code>-</code>記号がある場合はその後に、先行するゼロの前に書かなければならない。例えば、<code>0x001</code>は有効ですが、<code>000x1</code>は無効です。</p>
+<p>小数点のある数値は、小数部が0であっても、常に浮動小数点とみなされます。例えば、<code>42と</code> <code>42.0は</code>通常互換性がありますが、常に互換性があるわけではありません。科学表記も認識されるが（例：<code>1.0e4</code> <code>、-2.1E-4</code>）、小数点以下がない場合でも常に浮動小数点数の数値が生成される。</p>
+<p>ユーザーの地域設定でカンマが指定されている場合でも、小数点以下の区切り記号は常にドットです。</p>
+<p id="number-default-format">数値を文字列に変換した場合、10進数でフォーマットされます。浮動小数点数は、完全な精度でフォーマットされます（ただし、余分な末尾のゼロは削除されます）ので、場合によっては<a href="#float-imprecision">不正確</a>であることがわかります。数値文字列を別の形式で出力する場合は、<a href="lib/Format.htm">Format</a>関数を使用します。浮動小数点数は、<a href="lib/Math.htm#Round">Round</a>関数を使って整形することも可能です。</p>
+<p>数値の範囲や精度については、「<a href="#pure-numbers">純粋な数値</a>」を参照してください。</p>
 
-<h3 id="boolean">Boolean</h3>
-<p>A <em>boolean</em> value can be either <em>true</em> or <em>false</em>. Boolean values are used to represent anything that has exactly two possible states, such as the <em>truth</em> of an expression. For example, the expression <code>(x &lt;= y)</code> is <em>true</em> when x has lesser or equal value to y. A boolean value could also represent <em>yes</em> or <em>no</em>, <em>on</em> or <em>off</em>, <em>down</em> or <em>up</em> (such as for <a href="lib/GetKeyState.htm">GetKeyState</a>) and so on.</p>
-<p>AutoHotkey does not have a specific boolean type, so it uses the integer value <code>0</code> to represent false and <code>1</code> to represent true. When a value is required to be either true or false, a blank or zero value is considered false and all other values are considered true. (Objects are always considered true.)</p>
-<p>The words <code>true</code> and <code>false</code> are <a href="#built-in-variables">built-in variables</a> containing 1 and 0. They can be used to make a script more readable.</p>
+<h3 id="boolean">ブーリアン</h3>
+<p><em>boolean</em>値は、<em>true</em>または<em>false</em>のいずれかになります。ブール値は、式の<em>真偽など</em>、正確に2つの可能な状態を持つものを表現するために使用されます。例えば、<code>(x &lt;= y)</code>という式は、xがyより小さいか等しい場合に<em>真と</em>なる。ブーリアン値は、<em>イエスか</em> <em>ノーか</em>、<em>オンか</em> <em>オフか</em>、<em>ダウンか</em> <em>アップか</em>（<a href="lib/GetKeyState.htm">GetKeyStateの</a>ように）などを表すこともできる。</p>
+<p>AutoHotkeyには特定のブーリアン型がないため、整数値である<code>0を</code>使用して偽を、<code>1を</code>使用して真を表します。値が真か偽のどちらかであることが要求される場合、空白またはゼロの値は偽とみなされ、他のすべての値は真とみなされる。(オブジェクトは常に真とみなされます）。</p>
+<p><code>trueと</code> <code>falseという</code>言葉は、1と0を含む<a href="#built-in-variables">組み込み変数</a>です。これらは、スクリプトをより読みやすくするために使用することができます。</p>
 
 <h3 id="nothing">Nothing</h3>
-<p>AutoHotkey does not have a value which uniquely represents <em>nothing</em>, <em>null</em>, <em>nil</em> or <em>undefined</em>, as seen in other languages.</p>
-<p>Instead of producing a "null" or "undefined" value, any attempt to read a variable, property, array element or map item which has no value causes an <a href="lib/Error.htm#UnsetError">UnsetError</a> to be thrown. This allows errors to be identified more easily than if a null value was implicitly allowed to propagate through the code. See also: <a href="#uninitialized-variables">Uninitialized Variables</a>.</p>
-<p>A function's <a href="Language.htm#optional-parameters">optional parameters</a> can be <em>omitted</em> when the function is called, in which case the function may change its behaviour or use a default value. Parameters are usually omitted by literally omitting them from the code, but can also be omitted explicitly or conditionally by using the <code>unset</code> keyword. This special signal can only be propagated explicitly, with the <a href="Variables.htm#maybe">maybe operator (<em>var</em><strong>?</strong>)</a>. An unset parameter automatically receives its default value (if any) before the function executes.</p>
-<p>Mainly for historical reasons, an empty string is sometimes used wherever a null or undefined value would be used in other languages, such as for functions which have no explicit return value.</p>
-<p>If a <a href="#variables">variable</a> or <a href="#parameters">parameter</a> is said to be "empty" or "blank", that usually means an empty string (a string of zero length). This is not the same as omitting a parameter, although it may have the same effect in some cases.</p>
+<p>AutoHotkeyには、他の言語で見られるような、<em>無、</em><em>null</em>、<em>nil</em>、<em>undefinedを</em>一意に表す値がありません。</p>
+<p>null "または "undefined "値を生成する代わりに、値を持たない変数、プロパティ、配列要素、マップアイテムを読み込もうとすると、<a href="lib/Error.htm#UnsetError">UnsetErrorが</a>投げられる。これにより、NULL値を暗黙のうちにコード内に伝播させる場合よりも、より簡単にエラーを特定することができます。こちらもご覧ください。<a href="#uninitialized-variables">未初期化変数</a>。</p>
+<p>関数の<a href="Language.htm#optional-parameters">オプションパラメータは</a>、関数が呼び出されたときに<em>省略</em>することができます。その場合、関数は動作を変更するか、デフォルト値を使用します。パラメータは通常、コードから文字通り省略することで省略されますが、<code>unset</code>キーワードを使用することで明示的または条件付きで省略することも可能です。この特別なシグナルは、<a href="Variables.htm#maybe">maybe演算</a>子を用いて明示的にしか伝搬できない<a href="Variables.htm#maybe">（<em>var</em><strong>?）</strong></a>未設定のパラメータは、関数が実行される前に自動的にそのデフォルト値（もしあれば）を受け取ります。</p>
+<p>主に歴史的な理由から、戻り値が明示されていない関数など、他の言語でnullやundefinedの値が使用される場合に、空文字列が使用されることがあります。</p>
+<p><a href="#variables">変数や</a> <a href="#parameters">パラメータが</a>「空」または「ブランク」と言われる場合、それは通常、空文字列（長さがゼロの文字列）を意味します。これは、場合によっては同じ効果をもたらすかもしれませんが、パラメータを省略することとは異なります。</p>
 
-<h3 id="objects">Objects</h3>
-<p>The <em>object</em> is AutoHotkey's composite or abstract data type. An object can be composed of any number of <em>properties</em> (which can be retrieved or set) and <a href="#methods"><em>methods</em></a> (which can be called). The name and effect of each property or method depends on the specific object or type of object.</p>
-<p>Objects have the following attributes:</p>
+<h3 id="objects">オブジェクト</h3>
+<p><em>オブジェクトは</em>、AutoHotkeyの複合データ型または抽象データ型です。オブジェクトは、任意の数の<em>プロパティ</em>（取得または設定可能）と <a href="#methods"><em>方法</em></a>(を呼び出すことができる）。各プロパティやメソッドの名称や効果は、特定のオブジェクトやオブジェクトの種類に依存します。</p>
+<p>オブジェクトには以下の属性があります。</p>
 <ul>
-  <li>Objects are not contained; they are <a href="#references-to-objects">referenced</a>. For example, <code>alpha := []</code> creates a new <a href="lib/Array.htm">Array</a> and stores a reference in <em>alpha</em>. <code>bravo := alpha</code> copies the reference (not the object) to <code>bravo</code>, so both refer to the same object. When an array or variable is said to contain an object, what it actually contains is a reference to the object.</li>
-  <li>Two object references compare equal only if they refer to the same object.</li>
-  <li>Objects are always considered <i>true</i> when a boolean value is required, such as in <code>if obj</code>, <code>!obj</code> or <code>obj ? x : y</code>.</li>
-  <li>Each object has a unique address (location in memory), which can be retrieved by the <a href="Objects.htm#ObjPtr">ObjPtr</a> function, but is typically not used directly. This address uniquely identifies the object, but only until the object is freed.</li>
-  <li>In some cases when an object is used in a context where one was not expected, it might be treated as an empty string. For example, <code>MsgBox(myObject)</code> shows an empty MsgBox. In other cases, a <a href="lib/Error.htm#TypeError">TypeError</a> may be thrown (and this should become the norm in future).</li>
+  <li>オブジェクトは含まれるものではなく、<a href="#references-to-objects">参照</a>されるものです。例えば、<code>alpha := []</code>は新しい<a href="lib/Array.htm">Arrayを</a>作成し、<em>alphaに</em>参照を格納する。<code>bravo := alpha</code>は、オブジェクトではなく参照を<code>bravoに</code>コピーするので、両者は同じオブジェクトを参照する。配列や変数がオブジェクトを含んでいると言われるとき、実際に含んでいるのはオブジェクトへの参照である。</li>
+  <li>2つのオブジェクトの参照は、同じオブジェクトを参照している場合のみ、等しく比較されます。</li>
+  <li>オブジェクトは、<code>if obj</code>,<code>!obj</code>,<code>obj ? x : y</code>のように、ブール値が要求される場合は常に<i>真と</i>みなされます。</li>
+  <li>各オブジェクトは固有のアドレス（メモリ上の位置）を持っており、<a href="Objects.htm#ObjPtr">ObjPtr</a>関数で取得することができますが、通常、直接使用することはありません。このアドレスは、オブジェクトを一意に識別しますが、オブジェクトが解放されるまでの間だけです。</li>
+  <li>オブジェクトが想定外の文脈で使用された場合、空文字列として扱われることがある。例えば、<code>MsgBox(myObject)</code>は、空のMsgBoxを表示します。それ以外の場合は、<a href="lib/Error.htm#TypeError">TypeErrorが</a>投げられることがあります（将来的には、これが標準になるはずです）。</li>
 </ul>
-<p class="note"><strong>Note:</strong> All objects which derive from <a href="lib/Object.htm">Object</a> have additional shared behaviour, properties and methods.</p>
-<p>Some ways that objects are used include:</p>
+<p class="note"><strong>注：</strong> <a href="lib/Object.htm">Objectから</a>派生したすべてのオブジェクトは、さらに共有の動作、プロパティ、メソッドを持ちます。</p>
+<p>オブジェクトの使われ方としては、以下のようなものがあります。</p>
 <ul>
-  <li>To contain a collection of items or <em>elements</em>. For example, an <a href="lib/Array.htm">Array</a> contains a sequence of items, while a <a href="lib/Map.htm">Map</a> associates keys with values. Objects allow a group of values to be treated as one value, to be assigned to a single variable, passed to or returned from a function, and so on.</li>
-  <li>To represent something real or conceptual. For example: a position on the screen, with X and Y properties; a contact in an address book, with Name, PhoneNumber, EmailAddress and so on. Objects can be used to represent more complex sets of information by combining them with other objects.</li>
-  <li>To encapsulate a service or set of services, allowing other parts of the script to focus on a task rather than how that task is carried out. For example, a <a href="lib/File.htm">File</a> object provides methods to read data from a file or write data to a file. If a script function which writes information to a file accepts a File object as a parameter, it needs not know how the file was opened. The same function could be reused to write information to some other target, such as a TCP/IP socket or WebSocket (via user-defined objects).</li>
-  <li>A combination of the above. For example, a <a href="lib/Gui.htm">Gui</a> represents a GUI window; it provides a script with the means to create and display a graphical user interface; it contains a collection of controls, and provides information about the window via properties such as Title and FocusedCtrl.</li>
+  <li>アイテムや<em>要素の</em>コレクションを含むこと。例えば、<a href="lib/Array.htm">Arrayは</a>項目の列を含み、<a href="lib/Map.htm">Mapは</a>キーと値を関連付ける。オブジェクトは、複数の値を1つの値として扱ったり、1つの変数に代入したり、関数に渡したり、関数から戻したりすることができます。</li>
+  <li>現実的なもの、概念的なものを表現すること。事例:XとYのプロパティを持つ画面上の位置、Name、PhoneNumber、EmailAddressなどのプロパティを持つアドレス帳の連絡先です。オブジェクトは、他のオブジェクトと組み合わせることで、より複雑な情報の集合を表現することができます。</li>
+  <li>サービスやサービスの集合をカプセル化し、スクリプトの他の部分が、そのタスクの実行方法ではなく、タスクに集中できるようにします。例えば、<a href="lib/File.htm">File</a>オブジェクトは、ファイルからデータを読み込んだり、ファイルにデータを書き込むためのメソッドを提供します。ファイルに情報を書き込むスクリプト関数が、Fileオブジェクトをパラメータとして受け取る場合、そのファイルがどのように開かれたかを知る必要はない。同じ関数を再利用して、TCP/IPソケットやWebSocketなどの他のターゲットに情報を書き込むことができます（ユーザー定義オブジェクト経由）。</li>
+  <li>上記の組み合わせ。例えば、<a href="lib/Gui.htm">Guiは</a>GUIウィンドウを表し、スクリプトにGUIを作成・表示する手段を提供し、コントロールのコレクションを含み、TitleやFocusedCtrlなどのプロパティによってウィンドウに関する情報を提供します。</li>
 </ul>
-<p>The proper use of objects (and in particular, <a href="Objects.htm#Custom_Classes">classes</a>) can result in code which is <em>modular</em> and <em>reusable</em>. Modular code is usually easier to test, understand and maintain. For instance, one can improve or modify one section of code without having to know the details of other sections, and without having to make corresponding changes to those sections. Reusable code saves time, by avoiding the need to write and test code for the same or similar tasks over and over.</p>
+<p>オブジェクト（特に<a href="Objects.htm#Custom_Classes">クラス</a>）を適切に使用することで、<em>モジュール化された</em> <em>再利用可能な</em>コードを作成することができます。モジュール化されたコードは、通常、テスト、理解、保守が容易です。例えば、他のセクションの詳細を知ることなく、またそのセクションに対応する変更を加えることなく、コードのあるセクションを改良または修正することができます。再利用可能なコードは、同じまたは類似のタスクのコードを何度も書いたりテストしたりする必要がないため、時間を節約することができます。</p>
 
-<h3 id="object-protocol">Object Protocol</h3>
-<p class="note">This section builds on these concepts which are covered in later sections: <a href="#variables">variables</a>, <a href="#functions">functions</a></p>
-<p>Objects work through the principle of <em>message passing</em>. You don't know where an object's code or variables actually reside, so you must pass a message to the object, like "give me <em>foo</em>" or "go do <em>bar</em>", and rely on the object to respond to the message. Objects in AutoHotkey support the following basic messages:</p>
+<h3 id="object-protocol">オブジェクトプロトコル</h3>
+<p class="note">このセクションでは、後のセクションでカバーされるこれらの概念に基づいています。<a href="#variables">変数</a>、<a href="#functions">関数</a></p>
+<p>オブジェクトは、<em>メッセージパッシングの</em>原理で動作します。オブジェクトのコードや変数が実際にどこにあるのかわからないので、「<em>fooを</em>くれ」「go do<em>bar</em>」といったメッセージをオブジェクトに渡し、オブジェクトがそのメッセージに応答するのを待つしかない。AutoHotkeyのオブジェクトは、以下の基本的なメッセージに対応しています。</p>
 <ul>
-  <li><strong>Get</strong> a property.</li>
-  <li><strong>Set</strong> a property, denoted by <code>:=</code>.</li>
-  <li><strong>Call</strong> a <a href="#methods">method</a>, denoted by <code>()</code>.</li>
+  <li>プロパティを<strong>取得</strong>します。</li>
+  <li><code>:=で</code>示されるプロパティを<strong>設定</strong>します。</li>
+  <li><code>()</code>で示される<a href="#methods">メソッドを</a><strong>呼び出す</strong>。</li>
 </ul>
-<p>A <em>property</em> is simply some aspect of the object that can be set and/or retrieved. For example, <a href="lib/Array.htm">Array</a> has a <a href="lib/Array.htm#Length">Length</a> property which corresponds to the number of elements in the array. If you define a property, it can have whatever meaning you want. Generally a property acts like a <a href="#variables">variable</a>, but its value might be calculated on demand and not actually stored anywhere.</p>
-<p>Each message contains the following, usually written where the property or method is <a href="#call">called</a>:</p>
+<p><em>プロパティとは</em>、設定や取得が可能な、オブジェクトの何らかの側面である。例えば、<a href="lib/Array.htm">Arrayには</a>、配列の要素数に相当する<a href="lib/Array.htm#Length">Length</a>プロパティがあります。プロパティを定義すれば、どんな意味でも持つことができます。一般的にプロパティは<a href="#variables">変数の</a>ように動作しますが、その値は要求に応じて計算され、実際にはどこにも保存されないかもしれません。</p>
+<p>各メッセージには以下の内容が含まれており、通常はプロパティやメソッドが<a href="#call">呼び出さ</a>れる場所に書かれています。</p>
 <ul>
-  <li>The name of the property or method.</li>
-  <li>Zero or more <a href="#parameters">parameters</a> which may affect what action is carried out, how a value is stored, or which value is returned. For example, a property might take an array index or key.</li>
+  <li>プロパティまたはメソッドの名前です。</li>
+  <li>どのようなアクションが実行されるか、どのように値が保存されるか、どの値が返されるかに影響を与える可能性のあるゼロまたは複数の<a href="#parameters">パラメータ</a>。例えば、プロパティは配列のインデックスやキーを取ることができる。</li>
 </ul>
-<p>For example:</p>
+<p>事例:</p>
 <pre>
 myObj.methodName(arg1)
 value := myObj.propertyName[arg1]
 </pre>
-<p>An object may also have a <em>default</em> property, which is invoked when square brackets are used without a property name. For example:</p>
+<p>オブジェクトは、<em>デフォルトプロパティを</em>持つことができます。これは、プロパティ名なしで角括弧が使用されたときに呼び出されます。事例:</p>
 <pre>value := myObj[arg1]</pre>
-<p>Generally, <strong>Set</strong> has the same meaning as an assignment, so it uses the same operator:</p>
+<p>一般に<strong>Setは</strong>代入と同じ意味を持つので、同じ演算子を使います。</p>
 <pre>
 myObj.name := value
 myObj.name[arg1, arg2, ..., argN] := value
 myObj[arg1, arg2, ..., argN] := value
 </pre>
 
-<h2 id="variables">Variables</h2>
-<p>A variable allows you to use a name as a placeholder for a value. Which value that is could change repeatedly during the time your script is running. For example, a hotkey could use a variable <code>press_count</code> to count the number of times it is pressed, and send a different key whenever <code>press_count</code> is a multiple of 3 (every third press). Even a variable which is only assigned a value once can be useful. For example, a <code>WebBrowserTitle</code> variable could be used to make your code easier to update when and if you were to change your preferred web browser, or if the <a href="misc/WinTitle.htm">title</a> or <a href="misc/WinTitle.htm#ahk_class">window class</a> changes due to a software update.</p>
-<p>In AutoHotkey, variables are created simply by using them. Each variable is <em>not</em> permanently restricted to a single <a href="#values">data type</a>, but can instead hold a value of any type: string, number or object. Attempting to read a variable which has not been assigned a value is considered an error, so it is important to <a href="#uninitialized-variables">initialize variables</a>.</p>
-<p>A variable has three main aspects:</p>
+<h2 id="variables">変数</h2>
+<p>変数は、名前を値のプレースホルダーとして使用することができます。どの値かは、スクリプトの実行中に繰り返し変更される可能性があります。例えば、ホットキーは変数<code>press_countを使って</code>押された回数をカウントし、<code>press_countが</code>3の倍数のとき（3回押すごとに）別のキーを送信することができます。一度しか値が代入されない変数でも、役に立つことがあります。例えば、<code>WebBrowserTitleという</code>変数を使えば、好みのウェブブラウザを変更したり、ソフトウェアのアップデートで<a href="misc/WinTitle.htm">タイトルや</a> <a href="misc/WinTitle.htm#ahk_class">ウィンドウクラスが</a>変わったりしたときに、コードを簡単に更新することができるようにすることができます。</p>
+<p>AutoHotkeyでは、変数を使用するだけで変数が作成されます。各変数は永久に単一の<a href="#values">データ型に</a>制限される<em>ことは</em>なく、代わりに任意の型の値を保持することができます。文字列、数値、オブジェクトのいずれかを指定します。値が割り当てられていない変数を読み込もうとするとエラーとなるため、<a href="#uninitialized-variables">変数の初期</a>化は重要である。</p>
+<p>変数には主に3つの側面があります。</p>
 <ul>
-  <li>The variable's <em>name</em>.</li>
-  <li>The variable itself.</li>
-  <li>The variable's <em>value</em>.</li>
+  <li>変数の<em>名前</em>です。</li>
+  <li>変数そのものです。</li>
+  <li>変数の<em>値</em>です。</li>
 </ul>
-<p>Certain restrictions apply to variable names - see <a href="#names">Names</a> for details. In short, it is safest to stick to names consisting of ASCII letters (which are case insensitive), digits and underscore, and to avoid using names that start with a digit.</p>
-<p id="scope">A variable name has <strong><em>scope</em></strong>, which defines where in the code that name can be used to refer to that particular variable; in other words, where the variable is <em>visible</em>. If a variable is not visible within a given scope, the same name can refer to a different variable. Both variables might exist at the same time, but only one is visible to each part of the script. <a href="Functions.htm#Global">Global variables</a> are visible in the "global scope" (that is, outside of functions), and can be read by functions by default, but must be <a href="Functions.htm#Global">declared</a> if they are to be assigned a value inside a function. <a href="Functions.htm#Local">Local variables</a> are visible only inside the function which created them.</p>
-<p>A variable can be thought of as a container or storage location for a value, so you'll often find the documentation refers to a variable's value as <em>the contents of the variable</em>. For a variable <code>x := 42</code>, we can also say that the variable x has the number 42 as its value, or that the value of x is 42.</p>
-<p>It is important to note that a variable and its value are not the same thing. For instance, we might say "<code>myArray</code> is an array", but what we really mean is that myArray is a variable containing a reference to an array. We're taking a shortcut by using the name of the variable to refer to its value, but "myArray" is really just the name of the variable; the array object doesn't know that it has a name, and could be referred to by many different variables (and therefore many names).</p>
+<p>変数名には一定の制約があります。詳細は「<a href="#names">名前</a>」を参照してください。要するに、ASCII文字（大文字小文字を区別しない）、数字、アンダースコアからなる名前にこだわり、数字から始まる名前は使わないようにするのが無難です。</p>
+<p id="scope">変数名には <strong><em>範囲</em></strong>これは、コード内のどこでその名前を使用してその変数を参照できるかを定義するもので、言い換えれば、その変数が<em>見える</em>場所です。ある変数が与えられたスコープ内で見えない場合、同じ名前で別の変数を参照することができます。両方の変数が同時に存在することもありますが、スクリプトの各部分で見えるのは1つだけです。<a href="Functions.htm#Global">グローバル変数は</a>、「グローバルスコープ」（つまり関数の外側）で見ることができ、デフォルトでは関数から読み込むことができますが、関数内で値を代入する場合は<a href="Functions.htm#Global">宣言する</a>必要があります。<a href="Functions.htm#Local">ローカル変数は</a>、それを作成した関数の内部でのみ見ることができます。</p>
+<p>変数は、値の入れ物や保管場所と考えることができるので、ドキュメントでは、変数の値を<em>変数の中身と</em>呼ぶことが多いようです。変数<code>x :=42の</code>場合、「変数xは42という数字を値として持っている」「xの値は42である」という言い方もできる。</p>
+<p>注意すべきは、変数とその値は同じではないことです。例えば、<code>「myArrayは</code>配列である」と言いますが、本当の意味は「myArrayは配列への参照を含む変数である」ということです。しかし、"myArray "は単なる変数名であり、配列オブジェクトは自分が名前を持っていることを知らないので、多くの異なる変数（したがって多くの名前）で参照される可能性があるのです。</p>
 
-<h3 id="uninitialized-variables"><span id="uninitialised-variables"></span>Uninitialized Variables</h3>
-<p>To <em>initialize</em> a variable is to assign it a starting value. A variable which has not yet been assigned a value is <em>uninitialized</em> (or <em>unset</em> for short). Attempting to read an uninitialized variable is considered an error. This helps to detect errors such as mispelled names and forgotten assignments.</p>
-<p><a href="lib/IsSet.htm">IsSet</a> can be used to determine whether a variable has been initialized, such as to initialize a global or static variable on first use.</p>
-<p>A variable can be <em>un-set</em> by combining a direct assignment (<code>:=</code>) with the <code>unset</code> keyword or the <a href="Variables.htm#maybe">maybe (<em>var</em>?)</a> operator. For example: <code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
-<p>The <a href="Variables.htm#or-maybe">or-maybe operator (??)</a> can be used to provide a default value when a variable lacks a value. For example, <code>MyVar ?? "Default"</code> is equivalent to <code>IsSet(MyVar) ? MyVar : "Default"</code>.</p>
+<h3 id="uninitialized-variables"><span id="uninitialised-variables"></span>未初期化の変数</h3>
+<p>変数を<em>初期化</em>するとは、その変数に開始値を割り当てることである。まだ値が割り当てられていない変数は、<em>uninitialized</em>（略して<em>unset</em>）です。初期化されていない変数を読み込もうとすると、エラーとみなされます。これにより、名前の間違いや課題の忘れ物などのミスを発見することができます。</p>
+<p><a href="lib/IsSet.htm">IsSetは</a>、グローバル変数やスタティック変数の初回使用時の初期化など、変数が初期化されているかどうかを判断するために使用することができます。</p>
+<p>変数の<em>設定を解除</em>するには、直接代入（<code>:=）と</code><code>unset</code>キーワードまたは<a href="Variables.htm#maybe">maybe（<em>var</em>?）</a>事例:<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
+<p>変数に値がない場合、<a href="Variables.htm#or-maybe">or-maybe演算子(??)</a>を使ってデフォルト値を提供することができる。例えば、<code>MyVar ?"Default"</code> は、<code>IsSet(MyVar)</code>と同等です。<code>MyVar : "Default</code>"です。</p>
 
-<h3 id="built-in-variables">Built-in Variables</h3>
-<p>A number of useful variables are built into the program and can be referenced by any script. Except where noted, these variables are read-only; that is, their contents cannot be directly altered by the script. By convention, most of these variables start with the prefix <code>A_</code>, so it is best to avoid using this prefix for your own variables.</p>
-<p>Some variables such as <a href="Variables.htm#KeyDelay">A_KeyDelay</a> and <a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a> represent settings that control the script's behavior, and retain separate values for each <a href="misc/Threads.htm">thread</a>. This allows subroutines launched by new threads (such as for hotkeys, menus, timers and such) to change settings without affecting other threads.</p>
-<p>Some special variables are not updated periodically, but rather their value is retrieved or calculated whenever the script references the variable. For example, <a href="lib/A_Clipboard.htm">A_Clipboard</a> retrieves the current contents of the clipboard as text, and <a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkey</a> calculates the number of milliseconds that have elapsed since the hotkey was pressed.</p>
-<p>Related: <a href="Variables.htm#BuiltIn">list of built-in variables</a>.</p>
+<h3 id="built-in-variables">組み込みの変数</h3>
+<p>プログラムには便利な変数が多数組み込まれており、どのスクリプトからも参照することができます。注意書きがある場合を除き、これらの変数は読み取り専用です。つまり、スクリプトでその内容を直接変更することはできません。慣習上、これらの変数のほとんどは接頭辞<code>A_で</code>始まります。</p>
+<p><a href="Variables.htm#KeyDelay">A_KeyDelayや</a> <a href="Variables.htm#TitleMatchMode">A_TitleMatchModeなどの</a>一部の変数は、スクリプトの動作を制御する設定を表し、<a href="misc/Threads.htm">各スレッドで</a>別々の値を保持します。これにより、新しいスレッドで起動したサブルーチン（ホットキー、メニュー、タイマーなど）が、他のスレッドに影響を与えずに設定を変更することができます。</p>
+<p>特殊な変数の中には、定期的に更新されるのではなく、スクリプトがその変数を参照するたびに、その値が取得または計算されるものがあります。例えば、<a href="lib/A_Clipboard.htm">A_Clipboardは</a>クリップボードの現在の内容をテキストとして取得し、<a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkeyは</a>ホットキーが押されてから経過したミリ秒数を計算します。</p>
+<p>関連:<a href="Variables.htm#BuiltIn">組み込み変数のリスト</a></p>
 
-<h3 id="environment-variables">Environment Variables</h3>
-<p>Environment variables are maintained by the operating system. You can see a list of them at the command prompt by typing SET then pressing Enter.</p>
-<p>A script may create a new environment variable or change the contents of an existing one with <a href="lib/EnvSet.htm">EnvSet</a>. Such additions and changes are not seen by the rest of the system. However, any programs or scripts which the script launches by calling <a href="lib/Run.htm">Run</a> or <a href="lib/Run.htm">RunWait</a> usually inherit a copy of the parent script's environment variables.</p>
-<p>To retrieve an environment variable, use <a href="lib/EnvGet.htm">EnvGet</a>. For example:</p>
+<h3 id="environment-variables">環境変数</h3>
+<p>環境変数は、オペレーティングシステムによって管理されます。コマンドプロンプトで「SET」と入力してEnterを押すと、その一覧を見ることができます。</p>
+<p>スクリプトは、<a href="lib/EnvSet.htm">EnvSetを</a>使用して新しい環境変数を作成したり、既存の環境変数の内容を変更したりすることができます。このような追加や変更は、システムの他の部分からは見えません。ただし、<a href="lib/Run.htm">Runや</a> <a href="lib/Run.htm">RunWaitを呼び出して</a>スクリプトが起動するプログラムやスクリプトは、通常、親スクリプトの環境変数のコピーを引き継ぎます。</p>
+<p>環境変数を取得する場合は、<a href="lib/EnvGet.htm">EnvGetを</a>使用します。事例:</p>
 <pre>Path := EnvGet("PATH")</pre>
 
-<h3 id="variable-references">Variable References (VarRef)</h3>
-<p>Within an expression, each variable reference is automatically resolved to its contents, unless it is the target of an <a href="Variables.htm#AssignOp">assignment</a> or the <a href="Variables.htm#ref">reference operator (&amp;)</a>. In other words, calling <code>myFunction(myVar)</code> would pass the value of <em>myVar</em> to <em>myFunction</em>, not the variable itself. The function would then have its own local variable (the parameter) with the same value as <em>myVar</em>, but would not be able to assign a new value to <em>myVar</em>. In short, the parameter is passed <em>by value</em>.</p>
-<p>The <a href="Variables.htm#ref">reference operator (&amp;)</a> allows a variable to be handled like a value. <code>&amp;myVar</code> produces a VarRef, which can be used like any other value: assigned to another variable or property, inserted into an array, passed to or returned from a function, etc. A VarRef can be used to assign to the original target variable or retrieve its value by <a href="Variables.htm#deref">dereferencing</a> it.</p>
-<p>For convenience, a function parameter can be declared <a href="Functions.htm#ByRef">ByRef</a> by prefixing the parameter name with ampersand (&amp;). This requires the caller to pass a VarRef, and allows the function itself to "dereference" the VarRef by just referring to the parameter (without percent signs).</p>
+<h3 id="variable-references">変数参照（VarRef）</h3>
+<p>式中では、<a href="Variables.htm#AssignOp">代入や</a> <a href="Variables.htm#ref">参照演算子（&amp;）の</a>対象でない限り、各変数参照はその内容に自動的に解決される。つまり、<code>myFunction(myVar)</code>を呼び出すと、<em>myVarの</em>値が<em>myFunctionに</em>渡され、変数そのものは渡されません。この場合、関数は<em>myVarと</em>同じ値を持つ独自のローカル変数（パラメータ）を持つことになりますが、<em>myVarに</em>新しい値を代入することはできません。要するに、パラメータは<em>値で</em>渡されるのです。</p>
+<p><a href="Variables.htm#ref">参照演算子（&amp;）により</a>、変数を値のように扱うことができます。<code>&amp;myVar</code>は VarRef を生成し、他の値と同様に使用することができます。他の変数やプロパティに代入する、配列に挿入する、関数に渡す、関数から返す、など。VarRef は、元のターゲット変数への代入や、<a href="Variables.htm#deref">参照解除による</a>値の取得に使用することができます。</p>
+<p>関数パラメータは，パラメータ名の前にアンパサンド（&amp;）を付けることで，便宜上<a href="Functions.htm#ByRef">ByRefと</a>することができます．これは、呼び出し側がVarRefを渡す必要があり、関数自身がパラメータを参照するだけで（パーセント記号なしで）VarRefを「参照解除」できるようにします。</p>
 <pre>class VarRef extends Any</pre>
-<p>The VarRef class currently has no predefined methods or properties, but <code>value is VarRef</code> can be used to test if a value is a VarRef.</p>
-<p>When a VarRef is used as a parameter of a COM method, the object itself is not passed. Instead, its value is copied into a temporary VARIANT, which is passed using the <a href="lib/ComObjType.htm#vt">variant type</a> <code>VT_BYREF|VT_VARIANT</code>. When the method returns, the new value is assigned to the VarRef.</p>
+<p>VarRefクラスには現在、定義済みのメソッドやプロパティはありませんが、<code>value is VarRefを</code>使用して、値がVarRefであるかどうかをテストすることが可能です。</p>
+<p>VarRefをCOMメソッドのパラメータとして使用する場合、オブジェクトそのものは渡されません。代わりに、その値は一時的なVARIANTにコピーされ、<code>VT_BYREF|VT_VARIANTの</code><a href="lib/ComObjType.htm#vt">バリアントタイプを使って</a>渡される。メソッドが戻ると、新しい値が VarRef に代入されます。</p>
 
-<h3 id="caching">Caching</h3>
-<p>Although a variable is typically thought of as holding a single value, and that value having a distinct type (string, number or object), AutoHotkey automatically converts between numbers and strings in cases like <code>"Value is " myNumber</code> and <code>MsgBox myNumber</code>. As these conversions can happen very frequently, whenever a variable containing a number is converted to a string, the result is <em>cached</em> in the variable.</p>
-<p>Currently, AutoHotkey v2 caches a pure number only when assigning a pure number to a variable, not when reading it. This preserves the ability to differentiate between strings and pure numbers (such as with the <a href="lib/Type.htm">Type</a> function, or when passing values to COM objects).</p>
+<h3 id="caching">キャッシング</h3>
+<p>一般的に変数は1つの値を保持し、その値は明確な型（文字列、数値、オブジェクト）を持つと考えられていますが、AutoHotkeyでは<code>「値は" myNumber</code>」や「<code>MsgBox myNumber</code>」などの場合、数値と文字列を自動的に変換しています。このような変換は非常に頻繁に起こりうるため、数値を含む変数が文字列に変換されるたびに、その結果は変数に<em>キャッシュ</em>されます。</p>
+<p>現在、AutoHotkey v2では、純粋な数値を変数に代入するときのみキャッシュし、読み込むときはキャッシュしません。これにより、文字列と純粋な数値を区別する機能が維持されます（<a href="lib/Type.htm">Type</a>関数や、COMオブジェクトに値を渡す場合など）。</p>
 
-<h3 id="Related">Related</h3>
+<h3 id="Related">関連</h3>
 <ul>
-  <li><a href="Variables.htm#Intro">Variables</a>: basic usage and examples.</li>
-  <li><a href="Variables.htm#cap">Variable Capacity and Memory</a>: details about limitations.</li>
+  <li><a href="Variables.htm#Intro">変数</a>:基本的な使い方と例</li>
+  <li><a href="Variables.htm#cap">可変容量・メモリ</a>。制限事項の詳細はこちら</li>
 </ul>
 
-<h2 id="functions">Functions</h2>
-<p>A <em>function</em> is the basic means by which a script <em>does something</em>.</p>
-<p>Functions can have many different purposes. Some functions might do no more than perform a simple calculation, while others have immediately visible effects, such as moving a window. One of AutoHotkey's strengths is the ease with which scripts can automate other programs and perform many other common tasks by simply calling a few functions. See the <a href="lib/index.htm">function list</a> for examples.</p>
-<p>Throughout this documentation, some common words are used in ways that might not be obvious to someone without prior experience. Below are several such words/phrases which are used frequently in relation to functions:</p>
+<h2 id="functions">機能紹介</h2>
+<p><em>関数とは</em>、スクリプトが<em>何かを行う</em>ための基本的な手段である。</p>
+<p>機能にはさまざまな目的があります。単純な計算を行うだけの関数もあれば、ウィンドウを移動させるなど、すぐに目に見える効果を持つ関数もあります。AutoHotkeyの強みの一つは、スクリプトがいくつかの関数を呼び出すだけで、他のプログラムを自動化したり、その他多くの一般的なタスクを実行したりすることができる手軽さです。例として、<a href="lib/index.htm">機能一覧を</a>ご覧ください。</p>
+<p>この文書では、一般的な単語が、経験のない人にはわからないように使われていることがあります。以下に、機能に関して頻繁に使用される単語やフレーズを紹介します。</p>
 <dl>
-  <dt id="call">Call a function</dt>
-  <dd><p><em>Calling</em> a function causes the program to invoke, execute or evaluate it. In other words, a <em>function call</em> temporarily transfers control from the script to the function. When the function has completed its purpose, it <em>returns</em> control to the script. In other words, any code following the function call does not execute until after the function completes.</p>
-  <p>However, sometimes a function completes before its effects can be seen by the user. For example, the <a href="lib/Send.htm">Send</a> function <em>sends</em> keystrokes, but may return before the keystrokes reach their destination and cause their intended effect.</p></dd>
-  <dt id="parameters">Parameters</dt>
-  <dd><p>Usually a function accepts <em>parameters</em> which tell it how to operate or what to operate on. Each parameter is a <a href="#values">value</a>, such as a string or number. For example, <a href="lib/WinMove.htm">WinMove</a> moves a window, so its parameters tell it which window to move and where to move it to. Parameters can also be called <em>arguments</em>. Common abbreviations include <em>param</em> and <em>arg</em>.</p></dd>
-  <dt id="pass-parameters">Pass parameters</dt>
-  <dd><p>Parameters are <em>passed</em> to a function, meaning that a value is specified for each parameter of the function when it is called. For example, one can <em>pass</em> the name of a key to <a href="lib/GetKeyState.htm">GetKeyState</a> to determine whether that key is being held down.</p></dd>
-  <dt id="return-a-value">Return a value</dt>
-  <dd><p>Functions <em>return</em> a value, so the result of the function is often called a <em>return value</em>. For example, <a href="lib/StrLen.htm">StrLen</a> returns the number of characters in a string. Functions may also store results in variables, such as when there is more than one result (see <a href="Functions.htm#return">Returning Values</a>).</p></dd>
-  <dt id="command">Command</dt>
-  <dd><p>A function call is sometimes called a <em>command</em>, such as if it <em>commands</em> the program to take a specific action. (For historical reasons, <em>command</em> may refer to a particular style of calling a function, where the parentheses are omitted and the return value is discarded. However, this is technically a <a href="Language.htm#function-call-statements">function call statement</a>.)</p></dd>
+  <dt id="call">関数を呼び出す</dt>
+  <dd><p>関数を<em>呼び出すと</em>、プログラムはその関数を起動、実行、評価します。つまり、<em>関数呼び出しは</em>、スクリプトから関数に一時的に制御を移します。関数が目的を果たすと、スクリプトに制御を<em>戻す</em>。つまり、関数呼び出しに続くコードは、関数が完了するまで実行されない。</p>
+  <p>しかし、その効果をユーザーが確認する前に機能が終了してしまうこともあります。例えば、<a href="lib/Send.htm">Send</a>関数はキーストロークを<em>送信</em>しますが、キーストロークが目的地に到達して意図した効果を発揮する前に戻ってくることがあります。</p></dd>
+  <dt id="parameters">パラメータ</dt>
+  <dd><p>通常、関数は、操作方法や操作対象を指示する<em>パラメータを</em>受け取ります。各パラメーターは、文字列や数値などの<a href="#values">値</a>です。例えば、<a href="lib/WinMove.htm">WinMoveは</a>ウィンドウを移動させるので、どのウィンドウをどこに移動させるかをパラメータで指定します。パラメータは<em>引数と</em>呼ばれることもあります。一般的な略語として、<em>param</em>、<em>argが</em>あります。</p></dd>
+  <dt id="pass-parameters">パラメータを渡す</dt>
+  <dd><p>パラメータは関数に<em>渡さ</em>れます。つまり、関数が呼び出されたときに、関数の各パラメータに値が指定されることを意味します。例えば、<a href="lib/GetKeyState.htm">GetKeyStateに</a>キーの名前を<em>渡すと</em>、そのキーが押さえられているかどうかを判断することができます。</p></dd>
+  <dt id="return-a-value">値を返す</dt>
+  <dd><p>関数は値を<em>返すので</em>、関数の結果を<em>返り</em>値と呼ぶことが多い。例えば、<a href="lib/StrLen.htm">StrLenは</a>文字列の文字数を返します。関数は、結果が複数ある場合など、結果を変数に格納することもあります（「<a href="Functions.htm#return">値を返す</a>」を参照）。</p></dd>
+  <dt id="command">コマンド</dt>
+  <dd><p>関数コールは、プログラムに特定の動作を<em>命令</em>する場合など、<em>コマンドと</em>呼ばれることもあります。(歴史的な理由から、<em>コマンドは</em>、括弧が省略され、戻り値が破棄される、関数を呼び出す特定のスタイルを指す場合があります。ただし、これは厳密には<a href="Language.htm#function-call-statements">関数呼び出し文</a>である)。</p></dd>
 </dl>
-<p>Functions usually expect parameters to be written in a specific order, so the meaning of each parameter value depends on its position in the comma-delimited list of parameters. Some parameters can be omitted, in which case the parameter can be left blank, but the comma following it can only be omitted if all remaining parameters are also omitted. For example, the syntax for <a href="lib/ControlSend.htm">ControlSend</a> is:</p>
-<pre class="Syntax"><span class="func">ControlSend</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span>
+<p>関数は通常、パラメータを特定の順序で記述することを想定しているため、各パラメータ値の意味は、カンマで区切られたパラメータリスト内の位置に依存します。一部のパラメータは省略可能で、その場合はパラメータを空白にすることができますが、それに続くカンマは、残りのすべてのパラメータも省略される場合にのみ省略することができます。例えば、<a href="lib/ControlSend.htm">ControlSendの</a>構文は以下の通りです。</p>
+<pre class="Syntax"><span class="func">ControlSend</span>Keys<span class="optional">, Control , WinTitle , WinText , ExcludeTitle , ExcludeText</span>
 </pre>
-<p>Square brackets signify that the enclosed parameters are optional (the brackets themselves should not appear in the actual code). However, usually one must also specify the target window. For example:</p>
+<p>角括弧は、囲んだパラメータがオプションであることを示します（括弧自体は実際のコードに表示されるべきではありません）。ただし、通常はターゲットウィンドウも指定する必要があります。事例:</p>
 <pre>
-ControlSend "^{Home}", "Edit1", "A"  <em>; Correct. Control is specified.</em>
-ControlSend "^{Home}", "A"           <em>; Incorrect: Parameters are mismatched.</em>
-ControlSend "^{Home}",, "A"          <em>; Correct. Control is omitted.</em>
+ControlSend "^{Home}", "Edit1", "A"<em>; 正しい。制御が指定されている。</em>
+ControlSend "^{Home}", "A"<em>不正解です。パラメータが不一致です。</em>
+ControlSend "^{Home}",, "A"<em>; 正しいです。制御が省略されている。</em>
 </pre>
 
-<h3 id="methods">Methods</h3>
-<p>A <em>method</em> is a function associated with a specific <a href="#objects">object</a> or type of object. To call a method, one must specify an object and a method name. The method name does not uniquely identify the function; instead, what happens when the method call is attempted depends on the object. For example, <code>x.Show()</code> might <a href="lib/Menu.htm#Show">show a menu</a>, <a href="lib/Gui.htm#Show">show a GUI</a>, raise an error or do something else, depending on what <code>x</code> is. In other words, a method call simply passes a message to the object, instructing it to do something. For details, see <a href="#object-protocol">Object Protocol</a> and <a href="Language.htm#operators-for-objects">Operators for Objects</a>.</p>
+<h3 id="methods">メソッド</h3>
+<p><em>メソッドは</em>、特定の<a href="#objects">オブジェクト</a>またはオブジェクトの種類に関連する機能である。メソッドを呼び出すには、オブジェクトとメソッド名を指定する必要があります。メソッド名は関数を一意に特定するものではなく、メソッド呼び出しが試みられたときに何が起こるかは、オブジェクトに依存する。例えば、<code>x.Show()</code>は、<code>xが</code>何であるかによって、<a href="lib/Menu.htm#Show">メニューを表示</a>したり、<a href="lib/Gui.htm#Show">GUIを表示</a>したり、エラーを発生させたり、何か他のことをしたりします。つまり、メソッドコールは、単にオブジェクトにメッセージを渡し、何かをするように指示するものです。詳しくは、「<a href="#object-protocol">オブジェクトプロトコル</a>」および「<a href="Language.htm#operators-for-objects">オブジェクトの演算子</a>」をご参照ください。</p>
 
-<h2 id="control-flow">Control Flow</h2>
-<p><em>Control flow</em> is the order in which individual statements are executed. Normally statements are executed sequentially from top to bottom, but a control flow statement can override this, such as by specifying that statements should be executed repeatedly, or only if a certain condition is met.</p>
+<h2 id="control-flow">制御フロー</h2>
+<p><em>制御フローとは</em>、個々のステートメントが実行される順序のことです。通常、文は上から下へ順番に実行されますが、制御フロー文では、文が繰り返し実行されたり、ある条件が満たされた場合にのみ実行されるように指定するなど、これを上書きすることができます。</p>
 <dl>
-  <dt id="statement">Statement</dt>
-  <dd><p>A <em>statement</em> is simply the smallest standalone element of the language that expresses some action to be carried out. In AutoHotkey, statements include assignments, function calls and other expressions. However, directives, double-colon hotkey and hotstring tags, and declarations without assignments are not statements; they are processed when the program first starts up, before the script <em>executes</em>.</p></dd>
-  <dt id="execute">Execute</dt>
-  <dd><p>Carry out, perform, evaluate, put into effect, etc. <em>Execute</em> basically has the same meaning as in non-programming speak.</p></dd>
+  <dt id="statement">文</dt>
+  <dd><p><em>文とは</em>、簡単に言えば、実行されるべき何らかのアクションを表現する言語の最小の独立した要素である。AutoHotkeyでは、ステートメントには、代入、関数呼び出し、その他の式が含まれます。ただし、ディレクティブ、ダブルコロンのホットキーやホットストリングタグ、割り当てのない宣言はステートメントではなく、プログラムが最初に起動したとき、スクリプトが<em>実行される</em>前に処理されます。</p></dd>
+  <dt id="execute">実行</dt>
+  <dd><p>実行する、実行する、評価する、実行に移す、など。<em>Executeは</em>、基本的にノンプログラミングの言葉と同じ意味です。</p></dd>
   <dt id="cf-body">Body</dt>
-  <dd><p>The <em>body</em> of a control flow statement is the statement or group of statements to which it applies. For example, the body of an <a href="lib/If.htm">if statement</a> is executed only if a specific condition is met.</p></dd>
+  <dd><p>制御フロー文の<em>本体は</em>、それが適用される文または文のグループである。例えば、<a href="lib/If.htm">if文</a>の本文は、特定の条件を満たした場合にのみ実行される。</p></dd>
 </dl>
-<p>For example, consider this simple set of instructions:</p>
+<p>例えば、こんな簡単な説明書を考えてみましょう。</p>
 <ol>
-  <li>Open Notepad</li>
-  <li>Wait for Notepad to appear on the screen</li>
-  <li>Type "Hello, world!"</li>
+  <li>メモ帳を開く</li>
+  <li>メモ帳が画面に表示されるのを待つ</li>
+  <li>"Hello, world!"と入力する</li>
 </ol>
-<p>We take one step at a time, and when that step is finished, we move on to the next step. In the same way, control in a program or script usually flows from one statement to the next statement. But what if we want to type into an existing Notepad window? Consider this revised set of instructions:</p>
+<p>一歩ずつ進んで、その一歩が終わったら次のステップに進む。同じように、プログラムやスクリプトの制御は、通常、あるステートメントから次のステートメントへと流れます。しかし、既存のメモ帳のウィンドウに入力する場合はどうでしょうか。この改訂版をご検討ください。</p>
 <ol>
-  <li>If Notepad is not running:
-
+  <li>メモ帳が起動していない場合。
 <ol>
-  <li>Open Notepad</li>
-  <li>Wait for Notepad to appear on the screen</li>
-</ol>
-</li>
-  <li>Otherwise:
-
-<ol>
-  <li>Activate Notepad</li>
+  <li>メモ帳を開く</li>
+  <li>メモ帳が画面に表示されるのを待つ</li>
 </ol>
 </li>
-  <li>Type "Hello, world!"</li>
+  <li>それ以外は。
+<ol>
+  <li>メモ帳を起動する</li>
 </ol>
-<p>So we either open Notepad or activate Notepad depending on whether it is already running. #1 is a <em>conditional statement</em>, also known as an <em>if statement</em>; that is, we execute its <em>body</em> (#1.1 - #1.2) only if a condition is met. #2 is an <em>else statement</em>; we execute its body (#2.1) only if the condition of a previous <em>if statement</em> (#1) is not met. Depending on the condition, control <em>flows</em> one of two ways: #1 (if true) → #1.1 → #1.2 → #3; or #1 (if false) → #2 (else) → #2.1 → #3.</p>
-<p>The instructions above can be translated into the code below:</p>
+</li>
+  <li>"Hello, world!"と入力する</li>
+</ol>
+<p>そこで、メモ帳を開くか、メモ帳を起動するかは、すでに起動しているかどうかで判断しています。#1.は<em>条件文</em>であり、<em>if文とも</em>呼ばれる。つまり、ある条件を満たした場合にのみ、その<em>本体</em>（#1.1～#1.2）を実行するのである。#2は<em>else文</em>であり、前の<em>if文</em>（#1）の条件が満たされない場合にのみ、その本体（#2.1）を実行する。条件によって、制御は2通りの<em>流れに</em>なります。#1 (if true) → #1.1 → #1.2 → #3; or #1 (if false) → #2 (else) → #2.1 → #3.</p>
+<p>上記の指示は、以下のコードに変換することができます。</p>
 <pre>if (not WinExist("ahk_class Notepad"))
 {
     Run "Notepad"
@@ -270,83 +268,83 @@ else
     WinActivate "ahk_class Notepad"
 Send "Hello, world{!}"
 </pre>
-<p>In our written instructions, we used indentation and numbering to group the statements. Scripts work a little differently. Although indentation makes code easier to read, in AutoHotkey it does not affect the grouping of statements. Instead, statements are grouped by enclosing them in braces, as shown above. This is called a <a href="lib/Block.htm"><em>block</em></a>.</p>
-<p class="note">For details about syntax - that is, how to write or recognise control flow statements in AutoHotkey - see <a href="Language.htm#control-flow">Control Flow</a>.</p>
+<p>説明書では、インデントとナンバリングを使ってステートメントをグループ化しました。スクリプトはちょっと違うんです。インデントはコードを読みやすくしますが、AutoHotkeyではステートメントのグループ化には影響しません。その代わりに、上の図のように中括弧で囲むことでステートメントをグループ化します。と呼ばれるものである。 <a href="lib/Block.htm"><em>ブロック</em></a>.</p>
+<p class="note">構文についての詳細、つまりAutoHotkeyで制御フロー文を書いたり認識したりする方法については、「<a href="Language.htm#control-flow">制御フロー</a>」を参照してください。</p>
 
-<h2 id="details">Details</h2>
+<h2 id="details">詳細</h2>
 
-<h3 id="string-encoding">String Encoding</h3>
-<p>Each character in the string is represented by a number, called its <em>ordinal number</em>, or <em>character code</em>. For example, the value "Abc" would be represented as follows:</p>
+<h3 id="string-encoding">文字列のエンコード</h3>
+<p>文字列の各文字は、その<em>序数</em>（<em>文字コード</em>）と呼ばれる数字で表現されます。例えば、値 "Abc "は次のように表現されます。</p>
 <table class="info" style="width: 8em; text-align: center">
   <tr><td>A</td><td>b</td><td>c</td></tr>
   <tr><td>65</td><td>98</td><td>99</td><td>0</td></tr>
 </table>
-<p><strong>Encoding:</strong> The <em>encoding</em> of a string defines how symbols are mapped to ordinal numbers, and ordinal numbers to bytes. There are many different encodings, but as all of those supported by AutoHotkey include ASCII as a subset, character codes 0 to 127 always have the same meaning. For example, 'A' always has the character code 65.</p>
-<p id="null-termination"><strong>Null-termination:</strong> Each string is terminated with a "null character", or in other words, a character with ordinal value of zero marks the end of the string. The length of the string can be inferred by the position of the null-terminator, but AutoHotkey also stores the length, for performance and to permit null characters within the string's length.</p>
-<p class="warning"><strong>Note:</strong> Due to reliance on null-termination, many built-in functions and most expression operators do not support strings with embedded null characters, and instead read only up to the first null character. However, basic manipulation of such strings is supported; e.g. concatenation, <code>==</code>, <code>!==</code>, <code>Chr(0)</code>, <a href="lib/StrLen.htm">StrLen</a>, <a href="lib/SubStr.htm">SubStr</a>, assignments, parameter values and <a href="lib/Return.htm">return</a>.</p>
-<p id="native-encoding"><strong>Native encoding:</strong> Although AutoHotkey provides ways to work with text in various encodings, the built-in functions--and to some degree the language itself--all assume string values to be in one particular encoding. This is referred to as the <em>native</em> encoding. The native encoding depends on the version of AutoHotkey:</p>
+<p><strong>エンコーディング。</strong>文字列の<em>エンコーディング</em>は、記号を序数に、序数をバイトにマッピングする方法を定義します。エンコーディングには様々なものがありますが、AutoHotkeyがサポートするものはすべてASCIIをサブセットとして含んでいるため、文字コード0～127は常に同じ意味を持ちます。例えば、'A'は常に文字コード65を持つ。</p>
+<p id="null-termination"><strong>ヌル文字で終端する。</strong>各文字列は「ヌル文字」で終端される。言い換えれば、序列値がゼロの文字が文字列の終わりを示す。文字列の長さはヌルターミネーターの位置から推測できますが、AutoHotkeyはパフォーマンスのため、また文字列の長さの範囲内でヌル文字を許可するために、長さも保存します。</p>
+<p class="warning"><strong>注：</strong>ヌル終端処理に依存しているため、多くの組み込み関数とほとんどの式演算子はヌル文字が埋め込まれた文字列をサポートせず、代わりに最初のヌル文字までしか読みません。ただし、連結、<code>==、</code><code>!!!==、</code><code>Chr(0)</code>、<a href="lib/StrLen.htm">StrLen</a>、<a href="lib/SubStr.htm">SubStr</a>、代入、パラメータ値、<a href="lib/Return.htm">戻り</a>値など、文字列の基本操作はサポートされています。</p>
+<p id="native-encoding"><strong>ネイティブエンコーディング。</strong>AutoHotkeyは様々なエンコーディングのテキストを扱う方法を提供していますが、組み込み関数、そしてある程度言語自体が、すべて文字列値がある特定のエンコーディングであることを前提としています。これを<em>ネイティブエンコードと</em>呼びます。ネイティブエンコードは、AutoHotkeyのバージョンによって異なります。</p>
 <ul>
   <li>
-<p>Unicode versions of AutoHotkey use UTF-16. The smallest element in a UTF-16 string is two bytes (16 bits). Unicode characters in the range 0 to 65535 (U+FFFF) are represented by a single 16-bit code unit of the same value, while characters in the range 65536 (U+10000) to 1114111 (U+10FFFF) are represented by a <em>surrogate pair</em>; that is, exactly two 16-bit code units between 0xD800 and 0xDFFF. (For further explanation of surrogate pairs and methods of encoding or decoding them, search the Internet.)</p>
+<p>AutoHotkeyのUnicodeバージョンはUTF-16を使用します。UTF-16文字列の最小の要素は2バイト（16ビット）です。0から65535（U+FFFF）の範囲のユニコード文字は、同じ値の単一の16ビットコードユニットで表され、65536（U+10000）から1114111（U+10FFFF）の範囲の文字は、<em>サロゲートペアで</em>表されます。(サロゲートペアやその符号化・復号化の方法については、インターネットで検索してください）。</p>
 </li>
   <li>
-<p>ANSI versions of AutoHotkey use the system default ANSI code page, which depends on the system locale or "language for non-Unicode programs" system setting. The smallest element of an ANSI string is one byte. However, some code pages contain characters which are represented by sequences of multiple bytes (these are always non-ASCII characters).</p>
+<p>AutoHotkeyのANSIバージョンは、システムロケールまたは「非Unicodeプログラム用の言語」システム設定に依存する、システムデフォルトのANSIコードページを使用します。ANSI文字列の最小の要素は1バイトである。ただし、コードページによっては、複数バイトのシーケンスで表現される文字（これらは常に非ASCII文字である）が含まれています。</p>
 </li>
 </ul>
-<p class="note"><strong>Note:</strong> AutoHotkey v2 natively uses Unicode and does not have an ANSI version.</p>
-<p id="character"><strong>Character:</strong> Generally, other parts of this documentation use the term "character" to mean a string's smallest unit; bytes for ANSI strings and 16-bit code units for Unicode (UTF-16) strings. For practical reasons, the length of a string and positions within a string are measured by counting these fixed-size units, even though they may not be complete Unicode characters.</p>
-<p><a href="lib/FileRead.htm">FileRead</a>, <a href="lib/FileAppend.htm">FileAppend</a>, <a href="lib/FileOpen.htm">FileOpen</a> and the <a href="lib/File.htm">File object</a> provide ways of reading and writing text in files with a specific encoding.</p>
-<p>The functions <a href="lib/StrGet.htm">StrGet</a> and <a href="lib/StrPut.htm">StrPut</a> can be used to convert strings between the native encoding and some other specified encoding. However, these are usually only useful in combination with data structures and the <a href="lib/DllCall.htm">DllCall</a> function. Strings which are passed directly to or from <a href="lib/DllCall.htm">DllCall</a> can be converted to ANSI or UTF-16 by using the <code>AStr</code> or <code>WStr</code> parameter types.</p>
-<p>Techniques for dealing with the differences between ANSI and Unicode versions of AutoHotkey can be found under <a href="Compat.htm#Format">Unicode vs ANSI</a>.</p>
+<p class="note"><strong>注：</strong>AutoHotkey v2はネイティブでUnicodeを使用し、ANSIバージョンはありません。</p>
+<p id="character"><strong>文字。</strong>一般に、この文書の他の部分では、文字列の最小単位を意味する用語「文字」を使用しています。ANSI文字列ではバイト、Unicode（UTF-16）文字列では16ビットコード単位です。実用的な理由から、文字列の長さや文字列内の位置は、完全なUnicode文字でなくても、これらの固定サイズのユニットをカウントして測定されます。</p>
+<p><a href="lib/FileRead.htm">FileRead</a>、<a href="lib/FileAppend.htm">FileAppend</a>、<a href="lib/FileOpen.htm">FileOpen</a>、<a href="lib/File.htm">Fileオブジェクトは</a>、特定のエンコーディングを持つファイル内のテキストの読み書きの方法を提供します。</p>
+<p><a href="lib/StrGet.htm">StrGet</a>、<a href="lib/StrPut.htm">StrPut</a>関数は、文字列をネイティブエンコーディングと他の指定されたエンコーディングの間で変換するために使用することができます。しかし、これらは通常、データ構造や<a href="lib/DllCall.htm">DllCall</a>関数との組み合わせでのみ有効です。<a href="lib/DllCall.htm">DllCallに</a>直接渡される文字列や<a href="lib/DllCall.htm">DllCallから</a>渡される文字列は、<code>AStr</code>または<code>WStr</code>パラメータ型を使用してANSIまたはUTF-16に変換することができます。</p>
+<p>AutoHotkeyのANSI版とUnicode版の違いに対応するためのテクニックは、「<a href="Compat.htm#Format">Unicode vs ANSI</a>」で紹介されています。</p>
 
-<h3 id="pure-numbers">Pure Numbers</h3>
-<p>A <em>pure</em> or <em>binary</em> number is one which is stored in memory in a format that the computer's CPU can directly work with, such as to perform math. In most cases, AutoHotkey automatically converts between numeric strings and pure numbers as needed, and rarely differentiates between the two types. AutoHotkey primarily uses two data types for pure numbers:</p>
+<h3 id="pure-numbers">ピュアナンバーズ</h3>
+<p><em>純数</em>または<em>2進数は</em>、コンピュータのCPUが直接演算処理できる形式でメモリに格納されているものです。ほとんどの場合、AutoHotkeyは必要に応じて数値文字列と純粋な数値の間を自動的に変換し、2つのタイプを区別することはほとんどありません。AutoHotkeyでは、主に純粋な数値に対して2つのデータ型を使用します。</p>
 <ul>
-  <li>64-bit signed integers (<em>int64</em>).</li>
-  <li>64-bit binary floating-point numbers (the <em>double</em> or <em>binary64</em> format of the IEEE 754 international standard).</li>
+  <li>64ビット符号付き整数<em>（int64</em>）。</li>
+  <li>64ビット2進数浮動小数点数（国際標準規格IEEE754の<em>double</em>または<em>binary64</em>形式）。</li>
 </ul>
-<p>In other words, scripts are affected by the following limitations:</p>
+<p>つまり、スクリプトは以下のような制約の影響を受けます。</p>
 <ul>
   <li>
-<p>Integers must be within the signed 64-bit range; that is, -9223372036854775808 (-0x8000000000000000, or -2<sup>63</sup>) to 9223372036854775807 (0x7FFFFFFFFFFFFFFF, or 2<sup>63</sup>-1). If an integer constant in an expression is outside this range, only the low 64 bits are used (the value is truncated). Although larger values can be contained within a string, any attempt to convert the string to a number (such as by using it in a math operation) will cause it to be similarly truncated.</p>
+<p>つまり、-9223372036854775808（-0x800000000000、または<sup>-</sup>263）から9223372036854775807（0x7FFFFFFFFF、または<sup>263-1</sup>）の範囲内でなければなりません。式中の整数定数がこの範囲外にある場合、下位64ビットのみが使用される（値は切り捨てられる）。文字列の中に大きな値を含めることができますが、文字列を数値に変換しようとすると（数学の演算で使用するなど）、同様に切り捨てられます。</p>
 </li>
   <li>
-<p>Floating-point numbers generally support 15 digits of precision.</p>
+<p>浮動小数点数は、一般的に15桁の精度をサポートしています。</p>
 </li>
 </ul>
-<p id="float-imprecision"><strong>Note:</strong> There are some decimal fractions which the binary floating-point format cannot precisely represent, so a number is rounded to the closest representable number. This may lead to unexpected results. For example:</p>
+<p id="float-imprecision"><strong>注：</strong>2進浮動小数点形式では正確に表現できない10進数の端数があるため、表現可能な最も近い数値に丸められます。そのため、予期せぬ結果になる可能性があります。事例:</p>
 <pre>
 MsgBox 0.1 + 0           <em>; 0.10000000000000001</em>
 MsgBox 0.1 + 0.2         <em>; 0.30000000000000004</em>
 MsgBox 0.3 + 0           <em>; 0.29999999999999999</em>
 MsgBox 0.1 + 0.2 = 0.3   <em>; 0 (not equal)</em>
 </pre>
-<p>One strategy for dealing with this is to avoid direct comparison, instead comparing the difference. For example:</p>
+<p>その対策として、直接の比較を避け、代わりに違いを比較することがあります。事例:</p>
 <pre>MsgBox Abs((0.1 + 0.2) - (0.3)) &lt; 0.0000000000000001
 </pre>
-<p>Another strategy is to explicitly apply rounding before comparison, such as by converting to a string. There are generally two ways to do this while specifying the precision, and both are shown below:</p>
+<p>また、文字列に変換するなどして、比較の前に丸めを明示的に適用する方法もある。精度を指定しながら行う方法は一般的に2つあり、どちらも以下に示すとおりです。</p>
 <pre>MsgBox Round(0.1 + 0.2, 15) = Format("{:.15f}", 0.3)
 </pre>
 
-<h3 id="names">Names</h3>
-<p>AutoHotkey uses the same set of rules for naming various things, including variables, functions, <a href="lib/GroupAdd.htm">window groups</a>, classes, properties and methods. The rules are as follows.</p>
-<p><strong>Case sensitivity:</strong> None for ASCII characters. For example, <code>CurrentDate</code> is the same as <code>currentdate</code>. However, uppercase non-ASCII characters such as 'Ä' are <em>not</em> considered equal to their lowercase counterparts, regardless of the current user's locale. This helps the script to behave consistently across multiple locales.</p>
-<p><strong>Maximum length:</strong> 253 characters.</p>
-<p><strong>Allowed characters:</strong> Letters, digits, underscore and non-ASCII characters; however, the first character cannot be a digit.</p>
-<p id="reserved-words"><strong>Reserved words:</strong> <code>as</code>, <code>and</code>, <code>contains</code>, <code>false</code>, <code>in</code>, <code>is</code>, <code>IsSet</code>, <code>not</code>, <code>or</code>, <code>super</code>, <code>true</code>, <code>unset</code>. These words are reserved for future use or other specific purposes.</p>
-<p>Declaration keywords and names of control flow statements are also reserved, primarily to detect mistakes. This includes: <code>Break</code>, <code>Catch</code>, <code>Continue</code>, <code>Else</code>, <code>Finally</code>, <code>For</code>, <code>Global</code>, <code>Goto</code>, <code>If</code>, <code>Local</code>, <code>Loop</code>, <code>Return</code>, <code>Static</code>, <code>Throw</code>, <code>Try</code>, <code>Until</code>, <code>While</code></p>
-<p>Names of properties, methods and window groups are permitted to be reserved words.</p>
+<h3 id="names">名称</h3>
+<p>AutoHotkeyでは、変数、関数、<a href="lib/GroupAdd.htm">ウィンドウグループ</a>、クラス、プロパティ、メソッドなど、さまざまなものの命名に同じルールを採用しています。ルールは以下の通りです。</p>
+<p><strong>大文字と小文字を区別する。</strong>ASCII 文字の場合、なし。例えば、<code>CurrentDateは</code> <code>currentdateと</code>同じです。ただし、'Ä'などの大文字の非ASCII文字は、現在のユーザーのロケールに関係なく、小文字の対応する文字と同等とはみなさ<em>れない</em>。これにより、スクリプトが複数のロケール間で一貫した動作をするようになります。</p>
+<p><strong>最大文字数：</strong>253文字</p>
+<p><strong>使用可能な文字</strong>文字、数字、アンダースコア、非ASCII文字。ただし、1文字目は数字にすることはできません。</p>
+<p id="reserved-words"><strong>予約語：</strong> <code>as</code>,<code>and</code>,<code>contains</code>,<code>false</code>,<code>in</code>,<code>is</code>,<code>IsSet</code>,<code>not</code>,<code>or</code>,<code>super</code>,<code>true</code>,<code>unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
+<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。を含んでいます。<code>Break</code>,<code>Catch</code>,<code>Continue</code>,<code>Else</code>,<code>Finally</code>,<code>For</code>,<code>Global</code>,<code>Goto</code>,<code>If</code>,<code>Local</code>,<code>Loop</code>,<code>Return</code>,<code>Static</code>,<code>Throw</code>,<code>Try</code>,<code>Until</code>,<code>While</code></p>
+<p>プロパティ名、メソッド名、ウィンドウグループ名には予約語を使用することができる。</p>
 
-<h3 id="references-to-objects">References to Objects</h3>
-<p>Scripts interact with an object only indirectly, through a <em>reference</em> to the object. When you create an object, the object is created at some location you don't control, and you're given a reference. Passing this reference to a function or storing it in a variable or another object creates a new reference to the <em>same</em> object.</p>
-<p>For example, if <em>myObj</em> contains a reference to an object, <code>yourObj := myObj</code> creates a new reference to the same object. A change such as <code>myObj.ans := 42</code> would be reflected by both <code>myObj.ans</code> and <code>yourObj.ans</code>, since they both refer to the same object. However, <code>myObj := Object()</code> only affects the variable <em>myObj</em>, not the variable <em>yourObj</em>, which still refers to the original object.</p>
-<p>A reference is released by simply using an assignment to replace it with any other value. An object is deleted only after all references have been released; you cannot delete an object explicitly, and should not try. (However, you can delete an object's properties, content or associated resources, such as an <a href="lib/Array.htm">Array</a>'s elements, the window associated with a <a href="lib/Gui.htm">Gui</a>, the menu of a <a href="lib/Menu.htm">Menu</a> object, and so on.)</p>
-<pre>ref1 := Object()  <em>; Create an object and store first reference</em>
-ref2 := ref1      <em>; Create a new reference to the same object</em>
-ref1 := ""        <em>; Release the first reference</em>
-ref2 := ""        <em>; Release the second reference; object is deleted</em>
+<h3 id="references-to-objects">オブジェクトへの言及</h3>
+<p>スクリプトは、オブジェクトへの<em>参照を通じて</em>、間接的にのみオブジェクトと対話します。オブジェクトを作成するとき、オブジェクトはあなたがコントロールできない場所に作成され、リファレンスが与えられます。この参照を関数に渡したり、変数や別のオブジェクトに格納したりすると、<em>同じ</em>オブジェクトへの新しい参照が作成されます。</p>
+<p>例えば、<em>myObjに</em>オブジェクトへの参照が含まれている場合、<code>yourObj := myObjは</code>同じオブジェクトへの新しい参照を作成します。<code>myObj.ans := 42</code>のような変更は、同じオブジェクトを参照しているため、<code>myObj.ans</code>と<code>yourObj.ans</code>の両方に反映されます。しかし、<code>myObj := Object()</code>は変数<em>myObjにのみ</em>影響し、変数<em>yourObjは</em>まだ元のオブジェクトを参照しているわけではありません。</p>
+<p>参照は、代入を使用して他の任意の値に置き換えるだけで解放されます。オブジェクトは、すべての参照が解放された後にのみ削除されます。オブジェクトを明示的に削除することはできませんので、試さないでください。(ただし、<a href="lib/Array.htm">Arrayの</a>要素、<a href="lib/Gui.htm">Guiに</a>関連するウィンドウ、<a href="lib/Menu.htm">Menu</a>オブジェクトのメニューなど、オブジェクトのプロパティ、コンテンツ、関連リソースを削除することは可能です)。</p>
+<pre>ref1 := Object()<em>; オブジェクトを作成し、最初のリファレンスを格納する。</em>
+ref2 := ref1<em>; 同じオブジェクトへの新しい参照を作成する</em>
+ref1 := ""<em>; 最初のリファレンスを公開します。</em>
+ref2 := ""<em>; 2番目の参照を解除し、オブジェクトを削除する。</em>
 </pre>
-<p>If that's difficult to understand, try thinking of an object as a rental unit. When you rent a unit, you're given a key which you can use to access the unit. You can get more keys and use them to access the same unit, but when you're finished with the unit, you must hand all keys back to the rental agent. Usually a unit wouldn't be <em>deleted</em>, but maybe the agent will have any junk you left behind removed; just as any values you stored in an object are freed when the object is deleted.</p>
+<p>わかりにくかったら、モノをレンタルしているようなイメージで考えてみてください。ユニットを借りる際に、ユニットにアクセスするために使用するキーをお渡ししています。鍵の数を増やして、同じユニットにアクセスするために使用することができますが、ユニットを使い終わったら、すべての鍵をレンタルエージェントに返さなければなりません。通常、ユニットは<em>削除さ</em>れませんが、もしかしたらエージェントは、あなたが残したガラクタを削除させるかもしれません。オブジェクトに保存した値が、オブジェクトを削除するときに解放されるのと同じです。</p>
 
 </body>
 </html>

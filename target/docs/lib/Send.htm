@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>Send - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Send, SendText, SendInput, SendPlay and SendEvent functions send simulated keystrokes and mouse clicks to the active window." />
@@ -20,7 +20,7 @@
 <span class="func">SendPlay</span> Keys
 <span class="func">SendEvent</span> Keys</pre>
 
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>Keys</dt>
@@ -72,7 +72,7 @@
         <td><code>Send "#e"</code> holds down <kbd>Win</kbd> and then presses <kbd>E</kbd></td>
       </tr>
     </table>
-    <p class="note"><strong>Note</strong>: As capital letters are produced by sending <kbd>Shift</kbd>, <code>A</code> produces a different effect in some programs than <code>a</code>. For example, <code>!A</code> presses <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> and <code>!a</code> presses <kbd>Alt</kbd>+<kbd>A</kbd>. If in doubt, use lowercase.</p>
+    <p class="note"><strong>注意</strong>:As capital letters are produced by sending <kbd>Shift</kbd>, <code>A</code> produces a different effect in some programs than <code>a</code>. For example, <code>!A</code> presses <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> and <code>!a</code> presses <kbd>Alt</kbd>+<kbd>A</kbd>. If in doubt, use lowercase.</p>
     <p>The characters <code>{}</code> are used to enclose <a href="#keynames">key names and other options</a>, and to send special characters literally. For example, <code>{Tab}</code> is <kbd>Tab</kbd> and <code>{!}</code> is a literal exclamation mark.</p>
     <p>Enclosing a plain ASCII letter (a-z or A-Z) in braces forces it to be sent as the corresponding virtual keycode, even if the character does not exist on the current keyboard layout. In other words, <code>Send "a"</code> produces the letter "a" while <code>Send "{a}"</code> may or may not produce "a", depending on the keyboard layout. For details, see the <a href="#AZ">remarks below</a>.</p>
   </dd>
@@ -120,7 +120,7 @@
   </tr>
   <tr>
     <td>{F1} - {F24}</td>
-    <td>Function keys. For example: {F12} is <kbd>F12</kbd>.</td>
+    <td>Function keys. 事例:{F12} is <kbd>F12</kbd>.</td>
   </tr>
   <tr>
     <td>{!}</td>
@@ -306,13 +306,13 @@
       {scYYY}<br>
     
     {vkXXscYYY}</p></td>
-    <td><p>Sends a keystroke that has virtual key XX and scan code YYY. For example: <code>Send "{vkFFsc159}"</code>. If the sc or vk portion is omitted, the most appropriate value is sent in its place.</p>
-      <p>The values for XX and YYY are hexadecimal and can usually be determined from the main window's <a href="KeyHistory.htm">View-&gt;Key history</a> menu item. See also: <a href="../KeyList.htm#SpecialKeys">Special Keys</a></p>
+    <td><p>Sends a keystroke that has virtual key XX and scan code YYY. 事例:<code>Send "{vkFFsc159}"</code>. If the sc or vk portion is omitted, the most appropriate value is sent in its place.</p>
+      <p>The values for XX and YYY are hexadecimal and can usually be determined from the main window's <a href="KeyHistory.htm">View-&gt;Key history</a> menu item. こちらもご覧ください。<a href="../KeyList.htm#SpecialKeys">Special Keys</a></p>
       <p class="warning"><strong>Warning:</strong> Combining vk and sc in this manner is valid only with Send.</p></td>
   </tr>
   <tr>
     <td>{Numpad0} - {Numpad9}</td>
-    <td>Numpad digit keys (as seen when <kbd>NumLock</kbd> is ON). For example: {Numpad5} is <kbd>5</kbd>.</td>
+    <td>Numpad digit keys (as seen when <kbd>NumLock</kbd> is ON). 事例:{Numpad5} is <kbd>5</kbd>.</td>
   </tr>
   <tr>
     <td>{NumpadDot}</td>
@@ -492,11 +492,11 @@
 </table>
 
 <h2 id="Repeating_or_Holding_Down_a_Key">Repeating or Holding Down a Key</h2>
-<p id="repeat"><strong>To repeat a keystroke</strong>: Enclose in braces the name of the key followed by the number of times to repeat it. For example:</p>
+<p id="repeat"><strong>To repeat a keystroke</strong>:Enclose in braces the name of the key followed by the number of times to repeat it. 事例:</p>
 <pre>Send "{DEL 4}"  <em>; Presses the Delete key 4 times.</em>
 Send "{S 30}"   <em>; Sends 30 uppercase S characters.</em>
 Send "+{TAB 4}"  <em>; Presses Shift-Tab 4 times.</em></pre>
-<p id="Down"><strong>To hold down or release a key</strong>: Enclose in braces the name of the key followed by the word <strong>Down</strong> or <strong>Up</strong>. For example:</p>
+<p id="Down"><strong>To hold down or release a key</strong>:Enclose in braces the name of the key followed by the word <strong>Down</strong> or <strong>Up</strong>. 事例:</p>
 <pre>Send "{b down}{b up}"
 Send "{TAB down}{TAB up}"
 Send "{Up down}"  <em>; Press down the up-arrow key.</em>
@@ -555,7 +555,7 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p>Unlike <a href="#SendInputDetail">SendInput</a> and <a href="#SendEvent">SendEvent</a>, the user may interrupt a SendPlay by pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> or <kbd>Ctrl</kbd>+<kbd>Esc</kbd>. When this happens, the remaining keystrokes are not sent but the script continues executing as though the SendPlay had completed normally.</p>
 <p>Although SendPlay can send LWin and RWin events, they are sent directly to the active window rather than performing their native operating system function. To work around this, use <a href="#SendEvent">SendEvent</a>. For example, <code>SendEvent "#r"</code> would show the Start Menu's Run dialog.</p>
 
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="SendMode.htm">SendMode</a>, <a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>, <a href="../misc/EscapeChar.htm">Escape sequences (e.g. `n)</a>, <a href="ControlSend.htm">ControlSend</a>, <a href="BlockInput.htm">BlockInput</a>, <a href="../Hotstrings.htm">Hotstrings</a>, <a href="WinActivate.htm">WinActivate</a></p>
 
 <h2 id="Examples">Examples</h2>

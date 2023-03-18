@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>Sort - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Sort function arranges a variable's contents in alphabetical, numerical, or random order (optionally removing duplicates)." />
@@ -15,7 +15,7 @@
 <p>Arranges a variable's contents in alphabetical, numerical, or random order (optionally removing duplicates).</p>
 
 <pre class="Syntax">SortedString := <span class="func">Sort</span>(String <span class="optional">, Options, Function</span>)</pre>
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>String</dt>
@@ -60,7 +60,7 @@ MyVar := Sort(MyVar, "Random Z D|")</pre>
 <p><strong>\</strong>: Sorts items based on the substring that follows the last backslash in each. If an item has no backslash, the entire item is used as the substring. This option is useful for sorting bare filenames (i.e. excluding their paths), such as the example below, in which the AAA.txt line is sorted above the BBB.txt line because their directories are ignored for the purpose of the sort:</p>
 <pre>C:\BBB\AAA.txt
 C:\AAA\BBB.txt</pre>
-<p class="note"><strong>Note</strong>: Options <strong>N</strong> and <strong>P</strong> are ignored when the backslash option is present.</p>
+<p class="note"><strong>注意</strong>:Options <strong>N</strong> and <strong>P</strong> are ignored when the backslash option is present.</p>
 
 <h2 id="callback">Custom Sorting</h2>
 <p>Custom sorting is achieved by providing the <em>Function</em> parameter with a <a href="../Functions.htm">function</a> or <a href="../misc/Functor.htm">function object</a> which compares any two items in the list. The function must accept two or three parameters:</p>
@@ -68,13 +68,13 @@ C:\AAA\BBB.txt</pre>
 <p>When the function deems the first parameter to be greater than the second, it should return a positive integer; when it deems the two parameters to be equal, it should return 0, "", or nothing; otherwise, it should return a negative integer. If a decimal point is present in the returned value, that part is ignored (i.e. 0.8 is the same as 0).</p>
 <p>If present, the third parameter receives the offset (in characters) of the second item from the first as seen in the original/unsorted list (see examples).</p>
 <p>The function uses the same global (or thread-specific) settings as the Sort function that called it.</p>
-<p class="note"><strong>Note</strong>: All options except <strong>D</strong>, <strong>Z</strong>, and <strong>U</strong> are ignored when a <em>Function</em> is present (though <strong>N</strong>, <strong>C</strong>, and <strong>CL</strong> still affect how <a href="#unique">duplicates</a> are detected).</p>
+<p class="note"><strong>注意</strong>:All options except <strong>D</strong>, <strong>Z</strong>, and <strong>U</strong> are ignored when a <em>Function</em> is present (though <strong>N</strong>, <strong>C</strong>, and <strong>CL</strong> still affect how <a href="#unique">duplicates</a> are detected).</p>
 
 <h2 id="Remarks">Remarks</h2>
 <p>This function is typically used to sort a variable that contains a list of lines, with each line ending in a linefeed character (`n). One way to get a list of lines into a variable is to load an entire file via <a href="FileRead.htm">FileRead</a>.</p>
 <p>If a large variable was sorted and later its contents are no longer needed, you can free its memory by making it blank, e.g. <code>MyVar := ""</code>.</p>
 
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="FileRead.htm">FileRead</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="LoopParse.htm">parsing loop</a>, <a href="StrSplit.htm">StrSplit</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="A_Clipboard.htm">A_Clipboard</a></p>
 
 <h2 id="Examples">Examples</h2>

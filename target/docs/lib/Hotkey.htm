@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>Hotkey - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Hotkey function creates, modifies, enables, or disables a hotkey while the script is running." />
@@ -17,7 +17,7 @@
 <span class="func">Hotkey</span> KeyName <span class="optional">, Action, Options</span>
 </pre>
 
-<h2 id="Parameters">Parameters</h2>
+<h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>KeyName</dt>
@@ -39,7 +39,7 @@
       <p>If <em>Action</em> is a function, it is called with one parameter, the <a href="../Hotkeys.htm#ThisHotkey">name</a> of the hotkey. Hotkeys defined with the <a href="../Hotkeys.htm">double-colon syntax</a> automatically use the parameter name <code>ThisHotkey</code>. Hotkeys can also be <a href="../Hotkeys.htm#Function">assigned a function name</a> without the Hotkey function.</p>
       <p>If <em>Action</em> is a hotkey name, its original function is used; specifically, the original function of the hotkey variant corresponding to the current <a href="HotIf.htm">HotIf</a> criteria. This is usually used to restore a hotkey's original function after having changed it, but can be used to assign the function of a different hotkey, provided that both hotkeys use the same HotIf criteria.</p>
       <p>This parameter can be left blank if <em>KeyName</em> already exists as a hotkey, in which case its action will not be changed. This is useful to change only the hotkey's <em>Options</em>.</p>
-      <p class="note"><strong>Note</strong>: If the function is specified but the hotkey is disabled from a previous use of this function, the hotkey will remain disabled. To prevent this, include the word ON in <em>Options</em>.</p>
+      <p class="note"><strong>注意</strong>:If the function is specified but the hotkey is disabled from a previous use of this function, the hotkey will remain disabled. To prevent this, include the word ON in <em>Options</em>.</p>
       <p>This parameter can also be one of the following special values:</p>
       <p><strong>On</strong>: The hotkey becomes enabled. No action is taken if the hotkey is already On.</p>
       <p><strong>Off</strong>: The hotkey becomes disabled. No action is taken if the hotkey is already Off.</p>
@@ -50,14 +50,14 @@
   <dt id="Options">Options</dt>
   <dd>
       <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-      <p>A string of zero or more of the following letters with optional spaces in between. For example: <code>On B0</code>.</p>
+      <p>A string of zero or more of the following letters with optional spaces in between. 事例:<code>On B0</code>.</p>
       <p><strong>On</strong>: Enables the hotkey if it is currently disabled.</p>
       <p><strong>Off</strong>: Disables the hotkey if it is currently enabled. This is typically used to create a hotkey in an initially-disabled state.</p>
       <p><strong>B</strong> or <strong>B0</strong>: Specify the letter B to buffer the hotkey as described in <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>. Specify B0 (B with the number 0) to disable this type of buffering.</p>
       <p><strong>Pn</strong>: Specify the letter P followed by the hotkey's <a href="../misc/Threads.htm">thread priority</a>. If the P option is omitted when creating a hotkey, 0 will be used.</p>
       <p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>: Specify the letter S to make the hotkey <a href="_SuspendExempt.htm">exempt</a> from <a href="Suspend.htm">Suspend</a>, which allows the hotkey to be used to turn Suspend off. Specify S0 (S with the number 0) to remove the exemption, allowing the hotkey to be suspended.</p>
-      <p><strong>Tn</strong>: Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. For example: <code>T5</code>.</p>
-      <p><strong>In</strong> (InputLevel): Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. For example: <code>I1</code>.</p>
+      <p><strong>Tn</strong>:Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. 事例:<code>T5</code>.</p>
+      <p><strong>In</strong> (InputLevel):Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. 事例:<code>I1</code>.</p>
       <p>If any of the option letters are omitted and the hotkey already exists, those options will not be changed. But if the hotkey does not yet exist -- that is, it is about to be created by this function -- the options will default to those most recently in effect. For example, the instance of <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> that occurs closest to the bottom of the script will be used. If <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> does not appear in the script, its default setting (OFF in this case) will be used.</p>
       </dd>
 
@@ -83,7 +83,7 @@
   </tr>
   <tr>
     <td>This AltTab hotkey must have exactly one modifier/prefix</td>
-    <td rowspan="2">The <em>KeyName</em> parameter is not suitable for use with the <a href="../Hotkeys.htm#alttab">AltTab or ShiftAltTab</a> actions. A combination of (at most) two keys is required. For example: <code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
+    <td rowspan="2">The <em>KeyName</em> parameter is not suitable for use with the <a href="../Hotkeys.htm#alttab">AltTab or ShiftAltTab</a> actions. A combination of (at most) two keys is required. 事例:<code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
   </tr>
   <tr>
     <td>This AltTab hotkey must specify which key (L or R).</td>
@@ -103,7 +103,7 @@
     <td>Creating this hotkey would exceed the limit of 32762 hotkeys per script (however, each hotkey can have an unlimited number of <a href="#variant">variants</a>, and there is no limit to the number of <a href="../Hotstrings.htm">hotstrings</a>).</td>
   </tr>
 </table>
-<p>Tip: <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> can be used to test for the existence of a hotkey variant. For example:</p>
+<p>Tip:<a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> can be used to test for the existence of a hotkey variant. 事例:</p>
 <pre>
 try
     Hotkey "^!p"
@@ -121,7 +121,7 @@ catch TargetError
 <p>Once a script has at least one hotkey, it becomes <a href="../Scripts.htm#persistent">persistent</a>, meaning that <a href="ExitApp.htm">ExitApp</a> rather than Exit should be used to terminate it.</p>
 
 <h2 id="variant">Variant (Duplicate) Hotkeys</h2>
-<p>A particular hotkey can be created more than once if each definition has different If criteria. These are known as <em>hotkey variants</em>. For example:</p>
+<p>A particular hotkey can be created more than once if each definition has different If criteria. These are known as <em>hotkey variants</em>. 事例:</p>
 <pre>HotIfWinActive "ahk_class Notepad"
 Hotkey "^!c", MyFuncForNotepad
 HotIfWinActive "ahk_class WordPadClass"
@@ -132,7 +132,7 @@ Hotkey "^!c", MyFuncForAllOtherWindows</pre>
 <p>When creating duplicate hotkeys, the order of <a href="../Hotkeys.htm#Symbols">modifier symbols</a> such as ^!+# does not matter. For example, <code>"^!c"</code> is the same as <code>"!^c"</code>. However, keys must be spelled consistently. For example, <em>Esc</em> is not the same as <em>Escape</em> for this purpose (though the case does not matter). Finally, any hotkey with a <a href="../Hotkeys.htm#wildcard">wildcard prefix (*)</a> is entirely separate from a non-wildcard one; for example, <code>"*F1"</code> and <code>"F1"</code> would each have their own set of variants.</p>
 <p>For more information about context-sensitive hotkeys, see <a href="_HotIf.htm#general-remarks">#HotIf's General Remarks</a>.</p>
 
-<h2 id="Related">Related</h2>
+<h2 id="Related">関連</h2>
 <p><a href="../Hotkeys.htm#Symbols">Hotkey Symbols</a>, <a href="HotIf.htm">HotIf</a>, <a href="../Variables.htm#ThisHotkey">A_ThisHotkey</a>, <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="Suspend.htm">Suspend</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Thread.htm">Thread</a>, <a href="Critical.htm">Critical</a>, <a href="Return.htm">Return</a>, <a href="Menu.htm">Menu object</a>, <a href="SetTimer.htm">SetTimer</a></p>
 
 <h2 id="examples">Examples</h2>

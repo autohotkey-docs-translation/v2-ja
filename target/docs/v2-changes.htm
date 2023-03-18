@@ -52,7 +52,7 @@
 <h3 id="hotkey-and-hotstring-labels">Hotkey and Hotstring Labels</h3>
 <p><a href="Hotkeys.htm">Hotkeys</a> and non-autoreplace <a href="Hotstrings.htm">hotstrings</a> are no longer labels; instead, they (automatically) define a function. For multi-line hotkeys, use braces to enclose the body of the hotkey instead of terminating it with <code>return</code> (which is implied by the ending brace). To allow a hotkey to be called explicitly, specify <code>funcName(ThisHotkey)</code> between the <code>::</code> and <code>{</code> - this can also be done in v1.1.20+, but now there is a parameter. When the function definition is not explicit, the parameter is named ThisHotkey.</p>
 <p><strong>Note:</strong> Hotkey functions are <a href="Functions.htm#AssumeLocal">assume-local</a> by default and therefore cannot assign to <a href="Functions.htm#Global">global variables</a> without a declaration.</p>
-<h3 id="names">Names</h3>
+<h3 id="names">名称</h3>
 <p>Function and variable names are now placed in a shared namespace.</p>
 <ul>
 <li>Each function definition creates a constant (read-only variable) within the current scope.</li>
@@ -63,7 +63,7 @@
 </ul>
 <p>Names cannot start with a digit and cannot contain the following characters which were previously allowed: <code>@ # $</code>.  Only letters, numbers, underscore and non-ASCII characters are allowed.</p>
 <p><strong>Reserved words:</strong> Declaration keywords and names of control flow statements cannot be used as variable, function or class names. This includes <code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> and <code class="no-highlight">throw</code>. The purpose of this is primarily to detect errors such as <code>if (ex) break</code>.</p>
-<p><strong>Reserved words:</strong> <code class="no-highlight">as</code>, <code class="no-highlight">and</code>, <code class="no-highlight">contains</code>, <code class="no-highlight">false</code>, <code class="no-highlight">in</code>, <code class="no-highlight">is</code>, <code class="no-highlight">IsSet</code>, <code class="no-highlight">not</code>, <code class="no-highlight">or</code>, <code class="no-highlight">super</code>, <code class="no-highlight">true</code>, <code class="no-highlight">unset</code>. These words are reserved for future use or other specific purposes, and are not permitted as variable or function names even when unambiguous. This is primarily for consistency: in v1, <code>and := 1</code> was allowed on its own line but <code>(and := 1)</code> would not work.</p>
+<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. These words are reserved for future use or other specific purposes, and are not permitted as variable or function names even when unambiguous. This is primarily for consistency:in v1, <code>and := 1</code> was allowed on its own line but <code>(and := 1)</code> would not work.</p>
 <p>The words listed above are permitted as property or window group names. Property names in typical use are preceded by <code>.</code>, which prevents the word from being interpreted as an operator. By contrast, keywords are never interpreted as variable or function names within an expression. For example, <code>not(x)</code> is equivalent to <code>not (x)</code> or <code>(not x)</code>.</p>
 <p>A number of classes are predefined, effectively reserving those global variable names in the same way that a user-defined class would. (However, the <a href="#scope">changes to scope</a> described below mitigate most issues arising from this.) For a list of classes, see <a href="ObjList.htm">Built-in Classes</a>.</p>
 <h3 id="scope">Scope</h3>
@@ -78,7 +78,7 @@
 <li>Declarations are generally not needed as much.</li>
 </ul>
 <p><em>Force-local</em> mode has been removed.</p>
-<h3 id="variables">Variables</h3>
+<h3 id="variables">変数</h3>
 <p>Local <a href="Functions.htm#static">static</a> variables are initialized if and when execution reaches them, instead of being executed in linear order before the auto-execute section begins. Each initializer has no effect the second time it is reached. Multiple declarations are permitted and may execute for the same variable at different times. There are multiple benefits:</p>
 <ul>
 <li>When a static initializer calls other functions with static variables, there is less risk of initializers having not executed yet due to the order of the function definitions.</li>
@@ -128,7 +128,7 @@
 <p>Literal numbers are now fully supported on the left-hand side of member access (dot). For example, <code>0.1</code> is a number but <code>0.min</code> and <code>0.1.min</code> access the <em>min</em> property which can be handled by a base object (see <a href="Objects.htm#primitive">Primitive Values</a>). <code>1..2</code> or <code>1.0.2</code> is the number 1.0 followed by the property 2. Example use might be to implement units of measurement, literal version numbers or ranges.</p>
 <p><code>x**y</code>: Where <code>x</code> and <code>y</code> are integers and <code>y</code> is positive, the power operator now gives correct results for all inputs if in range, where previously some precision was lost due to the internal use of floating-point math. Behaviour of overflow is undefined.</p>
 <h3 id="objects-misc">Objects (Misc)</h3>
-<p>See also: <a href="#objects">Objects</a></p>
+<p>こちらもご覧ください。<a href="#objects">Objects</a></p>
 <p>There is now a distinction between properties accessed with <code>.</code> and data (items, array or map elements) accessed with <code>[]</code>. For example, <code>dictionary["Count"]</code> can return the definition of "Count" while <code>dictionary.Count</code> returns the number of words contained within. User-defined objects can utilize this by defining an <a href="Objects.htm#__Item">__Item property</a>.</p>
 <p>When the name of a property or method is not known in advance, it can (and must) be accessed by using percent signs. For example, <code>obj.%varname%()</code> is the v2 equivalent of <code>obj[varname]()</code>. The use of <code>[]</code> is reserved for data (such as array elements).</p>
 <p>The literal syntax for constructing an ad hoc object is still basically <code>{name: value}</code>, but since plain objects now only have "properties" and not "array elements", the rules have changed slightly for consistency with how properties are accessed in other contexts:</p>
@@ -157,7 +157,7 @@
 <p><code>x.y(z) := v</code> is now a syntax error. It was previously equivalent to <code>x.y[z] := v</code>. In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property)  are two different operations, although they may be equivalent if <code>x</code> is a COM object (due to limitations of the COM interface).</p>
 <p>Concatenating an object with another value or passing it to Loop is currently treated as an error, whereas previously the object was treated as an empty string. This may be changed to implicitly call <code>.ToString()</code>. Use <code>String(x)</code> to convert a value to a string; this calls <code>.ToString()</code> if <code>x</code> is an object.</p>
 <p>When an object is called via IDispatch (the COM interface), any uncaught exceptions which cannot be passed back to the caller will cause an error dialog. (The caller may or may not show an additional error dialog without any specific details.) This also applies to event handlers being called due to the use of <a href="lib/ComObjConnect.htm">ComObjConnect</a>.</p>
-<h3 id="functions">Functions</h3>
+<h3 id="functions">機能紹介</h3>
 <p>Functions can no longer be dynamically called with more parameters than they formally accept.</p>
 <p>Variadic functions are not affected by the above restriction, but normally will create an array each time they are called to hold the surplus parameters. If this array is not needed, the parameter name can now be omitted to prevent it from being created:</p>
 <pre>AcceptsOneOrMoreArgs(first, *) {
@@ -175,7 +175,7 @@
 <p>ByRef parameters no longer implicitly take a reference to the caller's variable. Instead, the caller must explicitly pass a reference with the <a href="Variables.htm#ref">reference operator</a> (<code>&amp;var</code>). This allows more flexibility, such as storing references elsewhere, accepting them with a variadic function and passing them on with a variadic call.</p>
 <p>When a parameter is marked ByRef, any attempt to explicitly pass a non-VarRef value causes an error to be thrown. Otherwise, the function can check for a reference with <code>param is VarRef</code>, check if the target variable has a value with <code>IsSetRef(param)</code>, and explicitly dereference it with <code>%param%</code>.</p>
 <p>ByRef parameters are now able to receive a reference to a local variable from a previous instance of the same function, when it is called recursively.</p>
-<h3 id="nested-functions">Nested Functions</h3>
+<h3 id="nested-functions">ネストされた関数</h3>
 <p>One function may be defined inside another. A nested function may automatically "capture" non-static local variables from the enclosing function (under the right conditions), allowing them to be used after the enclosing function returns.</p>
 <p>The new "fat arrow" <code>=&gt;</code> operator can also be used to create nested functions.</p>
 <p>For full detail, see <a href="Functions.htm#nested">Nested Functions</a>.</p>
@@ -199,7 +199,7 @@
 <p><code>*/</code> can now be placed at the end of a line to end a multi-line comment, to resolve a common point of confusion relating to how <code>/* */</code> works in other languages. Due to the risk of ambiguity (e.g. with a hotstring ending in <code>*/</code>), any <code>*/</code> which is not preceded by <code>/*</code> is no longer ignored (reversing a change made in AHK_L revision 54).</p>
 <p>Integer constants and numeric strings outside of the supported range (of 64-bit signed integers) now overflow/wrap around, instead of being capped at the min/max value. This is consistent with math operators, so <code>9223372036854775807+1 == 9223372036854775808</code> (but both produce -9223372036854775808). This facilitates bitwise operations on 64-bit values.</p>
 <p>For numeric strings, there are fewer cases where whitespace characters other than space and tab are allowed to precede the number. The general rule (in both v1 and v2) is that only space and tab are permitted, but in some cases other whitespace characters are tolerated due to C runtime library conventions.</p>
-<p><code>else</code> can now be used with <code>loop</code>, <code>for</code>, <code>while</code> and <code>catch</code>. For loops, it is executed if the loop had zero iterations. For <code>catch</code>, it is executed if no exception is thrown within <code>try</code> (and is not executed if any error or value is thrown, even if there is no <code>catch</code> matching the value's class). Consequently, the interpretation of <code>else</code> may differ from previous versions when used without braces. For example:</p>
+<p><code>else</code> can now be used with <code>loop</code>, <code>for</code>, <code>while</code> and <code>catch</code>. For loops, it is executed if the loop had zero iterations. For <code>catch</code>, it is executed if no exception is thrown within <code>try</code> (and is not executed if any error or value is thrown, even if there is no <code>catch</code> matching the value's class). Consequently, the interpretation of <code>else</code> may differ from previous versions when used without braces. 事例:</p>
 <pre>if condition
 {
     while condition
@@ -240,7 +240,7 @@ else
 <p>The relational operators <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> and <code>&gt;=</code> now throw an exception if used with a non-numeric string. Previously they compared numerically or alphabetically depending on whether both inputs were numeric, but literal quoted strings were always considered non-numeric. Use <code>StrCompare(a, b, CaseSense)</code> instead.</p>
 <p><code>Type(Value)</code> returns one of the following strings: String, Integer, Float, or the specific class of an object.</p>
 <p><code>Float(v)</code>, <code>Integer(v)</code> and <code>String(v)</code> convert <code>v</code> to the respective type, or throw an exception if the conversion cannot be performed (e.g. <code>Integer("1z")</code>). <code>Number(v)</code> converts to Integer or Float. <code>String</code> calls <code>v.ToString()</code> if <code>v</code> is an object. (Ideally this would be done for any implicit conversion from object to string, but the current implementation makes this difficult.)</p>
-<h2 id="objects">Objects</h2>
+<h2 id="objects">オブジェクト</h2>
 <p>Objects now use a more structured class-prototype approach, separating class/static members from instance members. Many of the built-in methods and Obj functions have been moved, renamed, changed or removed.</p>
 <ul>
 <li>Each user-defined or built-in class is a class object (an instance of <a href="lib/Class.htm">Class</a>) exposing only methods and properties defined with the <code>static</code> keyword (including static members inherited from the base class) and nested classes.</li>
@@ -555,7 +555,7 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <p><a href="lib/MouseClick.htm">MouseClick</a> and <a href="lib/MouseClickDrag.htm">MouseClickDrag</a> are no longer affected by the system setting for swapped mouse buttons; "Left" is the always the primary button and "Right" is the secondary.</p>
 <p><a href="lib/MsgBox.htm">MsgBox</a> has had its syntax changed to prioritise its most commonly used parameters and improve ease of use. See <a href="#msgbox">MsgBox</a> further below for a summary of usage.</p>
 <p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>: When a variable is passed directly, the address of the variable's internal string buffer is no longer used. Therefore, a variable containing an address may be passed directly (whereas in v1, something like <code>var+0</code> was necessary). For buffers allocated by the script, the new <code>Buffer</code> object is preferred over a variable; any object can be used, but must have <code>Ptr</code> and <code>Size</code> properties.</p>
-<p>NumPut's parameters were reordered to allow a sequence of values, with the (now mandatory) type string preceding each number. For example: <code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. Type is now mandatory for NumGet as well. (In comparison to DllCall, NumPut's input parameters correspond to the dll function's parameters, while NumGet's return type parameter corresponds to the dll function's return type string.)</p>
+<p>NumPut's parameters were reordered to allow a sequence of values, with the (now mandatory) type string preceding each number. 事例:<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. Type is now mandatory for NumGet as well. (In comparison to DllCall, NumPut's input parameters correspond to the dll function's parameters, while NumGet's return type parameter corresponds to the dll function's return type string.)</p>
 <p>The use of <code>Object(obj)</code> and <code>Object(ptr)</code> to convert between a reference and a pointer was shifted to separate functions, <code>ObjPtrAddRef(obj)</code> and <code>ObjFromPtrAddRef(ptr)</code>. There are also versions of these functions that do not increment the reference count: <code>ObjPtr(obj)</code> and <code>ObjFromPtr(ptr)</code>.</p>
 <p>The OnClipboardChange label is no longer called automatically if it exists. Use the <a href="lib/OnClipboardChange.htm">OnClipboardChange</a> function which was added in v1.1.20 instead. It now requires a function object, not a name.</p>
 <p><a href="lib/OnError.htm">OnError</a> now requires a function object, not a name. See also <a href="#error-handling">Error Handling</a> further below.</p>
@@ -673,7 +673,7 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <li><a href="lib/WinGetControlsHwnd.htm">WinGetControlsHwnd</a> (within the Array)</li>
 </ul>
 <p><a href="Variables.htm#ScriptHwnd">A_ScriptHwnd</a> also returns a pure integer.</p>
-<h4 id="dllcall">DllCall</h4>
+<h4 id="dllcall">DllCall(ディーエルコール)</h4>
 <p>If a type parameter is a variable, that variable's content is always used, never its name. In other words, unquoted type names are no longer supported - type names must be enclosed in quote marks.</p>
 <p>When DllCall updates the length of a variable passed as Str or WStr, it now detects if the string was not properly null-terminated (likely indicating that buffer overrun has occurred), and terminates the program with an error message if so, as safe execution cannot be guaranteed.</p>
 <p><code>AStr</code> (without any suffix) is now input-only. Since the buffer is only ever as large as the input string, it was usually not useful for output parameters. This would apply to WStr instead of AStr if AutoHotkey is compiled for ANSI, but official v2 releases are only ever compiled for Unicode.</p>
@@ -853,7 +853,7 @@ Name    := MonitorGetName(N)
 <p><code>WinGetClientPos([&amp;X, &amp;Y, &amp;W, &amp;H, WinTitle, ...])</code> retrieves the position and size of the window's client area, in screen coordinates.</p>
 <h3 id="new-directives">New Directives</h3>
 <p><code>#DllLoad [FileOrDirName]</code>: Loads a DLL or EXE file before the script starts executing.</p>
-<h3 id="built-in-variables">Built-in Variables</h3>
+<h3 id="built-in-variables">組み込みの変数</h3>
 <p><a href="Variables.htm#AhkPath">A_AhkPath</a> always returns the path of the current executable/interpreter, even when the script is compiled. Previously it returned the path of the compiled script if a BIN file was used as the base file, but v2.0 releases no longer include BIN files.</p>
 <p><a href="Variables.htm#IsCompiled">A_IsCompiled</a> returns 0 instead of "" if the script has not been compiled.</p>
 <p><a href="Variables.htm#OSVersion">A_OSVersion</a> always returns a string in the format <code>major.minor.build</code>, such as <code>6.1.7601</code> for Windows 7 SP1. A_OSType has been removed as only NT-based systems are supported.</p>
@@ -1121,7 +1121,7 @@ Gui GuiName: Default</p>
 </ul>
 <p>Some of the conditions above are detected in v1, but not mid-expression; for instance, <code>A_AhkPath := x</code> is detected in v1 but <code>y := x, A_AhkPath := x</code> is only detected in v2.</p>
 <p>Standalone use of the operators <code>+=</code>, <code>-=</code>, <code>--</code> and <code>++</code> no longer treats an empty variable as 0. This differs from v1, where they treated an empty variable as 0 when used standalone, but not mid-expression or with multi-statement comma.</p>
-<h3 id="functions-1">Functions</h3>
+<h3 id="functions-1">機能紹介</h3>
 <p>Functions generally throw an exception on failure. In particular:</p>
 <ul>
 <li>
@@ -1137,7 +1137,7 @@ Gui GuiName: Default</p>
 <p>Exceptions are thrown for some errors that weren't previously detected, and some conditions that were incorrectly marked as errors (previously by setting ErrorLevel) were fixed.</p>
 <p>Some error messages have been changed.</p>
 <h3 id="catch">Catch</h3>
-<p>The syntax for <a href="lib/Catch.htm">Catch</a> has been changed to provide a way to catch specific error classes, while leaving others uncaught (to transfer control to another Catch further up the call stack, or report the error and exit the thread). Previously this required catching thrown values of all types, then checking type and re-throwing. For example:</p>
+<p>The syntax for <a href="lib/Catch.htm">Catch</a> has been changed to provide a way to catch specific error classes, while leaving others uncaught (to transfer control to another Catch further up the call stack, or report the error and exit the thread). Previously this required catching thrown values of all types, then checking type and re-throwing. 事例:</p>
 <pre><em>; Old (uses obsolete v2.0-a rules for demonstration since v1 had no `is` or Error classes)</em>
 try
     SendMessage msg,,, "Control1", "The Window"
