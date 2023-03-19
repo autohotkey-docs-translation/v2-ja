@@ -1,55 +1,55 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
-<title>Scripting Language | AutoHotkey v2</title>
-<meta name="description" content="Learn details about the language such as comments, expressions, control flow statements, structure of a script, etc." />
+<title>スクリプト言語｜AutoHotkey v2</title>
+<meta name="description" content="コメント、式、制御フロー文、スクリプトの構造など、言語に関する詳細を学ぶことができます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
 <script src="static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>Scripting Language</h1>
-<p>An AutoHotkey script is basically a set of instructions for the program to follow, written in a custom language exclusive to AutoHotkey. This language bears some similarities to several other scripting languages, but also has its own unique strengths and pitfalls. This document describes the language and also tries to point out common pitfalls.</p>
-<p class="note">See <a href="Concepts.htm">Concepts and Conventions</a> for more general explanation of various concepts utilised by AutoHotkey.</p>
+<h1>スクリプト言語</h1>
+<p>AutoHotkeyスクリプトは、基本的にAutoHotkey専用のカスタム言語で書かれた、プログラムが従うべき命令の集合体です。この言語は、他のいくつかのスクリプト言語と類似していますが、独自の長所と落とし穴も持っています。本書では、その言語について説明するとともに、よくある落とし穴を指摘するようにしています。</p>
+<p class="note">AutoHotkeyで利用される様々な概念についてのより一般的な説明については、<a href="Concepts.htm">概念と規約</a>を参照してください。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#general-conventions">General Conventions</a></li>
-  <li><a href="#comments">Comments</a></li>
-  <li><a href="#expressions">Expressions</a>
+  <li><a href="#general-conventions">一般的な規約</a></li>
+  <li><a href="#comments">コメント</a></li>
+  <li><a href="#expressions">式</a>
   <ul>
-    <li><a href="#strings">Strings / Text</a></li>
+    <li><a href="#strings">文字列 / テキスト</a></li>
     <li><a href="#variables">変数</a></li>
-    <li><a href="#constants">Constants</a></li>
-    <li><a href="#operators">Operators</a></li>
-    <li><a href="#function-calls">Function Calls</a>
+    <li><a href="#constants">定数</a></li>
+    <li><a href="#operators">演算子</a></li>
+    <li><a href="#function-calls">関数呼び出し</a>
     <ul>
-      <li><a href="#function-call-statements">Function Call Statements</a></li>
+      <li><a href="#function-call-statements">関数呼び出し文</a></li>
       <li><a href="#optional-parameters">オプションのパラメータ</a></li>
     </ul></li>
-    <li><a href="#operators-for-objects">Operators for Objects</a></li>
-    <li><a href="#expression-statements">Expression Statements</a></li>
+    <li><a href="#operators-for-objects">オブジェクトの演算子</a></li>
+    <li><a href="#expression-statements">表現文</a></li>
   </ul></li>
-  <li><a href="#control-flow">Control Flow Statements</a>
+  <li><a href="#control-flow">制御フロー文</a>
   <ul>
-    <li><a href="#control-flow-vs">Control Flow vs. Other Statements</a></li>
-    <li><a href="#loop-statement">Loop Statement</a></li>
-    <li><a href="#not-control-flow">Not Control Flow</a></li>
+    <li><a href="#control-flow-vs">コントロールフローとその他の文との比較</a></li>
+    <li><a href="#loop-statement">ループ文</a></li>
+    <li><a href="#not-control-flow">非制御</a></li>
   </ul></li>
-  <li><a href="#structure-of-a-script">Structure of a Script</a>
+  <li><a href="#structure-of-a-script">スクリプトの構成</a>
   <ul>
-    <li><a href="#global-code">Global Code</a></li>
+    <li><a href="#global-code">グローバルコード</a></li>
     <li><a href="#functions">機能紹介</a></li>
     <li><a href="#-include">#Include</a></li>
   </ul></li>
-  <li><a href="#misc">Miscellaneous</a>
+  <li><a href="#misc">その他</a>
   <ul>
-    <li><a href="#dynamic-variables">Dynamic Variables</a>
+    <li><a href="#dynamic-variables">ダイナミックな変数</a>
     <ul>
-      <li><a href="#pseudo-arrays">Pseudo-arrays</a></li>
+      <li><a href="#pseudo-arrays">疑似アレイ（Pseudo-array）</a></li>
     </ul></li>
-    <li><a href="#labels">Labels</a></li>
+    <li><a href="#labels">ラベル</a></li>
   </ul></li>
 </ul><!-- TODO:
 Directives
@@ -59,337 +59,334 @@ Methods?
 -->
 
 
-<h2 id="general-conventions">General Conventions</h2>
-<p><strong>Names:</strong> Variable and function names are not case sensitive (for example, <code>CurrentDate</code> is the same as <code>currentdate</code>). For details such as maximum length and usable characters, see <a href="Concepts.htm#names">Names</a>.</p>
-<p><strong>No typed variables:</strong> Variables have no explicitly defined type; instead, a value of any type can be stored in any variable (excluding constants and built-in variables). Numbers may be automatically converted to strings (text) and vice versa, depending on the situation.</p>
-<p><strong>Declarations are optional:</strong> Except where noted on the <a href="Functions.htm">functions page</a>, variables do not need to be declared. However, attempting to read a variable before it is given a value is considered an error.</p>
-<p><strong>Spaces are mostly ignored:</strong> Indentation (leading space) is important for writing readable code, but is not required by the program and is generally ignored. Spaces and tabs are <em>generally</em> ignored at the end of a line and within an expression (except between quotes). However, spaces are significant in some cases, including:</p>
+<h2 id="general-conventions">一般的な規約</h2>
+<p><strong>名前：</strong>変数名と関数名は大文字と小文字を区別しません（例えば、<code>CurrentDate</code>は <code>currentdate</code>と同じです）。最大文字数や使用可能文字数などの詳細は、<a href="Concepts.htm#names">名前</a>を参照してください。</p>
+<p><strong>型付き変数無し：</strong>変数には明示的に定義された型がなく、任意の型の値を任意の変数に格納することができる（定数および組み込み変数を除く）。数値は、状況に応じて自動的に文字列（テキスト）に変換されたり、その逆も可能です。</p>
+<p><strong>宣言は任意：</strong> <a href="Functions.htm">関数のページ</a>に記載がある場合を除き、変数は宣言する必要はありません。ただし、値が与えられる前に変数を読み取ろうとするとエラーとみなされます。</p>
+<p><strong>スペースの殆どは無視：</strong>インデント（先頭の空白）は、読みやすいコードを書くために重要ですが、プログラムでは必要とされないので、一般的には無視されます。スペースとタブは、行末と式内では<em>通常</em>無視されます（引用符の間を除く）。しかし、スペースが大きいのは、以下のようなケースもあります。</p>
 <ul>
-  <li><a href="#function-calls">Function</a> and method calls require there to be no space between the function/method name and <code>(</code>.</li>
-  <li>Spaces are required when performing concatenation.</li>
-  <li>Spaces may be required between two operators, to remove ambiguity.</li>
-  <li>Single-line <a href="#comments">comments</a> require a leading space if they are not at the start of the line.</li>
+  <li><a href="#function-calls">関数</a>とメソッド呼び出しでは、関数・メソッド名と<code>(</code>の間にスペースを入れないことが必要です。</li>
+  <li>連結を行う場合は、空白が必要です。</li>
+  <li>曖昧さをなくすため、2つの演算子の間に空白が必要な場合がある。</li>
+  <li>1行の<a href="#comments">コメント</a>は、行頭でない場合、先頭のスペースが必要です。</li>
 </ul>
-<p><strong>Line breaks are meaningful:</strong> Line breaks generally act as a statement separator, terminating the previous function call or other statement. (A <em>statement</em> is simply the smallest standalone element of the language that expresses some action to be carried out.) The exception to this is line continuation (see below).</p>
-<p><strong>Line continuation:</strong> Long lines can be divided up into a collection of smaller ones to improve readability and maintainability. This is achieved by preprocessing, so is not part of the language as such. There are three methods:</p>
+<p><strong>改行の意味：</strong>改行は一般的にステートメントの区切りとして機能し、前の関数呼び出しやその他のステートメントを終了させる。(<em>ステートメント</em>とは、単に実行されるべき何らかの動作を表現する、言語の最小の独立した要素である)。ただし、行の継続は例外です(下記参照)。</p>
+<p><strong>行の継続：</strong>長い行を小さな行の集まりに分割して、読みやすさや保守性を向上させることができます。これは前処理によって実現されるものであり、言語の一部ではありません。3つの方式：</p>
 <ul>
-  <li><a href="Scripts.htm#continuation-line">Continuation prefix</a>: Lines that begin with an <a href="Variables.htm#operators">expression operator</a> (except ++ and --) are merged with the previous line. Lines are merged regardless of whether the line actually contains an expression.</li>
-  <li><a href="Scripts.htm#continuation-expr">Continuation by enclosure</a>: A sub-expression enclosed in (), [] or {} can automatically span multiple lines in most cases.</li>
-  <li><a href="Scripts.htm#continuation-section">Continuation section</a>: Multiple lines are merged with the line above the section, which starts with <code>(</code> and ends with <code>)</code> (both symbols must appear at the beginning of a line, excluding whitespace).</li>
+  <li><a href="Scripts.htm#continuation-line">継続の接頭辞</a><a href="Variables.htm#operators">式演算子</a>で始まる行（++と--を除く）は、前の行と統合されます。行が実際に式を含んでいるかどうかに関係なく、行はマージされます。</li>
+  <li><a href="Scripts.htm#continuation-expr">囲い込みによる継続</a>：()、[]、{}で囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができます。</li>
+  <li><a href="Scripts.htm#continuation-section">継続の部</a>複数の行は、セクションの上にある、<code>(</code>で始まり、<code>)</code>で終わる行にマージされます（両方の記号は、空白を除いて行頭に現れる必要があります）。</li>
 </ul>
  
 
-<h2 id="comments">Comments</h2>
-<p><em>Comments</em> are portions of text within the script which are ignored by the program. They are typically used to add explanation or disable parts of the code.</p>
-<p>Scripts can be commented by using a semicolon at the beginning of a line. 例えば、</p>
-<pre><em>; This entire line is a comment.</em></pre>
-<p>Comments may also be added at the end of a line, in which case the semicolon must have at least one space or tab to its left. 例えば、</p>
-<pre>Run "Notepad"  <em>; This is a comment on the same line as a function call.</em></pre>
-<p>In addition, the <code><em>/*</em></code> and <code><em>*/</em></code> symbols can be used to comment out an entire section, as in this example:</p>
+<h2 id="comments">コメント</h2>
+<p><em>コメント</em>とは、スクリプト内のテキストの一部で、プログラムによって無視される部分です。一般的には、説明を加えたり、コードの一部を無効にしたりするために使用されます。</p>
+<p>スクリプトは、行頭のセミコロンでコメントすることができます。例えば、</p>
+<pre><em>; この行全体がコメントです。</em></pre>
+<p>コメントは行末に追加することもできますが、その場合、セミコロンの左側には少なくとも1つのスペースまたはタブが必要です。例えば、</p>
+<pre>Run "Notepad"<em>;これは、関数呼び出しと同じ行にあるコメントです。</em></pre>
+<p>さらに、この<code><em>/*</em></code> および <code><em>*/</em></code>記号は、この例のように、セクション全体をコメントアウトするために使用することができます。</p>
 <pre><em>/*
 MsgBox "This line is commented out (disabled)."
 MsgBox "Common mistake:" */ " this does not end the comment."
 MsgBox "This line is commented out."
 */</em>
 MsgBox "This line is not commented out."
-<em>/* This is also valid, but no other code can share the line. */</em>
+<em>/* これも有効ですが、他のコードがその行を共有することはできません。*/</em>
 MsgBox "This line is not commented out."
 </pre>
-<p>Excluding tabs and spaces, <code><em>/*</em></code> must appear at the start of the line, while <code><em>*/</em></code> can appear only at the start or end of a line. It is also valid to omit <code><em>*/</em></code>, in which case the remainder of the file is commented out.</p>
-<p>Since comments are filtered out when the script is read from file, they do not impact performance or memory utilization.</p>
+<p>タブ、スペースは除く。<code><em>/*</em></code> は行頭に表示する必要があります。 <code><em>*/</em></code>は、行頭または行末にのみ表示することができます。<code><em>*/</em></code>を省略することも有効です。 この場合、ファイルの残りはコメントアウトされます。</p>
+<p>コメントはスクリプトをファイルから読み込む際にフィルタリングされるため、パフォーマンスやメモリ使用量に影響を与えることはありません。</p>
 
-<h2 id="expressions">Expressions</h2>
-<p><em>Expressions</em> are combinations of one or more <a href="Concepts.htm#values">values</a>, <a href="Concepts.htm#variables">variables</a>, <a href="#operators">operators</a> and <a href="#function-calls">function calls</a>. For example, <code>10</code>, <code>1+1</code> and <code>MyVar</code> are valid expressions. Usually, an expression takes one or more values as input, performs one or more operations, and produces a value as the result. The process of finding out the value of an expression is called <em>evaluation</em>. For example, the expression <code>1+1</code> <em>evaluates</em> to the number 2.</p>
-<p>Simple expressions can be pieced together to form increasingly more complex expressions. For example, if <code>Discount/100</code> converts a discount percentage to a fraction, <code>1 - Discount/100</code> calculates a fraction representing the remaining amount, and <code>Price * (1 - Discount/100)</code> applies it to produce the net price.</p>
-<p><em>Values</em> are <a href="Concepts.htm#numbers">numbers</a>, <a href="Concepts.htm#objects">objects</a> or <a href="Concepts.htm#strings">strings</a>. A <em>literal</em> value is one written physically in the script; one that you can see when you look at the code.</p>
+<h2 id="expressions">式</h2>
+<p><em>式</em>は、1つ以上の<a href="Concepts.htm#values">値</a>、<a href="Concepts.htm#variables">変数</a>、<a href="#operators">演算子</a>、<a href="#function-calls">関数呼び出し</a>の組み合わせです。例えば、<code>10</code>、<code>1+1</code>、<code>MyVar</code>は有効な表現です。通常、式は1つ以上の値を入力とし、1つ以上の演算を行い、結果として値を生成する。式の値を求める作業を<em>評価</em>といいます。例えば、<code>1+1</code>という式は、数字2に<em>評価</em>されます。</p>
+<p>簡単な式をつなぎ合わせて、どんどん複雑な式にすることができます。例えば、<code>Discount/100</code>で割引率を分数に変換した場合、<code>1 - Discount/100</code>で残額を表す分数を計算し、<code>Price * (1 - Discount/100)</code>を適用してネット価格を算出します。</p>
+<p><em>値</em>は、<a href="Concepts.htm#numbers">数値</a>、<a href="Concepts.htm#objects">オブジェクト</a>、<a href="Concepts.htm#strings">文字列</a>です。<em>リテラル</em>値とは、スクリプトに物理的に書かれた値で、コードを見ればわかる値です。</p>
 
-<h3 id="strings">Strings / Text</h3>
-<p class="note">For a more general explanation of strings, see <a href="Concepts.htm#strings">Strings</a>.</p>
-<p>A <em>string</em>, or <em>string of characters</em>, is just a text value. In an expression, literal text must be enclosed in single or double quotation marks to differentiate it from a variable name or some other expression. This is often referred to as a <em>quoted literal string</em>, or just <em>quoted string</em>. For example, <code>"this is a quoted string"</code> and <code>'so is this'</code>.</p>
-<p>To include an <em>actual</em> quote character inside a quoted string, use the <code>`"</code> or <code>`'</code> <a href="misc/EscapeChar.htm#quote">escape sequence</a> or enclose the character in the opposite type of quote mark. 例えば、<code>'She said, "An apple a day."'</code>.</p>
-<p>Quoted strings can contain other <a href="misc/EscapeChar.htm">escape sequences</a> such as <code>`t</code> (tab), <code>`n</code> (linefeed), and <code>`r</code> (carriage return).</p>
+<h3 id="strings">文字列 / テキスト</h3>
+<p class="note">文字列の一般的な説明については、<a href="Concepts.htm#strings">文字列</a>を参照してください。</p>
+<p><em>ストリング</em>または<em>文字列</em>とは、単なるテキスト値のことです。式中、リテラルテキストは、変数名や他の式と区別するために、シングルクォーテーションまたはダブルクォーテーションで囲む必要があります。これはしばしば<em>引用リテラル文字列</em>、あるいは単に<em>引用文字列</em>と呼ばれる。例えば、<code>"これは引用符で囲まれた文字列です"</code>そして<code>"これはそうです"</code>という具合です。</p>
+<p>引用符で囲まれた文字列の中に<em>実際</em>の引用符を含めるには、<code>`"</code>または<code>`'</code> <a href="misc/EscapeChar.htm#quote">エスケープシーケンスを</a>使用するか、反対のタイプの引用符でその文字を囲みます。例えば、<code>'She said, "An apple a day."'</code>.</p>
+<p>引用符で囲まれた文字列には、<code>`t</code>（タブ）、<code>`n</code>（ラインフィード）、<code>`r</code>（キャリッジリターン）といった他の<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を含めることができます。</p>
 
 <h3 id="variables">変数</h3>
-<p class="note">For a basic explanation and general details about variables, see <a href="Concepts.htm#variables">Variables</a>.</p>
-<p><em>Variables</em> can be used in an expression simply by writing the variable's name. For example, <code>A_ScreenWidth/2</code>. However, variables cannot be used inside a quoted string. Instead, variables and other values can be combined with text through a process called <a href="Variables.htm#concat"><em>concatenation</em></a>. There are two ways to <em>concatenate</em> values in an expression:</p>
+<p class="note">変数の基本的な説明と一般的な詳細については、<a href="Concepts.htm#variables">変数</a>を参照してください。</p>
+<p><em>変数</em>は、変数名を書くだけで式の中で使用することができます。例えば、<code>A_ScreenWidth/2</code>です。ただし、引用符で囲まれた文字列の中では、変数を使用することができない。その代わりに、変数やその他の値をテキストと結合させるための処理として <a href="Variables.htm#concat"><em>連結</em></a>. 式中の値を<em>連結</em>する方法は2つあります。</p>
 <ul>
-  <li>Implicit concatenation: <code>"The value is " MyVar</code></li>
-  <li>Explicit concatenation: <code>"The value is " . MyVar</code></li>
+  <li>暗黙の連結：<code>"The value is " MyVar</code></li>
+  <li>明示的な連結：<code>"The value is " . MyVar</code></li>
 </ul>
-<p>Implicit concatenation is also known as <em>auto-concat</em>. In both cases, the spaces preceding the variable and dot are mandatory.</p>
-<p>The <a href="lib/Format.htm">Format</a> function can also be used for this purpose. 例えば、</p>
+<p>暗黙の連結は、<em>自動連結</em>とも呼ばれる。いずれの場合も、変数とドットの前にあるスペースは必須です。</p>
+<p>また、<a href="lib/Format.htm">フォーマット</a>機能もこの目的に使用できます。例えば、</p>
 <pre>MsgBox Format("You are using AutoHotkey v{1} {2}-bit.", A_AhkVersion, A_PtrSize*8)</pre>
-<p>To assign a value to a variable, use the <code>:=</code> <a href="Variables.htm#AssignOp">assignment operator</a>, as in <code>MyVar := "Some text"</code>.</p>
-<p><em>Percent signs</em> within an expression are used to create <a href="#dynamic-variables">dynamic variable references</a>, but these are rarely needed.</p>
+<p><code>MyVar := "Some text "</code>のように、変数に値を代入するには、<code>:=</code> <a href="Variables.htm#AssignOp">代入演算子</a>を使用します。</p>
+<p>式中の<em>パーセント記号</em>は、<a href="#dynamic-variables">動的な変数参照</a>を作成するために使用されますが、これらはほとんど必要ありません。</p>
 
-<h3 id="constants">Keyword Constants</h3>
-<p>A constant is simply an unchangeable value, given a symbolic name. AutoHotkey currently has the following constants:</p>
+<h3 id="constants">キーワード定数</h3>
+<p>定数とは、単に変更不可能な値で、シンボリックな名前が与えられているものです。AutoHotkeyには現在、以下の定数があります。</p>
 <table class="info">
-  <tr><th>Name</th><th>Value</th><th>Type</th><th abbr="Descr">Description</th></tr>
-  <tr><td><code>False</code></td><td><code>0</code></td><td><a href="Concepts.htm#numbers">Integer</a></td><td><a href="Variables.htm#Boolean">Boolean</a> false, sometimes meaning "off", "no", etc.</td></tr>
-  <tr><td><code>True</code></td><td><code>1</code></td><td><a href="Concepts.htm#numbers">Integer</a></td><td><a href="Variables.htm#Boolean">Boolean</a> true, sometimes meaning "on", "yes", etc.</td></tr>
+  <tr><th>名称</th><th>値</th><th>型</th><th abbr="Descr">Description</th></tr>
+  <tr><td><code>False</code></td><td><code>0</code></td><td><a href="Concepts.htm#numbers">整数</a></td><td><a href="Variables.htm#Boolean">ブール値</a> false。"off"、"no "などの意味を持つこともある。</td></tr>
+  <tr><td><code>True</code></td><td><code>1</code></td><td><a href="Concepts.htm#numbers">整数</a></td><td><a href="Variables.htm#Boolean">ブール値の</a>真偽。「オン」「イエス」などの意味を持つこともある。</td></tr>
 </table>
-<p>Unlike the read-only <a href="Variables.htm#BuiltIn">built-in variables</a>, these cannot be returned by a <a href="#dynamic-variables">dynamic reference</a>.</p>
+<p>読み取り専用の<a href="Variables.htm#BuiltIn">組み込み変数</a>とは異なり、<a href="#dynamic-variables">動的参照</a>で返すことはできません。</p>
 
-<h3 id="operators">Operators</h3>
-<p><em>Operators</em> take the form of a symbol or group of symbols such as <code>+</code> or <code>:=</code>, or one of the words <code>and</code>, <code>or</code>, <code>not</code>, <code>is</code>, <code>in</code> or <code>contains</code>. They take one, two or three values as input and return a value as the result. A value or sub-expression used as input for an operator is called an <em>operand</em>.</p>
+<h3 id="operators">演算子</h3>
+<p><em>演算子</em>は、<code>+</code>や <code>:=</code>などの記号や記号群、または<code>and</code>、<code>or</code>、<code>not</code>、<code>is</code>、<code>in</code>、<code>contains</code>のいずれかの単語の形をとる。1つ、2つ、3つの値を入力として受け取り、結果として値を返します。演算子の入力として使用される値または部分式を<em>オペランド</em>と呼ぶ。</p>
 <ul>
-  <li><em>Unary</em> operators are written either before or after a single operand, depending on the operator. For example, <code>-x</code> or <code>not keyIsDown</code>.</li>
-  <li><em>Binary</em> operators are written in between their two operands. For example, <code>1+1</code> or <code>2 * 5</code>.</li>
-  <li>AutoHotkey has only one <em>ternary</em> operator, which takes the form <a href="Variables.htm#ternary"><code>condition ? valueIfTrue : valueIfFalse</code></a>.</li>
+  <li><em>単項</em>演算子は、演算子によって、1つのオペランドの前か後に書かれます。例えば、<code>-x</code>または、<code>keyIsDown</code></li>
+  <li><em>二項</em>演算子は、2つのオペランドの間に記述されます。例えば, <code>1+1</code> または <code>2 * 5</code>.</li>
+  <li>AutoHotkeyには<em>三項</em>演算子が1つだけあり、次のような形をしています。 <a href="Variables.htm#ternary"><code>条件 ? valueIfTrue : valueIfFalse</code></a></li>
 </ul>
-<p>Some unary and binary operators share the same symbols, in which case the meaning of the operator depends on whether it is written before, after or in between two values. For example, <code>x-y</code> performs subtraction while <code>-x</code> inverts the sign of <code>x</code> (producing a positive value from a negative value and vice versa).</p>
-<p>Operators of equal precedence such as multiply (<code>*</code>) and divide (<code>/</code>) are evaluated in left-to-right order unless otherwise specified in the <a href="Variables.htm#operators">operator table</a>. By contrast, an operator of lower precedence such as add (<code>+</code>) is evaluated after a higher one such as multiply (<code>*</code>). For example, <code>3 + 2 * 2</code> is evaluated as <code>3 + (2 * 2)</code>. Parentheses may be used to override precedence as in this example: <code>(3 + 2) * 2</code></p>
+<p>単項演算子と二項演算子には同じ記号を持つものがあり、その場合、演算子の意味は2つの値の前、後、間のいずれに書かれるかに依存します。例えば、<code>x-y</code>は引き算を行い、<code>-x</code>は <code>x</code>の符号を反転させる（負の値から正の値を生成し、その逆も同様）ことを意味します。</p>
+<p>乗算（<code>*</code>）や除算（<code>/</code>）などの優先順位が等しい演算子は、<a href="Variables.htm#operators">演算子テーブル</a>で特に指定がない限り、左から右の順番で評価される。一方、加算（<code>+</code>）のような優先順位の低い演算子は、乗算（<code>*</code>）のような優先順位の高い演算子の後に評価される。例えば、<code>3 + 2 * 2</code>は、<code>3 + (2 * 2)</code>と評価されます。この例のように、括弧を使用して優先順位を上書きすることができます。<code>(3 + 2) * 2</code></p>
 
-<h3 id="function-calls">Function Calls</h3>
-<p class="note">For a general explanation of functions and related terminology, see <a href="Concepts.htm#functions">Functions</a>.</p>
-<p><em>Functions</em> take a varying number of inputs, perform some action or calculation, and then <a href="Concepts.htm#return-a-value"><em>return</em></a> a result. The inputs of a function are called <a href="Concepts.htm#parameters"><em>parameters</em></a> or <em>arguments</em>. A function is <a href="Concepts.htm#call"><em>called</em></a> simply by writing the target function followed by parameters enclosed in parentheses. For example, <code>GetKeyState("Shift")</code> returns (evaluates to) 1 if <kbd>Shift</kbd> is being held down or 0 otherwise.</p>
-<p class="warning"><strong>Note:</strong> There must not be any space between the function and open parenthesis.</p>
-<p>For those new to programming, the requirement for parentheses may seem cryptic or verbose at first, but they are what allows a function call to be combined with other operations. For example, the expression <code>GetKeyState("Shift", "P") and GetKeyState("Ctrl", "P")</code> returns 1 only if both keys are being physically held down.</p>
-<p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクトを</a>生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という表現では、<em>GetKeyStateは</em>実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
+<h3 id="function-calls">関数呼び出し</h3>
+<p class="note">機能の一般的な説明と関連する用語については、<a href="Concepts.htm#functions">機能</a>を参照してください。</p>
+<p><em>関数</em>は、さまざまな入力を受け取り、何らかのアクションや計算を行い、その後 帰り値を<a href="Concepts.htm#return-a-value"><em>帰す</em></a>関数の入力は、次のように呼ばれます。 <a href="Concepts.htm#parameters"><em>パラメータ</em></a>や<em>引数</em>などです。関数が <a href="Concepts.htm#call"><em>呼び出される</em></a>には、対象となる関数の後に、括弧で囲まれたパラメータを記述するだけでよい。例えば、<code>GetKeyState("Shift")</code>は、<kbd>Shift</kbd>が押されている場合は1を、それ以外の場合は0を返す（評価される）。</p>
+<p class="warning"><strong>注：</strong>関数と開いた括弧の間には、スペースを入れてはいけません。</p>
+<p>プログラミングの初心者にとって、括弧の必要性は、最初は不可解で冗長に見えるかもしれませんが、括弧は、関数呼び出しが他の操作と組み合わされることを可能にするものなのです。例えば、<code>GetKeyState("Shift", "P") and GetKeyState("Ctrl", "P")</code>という式は、両方のキーが物理的に押されている場合にのみ1を返します。</p>
+<p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクト</a>を生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という式では、<em>GetKeyState</em>は実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
 
-<h4 id="function-call-statements">Function Call Statements</h4>
-<p>If the return value of the function is not needed and the function name is written at the start of the line (or in other contexts which allow a <a href="Concepts.htm#statement">statement</a>, such as following <code>else</code> or a <a href="Hotkeys.htm">hotkey</a>), the parentheses can be omitted. In this case, the remainder of the line is taken as the function's parameter list. 例えば、</p>
+<h4 id="function-call-statements">関数呼び出し文</h4>
+<p>関数の戻り値が必要なく、関数名が行頭に書かれている場合（または<code>else</code>や <a href="Hotkeys.htm">ホットキー</a>に続くなど、<a href="Concepts.htm#statement">ステートメント</a>を許可する他のコンテキスト）、括弧を省略することができます。この場合、行の残りは関数のパラメータリストとして扱われます。例えば、</p>
 <pre>result := MsgBox("This one requires parentheses.",, "OKCancel")
 MsgBox "This one doesn't. The result was " result "."</pre>
-<p>Parentheses can also be omitted when calling a <a href="Concepts.htm#methods">method</a> in this same context, but only when the target object is either a variable or a directly named property, such as <code>myVar.myMethod</code> or <code>myVar.myProp.myMethod</code>.</p>
-<p>As with function call expressions, the target of a function call statement does not have to be a predefined function; it can instead be a variable containing a <a href="misc/Functor.htm">function object</a>.</p>
-<p>A function call statement can <a href="Scripts.htm#continuation">span multiple lines</a>.</p>
-<p>Function call statements have the following limitations:</p>
+<p>同じ文脈で<a href="Concepts.htm#methods">メソッド</a>を呼び出す場合、括弧を省略することもできますが、対象となるオブジェクトが<code>myVar.myMethod</code>や <code>myVar.myProp.myMethod</code>のように変数や直接名前の付いたプロパティの場合のみです。</p>
+<p>関数呼び出し式と同様に、関数呼び出し文のターゲットは定義済みの関数である必要はなく、代わりに<a href="misc/Functor.htm">関数オブジェクト</a>を含む変数にすることができます。</p>
+<p>関数呼び出し文は、<a href="Scripts.htm#continuation">複数の行にまたがる</a>ことができます。</p>
+<p>関数呼び出し文には、以下の制限があります。</p>
 <ul>
-  <li>If there is a return value, it is always discarded.</li>
-  <li>Like <a href="#control-flow">control flow statements</a>, they cannot be used inside an expression.</li>
-  <li>When optional parameters are omitted, any commas at the <em>end</em> of the parameter list must also be omitted to prevent <a href="Scripts.htm#continuation-line">line continuation</a>.</li>
-  <li>Function call statements cannot be <a href="Functions.htm#VariadicCall">variadic</a>, although they can pass a fixed number of parameters to a variadic function.</li>
+  <li>戻り値がある場合は、必ず破棄されます。</li>
+  <li><a href="#control-flow">制御フロー文</a>と同様に、式の内部で使用することはできません。</li>
+  <li>オプションのパラメータが省略された場合、パラメータリストの<em>末尾</em>にあるカンマも、<a href="Scripts.htm#continuation-line">行の継続</a>を防ぐために省略する必要があります。</li>
+  <li>関数呼び出し文は、可変関数に固定数のパラメータを渡すことができますが、<a href="Functions.htm#VariadicCall">可変関数</a>にすることはできません。</li>
 </ul>
 
 <h4 id="optional-parameters">オプションのパラメータ</h4>
-<p>Optional parameters can simply be left blank, but the delimiting comma is still required unless all subsequent parameters are also omitted. For example, the <a href="lib/Run.htm">Run</a> function can accept between one and four parameters. All of the following are valid:</p>
+<p>オプションのパラメータは、単に空白にすることもできますが、後続のパラメータがすべて省略されない限り、区切りカンマは必要です。例えば、<a href="lib/Run.htm">Run</a>関数は1つから4つのパラメータを受け取ることができます。以下のすべてが有効です。</p>
 <pre>
 Run "notepad.exe", "C:\"
 Run "notepad.exe",, "Min"
 Run("notepad.exe", , , &amp;notepadPID)
 </pre>
-<p id="unset">Within a <a href="Language.htm#function-calls">function call</a>, <a href="Variables.htm#square-brackets">array literal</a> or <a href="Variables.htm#curly-braces">object literal</a>, the keyword <code>unset</code> can be used to explicitly omit the parameter or value. An unset expression has one of the following effects:</p>
+<p id="unset"><a href="Language.htm#function-calls">関数呼び出し</a>、<a href="Variables.htm#square-brackets">配列リテラル</a>、<a href="Variables.htm#curly-braces">オブジェクトリテラル</a>内で、キーワード<code>unset</code>を使用すると、パラメータまたは値を明示的に省略することができます。アンセット式は、以下のいずれかの効果を持ちます。</p>
 <ul>
-  <li>For a user-defined function, the parameter's <a href="Functions.htm#optional">default value</a> is used.</li>
-  <li>For a built-in function, the parameter is considered to have been omitted.</li>
-  <li>For an <a href="Variables.htm#square-brackets">array literal</a> such as <code>[var?]</code>, the element is included in the array's length but is given no value.</li>
-  <li>For an <a href="Variables.htm#curly-braces">object literal</a> such as <code>{x: y?}</code>, the property is not assigned.</li>
+  <li>ユーザー定義機能の場合、パラメータの<a href="Functions.htm#optional">デフォルト</a>値が使用されます。</li>
+  <li>組込み関数の場合は、パラメータが省略されたものとみなされます。</li>
+  <li><code>[var?]の</code>ような<a href="Variables.htm#square-brackets">配列リテラル</a>では、その要素は配列の長さに含まれるが、値は与えられない。</li>
+  <li>{x:<code>のような<a href="Variables.htm#curly-braces">オブジェクトリテラルの</a>場合。y?}</code>, プロパティは付与されない。</li>
 </ul>
-<p>The <code>unset</code> keyword can also be <a href="Functions.htm#unset">used in a function definition</a> to indicate that a parameter is optional but has no default value. When the function executes, the local variable corresponding to that parameter will have <a href="Concepts.htm#nothing">no value</a> if the parameter was omitted.</p>
-<p>The <a href="Variables.htm#maybe">maybe operator (<em>var</em><strong>?</strong>)</a> can be used to pass or omit a variable depending on whether it has a value. For example, <code>Array(MyVar?)</code> is equivalent to <code>Array(IsSet(MyVar) ? MyVar : unset)</code>.</p>
+<p><code>unset</code>キーワードは、<a href="Functions.htm#unset">関数定義</a>において、パラメータがオプションであり、デフォルト値がないことを示すために使用することもできます。関数が実行されるとき、パラメータが省略された場合、そのパラメータに対応するローカル変数には<a href="Concepts.htm#nothing">値</a>がありません。</p>
+<p><a href="Variables.htm#maybe">maybe演算子(<em>var</em><strong>?</strong>)</a>は、変数が値を持つかどうかによって、その変数を渡したり省略したりするのに使われます。例えば、<code>Array(MyVar?)</code>は<code>Array(IsSet(MyVar) ? MyVar : unset)</code>と等価です。</p>
 
-<h3 id="operators-for-objects">Operators for Objects</h3>
-<p>There are other symbols used in expressions which don't quite fit into any of the categories defined above, or that affect the meaning of other parts of the expression, as described below. These all relate to <em>objects</em> in some way. Providing a full explanation of what each construct does would require introducing more concepts which are outside the scope of this section.</p>
-<p><code>Alpha.Beta</code> is often called <em>member access</em>. <em>Alpha</em> is an ordinary variable, and could be replaced with a function call or some other sub-expression which returns an object. When evaluated, the object is sent a request "give me the value of property <em>Beta</em>", "store this value in property <em>Beta</em>" or "call the method named <em>Beta</em>". In other words, <em>Beta</em> is a name which has meaning to the object; it is not a local or global variable.</p>
-<p><code>Alpha.Beta()</code> is a <em>method call</em>, as described above. The parentheses can be omitted in specific cases; see <a href="#function-call-statements">Function Call Statements</a>.</p>
-<p><code>Alpha.Beta[Param]</code> is a specialised form of member access which includes additional parameters in the request. While <em>Beta</em> is a simple name, <em>Param</em> is an ordinary variable or sub-expression, or a list of sub-expressions separated by commas (the same as in a function's parameter list). <a href="Functions.htm#VariadicCall">Variadic calls</a> are permitted.</p>
-<p><code>Alpha.%vBeta%</code>, <code>Alpha.%vBeta%[Param]</code> and <code>Alpha.%vBeta%()</code> are also member access, but <em>vBeta</em> is a variable or sub-expression. This allows the name of the property or method to be determined while the script is running. Parentheses are required when calling a method this way.</p>
-<p><code>Alpha[Index]</code> accesses the <em>default property</em> of <code>Alpha</code>, giving <code>Index</code> as a parameter. Both <em>Alpha</em> and <em>Index</em> are variables in this case, and could be replaced with virtually any sub-expression. This syntax is usually used to retrieve an element of an <a href="lib/Array.htm">Array</a> or <a href="lib/Map.htm">Map</a>.</p>
-<p id="array-literal"><code>[A, B, C]</code> creates an <a href="lib/Array.htm">Array</a> with the initial contents A, B and C (all variables in this case), where A is element 1.</p>
-<p id="object-literal"><code>{Prop1:Value1, Prop2:Value2}</code> creates an <a href="lib/Object.htm">Object</a> with properties literally named <em>Prop1</em> and <em>Prop2</em>. A value can later be retrieved by using the <em>member access</em> syntax described above. To evaluate a property name as an expression, enclose it in percent signs. 例えば、<code>{%NameVar%:ValueVar}</code>.</p>
-<p><code>MyFunc(Params*)</code> is a <a href="Functions.htm#VariadicCall">variadic function call</a>. The asterisk must immediately precede the closing parenthesis at the end of the function's parameter list. <em>Params</em> must be a variable or sub-expression which returns an <a href="lib/Array.htm">Array</a> or other enumerable object. Although it isn't valid to use <code>Params*</code> just anywhere, it can be used in an array literal (<code>[A, B, C, ArrayToAppend*]</code>) or property parameter list (<code>Alpha.Beta[Params*]</code> or <code>Alpha[Params*]</code>).</p>
+<h3 id="operators-for-objects">オブジェクトの演算子</h3>
+<p>このほかにも、以下に示すように、上記の分類に当てはまらない、あるいは表現の他の部分の意味に影響を与えるような記号が表現に使用されています。これらはすべて、何らかの形で<em>オブジェクト</em>に関係するものです。各コンストラクトがどのような働きをするのか、詳しく説明するためには、さらに多くの概念を導入する必要があり、このセクションの範囲外である。</p>
+<p><code>Alpha.Beta</code>は <em>メンバー</em>アクセスと呼ばれることが多い。<em>Alpha</em>は普通の変数で、関数呼び出しや、オブジェクトを返す他の部分式に置き換えることができる。評価されると、オブジェクトに「プロパティ<em>Beta</em>の値を教えて」「この値をプロパティ<em>Beta</em>に格納して」「<em>Beta</em>という名前のメソッドを呼び出して」という要求が送られます。つまり、<em>Beta</em>はオブジェクトに対して意味を持つ名前であり、ローカル変数やグローバル変数ではありません。</p>
+<p><code>Alpha.Beta()</code>は、上記の通り、<em>メソッド呼び出し</em>です。特定の場合、括弧を省略することができます。「<a href="#function-call-statements">関数呼び出しステートメント</a>」を参照してください。</p>
+<p><code>Alpha.Beta[Param]</code>は、リクエストに追加のパラメータを含む特別な会員アクセスの形態です。<em>Beta</em>が単純な名前であるのに対し、<em>Param</em>は通常の変数や部分式、あるいはカンマで区切られた部分式のリスト（関数のパラメータリストと同じ）である。<a href="Functions.htm#VariadicCall">変則的な呼び出し</a>が可能です。</p>
+<p><code>Alpha.%vBeta%、</code><code>Alpha.%vBeta%[Param]</code>、および<code>Alpha.%vBeta%()</code>もメンバーアクセスですが、<em>vBeta</em>は変数または副式です。これにより、スクリプトの実行中にプロパティやメソッドの名前を決定することができます。この方法でメソッドを呼び出す場合は、括弧を付ける必要があります。</p>
+<p><code>Alpha[Index]</code>は、<code>Indexを</code>パラメータとして、<code>Alpha</code>の<em>デフォルトのプロパティ</em>にアクセスします。この場合、<em>Alpha</em>と <em>Index</em>はいずれも変数であり、事実上あらゆる部分式に置き換えることができる。この構文は、通常、<a href="lib/Array.htm">Array</a>や <a href="lib/Map.htm">Map</a>の要素を取得するために使用されます。</p>
+<p id="array-literal"><code>[A、B、C]</code>は、初期内容A、B、C（この場合はすべて変数）を持つ<a href="lib/Array.htm">配列</a>を作成し、Aは要素1である。</p>
+<p id="object-literal"><code>{Prop1:Value1, Prop2:Value2}</code> 文字通り<em>Prop1</em>と<em>Prop2</em>という名前のプロパティを持つ<a href="lib/Object.htm">Object</a>を作成します。値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。例えば、<code>{%NameVar%:ValueVar}</code>.</p>
+<p><code>MyFunc(Params*)</code>は、<a href="Functions.htm#VariadicCall">バリアフリーな関数呼び出し</a>です。アスタリスクは、関数のパラメータリストの最後にある閉じ括弧の直前でなければなりません。<em>Params</em>は、<a href="lib/Array.htm">Array</a>または他の列挙可能なオブジェクトを返す変数または部分式でなければなりません。<code>Params*</code>はどこでも使えるわけではありませんが、配列リテラル（<code>[A, B, C, ArrayToAppend*]</code>）やプロパティのパラメータリスト（<code>Alpha.Beta[Params*]</code>や<code>Alpha[Params*]</code>）で使用することが可能です。</p>
 
-<h3 id="expression-statements">Expression Statements</h3>
-<p>Not all expressions can be used alone on a line. For example, a line consisting of just <code>21*2</code> or <code>"Some text"</code> wouldn't make any sense. An expression <em>statement</em> is an expression used on its own, typically for its side-effects. Most expressions with side-effects can be used this way, so it is generally not necessary to memorise the details of this section.</p>
-<p>The following types of expressions can be used as statements:</p>
-<p>Assignments, as in <code>x := y</code>, compound assignments such as <code>x += y</code>, and increment/decrement operators such as <code>++x</code> and <code>x--</code>.</p>
-<p class="warning"><strong>Known limitation:</strong> For <code>x++</code> and <code>x--</code>, there currently cannot be a space between the variable name and operator.</p>
-<p>Function calls such as <code>MyFunc(Params)</code>. However, a standalone function call cannot be followed by an open brace <code>{</code> (at the end of the line or on the next line), because it would be confused with a function declaration.</p>
-<p>Method calls such as <code>MyObj.MyMethod()</code>.</p>
-<p>Member access using square brackets, such as <code>MyObj[Index]</code>, which can have side-effects like a function call.</p>
-<p>Ternary expressions such as <code>x ? CallIfTrue() : CallIfFalse()</code>. However, it is safer to utilize the rule below; that is, always enclose the expression (or just the condition) in parentheses.</p>
-<p class="warning"><strong>Known limitation:</strong> Due to ambiguity with <a href="#function-call-statements">function call statements</a>, conditions beginning with a variable name and space (but also containing other operators) should be enclosed in parentheses. For example, <code>(x + 1) ? y : z</code> and <code>x+1 ? y : z </code> are expression statements but <code>x + 1 ? y : z</code> is a function call statement.</p>
-<p class="warning"><strong>Note:</strong> The condition cannot begin with <code>!</code> or any other expression operator, as it would be interpreted as a <a href="Scripts.htm#continuation-line">continuation line</a>.</p>
-<p>Expressions starting with <code>(</code>. However, there usually must be a matching <code>)</code> on the same line, otherwise the line would be interpreted as the start of a <a href="Scripts.htm#continuation">continuation section</a>.</p>
-<p>Expressions starting with a double-deref, such as <code>%varname% := 1</code>. This is primarily due to implementation complexity.</p>
-<p>Expressions that start with any of those described above (but not those described below) are also allowed, for simplicity. For example, <code>MyFunc()+1</code> is currently allowed, although the <code>+1</code> has no effect and its result is discarded. Such expressions might become invalid in the future due to enhanced error-checking.</p>
-<p><a href="#function-call-statements">Function call statements</a> are similar to expression statements, but are technically not pure expressions. For example, <code>MsgBox "Hello, world!"</code>, <code>myGui.Show</code> or <code>x.y.z "my parameter"</code>.</p>
+<h3 id="expression-statements">表現文</h3>
+<p>すべての表現が行内で単独で使用できるわけではありません。例えば、<code>21*2</code>や <code>"Some text"</code>だけで構成された行は、何の意味もなさない。式の<em>文</em>は、それ自体で使用される式で、通常はその副作用のために使用されます。副作用のある表現のほとんどはこの方法で使えるので、一般にこの項の詳細を覚える必要はない。</p>
+<p>ステートメントとして使用できるのは、次の種類の式です。</p>
+<p><code>x := y</code>のような代入、<code>x += y</code>のような複合代入、<code>++x</code>や<code>x--</code>のようなインクリメント/デクリメント演算子。</p>
+<p class="warning"><strong>既知の制限事項：</strong> <code>x++</code>と <code>x--</code>については、現在、変数名と演算子の間にスペースを入れることができません。</p>
+<p><code>MyFunc(Params)</code>のような関数呼び出しただし、単独の関数呼び出しには、関数宣言と混同されるため、（行末や次の行で）開波括弧<code>{</code>を付けることはできません。</p>
+<p><code>MyObj.MyMethod()</code>のようなメソッド呼び出しです。</p>
+<p><code>MyObj[Index]</code>のように角括弧を使ったメンバーアクセスは、関数呼び出しのような副作用がある場合があります。</p>
+<p>3項式、<code>x ?CallIfTrue() :CallIfFalse()</code>。ただし、式（または条件）を常に括弧で囲むという、以下のルールを利用するのが無難です。</p>
+<p class="warning"><strong>既知の制限事項：</strong> <a href="#function-call-statements">関数呼び出し文</a>があいまいなため、変数名とスペースで始まる条件（他の演算子も含む）は、括弧で囲む必要があります。例えば、<code>(x + 1) ? y : z</code>や<code>x+1 ? y : z </code>は、式ですが、<code>x + 1 ? y : z</code>は、関数呼び出し文です。</p>
+<p class="warning"><strong>注：</strong>条件は、<a href="Scripts.htm#continuation-line">継続行</a>と解釈されるため、<code>!</code>やその他の式演算子で始めることはできません。</p>
+<p>始まる表現<code>（</code>。しかし、通常、同じ行に一致する<code>)</code>がなければ、その行は<a href="Scripts.htm#continuation">継続セクション</a>の開始と解釈されます。</p>
+<p><code>varname% := 1</code>のように、ダブルデフで始まる式。これは主に、実装の複雑さによるものです。</p>
+<p>簡略化のため、上記のいずれかで始まる表現（後述のものは除く）も可とする。例えば、<code>MyFunc()+</code>1は現在許可されていますが、<code>+</code>1は何の効果もなく、その結果は破棄されます。将来、エラーチェックの強化により、このような表現が無効となる可能性があります。</p>
+<p><a href="#function-call-statements">関数呼び出し文は</a>式文と似ていますが、技術的には純粋な式ではありません。例えば、<code>MsgBox "Hello, world!"</code>,<code>myGui.Show</code>または<code>x.y.z "my parameter "</code>などです。</p>
 
-<h2 id="control-flow">Control Flow Statements</h2>
-<p class="note">For a general explanation of control flow, see <a href="Concepts.htm#control-flow">Control Flow</a>.</p>
-<p><a href="Concepts.htm#statement">Statements</a> are grouped together into a <a href="lib/Block.htm"><em>block</em></a> by enclosing them in braces <code>{}</code>, as in C, JavaScript and similar languages, but usually the braces must appear at the start of a line. Control flow statements can be applied to an entire block or just a single statement.</p>
-<p>The <a href="Concepts.htm#cf-body">body</a> of a control flow statement is always a single <em>group</em> of statements. A block counts as a single group of statements, as does a control flow statement and its body. The following related statements are also grouped with each other, along with their bodies: <code>If</code> with <code>Else</code>; <code>Loop</code>/<code>For</code> with <code>Until</code> or <code>Else</code>; <code>Try</code> with <code>Catch</code> and/or <code>Else</code> and/or <code>Finally</code>. In other words, when a group of these statements is used as a whole, it does not always need to be enclosed in braces (however, some coding styles always include the braces, for clarity).</p>
-<p>Control flow statements which have a body and therefore must always be followed by a related statement or group of statements: <code>If</code>, <code>Else</code>, <code>Loop</code>, <code>While</code>, <code>For</code>, <code>Try</code>, <code>Catch</code> and <code>Finally</code>.</p>
-<p id="control-flow-list">The following control flow statements exist:</p>
+<h2 id="control-flow">制御フロー文</h2>
+<p class="note">制御フローの一般的な説明については、<a href="Concepts.htm#control-flow">制御フロー</a>を参照してください。</p>
+<p><a href="Concepts.htm#statement">ステートメント</a>は、グループ化され <a href="lib/Block.htm"><em>ブロック</em></a>は、C言語やJavaScriptなどのように中括弧<code>{}</code>で囲むことで実現できますが、通常、中括弧は行頭に表示する必要があります。制御フロー文は、ブロック全体に適用することも、1つの文だけに適用することも可能です。</p>
+<p>制御フロー文の<a href="Concepts.htm#cf-body">本体</a>は、常に1つの文の<em>グループ</em>である。ブロックは、制御フロー文とその本体と同様に、1つの文のグループとしてカウントされます。また、以下の関連する文は、その本体とともに互いにグループ化されている。<code>If</code> <code>Else</code>、<code>Loop</code><code>/</code> <code>For</code><code>Until</code>または<code>Else</code>、<code>Try</code> <code>Catch</code>または<code>Else</code>または<code>Finally</code>。つまり、これらの文のグループを全体として使用する場合、必ずしも中括弧で囲む必要はありません（ただし、コーディングスタイルによっては、わかりやすくするために中括弧を必ず入れるものもあります）。</p>
+<p>制御フロー文は、本文を持つため、必ず関連する文または文のグループが続く必要があります。<code>If</code>、<code>Else</code>、<code>Loop</code>、<code>While</code>、<code>For</code>、<code>Try</code>、<code>Catch</code>、<code>Finally</code></p>
+<p id="control-flow-list">以下のような制御フロー文が存在：</p>
 <ul>
-  <li>A <a href="lib/Block.htm">block</a> (denoted by a pair of braces) groups zero or more statements to act as a single statement.</li>
-  <li>An <a href="lib/If.htm">If statement</a> causes its body to be executed or not depending on a condition. It can be followed by an <a href="lib/Else.htm">Else</a> statement, which executes only if the condition was not met.</li>
-  <li><a href="lib/Goto.htm">Goto</a> jumps to the specified label and continues execution.</li>
-  <li><a href="lib/Return.htm">Return</a> returns from a function.</li>
-  <li>A <a href="#loop-statement">Loop statement</a> (<a href="lib/Loop.htm">Loop</a>, <a href="lib/While.htm">While</a> or <a href="lib/For.htm">For</a>) executes its body repeatedly.
-  
+  <li><a href="lib/Block.htm">ブロック</a>（中括弧のペア）は、0個以上のステートメントをグループ化して、1つのステートメントとして動作させるものです。</li>
+  <li><a href="lib/If.htm">If文</a>は、条件によってその本体が実行されたりされなかったりする。その後に、条件が満たされなかった場合にのみ実行される<a href="lib/Else.htm">Else</a>文が続くこともあります。</li>
+  <li><a href="lib/Goto.htm">Goto</a>は指定されたラベルにジャンプして実行を継続する。</li>
+  <li><a href="lib/Return.htm">Return</a> 関数から戻り値を帰す。</li>
+  <li><a href="#loop-statement">ループ文</a><a href="lib/Loop.htm">（Loop</a>、<a href="lib/While.htm">While</a>、<a href="lib/For.htm">For</a>）は、その本体を繰り返し実行する。
   <ul>
-    <li><a href="lib/Break.htm">Break</a> exits (terminates) a loop.</li>
-    <li><a href="lib/Continue.htm">Continue</a> skips the rest of the current loop iteration and begins a new one.</li>
-    <li><a href="lib/Until.htm">Until</a> causes a loop to terminate when an expression evaluates to true. The expression is evaluated after each iteration.</li>
+    <li><a href="lib/Break.htm">Break</a>は、ループを抜ける（終了させる）。</li>
+    <li><a href="lib/Continue.htm">Continue</a>は、現在のループ反復の残りをスキップして、新しいループを開始します。</li>
+    <li><a href="lib/Until.htm">Until</a>は、式がtrueと評価されたときにループを終了させる。式は、各反復の後に評価されます。</li>
   </ul></li>
-  <li><a href="lib/Switch.htm">Switch</a> executes one case from a list of mutually exclusive candidates.</li>
-  <li>Exception handling:
-  
+  <li><a href="lib/Switch.htm">Switch</a>は、相互に排他的な候補のリストから1つのケースを実行します。</li>
+  <li>例外処理：
   <ul>
-    <li><a href="lib/Try.htm">Try</a> guards its body against runtime errors and values thrown by the throw statement.</li>
-    <li><a href="lib/Catch.htm">Catch</a> executes if an exception of a given type is thrown within a try statement.</li>
-    <li><a href="lib/Else.htm">Else</a>, when used after a catch statement, executes only if no exception is thrown within a try statement.</li>
-    <li><a href="lib/Finally.htm">Finally</a> executes its body when control is being transferred out of a try or catch statement's body.</li>
-    <li><a href="lib/Throw.htm">Throw</a> throws an exception to be handled by try/catch or <a href="lib/OnError.htm">OnError</a>, or to display an error dialog.</li>
+    <li><a href="lib/Try.htm">Try</a>、実行時のエラーやthrow文によって投げられる値に対して本体をガードする。</li>
+    <li><a href="lib/Catch.htm">Catch</a>は、try文の中で指定された型の例外が発生した場合に実行されます。</li>
+    <li><a href="lib/Else.htm">Else</a>は、catch文の後に使用すると、try文の中で例外が発生しなかった場合にのみ実行される。</li>
+    <li><a href="lib/Finally.htm">Finally</a> try文やcatch文の本体から制御が移ったときに、本体を実行する。</li>
+    <li><a href="lib/Throw.htm">Throw</a> try/catch や<a href="lib/OnError.htm">OnError</a>で処理される例外を、エラーダイアログを表示するためのものです。</li>
   </ul></li>
 </ul>
 
-<h3 id="control-flow-vs">Control Flow vs. Other Statements</h3>
-<p>Control flow statements differ from <a href="#function-call-statements">function call statements</a> in several ways:</p>
+<h3 id="control-flow-vs">コントロールフローとその他の文との比較</h3>
+<p>制御フロー文は、<a href="#function-call-statements">関数呼び出し文</a>といくつかの点で異なっています。</p>
 <ul>
-  <li>The opening brace of a <a href="lib/Block.htm">block</a> can be written at the end of the same line as an <a href="lib/If.htm">If</a>, <a href="lib/Else.htm">Else</a>, <a href="#loop-statement">Loop</a>, <a href="lib/While.htm">While</a>, <a href="lib/For.htm">For</a>, <a href="lib/Try.htm">Try</a>, <a href="lib/Catch.htm">Catch</a> or <a href="lib/Finally.htm">Finally</a> statement (basically any control flow statement which has a <a href="Concepts.htm#cf-body">body</a>). This is referred to as the One True Brace (OTB) style.</li>
-  <li><a href="lib/Else.htm">Else</a>, <a href="lib/Try.htm">Try</a> and <a href="lib/Finally.htm">Finally</a> allow any valid statement to their right, as they require a <a href="Concepts.htm#cf-body">body</a> but have no parameters.</li>
-  <li><a href="lib/If.htm">If</a>, <a href="lib/While.htm">While</a>, <a href="lib/Return.htm">Return</a>, <a href="lib/Until.htm">Until</a>, <a href="lib/Loop.htm">Loop <em>Count</em></a> and <a href="lib/Goto.htm">Goto</a> allow an open parenthesis to be used immediately after the name, to enclose the entire parameter list. Although these look like function calls, they are not, and cannot be used mid-expression. For example, <code>if(expression)</code>.</li>
-  <li>Control flow statements cannot be overridden by defining a function with the same name.</li>
+  <li><a href="lib/Block.htm">ブロック</a>の開始ブレースは、<a href="lib/If.htm">If</a>、<a href="lib/Else.htm">Else</a>、<a href="#loop-statement">Loop</a>、<a href="lib/While.htm">While</a>、<a href="lib/For.htm">For</a>、<a href="lib/Try.htm">Try</a>、<a href="lib/Catch.htm">Catch</a>、<a href="lib/Finally.htm">Finally</a>文（基本的に<a href="Concepts.htm#cf-body">ボディ</a>を持つあらゆる制御フロー文）と同じ行末に書くことができます。これをOTB（One True Brace）スタイルと呼びます。</li>
+  <li><a href="lib/Else.htm">Else</a>、<a href="lib/Try.htm">Try</a>、<a href="lib/Finally.htm">Finally</a>は、<a href="Concepts.htm#cf-body">本体</a>を必要とするがパラメータを持たないため、その右側に任意の有効な文を置くことができる。</li>
+  <li><a href="lib/If.htm">If</a>、<a href="lib/While.htm">While</a>、<a href="lib/Return.htm">Return</a>、<a href="lib/Until.htm">Until</a>、<a href="lib/Loop.htm">Loop<em>Count</em></a>、<a href="lib/Goto.htm">Goto</a>では、名前の直後に開括弧を使用し、パラメータリスト全体を囲むことができます。これらは一見すると関数呼び出しのように見えますが、そうではなく、式の途中で使用することはできません。例えば、<code>if(expression)</code>。</li>
+  <li>制御フロー文は、同名の関数を定義することで上書きすることはできません。</li>
 </ul>
 
-<h3 id="loop-statement">Loop Statement</h3>
-<p>There are several types of loop statements:</p>
+<h3 id="loop-statement">ループ文</h3>
+<p>ループ文にはいくつかの種類があります。</p>
 <ul>
-  <li><a href="lib/Loop.htm">Loop <em>Count</em></a> executes a statement repeatedly: either the specified number of times or until break is encountered.</li>
-  <li><a href="lib/LoopReg.htm">Loop Reg</a> retrieves the contents of the specified registry subkey, one item at a time.</li>
-  <li><a href="lib/LoopFiles.htm">Loop Files</a> retrieves the specified files or folders, one at a time.</li>
-  <li><a href="lib/LoopParse.htm">Loop Parse</a> retrieves substrings (fields) from a string, one at a time.</li>
-  <li><a href="lib/LoopRead.htm">Loop Read</a> retrieves the lines in a text file, one at a time.</li>
-  <li><a href="lib/While.htm">While</a> executes a statement repeatedly until the specified expression evaluates to false. The expression is evaluated before each iteration.</li>
-  <li><a href="lib/For.htm">For</a> executes a statement once for each value or pair of values returned by an enumerator, such as each key-value pair in an object.</li>
+  <li><a href="lib/Loop.htm">Loop <em>Count</em></a> あるステートメントを繰り返し実行することです。指定された回数、またはブレークが発生するまで。</li>
+  <li><a href="lib/LoopReg.htm">Loop Reg</a>は、指定されたレジストリのサブキーの内容を1項目ずつ取得します。</li>
+  <li><a href="lib/LoopFiles.htm">Loop Files</a>は、指定したファイルやフォルダを1つずつ取得します。</li>
+  <li><a href="lib/LoopParse.htm">Loop Parse</a>は、文字列から部分文字列（フィールド）を1つずつ取り出します。</li>
+  <li><a href="lib/LoopRead.htm">Loop Read</a>は、テキストファイルの行を1行ずつ取得する。</li>
+  <li><a href="lib/While.htm">While</a>は、指定された式がfalseに評価されるまで、ステートメントを繰り返し実行します。式は、各反復の前に評価されます。</li>
+  <li><a href="lib/For.htm">For</a>は、オブジェクトのキーと値のペアのように、列挙者が返す値や値のペアごとにステートメントを1回実行します。</li>
 </ul>
-<p><a href="lib/Break.htm">Break</a> exits (terminates) a loop, effectively jumping to the next line after the loop's body.</p>
-<p><a href="lib/Continue.htm">Continue</a> skips the rest of the current loop iteration and begins a new one.</p>
-<p><a href="lib/Until.htm">Until</a> causes a loop to terminate when an expression evaluates to true. The expression is evaluated after each iteration.</p>
-<p id="named-loops">A <a href="#labels">label</a> can be used to "name" a loop for <a href="lib/Continue.htm">Continue</a> and <a href="lib/Break.htm">Break</a>. This allows the script to easily continue or break out of any number of nested loops without using <a href="lib/Goto.htm">Goto</a>.</p>
-<p>The built-in variable <strong>A_Index</strong> contains the number of the current loop iteration. It contains 1 the first time the loop's body is executed. For the second time, it contains 2; and so on. If an inner loop is enclosed by an outer loop, the inner loop takes precedence. A_Index works inside all types of loops, but contains 0 outside of a loop.</p>
-<p>For some loop types, other built-in variables return information about the current loop item (registry key/value, file, substring or line of text). These variables have names beginning with <strong>A_Loop</strong>, such as A_LoopFileName and A_LoopReadLine. Their values always correspond to the most recently started (but not yet stopped) loop of the appropriate type. For example, A_LoopField returns the current substring in the innermost parsing loop, even if it is used inside a file or registry loop.</p>
+<p><a href="lib/Break.htm">Break</a>は、ループを抜ける（終了する）ことで、ループのボディの次の行に効果的にジャンプすることができます。</p>
+<p><a href="lib/Continue.htm">Continue</a>は、現在のループ反復の残りをスキップして、新しいループを開始します。</p>
+<p><a href="lib/Until.htm">Until</a>は、式がtrueと評価されたときにループを終了させる。式は、各反復の後に評価されます。</p>
+<p id="named-loops"><a href="#labels">ラベル</a>は、<a href="lib/Continue.htm">Continue</a>や <a href="lib/Break.htm">Break</a>のループに「命名する」ために使うことができます。これにより、<a href="lib/Goto.htm">Goto</a>を使用しなくても、スクリプトを簡単に続行したり、任意の数の入れ子ループから抜け出したりすることができます。</p>
+<p>組込変数<strong>A_Index</strong>には、現在のループの繰り返し回数が格納される。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先される。A_Indexは、すべての種類のループの内部で機能しますが、ループの外部では0を含みます。</p>
+<p>一部のループタイプでは、他の組み込み変数が現在のループアイテム（レジストリキー/値、ファイル、部分文字列、テキスト行）に関する情報を返します。これらの変数は、A_LoopFileNameやA_LoopReadLineなど、<strong>A_Loop</strong>で始まる名前を持っています。これらの値は常に、該当するタイプの最も最近に開始された（しかしまだ停止していない）ループに対応します。例えば、A_LoopFieldは、ファイルやレジストリのループ内で使用されていても、最も内側の解析ループの現在の部分文字列を返します。</p>
 <pre>t := "column 1`tcolumn 2`nvalue 1`tvalue 2"
 Loop Parse t, "`n"
 {
     rowtext := A_LoopField
-    rownum := A_Index  <em>; Save this for use in the second loop, below.</em>
+    rownum := A_Index<em>; 以下、2つ目のループで使用するために保存します。</em>
     Loop Parse rowtext, "`t"
     {
         MsgBox rownum ":" A_Index " = " A_LoopField
     }
 }
 </pre>
-<p>Loop variables can also be used outside the body of a loop, such as in a function which is called from within a loop.</p>
+<p>ループ変数は、ループ内から呼び出される関数など、ループ本体の外でも使用することができます。</p>
 
-<h3 id="not-control-flow">Not Control Flow</h3>
-<p>As directives, labels, double-colon hotkey and hotstring tags, and declarations without assignments are processed when the script is loaded from file, they are not subject to control flow. In other words, they take effect unconditionally, before the script ever executes any control flow statements. Similarly, the <a href="lib/_HotIf.htm">#HotIf</a> directive cannot affect control flow; it merely sets the criteria for any hotkeys and hotstrings specified in the code. A hotkey's criteria is evaluated each time it is pressed, not when the #HotIf directive is encountered in the code.</p>
+<h3 id="not-control-flow">非制御</h3>
+<p>ディレクティブ、ラベル、ダブルコロンホットキーとホットストリングタグ、および割り当てのない宣言は、スクリプトがファイルからロードされるときに処理されるので、制御フローの対象にはなりません。つまり、スクリプトが制御フロー文を実行する前に、無条件で効果を発揮するのです。同様に、<a href="lib/_HotIf.htm">#HotIf</a>指示文は、制御フローに影響を与えることはできません。ホットキーの条件は、コード内で#HotIfディレクティブに遭遇したときではなく、押されるたびに評価されます。</p>
 
-<h2 id="structure-of-a-script">Structure of a Script</h2>
+<h2 id="structure-of-a-script">スクリプトの構成</h2>
 
-<h3 id="global-code">Global Code</h3>
-<p>After the script has been loaded, the <em>auto-execute thread</em> begins executing at the script's top line, and continues until instructed to stop, such as by <a href="lib/Return.htm">Return</a>, <a href="lib/ExitApp.htm">ExitApp</a> or <a href="lib/Exit.htm">Exit</a>. The physical end of the script also acts as <a href="lib/Exit.htm">Exit</a>.</p>
-<p>Global code, or code in the global <a href="Concepts.htm#scope">scope</a>, is any executable code that is not inside a function or class definition. Any variable references there are said to be <a href="Functions.htm#Global">global</a>, since they can be accessed by any function (with the proper declaration). Such code is often used to configure settings which apply to every newly launched <a href="misc/Threads.htm">thread</a>, or to <a href="Concepts.htm#uninitialized-variables">initialize</a> global variables used by hotkeys and other functions.</p>
-<p>Code to be executed at startup (immediately when the script starts) is often placed at the top of the file. However, such code can be placed throughout the file, in between (but not inside) function and class definitions. This is because the body of each function or class definition is skipped whenever it is encountered during execution. In some cases, the entire purpose of the script may be carried out with global code.</p>
-<p><strong>Related:</strong> <a href="Scripts.htm#auto">Script Startup (the Auto-execute Thread)</a></p>
+<h3 id="global-code">グローバルコード</h3>
+<p>スクリプトが読み込まれた後、<em>自動実行スレッド</em>は、スクリプトの先頭行で実行を開始し、<a href="lib/Return.htm">Return</a>、<a href="lib/ExitApp.htm">ExitApp</a>、<a href="lib/Exit.htm">Exit</a>などの停止指示があるまで実行を続ける。スクリプトの物理的な端は、<a href="lib/Exit.htm">Exit</a>としても機能します。</p>
+<p>グローバルコード（グローバル<a href="Concepts.htm#scope">スコープ</a>内のコード）とは、関数やクラス定義の内部にない実行可能なコードのことです。そこで参照される変数は、（適切な宣言があれば）どの関数からもアクセスできるため、<a href="Functions.htm#Global">グローバル</a>変数と呼ばれる。このようなコードは、新しく起動した<a href="misc/Threads.htm">スレッド</a>に適用される設定や、ホットキーやその他の機能で使用するグローバル変数の<a href="Concepts.htm#uninitialized-variables">初期化</a>などによく使用されます。</p>
+<p>起動時（スクリプトを起動した直後）に実行されるコードは、ファイルの先頭に配置されることが多い。しかし、このようなコードは、関数やクラス定義の間（内部ではない）に、ファイル全体に配置することができます。これは、各関数やクラス定義の本体が、実行中に遭遇するたびにスキップされるからです。場合によっては、スクリプトの目的全体をグローバルコードで遂行することもあります。</p>
+<p><strong>関連：</strong> <a href="Scripts.htm#auto">スクリプトの起動（自動実行のスレッド）</a></p>
 
-<h3 id="subroutines">Subroutines</h3>
-<p>A <em>subroutine</em> (also <em>sub</em> or <em>procedure</em>) is a reusable block of code which can be executed on demand. A subroutine is created by defining a <em>function</em> (see below). These terms are generally interchangeable for AutoHotkey v2, where functions are the only type of subroutine.</p>
+<h3 id="subroutines">サブルーチン</h3>
+<p><em>サブルーチン</em>（<em>sub</em>または<em>procedure</em>）は、要求に応じて実行できる再利用可能なコードブロックである。サブルーチンは、<em>関数</em>（後述）を定義することで作成されます。これらの用語は、関数がサブルーチンの唯一のタイプであるAutoHotkey v2では一般的に互換性があります。</p>
 
 <h3 id="functions">機能紹介</h3>
-<p><strong>Related:</strong> <a href="Functions.htm">Functions</a> (all about defining functions)</p>
-<p>Aside from calling the many useful <a href="lib/index.htm">predefined functions</a>, a script can define its own functions. These functions can generally be used two ways:</p>
+<p><strong>関連：</strong> <a href="Functions.htm">関数</a>（関数の定義についてのすべて）</p>
+<p>便利な<a href="lib/index.htm">定義済み関数</a>を呼び出すだけでなく、スクリプトは独自の関数を定義することができます。これらの機能は、一般的に2通りの使い方があります。</p>
 <ol>
-  <li>A function can be called by the script itself. This kind of function might be used to avoid repetition, to make the code more manageable, or perhaps for other purposes.</li>
-  <li>A function can be called by the program in response to some event, such as the user pressing a hotkey. For instance, each hotkey is associated with a function to execute whenever the hotkey is pressed.</li>
+  <li>関数は、スクリプト自身から呼び出すことができます。この種の機能は、繰り返しを避けるため、コードをより管理しやすくするため、あるいは他の目的で使用されるかもしれません。</li>
+  <li>関数は、ユーザーがホットキーを押すなど、何らかの事象に反応してプログラムから呼び出されることがあります。例えば、各ホットキーには、そのホットキーが押されたときに実行される関数が関連付けられています。</li>
 </ol>
-<p>There are multiple ways to define a function:</p>
+<p>関数を定義する方法は複数あります。</p>
 <ul>
-  <li>A <a href="Functions.htm">function definition</a> combining a name, parentheses and a <a href="lib/Block.htm">block</a> of code. This defines a function which can be executed by name with a <a href="#function-calls">function call</a> or <a href="#function-call-statements">function call statement</a>. 例えば、
-<pre>SayHello()<em>; Define the SayHello function.</em>
+  <li>名前、括弧、コードの<a href="lib/Block.htm">ブロック</a>を組み合わせた<a href="Functions.htm">関数定義</a>です。これは、<a href="#function-calls">関数コール</a>または<a href="#function-call-statements">関数コールステートメント</a>で名前を指定して実行できる関数を定義します。例えば、
+<pre>SayHello()<em>; SayHello関数を定義する。</em>
 {
     MsgBox "Hello!"
 }
 
-SayHello<em>; Call the SayHello function.</em></pre>
+SayHello<em>; SayHello関数を呼び出す。</em></pre>
   </li>
-  <li>A <a href="Hotkeys.htm">hotkey</a> or <a href="Hotstrings.htm">hotstring</a> definition, combining a hotkey or hotstring with a single <a href="Concepts.htm#statement">statement</a> or a <a href="lib/Block.htm">block</a> of code. This type of function cannot be called directly, but is executed whenever the hotkey or hotstring is activated. 例えば、
-<pre>#w::Run "wordpad"<em>; Press Win-W to run Wordpad.</em>
-#n::<em>; Press Win-N to run Notepad.</em>
+  <li><a href="Hotkeys.htm">ホットキー</a>または<a href="Hotstrings.htm">ホットストリング</a>の定義で、ホットキーまたはホットストリングを1つの<a href="Concepts.htm#statement">ステートメント</a>またはコードの<a href="lib/Block.htm">ブロック</a>と組み合わせたものです。このタイプの関数は直接呼び出すことはできませんが、ホットキーまたはホットストリングがアクティブになるたびに実行されます。例えば、
+<pre>#w::Run "wordpad"<em>; Win-Wを押してWordpadを実行します。</em>
+#n::<em>; Win-Nを押してメモ帳を起動します。</em>
 {
     Run "notepad"
 }</pre>
   </li>
-  <li>A <a href="Variables.htm#fat-arrow">fat arrow expression</a> defines a function which evaluates an <a href="#expressions">expression</a> and <a href="Concepts.htm#return-a-value">returns</a> its result, instead of executing a block of code. Such functions usually have no name as they are passed directly to another function. 例えば、
-    <pre>SetTimer () =&gt; MsgBox("Hello!"), -1000  <em>; Says hello after 1 second.</em></pre>
+  <li><a href="Variables.htm#fat-arrow">ファットアロー式</a>は、コードのブロックを実行する代わりに、<a href="#expressions">式</a>を評価してその結果を<a href="Concepts.htm#return-a-value">返す</a>関数を定義します。このような関数は、他の関数に直接渡されるため、通常は名前を持ちません。例えば、
+    <pre>SetTimer () =&gt; MsgBox("Hello!"), -1000<em>; 1秒後に挨拶します。</em></pre>
   </li>
-  <li>The fat arrow syntax can also be used outside of expressions as shorthand for a normal function or method definition. For example, the following is equivalent to the SayHello definition above, except that this one returns "OK":
-    
+  <li>ファットアロー構文は、通常の関数やメソッド定義の略記として、式の外でも使用できます。例えば、以下は上記のSayHelloの定義と同等ですが、こちらは "OK"を返すことを除きます。
     <pre>SayHello() =&gt; MsgBox("Hello!")</pre>
   </li>
 </ul>
-<p>Variables in functions are <a href="Functions.htm#Local">local</a> to that function by default, except in the following cases:</p>
+<p>関数内の変数は、以下の場合を除き、デフォルトでその関数の<a href="Functions.htm#Local">ローカル</a>変数となります。</p>
 <ul>
-  <li>When the function is <a href="Functions.htm#AssumeGlobal">assume-global</a>.</li>
-  <li>When a variable is referenced but not used as the target of an <a href="Variables.htm#AssignOp">assignment</a> or the reference operator (<code>&amp;var</code>).</li>
-  <li>When referring to a local variable of an outer function inside a <a href="Functions.htm#nested">nested function</a>.</li>
+  <li>機能が<a href="Functions.htm#AssumeGlobal">assume-globalの</a>場合。</li>
+  <li>変数が参照されているが、<a href="Variables.htm#AssignOp">代入</a>や参照演算子（<code>&amp;var</code>）の対象として使用されていない場合。</li>
+  <li><a href="Functions.htm#nested">ネストした関数</a>の内部で、外側関数のローカル変数を参照する場合。</li>
 </ul>
-<p>A function can optionally <a href="Concepts.htm#parameters">accept parameters</a>. Parameters are defined by listing them inside the parentheses. 例えば、</p>
+<p>関数は、オプションで<a href="Concepts.htm#parameters">パラメータを受け取る</a>ことができます。パラメータは、括弧の中に列挙することで定義されます。例えば、</p>
 <pre>MyFunction(FirstParameter, Second, &amp;Third, Fourth:="")
 {
     <em>;...</em>
     return "a value"
 }
 </pre>
-<p>As with function calls, there must be no space between the function name and open-parenthesis.</p>
-<p>The line break between the close-parenthesis and open-brace is optional. There can be any amount of whitespace or comments between the two.</p>
-<p>The <a href="Functions.htm#ByRef">ByRef marker (&amp;)</a> indicates that the caller must pass a variable reference. Inside the function, any reference to the parameter will actually access the caller's variable. This is similar to omitting <code>&amp;</code> and explicitly <a href="Variables.htm#deref">dereferencing</a> the parameter inside the function (e.g. <code>%Third%</code>), but in this case the percent signs are omitted. If the parameter is optional and the caller omits it, the parameter acts as a normal local variable.</p>
-<p><a href="Functions.htm#optional">Optional</a> parameters are specified by following the parameter name with <code>:=</code> and a default value, which must be a literal quoted string, a number, <code>true</code>, <code>false</code> or <code>unset</code>.</p>
-<p>The function can <a href="Functions.htm#return">return a value</a>. If it does not, the default return value is an empty string.</p>
-<p>A function definition does not need to precede calls to that function.</p>
-<p class="note">See <a href="Functions.htm">Functions</a> for much more detail.</p>
+<p>関数呼び出しと同様に、関数名とオープン括弧の間にはスペースを入れてはいけません。</p>
+<p>クローズパンテシスとオープンブレースの間の改行は任意です。2つの間に空白やコメントをいくら入れてもよい。</p>
+<p><a href="Functions.htm#ByRef">ByRef マーカー（&amp;）</a>は、呼び出し側が変数参照を渡さなければならないことを示します。関数内部では、パラメータへの参照は、実際には呼び出し元の変数にアクセスすることになります。これは、<code>&amp;</code>を省略して関数内で明示的にパラメータを<a href="Variables.htm#deref">再参照</a>する方法（例、<code>%Third%</code>）と似ていますが、この場合はパーセント記号が省略されています。パラメータがオプションで、呼び出し側がそれを省略した場合、パラメータは通常のローカル変数として動作する。</p>
+<p><a href="Functions.htm#optional">オプション</a>のパラメータは、パラメータ名の後に<code>:=</code>を付けて指定し、デフォルト値を指定します。この値は、リテラルな引用符で囲まれた文字列、数値、<code>true</code>、<code>false</code>、または<code>unset</code>でなければなりません。</p>
+<p>関数は、<a href="Functions.htm#return">値を返す</a>ことができます。そうでない場合、デフォルトの戻り値は空文字列となる。</p>
+<p>関数定義は、その関数への呼び出しの前にある必要はありません。</p>
+<p class="note">詳しくは<a href="Functions.htm">機能</a>をご覧ください。</p>
 
 <h3 id="-include">#Include</h3>
-<p>The <a href="lib/_Include.htm">#Include</a> directive causes the script to behave as though the specified file's contents are present at this exact position. This is often used to organise code into separate files, or to make use of script libraries written by other users.</p>
-<p>An #Include file can contain <a href="#global-code">global code</a> to be executed during <a href="Scripts.htm#auto">script startup</a>, but as with code in the main script file, such code will be executed only if the auto-execute thread is not terminated (such as with an unconditional <code>Return</code>) prior to the #Include directive. A <a href="lib/_Warn.htm#Unreachable">warning</a> is displayed by default if any code cannot be executed due to a prior <code>Return</code>.</p>
-<p>Unlike in C/C++, #Include does nothing if the file has already been included by a previous directive. To include the contents of the same file multiple times, use <a href="lib/_Include.htm">#IncludeAgain</a>.</p>
-<p>To facilitate sharing scripts, #Include can search a few standard locations for a library script. For details, see <a href="Scripts.htm#lib">Script Library Folders</a>.</p>
+<p><a href="lib/_Include.htm">#Include</a>指令は、指定されたファイルの内容がこの正確な位置に存在するかのようにスクリプトを動作させるものです。これは、コードを別のファイルに整理したり、他のユーザーが書いたスクリプトライブラリを利用するためによく使われます。</p>
+<p>インクルードファイルには、<a href="Scripts.htm#auto">スクリプト起動</a>時に実行される<a href="#global-code">グローバルコード</a>を含めることができますが、メインスクリプトファイルのコードと同様に、そのようなコードは、#Include指令の前に自動実行スレッドが終了（無条件で<code>Return</code>など）されない場合にのみ実行されます。先行<code>リターン</code>により実行できないコードがある場合、デフォルトで<a href="lib/_Warn.htm#Unreachable">警告</a>が表示されます。</p>
+<p>C/C++とは異なり、#Includeは、そのファイルが既に以前の指令によってインクルードされていた場合、何もしません。同じファイルの内容を複数回インクルードする場合は、<a href="lib/_Include.htm">#IncludeAgain</a>を使用します。</p>
+<p>スクリプトの共有を容易にするために、#Includeはライブラリスクリプトのいくつかの標準的な場所を検索することができます。詳しくは、<a href="Scripts.htm#lib">スクリプトライブラリフォルダ</a>を参照してください。</p>
 
-<h2 id="misc">Miscellaneous</h2>
+<h2 id="misc">その他</h2>
 
-<h3 id="dynamic-variables">Dynamic Variables</h3>
-<p>A <em>dynamic variable reference</em> takes a text value and interprets it as the name of a variable.</p>
-<p class="note"><strong>Note:</strong> A variable cannot be <em>created</em> by a dynamic reference, but existing variables can be assigned. This includes all variables which the script contains non-dynamic references to, even if they have not been assigned values.</p>
-<p>The most common form of dynamic variable reference is called a <em>double reference</em> or <em>double-deref</em>. Before performing a double reference, the name of the target variable is stored in a second variable. This second variable can then be used to assign a value to the target variable indirectly, using a double reference. 例えば、</p>
+<h3 id="dynamic-variables">ダイナミックな変数</h3>
+<p><em>動的変数参照</em>は、テキスト値を受け取り、それを変数名として解釈します。</p>
+<p class="note"><strong>注：</strong>動的参照によって変数を<em>作成</em>することはできませんが、既存の変数を割り当てることは可能です。これには、スクリプトが非動的な参照を含むすべての変数が含まれ、たとえ値が割り当てられていない場合でも、その変数が含まれます。</p>
+<p>動的変数参照の最も一般的な形式は、<em>二重参照</em>または<em>double-deref</em>と呼ばれます。二重参照を行う前に、対象となる変数名を第二の変数に格納する。そして、この第2変数を用いて、二重参照を用いて間接的に対象変数に値を代入することができる。例えば、</p>
 <pre>target := 42
 second := "target"
-MsgBox  second   <em>; Normal (single) variable reference =&gt; target</em>
-MsgBox %second%  <em>; Double-deref =&gt; 42</em>
+MsgBox  second<em>; 通常の（単一の）変数の参照⇒ターゲット</em>
+MsgBox %second%<em>; ダブルデフ⇒42</em>
 </pre>
-<p>Currently, <code>second</code> must always contain a variable name in the second case; arbitrary expressions are not supported.</p>
-<p>A dynamic variable reference can also take one or more pieces of literal text and the content of one or more variables, and join them together to form a single variable name. This is done simply by writing the pieces of the name and percent-enclosed variables in sequence, without any spaces. For example, <code>MyArray%A_Index%</code> or <code>MyGrid%X%_%Y%</code>. This is used to access <em>pseudo-arrays</em>, described below.</p>
-<p>These techniques can also be applied to properties and methods of objects. 例えば、</p>
+<p>現在、<code>second</code>の場合は必ず変数名を含む必要があり、任意の式はサポートされていません。</p>
+<p>動的変数参照は、1つまたは複数のリテラルテキストと1つまたは複数の変数の内容を取り、それらを結合して1つの変数名を形成することもできます。これは、名前とパーセントで囲まれた変数の断片を、空白を入れずに順番に書いていくだけです。例えば、<code>MyArray%A_Index%や</code> または <code>MyGrid%X%_%Y%</code>後述する<em>擬似配列</em>にアクセスするために使用します。</p>
+<p>これらのテクニックは、オブジェクトのプロパティやメソッドにも適用できます。例えば、</p>
 <pre>clr := {}
 for n, component in ["red", "green", "blue"]
     clr.%component% := Random(0, 255)
 MsgBox clr.red "," clr.green "," clr.blue</pre>
 
-<h4 id="pseudo-arrays">Pseudo-arrays</h4>
-<p>A <em>pseudo-array</em> is actually just a bunch of discrete variables, but with a naming pattern which allows them to be used like elements of an array. 例えば、</p>
+<h4 id="pseudo-arrays">疑似アレイ（Pseudo-array）</h4>
+<p><em>擬似配列</em>は、実際には単なる離散変数の束ですが、配列の要素のように使用できるような命名パターンを持っています。例えば、</p>
 <pre>
 MyArray1 := "A"
 MyArray2 := "B"
 MyArray3 := "C"
 Loop 3
-    MsgBox MyArray%A_Index%  <em>; Shows A, then B, then C.</em>
+    MsgBox MyArray%A_Index%<em>; Aを表示し、次にBを表示し、次にCを表示します。</em>
 </pre>
-<p>The "index" used to form the final variable name does not have to be numeric; it could instead be a letter or keyword.</p>
-<p>For these reasons, it is generally recommended to use an <a href="Objects.htm#Usage_Simple_Arrays">Array</a> or <a href="Objects.htm#Usage_Associative_Arrays">Map</a> instead of a pseudo-array:</p>
+<p>最終的な変数名を形成するために使用される「インデックス」は数値である必要はなく、代わりに文字やキーワードを使用することができます。</p>
+<p>これらの理由から、一般的には擬似配列ではなく、<a href="Objects.htm#Usage_Simple_Arrays">Array</a>や <a href="Objects.htm#Usage_Associative_Arrays">Map</a>を使用することが推奨されます。</p>
 <ul>
-  <li>As the individual elements are just normal variables, one can assign or retrieve a value, but cannot <em>remove</em> or <em>insert</em> elements.</li>
-  <li>Because the pseudo-array is only conceptual and not a single value, it can't be passed to or returned from a function, or copied as a whole.</li>
-  <li>A pseudo-array cannot be declared as a whole, so some "elements" may resolve to <a href="Functions.htm#Global">global</a> (or <a href="Functions.htm#capture-var">captured</a>) variables while others do not.</li>
-  <li>If a variable is referenced non-dynamically but only assigned dynamically, a <a href="lib/_Warn.htm#VarUnset">load-time warning</a> may be displayed. Such warnings are a very effective way to detect errors, so disabling them is not recommended.</li>
-  <li>Current versions of the language do not permit creating new variables dynamically. This is partly to encourage best practices, and partly to avoid inconsistency between dynamic and non-dynamic variable references in functions.</li>
+  <li>個々の要素は通常の変数であるため、値の割り当てや取得は可能ですが、要素の<em>削除</em>や <em>挿入</em>はできません。</li>
+  <li>疑似配列は概念的なものでしかなく、1つの値ではないため、関数に渡したり返したり、全体としてコピーすることはできません。</li>
+  <li>擬似配列は全体として宣言できないので、ある「要素」は<a href="Functions.htm#Global">グローバル</a>（または<a href="Functions.htm#capture-var">キャプチャ</a>）変数に解決され、他の「要素」は解決されないことがあります。</li>
+  <li>変数が非動的に参照され、動的にのみ割り当てられる場合、<a href="lib/_Warn.htm#VarUnset">ロードタイム警告</a>が表示される場合があります。このような警告は、エラーを検出するための非常に有効な手段であるため、無効にすることは推奨されません。</li>
+  <li>現在のバージョンの言語では、新しい変数を動的に作成することはできません。これは、ベストプラクティスを奨励するためでもあり、関数内の動的変数参照と非動的変数参照との間の矛盾を避けるためでもあります。</li>
 </ul>
 
-<h3 id="labels">Labels</h3>
-<p>A label identifies a line of code, and can be used as a <a href="lib/Goto.htm">Goto</a> target or to <a href="#named-loops">specify a loop</a> to break out of or continue. A label consist of a <a href="Concepts.htm#names">name</a> followed by a colon:</p>
+<h3 id="labels">ラベル</h3>
+<p>ラベルはコード行を識別するもので、<a href="lib/Goto.htm">Goto</a>ターゲットとして使用したり、<a href="#named-loops">ループ</a>から抜け出したり継続する<a href="#named-loops">ループを指定</a>したりすることができます。ラベルは、<a href="Concepts.htm#names">名前</a>とコロンで構成されています。</p>
 <pre>this_is_a_label:</pre>
-<p>Aside from whitespace and comments, no other code can be written on the same line as a label. For more details, see <a href="misc/Labels.htm">Labels</a>.</p>
+<p>空白とコメントを除き、ラベルと同じ行に他のコードを記述することはできません。詳しくは、<a href="misc/Labels.htm">ラベル</a>をご覧ください。</p>
 </body>
 </html>

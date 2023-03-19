@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>TreeView (GUI) - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The TreeView control displays a hierarchy of items by indenting child items beneath their parents. This page contains the functions to modify it." />
@@ -19,7 +19,7 @@
   <li><a href="#BuiltIn">Built-in Methods for TreeViews</a></li>
   <li><a href="#Events">Events</a></li>
   <li><a href="#Remarks">備考</a></li>
-  <li><a href="#Examples">Examples</a></li>
+  <li><a href="#Examples">例</a></li>
 </ul>
 <h2 id="Intro">Introduction and Simple Example</h2>
 <p>A Tree-View displays a hierarchy of items by indenting child items beneath their parents. The most common example is Explorer's tree of drives and folders.</p>
@@ -94,19 +94,19 @@ MyTree_Edit(TV, Item)
   <p>Adds a new item to the TreeView, and returns its unique Item ID number.</p>
   <pre class="Syntax">UniqueID := TV.<span class="func">Add</span>(Name, <span class="optional">ParentItemID, Options</span>)</pre>
   <dl>
-    <dt>Name</dt>
+    <dt>名称</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>The displayed text of the item, which can be text or numeric (including numeric <a href="../Variables.htm#Expressions">expression</a> results).</p>
     </dd>
     <dt>ParentItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The ID number of the new item's parent (omit it or specify 0 to add the item at the top level).</p>
     </dd>
     <dt>オプション</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Contains zero or more words from the list below (not case sensitive). Separate each word from the next with a space or tab. To remove an option, precede it with a minus sign. To add an option, a plus sign is permitted but not required.</p>
       <p id="Bold"><strong>Bold</strong>: Displays the item's name in a bold font. To later un-bold the item, use <code>TV.Modify(ItemID, "-Bold")</code>. The word <em>Bold</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state.</p>
       <p id="Check"><strong>Check</strong>: Shows a checkmark to the left of the item (if the TreeView has <a href="#Checked">checkboxes</a>). To later uncheck it, use <code>TV.Modify(ItemID, "-Check")</code>. The word <em>Check</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state. In other words, both <code>"Check"</code> and <code>"Check" <strong>.</strong> VarContainingOne</code> are the same (the period used here is the <a href="../Variables.htm#concat">concatenation operator</a>).</p>
@@ -119,7 +119,7 @@ MyTree_Edit(TV, Item)
       <p><strong>VisFirst</strong>: Same as above except that the TreeView is also scrolled so that the item appears at the top, if possible. This option is typically more effective when used with the <a href="#Modify">Modify method</a> than with the <a href="#Add">Add method</a>.</p>
     </dd>
   </dl>
-  <p>Note: When adding a large number of items, performance can be improved by using <code>TV.Opt("-Redraw")</code> before adding the items and <code>TV.Opt("+Redraw")</code> afterward. See <a href="GuiControl.htm#redraw-remarks">Redraw</a> for more details.</p>
+  <p>注：When adding a large number of items, performance can be improved by using <code>TV.Opt("-Redraw")</code> before adding the items and <code>TV.Opt("+Redraw")</code> afterward. See <a href="GuiControl.htm#redraw-remarks">Redraw</a> for more details.</p>
 </div>
 <div class="methodShort" id="Modify">
   <h3>Modify</h3>
@@ -128,17 +128,17 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to modify. When only this parameter is present, the specified item is <a href="#Select">selected</a>.</p>
     </dd>
     <dt>オプション</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>See the list above.</p>
     </dd>
     <dt>NewName</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>The new name of the item. If omitted, the current name is left unchanged.</p>
     </dd>
   </dl>
@@ -150,7 +150,7 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to delete. If omitted, <strong>all</strong> items in the TreeView are deleted.</p>
     </dd>
   </dl>
@@ -164,7 +164,7 @@ MyTree_Edit(TV, Item)
   <h3>GetCount</h3>
   <p>Returns the total number of items in the control.</p>
   <pre class="Syntax">CountNumber := TV.<span class="func">GetCount</span>()</pre>
-  <p>&nbsp;Note: The return value will be retrieved instantly, because the control keeps track of the count.</p>
+  <p>&nbsp;注：The return value will be retrieved instantly, because the control keeps track of the count.</p>
 </div>
 <div class="methodShort" id="GetParent">
   <h3>GetParent</h3>
@@ -173,7 +173,7 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to check. Items at the top level have no parent and thus return 0.</p>
     </dd>
   </dl>
@@ -185,7 +185,7 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ParentItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The parent item to check.</p>
     </dd>
   </dl>
@@ -197,7 +197,7 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to check.</p>
     </dd>
   </dl>
@@ -209,12 +209,12 @@ MyTree_Edit(TV, Item)
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to check. If this parameter is 0 or omitted, the ID number of the first/top item in the TreeView is returned.</p>
     </dd>
     <dt>ItemType</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>If omitted, the ID number of the sibling below the specified item will be retrieved. Otherwise specify "Full" or "F" to retrieve the next item regardless of its relationship to the specified item; or specify "Check", "Checked", or "C" to get only the next item with a checkmark.</p>
     </dd>
   </dl>
@@ -236,7 +236,7 @@ Loop
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The ID number of the item, whose text to be retrieved. <em>RetrievedText</em> has a maximum length of 8191.</p>
     </dd>
   </dl>
@@ -248,12 +248,12 @@ Loop
   <dl>
     <dt>ItemID</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>The item to check.</p>
     </dd>
     <dt>Attribute</dt>
     <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Specify "E", "Expand", or "Expanded" to determine if the item is currently <a href="#Expand">expanded</a> (that is, its children are being displayed); specify "C", "Check", or "Checked" to determine if the item has a <a href="#Check">checkmark</a>; or specify "B" or "Bold" to determine if the item is currently <a href="#Bold">bold</a> in font.</p>
     </dd>
   </dl>
@@ -266,13 +266,13 @@ Loop
     <dl>
       <dt>ImageListID</dt>
       <dd>
-        <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
         <p>The number returned from a previous call to <a href="ListView.htm#IL_Create">IL_Create</a>.</p>
       </dd>
       <dt>IconType</dt>
       <dd>
-        <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
-        <p>If omitted, it defaults to 0. Otherwise, specify 2 for state icons (state icons are not yet directly supported, but they could be used via <a href="SendMessage.htm">SendMessage</a>).</p>
+        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+        <p>省略された場合、デフォルトは 0 です。Otherwise, specify 2 for state icons (state icons are not yet directly supported, but they could be used via <a href="SendMessage.htm">SendMessage</a>).</p>
       </dd>
     </dl>
     <p>
@@ -315,7 +315,7 @@ ButtonOK(*) {
 <h2 id="Related">関連</h2>
 <p><a href="ListView.htm">ListView</a>, <a href="GuiControls.htm">Other Control Types</a>, <a href="Gui.htm#Call">Gui()</a>, <a href="GuiOnEvent.htm#ContextMenu">ContextMenu event</a>, <a href="GuiControl.htm">Gui object</a>, <a href="GuiControl.htm">GuiControl object</a>, <a href="../misc/Styles.htm#TreeView">TreeView styles table</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 
 <div class="ex" id="ExAdvanced">
 <p><a class="ex_number" href="#ExAdvanced"></a>  The following is a working script that is more elaborate than the one near the top of this page. It creates and displays a TreeView containing all folders in the all-users Start Menu. When the user selects a folder, its contents are shown in a ListView to the right (like Windows Explorer). In addition, a <a href="GuiControls.htm#StatusBar">StatusBar</a> control shows information about the currently selected folder.</p>

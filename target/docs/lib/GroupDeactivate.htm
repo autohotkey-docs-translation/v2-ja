@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>GroupDeactivate - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The GroupDeactivate function is similar to the GroupActivate function but activates the next window not in the group." />
@@ -20,13 +20,13 @@
 
   <dt>GroupName</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The name of the target group, as originally defined by <a href="GroupAdd.htm">GroupAdd</a>.</p>
   </dd>
 
   <dt>Mode</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If omitted, the function activates the oldest non-member window. To change this behavior, specify the following letter:</p>
     <p><strong>R:</strong> The newest non-member window (the one most recently active) is activated, but only if a member of the group is active when the function is given. "R" is useful in cases where you temporarily switch to working on an unrelated task. When you return to the group via <a href="GroupActivate.htm">GroupActivate</a>, GroupDeactivate, or <a href="GroupClose.htm">GroupClose</a>, the  window you were most recently working with is activated rather than the oldest window.</p>
   </dd>
@@ -36,7 +36,7 @@
 <h2 id="Remarks">備考</h2>
 <p>GroupDeactivate causes the first window that does <strong>not</strong> match any of the group's window specifications to be activated. Using GroupDeactivate a second time will activate the next window in the series and so on. Normally, GroupDeactivate is assigned to a hotkey so that this window-traversal behavior is automated by pressing that key.</p>
 <p>This function is useful in cases where you have a collection of favorite windows that are almost always running. By adding these windows to a group, you can use GroupDeactivate to visit each window that isn't one of your favorites and decide whether to close it. This allows you to clean up your desktop much more quickly than doing it manually.</p>
-<p>GroupDeactivate selects windows in a manner similar to the <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> system hotkey. Specifically:</p>
+<p>GroupDeactivate selects windows in a manner similar to the <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> system hotkey. 具体的：</p>
 <ul>
   <li>Owned windows, such as certain dialogs and tool windows, are not evaluated. However, if the owner window is eligible for activation, the most recently active owned window is activated instead, unless the owner was active more recently. This is determined by calling <a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastactivepopup">GetLastActivePopup</a>.</li>
   <li>Windows with the WS_EX_TOPMOST or WS_EX_NOACTIVATE styles are skipped.</li>
@@ -49,7 +49,7 @@
 <p>See <a href="GroupAdd.htm">GroupAdd</a> for more details about window groups.</p>
 <h2 id="Related">関連</h2>
 <p><a href="GroupAdd.htm">GroupAdd</a>, <a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupClose.htm">GroupClose</a></p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a>  Activates the oldest window which is not a member of a window group.</p>
 <pre>GroupDeactivate "MyFavoriteWindows"  <em>; Visit non-favorite windows to clean up desktop.</em></pre>

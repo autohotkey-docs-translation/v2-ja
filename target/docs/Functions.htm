@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>関数 - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="関数全般、パラメータ、戻り値、組み込み関数、変種関数などの詳細を説明します。" />
@@ -258,7 +258,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>staticという</em>言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロックや</a>ELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。<code>Array1</code>や<code>Array99</code>などの変数への非動的な参照は、すでにアドレスに解決されているため、<code>global Array%i% の</code>ような動的な宣言は不可能である。</p>
 
 <h2 id="DynCall">関数を動的に呼び出す</h2>
-<p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクトを</a>生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という表現では、<em>GetKeyStateは</em>実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
+<p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクト</a>を生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という式では、<em>GetKeyState</em>は実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
 <p>関数呼び出しは、スクリプトの開始前ではなく、スクリプトの実行中に呼び出しのターゲットが決定される場合、<em>動的</em>であると言われます。通常の関数呼び出しと同じ構文が使用されます。唯一の明らかな違いは、非動的呼び出しではロード時に特定のエラーチェックが実行されますが、動的呼び出しでは実行時にのみ実行されることです。</p>
 <p>例えば、<code>MyFunc()</code>は、<em>MyFuncに</em>含まれる<a href="misc/Functor.htm">関数オブジェクトを</a>呼び出しますが、これは実際の関数名であったり、関数が割り当てられた変数であったりすることがあります。</p>
 <p>関数呼び出しのターゲットとして、<a href="Variables.htm#deref">ダブルデフを</a>含む他の式を使用することができます。例えば、<code>MyArray[1]()</code>はMyArrayの最初の要素に含まれる関数を呼び出し、<code>%MyVar%()</code>はMyVarに含まれる<em>名前の</em> <em>変数に</em>含まれる関数を呼び出します。つまり、パラメータリストの前にある式をまず評価して<a href="misc/Functor.htm">関数オブジェクトを</a>取得し、そのオブジェクトを呼び出すのです。</p>

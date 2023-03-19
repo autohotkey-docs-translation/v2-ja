@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>Hotstring - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Hotstring function creates, modifies, enables, or disables a hotstring while the script is running." />
@@ -25,7 +25,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
 
   <dt>String</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The hotstring's trigger string, preceded by <a href="../Hotstrings.htm">the usual colons</a> and <a href="../Hotstrings.htm#Options">option characters</a>. For example, <code>"::btw"</code> or <code>":*:]d"</code>.</p>
     <p><em>String</em> may be matched to an existing hotstring by considering <a href="../Hotstrings.htm#C">case-sensitivity (C)</a>, <a href="../Hotstrings.htm#Question">word-sensitivity (?)</a>, activation criteria (as set by <a href="_HotIf.htm">#HotIf</a> or <a href="HotIf.htm">HotIf</a>) and the trigger string. For example, <code>"::btw"</code> and <code>"::BTW"</code> match unless the case-sensitive mode was enabled as a default, while <code>":C:btw"</code> and <code>":C:BTW"</code> never match. The <code>C</code> and <code>?</code> options may be included in <em>String</em> or set as defaults by the <a href="_Hotstring.htm">#Hotstring</a> directive or a previous call to <a href="#NewOptions">this function</a>.</p>
     <p>If the hotstring already exists, any options specified in <em>String</em> are put into effect, while all other options are left as is. However, since hotstrings with <code>C</code> or <code>?</code> are considered distinct from other hotstrings, it is not possible to add or remove these options. Instead, turn off the existing hotstring and create a new one.</p>
@@ -34,7 +34,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
 
   <dt>Replacement</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../misc/Functor.htm">Function Object</a></p>
     <p>The replacement string, or a <a href="../Functions.htm">function</a> or <a href="../misc/Functor.htm">function object</a> to call (as a new <a href="../misc/Threads.htm">thread</a>) when the hotstring triggers.</p>
     <p>If <em>Replacement</em> is a function, it is called with one parameter, the <a href="../Hotstrings.htm#ThisHotkey">name</a> of the hotstring. Hotstrings defined with the <a href="../Hotstrings.htm">double-colon syntax</a> automatically use the parameter name <code>ThisHotkey</code>. Hotstrings can also be <a href="../Hotstrings.htm#Function">assigned a function name</a> without the Hotstring function.</p>
     <p>All strings are treated as replacement text. ホットストリングがトリガーされたときに関数を呼び出すようにするには、関数を参照で渡します。Note that after reassigning the function of a hotstring, its original function can only be restored if it was <a href="../Hotstrings.htm#Function">given a name</a>.</p>
@@ -44,7 +44,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
 
   <dt>OnOffToggle</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>One of the following values:</p>
     <p><strong>On</strong> or <strong>1</strong> (true): Enables the hotstring.</p>
     <p><strong>Off</strong> or <strong>0</strong> (false): Disables the hotstring.</p>
@@ -105,7 +105,7 @@ MsgBox "The previous value was: " prev_chars</pre>
 <h2 id="Related">関連</h2>
 <p><a href="../Hotstrings.htm">Hotstrings</a>, <a href="_HotIf.htm">#HotIf</a>, <a href="../Variables.htm#ThisHotkey">A_ThisHotkey</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="Suspend.htm">Suspend</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Thread.htm">Thread</a>, <a href="Critical.htm">Critical</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 
 <div class="ex" id="ExHelper">
 <p><a class="ex_number" href="#ExHelper"></a>  Hotstring Helper. The following script might be useful if you are a heavy user of hotstrings. It's based on the v1 script created by Andreas Borutta. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>

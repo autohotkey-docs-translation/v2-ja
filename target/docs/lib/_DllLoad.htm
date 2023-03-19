@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
-<title>#DllLoad - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The #DllLoad directive loads a DLL or EXE file before the script starts executing." />
+<title>#DllLoad - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="#DllLoad指令は、スクリプトの実行を開始する前にDLLまたはEXEファイルをロードします。" />
 <meta name="ahk:equiv-v1" content="lib/DllCall.htm#load" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>#DllLoad</h1>
 
-<p><a href="DllCall.htm#load">Loads</a> a DLL or EXE file before the script starts executing.</p>
+<p>スクリプトの実行を開始する前に、DLLまたはEXEファイルを<a href="DllCall.htm#load">ロード</a>します。</p>
 
 <pre class="Syntax"><span class="func">#DllLoad</span> <span class="optional">FileOrDirName</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,28 +21,28 @@
 
   <dt>FileOrDirName</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-    <p>The path of a file or directory as explained below. This <strong>must not</strong> contain double quotes, wildcards or <a href="../misc/EscapeChar.htm">escape sequences</a> other than semicolon (<strong>`;</strong>).</p>
-    <p>Built-in variables may be used by enclosing them in percent signs (for example, <code>#DllLoad %A_ScriptDir%</code>). Percent signs which are not part of a valid variable reference are interpreted literally. All built-in variables are valid, except for <a href="../Variables.htm#Args">A_Args</a> and built-in classes.</p>
-    <p>既知の制限です。When compiling a script, variables are evaluated by the compiler and may differ from what the script would return when it is finally executed. The following variables are supported:A_AhkPath, A_AppData, A_AppDataCommon, A_ComputerName, A_ComSpec, A_Desktop, A_DesktopCommon, A_IsCompiled, A_LineFile, A_MyDocuments, A_ProgramFiles, A_Programs, A_ProgramsCommon, A_ScriptDir, A_ScriptFullPath, A_ScriptName, A_Space, A_StartMenu, A_StartMenuCommon, A_Startup, A_StartupCommon, A_Tab, A_Temp, A_UserName, A_WinDir.</p>
-    <p><strong>File:</strong> The absolute or relative path to the DLL or EXE file to be loaded. If a relative path is specified, the directive searches for the file using the same search strategy as the system's function <a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibraryW</a>. Note: <a href="SetWorkingDir.htm">SetWorkingDir</a> has no effect on #DllLoad because #DllLoad is processed before the script begins executing.</p>
-    <p><strong>Directory:</strong> Specify a directory instead of a file to alter the search strategy by all subsequent occurrences of #DllLoad which do not specify an absolute path to a DLL or EXE. The new search strategy is the same as if <em>Directory</em> was passed to the system's function <a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdlldirectoryw">SetDllDirectoryW</a>. If this parameter is omitted, the default search strategy is restored.</p>
-    <p class="note"><strong>Note:</strong> This parameter is not an expression, but can be enclosed in quote marks (either 'single' or "double").</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>以下に説明する、ファイルまたはディレクトリのパス。二重引用符、ワイルドカード、セミコロン<strong>（`;</strong>）以外の<a href="../misc/EscapeChar.htm">エスケープ</a>シーケンスを含んでは<strong>ならない</strong>。</p>
+    <p>組込変数は、パーセント記号で囲んで使用することができます（例えば、<code>#DllLoad %A_ScriptDir%</code>）。有効な変数参照の一部でないパーセント記号は、文字通りに解釈される。<a href="../Variables.htm#Args">A_Args</a>と、組み込みクラスを除く、すべての組込変数が有効です。</p>
+    <p>既知の制限：スクリプトをコンパイルする際、変数はコンパイラによって評価され、最終的に実行されたときにスクリプトが返す値とは異なる場合があります。以下の変数に対応：A_AhkPath, A_AppData, A_AppDataCommon, A_ComputerName, A_ComSpec, A_Desktop, A_DesktopCommon, A_IsCompiled, A_LineFile, A_MyDocuments, A_ProgramFiles, A_Programs, A_ProgramsCommon, A_ScriptDir, A_ScriptFullPath, A_ScriptName, A_Space, A_StartMenu, A_StartMenuCommon, A_Startup, A_StartupCommon, A_Tab, A_Temp, A_UserName, A_WinDir.</p>
+    <p><strong>ファイル：</strong>ロードする DLL または EXE ファイルの絶対パスまたは相対パスを指定します。相対パスが指定された場合、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibraryW</a>と同じ検索方法でファイルを検索する。注：<a href="SetWorkingDir.htm">SetWorkingDir</a>は、スクリプトの実行を開始する前に#DllLoadが処理されるため、#DllLoadには影響しません。</p>
+    <p><strong>ディレクトリ：</strong>DLLまたはEXEへの絶対パスを指定しない#DllLoadを実行した場合、ファイルではなくディレクトリを指定することで検索方法を変更します。新しい検索戦略は、<em>Directory</em>が、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdlldirectoryw">SetDllDirectoryW</a>に渡された場合と同じです。このパラメータが省略された場合、デフォルトの検索ストラテジーが復元されます。</p>
+    <p class="note"><strong>注：</strong>このパラメータは式ではなく、引用符（「シングル」または「ダブル」のいずれか）で囲むことができます。</p>
   </dd>
 </dl>
 <h2 id="Remarks">備考</h2>
-<p>Once a DLL or EXE has been loaded by this directive it cannot be unloaded by calling the system's function <a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary">FreeLibrary</a>. When the script is terminated, all loaded files are unloaded automatically.</p>
-<p>The <em>FileName</em> parameter may optionally begin with <code>*i</code> and a single space, which causes the program to ignore any failure to load the file. This option should be used only if the script is capable of executing despite the failure, such as if the DLL or EXE is non-essential, or if the script is designed to detect the failure. 例えば、</p>
+<p>このディレクティブによって一度ロードされたDLLやEXEは、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary">FreeLibrary</a>を呼び出すことによってアンロードすることができません。スクリプトの終了時には、ロードされたすべてのファイルが自動的にアンロードされます。</p>
+<p><em>FileName</em>パラメータは、オプションで<code>*i</code>と1つのスペースで始まることができ、これによりプログラムはファイルの読み込みに失敗しても無視することができます。このオプションは、DLLやEXEが必須でないなど、障害があってもスクリプトが実行できる場合、またはスクリプトが障害を検出するように設計されている場合にのみ使用する必要があります。例えば、</p>
 <pre>#DllLoad "*i MyDLL"
 if !DllCall("GetModuleHandle", "str", "MyDLL")
     MsgBox "Failed to load MyDLL!"</pre>
-<p>If the <em>FileName</em> parameter specifies a DLL name without a path and the file name extension is omitted, <em>.dll</em> is appended to the file name. To prevent this, include a trailing point character (.) in the file name.</p>
-<p>Like other directives, #DllLoad cannot be executed conditionally.</p>
+<p><em>FileName</em>パラメータにパスのないDLL名を指定し、ファイル名の拡張子を省略した場合、ファイル名に<em>.dll</em>が付加されます。これを防ぐには、ファイル名に末尾のポイント文字(.)を入れてください。</p>
+<p>他のディレクティブと同様に、#DllLoadは条件付きで実行することはできません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="DllCall.htm">DllCall</a></p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Loads a DLL file located in the current user's "My Documents" folder before the script starts executing.</p>
+<p><a class="ex_number" href="#ExBasic"></a> スクリプトの実行前に、カレントユーザーの "My Documents"フォルダーにあるDLLファイルをロードします。</p>
 <pre>#DllLoad "%A_MyDocuments%\MyDLL.dll"</pre>
 </div>
 

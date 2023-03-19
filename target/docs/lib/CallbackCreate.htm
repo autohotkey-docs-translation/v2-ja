@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>CallbackCreate - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The CallbackCreate function creates a machine-code address that when called, redirects the call to a function in the script." />
@@ -21,7 +21,7 @@
 
   <dt>Function</dt>
   <dd>
-    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">Function Object</a></p>
     <p>A function object to call automatically whenever <em>Address</em> is called. The function also receives the parameters that were passed to <em>Address</em>.</p>
     <p>A <a href="../Functions.htm#closures">closure</a> or <a href="../misc/Functor.htm#BoundFunc">bound function</a> can be used to differentiate between multiple callbacks which all call the same script function.</p>
     <p>The callback retains a reference to the function object, and releases it when the script calls <a href="#CallbackFree">CallbackFree</a>.</p>
@@ -29,7 +29,7 @@
 
   <dt>オプション</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>Specify zero or more of the following words or characters. Separate each option from the next with a space (e.g. <code>"C Fast"</code>).</p>
     <p id="Fast"><strong>Fast</strong> or <strong>F</strong>: Avoids starting a new <a href="../misc/Threads.htm">thread</a> each time <em>Function</em> is called. Although this performs better, it must be avoided whenever the thread from which <em>Address</em> is called varies (e.g. when the callback is triggered by an incoming message). This is because <em>Function</em> will be able to change global settings such as <a href="../Variables.htm#LastError">A_LastError</a> and the <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a> for whichever thread happens to be running at the time it is called. For more information, see <a href="#Threads">Remarks</a>.</p>
     <p><strong>CDecl</strong> or <strong>C</strong>: Makes <em>Address</em> conform to the "C" calling convention. This is typically omitted because the standard calling convention is much more common for callbacks. This option is ignored by 64-bit versions of AutoHotkey, which use the x64 calling convention.</p>
@@ -38,14 +38,14 @@
 
   <dt>ParamCount</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>The number of parameters that <em>Address</em>'s caller will pass to it. If omitted, it defaults to <a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>, which is usually the number of mandatory parameters in the <a href="../Functions.htm#define">definition</a> of <em>Function</em>. In either case, ensure that the caller passes exactly this number of parameters.</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">Return Value</h2>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>CallbackCreate returns a machine-code address. This address is typically passed to an external function via <a href="DllCall.htm">DllCall</a> or placed in a struct using <a href="NumPut.htm">NumPut</a>, but can also be called directly by DllCall. Passing the address to <a href="#CallbackFree">CallbackFree</a> will delete the callback.</p>
 
 <h2 id="Error_Handling">Error Handling</h2>
@@ -109,7 +109,7 @@ TheFunc(params) {
 <h2 id="Related">関連</h2>
 <p><a href="DllCall.htm">DllCall</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="Sort.htm#callback">Sort's callback</a>, <a href="Critical.htm">Critical</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExWinList">
 <p><a class="ex_number" href="#ExWinList"></a>  Displays a summary of all top-level windows.</p>
 <pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")<em>; Fast-mode is okay because it will be called only from this thread.</em>

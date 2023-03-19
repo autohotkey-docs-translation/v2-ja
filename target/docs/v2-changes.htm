@@ -90,7 +90,7 @@
 <p>Declaring a variable with <code>local</code> no longer makes the function <a href="Functions.htm#AssumeGlobal">assume-global</a>.</p>
 <p><a href="Variables.htm#deref">Double-derefs</a> are now more consistent with variables resolved at load-time, and are no longer capable of creating new variables. This avoids some inconsistencies and common points of confusion.</p>
 <p>Double-derefs which fail for any reason now cause an error to be thrown. Previously any cases with an invalid name would silently produce an empty string, while other cases would create and return an empty variable.</p>
-<h3 id="expressions">Expressions</h3>
+<h3 id="expressions">式</h3>
 <p>Quoted literal strings can be written with <code>"double"</code> or <code>'single'</code> quote marks, but must begin and end with the same mark. Literal quote marks are written by preceding the mark with an escape character - <code>`"</code> or <code>`'</code> - or by using the opposite type of quote mark: <code>'"42" is the answer'</code>. Doubling the quote marks has no special meaning, and causes an error since auto-concat requires a space.</p>
 <p>The operators <code>&amp;&amp;</code>, <code>||</code>, <code>and</code> and <code>or</code> yield whichever value determined the result, similar to JavaScript and Lua. For example, <code>"" or "default"</code> yields <code>"default"</code> instead of <code>1</code>. Scripts which require a pure boolean value (0 or 1) can use something like <code>!!(x or y)</code> or <code>(x or y) ? 1 : 0</code>.</p>
 <p>Auto-concat now requires at least one space or tab in all cases (the v1 documentation says there "should be" a space).</p>
@@ -342,7 +342,7 @@ this.__set(name, args, value)
 </ul>
 <p>These classes can be used for type checks with <code>obj is ComObject</code> and similar. Properties and methods can be defined for objects of type ComValue, ComObjArray and ComValueRef (but not ComObject) by modifying the respective prototype object.</p>
 <p><code>ComObject(CLSID)</code> creates a ComObject; i.e. this is the new ComObjCreate.</p>
-<p>Note: If you are updating old code and get a TypeError due to passing an Integer to ComObject, it's likely that you should be calling ComValue instead.</p>
+<p>注：If you are updating old code and get a TypeError due to passing an Integer to ComObject, it's likely that you should be calling ComValue instead.</p>
 <p><code>ComValue(vt, value)</code> creates a wrapper object. It can return an instance of any of the classes listed above. This replaces <code>ComObjParameter(vt, value)</code>, <code>ComObject(vt, value)</code> and any other names that were used with a <em>variant type</em> and <em>value</em> as parameters. <em>value</em> is converted to the appropriate type (following COM conventions), instead of requiring an integer with the right binary value. In particular, the following behave differently to before when passed an integer: R4, R8, Cy, Date. Pointer types permit either a pure integer address as before, or an object/ComValue.</p>
 <p><code>ComObjFromPtr(pdsp)</code> is a function similar to <code>ComObjEnwrap(dsp)</code>, but like ObjFromPtr, it does not call AddRef on the pointer. The equivalent in v1 is <code>ComObject(9, dsp, 1)</code>; omitting the third parameter in v1 caused an AddRef.</p>
 <p>For both ComValue and ComObjFromPtr, be warned that AddRef is never called automatically; in that respect, they behave like <code>ComObject(9, value, 1)</code> or <code>ComObject(13, value, 1)</code> in v1. This does not necessarily mean you should add <code>ObjAddRef(value)</code> when updating old scripts, as many scripts used the old function incorrectly.</p>
@@ -1013,7 +1013,7 @@ Gui GuiName: Default</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>StatusBar</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>Tab</td><td>.Text</td><td>ControlGetText()</td><td>Use Value instead of Text if AltSubmit was used. Text returns the selected tab's text, whereas ControlGetText returns hidden text.</td></tr>
+<tr><td>タブ</td><td>.Text</td><td>ControlGetText()</td><td>Use Value instead of Text if AltSubmit was used. Text returns the selected tab's text, whereas ControlGetText returns hidden text.</td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">.Text</td><td>Text is hidden.</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td></td></tr>
@@ -1050,7 +1050,7 @@ Gui GuiName: Default</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td>Use the <code>+=</code> operator instead of the <code>+</code> prefix.</td></tr>
 <tr><td>StatusBar</td><td colspan="2">.Text or SB.SetText()</td><td></td></tr>
-<tr><td>Tab</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
+<tr><td>タブ</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">N/A</td><td>Command had no effect.</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td>Use the <code>+=</code> operator instead of the <code>+</code> prefix.</td></tr>
@@ -1097,7 +1097,7 @@ Gui GuiName: Default</p>
 <p>File functions which previously stored the number of failures in ErrorLevel now throw it in the <code>Extra</code> property of the thrown exception object.</p>
 <p><a href="lib/SendMessage.htm">SendMessage</a> timeout is usually an anomolous condition, so causes a <code>TimeoutError</code> to be thrown. <code>TargetError</code> and <code>OSError</code> may be thrown under other conditions.</p>
 <p>The <code>UseErrorLevel</code> modes of the <a href="lib/Run.htm">Run</a> and <a href="lib/Hotkey.htm">Hotkey</a> functions were removed.  This mode predates the addition of <code>Try</code>/<code>Catch</code> to the language.  Menu and Gui had this mode as well but were replaced with objects (which do not use ErrorLevel).</p>
-<h3 id="expressions-1">Expressions</h3>
+<h3 id="expressions-1">式</h3>
 <p>A load-time error is raised for more syntax errors than in v1, such as:</p>
 <ul>
 <li>Empty parentheses (except adjoining a function name); e.g. <code>x ()</code></li>

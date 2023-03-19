@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>Run / RunWait - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Run and RunWait functions run an external program. RunWait will wait until the program finishes before continuing." />
@@ -26,7 +26,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>Target</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>A document, URL, executable file (.exe, .com, .bat, etc.), shortcut (.lnk), or <a href="#verbs">system verb</a> to launch (see remarks). If <em>Target</em> is a local file and no path was specified with it, <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> will be searched first. If no matching file is found there, the system will search for and launch the file if it is integrated ("known"), e.g. by being contained in one of the PATH folders.</p>
       <p>To pass parameters, add them immediately after the program or document name. For example, <code>Run 'MyProgram.exe Param1 Param2'</code>.</p>
       <p>If the program/document name or a parameter contains spaces, it is safest to enclose it in double quotes (even though it may work without them in some cases). For example, <code>Run '"My Program.exe" "param with spaces"'</code>.</p>
@@ -34,13 +34,13 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>WorkingDir</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>The working directory for the launched item. Do not enclose the name in double quotes even if it contains spaces. If omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used.</p>
   </dd>
 
   <dt>オプション</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>If omitted, the function launches <em>Target</em> normally. To change this behavior, specify one or more of the following words:</p>
       <p><strong>Max</strong>: launch maximized</p>
       <p><strong>Min</strong>: launch minimized</p>
@@ -50,7 +50,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>&amp;OutputVarPID</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
+      <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
       <p>A reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. The variable will be made blank if the PID could not be determined, which usually happens if a system verb, document, or shortcut is launched rather than a direct executable file. RunWait also supports this parameter, though its <em>OutputVarPID</em> must be checked in <a href="../misc/Threads.htm">another thread</a> (otherwise, the PID will be invalid because the process will have terminated by the time the line following RunWait executes).</p>
       <p>After the Run function retrieves a PID, any windows to be created by the process might not exist yet. To wait for at least one window to be created, use <code><a href="WinWait.htm">WinWait</a> "ahk_pid " OutputVarPID</code>.</p>
   </dd>
@@ -58,7 +58,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 </dl>
 
 <h2 id="Return_Value">Return Value</h2>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>Unlike Run, RunWait will wait until <em>Target</em> is closed or exits, at which time the return value will be the program's exit code (as a signed 32-bit integer). Some programs will appear to return immediately even though they are still running; these programs spawn another process.</p>
 
 <h2 id="Error_Handling">Error Handling</h2>
@@ -147,7 +147,7 @@ MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
 <h2 id="Related">関連</h2>
 <p><a href="RunAs.htm">RunAs</a>, <a href="Process.htm">Process functions</a>, <a href="Exit.htm">Exit</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="DllCall.htm">DllCall</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a>  Run is able to launch Windows system programs from any directory. Note that executable file extensions such as .exe can be omitted.</p>
 <pre>Run "notepad"</pre>

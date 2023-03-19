@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
-<title>#MaxThreadsPerHotkey - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The #MaxThreadsPerHotkey directive sets the maximum number of simultaneous threads per hotkey or hotstring." />
+<title>#MaxThreadsPerHotkey - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="#MaxThreadsPerHotkey指令は、ホットキーまたはホットストリングごとの最大同時スレッド数を設定します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,30 +12,30 @@
 
 <h1>#MaxThreadsPerHotkey</h1>
 
-<p>Sets the maximum number of simultaneous <a href="../misc/Threads.htm">threads</a> per <a href="../Hotkeys.htm">hotkey</a> or <a href="../Hotstrings.htm">hotstring</a>.</p>
+<p><a href="../Hotkeys.htm">ホットキー</a>または<a href="../Hotstrings.htm">ホットストリング</a>ごとの最大同時<a href="../misc/Threads.htm">スレッド</a>数を設定します。</p>
 
 <pre class="Syntax"><span class="func">#MaxThreadsPerHotkey</span> Value</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>Value</dt>
+  <dt>値</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
-    <p>The maximum number of <a href="../misc/Threads.htm">threads</a> that can be launched for a given hotkey/hotstring subroutine (limit 255).</p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>指定したホットキー/ホットストリングサブルーチンで起動できる<a href="../misc/Threads.htm">スレッド</a>の最大数（上限255）です。</p>
   </dd>
 
 </dl>
 <h2 id="Remarks">備考</h2>
-<p>This setting is used to control how many "instances" of a given <a href="../Hotkeys.htm">hotkey</a> or <a href="../Hotstrings.htm">hotstring</a> subroutine are allowed to exist simultaneously. For example, if a hotkey has a max of 1 and it is pressed again while its subroutine is already running, the press will be ignored. This is helpful to prevent accidental double-presses. However, if you wish  these keypresses to be buffered rather than ignored -- perhaps to increase the responsiveness of the keyboard's auto-repeat feature --  use <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>.</p>
-<p>Unlike <a href="_MaxThreads.htm">#MaxThreads</a>, this setting is <strong>not</strong> global. Instead, position it before the first hotkey you wish to have affected by it, which will result in all subsequent hotkeys using that value until another instance of this directive is encountered.</p>
-<p>The setting of <a href="_MaxThreads.htm">#MaxThreads</a> -- if lower than this setting -- takes precedence.</p>
-<p>If this directive is unspecified in the script, it will behave as though set to 1.</p>
-<p>Like other directives, #MaxThreadsPerHotkey cannot be executed conditionally.</p>
+<p>この設定は、特定の<a href="../Hotkeys.htm">ホットキー</a>または<a href="../Hotstrings.htm">ホットストリング</a>のサブルーチンの「インスタンス」が同時にいくつ存在することを許可するかを制御するために使用されます。例えば、あるホットキーの最大値が1で、そのサブルーチンがすでに実行されているときに再度押された場合、その押下は無視されます。誤って二度押ししてしまうのを防ぐのに有効です。しかし、キーボードのオートリピート機能の応答性を高めるために、これらのキー入力を無視するのではなく、バッファリングしたい場合は、<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>を使用します。</p>
+<p><a href="_MaxThreads.htm">#MaxThreads</a>とは異なり、この設定はグローバルでは<strong>ありません</strong>。代わりに、このディレクティブの影響を受けさせたい最初のホットキーの前に位置させ、このディレクティブの別のインスタンスに出会うまで、後続のすべてのホットキーがその値を使用することになります。</p>
+<p><a href="_MaxThreads.htm">#MaxThreads</a>の設定値がこの設定値より低い場合は、その設定値が優先されます。</p>
+<p>このディレクティブがスクリプトで指定されていない場合、1が設定されているものとして動作します。</p>
+<p>他のディレクティブと同様に、#MaxThreadsPerHotkeyを条件付きで実行することはできません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="_MaxThreads.htm">#MaxThreads</a>, <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>, <a href="Critical.htm">Critical</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Hotkey.htm">Hotkey</a>, <a href="A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>, <a href="ListHotkeys.htm">ListHotkeys</a></p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Allows a maximum of 3 simultaneous threads instead of 1 per hotkey or hotstring.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 1つのホットキーまたはホットストリングにつき1つのスレッドではなく、最大3つのスレッドを同時に使用できるようにします。</p>
 <pre>#MaxThreadsPerHotkey 3</pre>
 </div>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>GUI Control Types - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="GUI control types are elements of interaction which can be added to a GUI window using the Gui object's Add method." />
@@ -85,13 +85,13 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 <p><strong>Lowercase</strong>: The characters typed by the user are automatically converted to lowercase.</p>
 <p id="EditMulti"><strong>Multi</strong>: Makes it possible to have more than one line of text. However, it is usually not necessary to specify this because it will be auto-detected based on height (H), <a href="Gui.htm#R">rows (R)</a>, or contents (<em>Text</em>).</p>
 <p id="EditNum"><strong>Number</strong>: Prevents the user from typing anything other than digits into the field (however, it is still possible to paste non-digits into it). An alternate way of forcing a numeric entry is to attach an <a href="#UpDown">UpDown</a> control to the Edit.</p>
-<p><strong>Password</strong>: Hides the user's input (such as for password entry) by substituting masking characters for what the user types. If a non-default masking character is desired, include it immediately after the word Password. For example, <code>Password*</code> would make the masking character an asterisk rather than the black circle (bullet). Note: This option has no effect for multi-line edit controls.</p>
+<p><strong>Password</strong>:Hides the user's input (such as for password entry) by substituting masking characters for what the user types. If a non-default masking character is desired, include it immediately after the word Password. For example, <code>Password*</code> would make the masking character an asterisk rather than the black circle (bullet). 注：This option has no effect for multi-line edit controls.</p>
 <p><strong>ReadOnly</strong>: Prevents the user from changing the control's contents. However, the text can still be scrolled, selected and copied to the clipboard.</p>
-<p><strong>Tn</strong>: The letter T may be used to set tab stops inside a <a href="#EditMulti">multi-line edit control</a> (since tab stops determine the column positions to which literal TAB characters will jump, they can be used to format the text into columns). If the letter T is not used, tab stops are set at every 32 dialog units (the width of each "dialog unit" is determined by the operating system). If the letter T is used only once, tab stops are set at every <strong>n</strong> units across the entire width of the control. For example, <code>MyGui.Add("Edit", "vMyEdit r16 t64")</code> would double the default distance between tab stops. To have custom tab stops, specify the letter T multiple times as in the following example: <code>MyGui.Add("Edit", "vMyEdit r16 t8 t16 t32 t64 t128")</code>. One tab stop is set for each of the absolute column positions in the list, up to a maximum of 50 tab stops. Note: Tab stops require a multiline edit control.</p>
+<p><strong>Tn</strong>:The letter T may be used to set tab stops inside a <a href="#EditMulti">multi-line edit control</a> (since tab stops determine the column positions to which literal TAB characters will jump, they can be used to format the text into columns). If the letter T is not used, tab stops are set at every 32 dialog units (the width of each "dialog unit" is determined by the operating system). If the letter T is used only once, tab stops are set at every <strong>n</strong> units across the entire width of the control. For example, <code>MyGui.Add("Edit", "vMyEdit r16 t64")</code> would double the default distance between tab stops. To have custom tab stops, specify the letter T multiple times as in the following example:<code>MyGui.Add("Edit", "vMyEdit r16 t8 t16 t32 t64 t128")</code>. One tab stop is set for each of the absolute column positions in the list, up to a maximum of 50 tab stops. 注：Tab stops require a multiline edit control.</p>
 <p><strong>Uppercase</strong>: The characters typed by the user are automatically converted to uppercase.</p>
 <p><strong>WantCtrlA</strong>: Specify <code>-WantCtrlA</code> (minus WantCtrlA) to prevent the user's press of <kbd>Ctrl</kbd>+<kbd>A</kbd> from selecting all text in the edit control.</p>
 <p id="WantReturn"><strong>WantReturn</strong>: Specify <code>-WantReturn</code> (minus WantReturn) to prevent a multi-line edit control from capturing <kbd>Enter</kbd>. Pressing <kbd>Enter</kbd> will then be the same as pressing the window's <a href="#DefaultButton">default button</a> (if any). In this case, the user may press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to start a new line.</p>
-<p><strong>WantTab</strong>: Causes <kbd>Tab</kbd> to produce a tab character rather than navigating to the next control. Without this option, the user may press <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to produce a tab character inside a multi-line edit control. Note: <em>WantTab</em> also works in a single-line edit control.</p>
+<p><strong>WantTab</strong>:Causes <kbd>Tab</kbd> to produce a tab character rather than navigating to the next control. Without this option, the user may press <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to produce a tab character inside a multi-line edit control. 注：<em>WantTab</em> also works in a single-line edit control.</p>
 <p><strong>Wrap</strong>: Specify <code>-Wrap</code> (minus Wrap) to turn off word-wrapping in a multi-line edit control. Since this style cannot be changed after the control has been created, use one of the following to change it: 1) <a href="Gui.htm#Destroy">Destroy</a> then recreate the window and its control; or 2) Create two overlapping edit controls, one with wrapping enabled and the other without it. The one not currently in use can be kept empty and/or hidden.</p>
 <p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください。<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
 <p><strong>A more powerful edit control</strong>: HiEdit is a free, multitabbed, large-file edit control consuming very little memory. It can edit both text and binary files. For details and a demonstration, see <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/HiEdit">HiEdit on GitHub</a>.</p>
@@ -163,7 +163,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <pre>MyGui.Add("Button",, "&amp;Pause")</pre>
 <p>In the example above, the letter P will be underlined, which allows the user to press <kbd>Alt</kbd>+<kbd>P</kbd> as <a href="Gui.htm#ShortcutKey">shortcut key</a>. To display a literal ampersand, specify two consecutive ampersands (&amp;&amp;).</p>
 
-<p>既知の制限です。Certain desktop themes might not display a button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
+<p>既知の制限：Certain desktop themes might not display a button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
 
 <h2 id="Checkbox">Checkbox</h2>
 <p>Description: A small box that can be checked or unchecked to represent On/Off, Yes/No, etc.</p>
@@ -178,7 +178,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p>Specify the word <strong>Check3</strong> in <em>Options</em> to enable a third "indeterminate" state that displays a gray checkmark or a square instead of a black checkmark (the indeterminate state indicates that the checkbox is neither checked nor unchecked). Specify the word <strong>Checked</strong> or <strong>CheckedGray</strong> in <em>Options</em> to have the checkbox start off checked or indeterminate, respectively. The word Checked may optionally be followed immediately by a 0, 1, or -1 to indicate the starting state. In other words, <code>"Checked"</code> and <code>"Checked" VarContainingOne</code> are the same.</p>
 <p>Whenever the checkbox is clicked, it automatically cycles between its two or three possible states, and then raises the <a href="GuiOnEvent.htm#Click">Click</a> event, allowing the script to immediately respond to the user's input.</p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>. This style is not applied by default as it prevents rapid clicks from changing the state of the checkmark (such as if the user clicks twice to toggle from unchecked to checked and then to indeterminate).</p>
-<p>既知の制限です。Certain desktop themes might not display a checkbox's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
+<p>既知の制限：Certain desktop themes might not display a checkbox's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
 
 <h2 id="Radio">Radio</h2>
 <p>Description: A radio button is a small empty circle that can be checked (on) or unchecked (off).</p>
@@ -194,7 +194,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the number 1 for "on" and 0 for "off". To instead retrieve the position number of the selected radio option within a radio group, <a href="GuiControl.htm#Name">name</a> only one of the radio buttons and use <a href="Gui.htm#submit-radio">MyGui.Submit</a>.</p>
 <p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user turns on the button. Unlike the single-variable mode in the previous paragraph, the event callback must be registered for each button in a radio group for which it should be called. This allows the flexibility to ignore the clicks of certain buttons.  </p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>.</p>
-<p>既知の制限です。Certain desktop themes might not display a radio button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
+<p>既知の制限：Certain desktop themes might not display a radio button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
 
 <span id="DDL"></span><h2 id="DropDownList">DropDownList (or DDL)</h2>
 <p>Description: A list of choices that is displayed in response to pressing a small button.  In this case, the last parameter of <a href="Gui.htm#Add">MyGui.Add</a> is an <a href="Array.htm">Array</a> like <code>["Choice1","Choice2","Choice3"]</code>.</p>
@@ -324,7 +324,7 @@ MyGui.Show()</pre>
 <p>Sets the display format of a DateTime control.</p>
 <pre class="Syntax">DateTime.<span class="func">SetFormat</span>(<span class="optional">Format</span>)</pre>
 <dl><dt>Format</dt><dd>
-<p>Type: <a href="../Concepts.htm#strings">String</a></p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
 <p>One of the following:</p>
 <p><strong>ShortDate</strong> (or omitted/blank): Uses the locale's short date format. For example, in some locales it would look like: 6/1/2005</p>
 <p><strong>LongDate</strong>: Uses the locale's long date format. For example, in some locales it would look like: Wednesday, June 01, 2005</p>
@@ -394,12 +394,12 @@ MyGui.Show()</pre>
 <dl>
   <dt>Info</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>A numeric value from the tables below indicating how the slider was moved. These values and the corresponding names are defined in the Windows SDK.</p>
   </dd>
 </dl>
 <table class="info">
-  <tr><th>Value</th><th style="width: 11em;">Name</th><th>Meaning</th></tr>
+  <tr><th>値</th><th style="width: 11em;">名称</th><th>Meaning</th></tr>
   <tr><td>0</td><td>TB_LINEUP</td><td>The user pressed <kbd>←</kbd> or <kbd>↑</kbd>.</td></tr>
   <tr><td>1</td><td>TB_LINEDOWN</td><td>The user pressed <kbd>→</kbd> or <kbd>↓</kbd>.</td></tr>
   <tr><td>2</td><td>TB_PAGEUP</td><td>The user pressed <kbd>PgUp</kbd>.</td></tr>
@@ -410,15 +410,15 @@ MyGui.Show()</pre>
 </table>
 <p><strong>Only if the AltSubmit option is used:</strong></p>
 <table class="info">
-  <tr><th>Value</th><th style="width: 11em;">Name</th><th>Meaning</th></tr>
+  <tr><th>値</th><th style="width: 11em;">名称</th><th>Meaning</th></tr>
   <tr><td>5</td><td>TB_THUMBTRACK</td><td>The user is currently dragging the slider via the mouse; that is, the mouse button is currently down.</td></tr>
-  <tr><td>8</td><td>TB_ENDTRACK</td><td>The user has finished moving the slider, either via the mouse or the keyboard. Note: With the exception of mouse wheel movement (#4), the Change event is raised again for #8 even though it was already raised with one of the digits above.</td></tr>
+  <tr><td>8</td><td>TB_ENDTRACK</td><td>The user has finished moving the slider, either via the mouse or the keyboard. 注：With the exception of mouse wheel movement (#4), the Change event is raised again for #8 even though it was already raised with one of the digits above.</td></tr>
 </table>
 
 <h3 id="Slider_Options">Slider Options</h3>
 <p><strong>Buddy1</strong> and <strong>Buddy2</strong>: Specifies up to two existing controls to automatically reposition at the ends of the slider. Buddy1 is displayed at the left or top side (depending on whether the Vertical option is present). Buddy2 is displayed at the right or bottom side. After the word Buddy1 or Buddy2, specify the <a href="GuiControl.htm#Name">Name</a> or <a href="GuiControl.htm#Hwnd">HWND</a> of an existing control. For example, <code>Buddy1MyTopText</code> would assign the control whose name is MyTopText. The text or ClassNN of a control can also be used, but only up to the first space or tab.</p>
 <p><strong>Center</strong>: The thumb (the bar moved by the user) will be blunt on both ends rather than pointed at one end.</p>
-<p><strong>Invert</strong>: Reverses the control so that the lower value is considered to be on the right/bottom rather than the left/top. This is typically used to make a vertical slider move in the direction of a traditional volume control. Note: The ToolTip option described below will not obey the inversion and therefore should not be used in this case.</p>
+<p><strong>Invert</strong>:Reverses the control so that the lower value is considered to be on the right/bottom rather than the left/top. This is typically used to make a vertical slider move in the direction of a traditional volume control. 注：The ToolTip option described below will not obey the inversion and therefore should not be used in this case.</p>
 <p><strong>Left</strong>: The thumb (the bar moved by the user) will point to the top rather than the bottom. But if the Vertical option is in effect, the thumb will point to the left rather than the right.</p>
 <p><strong>Line</strong>:Specifies the number of positions to move when the user presses one of the arrow keys. After the word Line, specify number of positions to move. 例えば、<code>Line2</code>.</p>
 <p><strong>NoTicks</strong>: Omits tickmarks alongside the track.</p>
@@ -475,7 +475,7 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 <p>Or:</p>
 <pre>MyGui.AddTab3(, ["General","View","Settings"])</pre>
 <p>Appearance:</p>
-<img src="../static/ctrl_tab.png" alt="Tab" />
+<img src="../static/ctrl_tab.png" alt="タブ" />
 <p id="ChooseTab">The last parameter above is an <a href="Array.htm">Array</a> of tab names. To have one of the tabs pre-selected when the window first appears, include in <em>Options</em> the word <strong>Choose</strong> followed immediately by the number of a tab to be pre-selected. For example, <code>Choose5</code> would pre-select the fifth tab (as with other options, it can also be a variable such as <code>"Choose" Var</code>). After the control is created, use <a href="GuiControl.htm#Value">Value</a>, <a href="GuiControl.htm#Text">Text</a> or <a href="GuiControl.htm#Choose">Choose</a> to change the selected tab, and <a href="GuiControl.htm#Add">Add</a> or <a href="GuiControl.htm#Delete">Delete</a> to add or remove tabs.</p>
 <p id="TabCmd">After creating a Tab control, subsequently added controls automatically belong to its first tab. This can be changed at any time by following these examples (in this case, <em>Tab</em> is the <a href="GuiControl.htm">GuiControl object</a> of the first tab control and <em>Tab2</em> of the second one):</p>
 <pre>Tab.<a href="GuiControl.htm#UseTab">UseTab</a>()  <em>; Future controls are not part of any tab control.</em>
@@ -551,11 +551,11 @@ SB.SetText("There are " . RowCount . " rows selected.")</pre>
 <p>Displays <em>NewText</em> in the specified part of the status bar.</p>
 <pre class="Syntax">Success := SB.<span class="func">SetText</span>(NewText <span class="optional">, PartNumber, Style</span>)</pre>
 <dl><dt>NewText</dt><dd>
-<p>Type: <a href="../Concepts.htm#strings">String</a></p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
 <p>Up to two tab characters (`t) may be present anywhere in <em>NewText</em>: anything to the right of the first tab is centered within the part, and anything to the right of the second tab is right-justified.</p></dd><dt>PartNumber</dt><dd>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>If <em>PartNumber</em> is omitted, it defaults to 1. Otherwise, specify an integer between 1 and 256.</p></dd><dt>Style</dt><dd>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>If <em>Style</em> is omitted, it defaults to 0, which uses a traditional border that makes that part of the bar look sunken. Otherwise, specify 1 to have no border or 2 to have border that makes that part of the bar look raised.</p></dd></dl>
 </div>
 
@@ -564,24 +564,24 @@ SB.SetText("There are " . RowCount . " rows selected.")</pre>
 <p>Divides the bar into multiple sections according to the specified widths (in pixels), and returns a non-zero value (the status bar's <a href="GuiControl.htm#Hwnd">HWND</a>).</p>
 <pre class="Syntax">Hwnd := SB.<span class="func">SetParts</span>(<span class="optional">Width1, Width2, ... Width255</span>)</pre>
 <dl><dt>Width1 ... Width255</dt><dd>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>If all parameters are omitted, the bar is restored to having only a single, long part. Otherwise, specify the width of each part except the last (the last will fill the remaining width of the bar). For example, <code>SB.SetParts(50, 50)</code> would create three parts: the first two of width 50 and the last one of all the remaining width.</p></dd></dl>
-<p>Note: Any parts "deleted" by <code>SB.SetParts()</code> will start off with no text the next time they are shown (furthermore, their icons are automatically destroyed).</p></div>
+<p>注：Any parts "deleted" by <code>SB.SetParts()</code> will start off with no text the next time they are shown (furthermore, their icons are automatically destroyed).</p></div>
 
 <div class="methodShort" id="SB_SetIcon">
 <h3>SetIcon</h3>
 <p>Displays a small icon to the left of the text in the specified part, and returns the icon's handle.</p>
 <pre class="Syntax">HICON := SB.<span class="func">SetIcon</span>(Filename <span class="optional">, IconNumber, PartNumber</span>)</pre>
 <dl><dt>FileName</dt><dd>
-<p>Type: <a href="../Concepts.htm#strings">String</a></p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
 <p>The path of an icon or image file. For a list of supported formats, see <a href="#IconSupport">the Picture control</a>.</p>
 <p>A <a href="../misc/ImageHandles.htm">bitmap or icon handle</a> can be used instead of a filename. For example, <code>SB.SetIcon("HICON:" handle)</code>.</p></dd>
 <dt>IconNumber</dt><dd>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>To use an icon group other than the first one in the file, specify its number for <em>IconNumber</em>. For example, <code>SB.SetIcon("Shell32.dll", 2)</code> would use the default icon from the second icon group. If <em>IconNumber</em> is negative, its absolute value is assumed to be the resource ID of an icon within an executable file.</p></dd><dt>PartNumber</dt><dd>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>If <em>PartNumber</em> is omitted, it defaults to 1. Otherwise, specify an integer between 1 and 256.</p></dd></dl>
-<p>Note: The HICON is a system resource that can be safely ignored by most scripts because it is destroyed automatically when the status bar's window is destroyed. Similarly, any old icon is destroyed when <code>SB.SetIcon()</code> replaces it with a new one. This can be avoided via:</p>
+<p>注：The HICON is a system resource that can be safely ignored by most scripts because it is destroyed automatically when the status bar's window is destroyed. Similarly, any old icon is destroyed when <code>SB.SetIcon()</code> replaces it with a new one. This can be avoided via:</p>
 <pre>MyGui.Opt("+LastFound")
 <a href="SendMessage.htm">SendMessage</a>(0x040F, part_number - 1, my_hIcon, "msctls_statusbar321")  <em>; 0x040F is SB_SETICON.</em></pre></div>
 
@@ -592,7 +592,7 @@ SB.SetText("There are " . RowCount . " rows selected.")</pre>
 <h3 id="StatusBar_Usage">StatusBar Usage</h3>
 <p><strong>Reacting to mouse clicks</strong>: Whenever the user clicks on the bar, the <a href="GuiOnEvent.htm#Click">Click</a>, <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a> or <a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event is raised, and the <em>Info</em> or <em>Item</em> parameter contains the part number. However, the part number might be a very large integer if the user clicks near the sizing grip at the right side of the bar.</p>
 <p><strong>Font and color</strong>: Although the font size, face, and style can be set via <a href="Gui.htm#SetFont">MyGui.SetFont</a> (just like normal controls), the text color cannot be changed. The status bar's background color may be changed by specifying in <em>Options</em> the word <strong>Background</strong> followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). Examples: <code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>, <code>BackgroundDefault</code>. Note that the control must have Classic Theme appearance. Thus, the <code>-Theme</code> option must be specified along with the Background option, e.g. <code>-Theme BackgroundSilver</code>.</p>
-<p><strong>Hiding the StatusBar</strong>: Upon creation, the bar can be hidden via <code>MyStatusBar := MyGui.Add("StatusBar", "Hidden")</code>. To hide it sometime after creation, use <code>MyStatusBar.Visible := false</code>. To show it, use <code>MyStatusBar.Visible := true</code>. Note: Hiding the bar does not reduce the height of the window. If that is desired, one easy way is <code>MyGui.Show("<a href="Gui.htm#AutoSize">AutoSize</a>")</code>.</p>
+<p><strong>Hiding the StatusBar</strong>:Upon creation, the bar can be hidden via <code>MyStatusBar := MyGui.Add("StatusBar", "Hidden")</code>. To hide it sometime after creation, use <code>MyStatusBar.Visible := false</code>. To show it, use <code>MyStatusBar.Visible := true</code>. 注：Hiding the bar does not reduce the height of the window. If that is desired, one easy way is <code>MyGui.Show("<a href="Gui.htm#AutoSize">AutoSize</a>")</code>.</p>
 <p><strong>Styles (rarely used)</strong>: See the <a href="../misc/Styles.htm#StatusBar">StatusBar styles table</a>.</p>
 <p><strong>Known limitations</strong>: 1) Any control that overlaps the status bar might sometimes get drawn on top of it.  One way to avoid this is to dynamically shrink such controls via <a href="GuiOnEvent.htm#Size">Size</a> event. 2) There is a limit of one status bar per window.</p>
 <p><strong>Example</strong>: <a href="TreeView.htm#ExAdvanced">Example #1</a> at the bottom of the TreeView page demonstrates a multipart status bar.</p>

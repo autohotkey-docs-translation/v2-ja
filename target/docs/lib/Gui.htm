@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>Gui Object - Methods &amp; Properties | AutoHotkey v2</title>
 <meta name="description" content="The Gui object provides an interface for a GUI window to perform actions, such as adding new controls, or to retrieve or set values, such as colors." />
@@ -71,7 +71,7 @@
       <li><a href="#Appear">Window Appearance</a></li>
       <li><a href="#GenRemarks">総論</a></li>
       <li><a href="#Related">関連</a></li>
-      <li><a href="#Examples">Examples</a></li>
+      <li><a href="#Examples">例</a></li>
     </ul>
   </li>
 </ul>
@@ -83,15 +83,15 @@
 <pre class="Syntax">MyGui := <span class="func">Gui</span>(<span class="optional">Options, Title, EventObj</span>)</pre>
 <dl>
   <dt>オプション</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>This parameter can contain any of the options supported by <a href="#Opt">Gui.Opt</a>.</p>
   </dd>
   <dt>Title</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The window title. If omitted, it defaults to the current value of <a href="../Variables.htm#ScriptName">A_ScriptName</a>.</p>
   </dd>
   <dt id="EventObj">EventObj</dt><dd>
-    <p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
     <p>An "event sink", or object to bind events to. If <em>EventObj</em> is specified, <a href="GuiOnEvent.htm">OnEvent</a>, <a href="GuiOnNotify.htm">OnNotify</a> and <a href="GuiOnCommand.htm">OnCommand</a> can be used to register methods of <em>EventObj</em> to be called when an event is raised. If omitted or empty, any string passed to OnEvent's <em>Function</em> parameter is interpreted as a function name.</p>
   </dd>
 </dl>
@@ -105,7 +105,7 @@
 MyGui.<span class="func">Add</span>ControlType(<span class="optional">Options, Text</span>)</pre>
 <dl>
   <dt>ControlType</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>This is one of the following: <a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#UpDown">UpDown</a>, <a href="GuiControls.htm#Picture">Picture (or Pic)</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">Checkbox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#DropDownList">DropDownList (or DDL)</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#Hotkey">Hotkey</a>, <a href="GuiControls.htm#DateTime">DateTime</a>, <a href="GuiControls.htm#MonthCal">MonthCal</a>, <a href="GuiControls.htm#Slider">Slider</a>, <a href="GuiControls.htm#Progress">Progress</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Tab">Tab, Tab2, Tab3</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>, <a href="GuiControls.htm#ActiveX">ActiveX</a>, <a href="GuiControls.htm#Custom">Custom</a></p>
   <p>例えば、</p>
   <pre>MyGui := Gui()
@@ -113,7 +113,7 @@ MyGui.Add("Text",, "Please enter your name:")
 MyGui.AddEdit("vName")
 MyGui.Show</pre></dd>
   <dt>オプション</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p id="PosSize"><strong>Positioning and Sizing of Controls</strong></p>
   <p>If some dimensions and/or coordinates are omitted from <em>Options</em>, the control will be positioned relative to the previous control and/or sized automatically according to its nature and contents.</p>
   <p>The following options are supported:</p>
@@ -156,10 +156,10 @@ MyGui.Show</pre>
   <p id="label"><strong>Events</strong>: Event handlers (such as a function which is called automatically when the user clicks or changes a control) cannot be set within the control's <em>Options</em>. Instead, <a href="#OnEvent">OnEvent</a> can be used to register a callback function or method for each event of interest.</p>
   
   <p id="OtherOptions"><strong>Controls: Common Styles and Other Options</strong></p>
-  <p>Note: In the absence of a preceding sign, a plus sign is assumed; for example, <code>Wrap</code> is the same as <code>+Wrap</code>. By contrast, <code>-Wrap</code> would remove the word-wrapping property.</p>
+  <p>注：In the absence of a preceding sign, a plus sign is assumed; for example, <code>Wrap</code> is the same as <code>+Wrap</code>. By contrast, <code>-Wrap</code> would remove the word-wrapping property.</p>
   <p id="AltSubmit"><strong>AltSubmit</strong>: Uses alternate submit method. For DropDownList, ComboBox, ListBox and Tab, this causes <a href="#Submit">Gui.Submit</a> to store the position of the selected item rather than its text. If no item is selected, a ComboBox will still store the text of its edit field.</p>
   <p><strong>C</strong>: Color of text (has no effect on <a href="GuiControls.htm#Button">buttons</a>). Specify the letter C followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). Examples: <code>cRed</code>, <code>cFF2211</code>, <code>c0xFF2211</code>, <code>cDefault</code>.</p>
-  <p id="Disabled"><strong>Disabled</strong>: Makes an input-capable control appear in a disabled state, which prevents the user from focusing or modifying its contents. Use <a href="GuiControl.htm#Enabled">GuiCtrl.Enabled</a> to enable it later. Note: To make an Edit control read-only, specify the string <code>ReadOnly</code> instead. Also, the word Disabled may optionally be followed immediately by a 0 or 1 to indicate the starting state (0 for enabled and 1 for disabled). In other words, <code>Disabled</code> and <code>"Disabled" VarContainingOne</code> are the same.</p>
+  <p id="Disabled"><strong>Disabled</strong>:Makes an input-capable control appear in a disabled state, which prevents the user from focusing or modifying its contents. Use <a href="GuiControl.htm#Enabled">GuiCtrl.Enabled</a> to enable it later. 注：To make an Edit control read-only, specify the string <code>ReadOnly</code> instead. Also, the word Disabled may optionally be followed immediately by a 0 or 1 to indicate the starting state (0 for enabled and 1 for disabled). In other words, <code>Disabled</code> and <code>"Disabled" VarContainingOne</code> are the same.</p>
   <p><strong>Hidden</strong>: The control is initially invisible. Use <a href="GuiControl.htm#Visible">GuiCtrl.Visible</a> to show it later. The word Hidden may optionally be followed immediately by a 0 or 1 to indicate the starting state (0 for visible and 1 for hidden).  In other words, <code>Hidden</code> and <code>"Hidden" VarContainingOne</code> are the same.</p>
   <p><strong>Left</strong>: Left-justifies the control's text within its available width. This option affects the following controls: Text, Edit, Button, Checkbox, Radio, UpDown, Slider, Tab, Tab2, GroupBox, DateTime.</p>
   <p><strong>Right</strong>: Right-justifies the control's text within its available width. For checkboxes and radio buttons, this also puts the box itself on the right side of the control rather than the left. This option affects the following controls: Text, Edit, Button, Checkbox, Radio, UpDown, Slider, Tab, Tab2, GroupBox, DateTime, Link.</p>
@@ -171,7 +171,7 @@ MyGui.Show</pre>
   <p><strong>HScroll</strong>: Provides a horizontal scroll bar if appropriate for this type of control. The rest of this paragraph applies to <a href="GuiControls.htm#ListBox">ListBox</a> only. The horizontal scrolling width defaults to 3 times the width of the ListBox. To specify a different scrolling width, include a number immediately after the word HScroll. For example, <code>HScroll500</code> would allow 500 pixels of scrolling inside the ListBox. However, if the specified scrolling width is smaller than the width of the ListBox, no scroll bar will be shown (though the mere presence of <em>HScroll</em> makes it possible for the horizontal scroll bar to be added later via <code>MyScrollBar.<a href="GuiControl.htm#Opt">Opt</a>("+HScroll500")</code>, which is otherwise impossible).</p>
   
   <p><strong>Controls: Uncommon Styles and Options</strong></p>
-  <p id="BackgroundTrans"><strong>BackgroundTrans</strong>:Uses a transparent background, which allows any control that lies behind a Text, Picture, or GroupBox control to show through. For example, a transparent Text control displayed on top of a Picture control would make the text appear to be part of the picture. Use <code>GuiCtrl.<a href="GuiControl.htm#Opt">Opt</a>("+Background")</code> to remove this option later. See <a href="GuiControls.htm#PicAltSubmit">Picture control's AltSubmit section</a> for more information about transparent images. 既知の制限です。BackgroundTrans might not work properly for controls inside a <a href="GuiControls.htm#Tab">Tab control</a> that contains a <a href="ListView.htm">ListView</a>. If a control type does not support this option, an error is thrown.</p>
+  <p id="BackgroundTrans"><strong>BackgroundTrans</strong>:Uses a transparent background, which allows any control that lies behind a Text, Picture, or GroupBox control to show through. For example, a transparent Text control displayed on top of a Picture control would make the text appear to be part of the picture. Use <code>GuiCtrl.<a href="GuiControl.htm#Opt">Opt</a>("+Background")</code> to remove this option later. See <a href="GuiControls.htm#PicAltSubmit">Picture control's AltSubmit section</a> for more information about transparent images. 既知の制限：BackgroundTrans might not work properly for controls inside a <a href="GuiControls.htm#Tab">Tab control</a> that contains a <a href="ListView.htm">ListView</a>. If a control type does not support this option, an error is thrown.</p>
   <p id="Background"><strong>Background</strong><em>Color</em>: Changes the background color of the control. Replace <em>Color</em> with a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). Examples: <code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. If this option is not present, a <a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Picture">Picture</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Checkbox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#Slider">Slider</a>, <a href="GuiControls.htm#Tab">Tab</a> or <a href="GuiControls.htm#Link">Link</a> control initially defaults to the background color set by <a href="#BackColor">Gui.BackColor</a> (or if none or other control type, the system's default background color). Specifying <code>BackgroundDefault</code> or <code>-Background</code> applies the system's default background color. For example, a control can be restored to the default color via <code>LV.Opt("+BackgroundDefault")</code>. Using <code>+Background</code> without specifying a color reverts <code>-Background</code>. If a control type does not support this option, an error is thrown.</p>
   <p><strong>Border</strong>: Provides a thin-line border around the control. Most controls do not need this because they already have a type-specific border. When adding a border to an <em>existing</em> control, it might be necessary to increase the control's width and height by 1 pixel.</p>
   <p id="Redraw"><strong>Redraw</strong>: When used with <a href="GuiControl.htm#Opt">Opt</a>, this option enables or disables redraw (visual updates) for a control by sending it a <a href="https://learn.microsoft.com/windows/win32/gdi/wm-setredraw">WM_SETREDRAW message</a>. See <a href="GuiControl.htm#redraw-remarks">Redraw</a> for more details.</p>
@@ -195,7 +195,7 @@ MyGui.Show</pre>
 <pre class="Syntax">MyGui.<span class="func">Flash</span>(<span class="optional">Blink</span>)</pre>
 <dl>
   <dt>Blink</dt><dd>
-    <p>Type: <a href="../Concepts.htm#boolean">Boolean</a></p>
+    <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
     <p>If this parameter is omitted or 1 (true), the window's button in the taskbar will blink. This is done by inverting the color of the window's title bar and/or taskbar button (if it has one). Specify 0 (false) to restore the original colors of the title bar and taskbar button (but the actual behavior might vary depending on OS version).</p>
   </dd>
 </dl>
@@ -247,10 +247,10 @@ MyGui.Show</pre>
 <pre class="Syntax">MyGui.<span class="func">Move</span>(<span class="optional">X, Y, Width, Height</span>)</pre>
 <dl>
   <dt>X, Y</dt><dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>The new position, in screen coordinates.</p></dd>
   <dt>Width, Height</dt><dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>The new size.</p></dd>
 </dl>
 <p>Unlike <a href="WinMove.htm">WinMove</a>, this method applies <a href="Gui.htm#DPIScale">DPI scaling</a> to <em>Width</em> and <em>Height</em> (unless the <code>-DPIScale</code> option was used).</p>
@@ -276,7 +276,7 @@ MyGui.Move(x-10,, w+20)</pre>
 <pre class="Syntax">MyGui.<span class="func">Opt</span>(Options)</pre>
 <dl>
   <dt>オプション</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>For performance reasons, it is better to set all options in a single line, and to do so before creating the window (that is, before any use of other methods such as <a href="#Add">Gui.Add</a>).</p>
   <p>The effect of this parameter is cumulative; that is, it alters only those settings that are explicitly specified, leaving all the others unchanged.</p>
   <p>Specify a plus sign to add the option and a minus sign to remove it. 例えば、<code>MyGui.Opt("+Resize -MaximizeBox")</code>.</p>
@@ -299,7 +299,7 @@ MyGui.Show()</pre>
   <p id="MinimizeBox"><strong>MinimizeBox</strong> (present by default): Enables the minimize button in the title bar.</p>
   <p id="MinSize"><strong>MinSize</strong> and <strong>MaxSize</strong>: Determines the minimum and/or maximum size of the window, such as when the user drags its edges to resize it. Specify the word <em>MinSize</em> and/or <em>MaxSize</em> with no suffix to use the window's current size as the limit (if the window has no current size, it will use the size from the first use of <a href="#Show">Gui.Show</a>). Alternatively, append the width, followed by an X, followed by the height; for example: <code>MyGui.Opt("+Resize +MinSize640x480")</code>. The dimensions are in pixels, and they specify the size of the window's client area (which excludes borders, title bar, and <a href="#MenuBar">menu bar</a>). Specify each number as decimal, not hexadecimal.</p>
   <p>Either the width or the height may be omitted to leave it unchanged (e.g. <code>+MinSize640x</code> or <code>+MinSizex480</code>). Furthermore, Min/MaxSize can be specified more than once to use the window's current size for one dimension and an explicit size for the other. For example, <code>+MinSize +MinSize640x</code> would use the window's current size for the height and 640 for the width.</p>
-  <p>If <em>MinSize</em> and <em>MaxSize</em> are never used, the operating system's defaults are used (similarly, <code>MyGui.Opt("-MinSize -MaxSize")</code> can be used to return to the defaults). Note: the window must have <a href="#Resize">+Resize</a> to allow resizing by the user.</p>
+  <p>If <em>MinSize</em> and <em>MaxSize</em> are never used, the operating system's defaults are used (similarly, <code>MyGui.Opt("-MinSize -MaxSize")</code> can be used to return to the defaults). 注：the window must have <a href="#Resize">+Resize</a> to allow resizing by the user.</p>
   <p id="OwnDialogs"><strong>OwnDialogs</strong>: <code>MyGui.Opt("+OwnDialogs")</code> should be specified in each <a href="../misc/Threads.htm">thread</a> (such as a event handling function of a Button control) for which subsequently displayed <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="FileSelect.htm">FileSelect</a>, and <a href="DirSelect.htm">DirSelect</a> dialogs should be owned by the window. Such dialogs are modal, meaning that the user cannot interact with the GUI window until dismissing the dialog. By contrast, <a href="ToolTip.htm">ToolTip</a> do not become modal even though they become owned; they will merely stay always on top of their owner. In either case, any owned dialog or window is automatically destroyed when its GUI window is <a href="#Destroy">destroyed</a>.</p>
   <p>There is typically no need to turn this setting back off because it does not affect other <a href="../misc/Threads.htm">threads</a>. However, if a thread needs to display both owned and unowned dialogs, it may turn off this setting via <code>MyGui.Opt("-OwnDialogs")</code>.</p>
   <p id="Owner"><strong>Owner</strong>: Use <em>+Owner</em> to make the window owned by another. An owned window has no taskbar button by default, and when visible it is always on top of its owner. It is also automatically destroyed when its owner is destroyed. <em>+Owner</em> can be used before or after the owned window is created. There are two ways to use <em>+Owner</em>, as shown below:</p>
@@ -308,10 +308,10 @@ MyGui.Opt("+Owner")  <em>; Make the GUI owned by <a href="../Variables.htm#Scrip
   <p><code>+Owner</code> can be immediately followed by the <a href="#Hwnd">HWND</a> of any top-level window.</p>
   <p>To prevent the user from interacting with the owner while one of its owned window is visible, disable the owner via <code>MyGui.Opt("+Disabled")</code>. Later (when the time comes to cancel or destroy the owned window), re-enable the owner via <code>MyGui.Opt("-Disabled")</code>. Do this prior to cancel/destroy so that the owner will be reactivated automatically.</p>
   <p id="Parent"><strong>Parent</strong>: Use <code>+Parent</code> immediately followed by the <a href="#Hwnd">HWND</a> of any window or control to use it as the parent of this window. To convert the GUI back into a top-level window, use <code>-Parent</code>. This option works even after the window is created.</p>
-  <p>既知の制限です。<a href="../Program.htm#Installer_uiAccess">Running with UI access</a> prevents the <code>+Parent</code> option from working on an existing window if the new parent is always-on-top and the child window is not.</p>
+  <p>既知の制限：<a href="../Program.htm#Installer_uiAccess">Running with UI access</a> prevents the <code>+Parent</code> option from working on an existing window if the new parent is always-on-top and the child window is not.</p>
   <p id="Resize"><strong>Resize</strong>: Makes the window resizable and enables its maximize button in the title bar. To avoid enabling the maximize button, specify <code>+Resize -MaximizeBox</code>.</p>
   <p><strong>SysMenu</strong> (present by default): Specify <code>-SysMenu</code> (minus SysMenu) to omit the system menu and icon in the window's upper left corner. This will also omit the minimize, maximize, and close buttons in the title bar.</p>
-  <p id="Theme"><strong>Theme</strong>: By specifying <code>-Theme</code>, all subsequently created controls in the window will have the Classic Theme appearance. To later create additional controls that obey the current theme, turn it back on via <code>+Theme</code>. Note: This option has no effect if the Classic Theme is in effect. Finally, this setting may be changed for an individual control by specifying <code>+Theme</code> or <code>-Theme</code> in its options when it is created.</p>
+  <p id="Theme"><strong>Theme</strong>:By specifying <code>-Theme</code>, all subsequently created controls in the window will have the Classic Theme appearance. To later create additional controls that obey the current theme, turn it back on via <code>+Theme</code>. 注：This option has no effect if the Classic Theme is in effect. Finally, this setting may be changed for an individual control by specifying <code>+Theme</code> or <code>-Theme</code> in its options when it is created.</p>
   <p><strong>ToolWindow</strong>: Provides a narrower title bar but the window will have no taskbar button. This always hides the maximize and minimize buttons, regardless of whether the <a href="../misc/Styles.htm#WS_MAXIMIZEBOX">WS_MAXIMIZEBOX</a> and <a href="../misc/Styles.htm#WS_MINIMIZEBOX">WS_MINIMIZEBOX</a> styles are present.</p>
   <p><strong>(Unnamed Style)</strong>: Specify a plus or minus sign followed immediately by a decimal or hexadecimal <a href="../misc/Styles.htm">style number</a>.</p>
   <p><strong>(Unnamed ExStyle)</strong>: Specify a plus or minus sign followed immediately by the letter E and a decimal or hexadecimal extended style number. For example, <code>+E0x40000</code> would add the WS_EX_APPWINDOW style, which provides a taskbar button for a window that would otherwise lack one. For other extended styles not documented here (since they are rarely used), see <a href="https://learn.microsoft.com/windows/win32/winmsg/extended-window-styles">Extended Window Styles | Microsoft Docs</a> for a complete list.</p></dd>
@@ -327,14 +327,14 @@ MyGui.Opt("+Owner")  <em>; Make the GUI owned by <a href="../Variables.htm#Scrip
 <div class="methodShort" id="SetFont">
 <h3>SetFont</h3>
 <p>Sets the font typeface, size, style, and/or color for controls added to the window from this point onward.</p>
-<p>Note: Omit both parameters to restore the font to the system's default GUI typeface, size, and color. Otherwise, any font attributes which are not specified will be copied from the previous font.</p>
+<p>注：Omit both parameters to restore the font to the system's default GUI typeface, size, and color. Otherwise, any font attributes which are not specified will be copied from the previous font.</p>
 <pre class="Syntax">MyGui.<span class="func">SetFont</span>(<span class="optional">Options, FontName</span>)</pre>
 <dl>
   <dt>オプション</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>Zero or more options. Each option is either a single letter immediately followed by a value, or a single word. To specify more than one option, include a space between each. 例えば、<code>cBlue s12 bold</code>.</p>
   <p>The following words are supported: <strong>bold</strong>, <em>italic</em>, <s>strike</s>, <u>underline</u>, and norm. <em>Norm</em> returns the font to normal weight/boldness and  turns off italic, strike, and underline (but it retains the existing color and size). It is possible to use norm to turn off all attributes and then selectively turn on others. For example, specifying <code>norm italic</code> would set the font to normal then to italic.</p>
-  <p><strong>C</strong>:Color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value -- or specify the word Default to return to the system's default color (black on most systems). Example values:<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. Note:<a href="GuiControls.htm#Button">Buttons</a> do not obey custom colors. Also, an individual control can be created with a font color other than the current one by including the C option. 例えば、<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
+  <p><strong>C</strong>:Color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value -- or specify the word Default to return to the system's default color (black on most systems). Example values:<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. 注：<a href="GuiControls.htm#Button">Buttons</a> do not obey custom colors. Also, an individual control can be created with a font color other than the current one by including the C option. 例えば、<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
   <p><strong>S</strong>:Size (in points). 例えば、<code>s12</code> (specify decimal, not hexadecimal)</p>
   <p><strong>W</strong>:Weight (boldness), which is a number between 1 and 1000 (400 is normal and 700 is bold). 例えば、<code>w600</code> (specify decimal, not hexadecimal)</p>
   <p id="fontq"><strong>Q</strong>:Text rendering quality. 例えば、<code>q3</code>. Q should be followed by a number from the following table:</p>
@@ -378,7 +378,7 @@ MyGui.Opt("+Owner")  <em>; Make the GUI owned by <a href="../Variables.htm#Scrip
   <p>For more details of what these values mean, see <a href="https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfonta">Microsoft Docs: CreateFont</a>.</p>
   <p>Since the highest quality setting is usually the default, this feature is more typically used to disable anti-aliasing in specific cases where doing so makes the text clearer.</p></dd>
   <dt>FontName</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p><em>FontName</em> may be the name of any font, such as one from the <a href="../misc/FontsStandard.htm">font table</a>. If <em>FontName</em> is omitted or does not exist on the system, the previous font's typeface will be used (or if none, the system's default GUI typeface). This behavior is useful to make a GUI window have a similar font on multiple systems, even if some of those systems lack the preferred font. For example, by using the following methods in order, Verdana will be given preference over Arial, which in turn is given preference over MS sans serif:</p>
   <pre>MyGui.SetFont(, "MS sans serif")
 MyGui.SetFont(, "Arial")
@@ -393,7 +393,7 @@ MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
 <pre class="Syntax">MyGui.<span class="func">Show</span>(<span class="optional">Options</span>)</pre>
 <dl>
   <dt>オプション</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>Omit the X, Y, W, and H options below to have the window retain its previous size and position. If there is no previous position, the window will be auto-centered in one or both dimensions if the X and/or Y options mentioned below are absent. If there is no previous size, the window will be auto-sized according to the size and positions of the controls it contains.</p>
   <p>Zero or more of the following strings may be present in <em>Options</em> (specify each number as decimal, not hexadecimal):</p>
   <p><strong>Wn</strong>: Specify for <strong>n</strong> the width (in pixels) of the window's client area (the client area excludes the window's borders, title bar, and <a href="#MenuBar">menu bar</a>).</p>
@@ -420,7 +420,7 @@ MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
 <pre class="Syntax">NamedCtrlContents := MyGui.<span class="func">Submit</span>(<span class="optional">Hide</span>)</pre>
 <dl>
   <dt>Hide</dt><dd>
-    <p>Type: <a href="../Concepts.htm#boolean">Boolean</a></p>
+    <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
     <p>If omitted or 1 (true), the window will be hidden. If 0 (false), the window will not be hidden.</p>
   </dd>
 </dl>
@@ -440,12 +440,12 @@ For Hwnd, Ctrl in MyGui</pre>
 <dl>
   <dt>Hwnd</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>The control's HWND. This is present only in the two-parameter mode.</p>
   </dd>
   <dt>Ctrl</dt>
   <dd>
-    <p>Type: <a href="GuiControl.htm">GuiControl</a></p>
+    <p>型：<a href="GuiControl.htm">GuiControl</a></p>
     <p>The control's object.</p>
   </dd>
 </dl>
@@ -483,7 +483,7 @@ WinSetTransColor("EEAA99", MyGui)</pre>
 <h3>FocusedCtrl</h3>
 <p>Retrieves the <a href="GuiControl.htm">GuiControl object</a> of the GUI's focused control.</p>
 <pre class="Syntax">GuiCtrlObj := MyGui.FocusedCtrl</pre>
-<p>Note: To be effective, the window generally must not be minimized or hidden.</p>
+<p>注：To be effective, the window generally must not be minimized or hidden.</p>
 </div>
 
 <div class="methodShort" id="Hwnd">
@@ -535,7 +535,7 @@ MyGui.Show "w300 h200"</pre>
 </div>
 
 <div class="methodShort" id="Name">
-<h3>Name</h3>
+<h3>名称</h3>
 <p>Retrieves or sets a custom name for the GUI window.</p>
 <pre class="Syntax">RetrievedName := MyGui.Name</pre>
 <pre class="Syntax">MyGui.Name := NewName</pre>
@@ -579,7 +579,7 @@ MyGui.Show()</pre>
 <h2 id="Related">関連</h2>
 <p><a href="GuiControl.htm">GuiControl object</a>, <a href="GuiFromHwnd.htm">GuiFromHwnd</a>, <a href="GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a>, <a href="GuiControls.htm">Control Types</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="Menu.htm">Menu object</a>, <a href="Control.htm">Control functions</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="FileSelect.htm">FileSelect</a>, <a href="DirSelect.htm">DirSelect</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 
 <div class="ex" id="ExPopup">
 <p><a class="ex_number" href="#ExPopup"></a>  Creates a popup window.</p>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>DllCall - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The DllCall function calls a function inside a DLL, such as a standard Windows API function." />
@@ -20,7 +20,7 @@
 
   <dt>[DllFile\]Function</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
       <p>The DLL or EXE file name followed by a backslash and the name of the function. 例えば、<code>"MyDLL\MyFunction"</code> (the file extension ".dll" is the default when omitted). If an absolute path isn't specified, <em>DllFile</em> is assumed to be in the system's PATH or <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>. Note that DllCall expects a path with backslashes (\). Forward slashes (/) are not supported.</p>
       <p id="std"><em>DllFile</em> may be omitted when calling a function that resides in User32.dll, Kernel32.dll, ComCtl32.dll, or Gdi32.dll. For example, <code>"User32\IsWindowVisible"</code> produces the same result as <code>"IsWindowVisible"</code>.</p>
       <p>If no function can be found by the given name, a "W" (Unicode) suffix is automatically appended. For example, <code>"MessageBox"</code> is the same as <code>"MessageBoxW"</code>.</p>
@@ -31,13 +31,13 @@
 
   <dt>Type1, Arg1</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Each of these pairs represents a single parameter to be passed to the function. The number of pairs is unlimited. For <em>Type</em>, see the <a href="#types">types table</a> below. For <em>Arg</em>, specify the value to be passed to the function.</p>
   </dd>
 
   <dt>Cdecl ReturnType</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p id="cdecl">The word <em>Cdecl</em> is normally omitted because most functions use the standard calling convention rather than the "C" calling convention (functions such as wsprintf that accept a varying number of arguments are one exception to this). Note that most object-oriented C++ functions use the <i>thiscall</i> convention, which is not supported.</p>
       <p>If present, the word <em>Cdecl</em> should be listed before the return type (if any). Separate each word from the next with a space or tab. 例えば、<code>"Cdecl Str"</code>.</p>
       <p>Since a separate "C" calling convention does not exist in 64-bit code, <i>Cdecl</i> may be specified but has no effect on 64-bit builds of AutoHotkey.</p>
@@ -47,13 +47,13 @@
 </dl>
 
 <h2 id="Return_Value">Return Value</h2>
-<p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>DllCall returns the actual value returned by <em>Function</em>. If <em>Function</em> is of a type that does not return a value, the result is an undefined value of the specified return type (integer by default).</p>
 
 <h2 id="types">Types of Arguments and Return Values</h2>
 <table class="info">
 <tr>
-<th>Type</th>
+<th>型</th>
 <th abbr="Descr">Description</th>
 </tr>
 <tr id="str">
@@ -203,7 +203,7 @@ result := DllCall("CharLower", "<strong><u>Str</u></strong>", DllCall("CharUpper
 <h2 id="Related">関連</h2>
 <p><a href="../Compat.htm#DllCall">Binary Compatibility</a>, <a href="Buffer.htm">Buffer object</a>, <a href="ComCall.htm">ComCall</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="Run.htm">Run</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>, <a href="../Functions.htm">Functions</a>, <a href="SysGet.htm">SysGet</a>, <a href="_DllLoad.htm">#DllLoad</a>, <a href="https://learn.microsoft.com/windows/win32/apiindex/windows-api-list">Windows API Index</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExMessageBox">
 <p><a class="ex_number" href="#ExMessageBox"></a>  Calls the Windows API function "MessageBox" and reports which button the user presses.</p>
 <pre>WhichButton := DllCall("MessageBox", "Int", 0, "Str", "Press Yes or No", "Str", "Title of box", "Int", 4)

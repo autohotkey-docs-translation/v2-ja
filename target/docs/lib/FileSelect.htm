@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>FileSelect - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The FileSelect function displays a standard dialog that allows the user to open or save file(s)." />
@@ -21,7 +21,7 @@
 
   <dt>オプション</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
       <p>If omitted, it will default to zero, which is the same as having none of the options below.</p>
       <p>Otherwise, it can be a number or one of the letters listed below, optionally followed by a number. For example, <code>"M"</code>, <code>1</code> and <code>"M1"</code> are all valid (but not equivalent).</p>
       <p id="D"><strong>D</strong>: Select Folder (Directory). Specify the letter D to allow the user to select a folder rather than a file. The dialog has most of the same features as when selecting a file, but does not support filters (<em>Filter</em> must be omitted or blank).</p>
@@ -38,7 +38,7 @@
 
   <dt>RootDir\Filename</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>If present, this parameter contains one or both of the following:</p>
       <p><strong>RootDir</strong>: The root (starting) directory, which is assumed to be a subfolder in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path is not specified. If omitted or blank, the starting directory will be a default that might depend on the OS version (it will likely be the directory most recently selected by the user during a prior use of FileSelect).</p>
       <p><strong>Filename</strong>: The default filename to initially show in the dialog's edit field. Only the naked filename (with no path) will be shown. To ensure that the dialog is properly shown, ensure that no illegal characters are present (such as /&lt;|:").</p>
@@ -51,13 +51,13 @@
 
   <dt>Title</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>The title of the file-selection window. If omitted or blank, it will default to <code>"Select File - " <a href="../Variables.htm#ScriptName">A_ScriptName</a></code> (i.e. the name of the current script), unless the "D" option is present, in which case the word "File" is replaced with "Folder".</p>
   </dd>
 
   <dt>Filter</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Indicates which types of files are shown by the dialog.</p>
       <p>Example: Documents (*.txt)<br>
         
@@ -70,7 +70,7 @@
 </dl>
 
 <h2 id="Return_Value">Return Value</h2>
-<p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="Array.htm">Array</a> of <a href="../Concepts.htm#strings">Strings</a></p>
+<p>型：<a href="../Concepts.htm#strings">String</a> or <a href="Array.htm">Array</a> of <a href="../Concepts.htm#strings">Strings</a></p>
 <p>If multi-select is not in effect, this function returns the full path and name of the single file or folder chosen by the user, or an empty string if the user cancels the dialog.</p>
 <p>If the M option (multi-select) is in effect, this function returns an array of items, where each item is the full path and name of a single file. The example at the bottom of this page demonstrates how to extract the files one by one. If the user cancels the dialog, the array is empty (has zero items).</p>
 
@@ -78,7 +78,7 @@
 <p>A file-selection dialog usually looks like this:</p>
 <img src="../static/dlg_file.png" alt="FileSelect" />
 <p>A GUI window may display a modal file-selection dialog by means of the <a href="Gui.htm#OwnDialogs">+OwnDialogs</a> option. A modal dialog prevents the user from interacting with the GUI window until the dialog is dismissed.</p>
-<p>既知の制限です。A <a href="SetTimer.htm">timer</a> that launches during the display of a FileSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. To work around this, avoid using timers whose subroutines take a long time to finish, or disable all timers during the dialog:</p>
+<p>既知の制限：A <a href="SetTimer.htm">timer</a> that launches during the display of a FileSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. To work around this, avoid using timers whose subroutines take a long time to finish, or disable all timers during the dialog:</p>
 <pre><a href="Thread.htm">Thread</a> "NoTimers"
 SelectedFile := FileSelect()
 Thread "NoTimers", false</pre>
@@ -86,7 +86,7 @@ Thread "NoTimers", false</pre>
 <h2 id="Related">関連</h2>
 <p><a href="DirSelect.htm">DirSelect</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="ToolTip.htm">ToolTip</a>, <a href="Gui.htm">GUI</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="LoopParse.htm">parsing loop</a>, <a href="SplitPath.htm">SplitPath</a></p>
 <p>Also, the operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. These dialogs can be displayed via <a href="DllCall.htm">DllCall</a> as demonstrated at <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>.</p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a>  Allows the user to select an existing .txt or .doc file.</p>
 <pre>SelectedFile := FileSelect(3, , "Open a file", "Text Documents (*.txt; *.doc)")

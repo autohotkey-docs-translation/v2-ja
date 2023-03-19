@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>FileAppend - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The FileAppend function writes text or binary data to the end of a file (first creating the file, if necessary)." />
@@ -20,7 +20,7 @@
 
   <dt>Text</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
     <p>The text or raw binary data to append to the file. Text may include linefeed characters (`n) to start new lines. In addition, a single long line can be broken up into several shorter ones by means of a <a href="../Scripts.htm#continuation">continuation section</a>.</p>
     <p>A <a href="Buffer.htm">Buffer</a>-like object may be passed to append raw binary data. If a file is created, a byte order mark (BOM) is written only if "UTF-8" or "UTF-16" has been specified within <em>Options</em>. The <a href="../Variables.htm#FileEncoding">default encoding</a> is ignored and the data contained by the object is written as-is, regardless of <em>Options</em>. Any object which implements <a href="Buffer.htm#Ptr">Ptr</a> and <a href="Buffer.htm#Size">Size</a> properties may be used.</p>
     <p>If <em>Text</em> is blank, <em>Filename</em> will be created as an empty file (but if the file already exists, its modification time will be updated).</p>
@@ -28,7 +28,7 @@
 
   <dt>Filename</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The name of the file to be appended, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. The destination directory must already exist.</p>
     <p id="stdout"><strong>Standard Output (stdout)</strong>: Specifying an asterisk (*) for <em>Filename</em> causes <em>Text</em> to be sent to standard output (stdout). Such text can be redirected to a file, piped to another EXE, or captured by <a href="_ErrorStdOut.htm">fancy text editors</a>. For example, the following would be valid if typed at a command prompt:</p>
       <pre class="no-highlight">"%ProgramFiles%\AutoHotkey\AutoHotkey.exe" "My Script.ahk" &gt;"Error Log.txt"</pre>
@@ -40,7 +40,7 @@
 
   <dt>オプション</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>Zero or more of the following strings. Separate each option from the next with a single space or tab. 例えば、<code>"`n UTF-8"</code></p>
     <p><strong>Encoding</strong>: Specify any of the encoding names accepted by <a href="FileEncoding.htm">FileEncoding</a> (excluding the empty string) to use that encoding if the file lacks a UTF-8 or UTF-16 byte order mark. If omitted, it defaults to <a href="../Variables.htm#FileEncoding">A_FileEncoding</a> (unless <em>Text</em> is an object, in which case no byte order mark is written).</p>
     <p><strong>RAW</strong>: Specify the word RAW (case-insensitive) to write the exact bytes contained by <em>Text</em> to the file as-is, without any conversion. This option overrides any previously specified encoding and vice versa. If <em>Text</em> is not an object, the data size is always a multiple of 2 bytes due to the use of UTF-16 strings.</p>
@@ -59,7 +59,7 @@
 <p><a href="FileOpen.htm">FileOpen</a> in append mode provides more control than FileAppend and allows the file to be kept open rather than opening and closing it each time. Once a file is opened in append mode, use <code>file.<a href="File.htm#Write">Write</a>(string)</code> to append the string. File objects also support binary I/O via <a href="File.htm#RawWrite">RawWrite</a>/<a href="File.htm#RawRead">RawRead</a> or <a href="File.htm#WriteNum">Write<i>Num</i></a>/<a href="File.htm#ReadNum">Read<i>Num</i></a>.</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileOpen.htm">FileOpen</a>/<a href="File.htm">File Object</a>, <a href="FileRead.htm">FileRead</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="IniWrite.htm">IniWrite</a>, <a href="FileDelete.htm">FileDelete</a>, <a href="OutputDebug.htm">OutputDebug</a>, <a href="../Scripts.htm#continuation">continuation sections</a></p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a>  Creates a file, if necessary, and appends a line.</p>
 <pre>FileAppend "Another line.`n", "C:\My Documents\Test.txt"</pre>

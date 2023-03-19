@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>OnMessage - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The OnMessage function causes the specified function to be called automatically whenever the script receives the specified message." />
@@ -20,19 +20,19 @@
 
   <dt>MsgNumber</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>The number of the message to monitor or query, which should be between 0 and 4294967295 (0xFFFFFFFF). If you do not wish to monitor a <a href="../misc/SendMessageList.htm">system message</a> (that is, one below 0x0400), it is best to choose a number greater than 4096 (0x1000) to the extent you have a choice. This reduces the chance of interfering with messages used internally by current and future versions of AutoHotkey.</p>
   </dd>
 
   <dt>Function</dt>
   <dd>
-    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">Function Object</a></p>
     <p>The function object to call when the message is received. The function's parameters and return value are described <a href="#The_Functions_Parameters">below</a>.</p>
   </dd>
 
   <dt id="MaxThreads">MaxThreads</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>This integer is normally omitted, in which case the monitor function is limited to one <a href="../misc/Threads.htm">thread</a> at a time. This is usually best because otherwise, the script would process messages out of chronological order whenever the monitor function interrupts itself. Therefore, as an alternative to <em>MaxThreads</em>, consider using <em>Critical</em> as described <a href="#Critical">below</a>.</p>
     <p>If the monitor function directly or indirectly causes the message to be sent again while the function is still running, it is necessary to specify a <em>MaxThreads</em> value greater than 1 or less than -1 to allow the monitor function to be called for the new message (if desired). Messages sent (not posted) by the script's own process to itself cannot be delayed or buffered.</p>
     <p>Specify 0 to unregister the previously registered function identified by <em>Function</em>.</p>
@@ -97,7 +97,7 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p>Although an external program may post messages directly to a script's thread via PostThreadMessage() or other API call, this is not recommended because the messages would be lost if the script is displaying a system window such as a <a href="MsgBox.htm">message box</a>. Instead, it is usually best to post or send the messages to the script's main window or one of its GUI windows.</p>
 <h2 id="Related">関連</h2>
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExLButtonDown">
 <p><a class="ex_number" href="#ExLButtonDown"></a> Monitors mouse clicks in a GUI window. 関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
 <pre>MyGui := Gui(, "Example Window")

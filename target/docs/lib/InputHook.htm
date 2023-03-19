@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="jp">
 <head>
 <title>InputHook - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The InputHook function creates an object which can be used to collect or intercept keyboard input." />
@@ -20,7 +20,7 @@
 
   <dt>オプション</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p><u>A string of zero or more of the following letters (in any order, with optional spaces in between):</u></p>
     <p id="option-b"><strong>B</strong>: Sets <a href="#BackspaceIsUndo">BackspaceIsUndo</a> to false, which causes <kbd>Backspace</kbd> to be ignored.</p>
     <p id="option-c"><strong>C</strong>: Sets <a href="#CaseSensitive">CaseSensitive</a> to true, making <em>MatchList</em> case sensitive.</p>
@@ -43,7 +43,7 @@ if (ih.Input = CtrlC)
 
   <dt id="EndKeys">EndKeys</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>A list of zero or more keys, any one of which terminates the Input when pressed (the end key itself is not written to the Input buffer). When an Input is terminated this way, EndReason is set to the word EndKey and the <a href="#EndKey">EndKey</a> property is set to the name of the key.</p>
     <p>The <em>EndKeys</em> list uses a format similar to the <a href="Send.htm">Send</a> function. For example, specifying <code>{Enter}.{Esc}</code> would cause either <kbd>Enter</kbd>, <kbd>.</kbd>, or <kbd>Esc</kbd> to terminate the Input. To use the braces themselves as end keys, specify <code>{{}</code> and/or <code>{}}</code>.</p>
     <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end-keys, specify the left and/or right version of the key, not the neutral version. For example, specify <code>{LControl}{RControl}</code> rather than <code>{Control}</code>.</p>
@@ -53,7 +53,7 @@ if (ih.Input = CtrlC)
 
   <dt id="MatchList">MatchList</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>A comma-separated list of key phrases, any of which will cause the Input to be terminated (in which case EndReason will be set to the word Match). The entirety of what the user types must exactly match one of the phrases for a match to occur (unless the <a href="#asterisk">* option</a> is present). In addition, <strong>any spaces or tabs around the delimiting commas are significant</strong>, meaning that they are part of the match string. For example, if <em>MatchList</em> is <code>ABC , XYZ</code>, the user must type a space after ABC or before XYZ to cause a match.</p>
     <p>Two consecutive commas results in a single literal comma. For example, the following would produce a single literal comma at the end of string: <code>string1,,,string2</code>. Similarly, the following list contains only a single item with a literal comma inside it: <code>single,,item</code>.</p>
     <p>Because the items in <em>MatchList</em> are not treated as individual parameters, the list can be contained entirely within a variable. For example, <em>MatchList</em> might consist of <code>List1 "," List2 "," List3</code> -- where each of the variables  contains a large sub-list of match phrases.</p>
@@ -116,12 +116,12 @@ if (ih.Input = CtrlC)
 <dl>
   <dt>Keys</dt>
   <dd>
-  <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+  <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>A list of keys. Braces are used to enclose key names, virtual key codes or scan codes, similar to the <a href="Send.htm">Send</a> function. For example, <code>{Enter}.{{}</code> would apply to <kbd>Enter</kbd>, <kbd>.</kbd> and <kbd>{</kbd>. Specifying a key by name, by <code>{vkNN}</code> or by <code>{scNNN}</code> may produce three different results; see below for details.</p>
   <p id="all-keys">Specify the string <code>{All}</code> (case-insensitive) on its own to apply <em>KeyOptions</em> to all VK and all SC. KeyOpt may then be called a second time to remove options from specific keys.</p></dd>
   <dt>KeyOptions</dt>
   <dd>
-  <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+  <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>One or more of the following single-character options (spaces and tabs are ignored).</p>
   <p id="KeyOpt-minus"><strong>-</strong> (minus): Removes any of the options following the <code>-</code>, up to the next <code>+</code>.</p>
   <p id="KeyOpt-plus"><strong>+</strong> (plus): Cancels any previous <code>-</code>, otherwise has no effect.</p>
@@ -158,7 +158,7 @@ if (ih.Input = CtrlC)
 <dl>
   <dt>MaxTime</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Float</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">Float</a></p>
     <p>The maximum number of seconds to wait. If Input is still in progress after <em>MaxTime</em> seconds, the method returns and does not terminate Input.</p>
   </dd>
 </dl>
@@ -212,7 +212,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the <a href="../misc/Functor.htm">function object</a> which is called when Input is terminated.</p>
 <pre class="Syntax">MyFunc := InputHook.OnEnd</pre>
 <pre class="Syntax">InputHook.OnEnd := MyFunc</pre>
-<p>Type: <a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default: empty string.</p>
+<p>型：<a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default:empty string.</p>
 <p>The function is passed one parameter: a reference to the InputHook object.</p>
 <p>The function is called as a new <a href="../misc/Threads.htm">thread</a>, so starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>.</p>
 </div>
@@ -221,7 +221,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the <a href="../misc/Functor.htm">function object</a> which is called after a character is added to the input buffer.</p>
 <pre class="Syntax">MyFunc := InputHook.OnChar</pre>
 <pre class="Syntax">InputHook.OnChar := MyFunc</pre>
-<p>Type: <a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default: empty string.</p>
+<p>型：<a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default:empty string.</p>
 <p>The function is passed the following parameters: <code>InputHook, Char</code>. <em>Char</em> is a string containing the character or characters.</p>
 <p>The presence of multiple characters indicates that a dead key was used prior to the last keypress, but the two keys could not be transliterated to a single character. For example, on some keyboard layouts <kbd>`</kbd><kbd>e</kbd> produces <code>è</code> while <kbd>`</kbd><kbd>z</kbd> produces <code>`z</code>.</p>
 <p>The function is never called when an end key is pressed.</p>
@@ -231,7 +231,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the <a href="../misc/Functor.htm">function object</a> which is called when a notification-enabled key is pressed.</p>
 <pre class="Syntax">MyFunc := InputHook.OnKeyDown</pre>
 <pre class="Syntax">InputHook.OnKeyDown := MyFunc</pre>
-<p>Type: <a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default: empty string.</p>
+<p>型：<a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default:empty string.</p>
 <p>Key-down notifications must first be enabled by <a href="#KeyOpt">KeyOpt</a> or <a href="#NotifyNonText">NotifyNonText</a>.</p>
 <p>The function is passed the following parameters: <code>InputHook, VK, SC</code>. <em>VK</em> and <em>SC</em> are integers. To retrieve the key name (if any), use <code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>.</p>
 <p>The function is called as a new <a href="../misc/Threads.htm">thread</a>, so starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>.</p>
@@ -242,7 +242,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the <a href="../misc/Functor.htm">function object</a> which is called when a notification-enabled key is released.</p>
 <pre class="Syntax">MyFunc := InputHook.OnKeyUp</pre>
 <pre class="Syntax">InputHook.OnKeyUp := MyFunc</pre>
-<p>Type: <a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default: empty string.</p>
+<p>型：<a href="../misc/Functor.htm">function object</a> or <a href="../Concepts.htm#nothing">empty string</a>. Default:empty string.</p>
 <p>Key-up notifications must first be enabled by <a href="#KeyOpt">KeyOpt</a> or <a href="#NotifyNonText">NotifyNonText</a>. Whether a key is considered text or non-text is determined when the key is pressed. If an InputHook detects a key-up without having detected key-down, it is considered non-text.</p>
 <p>The function is passed the following parameters: <code>InputHook, VK, SC</code>. <em>VK</em> and <em>SC</em> are integers. To retrieve the key name (if any), use <code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>.</p>
 <p>The function is called as a new <a href="../misc/Threads.htm">thread</a>, so starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>.</p>
@@ -253,7 +253,7 @@ if (ih.Input = CtrlC)
 <p>Controls whether <kbd>Backspace</kbd> removes the most recently pressed character from the end of the Input buffer.</p>
 <pre class="Syntax">Boolean := InputHook.BackspaceIsUndo</pre>
 <pre class="Syntax">InputHook.BackspaceIsUndo := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: true. Option <strong>B</strong> sets the value to false.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:true. Option <strong>B</strong> sets the value to false.</p>
 <p>When <kbd>Backspace</kbd> acts as undo, it is treated as a text entry key. Specifically, whether the key is suppressed depends on <a href="#VisibleText">VisibleText</a> rather than <a href="#VisibleNonText">VisibleNonText</a>.</p>
 <p><kbd>Backspace</kbd> is always ignored if pressed in combination with a modifier key such as <kbd>Ctrl</kbd> (the logical modifier state is checked rather than the physical state).</p>
 <p class="warning"><strong>Note:</strong> If the input text is visible (such as in an editor) and the arrow keys or other means are used to navigate within it, <kbd>Backspace</kbd> will still remove the last character rather than the one behind the caret (insertion point).</p>
@@ -263,14 +263,14 @@ if (ih.Input = CtrlC)
 <p>Controls whether <em>MatchList</em> is case sensitive.</p>
 <pre class="Syntax">Boolean := InputHook.CaseSensitive</pre>
 <pre class="Syntax">InputHook.CaseSensitive := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: false. Option <strong>C</strong> sets the value to true.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:false. Option <strong>C</strong> sets the value to true.</p>
 </div>
 
 <div class="methodShort" id="FindAnywhere"><h3>FindAnywhere</h3>
 <p>Controls whether each match can be a substring of the input text.</p>
 <pre class="Syntax">Boolean := InputHook.FindAnywhere</pre>
 <pre class="Syntax">InputHook.FindAnywhere := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: false. Option <strong>*</strong> sets the value to true.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:false. Option <strong>*</strong> sets the value to true.</p>
 <p>If true, a match can be found anywhere within what the user types (the match can be a substring of the input text). If false, the entirety of what the user types must match one of the <em>MatchList</em> phrases. In both cases, one of the <em>MatchList</em> phrases must be typed in full.</p>
 </div>
 
@@ -278,7 +278,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the minimum <a href="SendLevel.htm">send level</a> of input to collect.</p>
 <pre class="Syntax">Level := InputHook.MinSendLevel</pre>
 <pre class="Syntax">InputHook.MinSendLevel := Level</pre>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a>. Default: 0. Option <strong>I</strong> sets the value to 1 (or a given value).</p>
+<p>型：<a href="../Concepts.htm#numbers">Integer</a>. Default:0. Option <strong>I</strong> sets the value to 1 (or a given value).</p>
 <p><em>Level</em> should be an integer between 0 and 101. Events which have a send level <em>lower</em> than this value are ignored. For example, a value of 101 causes all input generated by <a href="Send.htm">SendEvent</a> to be ignored, while a value of 1 only ignores input at the default send level (zero).</p>
 <p>The <a href="Send.htm#SendInput">SendInput</a> and <a href="Send.htm#SendPlay">SendPlay</a> methods are always ignored, regardless of this setting. Input generated by any source other than AutoHotkey is never ignored as a result of this setting.</p>
 </div>
@@ -287,7 +287,7 @@ if (ih.Input = CtrlC)
 <p>Controls whether the <a href="#OnKeyDown">OnKeyDown</a> and <a href="#OnKeyUp">OnKeyUp</a> callbacks are called whenever a non-text key is pressed.</p>
 <pre class="Syntax">Boolean := InputHook.NotifyNonText</pre>
 <pre class="Syntax">InputHook.NotifyNonText := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: false.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:false.</p>
 <p>Setting this to true enables notifications for all keypresses which do not produce text, such as when pressing <kbd>Left</kbd> or <kbd>Alt</kbd>+<kbd>F</kbd>. Setting this property does not affect a key's <a href="#KeyOpt">options</a>, since the production of text depends on the active window's keyboard layout at the time the key is pressed.  </p>
 <p>NotifyNonText is applied to key-up events by considering whether a previous key-down with a matching VK code was classified as text or non-text. For example, if NotifyNonText is true, pressing <kbd>Ctrl</kbd>+<kbd>A</kbd> will produce <a href="#OnKeyDown">OnKeyDown</a> and <a href="#OnKeyUp">OnKeyUp</a> calls for both <kbd>Ctrl</kbd> and <kbd>A</kbd>, while pressing <kbd>A</kbd> on its own will not call OnKeyDown or OnKeyUp unless <a href="#KeyOpt">KeyOpt</a> has been used to enable notifications for that key.</p>
 <p>See <a href="#VisibleText">VisibleText</a> for details about which keys are counted as producing text.</p>
@@ -297,7 +297,7 @@ if (ih.Input = CtrlC)
 <p>Retrieves or sets the timeout value in seconds.</p>
 <pre class="Syntax">Seconds := InputHook.Timeout</pre>
 <pre class="Syntax">InputHook.Timeout := Seconds</pre>
-<p>Type: <a href="../Concepts.htm#numbers">Float</a>. Default: 0.0 (none). Option <strong>T</strong> also sets the timeout value.</p>
+<p>型：<a href="../Concepts.htm#numbers">Float</a>. Default:0.0 (none). Option <strong>T</strong> also sets the timeout value.</p>
 <p>The timeout period ordinarily starts when <a href="#Start">Start</a> is called, but will restart if this property is assigned a value while Input is in progress. If Input is still in progress when the timeout period elapses, it is terminated and <a href="#EndReason">EndReason</a> is set to the word Timeout.</p>
 </div>
 
@@ -305,7 +305,7 @@ if (ih.Input = CtrlC)
 <p>Controls whether keys or key combinations which do not produce text are visible (not blocked).</p>
 <pre class="Syntax">Boolean := InputHook.VisibleNonText</pre>
 <pre class="Syntax">InputHook.VisibleNonText := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: true. Option <strong>V</strong> sets the value to true.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:true. Option <strong>V</strong> sets the value to true.</p>
 <p>If true, keys and key combinations which do not produce text may trigger hotkeys or be passed on to the active window. If false, they are blocked.</p>
 <p>See <a href="#VisibleText">VisibleText</a> for details about which keys are counted as producing text.</p>
 </div>
@@ -314,7 +314,7 @@ if (ih.Input = CtrlC)
 <p>Controls whether keys or key combinations which produce text are visible (not blocked).</p>
 <pre class="Syntax">Boolean := InputHook.VisibleText</pre>
 <pre class="Syntax">InputHook.VisibleText := Boolean</pre>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default: false. Option <strong>V</strong> sets the value to true.</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a>. Default:false. Option <strong>V</strong> sets the value to true.</p>
 <p>If true, keys and key combinations which produce text may trigger hotkeys or be passed on to the active window. If false, they are blocked.</p>
 <p>Any keystrokes which cause text to be appended to the Input buffer are counted as producing text, even if they do not normally do so in other applications. For instance, <kbd>Ctrl</kbd>+<kbd>A</kbd> produces text if the <a href="#option-m"><strong>M</strong> option</a> is used, and <kbd>Esc</kbd> produces the control character <code>Chr(27)</code>.</p>
 <p>Dead keys are counted as producing text, although they do not typically produce an immediate effect. Pressing a dead key might also cause the following key to produce text (if only the dead key's character).</p>
@@ -408,7 +408,7 @@ OutputVar := ih.Input
 <h2 id="Related">関連</h2>
 <p><a href="KeyWait.htm">KeyWait</a>, <a href="../Hotstrings.htm">Hotstrings</a>, <a href="InputBox.htm">InputBox</a>, <a href="InstallKeybdHook.htm">InstallKeybdHook</a>, <a href="../misc/Threads.htm">Threads</a></p>
 
-<h2 id="Examples">Examples</h2>
+<h2 id="Examples">例</h2>
 <div class="ex" id="ExKeyWaitAny">
 <p><a class="ex_number" href="#ExKeyWaitAny"></a>  Waits for the user to press any single key.</p>
 <pre>
