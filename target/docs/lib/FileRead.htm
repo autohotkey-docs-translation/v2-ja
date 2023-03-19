@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>FileRead - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The FileRead function retrieves the contents of a file." />
@@ -27,7 +27,7 @@
   <dt>オプション</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Zero or more of the following strings. Separate each option from the next with a single space or tab. 例えば、<code>"`n m5000 UTF-8"</code></p>
+    <p>Zero or more of the following strings. Separate each option from the next with a single space or tab. 事例：<code>"`n m5000 UTF-8"</code></p>
     <p><strong>Encoding</strong>: Specify any of the encoding names accepted by <a href="FileEncoding.htm">FileEncoding</a> (excluding the empty string) to use that encoding if the file lacks a UTF-8 or UTF-16 byte order mark. If omitted, it defaults to <a href="../Variables.htm#FileEncoding">A_FileEncoding</a>.</p>
     <p><strong>RAW</strong>: Specify the word RAW (case-insensitive) to read the file's content as <a href="#Binary">raw binary data</a> and return a <a href="Buffer.htm">Buffer</a> object instead of a string. This option overrides any previously specified encoding and vice versa.</p>
     <p><strong>m1024</strong>: If this option is omitted, the entire file is loaded unless there is insufficient memory, in which case an error message is shown and the thread exits (but <a href="Try.htm">Try</a> can be used to avoid this). Otherwise, replace 1024 with a decimal or hexadecimal number of bytes. If the file is larger than this, only its leading part is loaded.</p>
@@ -47,7 +47,7 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a> is set to the result of the operating system's GetLastError() function.</p>
 
 <h2 id="Binary">Reading Binary Data</h2>
-<p>When the <code>RAW</code> option is used, the return value is a <a href="Buffer.htm">Buffer</a> object containing the raw, unmodified contents of the file. The object's <a href="Buffer.htm#Size">Size</a> property returns the number of bytes read. <a href="NumGet.htm">NumGet</a> or <a href="StrGet.htm">StrGet</a> can be used to retrieve data from the buffer. 例えば、</p>
+<p>When the <code>RAW</code> option is used, the return value is a <a href="Buffer.htm">Buffer</a> object containing the raw, unmodified contents of the file. The object's <a href="Buffer.htm#Size">Size</a> property returns the number of bytes read. <a href="NumGet.htm">NumGet</a> or <a href="StrGet.htm">StrGet</a> can be used to retrieve data from the buffer. 事例：</p>
 <pre>buf := FileRead(A_AhkPath, "RAW")
 if StrGet(buf, 2, "cp0") == "MZ"<em>; Looks like an executable file...</em>
 {
@@ -72,12 +72,12 @@ buf := ""</pre>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Reads a text file into <em>MyText</em>.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Reads a text file into <em>MyText</em>.</p>
 <pre>MyText := FileRead("C:\My Documents\My File.txt")</pre>
 </div>
 
 <div class="ex" id="ExSort">
-<p><a class="ex_number" href="#ExSort"></a>  Quickly sorts the contents of a file.</p>
+<p><a class="ex_number" href="#ExSort"></a> Quickly sorts the contents of a file.</p>
 <pre>
 Contents := FileRead("C:\Address List.txt")
 Contents := Sort(Contents)

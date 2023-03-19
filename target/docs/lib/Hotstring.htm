@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>Hotstring - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Hotstring function creates, modifies, enables, or disables a hotstring while the script is running." />
@@ -55,7 +55,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
 
 <h2 id="Errors">Errors</h2>
 <p>This function throws an exception if the parameters are invalid or a memory allocation fails.</p>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if <em>Replacement</em> is omitted and <em>String</em> is valid but does not match an existing hotstring. This can be utilized to test for the existence of a hotstring. 例えば、</p>
+<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if <em>Replacement</em> is omitted and <em>String</em> is valid but does not match an existing hotstring. This can be utilized to test for the existence of a hotstring. 事例：</p>
 <pre>try
     Hotstring "::btw"
 catch TargetError
@@ -69,7 +69,7 @@ catch TargetError
 <p>Once a script has at least one hotstring, it becomes persistent, meaning that <a href="ExitApp.htm">ExitApp</a> rather than Exit should be used to terminate it. Hotstring scripts are also automatically <a href="_SingleInstance.htm">#SingleInstance</a> unless <code>#SingleInstance Off</code> has been specified.</p>
 
 <h2 id="variant">Variant (Duplicate) Hotstrings</h2>
-<p>A particular hotstring can be created more than once if each definition has different <a href="HotIf.htm">HotIf</a> criteria, <a href="../Hotstrings.htm#C">case-sensitivity</a> (<code>C</code> vs. <code>C0</code>/<code>C1</code>), or <a href="../Hotstrings.htm#Question">word-sensitivity</a> (<code>?</code>). These are known as <em>hotstring variants</em>. 例えば、</p>
+<p>A particular hotstring can be created more than once if each definition has different <a href="HotIf.htm">HotIf</a> criteria, <a href="../Hotstrings.htm#C">case-sensitivity</a> (<code>C</code> vs. <code>C0</code>/<code>C1</code>), or <a href="../Hotstrings.htm#Question">word-sensitivity</a> (<code>?</code>). These are known as <em>hotstring variants</em>. 事例：</p>
 <pre>HotIfWinActive "ahk_group CarForums"
 Hotstring "::btw", "behind the wheel"
 HotIfWinActive "Inter-Office Chat"
@@ -81,7 +81,7 @@ Hotstring "::btw", "by the way"</pre>
 
 <h2 id="EndChars">EndChars</h2>
 <pre class="Syntax">OldValue := <span class="func">Hotstring</span>("EndChars" <span class="optional">, NewValue</span>)</pre>
-<p>Retrieves or modifies the set of characters used as <a href="../Hotstrings.htm#EndChars">ending characters</a> by the hotstring recognizer. 例えば、</p>
+<p>Retrieves or modifies the set of characters used as <a href="../Hotstrings.htm#EndChars">ending characters</a> by the hotstring recognizer. 事例：</p>
 <pre>prev_chars := Hotstring("EndChars", "-()[]{}':;`"/\,.?!`n `t")
 MsgBox "The previous value was: " prev_chars</pre>
 <p><a href="Hotstring.htm#EndChars">#Hotstring EndChars</a> also affects this setting.</p>
@@ -99,7 +99,7 @@ MsgBox "The previous value was: " prev_chars</pre>
 
 <h2 id="NewOptions">Setting Default Options</h2>
 <pre class="Syntax"><span class="func">Hotstring</span> NewOptions</pre>
-<p>To set new default options for subsequently created hotstrings, pass the options to the Hotstring function without any leading or trailing colon. 例えば、<code>Hotstring "T"</code>.</p>
+<p>To set new default options for subsequently created hotstrings, pass the options to the Hotstring function without any leading or trailing colon. 事例：<code>Hotstring "T"</code>.</p>
 <p>Turning on <a href="../Hotstrings.htm#C">case-sensitivity (C)</a> or <a href="../Hotstrings.htm#Question">word-sensitivity (?)</a> also affects which existing hotstrings will be found by any subsequent calls to the Hotstring function. For example, <code>Hotstring ":T:btw"</code> will find <code>::BTW</code> by default, but not if <code>Hotstring "C"</code> or <code><a href="_Hotstring.htm">#Hotstring</a> C</code> is in effect. This can be undone or overridden by passing a mutually-exclusive option; for example, <code>C0</code> and <code>C1</code> override <code>C</code>.</p>
 
 <h2 id="Related">関連</h2>
@@ -108,7 +108,7 @@ MsgBox "The previous value was: " prev_chars</pre>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExHelper">
-<p><a class="ex_number" href="#ExHelper"></a>  Hotstring Helper. The following script might be useful if you are a heavy user of hotstrings. It's based on the v1 script created by Andreas Borutta. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>
+<p><a class="ex_number" href="#ExHelper"></a> Hotstring Helper. The following script might be useful if you are a heavy user of hotstrings. It's based on the v1 script created by Andreas Borutta. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>
 <pre>#h::<em>; Win+H hotkey</em>
 {
     <em>; Get the text currently selected. The clipboard is used instead of

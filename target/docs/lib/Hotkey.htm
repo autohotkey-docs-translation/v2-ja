@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>Hotkey - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Hotkey function creates, modifies, enables, or disables a hotkey while the script is running." />
@@ -50,14 +50,14 @@
   <dt id="Options">オプション</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>A string of zero or more of the following letters with optional spaces in between. 例えば、<code>On B0</code>.</p>
+      <p>A string of zero or more of the following letters with optional spaces in between. 事例：<code>On B0</code>.</p>
       <p><strong>On</strong>: Enables the hotkey if it is currently disabled.</p>
       <p><strong>Off</strong>: Disables the hotkey if it is currently enabled. This is typically used to create a hotkey in an initially-disabled state.</p>
       <p><strong>B</strong> or <strong>B0</strong>: Specify the letter B to buffer the hotkey as described in <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>. Specify B0 (B with the number 0) to disable this type of buffering.</p>
       <p><strong>Pn</strong>: Specify the letter P followed by the hotkey's <a href="../misc/Threads.htm">thread priority</a>. If the P option is omitted when creating a hotkey, 0 will be used.</p>
       <p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>: Specify the letter S to make the hotkey <a href="_SuspendExempt.htm">exempt</a> from <a href="Suspend.htm">Suspend</a>, which allows the hotkey to be used to turn Suspend off. Specify S0 (S with the number 0) to remove the exemption, allowing the hotkey to be suspended.</p>
-      <p><strong>Tn</strong>:Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. 例えば、<code>T5</code>.</p>
-      <p><strong>In</strong> (InputLevel):Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. 例えば、<code>I1</code>.</p>
+      <p><strong>Tn</strong>:Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. 事例：<code>T5</code>.</p>
+      <p><strong>In</strong> (InputLevel):Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. 事例：<code>I1</code>.</p>
       <p>If any of the option letters are omitted and the hotkey already exists, those options will not be changed. But if the hotkey does not yet exist -- that is, it is about to be created by this function -- the options will default to those most recently in effect. For example, the instance of <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> that occurs closest to the bottom of the script will be used. If <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> does not appear in the script, its default setting (OFF in this case) will be used.</p>
       </dd>
 
@@ -70,7 +70,7 @@
   <tr>
     <th abbr="Class">Error Class</th>
     <th>Message</th>
-    <th style="width: 50%;" abbr="Descr">Description</th>
+    <th style="width: 50%;" abbr="説明">説明</th>
   </tr>
   <tr>
     <td rowspan="4"><a href="Error.htm#ValueError">ValueError</a></td>
@@ -83,7 +83,7 @@
   </tr>
   <tr>
     <td>This AltTab hotkey must have exactly one modifier/prefix</td>
-    <td rowspan="2">The <em>KeyName</em> parameter is not suitable for use with the <a href="../Hotkeys.htm#alttab">AltTab or ShiftAltTab</a> actions. A combination of (at most) two keys is required. 例えば、<code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
+    <td rowspan="2">The <em>KeyName</em> parameter is not suitable for use with the <a href="../Hotkeys.htm#alttab">AltTab or ShiftAltTab</a> actions. A combination of (at most) two keys is required. 事例：<code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
   </tr>
   <tr>
     <td>This AltTab hotkey must specify which key (L or R).</td>
@@ -103,7 +103,7 @@
     <td>Creating this hotkey would exceed the limit of 32762 hotkeys per script (however, each hotkey can have an unlimited number of <a href="#variant">variants</a>, and there is no limit to the number of <a href="../Hotstrings.htm">hotstrings</a>).</td>
   </tr>
 </table>
-<p>Tip:<a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> can be used to test for the existence of a hotkey variant. 例えば、</p>
+<p>Tip:<a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> can be used to test for the existence of a hotkey variant. 事例：</p>
 <pre>
 try
     Hotkey "^!p"
@@ -121,7 +121,7 @@ catch TargetError
 <p>Once a script has at least one hotkey, it becomes <a href="../Scripts.htm#persistent">persistent</a>, meaning that <a href="ExitApp.htm">ExitApp</a> rather than Exit should be used to terminate it.</p>
 
 <h2 id="variant">バリアント（複製）ホットキー</h2>
-<p>A particular hotkey can be created more than once if each definition has different If criteria. These are known as <em>hotkey variants</em>. 例えば、</p>
+<p>A particular hotkey can be created more than once if each definition has different If criteria. These are known as <em>hotkey variants</em>. 事例：</p>
 <pre>HotIfWinActive "ahk_class Notepad"
 Hotkey "^!c", MyFuncForNotepad
 HotIfWinActive "ahk_class WordPadClass"
@@ -137,7 +137,7 @@ Hotkey "^!c", MyFuncForAllOtherWindows</pre>
 
 <h2 id="examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Creates a Ctrl-Alt-Z hotkey.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Creates a Ctrl-Alt-Z hotkey.</p>
 <pre>Hotkey "^!z", MyFunc
 
 MyFunc(ThisHotkey)
@@ -147,23 +147,23 @@ MyFunc(ThisHotkey)
 </div>
 
 <div class="ex" id="ExAltTab">
-<p><a class="ex_number" href="#ExAltTab"></a>  Makes RCtrl &amp; RShift operate like Alt-Tab.</p>
+<p><a class="ex_number" href="#ExAltTab"></a> Makes RCtrl &amp; RShift operate like Alt-Tab.</p>
 <pre>Hotkey "RCtrl &amp; RShift", "AltTab"</pre>
 </div>
 
 
 <div class="ex" id="ExOff">
-<p><a class="ex_number" href="#ExOff"></a>  Disables the Shift-Win-C hotkey.</p>
+<p><a class="ex_number" href="#ExOff"></a> Disables the Shift-Win-C hotkey.</p>
 <pre>Hotkey "$+#c", "Off"</pre>
 </div>
 
 <div class="ex" id="ExT">
-<p><a class="ex_number" href="#ExT"></a>  Changes a hotkey to allow 5 threads.</p>
+<p><a class="ex_number" href="#ExT"></a> Changes a hotkey to allow 5 threads.</p>
 <pre>Hotkey "^!a",, "T5"</pre>
 </div>
 
 <div class="ex" id="ExIfWin">
-<p><a class="ex_number" href="#ExIfWin"></a>  Creates <kbd>Alt</kbd>+<kbd>W</kbd> as a hotkey that works only in Notepad.</p>
+<p><a class="ex_number" href="#ExIfWin"></a> Creates <kbd>Alt</kbd>+<kbd>W</kbd> as a hotkey that works only in Notepad.</p>
 <pre>HotIfWinActive "ahk_class Notepad"
 Hotkey "!w", ToggleWordWrap<em>; !w = Alt+W</em>
 
@@ -175,7 +175,7 @@ ToggleWordWrap(ThisHotkey)
 </div>
 
 <div class="ex" id="ExampleIfFn">
-<p><a class="ex_number" href="#ExampleIfFn"></a>  Creates a GUI that allows to register primitive three-key combination hotkeys.</p>
+<p><a class="ex_number" href="#ExampleIfFn"></a> Creates a GUI that allows to register primitive three-key combination hotkeys.</p>
 <pre>
 HkGui := Gui()
 HkGui.Add("Text", "xm", "Prefix key:")

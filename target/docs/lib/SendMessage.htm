@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>SendMessage - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The SendMessage function sends a message to a window or control and waits for acknowledgement." />
@@ -88,7 +88,7 @@
 <h2 id="Remarks">備考</h2>
 <p>This function should be used with caution because sending a message to the wrong window (or sending an invalid message) might cause unexpected behavior or even crash the target application. This is because most applications are not designed to expect certain types of messages from external sources.</p>
 <p>SendMessage waits for the target window to process the message, up until the timeout period expires. By contrast, <a href="PostMessage.htm">PostMessage</a> places the message in the message queue associated with the target window without waiting for acknowledgement or reply.</p>
-<p>String parameters must be passed by <a href="StrPtr.htm">address</a>. 例えば、</p>
+<p>String parameters must be passed by <a href="StrPtr.htm">address</a>. 事例：</p>
 <pre>ListVars
 WinWaitActive "ahk_class AutoHotkey"
 SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre>
@@ -104,7 +104,7 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExMonitorPower">
-<p><a class="ex_number" href="#ExMonitorPower"></a>  Turns off the monitor via hotkey. In the SendMessage line, replace the number 2 with -1 to turn the monitor on or replace it with 1 to activate the monitor's low-power mode.</p>
+<p><a class="ex_number" href="#ExMonitorPower"></a> Turns off the monitor via hotkey. In the SendMessage line, replace the number 2 with -1 to turn the monitor on or replace it with 1 to activate the monitor's low-power mode.</p>
 <pre>#o::<em>; Win+O hotkey</em>
 {
     Sleep 1000<em>; Give user a chance to release keys (in case their release would wake up the monitor again).
@@ -114,22 +114,22 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 </div>
 
 <div class="ex" id="ExScreenSave">
-<p><a class="ex_number" href="#ExScreenSave"></a>  Starts the user's chosen screen saver.</p>
+<p><a class="ex_number" href="#ExScreenSave"></a> Starts the user's chosen screen saver.</p>
 <pre>SendMessage 0x0112, 0xF140, 0,, "Program Manager"  <em>; 0x0112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE.</em></pre>
 </div>
 
 <div class="ex" id="ExVScrollUp">
-<p><a class="ex_number" href="#ExVScrollUp"></a>  Scrolls up by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollUp"></a> Scrolls up by one line (for a control that has a vertical scroll bar).</p>
 <pre>SendMessage 0x0115, 0, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExVScrollDown">
-<p><a class="ex_number" href="#ExVScrollDown"></a>  Scrolls down by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollDown"></a> Scrolls down by one line (for a control that has a vertical scroll bar).</p>
 <pre>SendMessage 0x0115, 1, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExWinamp">
-<p><a class="ex_number" href="#ExWinamp"></a>  Asks Winamp which track number is currently active (see <a href="../misc/Winamp.htm">Automating Winamp</a> for more information).</p>
+<p><a class="ex_number" href="#ExWinamp"></a> Asks Winamp which track number is currently active (see <a href="../misc/Winamp.htm">Automating Winamp</a> for more information).</p>
 <pre>SetTitleMatchMode 2
 track := SendMessage(0x0400, 0, 120,, "- Winamp")
 track++  <em>; Winamp's count starts at 0, so adjust by 1.</em>
@@ -138,7 +138,7 @@ MsgBox "Track #" track " is active or playing."
 </div>
 
 <div class="ex" id="ExPID">
-<p><a class="ex_number" href="#ExPID"></a>  Finds the process ID of an AHK script (an alternative to <a href="WinGetPID.htm">WinGetPID</a>).</p>
+<p><a class="ex_number" href="#ExPID"></a> Finds the process ID of an AHK script (an alternative to <a href="WinGetPID.htm">WinGetPID</a>).</p>
 <pre>SetTitleMatchMode 2
 DetectHiddenWindows true
 pid := SendMessage(0x0044, 0x405, 0, , "SomeOtherScript.ahk - AutoHotkey v")

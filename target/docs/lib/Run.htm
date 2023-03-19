@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>Run / RunWait - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The Run and RunWait functions run an external program. RunWait will wait until the program finishes before continuing." />
@@ -62,7 +62,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 <p>Unlike Run, RunWait will wait until <em>Target</em> is closed or exits, at which time the return value will be the program's exit code (as a signed 32-bit integer). Some programs will appear to return immediately even though they are still running; these programs spawn another process.</p>
 
 <h2 id="Error_Handling">Error Handling</h2>
-<p>If <em>Target</em> cannot be launched, an exception is thrown (that is, an error window is displayed) and the current thread is exited, unless the error is caught by a <a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a> statement. 例えば、</p>
+<p>If <em>Target</em> cannot be launched, an exception is thrown (that is, an error window is displayed) and the current thread is exited, unless the error is caught by a <a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a> statement. 事例：</p>
 <pre>try
     Run "NonExistingFile"
 catch
@@ -73,45 +73,45 @@ catch
 <p>When running a program via <a href="../Variables.htm#ComSpec">ComSpec</a> (cmd.exe) -- perhaps because you need to redirect the program's input or output -- if the path or name of the executable contains spaces, the entire string should be enclosed in an outer pair of quotes. In the following example, the outer quotes are highlighted in yellow:</p>
 <pre>Run A_ComSpec ' /c <span class="style3">"</span>"C:\My Utility.exe" "param 1" "second param" &gt;"C:\My File.txt"<span class="style3">"</span>'</pre>
 <p>Performance may be slightly improved if <em>Target</em> is an exact path, e.g. <code>Run 'C:\Windows\Notepad.exe "C:\My Documents\Test.txt"'</code> rather than <code>Run "C:\My Documents\Test.txt"</code>.</p>
-<p>Special <a href="../misc/CLSID-List.htm">CLSID folders</a> may be opened via Run. 例えば、</p>
+<p>Special <a href="../misc/CLSID-List.htm">CLSID folders</a> may be opened via Run. 事例：</p>
 <pre>Run "::{20d04fe0-3aea-1069-a2d8-08002b30309d}"  <em>; Opens the "My Computer" folder.</em>
 Run "::{645ff040-5081-101b-9f08-00aa002f954e}"  <em>; Opens the Recycle Bin.</em></pre>
 <p id="verbs">System verbs correspond to actions available in a file's right-click menu in the Explorer. If a file is launched without a verb, the default verb (usually "open") for that particular file type will be used. If specified, the verb should be followed by the name of the target file. The following verbs are currently supported:</p>
 <table class="info">
   <tr>
     <th style="width:8%">Verb</th>
-    <th abbr="Descr">Description</th>
+    <th abbr="説明">説明</th>
   </tr>
   <tr>
     <td>*<i>verb</i></td>
-    <td>Any system-defined or custom verb. 例えば、<code>Run "*Compile " A_ScriptFullPath</code>. The <a href="#RunAs">*RunAs</a> verb may be used in place of the <i>Run as administrator</i> right-click menu item.</td>
+    <td>Any system-defined or custom verb. 事例：<code>Run "*Compile " A_ScriptFullPath</code>. The <a href="#RunAs">*RunAs</a> verb may be used in place of the <i>Run as administrator</i> right-click menu item.</td>
   </tr>
   <tr>
     <td>properties</td>
     <td>
-      <p>Displays the Explorer's properties window for the indicated file. 例えば、<code>Run 'properties "C:\My File.txt"'</code></p>
+      <p>Displays the Explorer's properties window for the indicated file. 事例：<code>Run 'properties "C:\My File.txt"'</code></p>
       <p class="note"><strong>注意</strong>:The properties window will automatically close when the script terminates. To prevent this, use <a href="WinWait.htm">WinWait</a> to wait for the window to appear, then use <a href="WinWaitClose.htm">WinWaitClose</a> to wait for the user to close it.</p>
     </td>
   </tr>
   <tr>
     <td>find</td>
-    <td>Opens an instance of the Explorer's Search Companion or Find File window at the indicated folder. 例えば、<code>Run "find D:\"</code></td>
+    <td>Opens an instance of the Explorer's Search Companion or Find File window at the indicated folder. 事例：<code>Run "find D:\"</code></td>
   </tr>
   <tr>
     <td>explore</td>
-    <td>Opens an instance of Explorer at the indicated folder. 例えば、<code>Run "explore " A_ProgramFiles</code>.</td>
+    <td>Opens an instance of Explorer at the indicated folder. 事例：<code>Run "explore " A_ProgramFiles</code>.</td>
   </tr>
   <tr>
     <td>edit</td>
-    <td>Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it. 例えば、<code>Run 'edit "C:\My File.txt"'</code></td>
+    <td>Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it. 事例：<code>Run 'edit "C:\My File.txt"'</code></td>
   </tr>
   <tr>
     <td>open</td>
-    <td>Opens the indicated file (normally not needed because it is the default action for most file types). 例えば、<code>Run 'open "My File.txt"'</code>.</td>
+    <td>Opens the indicated file (normally not needed because it is the default action for most file types). 事例：<code>Run 'open "My File.txt"'</code>.</td>
   </tr>
   <tr>
     <td>print</td>
-    <td>Prints the indicated file with the associated application, if any. 例えば、<code>Run 'print "My File.txt"'</code></td>
+    <td>Prints the indicated file with the associated application, if any. 事例：<code>Run 'print "My File.txt"'</code></td>
   </tr>
 </table>
 <p>While RunWait is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
@@ -149,12 +149,12 @@ MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Run is able to launch Windows system programs from any directory. Note that executable file extensions such as .exe can be omitted.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Run is able to launch Windows system programs from any directory. Note that executable file extensions such as .exe can be omitted.</p>
 <pre>Run "notepad"</pre>
 </div>
 
 <div class="ex" id="ExURL">
-<p><a class="ex_number" href="#ExURL"></a>  Run is able to launch URLs:</p>
+<p><a class="ex_number" href="#ExURL"></a> Run is able to launch URLs:</p>
 <p>The following opens an internet address in the user's default web browser.</p>
 <pre>Run "https://www.google.com"</pre>
 <p>The following opens the default e-mail application with the recipient filled in.</p>
@@ -164,14 +164,14 @@ MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
 </div>
 
 <div class="ex" id="ExErrorLevel">
-<p><a class="ex_number" href="#ExErrorLevel"></a>  Opens a document in a maximized application and displays a custom error message on failure.</p>
+<p><a class="ex_number" href="#ExErrorLevel"></a> Opens a document in a maximized application and displays a custom error message on failure.</p>
 <pre>try Run("ReadMe.doc", , "Max")
 if A_LastError
     MsgBox "The document could not be launched."</pre>
 </div>
 
 <div class="ex" id="ExVerb">
-<p><a class="ex_number" href="#ExVerb"></a>  Runs the dir command in minimized state and stores the output in a text file. After that, the text file and its properties dialog will be opened.</p>
+<p><a class="ex_number" href="#ExVerb"></a> Runs the dir command in minimized state and stores the output in a text file. After that, the text file and its properties dialog will be opened.</p>
 <pre>RunWait A_ComSpec " /c dir C:\ &gt;&gt;C:\DirTest.txt", , "Min"
 Run "C:\DirTest.txt"
 Run "properties C:\DirTest.txt"
@@ -179,7 +179,7 @@ Persistent  <em>; Keep the script from exiting, otherwise the properties dialog 
 </div>
 
 <div class="ex" id="ExCLSID">
-<p><a class="ex_number" href="#ExCLSID"></a>  Run is able to launch <a href="../misc/CLSID-List.htm">CLSIDs</a>:</p>
+<p><a class="ex_number" href="#ExCLSID"></a> Run is able to launch <a href="../misc/CLSID-List.htm">CLSIDs</a>:</p>
 <p>The following opens the recycle bin.</p>
 <pre>Run "::{645ff040-5081-101b-9f08-00aa002f954e}"</pre>
 <p>The following opens the "My Computer" directory.</p>
@@ -187,12 +187,12 @@ Persistent  <em>; Keep the script from exiting, otherwise the properties dialog 
 </div>
 
 <div class="ex" id="ExMultipleCmds">
-<p><a class="ex_number" href="#ExMultipleCmds"></a>  To run multiple commands consecutively, use "&amp;&amp;" between each.</p>
+<p><a class="ex_number" href="#ExMultipleCmds"></a> To run multiple commands consecutively, use "&amp;&amp;" between each.</p>
 <pre>Run A_ComSpec "/c dir /b &gt; C:\list.txt &amp;&amp; type C:\list.txt &amp;&amp; pause"</pre>
 </div>
 
 <div class="ex" id="ExStdOut">
-<p><a class="ex_number" href="#ExStdOut"></a>  The following custom functions can be used to run a command and retrieve its output or to run multiple commands in one go and retrieve their output. For the WshShell object, see <a href="https://learn.microsoft.com/previous-versions/aew9yb99(v=vs.85)">Microsoft Docs</a>.</p>
+<p><a class="ex_number" href="#ExStdOut"></a> The following custom functions can be used to run a command and retrieve its output or to run multiple commands in one go and retrieve their output. For the WshShell object, see <a href="https://learn.microsoft.com/previous-versions/aew9yb99(v=vs.85)">Microsoft Docs</a>.</p>
 <pre>MsgBox RunWaitOne("dir " A_ScriptDir)
 
 MsgBox RunWaitMany("
@@ -223,7 +223,7 @@ RunWaitMany(commands) {
 </div>
 
 <div class="ex" id="ExecScript">
-<p><a class="ex_number" href="#ExecScript"></a>  Executes the given code as a new AutoHotkey process.</p>
+<p><a class="ex_number" href="#ExecScript"></a> Executes the given code as a new AutoHotkey process.</p>
 <pre>ExecScript(Script, Wait:=true)
 {
     shell := ComObject("WScript.Shell")

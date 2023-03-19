@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>ListView (GUI) - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="In its most recognizable form, the ListView control displays a tabular view of rows and columns. This page contains the methods to modify it." />
@@ -81,7 +81,7 @@ LV_DoubleClick(LV, RowNumber)
 <p><strong>Tile</strong>: Shows a large-icon view but with ergonomic differences such as displaying each item's text to the right of the icon rather than underneath it. <a href="#Checked">Checkboxes</a> do not function in this view.</p>
 <p><strong>IconSmall:</strong> Shows a small-icon view.</p>
 <p><strong>List:</strong> Shows a small-icon view in list format, which displays the icons in columns. The number of columns depends on the width of the control and the width of the widest text item in it.</p>
-<p><strong>Report:</strong> Switches back to report view, which is the initial default. 例えば、<code>LV.Opt("+Report")</code>.</p>
+<p><strong>Report:</strong> Switches back to report view, which is the initial default. 事例：<code>LV.Opt("+Report")</code>.</p>
 <h2 id="BuiltIn">Built-in Methods for ListViews</h2>
 <p>In addition to the <a href="GuiControl.htm">default methods/properties of a GUI control</a>, ListView controls have the following methods (defined in the Gui.ListView class).</p>
 <p id="RowNumber">When the phrase "row number" is used on this page, it refers to a row's current position within the ListView. The top row is 1, the second row is 2, and so on. After a row is added, its row number tends to change due to sorting, deleting, and inserting of other rows. Therefore, to locate specific row(s) based on their contents, it is usually best to use the <a href="#GetText">GetText method</a> in a loop.</p>
@@ -285,7 +285,7 @@ LV_DoubleClick(LV, RowNumber)
         <p>When this parameter is omitted, it returns the total number of rows in the control. When this parameter is "S" or "Selected", the count includes only the selected/highlighted rows. When this parameter is "Col" or "Column", it returns the number of columns in the control. The return value will be retrieved instantly, because the control keeps track of these counts.</p>
       </dd>
     </dl>
-    <p>This method is often used in the top line of a Loop, in which case the method would get called only once (prior to the first iteration). 例えば、</p>
+    <p>This method is often used in the top line of a Loop, in which case the method would get called only once (prior to the first iteration). 事例：</p>
     <pre>Loop LV.GetCount
 {
     RetrievedText := LV.GetText(A_Index)
@@ -368,7 +368,6 @@ IsChecked := (ItemState &gt;&gt; 12) - 1  <em>; This sets IsChecked to true if <
     <p>A ListView may have up to two ImageLists: small-icon and/or large-icon. This is useful when the script allows the user to switch to and from the large-icon view. To add more than one ImageList to a ListView, call the SetImageList method a second time, specifying the ImageListID of the second list. A ListView with both a large-icon and small-icon ImageList should ensure that both lists contain the icons in the same order. This is because the same ID number is used to reference both the large and small versions of a particular icon.</p>
 <p>Although it is traditional for all <a href="#View">viewing modes</a> except Icon and Tile to show small icons, this can be overridden by passing a large-icon list to the SetImageList method and specifying 1 (small-icon) for the second parameter. This also increases the height of each row in the ListView to fit the large icon.</p>
     <p>
-      
       Any such detached ImageList should normally be destroyed via <a href="ListView.htm#IL_Destroy">IL_Destroy</a>.</p>
   </div>
 
@@ -462,7 +461,7 @@ MyGui.Show</pre>
 <h2 id="Remarks">備考</h2>
 <p><a href="Gui.htm#Submit">Gui.Submit</a> has no effect on a ListView control.</p>
 <p>After a column is sorted -- either by means of the user clicking its header or the script calling <code>LV.<a href="#ModifyCol">ModifyCol</a>(1, "Sort")</code> -- any subsequently added rows will appear at the bottom of the list rather than obeying the sort order. The exception to this is the <a href="#Sort">Sort</a> and <a href="#SortDesc">SortDesc</a> styles, which move newly added rows into the correct positions.</p>
-<p id="Enter">To detect when the user has pressed <kbd>Enter</kbd> while a ListView has focus, use a <a href="GuiControls.htm#DefaultButton">default button</a> (which can be hidden if desired). 例えば、</p>
+<p id="Enter">To detect when the user has pressed <kbd>Enter</kbd> while a ListView has focus, use a <a href="GuiControls.htm#DefaultButton">default button</a> (which can be hidden if desired). 事例：</p>
 <pre>MyGui.Add("Button", "Hidden Default", "OK").OnEvent("Click", LV_Enter)
 ...
 LV_Enter(*) {
@@ -484,7 +483,7 @@ LV_Enter(*) {
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExAllRows">
-<p><a class="ex_number" href="#ExAllRows"></a>  Selects or de-selects all rows by specifying 0 as the row number.</p>
+<p><a class="ex_number" href="#ExAllRows"></a> Selects or de-selects all rows by specifying 0 as the row number.</p>
 <pre><em>; Select or de-select all rows by specifying 0 as the row number:</em>
 LV.<a href="#Modify">Modify</a>(0, "Select")   <em>; Select all.</em>
 LV.Modify(0, "-Select")  <em>; De-select all.</em>
@@ -492,12 +491,12 @@ LV.Modify(0, "-Check")  <em>; Uncheck all the <a href="#Checked">checkboxes</a>.
 </div>
 
 <div class="ex" id="ExAutoSize">
-<p><a class="ex_number" href="#ExAutoSize"></a>  Auto-sizes all columns to fit their contents.</p>
+<p><a class="ex_number" href="#ExAutoSize"></a> Auto-sizes all columns to fit their contents.</p>
 <pre>LV.<a href="#ModifyCol">ModifyCol</a>  <em>; There are no parameters in this mode.</em></pre>
 </div>
 
 <div class="ex" id="ExAdvanced">
-<p><a class="ex_number" href="#ExAdvanced"></a>  The following is a working script that is more elaborate than the one near the top of this page. It displays the files in a folder chosen by the user, with each file assigned the icon associated with its type. The user can double-click a file, or right-click one or more files to display a context menu.</p>
+<p><a class="ex_number" href="#ExAdvanced"></a> The following is a working script that is more elaborate than the one near the top of this page. It displays the files in a folder chosen by the user, with each file assigned the icon associated with its type. The user can double-click a file, or right-click one or more files to display a context menu.</p>
 <pre><em>; Create a GUI window:</em>
 MyGui := Gui("+Resize")<em>; Allow the user to maximize or drag-resize the window.</em>
 

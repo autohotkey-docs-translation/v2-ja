@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>CallbackCreate - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The CallbackCreate function creates a machine-code address that when called, redirects the call to a function in the script." />
@@ -83,7 +83,7 @@ wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 <pre>MyString := StrGet(MyParameter)</pre>
 <p>If an incoming parameter is the address of a structure, the individual members may be extracted by following the steps at <a href="DllCall.htm#struct">DllCall structures</a>.</p>
 
-<p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code>&amp;</code> option is used, the function receives the <i>address</i> of the first callback parameter. 例えば、</p>
+<p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code>&amp;</code> option is used, the function receives the <i>address</i> of the first callback parameter. 事例：</p>
 <pre>
 callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; Parameter list size must be specified for 32-bit.</em>
 DllCall(callback, "float", 10.5, "int64", 42)
@@ -111,7 +111,7 @@ TheFunc(params) {
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExWinList">
-<p><a class="ex_number" href="#ExWinList"></a>  Displays a summary of all top-level windows.</p>
+<p><a class="ex_number" href="#ExWinList"></a> Displays a summary of all top-level windows.</p>
 <pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")<em>; Fast-mode is okay because it will be called only from this thread.</em>
 
 DetectHiddenWindows True<em>; Due to fast-mode, this setting will go into effect for the callback too.</em>
@@ -132,7 +132,7 @@ EnumWindowsProc(hwnd, lParam)
 </div>
 
 <div class="ex" id="ExSubclassGUI">
-<p><a class="ex_number" href="#ExSubclassGUI"></a>  Demonstrates how to subclass a GUI window by redirecting its WindowProc to a new WindowProc in the script. In this case, the background color of a text control is changed to a custom color.</p>
+<p><a class="ex_number" href="#ExSubclassGUI"></a> Demonstrates how to subclass a GUI window by redirecting its WindowProc to a new WindowProc in the script. In this case, the background color of a text control is changed to a custom color.</p>
 <pre>TextBackgroundColor := 0xFFBBBB<em>; A custom color in BGR format.</em>
 TextBackgroundBrush := DllCall("CreateSolidBrush", "UInt", TextBackgroundColor)
 

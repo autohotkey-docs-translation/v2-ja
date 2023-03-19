@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>Remapping Keys (Keyboard, Mouse and Joystick) | AutoHotkey v2</title>
 <meta name="description" content="Free keyboard remapper that can also remap mouse and joystick buttons. It can also automate repetitive tasks by sending keystrokes &amp; mouse clicks.">
@@ -38,11 +38,11 @@ b::a</pre>
 ^a::b</pre>
 
 <h3 id="RemapMouse">Mouse Remapping</h3>
-<p>To remap the mouse instead of the keyboard, use the same approach. 例えば、</p>
+<p>To remap the mouse instead of the keyboard, use the same approach. 事例：</p>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">Example</th>
-    <th abbr="Descr">Description</th>
+    <th abbr="説明">説明</th>
   </tr>
   <tr>
     <td><code>MButton::Shift</code></td>
@@ -62,7 +62,7 @@ b::a</pre>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">Example</th>
-    <th abbr="Descr">Description</th>
+    <th abbr="説明">説明</th>
   </tr>
   <tr>
     <td><code>CapsLock::Ctrl</code></td>
@@ -96,7 +96,7 @@ b::a</pre>
 <p>You can try out any of these examples by copying them into a new text file such as "Remap.ahk", then launching the file.</p>
 <p>See the <a href="../KeyList.htm">Key List</a> for a complete list of key and mouse button names.</p>
 <h2 id="remarks">備考</h2>
-<p>The <a href="../lib/_HotIf.htm">#HotIf</a> directive can be used to make selected remappings active only in the windows you specify (or while any given condition is met). 例えば、</p>
+<p>The <a href="../lib/_HotIf.htm">#HotIf</a> directive can be used to make selected remappings active only in the windows you specify (or while any given condition is met). 事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
 #HotIf  <em>; This puts subsequent remappings and hotkeys in effect for all windows.</em></pre>
@@ -107,12 +107,12 @@ a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
   <li>The destination key or button is held down for as long as you continue to hold down the origin key. However, some games do not support remapping; in such cases, the keyboard and mouse will behave as though not remapped.</li>
   <li>Remapped keys will auto-repeat while being held down (except keys remapped to become mouse buttons).</li>
 </ul>
-<p id="HookHotkeys">Although a remapped key can trigger normal hotkeys, by default it cannot trigger mouse hotkeys or <a href="../lib/_UseHook.htm">hook hotkeys</a> (use <a href="../lib/ListHotkeys.htm">ListHotkeys</a> to discover which hotkeys are "hook"). For example, if the remapping <code>a::b</code> is in effect, pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> would trigger the <code>^!b</code> hotkey only if <code>^!b</code> is not a hook hotkey. If <code>^!b</code> is a hook hotkey, you can define <code>^!a</code> as a hotkey if you want <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> to perform the same action as <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>. 例えば、</p>
+<p id="HookHotkeys">Although a remapped key can trigger normal hotkeys, by default it cannot trigger mouse hotkeys or <a href="../lib/_UseHook.htm">hook hotkeys</a> (use <a href="../lib/ListHotkeys.htm">ListHotkeys</a> to discover which hotkeys are "hook"). For example, if the remapping <code>a::b</code> is in effect, pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> would trigger the <code>^!b</code> hotkey only if <code>^!b</code> is not a hook hotkey. If <code>^!b</code> is a hook hotkey, you can define <code>^!a</code> as a hotkey if you want <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> to perform the same action as <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>. 事例：</p>
 <pre>a::b
 ^!a::
 ^!b::ToolTip "You pressed " ThisHotkey
 </pre>
-<p>Alternatively, <a href="../lib/_InputLevel.htm">#InputLevel</a> can be used to override the default behaviour. 例えば、</p>
+<p>Alternatively, <a href="../lib/_InputLevel.htm">#InputLevel</a> can be used to override the default behaviour. 事例：</p>
 <pre>#InputLevel 1
 a::b
 
@@ -137,7 +137,6 @@ a::b
 <ol>
   <li>When the source key is the left <kbd>Ctrl</kbd> and the destination key is <kbd>Alt</kbd>, the line <code>Send "{Blind}{LAlt DownR}"</code> is replaced by <code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>. The same is true if the source is the right <kbd>Ctrl</kbd>, except that <code>{RCtrl up}</code> is used.</li>
   <li>When a keyboard key is being remapped to become a mouse button (e.g. <code>RCtrl::RButton</code>), the hotkeys above use SetMouseDelay in place of SetKeyDelay. In addition, the first hotkey above is replaced by the following, which prevents the keyboard's auto-repeat feature from generating repeated mouse clicks:
-    
     <pre>*RCtrl::
 {
     SetMouseDelay -1

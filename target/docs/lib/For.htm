@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>For Loop - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The For loop statement repeats a series of code lines once for each key-value pair in an object." />
@@ -38,7 +38,7 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>The parameter list can optionally be enclosed in parentheses. 例えば、<code>for (val in myarray)</code></p>
+<p>The parameter list can optionally be enclosed in parentheses. 事例：<code>for (val in myarray)</code></p>
 <p>The process of enumeration is as follows:</p>
 <ul>
   <li>Before the loop begins, <i>Expression</i> is evaluated to determine the target object.</li>
@@ -55,7 +55,7 @@ while _enum(&amp;Value1, &amp;Value2)
 </pre>
 <p>As in the code above, an exception is thrown if <em>Expression</em> or __Enum yields a value which cannot be called.</p>
 <p>While enumerating properties, methods or array elements, it is generally unsafe to insert or remove items of that type. Doing so may cause some items to be skipped or enumerated multiple times. One workaround is to build a list of items to remove, then use a second loop to remove the items after the first loop completes.</p>
-<p>A for-loop is usually followed by a <a href="Block.htm">block</a>, which is a collection of statements that form the <em>body</em> of the loop. However, a loop with only a single statement does not require a block (an "if" and its "else" count as a single statement for this purpose). The One True Brace (OTB) style may optionally be used, which allows the open-brace to appear on the same line rather than underneath. 例えば、<code>for x, y in z {</code>.</p>
+<p>A for-loop is usually followed by a <a href="Block.htm">block</a>, which is a collection of statements that form the <em>body</em> of the loop. However, a loop with only a single statement does not require a block (an "if" and its "else" count as a single statement for this purpose). The One True Brace (OTB) style may optionally be used, which allows the open-brace to appear on the same line rather than underneath. 事例：<code>for x, y in z {</code>.</p>
 <p>As with all loops, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a> and <a href="../Variables.htm#Index">A_Index</a> may be used.</p>
 <p>The loop may optionally be followed by an <a href="Else.htm">Else</a> statement, which is executed if the loop had zero iterations.</p>
 
@@ -68,7 +68,7 @@ while _enum(&amp;Value1, &amp;Value2)
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Lists the properties owned by an object.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Lists the properties owned by an object.</p>
 <pre>colours := {red: 0xFF0000, blue: 0x0000FF, green: 0x00FF00}
 <em>; The above expression could be used directly in place of "colours" below:</em>
 s := ""
@@ -79,7 +79,7 @@ MsgBox s
 </div>
 
 <div class="ex" id="ExCOM">
-<p><a class="ex_number" href="#ExCOM"></a>  Lists all open Explorer and Internet Explorer windows, using the <a href="https://learn.microsoft.com/windows/win32/shell/shell">Shell</a> object.</p>
+<p><a class="ex_number" href="#ExCOM"></a> Lists all open Explorer and Internet Explorer windows, using the <a href="https://learn.microsoft.com/windows/win32/shell/shell">Shell</a> object.</p>
 <pre>windows := ""
 for window in ComObject("Shell.Application").Windows
     windows .= window.LocationName " :: " window.LocationURL "`n"
@@ -87,7 +87,7 @@ MsgBox windows</pre>
 </div>
 
 <div class="ex" id="ExFibF">
-<p><a class="ex_number" href="#ExFibF"></a>  Define an enumerator as a <a href="../Variables.htm#fat-arrow">fat arrow function</a>. Returns numbers from the Fibonacci sequence, indefinitely or until stopped.</p>
+<p><a class="ex_number" href="#ExFibF"></a> Define an enumerator as a <a href="../Variables.htm#fat-arrow">fat arrow function</a>. Returns numbers from the Fibonacci sequence, indefinitely or until stopped.</p>
 <pre>for n in FibF()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break
@@ -102,7 +102,7 @@ FibF() {
 </div>
 
 <div class="ex" id="ExFibC">
-<p><a class="ex_number" href="#ExFibC"></a>  Define an enumerator as a <a href="../Objects.htm#Custom_Classes">class</a>. Equivalent to the <a href="#ExFibF">previous example</a>.</p>
+<p><a class="ex_number" href="#ExFibC"></a> Define an enumerator as a <a href="../Objects.htm#Custom_Classes">class</a>. Equivalent to the <a href="#ExFibF">previous example</a>.</p>
 <pre>for n in FibC()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break

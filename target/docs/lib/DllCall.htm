@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jp">
+<html lang="ja">
 <head>
 <title>DllCall - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The DllCall function calls a function inside a DLL, such as a standard Windows API function." />
@@ -21,7 +21,7 @@
   <dt>[DllFile\]Function</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
-      <p>The DLL or EXE file name followed by a backslash and the name of the function. 例えば、<code>"MyDLL\MyFunction"</code> (the file extension ".dll" is the default when omitted). If an absolute path isn't specified, <em>DllFile</em> is assumed to be in the system's PATH or <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>. Note that DllCall expects a path with backslashes (\). Forward slashes (/) are not supported.</p>
+      <p>The DLL or EXE file name followed by a backslash and the name of the function. 事例：<code>"MyDLL\MyFunction"</code> (the file extension ".dll" is the default when omitted). If an absolute path isn't specified, <em>DllFile</em> is assumed to be in the system's PATH or <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>. Note that DllCall expects a path with backslashes (\). Forward slashes (/) are not supported.</p>
       <p id="std"><em>DllFile</em> may be omitted when calling a function that resides in User32.dll, Kernel32.dll, ComCtl32.dll, or Gdi32.dll. For example, <code>"User32\IsWindowVisible"</code> produces the same result as <code>"IsWindowVisible"</code>.</p>
       <p>If no function can be found by the given name, a "W" (Unicode) suffix is automatically appended. For example, <code>"MessageBox"</code> is the same as <code>"MessageBoxW"</code>.</p>
       <p>Performance can be dramatically improved when making <em>repeated</em> calls to a DLL by <a href="#load">loading it beforehand</a>.</p>
@@ -39,7 +39,7 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p id="cdecl">The word <em>Cdecl</em> is normally omitted because most functions use the standard calling convention rather than the "C" calling convention (functions such as wsprintf that accept a varying number of arguments are one exception to this). Note that most object-oriented C++ functions use the <i>thiscall</i> convention, which is not supported.</p>
-      <p>If present, the word <em>Cdecl</em> should be listed before the return type (if any). Separate each word from the next with a space or tab. 例えば、<code>"Cdecl Str"</code>.</p>
+      <p>If present, the word <em>Cdecl</em> should be listed before the return type (if any). Separate each word from the next with a space or tab. 事例：<code>"Cdecl Str"</code>.</p>
       <p>Since a separate "C" calling convention does not exist in 64-bit code, <i>Cdecl</i> may be specified but has no effect on 64-bit builds of AutoHotkey.</p>
       <p><em>ReturnType</em>: If the function returns a 32-bit signed integer (Int), BOOL, or nothing at all, <em>ReturnType</em> may be omitted. Otherwise, specify one of the argument types from the <a href="#types">types table</a> below. The <a href="#asterisk">asterisk suffix</a> is also supported.</p>
   </dd>
@@ -54,7 +54,7 @@
 <table class="info">
 <tr>
 <th>型</th>
-<th abbr="Descr">Description</th>
+<th abbr="説明">説明</th>
 </tr>
 <tr id="str">
 <td>Str</td>
@@ -119,7 +119,6 @@ str := StrGet(buf, "cp0")  <em>; Retrieve ANSI string from buffer.</em>
 </tr>
 <tr id="asterisk">
   <td>* or P<br>
-    
     (suffix)</td>
   <td><p>Append an asterisk (with optional preceding space) to any of the above types to cause the address of the argument to be passed rather than the value itself (the called function must be designed to accept it). Since the value of such an argument might be modified by the function, whenever a <a href="../Concepts.htm#variable-references">VarRef</a> is passed as the argument, the variable's contents will be updated after the function returns. For example, the following call would pass the contents of MyVar to MyFunction by address, but would also update MyVar to reflect any changes made to it by MyFunction: <code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
     <p>In general, an asterisk is used whenever a function has an argument type or return type that starts with "LP". The most common example is LPDWORD, which is a pointer to a DWORD. Since a DWORD is an unsigned 32-bit integer, use "UInt*" or "UIntP" to represent LPDWORD. An asterisk should not be used for string types such as LPTSTR, pointers to structures such as LPRECT, or arrays; for these, <a href="#str">"Str"</a> or <a href="#ptr">"Ptr"</a> should be used, depending on whether you pass a string, address or <a href="Buffer.htm">Buffer</a>.</p>
@@ -161,12 +160,12 @@ str := StrGet(buf, "cp0")  <em>; Retrieve ANSI string from buffer.</em>
 <p>The built-in variable <a href="../Variables.htm#LastError">A_LastError</a> contains the result of the operating system's GetLastError() function.</p>
 
 <h2 id="load">Performance</h2>
-<p>When making repeated calls to a DLL, performance can be dramatically improved by loading it explicitly (<em>this is not necessary for a <a href="#std">standard DLL</a> such as User32 because it is always resident</em>). This practice avoids the need for DllCall to internally call LoadLibrary and FreeLibrary each time. 例えば、</p>
+<p>When making repeated calls to a DLL, performance can be dramatically improved by loading it explicitly (<em>this is not necessary for a <a href="#std">standard DLL</a> such as User32 because it is always resident</em>). This practice avoids the need for DllCall to internally call LoadLibrary and FreeLibrary each time. 事例：</p>
 <pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; Avoids the need for DllCall in the loop to load the library.</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
 DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; To conserve memory, the DLL may be unloaded after using it.</em></pre>
-<p>Even faster performance can be achieved by looking up the function's address beforehand. 例えば、</p>
+<p>Even faster performance can be achieved by looking up the function's address beforehand. 事例：</p>
 <pre><em>; In the following example, if the DLL isn't yet loaded, use LoadLibrary in place of GetModuleHandle.</em>
 <strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
 Loop 500
@@ -205,25 +204,25 @@ result := DllCall("CharLower", "<strong><u>Str</u></strong>", DllCall("CharUpper
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExMessageBox">
-<p><a class="ex_number" href="#ExMessageBox"></a>  Calls the Windows API function "MessageBox" and reports which button the user presses.</p>
+<p><a class="ex_number" href="#ExMessageBox"></a> Calls the Windows API function "MessageBox" and reports which button the user presses.</p>
 <pre>WhichButton := DllCall("MessageBox", "Int", 0, "Str", "Press Yes or No", "Str", "Title of box", "Int", 4)
 MsgBox "You pressed button #" WhichButton</pre>
 </div>
 
 <div class="ex" id="ExWallpaper">
-<p><a class="ex_number" href="#ExWallpaper"></a>  Changes the desktop wallpaper to the specified bitmap (.bmp) file.</p>
+<p><a class="ex_number" href="#ExWallpaper"></a> Changes the desktop wallpaper to the specified bitmap (.bmp) file.</p>
 <pre>DllCall("SystemParametersInfo", "UInt", 0x14, "UInt", 0, "Str", A_WinDir <strong>.</strong> "\winnt.bmp", "UInt", 1)</pre>
 </div>
 
 <div class="ex" id="ExIsWindowVisible">
-<p><a class="ex_number" href="#ExIsWindowVisible"></a>  Calls the API function "IsWindowVisible" to find out if a Notepad window is visible.</p>
+<p><a class="ex_number" href="#ExIsWindowVisible"></a> Calls the API function "IsWindowVisible" to find out if a Notepad window is visible.</p>
 <pre>DetectHiddenWindows True
 if not DllCall("IsWindowVisible", "Ptr", WinExist("Untitled - Notepad"))  <em>; WinExist returns an HWND.</em>
     MsgBox "The window is not visible."</pre>
 </div>
 
 <div class="ex" id="ExWsprintf">
-<p><a class="ex_number" href="#ExWsprintf"></a>  Calls the API's wsprintf() to pad the number 432 with leading zeros to make it 10 characters wide (0000000432).</p>
+<p><a class="ex_number" href="#ExWsprintf"></a> Calls the API's wsprintf() to pad the number 432 with leading zeros to make it 10 characters wide (0000000432).</p>
 <pre>ZeroPaddedNumber := Buffer(20)<em>; Ensure the buffer is large enough to accept the new string.</em>
 DllCall("wsprintf", "Ptr", ZeroPaddedNumber, "Str", "%010d", "Int", 432, "Cdecl")<em>; Requires the Cdecl calling convention.</em>
 MsgBox StrGet(ZeroPaddedNumber)
@@ -234,7 +233,7 @@ MsgBox Format("{:010}", 432)
 </div>
 
 <div class="ex" id="ExQPC">
-<p><a class="ex_number" href="#ExQPC"></a>  Demonstrates QueryPerformanceCounter(), which gives more precision than <a href="../Variables.htm#TickCount">A_TickCount</a>'s 10ms.</p>
+<p><a class="ex_number" href="#ExQPC"></a> Demonstrates QueryPerformanceCounter(), which gives more precision than <a href="../Variables.htm#TickCount">A_TickCount</a>'s 10ms.</p>
 <pre>DllCall("QueryPerformanceFrequency", "Int64*", &amp;freq := 0)
 DllCall("QueryPerformanceCounter", "Int64*", &amp;CounterBefore := 0)
 Sleep 1000
@@ -243,7 +242,7 @@ MsgBox "Elapsed QPC time is " . (CounterAfter - CounterBefore) / freq * 1000 " m
 </div>
 
 <div class="ex" id="ExMouseSpeed">
-<p><a class="ex_number" href="#ExMouseSpeed"></a>  Press a hotkey to temporarily reduce the mouse cursor's speed, which facilitates precise positioning. Hold down <kbd>F1</kbd> to slow down the cursor. Release it to return to original speed.</p>
+<p><a class="ex_number" href="#ExMouseSpeed"></a> Press a hotkey to temporarily reduce the mouse cursor's speed, which facilitates precise positioning. Hold down <kbd>F1</kbd> to slow down the cursor. Release it to return to original speed.</p>
 
 <pre>
 F1::
@@ -269,7 +268,7 @@ DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", Ori
 </div>
 
 <div class="ex" id="ExWatchScrollBar">
-<p><a class="ex_number" href="#ExWatchScrollBar"></a>  Monitors the active window and displays the position of its vertical scroll bar in its focused control (with real-time updates).</p>
+<p><a class="ex_number" href="#ExWatchScrollBar"></a> Monitors the active window and displays the position of its vertical scroll bar in its focused control (with real-time updates).</p>
 <pre>SetTimer WatchScrollBar, 100
 
 WatchScrollBar()
@@ -284,7 +283,7 @@ WatchScrollBar()
 </div>
 
 <div class="ex" id="ExFile">
-<p><a class="ex_number" href="#ExFile"></a>  Writes some text to a file then reads it back into memory. This method can be used to help performance in cases where multiple files are being read or written simultaneously. Alternatively, <a href="FileOpen.htm">FileOpen</a> can be used to achieve the <a href="FileOpen.htm#ExWriteRead">same effect</a>.</p>
+<p><a class="ex_number" href="#ExFile"></a> Writes some text to a file then reads it back into memory. This method can be used to help performance in cases where multiple files are being read or written simultaneously. Alternatively, <a href="FileOpen.htm">FileOpen</a> can be used to achieve the <a href="FileOpen.htm#ExWriteRead">same effect</a>.</p>
 <pre>
 FileName := FileSelect("S16",, "Create a new file:")
 if FileName = ""
@@ -321,7 +320,7 @@ MsgBox "The following string was read from the file:" StrGet(Buf)</pre>
 </div>
 
 <div class="ex" id="ExHideCursor">
-<p><a class="ex_number" href="#ExHideCursor"></a>  Hides the mouse cursor when you press <kbd>Win</kbd>+<kbd>C</kbd>. To later show the cursor, press this hotkey again.</p>
+<p><a class="ex_number" href="#ExHideCursor"></a> Hides the mouse cursor when you press <kbd>Win</kbd>+<kbd>C</kbd>. To later show the cursor, press this hotkey again.</p>
 <pre>OnExit (*) =&gt; SystemCursor("Show")<em>; Ensure the cursor is made visible when the script exits.</em>
 
 #c::SystemCursor("Toggle")<em>; Win+C hotkey to toggle the cursor on and off.</em>
@@ -363,7 +362,7 @@ SystemCursor(cmd)<em>; cmd = "Show|Hide|Toggle|Reload"</em>
 </div>
 
 <div class="ex" id="ExStruct">
-<p><a class="ex_number" href="#ExStruct"></a>  Structure example. Pass the address of a RECT structure to GetWindowRect(), which sets the structure's members to the positions of the left, top, right, and bottom sides of a window (relative to the screen).</p>
+<p><a class="ex_number" href="#ExStruct"></a> Structure example. Pass the address of a RECT structure to GetWindowRect(), which sets the structure's members to the positions of the left, top, right, and bottom sides of a window (relative to the screen).</p>
 <pre>Run "Notepad"
 WinWait "無題-メモ帳"<em>; This also sets the "<a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a>" for use with WinExist below.</em>
 Rect := Buffer(16)<em>; A RECT is a struct consisting of four 32-bit integers (i.e. 4*4=16).</em>
@@ -374,7 +373,7 @@ MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>
 </div>
 
 <div class="ex" id="ExStructRect">
-<p><a class="ex_number" href="#ExStructRect"></a>  Structure example. Pass to FillRect() the address of a RECT structure that indicates a part of the screen to temporarily paint red.</p>
+<p><a class="ex_number" href="#ExStructRect"></a> Structure example. Pass to FillRect() the address of a RECT structure that indicates a part of the screen to temporarily paint red.</p>
 <pre>Rect := Buffer(16)  <em>; Set capacity to hold four 4-byte integers.</em>
 <a href="NumPut.htm">NumPut</a>( "Int", 0                  <em>; left</em>
       , "Int", 0                  <em>; top</em>
@@ -389,7 +388,7 @@ DllCall("DeleteObject", "Ptr", hBrush)  <em>; Clean-up.</em></pre>
 </div>
 
 <div class="ex" id="ExSystemTime">
-<p><a class="ex_number" href="#ExSystemTime"></a>  Structure example. Changes the system's clock to the specified date and time. Use caution when changing to a date in the future as it may cause scheduled tasks to run prematurely!</p>
+<p><a class="ex_number" href="#ExSystemTime"></a> Structure example. Changes the system's clock to the specified date and time. Use caution when changing to a date in the future as it may cause scheduled tasks to run prematurely!</p>
 <pre>SetSystemTime("20051008142211")<em>; Pass it a <a href="FileSetTime.htm#YYYYMMDD">timestamp</a> (local, not UTC).</em>
 
 SetSystemTime(YYYYMMDDHHMISS)
@@ -424,7 +423,7 @@ return DllCall("SetSystemTime", "Ptr", SystemTime)
 </div>
 
 <div class="ex" id="ExTaskbar">
-<p><a class="ex_number" href="#ExTaskbar"></a>  Removes the active window from the taskbar for 3 seconds. Compare this to the <a href="ComCall.htm#ExTaskbar">equivalent ComCall example</a>.</p>
+<p><a class="ex_number" href="#ExTaskbar"></a> Removes the active window from the taskbar for 3 seconds. Compare this to the <a href="ComCall.htm#ExTaskbar">equivalent ComCall example</a>.</p>
 <pre><em>/*
   Methods in <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarList</a>'s VTable:
 IUnknown:
