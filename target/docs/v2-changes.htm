@@ -418,15 +418,10 @@ this.__set(name, args, value)
 <li>StringCaseSense (use various parameters)</li>
 <li>StringGetPos (use <a href="lib/InStr.htm">InStr</a>)</li>
 <li>StringLeft<br>
-
 StringLen<br>
-
 StringMid<br>
-
 StringRight<br>
-
 StringTrimLeft<br>
-
 StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these commands.</li>
 <li>StringReplace (use <a href="lib/StrReplace.htm">StrReplace</a> instead)</li>
 <li>StringSplit (use <a href="lib/StrSplit.htm">StrSplit</a> instead)</li>
@@ -576,7 +571,6 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <ul>
 <li>__Get is used to implement the shorthand <code>match.subpat</code> where <em>subpat</em> is the name of a subpattern/capturing group. As __Get is no longer called if a property is <em>inherited</em>, the following subpattern names can no longer be used with the shorthand syntax: Pos, Len, Name, Count, Mark. (For example, <code>match.Len</code> always returns the length of the overall match, not a captured string.)</li>
 <li>Originally the match object had methods instead of properties so that properties could be reserved for subpattern names. As new language behaviour implies that <code>match.name</code> would return a function by default, the methods have been replaced or supplemented with properties:
-
 <ul>
 <li>Pos, Len and Name are now properties and methods.</li>
 <li>Name now requires 1 parameter to avoid confusion (<code>match.Name</code> throws an error).</li>
@@ -975,13 +969,9 @@ Name    := MonitorGetName(N)
 <p>LV/TV.Add/Modify now suppress item-change events, so such events should only be raised by user action or SendMessage.</p>
 <h3 id="removed">Removed</h3>
 <p>+Delimiter<br>
-
 +Hwnd<em>OutputVar</em> (use <a href="lib/Gui.htm#Hwnd">GuiObj.Hwnd</a> or <a href="lib/GuiControl.htm#Hwnd">GuiCtrl.Hwnd</a> instead)<br>
-
 +Label<br>
-
 +LastFoundExist<br>
-
 Gui GuiName: Default</p>
 <h3 id="control-options">Control Options</h3>
 <p>+/-Background is interpreted and supported more consistently. All controls which supported "Gui Color" now support <code>+Background<i>Color</i></code> and <code>+BackgroundDefault</code> (synonymous with <code>-Background</code>), not just ListView/TreeView/StatusBar/Progress.</p>
@@ -1190,7 +1180,6 @@ catch Any
 <li>User bug reports (and simple logic) indicate that if it works, it allows the focus to be stolen by programs which aren't specifically designed to do so.</li>
 <li>Some testing on Windows 10 indicated that it had no effect on anything; calls to <code>SetForegroundWindow</code> always failed, and other workarounds employed by WinActivate were needed and effective regardless of timeout. <code>SPI_GETFOREGROUNDLOCKTIMEOUT</code> was used from a separate process to verify that the change took effect (it sometimes doesn't).</li>
 <li>It can be replicated in script easily:
-
 <pre>DllCall("SystemParametersInfo", "int", 0x2001, "int", 0, "ptr", 0, "int", 2)</pre>
 </li>
 </ul>
@@ -1202,7 +1191,6 @@ catch Any
 <ul>
 <li>Maximum line or continuation section length of 16,383 characters.</li>
 <li>Maximum 512 tokens per expression (MAX_TOKENS).<br>
-
 Arrays internal to the expression evaluator which were sized based on MAX_TOKENS are now based on precalculated estimates of the required sizes, so performance should be similar but stack usage is somewhat lower in most cases. This might increase the maximum recursion depth of user-defined functions.</li>
 <li>Maximum 512 var or function references per arg (but MAX_TOKENS was more limiting for expressions anyway).</li>
 <li>Maximum 255 specified parameter values per function call (but MAX_TOKENS was more limiting anyway).</li>
