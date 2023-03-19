@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
 <title>OnMessage - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The OnMessage function causes the specified function to be called automatically whenever the script receives the specified message." />
@@ -26,7 +26,7 @@
 
   <dt>Function</dt>
   <dd>
-    <p>型：<a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>The function object to call when the message is received. The function's parameters and return value are described <a href="#The_Functions_Parameters">below</a>.</p>
   </dd>
 
@@ -73,7 +73,7 @@ OnMessage MsgNumber, Function, 1  <em>; Option 2 - specify MaxThreads 1</em></pr
 <pre>DetectHiddenWindows True
 MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to which the message was sent.</em></pre>
 
-<h2 id="What_the_Function_Should_Return">What the Function Should <em>Return</em></h2>
+<h2 id="What_the_Function_Should_Return">関数が<em>返すべき</em>もの</h2>
 <p>If a monitor function uses <a href="Return.htm">Return</a> without any parameters, or it specifies a blank value such as "" (or it never uses Return at all), the incoming message goes on to be processed normally when the function finishes. The same thing happens if the function <a href="Exit.htm">Exits</a> or causes a runtime error such as <a href="Run.htm">running</a> a nonexistent file. By contrast, returning an integer causes it to be sent immediately as a reply; that is, the program does not process the message any further. For example, a function monitoring WM_LBUTTONDOWN (0x0201) may return an integer to prevent the target window from being notified that a mouse click has occurred. In many cases (such as a message arriving via <a href="PostMessage.htm">PostMessage</a>), it does not matter which integer is returned; but if in doubt, 0 is usually safest.</p>
 <p>The range of valid return values depends on whether the exe running the script is 32-bit or 64-bit. Non-empty return values must be between -2<sup>31</sup> and 2<sup>32</sup>-1 for 32-bit scripts (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 4</code>) and between -2<sup>63</sup> and 2<sup>63</sup>-1 for 64-bit scripts (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 8</code>).</p>
 <p>If there are multiple functions monitoring a given message number, they are called one by one until one returns a non-empty value.</p>
@@ -172,7 +172,7 @@ StopBlockingShutdown(*)
 </div>
 
 <div class="ex" id="ExCustom">
-<p><a class="ex_number" href="#ExCustom"></a> Receives a custom message and up to two numbers from some other script or program (to send strings rather than numbers, see the example after this one).</p>
+<p><a class="ex_number" href="#ExCustom"></a>  Receives a custom message and up to two numbers from some other script or program (to send strings rather than numbers, see the example after this one).</p>
 <pre>OnMessage 0x5555, MsgMonitor
 Persistent
 
@@ -192,7 +192,7 @@ DetectHiddenWindows False<em>; Must not be turned off until after PostMessage.</
 </div>
 
 <div class="ex" id="ExSendString">
-<p><a class="ex_number" href="#ExSendString"></a> Sends a string of any length from one script to another. To use this, save and run both of the following scripts then press <kbd>Win</kbd>+<kbd>Space</kbd> to show an input box that will prompt you to type in a string. Both scripts must use the same <a href="../Concepts.htm#native-encoding">native encoding</a>.</p>
+<p><a class="ex_number" href="#ExSendString"></a>  Sends a string of any length from one script to another. To use this, save and run both of the following scripts then press <kbd>Win</kbd>+<kbd>Space</kbd> to show an input box that will prompt you to type in a string. Both scripts must use the same <a href="../Concepts.htm#native-encoding">native encoding</a>.</p>
 <p>Save the following script as <strong>Receiver.ahk</strong> then launch it.</p>
 <pre filename="Receiver.ahk">#SingleInstance
 OnMessage 0x004A, Receive_WM_COPYDATA<em>; 0x004A is WM_COPYDATA</em>

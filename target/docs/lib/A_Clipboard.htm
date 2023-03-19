@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>A_Clipboard - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="A_Clipboard is a built-in variable that reflects the current contents of the Windows clipboard." />
+<title>A_Clipboard - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="A_Clipboardは、Windowsのクリップボードの現在の内容を反映する組み込み変数です。" />
 <meta name="ahk:equiv-v1" content="misc/Clipboard.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,60 +13,60 @@
 
 <h1>A_Clipboard</h1>
 
-<p><em>A_Clipboard</em> is a <a href="../Concepts.htm#built-in-variables">built-in variable</a> that reflects the current contents of the Windows clipboard if those contents can be expressed as text.</p>
+<p><em>A_Clipboard</em>は、Windowsのクリップボードの内容がテキストとして表現できる場合に、その内容を反映する<a href="../Concepts.htm#built-in-variables">組み込み変数</a>です。</p>
 
-<p id="CopiedFiles">Each line of text on <em>A_Clipboard</em> typically ends with carriage return and linefeed (CR+LF), which can be expressed in the script as <code>`r`n</code>. Files (such as those copied from an open Explorer window via <kbd>Ctrl</kbd>+<kbd>C</kbd>) are considered to be text: They are automatically converted to their filenames (with full path) whenever <em>A_Clipboard</em> is referenced in the script. To extract the files one by one, follow this example:</p>
+<p id="CopiedFiles"><em>A_Clipboard</em>の各行のテキストは通常、キャリッジリターンとラインフィード（CR+LF）で終わり、スクリプトでは<code>`r`n</code>と表現することができます。ファイル（<kbd>Ctrl</kbd><kbd>+</kbd><kbd>C</kbd>で開いたエクスプローラーウィンドウからコピーしたものなど）はテキストとみなされます。スクリプト内で<em>A_Clipboard</em>が参照されるたびに、それらは自動的にファイル名（フルパス付き）に変換されます。ファイルを1つずつ取り出す場合は、この例に従ってください。</p>
 <pre><a href="LoopParse.htm">Loop Parse</a> A_Clipboard, "`n", "`r"
 {
     Result := MsgBox("File number " A_Index " is " A_LoopField ".`n`nContinue?",, 4)
     if Result = "No"
         break
 }</pre>
-<p>To arrange the filenames in alphabetical order, use the <a href="Sort.htm">Sort</a> function. To write the filenames on the clipboard to a file, use <code><a href="FileAppend.htm">FileAppend</a> A_Clipboard "`r`n", "C:\My File.txt"</code>. To change how long the script will keep trying to open the clipboard -- such as when it is in use by another application -- use <a href="_ClipboardTimeout.htm">#ClipboardTimeout</a>.</p>
+<p>ファイル名をアルファベット順に並べるには、「<a href="Sort.htm">ソート</a>」機能を使います。クリップボード上のファイル名をファイルに書き込むには、<code><a href="FileAppend.htm">FileAppend</a>A_Clipboard "`r`n", "C:¥My File.txt"</code>とします。クリップボードが他のアプリケーションで使用されている場合など、スクリプトがクリップボードを開こうとする時間を変更するには、<a href="_ClipboardTimeout.htm">#ClipboardTimeout</a>を使用します。</p>
 
-<p><a href="ClipWait.htm">ClipWait</a> may be used to detect when the clipboard contains data (optionally including non-text data):</p>
-<pre>A_Clipboard := ""  <em>; Start off empty to allow ClipWait to detect when the text has arrived.</em>
+<p><a href="ClipWait.htm">ClipWait</a>は、クリップボードにデータ（オプションで非テキストデータも含む）が含まれていることを検出するために使用することができる。</p>
+<pre>A_Clipboard := ""<em>; テキストが到着したことをClipWaitが検出できるように、空でスタートします。</em>
 Send "^c"
-<a href="ClipWait.htm">ClipWait</a>  <em>; Wait for the clipboard to contain text.</em>
+<a href="ClipWait.htm">ClipWait</a><em>; クリップボードにテキストが入るのを待ちます。</em>
 MsgBox "Control-C copied the following contents to the clipboard:`n`n" A_Clipboard</pre>
 
 
 <h2 id="Related">関連</h2>
 <ul>
-  <li><a href="ClipboardAll.htm">ClipboardAll</a>: For operating upon everything on the clipboard (such as pictures and formatting).</li>
-  <li><a href="OnClipboardChange.htm">OnClipboardChange</a>: For detecting and responding to clipboard changes.</li>
+  <li><a href="ClipboardAll.htm">ClipboardAll</a>:クリップボード上のすべてのもの（画像や書式など）を操作するためのものです。</li>
+  <li><a href="OnClipboardChange.htm">OnClipboardChange</a>:クリップボードの変化を検知して対応するため。</li>
 </ul>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExNew">
-<p><a class="ex_number" href="#ExNew"></a> Gives the clipboard entirely new contents.</p>
+<p><a class="ex_number" href="#ExNew"></a> クリップボードの内容を一新します。</p>
 <pre>A_Clipboard := "my text"</pre>
 </div>
 
 <div class="ex" id="ExEmpty">
-<p><a class="ex_number" href="#ExEmpty"></a> Empties the clipboard.</p>
+<p><a class="ex_number" href="#ExEmpty"></a> クリップボードを空にします。</p>
 <pre>A_Clipboard := ""</pre>
 </div>
 
 <div class="ex" id="ExPlain">
-<p><a class="ex_number" href="#ExPlain"></a> Converts any copied files, HTML, or other formatted text to plain text.</p>
+<p><a class="ex_number" href="#ExPlain"></a> コピーしたファイルやHTMLなどの整形されたテキストをプレーンテキストに変換します。</p>
 <pre>A_Clipboard := A_Clipboard</pre>
 </div>
 
 <div class="ex" id="ExAppend">
-<p><a class="ex_number" href="#ExAppend"></a> Appends some text to the clipboard.</p>
+<p><a class="ex_number" href="#ExAppend"></a> クリップボードにテキストを追加する。</p>
 <pre>A_Clipboard .= " Text to append."</pre>
 </div>
 
 <div class="ex" id="ExReplace">
-<p><a class="ex_number" href="#ExReplace"></a> Replaces all occurrences of ABC with DEF (also converts the clipboard to plain text).</p>
+<p><a class="ex_number" href="#ExReplace"></a> ABCをDEFに置き換える（クリップボードもプレーンテキストに変換する）。</p>
 <pre>A_Clipboard := StrReplace(A_Clipboard, "ABC", "DEF")</pre>
 </div>
 
-<p><strong>Clipboard utilities written in AutoHotkey v1:</strong></p>
+<p><strong>AutoHotkey v1 で書かれたクリップボードユーティリティです。</strong></p>
 <ul>
-  <li><a href="https://www.autohotkey.com/forum/topic2665.html">Deluxe Clipboard</a>: Provides unlimited number of private, named clipboards to Copy, Cut, Paste, Append or CutAppend of selected text.</li>
-  <li><a href="https://www.autohotkey.com/forum/topic4836.html">ClipStep</a>: Control multiple clipboards using only the keyboard's <kbd>Ctrl</kbd>-<kbd>X</kbd>-<kbd>C</kbd>-<kbd>V</kbd>. </li>
+  <li><a href="https://www.autohotkey.com/forum/topic2665.html">Deluxe Clipboard</a>:選択したテキストをコピー、カット、ペースト、アペンド、カットアペンドするためのプライベートな名前付きクリップボードを無制限に提供することができます。</li>
+  <li><a href="https://www.autohotkey.com/forum/topic4836.html">ClipStep</a>:キーボードの<kbd>Ctrl</kbd>-<kbd>X</kbd>-<kbd>C</kbd>-<kbd>V</kbd>だけで複数のクリップボードを操作できます。 </li>
 </ul>
 
 </body>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>Buffer Object - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Buffer object encapsulates a block of memory for use with advanced techniques such as DllCall, structures, StrPut and raw file I/O." />
+<title>バッファオブジェクト - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Bufferオブジェクトは、DllCall、構造体、StrPut、生のファイルI/Oなどの高度な技術で使用するためのメモリブロックをカプセル化します。" />
 <meta name="ahk:equiv-v1" content="lib/VarSetCapacity.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,43 +14,45 @@
 <h1>Buffer Object</h1>
 <pre class="NoIndent">class Buffer extends Object</pre>
 
-<p>Encapsulates a block of memory for use with advanced techniques such as DllCall, structures, StrPut and raw file I/O.</p>
-<p>Buffer objects are typically created by calling <a href="#Call">Buffer()</a>, but can also be returned by <a href="FileRead.htm">FileRead</a> with the "RAW" option.</p>
+<p>DllCall、構造体、StrPut、生のファイルI/Oなどの高度な技術で使用するために、メモリブロックをカプセル化します。</p>
+<p>Bufferオブジェクトは、通常<a href="#Call">Buffer()</a>を呼び出して作成しますが、<a href="FileRead.htm">FileRead</a>で"RAW "オプションを付けて返すこともできます。</p>
 <pre>BufferObj := Buffer(ByteCount)</pre>
-<p><a href="ClipboardAll.htm">ClipboardAll</a> returns a sub-type of Buffer, also named ClipboardAll.</p>
+<p><a href="ClipboardAll.htm">ClipboardAll</a>は、BufferのサブタイプであるClipboardAllを返す。</p>
 <pre>class ClipboardAll extends Buffer</pre>
 
-<p>"BufferObj" is used below as a placeholder for any Buffer object, as "Buffer" is the class itself.</p>
-<p>In addition to the methods and property inherited from <a href="Object.htm">Object</a>, Buffer objects have the following predefined properties.</p>
+<p>"Buffer "はクラスそのものなので、以下ではあらゆるBufferオブジェクトのプレースホルダとして "BufferObj "を使用します。</p>
+<p><a href="Object.htm">Object</a>から継承されたメソッドやプロパティに加え、Bufferオブジェクトは以下の定義済みプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#like">Buffer-like Objects</a></li>
-  <li><a href="#StaticMethods">Static Methods</a>:
+  <li><a href="#like">バッファ的オブジェクト</a></li>
+  <li><a href="#StaticMethods">静的メソッド</a>です。
     <ul>
       <li><a href="#Call">Call</a>: Creates a Buffer.</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
+    
     <ul>
-      <li><a href="#__New">__New</a>: Allocates or reallocates the buffer and optionally fills it.</li>
+      <li><a href="#__New">__New</a>:バッファの割り当てまたは再割り当てを行い、オプションでバッファを埋めます。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
+    
     <ul>
-      <li><a href="#Ptr">Ptr</a>: Retrieves the buffer's current memory address.</li>
-      <li><a href="#Size">Size</a>: Retrieves or sets the buffer's size, in bytes.</li>
+      <li><a href="#Ptr">Ptr</a>:バッファの現在のメモリアドレスを取得します。</li>
+      <li><a href="#Size">Size</a>:バッファのサイズをバイト単位で取得または設定します。</li>
     </ul>
   </li>
   <li><a href="#Related">関連</a></li>
   <li><a href="#Examples">例</a></li>
 </ul>
 
-<h2 id="like">Buffer-like Objects</h2>
-<p>Some built-in functions accept a Buffer object in place of an address - see the <a href="#Related">Related</a> section for links. These functions also accept any other object which has <a href="#Ptr">Ptr</a> and <a href="#Size">Size</a> properties, but are optimized for the native Buffer object.</p>
-<p>In most cases, passing a Buffer object is safer than passing an address, as the function can read the <a href="#Size">buffer size</a> to ensure that it does not attempt to access any memory location outside of the buffer. One exception is that <a href="DllCall.htm">DllCall</a> calls functions outside of the program; in those cases, it may be necessary to explicitly pass the <a href="#Size">buffer size</a> to the function.</p>
+<h2 id="like">バッファ的オブジェクト</h2>
+<p>一部の組み込み関数では、アドレスの代わりにBufferオブジェクトを受け付けます。これらの関数は、<a href="#Ptr">Ptr</a>と <a href="#Size">Size</a>プロパティを持つ他のオブジェクトも受け付けますが、ネイティブのBufferオブジェクトに最適化されています。</p>
+<p>ほとんどの場合、Bufferオブジェクトを渡す方がアドレスを渡すよりも安全です。なぜなら、関数は<a href="#Size">バッファサイズ</a>を読み取ることで、バッファの外側のメモリ位置にアクセスしようとしないことを確認できるからです。例外として、<a href="DllCall.htm">DllCall</a>がプログラム外の関数を呼び出す場合があります。その場合は、<a href="#Size">バッファ</a>サイズを関数に明示的に渡す必要がある場合があります。</p>
 
-<h2 id="StaticMethods">Static Methods</h2>
+<h2 id="StaticMethods">静的メソッド</h2>
 <div class="methodShort" id="Call"><h3>Call</h3>
 <p>Creates a Buffer.</p>
 <pre class="Syntax">BufferObj := <span class="func">Buffer</span>(<span class="optional">ByteCount, FillByte</span>)</pre>
@@ -58,46 +60,46 @@
   <dt>ByteCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The number of bytes to allocate. Corresponds to <a href="Buffer.htm#Size">Buffer.Size</a>.</p>
-    <p>If omitted, the Buffer is created with a null (zero) <a href="#Ptr">Ptr</a> and zero <a href="#Size">Size</a>.</p>
+    <p>割り当てるバイト数を指定します。<a href="Buffer.htm#Size">Buffer.Size</a>に対応します。</p>
+    <p>省略された場合、Buffer は NULL（ゼロ）<a href="#Ptr">Ptr</a>とゼロ<a href="#Size">Size</a>で作成されます。</p>
   </dd>
   <dt>FillByte</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Specify a number between 0 and 255 to set each byte in the buffer to that number.</p>
-    <p>This should generally be omitted in cases where the buffer will be written into without first being read, as it has a time-cost proportionate to the number of bytes. If omitted, the memory of the buffer is not initialized; the value of each byte is arbitrary.</p>
+    <p>0～255の数値を指定すると、バッファ内の各バイトにその数値が設定されます。</p>
+    <p>バイト数に比例した時間的コストがかかるため、バッファを読み込まずに書き込むような場合には、一般に省略されるべきです。省略した場合、バッファのメモリは初期化されず、各バイトの値は任意である。</p>
   </dd>
 </dl>
-<p>A <a href="Error.htm#MemoryError">MemoryError</a> is thrown if the memory could not be allocated, such as if <em>ByteCount</em> is unexpectedly large or the system is low on virtual memory.</p>
-<p>Parameters are defined by <a href="#__New">__New</a>.</p>
+<p><em>ByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされる。</p>
+<p>パラメータは<a href="#__New">__New</a>で定義します。</p>
 </div>
 
 <h2 id="Methods">メソッド</h2>
 <div class="methodShort" id="__New"><h3>__New</h3>
-<p>Allocates or reallocates the buffer and optionally fills it.</p>
+<p>バッファの割り当てまたは再割り当てを行い、オプションでバッファを埋めます。</p>
 <pre class="Syntax">BufferObj.<span class="func">__New</span>(<span class="optional">ByteCount, FillByte</span>)</pre>
-<p>This method exists to support <a href="#Call">Call</a>, and is not usually called directly. See <a href="../Objects.htm#Custom_NewDelete">Construction and Destruction</a>.</p>
-<p>Specify <em>ByteCount</em> to allocate, reallocate or free the buffer. This is equivalent to assigning <a href="#Size">Size</a>.</p>
-<p>Specify <em>FillByte</em> to fill the buffer with the given numeric byte value, overwriting any existing content.</p>
-<p>If both parameters are omitted, this method has no effect.</p>
+<p>このメソッドは<a href="#Call">Call</a>をサポートするために存在し、通常、直接呼び出されることはありません。<a href="../Objects.htm#Custom_NewDelete">建設と破壊</a>」をご覧ください。</p>
+<p><em>ByteCount</em>を指定して、バッファの確保、再確保、解放を行う。これは、<a href="#Size">Size</a>を割り当てることと同じです。</p>
+<p><em>FillByte</em>を指定すると、与えられた数値のバイト値でバッファを満たし、既存の内容を上書きする。</p>
+<p>両方のパラメータが省略された場合、このメソッドは何の効果もない。</p>
 </div>
 
 <h2 id="Properties">Properties</h2>
 <div class="methodShort" id="Ptr"><h3>Ptr</h3>
-<p>Retrieves the buffer's current memory address.</p>
+<p>バッファの現在のメモリアドレスを取得します。</p>
 <pre class="Syntax">Ptr := BufferObj.Ptr</pre>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>Any address returned by this property becomes invalid when the buffer is freed or reallocated. Invalid addresses must not be used. The buffer is not freed until the Buffer object's <a href="../Objects.htm#Reference_Counting">reference count</a> reaches zero, but it is reallocated when its <a href="#Size">Size</a> is changed.</p>
+<p>このプロパティが返すアドレスは、バッファが解放または再割り当てされたときに無効となる。無効なアドレスは使用しないでください。バッファはBufferオブジェクトの<a href="../Objects.htm#Reference_Counting">参照カウント</a>が0になるまで解放されませんが、<a href="#Size">Size</a>が変更されると再割り当てされます。</p>
 </div>
 
 <div class="methodShort" id="Size"><h3>Size</h3>
-<p>Retrieves or sets the buffer's size, in bytes.</p>
+<p>バッファのサイズをバイト単位で取得または設定します。</p>
 <pre class="Syntax">ByteCount := BufferObj.Size</pre>
 <pre class="Syntax">BufferObj.Size := ByteCount</pre>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>The buffer's address typically changes whenever its size is changed. If the size is decreased, the data within the buffer is truncated, but the remaining bytes are preserved. If the size is increased, all data is preserved and the values of any new bytes are arbitrary (they are not initialized, for performance reasons).</p>
-<p>A <a href="Error.htm#MemoryError">MemoryError</a> is thrown if the memory could not be allocated, such as if <em>ByteCount</em> is unexpectedly large or the system is low on virtual memory.</p>
-<p>This property always returns the exact value it was given either by <a href="#__New">__New</a> or by a previous assignment.</p>
+<p>バッファのアドレスは通常、そのサイズが変更されるたびに変更されます。サイズが小さくなった場合、バッファ内のデータは切り捨てられますが、残りのバイトは保存されます。サイズが大きくなっても、すべてのデータは保存され、新しいバイトの値は任意です（パフォーマンス上の理由から、初期化されません）。</p>
+<p><em>ByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされる。</p>
+<p>このプロパティは常に、<a href="#__New">__New</a>または以前の割り当てによって与えられた正確な値を返します。</p>
 </div>
 
 <h2 id="Related">関連</h2>
@@ -105,26 +107,26 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExString">
-<p><a class="ex_number" href="#ExString"></a> Use a Buffer to receive a string from an external function via <a href="DllCall.htm">DllCall</a>.</p>
+<p><a class="ex_number" href="#ExString"></a> Bufferを使って、<a href="DllCall.htm">DllCall</a>で外部関数から文字列を受け取ります。</p>
 <pre>
 max_chars := 11
 
-<em>; Allocate a buffer for use with the Unicode version of wsprintf.</em>
+<em>; Unicode 版 wsprintf で使用するためのバッファを確保する。</em>
 bufW := Buffer(max_chars*2)
 
-<em>; Print a UTF-16 string into the buffer with wsprintfW().</em>
+<em>; wsprintfW()でUTF-16文字列をバッファに出力する。</em>
 DllCall("wsprintfW", "Ptr", bufW, "Str", "0x%08x", "UInt", 4919, "CDecl")
 
-<em>; Retrieve the string from bufW and show it.</em>
-MsgBox StrGet(bufW, "UTF-16")<em>; Or just StrGet(bufW).</em>
+<em>; bufW から文字列を取り出し、表示する。</em>
+MsgBox StrGet(bufW, "UTF-16")<em>; あるいは、StrGet(bufW)だけです。</em>
 
-<em>; Allocate a buffer for use with the ANSI version of wsprintf.</em>
+<em>; ANSI 版 wsprintf で使用するためのバッファを確保する。</em>
 bufA := Buffer(max_chars)
 
-<em>; Print an ANSI string into the buffer with wsprintfA().</em>
+<em>; wsprintfA()でANSI文字列をバッファに出力する。</em>
 DllCall("wsprintfA", "Ptr", bufA, "AStr", "0x%08x", "UInt", 4919, "CDecl")
 
-<em>; Retrieve the string from bufA (converted to the native format), and show it.</em>
+<em>; bufA から文字列を取得し(ネイティブ形式に変換)、表示する。</em>
 MsgBox StrGet(bufA, "CP0")
 </pre>
 </div>

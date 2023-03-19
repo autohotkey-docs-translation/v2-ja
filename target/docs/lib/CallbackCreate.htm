@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>CallbackCreate - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The CallbackCreate function creates a machine-code address that when called, redirects the call to a function in the script." />
+<title>CallbackCreate - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="CallbackCreate関数は、呼び出されたときにスクリプト内の関数に呼び出しをリダイレクトするマシンコードアドレスを作成します。" />
 <meta name="ahk:equiv-v1" content="lib/RegisterCallback.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>CallbackCreate</h1>
 
-<p>Creates a machine-code address that when called, redirects the call to a <a href="../Functions.htm">function</a> in the script.</p>
+<p>呼び出すと、スクリプト内の<a href="../Functions.htm">関数に</a>リダイレクトされるマシンコードアドレスを作成します。</p>
 
 <pre class="Syntax">Address := <span class="func">CallbackCreate</span>(Function <span class="optional">, Options, ParamCount</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,104 +21,104 @@
 
   <dt>Function</dt>
   <dd>
-    <p>型：<a href="../misc/Functor.htm">Function Object</a></p>
-    <p>A function object to call automatically whenever <em>Address</em> is called. The function also receives the parameters that were passed to <em>Address</em>.</p>
-    <p>A <a href="../Functions.htm#closures">closure</a> or <a href="../misc/Functor.htm#BoundFunc">bound function</a> can be used to differentiate between multiple callbacks which all call the same script function.</p>
-    <p>The callback retains a reference to the function object, and releases it when the script calls <a href="#CallbackFree">CallbackFree</a>.</p>
+    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
+    <p><em>Address</em>が呼び出されるたびに自動的に呼び出される関数オブジェクトです。また、この関数は<em>Address</em>に渡されたパラメータを受け取ります。</p>
+    <p><a href="../Functions.htm#closures">クロージャ</a>または<a href="../misc/Functor.htm#BoundFunc">バウンド関数</a>は、同じスクリプト関数をすべて呼び出す複数のコールバックを区別するために使用することができます。</p>
+    <p>コールバックは関数オブジェクトへの参照を保持し、スクリプトが<a href="#CallbackFree">CallbackFree</a>を呼び出すとその参照を解放します。</p>
   </dd>
 
   <dt>オプション</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Specify zero or more of the following words or characters. Separate each option from the next with a space (e.g. <code>"C Fast"</code>).</p>
-    <p id="Fast"><strong>Fast</strong> or <strong>F</strong>: Avoids starting a new <a href="../misc/Threads.htm">thread</a> each time <em>Function</em> is called. Although this performs better, it must be avoided whenever the thread from which <em>Address</em> is called varies (e.g. when the callback is triggered by an incoming message). This is because <em>Function</em> will be able to change global settings such as <a href="../Variables.htm#LastError">A_LastError</a> and the <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a> for whichever thread happens to be running at the time it is called. For more information, see <a href="#Threads">Remarks</a>.</p>
-    <p><strong>CDecl</strong> or <strong>C</strong>: Makes <em>Address</em> conform to the "C" calling convention. This is typically omitted because the standard calling convention is much more common for callbacks. This option is ignored by 64-bit versions of AutoHotkey, which use the x64 calling convention.</p>
-    <p><strong>&amp;</strong>: Causes the address of the parameter list (a single integer) to be passed to <em>Function</em> instead of the individual parameters. Parameter values can be retrieved by using <a href="NumGet.htm">NumGet</a>. When using the standard 32-bit calling convention, <em>ParamCount</em> must specify the size of the parameter list in DWORDs (the number of bytes divided by 4).</p>
+    <p>次の単語または文字のうち、0個以上を指定する。各オプションと次のオプションはスペースで区切ってください（例：<code>"C Fast"</code>）。</p>
+    <p id="Fast"><strong>Fast</strong> or <strong>F</strong>:<em>Function</em>が呼び出されるたびに新しい<a href="../misc/Threads.htm">スレッド</a>を開始するのを避けることができます。この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
+    <p><strong>CDecl</strong> or <strong>C</strong>:<em>Addressを</em>"C "呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略される。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
+    <p><strong>&amp;</strong>:個々のパラメータではなく、パラメータリストのアドレス（1つの整数）を<em>Function</em>に渡すようにします。パラメータ値は、<a href="NumGet.htm">NumGet</a>を用いて取得することができる。標準の32ビット呼び出し規約を使用する場合、<em>ParamCount</em>はパラメータリストのサイズをDWORD（バイト数を4で割った値）で指定する必要があります。</p>
   </dd>
 
   <dt>ParamCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The number of parameters that <em>Address</em>'s caller will pass to it. If omitted, it defaults to <a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>, which is usually the number of mandatory parameters in the <a href="../Functions.htm#define">definition</a> of <em>Function</em>. In either case, ensure that the caller passes exactly this number of parameters.</p>
+    <p><em>Address</em>の呼び出し元がAddressに渡すパラメータの数。省略された場合、デフォルトは<a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>で、これは通常<em>Function</em><a href="../Functions.htm#define">の定義に</a>ある必須パラメータの数である。いずれの場合も、呼び出し元が正確にこの数のパラメータを渡すことを確認する。</p>
   </dd>
 
 </dl>
 
-<h2 id="Return_Value">Return Value</h2>
+<h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>CallbackCreate returns a machine-code address. This address is typically passed to an external function via <a href="DllCall.htm">DllCall</a> or placed in a struct using <a href="NumPut.htm">NumPut</a>, but can also be called directly by DllCall. Passing the address to <a href="#CallbackFree">CallbackFree</a> will delete the callback.</p>
+<p>CallbackCreate returns a machine-code address. このアドレスは通常、<a href="DllCall.htm">DllCall</a>で外部関数に渡されるか、<a href="NumPut.htm">NumPut</a>で構造体に入れられるが、DllCallで直接呼び出すことも可能である。<a href="#CallbackFree">CallbackFree</a>にアドレスを渡すと、コールバックが削除されます。</p>
 
-<h2 id="Error_Handling">Error Handling</h2>
-<p>This function fails and throws an exception under any of the following conditions:</p>
+<h2 id="Error_Handling">エラー処理</h2>
+<p>以下のいずれかの条件下で、この関数は失敗し、例外をスローします。</p>
 <ul>
-  <li><em>Function</em> is not an object, or has neither a <code>MinParams</code> property nor a <code>Call</code> method.</li>
-  <li><em>Function</em> has a <code>MinParams</code> property which exceeds the number of parameters that the callback will supply.</li>
-  <li><em>ParamCount</em> is negative.</li>
-  <li><em>ParamCount</em> is omitted and: 1) <em>Function</em> has no <code>MinParams</code> property; or 2) the <code>&amp;</code> option is used with the standard 32-bit calling convention.</li>
+  <li><em>Function</em>がオブジェクトでない、または<code>MinParams</code>プロパティも<code>Call</code>メソッドも持っていない。</li>
+  <li><em>関数</em>には <code>MinParams</code>プロパティがあり、コールバックが供給するパラメータの数を超えています。</li>
+  <li><em>ParamCount</em>は否定的です。</li>
+  <li><em>ParamCountは</em>省略され、更に1)<em>Function</em>に <code>MinParams</code>プロパティがない、または2)<code>&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
 </ul>
 
-<h2 id="The_Callback_Functions_Parameters">The Callback Function's Parameters</h2>
-<p>A <a href="../Functions.htm">function</a> assigned to a callback address may accept up to 31 parameters. <a href="../Functions.htm#optional">Optional parameters</a> are permitted, which is useful when the function is called by more than one caller.</p>
-<p>Interpreting the parameters correctly requires some understanding of how the x86 calling conventions work. Since AutoHotkey does not have typed parameters, the callback's parameter list is assumed to consist of integers, and some reinterpretation may be required.</p>
+<h2 id="The_Callback_Functions_Parameters">コールバック関数のパラメータ</h2>
+<p>コールバックアドレスに割り当てられた<a href="../Functions.htm">関数</a>は、最大31個のパラメータを受け取ることができます。<a href="../Functions.htm#optional">オプションのパラメータ</a>を使用することができ、複数の呼び出し元から関数を呼び出す場合に便利です。</p>
+<p>パラメータを正しく解釈するには、x86の呼び出し規約がどのように機能するかをある程度理解する必要があります。AutoHotkeyには型付きパラメータがないため、コールバックのパラメータリストは整数で構成されていると仮定され、いくつかの再解釈が必要となる場合があります。</p>
 
-<p><strong>AutoHotkey 32-bit:</strong> All incoming parameters are unsigned 32-bit integers. Smaller types are padded out to 32 bits, while larger types are split into a series of 32-bit parameters.</p>
-<p>If an incoming parameter is intended to be a signed integer, any negative numbers can be revealed by following either of the following examples:</p>
+<p><strong>AutoHotkey 32ビット：</strong>入力されるパラメータはすべて符号なし32ビット整数です。小さな型は32ビットにパディングされ、大きな型は32ビットの一連のパラメータに分割されます。</p>
+<p>入力されるパラメータが符号付き整数であることを意図している場合、以下の例のいずれかに従って、負の数を明らかにすることができます。</p>
 <pre><em>; Method #1</em>
 if (wParam &gt; 0x7FFFFFFF)
     wParam := -(~wParam) - 1
 
-<em>; Method #2: Relies on the fact that AutoHotkey natively uses signed 64-bit integers.</em>
+<em>; 方法2：AutoHotkeyがネイティブに符号付き64ビット整数を使用することに依存します。</em>
 wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 
-<p><strong>AutoHotkey 64-bit:</strong> All incoming parameters are signed 64-bit integers. AutoHotkey does not natively support unsigned 64-bit integers. Smaller types are padded out to 64 bits, while larger types are always passed by address.</p>
+<p><strong>AutoHotkey 64ビット：</strong>入力されるパラメータはすべて符号付き64ビット整数です。AutoHotkeyは、符号なし64ビット整数をネイティブでサポートしていません。小さい型は64ビットにパディングされ、大きい型は常にアドレスで渡されます。</p>
 
-<p><strong>AutoHotkey 32-bit/64-bit:</strong> If an incoming parameter is intended to be 8-bit or 16-bit (or 32-bit on x64), the upper bits of the value might contain "garbage" which can be filtered out by using bitwise-and, as in the following examples:</p>
+<p><strong>AutoHotkey 32ビット/64ビット：</strong>入力されるパラメータが8ビットまたは16ビット（x64では32ビット）の場合、値の上位ビットに「ゴミ」が含まれることがありますが、次の例のようにビットワイズアンドを使用することでフィルタリングすることができます。</p>
 <pre>Callback(UCharParam, UShortParam, UIntParam) {
     UCharParam &amp;= 0xFF
     UShortParam &amp;= 0xFFFF
     UIntParam &amp;= 0xFFFFFFFF
     <em>;...</em>
 }</pre>
-<p>If an incoming parameter is intended by its caller to be a string, what it actually receives is the address of the string. To retrieve the string itself, use <a href="StrGet.htm">StrGet</a>:</p>
+<p>入力されるパラメータが、呼び出し元によって文字列であることが意図されている場合、実際に受け取るのは文字列のアドレスである。文字列そのものを取得するには、<a href="StrGet.htm">StrGet</a>を使用します。</p>
 <pre>MyString := StrGet(MyParameter)</pre>
-<p>If an incoming parameter is the address of a structure, the individual members may be extracted by following the steps at <a href="DllCall.htm#struct">DllCall structures</a>.</p>
+<p>入力されたパラメータが構造体のアドレスである場合、<a href="DllCall.htm#struct">DllCall構造</a>体の手順に従って、個々のメンバーを抽出することができます。</p>
 
-<p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code>&amp;</code> option is used, the function receives the <i>address</i> of the first callback parameter. 事例：</p>
+<p id="Indirect"><strong>アドレスでパラメータを受信：</strong>もし<code>&amp;</code>オプションが使用された場合、関数は最初のコールバックパラメータの<i>アドレスを</i>受け取ります。事例：</p>
 <pre>
-callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; Parameter list size must be specified for 32-bit.</em>
+callback := CallbackCreate(TheFunc, "F&amp;", 3)<em>; パラメータリストのサイズは32ビットで指定する必要があります。</em>
 DllCall(callback, "float", 10.5, "int64", 42)
 TheFunc(params) {
     MsgBox <a href="NumGet.htm">NumGet</a>(params, 0, "float") ", " NumGet(params, A_PtrSize, "int64")
 }</pre>
-<p>Most callbacks in 32-bit programs use the <em>stdcall</em> calling convention, which requires a fixed number of parameters. In those cases, <em>ParamCount</em> must be set to the size of the parameter list, where Int64 and Double count as two 32-bit parameters. With <em>Cdecl</em> or the 64-bit calling convention, <em>ParamCount</em> has no effect.</p>
+<p>32ビットプログラムのほとんどのコールバックは、固定数のパラメータを必要とする<em>stdcall</em>呼び出し規約を使用しています。その場合、<em>ParamCount</em>には、Int64とDoubleを2つの32ビットパラメータとしてカウントするパラメータリストのサイズを設定する必要があります。<em>Cdecl</em>または64ビット呼び出し規約では、<em>ParamCount</em>は何の効果もない。</p>
 
-<h2 id="What_the_Function_Should_Return">What the Function Should <em>Return</em></h2>
-<p>If the function uses <a href="Return.htm">Return</a> without any parameters, or it specifies a blank value such as "" (or it never uses Return at all), 0 is returned to the caller of the callback. Otherwise, the function should return an integer, which is then returned to the caller. AutoHotkey 32-bit truncates return values to 32-bit, while AutoHotkey 64-bit supports 64-bit return values. Returning structs larger than this (by value) is not supported.</p>
+<h2 id="What_the_Function_Should_Return">関数が<em>返すべき</em>もの</h2>
+<p>関数がパラメータなしで<a href="Return.htm">Return</a>を使用した場合、または "" などの空白の値を指定した場合（あるいは Return を全く使用しなかった場合）、コールバックの呼び出し元には 0 が返されます。そうでない場合は、この関数は整数を返し、その整数は呼び出し元に返される必要があります。AutoHotkey 32bitは戻り値を32bitに切り捨て、AutoHotkey 64bitは64bitの戻り値をサポートします。これより大きな構造体を（値で）返すことはサポートされていません。</p>
 
-<h2 id="Threads">Fast vs. Slow</h2>
-<p>The default/slow mode causes the function to start off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>. These defaults can be changed during <a href="../Scripts.htm#auto">script startup</a>.</p>
-<p>By contrast, the <a href="#Fast">fast mode</a> inherits global settings from whichever <a href="../misc/Threads.htm">thread</a> happens to be running at the time the function is called. Furthermore, any changes the function makes to global settings (including the <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>) will go into effect for the <a href="../misc/Threads.htm">current thread</a>. Consequently, the fast mode should be used only when it is known exactly which thread(s) the function will be called from.</p>
-<p>To avoid being interrupted by itself (or any other thread), a callback may use <a href="Critical.htm">Critical</a> as its first line. However, this is not completely effective when the function is called indirectly via the arrival of a message less than 0x0312 (increasing Critical's <a href="Critical.htm#Interval">interval</a> may help). Furthermore, <a href="Critical.htm">Critical</a> does not prevent the function from doing something that might indirectly result in a call to itself, such as calling <a href="SendMessage.htm">SendMessage</a> or <a href="DllCall.htm">DllCall</a>.</p>
+<h2 id="Threads">高速と低速の比較</h2>
+<p>デフォルト/スローモードでは、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定のデフォルト値で、関数が新たにスタートすることになります。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
+<p>一方、<a href="#Fast">高速モード</a>では、関数が呼び出された時点でたまたま実行されていた<a href="../misc/Threads.htm">スレッド</a>からグローバル設定を継承します。さらに、この関数がグローバル設定（<a href="../misc/WinTitle.htm#LastFoundWindow">最終発見ウィンドウ</a>を含む）に加えた変更は、<a href="../misc/Threads.htm">現在のスレッド</a>に適用されることになります。したがって、高速モードは、その関数がどのスレッドから呼び出されるかが正確に分かっている場合にのみ使用する必要があります。</p>
+<p>自分自身（あるいは他のスレッド）によって中断されるのを避けるために、コールバックはその最初の行として<a href="Critical.htm">Critical</a>を使用することができます。ただし、0x0312未満のメッセージの到着を経由して間接的にこの関数が呼び出された場合には、完全には効果がありません（Criticalの<a href="Critical.htm#Interval">間隔</a>を広げると効果があるかもしれません）。さらに、<a href="Critical.htm">Critical</a>は、<a href="SendMessage.htm">SendMessage</a>や <a href="DllCall.htm">DllCall</a>を呼び出すなど、間接的に自分自身への呼び出しとなるようなことを関数が行うことを妨げるものではありません。</p>
 
 <h2 id="CallbackFree">CallbackFree</h2>
-<p>Deletes a callback and releases its reference to the function object.</p>
+<p>コールバックを削除し、関数オブジェクトへの参照を解放します。</p>
 <pre class="Syntax"><span class="func">CallbackFree</span>(Address)</pre>
-<p>Each use of CallbackCreate allocates a small amount of memory (32 or 48 bytes plus system overhead). Since the OS frees this memory automatically when the script exits, any script that allocates a small, <em>fixed</em> number of callbacks can get away with not explicitly freeing the memory.</p>
-<p>However, if the function object held by the callback is of a dynamic nature (such as a <a href="../Functions.htm#closures">closure</a> or <a href="../misc/Functor.htm#BoundFunc">bound function</a>), it can be especially important to free the callback when it is no longer needed; otherwise, the function object will not be released.</p>
+<p>CallbackCreateを使用するたびに、少量のメモリ（32または48バイトとシステム・オーバーヘッド）が割り当てられる。OSはスクリプトの終了時にこのメモリを自動的に解放するので、少量の<em>固定</em>数のコールバックを割り当てるスクリプトであれば、明示的にメモリを解放しなくても大丈夫です。</p>
+<p>しかし、コールバックが保持する関数オブジェクトが動的な性質を持つ場合（<a href="../Functions.htm#closures">クロージャ</a>や <a href="../misc/Functor.htm#BoundFunc">バインド関数</a>など）、コールバックが不要になったときに解放することが特に重要になる場合があります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="DllCall.htm">DllCall</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="Sort.htm#callback">Sort's callback</a>, <a href="Critical.htm">Critical</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExWinList">
-<p><a class="ex_number" href="#ExWinList"></a> Displays a summary of all top-level windows.</p>
-<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")<em>; Fast-mode is okay because it will be called only from this thread.</em>
+<p><a class="ex_number" href="#ExWinList"></a> すべてのトップレベルウィンドウのサマリーを表示します。</p>
+<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")<em>; Fast-modeはこのスレッドからしか呼ばれないので大丈夫です。</em>
 
-DetectHiddenWindows True<em>; Due to fast-mode, this setting will go into effect for the callback too.</em>
+DetectHiddenWindows True<em>; 高速モードのため、この設定はコールバックにも有効になります。</em>
 
-<em>; Pass control to EnumWindows(), which calls the callback repeatedly:</em>
+<em>; コールバックを繰り返し呼び出すEnumWindows()に制御を渡す。</em>
 DllCall("EnumWindows", "Ptr", EnumAddress, "Ptr", 0)
-MsgBox Output<em>; Display the information accumulated by the callback.</em>
+MsgBox Output<em>; コールバックで蓄積された情報を表示する。</em>
     
 EnumWindowsProc(hwnd, lParam)
 {
@@ -127,24 +127,24 @@ EnumWindowsProc(hwnd, lParam)
     win_class := WinGetClass(hwnd)
     if win_title
         Output .= "HWND:" hwnd "`tTitle:" win_title "`tClass:" win_class "`n"
-    return true<em>; Tell EnumWindows() to continue until all windows have been enumerated.</em>
+    return true<em>; EnumWindows() に、すべてのウィンドウが列挙されるまで続けるように指示する。</em>
 }</pre>
 </div>
 
 <div class="ex" id="ExSubclassGUI">
-<p><a class="ex_number" href="#ExSubclassGUI"></a> Demonstrates how to subclass a GUI window by redirecting its WindowProc to a new WindowProc in the script. In this case, the background color of a text control is changed to a custom color.</p>
-<pre>TextBackgroundColor := 0xFFBBBB<em>; A custom color in BGR format.</em>
+<p><a class="ex_number" href="#ExSubclassGUI"></a> GUIウィンドウのWindowProcをスクリプト内の新しいWindowProcにリダイレクトして、サブクラス化する方法を示すものです。この場合、テキストコントロールの背景色はカスタムカラーに変更されます。</p>
+<pre>TextBackgroundColor := 0xFFBBBB<em>; BGR 形式のカスタムカラー。</em>
 TextBackgroundBrush := DllCall("CreateSolidBrush", "UInt", TextBackgroundColor)
 
 MyGui := Gui()
 Text := MyGui.Add("Text",, "Here is some text that is given`na custom background color.")
 
-<em>; 64-bit scripts must call SetWindowLongPtr instead of SetWindowLong:</em>
+<em>; 64ビットスクリプトでは、SetWindowLongの代わりにSetWindowLongPtrを呼び出す必要があります。</em>
 SetWindowLong := A_PtrSize=8 ? "SetWindowLongPtr" : "SetWindowLong"
 
-WindowProcNew := CallbackCreate(WindowProc)<em>; Avoid fast-mode for subclassing.</em>
+WindowProcNew := CallbackCreate(WindowProc)<em>; サブクラス作成時のfast-modeは避けてください。</em>
 WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4<em>; -4 is GWL_WNDPROC</em>
-    , "Ptr", WindowProcNew, "Ptr")<em>; Return value must be set to "Ptr" or "UPtr" vs. "Int".</em>
+    , "Ptr", WindowProcNew, "Ptr")<em>; 戻り値は "Ptr "または "UPtr "対 "Int "に設定する必要があります。</em>
 
 MyGui.Show
 
@@ -154,9 +154,9 @@ WindowProc(hwnd, uMsg, wParam, lParam)
     if (uMsg = 0x0138 &amp;&amp; lParam = Text.Hwnd)<em>; 0x0138 is WM_CTLCOLORSTATIC.</em>
     {
         DllCall("SetBkColor", "Ptr", wParam, "UInt", TextBackgroundColor)
-        return TextBackgroundBrush<em>; Return the HBRUSH to notify the OS that we altered the HDC.</em>
+        return TextBackgroundBrush<em>; HDCを変更したことをOSに通知するため、HBRUSHを返す。</em>
     }
-    <em>; Otherwise (since above didn't return), pass all unhandled events to the original WindowProc.</em>
+    <em>; そうでない場合は（上記が返らなかったので）、処理されなかったすべてのイベントを元のWindowProcに渡します。</em>
     return DllCall("CallWindowProc", "Ptr", WindowProcOld, "Ptr", hwnd, "UInt", uMsg, "Ptr", wParam, "Ptr", lParam)
 }</pre>
 

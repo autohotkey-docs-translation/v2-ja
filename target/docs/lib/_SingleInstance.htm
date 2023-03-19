@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>#SingleInstance - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The #SingleInstance directive determines whether a script is allowed to run again when it is already running." />
+<title>#SingleInstance - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="#SingleInstance指令は、スクリプトがすでに実行されているときに、再実行を許可するかどうかを決定する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>#SingleInstance</h1>
 
-<p>Determines whether a script is allowed to run again when it is already running.</p>
+<p>スクリプトがすでに実行されている場合に、再実行を許可するかどうかを決定する。</p>
 
 <pre class="Syntax"><span class="func">#SingleInstance</span> <span class="optional">ForceIgnorePromptOff</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,37 +21,37 @@
   <dt>ForceIgnorePromptOff</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If the parameter is omitted, it defaults to <em>Force</em>. To change this behavior, specify one of the following words:</p>
-    <p><strong>Force:</strong> Skips the dialog box and replaces the old instance automatically, which is similar in effect to the <a href="Reload.htm">Reload</a> function.</p>
-    <p><strong>Ignore:</strong> Skips the dialog box and leaves the old instance running. In other words, attempts to launch an already-running script are ignored.</p>
-    <p><strong>Prompt:</strong> Displays a dialog box asking whether to keep the old instance or replace it with the new one. This is the default behaviour if this directive is not used.</p>
-    <p><strong>Off:</strong> Allows multiple instances of the script to run concurrently.</p>
+    <p>パラメータが省略された場合、デフォルトは<em>Force</em>になります。この動作を変更するには、次のいずれかの単語を指定します。</p>
+    <p><strong>Force：</strong>ダイアログボックスをスキップして古いインスタンスを自動的に置き換えるので、<a href="Reload.htm">Reload</a>機能と同様の効果があります。</p>
+    <p><strong>Ignore：</strong>ダイアログボックスをスキップして、古いインスタンスを実行したままにします。つまり、すでに実行されているスクリプトを起動しようとしても無視されます。</p>
+    <p><strong>Prompt：</strong>古いインスタンスを維持するか、新しいインスタンスに置き換えるかを尋ねるダイアログボックスを表示します。このディレクティブが使用されていない場合のデフォルトの動作です。</p>
+    <p><strong>Off：</strong>スクリプトの複数のインスタンスの同時実行を許可します。</p>
   </dd>
 
 </dl>
 <h2 id="Remarks">備考</h2>
-<p>This directive is ignored when any of the following <a href="../Scripts.htm#cmd">command line switches</a> are used: /force /restart</p>
-<p>Like other directives, #SingleInstance cannot be executed conditionally.</p>
+<p>このディレクティブは、以下の<a href="../Scripts.htm#cmd">コマンドラインスイッチ</a>のいずれかが使用されている場合、無視されます。/force /restart</p>
+<p>他のディレクティブと同様に、#SingleInstanceは条件付きで実行することはできません。</p>
 
-<h2 id="Limitations">Limitations</h2>
-<p>Previous instances of the script are identified by searching for a <a href="../Program.htm#main-window">main window</a> with the <a href="../Program.htm#title">default title</a>. Therefore, a previous instance may not be found if:</p>
+<h2 id="Limitations">制限事項</h2>
+<p>スクリプトの以前のインスタンスは、<a href="../Program.htm#title">デフォルトのタイトル</a>を持つ<a href="../Program.htm#main-window">メインウィンドウ</a>を検索することで識別されます。そのため、以下のような場合、以前のインスタンスが見つからないことがあります。</p>
 <ul>
-  <li>The title of its main window has been changed.</li>
-  <li>It is running on a different version of AutoHotkey.</li>
-  <li>Its main window is no longer top-level, such as if the script has used <a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setparent">SetParent</a> to change its parent to something other than NULL (0).</li>
+  <li>そのメインウィンドウのタイトルが変更されました。</li>
+  <li>AutoHotkeyの異なるバージョンで動作しています。</li>
+  <li>スクリプトが<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setparent">SetParent</a>を使って親を NULL (0) 以外に変更した場合など、そのメインウィンドウがトップレベルでなくなる。</li>
 </ul>
-<p>At most one previous instance is detected and sent a message asking it to close. Therefore, the following additional limitations also apply:</p>
+<p>最大で1つ前のインスタンスが検出され、終了を促すメッセージが送られる。したがって、以下の追加制限も適用されます。</p>
 <ul>
-  <li>If there are multiple instances (such as if previous instances of the script used the <code>#SingleInstance Off</code> mode), the topmost matching instance is sent the message, and other instances are not considered.</li>
-  <li>If the previous instance is running at a higher integrity level than the new instance (where running as administrator &gt; <a href="../Program.htm#Installer_uiAccess">running with UI access</a> &gt; normal), it cannot be closed due to security restrictions.</li>
+  <li>複数のインスタンスが存在する場合（以前のスクリプトのインスタンスが<code>#SingleInstance Off</code>モードを使用していた場合など）、一番上にマッチしたインスタンスにメッセージが送信され、他のインスタンスは考慮されません。</li>
+  <li>以前のインスタンスが新しいインスタンスよりも高い整合性レベルで実行されている場合（管理者として実行＞<a href="../Program.htm#Installer_uiAccess">UIアクセスで実行</a>＞通常の場合）、セキュリティ上の制限により閉じることができません。</li>
 </ul>
-<p>If multiple instances of the script are started simultaneously, they may fail to detect each other or may all target the same previous instance. This would result in multiple instances of the script starting.</p>
+<p>複数のスクリプトを同時に起動した場合、互いを検出できなかったり、すべてのインスタンスが同じ前のインスタンスをターゲットにしたりすることがあります。このため、スクリプトが複数回起動することになります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Reload.htm">Reload</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Skips the dialog box and replaces the old instance automatically.</p>
+<p><a class="ex_number" href="#ExBasic"></a> ダイアログボックスをスキップして、古いインスタンスを自動的に置き換えます。</p>
 <pre>#SingleInstance Force</pre>
 </div>
 

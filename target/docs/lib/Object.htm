@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
 <title>Object - Methods &amp; Properties | AutoHotkey v2</title>
 <meta name="description" content="Object is the basic class from which other AutoHotkey object classes derive." />
@@ -20,12 +20,13 @@
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
-  <li><a href="#StaticMethods">Static Methods</a>:
+  <li><a href="#StaticMethods">静的メソッド</a>です。
     <ul>
       <li><a href="#Call">Call</a>: Creates a new Object.</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
+    
     <ul>
       <li><a href="#Clone">Clone</a>: Returns a shallow copy of an object.</li>
       <li><a href="#DefineProp">DefineProp</a>: Defines a new own property.</li>
@@ -36,11 +37,13 @@
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
+    
     <ul>
       <li><a href="#Base">Base</a>: Retrieves or sets an object's base object.</li>
     </ul>
   </li>
   <li><a href="#Functions">Functions</a>:
+    
     <ul>
       <li><a href="#SetBase">ObjSetBase</a>: Set an object's base object.</li>
       <li><a href="#GetCapacity">ObjGetCapacity</a>, <a href="#SetCapacity">ObjSetCapacity</a>: Retrieve or set an Object's capacity to contain properties.</li>
@@ -50,7 +53,7 @@
   </li>
 </ul>
 
-<h2 id="StaticMethods">Static Methods</h2>
+<h2 id="StaticMethods">静的メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
 <p>Creates a new Object.</p>
@@ -82,7 +85,7 @@
     <p>An object with one of the following own properties, or both <em>Get</em> and <em>Set</em>:</p>
     <p><code>Get</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property's value is retrieved.</p>
     <p><code>Set</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property is assigned a value. Its second parameter is the value being assigned.</p>
-    <p><code>Call</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property is called. </p>
+    <p><code>Call</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property is called.  </p>
     <p><code>Value</code>: Any value to assign to the property.</p>
   </dd>
 </dl>
@@ -136,7 +139,7 @@
 <div class="methodShort" id="OwnProps"><h3>OwnProps</h3>
 <p>Enumerates an object's own properties.</p>
 <pre class="Syntax">For Name <span class="optional">, Value</span> in Obj.<span class="func">OwnProps</span>()</pre>
-<p>Returns a new <a href="Enumerator.htm">enumerator</a>. The enumerator is typically passed directly to a <a href="For.htm">for-loop</a>, which calls the enumerator once for each iteration of the loop. Each call to the enumerator returns the next property name and/or value. The for-loop's variables correspond to the enumerator's parameters, which are:</p>
+<p>Returns a new <a href="Enumerator.htm">enumerator</a>. The enumerator is typically passed directly to a <a href="For.htm">for-loop</a>, which calls the enumerator once for each iteration of the loop. Each call to the enumerator returns the next property name and/or value. forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
   <dt>名前</dt>
   <dd>
@@ -154,9 +157,11 @@
   <li>Since only the object's own properties are enumerated, the property must be defined directly in <em>Obj</em>.</li>
   <li>If only the first variable was specified, the property's name is returned and its getter is not called.</li>
   <li>If two variables were specified, the enumerator attempts to call the property's getter to retrieve the value.
+    
     <ul>
       <li>If the getter requires parameters, the property is skipped.</li>
       <li>If <em>Obj</em> itself does not define a getter for this property, it is skipped.
+        
         <p class="warning"><strong>Note:</strong> Properties defined by a method definition typically do not have a getter, so are skipped.</p>
       </li>
       <li>If <em>Obj</em> is a class prototype object, the getter should not (and in some cases cannot) be called; so the property is skipped.</li>
@@ -191,7 +196,7 @@
 <div class="methodShort" id="SetBase"><h3>ObjSetBase</h3>
 <p>Sets an object's <a href="../Objects.htm#delegation">base object</a>.</p>
 <pre class="Syntax"><span class="func">ObjSetBase</span>(Obj, BaseObj)</pre>
-<p>No <a href="../Objects.htm#Meta_Functions">meta-functions</a> or <a href="../Objects.htm#Custom_Classes_property">property functions</a> are called. Overriding the <a href="#Base">Base</a> property does not affect the behaviour of this function.</p>
+<p><a href="../Objects.htm#Meta_Functions">メタファンクション</a>や <a href="../Objects.htm#Custom_Classes_property">プロパティファンクション</a>は呼び出されません。<a href="#Base">Base</a>プロパティをオーバーライドしても、この関数の動作に影響はありません。</p>
 <p>An exception is thrown if <em>Obj</em> or <em>BaseObj</em> is of an incorrect type.</p>
 <p>こちらもご覧ください。<a href="Any.htm#GetBase">ObjGetBase</a>, <a href="#Base">Base property</a></p>
 </div>

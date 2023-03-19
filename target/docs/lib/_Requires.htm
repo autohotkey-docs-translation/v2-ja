@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>#Requires - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The #Requires directive displays an error and quits if a version requirement is not met." />
+<title>#Requires - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="#Requiresディレクティブは、バージョン要件が満たされない場合、エラーを表示し終了します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>#Requires</h1>
 
-<p>Displays an error and quits if a version requirement is not met.</p>
+<p>バージョン要件が満たされない場合、エラーを表示し終了する。</p>
 
 <pre class="Syntax"><span class="func">#Requires</span> Requirement</pre>
 
@@ -20,61 +20,61 @@
 <dl>
   <dt>Requirement</dt>
   <dd>
-    <p>If this does not begin with the word "AutoHotkey", an error message is shown and the program exits. This encourages clarity and reserves the directive for future uses. Other forks of AutoHotkey may support other names.</p>
-    <p>Otherwise, the word "AutoHotkey" should be followed by any combination of the following, separated by spaces or tabs:</p>
+    <p>これが "AutoHotkey"で始まらない場合、エラーメッセージが表示され、プログラムは終了します。これにより、指令の明確化が促進され、将来の使用のために指令が確保されます。AutoHotkeyの他のフォークでは、他の名称をサポートしている場合があります。</p>
+    <p>それ以外の場合は、"AutoHotkey"という単語の後に、スペースまたはタブで区切られた以下の任意の組み合わせが続く必要があります。</p>
     <ul>
-      <li>An optional letter "v" followed by a version number. <a href="../Variables.htm#AhkVersion">A_AhkVersion</a> is required to be greater than or equal to this version, but less than the next major version.</li>
-      <li>One of <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> or <code>=</code> immediately followed by an optional letter "v" and a version number. For example, <code class="no-highlight">&gt;=2-rc &lt;2</code> allows v2 release candidates but not the final release.</li>
-      <li>One of the following words to restrict the type of executable (EXE) which can run the script: "32-bit", "64-bit".</li>
+      <li>オプションの文字 "v"の後にバージョン番号が続く。<a href="../Variables.htm#AhkVersion">A_AhkVersionは</a>、このバージョン以上、次のメジャーバージョン未満であることが必要である。</li>
+      <li><code>&lt;</code>,<code>&lt;=</code>,<code>&gt;</code>,<code>&gt;=</code>,<code>=</code>のいずれかに、オプションの文字 "v" とバージョン番号がすぐに続きます。例えば、<code class="no-highlight">&gt;=2-rc &lt;2</code>はv2のリリース候補を許可するが、最終リリースは許可しない。</li>
+      <li>スクリプトを実行できる実行ファイル（EXE）の種類を制限するために、次のいずれかの単語を使用します。"32-bit", "64-bit".</li>
     </ul>
   </dd>
 </dl>
 
-<h2 id="Error_Message">Error Message</h2>
-<p>The message shown depends on the version of AutoHotkey interpreting the directive.</p>
-<p>For v2, the path, version and build of AutoHotkey are always shown in the error message.</p>
-<p>If the script is launched with a version of AutoHotkey that does not support this directive, the error message is something like the following:</p>
-<pre class="no-highlight">Line Text: #Requires <i>%Requirement%</i>
-Error: This line does not contain a recognized action.</pre>
+<h2 id="Error_Message">エラーメッセージ</h2>
+<p>表示されるメッセージは、ディレクティブを解釈しているAutoHotkeyのバージョンに依存します。</p>
+<p>v2の場合、エラーメッセージにAutoHotkeyのパス、バージョン、ビルドが必ず表示されます。</p>
+<p>このディレクティブをサポートしていないバージョンのAutoHotkeyでスクリプトを起動した場合、以下のようなエラーメッセージが表示されます。</p>
+<pre class="no-highlight">ラインテキスト：#Requires <i>%Requirement%</i>
+エラー：この行には、認識された動作は含まれていません。</pre>
 
 <h2 id="Remarks">備考</h2>
-<p>If the script uses syntax or functions which are unavailable in earlier versions, using this directive ensures that the error message shows the unmet requirement, rather than indicating an arbitrary syntax error. This cannot be done with something like <code>if (A_AhkVersion &lt;= "1.1.33")</code> because a syntax error elsewhere in the script would prevent it from executing.</p>
-<p>When sharing a script or posting code online, using this directive allows anyone who finds the code to readily identify which version of AutoHotkey it was intended for.</p>
-<p>Other programs or scripts can check for this directive for various purposes. For example, the launcher installed with AutoHotkey v2 uses it to determine which AutoHotkey executable to launch, while a script editor or related tools might use it to determine how to interpret or highlight the script file.</p>
-<p id="compare">Version strings are compared as a series of dot-delimited components, optionally followed by a hyphen and pre-release identifier(s).</p>
+<p>スクリプトが以前のバージョンでは利用できない構文や関数を使用している場合、このディレクティブを使用すると、エラーメッセージが任意の構文エラーを示すのではなく、満たされていない要件を示すことを保証します。これは、<code>if (A_AhkVersion &lt;= "1.1.33")</code>のように、スクリプト内の他の場所で構文エラーが発生すると実行できなくなるため、実行できません。</p>
+<p>スクリプトを共有したり、コードをオンラインに投稿する場合、このディレクティブを使用すると、コードを見つけた人が、どのバージョンのAutoHotkeyを対象としているかを容易に特定することができます。</p>
+<p>他のプログラムやスクリプトは、さまざまな目的でこのディレクティブを確認することができます。例えば、AutoHotkey v2と共にインストールされたランチャーは、どのAutoHotkey実行ファイルを起動するかを決定するために使用し、スクリプトエディターや関連ツールは、スクリプトファイルの解釈やハイライトの方法を決定するために使用するかもしれません。</p>
+<p id="compare">バージョン文字列は、ドットで区切られた一連のコンポーネントとして比較され、オプションでハイフンとプレリリース識別子が続く。</p>
 <ul>
-  <li>Numeric components are compared numerically. For example, v1.01 = v1.1, but a20 &gt; a112.</li>
-  <li>Numeric components are always considered lower than non-numeric components in the same position.</li>
-  <li>Any missing dot-delimited components are assumed to be zero. For example, v1.1.33-alpha is the same as v1.1.33.00-alpha.0.</li>
-  <li>Non-numeric components are compared alphabetically, and are case sensitive.</li>
-  <li>Pre-release versions are considered lower than standard releases. For example, a script that <code>#Requires AutoHotkey v2</code> will not run on v2.0-a112. To permit pre-release versions, include a hyphen suffix. 事例：<code class="no-highlight">v2.0-</code>.</li>
-  <li>Any suffix beginning with "+" is ignored.</li>
+  <li>数値成分は数値で比較します。例えば、v1.01＝v1.1ですが、a20＞a112です。</li>
+  <li>数値成分は、同じ位置にある非数値成分よりも常に下位とみなされます。</li>
+  <li>ドット区切りの成分が欠落している場合は、ゼロとする。例えば、v1.1.33-alpha は v1.1.33.00-alpha.0 と同じです。</li>
+  <li>数値以外の成分はアルファベット順に比較され、大文字と小文字は区別されます。</li>
+  <li>発売前のバージョンは、標準的なリリースより低いとみなされます。例えば、<code>#Requires AutoHotkey v2</code>のスクリプトは、v2.0-a112では実行されません。プレリリース版を許可する場合は、ハイフン（-）を付けてください。事例：<code class="no-highlight">v2.0-</code>.</li>
+  <li>"+" で始まる接尾語は無視されます。</li>
 </ul>
-<p>A trailing "+" is sufficient to indicate to the reader that later versions are acceptable, but is not required.</p>
-<p>Like other directives, #Requires cannot be executed conditionally.</p>
+<p>末尾の "+"は、後のバージョンでもよいことを読者に示すのに十分ですが、必須ではありません。</p>
+<p>他のディレクティブと同様に、#Requiresは条件付きで実行することはできません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="VerCompare.htm">VerCompare</a>, <a href="_ErrorStdOut.htm">#ErrorStdOut</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Causes the script to run only on v2.0, including alpha releases.</p>
+<p><a class="ex_number" href="#ExBasic"></a> アルファ版を含むv2.0上でのみスクリプトを実行するようにするためのものです。</p>
 <pre>#Requires AutoHotkey v2.0-a
 MsgBox "This script will run only on v2.0, including alpha releases."</pre>
 </div>
 
 <div class="ex" id="ExUpper">
-<p><a class="ex_number" href="#ExUpper"></a> Causes the script to run only on v2.0, including pre-release versions.</p>
+<p><a class="ex_number" href="#ExUpper"></a> プレリリースバージョンを含むv2.0上でのみスクリプトを実行するようにします。</p>
 <pre>#Requires AutoHotkey &gt;=2.0- &lt;2.1</pre>
 </div>
 
 <div class="ex" id="ExBuild">
-<p><a class="ex_number" href="#ExBuild"></a> Causes the script to run only with a 64-bit interpreter (EXE).</p>
+<p><a class="ex_number" href="#ExBuild"></a> 64ビットインタプリタ（EXE）のみでスクリプトを実行するようにします。</p>
 <pre>#Requires AutoHotkey 64-bit</pre>
 </div>
 
 <div class="ex" id="ExVerBuild">
-<p><a class="ex_number" href="#ExVerBuild"></a> Causes the script to run only with a 64-bit interpreter (EXE) version 2.0-rc.2 or later.</p>
+<p><a class="ex_number" href="#ExVerBuild"></a> 64ビットインタプリタ（EXE）バージョン2.0-rc.2以降でのみスクリプトを実行するようにすることです。</p>
 <pre>#Requires AutoHotkey v2.0-rc.2 64-bit</pre>
 </div>
 

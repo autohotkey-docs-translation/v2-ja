@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
 <title>SendMessage - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The SendMessage function sends a message to a window or control and waits for acknowledgement." />
@@ -72,7 +72,7 @@
 
 </dl>
 
-<h2 id="Return_Value">Return Value</h2>
+<h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>This function returns the result of the message, which might sometimes be a "reply" depending on the nature of the message and its target window.</p>
 <p>The range of possible values depends on the target window and the version of AutoHotkey that is running.  When using a 32-bit version of AutoHotkey, or if the target window is 32-bit, the result is a 32-bit unsigned integer between 0 and 4294967295. When using the 64-bit version of AutoHotkey with a 64-bit window, the result is a 64-bit signed integer between -9223372036854775808 and 9223372036854775807.</p>
@@ -80,7 +80,7 @@
 <pre>MsgReply := MsgReply &lt;&lt; 32 &gt;&gt; 32</pre>
 <p>This conversion may be necessary even on AutoHotkey 64-bit, because results from 32-bit windows are zero-extended. For example, a result of -1 from a 32-bit window is seen as 0xFFFFFFFF on any version of AutoHotkey, whereas a result of -1 from a 64-bit window is seen as 0xFFFFFFFF on AutoHotkey 32-bit and -1 on AutoHotkey 64-bit.</p>
 
-<h2 id="Error_Handling">Error Handling</h2>
+<h2 id="Error_Handling">エラー処理</h2>
 <p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found.</p>
 <p>A <a href="Error.htm#TimeoutError">TimeoutError</a> is thrown if the message timed out.</p>
 <p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent. For example, if the target window is running at a higher integrity level than the script (i.e. it is running as admin while the script is not), messages may be blocked.</p>
@@ -104,7 +104,7 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExMonitorPower">
-<p><a class="ex_number" href="#ExMonitorPower"></a> Turns off the monitor via hotkey. In the SendMessage line, replace the number 2 with -1 to turn the monitor on or replace it with 1 to activate the monitor's low-power mode.</p>
+<p><a class="ex_number" href="#ExMonitorPower"></a>  Turns off the monitor via hotkey. In the SendMessage line, replace the number 2 with -1 to turn the monitor on or replace it with 1 to activate the monitor's low-power mode.</p>
 <pre>#o::<em>; Win+O hotkey</em>
 {
     Sleep 1000<em>; Give user a chance to release keys (in case their release would wake up the monitor again).
@@ -114,22 +114,22 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 </div>
 
 <div class="ex" id="ExScreenSave">
-<p><a class="ex_number" href="#ExScreenSave"></a> Starts the user's chosen screen saver.</p>
+<p><a class="ex_number" href="#ExScreenSave"></a>  Starts the user's chosen screen saver.</p>
 <pre>SendMessage 0x0112, 0xF140, 0,, "Program Manager"  <em>; 0x0112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE.</em></pre>
 </div>
 
 <div class="ex" id="ExVScrollUp">
-<p><a class="ex_number" href="#ExVScrollUp"></a> Scrolls up by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollUp"></a>  Scrolls up by one line (for a control that has a vertical scroll bar).</p>
 <pre>SendMessage 0x0115, 0, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExVScrollDown">
-<p><a class="ex_number" href="#ExVScrollDown"></a> Scrolls down by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollDown"></a>  Scrolls down by one line (for a control that has a vertical scroll bar).</p>
 <pre>SendMessage 0x0115, 1, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExWinamp">
-<p><a class="ex_number" href="#ExWinamp"></a> Asks Winamp which track number is currently active (see <a href="../misc/Winamp.htm">Automating Winamp</a> for more information).</p>
+<p><a class="ex_number" href="#ExWinamp"></a>  Asks Winamp which track number is currently active (see <a href="../misc/Winamp.htm">Automating Winamp</a> for more information).</p>
 <pre>SetTitleMatchMode 2
 track := SendMessage(0x0400, 0, 120,, "- Winamp")
 track++  <em>; Winamp's count starts at 0, so adjust by 1.</em>
@@ -138,7 +138,7 @@ MsgBox "Track #" track " is active or playing."
 </div>
 
 <div class="ex" id="ExPID">
-<p><a class="ex_number" href="#ExPID"></a> Finds the process ID of an AHK script (an alternative to <a href="WinGetPID.htm">WinGetPID</a>).</p>
+<p><a class="ex_number" href="#ExPID"></a>  Finds the process ID of an AHK script (an alternative to <a href="WinGetPID.htm">WinGetPID</a>).</p>
 <pre>SetTitleMatchMode 2
 DetectHiddenWindows true
 pid := SendMessage(0x0044, 0x405, 0, , "SomeOtherScript.ahk - AutoHotkey v")

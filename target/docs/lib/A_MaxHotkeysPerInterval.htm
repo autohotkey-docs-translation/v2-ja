@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
-<title>A_MaxHotkeysPerInterval - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The A_MaxHotkeysPerInterval and A_HotkeyInterval variables control the rate of hotkey activations beyond which a warning dialog will be displayed." />
+<title>A_MaxHotkeysPerInterval - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="A_MaxHotkeysPerIntervalおよびA_HotkeyInterval変数は、警告ダイアログが表示される以上のホットキー起動率を制御します。" />
 <meta name="ahk:equiv-v1" content="lib/_MaxHotkeysPerInterval.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,13 +13,13 @@
 
 <h1>A_MaxHotkeysPerInterval</h1>
 
-<p>The A_MaxHotkeysPerInterval and A_HotkeyInterval variables control the rate of hotkey activations beyond which a warning dialog will be displayed.</p>
+<p>A_MaxHotkeysPerIntervalおよびA_HotkeyInterval変数は、警告ダイアログが表示される以上のホットキー起動率を制御します。</p>
 
 <table class="info">
-  <tr><th>Variable</th><th>Meaning</th><th>Default Value</th><th>型</th></tr>
+  <tr><th>変数</th><th>Meaning</th><th>デフォルトの値</th><th>型</th></tr>
   <tr>
     <td>A_MaxHotkeysPerInterval</td>
-    <td>The maximum number of hotkeys that can be pressed within the interval without triggering a warning dialog.</td>
+    <td>警告ダイアログをトリガーすることなく、間隔内に押せるホットキーの最大数。</td>
     <td>70</td>
     <td><a href="../Concepts.htm#numbers">整数</a></td>
   </tr>
@@ -32,20 +32,20 @@
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p>These built-in variables should usually be assigned values when the script starts (if the default values are not suitable), but the script can get or set their values at any time.</p>
-<p>Care should be taken not to make the above too lenient because if you ever inadvertently introduce an infinite loop of keystrokes (via a <a href="Send.htm">Send</a> function that accidentally triggers other hotkeys), your computer could become unresponsive due to the rapid flood of keyboard events.</p>
-<p>As an oversimplified example, the hotkey <code>^c::Send "^c"</code> would produce an infinite loop of keystrokes. To avoid this, add the <a href="../Hotkeys.htm#prefixdollar">$ prefix</a> to the hotkey definition (e.g. <code>$^c::</code>) so that the hotkey cannot be triggered by the Send function.</p>
-<p>The limit might be reached by means other than an infinite loop, such as:</p>
+<p>これらの組み込み変数は、通常スクリプトの開始時に値を割り当てる必要がありますが（デフォルト値が適切でない場合）、スクリプトはいつでもその値を取得または設定することができます。</p>
+<p>もし、不注意でキー入力の無限ループ（<a href="Send.htm">Send</a>関数が他のホットキーを誤ってトリガーする）を導入した場合、キーボードイベントの急激な洪水によりコンピュータが応答しなくなる可能性があるため、上記が甘くならないように注意する必要があります。</p>
+<p>単純化しすぎた例として、ホットキー<code>^c::Send "^c"</code>はキーストロークの無限ループを生成することになります。これを避けるには、ホットキーの定義に<a href="../Hotkeys.htm#prefixdollar">$ prefix</a>を付け（例えば、<code>$^c::</code>）、送信機能でホットキーをトリガーできないようにします。</p>
+<p>など、無限ループ以外の手段で限界に達する可能性があります。</p>
 <ul>
-  <li>Key-repeat when the limit is too low relative to the key-repeat rate, or the system is under heavy load.</li>
-  <li>Keyboard or mouse hardware which sends input events more rapidly than the typical key-repeat rate. For example, tilting the wheel left or right on some mice sends a rapid flood of events which may reach the limit for hotkeys such as <code>WheelLeft::</code> and <code>WheelRight::</code>.</li>
+  <li>キーリピート率に対してリミットが低すぎる場合、またはシステムが高負荷の場合にキーリピートする。</li>
+  <li>キーボードやマウスのハードウェアで、一般的なキーリピート速度よりも高速に入力イベントを送信します。例えば、一部のマウスでホイールを左右に傾けると、<code>WheelLeft::</code>や<code>WheelRight::</code>などのホットキーの限界に達するようなイベントが大量に送信されることがあります。</li>
 </ul>
-<p>To disable the warning dialog entirely, assign <code>A_HotkeyInterval := 0</code>.</p>
+<p>警告ダイアログを完全に無効にするには、<code>A_HotkeyInterval := 0</code>を指定します。</p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Allows a maximum of 200 hotkeys to be pressed within 2000 ms without triggering a warning dialog.</p>
-<pre>A_HotkeyInterval := 2000  <em>; This is the default value (milliseconds).</em>
+<p><a class="ex_number" href="#ExBasic"></a> 警告ダイアログをトリガーすることなく、2000ms以内に最大200個のホットキーを押すことを許可します。</p>
+<pre>A_HotkeyInterval := 2000<em>; 初期値（ミリ秒）です。</em>
 A_MaxHotkeysPerInterval := 200</pre>
 </div>
 

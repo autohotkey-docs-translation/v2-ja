@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="llllllja">
 <head>
 <title>FileSelect - Syntax &amp; Usage | AutoHotkey v2</title>
 <meta name="description" content="The FileSelect function displays a standard dialog that allows the user to open or save file(s)." />
@@ -21,7 +21,7 @@
 
   <dt>オプション</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
       <p>If omitted, it will default to zero, which is the same as having none of the options below.</p>
       <p>Otherwise, it can be a number or one of the letters listed below, optionally followed by a number. For example, <code>"M"</code>, <code>1</code> and <code>"M1"</code> are all valid (but not equivalent).</p>
       <p id="D"><strong>D</strong>: Select Folder (Directory). Specify the letter D to allow the user to select a folder rather than a file. The dialog has most of the same features as when selecting a file, but does not support filters (<em>Filter</em> must be omitted or blank).</p>
@@ -60,6 +60,7 @@
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Indicates which types of files are shown by the dialog.</p>
       <p>Example: Documents (*.txt)<br>
+        
         Example: Audio (*.wav; *.mp2; *.mp3)</p>
       <p>If omitted, the filter defaults to All Files (*.*).</p>
     <p>Otherwise, the filter uses the indicated string but also provides an option for All Files (*.*) in the dialog's "files of type" drop-down list. To include more than one file extension in the filter, separate them with semicolons as illustrated in the example above.</p>
@@ -68,7 +69,7 @@
 
 </dl>
 
-<h2 id="Return_Value">Return Value</h2>
+<h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="Array.htm">Array</a> of <a href="../Concepts.htm#strings">Strings</a></p>
 <p>If multi-select is not in effect, this function returns the full path and name of the single file or folder chosen by the user, or an empty string if the user cancels the dialog.</p>
 <p>If the M option (multi-select) is in effect, this function returns an array of items, where each item is the full path and name of a single file. The example at the bottom of this page demonstrates how to extract the files one by one. If the user cancels the dialog, the array is empty (has zero items).</p>
@@ -87,7 +88,7 @@ Thread "NoTimers", false</pre>
 <p>Also, the operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. These dialogs can be displayed via <a href="DllCall.htm">DllCall</a> as demonstrated at <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>.</p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Allows the user to select an existing .txt or .doc file.</p>
+<p><a class="ex_number" href="#ExBasic"></a>  Allows the user to select an existing .txt or .doc file.</p>
 <pre>SelectedFile := FileSelect(3, , "Open a file", "Text Documents (*.txt; *.doc)")
 if SelectedFile = ""
     MsgBox "The dialog was canceled."
@@ -96,7 +97,7 @@ else
 </div>
 
 <div class="ex" id="ExMulti">
-<p><a class="ex_number" href="#ExMulti"></a> Allows the user to select multiple existing files.</p>
+<p><a class="ex_number" href="#ExMulti"></a>  Allows the user to select multiple existing files.</p>
 <pre>SelectedFiles := FileSelect("M3")  <em>; M3 = Multiselect existing files.</em>
 if SelectedFiles.Length = 0
 {
@@ -113,7 +114,7 @@ for FileName in SelectedFiles
 </div>
 
 <div class="ex" id="ExFolder">
-<p><a class="ex_number" href="#ExFolder"></a> Allows the user to select a folder.</p>
+<p><a class="ex_number" href="#ExFolder"></a>  Allows the user to select a folder.</p>
 <pre>
 SelectedFolder := FileSelect("D", , "Select a folder")
 if SelectedFolder = ""
