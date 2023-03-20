@@ -52,7 +52,7 @@
   <dt>Interval</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>How often the status bar should be checked while the function is waiting (in milliseconds). Default is 50. </p>
+    <p>How often the status bar should be checked while the function is waiting (in milliseconds). Default is 50.  </p>
   </dd>
 
   <dt>ExcludeTitle</dt>
@@ -70,7 +70,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
 <p>This function returns 1 (true) if a match was found or 0 (false) if the function timed out.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -85,14 +85,14 @@
 <p>StatusBarWait attempts to read the first <em>standard</em> status bar on a window (class msctls_statusbar32). Some programs use their own status bars or special versions of the MS common control. Such bars are not supported.</p>
 <p>Rather than using <a href="StatusBarGetText.htm">StatusBarGetText</a> in a loop, it is usually more efficient to use StatusBarWait because it contains optimizations that avoid the overhead that repeated calls to <a href="StatusBarGetText.htm">StatusBarGetText</a> would incur.</p>
 <p>StatusBarWait determines its target window before it begins waiting for a match. If that target window is closed, the function will stop waiting even if there is another window matching the specified <em>WinTitle</em> and <em>WinText</em>.</p>
-<p>While the function is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
+<p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="StatusBarGetText.htm">StatusBarGetText</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExSearch">
-<p><a class="ex_number" href="#ExSearch"></a> Enters a new search pattern into an existing Explorer/Search window.</p>
+<p><a class="ex_number" href="#ExSearch"></a>  Enters a new search pattern into an existing Explorer/Search window.</p>
 <pre>if WinExist("Search Results") <em>; Sets the Last Found window to simplify the below.</em>
 {
     WinActivate
@@ -106,7 +106,7 @@
 </div>
 
 <div class="ex" id="ExChange">
-<p><a class="ex_number" href="#ExChange"></a> Waits for the status bar of the active window to <strong>change</strong>.</p>
+<p><a class="ex_number" href="#ExChange"></a>  Waits for the status bar of the active window to <strong>change</strong>.</p>
 <pre>SetTitleMatchMode "RegEx"  <em>; Accept <a href="SetTitleMatchMode.htm#RegEx">regular expressions</a> for use below.</em>
 if WinExist("A")  <em>; Set the last-found window to be the active window (for use below).</em>
 {

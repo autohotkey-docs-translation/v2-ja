@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Class Object - Methods &amp; Properties | AutoHotkey v2</title>
-<meta name="description" content="A Class object represents a class definition; it contains static methods and properties." />
+<title>Class Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<meta name="description" content="クラスオブジェクトは、クラス定義を表し、静的メソッドとプロパティを含みます。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,21 +14,23 @@
 <h1>Class Object</h1>
 <pre class="NoIndent">class Class extends Object</pre>
 
-<p>A <strong>Class</strong> object represents a class definition; it contains static methods and properties.</p>
-<p>Each class object is <a href="../Objects.htm#Custom_Objects">based on</a> whatever class it extends, or <a href="Object.htm">Object</a> if not specified. The global class object <code>Object</code> is based on <code>Class.Prototype</code>, which is based on <code>Object.Prototype</code>, so classes can inherit methods and properties from any of these base objects.</p>
-<p>"Static" methods and properties are any methods and properties which are owned by the class object itself (and therefore do not apply to a specific instance), while methods and properties for instances of the class are owned by the class's <a href="#Prototype">Prototype</a>.</p>
-<p>"ClassObj" is used below as a placeholder for any class object, as "Class" is the Class class itself. Ordinarily, one refers to a class object by the name given in its <a href="../Objects.htm#Custom_Classes">class definition</a>.</p>
+<p><strong>クラス</strong>オブジェクトは、クラス定義を表し、静的メソッドとプロパティを含む。</p>
+<p>各クラスオブジェクトは、そのクラスが拡張するクラス、または指定されていない場合は<a href="Object.htm">Object</a>を <a href="../Objects.htm#Custom_Objects">基にして</a>います。グローバルなクラスオブジェクトである<code>Object</code>は、<code>Object.Prototype</code>をベースとする<code>Class.Prototype</code>をベースとしているので、クラスはこれらのベースオブジェクトのいずれかからメソッドとプロパティを継承することができます。</p>
+<p>"Static "メソッドおよびプロパティは、クラスオブジェクト自身が所有する（したがって、特定のインスタンスには適用されない）メソッドおよびプロパティであり、クラスのインスタンスに対するメソッドおよびプロパティは、クラスの<a href="#Prototype">Prototype</a>が所有する。</p>
+<p>"Class "はClassクラスそのものであるため、以下では任意のクラスオブジェクトのプレースホルダとして "ClassObj"を使用します。通常、クラスオブジェクトは、その<a href="../Objects.htm#Custom_Classes">クラス定義</a>で与えられた名前で呼ばれます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
   <li><a href="#Methods">Methods</a>:
+    
     <ul>
-      <li><a href="#Call">Call</a>: Constructs a new instance of the class.</li>
+      <li><a href="#Call">Call</a>:このクラスの新しいインスタンスを構築する。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
+    
     <ul>
-      <li><a href="#Prototype">Prototype</a>: Retrieves or sets the object on which all instances of the class are based.</li>
+      <li><a href="#Prototype">Prototype</a>:クラスのすべてのインスタンスの基となるオブジェクトを取得または設定します。</li>
     </ul>
   </li>
 </ul>
@@ -36,30 +38,30 @@
 <h2 id="Methods">メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Constructs a new instance of the class.</p>
+<p>このクラスの新しいインスタンスを構築する。</p>
 <pre class="Syntax">Obj := ClassObj(Params*)
 Obj := ClassObj.<span class="func">Call</span>(Params*)</pre>
-<p>This static method is typically inherited from the <a href="Object.htm">Object</a>, <a href="Array.htm">Array</a> or <a href="Map.htm">Map</a> class. It performs the following functions:</p>
+<p>この静的メソッドは、通常、<a href="Object.htm">Object</a>、<a href="Array.htm">Array</a>、<a href="Map.htm">Map</a>クラスから継承されます。以下のような機能を備えています。</p>
 <ul>
-  <li>Allocate memory and initialize the binary structure of the object, which depends on the object's native type (e.g. whether it is an Array or Map, or just an Object).</li>
-  <li>Set the base of the new object to <a href="#Prototype">ClassObj.Prototype</a>.</li>
-  <li>Call the new object's __Init method, if it has one. This method is automatically created by class definitions; it contains all instance variable initializers defined within the class body.</li>
-  <li>Call the new object's __New method, if it has one. All parameters passed to Call are forwarded on to __New.</li>
-  <li>Return the new object.</li>
+  <li>メモリを確保し、オブジェクトのバイナリ構造を初期化する。これは、オブジェクトのネイティブタイプ（例えば、配列かマップか、あるいは単なるオブジェクトか）に依存する。</li>
+  <li>新しいオブジェクトのベースを<a href="#Prototype">ClassObj.Prototype</a>に設定します。</li>
+  <li>Call the new object's __Init method, if it has one. このメソッドは、クラス定義によって自動的に作成され、クラス本体内で定義されたすべてのインスタンス変数のイニシャライザーを含んでいます。</li>
+  <li>新しいオブジェクトに __New メソッドがある場合は、それを呼び出します。Callに渡された全てのパラメータは、__Newに転送される。</li>
+  <li>新しいオブジェクトを返す。</li>
 </ul>
-<p>Call can be overridden within a class definition by defining a static method, such as <code>static Call()</code>. This allows classes to modify or prevent the construction of new instances.</p>
-<p>Note that <code>Class()</code> (literally using "Class" in this case) can be used to construct a new Class object based on <code>Class.Prototype</code>. However, this new object initially has no Call method as it is not a subclass of <a href="Object.htm">Object</a>. It can become a subclass of Object by assigning to <a href="Object.htm#Base">Base</a>, or the Call method can be reimplemented or copied from another class. A <a href="#Prototype">Prototype</a> must also be created and assigned to the class before it can be instantiated with the standard Call method.</p>
+<p>Call は、<code>static Call()</code> のような静的メソッドを定義することにより、クラス定義内でオーバーライドすることができます。これにより、クラスは新しいインスタンスを修正したり、構築できないようにすることができます。</p>
+<p>なお、<code>Class()</code>（ここでは文字通り "Class"を使用）は、<code>Class.Prototype</code>に基づいて新しいClassオブジェクトを構築するために使用することができます。しかし、この新しいオブジェクトは、<a href="Object.htm">Object</a>のサブクラスではないため、当初はCallメソッドを持ちません。<a href="Object.htm#Base">Base</a>に代入することでObjectのサブクラスになったり、Callメソッドを他のクラスから再実装またはコピーすることができます。また、標準的なCallメソッドでインスタンス化する前に、<a href="#Prototype">Prototype</a>を作成し、クラスに割り当てる必要があります。</p>
 </div>
 
-<h2 id="Properties">Properties</h2>
+<h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Prototype"><h3>Prototype</h3>
-<p>Retrieves or sets the object on which all instances of the class are based.</p>
+<p>クラスのすべてのインスタンスの基となるオブジェクトを取得または設定します。</p>
 <pre class="Syntax">Proto := ClassObj.<span class="func">Prototype</span></pre>
 <pre class="Syntax">ClassObj.<span class="func">Prototype</span> := Proto</pre>
-<p>By default, the class's Prototype contains all instance methods and dynamic properties defined within the class definition, and can be used to retrieve references to methods or property getters/setters or define new ones. The script can also define new value properties, which act as default property values for all instances.</p>
-<p>A class's Prototype is normally based on the Prototype of its base class, so <code>ClassObj.Prototype.base == ClassObj.base.Prototype</code>.</p>
-<p>Prototype is automatically defined as an own property of any class object created by a class definition.</p>
+<p>デフォルトでは、クラスのプロトタイプは、クラス定義内で定義されたすべてのインスタンスメソッドとダイナミックプロパティを含み、メソッドやプロパティのゲッター/セッターへの参照を取得したり、新しいものを定義したりするために使用できます。スクリプトは、すべてのインスタンスのデフォルトのプロパティ値として機能する、新しい値のプロパティを定義することもできます。</p>
+<p>クラスのPrototypeは、通常、ベースクラスのPrototypeをベースにしているので、<code>ClassObj.Prototype.base == ClassObj.base.Prototype</code>.</p>
+<p>プロトタイプは、クラス定義で作成されたクラスオブジェクトの自前プロパティとして自動的に定義される。</p>
 </div>
 
 </body>

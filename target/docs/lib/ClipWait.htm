@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ClipWait - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ClipWait function waits until the clipboard contains data." />
+<title>ClipWait - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ClipWait関数は、クリップボードにデータが入るまで待ちます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>ClipWait</h1>
 
-<p>Waits until the <a href="A_Clipboard.htm">clipboard</a> contains data.</p>
+<p><a href="A_Clipboard.htm">クリップボード</a>にデータが入るまで待ちます。</p>
 
 <pre class="Syntax"><span class="func">ClipWait</span> <span class="optional">Timeout, WaitForAnyData</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,34 +21,34 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, the function will wait indefinitely. Otherwise, it will wait no longer than this many seconds (can contain a decimal point).</p>
+    <p>省略した場合は、無期限で待機します。そうでない場合は、この秒数（小数点以下も可）以上待つことはありません。</p>
   </dd>
 
   <dt>WaitForAnyData</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If this parameter is omitted or 0 (false), the function is more selective, waiting specifically for text or files to appear ("text" includes anything that would produce text when you paste into Notepad). If this parameter is 1 (true), the function waits for data of any kind to appear on the clipboard.</p>
-    <p>Other values are reserved for future use.</p>
+    <p>このパラメータが省略されるか0（false）の場合、この関数はより選択的に、テキストまたはファイルが現れるのを特別に待ちます（「テキスト」には、メモ帳に貼り付けたときにテキストを生成するようなものも含まれます）。このパラメータが1（true）の場合、この関数はあらゆる種類のデータがクリップボードに表示されるのを待ちます。</p>
+    <p>その他の値は、将来の使用のために予約されています。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
-<p>This function returns 0 (false) if the function timed out or 1 (true) otherwise (i.e. the clipboard contains data).</p>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>この関数は、タイムアウトした場合は0（false）を、そうでない場合（すなわちクリップボードにデータがある場合）は1（true）を返します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>It's better to use this function than a loop of your own that checks to see if this clipboard is blank. This is because the clipboard is never opened by this function, and thus it performs better and avoids any chance of interfering with another application that may be using the clipboard.</p>
-<p>This function considers anything convertible to text (e.g. HTML) to be text. It also considers files, such as those copied in an Explorer window via <kbd>Ctrl</kbd>+<kbd>C</kbd>, to be text. Such files are automatically converted to their filenames (with full path) whenever the clipboard variable is referred to in the script. See <a href="A_Clipboard.htm">A_Clipboard</a> for details.</p>
-<p>When 1 (true) is present as the last parameter, the function will be satisfied when any data appears on the clipboard. This can be used in conjunction with <a href="ClipboardAll.htm">ClipboardAll</a> to save non-textual items such as pictures.</p>
-<p>While the function is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
-<p>To wait for a fraction of a second, specify a floating point value for the first parameter, for example, 0.25 to wait for a maximum of 250 milliseconds.</p>
+<p>このクリップボードが空白かどうかをチェックする独自のループよりも、この関数を使用する方がよいでしょう。これは、この関数によってクリップボードが開かれることがないため、パフォーマンスが向上し、クリップボードを使用している可能性のある他のアプリケーションと干渉する可能性が回避されるためです。</p>
+<p>この機能は、テキストに変換可能なもの（HTMLなど）をテキストとみなします。また、エクスプローラーウィンドウで<kbd>Ctrl</kbd><kbd>+</kbd><kbd>C</kbd>でコピーしたようなファイルもテキストとみなします。このようなファイルは、スクリプト内でクリップボード変数が参照されるたびに、自動的にそのファイル名（フルパス付き）に変換されます。詳しくは<a href="A_Clipboard.htm">A_Clipboard</a>をご覧ください。</p>
+<p>最後のパラメータに1（true）を指定すると、クリップボードに何らかのデータが表示されたときに、この関数が満たされます。<a href="ClipboardAll.htm">ClipboardAll</a>と併用することで、画像などテキスト以外のものを保存することができます。</p>
+<p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
+<p>秒単位で待機する場合は、第1パラメータに浮動小数点値を指定します。例えば、最大250ミリ秒待機する場合は、0.25と指定します。</p>
 <h2 id="Related">関連</h2>
 <p><a href="A_Clipboard.htm">A_Clipboard</a>, <a href="WinWait.htm">WinWait</a>, <a href="KeyWait.htm">KeyWait</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Empties the clipboard, copies the current selection into the clipboard and waits a maximum of 2 seconds until the clipboard contains data. If ClipWait times out, an error message is shown, otherwise the clipboard contents is shown.</p>
-<pre>A_Clipboard := "" <em>; Empty the clipboard</em>
+<p><a class="ex_number" href="#ExBasic"></a> クリップボードを空にし、現在の選択範囲をクリップボードにコピーし、クリップボードにデータが入るまで最大2秒間待機します。ClipWaitがタイムアウトした場合はエラーメッセージを表示し、それ以外の場合はクリップボードの内容を表示する。</p>
+<pre>A_Clipboard := ""<em>; クリップボードを空にする</em>
 Send "^c"
 if !ClipWait(2)
 {

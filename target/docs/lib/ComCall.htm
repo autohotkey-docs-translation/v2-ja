@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComCall - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComCall function calls a native COM interface method by index." />
+<title>ComCall - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComCall関数は、ネイティブCOMインターフェイスのメソッドをインデックスで呼び出します。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ComCall</h1>
 
-<p>Calls a native COM interface method by index.</p>
+<p>COMのネイティブインターフェースメソッドをインデックスで呼び出します。</p>
 
 <pre class="Syntax">Result := <span class="func">ComCall</span>(Index, ComObj <span class="optional">, Type1, Arg1, Type2, Arg2, ReturnType</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -22,51 +22,51 @@
   <dt>Index</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The zero-based index of the method within the virtual function table.</p>
-      <p><em>Index</em> corresponds to the position of the method within the original interface definition. Microsoft documentation usually lists methods in alphabetical order, which is not relevant. In order to determine the correct index, locate the original interface definition. This may be in a header file or type library.</p>
-      <p>It is important to take into account methods which are inherited from parent interfaces. Since all COM interfaces ultimately derive from <a href="https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, the first three methods are always QueryInterface (0), AddRef (1) and Release (2). For example, <em>IShellItem2</em> is an extension of <em>IShellItem</em>, which starts at index 3 and contains 5 methods, so <em>IShellItem2</em>'s first method (GetPropertyStore) is at index 8.</p>
-      <p class="note"><strong>Tip:</strong> For COM interfaces defined by Microsoft, try searching the Internet or Windows SDK for "<em>IInterfaceName</em><b>Vtbl</b>" - for example, "IUnknownVtbl". Microsoft's own interface definitions are accompanied by this plain-C definition of the interface's virtual function table, which lists all methods explicitly, in the correct order.</p>
-      <p>Passing an invalid index may cause undefined behaviour, including (but not limited to) program termination.</p>
+      <p>仮想関数テーブル内のメソッドのゼロベースインデックス。</p>
+      <p><em>インデックス</em>は、元のインターフェース定義内でのメソッドの位置に対応します。マイクロソフトのドキュメントでは、通常、メソッドをアルファベット順に記載していますが、これは関係ありません。正しいインデックスを決定するために、元のインターフェイスの定義を見つけてください。これは、ヘッダーファイルやタイプライブラリの中にあるかもしれません。</p>
+      <p>親インターフェースから継承されるメソッドを考慮することが重要である。すべてのCOMインタフェースは最終的に<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown">IUnknown</a>から派生するため、最初の3つのメソッドは常にQueryInterface（0）、AddRef（1）、Release（2）です。例えば、<em>IShellItem2</em>は <em>IShellItem</em>の拡張で、インデックス3から始まり、5つのメソッドを含むので、<em>IShellItem2</em>の最初のメソッド（GetPropertyStore）はインデックス8にある。</p>
+      <p class="note"><strong>ヒント：</strong>Microsoftによって定義されたCOMインターフェースについては、インターネットまたはWindows SDKで<em>「</em><b>IInterfaceNameVtbl</b>」-例えば「IUnknownVtbl」を検索してみてください。Microsoft独自のインターフェース定義には、インターフェースの仮想関数テーブルのこのプレーンC定義が付属しており、すべてのメソッドを正しい順序で明示的にリストアップしています。</p>
+      <p>無効なインデックスを渡すと、プログラムの終了を含む未定義の動作が発生する可能性があります（ただし、これに限定されるものではありません）。</p>
   </dd>
   
   <dt>ComObj</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="ComValue.htm">ComValue</a> or <a href="Object.htm">Object</a></p>
-      <p>The target COM object; that is, a COM interface pointer. The pointer value can be passed directly or encapsulated within an object with the <code>Ptr</code> property, such as a <a href="ComValue.htm">ComValue</a> with variant type VT_UNKNOWN.</p>
-      <p>The interface pointer is used to locate the address of the virtual function which implements the interface method, and is also passed as a parameter. This parameter is generally not explicitly present in languages which natively support interfaces, but is shown in the C style "Vtbl" definition.</p>
-      <p>Passing an invalid pointer may cause undefined behaviour, including (but not limited to) program termination.</p>
+      <p>対象となる COM オブジェクト、すなわち COM インタフェースポインタ。ポインタ値は直接渡すか、バリアントタイプVT_UNKNOWNを持つ<a href="ComValue.htm">ComValue</a>など、<code>Ptr</code>プロパティを持つオブジェクト内にカプセル化することができます。</p>
+      <p>インターフェースポインタは、インターフェースメソッドを実装する仮想関数のアドレスを特定するために使用され、パラメータとしても渡される。このパラメータは、一般にインターフェースをネイティブにサポートする言語では明示的に存在しないが、Cスタイルの「Vtbl」定義では表示される。</p>
+      <p>無効なポインタを渡すと、プログラムの終了を含む未定義の動作を引き起こす可能性があります（ただし、これに限定されるものではありません）。</p>
   </dd>
 
   <dt>Type1, Arg1</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Each of these pairs represents a single parameter to be passed to the method. The number of pairs is unlimited. For <em>Type</em>, see the <a href="DllCall.htm#types">DllCall types table</a>. For <em>Arg</em>, specify the value to be passed to the method.</p>
+      <p>これらのペアはそれぞれ、メソッドに渡される1つのパラメータを表しています。組数は無制限です。<em>タイプについては</em>、<a href="DllCall.htm#types">DllCallタイプ</a>表を参照してください。<em>引数</em>の場合、メソッドに渡す値を指定します。</p>
   </dd>
 
   <dt>ReturnType</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If omitted, the return type defaults to <a href="DllCall.htm#HRESULT">HRESULT</a>, which is most the common return type for COM interface methods. Any result indicating failure causes an <a href="Error.htm#OSError">OSError</a> to be thrown; therefore, the return type must not be omitted unless the actual return type is HRESULT.</p>
-      <p>If the method is of a type that does not return a value (the <code>void</code> return type in C), specify "Int" or any other numeric type without any suffix (except HRESULT), and ignore the return value. As the content of the return value register is arbitrary in such cases, an exception may or may not be thrown if <em>ReturnType</em> is omitted.</p>
-      <p>Otherwise, specify one of the argument types from the <a href="DllCall.htm#types">DllCall types table</a>. The <a href="DllCall.htm#asterisk">asterisk suffix</a> is also supported.</p>
-      <p id="cdecl">Although ComCall supports the <em>Cdecl</em> keyword as per <a href="DllCall.htm#cdecl">DllCall</a>, it is generally not used by COM interface methods.</p>
+      <p>省略された場合、戻り値の型はデフォルトで<a href="DllCall.htm#HRESULT">HRESULT</a>となり、これはCOMインターフェイスのメソッドの最も一般的な戻り値の型である。失敗を示す結果は、<a href="Error.htm#OSError">OSError</a>が投げられる。したがって、実際の戻り値の型が HRESULT である場合を除き、戻り値の型を省略してはならない。</p>
+      <p>メソッドが値を返さない型（Cでは<code>void</code>戻り値型）の場合、"Int "または接尾辞のない他の数値型（HRESULTを除く）を指定し、戻り値を無視する。このような場合、戻り値レジスタの内容は任意であるため、<em>ReturnType</em>を省略した場合は例外が発生する可能性がある。</p>
+      <p>それ以外の場合は、<a href="DllCall.htm#types">DllCall タイプテーブル</a>から引数タイプのいずれかを指定する。<a href="DllCall.htm#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
+      <p id="cdecl">ComCallは<a href="DllCall.htm#cdecl">DllCall</a>と同様に<em>Cdecl</em>キーワードをサポートしていますが、一般的にCOMインターフェースメソッドでは使用されません。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-<p>If <em>ReturnType</em> is <a href="DllCall.htm#HRESULT">HRESULT</a> (or omitted) and the method returned an error value (as defined by the <a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED macro</a>), an <a href="Error.htm#OSError">OSError</a> is thrown.</p>
-<p>Otherwise, ComCall returns the actual value returned by the method. If the method is of a type that does not return a value (with return type defined in C as <code>void</code>), the result is undefined and should be ignored.</p>
+<p><em>ReturnType</em>が<a href="DllCall.htm#HRESULT">HRESULT</a>（または省略）で、メソッドがエラー値を返した場合（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）、<a href="Error.htm#OSError">OSError</a>がスローされる。</p>
+<p>そうでない場合、ComCallは、メソッドによって返された実際の値を返します。メソッドが値を返さない型（Cで定義された戻り値の型が<code>void</code>）の場合、結果は未定義であり、無視されるべきです。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The following DllCall topics are also applicable to ComCall:</p>
+<p>以下のDllCallのトピックは、ComCallにも適用されます。</p>
 <ul>
-  <li><a href="DllCall.htm#types">Types of Arguments and Return Values</a></li>
-  <li><a href="DllCall.htm#error">Errors</a></li>
-  <li><a href="DllCall.htm#except">Native Exceptions and A_LastError</a></li>
-  <li><a href="DllCall.htm#struct">Structures and Arrays</a></li>
-  <li><a href="DllCall.htm#limits">Known Limitations</a></li>
+  <li><a href="DllCall.htm#types">引数の種類と戻り値</a></li>
+  <li><a href="DllCall.htm#error">エラー</a></li>
+  <li><a href="DllCall.htm#except">ネイティブの例外とA_LastError</a></li>
+  <li><a href="DllCall.htm#struct">構造体・配列</a></li>
+  <li><a href="DllCall.htm#limits">既知の制限事項</a></li>
   <li><a href="DllCall.htm#dotnet">.NET Framework</a></li>
 </ul>
 
@@ -76,7 +76,7 @@
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExTaskbar">
-<p><a class="ex_number" href="#ExTaskbar"></a> Remove the active window from the taskbar for 3 seconds. Compare this to the <a href="DllCall.htm#ExTaskbar">equivalent DllCall example</a>.</p>
+<p><a class="ex_number" href="#ExTaskbar"></a> アクティブなウィンドウを3秒間タスクバーから削除する。<a href="DllCall.htm#ExTaskbar">同等のDllCallの例</a>と比較してみてください。</p>
 <pre><em>/*
   Methods in <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarList</a>'s VTable:
 IUnknown:
@@ -93,7 +93,7 @@ IUnknown:
 IID_ITaskbarList  := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
 CLSID_TaskbarList := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
 
-<em>; Create the TaskbarList object.</em>
+<em>; TaskbarListオブジェクトを作成する。</em>
 tbl := ComObject(CLSID_TaskbarList, IID_ITaskbarList)
 
 activeHwnd := WinExist("A")
@@ -103,14 +103,14 @@ ComCall(5, tbl, "ptr", activeHwnd)<em>; tbl.<a href="https://learn.microsoft.com
 Sleep 3000
 ComCall(4, tbl, "ptr", activeHwnd)<em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
 
-<em>; When finished with the object, simply replace any references with
+<em>; オブジェクトを使い終わったら、すべての参照を
 ; some other value (or if its a local variable, just return):</em>
 tbl := ""
 </pre>
 </div>
 
 <div class="ex" id="ExTaskbarClass">
-<p><a class="ex_number" href="#ExTaskbarClass"></a> Demonstrate some techniques for wrapping COM interfaces. Equivalent to the previous example.</p>
+<p><a class="ex_number" href="#ExTaskbarClass"></a> COMインタフェースをラッピングするいくつかのテクニックを実証する。前例に準ずる。</p>
 <pre>
 tbl := TaskbarList()
 
@@ -127,22 +127,22 @@ class TaskbarList {
     static IID := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
     static CLSID := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
     
-<em>; Called on startup to initialize the class.</em>
+<em>; クラスを初期化するために起動時に呼び出される。</em>
     static __new() {
-        <em>; Get the base object for all instances of TaskbarList.</em>
+        <em>; TaskbarList のすべてのインスタンスのベースオブジェクトを取得する。</em>
         proto := this.Prototype
         
-<em>; Bound functions can be used to predefine parameters, making
-        ; the methods more usable without requiring wrapper functions.
-; HrInit itself has no parameters, so bind only the index,
-        ; and the caller will implicitly provide 'this'.</em>
+<em>; バウンド関数を使用して、パラメータを事前に定義することができます。
+        ; ラッパー関数を必要とせず、より使いやすいメソッドを提供します。
+; HrInit自身はパラメータを持たないので、インデックスだけをバインドする。
+        ; であり、呼び出し側は暗黙のうちに 'this' を提供することになる。</em>
         proto.HrInit := ComCall.Bind(3)
         
-<em>; Leave a parameter blank to let the caller provide a value.
-; In this case, the blank parameter is 'this' (normally hidden).</em>
+<em>; パラメータを空白にすることで、呼び出し側が値を指定できるようにします。
+; この場合、空白のパラメータは'this'（通常は非表示）です。</em>
         proto.AddTab := ComCall.Bind(4,, "ptr")
         
-<em>; An object or Map can be used to reduce repetition.</em>
+<em>; オブジェクトやMapを使用することで、繰り返しを減らすことができます。</em>
         for name, args in Map(
             "DeleteTab", [5,,"ptr"],
             "ActivateTab", [6,,"ptr"],
@@ -151,11 +151,11 @@ class TaskbarList {
         }
     }
     
-<em>; Called by TaskbarList() on the new instance.</em>
+<em>; 新しいインスタンスに対して TaskbarList() によって呼び出される。</em>
     __new() {
         this.comobj := ComObject(TaskbarList.CLSID, TaskbarList.IID)
         this.ptr := this.comobj.ptr
-        <em>; Request initialization via ITaskbarList.</em>
+        <em>; ITaskbarList を介したリクエスト初期化。</em>
         this.HrInit()
     }
 }

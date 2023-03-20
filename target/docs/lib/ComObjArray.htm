@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObjArray - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObjArray function creates a SafeArray for use with COM." />
+<title>ComObjArray - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObjArray 関数は、COM で使用する SafeArray を作成します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,10 +12,10 @@
 
 <h1>ComObjArray</h1>
 
-<p>Creates a SafeArray for use with COM.</p>
+<p>COM で使用する SafeArray を作成します。</p>
 
 <pre class="Syntax">ArrayObj := <span class="func">ComObjArray</span>(VarType, Count1 <span class="optional">, Count2, ... Count8</span>)</pre>
-<p><code>ComObjArray</code> itself is a <a href="Class.htm">class</a> derived from <code>ComValue</code>, but is used only to create or identify SafeArray wrapper objects.</p>
+<p><code>ComObjArray</code>自体は<code>ComValue</code>から派生した<a href="Class.htm">クラス</a>ですが、SafeArrayのラッパーオブジェクトを作成または識別するためにのみ使用されます。</p>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
@@ -23,57 +23,57 @@
   <dt>VarType</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
-    <p>See <a href="ComObjType.htm">ComObjType</a> for a list of possible values.</p>
+    配列の基本型（配列の各要素のVARTYPE）。VARTYPEは、バリアントタイプのサブセットに限定されます。VT_ARRAYフラグ、VT_BYREFフラグのいずれも設定できない。VT_EMPTY と VT_NULL は、配列のベースタイプとして有効ではありません。それ以外のタイプはすべて合法です。
+    <p>取り得る値の一覧は、<a href="ComObjType.htm">ComObjType</a>を参照されたい。</p>
   </dd>
 
   <dt>Count<i>N</i></dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The size of each dimension. Arrays containing up to 8 dimensions are supported.</p>
+    <p>各寸法の大きさです。最大8次元までの配列に対応しています。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：ComObjArray</p>
-<p>This function returns a wrapper object containing a new SafeArray.</p>
+<p>この関数は、新しい SafeArray を含むラッパーオブジェクトを返します。</p>
 
 <h2 id="Methods">メソッド</h2>
-<p>ComObjArray objects support the following methods:</p>
+<p>ComObjArray オブジェクトは、以下のメソッドをサポートしています。</p>
 <ul>
-    <li><code>.MaxIndex(n)</code>: Returns the upper bound of the <i>n</i>th dimension. If <i>n</i> is omitted, it defaults to 1.</li>
-    <li><code>.MinIndex(n)</code>: Returns the lower bound of the <i>n</i>th dimension. If <i>n</i> is omitted, it defaults to 1.</li>
-    <li><code>.Clone()</code>: Returns a copy of the array.</li>
-    <li><code>.__Enum()</code>: Not typically called by script; allows <a href="For.htm">for-loops</a> to be used with SafeArrays.</li>
+    <li><code>.MaxIndex(n)</code>:<i>n</i>次元の上限値を返す。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.MinIndex(n)</code>:<i>n</i>次元目の下界を返します。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.Clone()</code>:配列のコピーを返します。</li>
+    <li><code>.__Enum()</code>:SafeArraysで<a href="For.htm">for-loop</a>を使用することができます。</li>
 </ul>
-<p>These are currently hard-coded; they do not exist as properties and are not affected by modifications to <code>ComObjArray.Prototype</code>.</p>
+<p>これらは現在ハードコードされており、プロパティとして存在せず、<code>ComObjArray.Prototype</code>の修正によって影響を受けることはありません。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>ComObjArray objects may also be returned by COM methods and <a href="ComValue.htm">ComValue</a>. Scripts may determine if a value is a ComObjArray as follows:</p>
-<pre><em>; Check class</em>
+<p>ComObjArrayオブジェクトは、COMメソッドや<a href="ComValue.htm">ComValue</a>によって返されることもある。スクリプトは、以下のように値がComObjArrayであるかどうかを判断することができる。</p>
+<pre><em>; チェッククラス</em>
 if obj is ComObjArray
     MsgBox "Array subtype: " . ComObjType(obj) &amp; 0xfff
 else
     MsgBox "Not an array."
 
-<em>; Check for VT_ARRAY</em>
+<em>; VT_ARRAYのチェック</em>
 if ComObjType(obj) &amp; 0x2000
     MsgBox "obj is a ComObjArray"
 
-<em>; Check specific array type</em>
+<em>; 特定の配列の種類をチェックする</em>
 if ComObjType(obj) = 0x2008
     MsgBox "obj is a ComObjArray of strings"</pre>
-<p>Arrays with up to 8 dimensions are supported.</p>
-<p>Since SafeArrays are not designed to support multiple references, when one SafeArray is assigned to an element of another SafeArray, a separate copy is created. However, this only occurs if the wrapper object has the F_OWNVALUE flag, which indicates it is responsible for destroying the array. This flag can be removed by using <a href="ComObjFlags.htm">ComObjFlags</a>.</p>
-<p>When a function or method called by a COM client returns a SafeArray with the F_OWNVALUE flag, a copy is created and returned instead, as the original SafeArray is automatically destroyed.</p>
+<p>最大8次元までの配列に対応しています。</p>
+<p>SafeArrayは複数参照に対応していないため、あるSafeArrayを別のSafeArrayの要素に割り当てると、別のコピーが作成されます。ただし、これはラッパーオブジェクトがF_OWNVALUEフラグを持ち、そのフラグが配列を破壊する責任があることを示している場合にのみ発生します。このフラグは、<a href="ComObjFlags.htm">ComObjFlags</a>を使用することで削除することができます。</p>
+<p>COMクライアントから呼び出された関数やメソッドがF_OWNVALUEフラグを持つSafeArrayを返す場合、元のSafeArrayは自動的に破棄されるため、代わりにコピーが作成されて返されます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComValue.htm">ComValue</a>, <a href="ComObjType.htm">ComObjType</a>, <a href="ComObjValue.htm">ComObjValue</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjFlags.htm">ComObjFlags</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/automat/array-manipulation-functions">Array Manipulation Functions (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Simple usage.</p>
+<p><a class="ex_number" href="#ExBasic"></a> シンプルな使い方です。</p>
 <pre>arr := ComObjArray(VT_VARIANT:=12, 3)
 arr[0] := "Auto"
 arr[1] := "Hot"
@@ -86,19 +86,19 @@ MsgBox t
 </div>
 
 <div class="ex" id="ExMultiDims">
-<p><a class="ex_number" href="#ExMultiDims"></a> Multiple dimensions.</p>
+<p><a class="ex_number" href="#ExMultiDims"></a> 多次元です。</p>
 <pre>arr := ComObjArray(VT_VARIANT:=12, 3, 4)
 
-<em>; Get the number of dimensions:</em>
+<em>; 次元数を取得する。</em>
 dim := DllCall("oleaut32\SafeArrayGetDim", "ptr", ComObjValue(arr))
 
-<em>; Get the bounds of each dimension:</em>
+<em>; 各次元の境界を取得する。</em>
 dims := ""
 Loop dim
     dims .= arr.MinIndex(A_Index) " .. " arr.MaxIndex(A_Index) "`n"
 MsgBox dims
 
-<em>; Simple usage:</em>
+<em>; シンプルな使い方です。</em>
 Loop 3 {
     x := A_Index-1
     Loop 4 {
