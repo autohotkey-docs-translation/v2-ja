@@ -128,7 +128,7 @@
 <p>Literal numbers are now fully supported on the left-hand side of member access (dot). For example, <code>0.1</code> is a number but <code>0.min</code> and <code>0.1.min</code> access the <em>min</em> property which can be handled by a base object (see <a href="Objects.htm#primitive">Primitive Values</a>). <code>1..2</code> or <code>1.0.2</code> is the number 1.0 followed by the property 2. Example use might be to implement units of measurement, literal version numbers or ranges.</p>
 <p><code>x**y</code>: Where <code>x</code> and <code>y</code> are integers and <code>y</code> is positive, the power operator now gives correct results for all inputs if in range, where previously some precision was lost due to the internal use of floating-point math. Behaviour of overflow is undefined.</p>
 <h3 id="objects-misc">Objects (Misc)</h3>
-<p>こちらもご覧ください。<a href="#objects">Objects</a></p>
+<p>こちらもご覧ください：<a href="#objects">Objects</a></p>
 <p>There is now a distinction between properties accessed with <code>.</code> and data (items, array or map elements) accessed with <code>[]</code>. For example, <code>dictionary["Count"]</code> can return the definition of "Count" while <code>dictionary.Count</code> returns the number of words contained within. User-defined objects can utilize this by defining an <a href="Objects.htm#__Item">__Item property</a>.</p>
 <p>When the name of a property or method is not known in advance, it can (and must) be accessed by using percent signs. For example, <code>obj.%varname%()</code> is the v2 equivalent of <code>obj[varname]()</code>. The use of <code>[]</code> is reserved for data (such as array elements).</p>
 <p>The literal syntax for constructing an ad hoc object is still basically <code>{name: value}</code>, but since plain objects now only have "properties" and not "array elements", the rules have changed slightly for consistency with how properties are accessed in other contexts:</p>
@@ -418,15 +418,10 @@ this.__set(name, args, value)
 <li>StringCaseSense (use various parameters)</li>
 <li>StringGetPos (use <a href="lib/InStr.htm">InStr</a>)</li>
 <li>StringLeft<br>
-
 StringLen<br>
-
 StringMid<br>
-
 StringRight<br>
-
 StringTrimLeft<br>
-
 StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these commands.</li>
 <li>StringReplace (use <a href="lib/StrReplace.htm">StrReplace</a> instead)</li>
 <li>StringSplit (use <a href="lib/StrSplit.htm">StrSplit</a> instead)</li>
@@ -576,7 +571,6 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <ul>
 <li>__Get is used to implement the shorthand <code>match.subpat</code> where <em>subpat</em> is the name of a subpattern/capturing group. As __Get is no longer called if a property is <em>inherited</em>, the following subpattern names can no longer be used with the shorthand syntax: Pos, Len, Name, Count, Mark. (For example, <code>match.Len</code> always returns the length of the overall match, not a captured string.)</li>
 <li>Originally the match object had methods instead of properties so that properties could be reserved for subpattern names. As new language behaviour implies that <code>match.name</code> would return a function by default, the methods have been replaced or supplemented with properties:
-
 <ul>
 <li>Pos, Len and Name are now properties and methods.</li>
 <li>Name now requires 1 parameter to avoid confusion (<code>match.Name</code> throws an error).</li>
@@ -975,13 +969,9 @@ Name    := MonitorGetName(N)
 <p>LV/TV.Add/Modify now suppress item-change events, so such events should only be raised by user action or SendMessage.</p>
 <h3 id="removed">Removed</h3>
 <p>+Delimiter<br>
-
 +Hwnd<em>OutputVar</em> (use <a href="lib/Gui.htm#Hwnd">GuiObj.Hwnd</a> or <a href="lib/GuiControl.htm#Hwnd">GuiCtrl.Hwnd</a> instead)<br>
-
 +Label<br>
-
 +LastFoundExist<br>
-
 Gui GuiName: Default</p>
 <h3 id="control-options">Control Options</h3>
 <p>+/-Background is interpreted and supported more consistently. All controls which supported "Gui Color" now support <code>+Background<i>Color</i></code> and <code>+BackgroundDefault</code> (synonymous with <code>-Background</code>), not just ListView/TreeView/StatusBar/Progress.</p>
@@ -1190,7 +1180,6 @@ catch Any
 <li>User bug reports (and simple logic) indicate that if it works, it allows the focus to be stolen by programs which aren't specifically designed to do so.</li>
 <li>Some testing on Windows 10 indicated that it had no effect on anything; calls to <code>SetForegroundWindow</code> always failed, and other workarounds employed by WinActivate were needed and effective regardless of timeout. <code>SPI_GETFOREGROUNDLOCKTIMEOUT</code> was used from a separate process to verify that the change took effect (it sometimes doesn't).</li>
 <li>It can be replicated in script easily:
-
 <pre>DllCall("SystemParametersInfo", "int", 0x2001, "int", 0, "ptr", 0, "int", 2)</pre>
 </li>
 </ul>
@@ -1202,7 +1191,6 @@ catch Any
 <ul>
 <li>Maximum line or continuation section length of 16,383 characters.</li>
 <li>Maximum 512 tokens per expression (MAX_TOKENS).<br>
-
 Arrays internal to the expression evaluator which were sized based on MAX_TOKENS are now based on precalculated estimates of the required sizes, so performance should be similar but stack usage is somewhat lower in most cases. This might increase the maximum recursion depth of user-defined functions.</li>
 <li>Maximum 512 var or function references per arg (but MAX_TOKENS was more limiting for expressions anyway).</li>
 <li>Maximum 255 specified parameter values per function call (but MAX_TOKENS was more limiting anyway).</li>

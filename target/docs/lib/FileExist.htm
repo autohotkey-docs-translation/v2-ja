@@ -21,7 +21,7 @@
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The path, filename, or file pattern to check. <em>FilePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
+    <p>The path, filename, or file pattern to check. <em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
   </dd>
 
 </dl>
@@ -46,33 +46,33 @@
 <h2 id="Remarks">備考</h2>
 <p>Note that a wildcard check like <code>InStr(FileExist("FolderWithFilesAndSubfolders\*"), "D")</code> only tells you whether the <em>first</em> matching file is a folder, not whether a folder exists. To check for the latter, use <a href="DirExist.htm">DirExist</a>. 事例：<code>DirExist("FolderWithFilesAndSubfolders\*")</code></p>
 <p>Unlike <a href="FileGetAttrib.htm">FileGetAttrib</a>, FileExist supports wildcard patterns and always returns a non-empty value if a matching file exists.</p>
-<p>Since an empty string is seen as "false", the function's return value can always be used as a quasi-boolean value. For example, the statement <code>if FileExist("C:\My File.txt")</code> would be true if the file exists and false otherwise.</p>
-<p>Since <em>FilePattern</em> may contain wildcards, FileExist may be unsuitable for validating a file path which is to be used with another function or program. For example, <code>FileExist("*.txt")</code> may return attributes even though "*.txt" is not a valid filename. In such cases, <a href="FileGetAttrib.htm">FileGetAttrib</a> is preferred.</p>
+<p>空文字列は "false"とみなされるため、この関数の戻り値は常に準ブール値として使用することができる。For example, the statement <code>if FileExist("C:\My File.txt")</code> would be true if the file exists and false otherwise.</p>
+<p>Since <em>FilePattern</em> may contain wildcards, FileExist may be unsuitable for validating a file path which is to be used with another function or program. For example, <code>FileExist("*.txt")</code> may return attributes even though "*.txt" is not a valid filename. このような場合は、<a href="FileGetAttrib.htm">FileGetAttrib</a>を使用することが望ましい。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="DirExist.htm">DirExist</a>, <a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="LoopFiles.htm">File-loops</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExDrive">
-<p><a class="ex_number" href="#ExDrive"></a>  Shows a message box if the D drive does exist.</p>
+<p><a class="ex_number" href="#ExDrive"></a> Shows a message box if the D drive does exist.</p>
 <pre>if FileExist("D:\")
     MsgBox "The drive exists."</pre>
 </div>
 
 <div class="ex" id="ExPattern">
-<p><a class="ex_number" href="#ExPattern"></a>  Shows a message box if at least one text file does exist in a directory.</p>
+<p><a class="ex_number" href="#ExPattern"></a> Shows a message box if at least one text file does exist in a directory.</p>
 <pre>if FileExist("D:\Docs\*.txt")
     MsgBox "At least one .txt file exists."</pre>
 </div>
 
 <div class="ex" id="ExNot">
-<p><a class="ex_number" href="#ExNot"></a>  Shows a message box if a file does <strong>not</strong> exist.</p>
+<p><a class="ex_number" href="#ExNot"></a> Shows a message box if a file does <strong>not</strong> exist.</p>
 <pre>if not FileExist("C:\Temp\FlagFile.txt")
     MsgBox "The target file does not exist."</pre>
 </div>
 
 <div class="ex" id="ExAttr">
-<p><a class="ex_number" href="#ExAttr"></a>  Demonstrates how to check a file for a specific attribute.</p>
+<p><a class="ex_number" href="#ExAttr"></a> Demonstrates how to check a file for a specific attribute.</p>
 <pre>if InStr(FileExist("C:\My File.txt"), "H")
     MsgBox "The file is hidden."</pre>
 </div>

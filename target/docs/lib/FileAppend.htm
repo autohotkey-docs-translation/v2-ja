@@ -20,7 +20,7 @@
 
   <dt>Text</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>The text or raw binary data to append to the file. Text may include linefeed characters (`n) to start new lines. In addition, a single long line can be broken up into several shorter ones by means of a <a href="../Scripts.htm#continuation">continuation section</a>.</p>
     <p>A <a href="Buffer.htm">Buffer</a>-like object may be passed to append raw binary data. If a file is created, a byte order mark (BOM) is written only if "UTF-8" or "UTF-16" has been specified within <em>Options</em>. The <a href="../Variables.htm#FileEncoding">default encoding</a> is ignored and the data contained by the object is written as-is, regardless of <em>Options</em>. Any object which implements <a href="Buffer.htm#Ptr">Ptr</a> and <a href="Buffer.htm#Size">Size</a> properties may be used.</p>
     <p>If <em>Text</em> is blank, <em>Filename</em> will be created as an empty file (but if the file already exists, its modification time will be updated).</p>
@@ -51,7 +51,7 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>An <a href="Error.htm#OSError">OSError</a> is thrown on failure.</p>
-<p><a href="../Variables.htm#LastError">A_LastError</a> is set to the result of the operating system's GetLastError() function.</p>
+<p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>To overwrite an existing file, delete it with <a href="FileDelete.htm">FileDelete</a> prior to using FileAppend.</p>
@@ -61,12 +61,12 @@
 <p><a href="FileOpen.htm">FileOpen</a>/<a href="File.htm">File Object</a>, <a href="FileRead.htm">FileRead</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="IniWrite.htm">IniWrite</a>, <a href="FileDelete.htm">FileDelete</a>, <a href="OutputDebug.htm">OutputDebug</a>, <a href="../Scripts.htm#continuation">continuation sections</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Creates a file, if necessary, and appends a line.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Creates a file, if necessary, and appends a line.</p>
 <pre>FileAppend "Another line.`n", "C:\My Documents\Test.txt"</pre>
 </div>
 
 <div class="ex" id="ExContSect">
-<p><a class="ex_number" href="#ExContSect"></a>  Use a <a href="../Scripts.htm#continuation">continuation section</a> to enhance readability and maintainability.</p>
+<p><a class="ex_number" href="#ExContSect"></a> Use a <a href="../Scripts.htm#continuation">continuation section</a> to enhance readability and maintainability.</p>
 <pre>FileAppend "
 (
 A line of text.
@@ -76,7 +76,7 @@ By default, the hard carriage return (Enter) between the previous line and this 
 </div>
 
 <div class="ex" id="ExFTP">
-<p><a class="ex_number" href="#ExFTP"></a>  Demonstrates how to automate FTP uploading using the operating system's built-in FTP command.</p>
+<p><a class="ex_number" href="#ExFTP"></a> Demonstrates how to automate FTP uploading using the operating system's built-in FTP command.</p>
 <pre>FTPCommandFile := A_ScriptDir "\FTPCommands.txt"
 FTPLogFile := A_ScriptDir "\FTPLog.txt"
 try FileDelete FTPCommandFile<em>; In case previous run was terminated prematurely.</em>

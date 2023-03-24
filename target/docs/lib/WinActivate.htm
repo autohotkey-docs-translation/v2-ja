@@ -20,26 +20,26 @@
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
@@ -57,7 +57,7 @@
 <p><a href="GroupActivate.htm">GroupActivate</a> activates the next window that matches criteria specified by a window group.</p>
 <p>If the active window is hidden and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> is turned off, it is never considered a match. Instead, a visible matching window is activated if one exists.</p>
 <p>When a window is activated immediately after the activation of some other window, task bar buttons might start flashing on some systems (depending on OS and settings). To prevent this, use <a href="_WinActivateForce.htm">#WinActivateForce</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <p><strong>Known issue:</strong> If the script is running on a computer or server being accessed via remote desktop, WinActivate may hang if the remote desktop client is minimized. One workaround is to use built-in functions which don't require window activation, such as <a href="ControlSend.htm">ControlSend</a> and <a href="ControlClick.htm">ControlClick</a>. Another possible workaround is to apply the following registry setting on the local/client computer:</p>
 <pre><em>; Change HKCU to HKLM to affect all users on this system.</em>
 RegWrite "REG_DWORD", "HKCU\Software\Microsoft\Terminal Server Client"
@@ -67,7 +67,7 @@ RegWrite "REG_DWORD", "HKCU\Software\Microsoft\Terminal Server Client"
 <p><a href="WinActivateBottom.htm">WinActivateBottom</a>, <a href="_WinActivateForce.htm">#WinActivateForce</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinClose.htm">WinClose</a>, <a href="GroupActivate.htm">GroupActivate</a>, <a href="Win.htm">Win functions</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  If Notepad does exist, activate it, otherwise activate the calculator.</p>
+<p><a class="ex_number" href="#ExBasic"></a> If Notepad does exist, activate it, otherwise activate the calculator.</p>
 <pre>if WinExist("Untitled - Notepad")
     WinActivate <em>; Use the window found by WinExist.</em>
 else

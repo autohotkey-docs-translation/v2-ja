@@ -21,14 +21,14 @@
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>Menu</dt>
@@ -65,13 +65,13 @@
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
@@ -84,7 +84,7 @@
 <p>For this function to work, the target window need not be active. However, some windows might need to be in a <a href="WinRestore.htm">non-minimized</a> state.</p>
 <p>This function <strong>will not work</strong> with applications that use non-standard menu bars. Examples include Microsoft Outlook and Outlook Express, which use disguised toolbars for their menu bars. In these cases, consider using <a href="ControlSend.htm">ControlSend</a> or <a href="PostMessage.htm">PostMessage</a>, which should be able to interact with some of these non-standard menu bars.</p>
 <p>The menu name parameters can also specify positions. This method exists to support menus that don't contain text (perhaps because they contain pictures of text rather than actual text). Position 1&amp; is the first menu item (e.g. the File menu), position 2&amp; is the second menu item (e.g. the Edit menu), and so on. Menu separator lines count as menu items for the purpose of determining the position of a menu item.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="sys">System Menu</h2>
 <p><em>Menu</em> can be <code>0&amp;</code> to select an item within the window's system menu, which typically appears when the user presses <kbd>Alt</kbd>+<kbd>Space</kbd> or clicks on the icon in the window's title bar. 事例：</p>
@@ -102,17 +102,17 @@ PostMessage WM_SYSCOMMAND, SC_MINIMIZE, 0,, "A"</pre>
 <p><a href="ControlSend.htm">ControlSend</a>, <a href="PostMessage.htm">PostMessage</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Selects <code class="no-highlight">File -&gt; Open</code> in Notepad. This example may fail on Windows 11 or later, as it requires the classic version of Notepad.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Selects <code class="no-highlight">File -&gt; Open</code> in Notepad. この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>MenuSelect "Untitled - Notepad",, "File", "Open"</pre>
 </div>
 
 <div class="ex" id="ExPos">
-<p><a class="ex_number" href="#ExPos"></a>  Same as above except it is done by position instead of name. On Windows 10, 2&amp; must be replaced with 3&amp; due to the new "New Window" menu item. This example may fail on Windows 11 or later, as it requires the classic version of Notepad.</p>
+<p><a class="ex_number" href="#ExPos"></a> Same as above except it is done by position instead of name. On Windows 10, 2&amp; must be replaced with 3&amp; due to the new "New Window" menu item. この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>MenuSelect "Untitled - Notepad",, "1&amp;", "2&amp;"</pre>
 </div>
 
 <div class="ex" id="ExMainWin">
-<p><a class="ex_number" href="#ExMainWin"></a>  Selects <code class="no-highlight">View -&gt; Lines most recently executed</code> in the <a href="../Program.htm#main-window">main window</a>.</p>
+<p><a class="ex_number" href="#ExMainWin"></a> Selects <code class="no-highlight">View -&gt; Lines most recently executed</code> in the <a href="../Program.htm#main-window">main window</a>.</p>
 <pre>WinShow "ahk_class AutoHotkey"
 MenuSelect "ahk_class AutoHotkey",, "View", "Lines most recently executed"</pre>
 </div>

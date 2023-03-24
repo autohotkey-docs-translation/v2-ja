@@ -30,17 +30,17 @@
       <li><a href="../Variables.htm#ref">参照演算子</a>（例えば、<code>&amp;MyVar</code>）と共に使用します。</li>
       <li><a href="IsSet.htm">IsSet</a>に直接渡される（例えば、<code>IsSet(MyVar)</code>)。</li>
     </ul>
-    <p id="LocalSameAsGlobal"><strong>LocalSameAsGlobal</strong>:スクリプトの実行前に、グローバル変数と同じ名前の<em>未宣言</em>のローカル変数に対して警告を表示するようにします。これは、グローバル変数を関数内で宣言してから代入しようとした場合に起こるエラーを防止するためのものです。もし本当にローカルな変数であることを意図していたのであれば、<code>local x</code>や<code>static y</code>などの宣言を用いて警告を抑制することができます。</p>
+    <p id="LocalSameAsGlobal"><strong>LocalSameAsGlobal</strong>：スクリプトの実行前に、グローバル変数と同じ名前の<em>未宣言</em>のローカル変数に対して警告を表示するようにします。これは、グローバル変数を関数内で宣言してから代入しようとした場合に起こるエラーを防止するためのものです。もし本当にローカルな変数であることを意図していたのであれば、<code>local x</code>や<code>static y</code>などの宣言を用いて警告を抑制することができます。</p>
     <p>この警告は、デフォルトでは無効になっています。</p>
     <pre>#Warn
 g := 1
 ShowG() {<em>; 関数が一度も呼び出されない場合でも警告は表示されます。</em>
-    <em>;global g ; &lt;-- グローバル変数に代入するために必要です。</em>
+    <em>; global g ; &lt;-- グローバル変数に代入するために必要です。</em>
     g := 2
 }
 ShowG
 MsgBox g<em>; 宣言がない場合、上記はローカルな "g "に割り当てられる。</em></pre>
-    <p id="Unreachable"><strong>Unreachable</strong>:スクリプトの実行を開始する前に、同じネスティングレベルの<code>Return</code>、<code>Break</code>、<code>Continue</code>、<code>Throw</code>、<code>Gotoの</code>直後の各行について、その行がラベルの対象でない限り、警告を表示するようにします。そんなセリフがあっても実行されることはない。</p>
+    <p id="Unreachable"><strong>Unreachable</strong>:スクリプトの実行を開始する前に、同じネスティングレベルの<code>Return</code>、<code>Break</code>、<code>Continue</code>、<code>Throw</code>、<code>Goto</code>の直後の各行について、その行がラベルの対象でない限り、警告を表示するようにします。そんなセリフがあっても実行されることはない。</p>
     <p>コードが到達できないことを意図している場合（例えば、<code>リターン</code>によってコードのブロックを一時的に無効にした場合、またはホットキーやホットストリングをコメントアウトすることによって一時的に無効にした場合）、到達できないコードもコメントアウトすることを検討してください。また、最初の到達不可能な行の上に<a href="../misc/Labels.htm">ラベル</a>を定義することで、警告を抑制することも可能です。</p>
     <p><strong>All</strong>:サポートされているすべての警告タイプに、与えられた<em>WarningMode</em>を適用します。</p>
   </dd>

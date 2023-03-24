@@ -27,7 +27,7 @@
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of a single file or folder, or a wildcard pattern such as C:\Temp\*.tmp. <em>FilePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
+    <p>The name of a single file or folder, or a wildcard pattern such as C:\Temp\*.tmp. <em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
     <p>If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">File-Loop</a> will be used instead.</p>
   </dd>
 
@@ -51,7 +51,7 @@
       <li>F = Include files. If both F and D are omitted, files are included but not folders.</li>
       <li>R = Subfolders are recursed into so that files and folders contained therein are operated upon if they match <em>FilePattern</em>. All subfolders will be recursed into, not just those whose names match <em>FilePattern</em>. If R is omitted, files and folders in subfolders are not included.</li>
     </ul>
-    <p class="note"><strong>注意</strong>:If <em>FilePattern</em> is a single folder rather than a wildcard pattern, it will always be operated upon regardless of this setting.</p>
+    <p class="note"><strong>注意</strong>：If <em>FilePattern</em> is a single folder rather than a wildcard pattern, it will always be operated upon regardless of this setting.</p>
   </dd>
 
 </dl>
@@ -102,27 +102,27 @@
   <li>SS = Second 00</li>
 </ul>
 <p>The built-in variable <a href="../Variables.htm#Now">A_Now</a> contains the current local time in the above format. Similarly, <a href="../Variables.htm#NowUTC">A_NowUTC</a> contains the current Coordinated Universal Time.</p>
-<p class="note"><strong>注意</strong>:Date-time values can be compared, added to, or subtracted from via <a href="DateAdd.htm">DateAdd</a> and <a href="DateDiff.htm">DateDiff</a>. Also, it is best to not use greater-than or less-than to compare times unless they are both the same string length. This is because they would be compared as numbers; for example, 20040201 is always numerically less (but chronologically greater) than 200401010533. So instead use <a href="DateDiff.htm">DateDiff</a> to find out whether the amount of time between them is positive or negative.</p>
+<p class="note"><strong>注意</strong>：Date-time values can be compared, added to, or subtracted from via <a href="DateAdd.htm">DateAdd</a> and <a href="DateDiff.htm">DateDiff</a>. Also, it is best to not use greater-than or less-than to compare times unless they are both the same string length. This is because they would be compared as numbers; for example, 20040201 is always numerically less (but chronologically greater) than 200401010533. So instead use <a href="DateDiff.htm">DateDiff</a> to find out whether the amount of time between them is positive or negative.</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileGetTime.htm">FileGetTime</a>, <a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="FormatTime.htm">FormatTime</a>, <a href="LoopFiles.htm">File-loop</a>, <a href="DateAdd.htm">DateAdd</a>, <a href="DateDiff.htm">DateDiff</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExOmitted">
-<p><a class="ex_number" href="#ExOmitted"></a>  Sets the modification time to the current time for all matching files.</p>
+<p><a class="ex_number" href="#ExOmitted"></a> Sets the modification time to the current time for all matching files.</p>
 <pre>FileSetTime "", "C:\temp\*.txt"</pre>
 </div>
 
 <div class="ex" id="ExModTime">
-<p><a class="ex_number" href="#ExModTime"></a>  Sets the modification date (time will be midnight).</p>
+<p><a class="ex_number" href="#ExModTime"></a> Sets the modification date (time will be midnight).</p>
 <pre>FileSetTime 20040122, "C:\My Documents\test.doc"</pre>
 </div>
 
 <div class="ex" id="ExCreateTime">
-<p><a class="ex_number" href="#ExCreateTime"></a>  Sets the creation date. The time will be set to 4:55pm.</p>
+<p><a class="ex_number" href="#ExCreateTime"></a> Sets the creation date. The time will be set to 4:55pm.</p>
 <pre>FileSetTime 200401221655, "C:\My Documents\test.doc", "C"</pre>
 </div>
 
 <div class="ex" id="ExPattern">
-<p><a class="ex_number" href="#ExPattern"></a>  Changes the mod-date of all files that match a pattern. Any matching folders will also be changed due to the last parameter.</p>
+<p><a class="ex_number" href="#ExPattern"></a> Changes the mod-date of all files that match a pattern. Any matching folders will also be changed due to the last parameter.</p>
 <pre>FileSetTime 20040122165500, "C:\Temp\*.*", "M", "DF"</pre>
 </div>
 

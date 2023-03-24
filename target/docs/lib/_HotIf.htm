@@ -14,7 +14,7 @@
 
 <h1>#HotIf</h1>
 
-<p>文脈依存の<a href="../Hotkeys.htm">ホットキーと</a> <a href="../Hotstrings.htm">ホットストリング</a>を作成します。このようなホットキーは、任意の条件（<a href="../Language.htm#expressions">式</a>）に応じて異なるアクションを実行します（または全く実行されません）。</p>
+<p>文脈依存の<a href="../Hotkeys.htm">ホットキー</a>と <a href="../Hotstrings.htm">ホットストリング</a>を作成します。このようなホットキーは、任意の条件（<a href="../Language.htm#expressions">式</a>）に応じて異なるアクションを実行します（または全く実行されません）。</p>
 
 <pre class="Syntax"><span class="func">#HotIf</span> <span class="optional">Expression</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -23,7 +23,7 @@
   <dt>式</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>任意の有効な<a href="../Variables.htm#Expressions">表現</a>。これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
+    <p>任意の有効な<a href="../Variables.htm#Expressions">式</a>。これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
   </dd>
 
 </dl>
@@ -38,7 +38,7 @@
 <p>文脈依存性をオフにするには、#HotIfを無表現で指定します。事例：</p>
 <pre>#HotIf</pre>
 <p>他のディレクティブと同様に、#HotIfは条件付きで実行することはできません。</p>
-<p>マウスやキーボードのホットキーが#HotIfによって無効化されると、本来の機能を発揮します。つまり、そのようなホットキーがないかのように、アクティブウィンドウに通過します。ただし、1つだけ例外があります。ジョイスティックのホットキー:#HotIfは機能しますが、他の番組がボタンを押したところを見ることを防ぐことはできません。</p>
+<p>マウスやキーボードのホットキーが#HotIfによって無効化されると、本来の機能を発揮します。つまり、そのようなホットキーがないかのように、アクティブウィンドウに通過します。ただし、1つだけ例外があります。ジョイスティックのホットキー：#HotIfは機能しますが、他の番組がボタンを押したところを見ることを防ぐことはできません。</p>
 <p>#HotIfは、<kbd>Enter</kbd>や <kbd>Space</kbd>などの通常のキーの動作を変更するためにも使用できます。これは、特定のウィンドウがそのキーを無視したり、好ましくない動作をする場合に有効です。事例：</p>
 <pre>#HotIf WinActive("Reminders ahk_class #32770")<em>; Outlookの "リマインダー "ウィンドウ。</em>
 Enter::Send "!o"<em>; Enterキーを押すと、選択したリマインダーをスヌーズするのではなく、開くようにします。</em>
@@ -64,7 +64,7 @@ GroupAdd "MyGroup", "ahk_class WordPadClass"
 #z::MsgBox "You pressed Win+Z in either Notepad or WordPad."
 </pre>
 </p>
-<p>ホットキーのバリエーションを動的に（スクリプトの実行中に）作成するには、<a href="HotIf.htm">HotIfを</a>参照してください。</p>
+<p>ホットキーのバリエーションを動的に（スクリプトの実行中に）作成するには、<a href="HotIf.htm">HotIf</a>を参照してください。</p>
 
 <h2 id="expression-evaluation">式評価</h2>
 <p>ホットキーを構成するキー、マウス、ジョイスティックボタンの組み合わせが押されると、#HotIf式が評価され、ホットキーが起動するかどうかが決定されます。</p>
@@ -103,7 +103,7 @@ Hotkey "#n", "On"<em>; 同じホットキーを再びオンにします。</em>
 <p>なお、変数を使用した場合は、表現として失格となる。ホットキー作成後に変数の値が変化しない場合、ラグなど#HotIf特有の問題のリスクを最小化するための戦略が2つあります。</p>
 <ul>
   <li><code class="no-highlight"><a href="HotIf.htm#IfWin">HotIfWin...</a></code>を使用します。<code class="no-highlight">MyTitleVar</code>で条件を設定し、<code><a href="Hotkey.htm">Hotkey</a>KeyName, Label</code>でホットキーのバリアントを作成します。</li>
-  <li>定数式は<code>#HotIf WinActive("ahk_group MyGroup")</code>のようにし、スクリプト内の別の場所で<code><a href="GroupAdd.htm">GroupAdd</a>"MyGroup", MyTitleVar</code>でウィンドウグループを定義します。</li>
+  <li>定数式は<code>#HotIf WinActive("ahk_group MyGroup")</code>のようにし、スクリプト内の別の場所で<code><a href="GroupAdd.htm">GroupAdd</a> "MyGroup", MyTitleVar</code>でウィンドウグループを定義します。</li>
 </ul>
 
 <h2 id="general-remarks">総論</h2>
@@ -169,7 +169,7 @@ Esc::ExitApp
 </div>
 
 <div class="ex" id="ExDynamic">
-<p><a class="ex_number" href="#ExDynamic"></a> Dynamic Hotkeys. この例は、実行する前に<a href="#ExVolume">例2</a>との組み合わせが必要です。</p>
+<p><a class="ex_number" href="#ExDynamic"></a> Dynamic Hotkeys. この例は、実行する前に<a href="#ExVolume">例#2</a>との組み合わせが必要です。</p>
 <pre>
 NumpadAdd::
 {

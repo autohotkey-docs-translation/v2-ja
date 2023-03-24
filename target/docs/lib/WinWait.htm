@@ -20,15 +20,15 @@
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     <p><em>WinTitle</em> may be blank only when <em>WinText</em>, <em>ExcludeTitle</em>, or <em>ExcludeText</em> is present.</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>タイムアウト</dt>
@@ -40,13 +40,13 @@
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
@@ -60,13 +60,13 @@
 <p>If <em>WinTitle</em> specifies an invalid HWND (either as an Integer or via the Hwnd property of an object), the function returns immediately, without waiting for <em>Timeout</em> to expire. Waiting for another window to be created with the same HWND value would not be meaningful, as there would likely be no relation between the two windows.</p>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>If another <a href="../misc/Threads.htm">thread</a> changes the contents of any variable(s) that were used for this function's parameters, the function will not see the change -- it will continue to use the title and text that were originally present in the variables when the function first started waiting.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on, even if <em>WinTitle</em> is a HWND or object.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on, even if <em>WinTitle</em> is a HWND or object.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWait.htm">ProcessWait</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Opens Notepad and waits a maximum of 3 seconds until it exists. If WinWait times out, an error message is shown, otherwise Notepad is minimized.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Opens Notepad and waits a maximum of 3 seconds until it exists. If WinWait times out, an error message is shown, otherwise Notepad is minimized.</p>
 <pre>Run "notepad.exe"
 if WinWait("Untitled - Notepad", , 3)
     WinMinimize <em>; Use the window found by WinWait.</em>

@@ -61,7 +61,7 @@ LaunchGoogle(*) {
 <pre>MyGui.Add("Text",, "&amp;First Name:")
 MyGui.Add("Edit")</pre>
 <p>In the example above, the letter F will be underlined, which allows the user to press the <a href="Gui.htm#ShortcutKey">shortcut key</a> <kbd>Alt</kbd>+<kbd>F</kbd> to set keyboard focus to the first input-capable control that was added after the text control. To instead display a literal ampersand, specify two consecutive ampersands (&amp;&amp;). To disable all special treatment of ampersands, include <a href="../misc/Styles.htm#SS_NOPREFIX">0x80</a> in the control's options.</p>
-<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください。<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
+<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください：<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
 
 <h2 id="Edit">Edit</h2>
 <p>Description: An area where free-form text can be typed by the user.</p>
@@ -93,7 +93,7 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 <p id="WantReturn"><strong>WantReturn</strong>: Specify <code>-WantReturn</code> (minus WantReturn) to prevent a multi-line edit control from capturing <kbd>Enter</kbd>. Pressing <kbd>Enter</kbd> will then be the same as pressing the window's <a href="#DefaultButton">default button</a> (if any). In this case, the user may press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to start a new line.</p>
 <p><strong>WantTab</strong>:Causes <kbd>Tab</kbd> to produce a tab character rather than navigating to the next control. Without this option, the user may press <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to produce a tab character inside a multi-line edit control. 注：<em>WantTab</em> also works in a single-line edit control.</p>
 <p><strong>Wrap</strong>: Specify <code>-Wrap</code> (minus Wrap) to turn off word-wrapping in a multi-line edit control. Since this style cannot be changed after the control has been created, use one of the following to change it: 1) <a href="Gui.htm#Destroy">Destroy</a> then recreate the window and its control; or 2) Create two overlapping edit controls, one with wrapping enabled and the other without it. The one not currently in use can be kept empty and/or hidden.</p>
-<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください。<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
+<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください：<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
 <p><strong>A more powerful edit control</strong>: HiEdit is a free, multitabbed, large-file edit control consuming very little memory. It can edit both text and binary files. For details and a demonstration, see <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/HiEdit">HiEdit on GitHub</a>.</p>
 
 <h2 id="UpDown">UpDown</h2>
@@ -123,7 +123,7 @@ MyGui.AddUpDown("vMyUpDown Range1-10", 5)</pre>
 <p><strong>Hexadecimal number format</strong>: The number format displayed inside the buddy control may be changed from decimal to hexadecimal by following this example:</p>
 <pre>SendMessage 0x046D, 16, 0, "msctls_updown321" <em>; 0x046D is UDM_SETBASE</em></pre>
 <p>However, this affects only the buddy control, not the UpDown's reported position.</p>
-<p>こちらもご覧ください。<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
+<p>こちらもご覧ください：<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
 
 <span id="Pic"></span><h2 id="Picture">Picture (or Pic)</h2>
 <p>Description: An area containing an image (see last two paragraphs for supported file types). The last parameter is the filename of the image, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
@@ -192,7 +192,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p>For the last parameter, specify the label to display to the right of the radio button. This label is typically used as a prompt or description, and it may include linefeeds (`n) to start new lines. If a width (W) is specified in <em>Options</em> but no rows (R) or height (H), the control's text will be word-wrapped as needed, and the control's height will be set automatically.</p>
 <p>Specify the word <strong>Checked</strong> in <em>Options</em> to have the button start off in the "on" state. The word Checked may optionally be followed immediately by a 0 or 1 to indicate the starting state: 0 for unchecked and 1 for checked. In other words, <code>"Checked"</code> and <code>"Checked" VarContainingOne</code> are the same.</p>
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the number 1 for "on" and 0 for "off". To instead retrieve the position number of the selected radio option within a radio group, <a href="GuiControl.htm#Name">name</a> only one of the radio buttons and use <a href="Gui.htm#submit-radio">MyGui.Submit</a>.</p>
-<p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user turns on the button. Unlike the single-variable mode in the previous paragraph, the event callback must be registered for each button in a radio group for which it should be called. This allows the flexibility to ignore the clicks of certain buttons.  </p>
+<p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user turns on the button. Unlike the single-variable mode in the previous paragraph, the event callback must be registered for each button in a radio group for which it should be called. This allows the flexibility to ignore the clicks of certain buttons. </p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>.</p>
 <p>既知の制限：Certain desktop themes might not display a radio button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
 
@@ -292,10 +292,10 @@ MyGui.Show()</pre>
 <p>Appearance:</p>
 <img src="../static/ctrl_hotkey.png" alt="Hotkey" />
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the control's hotkey modifiers and name, which are compatible with the <a href="Hotkey.htm">Hotkey</a> function. Examples: <code>^!C</code>, <code>+!Home</code>, <code>+^Down</code>, <code>^Numpad1</code>, <code>!NumpadEnd</code>. If there is no hotkey in the control, the value is blank.</p>
-<p class="note"><strong>注意</strong>:Some keys are displayed the same even though they are retrieved as different names. For example, both <code>^Numpad7</code> and <code>^NumpadHome</code> might be displayed as Ctrl + Num 7.</p>
+<p class="note"><strong>注意</strong>：Some keys are displayed the same even though they are retrieved as different names. For example, both <code>^Numpad7</code> and <code>^NumpadHome</code> might be displayed as Ctrl + Num 7.</p>
 <p>By default, the control starts off with no hotkey specified. To instead have a default, specify its modifiers and name as the last parameter as in this example: <code>MyGui.Add("Hotkey", "vChosenHotkey", "^!p")</code>. The only modifiers supported are ^ (Ctrl), ! (Alt), and + (Shift). See the <a href="../KeyList.htm">key list</a> for available key names.</p>
 <p>Whenever the user changes the control's content (by pressing a key), the <a href="GuiOnEvent.htm#Change">Change</a> event is raised.</p>
-<p class="note"><strong>注意</strong>:The event is raised even when an incomplete hotkey is present. For example, if the user holds down <kbd>Ctrl</kbd>, the event is raised once and <a href="GuiControl.htm#Value">Value</a> returns only a circumflex (^). When the user completes the hotkey, the event is raised again and <a href="GuiControl.htm#Value">Value</a> returns the complete hotkey.</p>
+<p class="note"><strong>注意</strong>：The event is raised even when an incomplete hotkey is present. For example, if the user holds down <kbd>Ctrl</kbd>, the event is raised once and <a href="GuiControl.htm#Value">Value</a> returns only a circumflex (^). When the user completes the hotkey, the event is raised again and <a href="GuiControl.htm#Value">Value</a> returns the complete hotkey.</p>
 <p>To restrict the types of hotkeys the user may enter, include the word <strong>Limit</strong> followed by the sum of one or more of the following numbers:</p>
 <ul>
   <li>1: Prevent unmodified keys</li>
@@ -405,8 +405,8 @@ MyGui.Show()</pre>
   <tr><td>2</td><td>TB_PAGEUP</td><td>The user pressed <kbd>PgUp</kbd>.</td></tr>
   <tr><td>3</td><td>TB_PAGEDOWN</td><td>The user pressed <kbd>PgDn</kbd>.</td></tr>
   <tr><td>4</td><td>TB_THUMBPOSITION</td><td>The user moved the slider via the mouse wheel, or finished a drag-and-drop to a new position.</td></tr>
-  <tr><td>6</td><td>TB_TOP</td><td>The user pressed <kbd>Home</kbd> to send the slider to the left or top side.  </td></tr>
-  <tr><td>7</td><td>TB_BOTTOM</td><td>The user pressed <kbd>End</kbd> to send the slider to the right or bottom side.  </td></tr>
+  <tr><td>6</td><td>TB_TOP</td><td>The user pressed <kbd>Home</kbd> to send the slider to the left or top side. </td></tr>
+  <tr><td>7</td><td>TB_BOTTOM</td><td>The user pressed <kbd>End</kbd> to send the slider to the right or bottom side. </td></tr>
 </table>
 <p><strong>Only if the AltSubmit option is used:</strong></p>
 <table class="info">

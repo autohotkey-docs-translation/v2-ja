@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>DateDiff - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The DateDiff function compares two date-time values and returns the difference." />
+<title>DateDiff - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="DateDiff関数は、2つの日付時刻の値を比較し、その差を返します。" />
 <meta name="ahk:equiv-v1" content="lib/EnvSub.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,7 +13,7 @@
 
 <h1>DateDiff</h1>
 
-<p>Compares two <a href="FileSetTime.htm#YYYYMMDD">date-time</a> values and returns the difference.</p>
+<p>2つの<a href="FileSetTime.htm#YYYYMMDD">日付時刻</a>の値を比較し、その差を返す。</p>
 
 <pre class="Syntax">Result := <span class="func">DateDiff</span>(DateTime1, DateTime2, TimeUnits)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -23,37 +23,37 @@
   <dt>DateTime2</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Date-time stamps in the <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> format.</p>
-      <p>If <em>DateTime1</em> is earlier than <em>DateTime2</em>, the result is a negative number.</p>
-      <p>If either parameter is an empty string, the current local date and time (<a href="../Variables.htm#Now">A_Now</a>) is used.</p>
+      <p><a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>形式の日付・時間スタンプです。</p>
+      <p><em>DateTime1</em>が<em>DateTime2</em>よりも早い場合、結果は負数になります。</p>
+      <p>いずれかのパラメータが空文字列の場合、現在のローカル日付と時刻（<a href="../Variables.htm#Now">A_Now</a>）が使用されます。</p>
   </dd>
 
   <dt>TimeUnits</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Units to measure the difference in. <em>TimeUnits</em> may be one of the following strings (or just the first letter): Seconds, Minutes, Hours or Days.</p>
+      <p>差を測る単位。<em>TimeUnits</em>は、以下の文字列のいずれか（または最初の文字のみ）を指定します：Seconds, Minutes, Hours または Days.</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the difference between the two timestamps, in the units specified by <em>TimeUnits</em>. The result is always rounded <em>down</em> to the nearest integer. For example, if the actual difference between two timestamps is 1.999 days, it will be reported as 1 day. If higher precision is needed, specify Seconds for <em>TimeUnits</em> and divide the result by 60.0, 3600.0, or 86400.0.</p>
+<p>説明： 2つのタイムスタンプの差を<em>TimeUnits</em>で指定された単位で返す。結果は常に最も近い整数に<em>切り捨てられる</em>。例えば、2つのタイムスタンプの実際の差が1.999日であれば、1日として報告されることになります。より高い精度が必要な場合は、<em>TimeUnits</em>にSecondsを指定し、結果を60.0、3600.0、86400.0で割ってください。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The built-in variable <strong>A_Now</strong> contains the current local time in <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> format.</p>
-<p>To precisely determine the elapsed time between two events, use the <a href="../Variables.htm#TickCount">A_TickCount method</a> because it provides millisecond precision.</p>
-<p>To add or subtract a certain number of seconds, minutes, hours, or days from a timestamp, use <a href="DateAdd.htm">DateAdd</a> (subtraction is achieved by adding a negative number).</p>
-<p>If <em>DateTime</em> contains an invalid timestamp or a year prior to 1601, a <a href="Error.htm#ValueError">ValueError</a> is thrown.</p>
+<p>組込変数<strong>A_Now</strong>には、現在のローカルタイムが<a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>形式で格納される。</p>
+<p>2つのイベント間の経過時間を正確に求めるには、ミリ秒単位の精度を持つ<a href="../Variables.htm#TickCount">A_TickCountメソッド</a>を使用します。</p>
+<p>タイムスタンプから秒、分、時間、日数を加算または減算するには、<a href="DateAdd.htm">DateAdd</a>を使用します（減算は負の数を加算することで実現します）。</p>
+<p><em>DateTimeに</em>無効なタイムスタンプや1601年より前の年が含まれる場合、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="DateAdd.htm">DateAdd</a>, <a href="FileGetTime.htm">FileGetTime</a>, <a href="FormatTime.htm">FormatTime</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Calculates the number of days between two timestamps and reports the result.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 2つのタイムスタンプの間の日数を計算し、結果を報告する。</p>
 <pre>var1 := "20050126"
 var2 := "20040126"
-MsgBox DateDiff(var1, var2, "days")  <em>; The answer will be 366 since 2004 is a leap year.</em>
+MsgBox DateDiff(var1, var2, "days")<em>; 2004年はうるう年なので、答えは366となります。</em>
 </pre>
 </div>
 

@@ -13,7 +13,7 @@
 
 <h1>ListViewGetContent</h1>
 
-<p>Returns a list of items/rows from a ListView.</p>
+<p>ListViewから項目/行のリストを返します。</p>
 
 <pre class="Syntax">List := <span class="func">ListViewGetContent</span>(<span class="optional">Options, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
@@ -33,28 +33,28 @@
     </dd>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     </dd>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
@@ -63,23 +63,23 @@
 <p>This function returns a list of items/rows. Within each row, each field (column) except the last will end with a tab character (`t). To access the items/rows individually, use a <a href="LoopParse.htm">parsing loop</a> as in <a href="#ExListView">example #1</a>.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられる。</p>
 <p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent to the control, or if the process owning the ListView could not be opened, perhaps due to a lack of user permissions or because it is locked.</p>
 <p>A <a href="Error.htm#ValueError">ValueError</a> is thrown if the <a href="#ColN">Col<em>N</em> option</a> specifies a nonexistent column.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Some applications store their ListView text privately, which prevents their text from being retrieved. In these cases, an exception will usually not be thrown, but all the retrieved fields will be empty.</p>
+<p>Some applications store their ListView text privately, which prevents their text from being retrieved. このような場合、通常、例外は発生しませんが、取得したフィールドはすべて空となります。</p>
 <p>The columns in a ListView can be resized via <a href="SendMessage.htm">SendMessage</a> as shown in this example:</p>
 <pre>SendMessage(0x101E, 0, 80, "SysListView321", WinTitle)  <em>; 0x101E is the message LVM_SETCOLUMNWIDTH.</em></pre>
 <p>In the above, 0 indicates the first column (specify 1 for the second, 2 for the third, etc.) Also, 80 is the new width. Replace 80 with -1 to autosize the column. Replace it with -2 to do the same but also take into account the header text width.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlGetItems.htm">ControlGetItems</a>, <a href="WinGetList.htm">WinGetList</a>, <a href="Control.htm">Control functions</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExListView">
-<p><a class="ex_number" href="#ExListView"></a>  Extracts the individual rows and fields out of a ListView.</p>
+<p><a class="ex_number" href="#ExListView"></a> Extracts the individual rows and fields out of a ListView.</p>
 <pre>List := ListViewGetContent("Selected", "SysListView321", WinTitle)
 Loop Parse, List, "`n"  <em>; Rows are delimited by linefeeds (`n).</em>
 {

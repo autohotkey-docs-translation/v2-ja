@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObject - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObject function creates a COM object." />
+<title>ComObject - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObject関数は、COMオブジェクトを作成します。" />
 <meta name="ahk:equiv-v1" content="lib/ComObjActive.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,9 +12,9 @@
 <body>
 
 <h1>ComObject</h1>
-<p>Creates a COM object.</p>
+<p>COM オブジェクトを作成します。</p>
 <pre class="Syntax">ComObj := <span class="func">ComObject</span>(CLSID <span class="optional">, IID</span>)</pre>
-<p><code>ComObject</code> itself is a <a href="Class.htm">class</a> derived from <code>ComValue</code>, but is used only to create or identify COM objects.</p>
+<p><code>ComObject</code>自体は<code>ComValueから</code>派生した<a href="Class.htm">クラス</a>ですが、COMオブジェクトの作成または識別にのみ使用されます。</p>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
@@ -22,53 +22,53 @@
   <dt>CLSID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>CLSID or human-readable Prog ID of the COM object to create.</p>
+    <p>作成する COM オブジェクトの CLSID または人間が読める Prog ID。</p>
   </dd>
 
   <dt>IID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The identifier of the interface to return. In most cases this is omitted; if omitted, it defaults to <code>"{00020400-0000-0000-C000-000000000046}"</code> (IID_IDispatch).</p>
+    <p>返すべきインターフェースの識別子。ほとんどの場合、これは省略される。省略された場合、デフォルトは<code>"{00020400-0000-C000-00000046}"</code>（IID_IDispatch）である。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="ComValue.htm#Returns">ComValue</a> or ComObject</p>
-<p>This function returns a COM wrapper object of type dependent on the IID parameter.</p>
+<p>型：<a href="ComValue.htm#Returns">ComValue</a>またはComObject</p>
+<p>この関数は、IIDパラメータに依存するタイプのCOMラッパーオブジェクトを返します。</p>
 <table class="info">
   <tr><th>IID</th><th>Class</th><th abbr="型">Variant Type</th><th abbr="説明">説明</th></tr>
   <tr>
     <td>IID_IDispatch</td>
     <td><code style="white-space:nowrap">ComObject</code></td>
     <td><span style="white-space:nowrap">VT_DISPATCH (9)</span></td>
-    <td>Allows the script to call properties and methods of the object using normal <a href="../Objects.htm#Usage_Objects">object syntax</a>.</td>
+    <td>通常の<a href="../Objects.htm#Usage_Objects">オブジェクトの構文</a>を使用して、スクリプトがオブジェクトのプロパティやメソッドを呼び出せるようにします。</td>
   </tr>
   <tr>
-    <td>Any other IID</td>
+    <td>その他のIID</td>
     <td><code style="white-space:nowrap">ComValue</code></td>
     <td><span style="white-space:nowrap">VT_UNKNOWN (13)</span></td>
-    <td>Provides only a <code>Ptr</code> property, which allows the object to be passed to <a href="DllCall.htm">DllCall</a> or <a href="ComCall.htm">ComCall</a>.</td>
+    <td><code>Ptr</code>プロパティのみを提供し、<a href="DllCall.htm">DllCall</a>または<a href="ComCall.htm">ComCall</a>にオブジェクトを渡すことができます。</td>
   </tr>
 </table>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An exception is thrown on failure, such as if a parameter is invalid or the object does not support the interface specified by <em>IID</em>.</p>
+<p>パラメータが無効であったり、オブジェクトが<em>IID</em>で指定されたインタフェースをサポートしていない場合など、失敗した場合は例外がスローされる。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComValue.htm">ComValue</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjConnect.htm">ComObjConnect</a>, <a href="ComObjArray.htm">ComObjArray</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="ComCall.htm">ComCall</a>, <a href="https://learn.microsoft.com/previous-versions/dcw63t7z(v=vs.85)">CreateObject (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
-<p>For a long list of examples, see the following forum topic: <a href="https://www.autohotkey.com/forum/topic61509.html">https://www.autohotkey.com/forum/topic61509.html</a>.</p>
+<p>長い例のリストは、次のフォーラムのトピックを参照してください。<a href="https://www.autohotkey.com/forum/topic61509.html">https://www.autohotkey.com/forum/topic61509.html</a>.</p>
 <div class="ex" id="ExIE">
-<p><a class="ex_number" href="#ExIE"></a>  Launches an instance of Internet Explorer, makes it visible and navigates to a website.</p>
+<p><a class="ex_number" href="#ExIE"></a> Internet Explorerのインスタンスを起動し、表示させ、Webサイトへ移動することができます。</p>
 <pre>ie := ComObject("InternetExplorer.Application")
-ie.Visible := true  <em>; This is known to work incorrectly on IE7.</em>
+ie.Visible := true<em>; IE7では正しく動作しないことが確認されています。</em>
 ie.Navigate("https://www.autohotkey.com/")
 </pre>
 </div>
 <div class="ex" id="ExWallpaper">
-<p><a class="ex_number" href="#ExWallpaper"></a>  Retrieve the path of the desktop's current wallpaper.</p>
+<p><a class="ex_number" href="#ExWallpaper"></a> デスクトップの現在の壁紙のパスを取得する。</p>
 <pre>
 AD_GETWP_BMP := 0
 AD_GETWP_LAST_APPLIED := 0x00000002

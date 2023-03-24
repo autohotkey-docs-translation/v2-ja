@@ -39,32 +39,32 @@
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>Interval</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>How often the status bar should be checked while the function is waiting (in milliseconds). Default is 50.  </p>
+    <p>How often the status bar should be checked while the function is waiting (in milliseconds). Default is 50. </p>
   </dd>
 
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
@@ -86,13 +86,13 @@
 <p>Rather than using <a href="StatusBarGetText.htm">StatusBarGetText</a> in a loop, it is usually more efficient to use StatusBarWait because it contains optimizations that avoid the overhead that repeated calls to <a href="StatusBarGetText.htm">StatusBarGetText</a> would incur.</p>
 <p>StatusBarWait determines its target window before it begins waiting for a match. If that target window is closed, the function will stop waiting even if there is another window matching the specified <em>WinTitle</em> and <em>WinText</em>.</p>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="StatusBarGetText.htm">StatusBarGetText</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExSearch">
-<p><a class="ex_number" href="#ExSearch"></a>  Enters a new search pattern into an existing Explorer/Search window.</p>
+<p><a class="ex_number" href="#ExSearch"></a> Enters a new search pattern into an existing Explorer/Search window.</p>
 <pre>if WinExist("Search Results") <em>; Sets the Last Found window to simplify the below.</em>
 {
     WinActivate
@@ -106,7 +106,7 @@
 </div>
 
 <div class="ex" id="ExChange">
-<p><a class="ex_number" href="#ExChange"></a>  Waits for the status bar of the active window to <strong>change</strong>.</p>
+<p><a class="ex_number" href="#ExChange"></a> Waits for the status bar of the active window to <strong>change</strong>.</p>
 <pre>SetTitleMatchMode "RegEx"  <em>; Accept <a href="SetTitleMatchMode.htm#RegEx">regular expressions</a> for use below.</em>
 if WinExist("A")  <em>; Set the last-found window to be the active window (for use below).</em>
 {

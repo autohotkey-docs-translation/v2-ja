@@ -98,12 +98,11 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
       <p><strong>Maybe</strong>. Permits the variable to be unset. This is valid only when passing a variable to an optional parameter, array element or object literal; or on the right-hand side of a direct assignment. The question mark must be followed by one of the following symbols (ignoring whitespace): <code class="no-highlight">)]},:</code>. The variable may be passed conditionally via the <a href="#ternary">ternary operator</a> or on the right-hand side of <a href="#and">AND</a>/<a href="#or">OR</a>.</p>
       <p>The variable is typically an optional parameter, but can be any variable. For variables that are not function parameters, a <a href="lib/_Warn.htm#VarUnset">VarUnset warning</a> may still be shown at load-time if there are other references to the variable but no assignments.</p>
       <p>This operator is currently supported only for variables. To explicitly or conditionally omit a parameter in more general cases, use the <code>unset</code> keyword.</p>
-      <p>こちらもご覧ください。<a href="Language.htm#unset">unset (Optional Parameters)</a></p>
+      <p>こちらもご覧ください：<a href="Language.htm#unset">unset (Optional Parameters)</a></p>
     </td>
   </tr>
   <tr id="IncDec">
     <td class="center bold">++<br>
-    
     --</td>
     <td>
       <p><strong>Pre- and post-increment/decrement</strong>. Adds or subtracts 1 from a variable. The operator may appear either before or after the variable's name. If it appears <em>before</em> the name, the operation is performed and its result is used by the next operation (the result is a variable reference in this case). For example, <code>Var := ++X</code> increments X and then assigns its value to <em>Var</em>. Conversely, if the operator appears <em>after</em> the variable's name, the result is the value of X prior to performing the operation. For example, <code>Var := X++</code> increments X but <em>Var</em> receives the value X had before it was incremented.</p>
@@ -115,33 +114,27 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
     <td>
       <p><strong>Power</strong>. Example usage: <code>base**exponent</code>. Both <em>base</em> and <em>exponent</em> may contain a decimal point. If <em>exponent</em> is negative, the result  will be formatted as a floating point number even if <em>base</em> and <em>exponent</em> are both integers. Since ** is of higher precedence than unary minus, <code>-2**2</code> is evaluated like <code>-(2**2)</code> and so yields -4. Thus, to raise a literal negative number to a power, enclose it in parentheses such as <code>(-2)**2</code>.</p>
       <p>The power operator is right-associative. For example, <code>x ** y ** z</code> is evaluated as <code>x ** (y ** z)</code>.</p>
-      <p class="note"><strong>注意</strong>:A negative <em>base</em> combined with a fractional <em>exponent</em> such as <code>(-2)**0.5</code> is not supported; attempting it will cause an exception to be thrown. But both <code>(-2)**2</code> and <code>(-2)**2.0</code> are supported. If both <em>base</em> and <em>exponent</em> are 0, the result is undefined and an exception is thrown.</p>
+      <p class="note"><strong>注意</strong>：A negative <em>base</em> combined with a fractional <em>exponent</em> such as <code>(-2)**0.5</code> is not supported; attempting it will cause an exception to be thrown. But both <code>(-2)**2</code> and <code>(-2)**2.0</code> are supported. If both <em>base</em> and <em>exponent</em> are 0, the result is undefined and an exception is thrown.</p>
     </td>
   </tr>
   <tr id="unary">
     <td class="center bold">-<br>
-    
     !<br>
-    
     ~<br>
-    
     &amp;</td>
     <td>
       <p><strong>Unary minus (-)</strong>: Inverts the sign of its operand.</p>
       <p><strong>Unary plus (+)</strong>: <code>+N</code> is equivalent to <code>-(-N)</code>. This has no effect when applied to a pure number, but can be used to convert numeric strings to pure numbers.</p>
       <p><strong>Logical-not (!)</strong>:If the operand is blank or 0, the result of applying logical-not is 1, which means "true". Otherwise, the result is 0 (false). 事例：<code>!x or !(y and z)</code>. 注：The word NOT is synonymous with <strong>!</strong> except that <strong>!</strong> has a higher precedence. Consecutive unary operators such as <code><strong>!!</strong>Var</code> are allowed because they are evaluated in right-to-left order.</p>
       <p><strong>Bitwise-not (~)</strong>: This inverts each bit of its operand. As 64-bit signed integers are used, a positive input value will always give a negative result and vice versa. For example, <code>~0xf0f</code> evaluates to -0xf10 (-3856), which is binary equivalent to 0xfffffffffffff0f0. If an unsigned 32-bit value is intended, the result can be truncated with <code><i>result</i> &amp; 0xffffffff</code>. If the operand is a floating point value, a <a href="lib/Error.htm#TypeError">TypeError</a> is thrown.</p>
-      <p id="ref"><strong>Reference (&amp;)</strong>:Creates a VarRef, which is a value representing a reference to a variable. A VarRef can then be used to indirectly access the target variable. For example, <code>ref := &amp;target</code> followed by <code>%ref% := 1</code> would assign the value 1 to <em>target</em>. The VarRef would typically be passed to a function, but could be stored in an array or property. こちらもご覧ください。<a href="#deref">Dereference</a>, <a href="Functions.htm#ByRef">ByRef</a>.</p>
+      <p id="ref"><strong>Reference (&amp;)</strong>:Creates a VarRef, which is a value representing a reference to a variable. A VarRef can then be used to indirectly access the target variable. For example, <code>ref := &amp;target</code> followed by <code>%ref% := 1</code> would assign the value 1 to <em>target</em>. The VarRef would typically be passed to a function, but could be stored in an array or property. こちらもご覧ください：<a href="#deref">Dereference</a>, <a href="Functions.htm#ByRef">ByRef</a>.</p>
       <p>Taking a reference to a built-in variable such as <a href="lib/A_Clipboard.htm">A_Clipboard</a> is currently not supported, except when being passed directly to an <em>OutputVar</em> parameter of a built-in function.</p>
     </td>
   </tr>
   <tr id="MulDiv">
     <td class="center bold">*<br>
-    
     /<br>
-    
     //
-    
     </td>
     <td><p><strong>Multiply (*)</strong>: The result is an integer if both inputs are integers; otherwise, it is a floating point number.</p>
       <p><strong>Other uses</strong>: The asterisk (*) symbol is also used in <a href="Functions.htm#VariadicCall">variadic function calls</a>.</p>
@@ -152,7 +145,6 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   </tr>
   <tr id="AddSub">
     <td class="center bold">+<br>
-    
     -</td>
     <td><p><strong>Add (+)</strong> and <strong>subtract (-)</strong>. On a related note, the <a href="#AssignOp">+= and -= operators</a> are a shorthand way to increment or decrement a variable. For example, <code>Var+=2</code> produces the same result as <code>Var:=Var+2</code> (though the former performs better). Similarly, a variable can be increased or decreased by 1 by using <a href="#IncDec">Var++, Var--, ++Var, or --Var</a>.</p>
       <p><strong>Other uses</strong>: If the + or - symbol is not preceded by a value (or a sub-expression which yields a value), it is interpreted as a <a href="#unary">unary operator</a> instead.</p>
@@ -160,9 +152,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   </tr>
   <tr id="bitshift">
     <td class="center bold">&lt;&lt;<br>
-    
     &gt;&gt;<br>
-    
     &gt;&gt;&gt;</td>
     <td>
       <p><strong>Bit shift left (&lt;&lt;)</strong>. Example usage: <code>Value1 &lt;&lt; Value2</code>. This is equivalent to multiplying <em>Value1</em> by "2 to the <em>Value2</em>th power".</p>
@@ -177,11 +167,8 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   </tr>
   <tr id="bitwise">
     <td class="center bold">&amp;<br>
-    
     ^<br>
-    
     |
-    
     </td>
     <td>
       <p><strong>Bitwise-and (&amp;)</strong>, <strong>bitwise-exclusive-or (^)</strong>, and <strong>bitwise-or (|)</strong>. Of the three, <strong>&amp;</strong> has the highest precedence and <strong>|</strong> has the lowest.</p>
@@ -208,7 +195,6 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
   </tr>
   <tr id="compare">
     <td class="center bold">&gt;&nbsp;&nbsp;&nbsp;&lt;<br>
-    
     &gt;= &lt;=</td>
     <td>
       <p><strong>Greater (&gt;)</strong>, <strong>less (&lt;)</strong>, <strong>greater-or-equal (&gt;=)</strong>, and <strong>less-or-equal (&lt;=)</strong>. The inputs are compared numerically. A <a href="lib/Error.htm#TypeError">TypeError</a> is thrown if either of the inputs is not a number or a numeric string.</p>
@@ -216,11 +202,8 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
   </tr>
   <tr id="equal">
     <td class="center bold">=<br>
-      
       ==<br>
-      
       !=<br>
-      
       !==</td>
     <td>
       <p><strong>Case-insensitive equal (=) / not-equal (!=)</strong> and <strong>case-sensitive equal (==) / not-equal (!==)</strong>. The <strong>==</strong> operator behaves identically to <strong>=</strong> except when either of the inputs is not numeric (or both are strings), in which case <strong>==</strong> is always case sensitive and <strong>=</strong> is always case insensitive. The <strong>!=</strong> and <strong>!==</strong> behave identically to their counterparts without <strong>!</strong>, except that the result is inverted.</p>
@@ -241,7 +224,6 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
   </tr>
     <tr id="and">
       <td class="center bold">AND<br>
-      
       &amp;&amp;</td>
       <td><p>Both of these are <strong>logical-AND</strong>. 事例：<code>x &gt; 3 and x &lt; 10</code>.</p>
         <p>In an expression where <strong>all</strong> operands resolve to <em>True</em>, the <strong>last</strong> operand that resolved to <em>True</em> is returned. Otherwise, the <strong>first</strong> operand that resolves to <em>False</em> is returned. Effectively, only when all operands are true, will the result be true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (left to right) in order to enhance performance.</p>
@@ -253,7 +235,6 @@ MsgBox(A &amp;&amp; B &amp;&amp; ++C &amp;&amp; D &amp;&amp; E) <em>; The <stron
     </tr>
     <tr id="or">
       <td class="center bold">OR<br>
-      
       ||</td>
       <td><p>Both of these are <strong>logical-OR</strong>. 事例：<code>x &lt;= 3 or x &gt;= 10</code>.</p>
         <p>In an expression where <strong>at least</strong> one operand resolves to <em>True</em>, the <strong>first</strong> operand that resolved to <em>True</em> is returned. Otherwise, the <strong>last</strong> operand that resolves to <em>False</em> is returned. Effectively, provided at least one operand is true, the result will be true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (left to right) in order to enhance performance.</p>
@@ -276,37 +257,24 @@ MsgBox(A || B || C) <em>; The <strong>last</strong> falsey operand is returned (
     <td class="center bold">?:</td>
     <td>
       <p><strong>Ternary operator</strong>. This operator is a shorthand replacement for the <a href="lib/If.htm">if-else statement</a>. It evaluates the condition on its left side to determine which of its two branches should become its final result. For example, <code>var := x&gt;y ? 2 : 3</code> stores 2 in <em>Var</em> if x is greater than y; otherwise it stores 3. To enhance performance, only the winning branch is evaluated (see <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a>).</p>
-      <p>こちらもご覧ください。<a href="#maybe">maybe (<em>var</em>?)</a>, <a href="#or-maybe">or-maybe (??)</a></p>
+      <p>こちらもご覧ください：<a href="#maybe">maybe (<em>var</em>?)</a>, <a href="#or-maybe">or-maybe (??)</a></p>
       <p class="warning"><strong>Note:</strong> When used at the beginning of a line, the ternary condition should usually be enclosed in parentheses to reduce ambiguity with other types of statements. For details, see <a href="Language.htm#expression-statements">Expression Statements</a>.</p>
     </td>
   </tr>
   <tr id="AssignOp">
     <td class="center bold">:=<br>
-        
         +=<br>
-        
         -=<br>
-        
         *=<br>
-        
         /=<br>
-        
         //=<br>
-        
         .=<br>
-        
         |=<br>
-        
         &amp;=<br>
-        
         ^=<br>
-        
         &gt;&gt;=<br>
-        
         &lt;&lt;=<br>
-        
         &gt;&gt;&gt;=
-    
     </td>
     <td><p><strong>Assign</strong>. Performs an operation on the contents of a variable and stores the result back in the same variable. The simplest assignment operator is colon-equals (:=), which stores the result of an expression in a variable. For a description of what the other operators do, see their related entries in this table. For example, <code>Var //= 2</code> performs <a href="#IntegerDivide">integer division</a> to divide <em>Var</em> by 2, then stores the result back in <em>Var</em>. Similarly, <code>Var <strong>.=</strong> "abc"</code> is a shorthand way of writing <code>Var := Var <strong>.</strong> "abc"</code>.</p>
       <p>Unlike most other operators, assignments are evaluated from right to left. Consequently, a line such as <code>Var1 := Var2 := 0</code> first assigns 0 to <em>Var2</em> then assigns <em>Var2</em> to <em>Var1</em>.</p>
@@ -338,7 +306,7 @@ sumfn := Sum</pre>
   <tr id="comma">
     <td class="center bold">,</td>
     <td><p><strong>Comma (multi-statement)</strong>. Commas may be used to write multiple sub-expressions on a single line. This is most commonly used to group together multiple assignments or function calls. 事例：<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. Such statements are executed in order from left to right.</p>
-      <p class="note"><strong>注意</strong>:A line that begins with a comma (or any other operator) is automatically <a href="Scripts.htm#continuation">appended to</a> the line above it. こちらもご覧ください。<a href="#CommaPerf">comma performance</a>.</p>
+      <p class="note"><strong>注意</strong>：A line that begins with a comma (or any other operator) is automatically <a href="Scripts.htm#continuation">appended to</a> the line above it. こちらもご覧ください：<a href="#CommaPerf">comma performance</a>.</p>
       <p>Comma is also used to delimit the parameters of a function call or control flow statement. To include a multi-statement expression in a parameter list, enclose it in an extra set of parentheses. For example, <code>MyFn((x, y))</code> evaluates both x and y but passes y as the first and only parameter of MyFn.</p>
     </td>
   </tr>
@@ -358,9 +326,7 @@ sumfn := Sum</pre>
   </tr>
   <tr>
     <td class="center"><p>Mod<strong>()</strong><br>
-        
         Round<strong>()</strong><br>
-    
     Abs<strong>()</strong></p></td>
     <td rowspan="2"><p><strong>Function call</strong>. There must be no space between the function name or expression and the open parenthesis which begins the parameter list. For details, see <a href="Language.htm#function-calls">Function Calls</a>.</p>
     <p><em>(expression)</em> is not necessarily required to be enclosed in parentheses, but doing so may eliminate ambiguity. For example, <code>(x.y)()</code> retrieves a function from a property and then calls it with no parameters, whereas <code>x.y()</code> would implicitly pass <code>x</code> as the first parameter.</p>
@@ -483,11 +449,11 @@ sumfn := Sum</pre>
   </tr>
   <tr id="ThisFunc">
     <td>A_ThisFunc</td>
-    <td>The name of the <a href="Functions.htm">user-defined function</a> that is currently executing (blank if none); for example:MyFunction. こちらもご覧ください。<a href="lib/Func.htm#Name">Name property (Func)</a></td>
+    <td>The name of the <a href="Functions.htm">user-defined function</a> that is currently executing (blank if none); for example:MyFunction. こちらもご覧ください：<a href="lib/Func.htm#Name">Name property (Func)</a></td>
   </tr>
   <tr id="AhkVersion">
     <td>A_AhkVersion</td>
-    <td>Contains the version of AutoHotkey that is running the script, such as 1.0.22. In the case of a <a href="Scripts.htm#ahk2exe">compiled script</a>, the version that was originally used to compile it is reported. The formatting of the version number allows a script to check whether A_AhkVersion is greater than some minimum version number with &gt; or &gt;= as in this example:<code>if (A_AhkVersion &gt;= "1.0.25.07")</code>. こちらもご覧ください。<a href="lib/_Requires.htm">#Requires</a> and <a href="lib/VerCompare.htm">VerCompare</a></td>
+    <td>Contains the version of AutoHotkey that is running the script, such as 1.0.22. In the case of a <a href="Scripts.htm#ahk2exe">compiled script</a>, the version that was originally used to compile it is reported. The formatting of the version number allows a script to check whether A_AhkVersion is greater than some minimum version number with &gt; or &gt;= as in this example:<code>if (A_AhkVersion &gt;= "1.0.25.07")</code>. こちらもご覧ください：<a href="lib/_Requires.htm">#Requires</a> and <a href="lib/VerCompare.htm">VerCompare</a></td>
   </tr>
   <tr id="AhkPath">
     <td>A_AhkPath</td>
@@ -514,7 +480,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
     <td>A_YYYY</td>
     <td>
       <p>Current 4-digit year (e.g. 2004). Synonymous with A_Year.</p>
-      <p class="note"><strong>注意</strong>:To retrieve a formatted time or date appropriate for your locale and language, use <code><a href="lib/FormatTime.htm">FormatTime</a>()</code> (time and long date) or <code><a href="lib/FormatTime.htm">FormatTime</a>(, "LongDate")</code> (retrieves long-format date).</p>
+      <p class="note"><strong>注意</strong>：To retrieve a formatted time or date appropriate for your locale and language, use <code><a href="lib/FormatTime.htm">FormatTime</a>()</code> (time and long date) or <code><a href="lib/FormatTime.htm">FormatTime</a>(, "LongDate")</code> (retrieves long-format date).</p>
     </td>
   </tr>
   <tr id="MM">
@@ -573,7 +539,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
     <td>A_Now</td>
     <td>
       <p>The current local time in <a href="lib/FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> format.</p>
-      <p class="note"><strong>注意</strong>:Date and time math can be performed with <a href="lib/DateAdd.htm">DateAdd</a> and <a href="lib/DateDiff.htm">DateDiff</a>. Also, <a href="lib/FormatTime.htm">FormatTime</a> can format the date and/or time according to your locale or preferences.</p>
+      <p class="note"><strong>注意</strong>：Date and time math can be performed with <a href="lib/DateAdd.htm">DateAdd</a> and <a href="lib/DateDiff.htm">DateDiff</a>. Also, <a href="lib/FormatTime.htm">FormatTime</a> can format the date and/or time according to your locale or preferences.</p>
     </td>
   </tr>
   <tr id="NowUTC">
@@ -647,13 +613,11 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="KeyDelay">
     <td>A_KeyDelay<br>
-    
     A_KeyDuration</td>
     <td>Can be used to get or set the delay or duration for keystrokes, in milliseconds. For details, see <a href="lib/SetKeyDelay.htm">SetKeyDelay</a>.</td>
   </tr>
   <tr id="KeyDelayPlay">
     <td>A_KeyDelayPlay<br>
-    
     A_KeyDurationPlay</td>
     <td>Can be used to get or set the delay or duration for keystrokes sent via <a href="lib/Send.htm#SendPlayDetail">SendPlay</a> mode, in milliseconds. For details, see <a href="lib/SetKeyDelay.htm">SetKeyDelay</a>.</td>
   </tr>
@@ -671,7 +635,6 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="MouseDelay">
     <td>A_MouseDelay<br>
-    
     A_MouseDelayPlay</td>
     <td>Can be used to get or set the mouse delay, in milliseconds. A_MouseDelay is for the traditional SendEvent mode, whereas A_MouseDelayPlay is for <a href="lib/Send.htm#SendPlayDetail">SendPlay</a>. For details, see <a href="lib/SetMouseDelay.htm">SetMouseDelay</a>.</td>
   </tr>
@@ -681,13 +644,9 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="CoordMode">
     <td>A_CoordModeToolTip<br>
-    
     A_CoordModePixel<br>
-    
     A_CoordModeMouse<br>
-    
     A_CoordModeCaret<br>
-    
     A_CoordModeMenu</td>
     <td>Can be used to get or set the area to which coordinates are to be relative. Possible values are Screen, Window and Client. For details, see <a href="lib/CoordMode.htm">CoordMode</a>.</td>
   </tr>
@@ -941,7 +900,6 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="Screen">
     <td><p>A_ScreenWidth<br>
-    
     A_ScreenHeight</p></td>
     <td><p>The width and height of the primary monitor, in pixels (e.g. 1024 and 768).</p>
       <p>To discover the dimensions of other monitors in a multi-monitor system, use <a href="lib/SysGet.htm">SysGet</a>.</p>

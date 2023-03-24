@@ -22,23 +22,23 @@ ExStyle := <span class="func">WinGetExStyle</span>(<span class="optional">WinTit
 <dl>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
@@ -50,23 +50,23 @@ ExStyle := <span class="func">WinGetExStyle</span>(<span class="optional">WinTit
 <p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window could not be found.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>See the <a href="../misc/Styles.htm">styles table</a> for a partial listing of styles.</p>
+<p>スタイルの一部については、<a href="../misc/Styles.htm">スタイル表</a>をご覧ください。</p>
 <p>The ID of the window under the mouse cursor can be retrieved with <a href="MouseGetPos.htm">MouseGetPos</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinSetStyle.htm">WinSetStyle / WinSetExStyle</a>, <a href="ControlGetStyle.htm">ControlGetStyle / ControlGetExStyle</a>, <a href="../misc/Styles.htm">styles table</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExStyle">
-<p><a class="ex_number" href="#ExStyle"></a>  Determines whether a window has the WS_DISABLED style.</p>
+<p><a class="ex_number" href="#ExStyle"></a> Determines whether a window has the WS_DISABLED style.</p>
 <pre>Style := WinGetStyle("My Window Title")
 if (Style &amp; 0x8000000)  <em>; 0x8000000 is WS_DISABLED.</em>
     MsgBox "The window is disabled."</pre>
 </div>
 
 <div class="ex" id="ExExStyle">
-<p><a class="ex_number" href="#ExExStyle"></a>  Determines whether a window has the WS_EX_TOPMOST style (always-on-top).</p>
+<p><a class="ex_number" href="#ExExStyle"></a> Determines whether a window has the WS_EX_TOPMOST style (always-on-top).</p>
 <pre>ExStyle := WinGetExStyle("My Window Title")
 if (ExStyle &amp; 0x8)  <em>; 0x8 is WS_EX_TOPMOST.</em>
     MsgBox "The window is always-on-top."</pre>

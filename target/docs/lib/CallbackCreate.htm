@@ -13,7 +13,7 @@
 
 <h1>CallbackCreate</h1>
 
-<p>呼び出すと、スクリプト内の<a href="../Functions.htm">関数に</a>リダイレクトされるマシンコードアドレスを作成します。</p>
+<p>呼び出すと、スクリプト内の<a href="../Functions.htm">関数</a>にリダイレクトされるマシンコードアドレスを作成します。</p>
 
 <pre class="Syntax">Address := <span class="func">CallbackCreate</span>(Function <span class="optional">, Options, ParamCount</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -31,15 +31,15 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>次の単語または文字のうち、0個以上を指定する。各オプションと次のオプションはスペースで区切ってください（例：<code>"C Fast"</code>）。</p>
-    <p id="Fast"><strong>Fast</strong> or <strong>F</strong>:<em>Function</em>が呼び出されるたびに新しい<a href="../misc/Threads.htm">スレッド</a>を開始するのを避けることができます。この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
-    <p><strong>CDecl</strong> or <strong>C</strong>:<em>Addressを</em>"C "呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略される。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
+    <p id="Fast"><strong>Fast</strong> または <strong>F</strong>:<em>Function</em>が呼び出されるたびに新しい<a href="../misc/Threads.htm">スレッド</a>を開始するのを避けることができます。この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
+    <p><strong>CDecl</strong> または <strong>C</strong>:<em>Addressを</em>"C "呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略される。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
     <p><strong>&amp;</strong>:個々のパラメータではなく、パラメータリストのアドレス（1つの整数）を<em>Function</em>に渡すようにします。パラメータ値は、<a href="NumGet.htm">NumGet</a>を用いて取得することができる。標準の32ビット呼び出し規約を使用する場合、<em>ParamCount</em>はパラメータリストのサイズをDWORD（バイト数を4で割った値）で指定する必要があります。</p>
   </dd>
 
   <dt>ParamCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><em>Address</em>の呼び出し元がAddressに渡すパラメータの数。省略された場合、デフォルトは<a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>で、これは通常<em>Function</em><a href="../Functions.htm#define">の定義に</a>ある必須パラメータの数である。いずれの場合も、呼び出し元が正確にこの数のパラメータを渡すことを確認する。</p>
+    <p><em>Address</em>の呼び出し元がAddressに渡すパラメータの数。省略された場合、デフォルトは<a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>で、これは通常<em>Function</em>の<a href="../Functions.htm#define">定義</a>にある必須パラメータの数である。いずれの場合も、呼び出し元が正確にこの数のパラメータを渡すことを確認する。</p>
   </dd>
 
 </dl>
@@ -63,11 +63,11 @@
 
 <p><strong>AutoHotkey 32ビット：</strong>入力されるパラメータはすべて符号なし32ビット整数です。小さな型は32ビットにパディングされ、大きな型は32ビットの一連のパラメータに分割されます。</p>
 <p>入力されるパラメータが符号付き整数であることを意図している場合、以下の例のいずれかに従って、負の数を明らかにすることができます。</p>
-<pre><em>; Method #1</em>
+<pre><em>; 方法 #1</em>
 if (wParam &gt; 0x7FFFFFFF)
     wParam := -(~wParam) - 1
 
-<em>; 方法2：AutoHotkeyがネイティブに符号付き64ビット整数を使用することに依存します。</em>
+<em>; 方法 #2：AutoHotkeyがネイティブに符号付き64ビット整数を使用することに依存します。</em>
 wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 
 <p><strong>AutoHotkey 64ビット：</strong>入力されるパラメータはすべて符号付き64ビット整数です。AutoHotkeyは、符号なし64ビット整数をネイティブでサポートしていません。小さい型は64ビットにパディングされ、大きい型は常にアドレスで渡されます。</p>
@@ -143,7 +143,7 @@ Text := MyGui.Add("Text",, "Here is some text that is given`na custom background
 SetWindowLong := A_PtrSize=8 ? "SetWindowLongPtr" : "SetWindowLong"
 
 WindowProcNew := CallbackCreate(WindowProc)<em>; サブクラス作成時のfast-modeは避けてください。</em>
-WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4<em>; -4 is GWL_WNDPROC</em>
+WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4<em>; -4 は GWL_WNDPROC</em>
     , "Ptr", WindowProcNew, "Ptr")<em>; 戻り値は "Ptr "または "UPtr "対 "Int "に設定する必要があります。</em>
 
 MyGui.Show
@@ -151,7 +151,7 @@ MyGui.Show
 WindowProc(hwnd, uMsg, wParam, lParam)
 {
     Critical
-    if (uMsg = 0x0138 &amp;&amp; lParam = Text.Hwnd)<em>; 0x0138 is WM_CTLCOLORSTATIC.</em>
+    if (uMsg = 0x0138 &amp;&amp; lParam = Text.Hwnd)<em>; 0x0138 は WM_CTLCOLORSTATIC です。</em>
     {
         DllCall("SetBkColor", "Ptr", wParam, "UInt", TextBackgroundColor)
         return TextBackgroundBrush<em>; HDCを変更したことをOSに通知するため、HBRUSHを返す。</em>

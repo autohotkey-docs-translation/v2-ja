@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ControlSetChecked - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ControlSetChecked function turns on (checks) or turns off (unchecks) a checkbox or radio button." />
+<title>ControlSetChecked - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ControlSetChecked関数は、チェックボックスやラジオボタンをオン（チェック）またはオフ（アンチェック）する関数です。" />
 <meta name="ahk:equiv-v1" content="lib/Control.htm#Check" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ControlSetChecked</h1>
 
-<p>Turns on (checks) or turns off (unchecks) a checkbox or radio button.</p>
+<p>チェックボックスやラジオボタンをオン（チェック）またはオフ（チェック解除）します。</p>
 
 <pre class="Syntax"><span class="func">ControlSetChecked</span> Value, Control <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 
@@ -23,48 +23,48 @@
     <dt>値</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>One of the following values:</p>
+        <p>以下のいずれかの値。</p>
         <ul>
-            <li><code>1</code> or <code>True</code> turns on the setting</li>
-            <li><code>0</code> or <code>False</code> turns off the setting</li>
-            <li><code>-1</code> sets it to the opposite of its current state</li>
+            <li><code>1</code>または<code>True</code>は設定をオンにする</li>
+            <li><code>0</code>または<code>False</code>は設定をオフにする</li>
+            <li><code>-1</code>では、現在の状態とは逆の状態に設定されます</li>
         </ul>
     </dd>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     </dd>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found.</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent to the control.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられる。</p>
+<p>コントロールにメッセージを送信できなかった場合、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>To ensure correct functionality, this function also sets the input focus to the control.</p>
-<p>To improve reliability, a delay is done automatically after each use of this function. That delay can be changed via <a href="SetControlDelay.htm">SetControlDelay</a> or by assigning a value to <a href="../Variables.htm#ControlDelay">A_ControlDelay</a>. For details, see <a href="SetControlDelay.htm#Remarks">SetControlDelay remarks</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>正しく機能させるために、この機能はコントロールへの入力フォーカスの設定も行います。</p>
+<p>信頼性向上のため、本機能を使用するたびに自動的に遅延が行われます。この遅延は、<a href="SetControlDelay.htm">SetControlDelay</a>または<a href="../Variables.htm#ControlDelay">A_ControlDelay</a>に値を割り当てることで変更可能です。詳しくは、<a href="SetControlDelay.htm#Remarks">SetControlDelayの備考</a>を参照してください。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlGetChecked.htm">ControlGetChecked</a>, <a href="GuiControl.htm#Value">Value property (GuiControl object)</a>, <a href="Control.htm">Control functions</a></p>

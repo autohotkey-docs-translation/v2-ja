@@ -20,26 +20,26 @@
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
@@ -55,16 +55,16 @@
 <h2 id="Remarks">備考</h2>
 <p>The text retrieved is generally the same as what Window Spy shows for that window. However, if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned off, hidden text is omitted from the return value.</p>
 <p>Each text element ends with a carriage return and linefeed (CR+LF), which can be represented in the script as `r`n. To extract individual lines or substrings, use functions such as <a href="InStr.htm">InStr</a> and <a href="SubStr.htm">SubStr</a>. A  <a href="LoopParse.htm">parsing loop</a> can also be used to examine each line or word one by one.</p>
-<p>If the retrieved text appears to be truncated (incomplete), it may be necessary to retrieve the text by sending the WM_GETTEXT message via <a href="SendMessage.htm">SendMessage</a> instead. This is because some applications do not respond properly to the WM_GETTEXTLENGTH message, which causes AutoHotkey to make the return value too small to fit all the text.</p>
+<p>取得したテキストが切り捨てられたように見える（不完全な）場合、代わりに<a href="SendMessage.htm">SendMessage</a>でWM_GETTEXTメッセージを送信してテキストを取得する必要がある場合があります。これは、アプリケーションによっては、WM_GETTEXTLENGTHメッセージに正しく応答しないため、AutoHotkeyが戻り値を小さくしすぎて、すべてのテキストを収めることができないためです。</p>
 <p>This function might use a large amount of RAM if the target window (e.g. an editor with a large document open) contains a large quantity of text. To avoid this, it might be possible to retrieve only portions of the window's text by using <a href="ControlGetText.htm">ControlGetText</a> instead. In any case, a variable's memory can be freed later by assigning it to nothing, i.e. <code>Text := ""</code>.</p>
 <p>To retrieve a list of all controls in a window, follow this example: <code>Controls := <a href="WinGetControls.htm">WinGetControls</a>(<i>WinTitle</i>)</code></p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlGetText.htm">ControlGetText</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetPos.htm">WinGetPos</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Opens the calculator, waits until it exists, and retrieves and reports its text.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Opens the calculator, waits until it exists, and retrieves and reports its text.</p>
 <pre>Run "calc.exe"
 WinWait "Calculator"
 MsgBox "The text is:`n" WinGetText() <em>; Use the window found by WinWait.</em></pre>

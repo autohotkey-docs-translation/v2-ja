@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObjQuery - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObjQuery function queries a COM object for an interface or service." />
+<title>ComObjQuery - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObjQuery関数は、COMオブジェクトにインターフェースやサービスを問い合わせる。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
 <body>
 
 <h1>ComObjQuery</h1>
-<p>Queries a COM object for an interface or service.</p>
+<p>COMオブジェクトにインターフェースやサービスを問い合わせる。</p>
 <pre class="Syntax">InterfaceComObj := <span class="func">ComObjQuery</span>(ComObj, <span class="optional">SID,</span> IID)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -20,55 +20,55 @@
   <dt>ComObj</dt>
   <dd>
     <p>型：<a href="ComValue.htm">ComValue</a>, <a href="../Concepts.htm#objects">Object</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
-    <p>A COM wrapper object, an interface pointer, or an object with a <code>Ptr</code> property which returns an interface pointer.</p>
+    <p>COM ラッパーオブジェクト、インターフェースポインタ、またはインターフェースポインタを返す<code>Ptr</code>プロパティを持つオブジェクト。</p>
   </dd>
 
   <dt>IID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>An interface identifier (GUID) in the form "{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}".</p>
+    <p>インターフェース識別子（GUID）。"{xxxxxxx-xxxx-xxxx-xxxx-xxxx}"の形式をとる。</p>
   </dd>
 
   <dt>SID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A service identifier in the same form as IID. When omitting this parameter, also omit the comma.</p>
+    <p>IIDと同形式のサービス識別子。このパラメータを省略する場合は、カンマも省略します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="ComValue.htm#Returns">ComValue</a> or <a href="ComObject.htm">ComObject</a></p>
-<p>This function returns a COM wrapper object of type dependent on the IID parameter.</p>
+<p>この関数は、IIDパラメータに依存するタイプのCOMラッパーオブジェクトを返します。</p>
 <table class="info">
   <tr><th>IID</th><th>Class</th><th abbr="型">Variant Type</th><th abbr="説明">説明</th></tr>
   <tr>
     <td>IID_IDispatch</td>
     <td><code style="white-space:nowrap">ComObject</code></td>
     <td><span style="white-space:nowrap">VT_DISPATCH (9)</span></td>
-    <td>Allows the script to call properties and methods of the object using normal <a href="../Objects.htm#Usage_Objects">object syntax</a>.</td>
+    <td>通常の<a href="../Objects.htm#Usage_Objects">オブジェクトの構文</a>を使用して、スクリプトがオブジェクトのプロパティやメソッドを呼び出せるようにします。</td>
   </tr>
   <tr>
-    <td>Any other IID</td>
+    <td>その他のIID</td>
     <td><code style="white-space:nowrap">ComValue</code></td>
     <td><span style="white-space:nowrap">VT_UNKNOWN (13)</span></td>
-    <td>Provides only a <code>Ptr</code> property, which allows the object to be passed to <a href="DllCall.htm">DllCall</a> or <a href="ComCall.htm">ComCall</a>.</td>
+    <td><code>Ptr</code>プロパティのみを提供し、<a href="DllCall.htm">DllCall</a>または<a href="ComCall.htm">ComCall</a>にオブジェクトを渡すことができます。</td>
   </tr>
 </table>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An exception is thrown on failure, such as if the interface is not supported.</p>
+<p>インターフェースがサポートされていない場合など、失敗した場合は例外が発生する。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>In its two-parameter mode, this function is equivalent to <a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>. When SID and IID are both specified, it internally queries for the <a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a> interface, then calls <a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a>.</p>
-<p><a href="ComCall.htm">ComCall</a> can be used to call native interface methods.</p>
+<p>2パラメータモードでは、この関数は<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>と同等である。SID と IID の両方が指定された場合、内部で<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>インターフェースの問い合わせを行い、<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a>を呼び出します。</p>
+<p><a href="ComCall.htm">ComCall</a>は、ネイティブインターフェースのメソッドを呼び出すために使用することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComCall.htm">ComCall</a>, <a href="ComObject.htm">ComObject</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjActive.htm">ComObjActive</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExClassName">
-<p><a class="ex_number" href="#ExClassName"></a>  Determines the class name of an object.</p>
+<p><a class="ex_number" href="#ExClassName"></a> オブジェクトのクラス名を決定する。</p>
 <pre>
 obj := ComObject("Scripting.Dictionary")
 
@@ -76,7 +76,7 @@ MsgBox "Interface name:" ComObjType(obj, "name")
 
 IID_IProvideClassInfo := "{B196B283-BAB4-101A-B69C-00AA00341D07}"
 
-<em>; Request the object's IProvideClassInfo interface.</em>
+<em>;オブジェクトの IProvideClassInfo インタフェースを要求する。</em>
 try
     pci := ComObjQuery(obj, IID_IProvideClassInfo)
 catch
@@ -85,29 +85,29 @@ catch
     return
 }
 
-<em>; Call GetClassInfo to retrieve a pointer to the ITypeInfo interface.</em>
+<em>;GetClassInfo を呼び出し、ITypeInfo インターフェースへのポインタを取得する。</em>
 ComCall(3, pci, "ptr*", &amp;ti := 0)
 
-<em>; Wrap ti to ensure automatic cleanup.</em>
+<em>; 自動洗浄を確実にするために、Wrap tiを使用します。</em>
 ti := ComValue(13, ti)
 
-<em>; Call GetDocumentation to get the object's full type name.</em>
+<em>;オブジェクトの完全な型名を得るためにGetDocumentationを呼び出す。</em>
 ComCall(12, ti, "int", -1, "ptr*", &amp;pname := 0, "ptr", 0, "ptr", 0, "ptr", 0)
 
-<em>; Convert the BSTR pointer to a usable string.</em>
+<em>; BSTRポインタを使用可能な文字列に変換する。</em>
 name := StrGet(pname, "UTF-16")
 
-<em>; Clean up.</em>
+<em>;クリーンアップする。</em>
 DllCall("oleaut32\SysFreeString", "ptr", pname)
 pci := ti := ""
 
-<em>; Display the type name!</em>
+<em>; 型名を表示する!</em>
 MsgBox "Class name:" name
 </pre>
 </div>
 
 <div class="ex" id="ExIE">
-<p><a class="ex_number" href="#ExIE"></a>  Automates an existing Internet Explorer window.</p>
+<p><a class="ex_number" href="#ExIE"></a> 既存のInternet Explorerのウィンドウを自動化します。</p>
 <pre>
 sURL := "https://www.autohotkey.com/boards/"
 if WebBrowser := GetWebBrowser()
@@ -115,32 +115,32 @@ if WebBrowser := GetWebBrowser()
 
 GetWebBrowser()
 {
-    <em>; Get a raw pointer to the document object of the top-most IE window.</em>
+    <em>;最上位のIEウィンドウのドキュメントオブジェクトへの生ポインタを取得する。</em>
     static msg := DllCall("RegisterWindowMessage", "Str", "WM_HTML_GETOBJECT")
     lResult := SendMessage(msg, 0, 0, "Internet Explorer_Server1", "ahk_class IEFrame")
     if !lResult
-        return<em>; IE not found.</em>
+        return<em>; IEが見つかりません。</em>
     static IID_IHTMLDocument2 := GUID("{332C4425-26CB-11D0-B483-00C04FD90119}")
     static VT_UNKNOWN := 13
     DllCall("oleacc\ObjectFromLresult", "Ptr", lResult
         , "Ptr", IID_IHTMLDocument2, "Ptr", 0
         , "Ptr*", pdoc := ComValue(VT_UNKNOWN, 0))
     
-<em>; Query for the WebBrowserApp service. In this particular case,
-    ; the SID and IID are the same, but it isn't always this way.</em>
+<em>; WebBrowserApp サービスの ;クエリです。この特殊なケースで
+    ; SIDとIIDは同じですが、いつもこうとは限りません。</em>
     static IID_IWebBrowserApp := "{0002DF05-0000-0000-C000-000000000046}"
     static SID_SWebBrowserApp := IID_IWebBrowserApp
     pweb := ComObjQuery(pdoc, SID_SWebBrowserApp, IID_IWebBrowserApp)
     
-<em>; Return the WebBrowser object as IDispatch for usability.
-; This works only because IWebBrowserApp is derived from IDispatch.
-; pweb will release its ptr automatically, so AddRef to counter that.</em>
+<em>; WebBrowserオブジェクトをIDispatchとして返し、使い勝手を良くする。
+; これは、IWebBrowserAppがIDispatchから派生したものであるためです。
+; pwebは自動的にptrを解放するので、それに対抗するためにAddRefします。</em>
     ObjAddRef(pweb.ptr)
     static VT_DISPATCH := 9
     return ComValue(VT_DISPATCH, pweb.ptr)
 }
 
-GUID(sGUID)<em>; Converts a string to a binary GUID and returns it in a Buffer.</em>
+GUID(sGUID)<em>; 文字列をバイナリGUIDに変換し、Bufferで返す。</em>
 {
     GUID := Buffer(16, 0)
     if DllCall("ole32\CLSIDFromString", "WStr", sGUID, "Ptr", GUID) &lt; 0

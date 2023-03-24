@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>DetectHiddenWindows - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content='The DetectHiddenWindows function determines whether invisible windows are "seen" by the script.' />
+<title>DetectHiddenWindows - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="DetectHiddenWindows関数は、不可視のウィンドウがスクリプトによって「見える」かどうかを判断します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>DetectHiddenWindows</h1>
 
-<p>Determines whether invisible windows are "seen" by the script.</p>
+<p>不可視のウィンドウがスクリプトによって「見える」かどうかを決定します。</p>
 
 <pre class="Syntax"><span class="func">DetectHiddenWindows</span> Mode</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,34 +21,34 @@
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p><code>1</code> or <code>True</code>: Hidden windows are detected.</p>
-    <p><code>0</code> or <code>False</code>: This is the default. Hidden windows are not detected, except by the <a href="WinShow.htm">WinShow</a> function.</p>
+    <p><code>1</code> または <code>True</code>:隠しウィンドウが検出されます。</p>
+    <p><code>0</code> または <code>False</code>:これはデフォルトです。隠しウィンドウは、<a href="WinShow.htm">WinShow</a>機能以外では検出されません。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-<p>This function returns the previous setting.</p>
+<p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Turning on DetectHiddenWindows can make scripting harder in some cases since some hidden system windows might accidentally match the title or text of another window you're trying to work with. So most scripts should leave this setting turned off. However, turning it on may be useful if you wish to work with hidden windows directly without first using <a href="WinShow.htm">WinShow</a> to unhide them.</p>
-<p>All windowing functions except <a href="WinShow.htm">WinShow</a> are affected by this setting, including <a href="WinActivate.htm">WinActivate</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWait.htm">WinWait</a> and <a href="WinExist.htm">WinExist</a>. By contrast, <a href="WinShow.htm">WinShow</a> will always unhide a hidden window even if hidden windows are not being detected.</p>
-<p>Turning on DetectHiddenWindows is not necessary in the following cases:</p>
+<p>DetectHiddenWindowsをオンにすると、隠れているシステムウィンドウの一部が、操作しようとしている他のウィンドウのタイトルやテキストと偶然に一致することがあるため、場合によってはスクリプトが難しくなることがあります。そのため、ほとんどのスクリプトはこの設定をオフのままにしておく必要があります。ただし、<a href="WinShow.htm">WinShow</a>で非表示を解除することなく、直接非表示のウィンドウを操作したい場合は、この機能をオンにすると便利です。</p>
+<p><a href="WinShow.htm">WinShow</a>を除くすべてのウィンドウ機能（<a href="WinActivate.htm">WinActivate</a>、<a href="WinActive.htm">WinActive</a>、<a href="WinWait.htm">WinWait</a>、<a href="WinExist.htm">WinExist</a>など）がこの設定の影響を受けます。これに対して、<a href="WinShow.htm">WinShow</a>は隠しウィンドウが検出されない場合でも、必ず隠しウィンドウを解除します。</p>
+<p>以下の場合は、DetectHiddenWindowsをオンにする必要はありません：</p>
 <ul>
-  <li>When using a <a href="../misc/WinTitle.htm#ahk_id">pure HWND</a>, as in <code>WinShow(A_ScriptHwnd)</code>.</li>
-  <li>When using an <a href="../misc/WinTitle.htm#ahk_id">object with a Hwnd property</a> (such as a <a href="Gui.htm">Gui</a>), as in <code>WinMoveTop(myGui)</code>.</li>
-  <li>When accessing a control or child window via the <a href="../misc/WinTitle.htm#ahk_id">ahk_id method</a> or as the <a href="../misc/WinTitle.htm#LastFoundWindow">last-found-window</a>.</li>
-  <li>When accessing GUI windows via the <a href="Gui.htm#LastFound">+LastFound</a> option.</li>
+  <li><code>WinShow(A_ScriptHwnd)</code>のように<a href="../misc/WinTitle.htm#ahk_id">純粋なHWND</a>を使用する場合。</li>
+  <li><code>WinMoveTop(myGui)</code>のように、<a href="../misc/WinTitle.htm#ahk_id">Hwndプロパティを持つオブジェクト</a>（<a href="Gui.htm">Gui</a>など）を使用する場合です。</li>
+  <li><a href="../misc/WinTitle.htm#ahk_id">ahk_idメソッド</a>でコントロールや子ウィンドウにアクセスする場合、または<a href="../misc/WinTitle.htm#LastFoundWindow">last-found-window</a>としてアクセスする場合。</li>
+  <li><a href="Gui.htm#LastFound">LastFound</a>オプションでGUIウィンドウにアクセスした場合。</li>
 </ul>
-<p>Cloaked windows are also considered hidden. Cloaked windows, introduced with Windows 8, are windows on a non-active virtual desktop or UWP apps which have been suspended to improve performance, or more precisely to reduce their memory consumption. On Windows 10, the processes of those are indicated with a green leaf in the Task Manager. Such windows are hidden from view, but might still have the WS_VISIBLE window style.</p>
-<p>The built-in variable <strong>A_DetectHiddenWindows</strong> contains the current setting (1 or 0).</p>
-<p>Every newly launched <a href="../misc/Threads.htm">thread</a> (such as a <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timed</a> subroutine) starts off fresh with the default setting for this function. That default may be changed by using this function during <a href="../Scripts.htm#auto">script startup</a>.</p>
+<p>また、クロークドウィンドウも隠し味として扱われます。Windows 8から導入されたクロークドウィンドウは、非アクティブな仮想デスクトップ上のウィンドウや、パフォーマンス向上、より正確にはメモリ消費を抑えるために中断されたUWPアプリのことです。Windows 10では、タスクマネージャーでそれらのプロセスが緑の葉で表示されます。このようなウィンドウは視界から隠れますが、WS_VISIBLEウィンドウのスタイルが残っている可能性があります。</p>
+<p>内蔵変数<strong>A_DetectHiddenWindows</strong>に現在の設定値（1または0）が格納されます。</p>
+<p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="DetectHiddenText.htm">DetectHiddenText</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Turns on the detection of hidden windows.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 隠しウィンドウの検出をオンにします。</p>
 <pre>DetectHiddenWindows True</pre>
 </div>
 

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ControlGetPos - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ControlGetPos function retrieves the position and size of a control." />
+<title>ControlGetPos - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ControlGetPos関数は、コントロールの位置と大きさを取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>ControlGetPos</h1>
 
-<p>Retrieves the position and size of a control.</p>
+<p>コントロールの位置と大きさを取得します。</p>
 
 <pre class="Syntax"><span class="func">ControlGetPos</span> <span class="optional">&amp;OutX, &amp;OutY, &amp;OutWidth, &amp;OutHeight, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,59 +21,59 @@
   <dt>&amp;OutX, &amp;OutY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>References to the output variables in which to store the X and Y coordinates (in pixels) of <em>Control</em>'s upper left corner. These coordinates are relative to the upper-left corner of the target window's <a href="CoordMode.htm#Client">client area</a> and thus are the same as those used by <a href="ControlMove.htm">ControlMove</a>.</p>
-    <p>If either X or Y is omitted, the corresponding values will not be stored.</p>
+    <p><em>コントロール</em>の左上隅のX座標とY座標（ピクセル）を格納する出力変数への参照。これらの座標は、ターゲットウィンドウの<a href="CoordMode.htm#Client">クライアント領域</a>の左上隅からの相対座標であるため、<a href="ControlMove.htm">ControlMove</a>で使用する座標と同じです。</p>
+    <p>XまたはYのいずれかが省略された場合、対応する値は格納されない。</p>
   </dd>
 
   <dt>&amp;OutWidth, &amp;OutHeight</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>References to the output variables in which to store <em>Control</em>'s width and height (in pixels). If omitted, the corresponding values will not be stored.</p>
+    <p><em>Control</em>の幅と高さ（ピクセル）を格納する出力変数へのリファレンス。省略した場合は、対応する値は保存されません。</p>
   </dd>
 
   <dt>Control</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
   </dd>
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Unlike functions that change a control, ControlGetPos does not have an automatic delay (<a href="SetControlDelay.htm">SetControlDelay</a> does not affect it).</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>コントロールを変更する関数とは異なり、ControlGetPosには自動遅延はありません<a href="SetControlDelay.htm">（SetControlDelay</a>は影響しません）。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="ControlMove.htm">ControlMove</a>, <a href="WinGetPos.htm">WinGetPos</a>, <a href="Control.htm">Control functions</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Continuously updates and displays the name and position of the control currently under the mouse cursor.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 現在マウスカーソルの下にあるコントロールの名前と位置を継続的に更新して表示します。</p>
 <pre>Loop
 {
     Sleep 100

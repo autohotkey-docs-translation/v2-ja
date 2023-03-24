@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObjGet - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObjGet function returns a reference to an object provided by a COM component." />
+<title>ComObjGet - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObjGet 関数は、COM コンポーネントが提供するオブジェクトへの参照を返します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
 <body>
 
 <h1>ComObjGet</h1>
-<p>Returns a reference to an object provided by a COM component.</p>
+<p>COM コンポーネントが提供するオブジェクトへの参照を返します。</p>
 <pre class="Syntax">ComObj := <span class="func">ComObjGet</span>(Name)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -20,7 +20,7 @@
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The display name of the object to be retrieved. See <a href="https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-mkparsedisplayname">MkParseDisplayName (Microsoft Docs)</a> for more information.</p>
+    <p>取得するオブジェクトの表示名。詳しくは、<a href="https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-mkparsedisplayname">MkParseDisplayName (Microsoft Docs)</a>を参照してください。</p>
   </dd>
 
 </dl>
@@ -37,17 +37,17 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="exwmi">
-<p><a class="ex_number" href="#exwmi"></a>  Press <kbd>Shift</kbd>+<kbd>Esc</kbd> to show the command line which was used to launch the active window's process. For Win32_Process, see <a href="https://learn.microsoft.com/windows/win32/cimwin32prov/win32-process">Microsoft Docs</a>.</p>
+<p><a class="ex_number" href="#exwmi"></a> <kbd>Shift</kbd>+<kbd>Esc</kbd>キーを押すと、アクティブウィンドウのプロセスを起動するために使用されたコマンドラインが表示されます。Win32_Process については、<a href="https://learn.microsoft.com/windows/win32/cimwin32prov/win32-process">Microsoft Docs</a>を参照してください。</p>
 <pre>+Esc::
 {
     pid := WinGetPID("A")
-    <em>; Get WMI service object.</em>
+    <em>; WMIサービスオブジェクトを取得します。</em>
     wmi := ComObjGet("winmgmts:")
-    <em>; Run query to retrieve matching process(es).</em>
+    <em>; クエリーを実行し、一致するプロセスを取得する。</em>
     queryEnum := wmi.ExecQuery(""
         . "Select * from Win32_Process where ProcessId=" . pid)
         ._NewEnum()
-    <em>; Get first matching process.</em>
+    <em>; 最初のマッチング処理を取得する。</em>
     if queryEnum(&amp;proc)
         MsgBox(proc.CommandLine, "Command line", 0)
     else

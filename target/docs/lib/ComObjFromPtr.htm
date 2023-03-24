@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObjFromPtr - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObjFromPtr function wraps a raw IDispatch interface pointer (COM object) for use by the script." />
+<title>ComObjFromPtr - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObjFromPtr 関数は、スクリプトが使用する生の IDispatch インターフェースポインタ（COM オブジェクト）をラップする。" />
 <meta name="ahk:equiv-v1" content="lib/ComObjActive.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ComObjFromPtr</h1>
 
-<p>Wraps a raw <a href="https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch">IDispatch</a> pointer (COM object) for use by the script.</p>
+<p>スクリプトが使用する生の<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch">IDispatch</a>ポインター（COMオブジェクト）をラップする。</p>
 <pre class="Syntax">ComObj := <span class="func">ComObjFromPtr</span>(DispPtr)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -22,19 +22,19 @@
   <dt>DispPtr</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>A non-null interface pointer for IDispatch or a derived interface.</p>
+    <p>IDispatch または派生インターフェースの非 NULL インターフェースポインタです。</p>
   </dd>
 
 </dl>
 
 <h2 id="Returns">戻り値</h2>
 <p>型：<a href="ComObject.htm">ComObject</a></p>
-<p>Returns a wrapper object containing the <a href="ComObjType.htm#vt">variant type</a> VT_DISPATCH and the given pointer.</p>
-<p>Wrapping a COM object enables the script to interact with it more naturally, using <a href="../Objects.htm#Usage_Objects">object syntax</a>. However, the majority of scripts do not need to do this manually since a wrapper object is created automatically by <a href="ComObject.htm">ComObject</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjGet.htm">ComObjGet</a> and any COM method which returns an object.</p>
+<p><a href="ComObjType.htm#vt">バリアントタイプ</a>のVT_DISPATCHと与えられたポインタを含むラッパーオブジェクトを返します。</p>
+<p>COMオブジェクトをラッピングすることで、スクリプトは<a href="../Objects.htm#Usage_Objects">オブジェクトの構文</a>を使用して、より自然にオブジェクトと対話することができます。ただし、<a href="ComObject.htm">ComObject</a>、<a href="ComObjActive.htm">ComObjActive</a>、<a href="ComObjGet.htm">ComObjGet</a>、およびオブジェクトを返すCOMメソッドでは、ラッパーオブジェクトが自動的に作成されるため、大半のスクリプトでは、これを手動で行う必要はない。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The wrapper object assumes responsibility for automatically releasing the pointer when appropriate. This function <a href="ComObjQuery.htm">queries</a> the object for its IDispatch interface; if one is returned, <em>DispPtr</em> is immediately released. Therefore, if the script intends to use the pointer after calling this function, it must call <code><a href="ObjAddRef.htm">ObjAddRef</a>(DispPtr)</code> first.</p>
-<p><b>Known limitation:</b> Each time a COM object is wrapped, a new wrapper object is created. Comparisons and assignments such as <code>obj1 == obj2</code> and <code>array[obj1] := value</code> treat the two wrapper objects as unique, even when they contain the same COM object.</p>
+<p>ラッパーオブジェクトは、適切な場合に自動的にポインタを解放する責任を負います。この関数は、オブジェクトにIDispatchインターフェイスを<a href="ComObjQuery.htm">問い合わせ</a>、IDispatchインターフェイスが返された場合、<em>DispPtrは</em>直ちに解放されます。したがって、スクリプトがこの関数を呼び出した後にポインタを使用しようとする場合、最初に<code><a href="ObjAddRef.htm">ObjAddRef</a>(DispPtr)</code>を呼び出す必要があります。</p>
+<p><b>既知の制限事項：</b>COMオブジェクトがラップされるたびに、新しいラッパーオブジェクトが作成されます。<code>obj1 == obj2</code>や<code>array[obj1] := value</code>のような比較や代入は、同じ COM オブジェクトを含んでいても、2 つのラッパーオブジェクトはユニークなものとして扱われます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComObject.htm">ComObject</a>, <a href="ComValue.htm">ComValue</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjConnect.htm">ComObjConnect</a>, <a href="ComObjFlags.htm">ComObjFlags</a>, <a href="ObjAddRef.htm">ObjAddRef/ObjRelease</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getactiveobject">GetActiveObject (Microsoft Docs)</a></p>

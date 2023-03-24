@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ControlFindItem - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ControlFindItem function returns the entry number of a ListBox or ComboBox that is a complete match for the specified string." />
+<title>ControlFindItem - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ControlFindItem 関数は、指定した文字列と完全に一致する ListBox または ComboBox のエントリ番号を返します。" />
 <meta name="ahk:equiv-v1" content="lib/ControlGet.htm#FindString" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ControlFindItem</h1>
 
-<p>Returns the entry number of a ListBox or ComboBox that is a complete match for the specified string.</p>
+<p>指定された文字列と完全に一致するListBoxまたはComboBoxのエントリ番号を返します。</p>
 
 <pre class="Syntax">FoundItem := <span class="func">ControlFindItem</span>(String, Control <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
@@ -22,46 +22,46 @@
     <dt>String</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>The string to find. The search is case-insensitive. Unlike <a href="ControlChooseString.htm">ControlChooseString</a>, the entry's entire text must match, not just the leading part.</p>
+        <p>見つけるための文字列です。大文字と小文字を区別して検索します。<a href="ControlChooseString.htm">ControlChooseString</a>とは異なり、エントリーの先頭部分だけでなく、テキスト全体が一致する必要があります。</p>
     </dd>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     </dd>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the entry number of a ListBox or ComboBox that is a complete match for <em>String</em>. The first entry in the control is 1, the second 2, and so on. If no match is found, an exception is thrown.</p>
+<p>この関数は、<em>String</em>に完全に一致する ListBox または ComboBox のエントリ番号を返します。コントロールの最初のエントリーは1、2番目のエントリーは2、・・・となります。一致しない場合は、例外が発生します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found, or if the control's class name does not contain "Combo" or "List".</p>
-<p>An <a href="Error.htm">Error</a> is thrown if the item could not be found.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、またはコントロールのクラス名に "Combo" または "List" が含まれない場合、<a href="Error.htm#TargetError">TargetError</a>が発生します。</p>
+<p>アイテムが見つからなかった場合は、<a href="Error.htm">Error</a>が発生します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>To improve reliability, a delay is done automatically after each use of this function. That delay can be changed via <a href="SetControlDelay.htm">SetControlDelay</a> or by assigning a value to <a href="../Variables.htm#ControlDelay">A_ControlDelay</a>. For details, see <a href="SetControlDelay.htm#Remarks">SetControlDelay remarks</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>信頼性向上のため、本機能を使用するたびに自動的に遅延が行われます。この遅延は、<a href="SetControlDelay.htm">SetControlDelay</a>または<a href="../Variables.htm#ControlDelay">A_ControlDelay</a>に値を割り当てることで変更可能です。詳しくは、<a href="SetControlDelay.htm#Remarks">SetControlDelayの備考</a>を参照してください。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlAddItem.htm">ControlAddItem</a>, <a href="ControlDeleteItem.htm">ControlDeleteItem</a>, <a href="Control.htm">Control functions</a></p>

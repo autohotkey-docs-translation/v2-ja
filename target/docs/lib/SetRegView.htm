@@ -19,7 +19,7 @@
 
   <dt>RegView</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Specify <strong>32</strong> to view the registry as a 32-bit application would, or <strong>64</strong> to view the registry as a 64-bit application would.</p>
       <p>Specify the word <strong>Default</strong> to restore normal behaviour.</p>
   </dd>
@@ -28,21 +28,21 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the previous setting.</p>
+<p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>This function is only useful on Windows 64-bit. It has no effect on Windows 32-bit.</p>
 <p>On 64-bit systems, 32-bit applications run on a subsystem of Windows called <a href="https://learn.microsoft.com/windows/win32/winprog64/running-32-bit-applications">WOW64</a>. By default, the system redirects certain <a href="https://learn.microsoft.com/windows/win32/winprog64/shared-registry-keys">registry keys</a> to prevent conflicts. For example, in a 32-bit script, <code>HKLM\SOFTWARE\AutoHotkey</code> is redirected to <code>HKLM\SOFTWARE\Wow6432Node\AutoHotkey</code>. SetRegView allows the registry functions in a 32-bit script to access redirected keys in the 64-bit registry view and vice versa.</p>
 
 <p>The built-in variable <strong>A_RegView</strong> contains the current setting.</p>
-<p>Every newly launched <a href="../misc/Threads.htm">thread</a> (such as a <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timed</a> subroutine) starts off fresh with the default setting for this function. That default may be changed by using this function during <a href="../Scripts.htm#auto">script startup</a>.</p>
+<p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RegRead.htm">RegRead</a>, <a href="RegWrite.htm">RegWrite</a>, <a href="RegCreateKey.htm">RegCreateKey</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="LoopReg.htm">Loop Reg</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Shows how to set a specific registry view, and how registry redirection affects the script.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Shows how to set a specific registry view, and how registry redirection affects the script.</p>
 <pre>
 <em>; Access the registry as a 32-bit application would.</em>
 SetRegView 32
@@ -63,7 +63,7 @@ SetRegView "Default"
 </div>
 
 <div class="ex" id="Ex32Or64">
-<p><a class="ex_number" href="#Ex32Or64"></a>  Shows how to detect the type of EXE and operating system on which the script is running.</p>
+<p><a class="ex_number" href="#Ex32Or64"></a> Shows how to detect the type of EXE and operating system on which the script is running.</p>
 <pre>if (A_PtrSize = 8)
     script_is := "64-bit"
 else<em>; if (A_PtrSize = 4)</em>

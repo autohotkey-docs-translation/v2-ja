@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComValue - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComValue class wraps a value, SafeArray or COM object for use by the script or for passing to a COM method." />
+<title>ComValue - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComValueクラスは、スクリプトで使用する値、SafeArrayまたはCOMオブジェクトをラップし、COMメソッドに渡すためのものです。" />
 <meta name="ahk:equiv-v1" content="lib/ComObjActive.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,9 +13,9 @@
 
 <h1>ComValue</h1>
 
-<p>Wraps a value, SafeArray or COM object for use by the script or for passing to a COM method.</p>
+<p>スクリプトで使用するため、またはCOMメソッドに渡すために、値、SafeArrayまたはCOMオブジェクトをラップします。</p>
 <pre class="Syntax">ComObj := <span class="func">ComValue</span>(VarType, Value <span class="optional">, Flags</span>)</pre>
-<p><code>ComValue</code> itself is a <a href="Class.htm">class</a> derived from <code>Any</code>, but is used only to create or identify COM wrapper objects.</p>
+<p><code>ComValue</code>自体は<code>Any</code>から派生した<a href="Class.htm">クラス</a>ですが、COMラッパーオブジェクトを作成または識別するためにのみ使用されます。</p>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
@@ -23,70 +23,70 @@
   <dt>VarType</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>An integer indicating the type of value. See <a href="ComObjType.htm#vt">ComObjType</a> for a list of types.</p>
+    <p>値の種類を示す整数。タイプの一覧は<a href="ComObjType.htm#vt">ComObjType</a>を参照してください。</p>
   </dd>
 
   <dt>値</dt>
   <dd>
-    <p>The value to wrap.</p>
-    <p>If this is a pure integer and <em>VarType</em> is not VT_R4, VT_R8, VT_DATE or VT_CY, its value is used directly; in particular, VT_BSTR, VT_DISPATCH and VT_UNKNOWN can be initialized with a pointer value.</p>
-    <p>In any other case, the value is copied into a temporary VARIANT using the same rules as normal COM methods calls. If the source variant type is not equal to <em>VarType</em>, conversion is attempted by calling <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a> with a <em>wFlags</em> value of 0. An exception is thrown if conversion fails.</p>
+    <p>ラップする値。</p>
+    <p>これが純粋な整数で、<em>VarType</em>が VT_R4, VT_R8, VT_DATE, VT_CY でない場合、その値が直接使われる。特に VT_BSTR, VT_DISPATCH, VT_UNKNOWN はポインタ値で初期化できる。</p>
+    <p>それ以外の場合は、通常のCOMメソッド呼び出しと同じルールで、一時的なVARIANTに値がコピーされます。ソースバリアントタイプが<em>VarType</em>と等しくない場合、<em>wFlags</em>の値0を持つ<a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a>を呼び出すことで変換が試みられます。変換に失敗した場合は、例外が発生します。</p>
   </dd>
 
   <dt>Flags</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Flags affecting the behaviour of the wrapper object; see <a href="ComObjFlags.htm">ComObjFlags</a> for details.</p>
+    <p>ラッパーオブジェクトの動作に影響を与えるフラグ。詳細は<a href="ComObjFlags.htm">ComObjFlags</a>を参照してください。</p>
   </dd>
 
 </dl>
 
 <h2 id="Returns">戻り値</h2>
-<p>型：ComValue, ComValueRef, <a href="ComObjArray.htm">ComObjArray</a> or <a href="ComObject.htm">ComObject</a></p>
-<p>Returns a wrapper object containing a <a href="ComObjType.htm#vt">variant type</a> and value or pointer.</p>
-<p>This object has multiple uses:</p>
+<p>型：ComValue, ComValueRef, <a href="ComObjArray.htm">ComObjArray</a> または <a href="ComObject.htm">ComObject</a></p>
+<p><a href="ComObjType.htm#vt">バリアントタイプ</a>と値またはポインタを含むラッパーオブジェクトを返します。</p>
+<p>このオブジェクトは複数の用途：</p>
 <ol>
-  <li>Some COM methods may require specific types of values which have no direct equivalent within AutoHotkey. This function allows the type of a value to be specified when passing it to a COM method. For example, <code>ComValue(0xB, true)</code> creates an object which represents the COM boolean value <em>true</em>.</li>
-  <li>Wrapping a COM object or SafeArray enables the script to interact with it more naturally, using <a href="../Objects.htm#Usage_Objects">object syntax</a>. However, the majority of scripts do not need to do this manually since a wrapper object is created automatically by <a href="ComObject.htm">ComObject</a>, <a href="ComObjArray.htm">ComObjArray</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjGet.htm">ComObjGet</a> and any COM method which returns an object.</li>
-  <li>Wrapping a COM interface pointer allows the script to take advantage of automatic reference counting. An interface pointer can be wrapped immediately upon being returned to the script (typically from <a href="ComCall.htm">ComCall</a> or <a href="DllCall.htm">DllCall</a>), avoiding the need to explicitly <a href="ObjAddRef.htm">release</a> it at some later point.</li>
+  <li>COMのメソッドの中には、AutoHotkey内で直接同等のものがない、特定のタイプの値を必要とするものがあります。COM メソッドに値を渡す際に、値の型を指定することができる機能です。例えば、<code>ComValue(0xB, true)</code>は、COM のブール値<em>true</em>を表すオブジェクトを作成します。</li>
+  <li>COMオブジェクトやSafeArrayをラッピングすることで、スクリプトが<a href="../Objects.htm#Usage_Objects">オブジェクトの構文</a>を使用して、より自然に操作することができます。ただし、<a href="ComObject.htm">ComObject</a>、<a href="ComObjArray.htm">ComObjArray</a>、<a href="ComObjActive.htm">ComObjActive</a>、<a href="ComObjGet.htm">ComObjGet</a>、およびオブジェクトを返すCOMメソッドでは、ラッパーオブジェクトが自動的に作成されるため、大半のスクリプトでは手動で行う必要はない。</li>
+  <li>COMインターフェイスポインターをラップすることで、スクリプトが自動参照カウントを利用することができます。インターフェイスポインターは、スクリプトに返されるとすぐにラップされるため（通常は<a href="ComCall.htm">ComCall</a>または<a href="DllCall.htm">DllCall</a>から）、後の時点で明示的に<a href="ObjAddRef.htm">リリース</a>する必要がありません。</li>
 </ol>
 
 <h2 id="Ptr">Ptr</h2>
-<p>If a wrapper object's <a href="ComObjType.htm#vt"><em>VarType</em></a> is VT_UNKNOWN (13) or includes the VT_BYREF (0x4000) flag or VT_ARRAY (0x2000) flag, the <code>Ptr</code> property can be used to retrieve the address of the object, typed variable or SafeArray. This allows the ComObject itself to be passed to any <a href="DllCall.htm">DllCall</a> or <a href="ComCall.htm">ComCall</a> parameter which has the <code>"Ptr"</code> type, but can also be used explicitly. For example, <code>ComObj.Ptr</code> is equivalent to <code>ComObjValue(ComObj)</code> in these cases.</p>
-<p>If a wrapper object's <a href="ComObjType.htm#vt"><em>VarType</em></a> is VT_UNKNOWN (13) or VT_DISPATCH (9) and the wrapped pointer is null (0), the <code>Ptr</code> property can be used to retrieve the current null value or to assign a pointer to the wrapper object. Once assigned (if non-null), the pointer will be released automatically when the wrapper object is freed. This can be used with <a href="DllCall.htm">DllCall</a> or <a href="ComCall.htm">ComCall</a> output parameters of type <code>"Ptr*"</code> or <code>"PtrP"</code> to ensure the pointer will be released automatically, such as if an error occurs. For an example, see <a href="ComObjQuery.htm#ExIE">ComObjQuery</a>.</p>
-<p>When a wrapper object with <em>VarType</em> VT_DISPATCH (9) and a null (0) pointer value is assigned a non-null pointer value, its type changes from <code>ComValue</code> to <code>ComObject</code>. The properties and methods of the wrapped object become available and the <code>Ptr</code> property becomes unavailable.</p>
+<p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>が VT_UNKNOWN (13) であるか、VT_BYREF (0x4000) フラグまたは VT_ARRAY (0x2000) フラグを含む場合、<code>Ptr</code>プロパティを使用してオブジェクト、型付き変数または SafeArray のアドレスを取得することができる。これにより、ComObject自体を<code>"Ptr "</code>型を持つ<a href="DllCall.htm">DllCallや</a> <a href="ComCall.htm">ComCall</a>のパラメータに渡すことができ、また、明示的に使用することもできる。例えば、<code>ComObj.Ptrは</code>、これらの場合、<code>ComObjValue(ComObj)</code>と同等です。</p>
+<p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>がVT_UNKNOWN（13）またはVT_DISPATCH（9）で、ラップされたポインタがヌル（0）の場合、<code>Ptr</code>プロパティを使って現在のヌル値を取得するか、ラッパーオブジェクトへのポインタを割り当てることができる。一度割り当てられると（nullでない場合）、ラッパー・オブジェクトが解放されるときに、ポインタは自動的に解放されます。<a href="DllCall.htm">DllCall</a>や <a href="ComCall.htm">ComCall</a>の <code>"Ptr*"</code>や<code>"PtrP "</code>型の出力パラメータで使用することで、エラー発生時などにポインタが自動的に解放されるようにすることができます。例として、<a href="ComObjQuery.htm#ExIE">ComObjQuery</a>を参照してください。</p>
+<p><em>VarType</em>VT_DISPATCH（9）でNULL（0）ポインタ値を持つラッパーオブジェクトにNULL以外のポインタ値が割り当てられると、その型は<code>ComValue</code>から <code>ComObject</code>に変化します。ラップされたオブジェクトのプロパティとメソッドが利用可能になり、<code>Ptr</code>プロパティは利用不可能になります。</p>
 
 <h2 id="ByRef">ByRef</h2>
-<p>If a wrapper object's <a href="ComObjType.htm#vt"><em>VarType</em></a> includes the VT_BYREF (0x4000) flag, empty brackets <code>[]</code> can be used to read or write the referenced value.</p>
-<p>When creating a reference, <em>Value</em> must be the memory address of a variable or buffer with sufficient capacity to store a value of the given type. For example, the following can be used to create a variable which a VBScript function can write into:</p>
+<p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>はVT_BYREF(0x4000)フラグを含むので、空カッコ<code>[]</code>で参照値の読み書きが可能です。</p>
+<p>参照を作成する場合、<em>Value</em>には、指定された型の値を格納するのに十分な容量を持つ変数またはバッファのメモリアドレスが必要です。例えば、以下のようにすれば、VBScriptの関数が書き込むことができる変数を作成することができます。</p>
 <pre>vbuf := Buffer(24, 0)
-vref := ComValue(0x400C, vbuf.ptr)<em>; 0x400C is a combination of VT_BYREF and VT_VARIANT.</em>
+vref := ComValue(0x400C, vbuf.ptr)<em>; 0x400C は、VT_BYREF と VT_VARIANT の組み合わせである。</em>
 
 vref[] := "in value"
-sc.Run("Example", vref)<em>; sc should be initialized as in the <a href="#ExByRef">example below</a>.</em>
+sc.Run("Example", vref)<em>; scは、<a href="#ExByRef">以下の例</a>のように初期化する必要があります。</em>
 MsgBox vref[]</pre>
-<p>Note that although any previous value is freed when a new value is assigned by <code>vref[]</code> or the COM method, the final value is not freed automatically. Freeing the value requires knowing which type it is. Because it is VT_VARIANT in this case, it can be freed by calling <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a> with <a href="DllCall.htm">DllCall</a> or by using a simpler method: assign an integer, such as <code>vref[] := 0</code>.</p>
-<p>If the method accepts a combination of VT_BYREF and VT_VARIANT as shown above, a <a href="../Concepts.htm#variable-references">VarRef</a> can be used instead. 事例：</p>
+<p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。この場合VT_VARIANTなので、<a href="DllCall.htm">DllCall</a>で <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a>を呼び出すか、もっと簡単な方法で解放することができます。<code>vref[] := 0</code>のように整数を代入する。</p>
+<p>上記のようにメソッドがVT_BYREFとVT_VARIANTの組み合わせを受け付ける場合、<a href="../Concepts.htm#variable-references">VarRef</a>を代わりに使用することができます。事例：</p>
 <pre>some_var := "in value"
 sc.Run("Example", &amp;some_var)
 MsgBox some_var</pre>
-<p>However, some methods require a more specific variant type, such as <code>VT_BYREF | VT_I4</code>. In such cases, the first approach shown above must be used, replacing 0x400C with the appropriate variant type.</p>
+<p>しかし、メソッドによっては、<code>VT_BYREF｜VT_I4</code>のように、より特殊なバリアントタイプを要求するものもあります。このような場合、0x400Cを適切なバリアントタイプに置き換えて、上記の最初の方法を使用する必要があります。</p>
 
 <h2 id="Remarks">総論</h2>
-<p>When this function is used to wrap an <a href="https://learn.microsoft.com/windows/win32/winauto/idispatch-interface">IDispatch</a> or IUnknown interface pointer (passed as an integer), the wrapper object assumes responsibility for automatically releasing the pointer when appropriate. Therefore, if the script intends to use the pointer after calling this function, it must call <code><a href="ObjAddRef.htm">ObjAddRef</a>(DispPtr)</code> first. By contrast, this is not necessary if <em>Value</em> is itself a ComValue or ComObject.</p>
-<p>Conversion from VT_UNKNOWN to VT_DISPATCH results in a call to <a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>, which may produce an interface pointer different to the original, and will throw an exception if the object does not implement IDispatch. By contrast, if <em>Value</em> is an integer and <em>VarType</em> is VT_DISPATCH, the value is used directly, and therefore must be an IDispatch-compatible interface pointer.</p>
-<p>The <em>VarType</em> of a wrapper object can be retrieved using <a href="ComObjType.htm">ComObjType</a>.</p>
-<p>The <em>Value</em> of a wrapper object can be retrieved using <a href="ComObjValue.htm">ComObjValue</a>.</p>
-<p><b>Known limitation:</b> Each time a COM object is wrapped, a new wrapper object is created. Comparisons and assignments such as <code>obj1 == obj2</code> and <code>array[obj1] := value</code> treat the two wrapper objects as unique, even when they contain the same variant type and value.</p>
+<p>この関数が<a href="https://learn.microsoft.com/windows/win32/winauto/idispatch-interface">IDispatch</a>またはIUnknownインターフェイスポインタ（整数として渡される）をラップするために使用される場合、ラッパーオブジェクトは、適切なときにポインタを自動的に解放する責任を負うものとします。したがって、スクリプトがこの関数を呼び出した後にポインタを使用しようとする場合、最初に<code><a href="ObjAddRef.htm">ObjAddRef</a>(DispPtr)</code>を呼び出す必要があります。一方、<em>Value</em>自体がComValueまたはComObjectである場合には、この必要はない。</p>
+<p>VT_UNKNOWNからVT_DISPATCHへの変換では、<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>が呼び出され、オリジナルとは異なるインターフェースポインタが生成される場合があり、オブジェクトがIDispatchを実装しない場合は例外が投げられる。一方、<em>Value</em>が整数で<em>VarType</em>がVT_DISPATCHの場合は、値が直接使用されるため、IDispatch互換のインターフェースポインタである必要があります。</p>
+<p>ラッパーオブジェクトの<em>VarType</em>は<a href="ComObjType.htm">ComObjType</a>で取得することができます。</p>
+<p>ラッパーオブジェクトの<em>値</em>は、<a href="ComObjValue.htm">ComObjValue</a>を使用して取得することができます。</p>
+<p><b>既知の制限事項：</b>COMオブジェクトがラップされるたびに、新しいラッパーオブジェクトが作成されます。<code>obj1 == obj2</code>や<code>array[obj1] := value</code>のような比較や代入は、同じバリアント型や値を含んでいても、2つのラッパーオブジェクトをユニークなものとして扱います。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComObjFromPtr.htm">ComObjFromPtr</a>, <a href="ComObject.htm">ComObject</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjConnect.htm">ComObjConnect</a>, <a href="ComObjFlags.htm">ComObjFlags</a>, <a href="ObjAddRef.htm">ObjAddRef/ObjRelease</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getactiveobject">GetActiveObject (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExByRef">
-<p><a class="ex_number" href="#ExByRef"></a>  Passes a VARIANT ByRef to a COM function.</p>
+<p><a class="ex_number" href="#ExByRef"></a> COM関数にVARIANT ByRefを渡します。</p>
 <pre>
-<em>; Preamble - ScriptControl requires a 32-bit version of AutoHotkey.</em>
+<em>; 前文 - ScriptControlはAutoHotkeyの32ビット版を必要とします。</em>
 code := "
 (
 Sub Example(Var)
@@ -97,40 +97,40 @@ End Sub
 sc := ComObject("ScriptControl"), sc.Language := "VBScript", sc.AddCode(code)
 
 
-<em>; Example: Pass a VARIANT ByRef to a COM method.</em>
+<em>; 例：COMメソッドにVARIANT ByRefを渡す。</em>
 var := ComVar()
 var[] := "in value"
 sc.Run("Example", var.ref)
 MsgBox var[]
 
-<em>; The same thing again, but more direct:</em>
-variant_buf := Buffer(24, 0)<em>; Make a buffer big enough for a VARIANT.</em>
-var := ComValue(0x400C, variant_buf.ptr)<em>; Make a reference to a VARIANT.</em>
+<em>; 同じことをもう一度、よりダイレクトに。</em>
+variant_buf := Buffer(24, 0)<em>; VARIANTのために十分な大きさのバッファを作成する。</em>
+var := ComValue(0x400C, variant_buf.ptr)<em>; VARIANTへの参照を行う。</em>
 var[] := "in value"
-sc.Run("Example", var)<em>; Pass the VT_BYREF ComValue itself, no [] or .ref.</em>
+sc.Run("Example", var)<em>; VT_BYREF ComValueそのものを渡す。[] や .ref は使わない。</em>
 MsgBox var[]
-<em>; If a VARIANT contains a string or object, it must be explicitly freed
-; by calling VariantClear or assigning a pure numeric value:</em>
+<em>; VARIANTが文字列やオブジェクトを含む場合は、明示的に解放する必要があります。
+; VariantClearを呼び出すか、純粋な数値を代入することで対応します。</em>
 var[] := 0
 
-<em>; The simplest way when the method accepts VT_BYREF|VT_VARIANT:</em>
+<em>; メソッドがVT_BYREF|VT_VARIANTを受け入れる場合、最も簡単な方法です。</em>
 var := "in value"
 sc.Run("Example", &amp;var)
 MsgBox var
 
 
-<em>; ComVar: An object which can be used to pass a value ByRef.
-;   this[] retrieves the value.
-;   this[] := Val sets the value.
-;   this.ref retrieves a ByRef object for passing to a COM method.</em>
+<em>; ComVar:ByRef: 値を渡すために使用できるオブジェクト。
+; this[]は値を取得する。
+; this[] := Val が値を設定する。
+; this.ref は COM メソッドに渡すための ByRef オブジェクトを取得する。</em>
 class ComVar {
     __new(vType := 0xC) {
-        <em>; Allocate memory for a VARIANT to hold our value. VARIANT is used even
-        ; when vType != VT_VARIANT so that VariantClear can be used by __delete.</em>
+        <em>; VARIANTのメモリを確保し、値を保持する。VARIANTは、次のような場合でも使用されます。
+        ; VariantClearを__deleteで使用できるように、vType != VT_VARIANTのとき ;。</em>
         this.var := Buffer(24, 0)
-        <em>; Create an object which can be used to pass the variable ByRef.</em>
+        <em>; 変数 ByRef の受け渡しに使用できるオブジェクトを作成する。</em>
         this.ref := ComValue(0x4000|vType, this.var.ptr + (vType=0xC ? 0 : 8))
-        <em>; Store the variant type for VariantClear (if not VT_VARIANT).</em>
+        <em>; VariantClear のバリアントタイプを格納します（VT_VARIANT でない場合）。</em>
         if Type != 0xC
             NumPut "ushort", vType, this.var
     }

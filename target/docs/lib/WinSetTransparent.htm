@@ -21,29 +21,29 @@
 <dl>
     <dt>N</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#strings">String</a></p>
+        <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
         <p>To enable transparency, specify a number between 0 and 255 indicating the degree of transparency: 0 makes the window invisible while 255 makes it opaque.</p>
         <p>The word <code>"Off"</code> (case-insensitive) may be specified to completely turn off transparency for a window. This is functionally identical to <code><a href="WinSetTransColor.htm">WinSetTransColor</a> "Off", <i>WinTitle</i></code>. Specifying <code>"Off"</code> is different than specifying 255 because it may improve performance and reduce usage of system resources (but probably only when desktop composition is disabled).</p>
     </dd>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
@@ -55,25 +55,25 @@
 <p>For example, to make the task bar transparent, use <code>WinSetTransparent 150, "ahk_class Shell_TrayWnd"</code>. Similarly, to make the classic Start Menu transparent, see <a href="#ExTransStartMenu">example #2</a>. To make the Start Menu's submenus transparent, also include the script from <a href="#ExTransMenu">example #3</a>.</p>
 <p>Setting the transparency level to 255 before using <code>"Off"</code> might avoid window redrawing problems such as a black background. If the window still fails to be redrawn correctly, see <a href="WinRedraw.htm">WinRedraw</a> for a possible workaround.</p>
 <p>The ID of the window under the mouse cursor can be retrieved with <a href="MouseGetPos.htm">MouseGetPos</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinSetTransColor.htm">WinSetTransColor</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Makes Notepad a little bit transparent.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Makes Notepad a little bit transparent.</p>
 <pre>WinSetTransparent 200, "Untitled - Notepad"</pre>
 </div>
 
 <div class="ex" id="ExTransStartMenu">
-<p><a class="ex_number" href="#ExTransStartMenu"></a>  Makes the classic Start Menu transparent (to additionally make the Start Menu's submenus transparent, see <a href="#ExTransMenu">example #3</a>).</p>
+<p><a class="ex_number" href="#ExTransStartMenu"></a> Makes the classic Start Menu transparent (to additionally make the Start Menu's submenus transparent, see <a href="#ExTransMenu">example #3</a>).</p>
 <pre>DetectHiddenWindows True
 WinSetTransparent 150, "ahk_class BaseBar"</pre>
 </div>
 
 <div class="ex" id="ExTransMenu">
-<p><a class="ex_number" href="#ExTransMenu"></a>  Makes all or selected menus transparent throughout the system as soon as they appear. Note that although such a script cannot make its own menus transparent, it can make those of other scripts transparent.</p>
+<p><a class="ex_number" href="#ExTransMenu"></a> Makes all or selected menus transparent throughout the system as soon as they appear. Note that although such a script cannot make its own menus transparent, it can make those of other scripts transparent.</p>
 <pre>SetTimer WatchForMenu, 5
 
 WatchForMenu()

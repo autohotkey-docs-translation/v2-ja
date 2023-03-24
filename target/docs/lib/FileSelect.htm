@@ -60,7 +60,6 @@
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>Indicates which types of files are shown by the dialog.</p>
       <p>Example: Documents (*.txt)<br>
-        
         Example: Audio (*.wav; *.mp2; *.mp3)</p>
       <p>If omitted, the filter defaults to All Files (*.*).</p>
     <p>Otherwise, the filter uses the indicated string but also provides an option for All Files (*.*) in the dialog's "files of type" drop-down list. To include more than one file extension in the filter, separate them with semicolons as illustrated in the example above.</p>
@@ -77,18 +76,18 @@
 <h2 id="Remarks">備考</h2>
 <p>A file-selection dialog usually looks like this:</p>
 <img src="../static/dlg_file.png" alt="FileSelect" />
-<p>A GUI window may display a modal file-selection dialog by means of the <a href="Gui.htm#OwnDialogs">+OwnDialogs</a> option. A modal dialog prevents the user from interacting with the GUI window until the dialog is dismissed.</p>
-<p>既知の制限：A <a href="SetTimer.htm">timer</a> that launches during the display of a FileSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. To work around this, avoid using timers whose subroutines take a long time to finish, or disable all timers during the dialog:</p>
+<p>A GUI window may display a modal file-selection dialog by means of the <a href="Gui.htm#OwnDialogs">+OwnDialogs</a> option. モーダルダイアログは、ダイアログが解除されるまで、ユーザーがGUIウィンドウと対話するのを防ぎます。</p>
+<p>既知の制限：A <a href="SetTimer.htm">timer</a> that launches during the display of a FileSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. これを回避するには、サブルーチンの終了に時間がかかるタイマーの使用を避けるか、ダイアログ中のタイマーをすべて無効にしてください：</p>
 <pre><a href="Thread.htm">Thread</a> "NoTimers"
 SelectedFile := FileSelect()
 Thread "NoTimers", false</pre>
 
 <h2 id="Related">関連</h2>
 <p><a href="DirSelect.htm">DirSelect</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="ToolTip.htm">ToolTip</a>, <a href="Gui.htm">GUI</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="LoopParse.htm">parsing loop</a>, <a href="SplitPath.htm">SplitPath</a></p>
-<p>Also, the operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. These dialogs can be displayed via <a href="DllCall.htm">DllCall</a> as demonstrated at <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>.</p>
+<p>また、OSには、フォント、色、アイコンの選択を促すダイアログボックスが標準装備されています。これらのダイアログは、<a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>でデモされているように、<a href="DllCall.htm">DllCall</a>を介して表示することができます。</p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Allows the user to select an existing .txt or .doc file.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Allows the user to select an existing .txt or .doc file.</p>
 <pre>SelectedFile := FileSelect(3, , "Open a file", "Text Documents (*.txt; *.doc)")
 if SelectedFile = ""
     MsgBox "The dialog was canceled."
@@ -97,7 +96,7 @@ else
 </div>
 
 <div class="ex" id="ExMulti">
-<p><a class="ex_number" href="#ExMulti"></a>  Allows the user to select multiple existing files.</p>
+<p><a class="ex_number" href="#ExMulti"></a> Allows the user to select multiple existing files.</p>
 <pre>SelectedFiles := FileSelect("M3")  <em>; M3 = Multiselect existing files.</em>
 if SelectedFiles.Length = 0
 {
@@ -114,7 +113,7 @@ for FileName in SelectedFiles
 </div>
 
 <div class="ex" id="ExFolder">
-<p><a class="ex_number" href="#ExFolder"></a>  Allows the user to select a folder.</p>
+<p><a class="ex_number" href="#ExFolder"></a> Allows the user to select a folder.</p>
 <pre>
 SelectedFolder := FileSelect("D", , "Select a folder")
 if SelectedFolder = ""

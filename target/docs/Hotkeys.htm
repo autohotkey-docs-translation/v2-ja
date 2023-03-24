@@ -28,23 +28,23 @@
 </ul>
 
 <h2 id="Intro">導入と簡単な例</h2>
-<p>ホットキーは、アクション（プログラムの起動や<a href="misc/Macros.htm">キーボードマクロなど</a>）を簡単に起動できることから、ショートカットキーと呼ばれることもあります。次の例では、ホットキー<kbd>Win</kbd><kbd>+</kbd> <kbd>Nが</kbd>メモ帳を起動するように設定されています。ポンド記号[#]は<kbd>Winの</kbd>略で、<em>修飾キーと</em>呼ばれるものです。</p>
+<p>ホットキーは、アクション（プログラムの起動や<a href="misc/Macros.htm">キーボードマクロ</a>など）を簡単に起動できることから、ショートカットキーと呼ばれることもあります。次の例では、ホットキー<kbd>Win</kbd>+<kbd>N</kbd>がメモ帳を起動するように設定されています。ポンド記号[#]は<kbd>Win</kbd>の略で、<em>修飾キー</em>と呼ばれるものです。</p>
 <pre>#n::
 {
     Run "notepad"
 }</pre>
-<p>上記では、中括弧はホットキーの<a href="Functions.htm">関数体を</a>定義する役割を果たします。また、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイルを</a>サポートするために、ダブルコロンと同じ行に開始ブレースを指定することができる。ただし、ホットキーが1つの行だけを実行する必要がある場合は、その行をダブルコロンの右側にリストアップすることができます。つまり、中括弧は暗黙の了解なのです。</p>
+<p>上記では、中括弧はホットキーの<a href="Functions.htm">関数体</a>を定義する役割を果たします。また、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするために、ダブルコロンと同じ行に開始ブレースを指定することができる。ただし、ホットキーが1つの行だけを実行する必要がある場合は、その行をダブルコロンの右側にリストアップすることができます。つまり、中括弧は暗黙の了解なのです。</p>
 <pre>#n::Run "notepad"</pre>
-<p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkeyという</code>最初のパラメータとして渡されます（末尾のコロンは除外されます）。事例：</p>
-<pre>#n::MsgBox ThisHotkey  <em>; Reports #n</em></pre>
-<p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkeyと</a>同様です。パラメータ名は、<a href="#Function">名前付き関数を</a>使用することで変更することができます。</p>
-<p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd><kbd>+</kbd><kbd>Alt+Sを</kbd>示すために<code>^!sを</code>使用しています。</p>
+<p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンは除外されます）。事例：</p>
+<pre>#n::MsgBox ThisHotkey<em>; レポート #n</em></pre>
+<p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
+<p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を示すために<code>^!s</code>を使用しています。</p>
 <pre>^!s::
 {
     <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"<em>; この行は、アクティブ（最前面）ウィンドウにキーストロークを送信します。</em>
 }</pre>
 <h2 id="Symbols">ホットキーモディファイアの記号</h2>
-<p>以下の修飾記号を使用して、ホットキーを定義することができます。</p>
+<p>以下の修飾記号を使用して、ホットキーを定義：</p>
 <table class="info fixed">
   <tr>
     <th class="center" style="width:30px">シンボル</th>
@@ -53,16 +53,16 @@
   <tr>
     <td class="center bold">#</td>
     <td>
-      <p>Win（Windowsロゴキー）です。</p>
-      <p id="win-l"><kbd>Winを</kbd>含むホットキー（例：#a）は、<kbd>Lの</kbd>キーストロークを含むテキストを送信する前に、<kbd>Winが</kbd>解除されるのを待ちます。これにより、このようなホットキー内で<a href="lib/Send.htm">送信を</a>使用した場合、PCがロックされるのを防ぐことができます。この動作は、<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>（必要ない）、<a href="lib/Send.htm#blind">ブラインドモード</a>、<a href="lib/Send.htm#SendText">テキストモード</a>以外のすべての送信モードに適用されます。</p>
-      <p class="note"><strong>注：</strong> <kbd>Winを</kbd>含むホットキーを押すと、余分なシミュレーションキー<kbd>（</kbd>デフォルトでは<kbd>Ctrl</kbd>）を押すことになる場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
+      <p>Win（Windowsロゴキー）</p>
+      <p id="win-l"><kbd>Win</kbd>を含むホットキー（例：#a）は、<kbd>L</kbd>のキーストロークを含むテキストを送信する前に、<kbd>Win</kbd>が解除されるのを待ちます。これにより、このようなホットキー内で<a href="lib/Send.htm">送信</a>を使用した場合、PCがロックされるのを防ぐことができます。この動作は、<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>（不要）、<a href="lib/Send.htm#blind">ブラインドモード</a>、<a href="lib/Send.htm#SendText">テキストモード</a>以外のすべての送信モードに適用されます。</p>
+      <p class="note"><strong>注：</strong> <kbd>Winを</kbd>含むホットキーを押すと、余分なシミュレーションキー（デフォルトでは<kbd>Ctrl</kbd>）を押すことになる場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
     </td>
   </tr>
   <tr>
     <td class="center bold">!</td>
     <td>
       <p><kbd>Alt</kbd></p>
-      <p class="note"><strong>注意：</strong> <kbd>Altを</kbd>含むホットキーを押すと、余分なシミュレーションキー<kbd>（</kbd>デフォルトでは<kbd>Ctrl</kbd>）が発生する場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
+      <p class="note"><strong>注意：</strong> <kbd>Alt</kbd>を含むホットキーを押すと、余分なシミュレーションキー（デフォルトでは<kbd>Ctrl</kbd>）が発生する場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
     </td>
   </tr>
   <tr>
@@ -75,7 +75,7 @@
   </tr>
   <tr>
     <td class="center bold">&amp;</td>
-    <td>アンパサンドは、任意の2つのキーまたはマウスボタンの間に使用し、カスタムホットキーに結合することができます。詳しくは<a href="#combo">下記を</a>ご覧ください。</td>
+    <td>アンパサンドは、任意の2つのキーまたはマウスボタンの間に使用し、カスタムホットキーに結合することができます。詳しくは<a href="#combo">下記</a>をご覧ください。</td>
   </tr>
   <tr id="LeftRight">
     <td class="center bold">&lt;</td>
@@ -87,7 +87,7 @@
   </tr>
   <tr id="AltGr">
     <td class="center bold">&lt;^&gt;!</td>
-    <td><p><kbd>AltGr</kbd><a href="https://en.wikipedia.org/wiki/AltGr_key">（オルタネートグラフ、代替グラフィック</a>）。キーボードレイアウトに右<kbd>Alt</kbd>キーの代わりに<kbd>AltGrが</kbd>ある場合、この一連の記号は通常<kbd>AltGrを</kbd>表すために使用することができます。事例：</p>
+    <td><p><kbd>AltGr</kbd>（<a href="https://en.wikipedia.org/wiki/AltGr_key">オルタネートグラフ、代替グラフィック</a>）。キーボードレイアウトに右<kbd>Alt</kbd>キーの代わりに<kbd>AltGr</kbd>がある場合、この一連の記号は通常<kbd>AltGr</kbd>を表すために使用することができます。事例：</p>
       <pre>&lt;^&gt;!m::MsgBox "You pressed AltGr+m."
 &lt;^&lt;!m::MsgBox "You pressed LeftControl+LeftAlt+m."</pre>
       <p>また、<kbd>AltGr</kbd>自体をホットキーにするには、以下のホットキーを使用します（上記のようなホットキーが存在しない状態）。</p>
@@ -95,8 +95,8 @@
   </tr>
   <tr id="wildcard">
     <td class="center bold">*</td>
-    <td><p>ワイルドカード:余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピングと</a>セットで使われることが多いです。事例：</p>
-      <pre>*#c::Run "calc.exe"<em>Win+C、Shift+Win+C、Ctrl+Win+Cなど、すべてこのホットキーがトリガーされます。</em>
+    <td><p>ワイルドカード:余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピング</a>とセットで使われることが多いです。事例：</p>
+      <pre>*#c::Run "calc.exe"<em>; Win+C、Shift+Win+C、Ctrl+Win+Cなど、すべてこのホットキーがトリガーされます。</em>
 *ScrollLock::Run "notepad"<em>; 修飾キーが押されていても、ScrollLockを押すとこのホットキーが起動します。</em></pre>
       <p>ワイルドカードホットキーは、ワイルドカードホットキーに取って代わられたホットキーと同様に、常にキーボードフックを使用します。例えば、<code>*a::</code>があると、<code>^a::</code>は常にフックを使用するようになります。</p></td>
   </tr>
@@ -105,9 +105,9 @@
     <td><p>ホットキーが起動しても、そのキーのネイティブ機能はブロックされない（システムから隠される）。以下の例では、いずれもユーザーがマウスボタンをクリックすると、アクティブウィンドウに送信されます。</p>
       <pre>~RButton::MsgBox "You clicked the right mouse button."
 ~RButton &amp; C::MsgBox "You pressed C while holding down the right mouse button."</pre>
-      <p>他の接頭語記号と異なり、チルダ接頭語は、ホットキーのいくつかの<a href="lib/_HotIf.htm#variant">バリエーションに</a>存在し、他のバリエーションには存在しないことが許されています。ただし、オフやサスペンドされていないカスタムコンビネーションの<a href="#prefix">プレフィックスキーに</a>チルダを適用すると、<em>すべての</em>コンビネーションに対してそのプレフィックスキーの動作に影響を与えます。</p>
-      <p><a href="#alttab">alt-tabの</a>代用となる特殊なホットキーは、常にチルデの接頭辞を無視します。</p>
-      <p>ホットキーとして使用されるカスタム修飾キー<a href="#prefix">（プレフィックスキー</a>）にチルダプレフィックスを適用した場合、そのホットキーはキーを離すまで遅延されるのではなく、キーを押したときに起動するようになります。例えば、上記の<em>~RButtonの</em>ホットキーは、ボタンが押されるとすぐに起動します。</p>
+      <p>他の接頭語記号と異なり、チルダ接頭語は、ホットキーのいくつかの<a href="lib/_HotIf.htm#variant">バリエーション</a>に存在し、他のバリエーションには存在しないことが許されています。ただし、オフやサスペンドされていないカスタムコンビネーションの<a href="#prefix">プレフィックスキー</a>にチルダを適用すると、<em>すべて</em>のコンビネーションに対してそのプレフィックスキーの動作に影響を与えます。</p>
+      <p><a href="#alttab">alt-tab</a>の代用となる特殊なホットキーは、常にチルデの接頭辞を無視します。</p>
+      <p>ホットキーとして使用されるカスタム修飾キー<a href="#prefix">（プレフィックスキー</a>）にチルダプレフィックスを適用した場合、そのホットキーはキーを離すまで遅延されるのではなく、キーを押したときに起動するようになります。例えば、上記の<em>~RButton</em>のホットキーは、ボタンが押されるとすぐに起動します。</p>
       <p>チルダ接頭辞がカスタムコンビネーションにのみ適用され、コンビネーション以外のホットキーには適用されない場合、そのキーのネイティブ機能はブロックされたままとなります。例えば、以下のスクリプトでは、「<kbd>メニュー</kbd>」を押すと、ツールチップが表示され、コンテキストメニューは起動しません。</p>
       <pre>AppsKey::ToolTip "Press &lt; or &gt; to cycle through windows."
 AppsKey Up::ToolTip
@@ -119,26 +119,26 @@ AppsKey Up::ToolTip
   <tr id="prefixdollar">
     <td class="center bold">$</td>
     <td>
-      <p>これは通常、スクリプトが<a href="lib/Send.htm">Send</a>関数を使用してホットキーそのものを構成するキーを送信する場合にのみ必要で、そうでない場合はそれ自体がトリガーされる可能性があります。プレフィックスの$は、このホットキーの実装に<a href="lib/InstallKeybdHook.htm">キーボードフックを</a>使用することを強制し、副作用として<a href="lib/Send.htm">Send</a>関数がトリガーするのを防ぎます。$プレフックスは、<code><a href="lib/_UseHook.htm">#ユースフック</a></code>を指定したのと同じです。 このホットキーの定義の上のどこかにあります。</p>
-      <p>$プレフックスは、マウスホットキーは常にマウスフックを使用するため、$接頭辞はマウスホットキーには影響しません。また、<a href="#Tilde">チルダ（~）</a>または<a href="#wildcard">ワイルドカード（*）</a>修飾子を持つキーボードホットキー、キーアップホットキー、カスタムコンビネーションなど、すでにキーボードフックを必要としているホットキーには効果がありません。特定のホットキーがキーボードフックを使用しているかどうかを判断するには、<a href="lib/ListHotkeys.htm">ListHotkeysを</a>使用します。</p>
+      <p>これは通常、スクリプトが<a href="lib/Send.htm">Send</a>関数を使用してホットキーそのものを構成するキーを送信する場合にのみ必要で、そうでない場合はそれ自体がトリガーされる可能性があります。接頭辞の$は、このホットキーの実装に<a href="lib/InstallKeybdHook.htm">キーボードフック</a>を使用することを強制し、副作用として<a href="lib/Send.htm">Send</a>関数がトリガーするのを防ぎます。$ 接頭辞は、<code><a href="lib/_UseHook.htm">#UseHook</a></code>を指定したのと同じです。 このホットキーの定義の上のどこかにあります。</p>
+      <p>$ 接頭辞は、マウスホットキーは常にマウスフックを使用するため、$ 接頭辞はマウスホットキーには影響しません。また、<a href="#Tilde">チルダ（~）</a>または<a href="#wildcard">ワイルドカード(*)</a>修飾子を持つキーボードホットキー、キーアップホットキー、カスタムコンビネーションなど、すでにキーボードフックを必要としているホットキーには効果がありません。特定のホットキーがキーボードフックを使用しているかどうかを判断するには、<a href="lib/ListHotkeys.htm">ListHotkeys</a>を使用します。</p>
       <p><a href="lib/_InputLevel.htm">#InputLevel</a>と <a href="lib/SendLevel.htm">SendLevel</a>は、Send関数によってトリガーされるホットキーとホットストリングをさらにコントロールすることができます。</p>
     </td>
   </tr>
   <tr id="keyup">
     <td class="center">UP</td>
-    <td><p>ホットキーの名前の後にUPという単語を付けると、キーを押したときではなく、キーを離したときにホットキーが起動するようにすることができます。次の例では、左<kbd>Winを</kbd>左<kbd>Ctrlに</kbd><a href="misc/Remap.htm">再マッピングして</a>います。</p>
+    <td><p>ホットキーの名前の後にUPという単語を付けると、キーを押したときではなく、キーを離したときにホットキーが起動するようにすることができます。次の例では、左<kbd>Win</kbd>を左<kbd>Ctrl</kbd>に<a href="misc/Remap.htm">再マッピング</a>しています。</p>
       <pre>*LWin::Send "{LControl down}"
 *LWin Up::Send "{LControl up}"
 </pre>
       <p>"Up "は、この例のように通常のホットキーでも使用することができます。<code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. <a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します。</p>
-      <p>制限:1）「上」は<a href="KeyList.htm">ジョイスティックボタンでは</a>動作しません。2）「上」のホットキーで通常／下対応のホットキーがない場合、そのキーが完全に引き継がれ、「下」がスタックするのを防ぎます。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞を</a>付けることです（例<code>：~LControl up::</code>)</p>
-      <p>"アップ "ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
+      <p>制限:1）"Up"は<a href="KeyList.htm">ジョイスティックボタン</a>では動作しません。2）"Up"のホットキーで通常／下対応のホットキーがない場合、そのキーが完全に引き継がれ、downがスタックするのを防ぎます。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
+      <p>"Up"ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
       <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例：</p>
       <pre>LControl &amp; F1::return<em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とする。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
-<p class="note"><strong>注意</strong>:キーボードのキーとマウス／ジョイスティックのボタンの完全なリストは、「<a href="KeyList.htm">キーリスト</a>」を参照してください。</p>
+<p class="note"><strong>注意</strong>：キーボードのキーとマウス／ジョイスティックのボタンの完全なリストは、「<a href="KeyList.htm">キーリスト</a>」を参照してください。</p>
 <p>複数のホットキーを縦に重ねて、同じ動作をさせることができます。事例：</p>
 <pre>^Numpad0::
 ^Numpad1::
@@ -146,13 +146,13 @@ LControl::MsgBox "You released LControl without having used it to modify any oth
     MsgBox "Pressing either Ctrl+Numpad0 or Ctrl+Numpad1 will display this."
 }
 </pre>
-<p>キーやキーの組み合わせは、何もしないことでシステム全体の機能を無効にすることができます。次の例では、右側の<kbd>Winを</kbd>無効にしています。</p>
+<p>キーやキーの組み合わせは、何もしないことでシステム全体の機能を無効にすることができます。次の例では、右側の<kbd>Win</kbd>を無効にしています。</p>
 <pre>RWin::return</pre>
 
 <h2 id="Context">文脈依存のホットキー</h2>
-<p><a href="lib/_HotIf.htm">HotIf</a>ディレクティブを使用すると、特定の条件によってホットキーに異なる動作をさせることができます（または全くさせないこともできます）。事例：</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用すると、特定の条件によってホットキーに異なる動作をさせることができます（または全くさせないこともできます）。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
-^a::MsgBox "You pressed Ctrl-A while Notepad is active. 他のウィンドウでCtrl-Aを押すと、そのウィンドウにCtrl-Aのキーストロークが渡されます。"
+^a::MsgBox "You pressed Ctrl-A while Notepad is active. Pressing Ctrl-A in any other window will pass the Ctrl-A keystroke to that window."
 #c::MsgBox "You pressed Win-C while Notepad is active."
 
 #HotIf
@@ -167,19 +167,19 @@ WheelDown::Send "{Volume_Down}"<em>;</em>
 <p>通常、ショートカットキーの組み合わせは、任意のプレフィックス/モディファイアキー（Ctrl、Alt、Shift、LWin/RWin）と1つのサフィックスキーで構成されます。標準装備の修飾キーは、このような使い方を想定して設計されているため、通常は押してもすぐには効果がありません。</p>
 <p>2つのキー（マウスは含むがジョイスティックボタンは含まない）の間に" &amp; "を使用することで、カスタムな組み合わせを定義することができます。カスタムコンビネーションは、通常使用されないプレフィックスキーでの使用を想定しているため、以下のような特殊な動作をします。</p>
 <ul>
-  <li>プレフィックスキーは、標準的な修飾キーや<kbd>CapsLockの</kbd>ようなトグル可能なキーでない限り、本来の機能を失います。</li>
-  <li>プレフィックスキーが他のホットキーのサフィックスとしても使用されている場合、デフォルトではそのホットキーはリリース時に起動され、カスタムコンビネーションの起動に使用されている場合は全く起動されません。キーダウンホットキーと<a href="#keyup">キーアップホットキーが</a>両方ある場合、両方のホットキーが同時に起動します。少なくとも1つのアクティブなカスタムコンビネーションまたはサフィックスホットキー自体のプレフィックスキーに<a href="#Tilde">チルダプレフィックスが</a>適用されている場合、ファイアオンリリース効果は無効となります。</li>
+  <li>プレフィックスキーは、標準的な修飾キーや<kbd>CapsLock</kbd>のようなトグル可能なキーでない限り、本来の機能を失います。</li>
+  <li>プレフィックスキーが他のホットキーのサフィックスとしても使用されている場合、デフォルトではそのホットキーはリリース時に起動され、カスタムコンビネーションの起動に使用されている場合は全く起動されません。キーダウンホットキーと<a href="#keyup">キーアップホットキー</a>が両方ある場合、両方のホットキーが同時に起動します。少なくとも1つのアクティブなカスタムコンビネーションまたはサフィックスホットキー自体のプレフィックスキーに<a href="#Tilde">チルダプレフィックス</a>が適用されている場合、ファイアオンリリース効果は無効となります。</li>
 </ul>
-<p class="note"><strong>注：</strong>標準的な修飾キーとの組み合わせの場合、通常は標準的な構文を使用する方がよい。例えば、<code>LShift &amp; s::</code>ではなく、<code>&lt;+s:</code>: を使用します。</p>
+<p class="note"><strong>注：</strong>標準的な修飾キーとの組み合わせの場合、通常は標準的な構文を使用する方がよい。例えば、<code>LShift &amp; s::</code>ではなく、<code>&lt;+s::</code> を使用します。</p>
 <p>以下の例では、Numpad0を押した後、2番目のキーを押してホットキーを起動します。</p>
 <pre id="prefix">Numpad0 &amp; Numpad1::MsgBox "You pressed Numpad1 while holding down Numpad0."
 Numpad0 &amp; Numpad2::Run "Notepad"</pre>
-<p><strong>プレフィックスキーが本来の機能を失う。</strong>上記の例では、Numpad0が<em>プレフィックスキーに</em>なりますが、Numpad0が単独で押された場合、本来の機能を失うことになります。これを避けるために、スクリプトでNumpad0に次のような新しいアクションを実行させるように設定することができる。</p>
+<p><strong>プレフィックスキーが本来の機能を失う。</strong>上記の例では、Numpad0が<em>プレフィックスキー</em>になりますが、Numpad0が単独で押された場合、本来の機能を失うことになります。これを避けるために、スクリプトでNumpad0に次のような新しいアクションを実行させるように設定することができる。</p>
 <pre>Numpad0::WinMaximize "A"<em>; アクティブ／フォアグラウンドウィンドウを最大化する。</em>
-Numpad0::Send "{Numpad0}"<em>;Numpad0 の<i>リリースで</i>Numpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
-<p><strong>リリース時に発射</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離すと</em>指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞を</a>付けることで回避できます。</p>
-<p id="combo_mods"><strong>モディファイア</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl+1</kbd>で起動し、<kbd>Ctrl+</kbd><kbd>Alt</kbd><kbd>+1</kbd>では起動しないでしょう。</p>
-<p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIfと</a> <a href="lib/GetKeyState.htm">GetKeyStateを</a>使用して検出することができますが、結果は一貫していない場合があります。事例：</p>
+Numpad0::Send "{Numpad0}"<em>; Numpad0 の<i>リリース</i>でNumpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
+<p><strong>リリース時に発射：</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離す</em>と指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞</a>を付けることで回避できます。</p>
+<p id="combo_mods"><strong>モディファイア：</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl</kbd>+<kbd>1</kbd>で起動し、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>では起動しないでしょう。</p>
+<p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIf</a>と <a href="lib/GetKeyState.htm">GetKeyState</a>を使用して検出することができますが、結果は一貫していない場合があります。事例：</p>
 <pre><em>; AppsKey と Alt を任意の順番で押して、スラッシュ（/）を押します。</em>
 #HotIf GetKeyState("AppsKey", "P")
 Alt &amp; /::MsgBox "Hotkey activated."
@@ -191,12 +191,12 @@ AppsKey &amp; /::MsgBox "Hotkey activated."
 <em>; [ &amp; ] &amp; \::</em>
 #HotIf GetKeyState("[") &amp;&amp; GetKeyState("]")
 \::MsgBox</pre>
-<p><strong>キーボードフック。</strong>キーボードフック：キーボードキーを使ったカスタムコンビネーションは常にキーボードフックを使用し、接尾辞としてプリフィックスキーを使用するホットキーも同様です。例えば、<code>a &amp; b::</code>では、<code>^a::</code>は常にフックを使用するようになります。</p>
+<p><strong>キーボードフック：</strong>キーボードキーを使ったカスタムコンビネーションは常にキーボードフックを使用し、接尾辞としてプリフィックスキーを使用するホットキーも同様です。例えば、<code>a &amp; b::</code>では、<code>^a::</code>は常にフックを使用するようになります。</p>
 
 <h2 id="Features">その他の機能</h2>
-<p><strong>NumLock、CapsLock、およびScrollLock。</strong>これらのキーは、強制的に「AlwaysOn」または「AlwaysOff」にすることができます。事例：<code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
-<p><strong>エクスプローラーのホットキーをオーバーライドする。</strong> <kbd>Win</kbd><kbd>+</kbd> <kbd>E</kbd>（#e）、<kbd>Win</kbd><kbd>+</kbd> <kbd>R</kbd>（#r）などのWindowsの内蔵ホットキーは、スクリプト内のアクションに割り当てるだけで、個別にオーバーライドすることができます。詳しくは<a href="misc/Override.htm">オーバーライドページを</a>ご覧ください。</p>
-<p><strong>Alt-Tabの代替となるもの。</strong>ホットキーは、Alt-Tabの代替手段を提供することができます。例えば、以下の2つのホットキーで、右手でalt-tabすることができます。</p>
+<p><strong>NumLock、CapsLock、およびScrollLock：</strong>これらのキーは、強制的に「AlwaysOn」または「AlwaysOff」にすることができます。事例：<code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
+<p><strong>エクスプローラーのホットキーのオーバーライド：</strong> <kbd>Win</kbd>+<kbd>E</kbd>（#e）、<kbd>Win</kbd>+<kbd>R</kbd>（#r）などのWindowsの内蔵ホットキーは、スクリプト内のアクションに割り当てるだけで、個別にオーバーライドすることができます。詳しくは<a href="misc/Override.htm">オーバーライドページ</a>をご覧ください。</p>
+<p><strong>Alt-Tabの代替：</strong>ホットキーは、Alt-Tabの代替手段を提供することができます。例えば、以下の2つのホットキーで、右手でalt-tabすることができます：</p>
 <pre>RControl &amp; RShift::AltTab<em>; 右コンを押しながら、右シフトを繰り返し押して前進します。</em>
 RControl &amp; Enter::ShiftAltTab<em>; 右クリックを離すことなく、Enterキーを押すと方向が反転します。</em></pre>
 <p>詳しくは、「<a href="#alttab">Alt-Tab</a>」をご覧ください。</p>
@@ -206,39 +206,39 @@ RControl &amp; Enter::ShiftAltTab<em>; 右クリックを離すことなく、En
 <pre>MButton &amp; WheelDown::MsgBox "You turned the mouse wheel down while holding down the middle button."
 ^!WheelUp::MsgBox "You rotated the wheel up while holding down Control+Alt."</pre>
 <p id="HWheel">マウスがサポートしている場合、WheelLeftとWheelRightのキー名で水平スクロールを検出することができます。マウスによっては、ホイールが1つで、上下スクロールや左右に傾けることができるものもあります。一般的には、ホイールを片側に寄せた状態でWheelLeftやWheelRightの信号を繰り返し送信し、連続スクロールを模擬します。これにより、通常、ホットキーが繰り返し実行されることになります。</p>
-<p>内蔵変数<strong>A_EventInfoには</strong>、車輪が回転した量（通常120）が格納される。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
+<p>組込変数<strong>A_EventInfo</strong>には、車輪が回転した量（通常120）が格納される。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
 <ul>
   <li>マウスのハードウェアが1ノッチ未満の距離を報告する場合、A_EventInfoは120未満である可能性があります。</li>
   <li>マウスの種類によっては）ホイールを素早く回している場合、A_EventInfoが120より大きくなる場合があります。以下のようなホットキーは、マウスの解析に役立ちます。<code>~WheelDown::ToolTip A_EventInfo</code></li>
 </ul>
-<p>マウスホイールを使った便利なホットキーの中には、ウィンドウのテキストをスクロールさせる別のモードがあります。例えば、以下のホットキーのペアは、左<kbd>Ctrlを</kbd>押しながらホイールを回すと、垂直方向ではなく水平方向にスクロールします。</p>
+<p>マウスホイールを使った便利なホットキーの中には、ウィンドウのテキストをスクロールさせる別のモードがあります。例えば、以下のホットキーのペアは、左<kbd>Ctrl</kbd>を押しながらホイールを回すと、垂直方向ではなく水平方向にスクロールします。</p>
 <pre>~LControl &amp; WheelUp::<em>; 左にスクロールします。</em>
 {
     Loop 2<em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
         SendMessage 0x0114, 0, 0, ControlGetFocus("A")<em>; 0x0114 は WM_HSCROLL、その次の 0 は SB_LINELEFT です。</em>
 }
 
-~LControl &amp; WheelDown::<em>; Scroll right.</em>
+~LControl &amp; WheelDown::<em>; 右にスクロールします。</em>
 {
     Loop 2<em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
         SendMessage 0x0114, 1, 0, ControlGetFocus("A")<em>; 0x0114 は WM_HSCROLL、その次の 1 は SB_LINERIGHT です。</em>
 }</pre>
-<p>最後に、マウスホイールのホットキーはダウンイベントのみを生成するため（アップイベントは生成しない）、<a href="#keyup">キーアップホットキーとして</a>使用することはできません。</p>
+<p>最後に、マウスホイールのホットキーはダウンイベントのみを生成するため（アップイベントは生成しない）、<a href="#keyup">キーアップホットキー</a>として使用することはできません。</p>
 
 <h2 id="Remarks">ホットキーのヒントと備考</h2>
-<p>それぞれのテンキーは、<kbd>NumLockの</kbd>状態に応じて2つの異なるホットキーサブルーチンを起動させることができます。また、テンキーは状態に関係なく同じサブルーチンを起動するようにすることもできます。事例：</p>
+<p>それぞれのテンキーは、<kbd>NumLock</kbd>の状態に応じて2つの異なるホットキーサブルーチンを起動させることができます。また、テンキーは状態に関係なく同じサブルーチンを起動するようにすることもできます。事例：</p>
 <pre>NumpadEnd::
 Numpad1::
 {
     MsgBox "This hotkey is launched regardless of whether NumLock is on."
 }
 </pre>
-<p><a href="#Tilde">チルダ（~）演算</a>子を<a href="#prefix">プレフィックスキーに</a>一度でも使用すると、そのプレフィックスキーの動作をすべての組み合わせで変更します。例えば、以下の2つのホットキーでは、定義のうち1つだけがチルダを含んでいても、アクティブなウィンドウはすべての右クリックを受けます。</p>
+<p><a href="#Tilde">チルダ（~）演算子</a>を<a href="#prefix">プレフィックスキー</a>に一度でも使用すると、そのプレフィックスキーの動作をすべての組み合わせで変更します。例えば、以下の2つのホットキーでは、定義のうち1つだけがチルダを含んでいても、アクティブなウィンドウはすべての右クリックを受けます。</p>
 <pre>~RButton &amp; LButton::MsgBox "You pressed the left mouse button while holding down the right."
 RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down the right button."</pre>
-<p><a href="lib/Suspend.htm">サスペンド</a>機能は、一時的に免除したもの以外のホットキーを無効にすることができます。より選択性を高めたい場合は、<a href="lib/_HotIf.htm">#HotIfを</a>ご利用ください。</p>
+<p><a href="lib/Suspend.htm">サスペンド</a>機能は、一時的に免除したもの以外のホットキーを無効にすることができます。より選択性を高めたい場合は、<a href="lib/_HotIf.htm">#HotIf</a>をご利用ください。</p>
 <p><a href="lib/Hotkey.htm">Hotkey</a>機能により、スクリプトの実行中に動的にホットキーを作成することができます。また、ホットキー機能は、スクリプトの既存のホットキーを個別に変更、無効化、有効化することができます。</p>
-<p>ジョイスティックホットキーは、現在、^（Ctrl）や#（Win）などの修飾語の接頭辞をサポートしていません。しかし、次の例に示すように、<a href="lib/GetKeyState.htm">GetKeyStateを</a>使用して、この効果を模倣することができます。</p>
+<p>ジョイスティックホットキーは、現在、^（Ctrl）や#（Win）などの修飾語の接頭辞をサポートしていません。しかし、次の例に示すように、<a href="lib/GetKeyState.htm">GetKeyState</a>を使用して、この効果を模倣することができます。</p>
 <pre>Joy2::
 {
     if not GetKeyState("Control")<em>; 左右のコントロールキーが押されていない。</em>
@@ -247,7 +247,7 @@ RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down 
 }</pre>
 <p>ホットキーは、それ自身の修飾キーが解除されるまで待ってから続行する必要がある場合があります。次のような例を考えてみましょう。</p>
 <pre>^!s::Send "{Delete}"</pre>
-<p><kbd>Ctrl+</kbd><kbd>Alt</kbd> <kbd>+Sを</kbd>押すと、<kbd>Ctrl</kbd><kbd>+</kbd> <kbd>Alt+Delを</kbd>押したかのように動作します（このホットキーをシステムが積極的に検知するため）。これを回避するには、<a href="lib/KeyWait.htm">KeyWaitを</a>使用して、キーが解放されるのを待ちます。</p>
+<p><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を押すと、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>を押したかのように動作します（このホットキーをシステムが積極的に検知するため）。これを回避するには、<a href="lib/KeyWait.htm">KeyWait</a>を使用して、キーが解放されるのを待ちます。</p>
 <pre>^!s::
 {
     KeyWait "Control"
@@ -255,17 +255,17 @@ RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down 
     Send "{Delete}"
 }
 </pre>
-<p><code>z::の</code>ようなホットキーで「Invalid Hotkey」のようなエラーが発生する場合、システムのキーボードレイアウト/言語に指定された文字（この場合は「Z」）がない可能性があります。キーボードレイアウトに存在することが分かっている別の文字を使用してみてください。</p>
-<p>ホットキーの機能は、その関数に名前が付けられている場合にのみ、スクリプトから明示的に呼び出すことができます。<a href="#Function">名前付き機能ホットキー</a>」を参照してください。</p>
-<p>ホットキーの一般的な使い方として、一連のキー操作やマウスクリックなど、繰り返しの動作を開始したり停止したりすることが挙げられます。この例については、<a href="FAQ.htm#repeat">このFAQのトピックを</a>参照してください。</p>
-<p>最後に、各スクリプトは<a href="misc/Threads.htm">準マルチスレッド</a>であり、前のホットキーサブルーチンがまだ実行中であっても、新しいホットキーを起動することが可能です。例えば、現在のホットキーで<a href="lib/MsgBox.htm">メッセージボックスを</a>表示している最中でも、新しいホットキーを起動させることができます。</p>
+<p><code>#z::の</code>ようなホットキーで「Invalid Hotkey」のようなエラーが発生する場合、システムのキーボードレイアウト/言語に指定された文字（この場合は"Z"）がない可能性があります。キーボードレイアウトに存在することが分かっている別の文字を使用してみてください。</p>
+<p>ホットキーの機能は、その関数に名前が付けられている場合にのみ、スクリプトから明示的に呼び出すことができます。<a href="#Function">名前付き機能ホットキー</a>を参照してください。</p>
+<p>ホットキーの一般的な使い方として、一連のキー操作やマウスクリックなど、繰り返しの動作を開始したり停止したりすることが挙げられます。この例については、<a href="FAQ.htm#repeat">このFAQのトピック</a>を参照してください。</p>
+<p>最後に、各スクリプトは<a href="misc/Threads.htm">準マルチスレッド</a>であり、前のホットキーサブルーチンがまだ実行中であっても、新しいホットキーを起動することが可能です。例えば、現在のホットキーで<a href="lib/MsgBox.htm">メッセージボックス</a>を表示している最中でも、新しいホットキーを起動させることができます。</p>
 
 <h2 id="alttab"><span id="AltTabDetail"></span>Alt-Tabのホットキー</h2>
 <p>Alt-Tabホットキーは、タスクの切り替え（ウィンドウのアクティブ化）のためのメニューを呼び出すために使用されるシステムのAlt-Tabホットキーに、新しいキーの組み合わせを簡単にマッピングすることができます。</p>
-<p>Alt-Tabの各ホットキーは、単一のキーまたは2つのキーの組み合わせでなければならず、通常はアンパサンドシンボル（&amp;）で実現します。次の例では、右の<kbd>Altを</kbd>押しながら、<kbd>J</kbd>または<kbd>Kを押して</kbd>、alt-tabメニューを操作することになります。</p>
+<p>Alt-Tabの各ホットキーは、単一のキーまたは2つのキーの組み合わせでなければならず、通常はアンパサンドシンボル（&amp;）で実現します。次の例では、右の<kbd>Alt</kbd>を押しながら、<kbd>J</kbd>または<kbd>K</kbd>を押して、alt-tabメニューを操作することになります。</p>
 <pre>RAlt &amp; j::AltTab
 RAlt &amp; k::ShiftAltTab</pre>
-<p><em>AltTabと</em> <em>ShiftAltTabは</em>、ホットキーと同じ行で使用した場合のみ認識される特殊コマンドのひとつです。以下、全リストです。</p>
+<p><em>AltTab</em>と <em>ShiftAltTab</em>は、ホットキーと同じ行で使用した場合のみ認識される特殊コマンドのひとつです。以下、全リストです。</p>
 <p><strong>AltTab</strong>:alt-tabメニューが表示されている場合は、その中を進んでください。それ以外の場合は、メニューを表示します（ホットキーが2つのキーの組み合わせの場合のみ、それ以外の場合は何もしません）。</p>
 <p><strong>ShiftAltTab</strong>:メニューの後方に移動する以外は、上記と同じです。</p>
 <p><strong>AltTabMenu</strong>:alt-tabメニューの表示／非表示を切り替える。</p>
@@ -275,17 +275,17 @@ RAlt &amp; k::ShiftAltTab</pre>
 <pre>MButton::AltTabMenu
 WheelDown::AltTab
 WheelUp::ShiftAltTab</pre>
-<p>選択したウィンドウをアクティブにせずにAlt-Tabメニューをキャンセルするには、<kbd>Escを</kbd>押すか送信してください。次の例では、左<kbd>Ctrlを</kbd>押しながら<kbd>CapsLockを</kbd>押すと、メニューが表示され、その中で先に進むことができます。そして、左<kbd>Ctrlを</kbd>離すと選択したウィンドウがアクティブになり、マウスホイールを押すとキャンセルされます。この例を実行する前に、<a href="#AltTabWindow">AltTabWindow</a>ウィンドウグループを以下のように定義してください。</p>
+<p>選択したウィンドウをアクティブにせずにAlt-Tabメニューをキャンセルするには、<kbd>Esc</kbd>を押すか送信してください。次の例では、左<kbd>Ctrl</kbd>を押しながら<kbd>CapsLock</kbd>を押すと、メニューが表示され、その中で先に進むことができます。そして、左<kbd>Ctrl</kbd>を離すと選択したウィンドウがアクティブになり、マウスホイールを押すとキャンセルされます。この例を実行する前に、<a href="#AltTabWindow">AltTabWindow</a>ウィンドウグループを以下のように定義してください。</p>
 <pre>LCtrl &amp; CapsLock::AltTab
-#HotIf WinExist("ahk_group AltTabWindow")<em>;alt-tab メニューが画面上に存在することを示す。</em>
+#HotIf WinExist("ahk_group AltTabWindow")<em>; alt-tab メニューが画面上に存在することを示す。</em>
 *MButton::Send "{Blind}{Escape}"<em>; Altが押されていても押されていなくても発射されるように、*の接頭辞を付けています。</em>
 #HotIf</pre>
-<p>スクリプトで<code>{Alt Down}を</code>送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}も</code>送信する必要がある場合があります。</p>
+<p>スクリプトで<code>{Alt Down}</code>を送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}</code>も送信する必要がある場合があります。</p>
 
 <h3 id="AltTabRemarks">総論</h3>
-<p>現在、Alt-tabの特殊な動作は、上記の例のようにホットキーに直接割り当てる必要があります（つまり、機能のように使用することはできません）。彼らは<span class="red"><a href="lib/_HotIf.htm">#HotIfの</a>影響を</span>受けません。</p>
+<p>現在、Alt-tabの特殊な動作は、上記の例のようにホットキーに直接割り当てる必要があります（つまり、機能のように使用することはできません）。彼らは<span class="red"><a href="lib/_HotIf.htm">#HotIf</a>の影響</span>を受けません。</p>
 <p>alt-tabアクションは、<code>up</code>キーワードが使用されているかどうかにかかわらず、キーダウンおよび/またはキーアップで有効になる可能性があり、同じキー上の他のアクションと組み合わせることはできません。例えば、<code>F1::AltTabMenu</code>と<code>F1 up::OtherAction()</code>の両方を使用することはサポートされていません。</p>
-<p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code>ahk_group AltTabWindowを</code>使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code>ahk_group AltTabWindowは</code>、お使いのシステムに適した<code>ahk_classに</code>置き換えることができます。</p>
+<p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code>ahk_group AltTabWindow</code>を使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code>ahk_group AltTabWindow</code>は、お使いのシステムに適した<code>ahk_class</code>に置き換えることができます。</p>
 <pre>GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"<em>; Windows 10</em>
 GroupAdd "AltTabWindow", "ahk_class TaskSwitcherWnd"<em>; Windows Vista, 7, 8.1</em>
 GroupAdd "AltTabWindow", "ahk_class #32771"<em>; オールド、またはクラシックなalt-tabを有効にした場合。</em></pre>
@@ -298,7 +298,7 @@ GroupAdd "AltTabWindow", "ahk_class #32771"<em>; オールド、またはクラ�
 #HotIf</pre>
 
 <h2 id="Function">名前付き機能ホットキー</h2>
-<p>ホットキーの機能を、ホットキー自体をトリガーすることなく呼び出す必要がある場合、この例のように、ホットキーのダブルコロンの直後に定義するだけで、1つまたは複数のホットキーに名前付き<a href="Functions.htm">機能を</a>割り当てることができます。</p>
+<p>ホットキーの機能を、ホットキー自体をトリガーすることなく呼び出す必要がある場合、この例のように、ホットキーのダブルコロンの直後に定義するだけで、1つまたは複数のホットキーに名前付き<a href="Functions.htm">機能</a>を割り当てることができます。</p>
 <pre><em>; Ctrl+Shift+Oで、エクスプローラーに含まれるフォルダを開くことができます。
 ; Ctrl+Shift+E で現在のファイルが選択されているフォルダを開きます。
 ; SciTEとNotepad++をサポートします。</em>
@@ -313,8 +313,8 @@ editor_open_folder(hk)
             else
                 Run Format('explorer.exe "{1}"', path[1])
     }</pre>
-<p>関数<em>editor_open_folderが</em>スクリプトから明示的に呼び出される場合、最初のパラメータ（hk）には値を渡さなければなりません。</p>
-<p><a href="Hotstrings.htm">ホットストリングは</a>、このように定義することもできます。複数のホットキーやホットストリングを重ねて、同じ機能を呼び出すことができます。</p>
+<p>関数<em>editor_open_folder</em>がスクリプトから明示的に呼び出される場合、最初のパラメータ（hk）には値を渡さなければなりません。</p>
+<p><a href="Hotstrings.htm">ホットストリング</a>は、このように定義することもできます。複数のホットキーやホットストリングを重ねて、同じ機能を呼び出すことができます。</p>
 <p>ホットキーと機能名の間には、空白またはコメントのみでなければなりません。</p>
 <p>また、関数に名前を付けることで、上記のコードのように、関数名がホットキーを説明するような、ホットキーの自己文書化を促進します。</p>
 <p>また、<a href="lib/Hotkey.htm">ホットキー</a>機能を使って、機能や機能オブジェクトをホットキーに割り当てることができます。</p>

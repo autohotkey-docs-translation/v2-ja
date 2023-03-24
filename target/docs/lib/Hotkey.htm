@@ -39,7 +39,7 @@
       <p>If <em>Action</em> is a function, it is called with one parameter, the <a href="../Hotkeys.htm#ThisHotkey">name</a> of the hotkey. Hotkeys defined with the <a href="../Hotkeys.htm">double-colon syntax</a> automatically use the parameter name <code>ThisHotkey</code>. Hotkeys can also be <a href="../Hotkeys.htm#Function">assigned a function name</a> without the Hotkey function.</p>
       <p>If <em>Action</em> is a hotkey name, its original function is used; specifically, the original function of the hotkey variant corresponding to the current <a href="HotIf.htm">HotIf</a> criteria. This is usually used to restore a hotkey's original function after having changed it, but can be used to assign the function of a different hotkey, provided that both hotkeys use the same HotIf criteria.</p>
       <p>This parameter can be left blank if <em>KeyName</em> already exists as a hotkey, in which case its action will not be changed. This is useful to change only the hotkey's <em>Options</em>.</p>
-      <p class="note"><strong>注意</strong>:If the function is specified but the hotkey is disabled from a previous use of this function, the hotkey will remain disabled. To prevent this, include the word ON in <em>Options</em>.</p>
+      <p class="note"><strong>注意</strong>：If the function is specified but the hotkey is disabled from a previous use of this function, the hotkey will remain disabled. To prevent this, include the word ON in <em>Options</em>.</p>
       <p>This parameter can also be one of the following special values:</p>
       <p><strong>On</strong>: The hotkey becomes enabled. No action is taken if the hotkey is already On.</p>
       <p><strong>Off</strong>: The hotkey becomes disabled. No action is taken if the hotkey is already Off.</p>
@@ -55,7 +55,7 @@
       <p><strong>Off</strong>: Disables the hotkey if it is currently enabled. This is typically used to create a hotkey in an initially-disabled state.</p>
       <p><strong>B</strong> or <strong>B0</strong>: Specify the letter B to buffer the hotkey as described in <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>. Specify B0 (B with the number 0) to disable this type of buffering.</p>
       <p><strong>Pn</strong>: Specify the letter P followed by the hotkey's <a href="../misc/Threads.htm">thread priority</a>. If the P option is omitted when creating a hotkey, 0 will be used.</p>
-      <p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>: Specify the letter S to make the hotkey <a href="_SuspendExempt.htm">exempt</a> from <a href="Suspend.htm">Suspend</a>, which allows the hotkey to be used to turn Suspend off. Specify S0 (S with the number 0) to remove the exemption, allowing the hotkey to be suspended.</p>
+      <p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>:Specify the letter S to make the hotkey <a href="_SuspendExempt.htm">exempt</a> from <a href="Suspend.htm">Suspend</a>, which allows the hotkey to be used to turn Suspend off. Specify S0 (S with the number 0) to remove the exemption, allowing the hotkey to be suspended.</p>
       <p><strong>Tn</strong>:Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. 事例：<code>T5</code>.</p>
       <p><strong>In</strong> (InputLevel):Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. 事例：<code>I1</code>.</p>
       <p>If any of the option letters are omitted and the hotkey already exists, those options will not be changed. But if the hotkey does not yet exist -- that is, it is about to be created by this function -- the options will default to those most recently in effect. For example, the instance of <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> that occurs closest to the bottom of the script will be used. If <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a> does not appear in the script, its default setting (OFF in this case) will be used.</p>
@@ -137,7 +137,7 @@ Hotkey "^!c", MyFuncForAllOtherWindows</pre>
 
 <h2 id="examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Creates a Ctrl-Alt-Z hotkey.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Creates a Ctrl-Alt-Z hotkey.</p>
 <pre>Hotkey "^!z", MyFunc
 
 MyFunc(ThisHotkey)
@@ -147,23 +147,23 @@ MyFunc(ThisHotkey)
 </div>
 
 <div class="ex" id="ExAltTab">
-<p><a class="ex_number" href="#ExAltTab"></a>  Makes RCtrl &amp; RShift operate like Alt-Tab.</p>
+<p><a class="ex_number" href="#ExAltTab"></a> Makes RCtrl &amp; RShift operate like Alt-Tab.</p>
 <pre>Hotkey "RCtrl &amp; RShift", "AltTab"</pre>
 </div>
 
 
 <div class="ex" id="ExOff">
-<p><a class="ex_number" href="#ExOff"></a>  Disables the Shift-Win-C hotkey.</p>
+<p><a class="ex_number" href="#ExOff"></a> Disables the Shift-Win-C hotkey.</p>
 <pre>Hotkey "$+#c", "Off"</pre>
 </div>
 
 <div class="ex" id="ExT">
-<p><a class="ex_number" href="#ExT"></a>  Changes a hotkey to allow 5 threads.</p>
+<p><a class="ex_number" href="#ExT"></a> Changes a hotkey to allow 5 threads.</p>
 <pre>Hotkey "^!a",, "T5"</pre>
 </div>
 
 <div class="ex" id="ExIfWin">
-<p><a class="ex_number" href="#ExIfWin"></a>  Creates <kbd>Alt</kbd>+<kbd>W</kbd> as a hotkey that works only in Notepad.</p>
+<p><a class="ex_number" href="#ExIfWin"></a> Creates <kbd>Alt</kbd>+<kbd>W</kbd> as a hotkey that works only in Notepad.</p>
 <pre>HotIfWinActive "ahk_class Notepad"
 Hotkey "!w", ToggleWordWrap<em>; !w = Alt+W</em>
 
@@ -175,7 +175,7 @@ ToggleWordWrap(ThisHotkey)
 </div>
 
 <div class="ex" id="ExampleIfFn">
-<p><a class="ex_number" href="#ExampleIfFn"></a>  Creates a GUI that allows to register primitive three-key combination hotkeys.</p>
+<p><a class="ex_number" href="#ExampleIfFn"></a> Creates a GUI that allows to register primitive three-key combination hotkeys.</p>
 <pre>
 HkGui := Gui()
 HkGui.Add("Text", "xm", "Prefix key:")

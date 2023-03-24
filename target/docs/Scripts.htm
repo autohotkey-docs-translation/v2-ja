@@ -47,7 +47,7 @@
 <ul>
   <li><a href="#continuation-line">Continuation operator</a>: Start or end a line with an expression operator to join it to the previous or next line.</li>
   <li><a href="#continuation-expr">囲い込みによる継続</a>：()、[]、{}で囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができます。</li>
-  <li><a href="#continuation-section">継続の部</a>Mark a group of lines to be merged together, with additional options such as what text (or code) to insert between lines.</li>
+  <li><a href="#continuation-section">継続の部</a>：Mark a group of lines to be merged together, with additional options such as what text (or code) to insert between lines.</li>
 </ul>
 <p id="continuation-line"><strong>Continuation operator</strong>: A line that starts with a comma or any other <a href="Variables.htm#Operators">expression operator</a> (except ++ and --) is automatically merged with the line directly above it. Similarly, a line that ends with an expression operator is automatically merged with the line below it. In the following example, the second line is appended to the first because it begins with a comma:</p>
 <pre>FileAppend "This is the text to append.`n"   <em>; A comment is allowed here.</em>
@@ -125,7 +125,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>In the examples above, a series of lines is bounded at the top and bottom by a pair of parentheses. This is known as a <em>continuation section</em>. Notice that any code after the closing parenthesis is also joined with the other lines (without any delimiter), but the opening and closing parentheses are not included.</p>
 <p>If the line above the continuation section ends with a <a href="Concepts.htm#names">name</a> character and the section does not start inside a quoted string, a single space is automatically inserted to separate the name from the contents of the continuation section.</p>
 <p id="continuation_quotes">Quote marks are automatically escaped (i.e. they are interpreted as literal characters) if the continuation section starts inside a quoted string, as in the examples above. Otherwise, quote marks act as they do normally; that is, continuation sections can contain expressions with quoted strings.</p>
-<p id="continuation_defaults">By default, leading spaces or tabs are omitted based on the indentation of the first line inside the continuation section. If the first line mixes spaces and tabs, only the first type of character is treated as indentation. If any line is indented less than the first line or with the wrong characters, all leading whitespace on that line is left as is.  </p>
+<p id="continuation_defaults">By default, leading spaces or tabs are omitted based on the indentation of the first line inside the continuation section. If the first line mixes spaces and tabs, only the first type of character is treated as indentation. If any line is indented less than the first line or with the wrong characters, all leading whitespace on that line is left as is. </p>
 <p>The default behavior of a continuation section can be overridden by including one or more of the following options to the right of the section's opening parenthesis. If more than one option is present, separate each one from the previous with a space. 事例：<code>( LTrim Join|</code>.</p>
 <p id="Join"><strong>Join</strong>: Specifies how lines should be connected together. If this option is omitted, each line except the last will be followed by a linefeed character (`n). If the word <em>Join</em> is specified by itself, lines are connected directly to each other without any characters in between. Otherwise, the word <em>Join</em> should be followed immediately by as many as 15 characters. For example, <code>Join`s</code> would insert a space after each line except the last. Another example is <code>Join`r`n</code>, which inserts CR+LF between lines. Similarly, <code>Join|</code> inserts  a pipe between lines. To have the final line in the section also ended by a join-string, include a blank line immediately above the section's closing parenthesis.</p>
 <p id="LTrim"><strong>LTrim</strong>: Omits all spaces and tabs at the beginning of each line. This is usually unnecessary because of the <a href="#continuation_defaults">default "smart" behaviour</a>.</p>
@@ -247,7 +247,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
   <li>Compiling does not typically improve the performance of a script.</li>
   <li><a href="lib/_NoTrayIcon.htm">#NoTrayIcon</a> and <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a> affect the behavior of compiled scripts.</li>
   <li>The built-in variable <a href="Variables.htm#IsCompiled">A_IsCompiled</a> contains 1 if the script is running in compiled form. Otherwise, it is blank.</li>
-  <li>When parameters are passed to Ahk2Exe, a message indicating the success or failure of the compiling process is written to stdout. Although the message will not appear at the command prompt, it can be "caught" by means such as redirecting output to a file.  </li>
+  <li>When parameters are passed to Ahk2Exe, a message indicating the success or failure of the compiling process is written to stdout. Although the message will not appear at the command prompt, it can be "caught" by means such as redirecting output to a file. </li>
   <li>Additionally in the case of a failure, Ahk2Exe has exit codes indicating the kind of error that occurred. These error codes can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/ErrorCodes.md">GitHub (ErrorCodes.md)</a>.</li>
 </ul>
 <p>The compiler's source code and newer versions can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe">GitHub</a>.</p>
@@ -267,7 +267,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>See <a href="misc/Ahk2ExeDirectives.htm">Script Compiler Directives</a> for more details.</p>
 
 <h3 id="mpress">Compressing Compiled Scripts</h3>
-<p>Ahk2Exe optionally uses MPRESS or UPX freeware to compress compiled scripts. If <strong>MPRESS.exe</strong> and/or <strong>UPX.exe</strong> has been copied to the "Compiler" subfolder where AutoHotkey was installed, either can be used to compress the .exe as directed by the <code>/compress</code> parameter or the GUI setting.  </p>
+<p>Ahk2Exe optionally uses MPRESS or UPX freeware to compress compiled scripts. If <strong>MPRESS.exe</strong> and/or <strong>UPX.exe</strong> has been copied to the "Compiler" subfolder where AutoHotkey was installed, either can be used to compress the .exe as directed by the <code>/compress</code> parameter or the GUI setting. </p>
 <p><strong>MPRESS</strong> official website (downloads and information): <a href="http://www.matcode.com/mpress.htm">http://www.matcode.com/mpress.htm</a><br>MPRESS mirror: <a href="https://www.autohotkey.com/mpress/">https://www.autohotkey.com/mpress/</a></p>
 <p><strong>UPX</strong> official website (downloads and information): <a href="https://upx.github.io/">https://upx.github.io/</a></p>
 <p><strong>Note:</strong> While compressing the script executable prevents casual inspection of the script's source code using a plain text editor like Notepad or a PE resource editor, it does not prevent the source code from being extracted by tools dedicated to that purpose.</p>
@@ -366,7 +366,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
       <pre class="no-highlight">CompiledScript.exe /script /ErrorStdOut MyScript.ahk "Script's arg 1"</pre>
       <p>If the current executable file does not have an embedded script, this switch is permitted but has no effect.</p>
       <p>This switch is not supported by compiled scripts which are based on a .bin file.</p>
-      <p>こちらもご覧ください。<a href="#ahk2exe-base">Base Executable File (Ahk2Exe)</a></p>
+      <p>こちらもご覧ください：<a href="#ahk2exe-base">Base Executable File (Ahk2Exe)</a></p>
     </td>
     <td>N/A</td>
   </tr>

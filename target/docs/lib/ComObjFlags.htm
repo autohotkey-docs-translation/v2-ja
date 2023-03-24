@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ComObjFlags - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ComObjFlags function retrieves or changes flags which control a COM wrapper object's behaviour." />
+<title>ComObjFlags - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ComObjFlags関数は、COMラッパー・オブジェクトの動作を制御するフラグを取得または変更します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 
 <h1>ComObjFlags</h1>
-<p>Retrieves or changes flags which control a COM wrapper object's behaviour.</p>
+<p>COMラッパーオブジェクトの動作を制御するフラグを取得または変更します。</p>
 <pre class="Syntax">Flags := <span class="func">ComObjFlags</span>(ComObj <span class="optional">, NewFlags, Mask</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -21,29 +21,29 @@
   <dt>ComObj</dt>
   <dd>
     <p>型：<a href="ComValue.htm">ComValue</a></p>
-    <p>A COM wrapper object.</p>
+    <p>COM ラッパーオブジェクト。</p>
   </dd>
 
   <dt>NewFlags</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>New values for the flags identified by <i>Mask</i>, or flags to add or remove.</p>
+    <p><i>Mask</i>で識別されるフラグの新しい値、または追加または削除するフラグ。</p>
   </dd>
 
   <dt>Mask</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>A bitmask of flags to change.</p>
+    <p>変更するフラグのビットマスクです。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the current flags of the specified COM object (after applying <i>NewFlags</i>, if specified).</p>
+<p>この関数は、指定された COM オブジェクトの現在のフラグ（指定された場合、<i>NewFlags</i>を適用した後）を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TypeError">TypeError</a> is thrown if <em>ComObj</em> is not a COM wrapper object.</p>
+<p><em>ComObj</em>がCOMラッパーオブジェクトでない場合、<a href="Error.htm#TypeError">TypeError</a>が投げられる。</p>
 
 <h2 id="Flags">Flags</h2>
 <table class="info">
@@ -55,21 +55,21 @@
     <td class="center">1</td>
     <td>
       <p>F_OWNVALUE</p>
-      <p><strong>SafeArray</strong>: If the flag is set, the SafeArray is destroyed when the wrapper object is freed. Since SafeArrays have no reference counting mechanism, if a SafeArray with this flag is assigned to an element of another SafeArray, a separate copy is created.</p>
-      <p><strong>BSTR</strong>: If the flag is set, the BSTR is freed when the wrapper object is freed. The flag is set automatically when a BSTR is allocated as a result of type conversion performed by <a href="ComValue.htm">ComValue</a>, such as <code>ComValue(8, "example")</code>.</p>
+      <p><strong>SafeArray</strong>:このフラグが設定されている場合、SafeArrayはラッパーオブジェクトが解放される際に破棄されます。SafeArrayには参照カウントの仕組みがないため、このフラグを持つSafeArrayが他のSafeArrayの要素に割り当てられると、別のコピーが作成されます。</p>
+      <p><strong>BSTR</strong>:このフラグが設定されている場合、BSTRはラッパーオブジェクトが解放される際に解放されます。<code>ComValue(8, "example")</code>のように<a href="ComValue.htm">ComValue</a>で型変換を行った結果、BSTRが確保された場合に自動的に設定されるフラグです。</p>
     </td>
   </tr>
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p>If <i>Mask</i> is omitted, <i>NewFlags</i> specifies the flags to add (if positive) or remove (if negative). For example, <code>ComObjFlags(obj, -1)</code> removes the F_OWNVALUE flag. Do not specify any value for <i>Mask</i> other than 0 or 1; all other bits are reserved for future use.</p>
+<p><i>Mask</i>が省略された場合、<i>NewFlags</i>は、追加するフラグ（正の場合）または削除するフラグ（負の場合）を指定する。例えば、<code>ComObjFlags(obj, -1)</code>は、F_OWNVALUEフラグを削除します。<i>Mask</i>には0または1以外の値を指定しないでください。他のすべてのビットは将来の使用のために予約されています。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ComValue.htm">ComValue</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjArray.htm">ComObjArray</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExCheck">
-<p><a class="ex_number" href="#ExCheck"></a>  Checks for the presence of the F_OWNVALUE flag.</p>
+<p><a class="ex_number" href="#ExCheck"></a> F_OWNVALUEフラグがあるかどうかをチェックする。</p>
 <pre>arr := ComObjArray(0xC, 1)
 if ComObjFlags(arr) &amp; 1
     MsgBox "arr will be automatically destroyed."
@@ -79,20 +79,20 @@ else
 </div>
 
 <div class="ex" id="ExRemove">
-<p><a class="ex_number" href="#ExRemove"></a>  Changes array-in-array behaviour.</p>
+<p><a class="ex_number" href="#ExRemove"></a> アレイインアレイの動作を変更します。</p>
 <pre>arr1 := ComObjArray(0xC, 3)
 arr2 := ComObjArray(0xC, 1)
 arr2[0] := "original value"
-arr1[0] := arr2<em>; Assign implicit copy.</em>
-ComObjFlags(arr2, -1)<em>; Remove F_OWNVALUE.</em>
-arr1[1] := arr2<em>; Assign original array.</em>
-arr1[2] := arr2.Clone()<em>; Assign explicit copy.</em>
+arr1[0] := arr2<em>; 暗黙のコピーを割り当てる。</em>
+ComObjFlags(arr2, -1)<em>; F_OWNVALUEを削除する。</em>
+arr1[1] := arr2<em>; 元の配列を割り当てる。</em>
+arr1[2] := arr2.Clone()<em>; 明示的なコピーを割り当てる。</em>
 arr2[0] := "new value"
 for arr in arr1
     MsgBox arr[0]
 
 arr1 := ""
-<em>; Not valid since arr2 == arr1[1], which has been destroyed:
+<em>; arr2 == arr1[1]が破壊されたので無効です。
 ;  arr2[0] := "foo"</em>
 </pre>
 </div>

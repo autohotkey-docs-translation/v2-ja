@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ControlGetIndex - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ControlGetIndex function returns the index of the currently selected entry or tab in a ListBox, ComboBox or Tab control." />
+<title>ControlGetIndex - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ControlGetIndex関数は、ListBox、ComboBox、Tabコントロールで現在選択されている項目またはタブのインデックスを返します。" />
 <meta name="ahk:equiv-v1" content="lib/ControlGet.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ControlGetIndex</h1>
 
-<p>Returns the index of the currently selected entry or tab in a ListBox, ComboBox or Tab control.</p>
+<p>ListBox、ComboBox、Tab コントロールで現在選択されている項目またはタブのインデックスを返します。</p>
 
 <pre class="Syntax">Index := <span class="func">ControlGetIndex</span>(Control <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
@@ -21,43 +21,43 @@
 <dl>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     </dd>
     <dt>WinTitle</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-        <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
     </dd>
     <dt>WinText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+        <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
     </dd>
     <dt>ExcludeTitle</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose titles include this value will not be considered.</p>
+        <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
     </dd>
     <dt>ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Windows whose text include this value will not be considered.</p>
+        <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the index of the currently selected entry or tab. The first entry or tab is 1, the second is 2, etc. If no entry or tab is selected, the return value is 0.</p>
+<p>この関数は、現在選択されている項目またはタブのインデックスを返す。最初のエントリやタブは1、2番目は2、といった具合です。エントリまたはタブが選択されていない場合、戻り値は 0 です。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found, or if the control's class name does not contain "Combo", "List" or "Tab".</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent to the control.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、またはコントロールのクラス名に "Combo"、"List"、"Tab "が含まれない場合、<a href="Error.htm#TargetError">TargetError</a>が発生します。</p>
+<p>コントロールにメッセージを送信できなかった場合、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>To instead discover how many tabs (pages) exist in a tab control, follow this example:</p>
-<pre>TabCount := <a href="SendMessage.htm">SendMessage</a>(0x1304,,, "SysTabControl321", WinTitle)  <em>; 0x1304 is TCM_GETITEMCOUNT.</em></pre>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>タブコントロールにいくつのタブ（ページ）が存在するのかを知るには、次のような例があります。</p>
+<pre>TabCount := <a href="SendMessage.htm">SendMessage</a>(0x1304,,, "SysTabControl321", WinTitle)<em>; 0x1304 は TCM_GETITEMCOUNT である。</em></pre>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlChooseIndex.htm">ControlChooseIndex</a>, <a href="ControlGetChoice.htm">ControlGetChoice</a>, <a href="ControlChooseString.htm">ControlChooseString</a>, <a href="GuiControl.htm#Value">Value property (GuiControl object)</a>, <a href="GuiControl.htm#Choose">Choose method (GuiControl object)</a>, <a href="Control.htm">Control functions</a></p>
@@ -65,7 +65,7 @@
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExTab">
-<p><a class="ex_number" href="#ExTab"></a>  Retrieves the active tab number of the first Tab control.</p>
+<p><a class="ex_number" href="#ExTab"></a> 最初のタブコントロールのアクティブなタブ番号を取得します。</p>
 <pre>
 WhichTab := ControlGetIndex("SysTabControl321", "Some Window Title")
 MsgBox "Tab #" WhichTab " is active."

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Continue - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Continue statement skips the rest of a loop statement's current iteration and begins a new one." />
+<title>Continue - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Continue文は、ループ文の現在の繰り返しの残りをスキップして、新しい繰り返しを開始します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,33 +11,33 @@
 <body>
 
 <h1>Continue</h1>
-<p>Skips the rest of a <a href="../Language.htm#loop-statement">loop statement</a>'s current iteration and begins a new one.</p>
+<p><a href="../Language.htm#loop-statement">ループ文</a>の現在の繰り返しの残りをスキップして、新しい繰り返しを開始します。</p>
 <pre class="Syntax"><span class="func">Continue</span> <span class="optional">LoopLabel</span></pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
   <dt>LoopLabel</dt>
   <dd>
-    <p><em>LoopLabel</em>は、このステートメントがどのループに適用されるかを指定します。<a href="../misc/Labels.htm">ラベル名</a>または数値の入れ子レベルによって指定します。省略時または1の場合、この文が囲まれている最も内側のループに適用される。<a href="../misc/Labels.htm">ラベル</a>を指定する場合は、<a href="../Language.htm#loop-statement">ループ</a>文を直接指している必要があります。</p>
+    <p><em>LoopLabel</em>は、このステートメントがどのループに適用されるかを指定します。<a href="../misc/Labels.htm">ラベル名</a>または数値の入れ子レベルによって指定します。省略時または1の場合、この文が囲まれている最も内側のループに適用される。<a href="../misc/Labels.htm">ラベル</a>を指定する場合は、<a href="../Language.htm#loop-statement">ループ文</a>を直接指している必要があります。</p>
     <p><em>LoopLabel</em>は定数値でなければならない。変数や式はサポートされていない。ただし、括弧で囲まれた単一のリテラル数値または引用文字列は例外である。事例：<code>continue("outer")</code></p>
   </dd>
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Continue behaves the same as reaching the loop's closing brace:</p>
+<p>Continueは、ループの閉じブレースに到達するのと同じ動作をします。</p>
 <ol>
-  <li>It increases <a href="../Variables.htm#Index">A_Index</a> by 1.</li>
-  <li>It skips the rest of the loop's body.</li>
-  <li>The loop's condition (if it has one) is checked to see if it is satisified. If so, a new iteration begins; otherwise the loop ends.</li>
+  <li><a href="../Variables.htm#Index">A_Index</a>を1つ増加させます。</li>
+  <li>ループの残りの本体をスキップしてしまうのです。</li>
+  <li>ループの条件（ある場合）が満たされているかどうかをチェックします。そうであれば、新しい反復が始まり、そうでなければループは終了する。</li>
 </ol>
-<p>The use of <a href="Break.htm">Break</a> and Continue are encouraged over <a href="Goto.htm">Goto</a> since they usually make scripts more readable and maintainable.</p>
+<p><a href="Break.htm">Break</a>とContinueの使用は、通常、スクリプトをより読みやすく、保守的にするため、<a href="Goto.htm">Goto</a>よりも推奨されています。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Break.htm">Break</a>, <a href="Loop.htm">Loop</a>, <a href="Until.htm">Until</a>, <a href="While.htm">While-loop</a>, <a href="For.htm">For-loop</a>, <a href="Block.htm">Blocks</a>, <a href="../misc/Labels.htm">Labels</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Displays 5 message boxes, one for each number between 6 and 10. Note that in the first 5 iterations of the loop, the Continue statement causes the loop to start over before it reaches the MsgBox line.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 6～10までの数字に対して1つずつ、計5つのメッセージボックスを表示します。ループの最初の5回の繰り返しでは、MsgBox行に到達する前にContinue文によってループがやり直されていることに注意してください。</p>
 <pre>
 Loop 10
 {
@@ -48,7 +48,7 @@ Loop 10
 </div>
 
 <div class="ex" id="ExContinueOuter">
-<p><a class="ex_number" href="#ExContinueOuter"></a>  Continues the outer loop from within a nested loop.</p>
+<p><a class="ex_number" href="#ExContinueOuter"></a> ネストしたループの中から外側のループを継続させる。</p>
 <pre>outer:
 Loop 3
 {
@@ -56,7 +56,7 @@ Loop 3
     Loop 3
     {
         if (x*A_Index = 4)
-            continue outer<em>; Equivalent to <b>continue 2</b> or <b>goto continue_outer</b>.</em>
+            continue outer<em>; <b>continue 2</b>または<b>goto continue_outer</b>に相当する。</em>
         MsgBox x "," A_Index
     }
     continue_outer:<em>; For goto.</em>

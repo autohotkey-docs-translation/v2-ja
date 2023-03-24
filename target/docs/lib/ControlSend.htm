@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ControlSend[Text] - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ControlSend and ControlSendText functions send simulated keystrokes or text to a window or control." />
+<title>ControlSend[Text]-構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ControlSendおよびControlSendText関数は、シミュレーションされたキーストロークまたはテキストをウィンドウまたはコントロールに送信します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,98 +12,98 @@
 
 <h1>ControlSend / ControlSendText</h1>
 
-<p>Sends simulated keystrokes or text to a window or control.</p>
+<p>キーストロークやテキストをシミュレーションして、ウィンドウやコントロールに送信します。</p>
 
 <pre class="Syntax"><span class="func">ControlSend</span>Keys<span class="optional">, Control , WinTitle , WinText , ExcludeTitle , ExcludeText</span>
-<span class="func">ControlSendText</span>:Same parameters as above.</pre>
+<span class="func">ControlSendText</span>:上記と同じパラメータです。</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>Keys</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The sequence of keys to send (see the <a href="Send.htm">Send</a> function for details). The rate at which characters are sent is determined by <a href="SetKeyDelay.htm">SetKeyDelay</a>.</p>
-    <p>Unlike the <a href="Send.htm">Send</a> function, mouse clicks cannot be sent by ControlSend. Use <a href="ControlClick.htm">ControlClick</a> for that.</p>
+    <p>送信するキーの並び（詳しくは<a href="Send.htm">送信</a>機能をご覧ください）。文字の送信速度は<a href="SetKeyDelay.htm">SetKeyDelay</a>で決定される。</p>
+    <p><a href="Send.htm">Send</a>機能とは異なり、ControlSendではマウスクリックを送信することはできません。その際は<a href="ControlClick.htm">ControlClick</a>を使用してください。</p>
   </dd>
 
   <dt>Control</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>The control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
-    <p>If this parameter is omitted, the keystrokes will be sent directly to the target window instead of one of its controls (see <a href="../misc/Winamp.htm">Automating Winamp</a> for an example).</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
+    <p>このパラメータが省略された場合、キー操作はそのコントロールの1つではなく、ターゲットウィンドウに直接送信されます（例として、<a href="../misc/Winamp.htm">Winampの自動化</a>を参照）。</p>
   </dd>
 
   <dt>WinTitle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Objects.htm">Object</a></p>
-    <p>A window title or other criteria identifying the target window. See <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
   </dd>
 
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If present, this parameter must be a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
   </dd>
 
   <dt>ExcludeTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose titles include this value will not be considered.</p>
+    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
   </dd>
 
   <dt>ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Windows whose text include this value will not be considered.</p>
+    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window or control could not be found.</p>
+<p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>ControlSendText sends the individual characters of the <em>Keys</em> parameter without translating <code>{Enter}</code> to <kbd>Enter</kbd>, <code>^c</code> to <kbd>Ctrl</kbd>+<kbd>C</kbd>, etc. For details, see <a href="Send.htm#SendText">Text mode</a>. It is also valid to use <a href="Send.htm#Raw">{Raw}</a> or <a href="Send.htm#Text">{Text}</a> with ControlSend.</p>
-<p>If the <em>Control</em> parameter is omitted, this function will attempt to send directly to the target window by sending to its topmost control (which is often the correct one) or the window itself if there are no controls. This is useful if a window does not appear to have any controls at all, or just for the convenience of not having to worry about which control to send to.</p>
-<p>By default, modifier keystrokes (Ctrl, Alt, Shift, and Win) are sent as they normally would be by the Send function. This allows command prompt and other console windows to properly detect uppercase letters, control characters, etc. It may also improve reliability in other ways.</p>
-<p>However, in some cases these modifier events may interfere with the active window, especially if the user is actively typing during a ControlSend or if <kbd>Alt</kbd> is being sent (since <kbd>Alt</kbd> activates the active window's menu bar). This can be avoided by explicitly sending modifier up and down events as in this example:</p>
-<pre>ControlSend "{Alt down}f{Alt up}", "Edit1", "Untitled - Notepad"</pre>
-<p>The method above also allows the sending of modifier keystrokes (Ctrl, Alt, Shift, and Win) while the workstation is locked (protected by logon prompt).</p>
-<p><a href="BlockInput.htm">BlockInput</a> should be avoided when using ControlSend against a console window such as command prompt. This is because it might prevent capitalization and modifier keys such as <kbd>Ctrl</kbd> from working properly.</p>
-<p>The value of <a href="SetKeyDelay.htm">SetKeyDelay</a> determines the speed at which keys are sent. If the target window does not receive the keystrokes reliably, try increasing the press duration via the second parameter of <a href="SetKeyDelay.htm">SetKeyDelay</a> as in these examples:</p>
+<p>ControlSendTextは、<code>{Enter}を</code> <kbd>Enter</kbd>、<code>^cを</code> <kbd>Ctrl</kbd>+<kbd>C</kbd>などに</kbd>変換せずに、<em>Keys</em>パラメータの各文字を送信します。詳しくは、「<a href="Send.htm#SendText">テキストモード</a>」をご覧ください。ControlSendで<a href="Send.htm#Raw">{Raw}や</a> <a href="Send.htm#Text">{Text}を</a>使用することも有効です。</p>
+<p><em>Control</em>パラメータが省略された場合、この関数はターゲットウィンドウの最上位にあるコントロール（正しいコントロールであることが多い）、またはコントロールがない場合はウィンドウ自体に送信することで、直接送信しようとします。これは、ウィンドウにコントロールが全くないように見える場合、またはどのコントロールに送信するかを気にする必要がない便利な機能です。</p>
+<p>デフォルトでは、修飾キー操作（Ctrl、Alt、Shift、Win）は、Send機能によって通常と同じように送信されます。これにより、コマンドプロンプトなどのコンソールウィンドウで、大文字や制御文字などを適切に検出することができます。また、それ以外の方法で信頼性を向上させることもあります。</p>
+<p>特に、ControlSend中にユーザーが積極的にタイピングしている場合や、<kbd>Alt</kbd>が送信されている場合（<kbd>Alt</kbd>はアクティブウィンドウのメニューバーをアクティブにするため）には、これらの修飾子イベントがアクティブウィンドウに干渉する場合があります。これは、この例のように、モディファイアのアップとダウンのイベントを明示的に送信することで回避することができます。</p>
+<pre>ControlSend "{Alt down}f{Alt up}", "Edit1", "Untitled - Notepad".</pre>
+<p>上記の方法では、ワークステーションがロックされている（ログオンプロンプトで保護されている）状態でも、修飾キーストローク（Ctrl、Alt、Shift、Win）を送信することができます。</p>
+<p>コマンドプロンプトなどのコンソールウィンドウに対してControlSendを使用する場合は、<a href="BlockInput.htm">BlockInput</a>を使用しないようにしてください。大文字や<kbd>Ctrl</kbd>などの修飾キーが正しく機能しなくなる可能性があるためです。</p>
+<p><a href="SetKeyDelay.htm">SetKeyDelay</a>の値によって、キーが送信される速度が決まります。ターゲットウィンドウが確実にキー入力を受け取れない場合は、以下の例のように<a href="SetKeyDelay.htm">SetKeyDelay</a>の第2パラメータで押下時間を長くしてみてください。</p>
 <pre>SetKeyDelay 10, 10
 SetKeyDelay 0, 10
 SetKeyDelay -1, 0</pre>
-<p>If the target control is an Edit control (or something similar), the following are usually more reliable and faster than ControlSend:</p>
+<p>ターゲットコントロールがEditコントロール（またはそれに類するもの）である場合、通常ControlSendよりも以下の方が信頼性が高く高速です。</p>
 <pre><a href="EditPaste.htm">EditPaste</a>("This text will be inserted at the caret position.", ControlName, WinTitle)</pre>
 <pre><a href="ControlSetText.htm">ControlSetText</a>("This text will entirely replace any current text.", ControlName, WinTitle)</pre>
-<p>ControlSend is generally not capable of manipulating a window's menu bar. To work around this, use <a href="MenuSelect.htm">MenuSelect</a>. If that is not possible due to the nature of the menu bar, you could try to discover the message that corresponds to the desired menu item by following the <a href="../misc/SendMessage.htm">SendMessage Tutorial</a>.</p>
-<p>Window titles and text are case sensitive. Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on.</p>
+<p>ControlSendは、一般的にウィンドウのメニューバーを操作することはできません。これを回避するためには、<a href="MenuSelect.htm">MenuSelectを</a>使用します。メニューバーの性質上、それが不可能な場合は、<a href="../misc/SendMessage.htm">SendMessage Tutorial</a>に従って、目的のメニュー項目に対応するメッセージを発見することを試みることができます。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="../misc/EscapeChar.htm">Escape sequences (e.g. `n) </a>, <a href="Control.htm">Control functions</a>, <a href="Send.htm">Send</a>, <a href="../misc/Winamp.htm">Automating Winamp</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExNotepad">
-<p><a class="ex_number" href="#ExNotepad"></a>  Opens Notepad minimized and send it some text. This example may fail on Windows 11 or later, as it requires the classic version of Notepad.</p>
+<p><a class="ex_number" href="#ExNotepad"></a> メモ帳を最小化して開き、テキストを送信します。この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>Run "Notepad",, "Min", &amp;PID<em>; Run Notepad minimized.</em>
-WinWait "ahk_pid " PID<em>; Wait for it to appear.</em>
-<em>; Send the text to the inactive Notepad edit control.
-; The third parameter is omitted so the last found window is used.</em>
+WinWait "ahk_pid " PID<em>; 表示されるのを待ちます。</em>
+<em>; 非アクティブなメモ帳エディットコントロールにテキストを送信する。
+; 第3パラメータが省略されているため、最後に見つかったウィンドウが使用されます。</em>
 ControlSend "This is a line of text in the notepad window.{Enter}", "Edit1"
 ControlSendText "Notice that {Enter} is not sent as an Enter keystroke with ControlSendText.", "Edit1"
 
 Msgbox "Press OK to activate the window to see the result."
-WinActivate "ahk_pid " PID<em>; Show the result.</em></pre>
+WinActivate "ahk_pid " PID<em>; 結果を表示する。</em></pre>
 </div>
 
 <div class="ex" id="ExCmd">
-<p><a class="ex_number" href="#ExCmd"></a>  Opens the command prompt and sent it some text. This example may fail on Windows 11 or later, as it requires the classic version of the command prompt.</p>
+<p><a class="ex_number" href="#ExCmd"></a> コマンドプロンプトを開き、テキストを送信します。この例は、Windows 11以降では、コマンドプロンプトのクラシックバージョンを必要とするため、失敗する可能性があります。</p>
 <pre>SetTitleMatchMode 2
-Run A_ComSpec,,, &amp;PID  <em>; Run command prompt.</em>
-WinWait "ahk_pid " PID  <em>; Wait for it to appear.</em>
-ControlSend "ipconfig{Enter}",, "cmd.exe"  <em>; Send directly to the command prompt window.</em></pre>
+Run A_ComSpec,,, &amp;PID<em>; コマンドプロンプトを実行します。</em>
+WinWait "ahk_pid " PID<em>; 表示されるのを待ちます。</em>
+ControlSend "ipconfig{Enter}",, "cmd.exe"<em>; コマンドプロンプトのウィンドウに直接送信します。</em></pre>
 </div>
 <div class="ex" id="ExGUI">
-<p><a class="ex_number" href="#ExGUI"></a>  Creates a <a href="Gui.htm">GUI</a> with an edit control and sent it some text.</p>
+<p><a class="ex_number" href="#ExGUI"></a> エディットコントロールを持つ<a href="Gui.htm">GUIを</a>作成し、テキストを送信します。</p>
 <pre>MyGui := Gui()
 MyGui.Add("Edit", "r10 w500")
 MyGui.Show()

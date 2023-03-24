@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>配列オブジェクト - メソッドとプロパティ｜AutoHotkey v2</title>
-<meta name="description" content="Arrayオブジェクトは、値のリストまたはシーケンスを含んでいます。" />
+<meta name="description" content="配列オブジェクトは、値のリストまたはシーケンスを含んでいます。" />
 <meta name="ahk:equiv-v1" content="lib/Object.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 <h1>配列オブジェクト</h1>
 <pre class="NoIndent">class Array extends Object</pre>
 
-<p><strong>Array</strong>オブジェクトは、値のリストまたはシーケンスを含んでいます。</p>
+<p><strong>配列</strong>オブジェクトは、値のリストまたはシーケンスを含んでいます。</p>
 <p>値は、配列内の位置（<em>配列インデックス</em>）で指定され、位置1が最初の要素になります。</p>
 <p>配列は、値のリストを括弧で囲むことで作成されることが多い。事例：</p>
 <pre>veg := ["Asparagus", "Broccoli", "Cucumber"]
@@ -26,18 +26,17 @@ Loop veg.Length
 users.Push A_UserName
 MsgBox users[1]</pre>
 <p>また、<a href="#Length">Length</a>に大きな値を代入することで、配列を拡張することができる。これにより、有効なインデックスが変わりますが、<a href="#Has">Has</a>は新要素に価値がないことを示します。値のない要素は、通常、<a href="../Functions.htm#VariadicCall">バリアドコール</a>や <a href="../Functions.htm#Variadic">バリアド関数</a>によって使用されるが、どのような目的にも使用できる。</p>
-<p>"Array "はクラスそのものなので、以下ではあらゆるArrayオブジェクトのプレースホルダとして "ArrayObj "を使用します。</p>
-<p>Array オブジェクトは、<a href="Object.htm">Object</a>から継承されたメソッドとプロパティに加え、以下の定義済みのメソッドとプロパティを持ちます。</p>
+<p>"Array "はクラスそのものなので、以下ではあらゆる配列オブジェクトのプレースホルダとして "ArrayObj "を使用します。</p>
+<p>配列オブジェクトは、<a href="Object.htm">オブジェクト</a>から継承されたメソッドとプロパティに加え、以下の定義済みのメソッドとプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
   <li><a href="#StaticMethods">静的メソッド</a>です。
     <ul>
-      <li><a href="#Call">Call</a>:指定された値を含む新しい Array を作成する。</li>
+      <li><a href="#Call">Call</a>:指定された値を含む新しい配列を作成する。</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
-    
     <ul>
       <li><a href="#Clone">Clone</a>:配列のシャローコピーを返します。</li>
       <li><a href="#Delete">Delete</a>:配列の要素の値を削除し、インデックスに値を残さないようにします。</li>
@@ -52,7 +51,6 @@ MsgBox users[1]</pre>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
-    
     <ul>
       <li><a href="#Length">Length</a>:配列の長さを取得または設定します。</li>
       <li><a href="#Capacity">Capacity</a>:配列の現在の容量を取得または設定します。</li>
@@ -65,7 +63,7 @@ MsgBox users[1]</pre>
 <h2 id="StaticMethods">静的メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>指定された値を含む新しい Array を作成する。</p>
+<p>指定された値を含む新しい配列を作成する。</p>
 <pre class="Syntax">ArrayObj := <span class="func">Array</span>(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)</pre>
 <p>パラメータは<a href="#__New">__New</a>で定義します。</p>
 </div>
@@ -90,8 +88,8 @@ MsgBox users[1]</pre>
   </dd>
 </dl>
 <p>削除された値を返します（ない場合は空白）。</p>
-<p>Deleteは配列の<a href="#Length">Length</a>には影響しません。</p>
-<p><em>Indexが</em>範囲外の場合、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
+<p>削除は配列の<a href="#Length">長さ</a>には影響しません。</p>
+<p><em>Index</em>が範囲外の場合、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
 </div>
 
 <div class="methodShort" id="Get"><h3>Get</h3>
@@ -149,7 +147,7 @@ x.InsertAt(1, , "B")<em>; =&gt;  [   , "B", "C"]</em></pre>
 <pre>Value := ArrayObj.Pop()
 Value := ArrayObj.RemoveAt(ArrayObj.Length)
 Value := ArrayObj.RemoveAt(-1)</pre>
-<p>配列が空の場合<a href="#Length">（Length</a>が0）、<a href="Error.htm">エラー</a>となる。</p>
+<p>配列が空の場合（<a href="#Length">Length</a>が0）、<a href="Error.htm">エラー</a>となる。</p>
 </div>
 
 <div class="methodShort" id="Push"><h3>Push</h3>
@@ -193,14 +191,14 @@ MsgBox x[1]<em>; C</em></pre>
 <div class="methodShort" id="__New"><h3>__New</h3>
 <p>項目を追加する。<a href="#Push">プッシュに</a>相当する。</p>
 <pre class="Syntax">ArrayObj.<span class="func">__New</span>(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)</pre>
-<p>このメソッドは<a href="#Call">Call</a>をサポートするために存在し、直接呼び出すことは意図していません。<a href="../Objects.htm#Custom_NewDelete">建設と破壊</a>」をご覧ください。</p>
+<p>このメソッドは<a href="#Call">Call</a>をサポートするために存在し、直接呼び出すことは意図していません。<a href="../Objects.htm#Custom_NewDelete">建設と破壊</a>をご覧ください。</p>
 </div>
 
 <div class="methodShort" id="__Enum"><h3>__Enum</h3>
 <p>配列の要素を列挙する。</p>
 <pre class="Syntax">For Value in ArrayObj</pre>
 <pre class="Syntax">For Index, Value in ArrayObj</pre>
-<p>Returns a new <a href="Enumerator.htm">enumerator</a>. このメソッドは通常、直接呼び出されることはない。その代わり、配列オブジェクトは直接<a href="For.htm">forループ</a>に渡され、forループは__Enumを一度呼び出し、ループの各繰り返しで列挙器を一度呼び出します。列挙者を呼び出すたびに、次の配列要素が返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
+<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはない。その代わり、配列オブジェクトは直接<a href="For.htm">forループ</a>に渡され、forループは__Enumを一度呼び出し、ループの各繰り返しで列挙器を一度呼び出します。列挙者を呼び出すたびに、次の配列要素が返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
   <dt>Index</dt>
   <dd>

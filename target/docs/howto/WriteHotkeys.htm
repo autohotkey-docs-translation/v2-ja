@@ -11,10 +11,10 @@
 </head>
 <body>
 <h1>ホットキーの書き方</h1>
-<p>ホットキーは、アクションをトリガーするキーまたはキーの組み合わせです。例えば、<kbd>Win</kbd><kbd>+</kbd> <kbd>E</kbd>は、通常ファイルエクスプローラーを起動し、<kbd>F1</kbd>はアプリ固有のヘルプ機能を起動することが多い。AutoHotkeyは、どこでも使えるホット<em>キー</em>や、特定のアプリ内だけで使えるホットキーを定義し、コードで表現できるあらゆるアクションを実行することができる機能を備えています。</p>
+<p>ホットキーは、アクションをトリガーするキーまたはキーの組み合わせです。例えば、<kbd>Win</kbd>+<kbd>E</kbd>は、通常ファイルエクスプローラーを起動し、<kbd>F1</kbd>はアプリ固有のヘルプ機能を起動することが多い。AutoHotkeyは、どこでも使えるホットキー、<em>または</em>、特定のアプリ内だけで使えるホットキーを定義し、コードで表現できるあらゆるアクションを実行することができる機能を備えています。</p>
 <p>ホットキーを定義する最も一般的な方法は、<em>ホットキー名</em>の後にダブルコロン、そしてアクションを記述することです。</p>
 <pre>#n::Run "notepad"</pre>
-<p>この例では、<kbd>Win</kbd><kbd>+</kbd><kbd>N</kbd>を押すたびにメモ帳を実行するホットキーを定義しています。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
+<p>この例では、<kbd>Win</kbd>+<kbd>N</kbd>を押すたびにメモ帳を実行するホットキーを定義しています。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
 <p>プログラムの実行については、「<a href="RunPrograms.htm">プログラムを実行する方法</a>」を参照してください。</p>
 <p>複数行が必要な場合は、中括弧を使ってホットキーの動作の開始と終了をマークしてください。これを<a href="../lib/Block.htm">ブロック</a>と呼びます。</p>
 <pre>#n::
@@ -39,7 +39,7 @@
 <p class="note"><strong>注:</strong> <code>::</code>の前の最後の文字は、修飾記号として解釈されることはありません。</p>
 <p>この形式のホットキーでは、組み合わせの最後のキーだけを1文字で書いたり、その名前をフルスペルで書いたりすることができます。事例：</p>
 <ul>
-  <li><code>#::</code>は、ハッシュキー又はその記号に関連する組み合わせで起動するホットキーを作成することができます。（USレイアウトでは<kbd>Shift</kbd><kbd>+</kbd><kbd>3</kbd>）</li>
+  <li><code>#::</code>は、ハッシュキー又はその記号に関連する組み合わせで起動するホットキーを作成することができます。（USレイアウトでは <kbd>Shift</kbd>+<kbd>3</kbd>）</li>
   <li><code>##::</code>は、上記のようなホットキーを作成しますが、Windowsキーも保持している場合にのみ有効です。</li>
   <li><code>LWin::</code>は、他の修飾キーを使わずに、左のWindowsキーを押し下げることで起動するホットキーを作成します。</li>
 </ul>
@@ -63,14 +63,14 @@
 </ul>
 <p>事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
-^a::MsgBox "You pressed Ctrl-A while Notepad is active. 他のウィンドウでCtrl-Aを押すと、そのウィンドウにCtrl-Aのキーストロークが渡されます。"
+^a::MsgBox "You pressed Ctrl-A while Notepad is active. Pressing Ctrl-A in any other window will pass the Ctrl-A keystroke to that window."
 #c::MsgBox "You pressed Win-C while Notepad is active."
 
 #HotIf
 #c::MsgBox "You pressed Win-C while any window except Notepad is active."</pre>
 <p>ホットキーを押すたびに評価される<a href="../Language.htm#expressions">式</a>を書くことで、条件を定義することができます。式が<a href="../Concepts.htm#boolean">trueと評価</a>された場合、そのホットキーの動作が実行されます。</p>
 <p>ホットキーが出現するたびに、または<em>ホットキーのバリエーション</em>ごとに異なる条件を指定することで、同じホットキーを複数回使用することができます。ホットキーを押すと、プログラムは条件が満たされた最初のホットキーバリアント、または条件のないもの（上の例では最後の<code>#c::</code>など）を実行します。</p>
-<p>ホットキーの条件が満たされず、ホットキーの無条件変形がない場合、ホットキーがそもそも定義されていないかのように、キー入力はアクティブウィンドウに引き継がれます。例えば、上記の例の実行中にメモ帳がアクティブで<em>ない</em>場合、<kbd>Ctrl</kbd><kbd>+</kbd> <kbd>A</kbd>は通常の機能（おそらく「すべて選択」）を実行します。</p>
+<p>ホットキーの条件が満たされず、ホットキーの無条件変形がない場合、ホットキーがそもそも定義されていないかのように、キー入力はアクティブウィンドウに引き継がれます。例えば、上記の例の実行中にメモ帳がアクティブで<em>ない</em>場合、<kbd>Ctrl</kbd>+<kbd>A</kbd>は通常の機能（おそらく「すべて選択」）を実行します。</p>
 <p>例題に次のような変更を加えてみてください。</p>
 <ul>
   <li><code>WinActive</code>を <code>WinExist</code>に置き換えて、メモ帳が起動していれば、メモ帳にフォーカスがなくても、ホットキーが有効になるようにしました。</li>
@@ -78,22 +78,22 @@
   <li>ウェブブラウザやエディタなど、他のウィンドウ用の別の^aまたは#cホットキーを追加します。なお、この例では英語以外のシステムでも動作するように<a href="../misc/WinTitle.htm#ahk_class">ahk_class</a>を使用していますが、必要であればこれを削除してウィンドウのタイトルを使用することも可能です。</li>
 </ul>
 <p>ホットキーで操作するウィンドウを正しく特定するためには、ウィンドウのタイトル以外の基準で判断する必要がある場合があります。詳しくは、「<a href="ManageWindows.htm">Windowsを管理する方法</a>」をご覧ください。</p>
-<p><strong>関連:</strong> <a href="../lib/_HotIf.htm">#HotIf</a>、<a href="../Language.htm#expressions">エクスプレッション</a>、<a href="../lib/WinActive.htm">WinActive</a></p>
+<p><strong>関連:</strong> <a href="../lib/_HotIf.htm">#HotIf</a>、<a href="../Language.htm#expressions">Expressions</a>、<a href="../lib/WinActive.htm">WinActive</a></p>
 
 <h2>カスタムコンビネーション</h2>
 <p><em>カスタムコンビネーション</em>とは、通常は組み合わせて使用することを想定していない2つのキーを組み合わせたホットキーのことです。例えば、<code>Numpad0 &amp; Numpad1::</code>は、Numpad0を押しながらNumpad1を押したときに起動するホットキーを定義しています。</p>
 <p>カスタムコンビネーションでキーをプレフィックスとして使用する場合、AutoHotkeyは、修飾キーとしての使用の妨げになるため、キーの通常の機能を有効にしたくないと仮定しています。キーの正常な機能を回復させるには、2つの方法があります。</p>
 <ol>
-  <li><code>Numpad0::Send「{Numpad0}」</code>など、別のホットキーを使って、キー本来の機能を再現します。デフォルトでは、Numpad0を<em>離した</em>ときに、Numpad0とNumpad1を組み合わせて押さなかった場合にのみ、ホットキーが有効になります。</li>
-  <li><code>Numpad0 &amp; Numpad1::</code>のように、組み合わせの前に<a href="../Hotkeys.htm#Tilde">チルダ（~）</a>を付けます。ただし、<code>Numpad0::</code>も定義している場合は、チルダによって、Numpad0を離したときではなく、後者のホットキーがすぐに有効になるようにします。</li>
+  <li><code>Numpad0::Send "{Numpad0}"</code>など、別のホットキーを使って、キー本来の機能を再現します。デフォルトでは、Numpad0を<em>離した</em>ときに、Numpad0とNumpad1を組み合わせて押さなかった場合にのみ、ホットキーが有効になります。</li>
+  <li><code>Numpad0 &amp; Numpad1::</code>のように、組み合わせの前に<a href="../Hotkeys.htm#Tilde">tilde (~)</a>を付けます。ただし、<code>Numpad0::</code>も定義している場合は、チルダによって、Numpad0を離したときではなく、後者のホットキーがすぐに有効になるようにします。</li>
 </ol>
 <p class="note"><strong>注：</strong>カスタムの組み合わせは、ちょうど2つのキー/マウスボタンの組み合わせにのみ対応しており、Alt、Win、Ctrl、Shiftのための<code>!#^+</code>など、他の修飾子との組み合わせはできない。</p>
 <p>AutoHotkeyは2つ以上のキーのカスタムコンビネーションに直接対応していませんが、<a href="../lib/_HotIf.htm">#HotIf</a>を使用することで同様の最終結果を得ることができます。以下の例を実行すると、<kbd>Ctrl</kbd>+<kbd>CapsLock</kbd>+<kbd>Space</kbd>または<kbd>Ctrl</kbd>+<kbd>Space</kbd>+<kbd>CapsLock</kbd>を押すと、メッセージが表示されるはずです。</p>
 <pre>#HotIf GetKeyState("Ctrl")
-スペース＆CapsLock：
+Space &amp; CapsLock::
 CapsLock &amp; Space::MsgBox "Success!"</pre>
 <p>この例では、最初にCtrlを押すことが必要です。これは、Ctrlを押していなければ、スペースとCapsLockが通常の機能を果たすという利点があります。</p>
-<p><strong>関連</strong> <a href="../Hotkeys.htm#combo">カスタムコンビネーション</a></p>
+<p><strong>関連：</strong> <a href="../Hotkeys.htm#combo">カスタムコンビネーション</a></p>
 
 <h2>その他の機能</h2>
 <p>AutoHotkeyのホットキーには、他にもいくつかの機能があります。ほとんどのアプリケーションは、Ctrl、Alt、Shift、場合によってはWinと他の1つのキーの組み合わせに限定されていますが（キーボードのすべてのキーに対応していないことも多い）、AutoHotkeyはそれほど限定されてはいません。詳しくは、「<a href="../Hotkeys.htm">ホットキー</a>」をご覧ください。</p>
