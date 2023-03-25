@@ -8456,6 +8456,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>All literal numbers are converted to pure binary numbers at load time and their string representation is discarded.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051239Z" creationid="ayaki" creationdate="20230325T051239Z">
+        <seg>すべてのリテラル数値は、ロード時に純粋な2進数に変換され、その文字列表現は破棄されます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>All local variables which are not &lt;a0&gt;static&lt;/a0&gt; are automatically freed (made empty) when the function returns, with the exception of variables which are bound to a &lt;a1&gt;closure&lt;/a1&gt; or &lt;a2&gt;VarRef&lt;/a2&gt; (such variables are freed at the same time as the closure or VarRef).</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T010357Z" creationid="ayaki" creationdate="20230318T111705Z">
@@ -12344,6 +12352,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>Consequently, &lt;c5&gt;str&lt;/c5&gt; needs to be converted every time it is used as a number (instead of just the first time), unless it was originally assigned a pure number.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051139Z" creationid="ayaki" creationdate="20230325T051139Z">
+        <seg>そのため、&lt;c5&gt;str&lt;/c5&gt;はもともと純粋な数字が割り当てられている場合を除き、数字として使われるたびに（初回だけでなく）変換する必要がある。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>Consequently, a local variable may have the same name as a global variable but have separate contents.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T111526Z" creationid="ayaki" creationdate="20230318T111526Z">
@@ -15476,6 +15492,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T015501Z" creationid="ayaki" creationdate="20230325T015501Z">
         <seg>例えば、&lt;c0&gt;DoNotUseArray%n+1%&lt;/c0&gt;や &lt;c1&gt;%(%triple%)%&lt;/c1&gt;は有効である。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>For example, &lt;c0&gt;MsgBox 0x1&lt;/c0&gt; is equivalent to &lt;c1&gt;MsgBox 1&lt;/c1&gt;, while &lt;c2&gt;MsgBox 1.0000&lt;/c2&gt; is equivalent to &lt;c3&gt;MsgBox 1.0&lt;/c3&gt; (because the float formatting has changed).</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051250Z" creationid="ayaki" creationdate="20230325T051250Z">
+        <seg>例えば、&lt;c0&gt;MsgBox 0x1&lt;/c0&gt;は&lt;c1&gt;MsgBox 1&lt;/c1&gt;と同等であり、&lt;c2&gt;MsgBox 1.0000&lt;/c2&gt;は&lt;c3&gt;MsgBox 1.0&lt;/c3&gt;と同等です（フロートのフォーマットが変更されたため）。</seg>
       </tuv>
     </tu>
     <tu>
@@ -21496,6 +21520,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>In general, v2 produces more consistent results with any code that depends on the type of a value.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051045Z" creationid="ayaki" creationdate="20230325T051045Z">
+        <seg>一般的に、値の型に依存するようなコードでは、v2の方がより一貫した結果を得ることができます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>In its two-parameter mode, this function is equivalent to &lt;a0&gt;IUnknown::QueryInterface&lt;/a0&gt;.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T212425Z" creationid="ayaki" creationdate="20230321T212425Z">
@@ -22276,6 +22308,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T015553Z" creationid="ayaki" creationdate="20230325T015553Z">
         <seg>v1では&lt;c1&gt;var := ""&lt;/c1&gt;と等価でしたが、他の式と組み合わせると無言で失敗します：</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>In v1, a variable can contain both a string and a cached binary number, which is updated whenever the variable is used as a number.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051049Z" creationid="ayaki" creationdate="20230325T051049Z">
+        <seg>v1では、変数に文字列とキャッシュされた2進数の両方を含めることができ、変数が数値として使用されるたびに更新される。</seg>
       </tuv>
     </tu>
     <tu>
@@ -29408,6 +29448,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>Since this cached binary number is the only means of detecting the type of value, caching performed internally by expressions like &lt;c0&gt;var+1&lt;/c0&gt; or &lt;c1&gt;abs(var)&lt;/c1&gt; effectively changes the "type" of &lt;c2&gt;var&lt;/c2&gt; as a side-effect.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051108Z" creationid="ayaki" creationdate="20230325T051108Z">
+        <seg>このキャッシュされた2進数が値の型を検出する唯一の手段であるため、&lt;c0&gt;var+1&lt;/c0&gt;や &lt;c1&gt;abs(var)&lt;/c1&gt;などの式で内部的に行われるキャッシュは、副作用として&lt;c2&gt;var&lt;/c2&gt;の「型」を効果的に変更する。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>Since this function only checks for the existence of a folder, "D" is always present in the return value.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230323T152018Z" creationid="ayaki" creationdate="20230323T152018Z">
@@ -30268,6 +30316,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T111902Z" creationid="ayaki" creationdate="20230318T111902Z">
         <seg>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>Storing a number in a variable or returning it from a user-defined function retains its pure numeric status.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051255Z" creationid="ayaki" creationdate="20230325T051255Z">
+        <seg>数値を変数に格納したり、ユーザー定義関数から返したりしても、純粋な数値の状態を維持することができます。</seg>
       </tuv>
     </tu>
     <tu>
@@ -32176,6 +32232,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>The built-in "variables" &lt;c0&gt;true&lt;/c0&gt;, &lt;c1&gt;false&lt;/c1&gt;, &lt;c2&gt;A_PtrSize&lt;/c2&gt;, &lt;c3&gt;A_IsUnicode&lt;/c3&gt;, &lt;c4&gt;A_Index&lt;/c4&gt; and &lt;c5&gt;A_EventInfo&lt;/c5&gt; always return pure integers, not strings.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051158Z" creationid="ayaki" creationdate="20230325T051158Z">
+        <seg>組み込みの「変数」の&lt;c0&gt;true&lt;/c0&gt;,&lt;c1&gt;false&lt;/c1&gt;,&lt;c2&gt;A_PtrSize&lt;/c2&gt;,&lt;c3&gt;A_IsUnicode&lt;/c3&gt;,&lt;c4&gt;A_Index&lt;/c4&gt;,&lt;c5&gt;A_EventInfo&lt;/c5&gt;は常に純粋な整数を返し、文字列は返しません。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>The built-in &lt;a0&gt;A_CoordMode variables&lt;/a0&gt; contain the current settings.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230322T141549Z" creationid="ayaki" creationdate="20230322T141549Z">
@@ -32428,6 +32492,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230322T124413Z" creationid="ayaki" creationdate="20230322T124413Z">
         <seg>デフォルトのボタンは、通常、Enterキーを押すことで起動することができます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>The default format specifier for floating-point numbers is now &lt;c0&gt;.17g&lt;/c0&gt; (was &lt;c1&gt;0.6f&lt;/c1&gt;), which is more compact and more accurate in many cases.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051315Z" creationid="ayaki" creationdate="20230325T051315Z">
+        <seg>浮動小数点数のデフォルトのフォーマット指定子が&lt;c0&gt;0.17g&lt;/c0&gt;（&lt;c1&gt;0.6f&lt;/c1&gt;だった）になり、よりコンパクトで多くのケースでより正確になっています。</seg>
       </tuv>
     </tu>
     <tu>
@@ -35316,6 +35388,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T032622Z" creationid="ayaki" creationdate="20230318T123805Z">
         <seg>これらは&lt;a0&gt;#MaxThreads&lt;/a0&gt;と &lt;a1&gt;#MaxThreadsPerHotkey&lt;/a1&gt;に従います（&lt;a2&gt;#MaxThreadsBuffer&lt;/a2&gt;は従いません）。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>They sometimes return strings in v1 due to certain optimizations which have been superseded in v2.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051202Z" creationid="ayaki" creationdate="20230325T051202Z">
+        <seg>v1では特定の最適化により文字列を返すことがありましたが、v2ではそのようなことはありません。</seg>
       </tuv>
     </tu>
     <tu>
@@ -38888,6 +38968,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>Types</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051041Z" creationid="ayaki" creationdate="20230325T051041Z">
+        <seg>種類</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>Types of Arguments and Return Values</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230320T143900Z" creationid="ayaki" creationdate="20230320T143900Z">
@@ -42324,6 +42412,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T165856Z" creationid="ayaki" creationdate="20230318T131116Z">
         <seg>"Join"オプションを使用しない限り。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>v2 disables this caching, so that &lt;c3&gt;str := "123"&lt;/c3&gt; is always a string and &lt;c4&gt;int := 123&lt;/c4&gt; is always an integer.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T051128Z" creationid="ayaki" creationdate="20230325T051128Z">
+        <seg>v2はこのキャッシュを無効にするため、&lt;c3&gt;str := "123"&lt;/c3&gt;は常に文字列、&lt;c4&gt;int := 123&lt;/c4&gt;は常に整数になります。</seg>
       </tuv>
     </tu>
     <tu>
