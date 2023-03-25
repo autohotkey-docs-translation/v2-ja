@@ -4816,6 +4816,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>&lt;c0&gt;ComObjFromPtr(pdsp)&lt;/c0&gt; is a function similar to &lt;c1&gt;ComObjEnwrap(dsp)&lt;/c1&gt;, but like ObjFromPtr, it does not call AddRef on the pointer.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065824Z" creationid="ayaki" creationdate="20230325T065824Z">
+        <seg>&lt;c0&gt;ComObjFromPtr(pdsp)&lt;/c0&gt;は&lt;c1&gt;ComObjEnwrap(dsp)&lt;/c1&gt;と同様の関数ですが、ObjFromPtrのようにポインタに対してAddRefを呼び出すことはしません。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>&lt;c0&gt;ComObject(CLSID)&lt;/c0&gt; creates a ComObject; i.e. this is the new ComObjCreate.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T065650Z" creationid="ayaki" creationdate="20230325T065650Z">
@@ -4836,6 +4844,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T211053Z" creationid="ayaki" creationdate="20230321T211053Z">
         <seg>&lt;c0&gt;ComObject&lt;/c0&gt;自体は&lt;c2&gt;ComValueから&lt;/c2&gt;派生した&lt;a1&gt;クラス&lt;/a1&gt;ですが、COMオブジェクトの作成または識別にのみ使用されます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>&lt;c0&gt;ComValue(vt, value)&lt;/c0&gt; creates a wrapper object.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065706Z" creationid="ayaki" creationdate="20230325T065706Z">
+        <seg>&lt;c0&gt;ComValue(vt, value)&lt;/c0&gt;は、ラッパーオブジェクトを作成します。</seg>
       </tuv>
     </tu>
     <tu>
@@ -5596,6 +5612,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T213550Z" creationid="ayaki" creationdate="20230321T213550Z">
         <seg>&lt;e4&gt;ComObj&lt;/e4&gt;のバリアントタイプはVT_DISPATCHでなければならない。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>&lt;e5&gt;value&lt;/e5&gt; is converted to the appropriate type (following COM conventions), instead of requiring an integer with the right binary value.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065810Z" creationid="ayaki" creationdate="20230325T065810Z">
+        <seg>&lt;e5&gt;値&lt;/e5&gt;は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。</seg>
       </tuv>
     </tu>
     <tu>
@@ -11568,6 +11592,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>COM wrapper objects with variant type VT_BYREF, VT_ARRAY or VT_UNKNOWN now have a &lt;c0&gt;Ptr&lt;/c0&gt; property equivalent to &lt;c1&gt;ComObjValue(ComObj)&lt;/c1&gt;.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065857Z" creationid="ayaki" creationdate="20230325T065857Z">
+        <seg>VT_BYREF、VT_ARRAY、VT_UNKNOWNのバリアントタイプを持つCOMラッパーオブジェクトに、&lt;c1&gt;ComObjValue(ComObj)&lt;/c1&gt;と同等の&lt;c0&gt;Ptr&lt;/c0&gt;プロパティが付くようになりました。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>Caching</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T081716Z" creationid="ayaki" creationdate="20230318T081716Z">
@@ -15524,6 +15556,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T213527Z" creationid="ayaki" creationdate="20230321T213527Z">
         <seg>任意の変数&lt;i0&gt;x&lt;/i0&gt;に対して、&lt;c1&gt;ComObjType(x)&lt;/c1&gt;が整数を返す場合、&lt;i2&gt;x&lt;/i2&gt;はCOMオブジェクトラッパーを含む。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>For both ComValue and ComObjFromPtr, be warned that AddRef is never called automatically; in that respect, they behave like &lt;c0&gt;ComObject(9, value, 1)&lt;/c0&gt; or &lt;c1&gt;ComObject(13, value, 1)&lt;/c1&gt; in v1.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065846Z" creationid="ayaki" creationdate="20230325T065846Z">
+        <seg>ComValueとComObjFromPtrは、AddRefが自動的に呼び出されることはないので、その点ではv1の&lt;c0&gt;ComObject(9, value, 1)&lt;/c0&gt;や&lt;c1&gt;ComObject(13, value, 1)&lt;/c1&gt;と同じ挙動をすることに注意。</seg>
       </tuv>
     </tu>
     <tu>
@@ -21544,6 +21584,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>If you are updating old code and get a TypeError due to passing an Integer to ComObject, it's likely that you should be calling ComValue instead.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065657Z" creationid="ayaki" creationdate="20230325T065657Z">
+        <seg>古いコードを更新しているときに、ComObjectにIntegerを渡したためにTypeErrorが発生した場合、代わりにComValueを呼び出す必要がある可能性があります。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>If you are using AutoHotkey without having installed it, look in the directory which contains AutoHotkey.exe.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T084630Z" creationid="ayaki" creationdate="20230318T084630Z">
@@ -22404,6 +22452,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T082716Z" creationid="ayaki" creationdate="20230318T082716Z">
         <seg>説明書では、インデントとナンバリングを使ってステートメントをグループ化しました。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>In particular, the following behave differently to before when passed an integer:</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065813Z" creationid="ayaki" creationdate="20230325T065813Z">
+        <seg>特に、以下のものは整数を渡されたときの挙動が以前と異なる：</seg>
       </tuv>
     </tu>
     <tu>
@@ -23412,6 +23468,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230320T130809Z" creationid="ayaki" creationdate="20230320T130809Z">
         <seg>&lt;a3&gt;Base&lt;/a3&gt;に代入することでObjectのサブクラスになったり、Callメソッドを他のクラスから再実装またはコピーすることができます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>It can return an instance of any of the classes listed above.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065708Z" creationid="ayaki" creationdate="20230325T065708Z">
+        <seg>上記のいずれかのクラスのインスタンスを返すことができます。</seg>
       </tuv>
     </tu>
     <tu>
@@ -27164,6 +27228,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T073301Z" creationid="ayaki" creationdate="20230318T073301Z">
         <seg>ポインタサイズ</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>Pointer types permit either a pure integer address as before, or an object/ComValue.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065817Z" creationid="ayaki" creationdate="20230325T065817Z">
+        <seg>ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</seg>
       </tuv>
     </tu>
     <tu>
@@ -33504,6 +33576,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>The equivalent in v1 is &lt;c2&gt;ComObject(9, dsp, 1)&lt;/c2&gt;; omitting the third parameter in v1 caused an AddRef.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065828Z" creationid="ayaki" creationdate="20230325T065828Z">
+        <seg>v1での同等品は&lt;c2&gt;ComObject(9, dsp, 1)&lt;/c2&gt;です。v1で第3パラメータを省略するとAddRefが発生しました。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>The escape sequence &lt;c0&gt;`s&lt;/c0&gt; is now allowed wherever &lt;c1&gt;`t&lt;/c1&gt; is supported.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T034752Z" creationid="ayaki" creationdate="20230325T034752Z">
@@ -36600,6 +36680,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>This allows them to be passed to DllCall or ComCall with the &lt;c2&gt;Ptr&lt;/c2&gt; arg type.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065935Z" creationid="ayaki" creationdate="20230325T065935Z">
+        <seg>これにより、DllCallやComCallに&lt;c2&gt;Ptr&lt;/c2&gt;のarg型で渡すことができるようになります。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>This also works on hidden controls even when &lt;a5&gt;DetectHiddenWindows&lt;/a5&gt; is Off.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230322T120643Z" creationid="ayaki" creationdate="20230322T120643Z">
@@ -36956,6 +37044,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T224917Z" creationid="ayaki" creationdate="20230318T224917Z">
         <seg>本書では、その言語について説明するとともに、よくある落とし穴を指摘するようにしています。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>This does not necessarily mean you should add &lt;c2&gt;ObjAddRef(value)&lt;/c2&gt; when updating old scripts, as many scripts used the old function incorrectly.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065852Z" creationid="ayaki" creationdate="20230325T065852Z">
+        <seg>これは、古いスクリプトを更新する際に、&lt;c2&gt;ObjAddRef(value)&lt;/c2&gt;を追加する必要があるとは限らず、多くのスクリプトが古い関数を間違って使用していたためです。</seg>
       </tuv>
     </tu>
     <tu>
@@ -38388,6 +38484,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230322T142736Z" creationid="ayaki" creationdate="20230322T142736Z">
         <seg>これにより、特定の&lt;a2&gt;OnMessage()&lt;/a2&gt;や&lt;a3&gt;GUI&lt;/a3&gt;イベントが "thread already running "のために失われる可能性を減らすことができます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>This replaces &lt;c1&gt;ComObjParameter(vt, value)&lt;/c1&gt;, &lt;c2&gt;ComObject(vt, value)&lt;/c2&gt; and any other names that were used with a &lt;e3&gt;variant type&lt;/e3&gt; and &lt;e4&gt;value&lt;/e4&gt; as parameters.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T065735Z" creationid="ayaki" creationdate="20230325T065735Z">
+        <seg>これは、&lt;c1&gt;ComObjParameter(vt, value)&lt;/c1&gt;、&lt;c2&gt;ComObject(vt, value)&lt;/c2&gt;、およびパラメータとして&lt;e3&gt;バリアント型&lt;/e3&gt;と &lt;e4&gt;値&lt;/e4&gt;を使用していた他の名前を置き換える。</seg>
       </tuv>
     </tu>
     <tu>
