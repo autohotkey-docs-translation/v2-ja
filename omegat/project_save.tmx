@@ -3728,6 +3728,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>&lt;a0&gt;DefineProp&lt;/a0&gt; can be used to define what happens when a specific property is retrieved, set &lt;e1&gt;or called&lt;/e1&gt;, without having to define any meta-functions.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052816Z" creationid="ayaki" creationdate="20230325T052816Z">
+        <seg>&lt;a0&gt;DefineProp&lt;/a0&gt;は、メタファンクションを定義することなく、特定のプロパティの取得、設定、&lt;e1&gt;または呼び出し&lt;/e1&gt;時の動作を定義するために使用することができます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>&lt;a0&gt;Double-derefs&lt;/a0&gt; are now more consistent with variables resolved at load-time, and are no longer capable of creating new variables.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T014224Z" creationid="ayaki" creationdate="20230325T014224Z">
@@ -4984,6 +4992,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>&lt;c0&gt;x.y[z]:=1&lt;/c0&gt; no longer creates an object in &lt;c1&gt;x.y&lt;/c1&gt;, and &lt;c2&gt;x[y,z]&lt;/c2&gt; is an error unless x.__item handles two parameters (or x.__item.__item does, etc.).</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052728Z" creationid="ayaki" creationdate="20230325T052728Z">
+        <seg>&lt;c0&gt;x.y[z]:=1&lt;/c0&gt;で&lt;c1&gt;x.y&lt;/c1&gt;にオブジェクトが生成されなくなり、&lt;c2&gt;x&lt;/c2&gt;.__itemが2つのパラメータを扱わない限り（またはx.__item.__itemが扱うなど）&lt;c2&gt;x[y,z]&lt;/c2&gt;はエラーになる。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>&lt;c0&gt;x[y:="0"]&lt;/c0&gt; and &lt;c1&gt;x["0"]&lt;/c1&gt; now behave the same.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T051447Z" creationid="ayaki" creationdate="20230325T051447Z">
@@ -5020,6 +5036,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T130823Z" creationid="ayaki" creationdate="20230318T130823Z">
         <seg>&lt;c0&gt;{U+00B5}&lt;/c0&gt;Unicodeの文字を序列値（文字コード）で送信します。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>&lt;c0&gt;{}&lt;/c0&gt; object literals now directly set &lt;e1&gt;own property&lt;/e1&gt; values or the object's &lt;c2&gt;base&lt;/c2&gt;.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052847Z" creationid="ayaki" creationdate="20230325T052847Z">
+        <seg>&lt;c0&gt;{}&lt;/c0&gt; オブジェクトリテラルが、&lt;e1&gt;所有プロパティ&lt;/e1&gt;の値やオブジェクトの &lt;c2&gt;base&lt;/c2&gt; を直接設定するようになりました。</seg>
       </tuv>
     </tu>
     <tu>
@@ -10260,6 +10284,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230321T004705Z" creationid="ayaki" creationdate="20230318T111055Z">
         <seg>パラメータに値がないのに読み込もうとすると、&lt;a0&gt;初期化されていない変数&lt;/a0&gt;と同じようにエラーとみなされます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>Attempting to retrieve a non-existent property is treated as an error for all types of values or objects, unless &lt;c0&gt;__get&lt;/c0&gt; is defined.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052658Z" creationid="ayaki" creationdate="20230325T052658Z">
+        <seg>存在しないプロパティを取得しようとすると、&lt;c0&gt;__get&lt;/c0&gt;が定義されていない限り、すべてのタイプの値またはオブジェクトに対してエラーとして扱われる。</seg>
       </tuv>
     </tu>
     <tu>
@@ -18912,6 +18944,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>However, setting a non-existent property will create it in most cases.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052700Z" creationid="ayaki" creationdate="20230325T052700Z">
+        <seg>ただし、存在しないプロパティを設定すると、ほとんどの場合、作成されます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>However, since Critical is a thread-specific setting, when a critical thread ends, the underlying/resumed thread (if any) will be automatically noncritical.</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230322T142451Z" creationid="ayaki" creationdate="20230322T142451Z">
@@ -19556,6 +19596,22 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T110750Z" creationid="ayaki" creationdate="20230318T110750Z">
         <seg>関数呼び出しのパラメータが変数に解決する場合（例：&lt;c0&gt;Var&lt;/c0&gt;、&lt;c1&gt;++Var&lt;/c1&gt;、&lt;c2&gt;Var*=2&lt;/c2&gt;）、その左または右の他のパラメータは、関数に渡される前にその変数を変更できます。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>If a property defines &lt;c0&gt;get&lt;/c0&gt; but not &lt;c1&gt;set&lt;/c1&gt;, assigning a value throws instead of overriding the property.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052745Z" creationid="ayaki" creationdate="20230325T052745Z">
+        <seg>プロパティが&lt;c0&gt;get&lt;/c0&gt;を定義し、&lt;c1&gt;set&lt;/c1&gt;を定義していない場合、値を代入すると、プロパティをオーバーライドする代わりにthrowが発生します。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>If a property does not accept parameters, they are automatically passed to the object returned by the property (or it throws).</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052650Z" creationid="ayaki" creationdate="20230325T052650Z">
+        <seg>プロパティがパラメータを受け付けない場合、パラメータは自動的にプロパティが返すオブジェクトに渡されます（または、投げられます）。</seg>
       </tuv>
     </tu>
     <tu>
@@ -24720,6 +24776,14 @@
     </tu>
     <tu>
       <tuv lang="en">
+        <seg>Multi-dimension array hacks were removed.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052702Z" creationid="ayaki" creationdate="20230325T052702Z">
+        <seg>多次元配列のハックを削除しました。</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
         <seg>Multimedia Keys</seg>
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230318T015512Z" creationid="ayaki" creationdate="20230318T015512Z">
@@ -27100,6 +27164,14 @@
       </tuv>
       <tuv lang="ja" changeid="ayaki" changedate="20230325T052553Z" creationid="ayaki" creationdate="20230325T052553Z">
         <seg>プロパティとメソッド</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="en">
+        <seg>Property and method definitions in classes utilize the same mechanism, so it is possible to define a property getter/setter and a method with the same name.</seg>
+      </tuv>
+      <tuv lang="ja" changeid="ayaki" changedate="20230325T052820Z" creationid="ayaki" creationdate="20230325T052820Z">
+        <seg>クラスのプロパティ定義とメソッド定義は同じ仕組みを利用しているため、プロパティのゲッター/セッターとメソッドを同名で定義することが可能です。</seg>
       </tuv>
     </tu>
     <tu>
