@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Changes from v1.1 | AutoHotkey v2</title>
-<meta name="description" content="Changes between v1.1 and v2.0." />
+<title>v1.1からの変更点｜AutoHotkey v2</title>
+<meta name="description" content="v1.1とv2.0の間の変更点。" />
 <meta name="ahk:equiv-v1" content="AHKL_ChangeLog.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,380 +11,380 @@
 <script src="static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>Changes from v1.1 to v2.0</h1>
+<h1>v1.1からv2.0への変更点</h1>
 
-<h2 id="language">Language</h2>
-<h3 id="legacy-syntax-removed">Legacy Syntax Removed</h3>
-<p>Removed literal assignments: <code>var = value</code></p>
-<p>Removed all legacy If statements, leaving only <code>if expression</code>, which never requires parentheses (but allows them, as in any expression).</p>
-<p>Removed "command syntax". There are no "commands", only <a href="Language.htm#function-call-statements"><em>function call statements</em></a>, which are just function or method calls without parentheses. That means:</p>
+<h2 id="language">言語</h2>
+<h3 id="legacy-syntax-removed">レガシーシンタックス削除</h3>
+<p>リテラルの割り当てを削除しました：<code>var = value</code></p>
+<p>従来のIf文をすべて削除し、<code>if式</code>のみを残し、括弧を必要としない（ただし、あらゆる式と同様に括弧を使用できる）ようにしました。</p>
+<p>Removed "command syntax". コマンド」は存在せず、ただ <a href="Language.htm#function-call-statements"><em>関数呼び出し文</em></a>これは、括弧のない単なる関数やメソッドの呼び出しです。That means:</p>
 <ul>
-<li>All former commands are now functions (excluding control flow statements).</li>
-<li>All functions can be called without parentheses if the return value is not needed (but as before, parentheses cannot be omitted for calls within an expression).</li>
-<li>All parameters are expressions, so all text is "quoted" and commas never need to be escaped. Currently this excludes a few directives (which are neither commands nor functions).</li>
-<li>Parameters are the same regardless of parentheses; i.e. there is no output variable for the return value, so it is discarded if parentheses are omitted.</li>
-<li>Normal variable references are never enclosed in percent signs (except with <a href="lib/_Include.htm">#Include</a> and <a href="lib/_DllLoad.htm">#DllLoad</a>). Use <a href="Variables.htm#concat">concatenation</a> or <a href="lib/Format.htm">Format</a> to include variables in text.</li>
-<li>There is no comma between the function name and parameters, so <code>MouseGetPos(, y)</code> = <code>MouseGetPos , y</code> (x is omitted). A space or tab is required for clarity. For consistency, directives also follow the new convention (there must not be a comma between the directive name and parameter).</li>
-<li>There is no percent-space prefix to force an expression. Unquoted percent signs in expressions are used only for double-derefs/dynamic references, and having an odd number of them is a syntax error.</li>
-<li>Method call statements (method calls which omit parentheses) are restricted to a plain variable followed by one or more identifiers separated by dots, such as <code>MyVar.MyProperty.MyMethod "String to pass"</code>.</li>
+<li>以前のコマンドはすべて関数になりました（制御フロー文は除く）。</li>
+<li>戻り値が不要な場合は、すべての関数を括弧なしで呼び出すことができます（ただし、従来通り、式内の呼び出しでは括弧を省略できません）。</li>
+<li>すべてのパラメータは式なので、すべてのテキストは「引用」され、カンマをエスケープする必要はありません。現在、一部のディレクティブ（コマンドでも関数でもない）を除いています。</li>
+<li>パラメータは括弧の有無にかかわらず同じである。すなわち、戻り値の出力変数は存在しないので、括弧が省略された場合は廃棄されることになる。</li>
+<li>通常の変数参照はパーセント記号で囲むことはありません（<a href="lib/_Include.htm">#Include</a>と <a href="lib/_DllLoad.htm">#DllLoad</a>を除く）。テキストに変数を含めるには、<a href="Variables.htm#concat">連結</a>や <a href="lib/Format.htm">Format</a>を使用します。</li>
+<li>関数名とパラメータの間にカンマはないので、<code>MouseGetPos(, y)</code>=<code>MouseGetPos , y</code>（xは省略）。わかりやすくするために、スペースまたはタブが必要です。一貫性を保つため、ディレクティブも新しい規約に従っています（ディレクティブ名とパラメータの間にコンマがあってはいけません）。</li>
+<li>式を強制するためのパーセンテージスペース接頭辞はありません。式中の引用符なしのパーセント記号は、二重参照／動的参照にのみ使用され、奇数個あると構文エラーになります。</li>
+<li>メソッド呼び出し文（括弧を省略したメソッド呼び出し）は、<code>MyVar.MyProperty.MyMethod "String to pass"</code> のように、プレーン変数の後にドットで区切られた1つまたは複数の識別子を持つものに限定されます。</li>
 </ul>
-<p>The translation from v1-command to function is generally as follows (but some functions have been changed, as documented further below):</p>
+<p>v1-commandから関数への変換は概ね以下の通りです（ただし、一部の関数は後述するように変更されています）：</p>
 <ul>
-<li>If the command's first parameter is an output variable and the second parameter is not, it becomes the return value and is removed from the parameter list.</li>
-<li>The remaining output variables are handled like <a href="#byref">ByRef parameters</a> (for which usage and syntax has changed), except that they permit references to writable built-in variables.</li>
-<li>An exception is thrown on failure instead of setting ErrorLevel.</li>
-<li>Values formerly returned via ErrorLevel are returned by other means, replaced with exceptions, superseded or simply not returned.</li>
+<li>コマンドの第1パラメータが出力変数で、第2パラメータが出力変数でない場合、そのパラメータは戻り値となり、パラメータリストから削除されます。</li>
+<li>残りの出力変数は、書き込み可能な組み込み変数への参照を許可する以外は、<a href="#byref">ByRefパラメータ</a>（使い方と構文が変更されている）と同様に扱われる。</li>
+<li>ErrorLevelを設定する代わりに、失敗時に例外がスローされる。</li>
+<li>以前はErrorLevelで返されていた値は、他の手段で返されるか、例外で置き換えられるか、優先されるか、単に返されないかである。</li>
 </ul>
-<p>All control flow statements also accept expressions, except where noted below.</p>
-<p>All control flow statements which take parameters (currently excluding the two-word Loop statements) support parentheses around their parameter list, without any space between the name and parenthesis. For example, <code>return(var)</code>. However, these are not functions; for instance, <code>x := return(y)</code> is not valid. <a href="lib/If.htm">If</a> and <a href="lib/While.htm">While</a> already supported this.</p>
-<p><a href="#loop-sub-commands">Loop</a> (except <a href="lib/Loop.htm">Loop <em>Count</em></a>) is now followed by a secondary keyword (Files, Parse, Read or Reg) which cannot be "quoted" or contained by a variable. Currently the keyword can be followed by a comma, but it is not required as this is not a parameter. OTB is supported by all modes.</p>
-<p><a href="lib/Goto.htm">Goto</a>, <a href="lib/Break.htm">break</a> and <a href="lib/Continue.htm">continue</a> require an unquoted label name, similar to v1 (<code>goto label</code> jumps to <code>label:</code>). To jump to a label dynamically, use parentheses immediately after the name: <code>goto(expression)</code>. However, this is not a function and cannot be used mid-expression. Parentheses can be used with break or continue, but in that case the parameter must be a single literal number or quoted string.</p>
-<p>Gosub has been removed, and labels can no longer be used with functions such as <a href="lib/SetTimer.htm">SetTimer</a> and <a href="lib/Hotkey.htm">Hotkey</a>.</p>
+<p>以下に記す場合を除き、すべての制御フロー文は式も受け付ける。</p>
+<p>パラメータを取るすべての制御フロー文（現在、2語のLoop文を除く）は、パラメータリストを括弧で囲み、名前と括弧の間にスペースを入れずにサポートします。例えば、<code>return(var)</code>。しかし、これらは関数ではないので、例えば、<code>x := return(y)</code>は無効である。<a href="lib/If.htm">If</a>と <a href="lib/While.htm">While</a>は、すでにサポートしています。</p>
+<p><a href="#loop-sub-commands">Loop</a>(<a href="lib/Loop.htm">Loop <em>Countを</em></a>除く)の後に、"引用"したり変数で囲むことのできない副キーワード(Files, Parse, Read or Reg)が続くようになった。現在、キーワードの後にカンマを付けることができますが、これはパラメータではないので必須ではありません。OTBは全モードで対応しています。</p>
+<p><a href="lib/Goto.htm">Goto</a>、<a href="lib/Break.htm">break</a>、<a href="lib/Continue.htm">continue</a>は、v1<code>（goto label</code>jumps to<code>label:</code>）と同様、引用符のないラベル名を必要とします。ラベルに動的にジャンプするには、名前のすぐ後に括弧を使用します：<code>goto(expression)</code>. ただし、これは関数ではないので、式の途中で使用することはできません。括弧はbreakやcontinueでも使えますが、その場合、パラメータは1つのリテラル数値か引用符で囲まれた文字列でなければなりません。</p>
+<p>Gosubが削除され、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの機能でラベルが使用できなくなりました。</p>
 <ul>
-<li>They were redundant; basically just a limited form of function, without local variables or a return value, and being in their own separate namespace. Functions can be used everywhere that label subroutines were used before (even <a href="Functions.htm#nested">inside other functions</a>).</li>
-<li>Functions cannot overlap (but can be contained within a function). Instead, use multiple functions and call one from the other. Instead of A_ThisLabel, use function parameters.</li>
-<li>Unlike subroutines, if one forgets to define the <em>end</em> of a function, one is usually alerted to the error as each <code>{</code> must have a corresponding <code>}</code>. It may also be easier to identify the bounds of a function than a label subroutine.</li>
-<li>Functions can be placed in the auto-execute section without interrupting it. The auto-execute section can now easily span the entire script, so may instead be referred to as <a href="Language.htm#global-code">global code</a>, executing within the <a href="Scripts.htm#auto">auto-execute thread</a>.</li>
-<li>Functions might be a little less prone to being misused as "goto" (where a user gosubs the current subroutine in order to loop, inevitably exhausting stack space and terminating the program).</li>
-<li>There is less ambiguity without functions (like <a href="lib/Hotkey.htm">Hotkey</a>) accepting a label or a function, where both can exist with the same name at once.</li>
-<li>For all remaining uses of labels, it is not valid to refer to a global label from inside a function. Therefore, label lookup can be limited to the local label list. Therefore, there is no need to check for invalid jumps from inside a function to outside (which were never supported).</li>
+<li>ローカル変数も戻り値もなく、独立した名前空間にある、基本的に限定的な関数の一種だったのです。関数は、これまでラベルサブルーチンが使われていた場所ならどこでも（<a href="Functions.htm#nested">他の関数</a>の中でも）使うことができます。</li>
+<li>機能は重複できない（ただし、機能内に含めることはできる）。その代わり、複数の機能を使い、他の機能から呼び出すようにします。A_ThisLabelの代わりに、関数パラメータを使用します。</li>
+<li>サブルーチンとは異なり、関数の<em>終わり</em>を定義し忘れると、<code>{</code>には、それぞれ対応する<code>}</code>が必要なので、通常、エラーになります。また、ラベルサブルーチンよりも関数の方が境界を特定しやすい場合もあります。</li>
+<li>関数を自動実行部に割り込ませることなく配置することができます。自動実行セクションは、スクリプト全体を容易にカバーできるようになったので、<a href="Scripts.htm#auto">自動実行スレッド</a>内で実行される<a href="Language.htm#global-code">グローバルコード</a>と呼ばれることもあります。</li>
+<li>関数は、「goto」（ユーザーがループするために現在のサブルーチンをgosubすることで、必然的にスタックスペースを使い果たしてプログラムを終了させること）として悪用される可能性が少し低くなるかもしれません。</li>
+<li>（<a href="lib/Hotkey.htm">Hotkey</a>のように）ラベルや機能を受け入れる機能がなく、同じ名前で両方が同時に存在できるため、あいまいさが少なくなります。</li>
+<li>ラベルの残りのすべての用途において、関数内部からグローバルラベルを参照することは無効である。そのため、ラベル検索をローカルラベルリストに限定することができる。そのため、（これまでサポートされていなかった）関数内部から外部への無効なジャンプをチェックする必要がありません。</li>
 </ul>
-<h3 id="hotkey-and-hotstring-labels">Hotkey and Hotstring Labels</h3>
-<p><a href="Hotkeys.htm">Hotkeys</a> and non-autoreplace <a href="Hotstrings.htm">hotstrings</a> are no longer labels; instead, they (automatically) define a function. For multi-line hotkeys, use braces to enclose the body of the hotkey instead of terminating it with <code>return</code> (which is implied by the ending brace). To allow a hotkey to be called explicitly, specify <code>funcName(ThisHotkey)</code> between the <code>::</code> and <code>{</code> - this can also be done in v1.1.20+, but now there is a parameter. When the function definition is not explicit, the parameter is named ThisHotkey.</p>
-<p><strong>Note:</strong> Hotkey functions are <a href="Functions.htm#AssumeLocal">assume-local</a> by default and therefore cannot assign to <a href="Functions.htm#Global">global variables</a> without a declaration.</p>
+<h3 id="hotkey-and-hotstring-labels">ホットキーとホットストリングラベル</h3>
+<p><a href="Hotkeys.htm">ホットキー</a>や自動置換でない<a href="Hotstrings.htm">ホットストリング</a>は、ラベルではなくなり、代わりに（自動的に）機能を定義するようになりました。複数行のホットキーの場合、<code>return</code>で終了させるのではなく、中括弧を使ってホットキーの本体を囲みます（終了中括弧はこれを意味します）。ホットキーを明示的に呼び出すには、<code>:</code>と<code>{</code>の間に<code>funcName(ThisHotkey)</code>を指定します - これは v1.1.20+ でも行えますが、現在はパラメータがあります。関数定義が明示されていない場合、パラメータはThisHotkeyと命名されます。</p>
+<p><strong>注：</strong>ホットキー関数はデフォルトで<a href="Functions.htm#AssumeLocal">assume-local</a>であるため、宣言なしで<a href="Functions.htm#Global">グローバル変数</a>に代入することはできません。</p>
 <h3 id="names">名称</h3>
-<p>Function and variable names are now placed in a shared namespace.</p>
+<p>関数名と変数名が共有名前空間に配置されるようになりました。</p>
 <ul>
-<li>Each function definition creates a constant (read-only variable) within the current scope.</li>
-<li>Use <code>MyFunc</code> in place of <code>Func("MyFunc")</code>.</li>
-<li>Use <code>MyFunc</code> in place of <code>"MyFunc"</code> when passing the function to any built-in function such as <a href="lib/SetTimer.htm">SetTimer</a> or <a href="lib/Hotkey.htm">Hotkey</a>. Passing a name (string) is no longer supported.</li>
-<li>Use <code>myVar()</code> in place of <code>%myVar%()</code> when calling a function by value.</li>
-<li>To call a function when all you have is a function name (string), first use a <a href="Variables.htm#deref">double-deref</a> to resolve the name to a variable and retrieve its value (the function object). <code>%myVar%()</code> now actually performs a double-deref and then calls the result, equivalent to <code>f := %myVar%, f()</code>. Avoid handling functions by name (string) where possible; use references instead.</li>
+<li>各関数定義は、現在のスコープ内に定数（読み取り専用変数）を作成します。</li>
+<li><code>Func("MyFunc")</code>の代わりに<code>MyFunc</code>を使用する。</li>
+<li><a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組み込み関数に渡す場合は、<code>MyFunc</code>の代わりに "MyFunc"</code>を使用してください。名前（文字列）の受け渡しはサポートされなくなりました。</li>
+<li>関数を値で呼び出す場合、<code>%myVar%()</code>の代わりに<code>myVar()</code>を使用します。</li>
+<li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得する。<code>myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用する。</li>
 </ul>
-<p>Names cannot start with a digit and cannot contain the following characters which were previously allowed: <code>@ # $</code>.  Only letters, numbers, underscore and non-ASCII characters are allowed.</p>
-<p><strong>Reserved words:</strong> Declaration keywords and names of control flow statements cannot be used as variable, function or class names. This includes <code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> and <code class="no-highlight">throw</code>. The purpose of this is primarily to detect errors such as <code>if (ex) break</code>.</p>
-<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. These words are reserved for future use or other specific purposes, and are not permitted as variable or function names even when unambiguous. This is primarily for consistency:in v1, <code>and := 1</code> was allowed on its own line but <code>(and := 1)</code> would not work.</p>
-<p>The words listed above are permitted as property or window group names. Property names in typical use are preceded by <code>.</code>, which prevents the word from being interpreted as an operator. By contrast, keywords are never interpreted as variable or function names within an expression. For example, <code>not(x)</code> is equivalent to <code>not (x)</code> or <code>(not x)</code>.</p>
-<p>A number of classes are predefined, effectively reserving those global variable names in the same way that a user-defined class would. (However, the <a href="#scope">changes to scope</a> described below mitigate most issues arising from this.) For a list of classes, see <a href="ObjList.htm">Built-in Classes</a>.</p>
-<h3 id="scope">Scope</h3>
-<p><em>Super-global</em> variables have been removed (excluding built-in variables, which aren't quite the same as they cannot be redeclared or shadowed).</p>
-<p>Within an <a href="Functions.htm#AssumeLocal">assume-local</a> function, if a given name is not used in a declaration or as the target of a non-dynamic assignment or the <a href="Variables.htm#ref">reference (&amp;) operator</a>, it may resolve to an existing global variable.</p>
-<p>In other words:</p>
+<p>氏名は数字で始まることはできず、従来は認められていた以下の文字を含むことはできません：<code>@ # $</code>. 使用できる文字は、英字、数字、アンダースコア、非ASCII文字のみです。</p>
+<p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。<code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
+<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されており、曖昧でない場合でも、変数名や関数名として許可されていません。これは主に一貫性を保つためです：v1では、<code>and := 1</code>は、単独で行えたが、<code>(and := 1)</code>は動作しない。</p>
+<p>上記の単語は、プロパティ名やウィンドウグループ名として許可されています。一般的に使用されるプロパティ名の前には、演算子として解釈されることを防ぐために、<code>.</code>が付いています。一方、キーワードは式中の変数名や関数名として解釈されることはない。例えば、<code>not(x)</code>は<code>not(x)</code>または<code>(not x)</code>と同じ意味です。</p>
+<p>多くのクラスが事前に定義されており、ユーザー定義クラスと同じように、グローバル変数名を効果的に予約することができます。(ただし、後述する<a href="#scope">スコープの変更</a>により、このことから生じる問題はほとんど緩和されます)。クラスの一覧は、「<a href="ObjList.htm">組み込みクラス</a>」を参照してください。</p>
+<h3 id="scope">スコープ</h3>
+<p><em>スーパーグローバル</em>変数が削除されました（組み込み変数を除く、再宣言やシャドウができないので同じではありません）。</p>
+<p><a href="Functions.htm#AssumeLocal">想定ローカル</a>関数内で、与えられた名前が宣言や非動的代入、<a href="Variables.htm#ref">参照（&amp;）演算子</a>のターゲットとして使用されていない場合、既存のグローバル変数に解決することがあります。</p>
+<p>つまりは、"忖度 "：</p>
 <ul>
-<li>Functions can now read global variables without declaring them.</li>
-<li>Functions which have no <code>global</code> declarations cannot directly modify global variables (eliminating one source of unintended side-effects).</li>
-<li>Adding a new <code>class</code> to the script is much less likely to affect the behaviour of any existing function, as classes are not super-global.</li>
-<li>The <code>global</code> keyword is currently redundant when used in global scope, but can be used for clarity. Variables declared this way are now much less likely to conflict with local variables (such as when combining scripts manually or with <a href="lib/_Include.htm">#Include</a>), as they are not super-global. On the other hand, some convenience is lost.</li>
-<li>Declarations are generally not needed as much.</li>
+<li>関数がグローバル変数を宣言せずに読み込めるようになりました。</li>
+<li><code>グローバル</code>宣言を持たない関数は、グローバル変数を直接変更することはできません（意図しない副作用の原因の1つを排除する）。</li>
+<li>クラスはスーパーグローバルではないので、スクリプトに新しい<code>クラス</code>を追加しても、既存の関数の動作に影響を与える可能性ははるかに低くなります。</li>
+<li><code>グローバル</code>キーワードは、現在、グローバルスコープで使用すると冗長になりますが、明確にするために使用することができます。このように宣言された変数は、スーパーグローバルではないため、ローカル変数と衝突する可能性が非常に低くなりました（手動でスクリプトを組み合わせる場合や<a href="lib/_Include.htm">#Include</a>を使用する場合など）。その反面、利便性が失われる部分もあります。</li>
+<li>宣言は一般的にあまり必要ありません。</li>
 </ul>
-<p><em>Force-local</em> mode has been removed.</p>
+<p><em>強制ローカル</em>モードは削除されました。</p>
 <h3 id="variables">変数</h3>
-<p>Local <a href="Functions.htm#static">static</a> variables are initialized if and when execution reaches them, instead of being executed in linear order before the auto-execute section begins. Each initializer has no effect the second time it is reached. Multiple declarations are permitted and may execute for the same variable at different times. There are multiple benefits:</p>
+<p>ローカル<a href="Functions.htm#static">静的</a>変数は、自動実行セクションが始まる前に線形順序で実行されるのではなく、実行が到達したときに初期化されます。各イニシャライザーは、2回目に到達したときには何の効果もない。複数の宣言を行うことができ、同じ変数に対して異なるタイミングで実行することができる。メリットは複数あります：</p>
 <ul>
-<li>When a static initializer calls other functions with static variables, there is less risk of initializers having not executed yet due to the order of the function definitions.</li>
-<li>Because the function has been called, parameters, <a href="Variables.htm#ThisFunc">A_ThisFunc</a> and closures are available (they previously were not).</li>
-<li>A static variable can be initialized conditionally, adding flexibility, while still only executing once without requiring <code>if IsSet()</code>.</li>
-<li>Since there may be multiple initializers for a single static variable, compound assignments such as <code>static x += 1</code> are permitted. (This change reduced code size marginally as it was already permitted by <code>local</code> and <code>global</code>.)</li>
+<li>静的イニシャライザが静的変数を持つ他の関数を呼び出す場合、関数定義の順序によりイニシャライザが未実行となる危険性が少ないです。</li>
+<li>関数が呼び出されたので、パラメータ、<a href="Variables.htm#ThisFunc">A_ThisFunc</a>、クロージャが利用できるようになりました（以前は利用できませんでした）。</li>
+<li>静的変数は条件付きで初期化できるため柔軟性があり、しかも<code>IsSet()</code>を必要とせず1回しか実行しない。</li>
+<li>一つの静的変数に対して複数の初期化子が存在する可能性があるため、<code>static x += 1</code>のような複合代入が許可される。(この変更は、<code>ローカル</code>と <code>グローバル</code>ですでに許可されていたため、コードサイズをわずかに減らすことができました)。</li>
 </ul>
-<p class="note"><strong>Note:</strong> <code>static init := somefunction()</code> can no longer be used to auto-execute <em>somefunction</em>. However, since label-and-return based subroutines can now be completely avoided, the auto-execute section is able to span the entire script.</p>
-<p>Declaring a variable with <code>local</code> no longer makes the function <a href="Functions.htm#AssumeGlobal">assume-global</a>.</p>
-<p><a href="Variables.htm#deref">Double-derefs</a> are now more consistent with variables resolved at load-time, and are no longer capable of creating new variables. This avoids some inconsistencies and common points of confusion.</p>
-<p>Double-derefs which fail for any reason now cause an error to be thrown. Previously any cases with an invalid name would silently produce an empty string, while other cases would create and return an empty variable.</p>
+<p class="note"><strong>注：</strong> <code>static init := somefunction()</code>は、<em>somefunction</em>の自動実行には使えなくなりました。しかし、ラベルとリターンに基づくサブルーチンを完全に回避できるようになったため、自動実行セクションはスクリプト全体に及ぶことができるようになりました。</p>
+<p>変数を<code>local</code>で宣言しても、その関数が<a href="Functions.htm#AssumeGlobal">assume-global</a>にならなくなった。</p>
+<p><a href="Variables.htm#deref">ダブルデフ</a>がロード時に解決される変数との整合性が高くなり、新しい変数を作成することができなくなりました。これにより、いくつかの矛盾や共通の混乱点を回避することができます。</p>
+<p>ダブルデフが何らかの理由で失敗した場合、エラーが発生するようになりました。以前は、無効な名前を持つケースは黙って空文字列を生成し、その他のケースは空の変数を生成して返していました。</p>
 <h3 id="expressions">式</h3>
-<p>Quoted literal strings can be written with <code>"double"</code> or <code>'single'</code> quote marks, but must begin and end with the same mark. Literal quote marks are written by preceding the mark with an escape character - <code>`"</code> or <code>`'</code> - or by using the opposite type of quote mark: <code>'"42" is the answer'</code>. Doubling the quote marks has no special meaning, and causes an error since auto-concat requires a space.</p>
-<p>The operators <code>&amp;&amp;</code>, <code>||</code>, <code>and</code> and <code>or</code> yield whichever value determined the result, similar to JavaScript and Lua. For example, <code>"" or "default"</code> yields <code>"default"</code> instead of <code>1</code>. Scripts which require a pure boolean value (0 or 1) can use something like <code>!!(x or y)</code> or <code>(x or y) ? 1 : 0</code>.</p>
-<p>Auto-concat now requires at least one space or tab in all cases (the v1 documentation says there "should be" a space).</p>
-<p>The result of a multi-statement expression such as <code>x(), y()</code> is the last (right-most) sub-expression instead of the first (left-most) sub-expression. In both v1 and v2, the sub-expressions are evaluated in left to right order.</p>
-<p>Equals after a comma is no longer assignment: <code>y=z</code> in <code>x:=y, y=z</code> is an ineffectual comparison instead of an assignment.</p>
-<p><code>:= += -= *= /= ++ --</code> have consistent behaviour regardless of whether they are used on their own or combined with other operators, such as with <code>x := y, y += 2</code>. Previously, there were differences in behaviour when an error occurred within the expression or a blank value was used in a math operation.</p>
-<p><code>!=</code> is now always case-insensitive, like <code>=</code>, while <code>!==</code> has been added as the counterpart of <code>==</code>.</p>
-<p><code>&lt;&gt;</code> has been removed.</p>
-<p><code>//</code> now throws an exception if given a floating-point number. Previously the results were inconsistent between negative floats and negative integers.</p>
-<p><code>|</code>, <code>^</code>, <code>&amp;</code>, <code>&lt;&lt;</code> and <code>&gt;&gt;</code> now throw an exception if given a floating-point number, instead of truncating to integer.</p>
-<p>Scientific notation can be used without a decimal point (but produces a floating-point number anyway). Scientific notation is also supported when numeric strings are converted to integers (for example, "1e3" is interpreted as 1000 instead of 1).</p>
-<p>Function calls now permit virtually any sub-expression for specifying which function to call, provided that there is no space or tab before the open-parenthesis of the parameter list. For example, <code>MyFunc()</code> would call the value <code>MyFunc</code> regardless of whether that is the function's actual name or a variable containing a function object, and <code>(a?b:c)()</code> would call either <code>b</code> or <code>c</code> depending on <code>a</code>. Note that <code>x.y()</code> is still a method call roughly equivalent to <code>(x.y)(x)</code>, but <code>a[i]()</code> is now equivalent to <code>(a[i])()</code>.</p>
-<p>Double-derefs now permit almost any expression (not just variables) as the source of the variable name. For example, <code>DoNotUseArray%n+1%</code> and <code>%(%triple%)%</code> are valid. Double-deref syntax is now also used to dereference VarRefs, such as <code>ref := &amp;var, value := %ref%</code>.</p>
-<p>The expressions <code>funcName[""]()</code> and <code>funcName.()</code> no longer call a function by name. Omitting the method name as in <code>.()</code> now causes a load-time error message. Functions should be called or handled by reference, not by name.</p>
-<p><code>var :=</code> with no r-value is treated as an error at load-time. In v1 it was equivalent to <code>var := ""</code>, but silently failed if combined with another expression - for example: <code>x :=, y :=</code>.</p>
-<p>Where a literal string is followed by an ambiguous unary/binary operator, an error is reported at load-time. For instance, <code>"new counter:" ++counter</code> is probably supposed to increment and display <code>counter</code>, but technically it is invalid <em>addition</em> and <em>unary plus</em>.</p>
-<p><code>word ++</code> and <code>word --</code> are no longer expressions, since <code>word</code> can be a user-defined function (and ++/- may be followed by an expression which produces a variable reference).  To write a standalone post-increment or post-decrement expression, either omit the space between the variable and the operator, or wrap the variable or expression in parentheses.</p>
-<p><code>word ? x : y</code> is still a ternary expression, but more complex cases starting with a word, such as <code>word1 word2 ? x : y</code>, are always interpreted as function calls to <em>word1</em> (even if no such function exists). To write a standalone ternary expression with a complex condition, enclose the condition in parentheses.</p>
-<p>The new <a href="Variables.htm#is"><code>is</code> operator</a> such as in <code>x is y</code> can be used to check whether value <em>x</em> is an instance of class <em>y</em>, where <em>y</em> must be an Object with a <code>prototype</code> property (i.e. a Class). This includes primitive values, as in <code>x is Integer</code> (which is strictly a type check, whereas <code>IsInteger(x)</code> checks for potential conversion).</p>
-<p>Keywords <code>contains</code> and <code>in</code> are reserved for future use.</p>
-<p><code>&amp;var</code> (address-of) has been replaced with <code>StrPtr(var)</code> and <code>ObjPtr(obj)</code> to more clearly show the intent and enhance error checking. In v1, address-of returned the address of <em>var</em>'s internal string buffer, even if it contained a number (but not an object). It was also used to retrieve the address of an object, and getting an address of the wrong type can have dire consequences.</p>
-<p><code>&amp;var</code> is now the <a href="Variables.htm#ref">reference operator</a>, which is used with all <a href="#byref">ByRef</a> and OutputVar parameters to improve clarity and flexibility (and make other language changes possible). See <a href="Concepts.htm#variable-references">Variable References (VarRef)</a> for more details.</p>
-<p>String length is now cached during expression evaluation. This improves performance and allows strings to contain binary zero. In particular:</p>
+<p>引用リテラル文字列は、<code>「ダブル」</code>または<code>「シングル」</code>の引用符で書くことができますが、同じ符で始まり、同じ符で終わらなければなりません。直訳の引用符は、マークの前にエスケープ文字 - <code>`"</code>または<code>`'</code> を置くか、反対のタイプの引用符を使用することで記述します：<code>''42 "が答え'</code>です。引用符を二重にしても特別な意味はなく、auto-concatではスペースが必要なのでエラーになる。</p>
+<p>演算子<code>&amp;&amp;</code>,<code>||</code>,<code>and</code> <code>or</code>は、JavaScript や Lua と同様に、結果を決定したいずれかの値を出力します。例えば、<code>""や "default "</code>は、<code>1</code>ではなく、<code>"default"</code>を出力します。純粋なブール値（0または1）を必要とするスクリプトでは、<code>!!!(x or y)</code>または<code>(x or y)?1 : 0</code>を使うことができます。</p>
+<p>Auto-concatでは、すべてのケースで少なくとも1つのスペースまたはタブが必要になりました（v1のドキュメントでは、スペースが「あるべき」とされています）。</p>
+<p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価される。</p>
+<p>カンマの後のEqualsは割り当てられなくなりました：<code>x:=y,y=z</code>の<code>y=zは</code>、代入ではなく非効率的な比較である。</p>
+<p><code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をする。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
+<p><code>!=</code>は <code>=</code>と同様に常に大文字と小文字を区別するようになり、<code>!==は</code> <code>==</code>と対になるものとして追加された。</p>
+<p><code>&lt;&gt;</code>は削除されました。</p>
+<p><code>//</code> 浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
+<p><code>|</code>,<code>^</code>,<code>&amp;</code>,<code>&lt;&lt;</code>、および、<code>&gt;&gt;</code>は、浮動小数点数が与えられた場合、整数に切り捨てられるのではなく、例外を投げるようになりました。</p>
+<p>科学的記数法は、小数点以下がなくても使用可能です（ただし、いずれにせよ浮動小数点数を生成します）。数値文字列を整数に変換する際、科学的表記もサポートされます（例えば、"1e3"は1ではなく1000と解釈されます）。</p>
+<p>関数呼び出しでは、パラメータリストの開括弧の前にスペースやタブがなければ、どの関数を呼び出すかを指定するために、事実上どんな下位式でも使用できるようになりました。例えば、<code>MyFunc()</code>は、それが関数の実際の名前か関数オブジェクトを含む変数かにかかわらず、値<code>MyFunc</code>を呼び出し、<code>(a?b:c)()</code>は、<code>a</code>に応じて<code>b</code>または<code>cを</code>呼び出します。なお、<code>x.y()</code>はまだ<code>(x.y)(x)</code>とほぼ同等のメソッド呼び出しですが、<code>a[i]()</code>は<code>(a[i])()</code>と同等になったことに注意してください。</p>
+<p>ダブルデフでは、変数名のソースとして（変数に限らず）ほぼすべての式が使用できるようになりました。例えば、<code>DoNotUseArray%n+1%</code>や <code>%(%triple%)%</code>は有効である。<code>ref := &amp;var, value := %ref</code>%のように、VarRefの再参照にもダブルデリフ構文が使われるようになりました。</p>
+<p><code>funcName[""]()</code>および<code>funcName.()</code>式は、関数を名前で呼び出さなくなりました。<code>.()</code> のようにメソッド名を省略すると、ロードタイムエラーメッセージが表示されるようになりました。関数は、名前ではなく、参照によって呼び出したり、扱ったりする必要があります。</p>
+<p>r値を持たない<code>var :=</code>は、ロード時にエラーとして扱われます。v1では<code>var := ""</code>と等価でしたが、他の式と組み合わせると無言で失敗します：<code>x :=, y :=</code>.</p>
+<p>リテラル文字列の後に曖昧な単項/二項演算子が続く場合、ロード時にエラーが報告されます。例えば、<code>"new counter:"++counter</code>は、おそらく<code>カウンター</code>をインクリメントして表示するものと思われますが、厳密には無効な<em>加算</em>と <em>単項式プラス</em>になります。</p>
+<p><code>word ++</code>と<code>word --</code>は、<code>word</code>がユーザー定義関数である可能性があるため、もはや式ではありません（また ++/- の後に変数参照を生成する式が続くことがあります）。単独でポストインクリメント式やポストデクリメント式を書くには、変数と演算子の間のスペースを省くか、変数や式を括弧で囲むかします。</p>
+<p><code>word ? x : y</code>はまだ3項表現ですが、<code>word1 word2 ? x : y</code>のように単語で始まるより複雑な場合は、常に<em>word1</em>への関数呼び出しと解釈されます（そのような関数が存在しない場合でも）。複雑な条件を持つ単体の3元式を書くには、条件を括弧で囲む。</p>
+<p><code>x is y</code>のような new<a href="Variables.htm#is"><code>is</code>演算子</a>は、値<em>x</em>がクラス<em>y</em>のインスタンスであるかどうかを確認するために使用されます（<em>y</em>は<code>プロトタイププロパティ</code>を持つオブジェクト（すなわちクラス）でなければなりません）。これには、<code>xがInteger</code>である（<code>IsInteger(x)</code>が変換の可能性をチェックするのに対し、これは厳密には型チェックである）のようなプリミティブな値も含まれます。</p>
+<p>キーワード<code>contains</code>と <code>in</code>は将来の使用のために予約されています。</p>
+<p><code>&amp;var</code>(address-of) が<code>StrPtr(var)</code>と<code>ObjPtr(obj)</code>に置き換えられ、より明確に意図を示し、エラーチェックを強化しました。v1では、address-ofは、<em>var</em>の内部文字列バッファのアドレスを返し、たとえそれが数値（オブジェクトではない）を含んでいたとしても、そのアドレスを返していました。また、オブジェクトのアドレスを取得するために使用され、間違ったタイプのアドレスを取得すると、悲惨な結果になることがあります。</p>
+<p><code>&amp;var</code>が<a href="Variables.htm#ref">参照演算子</a>になり、すべての<a href="#byref">ByRef</a>と OutputVar パラメータで使用され、明快さと柔軟性が向上しました（他の言語の変更も可能になります）。詳しくは、「<a href="Concepts.htm#variable-references">変数参照（VarRef）</a>」を参照してください。</p>
+<p>式の評価時に文字列の長さがキャッシュされるようになりました。これにより、パフォーマンスが向上し、文字列が2進数の0を含むことができるようになります。特に：</p>
 <ul>
-<li>Concatenation of two strings where one or both contain binary zero no longer causes truncation of the data.</li>
-<li>The case-sensitive equality operators (<code>==</code> and <code>!==</code>) can be used to compare binary data. The other comparison operators only "see" up to the first binary zero.</li>
-<li>Binary data can be returned from functions and assigned to objects.</li>
+<li>2つの文字列の一方または両方にバイナリゼロが含まれる場合に、2つの文字列を連結しても、データが切り捨てられることがなくなりました。</li>
+<li>バイナリデータの比較には、大文字と小文字を区別する等号演算子（<code>==と</code> <code>!</code>）が使えます。他の比較演算子は、最初の2進数のゼロまでしか「見えない」のです。</li>
+<li>バイナリデータは、関数から返したり、オブジェクトに割り当てたりすることができます。</li>
 </ul>
-<p>Most functions still expect null-terminated strings, so will only "see" up to the first binary zero. For example, <a href="lib/MsgBox.htm">MsgBox</a> would display only the portion of the string before the first binary zero.</p>
-<p>The <code>*</code> (deref) operator has been removed. Use <a href="lib/NumGet.htm">NumGet</a> instead.</p>
-<p>The <code>~</code> (<a href="Variables.htm#unary">bitwise-NOT</a>) operator now always treats its input as a 64-bit signed integer; it no longer treats values between 0 and 4294967295 as unsigned 32-bit.</p>
-<p><code>&gt;&gt;&gt;</code> and <code>&gt;&gt;&gt;=</code> have been added for logical right bit shift.</p>
-<p>Added <a href="Variables.htm#fat-arrow">fat arrow functions</a>. The expression <code>Fn(Parameters) =&gt; Expression</code> defines a function named <em>Fn</em> (which can be blank) and returns a <a href="lib/Func.htm">Func</a> or Closure object. When called, the function evaluates <em>Expression</em> and returns the result. When used inside another function, <em>Expression</em> can refer to the outer function's variables (this can also be done with a normal function definition).</p>
-<p>The fat arrow syntax can also be used to define methods and property getters/setters (in which case the method/property definition itself isn't an expression, but its body just returns an expression).</p>
-<p>Literal numbers are now fully supported on the left-hand side of member access (dot). For example, <code>0.1</code> is a number but <code>0.min</code> and <code>0.1.min</code> access the <em>min</em> property which can be handled by a base object (see <a href="Objects.htm#primitive">Primitive Values</a>). <code>1..2</code> or <code>1.0.2</code> is the number 1.0 followed by the property 2. Example use might be to implement units of measurement, literal version numbers or ranges.</p>
-<p><code>x**y</code>: Where <code>x</code> and <code>y</code> are integers and <code>y</code> is positive, the power operator now gives correct results for all inputs if in range, where previously some precision was lost due to the internal use of floating-point math. Behaviour of overflow is undefined.</p>
+<p>ほとんどの関数はまだヌル終端文字列を想定しているので、最初の2進数のゼロまでしか「見えない」のです。例えば、<a href="lib/MsgBox.htm">MsgBox</a>は、文字列のうち最初の2進数のゼロより前の部分のみを表示します。</p>
+<p><code>*</code>(deref)演算子は削除されました。代わりに<a href="lib/NumGet.htm">NumGet</a>を使用してください。</p>
+<p><code>~</code> (<a href="Variables.htm#unary">bitwise-NOT</a>) 演算子は、常に入力を64ビットの符号付き整数として扱うようになりました。0から4294967295までの値を符号なし32ビットとして扱わなくなりました。</p>
+<p>論理右ビットシフトに<code>&gt;&gt;&gt;</code>と<code>&gt;&gt;&gt;=</code>が追加されました。。</p>
+<p><a href="Variables.htm#fat-arrow">太矢印の関数</a>を追加しました。<code>Fn(Parameters) =&gt; Expression</code>は、<em>Fn</em>という名前の関数（空白でも可）を定義し、<a href="lib/Func.htm">Func</a>またはClosureオブジェクトを返します。呼び出されると、この関数は<em>Expression</em>を評価し、結果を返します。他の関数の内部で使用する場合、<em>Expression</em>は外部関数の変数を参照することができます（これは通常の関数定義でも可能です）。</p>
+<p>ファットアロー構文は、メソッドやプロパティのゲッター/セッターの定義にも使用できます（この場合、メソッド/プロパティの定義自体は式ではなく、その本体が式を返すだけです）。</p>
+<p>メンバーアクセス（ドット）の左側で、リテラルナンバーが完全にサポートされるようになりました。例えば、<code>0.1</code>は数値ですが、<code>0.min</code>と <code>0.1.min</code>は、ベースオブジェクトが扱える<em>min</em>プロパティにアクセスします（「<a href="Objects.htm#primitive">プリミティブ値</a>」参照）。1.<code>.2</code>または<code>1.0.2</code>は、数字 1.0 の後にプロパティ 2 が続く。使用例としては、測定単位、リテラルバージョン番号、範囲などを実装することが考えられる。</p>
+<p><code>x**y</code>:<code>x</code>と <code>y</code>が整数で<code>y</code>が正の場合、以前は内部で浮動小数点演算を使用していたため精度が落ちていましたが、範囲内であればすべての入力に対して正しい結果を与えるようになりました。オーバーフロー時の動作は未定義です。</p>
 <h3 id="objects-misc">Objects (Misc)</h3>
-<p>こちらもご覧ください：<a href="#objects">Objects</a></p>
-<p>There is now a distinction between properties accessed with <code>.</code> and data (items, array or map elements) accessed with <code>[]</code>. For example, <code>dictionary["Count"]</code> can return the definition of "Count" while <code>dictionary.Count</code> returns the number of words contained within. User-defined objects can utilize this by defining an <a href="Objects.htm#__Item">__Item property</a>.</p>
-<p>When the name of a property or method is not known in advance, it can (and must) be accessed by using percent signs. For example, <code>obj.%varname%()</code> is the v2 equivalent of <code>obj[varname]()</code>. The use of <code>[]</code> is reserved for data (such as array elements).</p>
-<p>The literal syntax for constructing an ad hoc object is still basically <code>{name: value}</code>, but since plain objects now only have "properties" and not "array elements", the rules have changed slightly for consistency with how properties are accessed in other contexts:</p>
+<p>こちらもご覧ください：<a href="#objects">オブジェクト</a></p>
+<p><code>.</code>でアクセスするプロパティと、<code>[]</code>でアクセスするデータ（アイテム、配列、マップ要素）は区別されるようになりました。例えば、<code>dictionary["Count"]</code>は "Count"の定義を返し、<code>dictionary.Count</code>は、その中に含まれる単語の数を返すことができる。ユーザー定義オブジェクトは、<a href="Objects.htm#__Item">__Itemプロパティ</a>を定義することでこれを利用することができます。</p>
+<p>プロパティやメソッドの名前が事前にわからない場合、パーセント記号を使ってアクセスすることができる（しなければならない）。例えば、<code>obj.%varname%()</code>は、<code>obj[varname]()</code>と同等のv2です。<code>[]</code>は、データ（配列要素など）に使用します。</p>
+<p>アドホック・オブジェクトを構築するためのリテラル構文は、やはり基本的に<code>{name：value}</code>しかし、プレーンオブジェクトは現在「配列要素」ではなく「プロパティ」しか持たないため、他のコンテキストでプロパティにアクセスする方法との一貫性を保つために、ルールが少し変更されました：</p>
 <ul>
-<li><code>o := {a: b}</code> uses the name "a", as before.</li>
-<li><code>o := {%a%: b}</code> uses the property name in <code>a</code>, instead of taking that as a variable name, performing a double-deref, and using the contents of the resulting variable. In other words, it has the same effect as <code>o := {}, o.%a% := b</code>.</li>
-<li>Any other kind of expression to the left of <code>:</code> is illegal. For instance, <code>{(a): b}</code> or <code>{an error: 1}</code>.</li>
+<li><code>o := {a:b}</code> は、従来通り「a」という名前を使用します。</li>
+<li><code>o := {%a%:b}</code> は、<code>a</code>のプロパティ名を変数名とし、ダブルデフを行い、結果の変数の内容を使用するのではなく、<code>a</code>のプロパティ名を使用します。つまり、<code>o := {}, o.%a% := b</code>と同じ効果を発揮するのです。</li>
+<li>それ以外の<code>:</code>の左側の表現は違法です。例えば、<code>{(a)：b}</code> または<code>{an error:1}</code>.</li>
 </ul>
-<p>The use of the word "base" in <code>base.Method()</code> has been replaced with <a href="Objects.htm#Custom_Classes_super">super</a> (<code>super.Method()</code>) to distinguish the two concepts better:</p>
+<p><code>base.Method()</code>の「base」という言葉の使用は、2つの概念をよりよく区別するために、<a href="Objects.htm#Custom_Classes_super">super</a>（<code>super.Method()</code>）に置き換えられています：</p>
 <ul>
-<li><code>super.</code> or <code>super[</code> calls the super-class version of a method/property, where "super-class" is the base of the prototype object which was originally associated with the current function's definition.</li>
-<li><code>super</code> is a reserved word; attempting to use it without the <code>.</code> or <code>[</code> or <code>(</code> suffix or outside of a class results in a load time error.</li>
-<li><code>base</code> is a pre-defined property which gets or sets the object's immediate base object (like <a href="lib/Any.htm#GetBase">ObjGetBase</a>/<a href="lib/Object.htm#SetBase">ObjSetBase</a>). It is just a normal property name, not reserved.</li>
-<li>Invoking <code>super.x</code> when the superclass has no definition of x throws an error, whereas <code>base.x</code> was previously ignored (even if it was an assignment).</li>
+<li><code>super.</code>または<code>super[</code>は、メソッド/プロパティのスーパークラス版を呼び出します。"super-class"は、現在の関数の定義にもともと関連付けられていたプロトタイプオブジェクトのベースです。</li>
+<li><code>super</code>は予約語です。<code>.</code>または<code>[</code>]または<code>()</code>の接尾辞を付けずに、またはクラスの外で使用しようとすると、ロードタイムエラーになります。</li>
+<li><code>base</code>は、オブジェクトの直接のベース・オブジェクトを取得または設定する事前定義プロパティです（<a href="lib/Object.htm#SetBase">ObjGetBase</a><a href="lib/Any.htm#GetBase">/ObjSetBase</a>のように）。予約ではなく、通常のプロパティ名です。</li>
+<li>スーパークラスにxの定義がない場合に<code>super.x</code>を起動するとエラーが発生しますが、これまでは<code>base.x</code>は無視されていました（たとえそれが代入であっても）。</li>
 </ul>
-<p>Where Fn is an object, <code>Fn()</code> (previously written as <code>%Fn%()</code>) now calls <code>Fn.Call()</code> instead of <code>Fn.()</code> (which can now only be written as <code>Fn.%""%()</code>). Functions no longer support the nameless method.</p>
-<p><code>this.Method()</code> calls <code>Fn.Call(this)</code> (where <em>Fn</em> is the function object which implements the method) instead of <code>Fn[this]()</code> (which in v1, would result in a call to <code>Fn.__Call(this)</code> unless <code>Fn[this]</code> contains a function). Function objects should implement a <em>Call</em> method instead of <em>__Call</em>, which is only for explicit method calls.</p>
-<p><code><i>Classname</i>()</code> (formerly <code>new <i>Classname</i>()</code>) now fails to create the object if the <code>__New</code> method is defined and it could not be called (e.g. because the parameter count is incorrect), or if parameters were passed and <code>__New</code> is not defined.</p>
-<p>Objects created within an expression or returned from a function are now held until expression evaluation is complete, and then released.  This improves performance slightly and allows temporary objects to be used for memory management within an expression, without fear of the objects being freed prematurely.</p>
-<p>Objects can contain string values (but not keys) which contain binary zero. Cloning an object preserves binary data in strings, up to the stored length of the string (not its capacity). Historically, data was written beyond the value's length when dealing with binary data or structs; now, a <a href="lib/Buffer.htm">Buffer</a> object should be used instead.</p>
-<p>Assignment expressions such as <code>x.y := z</code> now always yield the value of <code>z</code>, regardless of how <code>x.y</code> is implemented. The return value of a property setter is now ignored. Previously:</p>
+<p>Fnがオブジェクトの場合、<code>Fn()</code>（以前は<code>%Fn%()</code>と表記）は、<code>Fn.()</code>（現在は<code>Fn.%""%()</code>としか表記できない）の代わりに<code>Fn.Call()</code>を呼ぶようになりました。関数がnamelessメソッドに対応しなくなった。</p>
+<p><code>this.Method()</code>は、<code>Fn[this]()</code>の代わりに<code>Fn.Call(this)</code>（<em>Fn</em>はメソッドを実装した関数オブジェクト）を呼び出します（v1では<code>Fn[this]()</code>に関数が含まれていない限り<code>Fn.__Call(this)</code>を呼び出すことになります）。関数オブジェクトは、明示的なメソッド呼び出しにのみ使用される<em>__Call</em>の代わりに、<em>Call</em>メソッドを実装する必要があります。</p>
+<p><code><i>Classname</i>()</code>（以前の<code>new <i>Classname</i>()</code>）は、<code>__New</code>メソッドが定義されているのに呼び出せなかった場合（例：パラメータ数が不正確なため）、またはパラメータが渡されたのに<code>__New</code>が定義されていない場合、オブジェクトの作成に失敗するようになりました。</p>
+<p>式内で生成されたオブジェクトや関数から返されたオブジェクトは、式の評価が完了するまで保持され、その後解放されるようになりました。これにより、パフォーマンスが若干向上し、オブジェクトが早期に解放される心配がなく、式内のメモリ管理に一時的なオブジェクトを使用することができます。</p>
+<p>オブジェクトには、2進数0を含む文字列値（キーは不可）を含めることができます。オブジェクトのクローンは、文字列のバイナリデータを、保存された文字列の長さまで保存します（容量ではありません）。歴史的には、バイナリデータや構造体を扱う場合、値の長さを超えてデータを書き込んでいましたが、現在では、代わりに<a href="lib/Buffer.htm">Buffer</a>オブジェクトを使用する必要があります。</p>
+<p><code>x.y := z</code>のような代入式は、<code>x.y</code> の実装方法に関係なく、常に<code>z</code> の値を返すようになりました。プロパティセッターの戻り値は無視されるようになりました。以前：</p>
 <ul>
-<li>Some built-in objects returned <code>z</code>, some returned <code>x.y</code> (such as <code>c := GuiObj.BackColor := "red"</code> setting <code>c</code> to <code>0xFF0000</code>), and some returned an incorrect value.</li>
-<li>User-defined property setters may have returned unexpected values or failed to return anything.</li>
+<li>組み込みオブジェクトの中には<code>z</code>を返すもの、<code>x.y</code>を返すもの（<code>c := GuiObj.BackColor := "red"</code>で<code>c</code>を <code>0xFF0000</code>に設定するなど）、不正確な値を返すものがありました。</li>
+<li>ユーザー定義のプロパティセッターが予期せぬ値を返したり、何も返せなかったりした可能性があります。</li>
 </ul>
-<p><code>x.y(z) := v</code> is now a syntax error. It was previously equivalent to <code>x.y[z] := v</code>. In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property)  are two different operations, although they may be equivalent if <code>x</code> is a COM object (due to limitations of the COM interface).</p>
-<p>Concatenating an object with another value or passing it to Loop is currently treated as an error, whereas previously the object was treated as an empty string. This may be changed to implicitly call <code>.ToString()</code>. Use <code>String(x)</code> to convert a value to a string; this calls <code>.ToString()</code> if <code>x</code> is an object.</p>
-<p>When an object is called via IDispatch (the COM interface), any uncaught exceptions which cannot be passed back to the caller will cause an error dialog. (The caller may or may not show an additional error dialog without any specific details.) This also applies to event handlers being called due to the use of <a href="lib/ComObjConnect.htm">ComObjConnect</a>.</p>
+<p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。一般に、<code>x.y(z)</code>（メソッドコール）と<code>x.y[z]</code>（パラメータ化されたプロパティ）は異なる操作ですが、<code>x</code>がCOMオブジェクトの場合は（COMインターフェースの制限により）同等である場合があります。</p>
+<p>オブジェクトを他の値と連結したり、Loopに渡すと、以前は空文字列として扱われていましたが、現在はエラーとして扱われます。これは、暗黙のうちに<code>.ToString()</code>を呼び出すように変更することができる。値を文字列に変換するには<code>String(x)</code>を使用します。<code>x</code>がオブジェクトの場合、<code>.ToString()</code>を呼び出します。</p>
+<p>IDispatch（COMインターフェース）を介してオブジェクトが呼び出された場合、呼び出し元に引き渡せない捕捉できない例外は、エラーダイアログを発生させます。(呼び出し側は、具体的な詳細を伴わない追加のエラーダイアログを表示することも、しないこともあります)。これは、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の使用により呼び出されるイベントハンドラにも適用されます。</p>
 <h3 id="functions">機能紹介</h3>
-<p>Functions can no longer be dynamically called with more parameters than they formally accept.</p>
-<p>Variadic functions are not affected by the above restriction, but normally will create an array each time they are called to hold the surplus parameters. If this array is not needed, the parameter name can now be omitted to prevent it from being created:</p>
+<p>関数が正式に受け付ける以上のパラメータで動的に呼び出すことができなくなりました。</p>
+<p>可変個体関数は上記の制限の影響を受けませんが、通常、呼び出されるたびに配列を作成し、剰余パラメータを保持します。この配列が不要な場合は、パラメータ名を省略できるようになり、作成されないようになりました：</p>
 <pre>AcceptsOneOrMoreArgs(first, *) {
   ...
 }
 </pre>
-<p>This can be used for callbacks where the additional parameters are not needed.</p>
-<p>Variadic function calls now permit any enumerable object, where previously they required a standard Object with sequential numeric keys. If the enumerator returns more than one value per iteration, only the first value is used. For example, <code>Array(mymap*)</code> creates an array containing the keys of <em>mymap</em>.</p>
-<p>Variadic function calls previously had half-baked support for named parameters. This has been disabled, to remove a possible impediment to the proper implementation of named parameters.</p>
-<p>User-defined functions may use the new keyword <code>unset</code> as a parameter default value to make the parameter "unset" when no value was provided. The function can then use IsSet() to determine if a value was provided. <code>unset</code> is currently not permitted in any other context.</p>
-<p>Scripts are no longer automatically included from the function library (Lib) folders when a function call is present without a definition, due to increased complexity and potential for accidents (now that the <code>MyFunc</code> in <code>MyFunc()</code> can be any variable). <code>#Include &lt;LibName&gt;</code> works as before. It may be superseded by module support in a future release.</p>
-<p>Variadic built-in functions now have a <code>MaxParams</code> value equal to <code>MinParams</code>, rather than an arbitrary number (such as 255 or 10000). Use <code>IsVariadic</code> to detect when there is no upper bound.</p>
+<p>これは、追加パラメータが不要なコールバックに使用することができます。</p>
+<p>従来は数値キーが連続する標準的なオブジェクトが必要でしたが、変種関数呼び出しでは、列挙可能なオブジェクトが使用できるようになりました。列挙者が1回の反復で複数の値を返す場合、最初の値のみが使用される。例えば、<code>Array(mymap*)</code>は、<em>mymap</em>のキーを含む配列を作成します。</p>
+<p>変数型関数呼び出しは、以前は名前付きパラメータを中途半端にサポートしていました。これは、名前付きパラメータの適切な実装を妨げる可能性を排除するために、無効化されています。</p>
+<p>ユーザー定義関数は、新しいキーワード<code>unset</code>をパラメータのデフォルト値として使用し、値が提供されていない場合にパラメータを「unset」にすることができます。その後、この関数は IsSet() を使用して、値が提供されたかどうかを判断することができます。<code>unset</code>は現在、他のコンテキストでは許可されていません。</p>
+<p>スクリプトは、関数呼び出しが定義なしで存在する場合、複雑さと事故の可能性のため、関数ライブラリ（Lib）フォルダから自動的に含まれなくなりました（<code>MyFunc()</code>の<code>MyFunc</code>が任意の変数になることができるようになりました）。<code>#Include &lt;LibName&gt;</code>は従来通り動作します。将来のリリースでは、モジュールのサポートに取って代わられる可能性があります。</p>
+<p>可変引数組込関数の<code>MaxParams</code>の値が、任意の数値（255 や 10000 など）ではなく、<code>MinParams</code>と同じになるようになりました。<code>IsVariadic</code>を使用して、上限がないことを検出します。</p>
 <h4 id="byref">ByRef</h4>
-<p><a href="Functions.htm#ByRef">ByRef parameters</a> are now declared using <code>&amp;param</code> instead of <code>ByRef param</code>, with some differences in usage.</p>
-<p>ByRef parameters no longer implicitly take a reference to the caller's variable. Instead, the caller must explicitly pass a reference with the <a href="Variables.htm#ref">reference operator</a> (<code>&amp;var</code>). This allows more flexibility, such as storing references elsewhere, accepting them with a variadic function and passing them on with a variadic call.</p>
-<p>When a parameter is marked ByRef, any attempt to explicitly pass a non-VarRef value causes an error to be thrown. Otherwise, the function can check for a reference with <code>param is VarRef</code>, check if the target variable has a value with <code>IsSetRef(param)</code>, and explicitly dereference it with <code>%param%</code>.</p>
-<p>ByRef parameters are now able to receive a reference to a local variable from a previous instance of the same function, when it is called recursively.</p>
+<p><a href="Functions.htm#ByRef">ByRefパラメータ</a>は、<code>ByRef param</code>の代わりに<code>&amp;param</code>を使用して宣言されるようになり、使い方に若干の違いがあります。</p>
+<p>ByRefパラメータが暗黙のうちに呼び出し元の変数への参照を取ることはなくなりました。その代わり、呼び出し側は<a href="Variables.htm#ref">参照演算子</a>（<code>&amp;var</code>）を使って明示的に参照を渡す必要があります。これにより、参照を別の場所に保存し、バリアド関数で受け入れ、バリアドコールで渡すなど、より柔軟な対応が可能になります。</p>
+<p>パラメータがByRefとマークされている場合、VarRef以外の値を明示的に渡そうとすると、エラーが発生します。それ以外の場合は，<code>param is VarRef</code>で参照を確認し，<code>IsSetRef(param)</code>で対象の変数に値があるかどうかを確認し，<code>%param%</code>で明示的に参照解除することができます．</p>
+<p>ByRefパラメータは、同じ関数が再帰的に呼び出されたときに、前のインスタンスからローカル変数への参照を受け取ることができるようになりました。</p>
 <h3 id="nested-functions">ネストされた関数</h3>
-<p>One function may be defined inside another. A nested function may automatically "capture" non-static local variables from the enclosing function (under the right conditions), allowing them to be used after the enclosing function returns.</p>
-<p>The new "fat arrow" <code>=&gt;</code> operator can also be used to create nested functions.</p>
-<p>For full detail, see <a href="Functions.htm#nested">Nested Functions</a>.</p>
-<h3 id="uncategorized">Uncategorized</h3>
-<p><code>:=</code> must be used in place of <code>=</code> when initializing a declared variable or optional parameter.</p>
-<p><code>return %var%</code> now does a double-deref; previously it was equivalent to <code>return var</code>.</p>
-<p><a href="lib/_Include.htm">#Include</a> is relative to the directory containing the current file by default. Its parameter may now optionally be enclosed in quote marks.</p>
-<p><a href="lib/_ErrorStdOut.htm">#ErrorStdOut</a>'s parameter may now optionally be enclosed in quote marks.</p>
-<p>Label names are now required to consist only of letters, numbers, underscore and non-ASCII characters (the same as variables, functions, etc.).</p>
-<p>Labels defined in a function have local scope; they are visible only inside that function and do not conflict with labels defined elsewhere. It is not possible for local labels to be called externally (even by built-in functions). Nested functions can be used instead, allowing full use of local variables.</p>
+<p>ある関数は、別の関数の内部で定義することができる。ネストされた関数は、（適切な条件下で）包含関数から非静的ローカル変数を自動的に「捕捉」し、包含関数が戻った後に使用できるようにすることができます。</p>
+<p>また、新しい"太矢印"<code>=&gt;</code>演算子を使って、ネストした関数を作成することができます。</p>
+<p>詳しくは、「<a href="Functions.htm#nested">ネストされた関数</a>」をご覧ください。</p>
+<h3 id="uncategorized">未分類（Uncategorized）</h3>
+<p>宣言された変数やオプションのパラメータを初期化する場合は、<code>=</code>の代わりに<code>:=</code> を使用する必要があります。</p>
+<p><code>return %var%</code>が二重参照になりました。以前は<code>return var</code>と同等でした。</p>
+<p><a href="lib/_Include.htm">#Include</a>は、デフォルトでカレントファイルを含むディレクトリからの相対パスとなります。そのパラメータは、オプションで引用符で囲むことができるようになりました。</p>
+<p><a href="lib/_ErrorStdOut.htm">#ErrorStdOut</a>のパラメータを引用符で囲むことができるようになりました（オプション）。</p>
+<p>ラベル名は、文字、数字、アンダースコア、非ASCII文字（変数、関数などと同じ）のみで構成することが求められるようになりました。</p>
+<p>関数内で定義されたラベルはローカルスコープを持ち、その関数内でのみ表示され、他の場所で定義されたラベルと衝突することはありません。ローカルラベルを外部から呼び出すことはできません（組み込み関数でも）。代わりにネストされた関数を使用することで、ローカル変数を完全に使用することができます。</p>
 <p><code>for k, v in obj</code>:</p>
 <ul>
-<li>How the object is invoked has changed. See <em>Enumeration</em>.</li>
-<li><code>for</code> now restores k and v to the values they had before the loop began, after the loop breaks or completes.</li>
-<li>An exception is thrown if <em>obj</em> is not an object or there is a problem retrieving or calling its enumerator.</li>
-<li>Up to 19 variables can be used.</li>
-<li>Variables can be omitted.</li>
+<li>オブジェクトの呼び出し方が変わりました。<em>エニュメレーション</em>を参照してください。</li>
+<li><code>for</code>は、ループが切れたり完了した後、kとvをループ開始前の値に戻すようにしました。</li>
+<li><em>obj</em>がオブジェクトでない場合、またはその列挙体の取得や呼び出しに問題がある場合は、例外が発生します。</li>
+<li>最大19個の変数を使用することができます。</li>
+<li>変数は省略可能です。</li>
 </ul>
-<p>Escaping a comma no longer has any meaning. Previously if used in an expression within a command's parameter and not within parentheses, it forced the comma to be interpreted as the multi-statement operator rather than as a delimiter between parameters. It only worked this way for commands, not functions or variable declarations.</p>
-<p>The escape sequence <code>`s</code> is now allowed wherever <code>`t</code> is supported. It was previously only allowed by #IfWin and (Join.</p>
-<p><code>*/</code> can now be placed at the end of a line to end a multi-line comment, to resolve a common point of confusion relating to how <code>/* */</code> works in other languages. Due to the risk of ambiguity (e.g. with a hotstring ending in <code>*/</code>), any <code>*/</code> which is not preceded by <code>/*</code> is no longer ignored (reversing a change made in AHK_L revision 54).</p>
-<p>Integer constants and numeric strings outside of the supported range (of 64-bit signed integers) now overflow/wrap around, instead of being capped at the min/max value. This is consistent with math operators, so <code>9223372036854775807+1 == 9223372036854775808</code> (but both produce -9223372036854775808). This facilitates bitwise operations on 64-bit values.</p>
-<p>For numeric strings, there are fewer cases where whitespace characters other than space and tab are allowed to precede the number. The general rule (in both v1 and v2) is that only space and tab are permitted, but in some cases other whitespace characters are tolerated due to C runtime library conventions.</p>
-<p><code>else</code> can now be used with <code>loop</code>, <code>for</code>, <code>while</code> and <code>catch</code>. For loops, it is executed if the loop had zero iterations. For <code>catch</code>, it is executed if no exception is thrown within <code>try</code> (and is not executed if any error or value is thrown, even if there is no <code>catch</code> matching the value's class). Consequently, the interpretation of <code>else</code> may differ from previous versions when used without braces. 事例：</p>
+<p>コンマのエスケープには、もはや何の意味もありません。以前は、コマンドのパラメータ内の式で、括弧内ではなくカンマを使用すると、パラメータ間の区切り文字としてではなく、マルチステートメント演算子として解釈されるようになっていました。このように動作するのはコマンドのみで、関数や変数宣言は対象外でした。</p>
+<p>エスケープシーケンス<code>`s</code>は、<code>`t</code>がサポートされている場所であればどこでも許可されるようになりました。これまでは #IfWin と (Join でしか認められていなかった。</p>
+<p><code>*/</code> を行末に置いて複数行のコメントを終了できるようになり、他の言語での <code>/* */</code> の動作に関する共通の混乱点を解決しました。(例えば、<code>*/</code>で終わるホットストリングでは)曖昧さが生じる恐れがあるため、<code>*/</code>の前に<code>/*</code>がないものは無視されるようになりました(AHK_L revision 54での変更点を取り消します)。</p>
+<p>64ビット符号付き整数のサポート範囲外の整数定数や数値文字列は、最小/最大値で上限が設定されるのではなく、オーバーフロー/ラップアラウンドするようになりました。これは数学の演算子と一致しているので、<code>9223372036854775807+1 == 9223372036854775808</code>（ただしどちらも-9223372036854775808が出る）。これにより、64ビット値に対するビット演算が容易になります。</p>
+<p>数値文字列の場合、数字の前にスペースとタブ以外の空白文字が許されるケースは少なくなっています。一般的なルールとして（v1、v2ともに）スペースとタブのみが許可されていますが、Cランタイムライブラリの規約により他の空白文字が許容される場合もあります。</p>
+<p><code>else</code>は <code>loop</code>、<code>for</code>、<code>while</code>、<code>catchと</code>一緒に使えるようになりました。For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <code>catch</code>、<code>try</code>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<code>catch</code>がなくても実行されません）。そのため、<code>else</code>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。事例：</p>
 <pre>if condition
 {
     while condition
-        <em>; statement to execute for each iteration</em>
-}<em>; These braces are now required, otherwise else associates with while</em>
+        <em>; 各繰り返しで実行される ;ステートメント</em>
+}<em>; これらの中括弧は現在必須であり、そうでなければ else は while と関連付けられる。</em>
 else
-    <em>; statement to execute if condition is false</em>
+    <em>; 条件が偽の場合に実行されるステートメント</em>
 </pre>
-<h3 id="continuation-sections">Continuation Sections</h3>
-<p>Smart LTrim: The default behaviour is to count the number of leading spaces or tabs on the first line below the continuation section options, and remove that many spaces or tabs from each line thereafter. If the first line mixes spaces and tabs, only the first type of character is treated as indentation. If any line is indented less than the first line or with the wrong characters, all leading whitespace on that line is left as is.</p>
-<p>Quote marks are automatically escaped (i.e. they are interpreted as literal characters) if the continuation section starts inside a quoted string. This avoids the need to escape quote marks in multi-line strings (if the starting and ending quotes are outside the continuation section) while still allowing multi-line expressions to contain quoted strings.</p>
-<p>If the line above the continuation section ends with a name character and the section does not start inside a quoted string, a single space is automatically inserted to separate the name from the contents of the continuation section. This allows a continuation section to be used for a multi-line expression following <code>return</code>, function call statements, etc. It also ensures variable names are not joined with other tokens (or names), causing invalid expressions.</p>
-<p>Newline characters (<code>`n</code>) in expressions are treated as spaces. This allows multi-line expressions to be written using a continuation section with default options (i.e. omitting <code>Join</code>).</p>
-<p>The <code>,</code> and <code>%</code> options have been removed, since there is no longer any need to escape these characters.</p>
-<p>If <code>(</code> or <code>)</code> appears in the options of a potential continuation section (other than as part of the <code>Join</code> option), the overall line is not interpreted as the start of a continuation section. In other words, lines like <code>(x.y)()</code> and <code>(x=y) &amp;&amp; z()</code> are interpreted as expressions. A multi-line expression can also begin with an open-parenthesis at the start of a line, provided that there is at least one other <code>(</code> or <code>)</code> on the first physical line. For example, the entire expression could be enclosed with <code>((</code> ... <code>))</code>.</p>
-<p>Excluding the above case, if any invalid options are present, a load-time error is displayed instead of ignoring the invalid options.</p>
-<p>Lines starting with <code>(</code> and ending with <code>:</code> are no longer excluded from starting a continuation section on the basis of looking like a label, as <code>(</code> is no longer valid in a label name. This makes it possible for something like <code>(Join:</code> to start a continuation section. However, <code>(:</code> is an error and <code>(::</code> is still a hotkey.</p>
-<p>A new method of line continuation is supported in expressions and function/property definitions which utilizes the fact that each <code>(</code>/<code>[</code>/<code>{</code> must be matched with a corresponding <code>)</code>/<code>]</code>/<code>}</code>. In other words, if a line contains an unclosed <code>(</code>/<code>[</code>/<code>{</code>, it will be joined with subsequent lines until the number of opening and closing symbols balances out. Brace <code>{</code> at the end of a line is considered to be one-true-brace (rather than the start of an object literal) if there are no other unclosed symbols and the brace is not immediately preceded by an operator.</p>
-<h3 id="continuation-lines">Continuation Lines</h3>
-<p>Line continuation is now more selective about the context in which a symbol is considered an expression operator. In general, comma and expression operators can no longer be used for continuation in a textual context, such as with hotstrings or directives (other than #HotIf), or after an unclosed quoted string.</p>
-<p>Line continuation now works for expression operators at the end of a line.</p>
-<p><code>is</code>, <code>in</code> and <code>contains</code> are usable for line continuation, though <code>in</code> and <code>contains</code> are still reserved/not yet implemented as operators.</p>
-<p><code>and</code>, <code>or</code>, <code>is</code>, <code>in</code> and <code>contains</code> act as line continuation operators even if followed by an assignment or other binary operator, since these are no longer valid variable names. By contrast, v1 had exceptions for <code>and</code>/<code>or</code> followed by any of: <code>&lt;&gt;=/|^:,</code></p>
-<p>When <code>.</code> is used for continuation, the two lines are no longer automatically delimited by a space if there was no space or tab to the right of <code>.</code> at the start of a line, as in <code>.VeryLongNestedClassName</code>. Note that <code>x .123</code> is always property access (not auto-concat) and <code>x+.123</code> works with or without space.</p>
-<h3 id="types">Types</h3>
-<p>In general, v2 produces more consistent results with any code that depends on the type of a value.</p>
-<p>In v1, a variable can contain both a string and a cached binary number, which is updated whenever the variable is used as a number.  Since this cached binary number is the only means of detecting the type of value, caching performed internally by expressions like <code>var+1</code> or <code>abs(var)</code> effectively changes the "type" of <code>var</code> as a side-effect. v2 disables this caching, so that <code>str := "123"</code> is always a string and <code>int := 123</code> is always an integer. Consequently, <code>str</code> needs to be converted every time it is used as a number (instead of just the first time), unless it was originally assigned a pure number.</p>
-<p>The built-in "variables" <code>true</code>, <code>false</code>, <code>A_PtrSize</code>, <code>A_IsUnicode</code>, <code>A_Index</code> and <code>A_EventInfo</code> always return pure integers, not strings. They sometimes return strings in v1 due to certain optimizations which have been superseded in v2.</p>
-<p>All literal numbers are converted to pure binary numbers at load time and their string representation is discarded. For example, <code>MsgBox 0x1</code> is equivalent to <code>MsgBox 1</code>, while <code>MsgBox 1.0000</code> is equivalent to <code>MsgBox 1.0</code> (because the float formatting has changed). Storing a number in a variable or returning it from a user-defined function retains its pure numeric status.</p>
-<p>The default format specifier for floating-point numbers is now <code>.17g</code> (was <code>0.6f</code>), which is more compact and more accurate in many cases. The default cannot be changed, but <code>Format</code> can be used to get different formatting.</p>
-<p>Quoted literal strings and strings produced by concatenating with quoted literal strings are no longer unconditionally considered non-numeric. Instead, they are treated the same as strings stored in variables or returned from functions. This has the following implications:</p>
+<h3 id="continuation-sections">継続の部</h3>
+<p>Smart LTrim:デフォルトの動作は、継続セクションオプション以下の最初の行の先頭のスペースまたはタブの数を数え、それ以降の各行からその数のスペースまたはタブを削除することです。最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。</p>
+<p>引用符は、継続部分が引用符で囲まれた文字列の中で始まる場合、自動的にエスケープされます（すなわち、リテラル文字として解釈されます）。これにより、複数行の文字列で引用符をエスケープする必要がなくなり（開始と終了の引用符が継続部分の外にある場合）、かつ複数行の式に引用符付きの文字列を含めることができる。</p>
+<p>継続セクションの上の行が名前文字で終わり、そのセクションが引用文字列の中で始まらない場合、名前と継続セクションの内容を分離するために、1つのスペースが自動的に挿入されます。これにより、<code>return</code>や関数呼び出し文などに続く複数行の表現に、継続セクションを使用することができます。また、変数名が他のトークン（または名前）と結合して無効な式になることがないようにします。</p>
+<p>式中の改行文字（<code>`n</code>）はスペースとして扱われる。これにより、複数行の式を、デフォルトのオプション（<code>Join</code>の省略など）で継続セクションを使って書くことができます。</p>
+<p>これらの文字をエスケープする必要がなくなったため、<code>,</code>と<code>%</code> のオプションは削除されました。</p>
+<p>継続セクションの可能性のあるオプションに（<code>Join</code>オプションの一部以外として）<code>(</code>または<code>)</code>が現れる場合、全体の行は継続セクションの開始として解釈されない。つまり、<code>(x.y)()</code>や<code>(x=y) &amp;&amp; z()</code>のような行は、式として解釈されます。複数行の表現は、最初の物理行に少なくとも1つの他の<code>(</code>または<code>)</code>がある場合に限り、行頭の開括弧で始めることもできる。例えば、式全体を<code>((</code> ... <code>))</code>で囲むことができます。</p>
+<p>上記の場合を除き、無効なオプションが存在する場合、無効なオプションを無視するのではなく、ロードタイムエラーを表示する。</p>
+<p><code>(</code>で始まり、<code>:</code>で終わる行は、<code>(</code>がラベル名として有効でなくなったため、ラベルのように見えることを理由に継続セクションの開始対象から除外されなくなりました。これにより、<code>（Join:</code>のようなものが続き部分を開始することが可能になります。ただし、<code>(:</code>はエラーで、<code>(::</code>はホットキーのままです。</p>
+<p>式や関数・プロパティ定義では、<code>(</code>/<code>[</code>/<code>{</code>は、対応する<code>)</code>/<code>]</code>/<code>}</code>と一致させなければならないという事実を利用した新しい行継続の方法がサポートされています。つまり、ある行に閉じない<code>(</code>/<code>[</code>/<code>{</code> が含まれている場合、開閉記号の数が釣り合うまで、後続の行と結合されます。行末のブレース<code>{</code>は、他に閉じない記号がなく、ブレースの直前に演算子がない場合、（オブジェクトリテラルの開始ではなく）ワントゥルーブレースとみなされます。</p>
+<h3 id="continuation-lines">コンティニュエーションライン</h3>
+<p>行の継続は、記号が式演算子とみなされる文脈について、より選択的になりました。一般に、カンマや式演算子は、ホットストリングやディレクティブ（#HotIf以外）、閉じない引用文字列の後など、テキスト文脈での継続に使用できなくなりました。</p>
+<p>行末の式演算子に対して、行の継続が機能するようになりました。</p>
+<p><code>is</code>, <code>in</code>, <code>contains</code> は行の継続に使えますが、<code>in</code>,<code>contains</code> は演算子としてまだ予約/未実装となっています。</p>
+<p><code>and</code>、<code>or</code>、<code>is</code>、<code>in</code>、<code>contains</code>は、代入や他の二項演算子が続いても、もはや有効な変数名ではないので、行継続演算子として機能します。一方、v1では、<code>and</code>/<code>or</code>の後にany ofが続く場合は例外とした：<code>&lt;&gt;=/|^:,</code></p>
+<p><code>VeryLongNestedClassName</code>のように、行頭で<code>.</code>の右側にスペースやタブがなかった場合、継続に<code>.</code>が使われると、2つの行は自動的にスペースで区切られなくなります。なお、<code>x .123</code>は常にプロパティアクセス（自動連結ではない）、<code>x+.123</code>はスペースの有無にかかわらず動作します。</p>
+<h3 id="types">種類</h3>
+<p>一般的に、値の型に依存するようなコードでは、v2の方がより一貫した結果を得ることができます。</p>
+<p>v1では、変数に文字列とキャッシュされた2進数の両方を含めることができ、変数が数値として使用されるたびに更新される。このキャッシュされた2進数が値の型を検出する唯一の手段であるため、<code>var+1</code>や <code>abs(var)</code>などの式で内部的に行われるキャッシュは、副作用として<code>var</code>の「型」を効果的に変更する。v2はこのキャッシュを無効にするため、<code>str := "123"</code>は常に文字列、<code>int := 123</code>は常に整数になります。そのため、<code>str</code>はもともと純粋な数字が割り当てられている場合を除き、数字として使われるたびに（初回だけでなく）変換する必要がある。</p>
+<p>組み込みの「変数」の<code>true</code>,<code>false</code>,<code>A_PtrSize</code>,<code>A_IsUnicode</code>,<code>A_Index</code>,<code>A_EventInfo</code>は常に純粋な整数を返し、文字列は返しません。v1では特定の最適化により文字列を返すことがありましたが、v2ではそのようなことはありません。</p>
+<p>すべてのリテラル数値は、ロード時に純粋な2進数に変換され、その文字列表現は破棄されます。例えば、<code>MsgBox 0x1</code>は<code>MsgBox 1</code>と同等であり、<code>MsgBox 1.0000</code>は<code>MsgBox 1.0</code>と同等です（フロートのフォーマットが変更されたため）。数値を変数に格納したり、ユーザー定義関数から返したりしても、純粋な数値の状態を維持することができます。</p>
+<p>浮動小数点数のデフォルトのフォーマット指定子が<code>0.17g</code>（<code>0.6f</code>だった）になり、よりコンパクトで多くのケースでより正確になっています。デフォルトは変更できませんが、<code>Format</code>を使用することで異なる書式を得ることができます。</p>
+<p>引用リテラル文字列および引用リテラル文字列を連結した文字列は、無条件に非数値と見なされなくなりました。代わりに、変数に格納された文字列や関数から返された文字列と同じように扱われます。これには次のような意味があります：</p>
 <ul>
-<li>Quoted literal <code>"0"</code> is considered false.</li>
-<li><code>("0xA") + 1</code> and <code>("0x" Chr(65)) + 1</code> produce 11 instead of failing.</li>
-<li><code>x[y:="0"]</code> and <code>x["0"]</code> now behave the same.</li>
+<li>引用されたリテラル<code>"0</code>"は偽とみなされる。</li>
+<li><code>("0xA") + 1</code>と <code>("0x" Chr(65)) + 1</code>は失敗ではなく11を生成します。</li>
+<li><code>x[y:="0"]</code>と<code>x["0"]</code>が同じ挙動になりました。</li>
 </ul>
-<p>The operators <code>=</code> and <code>!=</code> now compare their operands alphabetically if both are strings, even if they are numeric strings. Numeric comparison is still performed when both operands are numeric and at least one operand is a pure number (not a string). So for example, 54 and "530" are compared numerically, while "54" and "530" are compared alphabetically. Additionally, strings stored in variables are treated no differently from literal strings.</p>
-<p>The relational operators <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> and <code>&gt;=</code> now throw an exception if used with a non-numeric string. Previously they compared numerically or alphabetically depending on whether both inputs were numeric, but literal quoted strings were always considered non-numeric. Use <code>StrCompare(a, b, CaseSense)</code> instead.</p>
-<p><code>Type(Value)</code> returns one of the following strings: String, Integer, Float, or the specific class of an object.</p>
-<p><code>Float(v)</code>, <code>Integer(v)</code> and <code>String(v)</code> convert <code>v</code> to the respective type, or throw an exception if the conversion cannot be performed (e.g. <code>Integer("1z")</code>). <code>Number(v)</code> converts to Integer or Float. <code>String</code> calls <code>v.ToString()</code> if <code>v</code> is an object. (Ideally this would be done for any implicit conversion from object to string, but the current implementation makes this difficult.)</p>
+<p>演算子<code>=</code>と<code>!=</code>は、オペランドが文字列の場合はアルファベット順に比較し、数値文字列の場合はアルファベット順に比較するようになりました。数値比較は、両方のオペランドが数値であり、少なくとも1つのオペランドが純粋な数値（文字列ではない）である場合にも実行されます。そのため、例えば54と "530"は数字で比較され、"54"と "530"はアルファベットで比較されます。また、変数に格納された文字列は、リテラル文字列と同じように扱われます。</p>
+<p>関係演算子<code>&lt;</code>,<code>&lt;=</code>,<code>&gt;</code>,<code>&gt;=</code>を数値以外の文字列で使用すると、例外が発生するようになりました。従来は、入力が数値かアルファベットかによって比較されていましたが、リテラル引用文字列は常に非数値とみなされていました。代わりに<code>StrCompare(a, b, CaseSense)</code>を使用してください。</p>
+<p><code>Type(Value)</code>は、以下の文字列のいずれかを返す：String、Integer、Float、またはオブジェクトの特定のクラス。</p>
+<p><code>Float(v)</code>,<code>Integer(v)</code>,<code>String(v) は</code>、<code>v</code>をそれぞれの型に変換し、変換できない場合は例外を投げる（例：<code>Integer("1z")</code>）。<code>Number(v)</code>は、IntegerまたはFloatに変換します。<code>String</code>は、<code>v</code>がオブジェクトである場合、<code>v.ToString()</code>を呼び出します。(理想的には、オブジェクトから文字列への暗黙の変換でも行われるのですが、現在の実装ではこれが困難です)。</p>
 <h2 id="objects">オブジェクト</h2>
-<p>Objects now use a more structured class-prototype approach, separating class/static members from instance members. Many of the built-in methods and Obj functions have been moved, renamed, changed or removed.</p>
+<p>オブジェクトは、より構造化されたクラス-プロトタイプのアプローチを採用し、クラス/静的メンバとインスタンスメンバを分離しています。多くの組み込みメソッドやObj関数が移動、名称変更、変更、削除されています。</p>
 <ul>
-<li>Each user-defined or built-in class is a class object (an instance of <a href="lib/Class.htm">Class</a>) exposing only methods and properties defined with the <code>static</code> keyword (including static members inherited from the base class) and nested classes.</li>
-<li>Each class object has a <a href="lib/Class.htm#Prototype">Prototype</a> property which becomes the <code>base</code> of all instances of that class. All non-static method and property definitions inside the class body are attached to the prototype object.</li>
-<li>Instantiation is performed by calling the static <a href="lib/Class.htm#Call">Call</a> method, as in <code>myClass.Call()</code> or <code>myClass()</code>. This allows the class to fully override construction behaviour (e.g. to implement a class factory or singleton, or to construct a native Array or Map instead of an Object), although initialization should still typically be performed in <code>__New</code>. The return value of <code>__New</code> is now ignored; to override the return value, do so from the Call method.</li>
+<li>ユーザー定義クラスや組み込みクラスは、<code>static</code>キーワードで定義されたメソッドやプロパティ（ベースクラスから継承したstaticメンバを含む）とネストしたクラスのみを公開するクラスオブジェクト（<a href="lib/Class.htm">Class</a>のインスタンス）である。</li>
+<li>各クラスオブジェクトには、そのクラスのすべてのインスタンスの<code>ベース</code>となる<a href="lib/Class.htm#Prototype">Prototype</a>プロパティがあります。クラス本体内の非静的なメソッドやプロパティ定義は、すべてプロトタイプオブジェクトにアタッチされます。</li>
+<li>インスタンス化は、<code>myClass.Call()</code>や<code>myClass()</code>のように、静的な<a href="lib/Class.htm#Call">Call</a>メソッドを呼び出すことで行われる。これにより、クラスの構築動作を完全にオーバーライドすることができます（例えば、クラスファクトリやシングルトンを実装したり、Objectの代わりにネイティブなArrayやMapを構築したりすることができます）。<code>New</code>の戻り値は無視されるようになりました。戻り値をオーバーライドする場合は、Callメソッドから行ってください。</li>
 </ul>
-<p>The mixed Object type has been split into <code>Object</code>, <code>Array</code> and <code>Map</code> (associative array).</p>
-<p>Object is now the root class for all user-defined <strong>and built-in</strong> objects (this excludes VarRef and COM objects). Members added to <code>Object.Prototype</code> are inherited by all AutoHotkey objects.</p>
-<p>The operator <code>is</code> expects a class, so <code>x is y</code> checks for <code>y.Prototype</code> in the base object chain. To check for <code>y</code> itself, call <code>x.HasBase(y)</code> or <code>HasBase(x, y)</code>.</p>
-<p>User-defined classes can also explicitly extend <code>Object</code>, <code>Array</code>, <code>Map</code> or some other built-in class (though doing so is not always useful), with <code>Object</code> being the default base class if none is specified.</p>
-<p>The <code>new</code> operator has been removed. Instead, just omit the operator, as in <code>MyClass()</code>. To construct an object <em>based on</em> another object that is not a class, create it with <code>{}</code> or <code>Object()</code> (or by any other means) and set its <code>base</code>. <code>__Init</code> and <code>__New</code> can be called explicitly if needed, but generally this is only appropriate when instantiating a class.</p>
-<p>Nested class definitions now produce a dynamic property with <em>get</em> and <em>call</em> accessor functions instead of a simple value property. This is to support the following behaviour:</p>
+<p>混在していたObject型は、<code>Object</code>、<code>Array</code>、<code>Map</code>（連想配列）に分割されました。</p>
+<p>Objectは、すべてのユーザー定義<strong>および組み込み</strong>オブジェクトのルートクラスとなりました（VarRefおよびCOMオブジェクトは除きます）。<code>Object.Prototype</code>に追加されたメンバーは、すべてのAutoHotkeyオブジェクトに継承されます。</p>
+<p><code>演算子</code>はクラスを期待するので、<code>xはy</code>は、ベースオブジェクトチェーンで<code>y.Prototype</code>をチェックする。<code>y</code>そのものを確認するには、<code>x.HasBase(y)</code>または<code>HasBase(x, y)</code>を呼び出します。</p>
+<p>ユーザー定義クラスは、<code>Object</code>、<code>Array</code>、<code>Map</code>などの組み込みクラスを明示的に拡張することも可能です（ただし、拡張することが必ずしも有用とは限りません）。</p>
+<p><code>新しい</code>オペレーターは削除されました。代わりに、<code>MyClass()</code>のように演算子を省略するだけです。クラスではない別のオブジェクトを<em>元に</em>オブジェクトを構成するには、<code>{}</code>または<code>Object()</code>で（あるいは他の手段で）作成し、その<code>ベース</code>を設定する。<code>__Init</code>と <code>__New</code>は、必要に応じて明示的に呼び出すことができますが、一般的にはクラスをインスタンス化するときにのみ適切です。</p>
+<p>ネストされたクラス定義は、単純な値プロパティではなく、<em>get</em>および<em>call</em>アクセッサ関数を持つ動的プロパティを生成するようになりました。これは、次のような行動をサポートするためです：</p>
 <ul>
-<li><code>Nested.Class()</code> does not pass <code>Nested</code> to <code>Nested.Class.Call</code> and ultimately <code>__New</code>, which would otherwise happen because this is the normal behaviour for function objects called as methods (which is how the nested class is being used here).</li>
-<li><code>Nested.Class := 1</code> is an error by default (the property is read-only).</li>
-<li>Referring to or calling the class for the first time causes it to be initialized.</li>
+<li><code>Nested.Class()</code>では、<code>Nested</code>を <code>Nested.Class.Call</code>、ひいては<code>__New</code>に渡さない。これは、メソッドとして呼び出される関数オブジェクトの通常の動作である（ここでは、入れ子のクラスはこのように使用されている）。</li>
+<li><code>Nested.Class := 1</code>はデフォルトでエラーとなります（プロパティは読み取り専用です）。</li>
+<li>初めて参照または呼び出すと、クラスが初期化されます。</li>
 </ul>
-<p>GetCapacity and SetCapacity were removed.</p>
+<p>GetCapacityとSetCapacityを削除しました。</p>
 <ul>
-<li><a href="lib/Object.htm#GetCapacity">ObjGetCapacity</a> and <a href="lib/Object.htm#SetCapacity">ObjSetCapacity</a> now only affect the object's capacity to contain properties, and are not expected to be commonly used. Setting the capacity of the string buffer of a property, array element or map element is not supported; for binary data, use a <a href="lib/Buffer.htm">Buffer</a> object.</li>
-<li>Array and Map have a Capacity property which corresponds to the object's current array or map allocation.</li>
+<li><a href="lib/Object.htm#GetCapacity">ObjGetCapacity</a>と <a href="lib/Object.htm#SetCapacity">ObjSetCapacity</a>は、プロパティを含むオブジェクトの容量にのみ影響するようになり、一般的に使用されることはないと予想されます。プロパティ、配列要素、マップ要素の文字列バッファの容量設定には対応していません。バイナリデータの場合は、<a href="lib/Buffer.htm">Buffer</a>オブジェクトを使用してください。</li>
+<li>ArrayとMapには、オブジェクトの現在の配列またはマップの割り当てに対応するCapacityプロパティがあります。</li>
 </ul>
-<p>Other redundant Obj functions (which mirror built-in methods of Object) were removed. <a href="lib/Object.htm#HasOwnProp">ObjHasOwnProp</a> (formerly ObjHasKey) and <a href="lib/Object.htm#OwnProps">ObjOwnProps</a> (formerly ObjNewEnum) are kept to facilitate safe inspection of objects which have redefined those methods (and the primitive prototypes, which don't have them defined). ObjCount was replaced with <a href="lib/Object.htm#OwnPropCount">ObjOwnPropCount</a> (a function only, for all Objects) and Map has its own <a href="lib/Map.htm#Count">Count</a> property.</p>
-<p>ObjRawGet and ObjRawSet were merged into <a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a> and <a href="lib/Object.htm#DefineProp">DefineProp</a>. The original reasons for adding them were superseded by other changes, such as the <code>Map</code> type, changes to how meta-functions work, and DefineProp itself superseding meta-functions for some purposes.</p>
-<p>Top-level class definitions now create a constant (read-only variable); that is, assigning to a class name is now an error rather than an optional warning, except where a local variable shadows the global class (which now occurs by default when assigning inside a function).</p>
+<p>その他、冗長なObj関数（Objectの組み込みメソッドをミラーリングしたもの）を削除しました。<a href="lib/Object.htm#HasOwnProp">ObjHasOwnProp</a>（旧ObjHasKey）と<a href="lib/Object.htm#OwnProps">ObjOwnProps</a>（旧ObjNewEnum）は、これらのメソッドを再定義したオブジェクト（およびそれらが定義されていないプリミティブプロトタイプ）を安全に検査するために保持されています。ObjCountは<a href="lib/Object.htm#OwnPropCount">ObjOwnPropCount</a>（機能のみ、すべてのObjectに対して）に置き換えられ、Mapは独自の<a href="lib/Map.htm#Count">Count</a>プロパティを持ちます。</p>
+<p>ObjRawGetとObjRawSetは、<a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>と <a href="lib/Object.htm#DefineProp">DefineProp</a>に統合された。<code>Map</code>タイプ、メタファンクションの動作方法の変更、DefineProp自体がメタファンクションに取って代わるなど、当初追加した理由は他の変更に取って代わられた。</p>
+<p>つまり、クラス名への代入は、ローカル変数がグローバルクラスの影になる場合（関数内で代入する場合はデフォルトで発生）を除き、オプションの警告ではなく、エラーになるようになりました。</p>
 <h3 id="primitive-values">Primitive Values</h3>
-<p>Primitive values emulate objects by delegating method and property calls to a prototype object based on their type, instead of the v1 "default base object". Integer and Float extend Number. String and Number extend Primitive. Primitive and Object extend Any. These all exist as predefined classes.</p>
-<h3 id="properties-and-methods">Properties and Methods</h3>
-<p>Methods are defined by properties, unlike v2.0-a104 to v2.0-a127, where they are separate to properties. However, unlike v1, properties created by a class method definition (or built-in method) are read-only by default. Methods can still be created by assigning new value properties, which generally act as in v1.</p>
-<p>The Object class defines new methods for dealing with properties and methods: <a href="lib/Object.htm#DefineProp">DefineProp</a>, <a href="lib/Object.htm#DeleteProp">DeleteProp</a>, <a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>, <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>, <a href="lib/Object.htm#OwnProps">OwnProps</a>. Additional methods are defined for all values (except ComObjects): <a href="lib/Any.htm#GetMethod">GetMethod</a>, <a href="lib/Any.htm#HasProp">HasProp</a>, <a href="lib/Any.htm#HasMethod">HasMethod</a>.</p>
-<p>Object, Array and Map are now separate types, and array elements are separate from properties.</p>
-<p>All built-in methods and properties (including <code>base</code>) are defined the same way as if user-defined. This ensures consistent behaviour and permits both built-in and user-defined members to be detected, retrieved or redefined.</p>
-<p>If a property does not accept parameters, they are automatically passed to the object returned by the property (or it throws).</p>
-<p>Attempting to retrieve a non-existent property is treated as an error for all types of values or objects, unless <code>__get</code> is defined. However, setting a non-existent property will create it in most cases.</p>
-<p>Multi-dimension array hacks were removed.  <code>x.y[z]:=1</code> no longer creates an object in <code>x.y</code>, and <code>x[y,z]</code> is an error unless x.__item handles two parameters (or x.__item.__item does, etc.).</p>
-<p>If a property defines <code>get</code> but not <code>set</code>, assigning a value throws instead of overriding the property.</p>
-<p><a href="lib/Object.htm#DefineProp">DefineProp</a> can be used to define what happens when a specific property is retrieved, set <em>or called</em>, without having to define any meta-functions. Property and method definitions in classes utilize the same mechanism, so it is possible to define a property getter/setter and a method with the same name.</p>
-<p><code>{}</code> object literals now directly set <em>own property</em> values or the object's <code>base</code>. That is, <code>__Set</code> and property setters are no longer invoked (which would typically only be possible if <code>base</code> is set within the parameter list).</p>
+<p>プリミティブ値は、v1の「デフォルトのベースオブジェクト」の代わりに、メソッドやプロパティの呼び出しをその型に応じたプロトタイプオブジェクトに委ねることで、オブジェクトを模倣します。IntegerとFloatはNumberを拡張しています。StringとNumberはPrimitiveを継承しています。PrimitiveとObjectはAnyを拡張します。これらはすべて、あらかじめ定義されたクラスとして存在します。</p>
+<h3 id="properties-and-methods">プロパティとメソッド</h3>
+<p>メソッドは、v2.0-a104からv2.0-a127までと異なり、プロパティに分離して定義されています。ただし、v1とは異なり、クラスメソッド定義（または組み込みメソッド）で作成されたプロパティは、デフォルトで読み取り専用となります。メソッドは、一般的にv1のように動作する新しい値プロパティを割り当てることによって、まだ作成することができます。</p>
+<p>Objectクラスは、プロパティとメソッドを扱うための新しいメソッドを定義しています：<a href="lib/Object.htm#DefineProp">DefineProp</a>, <a href="lib/Object.htm#DeleteProp">DeleteProp</a>, <a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>, <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>, <a href="lib/Object.htm#OwnProps">OwnProps</a>. すべての値（ComObjectを除く）に対して、追加のメソッドが定義されています：<a href="lib/Any.htm#GetMethod">GetMethod</a>, <a href="lib/Any.htm#HasProp">HasProp</a>, <a href="lib/Any.htm#HasMethod">HasMethod</a>.</p>
+<p>Object、Array、Mapはそれぞれ別の型となり、配列の要素はプロパティとは別になりました。</p>
+<p>すべての組み込みメソッドとプロパティ（<code>base</code>を含む）は、ユーザー定義と同じ方法で定義されます。これにより、一貫した動作が保証され、組み込みとユーザー定義の両方のメンバーを検出、検索、再定義することができます。</p>
+<p>プロパティがパラメータを受け付けない場合、パラメータは自動的にプロパティが返すオブジェクトに渡されます（または、投げられます）。</p>
+<p>存在しないプロパティを取得しようとすると、<code>__get</code>が定義されていない限り、すべてのタイプの値またはオブジェクトに対してエラーとして扱われる。ただし、存在しないプロパティを設定すると、ほとんどの場合、作成されます。</p>
+<p>多次元配列のハックを削除しました。<code>x.y[z]:=1</code>で<code>x.y</code>にオブジェクトが生成されなくなり、<code>x</code>.__itemが2つのパラメータを扱わない限り（またはx.__item.__itemが扱うなど）<code>x[y,z]</code>はエラーになる。</p>
+<p>プロパティが<code>get</code>を定義し、<code>set</code>を定義していない場合、値を代入すると、プロパティをオーバーライドする代わりにthrowが発生します。</p>
+<p><a href="lib/Object.htm#DefineProp">DefineProp</a>は、メタファンクションを定義することなく、特定のプロパティの取得、設定、<em>または呼び出し</em>時の動作を定義するために使用することができます。クラスのプロパティ定義とメソッド定義は同じ仕組みを利用しているため、プロパティのゲッター/セッターとメソッドを同名で定義することが可能です。</p>
+<p><code>{}</code> オブジェクトリテラルが、<em>所有プロパティ</em>の値やオブジェクトの <code>base</code> を直接設定するようになりました。つまり、<code>__Set</code>やプロパティセッターはもはや呼び出されない（これは通常、パラメータリスト内で<code>base</code>が設定されている場合にのみ可能である）。</p>
 <h3 id="staticclass-variables">Static/Class Variables</h3>
-<p>Static/class variable initializers are now executed within the context of a <code>static __Init</code> method, so <code>this</code> refers to the class and the initializers can create local variables. They are evaluated when the class is referenced for the first time (rather than being evaluated before the auto-execute section begins, strictly in the order of definition). If the class is not referenced sooner, they are evaluated when the class definition is reached during execution, so initialization of global variables can occur first, without putting them into a class.</p>
+<p>静的/クラス変数のイニシャライザーは、<code>静的な__Init</code>メソッドのコンテキスト内で実行されるようになったので、<code>これ</code>はクラスを参照し、イニシャライザーはローカル変数を作成することができます。これらは、クラスが初めて参照されたときに評価されます（自動実行部が始まる前に評価されるのではなく、厳密には定義順に評価されます）。クラスがすぐに参照されない場合は、実行中にクラス定義に到達した時点で評価されるため、グローバル変数の初期化は、クラスに入れずに最初に行うことができます。</p>
 <h3 id="meta-functions">Meta-Functions</h3>
-<p>Meta-functions were greatly simplified; they act like normal methods:</p>
+<p>メタファンクションが大幅に簡略化され、通常のメソッドと同じように動作するようになりました：</p>
 <ul>
-<li>Where they are defined within the hierarchy is not important.</li>
-<li>If overridden, the base version is not called  automatically.  Scripts can call <code>super.__xxx()</code> if needed.</li>
-<li>If defined, it must perform the default action; e.g. if __set does not store the value, it is not stored.</li>
-<li>Behaviour is not dependent on whether the method uses <code>return</code> (but of course, __get and __call still need to return a value).</li>
+<li>階層構造の中でどこに定義されるかは重要ではありません。</li>
+<li>オーバーライドされた場合、ベースバージョンは自動的に呼び出されない。スクリプトは必要に応じて<code>super.__xxx()</code>を呼び出すことができます。</li>
+<li>定義されている場合、デフォルトの動作を行わなければならない。例えば、__setが値を保存しない場合、その値は保存されることはない。</li>
+<li>メソッドが<code>returnを</code>使うかどうかで動作が変わることはありません（もちろん、__getや__callは依然として値を返す必要がありますが）。</li>
 </ul>
-<p>Method and property parameters are passed as an Array. This optimizes for chained base/superclass calls and (in combination with MaxParams validation) encourages authors to handle the args. For __set, the value being assigned is passed separately.</p>
+<p>メソッドやプロパティのパラメータは、Arrayとして渡されます。これは、連鎖するベース/スーパークラスの呼び出しを最適化し、（MaxParamsの検証との組み合わせで）作者に引数を処理することを奨励します。For __setの場合、代入される値は別途渡される。</p>
 <pre><code><div>this.__call(name, args)
 this.__get(name, args)
 this.__set(name, args, value)
 </div></code></pre>
-<p>Defined properties and methods take precedence over meta-functions, regardless of whether they were defined in a base object.</p>
-<p>__Call is not called for internal calls to __Enum (formerly _NewEnum) or Call, such as when an object is passed to a for-loop or a function object is being called by SetTimer.</p>
-<p>The static method __New is called for each class when it is initialized, if defined by that class or inherited from a superclass. See <a href="#staticclass-variables">Static/Class Variables</a> (above) and <a href="Objects.htm#static__New">Class Initialization</a> for more detail.</p>
-<h3 id="array">Array</h3>
-<p><code>class Array extends Object</code></p>
-<p>An Array object contains a list or sequence of values, with index 1 being the first element.</p>
-<p>When assigning or retrieving an array element, the absolute value of the index must be between 1 and the <a href="lib/Array.htm#Length">Length</a> of the array, otherwise an exception is thrown. An array can be resized by inserting or removing elements with the appropriate method, or by assigning <a href="lib/Array.htm#Length">Length</a>.</p>
-<p>Currently brackets are required when accessing elements; i.e. <code>a.1</code> refers to a property and <code>a[1]</code> refers to an element.</p>
-<p>Negative values can be used to index in reverse.</p>
-<p>Usage of <a href="lib/Array.htm#Clone">Clone</a>, <a href="lib/Array.htm#Delete">Delete</a>, <a href="lib/Array.htm#InsertAt">InsertAt</a>, <a href="lib/Array.htm#Pop">Pop</a>, <a href="lib/Array.htm#Push">Push</a> and <a href="lib/Array.htm#RemoveAt">RemoveAt</a> is basically unchanged. HasKey was renamed to <a href="lib/Array.htm#Has">Has</a>. <a href="lib/Array.htm#Length">Length</a> is now a property. The <a href="lib/Array.htm#Capacity">Capacity</a> property was added.</p>
-<p>Arrays can be constructed with <code>Array(values*)</code> or <code>[values*]</code>. Variadic functions receive an Array of parameters, and Arrays are also created by several built-in functions.</p>
-<p>For-loop usage is <code>for val in arr</code> or <code>for idx, val in arr</code>, where <code>idx = A_Index</code> by default. That is, elements lacking a value are still enumerated, and the index is not returned if only one variable is passed.</p>
+<p>定義されたプロパティやメソッドは、ベースオブジェクトで定義されたかどうかにかかわらず、メタファンクションよりも優先される。</p>
+<p>オブジェクトがforループに渡されるときや、SetTimerで関数オブジェクトが呼び出されるときなど、__Enum（旧 _NewEnum）またはCallの内部呼び出しでは__Callは呼び出されません。</p>
+<p>静的メソッド __New は、そのクラスで定義されているか、スーパークラスから継承されている場合、各クラスの初期化時に呼び出されます。詳しくは、<a href="#staticclass-variables">静的/クラス変数</a>（上）、および、<a href="Objects.htm#static__New">クラスの初期化</a>をご覧ください。</p>
+<h3 id="array">配列</h3>
+<p><code>クラス配列のオブジェクト拡張</code></p>
+<p>配列オブジェクトは、インデックス1が最初の要素である値のリストまたはシーケンスを含んでいます。</p>
+<p>配列の要素を代入・取得する場合、インデックスの絶対値が 1 から配列の<a href="lib/Array.htm#Length">Length</a>の間でなければならず、そうでない場合は例外が発生する。配列のサイズは、適切な方法で要素を挿入または削除するか、<a href="lib/Array.htm#Length">Length</a>を代入することで変更することができます。</p>
+<p>現在、要素にアクセスする際には括弧が必要です。例えば、<code>a.1</code>はプロパティを指し、<code>a[1]</code>は要素を指します。</p>
+<p>負の値を使用すると、逆方向のインデックスを作成することができます。</p>
+<p><a href="lib/Array.htm#Clone">Clone</a>、<a href="lib/Array.htm#Delete">Delete</a>、<a href="lib/Array.htm#InsertAt">InsertAt</a>、<a href="lib/Array.htm#Pop">Pop</a>、<a href="lib/Array.htm#Push">Push</a>、<a href="lib/Array.htm#RemoveAt">RemoveAt</a>の使い方は基本的に変わりません。HasKeyは<a href="lib/Array.htm#Has">Has</a>に名称変更されました。<a href="lib/Array.htm#Length">Length</a>がプロパティになりました。<a href="lib/Array.htm#Capacity">Capacity</a>プロパティを追加しました。</p>
+<p>配列は、<code>Array(values*)</code>または<code>[values*]</code>で構築することができます。変数型関数は、パラメータの配列を受け取ります。また、配列はいくつかの組み込み関数でも作成されます。</p>
+<p>For-Loop の使用法は、<code>for val in arr</code>または<code>for idx, val in arr</code>で、デフォルトでは<code>idx = A_Index</code>です。つまり、値がない要素も列挙され、変数が1つしか渡されない場合はインデックスが返されない。</p>
 <h3 id="map">Map</h3>
-<p>A Map object is an associative array with capabilities similar to the v1 Object, but less ambiguity.</p>
+<p>Mapオブジェクトは、v1オブジェクトに似た機能を持つ連想配列ですが、より曖昧さがありません。</p>
 <ul>
-<li><a href="lib/Map.htm#Clone">Clone</a> is used as before.</li>
-<li><a href="lib/Map.htm#Delete">Delete</a> can only delete one key at a time.</li>
-<li>HasKey was renamed to <a href="lib/Map.htm#Has">Has</a>.</li>
-<li><a href="lib/Map.htm#Count">Count</a> is now a property.</li>
-<li>New properties: <a href="lib/Map.htm#Capacity">Capacity</a>, <a href="lib/Map.htm#CaseSense">CaseSense</a></li>
-<li>New methods: <a href="lib/Map.htm#Get">Get</a>, <a href="lib/Map.htm#Set">Set</a>, <a href="lib/Map.htm#Clear">Clear</a></li>
-<li>String keys are case-sensitive by default and are never converted to Integer.</li>
+<li><a href="lib/Map.htm#Clone">Clone</a>は従来通り使用します。</li>
+<li><a href="lib/Map.htm#Delete">Delete</a>は、一度に1つのキーしか削除できません。</li>
+<li>HasKeyは<a href="lib/Map.htm#Has">Has</a>に名称変更されました。</li>
+<li><a href="lib/Map.htm#Count">Count</a>がプロパティになりました。</li>
+<li>新しいプロパティ：<a href="lib/Map.htm#Capacity">Capacity</a>, <a href="lib/Map.htm#CaseSense">CaseSense</a></li>
+<li>新しい手法：<a href="lib/Map.htm#Get">Get</a>, <a href="lib/Map.htm#Set">Set</a>, <a href="lib/Map.htm#Clear">Clear</a></li>
+<li>文字列のキーはデフォルトで大文字と小文字が区別され、Integerに変換されることはない。</li>
 </ul>
-<p>Currently Float keys are still converted to strings.</p>
-<p>Brackets are required when accessing elements; i.e. <code>a.b</code> refers to a property and <code>a["b"]</code> refers to an element. Unlike in v1, a property or method cannot be accidentally disabled by assigning an array element.</p>
-<p>An exception is thrown if one attempts to retrieve the value of an element which does not exist, unless the map has a <a href="lib/Map.htm#Default">Default</a> property defined. <code>MapObj.Get(key, default)</code> can be used to explicitly provide a default value for each request.</p>
-<p>Use <code>Map(Key, Value, ...)</code> to create a map from a list of key-value pairs.</p>
-<h3 id="enumeration">Enumeration</h3>
-<p>Changed enumerator model:</p>
+<p>現在、Floatキーは文字列に変換されたままです。</p>
+<p><code>a.b</code>はプロパティを、<code>a["b"]</code>は要素を意味します。v1とは異なり、配列の要素を代入することで誤ってプロパティやメソッドを無効化することはできない。</p>
+<p>マップに<a href="lib/Map.htm#Default">Default</a>プロパティが定義されていない限り、存在しない要素の値を取得しようとすると例外がスローされる。<code>MapObj.Get(key, default)</code>は、各リクエストに対して明示的にデフォルト値を提供するために使用することができます。</p>
+<p>キーと値のペアのリストからマップを作成するには、<code>Map(Key, Value, ...)</code>を使用します。</p>
+<h3 id="enumeration">列挙</h3>
+<p>列挙者モデルの変更：</p>
 <ul>
-<li>Replaced _NewEnum() with __Enum(n).</li>
-<li>The required parameter n contains the number of variables in the for-loop, to allow it to affect enumeration without having to postpone initialization until the first iteration call.</li>
-<li>Replaced Next() with Call(), with the same usage except that ByRef works differently now; for instance, a method defined as <code>Call(&amp;a)</code> should assign <code>a := next_value</code> while <code>Call(a)</code> would receive a <code>VarRef</code>, so should assign <code>%a% := next_value</code>.</li>
-<li>If __Enum is not present, the object is assumed to be an enumerator. This allows function objects (such as closures) to be used directly.</li>
+<li>NewEnum()を__Enum(n)に置き換えました。</li>
+<li>必須パラメータnには、for-loopの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
+<li>Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は<code>VarRef</code>を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
+<li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされる。これにより、関数オブジェクト（クロージャなど）を直接使用することができます。</li>
 </ul>
-<p>Since array elements and properties are now separate, enumerating properties requires explicitly creating an enumerator by calling <a href="lib/Object.htm#OwnProps">OwnProps</a>.</p>
-<h3 id="bound-functions">Bound Functions</h3>
-<p>When a bound function is called, parameters passed by the caller fill in any positions that were omitted when creating the bound function. For example, <code>F.Bind(,b).Call(a,c)</code> calls <code>F(a,b,c)</code> rather than <code>F(,b,a,c)</code>.</p>
-<h3 id="com-objects-comobject">COM Objects (ComObject)</h3>
-<p>COM wrapper objects now identify as instances of a few different classes depending on their variant type (which affects what methods and properties they support, as before):</p>
+<p>配列要素とプロパティが分離されたため、プロパティの列挙には<a href="lib/Object.htm#OwnProps">OwnProps</a>を呼び出して明示的に列挙者を作成する必要があります。</p>
+<h3 id="bound-functions">バウンド関数</h3>
+<p>バウンドファンクションが呼び出されると、呼び出し元から渡されたパラメータが、バウンドファンクションの作成時に省略された位置を埋める。例えば、<code>F.Bind(,b).Call(a,c)</code>は<code>F(,b,a,c)</code>ではなく<code>F(a,b,c)</code>を呼び出します。</p>
+<h3 id="com-objects-comobject">COMオブジェクト(ComObject)</h3>
+<p>COMラッパーオブジェクトは、バリアントタイプによっていくつかの異なるクラスのインスタンスとして識別されるようになりました（以前のように、どのメソッドとプロパティをサポートするかに影響します）：</p>
 <ul>
-<li><code>ComValue</code> is the base class for all COM wrapper objects.</li>
-<li><code>ComObject</code> is for VT_DISPATCH with a non-null pointer; that is, typically a valid COM object that can be invoked by the script using normal object syntax.</li>
-<li><code>ComObjArray</code> is for VT_ARRAY (SafeArrays).</li>
-<li><code>ComValueRef</code> is for VT_BYREF.</li>
+<li><code>ComValueは</code>、すべてのCOMラッパーオブジェクトの基本クラスです。</li>
+<li><code>ComObject</code>は、VT_DISPATCHの非NULLポインタのためのもので、つまり、通常、通常のオブジェクト構文を使用してスクリプトから呼び出すことができる有効なCOMオブジェクトである。</li>
+<li><code>ComObjArray</code>は、VT_ARRAY(SafeArrays)用です。</li>
+<li><code>ComValueRef</code>は、VT_BYREF用です。</li>
 </ul>
-<p>These classes can be used for type checks with <code>obj is ComObject</code> and similar. Properties and methods can be defined for objects of type ComValue, ComObjArray and ComValueRef (but not ComObject) by modifying the respective prototype object.</p>
-<p><code>ComObject(CLSID)</code> creates a ComObject; i.e. this is the new ComObjCreate.</p>
-<p>注：If you are updating old code and get a TypeError due to passing an Integer to ComObject, it's likely that you should be calling ComValue instead.</p>
-<p><code>ComValue(vt, value)</code> creates a wrapper object. It can return an instance of any of the classes listed above. This replaces <code>ComObjParameter(vt, value)</code>, <code>ComObject(vt, value)</code> and any other names that were used with a <em>variant type</em> and <em>value</em> as parameters. <em>value</em> is converted to the appropriate type (following COM conventions), instead of requiring an integer with the right binary value. In particular, the following behave differently to before when passed an integer: R4, R8, Cy, Date. Pointer types permit either a pure integer address as before, or an object/ComValue.</p>
-<p><code>ComObjFromPtr(pdsp)</code> is a function similar to <code>ComObjEnwrap(dsp)</code>, but like ObjFromPtr, it does not call AddRef on the pointer. The equivalent in v1 is <code>ComObject(9, dsp, 1)</code>; omitting the third parameter in v1 caused an AddRef.</p>
-<p>For both ComValue and ComObjFromPtr, be warned that AddRef is never called automatically; in that respect, they behave like <code>ComObject(9, value, 1)</code> or <code>ComObject(13, value, 1)</code> in v1. This does not necessarily mean you should add <code>ObjAddRef(value)</code> when updating old scripts, as many scripts used the old function incorrectly.</p>
-<p>COM wrapper objects with variant type VT_BYREF, VT_ARRAY or VT_UNKNOWN now have a <code>Ptr</code> property equivalent to <code>ComObjValue(ComObj)</code>. This allows them to be passed to DllCall or ComCall with the <code>Ptr</code> arg type. It also allows the object to be passed directly to NumPut or NumGet, which may be used with VT_BYREF (access the caller's typed variable), VT_ARRAY (access SAFEARRAY fields) or VT_UNKNOWN (retrieve vtable pointer).</p>
-<p>COM wrapper objects with variant type VT_DISPATCH or VT_UNKNOWN and a null interface pointer now have a <code>Ptr</code> property which can be read or assigned. Once assigned a non-null pointer, the property is read-only. This is intended for use with DllCall and ComCall, so the pointer does not need to be manually wrapped after the function returns.</p>
-<p>Enumeration of ComObjArray is now consistent with Array; i.e. <code>for value in arr</code> or <code>for index, value in arr</code> rather than <code>for value, vartype in arr</code>. The starting value for <code>index</code> is the lower bound of the ComObjArray (<code>arr.MinIndex()</code>), typically 0.</p>
-<p>The integer types I1, I8, UI1, UI2, UI4 and UI8 are now converted to Integer rather than String. These occur rarely in COM calls, but this also applies to VT_BYREF wrappers. VT_ERROR is no longer converted to Integer; it instead produces a ComValue.</p>
-<p>COM objects no longer set <a href="Variables.htm#LastError">A_LastError</a> when a property or method invocation fails.</p>
-<h3 id="default-property">Default Property</h3>
-<p>A COM object may have a "default property", which has two uses:</p>
+<p>これらのクラスは、<code>obj が ComObject</code>などのタイプチェックに使用できます。ComValue型、ComObjArray型、ComValueRef型（ComObjectは除く）のオブジェクトは、それぞれのプロトタイプオブジェクトを変更することにより、プロパティとメソッドを定義することができる。</p>
+<p><code>ComObject(CLSID)</code>は、ComObjectを作成します。つまり、これは新しいComObjCreateです。</p>
+<p>注：古いコードを更新しているときに、ComObjectにIntegerを渡したためにTypeErrorが発生した場合、代わりにComValueを呼び出す必要がある可能性があります。</p>
+<p><code>ComValue(vt, value)</code>は、ラッパーオブジェクトを作成します。上記のいずれかのクラスのインスタンスを返すことができます。これは、<code>ComObjParameter(vt, value)</code>、<code>ComObject(vt, value)</code>、およびパラメータとして<em>バリアント型</em>と <em>値</em>を使用していた他の名前を置き換える。<em>値</em>は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。特に、以下のものは整数を渡されたときの挙動が以前と異なる：R4, R8, Cy, Date. ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</p>
+<p><code>ComObjFromPtr(pdsp)</code>は<code>ComObjEnwrap(dsp)</code>と同様の関数ですが、ObjFromPtrのようにポインタに対してAddRefを呼び出すことはしません。v1での同等品は<code>ComObject(9, dsp, 1)</code>です。v1で第3パラメータを省略するとAddRefが発生しました。</p>
+<p>ComValueとComObjFromPtrは、AddRefが自動的に呼び出されることはないので、その点ではv1の<code>ComObject(9, value, 1)</code>や<code>ComObject(13, value, 1)</code>と同じ挙動をすることに注意。これは、古いスクリプトを更新する際に、<code>ObjAddRef(value)</code>を追加する必要があるとは限らず、多くのスクリプトが古い関数を間違って使用していたためです。</p>
+<p>VT_BYREF、VT_ARRAY、VT_UNKNOWNのバリアントタイプを持つCOMラッパーオブジェクトに、<code>ComObjValue(ComObj)</code>と同等の<code>Ptr</code>プロパティが付くようになりました。これにより、DllCallやComCallに<code>Ptr</code>のarg型で渡すことができるようになります。また、VT_BYREF（呼び出し元の型付き変数にアクセス）、VT_ARRAY（SAFEARRAYフィールドにアクセス）、VT_UNKNOWN（vtableポインタを取得）で使用できるNumPutやNumGetにオブジェクトを直接渡すことができます。</p>
+<p>VT_DISPATCHまたはVT_UNKNOWNというバリアントタイプとNULLインターフェイスポインターを持つCOMラッパーオブジェクトが、読み取りまたは割り当て可能な<code>Ptr</code>プロパティを持つようになりました。非NULLポインタが割り当てられると、このプロパティは読み取り専用になります。これはDllCallやComCallでの使用を想定しており、関数が戻った後にポインタを手動でラップする必要がない。</p>
+<p>ComObjArrayの列挙がArrayと一致するようになりました。つまり、<code>for value in arr</code>や<code>for index, value in arr</code>ではなく、<code>for value, vartype in arr</code>です。。<code>index</code>の開始値はComObjArrayの下限値（<code>arr.MinIndex()</code>）であり、通常は0である。</p>
+<p>整数型I1、I8、UI1、UI2、UI4、UI8は、StringではなくIntegerに変換されるようになりました。これらはCOMコールで稀に発生しますが、VT_BYREFラッパーにも適用されます。VT_ERRORはIntegerに変換されなくなり、代わりにComValueが生成されます。</p>
+<p>COMオブジェクトが、プロパティやメソッドの呼び出しに失敗したときに、<a href="Variables.htm#LastError">A_LastError</a>を設定しなくなりました。</p>
+<h3 id="default-property">デフォルトのプロパティ</h3>
+<p>COMオブジェクトは「デフォルト・プロパティ」を持つことができ、これには2つの用途があります：</p>
 <ul>
-<li>The <em>value</em> of the object. For instance, in VBScript, <code>MsgBox obj</code> evaluates the object by invoking its default member.</li>
-<li>The indexed property of a collection, which is usually named <code>Item</code> or <code>item</code>.</li>
+<li>オブジェクトの<em>値</em>です。例えば、VBScriptでは、<code>MsgBox obj</code>は、そのデフォルトのメンバーを呼び出すことによって、オブジェクトを評価します。</li>
+<li>コレクションのインデックス付きプロパティで、通常は<code>Item</code>または<code>item</code>と名付けられる。</li>
 </ul>
-<p>AutoHotkey v1 had no concept of a default property, so the COM object wrapper would invoke the default property if the property name was omitted; i.e. <code>obj[]</code> or <code>obj[,x]</code>.</p>
-<p>However, AutoHotkey v2 separates properties from array/map/collection items, and to do this <code>obj[x]</code> is mapped to the object's default property (whether or not <code>x</code> is present). For AutoHotkey objects, this is <code>__Item</code>.</p>
-<p>Some COM objects which represent arrays or collections do not expose a default property, so items cannot be accessed with <code>[]</code> in v2. For instance, JavaScript array objects and some other objects normally used with JavaScript expose array elements as properties. In such cases, <code>arr.%i%</code> can be used to access an array element-property.</p>
-<p>When an AutoHotkey v2 <code>Array</code> object is passed to JavaScript, its elements cannot be retrieved with JavaScript's <code>arr[i]</code>, because that would attempt to access a property.</p>
-<h3 id="com-calls">COM Calls</h3>
-<p>Calls to AutoHotkey objects via the IDispatch interface now transparently support <code>VT_BYREF</code> parameters. This would most commonly be used with COM events (<a href="lib/ComObjConnect.htm">ComObjConnect</a>).</p>
-<p>For each <code>VT_BYREF</code> parameter, an unnamed temporary var is created, the value is copied from the caller's variable, and a <code>VarRef</code> is passed to the AutoHotkey function/method. Upon return, the value is copied from the temporary var back into the caller's variable.</p>
-<p>A function/method can assign a value by declaring the parameter ByRef (with <code>&amp;</code>) or by explicit dereferencing.</p>
-<p>For example, a parameter of type <code>VT_BYREF|VT_BOOL</code> would previously have received a ComObjRef object, and would be assigned a value like <code>pbCancel[] := true</code> or <code>NumPut(-1, ComObjValue(pbCancel), "short")</code>. Now the parameter can be defined as <code>&amp;bCancel</code> and assigned like <code>bCancel := true</code>; or can be defined as <code>pbCancel</code> and assigned like <code>%pbCancel% := true</code>.</p>
-<h2 id="library">Library</h2>
-<p>Removed:</p>
+<p>AutoHotkey v1にはデフォルトプロパティの概念がなかったため、COMオブジェクトラッパーはプロパティ名が省略された場合、デフォルトプロパティを呼び出していました（例：<code>obj[]</code>または<code>obj[,x]</code>.</p>
+<p>しかし、AutoHotkey v2では、プロパティを配列/マップ/コレクションの項目から分離しており、そのために<code>obj[x]</code>はオブジェクトのデフォルトのプロパティ（<code>x</code>が存在するかどうか）にマッピングされています。AutoHotkeyオブジェクトの場合、これは<code>__Item</code>です。</p>
+<p>配列やコレクションを表すCOMオブジェクトの中には、デフォルトのプロパティを公開していないものがあるため、v2では<code>[]</code>でアイテムにアクセスすることができません。例えば、JavaScriptの配列オブジェクトや、JavaScriptで通常使用される他のいくつかのオブジェクトは、配列要素をプロパティとして公開します。このような場合、<code>arr.%i%</code>は配列の要素-プロパティにアクセスするために使用することができます。</p>
+<p>AutoHotkey v2の<code>Array</code>オブジェクトをJavaScriptに渡すと、プロパティにアクセスしようとするため、JavaScriptの<code>arr[i]</code>でその要素を取得することができない。</p>
+<h3 id="com-calls">COM呼び出し</h3>
+<p>IDispatchインターフェースを介したAutoHotkeyオブジェクトの呼び出しが、<code>VT_BYREF</code>パラメータを透過的にサポートするようになりました。これは、COMイベント（<a href="lib/ComObjConnect.htm">ComObjConnect</a>）で最も一般的に使用されるでしょう。</p>
+<p>各<code>VT_BYREF</code>パラメータに対して、無名の一時的なvarが作成され、値が呼び出し元の変数からコピーされ、<code>VarRef</code>がAutoHotkey関数/メソッドに渡されます。リターン時には、一時的な変数から呼び出し元の変数に値がコピーされます。</p>
+<p>関数/メソッドは、パラメータをByRef（<code>&amp;</code>付き）で宣言するか、明示的に再参照することで、値を割り当てることができます。</p>
+<p>例えば、<code>VT_BYREF|VT_BOOL</code>型のパラメータは、以前はComObjRefオブジェクトを受け取り、<code>pbCancel[] := true</code>または<code>NumPut(-1, ComObjValue(pbCancel), "short")</code>という値が割り当てられたはずです。これで、パラメータを<code>&amp;bCancel</code>と定義して<code>bCancel := true</code>のように代入することも、<code>pbCancel</code>と定義して<code>%pbCancel% := true</code>のように代入することもできるようになりました。</p>
+<h2 id="library">ライブラリ</h2>
+<p>削除：</p>
 <ul>
-<li>Asc() (use <a href="lib/Ord.htm">Ord</a>)</li>
-<li>AutoTrim (use <a href="lib/Trim.htm">Trim</a>)</li>
-<li>ComObjMissing() (write two consecutive commas instead)</li>
-<li>ComObjUnwrap() (use <a href="lib/ComObjValue.htm">ComObjValue</a> instead, and <a href="lib/ObjAddRef.htm">ObjAddRef</a> if needed)</li>
-<li>ComObjEnwrap() (use <a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a> instead, and <a href="lib/ObjAddRef.htm">ObjAddRef</a> if needed)</li>
+<li>Asc() (<a href="lib/Ord.htm">Ord</a>使用)</li>
+<li>AutoTrim（<a href="lib/Trim.htm">Trim</a>使用）</li>
+<li>ComObjMissing()（代わりに2つの連続したカンマを書きます。）</li>
+<li>ComObjUnwrap() (代わりに<a href="lib/ComObjValue.htm">ComObjValue</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用)</li>
+<li>ComObjEnwrap() (代わりに<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用)</li>
 <li>ComObjError()</li>
-<li>ComObjXXX() where XXX is anything other than one of the explicitly defined ComObj functions (use <a href="lib/ComObjActive.htm">ComObjActive</a>, <a href="lib/ComValue.htm">ComValue</a> or <a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a> instead).</li>
-<li>ControlSendRaw (use <code>ControlSend "{Raw}"</code> or <a href="lib/ControlSend.htm">ControlSendText</a> instead)</li>
+<li>ComObjXXX() ここで、XXXは明示的に定義されたComObj関数以外のものです（代わりに<a href="lib/ComObjActive.htm">ComObjActive</a>、<a href="lib/ComValue.htm">ComValue</a>、<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用してください）。</li>
+<li>ControlSendRaw （代わりに<code>ControlSend "{Raw}"</code>または<a href="lib/ControlSend.htm">ControlSendTextを</a>使用します。）</li>
 <li>EnvDiv</li>
 <li>EnvMult</li>
-<li>EnvUpdate (it is of very limited usefulness and can be replaced with a simple <a href="lib/SendMessage.htm">SendMessage</a>)</li>
-<li>Exception (use <a href="lib/Error.htm">Error</a> or an appropriate subclass)</li>
-<li>FileReadLine (use a <a href="lib/LoopFiles.htm">file-reading loop</a> or <a href="lib/FileOpen.htm">FileOpen</a>)</li>
-<li>Func (use a direct reference like <code>MyFunc</code>)</li>
+<li>EnvUpdate（有用性は非常に低く、単純な<a href="lib/SendMessage.htm">SendMessage</a>に置き換えることができます。）</li>
+<li>Exception (<a href="lib/Error.htm">Error</a>または適切なサブクラスを使用)</li>
+<li>FileReadLine（ファイル<a href="lib/LoopFiles.htm">読み込みループ</a>または<a href="lib/FileOpen.htm">FileOpen</a>を使用します。）</li>
+<li>Func (<code>MyFunc</code>のように直接参照を使用する)</li>
 <li>Gosub</li>
-<li>Gui, GuiControl, GuiControlGet (see <a href="#gui">Gui</a>)</li>
+<li>Gui、GuiControl、GuiControlGet（<a href="#gui">Gui</a>の項参照）</li>
 <li>IfEqual</li>
 <li>IfExist</li>
 <li>IfGreater</li>
@@ -392,7 +392,7 @@ this.__set(name, args, value)
 <li>IfInString</li>
 <li>IfLess</li>
 <li>IfLessOrEqual</li>
-<li>IfMsgBox (<a href="lib/MsgBox.htm">MsgBox</a> now returns the button name)</li>
+<li>IfMsgBox (<a href="lib/MsgBox.htm">MsgBox</a>はボタン名を返すようになりました)</li>
 <li>IfNotEqual</li>
 <li>IfNotExist</li>
 <li>IfNotInString</li>
@@ -400,23 +400,23 @@ this.__set(name, args, value)
 <li>IfWinExist</li>
 <li>IfWinNotActive</li>
 <li>IfWinNotExist</li>
-<li>If between/is/in/contains (but see <a href="#isXXX">isXXX</a>)</li>
-<li>Input (use <a href="lib/InputHook.htm">InputHook</a>)</li>
+<li>If between/is/in/contains (ただし、<a href="#isXXX">isXXX</a>を参照)</li>
+<li>Input（<a href="lib/InputHook.htm">InputHookを</a>使用）</li>
 <li>IsFunc</li>
-<li>Menu (use the <a href="lib/Menu.htm">Menu/MenuBar class</a>, <a href="lib/TraySetIcon.htm">TraySetIcon</a>, <a href="Variables.htm#IconTip">A_IconTip</a>, <a href="Variables.htm#IconHidden">A_IconHidden</a> and <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>)</li>
-<li>MenuGetHandle (use <a href="lib/Menu.htm#Handle">Menu.Handle</a>)</li>
-<li>MenuGetName (there are no menu names; <a href="lib/MenuFromHandle.htm">MenuFromHandle</a> is the closest replacement)</li>
-<li>Progress (use <a href="lib/Gui.htm">Gui</a>)</li>
-<li>SendRaw (use <code>Send "{Raw}"</code> or <a href="lib/Send.htm#SendText">SendText</a> instead)</li>
-<li>SetBatchLines (-1 is now the default behaviour)</li>
+<li>Menu（<a href="lib/Menu.htm">Menu/MenuBarクラス</a>、<a href="lib/TraySetIcon.htm">TraySetIcon</a>、<a href="Variables.htm#IconTip">A_IconTip</a>、<a href="Variables.htm#IconHidden">A_IconHidden</a>、<a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>を使用します）。</li>
+<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handleを</a>使用します。）</li>
+<li>MenuGetName（メニュー名がないため、<a href="lib/MenuFromHandle.htm">MenuFromHandle</a>が最も近い代替となる）</li>
+<li>Progress （<a href="lib/Gui.htm">Guiを</a>使用）</li>
+<li>SendRaw （代わりに<code>Send "{Raw}"</code>または<a href="lib/Send.htm#SendText">SendText</a>を使用します。）</li>
+<li>SetBatchLines（-1がデフォルトの動作になりました。）</li>
 <li>SetEnv</li>
-<li>SetFormat (<a href="lib/Format.htm">Format</a> can be used to format a string)</li>
-<li>SoundGet/SoundSet (see <a href="#Sound">Sound functions</a>)</li>
-<li>SoundGetWaveVolume/SoundSetWaveVolume (slightly different behaviour to SoundGet/SoundSet regarding balance, but neither one preserves balance)</li>
-<li>SplashImage (use <a href="lib/Gui.htm">Gui</a>)</li>
-<li>SplashTextOn/Off (use <a href="lib/Gui.htm">Gui</a>)</li>
-<li>StringCaseSense (use various parameters)</li>
-<li>StringGetPos (use <a href="lib/InStr.htm">InStr</a>)</li>
+<li>SetFormat (<a href="lib/Format.htm">Formatは</a>文字列の書式設定に使用できます)</li>
+<li>SoundGet/SoundSet（<a href="#Sound">サウンド機能</a>参照）</li>
+<li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）。</li>
+<li>SplashImage（<a href="lib/Gui.htm">Guiを</a>使用）</li>
+<li>SplashTextOn/Off(<a href="lib/Gui.htm">Gui</a>使用)</li>
+<li>StringCaseSense (各種パラメータを使用)</li>
+<li>StringGetPos（<a href="lib/InStr.htm">InStrを</a>使用します。）</li>
 <li>StringLeft<br>
 
 StringLen<br>
@@ -426,34 +426,33 @@ StringMid<br>
 StringRight<br>
 
 StringTrimLeft<br>
-
-StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these commands.</li>
-<li>StringReplace (use <a href="lib/StrReplace.htm">StrReplace</a> instead)</li>
-<li>StringSplit (use <a href="lib/StrSplit.htm">StrSplit</a> instead)</li>
+StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.htm">SubStr</a>を使用します。</li>
+<li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplaceを</a>使用します。）</li>
+<li>StringSplit（代わりに<a href="lib/StrSplit.htm">StrSplitを</a>使用します。）</li>
 <li>Transform</li>
-<li>VarSetCapacity (use a <a href="lib/Buffer.htm">Buffer</a> object for binary data/structs and <a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a> for UTF-16 strings)</li>
+<li>VarSetCapacity （バイナリデータ/構造体には<a href="lib/Buffer.htm">Buffer</a>オブジェクトを、UTF-16文字列には<a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a>を使用します。）</li>
 <li>WinGetActiveStats</li>
 <li>WinGetActiveTitle</li>
 <li>#CommentFlag</li>
 <li>#Delimiter</li>
 <li>#DerefChar</li>
 <li>#EscapeChar</li>
-<li>#HotkeyInterval (use <a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>)</li>
-<li>#HotkeyModifierTimeout (use <a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>)</li>
-<li>#IfWinActive, #IfWinExist, #IfWinNotActive, #IfWinNotExist (see <a href="lib/_HotIf.htm#optimization">#HotIf Optimization</a>)</li>
-<li>#InstallKeybdHook (use the <a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a> function)</li>
-<li>#InstallMouseHook (use the <a href="lib/InstallMouseHook.htm">InstallMouseHook</a> function)</li>
-<li>#KeyHistory (use <code>KeyHistory N</code>)</li>
+<li>#HotkeyInterval（<a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>を使用）。</li>
+<li>#HotkeyModifierTimeout（<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を使用）。</li>
+<li>#IfWinActive、#IfWinExist、#IfWinNotActive、#IfWinNotExist<a href="lib/_HotIf.htm#optimization">（#HotIf Optimization</a>参照）</li>
+<li>#InstallKeybdHook (<a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a>関数を使用)</li>
+<li>#InstallMouseHook (<a href="lib/InstallMouseHook.htm">InstallMouseHook</a>関数を使用)</li>
+<li>#KeyHistory （<code>KeyHistory Nを</code>使用します。）</li>
 <li>#LTrim</li>
-<li>#MaxHotkeysPerInterval (use <a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>)</li>
-<li>#MaxMem (maximum capacity of each variable is now unlimited)</li>
-<li>#MenuMaskKey (use <a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>)</li>
-<li>#NoEnv (now default behaviour)</li>
+<li>#MaxHotkeysPerInterval （<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を使用します。）</li>
+<li>#MaxMem (各変数の最大容量が無制限になりました)</li>
+<li>#MenuMaskKey （<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を使用します。）</li>
+<li>#NoEnv (現在のデフォルトの動作)</li>
 </ul>
 <p>Renamed:</p>
 <ul>
-<li>ComObjCreate() → <a href="lib/ComObject.htm">ComObject</a>, which is a class now</li>
-<li>ComObjParameter() → <a href="lib/ComValue.htm">ComValue</a>, which is a class now</li>
+<li>ComObjCreate() →<a href="lib/ComObject.htm">ComObject</a>であり、今はクラスになっています。</li>
+<li>ComObjParameter()→<a href="lib/ComValue.htm">ComValue</a>であり、現在はクラスになっています。</li>
 <li>DriveSpaceFree → <a href="lib/DriveGetSpaceFree.htm">DriveGetSpaceFree</a></li>
 <li>EnvAdd → <a href="lib/DateAdd.htm">DateAdd</a></li>
 <li>EnvSub → <a href="lib/DateDiff.htm">DateDiff</a></li>
@@ -473,77 +472,77 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <li>File.__Handle → <a href="lib/File.htm#Handle">File.Handle</a></li>
 </ul>
 <h3 id="removed-details">Removed Commands (Details)</h3>
-<p>See above for the full list.</p>
-<p id="EnvUpdate">EnvUpdate was removed, but can be replaced with a simple call to SendMessage as follows:</p>
+<p>全リストは上記をご参照ください。</p>
+<p id="EnvUpdate">EnvUpdateは削除されましたが、以下のようにSendMessageの単純な呼び出しに置き換えることができます：</p>
 <pre>SendMessage(0x1A, 0, StrPtr("Environment"), 0xFFFF)</pre>
-<p id="StringCaseSense">StringCaseSense was removed, so <code>!=</code> is always case-insensitive (but <code>!==</code> was added for case-sensitive not-equal), and both <code>=</code> and <code>!=</code> only ignore case for ASCII characters. <a href="lib/StrCompare.htm">StrCompare</a> was added for comparing strings using any mode. Various string functions now have a <em>CaseSense</em> parameter which can be used to specify case-sensitivity or the locale mode.</p>
-<h3 id="modified-commandsfunctions">Modified Commands/Functions</h3>
-<p class="note">About the section title: there are no commands in v2, just functions. The title refers to both versions.</p>
-<p><a href="lib/BlockInput.htm">BlockInput</a> is no longer momentarily disabled whenever an Alt event is sent with the SendEvent method. This was originally done to work around a bug in some versions of Windows XP, where BlockInput blocked the artificial Alt event.</p>
-<p><code>Chr(0)</code> returns a string of length 1, containing a binary zero. This is a result of improved support for binary zero in strings.</p>
-<p><a href="lib/ClipWait.htm">ClipWait</a> now returns 0 if the wait period expires, otherwise 1. ErrorLevel was removed. Specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
-<p><code>ComObj()</code>: This function had a sort of wildcard name, allowing many different suffixes. Some names were more commonly used with specific types of parameters, such as <code>ComObjActive(CLSID)</code>, <code>ComObjParameter(vt, value)</code>, <code>ComObjEnwrap(dsp)</code>. There are instead now separate functions/classes, and no more wildcard names. See <a href="#com-objects-comobject">COM Objects (ComObject)</a> for details.</p>
-<p>Control: Several changes have been made to <a href="lib/Control.htm#Parameter">the <em>Control</em> parameter</a> used by the <a href="lib/Control.htm">Control functions</a>, <a href="lib/SendMessage.htm">SendMessage</a> and <a href="lib/PostMessage.htm">PostMessage</a>:</p>
+<p id="StringCaseSense">StringCaseSenseが削除されたため、<code>!=</code>は常に大文字小文字を区別せず（ただし<code>!==</code>は大文字小文字を区別しない非等号のために追加）、<code>=</code>も <code>!=</code>もASCII文字に対してのみ大文字を無視します。任意のモードで文字列を比較できる<a href="lib/StrCompare.htm">StrCompare</a>を追加しました。様々な文字列関数に<em>CaseSense</em>パラメータが追加され、大文字小文字の区別やロケールモードを指定することができるようになりました。</p>
+<h3 id="modified-commandsfunctions">変更されたコマンド/ファンクション</h3>
+<p class="note">セクションタイトルについて：v2にはコマンドはなく、関数だけです。タイトルは両バージョンを指しています。</p>
+<p>SendEventメソッドでAltイベントを送信したときに、<a href="lib/BlockInput.htm">BlockInput</a>が一瞬だけ無効になることがなくなりました。これはもともと、Windows XPの一部のバージョンで、BlockInputが人工的なAltイベントをブロックしてしまうというバグを回避するために行われたものです。</p>
+<p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返す。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>
+<p><a href="lib/ClipWait.htm">ClipWait</a>は、待ち時間が終了した場合は0を、そうでない場合は1を返すようになりました。ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
+<p><code>ComObj()</code>:この機能は、ワイルドカードのような名前で、さまざまな接尾辞をつけることができました。<code>ComObjActive(CLSID)</code>,<code>ComObjParameter(vt, value)</code>,<code>ComObjEnwrap(dsp)</code>のように、特定の種類のパラメータでよく使われる名前もありました。その代わり、関数やクラスが別々になり、ワイルドカードの名前もなくなりました。詳細は「<a href="#com-objects-comobject">COMオブジェクト（ComObject）</a>」を参照してください。</p>
+<p>Control:<a href="lib/Control.htm">Control関数</a><a href="lib/SendMessage.htm">SendMessageと</a> <a href="lib/PostMessage.htm">PostMessageで</a>使用される<a href="lib/Control.htm#Parameter"><em>Control</em>パラメータに</a>いくつかの変更が加えられました：</p>
 <ul>
-<li>It can now accept a HWND (must be a pure integer) or an object with a <code>Hwnd</code> property, such as a <a href="lib/GuiControl.htm">GuiControl</a> object. The HWND can identify a control or a top-level window, though the latter is usually only meaningful for a select few functions (see below).</li>
-<li>It is no longer optional, except with functions which can operate on a top-level window (<a href="lib/ControlSend.htm">ControlSend[Text]</a>, <a href="lib/ControlClick.htm">ControlClick</a>, <a href="lib/SendMessage.htm">SendMessage</a>, <a href="lib/PostMessage.htm">PostMessage</a>) or when preceded by other optional parameters (<a href="lib/ListViewGetContent.htm">ListViewGetContent</a>, <a href="lib/ControlGetPos.htm">ControlGetPos</a>, <a href="lib/ControlMove.htm">ControlMove</a>).</li>
-<li>If omitted, the target window is used instead. This matches the previous behaviour of <a href="lib/SendMessage.htm">SendMessage</a>/<a href="lib/PostMessage.htm">PostMessage</a>, and replaces the <code>ahk_parent</code> special value previously used by <a href="lib/ControlSend.htm">ControlSend</a>.</li>
-<li>Blank values are invalid. Functions never default to the target window's topmost control.</li>
+<li>HWND（純粋な整数でなければならない）または<a href="lib/GuiControl.htm">GuiControl</a>オブジェクトのような<code>Hwnd</code>プロパティを持つオブジェクトを受け取ることができるようになりました。HWNDはコントロールやトップレベルのウィンドウを識別することができますが、後者は通常、一部の機能でしか意味を持ちません（下記参照）。</li>
+<li>ただし、トップレベルウィンドウを操作できる関数<a href="lib/ControlSend.htm">（ControlSend[Text]</a>、<a href="lib/ControlClick.htm">ControlClick</a>、<a href="lib/SendMessage.htm">SendMessage</a>、<a href="lib/PostMessage.htm">PostMessage</a>）、または他のオプションパラメータが先行する場合<a href="lib/ListViewGetContent.htm">（ListViewGetContent</a>、<a href="lib/ControlGetPos.htm">ControlGetPos</a>、<a href="lib/ControlMove.htm">ControlMove</a>）は除きます。</li>
+<li>省略された場合、代わりにターゲットウィンドウが使用されます。これは、以前の<a href="lib/SendMessage.htm">SendMessage</a><a href="lib/PostMessage.htm">/</a><a href="lib/SendMessage.htm">PostMessage</a>の動作と一致し、<a href="lib/ControlSend.htm">ControlSend</a>で以前使用されていた<code>ahk_parent</code>特殊値を置き換えます。</li>
+<li>空白の値は無効です。関数のデフォルトがターゲットウィンドウの最上位コントロールになることはありません。</li>
 </ul>
-<p><a href="lib/ControlGetFocus.htm">ControlGetFocus</a> now returns the control's HWND instead of its ClassNN, and no longer considers there to be an error when it has successfully determined that the window has no focused control.</p>
-<p><a href="lib/ControlMove.htm">ControlMove</a>, <a href="lib/ControlGetPos.htm">ControlGetPos</a> and <a href="lib/ControlClick.htm">ControlClick</a> now use client coordinates (like <a href="lib/GuiControl.htm">GuiControl</a>) instead of window coordinates. Client coordinates are relative to the top-left of the client area, which excludes the window's title bar and borders. (Controls are rendered only inside the client area.)</p>
-<p><a href="lib/ControlMove.htm">ControlMove</a>, <a href="lib/ControlSend.htm">ControlSend</a> and <a href="lib/ControlSetText.htm">ControlSetText</a> now use parameter order consistent with the other Control functions; i.e. <em><strong>Control</strong>, WinTitle, WinText, ExcludeTitle, ExcludeText</em> are always grouped together (at the end of the parameter list), to aide memorisation.</p>
-<p><a href="lib/CoordMode.htm">CoordMode</a> no longer accepts "Relative" as a mode, since all modes are relative to something. It was synonymous with "Window", so use that instead.</p>
-<p><a href="lib/DllCall.htm">DllCall</a>: See <a href="#dllcall">DllCall</a> section further below.</p>
-<p><a href="lib/Edit.htm">Edit</a> previously had fallback behaviour for the <code>.ini</code> file type if the "edit" shell verb was not registered. This was removed as script files are not expected to have the <code>.ini</code> extension. <code>AutoHotkey.ini</code> was the default script name in old versions of AutoHotkey.</p>
-<p><a href="lib/Edit.htm">Edit</a> now does nothing if the script was read from stdin, instead of attempting to open an editor for <code>*</code>.</p>
-<p><a href="lib/EnvSet.htm">EnvSet</a> now deletes the environment variable if the value parameter is completely omitted.</p>
-<p><a href="lib/Exit.htm">Exit</a> previously acted as <a href="lib/ExitApp.htm">ExitApp</a> when the script is not persistent, even if there were other suspended threads interrupted by the thread which called Exit. It no longer does this. Instead, it always exits the current thread properly, and (if non-persistent) the script terminates only after the last thread exits. This ensures <code>finally</code> statements are executed and local variables are freed, which may allow <code>__delete</code> to be called for any objects contained by local variables.</p>
-<p><a href="lib/FileAppend.htm">FileAppend</a> defaults to no end-of-line translations, consistent with <a href="lib/FileRead.htm">FileRead</a> and <a href="lib/FileOpen.htm">FileOpen</a>. FileAppend and FileRead both have a separate <em>Options</em> parameter which replaces the option prefixes and may include an optional encoding name (superseding FileRead's <code>*Pnnn</code> option). FileAppend, FileRead and FileOpen use <code>"`n"</code> to enable end-of-line translations. FileAppend and FileRead support an option <code>"RAW"</code> to disable codepage conversion (read/write binary data); FileRead returns a <code>Buffer</code> object in this case. This replaces <code>*c</code> (see ClipboardAll in the documentation). FileAppend may accept a <code>Buffer</code>-like object, in which case no conversions are performed.</p>
-<p><a href="lib/FileCopy.htm">FileCopy</a> and <a href="lib/FileMove.htm">FileMove</a> now throw an exception if the source path does not contain <code>*</code> or <code>?</code> and no file was not found. However, it is still not considered an error to copy or move zero files when the source path contains wildcards.</p>
-<p><a href="lib/FileOpen.htm">FileOpen</a> now throws an exception if it fails to open the file. Otherwise, an exception would be thrown (if the script didn't check for failure) by the first attempt to access the object, rather than at the actual point of failure.</p>
-<p><a href="lib/File.htm#RawRead">File.RawRead</a>: When a variable is passed directly, the address of the variable's internal string buffer is no longer used. Therefore, a variable containing an address may be passed directly (whereas in v1, something like <code>var+0</code> was necessary).</p>
-<p>For buffers allocated by the script, the new <code>Buffer</code> object is preferred over a variable; any object can be used, but must have <code>Ptr</code> and <code>Size</code> properties.</p>
-<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>: As above, except that it can accept a string (or variable containing a string), in which case <em>Bytes</em> defaults to the size of the string in bytes. The string may contain binary zero.</p>
-<p><a href="lib/File.htm#ReadLine">File.ReadLine</a> now always supports <code>`r</code>, <code>`n</code> and <code>`r`n</code> as line endings, and no longer includes the line ending in the return value. Line endings are still returned to the script as-is by <a href="lib/File.htm#Read">File.Read</a> if EOL translation is not enabled.</p>
-<p><a href="lib/FileEncoding.htm">FileEncoding</a> now allows code pages to be specified by number without the <code>CP</code> prefix. Its parameter is no longer optional, but can still be explicitly blank.</p>
-<p><a href="lib/FileExist.htm">FileExist</a> now ignores the <code>.</code> and <code>..</code> implied in every directory listing, so <code>FileExist("dir\*")</code> is now false instead of true when dir exists but is empty.</p>
-<p><a href="lib/FileGetAttrib.htm">FileGetAttrib</a> and A_LoopFileAttrib now include the letter "L" for reparse points or symbolic links.</p>
-<p><a href="lib/FileInstall.htm">FileInstall</a> in a non-compiled script no longer attempts to copy the file if source and destination are the same path (after resolving relative paths, as the source is relative to <a href="Variables.htm#ScriptDir">A_ScriptDir</a>, not <a href="Variables.htm#WorkingDir">A_WorkingDir</a>). In v1 this caused ErrorLevel to be set to 1, which mostly went unnoticed. Attempting to copy a file onto itself via two different paths still causes an error.</p>
-<p>FileSelectFile (now named <a href="lib/FileSelect.htm">FileSelect</a>) had two multi-select modes, accessible via options 4 and M. Option 4 and the corresponding mode have been removed; they had been undocumented for some time. FileSelect now returns an Array of paths when the multi-select mode is used, instead of a string like <code>C:\Dir`nFile1`nFile2</code>. Each array element contains the full path of a file. If the user cancels, the array is empty.</p>
-<p>FileSelect now uses the IFileDialog API present in Windows Vista and later, instead of the old GetOpenFileName/GetSaveFileName API. This removes the need for (built-in) workarounds relating to the dialog changing the current working directory.</p>
-<p>FileSelect no longer has a redundant "Text Documents (*.txt)" filter by default when <em>Filter</em> is omitted.</p>
-<p>FileSelect no longer strips spaces from the filter pattern, such as for <code>pattern with spaces*.ext</code>. Testing indicates spaces on either side of the pattern (such as after the semi-colon in <code>*.cpp; *.h</code>) are already ignored by the OS, so there should be no negative consequences.</p>
-<p>FileSelect can now be used in "Select Folder" mode via the <code>D</code> option letter.</p>
-<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a> now overwrites attributes when no +, - or ^ prefix is present, instead of doing nothing. For example, <code>FileSetAttrib(FileGetAttrib(file2), file1)</code> copies the attributes of file2 to file1 (adding any that file2 have and removing any that it does not have).</p>
-<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a> and <a href="lib/FileSetTime.htm">FileSetTime</a>: the <em>OperateOnFolders?</em> and <em>Recurse?</em> parameters have been replaced with a single <em>Mode</em> parameter identical to that of <a href="lib/LoopFiles.htm">Loop Files</a>. For example, <code>FileSetAttrib("+a", "*.zip", "RF")</code> (Recursively operate on Files only).</p>
-<p><a href="lib/GetKeyName.htm">GetKeyName</a> now returns the non-Numpad names for VK codes that correspond to both a Numpad and a non-Numpad key. For instance, <code>GetKeyName("vk25")</code> returns Left instead of NumpadLeft.</p>
-<p><a href="lib/GetKeyState.htm">GetKeyState</a> now always returns 0 or 1.</p>
-<p><a href="lib/GroupActivate.htm">GroupActivate</a> now returns the HWND of the window which was selected for activation, or 0 if there were no matches (aside from the already-active window), instead of setting ErrorLevel.</p>
-<p><a href="lib/GroupAdd.htm">GroupAdd</a>: Removed the <em>Label</em> parameter and related functionality. This was an unintuitive way to detect when GroupActivate fails to find any matching windows; GroupActivate's return value should be used instead.</p>
-<p><a href="lib/GroupDeactivate.htm">GroupDeactivate</a> now selects windows in a manner closer to the <kbd>Alt</kbd>+<kbd>Esc</kbd> and <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> system hotkeys and the taskbar. Specifically,</p>
+<p><a href="lib/ControlGetFocus.htm">ControlGetFocus</a>は、ClassNNの代わりにコントロールのHWNDを返すようになり、ウィンドウにフォーカスされたコントロールがないことを正常に判断した場合、エラーがあると見なされなくなりました。</p>
+<p><a href="lib/ControlMove.htm">ControlMove</a>、<a href="lib/ControlGetPos.htm">ControlGetPos</a>、<a href="lib/ControlClick.htm">ControlClick</a>で、ウィンドウ座標の代わりにクライアント座標（<a href="lib/GuiControl.htm">GuiControl</a>のような）を使用するようになりました。クライアント座標は、ウィンドウのタイトルバーとボーダーを除いたクライアント領域の左上からの相対値です。(コントロールはクライアントエリア内でのみレンダリングされます)。</p>
+<p><a href="lib/ControlMove.htm">ControlMove</a>、<a href="lib/ControlSend.htm">ControlSend</a>、<a href="lib/ControlSetText.htm">ControlSetText</a>は、他のControl関数と同様にパラメータの順序を使用するようになりました。つまり、<em><strong>Control</strong>、WinTitle、WinText、ExcludeTitle、ExcludeText</em>は、常に一緒に（パラメータリストの最後に）まとめられ、記憶しやすくなっています。</p>
+<p>すべてのモードは何かに対して相対的であるため、<a href="lib/CoordMode.htm">CoordMode</a>はモードとして "Relative"を受け付けなくなりました。"Window"と同義語だったので、代わりにそちらを使ってください。</p>
+<p><a href="lib/DllCall.htm">DllCall</a>:後述の<a href="#dllcall">DllCallの</a>項を参照。</p>
+<p><a href="lib/Edit.htm">Edit</a>は、シェル動詞 "edit "が登録されていない場合、<code>.ini</code>ファイルタイプに対してフォールバック動作をしていました。スクリプトファイルには<code>.ini</code>という拡張子は期待できないため、これを削除しました。<code>AutoHotkey.ini</code>は、AutoHotkeyの古いバージョンではデフォルトのスクリプト名でした。</p>
+<p><a href="lib/Edit.htm">Edit</a>は、スクリプトがstdinから読み込まれた場合、<code>*</code>のためのエディタを開こうとするのではなく、何もしないようになりました。</p>
+<p><a href="lib/EnvSet.htm">EnvSet</a>で、valueパラメータが完全に省略された場合、環境変数を削除するようになりました。</p>
+<p><a href="lib/Exit.htm">Exit</a>は、これまで、スクリプトが永続的でない場合、Exitを呼び出したスレッドによって中断された他のスレッドがあったとしても、<a href="lib/ExitApp.htm">ExitApp</a>として動作していました。もはや、これ以上ないほどです。その代わり、常に現在のスレッドを適切に終了させ、（非永続的な場合）最後のスレッドが終了した後にのみスクリプトを終了させます。これにより、<code>finally</code>文が実行され、ローカル変数が解放され、ローカル変数に含まれるオブジェクトに対して<code>__delete</code>が呼び出される可能性があります。</p>
+<p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppendとFileReadは、コードページ変換（バイナリデータの読み書き）を無効にするオプション<code>"RAW"</code>をサポートしています。これは<code>*c</code>（ドキュメントのClipboardAllを参照）を置き換えるものです。FileAppend は<code>Buffer-like</code>オブジェクトを受け取ることができ、その場合、変換は行われない。</p>
+<p><a href="lib/FileCopy.htm">FileCopy</a>と<a href="lib/FileMove.htm">FileMove</a>で、コピー元のパスに<code>*</code>または<code>?</code>がなく、ファイルが見つからなかった場合に例外が発生するようになりました。ただし、ソースパスにワイルドカードが含まれている場合、0個のファイルをコピーまたは移動することは、依然としてエラーとはみなされません。</p>
+<p><a href="lib/FileOpen.htm">FileOpen</a>がファイルを開くのに失敗した場合、例外を投げるようになりました。そうでなければ、実際の障害発生箇所ではなく、オブジェクトに最初にアクセスしようとしたときに例外が発生します（スクリプトが障害をチェックしない場合）。</p>
+<p><a href="lib/File.htm#RawRead">File.RawRead</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。</p>
+<p>スクリプトによって割り当てられたバッファの場合、変数よりも新しい<code>Buffer</code>オブジェクトが優先されます。任意のオブジェクトを使用できますが、<code>Ptr</code>と <code>Size</code>プロパティを持つ必要があります。</p>
+<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>:ただし、文字列（または文字列を含む変数）を受け取ることができ、その場合、<em>Bytes</em>は文字列のサイズ（バイト）をデフォルトとします。文字列には2進数のゼロを含むことができる。</p>
+<p><a href="lib/File.htm#ReadLine">File.ReadLine</a>が常に行末として<code>`r</code>、<code>`n</code>、<code>`r`n</code>をサポートするようになり、行末を戻り値に含めないようになりました。EOL変換が有効でない場合、<a href="lib/File.htm#Read">File.Read</a>によって行末がそのままスクリプトに返されます。</p>
+<p><a href="lib/FileEncoding.htm">FileEncoding</a>で、コードページを<code>CP</code>プレフィックスなしで番号で指定できるようになりました。そのパラメータはもはやオプションではありませんが、まだ明示的に空白にすることができます。</p>
+<p><a href="lib/FileExist.htm">FileExist</a>は、すべてのディレクトリリストに含まれる<code>.</code>と<code>.</code>を無視するようになったので、dirが存在するが空である場合、<code>FileExist("dir*")</code>は真ではなく偽になりました。</p>
+<p><a href="lib/FileGetAttrib.htm">FileGetAttrib</a>とA_LoopFileAttribに、リパースポイントやシンボリックリンクを表す「L」の文字が含まれるようになりました。</p>
+<p>コンパイルされていないスクリプトの <a href="lib/FileInstall.htm">FileInstall</a> は、コピー元とコピー先が同じパスの場合、ファイルをコピーしようとしなくなりました（相対パスを解決した後、コピー元が <a href="Variables.htm#WorkingDir">A_WorkingDir</a> ではなく <a href="Variables.htm#ScriptDir">A_ScriptDir</a> への相対パスになっていたため）。v1ではErrorLevelが1に設定されていましたが、これはほとんど気づかれませんでした。2つの異なるパスでファイルを自分自身にコピーしようとすると、やはりエラーになります。</p>
+<p>FileSelectFile（現在は<a href="lib/FileSelect.htm">FileSelect</a>という名前）には、オプション4とMでアクセスできる2つのマルチセレクトモードがありました。オプション4と対応するモードは削除され、しばらくは文書化されていませんでした。FileSelectでマルチセレクトモードを使用した場合、<code>C:⇄Dir⇄File1⇄File2</code>のような文字列ではなく、パスのArrayを返すようになりました。各配列要素には、ファイルのフルパスが含まれます。ユーザーがキャンセルした場合は、配列は空になります。</p>
+<p>FileSelectは、従来のGetOpenFileName/GetSaveFileName APIに代わり、Windows Vista以降に存在するIFileDialog APIを使用するようになりました。これにより、ダイアログがカレントワーキングディレクトリを変更することに関連する（ビルトインの）回避策が不要になります。</p>
+<p><em>Filter</em>が省略された場合、FileSelectはデフォルトで "Text Documents (*.txt)"という冗長なフィルターを持たないようになりました。</p>
+<p>FileSelectで、<code>スペース*.extを含むパターン</code>のようなフィルターパターンからスペースを取り除かなくなりました。テストでは、パターンの両側にあるスペース（<code>*.cpp; *.h</code>のセミコロンの後など）は、すでにOSによって無視されているので、悪影響はないはずです。</p>
+<p><code>D</code>オプション文字による「フォルダ選択」モードでFileSelectを使用できるようになりました。</p>
+<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a>は、+、-、^ のプレフィックスが存在しない場合、何もしないのではなく、属性を上書きするようになりました。例えば、<code>FileSetAttrib(FileGetAttrib(file2), file1)</code>は、file2の属性をfile1にコピーします（file2が持っているものは追加し、持っていないものは削除します）。</p>
+<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a>と <a href="lib/FileSetTime.htm">FileSetTime</a>です：<em>OperateOnFolders?</em>と<em>Recurse?</em>のパラメータは、<a href="lib/LoopFiles.htm">Loop Files</a>と同じ1つの<em>Mode</em>パラメータに置き換えられました。例えば、<code>FileSetAttrib("+a", "*.zip", "RF")</code>(Fileのみに対して再帰的に操作)。</p>
+<p>NumpadキーとNumpad以外のキーの両方に対応するVKコードのNumpad以外の名前を<a href="lib/GetKeyName.htm">GetKeyName</a>で返すようにしました。例えば、<code>GetKeyName("vk25")</code>は、NumpadLeftの代わりにLeftを返します。</p>
+<p><a href="lib/GetKeyState.htm">GetKeyState</a>が常に 0 または 1 を返すようになりました。</p>
+<p><a href="lib/GroupActivate.htm">GroupActivate</a>は、ErrorLevelを設定する代わりに、アクティブ化のために選択されたウィンドウのHWND、または（すでにアクティブなウィンドウを除いて）一致しなかった場合は0を返すようになりました。</p>
+<p><a href="lib/GroupAdd.htm">GroupAdd</a>:<em>Label</em>パラメータと関連する機能を削除しました。これは、GroupActivateが一致するウィンドウを見つけられなかった場合に検出するための直感的でない方法でした。GroupActivateの戻り値を代わりに使用する必要があります。</p>
+<p><a href="lib/GroupDeactivate.htm">GroupDeactivate</a>は、<kbd>Alt</kbd>+<kbd>Esc</kbd>および<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>システム ホットキーとタスク バーに近い方法でウィンドウが選択されるようになりました。具体的には以下です。</p>
 <ul>
-<li>Owned windows are not evaluated. If the owner window is eligible (not a match for the group), either the owner window or one of its owned windows is activated; whichever was active last. A window owned by a group member will no longer be activated, but adding the owned window itself to the group now has no effect. (The previous behaviour was to cycle through every owned window and never activate the owner.)</li>
-<li>Any disabled window is skipped, unless one of its owned windows was active more recently than it.</li>
-<li>Windows with the WS_EX_NOACTIVATE style are skipped, since they are probably not supposed to be activated. They are also skipped by the <kbd>Alt</kbd>+<kbd>Esc</kbd> and <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> system hotkeys.</li>
-<li>Windows with WS_EX_TOOLWINDOW but not WS_EX_APPWINDOW are omitted from the taskbar and Alt-Tab, and are therefore skipped.</li>
+<li>所有するウィンドウは評価対象外です。オーナーウィンドウが適格（グループと一致しない）である場合、オーナーウィンドウまたはその所有ウィンドウのいずれか、最後にアクティブだった方をアクティブにします。グループメンバーが所有するウィンドウはアクティブにならなくなりますが、所有するウィンドウ自体をグループに追加しても効果はありません。(以前の動作は、所有するすべてのウィンドウを循環させ、所有者を起動させることはありませんでした)。</li>
+<li>無効化されたウィンドウは、その所有するウィンドウがそれよりも最近アクティブであった場合を除き、スキップされる。</li>
+<li>WS_EX_NOACTIVATE スタイルを持つウィンドウは、おそらくアクティベートされることを想定していないため、スキップされます。また、<kbd>Alt</kbd>+<kbd>Esc</kbd>と<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーでもスキップされる。</li>
+<li>WS_EX_TOOLWINDOW を持ち、WS_EX_APPWINDOW を持たないウィンドウは、タスクバーと Alt-Tab から省略され、スキップされます。</li>
 </ul>
-<p><a href="lib/Hotkey.htm">Hotkey</a> no longer defaults to the script's bottommost <a href="lib/_HotIf.htm">#HotIf</a> (formerly #If).  Hotkey/hotstring and HotIf threads default to the same criterion as the hotkey, so <code>Hotkey A_ThisHotkey, "Off"</code> turns off the current hotkey even if it is context-sensitive. All other threads default to the last setting used by the auto-execute section, which itself defaults to no criterion (global hotkeys).</p>
-<p><a href="lib/Hotkey.htm">Hotkey</a>'s <em>Callback</em> parameter now requires a function object or hotkey name. Labels and function names are no longer supported. If a hotkey name is specified, the original function of that hotkey is used; and unlike before, this works with <a href="lib/_HotIf.htm">#HotIf</a> (formerly #If).</p>
+<p><a href="lib/Hotkey.htm">ホットキー</a>のデフォルトが、スクリプトの一番下の<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）にならないようになりました。Hotkey/HotstringおよびHotIfスレッドのデフォルトは、ホットキーと同じ基準なので、<code>Hotkey A_ThisHotkey,"Off"</code>は、現在のホットキーがコンテキスト依存であってもオフにします。他のすべてのスレッドは、自動実行セクションで使用される最後の設定がデフォルトで、それ自体は基準なしがデフォルトです（グローバルホットキー）。</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>の<em>Callback</em>パラメータに、関数オブジェクトまたはホットキー名を指定するようになりました。ラベルや関数名はサポートされなくなりました。ホットキー名が指定されている場合は、そのホットキーの本来の機能が使用されます。また、以前とは異なり、<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）とも連動します。</p>
 <ul>
-<li>Among other benefits, this eliminates ambiguity with the following special strings: <code>On</code>, <code>Off</code>, <code>Toggle</code>, <code>AltTab</code>, <code>ShiftAltTab</code>, <code>AltTabAndMenu</code>, <code>AltTabMenuDismiss</code>.  The old behaviour was to use the label/function by that name if one existed, but only if the <em>Label</em> parameter did not contain a variable reference or expression.</li>
+<li>これにより、以下の特殊文字列の曖昧さが解消されるなどの利点があります：<code>On</code>, <code>Off</code>, <code>Toggle</code>, <code>AltTab</code>, <code>ShiftAltTab</code>, <code>AltTabAndMenu</code>, <code>AltTabMenuDismiss</code>. 以前の動作は、ラベル/関数が存在する場合、その名前を使用するものでしたが、<em>Label</em>パラメータに変数参照や式が含まれていない場合に限り、その名前を使用します。</li>
 </ul>
-<p><a href="lib/Hotkey.htm">Hotkey</a> and <a href="lib/Hotstring.htm">Hotstring</a> now support the S option to make the hotkey/hostring exempt from <a href="lib/Suspend.htm">Suspend</a> (equivalent to the new <a href="lib/_SuspendExempt.htm">#SuspendExempt</a> directive), and the S0 option to disable exemption.</p>
-<p>"Hotkey If" and the other If sub-commands were replaced with individual functions: <a href="lib/HotIf.htm">HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist</a>.</p>
-<p><a href="lib/HotIf.htm">HotIf</a> (formerly "Hotkey If") now recognizes expressions which use the <code>and</code> or <code>or</code> operators. This did not work in v1 as these operators were replaced with <code>&amp;&amp;</code> or <code>||</code> at load time.</p>
-<p><a href="lib/Hotkey.htm">Hotkey</a> no longer has a <code>UseErrorLevel</code> option, and never sets ErrorLevel. 失敗した場合は例外が発生します。Error messages were changed to be constant (and shorter), with the key or hotkey name in <code>Exception.Extra</code>, and the class of the exception indicating the reason for failure.</p>
-<p><a href="lib/_HotIf.htm">#HotIf</a> (formerly #If) now implicitly creates a function with one parameter (ThisHotkey). As is the default for all functions, this function is assume-local. The expression can create local variables and read global variables, but cannot directly assign to global variables as the expression cannot contain declarations.</p>
-<p><a href="lib/_HotIf.htm">#HotIf</a> has been optimized so that simple calls to <a href="lib/WinActive.htm">WinActive</a> or <a href="lib/WinExist.htm">WinExist</a> can be evaluated directly by the hook thread (as #IfWin was in v1, and <a href="lib/HotIf.htm">HotIfWin</a> still is). This improves performance and reduces the risk of problems when the script is busy/unresponsive. This optimization applies to expressions which contain a single call to <a href="lib/WinActive.htm">WinActive</a> or <a href="lib/WinExist.htm">WinExist</a> with up to two parameters, where each parameter is a simple quoted string and the result is optionally inverted with <code>!</code> or <code>not</code>. For example, <code>#HotIf WinActive("Chrome")</code> or <code>#HotIf !WinExist("Popup")</code>. In these cases, the first expression with any given combination of criteria can be identified by either the expression or the window criteria. For example, <code>HotIf '!WinExist("Popup")'</code> and <code>HotIfWinNotExist "Popup"</code> refer to the same hotkey variants.</p>
-<p><code>KeyHistory N</code> resizes the key history buffer instead of displaying the key history. This replaces "#KeyHistory N".</p>
-<p><a href="lib/ImageSearch.htm">ImageSearch</a> returns true if the image was found, false if it was not found, or throws an exception if the search could not be conducted. ErrorLevel is not set.</p>
-<p><a href="lib/IniDelete.htm">IniDelete</a>, <a href="lib/IniRead.htm">IniRead</a> and <a href="lib/IniWrite.htm">IniWrite</a> set <a href="Variables.htm#LastError">A_LastError</a> to the result of the operating system's GetLastError() function.</p>
-<p><a href="lib/IniRead.htm">IniRead</a> throws an exception if the requested key, section or file cannot be found and the <em>Default</em> parameter was omitted. If <em>Default</em> is given a value, even <code>""</code>, no exception is thrown.</p>
-<p><a href="lib/InputHook.htm">InputHook</a> now treats <kbd>Shift</kbd>+<kbd>Backspace</kbd> the same as <kbd>Backspace</kbd>, instead of transcribing it to <code>`b</code>.</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>と <a href="lib/Hotstring.htm">Hotstring</a>で、<a href="lib/_SuspendExempt.htm">Suspend</a>を免除するSオプション（新しい<a href="lib/_SuspendExempt.htm">#SuspendExempt</a>指令と同等）と、免除を無効にするS0オプションが追加されました。</p>
+<p>"Hotkey If"をはじめとするIfサブコマンドを個別機能に置き換えた：<a href="lib/HotIf.htm">HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist</a>.</p>
+<p><a href="lib/HotIf.htm">HotIf</a>（旧Hotkey If）は、<code>and</code>または<code>or</code>演算子を使用した式を認識するようになりました。v1では、これらの演算子はロード時に<code>&amp;&amp;</code>や <code>||</code>に置き換えられるため、これは機能しませんでした。</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>に <code>UseErrorLevel</code>オプションがなくなり、ErrorLevelを設定しないようになりました。失敗した場合は例外が発生します。エラーメッセージは、<code>Exception.Extra</code>にキーまたはホットキーの名前を、例外のクラスで失敗の理由を示す、一定の（より短い）メッセージに変更されました。</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>（旧#If）は、1つのパラメータ（ThisHotkey）を持つ関数を暗黙のうちに作成するようになりました。すべての関数のデフォルトとして、この関数はassume-localです。式はローカル変数の作成とグローバル変数の読み込みが可能ですが、式に宣言を含めることができないため、グローバル変数に直接代入することはできません。</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>は、<a href="lib/WinActive.htm">WinActive</a>や <a href="lib/WinExist.htm">WinExist</a>への単純な呼び出しをフックスレッドで直接評価できるように最適化されています（v1では#IfWinが、<a href="lib/HotIf.htm">HotIfWin</a>は現在もそうです）。これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。この最適化は、<a href="lib/WinActive.htm">WinActive</a>または<a href="lib/WinExist.htm">WinExist</a>への単一の呼び出しと最大2つのパラメータを含む式に適用され、各パラメータは単純な引用文字列で、結果はオプションで<code>!<code>または<code>not<code>で反転される。例えば、<code>#HotIf WinActive("Chrome")</code>や<code>#HotIf !WinExist("Popup") </code>のようなものです。これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができる。例えば、<code>HotIf '!WinExist("Popup")'</code>と<code>HotIfWinNotExist "Popup"</code>は同じホットキー変種を参照しています。</p>
+<p><code>KeyHistory N</code>は、キーヒストリーを表示するのではなく、キーヒストリーバッファーのサイズを変更します。これは"#KeyHistory N"に置き換わるものです。</p>
+<p><a href="lib/ImageSearch.htm">ImageSearch</a>は、画像が見つかった場合は true、見つからなかった場合は false を返し、検索ができなかった場合は例外を投げる。ErrorLevelが設定されていない。</p>
+<p><a href="lib/IniDelete.htm">IniDelete</a>、<a href="lib/IniRead.htm">IniRead</a>、<a href="lib/IniWrite.htm">IniWrite</a>は、<a href="Variables.htm#LastError">A_LastError</a>をオペレーティングシステムのGetLastError()関数の結果に設定します。</p>
+<p>要求されたキー、セクション、ファイルが見つからず、<em>Default</em>パラメータが省略された場合、<a href="lib/IniRead.htm">IniRead</a>は例外を投げる。<em>Default</em>に値が与えられた場合、<code>""</code>でも例外は発生しない。</p>
+<p><a href="lib/InputHook.htm">InputHook</a>が <kbd>Shift+</kbd><kbd>Backspace</kbd>を <kbd>Backspace</kbd>と同じように扱うようになり、代わりに<code>`b'</code>に転写されるようになりました。</p>
 <p><a href="lib/InputBox.htm">InputBox</a> has been given a syntax overhaul to make it easier to use (with fewer parameters). See <a href="#inputbox">InputBox</a> for usage.</p>
 <p><a href="lib/InStr.htm">InStr</a>'s <em>CaseSensitive</em> parameter has been replaced with <em>CaseSense</em>, which can be 0, 1 or "Locale".</p>
 <p>InStr now searches right-to-left when <em>Occurrence</em> is negative (which previously caused a result of 0), and no longer searches right-to-left if a negative <em>StartingPos</em> is used with a positive <em>Occurrence</em>. (However, it still searches right-to-left if <em>StartingPos</em> is negative and <em>Occurrence</em> is omitted.) This facilitates right-to-left searches in a loop, and allows a negative <em>StartingPos</em> to be used while still searching left-to-right.</p>
@@ -551,10 +550,10 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <li>For example, <code>InStr(a, b,, -1, 2)</code> now searches left-to-right. To instead search right-to-left, use <code>InStr(a, b,, -1, -2)</code>.</li>
 <li>Note that a <em>StartingPos</em> of -1 means the last character in v2, but the second last character in v1. If the example above came from v1 (rather than v2.0-a033 - v2.0-a136), the new code should be <code>InStr(a, b, -2, -2)</code>.</li>
 </ul>
-<p><a href="lib/KeyWait.htm">KeyWait</a> now returns 0 if the wait period expires, otherwise 1. ErrorLevel was removed.</p>
+<p><a href="lib/KeyWait.htm">KeyWait</a> now returns 0 if the wait period expires, otherwise 1. ErrorLevelを削除しました。</p>
 <p><a href="lib/MouseClick.htm">MouseClick</a> and <a href="lib/MouseClickDrag.htm">MouseClickDrag</a> are no longer affected by the system setting for swapped mouse buttons; "Left" is the always the primary button and "Right" is the secondary.</p>
 <p><a href="lib/MsgBox.htm">MsgBox</a> has had its syntax changed to prioritise its most commonly used parameters and improve ease of use. See <a href="#msgbox">MsgBox</a> further below for a summary of usage.</p>
-<p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>: When a variable is passed directly, the address of the variable's internal string buffer is no longer used. Therefore, a variable containing an address may be passed directly (whereas in v1, something like <code>var+0</code> was necessary). For buffers allocated by the script, the new <code>Buffer</code> object is preferred over a variable; any object can be used, but must have <code>Ptr</code> and <code>Size</code> properties.</p>
+<p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。Therefore, a variable containing an address may be passed directly (whereas in v1, something like <code>var+0</code> was necessary). For buffers allocated by the script, the new <code>Buffer</code> object is preferred over a variable; any object can be used, but must have <code>Ptr</code> and <code>Size</code> properties.</p>
 <p>NumPut's parameters were reordered to allow a sequence of values, with the (now mandatory) type string preceding each number. 事例：<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. Type is now mandatory for NumGet as well. (In comparison to DllCall, NumPut's input parameters correspond to the dll function's parameters, while NumGet's return type parameter corresponds to the dll function's return type string.)</p>
 <p>The use of <code>Object(obj)</code> and <code>Object(ptr)</code> to convert between a reference and a pointer was shifted to separate functions, <code>ObjPtrAddRef(obj)</code> and <code>ObjFromPtrAddRef(ptr)</code>. There are also versions of these functions that do not increment the reference count: <code>ObjPtr(obj)</code> and <code>ObjFromPtr(ptr)</code>.</p>
 <p>The OnClipboardChange label is no longer called automatically if it exists. Use the <a href="lib/OnClipboardChange.htm">OnClipboardChange</a> function which was added in v1.1.20 instead. It now requires a function object, not a name.</p>
@@ -646,7 +645,7 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <p><a href="lib/WinSetTitle.htm">WinSetTitle</a> and <a href="lib/WinMove.htm">WinMove</a> now use parameter order consistent with other Win functions; i.e. <em>WinTitle, WinText, ExcludeTitle, ExcludeText</em> are always grouped together (at the end of the parameter list), to aide memorisation.</p>
 <p>The <em>WinTitle</em> parameter of various functions can now accept a HWND (must be a pure integer) or an object with a <code>Hwnd</code> property, such as a Gui object. <code>DetectHiddenWindows</code> is ignored in such cases.</p>
 <p><a href="lib/WinMove.htm">WinMove</a> no longer has special handling for the literal word <code class="no-highlight">DEFAULT</code>. Omit the parameter or specify an empty string instead (this works in both v1 and v2).</p>
-<p><a href="lib/WinWait.htm">WinWait</a>, <a href="lib/WinWaitClose.htm">WinWaitClose</a>, <a href="lib/WinWaitActive.htm">WinWaitActive</a> and <a href="lib/WinWaitActive.htm">WinWaitNotActive</a> return non-zero if the wait finished (timeout did not expire). ErrorLevel was removed. WinWait and WinWaitActive return the HWND of the found window. WinWaitClose now sets the Last Found Window, so if WinWaitClose times out, it returns false and <code>WinExist()</code> returns the last window it found. For the timeout, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
+<p><a href="lib/WinWait.htm">WinWait</a>, <a href="lib/WinWaitClose.htm">WinWaitClose</a>, <a href="lib/WinWaitActive.htm">WinWaitActive</a> and <a href="lib/WinWaitActive.htm">WinWaitNotActive</a> return non-zero if the wait finished (timeout did not expire). ErrorLevelを削除しました。WinWait and WinWaitActive return the HWND of the found window. WinWaitClose now sets the Last Found Window, so if WinWaitClose times out, it returns false and <code>WinExist()</code> returns the last window it found. For the timeout, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
 <p><strong>Unsorted:</strong></p>
 <p>A negative <em>StartingPos</em> for <a href="lib/InStr.htm">InStr</a>, <a href="lib/SubStr.htm">SubStr</a>, <a href="lib/RegExMatch.htm">RegExMatch</a> and <a href="lib/RegExReplace.htm">RegExReplace</a> is interpreted as a position from the end. Position -1 is the last character and position 0 is invalid (whereas in v1, position 0 was the last character).</p>
 <p>Functions which previously accepted On/Off or On/Off/Toggle (but not other strings) now require 1/0/-1 instead.  On and Off would typically be replaced with <code>True</code> and <code>False</code>.  Variables which returned On/Off now return 1/0, which are more useful in expressions.</p>
@@ -684,7 +683,7 @@ StringTrimRight  -- use <a href="lib/SubStr.htm">SubStr</a> in place of these co
 <p>The new <code>HRESULT</code> return type throws an exception if the function failed (<code>int &lt; 0</code> or <code>uint &amp; 0x80000000</code>). This should be used only with functions that actually return a <code>HRESULT</code>.</p>
 <h4 id="loop-sub-commands">Loop Sub-commands</h4>
 <p>The sub-command keyword must be written literally; it must not be enclosed in quote marks and cannot be a variable or expression. All other parameters are expressions. All loop sub-commands now support OTB.</p>
-<p>Removed:</p>
+<p>削除：</p>
 <pre class="no-highlight">Loop, FilePattern [, IncludeFolders?, Recurse?]
 Loop, RootKey [, Key, IncludeSubkeys?, Recurse?]
 </pre>
@@ -866,7 +865,7 @@ Name    := MonitorGetName(N)
 <li>A_LoopFileLongPath → <a href="lib/LoopFiles.htm#LoopFileFullPath">A_LoopFileFullPath</a></li>
 <li>Clipboard → <a href="lib/A_Clipboard.htm">A_Clipboard</a></li>
 </ul>
-<p>Removed:</p>
+<p>削除：</p>
 <ul>
 <li>ClipboardAll (replaced with the <a href="lib/ClipboardAll.htm">ClipboardAll</a> function)</li>
 <li>ComSpec (use <a href="Variables.htm#ComSpec">A_ComSpec</a>)</li>
@@ -1122,7 +1121,7 @@ Gui GuiName: Default</p>
 <p>Some of the conditions above are detected in v1, but not mid-expression; for instance, <code>A_AhkPath := x</code> is detected in v1 but <code>y := x, A_AhkPath := x</code> is only detected in v2.</p>
 <p>Standalone use of the operators <code>+=</code>, <code>-=</code>, <code>--</code> and <code>++</code> no longer treats an empty variable as 0. This differs from v1, where they treated an empty variable as 0 when used standalone, but not mid-expression or with multi-statement comma.</p>
 <h3 id="functions-1">機能紹介</h3>
-<p>Functions generally throw an exception on failure. In particular:</p>
+<p>Functions generally throw an exception on failure. 特に：</p>
 <ul>
 <li>
 <p>Errors due to incorrect use of <a href="lib/DllCall.htm">DllCall</a>, <a href="lib/RegExMatch.htm">RegExMatch</a> and <a href="lib/RegExReplace.htm">RegExReplace</a> were fairly common due to their complexity, and (like many errors) are easier to detect and debug if an error message is shown immediately.</p>
