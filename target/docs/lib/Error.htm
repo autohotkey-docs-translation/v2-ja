@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Error Object | AutoHotkey v2</title>
-<meta name="description" content="Error objects thrown by built-in code when an error occurs." />
+<title>Error Object｜AutoHotkey v2</title>
+<meta name="description" content="エラーが発生したときに組み込みコードから投げられるエラーオブジェクト。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 <h1>Error Object</h1>
 <pre class="NoIndent">class Error extends Object</pre>
 
-<p>Error objects are <a href="Throw.htm">thrown</a> by built-in code when a runtime error occurs, and may also be thrown explicitly by the script.</p>
+<p>エラーオブジェクトは、実行時エラーが発生したときに組み込みコードによって<a href="Throw.htm">スローさ</a>れ、またスクリプトによって明示的にスローされることもある。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
@@ -25,36 +25,36 @@
 </ul>
 
 <h2 id="Standard_Properties">Standard Properties</h2>
-<p id="Message"><strong>Message:</strong> An error message.</p>
-<p id="What"><strong>What:</strong> What threw the exception. This is usually the name of a function, but is blank for exceptions thrown due to an error in an expression (such as using a math operator on a non-numeric value).</p>
-<p id="Extra"><strong>Extra:</strong> A string value relating to the error, if available. If this value can be converted to a non-empty string, the standard error dialog displays a line with "Specifically:" followed by this string.</p>
-<p id="File"><strong>File:</strong> The full path of the script file which contains the line at which the error occurred, or at which the Error object was constructed.</p>
-<p id="Line"><strong>Line:</strong> The line number at which the error occurred, or at which the Error object was constructed.</p>
-<p id="Stack"><strong>Stack:</strong> A string representing the call stack at the time the Error object was constructed. Each line may be formatted as follows:</p>
+<p id="Message"><strong>Message:</strong>エラーメッセージです。</p>
+<p id="What"><strong>What:</strong>何が例外を発生させたか。これは通常、関数の名前ですが、式のエラー（数値以外の値で数学演算子を使用した場合など）によりスローされる例外の場合は空白になります。</p>
+<p id="Extra"><strong>Extra：</strong>エラーに関連する文字列がある場合、その値。この値が空でない文字列に変換できる場合、標準エラーダイアログは、"Specifically:"の後にこの文字列を含む行を表示します。</p>
+<p id="File"><strong>File:</strong>エラーが発生した行、または Error オブジェクトが構築された行を含むスクリプトファイルのフルパス。</p>
+<p id="Line"><strong>Line：</strong>エラーが発生した行番号、またはErrorオブジェクトが構築された行番号です。</p>
+<p id="Stack"><strong>Stack：</strong>Errorオブジェクトが構築された時点のコールスタックを表す文字列です。各行の書式は、次のようにすることができる：</p>
 <dl>
   <dt><code><i>File</i> (<i>Line</i>) : [<i>What</i>] <i>SourceCode</i>`r`n</code></dt>
-  <dd>Represents a call to the function <em>What</em>. <em>File</em> and <em>Line</em> indicate the current script line at this stack depth. <em>SourceCode</em> is an approximation of the source code at that line, as it would be shown in <a href="ListLines.htm">ListLines</a>.</dd>
+  <dd>関数<em>What</em>の呼び出しを表します。<em>File</em>と <em>Line</em>は、このスタックの深さにおける現在のスクリプト行を示します。<em>SourceCode</em>は、<a href="ListLines.htm">ListLines</a>に表示されるような、その行のソースコードの近似値です。</dd>
   <dt><code>&gt; <i>What</i>`r`n</code></dt>
-  <dd>Represents the launching of a thread, typically the direct cause of the function call above it.</dd>
+  <dd>スレッドの起動を表し、通常、その上の関数呼び出しの直接の原因となるものです。</dd>
   <dt><code>... <i>N</i> more</code></dt>
-  <dd>Indicates that the stack trace was truncated, and there are <em>N</em> more stack entries not shown. Currently the <code>Stack</code> property cannot exceed 2047 characters.</dd>
+  <dd>スタックトレースが切り捨てられ、表示されていないスタック項目が<em>N個</em>以上あることを示す。現在、<code>Stack</code>プロパティは2047文字を超えることはできません。</dd>
 </dl>
 
-<p class="warning"><strong>Note:</strong> The standard error dialog requires <em>Message</em>, <em>Extra</em>, <em>File</em> and <em>Line</em> to be <a href="Object.htm">own value properties</a>.</p>
+<p class="warning"><strong>注：</strong>標準エラーダイアログでは、<em>Message</em>、<em>Extra</em>、<em>File</em>、<em>Line</em>が <a href="Object.htm">独自の値プロパティ</a>であることが必要です。</p>
 
 <h2 id="new">Error()</h2>
-<p>Creates an Error object.</p>
+<p>Error オブジェクトを作成する。</p>
 <pre class="Syntax">NewError := <span class="func"><i>Error</i></span>(Message <span class="optional">, What, Extra</span>)</pre>
-<p><em><strong>Error</strong></em> may be replaced with one of the subclasses listed under <a href="#error-types">Error Types</a>, although some subclasses may take different parameters.</p>
-<p>The parameters directly correspond to properties described above, but may differ for Error subclasses which override the __New method.</p>
-<p><em>Message</em> and <em>Extra</em> are converted to strings. These are displayed by an error dialog if the exception is thrown and not caught.</p>
-<p><em>What</em> indicates the source of the error. It can be an arbitrary string, but should be a negative integer or the name of a running function. Specifying -1 indicates the current function, -2 indicates the function which called it, and so on. If the script is <a href="../Scripts.htm#ahk2exe">compiled</a> or the value does not identify a valid stack frame, the value is merely converted to a string and assigned to <code>NewError.What</code>. Otherwise, the identified stack frame is used as follows to determine the other properties:</p>
+<p><em><strong>エラー</strong></em>は、「<a href="#error-types">エラータイプ</a>」に記載されているサブクラスのいずれかに置き換えることができる。ただし、サブクラスによっては、異なるパラメータを取る場合もある。</p>
+<p>パラメータは上記のプロパティに直接対応しますが、__NewメソッドをオーバーライドするErrorサブクラスでは異なる場合があります。</p>
+<p><em>Message</em>と <em>Extra</em>は文字列に変換されます。例外が発生し、捕捉されなかった場合は、エラーダイアログで表示されます。</p>
+<p><em>What</em> エラーの原因を示す。任意の文字列を指定できますが、負整数または実行中の関数名である必要があります。1を指定すると現在の関数、-2を指定するとその関数を呼び出した関数、といった具合です。l;スクリプトが<a href="../Scripts.htm#ahk2exe">コンパイル</a>されたり、値が有効なスタックフレームを特定できない場合、値は単に文字列に変換され、<code>NewError.What</code>に代入されます。それ以外の場合は、特定されたスタックフレームを以下のように使用して、他のプロパティを決定する：</p>
 <ul>
-  <li><code>NewError.What</code> contains the name of the function.</li>
-  <li><code>NewError.Line</code> and <code>NewError.File</code> indicate the line which <em>called</em> the function.</li>
-  <li><code>NewError.Stack</code> contains a partial stack trace, with the indicated stack frame at the top.</li>
+  <li><code>NewError.What</code>には、関数の名前が含まれています。</li>
+  <li><code>NewError.Line</code>と <code>NewError.File</code>は、関数を<em>呼び出した</em>行を示します。</li>
+  <li><code>NewError.Stack</code>には、指示されたスタックフレームを先頭とする部分的なスタックトレースが含まれます。</li>
 </ul>
-<p>Use of the <em>What</em> parameter can allow a complex function to use helper functions to perform its work or parameter validation, while omitting those internal details from any reported error information. 事例：</p>
+<p><em>What</em>パラメータを使用すると、複雑な関数がヘルパー関数を使用して作業やパラメータの検証を行い、報告されるエラー情報からはそれらの内部詳細を省くことができます。事例：</p>
 <pre>MyFunction(a, b) {
     CheckArg "a", a
     CheckArg "b", b
@@ -66,7 +66,7 @@
 }
 
 try
-    MyFunction(1, -1)<em>; err.Line indicates this line.</em>
+    MyFunction(1, -1)<em>; err.Lineはこの行を示す。</em>
 catch ValueError as err
     MsgBox Format("{1}:{2}.`n`nFile:`t{3}`nLine:`t{4}`nWhat:`t{5}`nStack:`n{6}"
         , type(err), err.Message, err.File, err.Line, err.What, err.Stack)</pre>
@@ -81,26 +81,26 @@ SomeFunction() {
 
 <h2 id="error-types">Error Types</h2>
 
-<p>The following subclasses of <strong>Error</strong> are predefined:</p>
+<p><strong>Errorの</strong>サブクラスとして、以下のものが予め定義されている：</p>
 <ul>
-  <li id="MemoryError"><strong>MemoryError</strong>: A memory allocation failed.</li>
-  <li id="OSError"><strong>OSError</strong>: An internal function call to a Win32 function failed. <strong>Message</strong> includes an error code and description generated by the operating system. OSErrors have an additional <strong>Number</strong> property which contains the error code. Calling <code>OSError(code)</code> with a numeric <em>code</em> sets <em>Number</em> and <em>Message</em> based on the given OS-defined error code. If <em>code</em> is omitted it defaults to <code>A_LastError</code>.</li>
-  <li id="TargetError"><strong>TargetError</strong>: A function failed because its target could not be found. <strong>Message</strong> indicates what kind of target, such as a window, control, menu or status bar.</li>
-  <li id="TimeoutError"><strong>TimeoutError</strong>: <a href="SendMessage.htm">SendMessage</a> timed out.</li>
-  <li id="TypeError"><strong>TypeError</strong>: An unexpected type of value was used as input for a function, property assignment, or some other operation. Usually <strong>Message</strong> indicates the expected and actual type, and <strong>Extra</strong> contains a string representing the errant value.</li>
-  <li id="UnsetError"><strong>UnsetError</strong>: An attempt was made to read the value of a variable, property or item, but there was no value.<ul>
+  <li id="MemoryError"><strong>MemoryError</strong>:メモリの割り当てに失敗しました。</li>
+  <li id="OSError"><strong>OSError</strong>:Win32関数への内部関数呼び出しに失敗しました。<strong>メッセージ</strong>には、オペレーティングシステムによって生成されたエラーコードと説明が含まれます。OSErrors には、エラーコードを格納する<strong>Number</strong>プロパティが追加されています。<code>OSError(code)</code>を数値<em>コード</em>で呼び出すと、与えられた OS 定義のエラーコードに基づき<em>Number</em>と<em>Message</em>が設定される。<em>code</em>が省略された場合、デフォルトは<code>A_LastError</code>となる。</li>
+  <li id="TargetError"><strong>TargetError</strong>:ターゲットが見つからなかったため、関数が失敗しました。<strong>メッセージ</strong>は、ウィンドウ、コントロール、メニュー、ステータスバーなど、どのような対象であるかを示す。</li>
+  <li id="TimeoutError"><strong>TimeoutError</strong>:<a href="SendMessage.htm">SendMessageが</a>タイムアウトした。</li>
+  <li id="TypeError"><strong>TypeError</strong>:関数、プロパティの割り当て、またはその他の操作の入力として、予期しないタイプの値が使用されました。通常、<strong>Message</strong>は期待される型と実際の型を示し、<strong>Extra</strong>は誤った値を表す文字列を含む。</li>
+  <li id="UnsetError"><strong>UnsetError</strong>:変数、プロパティ、アイテムの値を読み取ろうとしたが、値がなかった。<ul>
     <li id="MemberError"><strong>MemberError</strong><ul>
       <li id="PropertyError"><strong>PropertyError</strong></li>
       <li id="MethodError"><strong>MethodError</strong></li>
     </ul></li>
     <li id="UnsetItemError"><strong>UnsetItemError</strong></li>
   </ul></li>
-  <li id="ValueError"><strong>ValueError</strong>: An unexpected value was used as input for a function, property assignment, or some other operation. Usually <strong>Message</strong> indicates which expectation was broken, and <strong>Extra</strong> contains a string representing the errant value.<ul>
-    <li id="IndexError"><strong>IndexError</strong>: The index parameter of an object's <a href="../Objects.htm#__Item">__Item property</a> was invalid or out of range.</li>
+  <li id="ValueError"><strong>ValueError</strong>:予期せぬ値が、関数やプロパティの割り当て、その他の操作の入力として使用された。通常、<strong>Message</strong>はどの期待値が破られたかを示し、<strong>Extra</strong>は誤った値を表す文字列を含みます。<ul>
+    <li id="IndexError"><strong>IndexError</strong>:オブジェクトの<a href="../Objects.htm#__Item">__Itemプロパティ</a>のindexパラメータが無効か範囲外でした。</li>
   </ul></li>
-  <li id="ZeroDivisionError"><strong>ZeroDivisionError</strong>: Division by zero was attempted in an expression or with the Mod function.</li>
+  <li id="ZeroDivisionError"><strong>ZeroDivisionError</strong>:式やMod関数でゼロによる除算を試みた。</li>
 </ul>
-<p>Errors are also thrown using the base Error class.</p>
+<p>また、エラーは、ベースとなるErrorクラスを使用してスローされます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Throw.htm">Throw</a>, <a href="Try.htm">Try</a>, <a href="Catch.htm">Catch</a>, <a href="Finally.htm">Finally</a>, <a href="OnError.htm">OnError</a></p>

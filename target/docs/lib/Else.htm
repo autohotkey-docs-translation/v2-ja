@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Else - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Else statement specifies one or more statements to execute if an If statement evaluates to false." />
+<title>Else - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Else文は、If文がfalseと評価された場合に実行する1つまたは複数の文を指定します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
 <body>
 
 <h1>Else</h1>
-<p>Specifies one or more <a href="../Concepts.htm#statement">statements</a> to execute if the associated statement's body did not execute.</p>
+<p>関連するステートメントのボディが実行されなかった場合に実行する1つまたは複数の<a href="../Concepts.htm#statement">ステートメントを</a>指定します。</p>
 <pre class="Syntax"><span class="func">Else</span> <i>Statement</i></pre>
 <pre class="Syntax"><span class="func">Else</span>
 {
@@ -19,23 +19,23 @@
 }</pre>
 
 <h2 id="Remarks">備考</h2>
-<p>Every use of an <em>Else</em> must belong to (be associated with) an <a href="If.htm">If statement</a>, <a href="Catch.htm">Catch</a>, <a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> or <a href="While.htm">While</a> statement above it. An <em>Else</em> always belongs to the nearest applicable unclaimed statement above it unless a <a href="Block.htm">block</a> is used to change that behavior. The condition for an <em>Else</em> statement executing depends on the associated statement:</p>
+<p><em>Else</em>の使用は、その上にある<a href="If.htm">If文</a>、<a href="Catch.htm">Catch</a>、<a href="For.htm">For</a>、<a href="Loop.htm">Loop</a>、<a href="While.htm">While</a>文に属する（関連付けられる）ものでなければなりません。<em>Else</em>は、<a href="Block.htm">ブロック</a>を使ってその動作を変更しない限り、常にその上にある最も近い適用可能なunclaimedステートメントに属す。<em>Else</em>文の実行条件は、関連する文に依存します：</p>
 <ul>
-  <li><a href="If.htm">If expression</a>: The expression evaluated to false.</li>
-  <li><a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> (any kind), <a href="While.htm">While</a>: The loop had zero iterations.</li>
-  <li><a href="LoopRead.htm">Loop Read</a>: As above, but the presence of <em>Else</em> also prevents an error from being thrown if the file or path is not found. Therefore, <em>Else</em> executes if the file is empty or does not exist.</li>
-  <li><a href="Try.htm">Try</a>...<a href="Catch.htm">Catch</a>: No exception was thrown within the try block.</li>
+  <li><a href="If.htm">If expression</a>:式がfalseに評価された。</li>
+  <li><a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> (any kind), <a href="While.htm">While</a>:ループの反復回数は0回でした。</li>
+  <li><a href="LoopRead.htm">Loop Read</a>:上記と同様ですが、<em>Else</em>の存在により、ファイルやパスが見つからない場合にエラーが発生するのを防ぐこともできます。したがって、<em>Else</em>はファイルが空であるか存在しない場合に実行される。</li>
+  <li><a href="Try.htm">Try</a>...<a href="Catch.htm">Catch</a>:トライブロック内で例外は発生しませんでした。</li>
 </ul>
-<p>An <em>Else</em> can be followed immediately by any other single <a href="../Concepts.htm#statement">statement</a> on the same line. This is most often used for "else if" ladders (see examples at the bottom).</p>
-<p>If an <em>Else</em> owns more than one line, those lines must be enclosed in braces (to create a <a href="Block.htm">block</a>). However, if only one line belongs to an <em>Else</em>, the braces are optional. 事例：</p>
-<pre>if (count &gt; 0)  <em>; No braces are required around the next line because it's only a single line.</em>
+<p><em>Else</em>の後には、同じ行にある他の単一の<a href="../Concepts.htm#statement">ステートメント</a>をすぐに続けることができます。これは、「else if」ラダーに最もよく使われます（下部の例を参照）。</p>
+<p><em>Else</em>が複数の行を所有する場合、それらの行を中括弧で囲む（<a href="Block.htm">ブロック</a>を作る）必要があります。ただし、1行だけが<em>Else</em>に属する場合は、中括弧は省略可能です。事例：</p>
+<pre>if (count &gt; 0)<em>; 次の行は1行なので、中括弧は不要です。</em>
     MsgBox "Press OK to begin the process."
-else  <em>; Braces must be used around the section below because it consists of more than one line.</em>
+else<em>; 以下の部分は1行以上からなるため、中括弧を使用する必要があります。</em>
 {
     WinClose "Untitled - Notepad"
     MsgBox "There are no items present."
 }</pre>
-<p>The <a href="Block.htm#otb">One True Brace (OTB) style</a> may optionally be used around an <em>Else</em>. 事例：</p>
+<p><a href="Block.htm#otb">OTB（ワン・トゥルー・ブレース</a>）スタイルは、オプションで<em>エルゼ</em>の周りに使用することができます。事例：</p>
 <pre>if IsDone {
     <em>; ...</em>
 } else if (x &lt; y) {
@@ -49,20 +49,19 @@ else  <em>; Braces must be used around the section below because it consists of 
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Common usage of an <em>Else</em> statement. This example is executed as follows:</p>
+<p><a class="ex_number" href="#ExBasic"></a> <em>Else</em>文の一般的な使い方。この例は、次のように実行されます：</p>
 <ol>
   <li>If Notepad exists:
     
     <ol>
       <li>Activate it</li>
-      <li>Send the string "This is a test." followed by <kbd>Enter</kbd>.</li>
+      <li>文字列 "This is a test. "に続いて<kbd>Enterを</kbd>送信します。</li>
     </ol>
   </li>
-  <li>Otherwise (that is, if Notepad does not exist):
-    
+  <li>それ以外の場合（つまり、メモ帳が存在しない場合）：
     <ol>
-      <li>Activate another window</li>
-      <li>Left-click at the coordinates 100, 200</li>
+      <li>別のウィンドウをアクティブにする</li>
+      <li>座標100, 200で左クリック</li>
     </ol>
   </li>
 </ol>
@@ -79,25 +78,25 @@ else
 </div>
 
 <div class="ex" id="ExOtherUsages">
-<p><a class="ex_number" href="#ExOtherUsages"></a>  Demonstrates different styles of how the <em>Else</em> statement can be used too.</p>
+<p><a class="ex_number" href="#ExOtherUsages"></a> <em>Else</em>ステートメントもどのように使うことができるのか、さまざまなスタイルを実演しています。</p>
 <pre>if (x = 1)
     firstFunction()
-else if (x = 2) <em>; "else if" style</em>
+else if (x = 2)<em>; "else if" style</em>
     secondFunction()
 else if x = 3
 {
     thirdFunction()
     Sleep 1
 }
-else defaultFunction()  <em>; i.e. Any single statement can be on the same line with an Else.</em></pre>
+else defaultFunction()<em>; すなわち、任意の1つの文がElseと同じ行に存在することができます。</em></pre>
 </div>
 
 <div class="ex" id="ExLoop">
 <p><a class="ex_number" href="#ExLoop"></a>  Executes some code if a loop had zero iterations.</p>
 <pre>
-<em>; Show File/Internet Explorer windows/tabs.</em>
+<em>; ファイル/Internet Explorerのウィンドウ/タブを表示する。</em>
 for window in ComObject("Shell.Application").Windows
-    MsgBox "Window #" A_Index ": " window.LocationName
+    MsgBox "Window #" A_Index ":" window.LocationName
 else
     MsgBox "No shell windows found."
 </pre>
