@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GetKeyVK - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The GetKeyVK function retrieves the virtual key code of a key." />
+<title>GetKeyVK - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GetKeyVK 関数は、ある鍵の仮想鍵コードを取得する。" />
 <meta name="ahk:equiv-v1" content="lib/GetKey.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>GetKeyVK</h1>
 
-<p>Retrieves the virtual key code of a key.</p>
+<p>鍵の仮想鍵コードを取得します。</p>
 
 <pre class="Syntax">VK := <span class="func">GetKeyVK</span>(KeyName)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -22,29 +22,29 @@
   <dt>KeyName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Any single character or one of the key names from the <a href="../KeyList.htm">key list</a>. 例：B, 5, LWin, RControl, Alt, Enter, Escape.</p>
-    <p>Alternatively, this can be an explicit virtual key code such as vkFF, an explicit scan code such as sc01D, or a combination of VK and SC (in that order) such as vk1Bsc001. Note that these codes must be in hexadecimal.</p>
+    <p>任意の1文字、または<a href="../KeyList.htm">キー</a>リストのキー名の1つを指定します。例：B, 5, LWin, RControl, Alt, Enter, Escape.</p>
+    <p>あるいは、vkFFのような明示的な仮想鍵コード、sc01Dのような明示的なスキャンコード、vk1Bsc001のようなVKとSCの組み合わせ（この順）であってもよい。なお、これらのコードは16進数である必要があります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the virtual key code of the specified key, or 0 if the key is invalid or has no virtual key code.</p>
+<p>説明： 指定された鍵の仮想鍵コードを返し、その鍵が無効であるか仮想鍵コードがない場合は 0 を返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Before using the virtual key code with a built-in function like <a href="Hotkey.htm">Hotkey</a> or <a href="GetKeyState.htm">GetKeyState</a>, it must first be converted to hexadecimal format, such as by using <code>Format("vk{:X}", vk_code)</code>. By contrast, external functions called via <a href="DllCall.htm">DllCall</a> typically use the numeric value directly.</p>
-<p>If <em>KeyName</em> corresponds to a scan code or single character, the function attempts to map the value to a virtual key code by calling certain system functions which refer to the script's current keyboard layout. This may differ from the keyboard layout of the active window.</p>
-<p>If <em>KeyName</em> is an ASCII letter in the range A-Z and has no mapping within the keyboard layout, the corresponding virtual key in the range vk41-vk5A is used as a fallback.</p>
-<p>Some keyboard layouts do not define a 1:1 mapping of virtual key codes to scan codes. When multiple interpretations are possible, the underlying system functions most likely choose one based on the order defined in the keyboard layout, which is not always the most common or logical choice.</p>
+<p><a href="Hotkey.htm">Hotkey</a>や <a href="GetKeyState.htm">GetKeyState</a>などの組み込み関数で仮想キーコードを使用する前に、<code>Format("vk{:X}", vk_code)</code>などで16進数形式に変換しておく必要があります。これに対して、<a href="DllCall.htm">DllCall</a>を介して呼び出される外部関数は、通常、数値を直接使用します。</p>
+<p><em>KeyName</em>がスキャンコードまたは1文字に対応する場合、この関数は、スクリプトの現在のキーボードレイアウトを参照する特定のシステム関数を呼び出して、値を仮想キーコードにマッピングしようとします。アクティブウィンドウのキーボード配列と異なる場合があります。</p>
+<p><em>KeyName</em>がA-Zの範囲のASCII文字で、キーボードレイアウト内にマッピングがない場合、vk41-vk5Aの範囲の対応する仮想キーが予備として使用されます。</p>
+<p>キーボードレイアウトによっては、仮想キーコードとスキャンコードの1：1マッピングが定義されていないものがあります。複数の解釈が可能な場合、基本的なシステム機能はキーボードレイアウトで定義された順序に基づいて1つを選択することがほとんどですが、これは必ずしも最も一般的または論理的な選択とは限りません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="GetKeySC.htm">GetKeySC</a>, <a href="GetKeyName.htm">GetKeyName</a>, <a href="GetKeyState.htm">GetKeyState</a>, <a href="../KeyList.htm">Key List</a>, <a href="Format.htm">Format</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Retrieves and reports the hexadecimal virtual key code of <kbd>Esc</kbd>.</p>
+<p><a class="ex_number" href="#ExBasic"></a> <kbd>Escの</kbd>仮想キーコードを16進数で取得し報告します。</p>
 <pre>vk_code := GetKeyVK("Esc")
-MsgBox Format("vk{:X}", vk_code) <em>; Reports vk1B</em></pre>
+MsgBox Format("vk{:X}", vk_code) <em>; vk1Bの報告。</em></pre>
 </div>
 
 </body>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Func Object - Methods &amp; Properties | AutoHotkey v2</title>
-<meta name="description" content="The Func object provides an interface for a function to retrieve values, such as the number of parameters, or to perform actions, such as calling." />
+<title>Func Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<meta name="description" content="Func オブジェクトは、関数がパラメータの数などの値を取得したり、呼び出しなどのアクションを実行するためのインターフェイスを提供します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -13,11 +13,11 @@
 <h1>Func Object</h1>
 <pre class="NoIndent">class Func extends Object</pre>
 
-<p>Represents a user-defined or built-in function.</p>
-<p>For information about other objects which can be called like functions, see <a href="../misc/Functor.htm">Function Objects</a>.</p>
-<p>The <code>Closure</code> class extends <code>Func</code> but does not define any new properties.</p>
+<p>ユーザー定義関数または組込み関数を表します。</p>
+<p>関数のように呼び出すことができる他のオブジェクトについては、<a href="../misc/Functor.htm">関数オブジェクト</a>を参照してください。</p>
+<p><code>Closure</code>クラスは<code>Funcを</code>拡張していますが、新しいプロパティは定義していません。</p>
 
-<p>For each built-in function or function definition within the script, there is a corresponding read-only variable containing a Func object. This variable is directly used to call the function, but its value can also be read to retrieve the function itself, as a value. 事例：</p>
+<p>スクリプト内の各組込み関数または関数定義に対して、Funcオブジェクトを含む対応する読み取り専用変数が存在します。この変数は、関数を呼び出すために直接使われますが、その値を読み込むことで、関数そのものを、値として取り出すこともできます。事例：</p>
 <pre>InspectFn StrLen
 InspectFn InspectFn
 
@@ -27,28 +27,26 @@ InspectFn(fn)
     MsgBox fn.Name "() is " (fn.IsBuiltIn ? "built-in." : "user-defined.")
 }
 </pre>
-<p>"FuncObj" is used below as a placeholder for any Func object, as "Func" is the class itself.</p>
-<p>In addition to the methods and property inherited from <a href="Object.htm">Object</a>, Func objects have the following predefined methods and properties.</p>
+<p>"Func "はクラスそのものなので、"FuncObj"は、任意のFuncオブジェクトのプレースホルダーとして以下使用します。</p>
+<p>Funcオブジェクトは、<a href="Object.htm">Object</a>から継承されたメソッドとプロパティに加え、以下の定義済みのメソッドとプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
   <li><a href="#Methods">Methods</a>:
-    
     <ul>
-      <li><a href="#Call">Call</a>: Calls the function.</li>
-      <li><a href="#Bind">Bind</a>: Binds parameters to the function and returns a <a href="../misc/Functor.htm#BoundFunc">BoundFunc object</a>.</li>
-      <li><a href="#IsByRef">IsByRef</a>: Determines whether a parameter is ByRef.</li>
-      <li><a href="#IsOptional">IsOptional</a>: Determines whether a parameter is optional.</li>
+      <li><a href="#Call">Call</a>:関数を呼び出します。</li>
+      <li><a href="#Bind">Bind</a>:パラメータを関数にバインドし、<a href="../misc/Functor.htm#BoundFunc">BoundFuncオブジェクト</a>を返す。</li>
+      <li><a href="#IsByRef">IsByRef</a>:パラメータがByRefであるかどうかを判定する。</li>
+      <li><a href="#IsOptional">IsOptional</a>:パラメータがオプションであるかどうかを判定する。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
-    
     <ul>
-      <li><a href="#Name">Name</a>: Returns the function's name.</li>
-      <li><a href="#IsBuiltIn">IsBuiltIn</a>: Returns <i>true</i> if the function is <a href="../Functions.htm#BuiltIn">built-in</a> and <i>false</i> otherwise.</li>
-      <li><a href="#IsVariadic">IsVariadic</a>: Returns <i>true</i> if the function is <a href="../Functions.htm#Variadic">variadic</a> and <i>false</i> otherwise.</li>
-      <li><a href="#MinParams">MinParams</a>: Returns the number of required parameters.</li>
-      <li><a href="#MaxParams">MaxParams</a>: Returns the number of formally-declared parameters for a user-defined function or maximum parameters for a built-in function.</li>
+      <li><a href="#Name">Name</a>:関数の名前を返します。</li>
+      <li><a href="#IsBuiltIn">IsBuiltIn</a>:関数が<a href="../Functions.htm#BuiltIn">内蔵</a>されている場合は<i>true</i>、そうでない場合は<i>false</i>を返します。</li>
+      <li><a href="#IsVariadic">IsVariadic</a>:関数が<a href="../Functions.htm#Variadic">variadic</a>であれば<i>true</i>を、そうでなければ<i>false</i>を返します。</li>
+      <li><a href="#MinParams">MinParams</a>:必要なパラメータの数を返します。</li>
+      <li><a href="#MaxParams">MaxParams</a>:ユーザー定義関数の場合は正式に宣言されたパラメータの数、組み込み関数の場合は最大パラメータ数を返します。</li>
     </ul>
   </li>
 </ul>
@@ -56,78 +54,78 @@ InspectFn(fn)
 <h2 id="Methods">メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Calls the function.</p>
+<p>関数を呼び出します。</p>
 <pre class="Syntax">FuncObj(Param1, Param2, ...)
 FuncObj.<span class="func">Call</span>(Param1, Param2, ...)</pre>
 <dl>
   <dt>Param1, Param2, ...</dt>
-  <dd>Parameters and return value are defined by the function.</dd>
+  <dd>パラメータと戻り値は、関数で定義されます。</dd>
 </dl>
-<p>The "Call" method is implied when calling a value, so need not be explicitly specified.</p>
+<p>Call」メソッドは、値を呼び出す際に暗黙の了解となっているため、明示的に指定する必要はない。</p>
 </div>
 
 <div class="methodShort" id="Bind"><h3>Bind</h3>
-<p>Binds parameters to the function and returns a <a href="../misc/Functor.htm#BoundFunc">BoundFunc object</a>.</p>
+<p>パラメータを関数にバインドし、<a href="../misc/Functor.htm#BoundFunc">BoundFuncオブジェクト</a>を返す。</p>
 <pre class="Syntax">BoundFunc := FuncObj.<span class="func">Bind</span>(Param1, Param2, ...)</pre>
 <dl>
   <dt>Param1, Param2, ...</dt>
-  <dd>Any number of parameters.</dd>
+  <dd>パラメータの数は問いません。</dd>
 </dl>
-<p>For details and examples, see <a href="../misc/Functor.htm#BoundFunc">BoundFunc object</a>.</p>
+<p>詳細および例については、<a href="../misc/Functor.htm#BoundFunc">BoundFunc オブジェクト</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="IsByRef"><h3>IsByRef</h3>
-<p>Determines whether a parameter is ByRef.</p>
+<p>パラメータがByRefであるかどうかを判定する。</p>
 <pre class="Syntax">Boolean := FuncObj.<span class="func">IsByRef</span>(<span class="optional">ParamIndex</span>)</pre>
 <dl>
   <dt>ParamIndex</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Optional: the one-based index of a parameter. If omitted, <em>Boolean</em> indicates whether the function has any ByRef parameters.</p>
+    <p>オプショナル：パラメータの1ベースインデックス。省略された場合、<em>Boolean</em>は、関数が ByRef パラメータを持つかどうかを示す。</p>
   </dd>
 </dl>
-<p>Returns a boolean value indicating whether the parameter is ByRef. If <em>ParamIndex</em> is invalid, an exception is thrown.</p>
+<p>パラメータが ByRef であるかどうかを示す boolean 値を返す。<em>ParamIndex</em>が無効な場合は、例外が発生する。</p>
 </div>
 
 <div class="methodShort" id="IsOptional"><h3>IsOptional</h3>
-<p>Determines whether a parameter is optional.</p>
+<p>パラメータがオプションであるかどうかを判定する。</p>
 <pre class="Syntax">Boolean := FuncObj.<span class="func">IsOptional</span>(<span class="optional">ParamIndex</span>)</pre>
 <dl>
   <dt>ParamIndex</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Optional: the one-based index of a parameter. If omitted, <em>Boolean</em> indicates whether the function has any optional parameters.</p>
+    <p>オプショナル：パラメータの1ベースインデックス。省略された場合、<em>Boolean</em>は、関数が任意のパラメータを持つかどうかを示す。</p>
   </dd>
 </dl>
-<p>Returns a boolean value indicating whether the parameter is optional. If <em>ParamIndex</em> is invalid, an exception is thrown.</p>
-<p>Parameters do not need to be formally declared if the function is variadic. Built-in functions are supported.</p></div>
+<p>パラメータがオプションであるか否かを示すブール値を返します。<em>ParamIndex</em>が無効な場合は、例外が発生する。</p>
+<p>関数が変種である場合、パラメータを正式に宣言する必要はありません。組込機能に対応しています。</p></div>
 
 <h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Name"><h3>名前</h3>
-<p>Returns the function's name.</p>
+<p>関数の名前を返します。</p>
 <pre class="Syntax">FunctionName := FuncObj.Name</pre>
 </div>
 
 <div class="methodShort" id="IsBuiltIn"><h3>IsBuiltIn</h3>
-<p>Returns <i>true</i> if the function is <a href="../Functions.htm#BuiltIn">built-in</a> and <i>false</i> otherwise.</p>
+<p>関数が<a href="../Functions.htm#BuiltIn">内蔵</a>されている場合は<i>true</i>、そうでない場合は<i>false</i>を返します。</p>
 <pre class="Syntax">Boolean := FuncObj.IsBuiltIn</pre>
 </div>
 
 <div class="methodShort" id="IsVariadic"><h3>IsVariadic</h3>
-<p>Returns <i>true</i> if the function is <a href="../Functions.htm#Variadic">variadic</a> and <i>false</i> otherwise.</p>
+<p>関数が<a href="../Functions.htm#Variadic">variadic</a>であれば<i>true</i>を、そうでなければ<i>false</i>を返します。</p>
 <pre class="Syntax">Boolean := FuncObj.IsVariadic</pre>
 </div>
 
 <div class="methodShort" id="MinParams"><h3>MinParams</h3>
-<p>Returns the number of required parameters.</p>
+<p>必要なパラメータの数を返します。</p>
 <pre class="Syntax">ParamCount := FuncObj.MinParams</pre>
 </div>
 
 <div class="methodShort" id="MaxParams"><h3>MaxParams</h3>
-<p>Returns the number of formally-declared parameters for a user-defined function or maximum parameters for a built-in function.</p>
+<p>ユーザー定義関数の場合は正式に宣言されたパラメータの数、組み込み関数の場合は最大パラメータ数を返します。</p>
 <pre class="Syntax">ParamCount := FuncObj.MaxParams</pre>
-<p>If the function is <a href="../Functions.htm#Variadic">variadic</a>, <em>ParamCount</em> indicates the maximum number of parameters which can be accepted by the function without overflowing into the "variadic*" parameter.</p></div>
+<p>関数が<a href="../Functions.htm#Variadic">variadic</a>の場合、<em>ParamCount</em>は"variadic*"パラメータに溢れることなく関数が受け入れることができるパラメータの最大数を示します。</p></div>
 
 </body>
 </html>

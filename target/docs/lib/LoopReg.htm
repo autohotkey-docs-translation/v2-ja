@@ -25,7 +25,7 @@
     <p>This must start with HKEY_LOCAL_MACHINE, HKEY_USERS, HKEY_CURRENT_USER, HKEY_CLASSES_ROOT, or HKEY_CURRENT_CONFIG (or the abbreviations for each of these, such as HKLM). To access a <a href="#remote">remote registry</a>, prepend the computer name and a backslash, as in this example: \\workstation01\HKEY_LOCAL_MACHINE</p>
   </dd>
   
-  <dt>Mode</dt>
+  <dt>モード</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, only values are included and subkeys are not recursed into. Otherwise, specify one or more of the following letters:</p>
@@ -107,13 +107,13 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExRegDelete">
-<p><a class="ex_number" href="#ExRegDelete"></a>  Deletes Internet Explorer's history of URLs typed by the user.</p>
+<p><a class="ex_number" href="#ExRegDelete"></a> Deletes Internet Explorer's history of URLs typed by the user.</p>
 <pre>Loop Reg, "HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\TypedURLs"
     RegDelete</pre>
 </div>
 
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  A working test script.</p>
+<p><a class="ex_number" href="#ExBasic"></a> A working test script.</p>
 <pre>Loop Reg, "HKCU\Software\Microsoft\Windows", "R KV"  <em>; Recursively retrieve keys and values.</em>
 {
     if A_LoopRegType = "key"
@@ -131,7 +131,7 @@ Until Result = "No"</pre>
 </div>
 
 <div class="ex" id="ExRegSearch">
-<p><a class="ex_number" href="#ExRegSearch"></a>  Recursively searches the entire registry for particular value(s).</p>
+<p><a class="ex_number" href="#ExRegSearch"></a> Recursively searches the entire registry for particular value(s).</p>
 <pre>
 RegSearch("Notepad")
 
@@ -139,17 +139,17 @@ RegSearch(Target)
 {
     Loop Reg, "HKEY_LOCAL_MACHINE", "KVR"
     {
-        if !CheckThisRegItem()<em>; It told us to stop.</em>
+        if !CheckThisRegItem()  <em>; It told us to stop.</em>
             return
     }
     Loop Reg, "HKEY_USERS", "KVR"
     {
-        if !CheckThisRegItem()<em>; It told us to stop.</em>
+        if !CheckThisRegItem()  <em>; It told us to stop.</em>
             return
     }
     Loop Reg, "HKEY_CURRENT_CONFIG", "KVR"
     {
-        if !CheckThisRegItem()<em>; It told us to stop.</em>
+        if !CheckThisRegItem()  <em>; It told us to stop.</em>
             return
     }
     <em>; Note: I believe HKEY_CURRENT_USER does not need to be searched if HKEY_USERS is
@@ -158,7 +158,7 @@ RegSearch(Target)
 
 CheckThisRegItem()
     {
-        if A_LoopRegType = "KEY"<em>; Remove these two lines if you want to check key names too.</em>
+        if A_LoopRegType = "KEY"  <em>; Remove these two lines if you want to check key names too.</em>
             return true
         try
             RegValue := RegRead()
@@ -175,7 +175,7 @@ CheckThisRegItem()
 Continue?"
             ),, "y/n")
             if Result = "No"
-                return false<em>; Tell our caller to stop searching.</em>
+                return false  <em>; Tell our caller to stop searching.</em>
         }
         return true
     }

@@ -34,10 +34,10 @@
     <a href="lib/Return.htm">return</a> x + y
 }</pre>
 <p>上記は、"Add"という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
-<pre>Var := Add(2, 3)<em>; Varに数字5が格納されます。</em></pre>
+<pre>Var := Add(2, 3)  <em>; Varに数字5が格納されます。</em></pre>
 <p>また、関数は戻り値を保存せずに呼び出すことができます。</p>
 <pre>Add(2, 3)
-Add 2, 3<em>; 行頭で使用する場合は、括弧を省略することができます。</em></pre>
+Add 2, 3  <em>; 行頭で使用する場合は、括弧を省略することができます。</em></pre>
 <p>しかし、この場合、関数が返す値はすべて捨てられるので、関数がその戻り値以外の効果を生み出さない限り、この呼び出しは何の役にも立たない。</p>
 <p>式の中で、関数呼び出しは関数の戻り値に「評価」されます。戻り値は、上記のように変数に代入することもできますし、以下のように直接使用することもできます。</p>
 <pre>if <a href="lib/InStr.htm">InStr</a>(MyVar, "fox")
@@ -82,7 +82,7 @@ Swap(&amp;Left, &amp;Right)
 <p>呼び出し元が上記の関数に<strong>3つ</strong>のパラメータを渡すと、Zのデフォルト値は無視されます。しかし、呼び出し側が<strong>2つ</strong>のパラメータだけを渡すと、Zは自動的に値0を受け取ります。</p>
 <p id="missing">オプションのパラメータをパラメータリストの途中で孤立させることはできません。つまり、最初のオプショナルパラメータの右側にあるすべてのパラメータもオプショナルと表示されなければならない。ただし、オプションのパラメータは、以下のように、関数を呼び出す際に、パラメータリストの途中から省略することができます。</p>
 <pre>MyFunc(1,, 3)
-MyFunc(X, Y:=2, Z:=0) {<em>; この場合でも、Zはオプションでなければならないことに注意してください。</em>
+MyFunc(X, Y:=2, Z:=0) {  <em>; この場合でも、Zはオプションでなければならないことに注意してください。</em>
     MsgBox X ", " Y ", " Z
 }</pre>
 <p id="OptionalByRef"><a href="#ByRef">ByRefパラメータ</a>は、デフォルト値にも対応しています（例）。<code>MyFunc(&amp;p1 := "")</code>. 呼び出し側がこのようなパラメータを省略した場合、関数はローカル変数を作成し、デフォルト値を格納します。</p>
@@ -90,7 +90,7 @@ MyFunc(X, Y:=2, Z:=0) {<em>; この場合でも、Zはオプションでなけ�
 <h3 id="unset">アンセットパラメータ</h3>
 <p>デフォルト値を与えずにパラメータをオプションとしてマークするには、キーワード<code>unset</code>または接尾辞<code>?</code>を使用します。その場合、パラメータが省略されるたびに、対応する変数は値を持ちません。<a href="lib/IsSet.htm">IsSet</a>を使用して、以下のように、パラメータに値が与えられているかどうかを判断します。</p>
 <pre>
-MyFunc(p?) {<em>; MyFunc(p := unset) に相当する。</em>
+MyFunc(p?) {  <em>; MyFunc(p := unset) に相当する。</em>
     if IsSet(p)
         MsgBox "Caller passed " p
     else
@@ -106,8 +106,8 @@ Greet(title?) {
     MsgBox("Hello!", title?)
 }
 
-Greet "Greeting"<em>; タイトルは "Greeting "です。</em>
-Greet<em>; タイトルはA_ScriptName</em>
+Greet "Greeting"  <em>; タイトルは "Greeting "です。</em>
+Greet             <em>; タイトルはA_ScriptName</em>
 </pre>
 
 <h2 id="return">呼び出し元への値の返送</h2>
@@ -128,7 +128,7 @@ returnByRef(&amp;val1, &amp;val2, val3)
 {
     val1 := "A"
     val2 := 100
-    %val3% := 1.1<em>; &amp; が省略されているため、% が使用されています。</em>
+    %val3% := 1.1  <em>; &amp; が省略されているため、% が使用されています。</em>
     return
 }
 </pre>
@@ -212,15 +212,15 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 {
     <strong>global</strong> LogFileName
     LogFileName := Dir . "\My.log"
-    <strong>global</strong> DataDir := Dir<em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
+    <strong>global</strong> DataDir := Dir  <em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
 }
 </pre>
 <p id="AssumeGlobal"><strong>アシュームグローバルモード</strong>。ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を "global"とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
 <pre>SetDefaults()
 {
     <strong>global</strong>
-    MyGlobal := 33<em>; グローバル変数に33を代入する。必要であれば、まず変数を作成する。</em>
-    local x, y:=0, z<em>; ローカル変数はこのモードで宣言する必要があります。そうしないとグローバル変数とみなされます。</em>
+    MyGlobal := 33  <em>; グローバル変数に33を代入する。必要であれば、まず変数を作成する。</em>
+    local x, y:=0, z  <em>; ローカル変数はこのモードで宣言する必要があります。そうしないとグローバル変数とみなされます。</em>
 }</pre>
 
 <h3 id="static">静的変数</h3>
@@ -228,7 +228,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>LogToFile(TextToLog)
 {
     <strong>static</strong> LoggedLines := 0
-    LoggedLines += 1<em>; 現地でタリーを維持する（その価値はコール間で記憶される）。</em>
+    LoggedLines += 1  <em>; 現地でタリーを維持する（その価値はコール間で記憶される）。</em>
     global LogFileName
     FileAppend LoggedLines ":" TextToLog "`n", LogFileName
 }</pre>
@@ -238,8 +238,8 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>GetFromStaticArray(WhichItemNumber)
 {
     <strong>static</strong>
-    static FirstCallToUs := true<em>; 静的宣言のイニシャライザは一度だけ実行されます。</em>
-    if FirstCallToUs<em>; 最初の呼び出し時には静的配列を作成し、それ以降の呼び出し時には作成しない。</em>
+    static FirstCallToUs := true  <em>; 静的宣言のイニシャライザは一度だけ実行されます。</em>
+    if FirstCallToUs  <em>; 最初の呼び出し時には静的配列を作成し、それ以降の呼び出し時には作成しない。</em>
     {
         FirstCallToUs := false
         StaticArray := []
@@ -278,7 +278,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>このため、ある関数が<em>AND</em>や <em>OR</em>の右辺で呼び出された場合、その関数が生み出す副作用（グローバル変数の内容の変更など）が発生しない可能性があることを認識しておくことが重要です。</p>
 <p>また、短絡的な評価は、ネストした<em>AND</em>と<em>OR</em>にカスケードすることに注意する必要があります。例えば、以下の式では、<em>ColorName</em>が空白の場合は、左端の比較のみが行われます。そうすると、左辺だけで最終的な答えが確実に決まるからです。</p>
 <pre>if (ColorName = "" <u>OR</u> FindColor(ColorName, Region1) <u>OR</u> FindColor(ColorName, Region2))
-    break<em>; 検索するものがない、または一致するものが見つかった。</em></pre>
+    break   <em>; 検索するものがない、または一致するものが見つかった。</em></pre>
 <p>上記の例で示したように、一般的に高価な（時間のかかる）関数は、パフォーマンスを高めるために<em>AND</em>または<em>OR</em>の右辺で呼び出す必要があります。また、関数のパラメータに空文字列などの不適切な値が渡された場合に、その関数が呼び出されないようにすることも可能です。</p>
 <p><a href="Variables.htm#ternary">三項条件演算子(?:)</a>も、ロス分岐を評価しないことで短絡させる。</p>
 
@@ -318,11 +318,11 @@ outer("title")
 <pre>outer() {
     x := "outer value"
     static inner() {
-        x := "inner value"<em>; innerのローカルに変数を作成する。</em>
-        MsgBox type(inner)<em>; "Func "と表示される。</em>
+        x := "inner value"  <em>; innerのローカルに変数を作成する。</em>
+        MsgBox type(inner)  <em>; Displays "Func"</em>
     }
     inner()
-    MsgBox x<em>; "外側の値 "を表示する</em>
+    MsgBox x  <em>; "外側の値 "を表示する</em>
 }
 outer()</pre>
 <p>静的関数は、明示的に静的と宣言されていない限り、自身のボディの外にある他のネストした関数を参照することはできません。なお、関数が<a href="#AssumeStatic">assume-static</a>であっても、関数パラメータを参照すれば、non-staticの入れ子関数はクロージャになる可能性があります。</p>
@@ -333,11 +333,11 @@ outer()</pre>
 <pre>
 make_greeter(f)
 {
-    greet(subject)<em>; これはfによる閉鎖となる。</em>
+    greet(subject)  <em>; これはfによる閉鎖となる。</em>
     {
         MsgBox Format(f, subject)
     }
-    return greet<em>; クロージャーを返り値とする。</em>
+    return greet  <em>; クロージャーを返り値とする。</em>
 }
 
 g := make_greeter("Hello, {}!")
@@ -348,7 +348,7 @@ g("World")
 <pre>
 app_hotkey(keyname, app_title, app_path)
 {
-    activate(keyname)<em>; app_title と app_path の関係でクローズとなります。</em>
+    activate(keyname)  <em>; app_title と app_path の関係でクローズとなります。</em>
     {
         if WinExist(app_title)
             WinActivate
@@ -369,11 +369,11 @@ app_hotkey "#w", "ahk_class WordPadClass", "wordpad.exe"
 timertest() {
     x := "tock!"
     tick() {
-        MsgBox x<em>; x はクロージャになる。</em>
-        SetTimer tick, 0<em>; クロージャーのオリジナル変数を使うのが無難です。</em>
-        ; SetTimer t, 0<em>; Capturing tは循環参照を作ることになる。</em>
+        MsgBox x           <em>; x はクロージャになる。</em>
+        SetTimer tick, 0   <em>; クロージャーのオリジナル変数を使うのが無難です。</em>
+        ; SetTimer t, 0    <em>; Capturing tは循環参照を作ることになる。</em>
     }
-    t := tick<em>; これは、tが上で捕捉されていないので、大丈夫です。</em>
+    t := tick              <em>; これは、tが上で捕捉されていないので、大丈夫です。</em>
     SetTimer t, 1000
 }
 timertest()

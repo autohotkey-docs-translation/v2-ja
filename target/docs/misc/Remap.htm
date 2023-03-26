@@ -124,24 +124,23 @@ a::b
 <p id="actually">When a script is launched, each remapping is translated into a pair of <a href="../Hotkeys.htm">hotkeys</a>. For example, a script containing <code>a::b</code> actually contains the following two hotkeys instead:</p>
 <pre>*<strong>a</strong>::
 {
-    SetKeyDelay -1<em>; If the destination key is a mouse button, SetMouseDelay is used instead.</em>
-    Send "<a href="../lib/Send.htm#blind">{Blind}</a>{<strong>b</strong> DownR}"<em>; <a href="../lib/Send.htm#DownR">DownR</a> is like Down except that other Send functions in the script won't assume "b" should stay down during their Send.</em>
+    SetKeyDelay -1   <em>; If the destination key is a mouse button, SetMouseDelay is used instead.</em>
+    Send "<a href="../lib/Send.htm#blind">{Blind}</a>{<strong>b</strong> DownR}"  <em>; <a href="../lib/Send.htm#DownR">DownR</a> is like Down except that other Send functions in the script won't assume "b" should stay down during their Send.</em>
 }
 
 *<strong>a up</strong>::
 {
-    SetKeyDelay -1<em>; See note below for why press-duration is not specified with either of these SetKeyDelays.</em>
+    SetKeyDelay -1  <em>; See note below for why press-duration is not specified with either of these SetKeyDelays.</em>
     Send "{Blind}{<strong>b</strong> Up}"
 }</pre>
 <p>However, the above hotkeys vary under the following circumstances:</p>
 <ol>
   <li>When the source key is the left <kbd>Ctrl</kbd> and the destination key is <kbd>Alt</kbd>, the line <code>Send "{Blind}{LAlt DownR}"</code> is replaced by <code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>. The same is true if the source is the right <kbd>Ctrl</kbd>, except that <code>{RCtrl up}</code> is used.</li>
   <li>When a keyboard key is being remapped to become a mouse button (e.g. <code>RCtrl::RButton</code>), the hotkeys above use SetMouseDelay in place of SetKeyDelay. In addition, the first hotkey above is replaced by the following, which prevents the keyboard's auto-repeat feature from generating repeated mouse clicks:
-    
     <pre>*RCtrl::
 {
     SetMouseDelay -1
-    if not GetKeyState("RButton")<em>; i.e. the right mouse button isn't down yet.</em>
+    if not GetKeyState("RButton")  <em>; i.e. the right mouse button isn't down yet.</em>
         Send "{Blind}{RButton DownR}"
 }</pre>
   </li>
@@ -162,22 +161,22 @@ Hotkey "*a up", "Off"</pre>
 </ul>
 <h2 id="moving-the-mouse-cursor">Moving the Mouse Cursor via the Keyboard</h2>
 <p>The keyboard can be used to move the mouse cursor as demonstrated by the fully-featured <a href="../scripts/index.htm#NumpadMouse">Keyboard-To-Mouse script</a>. Since that script offers smooth cursor movement, acceleration, and other features, it is the recommended approach if you plan to do a lot of mousing with the keyboard. By contrast, the following example is a simpler demonstration:</p>
-<pre>*#up::MouseMove 0, -10, 0, "R"<em>; Win+UpArrow hotkey =&gt; Move cursor upward</em>
-*#Down::MouseMove 0, 10, 0, "R"<em>; Win+DownArrow =&gt; Move cursor downward</em>
-*#Left::MouseMove -10, 0, 0, "R"<em>; Win+LeftArrow =&gt; Move cursor to the left</em>
-*#Right::MouseMove 10, 0, 0, "R"<em>; Win+RightArrow =&gt; Move cursor to the right</em>
+<pre>*#up::MouseMove 0, -10, 0, "R"  <em>; Win+UpArrow hotkey =&gt; Move cursor upward</em>
+*#Down::MouseMove 0, 10, 0, "R"  <em>; Win+DownArrow =&gt; Move cursor downward</em>
+*#Left::MouseMove -10, 0, 0, "R"  <em>; Win+LeftArrow =&gt; Move cursor to the left</em>
+*#Right::MouseMove 10, 0, 0, "R"  <em>; Win+RightArrow =&gt; Move cursor to the right</em>
 
 *&lt;#RCtrl::<em>; LeftWin + RightControl =&gt; Left-click (hold down Control/Shift to Control-Click or Shift-Click).</em>
 {
     SendEvent "{Blind}{LButton down}"
-    KeyWait "RCtrl"<em>; Prevents keyboard auto-repeat from repeating the mouse click.</em>
+    KeyWait "RCtrl"  <em>; Prevents keyboard auto-repeat from repeating the mouse click.</em>
     SendEvent "{Blind}{LButton up}"
 }
 
 *&lt;#AppsKey::<em>; LeftWin + AppsKey =&gt; Right-click</em>
 {
     SendEvent "{Blind}{RButton down}"
-    KeyWait "AppsKey"<em>; Prevents keyboard auto-repeat from repeating the mouse click.</em>
+    KeyWait "AppsKey"  <em>; Prevents keyboard auto-repeat from repeating the mouse click.</em>
     SendEvent "{Blind}{RButton up}"
 }</pre>
 <h2 id="registry">Remapping via the Registry's "Scancode Map"</h2>
