@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileSetTime - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileSetTime function changes the datetime stamp of one or more files or folders. Wildcards are supported." />
+<title>FileSetTime - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileSetTime 関数は、1つまたは複数のファイルまたはフォルダの日付スタンプを変更します。ワイルドカードに対応しています。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,57 +12,57 @@
 
 <h1>FileSetTime</h1>
 
-<p>Changes the  datetime stamp of one or more files or folders. Wildcards are supported.</p>
+<p>1つまたは複数のファイルまたはフォルダーの日時スタンプを変更します。ワイルドカードに対応しています。</p>
 
-<pre class="Syntax"><span class="func">FileSetTime</span> <span class="optional">YYYYMMDDHH24MISS, FilePattern, WhichTime, Mode</span></pre>
+<pre class="Syntax"><span class="func">ファイルセットタイム</span> <span class="optional">YYYYMMDDHH24MISS、FilePattern、WhichTime、Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>YYYYMMDDHH24MISS</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, it defaults to the current time. Otherwise, specify the time to use for the operation (see Remarks for the format). Years prior to 1601 are not supported.</p>
+    <p>空白または省略された場合、現在の時刻がデフォルトとなる。それ以外の場合は、操作に使用する時間を指定します（形式は「備考」を参照）。1601年以前の年号はサポート対象外です。</p>
   </dd>
 
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of a single file or folder, or a wildcard pattern such as C:\Temp\*.tmp. <em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-    <p>If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">File-Loop</a> will be used instead.</p>
+    <p>1つのファイルやフォルダの名前、またはC:\Temp\*.tmpのようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+    <p>省略された場合、最も内側の<a href="LoopFiles.htm">File-Loop</a>の現在のファイルが代わりに使用されます。</p>
   </dd>
 
   <dt>WhichTime</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, it defaults to M (modification time). Otherwise, specify one of the following letters to set which timestamp should be changed:</p>
+    <p>空白または省略された場合、デフォルトはM（修正時間）です。それ以外の場合は、次の文字のいずれかを指定して、どのタイムスタンプを変更するかを設定します：</p>
     <ul>
-      <li>M = Modification time</li>
-      <li>C = Creation time</li>
-      <li>A = Last access time</li>
+      <li>M＝修正時間</li>
+      <li>C＝作成時間</li>
+      <li>A＝最終アクセス時刻</li>
     </ul>
   </dd>
 
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, only files are operated upon and subdirectories are not recursed into. Otherwise, specify zero or more of the following letters:</p>
+    <p>空白または省略された場合、ファイルのみが操作され、サブディレクトリは再帰されない。それ以外の場合は、次の文字のうち0個以上を指定します：</p>
     <ul>
-      <li>D = Include directories (folders).</li>
-      <li>F = Include files. If both F and D are omitted, files are included but not folders.</li>
-      <li>R = Subfolders are recursed into so that files and folders contained therein are operated upon if they match <em>FilePattern</em>. All subfolders will be recursed into, not just those whose names match <em>FilePattern</em>. If R is omitted, files and folders in subfolders are not included.</li>
+      <li>D = インクルードディレクトリ（フォルダ）。</li>
+      <li>F = インクルードファイル。FとDの両方が省略された場合、ファイルは含まれるがフォルダーは含まれない。</li>
+      <li>R = サブフォルダを再帰的に検索し、<em>FilePattern</em>に一致するファイルおよびフォルダを操作する。<em>FilePattern</em>に一致する名前のサブフォルダだけでなく、すべてのサブフォルダに再帰的にアクセスします。Rが省略された場合、サブフォルダー内のファイルやフォルダーは含まれません。</li>
     </ul>
-    <p class="note"><strong>注意</strong>：If <em>FilePattern</em> is a single folder rather than a wildcard pattern, it will always be operated upon regardless of this setting.</p>
+    <p class="note"><strong>注意</strong>：<em>FilePattern</em>がワイルドカードパターンではなく、単一のフォルダの場合、この設定に関係なく常に操作されます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An <a href="Error.htm">Error</a> is thrown if any files failed to be changed, with its <a href="Error.htm#Extra">Extra</a> property set to the number of failures.</p>
-<p>If files were found, <a href="../Variables.htm#LastError">A_LastError</a> is set to 0 (zero) or the result of the operating system's GetLastError() function immediately after the last failure. Otherwise A_LastError contains an error code that might indicate why no files were found.</p>
+<p>ファイルの変更に失敗した場合、<a href="Error.htm">Error</a>が投げられ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。</p>
+<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含む。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>A file's last access time might not be as precise on FAT16 &amp; FAT32 volumes as it is on NTFS volumes.</p>
-<p id="YYYYMMDD">The elements of the YYYYMMDDHH24MISS format are:</p>
+<p>FAT16およびFAT32ボリュームでは、ファイルの最終アクセス時刻はNTFSボリュームほど正確ではないかもしれません。</p>
+<p id="YYYYMMDD">YYYYMMDDHH24MISS フォーマットの要素は以下の通りです：</p>
 <table class="info">
   <tr>
     <th>Element</th>
@@ -70,30 +70,30 @@
   </tr>
   <tr>
     <td>YYYY</td>
-    <td>The 4-digit year</td>
+    <td>4桁の年号</td>
   </tr>
   <tr>
     <td>MM</td>
-    <td>The 2-digit month (01-12)</td>
+    <td>2桁の月（01～12）です。</td>
   </tr>
   <tr>
     <td>DD</td>
-    <td>The 2-digit day of the month (01-31)</td>
+    <td>月の2桁の曜日（01～31）です。</td>
   </tr>
   <tr>
     <td>HH24</td>
-    <td>The 2-digit hour in 24-hour format (00-23). For example, 09 is 9am and 21 is 9pm.</td>
+    <td>24時間表示の2桁の時間（00～23）です。例えば、09は午前9時、21は午後9時です。</td>
   </tr>
   <tr>
     <td>MI</td>
-    <td>The 2-digit minutes (00-59)</td>
+    <td>2桁の分数（00～59）です。</td>
   </tr>
   <tr>
     <td>SS</td>
-    <td>The 2-digit seconds (00-59)</td>
+    <td>2桁の秒（00～59）を表示します。</td>
   </tr>
 </table>
-<p>If only a partial string is given for YYYYMMDDHH24MISS (e.g. 200403), any remaining element that has been omitted will be supplied with the following default values:</p>
+<p>YYYYMMDDHH24MISSに部分文字列（例：200403）のみが与えられた場合、省略された残りの要素には、以下のデフォルト値が与えられる：</p>
 <ul>
   <li>MM = Month 01</li>
   <li>DD = Day 01</li>
@@ -101,28 +101,28 @@
   <li>MI = Minute 00</li>
   <li>SS = Second 00</li>
 </ul>
-<p>The built-in variable <a href="../Variables.htm#Now">A_Now</a> contains the current local time in the above format. Similarly, <a href="../Variables.htm#NowUTC">A_NowUTC</a> contains the current Coordinated Universal Time.</p>
-<p class="note"><strong>注意</strong>：Date-time values can be compared, added to, or subtracted from via <a href="DateAdd.htm">DateAdd</a> and <a href="DateDiff.htm">DateDiff</a>. Also, it is best to not use greater-than or less-than to compare times unless they are both the same string length. This is because they would be compared as numbers; for example, 20040201 is always numerically less (but chronologically greater) than 200401010533. So instead use <a href="DateDiff.htm">DateDiff</a> to find out whether the amount of time between them is positive or negative.</p>
+<p>組み込み変数<a href="../Variables.htm#Now">A_Now</a>には、上記のフォーマットで現在のローカルタイムが格納されています。同様に、<a href="../Variables.htm#NowUTC">A_NowUTC</a>には、現在の協定世界時（Coordinated Universal Time）が格納される。</p>
+<p class="note"><strong>注意</strong>：<a href="DateAdd.htm">DateAdd</a>、<a href="DateDiff.htm">DateDiff</a>により、日付時刻の値を比較、加算、減算することができます。また、時間の比較には、同じ文字列の長さでない限り、大なり小なりは使わないほうがよいでしょう。これは、数字として比較されるからです。例えば、20040201は常に200401010533より数字的には小さい（しかし時系列的には大きい）のです。そこで、代わりに<a href="DateDiff.htm">DateDiff</a>を使って、その間の時間量が正か負かを調べます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileGetTime.htm">FileGetTime</a>, <a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="FormatTime.htm">FormatTime</a>, <a href="LoopFiles.htm">File-loop</a>, <a href="DateAdd.htm">DateAdd</a>, <a href="DateDiff.htm">DateDiff</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExOmitted">
-<p><a class="ex_number" href="#ExOmitted"></a>  Sets the modification time to the current time for all matching files.</p>
+<p><a class="ex_number" href="#ExOmitted"></a> 一致するすべてのファイルの修正時刻を現在時刻に設定します。</p>
 <pre>FileSetTime "", "C:\temp\*.txt"</pre>
 </div>
 
 <div class="ex" id="ExModTime">
-<p><a class="ex_number" href="#ExModTime"></a>  Sets the modification date (time will be midnight).</p>
+<p><a class="ex_number" href="#ExModTime"></a> 修正日を設定します（時刻は午前0時になります）。</p>
 <pre>FileSetTime 20040122, "C:\My Documents\test.doc"</pre>
 </div>
 
 <div class="ex" id="ExCreateTime">
-<p><a class="ex_number" href="#ExCreateTime"></a>  Sets the creation date. The time will be set to 4:55pm.</p>
+<p><a class="ex_number" href="#ExCreateTime"></a> 作成日時を設定します。時刻は16時55分に設定されます。</p>
 <pre>FileSetTime 200401221655, "C:\My Documents\test.doc", "C"</pre>
 </div>
 
 <div class="ex" id="ExPattern">
-<p><a class="ex_number" href="#ExPattern"></a>  Changes the mod-date of all files that match a pattern. Any matching folders will also be changed due to the last parameter.</p>
+<p><a class="ex_number" href="#ExPattern"></a> パターンに一致するすべてのファイルのmod-dateを変更します。一致するフォルダーは、最後のパラメーターによって変更されます。</p>
 <pre>FileSetTime 20040122165500, "C:\Temp\*.*", "M", "DF"</pre>
 </div>
 

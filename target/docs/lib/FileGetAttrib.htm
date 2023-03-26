@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileGetAttrib - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileGetAttrib function reports whether a file or folder is read-only, hidden, etc." />
+<title>FileGetAttrib - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileGetAttrib関数は、ファイルやフォルダーが読み取り専用かどうか、非表示かどうかなどを報告します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileGetAttrib</h1>
 
-<p>Reports whether a file or folder is read-only, hidden, etc.</p>
+<p>ファイルやフォルダーが読み取り専用かどうか、非表示かどうかなどを報告します。</p>
 
 <pre class="Syntax">AttributeString := <span class="func">FileGetAttrib</span>(<span class="optional">Filename</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,14 +21,14 @@
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the target file, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">File-Loop</a> will be used instead. Unlike <a href="FileExist.htm">FileExist</a> and <a href="DirExist.htm">DirExist</a>, this must be a true filename, not a pattern.</p>
+    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されるターゲットファイル名。省略された場合、最も内側の<a href="LoopFiles.htm">File-Loop</a>の現在のファイルが代わりに使用されます。<a href="FileExist.htm">FileExist</a>や <a href="DirExist.htm">DirExist</a>とは異なり、パターンではなく、本当のファイル名でなければなりません。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the attributes of the file or folder. This string is a subset of <code>RASHNDOCTL</code>, where each letter means the following:</p>
+<p>この関数は、ファイルまたはフォルダの属性を返す。この文字列は<code>RASHNDOCTL</code>の部分集合で、各文字は次のような意味を持っています：</p>
 <ul>
   <li>R = READONLY</li>
   <li>A = ARCHIVE</li>
@@ -47,20 +47,20 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>On a related note, to retrieve a file's 8.3 short name, follow this example:</p>
+<p>これに関連して、ファイルの8.3ショートネームを取得する場合は、次の例に従います：</p>
 <pre><a href="LoopFiles.htm">Loop Files</a>, "C:\My Documents\Address List.txt"
-    ShortPathName := A_LoopFileShortPath  <em>; Will yield something similar to C:\MYDOCU~1\ADDRES~1.txt</em></pre>
-<p>A similar method can be used to get the long name of an 8.3 short name.</p>
+    ShortPathName := A_LoopFileShortPath<em>; C:¥MYDOCU~1ADDRES~1.txt のような結果になります。</em></pre>
+<p>同様の方法で、8.3ショートネームのロングネームを取得することができます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileExist.htm">FileExist</a>, <a href="DirExist.htm">DirExist</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileGetTime.htm">FileGetTime</a>, <a href="FileSetTime.htm">FileSetTime</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="LoopFiles.htm">File-loop</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Stores the attribute letters of a directory in <var>OutputVar</var>. Note that existing directories always have the attribute letter D.</p>
+<p><a class="ex_number" href="#ExBasic"></a> ディレクトリの属性文字を<var>OutputVar</var>に格納する。なお、既存のディレクトリは常に属性文字Dを持ちます。</p>
 <pre>OutputVar := FileGetAttrib("C:\New Folder")</pre>
 </div>
 <div class="ex" id="ExIf">
-<p><a class="ex_number" href="#ExIf"></a>  Check if a particular attribute (the Hidden attribute) is present in the retrieved string.</p>
+<p><a class="ex_number" href="#ExIf"></a> 取得した文字列の中に特定の属性（Hidden属性）があるかどうかを確認する。</p>
 <pre>if InStr(FileGetAttrib("C:\My File.txt"), "H")
     MsgBox "The file is hidden."</pre>
 </div>

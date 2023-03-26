@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ExitApp - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ExitApp function terminates the script." />
+<title>ExitApp - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ExitApp関数は、スクリプトを終了させます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>ExitApp</h1>
 
-<p>Terminates the script.</p>
+<p>スクリプトを終了します。</p>
 
 <pre class="Syntax"><span class="func">ExitApp</span> <span class="optional">ExitCode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,23 +21,23 @@
   <dt>ExitCode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>An integer between -2147483648 and 2147483647 that is returned to its caller when the script exits. This code is accessible to any program that spawned the script, such as another script (via RunWait) or a batch (.bat) file. If omitted, <em>ExitCode</em> defaults to zero. Zero is traditionally used to indicate success.</p>
+    <p>スクリプト終了時に呼び出し元に返される -2147483648 から 2147483647 までの整数値。このコードは、他のスクリプト（RunWait経由）やバッチ（.bat）ファイルなど、スクリプトを生成したすべてのプログラムからアクセス可能である。省略された場合、<em>ExitCode</em>のデフォルトは0である。ゼロは従来、成功を示すために使われてきた。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>This is equivalent to choosing "Exit" from the script's tray menu or main menu.</p>
-<p>Any <a href="OnExit.htm">OnExit</a> functions registered by the script are called before the script terminates. If an OnExit function returns a non-zero integer, the script does not terminate; instead, the current <a href="../misc/Threads.htm">thread</a> exits as if <a href="Exit.htm">Exit</a> was called.</p>
-<p>Terminating the script is not the same as exiting each thread. For instance, <a href="Finally.htm">Finally</a> blocks are not executed and <a href="../Objects.htm#Custom_NewDelete">__Delete</a> is not called for objects contained by local variables.</p>
-<p>ExitApp is often unnecessary in scripts which are not <a href="../Scripts.htm#persistent">persistent</a>.</p>
+<p>これは、スクリプトのトレイメニューやメインメニューから「終了」を選択することと同じです。</p>
+<p>スクリプトが登録した<a href="OnExit.htm">OnExit</a>関数は、スクリプトが終了する前に呼び出されます。OnExit関数が0以外の整数を返した場合、スクリプトは終了せず、代わりに<a href="Exit.htm">Exit</a>が呼ばれたかのように現在の<a href="../misc/Threads.htm">スレッド</a>が終了する。</p>
+<p>スクリプトの終了は、各スレッドの終了とは異なります。例えば、ローカル変数に含まれるオブジェクトに対して、<a href="Finally.htm">Finally</a>ブロックは実行されず、<a href="../Objects.htm#Custom_NewDelete">__Delete</a>は呼び出されない。</p>
+<p>ExitAppは、<a href="../Scripts.htm#persistent">永続的</a>でないスクリプトでは不要なことが多い。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Exit.htm">Exit</a>, <a href="OnExit.htm">OnExit</a>, <a href="Persistent.htm">Persistent</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExHotkey">
-<p><a class="ex_number" href="#ExHotkey"></a>  Press a hotkey to terminate the script.</p>
+<p><a class="ex_number" href="#ExHotkey"></a> ホットキーを押してスクリプトを終了させる。</p>
 <pre>#x::ExitApp  <em>; Win+X</em></pre>
 </div>
 

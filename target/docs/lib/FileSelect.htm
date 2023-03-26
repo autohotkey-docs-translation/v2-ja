@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileSelect - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileSelect function displays a standard dialog that allows the user to open or save file(s)." />
+<title>FileSelect - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ファイル選択機能は、ファイルを開いたり保存したりするための標準的なダイアログを表示します。" />
 <meta name="ahk:equiv-v1" content="lib/FileSelectFile.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>FileSelect</h1>
 
-<p>Displays a standard dialog  that allows the user to open or save file(s).</p>
+<p>ファイルを開く、または保存するための標準的なダイアログを表示します。</p>
 
 <pre class="Syntax">SelectedFile := <span class="func">FileSelect</span>(<span class="optional">Options, RootDir\Filename, Title, Filter</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -22,63 +22,63 @@
   <dt>オプション</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>If omitted, it will default to zero, which is the same as having none of the options below.</p>
-      <p>Otherwise, it can be a number or one of the letters listed below, optionally followed by a number. For example, <code>"M"</code>, <code>1</code> and <code>"M1"</code> are all valid (but not equivalent).</p>
-      <p id="D"><strong>D</strong>: Select Folder (Directory). Specify the letter D to allow the user to select a folder rather than a file. The dialog has most of the same features as when selecting a file, but does not support filters (<em>Filter</em> must be omitted or blank).</p>
-      <p id="M"><strong>M</strong>: Multi-select. Specify the letter M to allow the user to select more than one file via shift-click, control-click, or other means. In this case, the return value is an <a href="Array.htm">Array</a> instead of a string. To extract the individual files, see the example at the bottom of this page.</p>
-      <p id="S"><strong>S</strong>: Save dialog. Specify the letter S to cause the dialog to always contain a Save button instead of an Open button.</p>
-      <p>The following numbers can be used. To put more than one of them into effect, add them up. For example, to use 1 and 2, specify the number 3.</p>
-      <p><strong>1</strong>: File Must Exist<br>
-        <strong>2</strong>: Path Must Exist<br>
-        <strong>8</strong>: Prompt to Create New File<br>
-        <strong>16</strong>: Prompt to Overwrite File<br>
-        <strong>32</strong>: Shortcuts (.lnk files) are selected as-is rather than being resolved to their targets. This option also prevents navigation into a folder via a folder shortcut.</p>
-      <p>As the "Prompt to Overwrite" option is supported only by the Save dialog, specifying that option without the "Prompt to Create" option also puts the "S" option into effect. Similarly, the "Prompt to Create" option has no effect when the "S" option is present. Specifying the number 24 enables whichever type of prompt is supported by the dialog.</p>
+      <p>省略した場合は、デフォルトで0となり、以下のオプションが何もないのと同じことになります。</p>
+      <p>それ以外の場合は、数字または以下に示す文字のうちの1つで、オプションでその後に数字が続くこともある。例えば、<code>"M"</code>、"<code>1</code>、<code>"M1"</code>はすべて有効です（ただし、同等ではありません）。</p>
+      <p id="D"><strong>D</strong>:フォルダー（ディレクトリ）を選択する。Dを指定すると、ファイルではなくフォルダーを選択できるようになります。このダイアログは、ファイルを選択するときとほぼ同じ機能を持ちますが、フィルターには対応していません（<em>フィルター</em>は省略または空白でなければなりません）。</p>
+      <p id="M"><strong>M</strong>:マルチセレクトです。Shift-click、Control-clickなどで複数のファイルを選択できるようにする場合は、Mを指定します。この場合、戻り値は文字列ではなく、<a href="Array.htm">Array</a>になります。個々のファイルを取り出すには、このページ下部の例を参照してください。</p>
+      <p id="S"><strong>S</strong>:保存ダイアログです。Sを指定すると、ダイアログに常に「開く」ボタンの代わりに「保存」ボタンが表示されるようになります。</p>
+      <p>以下の番号を使用することができます。複数を効果的に使うには、それらを足し算します。例えば、1と2を使う場合は、数字の3を指定します。</p>
+      <p><strong>1</strong>:ファイルが存在する必要がある<br>
+        <strong>2</strong>:パスは存在しなければならない<br>
+        <strong>8</strong>:新規ファイル作成時のプロンプト<br>
+        <strong>16</strong>:ファイルを上書きするプロンプト<br>
+        <strong>32</strong>:ショートカット（.lnkファイル）は、ターゲットに解決されるのではなく、そのまま選択されます。また、このオプションは、フォルダーショートカットによるフォルダーへのナビゲーションを防止します。</p>
+      <p>上書き保存を促す」オプションは保存ダイアログでのみサポートされているため、「作成を促す」オプションを指定せずにこのオプションを指定すると、「S」オプションも有効になります。同様に、"S"オプションがある場合、"Prompt to Create"オプションは効果を発揮しません。24を指定すると、ダイアログでサポートされているどのタイプのプロンプトも有効になります。</p>
   </dd>
 
   <dt>RootDir\Filename</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If present, this parameter contains one or both of the following:</p>
-      <p><strong>RootDir</strong>: The root (starting) directory, which is assumed to be a subfolder in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path is not specified. If omitted or blank, the starting directory will be a default that might depend on the OS version (it will likely be the directory most recently selected by the user during a prior use of FileSelect).</p>
-      <p><strong>Filename</strong>: The default filename to initially show in the dialog's edit field. Only the naked filename (with no path) will be shown. To ensure that the dialog is properly shown, ensure that no illegal characters are present (such as /&lt;|:").</p>
-      <p>Examples:</p>
-      <pre>"C:\My Pictures\Default Image Name.gif"  <em>; Both <i>RootDir</i> and <i>Filename</i> are present.</em>
-"C:\My Pictures"  <em>; Only <i>RootDir</i> is present.</em>
-"My Pictures"  <em>; Only <i>RootDir</i> is present, and it's relative to the current working directory.</em>
-"My File"  <em>; Only <i>Filename</i> is present (but if "My File" exists as a folder, it is assumed to be <i>RootDir</i>).</em></pre>
+      <p>存在する場合、このパラメータには以下のいずれかまたは両方が含まれます：</p>
+      <p><strong>RootDir</strong>:ルート（開始）ディレクトリ。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>のサブフォルダとみなされる。省略または空白の場合、開始ディレクトリはOSのバージョンに依存するデフォルトとなります（おそらく、以前にFileSelectを使用した際に、ユーザーが最も最近選択したディレクトリとなるでしょう）。</p>
+      <p><strong>Filename</strong>:ダイアログの編集フィールドに最初に表示されるデフォルトのファイル名です。裸のファイル名（パスなし）のみが表示されます。ダイアログが正しく表示されるように、不正な文字（/&lt;|: "など）が存在しないことを確認してください。</p>
+      <p>例：</p>
+      <pre>"C:\My Pictures\Default Image Name.gif"<em>; <i>RootDir</i>と<i>Filename</i>の両方が存在する。</em>
+"C:\My Pictures"<em>; <i>RootDir</i>のみ存在する。</em>
+"My Pictures"<em>; <i>RootDir</i>のみが存在し、現在の作業ディレクトリからの相対パスです。</em>
+"My File"<em>; <i>Filename</i>のみ存在する（ただし、"My File"がフォルダとして存在する場合は、<i>RootDir</i>とする）。</em></pre>
   </dd>
 
   <dt>Title</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>The title of the file-selection window. If omitted or blank, it will default to <code>"Select File - " <a href="../Variables.htm#ScriptName">A_ScriptName</a></code> (i.e. the name of the current script), unless the "D" option is present, in which case the word "File" is replaced with "Folder".</p>
+      <p>ファイル選択ウィンドウのタイトルです。省略または空白の場合、デフォルトで<code>"ファイルを選択 - "<a href="../Variables.htm#ScriptName">A_ScriptName</a></code>（つまり、現在のスクリプトの名前）"となります。"D"オプションが存在する場合、"File"は "Folder"に置き換えられます。</p>
   </dd>
 
   <dt>Filter</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Indicates which types of files are shown by the dialog.</p>
+      <p>ダイアログで表示されるファイルの種類を示します。</p>
       <p>Example: Documents (*.txt)<br>
         
         Example: Audio (*.wav; *.mp2; *.mp3)</p>
-      <p>If omitted, the filter defaults to All Files (*.*).</p>
-    <p>Otherwise, the filter uses the indicated string but also provides an option for All Files (*.*) in the dialog's "files of type" drop-down list. To include more than one file extension in the filter, separate them with semicolons as illustrated in the example above.</p>
-    <p>This parameter must be blank or omitted if the "D" option is present.</p>
+      <p>省略された場合、フィルターのデフォルトは「すべてのファイル（*.*）」です。</p>
+    <p>そうでない場合は、指定された文字列を使用しますが、ダイアログの「ファイルの種類」ドロップダウンリストに「すべてのファイル（*.*）」のオプションも用意されています。複数のファイル拡張子をフィルターに含めるには、上の例のようにセミコロンで区切ってください。</p>
+    <p>"D"オプションがある場合、このパラメータは空白または省略する必要があります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#strings">String</a> or <a href="Array.htm">Array</a> of <a href="../Concepts.htm#strings">Strings</a></p>
-<p>If multi-select is not in effect, this function returns the full path and name of the single file or folder chosen by the user, or an empty string if the user cancels the dialog.</p>
-<p>If the M option (multi-select) is in effect, this function returns an array of items, where each item is the full path and name of a single file. The example at the bottom of this page demonstrates how to extract the files one by one. If the user cancels the dialog, the array is empty (has zero items).</p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#strings">文字列</a>の<a href="Array.htm">配列</a></p>
+<p>マルチセレクトが有効でない場合、この関数は、ユーザーが選択した単一のファイルまたはフォルダのフルパスと名前を返し、ユーザーがダイアログをキャンセルした場合は空の文字列を返します。</p>
+<p>Mオプション（複数選択）が有効な場合、この関数は項目の配列を返し、各項目は1つのファイルのフルパスと名前になります。本ページ下部の例では、ファイルを1つずつ抽出する方法を示しています。ユーザーがダイアログをキャンセルした場合、配列は空（アイテムがゼロ）になります。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>A file-selection dialog usually looks like this:</p>
+<p>ファイル選択ダイアログは、通常このように表示されます：</p>
 <img src="../static/dlg_file.png" alt="FileSelect" />
-<p>A GUI window may display a modal file-selection dialog by means of the <a href="Gui.htm#OwnDialogs">+OwnDialogs</a> option. モーダルダイアログは、ダイアログが解除されるまで、ユーザーがGUIウィンドウと対話するのを防ぎます。</p>
-<p>既知の制限：A <a href="SetTimer.htm">timer</a> that launches during the display of a FileSelect dialog will postpone the effect of the user's clicks inside the dialog until after the timer finishes. これを回避するには、サブルーチンの終了に時間がかかるタイマーの使用を避けるか、ダイアログ中のタイマーをすべて無効にしてください：</p>
+<p>GUIウィンドウは、<a href="Gui.htm#OwnDialogs">+OwnDialogs</a>オプションにより、モーダルファイル選択ダイアログを表示することができる。モーダルダイアログは、ダイアログが解除されるまで、ユーザーがGUIウィンドウと対話するのを防ぎます。</p>
+<p>既知の制限：ファイル選択ダイアログの表示中に起動する<a href="SetTimer.htm">タイマー</a>は、ダイアログ内でのクリックの効果をタイマー終了後まで延期します。これを回避するには、サブルーチンの終了に時間がかかるタイマーの使用を避けるか、ダイアログ中のタイマーをすべて無効にしてください：</p>
 <pre><a href="Thread.htm">Thread</a> "NoTimers"
 SelectedFile := FileSelect()
 Thread "NoTimers", false</pre>
@@ -88,7 +88,7 @@ Thread "NoTimers", false</pre>
 <p>また、OSには、フォント、色、アイコンの選択を促すダイアログボックスが標準装備されています。これらのダイアログは、<a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>でデモされているように、<a href="DllCall.htm">DllCall</a>を介して表示することができます。</p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Allows the user to select an existing .txt or .doc file.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 既存の.txtまたは.docファイルを選択できるようにします。</p>
 <pre>SelectedFile := FileSelect(3, , "Open a file", "Text Documents (*.txt; *.doc)")
 if SelectedFile = ""
     MsgBox "The dialog was canceled."
@@ -97,8 +97,8 @@ else
 </div>
 
 <div class="ex" id="ExMulti">
-<p><a class="ex_number" href="#ExMulti"></a>  Allows the user to select multiple existing files.</p>
-<pre>SelectedFiles := FileSelect("M3")  <em>; M3 = Multiselect existing files.</em>
+<p><a class="ex_number" href="#ExMulti"></a> 既存のファイルを複数選択できるようにします。</p>
+<pre>SelectedFiles := FileSelect("M3")<em>; M3 = 既存ファイルをマルチセレクトする。</em>
 if SelectedFiles.Length = 0
 {
     MsgBox "The dialog was canceled."
@@ -114,7 +114,7 @@ for FileName in SelectedFiles
 </div>
 
 <div class="ex" id="ExFolder">
-<p><a class="ex_number" href="#ExFolder"></a>  Allows the user to select a folder.</p>
+<p><a class="ex_number" href="#ExFolder"></a> フォルダーを選択できるようにします。</p>
 <pre>
 SelectedFolder := FileSelect("D", , "Select a folder")
 if SelectedFolder = ""

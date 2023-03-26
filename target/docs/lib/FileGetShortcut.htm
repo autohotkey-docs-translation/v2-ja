@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileGetShortcut - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileGetShortcut function retrieves information about a shortcut (.lnk) file, such as its target file." />
+<title>FileGetShortcut - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileGetShortcut関数は、ショートカット（.lnk）ファイルのターゲットファイルなどの情報を取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileGetShortcut</h1>
 
-<p>Retrieves information about a shortcut (.lnk) file, such as its target file.</p>
+<p>ショートカット（.lnk）ファイルの対象ファイルなどの情報を取得します。</p>
 
 <pre class="Syntax"><span class="func">FileGetShortcut</span> LinkFile <span class="optional">, &amp;OutTarget, &amp;OutDir, &amp;OutArgs, &amp;OutDescription, &amp;OutIcon, &amp;OutIconNum, &amp;OutRunState</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,49 +21,49 @@
   <dt>LinkFile</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Name of the shortcut file to be analyzed, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. Be sure to include the <strong>.lnk</strong> extension.</p>
+    <p>解析するショートカットファイルの名前。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される。必ず拡張子<strong>.lnk</strong>を付けてください。</p>
   </dd>
 
   <dt>&amp;OutTarget</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's target (not including any arguments it might have). 事例：C:\WINDOWS\system32\notepad.exe</p>
+    <p>ショートカットのターゲットを格納する出力変数への参照（引数は含まれない）。事例：C:\WINDOWS\system32\notepad.exe</p>
   </dd>
 
   <dt>&amp;OutDir</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's working directory. 事例：C:\My Documents. If environment variables such as %WinDir% are present in the string, one way to resolve them is via <a href="StrReplace.htm">StrReplace</a>. 事例：<code>OutDir := StrReplace(OutDir, "%WinDir%", <a href="../Variables.htm#WinDir">A_WinDir</a>)</code></p>
+    <p>ショートカットの作業ディレクトリを格納する出力変数への参照。事例：C:\My Documents. WinDir%などの環境変数が文字列中に存在する場合、それを解決する一つの方法として、<a href="StrReplace.htm">StrReplace</a>を使用します。事例：<code>OutDir := StrReplace(OutDir, "%WinDir%", <a href="../Variables.htm#WinDir">A_WinDir</a>)</code></p>
   </dd>
 
   <dt>&amp;OutArgs</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's parameters (blank if none).</p>
+    <p>ショートカットのパラメータを格納する出力変数への参照（ない場合は空白）。</p>
   </dd>
 
   <dt>&amp;OutDescription</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's comments (blank if none).</p>
+    <p>ショートカットのコメントを格納する出力変数への参照（ない場合は空白）。</p>
   </dd>
 
   <dt>&amp;OutIcon</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the filename of the shortcut's icon (blank if none).</p>
+    <p>ショートカットのアイコンのファイル名を格納する出力変数への参照（ない場合は空白）。</p>
   </dd>
 
   <dt>&amp;OutIconNum</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's icon number within the icon file (blank if none). This value is most often 1, which means the first icon.</p>
+    <p>アイコンファイル内のショートカットのアイコン番号を格納する出力変数への参照（ない場合は空白）。この値は、多くの場合、1であり、最初のアイコンを意味する。</p>
   </dd>
 
   <dt>&amp;OutRunState</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to the output variable in which to store the shortcut's initial launch state, which is one of the following digits:</p>
+    <p>ショートカットの初期起動状態を格納する出力変数への参照で、以下の数字のいずれかとなる：</p>
     <ul>
       <li>1 = Normal</li>
       <li>3 = Maximized</li>
@@ -82,7 +82,7 @@
 <p><a href="FileCreateShortcut.htm">FileCreateShortcut</a>, <a href="SplitPath.htm">SplitPath</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Allows the user to select an .lnk file to show its information.</p>
+<p><a class="ex_number" href="#ExBasic"></a> .lnkファイルを選択し、その情報を表示できるようにします。</p>
 <pre>LinkFile := FileSelect(32,, "Pick a shortcut to analyze.", "Shortcuts (*.lnk)")
 if LinkFile = ""
     return

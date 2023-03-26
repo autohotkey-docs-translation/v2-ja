@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileExist - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileExist function checks for the existence of a file or folder and returns its attributes." />
+<title>FileExist - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileExist 関数は、ファイルまたはフォルダの存在を確認し、その属性を返します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileExist</h1>
 
-<p>Checks for the existence of a file or folder and returns its attributes.</p>
+<p>ファイルまたはフォルダの存在を確認し、その属性を返す。</p>
 
 <pre class="Syntax">AttributeString := <span class="func">FileExist</span>(FilePattern)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,14 +21,14 @@
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The path, filename, or file pattern to check. <em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+    <p>チェックするパス、ファイル名、またはファイルパターンを指定します。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the attributes of the first matching file or folder. This string is a subset of <code>RASHNDOCT</code>, where each letter means the following:</p>
+<p>この関数は、最初にマッチしたファイルまたはフォルダの属性を返します。この文字列は<code>RASHNDOCT</code>の部分集合で、各文字は次のような意味を持っています：</p>
 <ul>
     <li>R = READONLY</li>
     <li>A = ARCHIVE</li>
@@ -41,38 +41,38 @@
     <li>T = TEMPORARY</li>
     <li>L = REPARSE_POINT (typically a symbolic link)</li>
 </ul>
-<p>If the file has no attributes (rare), "X" is returned. If no file or folder is found, an empty string is returned.</p>
+<p>ファイルに属性がない場合（稀）には、"X"が返されます。ファイルやフォルダが見つからない場合は、空の文字列が返されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Note that a wildcard check like <code>InStr(FileExist("FolderWithFilesAndSubfolders\*"), "D")</code> only tells you whether the <em>first</em> matching file is a folder, not whether a folder exists. To check for the latter, use <a href="DirExist.htm">DirExist</a>. 事例：<code>DirExist("FolderWithFilesAndSubfolders\*")</code></p>
-<p>Unlike <a href="FileGetAttrib.htm">FileGetAttrib</a>, FileExist supports wildcard patterns and always returns a non-empty value if a matching file exists.</p>
-<p>空文字列は "false"とみなされるため、この関数の戻り値は常に準ブール値として使用することができる。For example, the statement <code>if FileExist("C:\My File.txt")</code> would be true if the file exists and false otherwise.</p>
-<p>Since <em>FilePattern</em> may contain wildcards, FileExist may be unsuitable for validating a file path which is to be used with another function or program. For example, <code>FileExist("*.txt")</code> may return attributes even though "*.txt" is not a valid filename. このような場合は、<a href="FileGetAttrib.htm">FileGetAttrib</a>を使用することが望ましい。</p>
+<p><code>InStr(FileExist("FolderWithFilesAndSubfolders*"), "D")</code>のようなワイルドカードチェックでは、<em>最初</em>にマッチしたファイルがフォルダであるかどうかがわかるだけで、フォルダが存在するかどうかはわからないことに注意してください。後者を確認するには、<a href="DirExist.htm">DirExist</a>を使用します。事例：<code>DirExist("FolderWithFilesAndSubfolders\*")</code></p>
+<p><a href="FileGetAttrib.htm">FileGetAttrib</a>とは異なり、FileExistはワイルドカードパターンをサポートし、一致するファイルが存在する場合は常に空でない値を返します。</p>
+<p>空文字列は "false"とみなされるため、この関数の戻り値は常に準ブール値として使用することができる。例えば、<code>if FileExist("C:¥MyFile.txt")</code>という文は、ファイルが存在すれば真、そうでなければ偽となります。</p>
+<p><em>FilePattern</em>はワイルドカードを含むことができるので、FileExistは他の関数やプログラムで使用するファイルパスの検証には適さないかもしれません。例えば、<code>FileExist("*.txt")</code>は、"*.txt "が有効なファイル名でないにもかかわらず、属性を返す場合があります。このような場合は、<a href="FileGetAttrib.htm">FileGetAttrib</a>を使用することが望ましい。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="DirExist.htm">DirExist</a>, <a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="LoopFiles.htm">File-loops</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExDrive">
-<p><a class="ex_number" href="#ExDrive"></a>  Shows a message box if the D drive does exist.</p>
+<p><a class="ex_number" href="#ExDrive"></a> Dドライブが存在する場合、メッセージボックスを表示します。</p>
 <pre>if FileExist("D:\")
     MsgBox "The drive exists."</pre>
 </div>
 
 <div class="ex" id="ExPattern">
-<p><a class="ex_number" href="#ExPattern"></a>  Shows a message box if at least one text file does exist in a directory.</p>
+<p><a class="ex_number" href="#ExPattern"></a> ディレクトリに少なくとも1つのテキストファイルが存在する場合、メッセージボックスを表示します。</p>
 <pre>if FileExist("D:\Docs\*.txt")
     MsgBox "At least one .txt file exists."</pre>
 </div>
 
 <div class="ex" id="ExNot">
-<p><a class="ex_number" href="#ExNot"></a>  Shows a message box if a file does <strong>not</strong> exist.</p>
+<p><a class="ex_number" href="#ExNot"></a> ファイルが存在<strong>しない</strong>場合、メッセージボックスを表示します。</p>
 <pre>if not FileExist("C:\Temp\FlagFile.txt")
     MsgBox "The target file does not exist."</pre>
 </div>
 
 <div class="ex" id="ExAttr">
-<p><a class="ex_number" href="#ExAttr"></a>  Demonstrates how to check a file for a specific attribute.</p>
+<p><a class="ex_number" href="#ExAttr"></a> 特定の属性のファイルをチェックする方法を説明します。</p>
 <pre>if InStr(FileExist("C:\My File.txt"), "H")
     MsgBox "The file is hidden."</pre>
 </div>

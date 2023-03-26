@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Format - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Format function formats a variable number of input values according to a format string." />
+<title>Format - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Format関数は、フォーマット文字列に従って、可変数の入力値をフォーマットする。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>Format</h1>
 
-<p>Formats a variable number of input values according to a format string.</p>
+<p>可変数の入力値を、フォーマット文字列に従って整形する。</p>
 
 <pre class="Syntax">String := <span class="func">Format</span>(FormatStr <span class="optional">, Values...</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,19 +21,19 @@
   <dt>FormatStr</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A format string composed of literal text and placeholders of the form <code>{<i>Index</i>:<i><a href="#FormatSpec">Format</a></i>}</code>.</p>
-    <p><em>Index</em> is an integer indicating which input value to use, where 1 is the first value.</p>
-    <p><em>Format</em> is an optional format specifier, as described below.</p>
-    <p>Omit the index to use the next input value in the sequence (even if it has been used earlier in the string). For example, <code>"{2:i} {:i}"</code> formats the second and third input values as decimal integers, separated by a space. If <em>Index</em> is omitted, <em>Format</em> must still be preceded by <code>:</code>. Specify empty braces to use the next input value with default formatting: <code>{}</code></p>
-    <p>Use <code>{{}</code> and <code>{}}</code> to include literal braces in the string. Any other invalid placeholders are included in the result as is.</p>
-    <p>Whitespace inside the braces is not permitted (except as a flag).</p>
+    <p><code>{<i>インデックス</i>:<i><a href="#FormatSpec">フォーマット</a></i>}</code>という形式のリテラルテキストとプレースホルダからなるフォーマット文字列です。</p>
+    <p><em>Index</em>は、どの入力値を使用するかを示す整数で、1が最初の値である。</p>
+    <p><em>Format</em>は、後述するオプションのフォーマット指定子である。</p>
+    <p>インデックスを省略すると、（文字列の前のほうで使われていたとしても）シーケンスの次の入力値を使用します。例えば、<code>"{2:i} {:i}"</code>は、2番目と3番目の入力値を、スペースで区切った10進数の整数としてフォーマットします。<em>Index</em>が省略された場合でも、<em>Format</em>の前には<code>:</code>が必要です。空の中括弧を指定すると、次の入力値をデフォルトの書式で使用する：<code>{}</code></p>
+    <p>文字列の中にリテラルブレースを含めるには、<code>{{}</code>と <code>{}}</code>を使用します。それ以外の無効なプレースホルダーは、そのまま結果に含まれます。</p>
+    <p>中括弧の中の空白は許されない（フラグとして除く）。</p>
   </dd>
 
   <dt>価値観</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#numbers">Float</a></p>
-    <p>Input values to be formatted and inserted into the final string. Each value is a separate parameter. The first value has an index of 1.</p>
-    <p>To pass an array of values, use a <a href="../Functions.htm#VariadicCall">variadic function call</a>:</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、<a href="../Concepts.htm#numbers">浮動小数点</a></p>
+    <p>最終的な文字列に整形して挿入される入力値。各値は独立したパラメータです。最初の値はインデックスが1である。</p>
+    <p>値の配列を渡すには、<a href="../Functions.htm#VariadicCall">variadic function call</a>を使用します：</p>
     <pre>arr := [13, 240]
 MsgBox Format("{2:x}{1:02x}", arr*)</pre>
   </dd>
@@ -42,22 +42,22 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the formatted version of the specified string.</p>
+<p>この関数は、指定された文字列を整形したものを返す。</p>
 
-<h2 id="FormatSpec">Format Specifiers</h2>
-<p>Each format specifier can include the following components, in this order (without the spaces):</p>
-<pre class="Syntax">Flags Width .Precision ULT Type</pre>
-<p><strong>Flags</strong>: Zero or more flags from the <a href="#Flags">flag table</a> below to affect output justification and prefixes.</p>
-<p><strong>Width</strong>: A decimal integer which controls the minimum width of the formatted value, in characters. By default, values are right-aligned and spaces are used for padding. This can be overridden by using the <code>-</code> (left-align) and <code class="no-highlight">0</code> (zero prefix) flags.</p>
-<p><strong>.Precision</strong>: A decimal integer which controls the maximum number of string characters, decimal places, or significant digits to output, depending on the output type. It must be preceded by a decimal point. Specifying a precision may cause the value to be truncated or rounded. Output types and how each is affected by the precision value are as follows (see table below for an explanation of the different output types):</p>
+<h2 id="FormatSpec">フォーマット指定子</h2>
+<p>各フォーマット指定子は、以下の構成要素をこの順序で含むことができる（空白は除く）：</p>
+<pre class="Syntax">フラグ幅 .精度 ULTタイプ</pre>
+<p><strong>フラグ</strong>：以下の<a href="#Flags">フラグテーブル</a>から0個以上のフラグを指定し、出力の正当化および接頭辞に影響を与える。</p>
+<p><strong>Width</strong>:フォーマットされた値の最小幅を制御する10進数の整数（文字数）。デフォルトでは、値は右寄せになり、パディングにはスペースが使用されます。これは、<code>-</code>（左寄せ）および<code class="no-highlight">0</code>（ゼロプレフィックス）フラグを使用することで上書きすることができます。</p>
+<p><strong>.Precision</strong>:出力タイプに応じて、出力する文字列の最大文字数、小数点以下の桁数、または有効桁数を制御する10進数の整数です。その前に必ず小数点が付きます。精度を指定すると、値が切り捨てられたり、丸められたりすることがあります。出力の種類と精度値によるそれぞれの影響は以下の通りです（出力の種類についての説明は下表を参照）：</p>
 <ul>
-  <li><code>f</code>, <code>e</code>, <code>E</code>: <em>Precision</em> specifies the number of digits after the decimal point. The default is 6.</li>
-  <li><code>g</code>, <code>G</code>: <em>Precision</em> specifies the maximum number of significant digits. The default is 6.</li>
-  <li><code>s</code>: <em>Precision</em> specifies the maximum number of characters to be printed. Characters in excess of this are not printed.</li>
-  <li>For the integer types (<code>d</code>, <code>i</code>, <code>u</code>, <code>x</code>, <code>X</code>, <code>o</code>), <em>Precision</em> acts like <em>Width</em> with the <code class="no-highlight">0</code> prefix and a default of 1.</li>
+  <li><code>f</code>, <code>e</code>, <code>E</code>:<em>Precision</em>は、小数点以下の桁数を指定します。デフォルトは6です。</li>
+  <li><code>g</code>, <code>G</code>:<em>Precision</em>は、最大有効桁数を指定します。デフォルトは6です。</li>
+  <li><code>s</code>:<em>Precision</em>は、印刷する文字数の最大値を指定します。これを超える文字は印刷されません。</li>
+  <li>整数型（<code>d</code>、<code>i</code>、<code>u</code>、<code>x</code>、<code>X</code>、<code>o</code>）の場合、<em>Precision</em>は <em>Width</em>のように接頭辞<code class="no-highlight">0</code>、デフォルト1として動作します。</li>
 </ul>
-<p id="ULT"><b>ULT</b>: Specifies a case transformation to apply to a string value -- <b>U</b>pper, <b>L</b>ower or <b>T</b>itle. Valid only with the <code>s</code> type. For example <code>{:U}</code> or <code>{:.20Ts}</code>. Lower-case <code>l</code> and <code>t</code> are also supported, but <code>u</code> is reserved for unsigned integers.</p>
-<p><strong>Type</strong>: A character from the <a href="#Types">type table</a> below indicating how the input value should be interpreted. If omitted, it defaults to <code>s</code>.</p>
+<p id="ULT"><b>ULT</b>:文字列の値に適用する大文字と小文字の変換を指定する --<b>U</b>pper、<b>L</b>ower、<b>T</b>itle。<code>s</code>タイプのみ有効です。例えば<code>{:U}</code>や <code>{:.20Ts}</code>のようなものです。小文字の<code>l</code>と <code>t</code>もサポートされているが、<code>u</code>は符号なし整数用に予約されている。</p>
+<p><strong>Type</strong>:入力値がどのように解釈されるべきかを示す、以下の<a href="#Types">タイプテーブル</a>からの文字。省略された場合、デフォルトは<code>s</code>です。</p>
 
 <h2 id="Flags">Flags</h2>
 <table class="info">
@@ -65,38 +65,38 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
   <tr>
     <td><code>-</code></td>
     <td>
-      <p>Left align the result within the given field width (insert spaces to the right if needed). For example, <code>Format("{:-10}", 1)</code> returns <code class="no-highlight" style="white-space: pre">1         </code>.</p>
-      <p>If omitted, the result is right aligned within the given field width.</p>
+      <p>指定されたフィールド幅の範囲内で結果を左寄せにする（必要に応じて右側にスペースを挿入する）。例えば、<code>Format("{:-10}", 1)</code>は<code class="no-highlight" style="white-space: pre">1</code> を返します。</p>
+      <p>省略された場合、結果は与えられたフィールド幅の中で右寄せされる。</p>
     </td>
   </tr>
   <tr>
     <td><code>+</code></td>
     <td>
-      <p>Use a sign (+ or -) to prefix the output value if it is of a signed type. For example, <code>Format("{:+d}", 1)</code> returns <code class="no-highlight">+1</code>.</p>
-      <p>If omitted, a sign appears only for negative signed values (-).</p>
+      <p>出力値が符号付きである場合、符号（+または-）を前置詞として使用します。例えば、<code>Format("{:+d}", 1)</code>は、<code class="no-highlight">+1</code>を返します。</p>
+      <p>省略した場合は、負の符号付き値（-）に対してのみ符号が表示されます。</p>
     </td>
   </tr>
   <tr>
     <td><code class="no-highlight">0</code></td>
     <td>
-      <p>If <em>width</em> is prefixed by 0, leading zeros are added until the minimum width is reached. For example, <code>Format("{:010}", 1)</code> returns <code class="no-highlight">0000000001</code>. If both <code class="no-highlight">0</code> and <code>-</code> appear, the 0 is ignored. If 0 is specified as an integer format (i, u, x, X, o, d) and a precision specification is also present - for example, <code class="no-highlight">{:04.d}</code> - the 0 is ignored.</p>
-      <p>If omitted, no padding occurs.</p>
+      <p><em>width</em>の前に0を付けると、最小幅に達するまで先頭の0が追加されます。例えば、<code>Format("{:010}", 1)</code>は、<code class="no-highlight">0000000001</code>を返します。<code class="no-highlight">0</code>と <code>-</code>の両方が表示される場合、0は無視されます。整数形式（i, u, x, o, d）として0が指定され、かつ精度指定がある場合（例：<code class="no-highlight">{:04.d}</code>）、0は無視されます。</p>
+      <p>省略した場合、パディングは行われない。</p>
     </td>
   </tr>
   <tr>
     <td><code>&nbsp;</code></td>
     <td>
-      <p>Use a space to prefix the output value with a <em>single</em> space if it is signed and positive. The space is ignored if both <code>&nbsp;</code> and <code>+</code> flags appear. For example, <code>Format("{:&nbsp;05d}", 1)</code> returns <code class="no-highlight" style="white-space: pre"> 0001</code>.</p>
-      <p>If omitted, no space appears.</p>
+      <p>出力値が符号付きで正数である場合、スペースを<em>1つ</em>使って前置する。<code> </code>と<code>+</code>フラグの両方が表示されている場合、スペースは無視されます。例えば、<code>Format("{: 05d}", 1)</code>は<code class="no-highlight" style="white-space: pre"> 0001</code>を返します。</p>
+      <p>省略した場合は、スペースが表示されません。</p>
     </td>
   </tr>
   <tr>
     <td><code>#</code></td>
     <td>
-      <p>When it's used with the o, x, or X format, the # flag uses <code class="no-highlight">0</code>, <code class="no-highlight">0x</code>, or <code class="no-highlight">0X</code>, respectively, to prefix any nonzero output value. For example, <code>Format("{:#x}", 1)</code> returns <code class="no-highlight">0x1</code>.</p>
-      <p>When it's used with the e, E, f, a or A format, the # flag forces the output value to contain a decimal point. For example, <code>Format("{:#.0f}", 1)</code> returns <code class="no-highlight">1.</code>.</p>
-      <p>When it's used with the g or G format, the # flag forces the output value to contain a decimal point and prevents the truncation of trailing zeros.</p>
-      <p>Ignored when used with c, d, i, u, or s.</p>
+      <p>o、x、Xフォーマットと併用する場合、#フラグはそれぞれ<code class="no-highlight">0</code>、<code class="no-highlight">0x</code>、<code class="no-highlight">0X</code>を使用して、0以外の出力値の前に置くようにします。例えば、<code>Format("{:#x}", 1)</code>は<code class="no-highlight">0x1</code>を返します。</p>
+      <p>e、E、f、a、Aフォーマットで使用する場合、#フラグは出力値に強制的に小数点を含ませる。例えば、<code>Format("{:#.0f}", 1)</code>は<code class="no-highlight">1.</code>を返します。</p>
+      <p>gまたはGフォーマットと併用する場合、#フラグは出力値に小数点以下を強制的に含ませ、末尾のゼロの切り捨てを防止します。</p>
+      <p>c、d、i、u、s と共に使用する場合は無視されます。</p>
     </td>
   </tr>
 </table>
@@ -107,96 +107,96 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
   <tr>
     <td><code>d</code> or <code>i</code></td>
     <td>整数</td>
-    <td>Signed decimal integer. For example, <code>Format("{:d}", 1.23)</code> returns <code class="no-highlight">1</code>.</td>
+    <td>符号付き10進数整数。例えば、<code>Format("{:d}", 1.23)</code>は<code class="no-highlight">1</code>を返します。</td>
   </tr>
   <tr>
     <td><code>u</code></td>
     <td>整数</td>
-    <td>Unsigned decimal integer.</td>
+    <td>符号なし10進数整数。</td>
   </tr>
   <tr>
-    <td><code>x</code> or <code>X</code></td>
+    <td><code>x</code> または <code>X</code></td>
     <td>整数</td>
-    <td>Unsigned hexadecimal integer; uses "abcdef" or "ABCDEF" depending on the case of <code>x</code>. The <code class="no-highlight">0x</code> prefix is not included unless the <code>#</code> flag is used, as in <code>{:#x}</code>. To always include the prefix, use <code class="no-highlight">0x{:x}</code> or similar. For example, <code>Format("{:X}", 255)</code> returns <code>FF</code>.</td>
+    <td>符号なし16進数整数。<code>x</code>のケースによって "abcdef"または "ABCDEF" を使用する。<code class="no-highlight">0x</code>は <code>{:#x}</code>のように<code>#</code>フラグが使用されていない限り、接頭辞は含まれない。常にプレフィックスを含むようにするには、<code class="no-highlight">0x{:x}</code>などを使用します。例えば、<code>Format("{:X}", 255)</code>は<code>FF</code>を返します。</td>
   </tr>
   <tr>
     <td><code>o</code></td>
     <td>整数</td>
-    <td>Unsigned octal integer. For example, <code>Format("{:o}", 255)</code> returns <code class="no-highlight">377</code>.</td>
+    <td>8進数の符号なし整数。例えば、<code>Format("{:o}", 255)</code>は<code class="no-highlight">377</code>を返します。</td>
   </tr>
   <tr>
     <td><code>f</code></td>
-    <td>Floating-point</td>
-    <td>Signed value that has the form [ - ]<em>dddd</em>.<em>dddd</em>, where <em>dddd</em> is one or more decimal digits. The number of digits before the decimal point depends on the magnitude of the number, and the number of digits after the decimal point depends on the requested precision. For example, <code>Format("{:.2f}", 1)</code> returns <code class="no-highlight">1.00</code>.</td>
+    <td>浮動小数点</td>
+    <td>符号付き値で、[ - ]<em>dddd</em><em>.dddd</em>（<em>dddd</em>は1桁以上の10進数）の形式を持つ。小数点以下の桁数は数値の大きさに依存し、小数点以下の桁数は要求精度に依存します。例えば、<code>Format("{:.2f}", 1)</code>は<code class="no-highlight">1.00</code>を返します。</td>
   </tr>
   <tr>
     <td><code>e</code></td>
-    <td>Floating-point</td>
-    <td>Signed value that has the form [ - ]<em>d.dddd</em> e [<em>sign</em>]<em>dd[d]</em> where <em>d</em> is one decimal digit, <em>dddd</em> is one or more decimal digits, <em>dd[d]</em> is two or three decimal digits depending on the output format and size of the exponent, and <em>sign</em> is + or -. For example, <code>Format("{:e}", 255)</code> returns <code class="no-highlight">2.550000e+002</code>.</td>
+    <td>浮動小数点</td>
+    <td>符号付き値で，形式は [ - ]<em>d.dddd</em>e[<em>sign</em>]<em>dd[d]</em>ここで，<em>d</em>は小数点以下1桁，<em>dddd</em>は小数点以下1桁以上，<em>dd[d]</em>は出力形式と指数の大きさに応じて小数点以下2桁または3桁，<em>sign</em>は + または -．例えば、<code>Format("{:e}", 255)</code>は<code class="no-highlight">2.550000e+002</code>を返します。</td>
   </tr>
   <tr>
     <td><code>E</code></td>
-    <td>Floating-point</td>
-    <td>Identical to the <code>e</code> format except that E rather than e introduces the exponent.</td>
+    <td>浮動小数点</td>
+    <td><code>e</code>ではなくEが指数を導入することを除いて、<code>e</code>フォーマットと同じです。</td>
   </tr>
   <tr>
     <td><code>g</code></td>
-    <td>Floating-point</td>
-    <td>Signed values are displayed in <code>f</code> or <code>e</code> format, whichever is more compact for the given value and precision. The <code>e</code> format is used only when the exponent of the value is less than -4 or greater than or equal to the <em>precision</em> argument. Trailing zeros are truncated, and the decimal point appears only if one or more digits follow it.</td>
+    <td>浮動小数点</td>
+    <td>符号付き値は、<code>f</code>または<code>e</code>のフォーマットで表示され、与えられた値と精度に対してよりコンパクトなほうを選択します。<code>e</code>形式は，値の指数が-4未満，または<em>精度</em>引数以上の場合にのみ使用される。末尾のゼロは切り捨てられ、小数点は1桁以上続く場合のみ表示されます。</td>
   </tr>
   <tr>
     <td><code>G</code></td>
-    <td>Floating-point</td>
-    <td>Identical to the <code>g</code> format, except that E, rather than e, introduces the exponent (where appropriate).</td>
+    <td>浮動小数点</td>
+    <td><code>g</code>形式と同じ。ただし、e ではなく E が指数（適切な場合）を導入している。</td>
   </tr>
   <tr>
     <td><code>a</code></td>
-    <td>Floating-point</td>
-    <td>Signed hexadecimal double-precision floating-point value that has the form [?]0x<em>h.hhhh</em> <strong>p</strong>±<em>dd</em>, where <em>h.hhhh</em> are the hex digits (using lower case letters) of the mantissa, and <em>dd</em> are one or more digits for the exponent. The precision specifies the number of digits after the point. For example, <code>Format("{:a}", 255)</code> returns <code class="no-highlight">0x1.fe0000p+7</code>.</td>
+    <td>浮動小数点</td>
+    <td><em>h.hhhh</em>は仮数部の16進数（小文字を使用）、<em>dd</em>は指数部の1桁以上の数字を示す。精度は、ポイント以降の桁数を指定します。例えば、<code>Format("{:a}", 255)</code>は<code class="no-highlight">0x1.fe0000p+7</code>を返します。</td>
   </tr>
   <tr>
     <td><code>A</code></td>
-    <td>Floating-point</td>
-    <td>Identical to the <code>a</code> format, except that P, rather than p, introduces the exponent.</td>
+    <td>浮動小数点</td>
+    <td>p ではなく P が指数を示すことを除けば，<code>a</code>形式と同じである。</td>
   </tr>
   <tr>
     <td><code>p</code></td>
     <td>整数</td>
-    <td>Displays the argument as a memory address in hexadecimal digits. For example, <code>Format("{:p}", 255)</code> returns <code class="no-highlight">000000FF</code>.</td>
+    <td>引数をメモリアドレスとして16進数で表示します。例えば、<code>Format("{:p}", 255)</code>は、<code class="no-highlight">000000FF</code>を返します。</td>
   </tr>
   <tr>
     <td><code>s</code></td>
-    <td>String</td>
-    <td>Specifies a string. If the input value is numeric, it is automatically converted to a string before the <em>Width</em> and <em>Precision</em> arguments are applied.</td>
+    <td>文字列</td>
+    <td>文字列を指定します。入力値が数値の場合、<em>Width</em>と <em>Precision</em>の引数が適用される前に、自動的に文字列に変換されます。</td>
   </tr>
   <tr>
     <td><code>c</code></td>
-    <td>Character code</td>
-    <td>Specifies a single character by its ordinal value, similar to <code><a href="Chr.htm">Chr</a>(n)</code>. If the input value is outside the expected range, it wraps around. For example, <code>Format("{:c}", 116)</code> returns <code>t</code>.</td>
+    <td>文字コード</td>
+    <td><code><a href="Chr.htm">Chr</a>(n)</code>と同様に、1文字をその序列値で指定します。入力値が想定範囲外の場合、折り返す。例えば、<code>Format("{:c}", 116)</code>は<code>t</code>を返します。</td>
   </tr>
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p>Unlike <a href="https://learn.microsoft.com/cpp/c-runtime-library/format-specification-syntax-printf-and-wprintf-functions">printf</a>, size specifiers are not supported. All integers and floating-point input values are 64-bit.</p>
+<p><a href="https://learn.microsoft.com/cpp/c-runtime-library/format-specification-syntax-printf-and-wprintf-functions">printf</a>と異なり、サイズ指定子はサポートされていない。整数と浮動小数点の入力値は、すべて64ビットです。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="FormatTime.htm">FormatTime</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Demonstrates different usages.</p>
+<p><a class="ex_number" href="#ExBasic"></a> さまざまな使い方を実演する。</p>
 <pre>
 s := ""
-<em>; Simple substitution</em>
+<em>; 簡単な置換</em>
 s .= Format("{2}, {1}!`r`n", "World", "Hello")
-<em>; Padding with spaces</em>
+<em>; スペースでパディングする</em>
 s .= Format("|{:-10}|`r`n|{:10}|`r`n", "Left", "Right")
-<em>; Hexadecimal</em>
+<em>; 16進数</em>
 s .= Format("{1:#x} {2:X} 0x{3:x}`r`n", 3735928559, 195948557, 0)
-<em>; Floating-point</em>
+<em>; 浮動小数点</em>
 s .= Format("{1:0.3f} {1:.10f}", 4*ATan(1))
 
-ListVars<em>; Use AutoHotkey's main window to display monospaced text.</em>
+ListVars<em>; AutoHotkeyのメインウィンドウで等幅テキストを表示させる。</em>
 WinWaitActive "ahk_class AutoHotkey"
 ControlSetText(s, "Edit1")
 WinWaitClose

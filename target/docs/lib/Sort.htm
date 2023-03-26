@@ -18,7 +18,7 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>String</dt>
+  <dt>文字列</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The string to sort.</p>
@@ -52,7 +52,7 @@
 <p><strong>N</strong>: Numeric sort: Each item is assumed to be a number rather than a string (for example, if this option is not present, the string 233 is considered to be less than the string 40 due to alphabetical ordering). Both decimal and hexadecimal strings (e.g. 0xF1) are considered to be numeric. Strings that do not start with a number are considered to be zero for the purpose of the sort. Numbers are treated as 64-bit floating point values so that the decimal portion of each number (if any) is taken into account.</p>
 <p><strong>Pn</strong>: Sorts items based on character position <strong>n</strong> (do not use hexadecimal for <strong>n</strong>). If this option is not present, <strong>n</strong> defaults to 1, which is the position of the first character. The sort compares each string to the others starting at its <strong>n</strong>th character. If <strong>n</strong> is greater than the length of any string, that string is considered to be blank for the purpose of the sort. When used with option <strong>N</strong> (numeric sort), the string's character position is used, which is not necessarily the same as the number's digit position.</p>
 <p><strong>R</strong>: Sorts in reverse order (alphabetically or numerically depending on the other options).</p>
-<p><strong>Random</strong>: Sorts in random order. This option causes all other options except <strong>D</strong>, <strong>Z</strong>, and <strong>U</strong> to be ignored (though <strong>N</strong>, <strong>C</strong>, and <strong>CL</strong> still affect how duplicates are detected). Examples:</p>
+<p><strong>Random</strong>:Sorts in random order. This option causes all other options except <strong>D</strong>, <strong>Z</strong>, and <strong>U</strong> to be ignored (though <strong>N</strong>, <strong>C</strong>, and <strong>CL</strong> still affect how duplicates are detected). 例：</p>
 <pre>MyVar := Sort(MyVar, "Random")
 MyVar := Sort(MyVar, "Random Z D|")</pre>
 <p id="unique"><strong>U</strong>: Removes duplicate items from the list so that every item is unique. If the <strong>C</strong> option is in effect, the case of items must match for them to be considered identical. If the <strong>N</strong> option is in effect, an item such as 2 would be considered a duplicate of 2.0. If either the <strong>Pn</strong> or <strong>\</strong> (backslash) option is in effect, the entire item must be a duplicate, not just the substring that is used for sorting. If the <strong>Random</strong> option or <a href="#callback">custom sorting</a> is in effect, duplicates are removed only if they appear adjacent to each other as a result of the sort. For example, when "A|B|A" is sorted randomly, the result could contain either one or two A's.</p>
@@ -90,7 +90,7 @@ MsgBox MyVar   <em>; The result is -4,1,3,5,7,9,13,999</em></pre>
 <pre>Contents := <a href="FileRead.htm">FileRead</a>("C:\Address List.txt")
 FileDelete "C:\Address List (alphabetical).txt"
 FileAppend Sort(Contents), "C:\Address List (alphabetical).txt"
-Contents := ""  <em>; Free the memory.</em></pre>
+Contents := ""<em>; メモリを解放する。</em></pre>
 </div>
 
 <div class="ex" id="ExFilenames">

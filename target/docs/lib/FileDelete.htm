@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileDelete - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileDelete function deletes one or more files." />
+<title>FileDelete - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileDelete 関数は、1つまたは複数のファイルを削除する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileDelete</h1>
 
-<p>Deletes one or more files.</p>
+<p>1つまたは複数のファイルを削除する。</p>
 
 <pre class="Syntax"><span class="func">FileDelete</span> FilePattern</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,23 +21,23 @@
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of a single file or a wildcard pattern such as <code>"C:\Temp\*.tmp"</code>. <em>FilePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
-    <p>To remove an entire folder, along with all its sub-folders and files, use <a href="DirDelete.htm">DirDelete</a>.</p>
+    <p>単一のファイル名、または <code>"C:\Temp\*.tmp"</code> のようなワイルドカードパターンを指定します。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+    <p>フォルダ全体を、そのサブフォルダやファイルとともに削除するには、<a href="DirDelete.htm">DirDelete</a>を使用します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An <a href="Error.htm">Error</a> is thrown if any files failed to be deleted, with its <a href="Error.htm#Extra">Extra</a> property set to the number of failures. Deleting a wildcard pattern such as <code>"*.tmp"</code> is considered a success even if it does not match any files.</p>
-<p>If files were found, <a href="../Variables.htm#LastError">A_LastError</a> is set to 0 (zero) or the result of the operating system's GetLastError() function immediately after the last failure. Otherwise A_LastError contains an error code that might indicate why no files were found.</p>
+<p>削除に失敗したファイルがある場合、<a href="Error.htm">Error</a>が投げられ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。<code>"*.tmp"</code>のようなワイルドカードパターンの削除は、どのファイルにもマッチしない場合でも成功したとみなされます。</p>
+<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含む。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>To delete a read-only file, first remove the read-only attribute. 事例：<code><a href="FileSetAttrib.htm">FileSetAttrib</a> "-R", "C:\My File.txt"</code>.</p>
+<p>読み取り専用ファイルを削除するには、まず読み取り専用属性を削除します。事例：<code><a href="FileSetAttrib.htm">FileSetAttrib</a> "-R", "C:\My File.txt"</code>.</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileRecycle.htm">FileRecycle</a>, <a href="DirDelete.htm">DirDelete</a>, <a href="FileCopy.htm">FileCopy</a>, <a href="FileMove.htm">FileMove</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Deletes all .tmp files in a directory.</p>
+<p><a class="ex_number" href="#ExBasic"></a> ディレクトリ内のすべての .tmp ファイルを削除します。</p>
 <pre>FileDelete "C:\temp files\*.tmp"</pre>
 </div>
 

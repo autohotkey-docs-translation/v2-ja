@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FormatTime - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FormatTime function transforms a YYYYMMDDHH24MISS timestamp into the specified date/time format." />
+<title>FormatTime - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FormatTime 関数は、YYYYMMDDHH24MISS のタイムスタンプを指定された日付/時刻形式に変換する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,7 @@
 
 <h1>FormatTime</h1>
 
-<p>Transforms a <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> timestamp into the specified date/time format.</p>
+<p><a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>タイムスタンプを指定された日付/時刻形式に変換します。</p>
 
 <pre class="Syntax">String := <span class="func">FormatTime</span>(<span class="optional"><a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>, Format</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -24,25 +24,25 @@
   <dt>YYYYMMDD...</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Leave this parameter blank to use the current local date and time. Otherwise, specify all or the leading part of a timestamp in the <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> format.</p>
+    <p>現在のローカルの日付と時刻を使用する場合は、このパラメータを空白にします。それ以外の場合は、<a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>形式のタイムスタンプの全部または先頭部分を指定します。</p>
   </dd>
 
   <dt>Format</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If omitted, it defaults to the time followed by the long date, both of which will be formatted according to the current user's locale. 事例：4:55 PM Saturday, November 27, 2004</p>
-    <p>Otherwise, specify one or more of the date-time formats from the tables below, along with any literal spaces and punctuation in between (commas do not need to be escaped; they can be used normally). In the following example, note that M must be capitalized: M/d/yyyy h:mm tt</p>
+    <p>省略された場合、デフォルトは時刻の後に長い日付が続き、どちらも現在のユーザーのロケールに従ってフォーマットされることになる。事例：4:55 PM Saturday, November 27, 2004</p>
+    <p>それ以外の場合は、以下の表から1つ以上の日付時刻形式を指定し、その間にリテラルスペースと句読点を入れる（カンマはエスケープする必要はなく、通常通り使用できる）。以下の例では、Mは必ず大文字にすることに注意してください：M/d/yyyy h:mm tt</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the transformed version of the specified timestamp.</p>
-<p>If <em>YYYYMMDDHH24MISS</em> contains a invalid date and/or time portion -- such as February 29th of a non-leap year -- the date and/or time will be omitted from the return value. Although only years between 1601 and 9999 are supported, a formatted time can still be produced for earlier years as long as the time portion is valid.</p>
-<p>If <em>Format</em> contains more than 2000 characters, an empty string is returned.</p>
+<p>説明： 指定されたタイムスタンプを変換したものを返す。</p>
+<p><em>YYYYMMDDHH24MISS</em>に無効な日付・時刻部分（うるう年の2月29日など）が含まれる場合、その日付・時刻は戻り値から除外されます。1601年から9999年までの年号のみがサポートされていますが、時刻部分が有効である限り、それ以前の年号でもフォーマットされた時刻を作成することができます。</p>
+<p><em>Format</em>が2000文字以上の場合は、空文字列を返します。</p>
 
-<h2 id="Date_Formats">Date Formats (case sensitive)</h2>
+<h2 id="Date_Formats">日付の形式（大文字と小文字を区別します）</h2>
 <table class="info">
   <tr>
     <th style="width:15%">Format</th>
@@ -50,31 +50,31 @@
   </tr>
   <tr>
     <td>d</td>
-    <td>Day of the month without leading zero (1 – 31)</td>
+    <td>先頭のゼロを除いた月日（1～31）。</td>
   </tr>
   <tr>
     <td>dd</td>
-    <td>Day of the month with leading zero (01 – 31)</td>
+    <td>月日（先頭がゼロの場合）（01～31</td>
   </tr>
   <tr>
     <td>ddd</td>
-    <td>Abbreviated name for the day of the week (e.g. Mon) in the current user's language</td>
+    <td>現在のユーザーの言語における曜日の略称（例：Mon）。</td>
   </tr>
   <tr>
     <td>dddd</td>
-    <td>Full name for the day of the week (e.g. Monday) in the current user's language</td>
+    <td>現在のユーザーの言語での曜日（例：月曜日）を表すフルネーム</td>
   </tr>
   <tr>
     <td>M</td>
-    <td>Month without leading zero (1 – 12)</td>
+    <td>先頭のゼロを除いた月（1～12）</td>
   </tr>
   <tr>
     <td>MM</td>
-    <td>Month with leading zero (01 – 12)</td>
+    <td>月（先頭がゼロの場合）（01～12</td>
   </tr>
   <tr>
     <td>MMM</td>
-    <td>Abbreviated month name (e.g. Jan) in the current user's language</td>
+    <td>現在のユーザーの言語での月名の略称（例：Jan）。</td>
   </tr>
   <tr>
     <td>MMMM</td>
@@ -228,7 +228,7 @@
 <p>こちらもご覧ください：<a href="GuiControls.htm#DateTime">Gui DateTime control</a>, <a href="Format.htm">Format</a>, <a href="../Variables.htm#date">built-in date and time variables</a>, <a href="FileGetTime.htm">FileGetTime</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Demonstrates different usages.</p>
+<p><a class="ex_number" href="#ExBasic"></a> さまざまな使い方を実演する。</p>
 <pre>TimeString := FormatTime()
 MsgBox "The current time and date (time first) is " TimeString
 

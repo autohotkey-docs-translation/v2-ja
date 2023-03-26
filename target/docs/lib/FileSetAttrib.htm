@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileSetAttrib - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileSetAttrib function changes the attributes of one or more files or folders. Wildcards are supported." />
+<title>FileSetAttrib - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileSetAttrib関数は、1つまたは複数のファイルまたはフォルダの属性を変更します。ワイルドカードに対応しています。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileSetAttrib</h1>
 
-<p>Changes the attributes of one or more files or folders. Wildcards are supported.</p>
+<p>1つまたは複数のファイルまたはフォルダーの属性を変更します。ワイルドカードに対応しています。</p>
 
 <pre class="Syntax"><span class="func">FileSetAttrib</span> Attributes <span class="optional">, FilePattern, Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,64 +21,64 @@
   <dt>Attributes</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The attributes to change. For example, <code>+HA-R</code>.</p>
-    <p>To easily turn on, turn off or toggle attributes, prefix one or more of the following attribute letters with a plus sign (+), minus sign (-) or caret (^), respectively:</p>
+    <p>変えるべき属性。例えば、<code>+HA-R</code>。</p>
+    <p>アトリビュートのオン、オフ、トグルを簡単に行うには、以下のアトリビュート文字の1つ以上の前に、それぞれプラス記号（+）、マイナス記号（-）、キャレット（^）を付けます：</p>
     <ul>
       <li>R = READONLY</li>
       <li>A = ARCHIVE</li>
       <li>S = SYSTEM</li>
       <li>H = HIDDEN</li>
-      <li>N = NORMAL (this is valid only when used without any other attributes)</li>
+      <li>N = NORMAL（他の属性を使用しない場合にのみ有効です。）</li>
       <li>O = OFFLINE</li>
       <li>T = TEMPORARY</li>
     </ul>
-    <p class="note"><strong>注意</strong>：Currently, the compression state of files cannot be changed with this function.</p>
+    <p class="note"><strong>注意</strong>：現在、この機能でファイルの圧縮状態を変更することはできません。</p>
   </dd>
 
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of a single file or folder, or a wildcard pattern such as <code>"C:\Temp\*.tmp"</code>. <em>FilePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
-    <p>If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">File-Loop</a> will be used instead.</p>
+    <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+    <p>省略された場合、最も内側の<a href="LoopFiles.htm">File-Loop</a>の現在のファイルが代わりに使用されます。</p>
   </dd>
 
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, only files are operated upon and subdirectories are not recursed into. Otherwise, specify zero or more of the following letters:</p>
+    <p>空白または省略された場合、ファイルのみが操作され、サブディレクトリは再帰されない。それ以外の場合は、次の文字のうち0個以上を指定します：</p>
     <ul>
-      <li>D = Include directories (folders).</li>
-      <li>F = Include files. If both F and D are omitted, files are included but not folders.</li>
-      <li>R = Subfolders are recursed into so that files and folders contained therein are operated upon if they match <em>FilePattern</em>. All subfolders will be recursed into, not just those whose names match <em>FilePattern</em>. If R is omitted, files and folders in subfolders are not included.</li>
+      <li>D = インクルードディレクトリ（フォルダ）。</li>
+      <li>F = インクルードファイル。FとDの両方が省略された場合、ファイルは含まれるがフォルダーは含まれない。</li>
+      <li>R = サブフォルダを再帰的に検索し、<em>FilePattern</em>に一致するファイルおよびフォルダを操作する。<em>FilePattern</em>に一致する名前のサブフォルダだけでなく、すべてのサブフォルダに再帰的にアクセスします。Rが省略された場合、サブフォルダー内のファイルやフォルダーは含まれません。</li>
     </ul>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An <a href="Error.htm">Error</a> is thrown if any files failed to be changed, with its <a href="Error.htm#Extra">Extra</a> property set to the number of failures.</p>
-<p>If files were found, <a href="../Variables.htm#LastError">A_LastError</a> is set to 0 (zero) or the result of the operating system's GetLastError() function immediately after the last failure. Otherwise A_LastError contains an error code that might indicate why no files were found.</p>
+<p>ファイルの変更に失敗した場合、<a href="Error.htm">Error</a>が投げられ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。</p>
+<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含む。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="FileGetTime.htm">FileGetTime</a>, <a href="FileSetTime.htm">FileSetTime</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="LoopFiles.htm">File-loop</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExTurnOnMultiple">
-<p><a class="ex_number" href="#ExTurnOnMultiple"></a>  Turns on the "read-only" and "hidden" attributes of all files and directories (subdirectories are not recursed into).</p>
-<pre>FileSetAttrib "+RH", "C:\MyFiles\*.*", "DF"  <em>; +RH is identical to +R+H</em></pre>
+<p><a class="ex_number" href="#ExTurnOnMultiple"></a> すべてのファイルとディレクトリの「読み取り専用」と「隠し」属性をオンにします（サブディレクトリは再帰されません）。</p>
+<pre>FileSetAttrib "+RH", "C:\MyFiles\*.*", "DF"<em>; +RHは、+R+Hと同じです。</em></pre>
 </div>
 
 <div class="ex" id="ExToggle">
-<p><a class="ex_number" href="#ExToggle"></a>  Toggles the "hidden" attribute of a single directory.</p>
+<p><a class="ex_number" href="#ExToggle"></a> 単一ディレクトリの "hidden "属性を切り替えます。</p>
 <pre>FileSetAttrib "^H", "C:\MyFiles"</pre>
 </div>
 
 <div class="ex" id="ExMixed">
-<p><a class="ex_number" href="#ExMixed"></a>  Turns off the "read-only" attribute and turns on the "archive" attribute of a single file.</p>
+<p><a class="ex_number" href="#ExMixed"></a> 単一ファイルの "read-only"属性をオフにし、"archive"属性をオンにします。</p>
 <pre>FileSetAttrib "-R+A", "C:\New Text File.txt"</pre>
 </div>
 
 <div class="ex" id="ExRecurse">
-<p><a class="ex_number" href="#ExRecurse"></a>  Recurses through all .ini files on the C drive and turns on their "archive" attribute.</p>
+<p><a class="ex_number" href="#ExRecurse"></a> Cドライブ上のすべての.iniファイルを再帰的に検索し、「archive」属性をオンにします。</p>
 <pre>FileSetAttrib "+A", "C:\*.ini", "R"</pre>
 </div>
 

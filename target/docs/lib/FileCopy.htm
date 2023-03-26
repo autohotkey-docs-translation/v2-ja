@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>FileCopy - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The FileCopy function copies one or more files." />
+<title>FileCopy - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="FileCopy 関数は、1 つまたは複数のファイルをコピーします。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileCopy</h1>
 
-<p>Copies one or more files.</p>
+<p>1つまたは複数のファイルをコピーする。</p>
 
 <pre class="Syntax"><span class="func">FileCopy</span> SourcePattern, DestPattern <span class="optional">, Overwrite</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,80 +21,80 @@
   <dt>SourcePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of a single file or folder, or a wildcard pattern such as C:\Temp\*.tmp. <em>SourcePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
+    <p>1つのファイルやフォルダの名前、またはC:\Temp\*.tmpのようなワイルドカードパターンです。<em>SourcePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
   </dd>
 
   <dt>DestPattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name or pattern of the destination, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
-    <p>If present, the first asterisk (<code>*</code>) in the filename is replaced with the source filename excluding its extension, while the first asterisk after the last full stop (<code>.</code>) is replaced with the source file's extension. If an asterisk is present but the extension is omitted, the source file's extension is used.</p>
-    <p>To perform a simple copy -- retaining the existing file name(s) -- specify only the folder name as shown in these mostly equivalent examples:</p>
+    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される、保存先の名前またはパターン。</p>
+    <p>この場合、ファイル名の最初のアスタリスク（<code>*</code>）は、拡張子を除いたソースファイル名に置き換えられ、最後のフルストップ（<code>.</code>）以降の最初のアスタリスクは、ソースファイルの拡張子に置き換えられます。アスタリスクがあっても拡張子が省略された場合は、ソースファイルの拡張子が使用されます。</p>
+    <p>既存のファイル名を残したまま単純にコピーする場合は、以下の例のようにフォルダ名のみを指定します：</p>
     <pre>FileCopy "C:\*.txt", "C:\My Folder"</pre>
     <pre>FileCopy "C:\*.txt", "C:\My Folder\*.*"</pre>
-    <p>The destination directory must already exist. If <em>My Folder</em> does not exist, the first example above will use "My Folder" as the target filename, while the second example will copy no files.</p>
+    <p>保存先ディレクトリはすでに存在している必要があります。<em>My Folder</em>が存在しない場合、上記の最初の例ではターゲットファイル名として "My Folder"が使用され、2番目の例ではファイルはコピーされません。</p>
   </dd>
 
   <dt>Overwrite</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>このパラメータは、ファイルがすでに存在する場合に上書きするかどうかを決定します。If this parameter is 1 (true), the function overwrites existing files. If omitted or 0 (false), the function does not overwrite existing files.</p>
+    <p>このパラメータは、ファイルがすでに存在する場合に上書きするかどうかを決定します。このパラメータが1（true）の場合、既存のファイルを上書きする。省略時または 0（false）の場合、既存ファイルの上書きを行わない。</p>
     <p>その他の値は、将来の使用のために予約されています。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An <a href="Error.htm">Error</a> is thrown if any files failed to be copied, with its <a href="Error.htm#Extra">Extra</a> property set to the number of failures. If no files were found, an error is thrown only if <em>SourcePattern</em> lacks the wildcards <code>*</code> and <code>?</code>. In other words, copying a wildcard pattern such as <code>"*.txt"</code> is considered a success when it does not match any files.</p>
-<p>Unlike <a href="FileMove.htm">FileMove</a>, copying a file onto itself is always counted as an error, even if the overwrite mode is in effect.</p>
-<p>If files were found, <a href="../Variables.htm#LastError">A_LastError</a> is set to 0 (zero) or the result of the operating system's GetLastError() function immediately after the last failure. Otherwise A_LastError contains an error code that might indicate why no files were found.</p>
+<p>ファイルのコピーに失敗した場合、<a href="Error.htm">Error</a>がスローされ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。ファイルが見つからなかった場合、<em>SourcePattern</em>にワイルドカード<code>*</code>と<code>?</code>がない場合のみ、エラーが発生します。つまり、<code>"*.txt"</code>のようなワイルドカードパターンのコピーは、どのファイルにもマッチしない場合に成功したとみなされる。</p>
+<p><a href="FileMove.htm">FileMove</a>と異なり、ファイルを自分自身にコピーすることは、上書きモードが有効であっても、常にエラーとしてカウントされます。</p>
+<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含む。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>FileCopy copies files only. To instead copy the contents of a folder (all its files and subfolders), see the examples section below. To copy a single folder (including its subfolders), use <a href="DirCopy.htm">DirCopy</a>.</p>
-<p>The operation will continue even if error(s) are encountered.</p>
+<p>FileCopyは、ファイルのみをコピーします。フォルダの内容（すべてのファイルとサブフォルダ）をコピーする代わりに、以下の例のセクションを参照してください。1つのフォルダ（サブフォルダを含む）をコピーする場合は、<a href="DirCopy.htm">DirCopy</a>を使用します。</p>
+<p>エラーが発生しても、操作は続行されます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileMove.htm">FileMove</a>, <a href="DirCopy.htm">DirCopy</a>, <a href="DirMove.htm">DirMove</a>, <a href="FileDelete.htm">FileDelete</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExKeepOrigName">
-<p><a class="ex_number" href="#ExKeepOrigName"></a>  Makes a copy but keep the original file name.</p>
+<p><a class="ex_number" href="#ExKeepOrigName"></a> コピーを作成しますが、元のファイル名を保持します。</p>
 <pre>FileCopy "C:\My Documents\List1.txt", "D:\Main Backup\"</pre>
 </div>
 
 <div class="ex" id="ExNewName">
-<p><a class="ex_number" href="#ExNewName"></a>  Copies a file into the same directory by providing a new name.</p>
+<p><a class="ex_number" href="#ExNewName"></a> 新しい名前を指定して、同じディレクトリにファイルをコピーします。</p>
 <pre>FileCopy "C:\My File.txt", "C:\My File New.txt"</pre>
 </div>
 
 <div class="ex" id="ExNewExt">
-<p><a class="ex_number" href="#ExNewExt"></a>  Copies text files to a new location and gives them a new extension.</p>
+<p><a class="ex_number" href="#ExNewExt"></a> テキストファイルを新しい場所にコピーし、新しい拡張子を与える。</p>
 <pre>FileCopy "C:\Folder1\*.txt", "D:\New Folder\*.bkp"</pre>
 </div>
 
 <div class="ex" id="ExCopyAll">
-<p><a class="ex_number" href="#ExCopyAll"></a>  Copies all files and folders inside a folder to a different folder.</p>
+<p><a class="ex_number" href="#ExCopyAll"></a> フォルダ内のすべてのファイルやフォルダを別のフォルダにコピーします。</p>
 <pre>ErrorCount := CopyFilesAndFolders("C:\My Folder\*.*", "D:\Folder to receive all files &amp; folders")
 if ErrorCount != 0
     MsgBox ErrorCount " files/folders could not be copied."
 
 CopyFilesAndFolders(SourcePattern, DestinationFolder, DoOverwrite := false)
-<em>; Copies all files and folders matching SourcePattern into the folder named DestinationFolder and
-; returns the number of files/folders that could not be copied.</em>
+<em>; SourcePatternに一致するすべてのファイルとフォルダをDestinationFolderという名前のフォルダにコピーします。
+; コピーできなかったファイル／フォルダの数を返す。</em>
 {
     ErrorCount := 0
-    <em>; First copy all the files (but not the folders):</em>
+    <em>; まず、すべてのファイルをコピーします（フォルダーはコピーしません）：</em>
     try
         FileCopy SourcePattern, DestinationFolder, DoOverwrite
     catch as Err
         ErrorCount := Err.Extra
-    <em>; Now copy all the folders:</em>
-    Loop Files, SourcePattern, "D"<em>; D means "retrieve folders only".</em>
+    <em>; 今度は、すべてのフォルダをコピーします：</em>
+    Loop Files, SourcePattern, "D"<em>; Dは「フォルダだけを取り出す」という意味です。</em>
     {
         try
             DirCopy A_LoopFilePath, DestinationFolder "\" A_LoopFileName, DoOverwrite
         catch
         {
             ErrorCount += 1
-            <em>; Report each problem folder by name.</em>
+            <em>; 各問題フォルダを名前で報告する。</em>
             MsgBox "Could not copy " A_LoopFilePath " into " DestinationFolder
         }
     }
