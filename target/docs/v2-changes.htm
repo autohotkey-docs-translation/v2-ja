@@ -140,11 +140,11 @@
 <p><code>base.Method()</code>の "base" という言葉の使用は、2つの概念をよりよく区別するために、<a href="Objects.htm#Custom_Classes_super">super</a>（<code>super.Method()</code>）に置き換えられています：</p>
 <ul>
 <li><code>super.</code>または<code>super[</code>は、メソッド/プロパティのスーパークラス版を呼び出します。"super-class"は、現在の関数の定義にもともと関連付けられていたプロトタイプオブジェクトのベースです。</li>
-<li><code>super</code>は予約語です。<code>.</code>または<code>[</code>]または<code>()</code>の接尾辞を付けずに、またはクラスの外で使用しようとすると、ロードタイムエラーになります。</li>
-<li><code>base</code>は、オブジェクトの直接のベース・オブジェクトを取得または設定する事前定義プロパティです（<a href="lib/Object.htm#SetBase">ObjGetBase</a><a href="lib/Any.htm#GetBase">/ObjSetBase</a>のように）。予約ではなく、通常のプロパティ名です。</li>
-<li>スーパークラスにxの定義がない場合に<code>super.x</code>を起動するとエラーが発生しますが、これまでは<code>base.x</code>は無視されていました（たとえそれが代入であっても）。</li>
+<li><code>super</code>は予約語です。<code>.</code>または<code>[</code>または<code>(</code>の接尾辞を付けずに、またはクラスの外で使用しようとすると、ロードタイムエラーになります。</li>
+<li><code>base</code>は、オブジェクトの直接のベース・オブジェクト（<a href="lib/Object.htm#SetBase">ObjGetBase</a><a href="lib/Any.htm#GetBase">/ObjSetBase</a>など）を取得または設定する事前定義プロパティです。予約ではなく、通常のプロパティ名です。</li>
+<li>スーパークラスに x の定義がない場合に <code>super.x</code> を起動するとエラーが発生しますが、これまでは <code>base.x</code> は（たとえそれが割り当てであっても）無視されていました。</li>
 </ul>
-<p>Fnがオブジェクトの場合、<code>Fn()</code>（以前は<code>%Fn%()</code>と表記）は、<code>Fn.()</code>（現在は<code>Fn.%""%()</code>としか表記できない）の代わりに<code>Fn.Call()</code>を呼ぶようになりました。関数がnamelessメソッドに対応しなくなった。</p>
+<p>Fnがオブジェクトの場合、<code>Fn()</code>（以前は<code>%Fn%()</code>と表記）は、<code>Fn.()</code>（現在は<code>Fn.%""%()</code>としてしか表記できない）の代わりに<code>Fn.Call()</code>を呼ぶようになりました。関数がnamelessメソッドに対応しなくなりました。</p>
 <p><code>this.Method()</code>は、<code>Fn[this]()</code>の代わりに<code>Fn.Call(this)</code>（<em>Fn</em>はメソッドを実装した関数オブジェクト）を呼び出します（v1では<code>Fn[this]()</code>に関数が含まれていない限り<code>Fn.__Call(this)</code>を呼び出すことになります）。関数オブジェクトは、明示的なメソッド呼び出しにのみ使用される<em>__Call</em>の代わりに、<em>Call</em>メソッドを実装する必要があります。</p>
 <p><code><i>Classname</i>()</code>（以前の<code>new <i>Classname</i>()</code>）は、<code>__New</code>メソッドが定義されているのに呼び出せなかった場合（例：パラメータ数が不正確なため）、またはパラメータが渡されたのに<code>__New</code>が定義されていない場合、オブジェクトの作成に失敗するようになりました。</p>
 <p>式内で生成されたオブジェクトや関数から返されたオブジェクトは、式の評価が完了するまで保持され、その後解放されるようになりました。これにより、パフォーマンスが若干向上し、オブジェクトが早期に解放される心配がなく、式内のメモリ管理に一時的なオブジェクトを使用することができます。</p>
