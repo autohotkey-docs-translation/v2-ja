@@ -14,130 +14,130 @@
 <h1>v1.1からv2.0への変更点</h1>
 
 <h2 id="language">言語</h2>
-<h3 id="legacy-syntax-removed">レガシーシンタックス削除</h3>
-<p>リテラルの割り当てを削除しました：<code>var = value</code></p>
-<p>従来のIf文をすべて削除し、<code>if式</code>のみを残し、括弧を必要としない（ただし、あらゆる式と同様に括弧を使用できる）ようにしました。</p>
-<p>Removed "command syntax". コマンド」は存在せず、ただ <a href="Language.htm#function-call-statements"><em>関数呼び出し文</em></a>これは、括弧のない単なる関数やメソッドの呼び出しです。That means:</p>
+<h3 id="legacy-syntax-removed">レガシーシンタックスの廃止</h3>
+<p>リテラルの割り当てが廃止されました：<code>var = value</code></p>
+<p>従来のIf文がすべて廃止され、<code>if式</code>のみを残し、括弧を必要としません（ただし、あらゆる式と同様に括弧を使用できる）ようにしました。</p>
+<p>Removed "command syntax". コマンドは存在せず、ただ <a href="Language.htm#function-call-statements"><em>関数呼び出し文</em></a>があります。これは、括弧のない単なる関数やメソッドの呼び出しです。意味：</p>
 <ul>
-<li>以前のコマンドはすべて関数になりました（制御フロー文は除く）。</li>
+<li>以前のコマンドはすべて関数になりました（制御フロー文は除きます）。</li>
 <li>戻り値が不要な場合は、すべての関数を括弧なしで呼び出すことができます（ただし、従来通り、式内の呼び出しでは括弧を省略できません）。</li>
 <li>すべてのパラメータは式なので、すべてのテキストは「引用」され、カンマをエスケープする必要はありません。現在、一部のディレクティブ（コマンドでも関数でもない）を除いています。</li>
-<li>パラメータは括弧の有無にかかわらず同じである。すなわち、戻り値の出力変数は存在しないので、括弧が省略された場合は廃棄されることになる。</li>
-<li>通常の変数参照はパーセント記号で囲むことはありません（<a href="lib/_Include.htm">#Include</a>と <a href="lib/_DllLoad.htm">#DllLoad</a>を除く）。テキストに変数を含めるには、<a href="Variables.htm#concat">連結</a>や <a href="lib/Format.htm">Format</a>を使用します。</li>
-<li>関数名とパラメータの間にカンマはないので、<code>MouseGetPos(, y)</code>=<code>MouseGetPos , y</code>（xは省略）。わかりやすくするために、スペースまたはタブが必要です。一貫性を保つため、ディレクティブも新しい規約に従っています（ディレクティブ名とパラメータの間にコンマがあってはいけません）。</li>
-<li>式を強制するためのパーセンテージスペース接頭辞はありません。式中の引用符なしのパーセント記号は、二重参照／動的参照にのみ使用され、奇数個あると構文エラーになります。</li>
+<li>パラメータは括弧の有無にかかわらず同じです。すなわち、戻り値の出力変数は存在しないので、括弧が省略された場合は廃棄されることになります。</li>
+<li>通常の変数参照はパーセント記号で囲むことはありません（<a href="lib/_Include.htm">#Include</a>と <a href="lib/_DllLoad.htm">#DllLoad</a>を除きます）。テキストに変数を含めるには、<a href="Variables.htm#concat">連結</a>や <a href="lib/Format.htm">Format</a>を使用します。</li>
+<li>関数名とパラメータの間にカンマはないので、<code>MouseGetPos(, y)</code>=<code>MouseGetPos , y</code>（xは省略）となります。わかりやすくするために、スペースまたはタブが必要です。一貫性を保つため、ディレクティブも新しい規約に従っています（ディレクティブ名とパラメータの間にコンマがあってはいけません）。</li>
+<li>式を強制するためのパーセント－スペース接頭辞はありません。式中の引用符なしのパーセント記号は、二重参照／動的参照にのみ使用され、奇数個あると構文エラーになります。</li>
 <li>メソッド呼び出し文（括弧を省略したメソッド呼び出し）は、<code>MyVar.MyProperty.MyMethod "String to pass"</code> のように、プレーン変数の後にドットで区切られた1つまたは複数の識別子を持つものに限定されます。</li>
 </ul>
-<p>v1-commandから関数への変換は概ね以下の通りです（ただし、一部の関数は後述するように変更されています）：</p>
+<p>v1コマンドから関数への変換は概ね以下の通りです（ただし、一部の関数は後述するように変更されています）：</p>
 <ul>
 <li>コマンドの第1パラメータが出力変数で、第2パラメータが出力変数でない場合、そのパラメータは戻り値となり、パラメータリストから削除されます。</li>
-<li>残りの出力変数は、書き込み可能な組み込み変数への参照を許可する以外は、<a href="#byref">ByRefパラメータ</a>（使い方と構文が変更されている）と同様に扱われる。</li>
-<li>ErrorLevelを設定する代わりに、失敗時に例外がスローされる。</li>
-<li>以前はErrorLevelで返されていた値は、他の手段で返されるか、例外で置き換えられるか、優先されるか、単に返されないかである。</li>
+<li>残りの出力変数は、書き込み可能な組み込み変数への参照を許可する以外は、<a href="#byref">ByRefパラメータ</a>（使い方と構文が変更されている）と同様に扱われます。</li>
+<li>ErrorLevelを設定する代わりに、失敗時に例外がスローされます。</li>
+<li>以前はErrorLevelで返されていた値は、他の手段で返されるか、例外で置き換えられるか、優先されるか、単に返されないかであります。</li>
 </ul>
-<p>以下に記す場合を除き、すべての制御フロー文は式も受け付ける。</p>
-<p>パラメータを取るすべての制御フロー文（現在、2語のLoop文を除く）は、パラメータリストを括弧で囲み、名前と括弧の間にスペースを入れずにサポートします。例えば、<code>return(var)</code>。しかし、これらは関数ではないので、例えば、<code>x := return(y)</code>は無効である。<a href="lib/If.htm">If</a>と <a href="lib/While.htm">While</a>は、すでにサポートしています。</p>
-<p><a href="#loop-sub-commands">Loop</a>(<a href="lib/Loop.htm">Loop <em>Countを</em></a>除く)の後に、"引用"したり変数で囲むことのできない副キーワード(Files, Parse, Read or Reg)が続くようになった。現在、キーワードの後にカンマを付けることができますが、これはパラメータではないので必須ではありません。OTBは全モードで対応しています。</p>
-<p><a href="lib/Goto.htm">Goto</a>、<a href="lib/Break.htm">break</a>、<a href="lib/Continue.htm">continue</a>は、v1<code>（goto label</code>jumps to<code>label:</code>）と同様、引用符のないラベル名を必要とします。ラベルに動的にジャンプするには、名前のすぐ後に括弧を使用します：<code>goto(expression)</code>. ただし、これは関数ではないので、式の途中で使用することはできません。括弧はbreakやcontinueでも使えますが、その場合、パラメータは1つのリテラル数値か引用符で囲まれた文字列でなければなりません。</p>
+<p>以下に記す場合を除き、すべての制御フロー文は式も受け付けます。</p>
+<p>パラメータを取るすべての制御フロー文（現在、2語のLoop文を除く）は、パラメータリストを括弧で囲み、名前と括弧の間にスペースを入れずにサポートします。例えば、<code>return(var)</code>。しかし、これらは関数ではないので、例えば、<code>x := return(y)</code>は無効です。<a href="lib/If.htm">If</a>と <a href="lib/While.htm">While</a>は、すでにサポートしています。</p>
+<p><a href="#loop-sub-commands">Loop</a>(<a href="lib/Loop.htm">Loop <em>Countを</em></a>除く)の後に、"引用"したり変数で囲むことのできない副キーワード(Files, Parse, Read or Reg)が続くようになりました。現在、キーワードの後にカンマを付けることができますが、これはパラメータではないので必須ではありません。OTBは全モードで対応しています。</p>
+<p><a href="lib/Goto.htm">Goto</a>、<a href="lib/Break.htm">break</a>、<a href="lib/Continue.htm">continue</a>は、v1の（<code>goto label</code>が<code>label:</code>に飛ぶ）と同様、引用符のないラベル名を必要とします。ラベルに動的にジャンプするには、名前のすぐ後に括弧を使用します：<code>goto(expression)</code>. ただし、これは関数ではないので、式の途中で使用することはできません。括弧はbreakやcontinueでも使えますが、その場合、パラメータは1つのリテラル数値か引用符で囲まれた文字列でなければなりません。</p>
 <p>Gosubが削除され、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの機能でラベルが使用できなくなりました。</p>
 <ul>
 <li>ローカル変数も戻り値もなく、独立した名前空間にある、基本的に限定的な関数の一種だったのです。関数は、これまでラベルサブルーチンが使われていた場所ならどこでも（<a href="Functions.htm#nested">他の関数</a>の中でも）使うことができます。</li>
-<li>機能は重複できない（ただし、機能内に含めることはできる）。その代わり、複数の機能を使い、他の機能から呼び出すようにします。A_ThisLabelの代わりに、関数パラメータを使用します。</li>
+<li>機能は重複できません（ただし、機能内に含めることはできます）。その代わり、複数の機能を使い、他の機能から呼び出すようにします。A_ThisLabelの代わりに、関数パラメータを使用します。</li>
 <li>サブルーチンとは異なり、関数の<em>終わり</em>を定義し忘れると、<code>{</code>には、それぞれ対応する<code>}</code>が必要なので、通常、エラーになります。また、ラベルサブルーチンよりも関数の方が境界を特定しやすい場合もあります。</li>
 <li>関数を自動実行部に割り込ませることなく配置することができます。自動実行セクションは、スクリプト全体を容易にカバーできるようになったので、<a href="Scripts.htm#auto">自動実行スレッド</a>内で実行される<a href="Language.htm#global-code">グローバルコード</a>と呼ばれることもあります。</li>
-<li>関数は、「goto」（ユーザーがループするために現在のサブルーチンをgosubすることで、必然的にスタックスペースを使い果たしてプログラムを終了させること）として悪用される可能性が少し低くなるかもしれません。</li>
+<li>関数は、"goto"（ユーザーがループするために現在のサブルーチンをgosubすることで、必然的にスタックスペースを使い果たしてプログラムを終了させること）として悪用される可能性が少し低くなるかもしれません。</li>
 <li>（<a href="lib/Hotkey.htm">Hotkey</a>のように）ラベルや機能を受け入れる機能がなく、同じ名前で両方が同時に存在できるため、あいまいさが少なくなります。</li>
-<li>ラベルの残りのすべての用途において、関数内部からグローバルラベルを参照することは無効である。そのため、ラベル検索をローカルラベルリストに限定することができる。そのため、（これまでサポートされていなかった）関数内部から外部への無効なジャンプをチェックする必要がありません。</li>
+<li>ラベルの残りのすべての用途において、関数内部からグローバルラベルを参照することは無効です。そのため、ラベル検索をローカルラベルリストに限定することができます。そのため、（これまでサポートされていなかった）関数内部から外部への無効なジャンプをチェックする必要がありません。</li>
 </ul>
 <h3 id="hotkey-and-hotstring-labels">ホットキーとホットストリングラベル</h3>
-<p><a href="Hotkeys.htm">ホットキー</a>や自動置換でない<a href="Hotstrings.htm">ホットストリング</a>は、ラベルではなくなり、代わりに（自動的に）機能を定義するようになりました。複数行のホットキーの場合、<code>return</code>で終了させるのではなく、中括弧を使ってホットキーの本体を囲みます（終了中括弧はこれを意味します）。ホットキーを明示的に呼び出すには、<code>:</code>と<code>{</code>の間に<code>funcName(ThisHotkey)</code>を指定します - これは v1.1.20+ でも行えますが、現在はパラメータがあります。関数定義が明示されていない場合、パラメータはThisHotkeyと命名されます。</p>
+<p><a href="Hotkeys.htm">ホットキー</a>や自動置換でない<a href="Hotstrings.htm">ホットストリング</a>は、ラベルではなくなり、代わりに（自動的に）機能を定義するようになりました。複数行のホットキーの場合、<code>return</code>で終了させるのではなく、中括弧を使ってホットキーの本体を囲みます（終了中括弧はこれを意味します）。ホットキーを明示的に呼び出すには、<code>::</code>と<code>{</code>の間に<code>funcName(ThisHotkey)</code>を指定します - これは v1.1.20+ でも行えますが、現在はパラメータがあります。関数定義が明示されていない場合、パラメータはThisHotkeyと命名されます。</p>
 <p><strong>注：</strong>ホットキー関数はデフォルトで<a href="Functions.htm#AssumeLocal">assume-local</a>であるため、宣言なしで<a href="Functions.htm#Global">グローバル変数</a>に代入することはできません。</p>
 <h3 id="names">名称</h3>
 <p>関数名と変数名が共有名前空間に配置されるようになりました。</p>
 <ul>
 <li>各関数定義は、現在のスコープ内に定数（読み取り専用変数）を作成します。</li>
-<li><code>Func("MyFunc")</code>の代わりに<code>MyFunc</code>を使用する。</li>
+<li><code>Func("MyFunc")</code>の代わりに<code>MyFunc</code>を使用します。</li>
 <li><a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組み込み関数に渡す場合は、<code>MyFunc</code>の代わりに "MyFunc"</code>を使用してください。名前（文字列）の受け渡しはサポートされなくなりました。</li>
 <li>関数を値で呼び出す場合、<code>%myVar%()</code>の代わりに<code>myVar()</code>を使用します。</li>
-<li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得する。<code>myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用する。</li>
+<li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得する。<code>myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用します。</li>
 </ul>
 <p>氏名は数字で始まることはできず、従来は認められていた以下の文字を含むことはできません：<code>@ # $</code>. 使用できる文字は、英字、数字、アンダースコア、非ASCII文字のみです。</p>
-<p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。<code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
-<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されており、曖昧でない場合でも、変数名や関数名として許可されていません。これは主に一貫性を保つためです：v1では、<code>and := 1</code>は、単独で行えたが、<code>(and := 1)</code>は動作しない。</p>
-<p>上記の単語は、プロパティ名やウィンドウグループ名として許可されています。一般的に使用されるプロパティ名の前には、演算子として解釈されることを防ぐために、<code>.</code>が付いています。一方、キーワードは式中の変数名や関数名として解釈されることはない。例えば、<code>not(x)</code>は<code>not(x)</code>または<code>(not x)</code>と同じ意味です。</p>
+<p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。これは、<code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
+<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されており、曖昧でない場合でも、変数名や関数名として許可されていません。これは主に一貫性を保つためです：v1では、<code>and := 1</code>は、単独で行えたが、<code>(and := 1)</code>は動作しません。</p>
+<p>上記の単語は、プロパティ名やウィンドウグループ名として許可されています。一般的に使用されるプロパティ名の前には、演算子として解釈されることを防ぐために、<code>.</code>が付いています。一方、キーワードは式中の変数名や関数名として解釈されることはありません。例えば、<code>not(x)</code>は、<code>not (x)</code>または<code>(not x)</code>と同じ意味です。</p>
 <p>多くのクラスが事前に定義されており、ユーザー定義クラスと同じように、グローバル変数名を効果的に予約することができます。(ただし、後述する<a href="#scope">スコープの変更</a>により、このことから生じる問題はほとんど緩和されます)。クラスの一覧は、「<a href="ObjList.htm">組み込みクラス</a>」を参照してください。</p>
 <h3 id="scope">スコープ</h3>
-<p><em>スーパーグローバル</em>変数が削除されました（組み込み変数を除く、再宣言やシャドウができないので同じではありません）。</p>
+<p><em>スーパーグローバル</em>変数が廃止されました（組み込み変数を除く、再宣言やシャドウができないので同じではありません）。</p>
 <p><a href="Functions.htm#AssumeLocal">想定ローカル</a>関数内で、与えられた名前が宣言や非動的代入、<a href="Variables.htm#ref">参照（&amp;）演算子</a>のターゲットとして使用されていない場合、既存のグローバル変数に解決することがあります。</p>
-<p>つまりは、"忖度 "：</p>
+<p>換言：</p>
 <ul>
-<li>関数がグローバル変数を宣言せずに読み込めるようになりました。</li>
-<li><code>グローバル</code>宣言を持たない関数は、グローバル変数を直接変更することはできません（意図しない副作用の原因の1つを排除する）。</li>
+<li>関数は、グローバル変数を宣言せずに読み込めるようになりました。</li>
+<li><code>グローバル</code>宣言を持たない関数は、グローバル変数を直接変更することはできません（意図しない副作用の原因の1つを排除します）。</li>
 <li>クラスはスーパーグローバルではないので、スクリプトに新しい<code>クラス</code>を追加しても、既存の関数の動作に影響を与える可能性ははるかに低くなります。</li>
-<li><code>グローバル</code>キーワードは、現在、グローバルスコープで使用すると冗長になりますが、明確にするために使用することができます。このように宣言された変数は、スーパーグローバルではないため、ローカル変数と衝突する可能性が非常に低くなりました（手動でスクリプトを組み合わせる場合や<a href="lib/_Include.htm">#Include</a>を使用する場合など）。その反面、利便性が失われる部分もあります。</li>
+<li><code>グローバル</code>キーワードは、現在、グローバルスコープで使用すると冗長になりますが、明確にするために使用することができます。このように宣言された変数は、スーパーグローバルではないため、ローカル変数と衝突する可能性が非常に低くなりました（手動でスクリプトを組み合わせる場合や<a href="lib/_Include.htm">#Include</a>を使用する場合などです）。その反面、利便性が失われる部分もあります。</li>
 <li>宣言は一般的にあまり必要ありません。</li>
 </ul>
 <p><em>強制ローカル</em>モードは削除されました。</p>
 <h3 id="variables">変数</h3>
-<p>ローカル<a href="Functions.htm#static">静的</a>変数は、自動実行セクションが始まる前に線形順序で実行されるのではなく、実行が到達したときに初期化されます。各イニシャライザーは、2回目に到達したときには何の効果もない。複数の宣言を行うことができ、同じ変数に対して異なるタイミングで実行することができる。メリットは複数あります：</p>
+<p>ローカル<a href="Functions.htm#static">静的</a>変数は、自動実行セクションが始まる前に線形順序で実行されるのではなく、実行が到達したときに初期化されます。各イニシャライザーは、2回目に到達したときには何の効果もありません。複数の宣言を行うことができ、同じ変数に対して異なるタイミングで実行することができます。メリットは複数あります：</p>
 <ul>
 <li>静的イニシャライザが静的変数を持つ他の関数を呼び出す場合、関数定義の順序によりイニシャライザが未実行となる危険性が少ないです。</li>
 <li>関数が呼び出されたので、パラメータ、<a href="Variables.htm#ThisFunc">A_ThisFunc</a>、クロージャが利用できるようになりました（以前は利用できませんでした）。</li>
-<li>静的変数は条件付きで初期化できるため柔軟性があり、しかも<code>IsSet()</code>を必要とせず1回しか実行しない。</li>
-<li>一つの静的変数に対して複数の初期化子が存在する可能性があるため、<code>static x += 1</code>のような複合代入が許可される。(この変更は、<code>ローカル</code>と <code>グローバル</code>ですでに許可されていたため、コードサイズをわずかに減らすことができました)。</li>
+<li>静的変数は条件付きで初期化できるため柔軟性があり、しかも<code>IsSet()</code>を必要とせず1回しか実行しません。</li>
+<li>一つの静的変数に対して複数の初期化子が存在する可能性があるため、<code>static x += 1</code>のような複合代入が許可されます。(この変更は、<code>ローカル</code>と <code>グローバル</code>ですでに許可されていたため、コードサイズをわずかに減らすことができました)。</li>
 </ul>
 <p class="note"><strong>注：</strong> <code>static init := somefunction()</code>は、<em>somefunction</em>の自動実行には使えなくなりました。しかし、ラベルとリターンに基づくサブルーチンを完全に回避できるようになったため、自動実行セクションはスクリプト全体に及ぶことができるようになりました。</p>
-<p>変数を<code>local</code>で宣言しても、その関数が<a href="Functions.htm#AssumeGlobal">assume-global</a>にならなくなった。</p>
+<p>変数を<code>local</code>で宣言しても、その関数が<a href="Functions.htm#AssumeGlobal">assume-global</a>にならなくなりました。</p>
 <p><a href="Variables.htm#deref">ダブルデフ</a>がロード時に解決される変数との整合性が高くなり、新しい変数を作成することができなくなりました。これにより、いくつかの矛盾や共通の混乱点を回避することができます。</p>
 <p>ダブルデフが何らかの理由で失敗した場合、エラーが発生するようになりました。以前は、無効な名前を持つケースは黙って空文字列を生成し、その他のケースは空の変数を生成して返していました。</p>
 <h3 id="expressions">式</h3>
-<p>引用リテラル文字列は、<code>「ダブル」</code>または<code>「シングル」</code>の引用符で書くことができますが、同じ符で始まり、同じ符で終わらなければなりません。直訳の引用符は、マークの前にエスケープ文字 - <code>`"</code>または<code>`'</code> を置くか、反対のタイプの引用符を使用することで記述します：<code>''42 "が答え'</code>です。引用符を二重にしても特別な意味はなく、auto-concatではスペースが必要なのでエラーになる。</p>
-<p>演算子<code>&amp;&amp;</code>,<code>||</code>,<code>and</code> <code>or</code>は、JavaScript や Lua と同様に、結果を決定したいずれかの値を出力します。例えば、<code>""や "default "</code>は、<code>1</code>ではなく、<code>"default"</code>を出力します。純粋なブール値（0または1）を必要とするスクリプトでは、<code>!!!(x or y)</code>または<code>(x or y)?1 : 0</code>を使うことができます。</p>
+<p>引用リテラル文字列は、<code>"double"</code>または<code>'single'</code>の引用符で書くことができますが、同じ符で始まり、同じ符で終わらなければなりません。直訳の引用符は、マークの前にエスケープ文字 - <code>`"</code>または<code>`'</code> を置くか、反対のタイプの引用符を使用することで記述します：<code>''42" が答え'</code>です。引用符を二重にしても特別な意味はなく、auto-concatではスペースが必要なのでエラーになる。</p>
+<p>演算子<code>&amp;&amp;</code>,<code>||</code>,<code>and</code> および <code>or</code>は、JavaScript や Lua と同様に、結果を決定したいずれかの値を出力します。例えば、<code>""や "default"</code>は、<code>1</code>ではなく、<code>"default"</code>を出力します。純粋なブール値（0または1）を必要とするスクリプトでは、<code>!!(x or y)</code>または<code>(x or y) ? 1 : 0</code>を使うことができます。</p>
 <p>Auto-concatでは、すべてのケースで少なくとも1つのスペースまたはタブが必要になりました（v1のドキュメントでは、スペースが「あるべき」とされています）。</p>
-<p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価される。</p>
-<p>カンマの後のEqualsは割り当てられなくなりました：<code>x:=y,y=z</code>の<code>y=zは</code>、代入ではなく非効率的な比較である。</p>
-<p><code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をする。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
+<p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価されます。</p>
+<p>カンマの後のEqualsは、割り当てられなくなりました：<code>x:=y,y=z</code>の<code>y=zは</code>、代入ではなく非効率的な比較です。</p>
+<p><code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をします。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
 <p><code>!=</code>は <code>=</code>と同様に常に大文字と小文字を区別するようになり、<code>!==は</code> <code>==</code>と対になるものとして追加された。</p>
-<p><code>&lt;&gt;</code>は削除されました。</p>
-<p><code>//</code> 浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
+<p><code>&lt;&gt;</code>は、廃止されました。</p>
+<p><code>//</code> は、浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
 <p><code>|</code>,<code>^</code>,<code>&amp;</code>,<code>&lt;&lt;</code>、および、<code>&gt;&gt;</code>は、浮動小数点数が与えられた場合、整数に切り捨てられるのではなく、例外を投げるようになりました。</p>
 <p>科学的記数法は、小数点以下がなくても使用可能です（ただし、いずれにせよ浮動小数点数を生成します）。数値文字列を整数に変換する際、科学的表記もサポートされます（例えば、"1e3"は1ではなく1000と解釈されます）。</p>
-<p>関数呼び出しでは、パラメータリストの開括弧の前にスペースやタブがなければ、どの関数を呼び出すかを指定するために、事実上どんな下位式でも使用できるようになりました。例えば、<code>MyFunc()</code>は、それが関数の実際の名前か関数オブジェクトを含む変数かにかかわらず、値<code>MyFunc</code>を呼び出し、<code>(a?b:c)()</code>は、<code>a</code>に応じて<code>b</code>または<code>cを</code>呼び出します。なお、<code>x.y()</code>はまだ<code>(x.y)(x)</code>とほぼ同等のメソッド呼び出しですが、<code>a[i]()</code>は<code>(a[i])()</code>と同等になったことに注意してください。</p>
-<p>ダブルデフでは、変数名のソースとして（変数に限らず）ほぼすべての式が使用できるようになりました。例えば、<code>DoNotUseArray%n+1%</code>や <code>%(%triple%)%</code>は有効である。<code>ref := &amp;var, value := %ref</code>%のように、VarRefの再参照にもダブルデリフ構文が使われるようになりました。</p>
-<p><code>funcName[""]()</code>および<code>funcName.()</code>式は、関数を名前で呼び出さなくなりました。<code>.()</code> のようにメソッド名を省略すると、ロードタイムエラーメッセージが表示されるようになりました。関数は、名前ではなく、参照によって呼び出したり、扱ったりする必要があります。</p>
-<p>r値を持たない<code>var :=</code>は、ロード時にエラーとして扱われます。v1では<code>var := ""</code>と等価でしたが、他の式と組み合わせると無言で失敗します：<code>x :=, y :=</code>.</p>
-<p>リテラル文字列の後に曖昧な単項/二項演算子が続く場合、ロード時にエラーが報告されます。例えば、<code>"new counter:"++counter</code>は、おそらく<code>カウンター</code>をインクリメントして表示するものと思われますが、厳密には無効な<em>加算</em>と <em>単項式プラス</em>になります。</p>
+<p>関数呼び出しでは、パラメータリストの開括弧の前にスペースやタブがなければ、どの関数を呼び出すかを指定するために、事実上どんな下位式でも使用できるようになりました。例えば、<code>MyFunc()</code>は、それが関数の実際の名前か関数オブジェクトを含む変数かにかかわらず、値<code>MyFunc</code>を呼び出し、<code>(a?b:c)()</code>は、<code>a</code>に応じて<code>b</code>または<code>cを</code>呼び出します。なお、<code>x.y()</code>は、まだ<code>(x.y)(x)</code>とほぼ同等のメソッド呼び出しですが、<code>a[i]()</code>は<code>(a[i])()</code>と同等になったことに注意してください。</p>
+<p>ダブルデフでは、変数名のソースとして（変数に限らず）ほぼすべての式が使用できるようになりました。例えば、<code>DoNotUseArray%n+1%</code>や <code>%(%triple%)%</code>は有効です。<code>ref := &amp;var, value := %ref%</code>のように、VarRefの再参照にもダブルデリフ構文が使われるようになりました。</p>
+<p><code>funcName[""]()</code>および<code>funcName.()</code>の式は、関数を名前で呼び出さなくなりました。<code>.()</code> のようにメソッド名を省略すると、ロードタイムエラーメッセージが表示されるようになりました。関数は、名前ではなく、参照によって呼び出したり、扱ったりする必要があります。</p>
+<p>右辺値を持たない<code>var :=</code>は、ロード時にエラーとして扱われます。v1で、これは<code>var := ""</code>と等価でしたが、他の式と組み合わせると無言で失敗します：<code>x :=, y :=</code>.</p>
+<p>リテラル文字列の後に曖昧な単項/二項演算子が続く場合、ロード時にエラーが報告されます。例えば、<code>"new counter:" ++counter</code>は、おそらく<code>counter</code>をインクリメントして表示するものと思われますが、厳密には無効な<em>加算</em>と <em>単項式プラス</em>になります。</p>
 <p><code>word ++</code>と<code>word --</code>は、<code>word</code>がユーザー定義関数である可能性があるため、もはや式ではありません（また ++/- の後に変数参照を生成する式が続くことがあります）。単独でポストインクリメント式やポストデクリメント式を書くには、変数と演算子の間のスペースを省くか、変数や式を括弧で囲むかします。</p>
-<p><code>word ? x : y</code>はまだ3項表現ですが、<code>word1 word2 ? x : y</code>のように単語で始まるより複雑な場合は、常に<em>word1</em>への関数呼び出しと解釈されます（そのような関数が存在しない場合でも）。複雑な条件を持つ単体の3元式を書くには、条件を括弧で囲む。</p>
-<p><code>x is y</code>のような new<a href="Variables.htm#is"><code>is</code>演算子</a>は、値<em>x</em>がクラス<em>y</em>のインスタンスであるかどうかを確認するために使用されます（<em>y</em>は<code>プロトタイププロパティ</code>を持つオブジェクト（すなわちクラス）でなければなりません）。これには、<code>xがInteger</code>である（<code>IsInteger(x)</code>が変換の可能性をチェックするのに対し、これは厳密には型チェックである）のようなプリミティブな値も含まれます。</p>
+<p><code>word ? x : y</code>は、まだ3項表現ですが、<code>word1 word2 ? x : y</code>のように単語で始まるより複雑な場合は、常に<em>word1</em>への関数呼び出しと解釈されます（そのような関数が存在しない場合であってもです。）。複雑な条件を持つ単体の3元式を書くには、条件を括弧で囲みます。</p>
+<p><code>x is y</code>のような 新しい<a href="Variables.htm#is"><code>is</code>演算子</a>は、値<em>x</em>がクラス<em>y</em>のインスタンスであるかどうかを確認するために使用されます（<em>y</em>は<code>プロトタイププロパティ</code>を持つオブジェクト（すなわちクラス）でなければなりません）。<code>xがInteger</code>のようなプリミティブな値も含まれます。（<code>IsInteger(x)</code>が変換の可能性をチェックするのに対し、これは厳密には型チェックです）</p>
 <p>キーワード<code>contains</code>と <code>in</code>は将来の使用のために予約されています。</p>
 <p><code>&amp;var</code>(address-of) が<code>StrPtr(var)</code>と<code>ObjPtr(obj)</code>に置き換えられ、より明確に意図を示し、エラーチェックを強化しました。v1では、address-ofは、<em>var</em>の内部文字列バッファのアドレスを返し、たとえそれが数値（オブジェクトではない）を含んでいたとしても、そのアドレスを返していました。また、オブジェクトのアドレスを取得するために使用され、間違ったタイプのアドレスを取得すると、悲惨な結果になることがあります。</p>
-<p><code>&amp;var</code>が<a href="Variables.htm#ref">参照演算子</a>になり、すべての<a href="#byref">ByRef</a>と OutputVar パラメータで使用され、明快さと柔軟性が向上しました（他の言語の変更も可能になります）。詳しくは、「<a href="Concepts.htm#variable-references">変数参照（VarRef）</a>」を参照してください。</p>
-<p>式の評価時に文字列の長さがキャッシュされるようになりました。これにより、パフォーマンスが向上し、文字列が2進数の0を含むことができるようになります。特に：</p>
+<p><code>&amp;var</code>は<a href="Variables.htm#ref">参照演算子</a>になり、すべての<a href="#byref">ByRef</a>と OutputVar パラメータで使用され、明快さと柔軟性が向上しました（他の言語の変更も可能になります）。詳しくは、<a href="Concepts.htm#variable-references">変数参照（VarRef）</a>を参照してください。</p>
+<p>式の評価時に、文字列の長さがキャッシュされるようになりました。これにより、パフォーマンスが向上し、文字列が2進数の0を含むことができるようになります。特に：</p>
 <ul>
 <li>2つの文字列の一方または両方にバイナリゼロが含まれる場合に、2つの文字列を連結しても、データが切り捨てられることがなくなりました。</li>
-<li>バイナリデータの比較には、大文字と小文字を区別する等号演算子（<code>==と</code> <code>!</code>）が使えます。他の比較演算子は、最初の2進数のゼロまでしか「見えない」のです。</li>
+<li>バイナリデータの比較には、大文字と小文字を区別する等号演算子（<code>==と</code> <code>!==</code>）が使えます。他の比較演算子は、最初の2進数のゼロまでしか「見えない」のです。</li>
 <li>バイナリデータは、関数から返したり、オブジェクトに割り当てたりすることができます。</li>
 </ul>
 <p>ほとんどの関数はまだヌル終端文字列を想定しているので、最初の2進数のゼロまでしか「見えない」のです。例えば、<a href="lib/MsgBox.htm">MsgBox</a>は、文字列のうち最初の2進数のゼロより前の部分のみを表示します。</p>
 <p><code>*</code>(deref)演算子は削除されました。代わりに<a href="lib/NumGet.htm">NumGet</a>を使用してください。</p>
 <p><code>~</code> (<a href="Variables.htm#unary">bitwise-NOT</a>) 演算子は、常に入力を64ビットの符号付き整数として扱うようになりました。0から4294967295までの値を符号なし32ビットとして扱わなくなりました。</p>
-<p>論理右ビットシフトに<code>&gt;&gt;&gt;</code>と<code>&gt;&gt;&gt;=</code>が追加されました。。</p>
-<p><a href="Variables.htm#fat-arrow">太矢印の関数</a>を追加しました。<code>Fn(Parameters) =&gt; Expression</code>は、<em>Fn</em>という名前の関数（空白でも可）を定義し、<a href="lib/Func.htm">Func</a>またはClosureオブジェクトを返します。呼び出されると、この関数は<em>Expression</em>を評価し、結果を返します。他の関数の内部で使用する場合、<em>Expression</em>は外部関数の変数を参照することができます（これは通常の関数定義でも可能です）。</p>
+<p>論理右ビットシフトに<code>&gt;&gt;&gt;</code>と<code>&gt;&gt;&gt;=</code>が追加されました。</p>
+<p><a href="Variables.htm#fat-arrow">太矢印の関数</a>を追加しました。<code>Fn(Parameters) =&gt; Expression</code>は、<em>Fn</em>という名前の関数（空白でも可）を定義し、<a href="lib/Func.htm">Func</a>またはClosureオブジェクトを返します。呼び出されると、この関数は<em>Expression</em>を評価し、結果を返します。他の関数の内部で使用する場合、<em>Expression</em>は、外部関数の変数を参照することができます（これは通常の関数定義でも可能です）。</p>
 <p>ファットアロー構文は、メソッドやプロパティのゲッター/セッターの定義にも使用できます（この場合、メソッド/プロパティの定義自体は式ではなく、その本体が式を返すだけです）。</p>
-<p>メンバーアクセス（ドット）の左側で、リテラルナンバーが完全にサポートされるようになりました。例えば、<code>0.1</code>は数値ですが、<code>0.min</code>と <code>0.1.min</code>は、ベースオブジェクトが扱える<em>min</em>プロパティにアクセスします（「<a href="Objects.htm#primitive">プリミティブ値</a>」参照）。1.<code>.2</code>または<code>1.0.2</code>は、数字 1.0 の後にプロパティ 2 が続く。使用例としては、測定単位、リテラルバージョン番号、範囲などを実装することが考えられる。</p>
+<p>メンバーアクセス（ドット）の左側で、リテラルナンバーが完全にサポートされるようになりました。例えば、<code>0.1</code>は数値ですが、<code>0.min</code>と <code>0.1.min</code>は、ベースオブジェクトが扱える<em>min</em>プロパティにアクセスします（<a href="Objects.htm#primitive">プリミティブ値</a>参照）。<code>1..2</code>または<code>1.0.2</code>は、数字 1.0 の後にプロパティ 2 が続くものです。使用例としては、測定単位、リテラルバージョン番号、範囲などを実装することが考えられます。</p>
 <p><code>x**y</code>:<code>x</code>と <code>y</code>が整数で<code>y</code>が正の場合、以前は内部で浮動小数点演算を使用していたため精度が落ちていましたが、範囲内であればすべての入力に対して正しい結果を与えるようになりました。オーバーフロー時の動作は未定義です。</p>
 <h3 id="objects-misc">Objects (Misc)</h3>
 <p>こちらもご覧ください：<a href="#objects">オブジェクト</a></p>
 <p><code>.</code>でアクセスするプロパティと、<code>[]</code>でアクセスするデータ（アイテム、配列、マップ要素）は区別されるようになりました。例えば、<code>dictionary["Count"]</code>は "Count"の定義を返し、<code>dictionary.Count</code>は、その中に含まれる単語の数を返すことができる。ユーザー定義オブジェクトは、<a href="Objects.htm#__Item">__Itemプロパティ</a>を定義することでこれを利用することができます。</p>
-<p>プロパティやメソッドの名前が事前にわからない場合、パーセント記号を使ってアクセスすることができる（しなければならない）。例えば、<code>obj.%varname%()</code>は、<code>obj[varname]()</code>と同等のv2です。<code>[]</code>は、データ（配列要素など）に使用します。</p>
-<p>アドホック・オブジェクトを構築するためのリテラル構文は、やはり基本的に<code>{name：value}</code>しかし、プレーンオブジェクトは現在「配列要素」ではなく「プロパティ」しか持たないため、他のコンテキストでプロパティにアクセスする方法との一貫性を保つために、ルールが少し変更されました：</p>
+<p>プロパティやメソッドの名前が事前にわからない場合、パーセント記号を使ってアクセスすることができる（しなければならない）。例えば、<code>obj.%varname%()</code>は、v2の<code>obj[varname]()</code>と同等です。<code>[]</code>は、データ（配列要素など）に使用します。</p>
+<p>アドホック・オブジェクトを構築するためのリテラル構文は、やはり基本的に<code>{name：value}</code>です。しかし、プレーンオブジェクトは現在「配列要素」ではなく「プロパティ」しか持たないため、他のコンテキストでプロパティにアクセスする方法との一貫性を保つために、ルールが少し変更されました：</p>
 <ul>
 <li><code>o := {a:b}</code> は、従来通り「a」という名前を使用します。</li>
 <li><code>o := {%a%:b}</code> は、<code>a</code>のプロパティ名を変数名とし、ダブルデフを行い、結果の変数の内容を使用するのではなく、<code>a</code>のプロパティ名を使用します。つまり、<code>o := {}, o.%a% := b</code>と同じ効果を発揮するのです。</li>
-<li>それ以外の<code>:</code>の左側の表現は違法です。例えば、<code>{(a)：b}</code> または<code>{an error:1}</code>.</li>
+<li>それ以外の<code>:</code>の左側の表現は不正です。例えば、<code>{(a)：b}</code> または<code>{an error:1}</code>です.</li>
 </ul>
-<p><code>base.Method()</code>の「base」という言葉の使用は、2つの概念をよりよく区別するために、<a href="Objects.htm#Custom_Classes_super">super</a>（<code>super.Method()</code>）に置き換えられています：</p>
+<p><code>base.Method()</code>の "base" という言葉の使用は、2つの概念をよりよく区別するために、<a href="Objects.htm#Custom_Classes_super">super</a>（<code>super.Method()</code>）に置き換えられています：</p>
 <ul>
 <li><code>super.</code>または<code>super[</code>は、メソッド/プロパティのスーパークラス版を呼び出します。"super-class"は、現在の関数の定義にもともと関連付けられていたプロトタイプオブジェクトのベースです。</li>
 <li><code>super</code>は予約語です。<code>.</code>または<code>[</code>]または<code>()</code>の接尾辞を付けずに、またはクラスの外で使用しようとすると、ロードタイムエラーになります。</li>
@@ -204,7 +204,7 @@
 {
     while condition
         <em>; 各繰り返しで実行される ;ステートメント</em>
-} <em>; これらの中括弧は現在必須であり、そうでなければ else は while と関連付けられる。</em>
+}<em>; これらの中括弧は現在必須であり、そうでなければ else は while と関連付けられる。</em>
 else
     <em>; 条件が偽の場合に実行されるステートメント</em>
 </pre>
@@ -418,9 +418,13 @@ this.__set(name, args, value)
 <li>StringCaseSense (各種パラメータを使用)</li>
 <li>StringGetPos（<a href="lib/InStr.htm">InStrを</a>使用します。）</li>
 <li>StringLeft<br>
+
 StringLen<br>
+
 StringMid<br>
+
 StringRight<br>
+
 StringTrimLeft<br>
 StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.htm">SubStr</a>を使用します。</li>
 <li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplaceを</a>使用します。）</li>
@@ -969,8 +973,11 @@ Name    := MonitorGetName(N)
 <h3 id="removed">削除</h3>
 <p>+Delimiter<br>
 +Hwnd<em>OutputVar</em> (<a href="lib/Gui.htm#Hwnd">GuiObj.Hwnd</a> または <a href="lib/GuiControl.htm#Hwnd">GuiCtrl.Hwnd</a> を代わりに使用してください。)<br>
+
 +Label<br>
+
 +LastFoundExist<br>
+
 Gui GuiName: Default</p>
 <h3 id="control-options">Control Options</h3>
 <p>+/-Background は、解釈とサポートがより一貫しています。ListView/TreeView/StatusBar/Progressだけでなく、"Gui Color" をサポートしていたすべてのコントロールが<code>+Background</code><i>Color</i>と <code>+BackgroundDefault</code> （<code>-Background</code>と同義）をサポートしました。</p>

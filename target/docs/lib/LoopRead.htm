@@ -61,7 +61,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExFileAppend">
-<p><a class="ex_number" href="#ExFileAppend"></a> Only those lines of the 1st file that contain the word FAMILY will be written to the 2nd file. Uncomment the first line to overwrite rather than append to any existing file.</p>
+<p><a class="ex_number" href="#ExFileAppend"></a>  Only those lines of the 1st file that contain the word FAMILY will be written to the 2nd file. Uncomment the first line to overwrite rather than append to any existing file.</p>
 <pre><em>;FileDelete "C:\Docs\Family Addresses.txt"</em>
 
 Loop read, "C:\Docs\Address List.txt", "C:\Docs\Family Addresses.txt"
@@ -74,17 +74,17 @@ else
 </div>
 
 <div class="ex" id="ExLastLine">
-<p><a class="ex_number" href="#ExLastLine"></a> Retrieves the last line from a text file.</p>
+<p><a class="ex_number" href="#ExLastLine"></a>  Retrieves the last line from a text file.</p>
 <pre>Loop read, "C:\Log File.txt"
     last_line := A_LoopReadLine  <em>; When loop finishes, this will hold the last line.</em></pre>
 </div>
 
 <div class="ex" id="ExURL">
-<p><a class="ex_number" href="#ExURL"></a> Attempts to extract all FTP and HTTP URLs from a text or HTML file.</p>
+<p><a class="ex_number" href="#ExURL"></a>  Attempts to extract all FTP and HTTP URLs from a text or HTML file.</p>
 <pre>
 SourceFile := FileSelect(3,, "Pick a text or HTML file to analyze.")
 if SourceFile = ""
-    return  <em>; This will exit in this case.</em>
+    return<em>; This will exit in this case.</em>
 
 SplitPath SourceFile,, &amp;SourceFilePath,, &amp;SourceFileNoExt
 DestFile := SourceFilePath "\" SourceFileNoExt " Extracted Links.txt"
@@ -109,30 +109,30 @@ URLSearch(URLSearchString)
 {
     <em>; It's done this particular way because some URLs have other URLs embedded inside them:
 ; Find the left-most starting position:</em>
-    URLStart := 0  <em>; Set starting default.</em>
+    URLStart := 0<em>; Set starting default.</em>
     for URLPrefix in ["https://", "http://", "ftp://", "www."]
     {
         ThisPos := InStr(URLSearchString, URLPrefix)
-        if !ThisPos  <em>; This prefix is disqualified.</em>
+        if !ThisPos<em>; This prefix is disqualified.</em>
             continue
         if !URLStart
             URLStart := ThisPos
-        else <em>; URLStart has a valid position in it, so compare it with ThisPos.</em>
+        else<em>; URLStart has a valid position in it, so compare it with ThisPos.</em>
         {
             if ThisPos &amp;&amp; ThisPos &lt; URLStart
                 URLStart := ThisPos
         }
     }
 
-if !URLStart  <em>; No URLs exist in URLSearchString.</em>
+if !URLStart<em>; No URLs exist in URLSearchString.</em>
         return
 
 <em>; Otherwise, extract this URL:</em>
-    URL := SubStr(URLSearchString, URLStart)  <em>; Omit the beginning/irrelevant part.</em>
-    Loop parse, URL, " `t&lt;&gt;"  <em>; Find the first space, tab, or angle bracket (if any).</em>
+    URL := SubStr(URLSearchString, URLStart)<em>; Omit the beginning/irrelevant part.</em>
+    Loop parse, URL, " `t&lt;&gt;"<em>; Find the first space, tab, or angle bracket (if any).</em>
     {
         URL := A_LoopField
-        break  <em>; i.e. perform only one loop iteration to fetch the first "field".</em>
+        break<em>; i.e. perform only one loop iteration to fetch the first "field".</em>
     }
     <em>; If the above loop had zero iterations because there were no ending characters found,
     ; leave the contents of the URL var untouched.

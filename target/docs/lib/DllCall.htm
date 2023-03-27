@@ -74,9 +74,9 @@
   <td><span id="astr"></span>AStr</td>
   <td>
     <p>AStr を指定すると、入力値が自動的に ANSI に変換されます。この変換に使用される一時メモリは、変換された入力文字列分の大きさしかないため、関数によって書き込まれた値は破棄される。出力パラメータとしてANSI文字列を受け取るには、次の例に従います：</p>
-<pre>buf := Buffer(<i>length</i>)  <em>; 一時的なバッファを確保する。</em>
-DllCall("<i>Function</i>", "ptr", buf)  <em>; バッファを関数に渡す。</em>
-str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する。</em>
+<pre>buf := Buffer(<i>length</i>)<em>; 一時的なバッファを確保する。</em>
+DllCall("<i>Function</i>", "ptr", buf)<em>; バッファを関数に渡す。</em>
+str := StrGet(buf, "cp0")<em>; バッファからANSI文字列を取得する。</em>
 </pre>
     <p>まれに使われる<a href="#asterisk">AStr*</a>arg型もサポートされており、新しい文字列がANSIからネイティブフォーマットであるUTF-16に変換される以外は<a href="#strp">Str*</a>型と同様の動作をする。</p>
     <p>同等のWin32型などについては、「<a href="../Compat.htm#DllCall">バイナリ互換性</a>」を参照してください。</p>
@@ -119,6 +119,7 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
 </tr>
 <tr id="asterisk">
   <td>* or P<br>
+    
     (suffix)</td>
   <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
     <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタである。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用する。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
@@ -161,10 +162,10 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
 
 <h2 id="load">パフォーマンス</h2>
 <p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。事例：</p>
-<pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; ループ内でDllCallしてライブラリを読み込む必要を回避。</em>
+<pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")<em>; ループ内でDllCallしてライブラリを読み込む必要を回避。</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
-DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約のため、使用後はDLLをアンロードすることがあります。</em></pre>
+DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)<em>; メモリ節約のため、使用後はDLLをアンロードすることがあります。</em></pre>
 <p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。事例：</p>
 <pre><em>; 次の例では、DLLがまだロードされていない場合、GetModuleHandleの代わりにLoadLibraryを使用してください。</em>
 <strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
@@ -217,14 +218,14 @@ MsgBox "You pressed button #" WhichButton</pre>
 <div class="ex" id="ExIsWindowVisible">
 <p><a class="ex_number" href="#ExIsWindowVisible"></a> API関数 "IsWindowVisible"を呼び出し、メモ帳ウィンドウが表示されているかどうかを調べる。</p>
 <pre>DetectHiddenWindows True
-if not DllCall("IsWindowVisible", "Ptr", WinExist("Untitled - Notepad"))  <em>; WinExistはHWNDを返す。</em>
+if not DllCall("IsWindowVisible", "Ptr", WinExist("Untitled - Notepad"))<em>; WinExistはHWNDを返す。</em>
     MsgBox "The window is not visible."</pre>
 </div>
 
 <div class="ex" id="ExWsprintf">
 <p><a class="ex_number" href="#ExWsprintf"></a> APIのwsprintf()を呼び出し、数字432に先頭のゼロをパッドして10文字幅(0000000432)にします。</p>
-<pre>ZeroPaddedNumber := Buffer(20)  <em>; バッファが新しい文字列を受け入れるのに十分な大きさであることを確認する。</em>
-DllCall("wsprintf", "Ptr", ZeroPaddedNumber, "Str", "%010d", "Int", 432, "Cdecl")  <em>; Cdecl の呼び出し規約を必要とする。</em>
+<pre>ZeroPaddedNumber := Buffer(20)<em>; バッファが新しい文字列を受け入れるのに十分な大きさであることを確認する。</em>
+DllCall("wsprintf", "Ptr", ZeroPaddedNumber, "Str", "%010d", "Int", 432, "Cdecl")<em>; Cdecl の呼び出し規約を必要とする。</em>
 MsgBox StrGet(ZeroPaddedNumber)
 
 <em>; または、<a href="Format.htm">Format</a>関数とゼロフラグを組み合わせて使用します：</em>
@@ -255,14 +256,14 @@ F1 up::
 switch ThisHotkey
     {
     case "F1":
-        <em>; 現在の速度を取得し、後で復元できるようにする：</em>
+<em>; 現在の速度を取得し、後で復元できるようにする：</em>
         DllCall("SystemParametersInfo", "UInt", SPI_GETMOUSESPEED, "UInt", 0, "Ptr*", OrigMouseSpeed, "UInt", 0)
         <em>; ここで、マウスの速度を、最後から2番目のパラメータで指定された遅い速度に設定します（範囲は1～20、10がデフォルト）：</em>
         DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", 3, "UInt", 0)
-        KeyWait "F1"  <em>; キーボードのオートリピートがDllCallを繰り返し実行するのを防ぐことができます。</em>
+        KeyWait "F1"<em>; キーボードのオートリピートがDllCallを繰り返し実行するのを防ぐことができます。</em>
         
 case "F1 up":
-DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", OrigMouseSpeed, "UInt", 0)  <em>; 元の速度に戻す。</em>
+DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", OrigMouseSpeed, "UInt", 0)<em>; 元の速度に戻す。</em>
     }
 }</pre>
 </div>
@@ -275,10 +276,10 @@ WatchScrollBar()
 {
     FocusedHwnd := 0
     try FocusedHwnd := ControlGetFocus("A")
-    if !FocusedHwnd  <em>; フォーカスされたコントロールがない。</em>
+    if !FocusedHwnd<em>; フォーカスされたコントロールがない。</em>
         return
     <em>; 縦または横スクロールバーの位置をツールチップに表示する：</em>
-    ToolTip DllCall("GetScrollPos", "Ptr", FocusedHwnd, "Int", 1)  <em>; SB_VERTの場合は1、SB_HORZの場合は0になります。</em>
+    ToolTip DllCall("GetScrollPos", "Ptr", FocusedHwnd, "Int", 1)<em>; SB_VERTの場合は1、SB_HORZの場合は0になります。</em>
 }</pre>
 </div>
 
@@ -288,23 +289,23 @@ WatchScrollBar()
 FileName := FileSelect("S16",, "Create a new file:")
 if FileName = ""
     return
-GENERIC_WRITE := 0x40000000  <em>; 読み出しではなく、書き込みのためにファイルを開く。</em>
-CREATE_ALWAYS := 2  <em>; 新規ファイルを作成する（既存のファイルを上書きする）。</em>
+GENERIC_WRITE := 0x40000000<em>; 読み出しではなく、書き込みのためにファイルを開く。</em>
+CREATE_ALWAYS := 2<em>; 新規ファイルを作成する（既存のファイルを上書きする）。</em>
 hFile := DllCall("CreateFile", "Str", FileName, "UInt", GENERIC_WRITE, "UInt", 0, "Ptr", 0, "UInt", CREATE_ALWAYS, "UInt", 0, "Ptr", 0, "Ptr")
 if !hFile
 {
     MsgBox "Can't open '" FileName "' for writing."
     return
 }
-TestString := "This is a test string.`r`n"  <em>; この方法でファイルを書く場合、改行には `n ではなく `r`n を使用します。</em>
+TestString := "This is a test string.`r`n"<em>; この方法でファイルを書く場合、改行には `n ではなく `r`n を使用します。</em>
 StrSize := StrLen(TestString) * 2
 DllCall("WriteFile", "Ptr", hFile, "Str", TestString, "UInt", StrSize, "UIntP", &amp;BytesActuallyWritten := 0, "Ptr", 0)
-DllCall("CloseHandle", "Ptr", hFile)  <em>; ファイルを閉じる。</em>
+DllCall("CloseHandle", "Ptr", hFile)<em>; ファイルを閉じる。</em>
 
 <em>; ファイルが書き込まれたので、その内容をメモリに読み返してください。</em>
-GENERIC_READ := 0x80000000  <em>; 書き込みではなく、読み込みのためにファイルを開く。</em>
-OPEN_EXISTING := 3  <em>; このモードは、オープンするファイルが既に存在することを示す。</em>
-FILE_SHARE_READ := 0x1 <em>; こちらがファイルを開いている間に、他のプロセスがファイルを開くことができるかどうかです。</em>
+GENERIC_READ := 0x80000000<em>; 書き込みではなく、読み込みのためにファイルを開く。</em>
+OPEN_EXISTING := 3<em>; このモードは、オープンするファイルが既に存在することを示す。</em>
+FILE_SHARE_READ := 0x1<em>; こちらがファイルを開いている間に、他のプロセスがファイルを開くことができるかどうかです。</em>
 FILE_SHARE_WRITE := 0x2
 hFile := DllCall("CreateFile", "Str", FileName, "UInt", GENERIC_READ, "UInt", FILE_SHARE_READ|FILE_SHARE_WRITE, "Ptr", 0, "UInt", OPEN_EXISTING, "UInt", 0, "Ptr", 0)
 if !hFile
@@ -315,22 +316,22 @@ if !hFile
 <em>; 文字列を読み込むためのメモリブロックを確保する：</em>
 Buf := Buffer(StrSize)
 DllCall("ReadFile", "Ptr", hFile, "Ptr", Buf, "UInt", Buf.Size, "UIntP", &amp;BytesActuallyRead := 0, "Ptr", 0)
-DllCall("CloseHandle", "Ptr", hFile)  <em>; ファイルを閉じる。</em>
+DllCall("CloseHandle", "Ptr", hFile)<em>; ファイルを閉じる。</em>
 MsgBox "The following string was read from the file:" StrGet(Buf)</pre>
 </div>
 
 <div class="ex" id="ExHideCursor">
 <p><a class="ex_number" href="#ExHideCursor"></a> <kbd>Win</kbd>+<kbd>C</kbd>を押したときに、マウスカーソルを隠す。後でカーソルを表示させるには、このホットキーをもう一度押してください。</p>
-<pre>OnExit (*) =&gt; SystemCursor("Show")  <em>; スクリプト終了時にカーソルが表示されるようにする。</em>
+<pre>OnExit (*) =&gt; SystemCursor("Show")<em>; スクリプト終了時にカーソルが表示されるようにする。</em>
 
-#c::SystemCursor("Toggle")  <em>; Win+CホットキーでカーソルのON/OFFを切り替えられます。</em>
+#c::SystemCursor("Toggle")<em>; Win+CホットキーでカーソルのON/OFFを切り替えられます。</em>
 
-SystemCursor(cmd)  <em>; cmd = "Show|Hide|Toggle|Reload"</em>
+SystemCursor(cmd)<em>; cmd = "Show|Hide|Toggle|Reload"</em>
 {
     static visible := true, c := Map()
     static sys_cursors := [32512, 32513, 32514, 32515, 32516, 32642
                          , 32643, 32644, 32645, 32646, 32648, 32649, 32650]
-    if (cmd = "Reload" or !c.Count)  <em>; リクエスト時またはファーストコール時にリロードします。</em>
+    if (cmd = "Reload" or !c.Count)<em>; リクエスト時またはファーストコール時にリロードします。</em>
     {
         for i, id in sys_cursors
         {
@@ -364,9 +365,9 @@ SystemCursor(cmd)  <em>; cmd = "Show|Hide|Toggle|Reload"</em>
 <div class="ex" id="ExStruct">
 <p><a class="ex_number" href="#ExStruct"></a> 構造例です。RECT構造体のアドレスをGetWindowRect()に渡すと、構造体のメンバーにウィンドウの左、上、右、下辺の位置（画面に対する相対位置）が設定されます。</p>
 <pre>Run "Notepad"
-WinWait "無題-メモ帳"  <em>; これは、以下のWinExistで使用するための<a href="../misc/WinTitle.htm#LastFoundWindow">"last found window</a>"も設定します。</em>
-Rect := Buffer(16)  <em>; RECTは，4つの32ビット整数（4*4=16）からなる構造体である．</em>
-DllCall("GetWindowRect", "Ptr", WinExist(), "Ptr", Rect)  <em>; WinExistはHWNDを返す。</em>
+WinWait "無題-メモ帳"<em>; これは、以下のWinExistで使用するための<a href="../misc/WinTitle.htm#LastFoundWindow">"last found window</a>"も設定します。</em>
+Rect := Buffer(16)<em>; RECTは，4つの32ビット整数（4*4=16）からなる構造体である．</em>
+DllCall("GetWindowRect", "Ptr", WinExist(), "Ptr", Rect)<em>; WinExistはHWNDを返す。</em>
 L := NumGet(Rect, 0, "Int"), T := NumGet(Rect, 4, "Int")
 R := NumGet(Rect, 8, "Int"), B := NumGet(Rect, 12, "Int")
 MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>
@@ -374,22 +375,22 @@ MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>
 
 <div class="ex" id="ExStructRect">
 <p><a class="ex_number" href="#ExStructRect"></a> 構造例です。FillRect()に、一時的に赤く塗る画面の一部を示すRECT構造体のアドレスを渡す。</p>
-<pre>Rect := Buffer(16)  <em>; 4バイトの整数を4つ保持する容量を設定する。</em>
-<a href="NumPut.htm">NumPut</a>( "Int", 0                  <em>; 左</em>
-      , "Int", 0                  <em>; top</em>
-      , "Int", A_ScreenWidth//2   <em>; right</em>
-      , "Int", A_ScreenHeight//2  <em>; bottom</em>
+<pre>Rect := Buffer(16)<em>; 4バイトの整数を4つ保持する容量を設定する。</em>
+<a href="NumPut.htm">NumPut</a>( "Int", 0<em>; 左</em>
+      , "Int", 0<em>; top</em>
+      , "Int", A_ScreenWidth//2<em>; right</em>
+      , "Int", A_ScreenHeight//2<em>; bottom</em>
       , Rect)
-hDC := DllCall("GetDC", "Ptr", 0, "Ptr")  <em>;デスクトップのデバイスコンテキストを取得する場合は、0を渡す。</em>
-hBrush := DllCall("CreateSolidBrush", "UInt", 0x0000FF, "Ptr")  <em>; 赤のブラシ（0x0000FFはBGR形式）を作成します。</em>
-DllCall("FillRect", "Ptr", hDC, "Ptr", Rect, "Ptr", hBrush)  <em>; 指定された矩形を上記のブラシで塗りつぶす。</em>
-DllCall("ReleaseDC", "Ptr", 0, "Ptr", hDC)  <em>; クリーンアップ。</em>
-DllCall("DeleteObject", "Ptr", hBrush)  <em>; クリーンアップ。</em></pre>
+hDC := DllCall("GetDC", "Ptr", 0, "Ptr")<em>;デスクトップのデバイスコンテキストを取得する場合は、0を渡す。</em>
+hBrush := DllCall("CreateSolidBrush", "UInt", 0x0000FF, "Ptr")<em>; 赤のブラシ（0x0000FFはBGR形式）を作成します。</em>
+DllCall("FillRect", "Ptr", hDC, "Ptr", Rect, "Ptr", hBrush)<em>; 指定された矩形を上記のブラシで塗りつぶす。</em>
+DllCall("ReleaseDC", "Ptr", 0, "Ptr", hDC)<em>;クリーンアップ。</em>
+DllCall("DeleteObject", "Ptr", hBrush)<em>;クリーンアップ。</em></pre>
 </div>
 
 <div class="ex" id="ExSystemTime">
 <p><a class="ex_number" href="#ExSystemTime"></a> 構造例です。システムの時計を指定した日付と時刻に変更する。未来の日付に変更すると、スケジュールされたタスクが早期に実行される可能性があるため、注意が必要です！</p>
-<pre>SetSystemTime("20051008142211")  <em>; <a href="FileSetTime.htm#YYYYMMDD">タイムスタンプ</a>を渡す（UTCではなくローカル）。</em>
+<pre>SetSystemTime("20051008142211")<em>; <a href="FileSetTime.htm#YYYYMMDD">タイムスタンプ</a>を渡す（UTCではなくローカル）。</em>
 
 SetSystemTime(YYYYMMDDHHMISS)
 <em>; システムクロックを指定した日付と時刻に設定する。
@@ -397,20 +398,20 @@ SetSystemTime(YYYYMMDDHHMISS)
 ; (UTCではなく現地時間)。成功すれば0以外を、そうでなければ0を返す。</em>
 {
     <em>; SetSystemTime()で使用するため、パラメータをローカル時間からUTCに変換する。</em>
-    UTC_Delta := DateDiff(A_Now, A_NowUTC, "Seconds")  <em>; 四捨五入の関係で、「秒」の方が正確です。</em>
-    UTC_Delta := Round(-UTC_Delta/60)  <em>; 正確を期すため、分単位に丸めて表示します。</em>
-    YYYYMMDDHHMISS := DateAdd(YYYYMMDDHHMISS, UTC_Delta, "Minutes")  <em>; UTC に変換するためのオフセットを適用する。</em>
+    UTC_Delta := DateDiff(A_Now, A_NowUTC, "Seconds")<em>; 四捨五入の関係で、「秒」の方が正確です。</em>
+    UTC_Delta := Round(-UTC_Delta/60)<em>; 正確を期すため、分単位に丸めて表示します。</em>
+    YYYYMMDDHHMISS := DateAdd(YYYYMMDDHHMISS, UTC_Delta, "Minutes")<em>; UTC に変換するためのオフセットを適用する。</em>
 
-SystemTime := Buffer(16)  <em>; この構造体は8個のUShortで構成されています。</em>
+SystemTime := Buffer(16)<em>; この構造体は8個のUShortで構成されています。</em>
 
-<a href="NumPut.htm">NumPut</a>( "UShort", SubStr(YYYYMMDDHHMISS, 1, 4)  <em>; YYYY (year)</em>
-          , "UShort", SubStr(YYYYMMDDHHMISS, 5, 2)  <em>; MM (month of year, 1-12)</em>
-          , "UShort", 0                             <em>; Unused (day of week)</em>
-          , "UShort", SubStr(YYYYMMDDHHMISS, 7, 2)  <em>; DD (day of month)</em>
-          , "UShort", SubStr(YYYYMMDDHHMISS, 9, 2)  <em>; HH (hour in 24-hour time)</em>
-          , "UShort", SubStr(YYYYMMDDHHMISS, 11, 2) <em>; MI (minute)</em>
-          , "UShort", SubStr(YYYYMMDDHHMISS, 13, 2) <em>; SS (second)</em>
-          , "UShort", 0                             <em>; Unused (millisecond)</em>
+<a href="NumPut.htm">NumPut</a>( "UShort", SubStr(YYYYMMDDHHMISS, 1, 4)<em>; YYYY (year)</em>
+          , "UShort", SubStr(YYYYMMDDHHMISS, 5, 2)<em>; MM (month of year, 1-12)</em>
+          , "UShort", 0<em>; Unused (day of week)</em>
+          , "UShort", SubStr(YYYYMMDDHHMISS, 7, 2)<em>; DD (day of month)</em>
+          , "UShort", SubStr(YYYYMMDDHHMISS, 9, 2)<em>; HH (hour in 24-hour time)</em>
+          , "UShort", SubStr(YYYYMMDDHHMISS, 11, 2)<em>; MI (minute)</em>
+          , "UShort", SubStr(YYYYMMDDHHMISS, 13, 2)<em>; SS (second)</em>
+          , "UShort", 0<em>; Unused (millisecond)</em>
           , SystemTime)
 
 return DllCall("SetSystemTime", "Ptr", SystemTime)
@@ -445,10 +446,10 @@ tbl := ComObject(CLSID_TaskbarList, IID_ITaskbarList)
 
 activeHwnd := WinExist("A")
 
-DllCall(vtable(tbl.ptr,3), "ptr", tbl)                     <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-hrinit">HrInit</a>()</em>
-DllCall(vtable(tbl.ptr,5), "ptr", tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-deletetab">DeleteTab</a>(activeHwnd)</em>
+DllCall(vtable(tbl.ptr,3), "ptr", tbl)<em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-hrinit">HrInit</a>()</em>
+DllCall(vtable(tbl.ptr,5), "ptr", tbl, "ptr", activeHwnd)<em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-deletetab">DeleteTab</a>(activeHwnd)</em>
 Sleep 3000
-DllCall(vtable(tbl.ptr,4), "ptr", tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
+DllCall(vtable(tbl.ptr,4), "ptr", tbl, "ptr", activeHwnd)<em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
 
 <em>; ラップされていないインターフェイスポインタは、手動で解放する必要があります。</em>
 ObjRelease(tbl.ptr)

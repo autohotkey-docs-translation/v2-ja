@@ -85,7 +85,7 @@ wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 
 <p id="Indirect"><strong>アドレスでパラメータを受信：</strong>もし<code>&amp;</code>オプションが使用された場合、関数は最初のコールバックパラメータの<i>アドレスを</i>受け取ります。事例：</p>
 <pre>
-callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; パラメータリストのサイズは32ビットで指定する必要があります。</em>
+callback := CallbackCreate(TheFunc, "F&amp;", 3)<em>; パラメータリストのサイズは32ビットで指定する必要があります。</em>
 DllCall(callback, "float", 10.5, "int64", 42)
 TheFunc(params) {
     MsgBox <a href="NumGet.htm">NumGet</a>(params, 0, "float") ", " NumGet(params, A_PtrSize, "int64")
@@ -112,13 +112,13 @@ TheFunc(params) {
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExWinList">
 <p><a class="ex_number" href="#ExWinList"></a> すべてのトップレベルウィンドウのサマリーを表示します。</p>
-<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")  <em>; Fast-modeはこのスレッドからしか呼ばれないので大丈夫です。</em>
+<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")<em>; Fast-modeはこのスレッドからしか呼ばれないので大丈夫です。</em>
 
-DetectHiddenWindows True  <em>; 高速モードのため、この設定はコールバックにも有効になります。</em>
+DetectHiddenWindows True<em>; 高速モードのため、この設定はコールバックにも有効になります。</em>
 
 <em>; コールバックを繰り返し呼び出すEnumWindows()に制御を渡す。</em>
 DllCall("EnumWindows", "Ptr", EnumAddress, "Ptr", 0)
-MsgBox Output  <em>; コールバックで蓄積された情報を表示する。</em>
+MsgBox Output<em>; コールバックで蓄積された情報を表示する。</em>
     
 EnumWindowsProc(hwnd, lParam)
 {
@@ -127,13 +127,13 @@ EnumWindowsProc(hwnd, lParam)
     win_class := WinGetClass(hwnd)
     if win_title
         Output .= "HWND:" hwnd "`tTitle:" win_title "`tClass:" win_class "`n"
-    return true  <em>; EnumWindows() に、すべてのウィンドウが列挙されるまで続けるように指示する。</em>
+    return true<em>; EnumWindows() に、すべてのウィンドウが列挙されるまで続けるように指示する。</em>
 }</pre>
 </div>
 
 <div class="ex" id="ExSubclassGUI">
 <p><a class="ex_number" href="#ExSubclassGUI"></a> GUIウィンドウのWindowProcをスクリプト内の新しいWindowProcにリダイレクトして、サブクラス化する方法を示すものです。この場合、テキストコントロールの背景色はカスタムカラーに変更されます。</p>
-<pre>TextBackgroundColor := 0xFFBBBB  <em>; BGR 形式のカスタムカラー。</em>
+<pre>TextBackgroundColor := 0xFFBBBB<em>; BGR 形式のカスタムカラー。</em>
 TextBackgroundBrush := DllCall("CreateSolidBrush", "UInt", TextBackgroundColor)
 
 MyGui := Gui()
@@ -142,19 +142,19 @@ Text := MyGui.Add("Text",, "Here is some text that is given`na custom background
 <em>; 64ビットスクリプトでは、SetWindowLongの代わりにSetWindowLongPtrを呼び出す必要があります。</em>
 SetWindowLong := A_PtrSize=8 ? "SetWindowLongPtr" : "SetWindowLong"
 
-WindowProcNew := CallbackCreate(WindowProc)  <em>; サブクラス作成時のfast-modeは避けてください。</em>
-WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4  <em>; -4 は GWL_WNDPROC</em>
-    , "Ptr", WindowProcNew, "Ptr") <em>; 戻り値は "Ptr "または "UPtr "対 "Int "に設定する必要があります。</em>
+WindowProcNew := CallbackCreate(WindowProc)<em>; サブクラス作成時のfast-modeは避けてください。</em>
+WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4<em>; -4 は GWL_WNDPROC</em>
+    , "Ptr", WindowProcNew, "Ptr")<em>; 戻り値は "Ptr "または "UPtr "対 "Int "に設定する必要があります。</em>
 
 MyGui.Show
 
 WindowProc(hwnd, uMsg, wParam, lParam)
 {
     Critical
-    if (uMsg = 0x0138 &amp;&amp; lParam = Text.Hwnd)  <em>; 0x0138 は WM_CTLCOLORSTATIC です。</em>
+    if (uMsg = 0x0138 &amp;&amp; lParam = Text.Hwnd)<em>; 0x0138 は WM_CTLCOLORSTATIC です。</em>
     {
         DllCall("SetBkColor", "Ptr", wParam, "UInt", TextBackgroundColor)
-        return TextBackgroundBrush  <em>; HDCを変更したことをOSに通知するため、HBRUSHを返す。</em>
+        return TextBackgroundBrush<em>; HDCを変更したことをOSに通知するため、HBRUSHを返す。</em>
     }
     <em>; そうでない場合は（上記が返らなかったので）、処理されなかったすべてのイベントを元のWindowProcに渡します。</em>
     return DllCall("CallWindowProc", "Ptr", WindowProcOld, "Ptr", hwnd, "UInt", uMsg, "Ptr", wParam, "Ptr", lParam)

@@ -51,13 +51,13 @@
     </ul></li>
     <li><a href="#labels">ラベル</a></li>
   </ul></li>
-</ul>
-<!-- TODO:
+</ul><!-- TODO:
 Directives
 Declarations
 Class definitions
 Methods?
 -->
+
 
 <h2 id="general-conventions">一般的な規約</h2>
 <p><strong>名前：</strong>変数名と関数名は大文字と小文字を区別しません（例えば、<code>CurrentDate</code>は <code>currentdate</code>と同じです）。最大文字数や使用可能文字数などの詳細は、<a href="Concepts.htm#names">名前</a>を参照してください。</p>
@@ -84,7 +84,7 @@ Methods?
 <p>スクリプトは、行頭のセミコロンでコメントすることができます。事例：</p>
 <pre><em>; この行全体がコメントです。</em></pre>
 <p>コメントは行末に追加することもできますが、その場合、セミコロンの左側には少なくとも1つのスペースまたはタブが必要です。事例：</p>
-<pre>Run "Notepad"  <em>;これは、関数呼び出しと同じ行にあるコメントです。</em></pre>
+<pre>Run "Notepad"<em>;これは、関数呼び出しと同じ行にあるコメントです。</em></pre>
 <p>さらに、この<code><em>/*</em></code> および <code><em>*/</em></code>記号は、この例のように、セクション全体をコメントアウトするために使用することができます。</p>
 <pre><em>/*
 MsgBox "This line is commented out (disabled)."
@@ -265,7 +265,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 Loop Parse t, "`n"
 {
     rowtext := A_LoopField
-    rownum := A_Index  <em>; 以下、2つ目のループで使用するために保存します。</em>
+    rownum := A_Index<em>; 以下、2つ目のループで使用するために保存します。</em>
     Loop Parse rowtext, "`t"
     {
         MsgBox rownum ":" A_Index " = " A_LoopField
@@ -298,22 +298,22 @@ Loop Parse t, "`n"
 <p>関数を定義する方法は複数あります。</p>
 <ul>
   <li>名前、括弧、コードの<a href="lib/Block.htm">ブロック</a>を組み合わせた<a href="Functions.htm">関数定義</a>です。これは、<a href="#function-calls">関数コール</a>または<a href="#function-call-statements">関数コールステートメント</a>で名前を指定して実行できる関数を定義します。事例：
-<pre>SayHello()  <em>; SayHello関数を定義する。</em>
+<pre>SayHello()<em>; SayHello関数を定義する。</em>
 {
     MsgBox "Hello!"
 }
 
-SayHello  <em>; SayHello関数を呼び出す。</em></pre>
+SayHello<em>; SayHello関数を呼び出す。</em></pre>
   </li>
   <li><a href="Hotkeys.htm">ホットキー</a>または<a href="Hotstrings.htm">ホットストリング</a>の定義で、ホットキーまたはホットストリングを1つの<a href="Concepts.htm#statement">ステートメント</a>またはコードの<a href="lib/Block.htm">ブロック</a>と組み合わせたものです。このタイプの関数は直接呼び出すことはできませんが、ホットキーまたはホットストリングがアクティブになるたびに実行されます。事例：
-<pre>#w::Run "wordpad"  <em>; Win-Wを押してWordpadを実行します。</em>
-#n::  <em>; Win-Nを押してメモ帳を起動します。</em>
+<pre>#w::Run "wordpad"<em>; Win-Wを押してWordpadを実行します。</em>
+#n::<em>; Win-Nを押してメモ帳を起動します。</em>
 {
     Run "notepad"
 }</pre>
   </li>
   <li><a href="Variables.htm#fat-arrow">ファットアロー式</a>は、コードのブロックを実行する代わりに、<a href="#expressions">式</a>を評価してその結果を<a href="Concepts.htm#return-a-value">返す</a>関数を定義します。このような関数は、他の関数に直接渡されるため、通常は名前を持ちません。事例：
-    <pre>SetTimer () =&gt; MsgBox("Hello!"), -1000  <em>; 1秒後に"hello"を表示します。</em></pre>
+    <pre>SetTimer () =&gt; MsgBox("Hello!"), -1000<em>; 1秒後に"hello"を表示します。</em></pre>
   </li>
   <li>ファットアロー構文は、通常の関数やメソッド定義の略記として、式の外でも使用できます。例えば、以下は上記のSayHelloの定義と同等ですが、こちらは "OK"を返すことを除きます。
     <pre>SayHello() =&gt; MsgBox("Hello!")</pre>
@@ -354,8 +354,8 @@ SayHello  <em>; SayHello関数を呼び出す。</em></pre>
 <p>動的変数参照の最も一般的な形式は、<em>二重参照</em>または<em>double-deref</em>と呼ばれます。二重参照を行う前に、対象となる変数名を第二の変数に格納する。そして、この第2変数を用いて、二重参照を用いて間接的に対象変数に値を代入することができる。事例：</p>
 <pre>target := 42
 second := "target"
-MsgBox  second   <em>; 通常の（単一の）変数の参照⇒ターゲット</em>
-MsgBox %second%  <em>; ダブルデフ⇒42</em>
+MsgBox  second<em>; 通常の（単一の）変数の参照⇒ターゲット</em>
+MsgBox %second%<em>; ダブルデフ⇒42</em>
 </pre>
 <p>現在、<code>second</code>の場合は必ず変数名を含む必要があり、任意の式はサポートされていません。</p>
 <p>動的変数参照は、1つまたは複数のリテラルテキストと1つまたは複数の変数の内容を取り、それらを結合して1つの変数名を形成することもできます。これは、名前とパーセントで囲まれた変数の断片を、空白を入れずに順番に書いていくだけです。例えば、<code>MyArray%A_Index%</code>や、または <code>MyGrid%X%_%Y%</code>後述する<em>擬似配列</em>にアクセスするために使用します。</p>
@@ -372,7 +372,7 @@ MyArray1 := "A"
 MyArray2 := "B"
 MyArray3 := "C"
 Loop 3
-    MsgBox MyArray%A_Index%  <em>; Aを表示し、次にBを表示し、次にCを表示します。</em>
+    MsgBox MyArray%A_Index%<em>; Aを表示し、次にBを表示し、次にCを表示します。</em>
 </pre>
 <p>最終的な変数名を形成するために使用される「インデックス」は数値である必要はなく、代わりに文字やキーワードを使用することができます。</p>
 <p>これらの理由から、一般的には擬似配列ではなく、<a href="Objects.htm#Usage_Simple_Arrays">Array</a>や <a href="Objects.htm#Usage_Associative_Arrays">Map</a>を使用することが推奨されます。</p>

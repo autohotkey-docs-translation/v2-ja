@@ -28,6 +28,7 @@
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
+    
     <ul>
       <li><a href="#Add">Add</a>: Creates a control such as text, button, or checkbox.</li>
       <li><a href="#Destroy">Destroy</a>: Deletes the window.</li>
@@ -49,6 +50,7 @@
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
+    
     <ul>
       <li><a href="#BackColor">BackColor</a>: Retrieves or sets the background color of the window.</li>
       <li><a href="#FocusedCtrl">FocusedCtrl</a>: Retrieves the <a href="GuiControl.htm">GuiControl object</a> of the GUI's focused control.</li>
@@ -62,6 +64,7 @@
     </ul>
   </li>
   <li>General:
+    
     <ul>
       <li><a href="#Navigate">Keyboard Navigation</a></li>
       <li><a href="#Appear">Window Appearance</a></li>
@@ -578,7 +581,7 @@ MyGui.Show()</pre>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExPopup">
-<p><a class="ex_number" href="#ExPopup"></a> Creates a popup window.</p>
+<p><a class="ex_number" href="#ExPopup"></a>  Creates a popup window.</p>
 <pre>MyGui := Gui(, "Title of Window")
 MyGui.Opt("+AlwaysOnTop +Disabled -SysMenu +Owner")  <em>; +Owner avoids a taskbar button.</em>
 MyGui.Add("Text",, "Some text to display.")
@@ -586,11 +589,11 @@ MyGui.Show("NoActivate")  <em>; NoActivate avoids deactivating the currently act
 </div>
 
 <div class="ex" id="ExInputBox">
-<p><a class="ex_number" href="#ExInputBox"></a> Creates a simple input-box that asks for the first and last name.</p>
+<p><a class="ex_number" href="#ExInputBox"></a>  Creates a simple input-box that asks for the first and last name.</p>
 <pre>MyGui := Gui(, "Simple Input Example")
 MyGui.Add("Text",, "First name:")
 MyGui.Add("Text",, "Last name:")
-MyGui.Add("Edit", "vFirstName ym")  <em>; The ym option starts a new column of controls.</em>
+MyGui.Add("Edit", "vFirstName ym")<em>; The ym option starts a new column of controls.</em>
 MyGui.Add("Edit", "vLastName")
 MyGui.Add("Button", "default", "OK").OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
@@ -598,13 +601,13 @@ MyGui.Show()
 
 ProcessUserInput(*)
 {
-    Saved := MyGui.Submit()  <em>; Save the contents of named controls into an object.</em>
+    Saved := MyGui.Submit()<em>; Save the contents of named controls into an object.</em>
     MsgBox("You entered '" Saved.FirstName " " Saved.LastName "'.")
 }</pre>
 </div>
 
 <div class="ex" id="ExTab">
-<p><a class="ex_number" href="#ExTab"></a> Creates a tab control with multiple tabs, each containing different controls to interact with.</p>
+<p><a class="ex_number" href="#ExTab"></a>  Creates a tab control with multiple tabs, each containing different controls to interact with.</p>
 <pre>MyGui := Gui()
 Tab := MyGui.Add("Tab3",, ["First Tab","Second Tab","Third Tab"])
 MyGui.Add("Checkbox", "vMyCheckbox", "Sample checkbox")
@@ -612,9 +615,9 @@ Tab.UseTab(2)
 MyGui.Add("Radio", "vMyRadio", "Sample radio1")
 MyGui.Add("Radio",, "Sample radio2")
 Tab.UseTab(3)
-MyGui.Add("Edit", "vMyEdit r5")  <em>; r5 means 5 rows tall.</em>
-Tab.UseTab()  <em>; i.e. subsequently-added controls will not belong to the tab control.</em>
-Btn := MyGui.Add("Button", "default xm", "OK")  <em>; xm puts it at the bottom left corner.</em>
+MyGui.Add("Edit", "vMyEdit r5")<em>; r5 means 5 rows tall.</em>
+Tab.UseTab()<em>; i.e. subsequently-added controls will not belong to the tab control.</em>
+Btn := MyGui.Add("Button", "default xm", "OK")<em>; xm puts it at the bottom left corner.</em>
 Btn.OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
 MyGui.OnEvent("Escape", ProcessUserInput)
@@ -622,18 +625,18 @@ MyGui.Show()
 
 ProcessUserInput(*)
 {
-    Saved := MyGui.Submit()  <em>; Save the contents of named controls into an object.</em>
+    Saved := MyGui.Submit()<em>; Save the contents of named controls into an object.</em>
     MsgBox("You entered:`n" Saved.MyCheckbox "`n" Saved.MyRadio "`n" Saved.MyEdit)
 }</pre>
 </div>
 
 <div class="ex" id="ExListBox">
-<p><a class="ex_number" href="#ExListBox"></a> Creates a ListBox control containing files in a directory.</p>
+<p><a class="ex_number" href="#ExListBox"></a>  Creates a ListBox control containing files in a directory.</p>
 <pre>MyGui := Gui()
 MyGui.Add("Text",, "Pick a file to launch from the list below.")
 LB := MyGui.Add("ListBox", "w640 r10")
 LB.OnEvent("DoubleClick", LaunchFile)
-Loop Files, "C:\*.*"  <em>; Change this folder and wildcard pattern to suit your preferences.</em>
+Loop Files, "C:\*.*"<em>; Change this folder and wildcard pattern to suit your preferences.</em>
     LB.Add([A_LoopFilePath])
 MyGui.Add("Button", "Default", "OK").OnEvent("Click", LaunchFile)
 MyGui.Show()
@@ -650,7 +653,7 @@ LaunchFile(*)
 </div>
 
 <div class="ex" id="ExToolTip">
-<p><a class="ex_number" href="#ExToolTip"></a> Displays a context-sensitive help (via ToolTip) whenever the user moves the mouse over a particular control.</p>
+<p><a class="ex_number" href="#ExToolTip"></a>  Displays a context-sensitive help (via ToolTip) whenever the user moves the mouse over a particular control.</p>
 <pre>
 MyGui := Gui()
 MyEdit := MyGui.Add("Edit")
@@ -667,15 +670,15 @@ On_WM_MOUSEMOVE(wParam, lParam, msg, Hwnd)
     static PrevHwnd := 0
     if (Hwnd != PrevHwnd)
     {
-        Text := "", ToolTip() <em>; Turn off any previous tooltip.</em>
+        Text := "", ToolTip()<em>; Turn off any previous tooltip.</em>
         CurrControl := GuiCtrlFromHwnd(Hwnd)
         if CurrControl
         {
             if !CurrControl.HasProp("ToolTip")
-                return <em>; No tooltip for this control.</em>
+                return<em>; No tooltip for this control.</em>
             Text := CurrControl.ToolTip
             SetTimer () =&gt; ToolTip(Text), -1000
-            SetTimer () =&gt; ToolTip(), -4000 <em>; Remove the tooltip.</em>
+            SetTimer () =&gt; ToolTip(), -4000<em>; Remove the tooltip.</em>
         }
         PrevHwnd := Hwnd
     }
@@ -683,17 +686,17 @@ On_WM_MOUSEMOVE(wParam, lParam, msg, Hwnd)
 </div>
 
 <div class="ex" id="ExOSD">
-<p><a class="ex_number" href="#ExOSD"></a> Creates an On-screen display (OSD) via transparent window.</p>
+<p><a class="ex_number" href="#ExOSD"></a>  Creates an On-screen display (OSD) via transparent window.</p>
 <pre>MyGui := Gui()
-MyGui.Opt("+AlwaysOnTop -Caption +ToolWindow")  <em>; +ToolWindow avoids a taskbar button and an alt-tab menu item.</em>
-MyGui.BackColor := "EEAA99"  <em>; Can be any RGB color (it will be made transparent below).</em>
-MyGui.SetFont("s32")  <em>; Set a large font size (32-point).</em>
-CoordText := MyGui.Add("Text", "cLime", "XXXXX YYYYY")  <em>; XX &amp; YY serve to auto-size the window.
+MyGui.Opt("+AlwaysOnTop -Caption +ToolWindow")<em>; +ToolWindow avoids a taskbar button and an alt-tab menu item.</em>
+MyGui.BackColor := "EEAA99"<em>; Can be any RGB color (it will be made transparent below).</em>
+MyGui.SetFont("s32")<em>; Set a large font size (32-point).</em>
+CoordText := MyGui.Add("Text", "cLime", "XXXXX YYYYY")<em>; XX &amp; YY serve to auto-size the window.
 ; Make all pixels of this color transparent and make the text itself translucent (150):</em>
 WinSetTransColor(MyGui.BackColor " 150", MyGui)
 SetTimer(UpdateOSD, 200)
-UpdateOSD()  <em>; Make the first update immediate rather than waiting for the timer.</em>
-MyGui.Show("x0 y400 NoActivate")  <em>; NoActivate avoids deactivating the currently active window.</em>
+UpdateOSD()<em>; Make the first update immediate rather than waiting for the timer.</em>
+MyGui.Show("x0 y400 NoActivate")<em>; NoActivate avoids deactivating the currently active window.</em>
 
 UpdateOSD(*)
 {
@@ -703,14 +706,14 @@ UpdateOSD(*)
 </div>
 
 <div class="ex" id="ExProgressBar">
-<p><a class="ex_number" href="#ExProgressBar"></a> Creates a moving progress bar overlayed on a background image.</p>
+<p><a class="ex_number" href="#ExProgressBar"></a>  Creates a moving progress bar overlayed on a background image.</p>
 <pre>MyGui := Gui()
 MyGui.BackColor := "White"
 MyGui.Add("Picture", "x0 y0 h350 w450", A_WinDir "\Web\Wallpaper\Windows\img0.jpg")
 MyBtn := MyGui.Add("Button", "Default xp+20 yp+250", "Start the Bar Moving")
 MyBtn.OnEvent("Click", MoveBar)
 MyProgress := MyGui.Add("Progress", "w416")
-MyText := MyGui.Add("Text", "wp")  <em>; wp means "use width of previous".</em>
+MyText := MyGui.Add("Text", "wp")<em>; wp means "use width of previous".</em>
 MyGui.Show()
 
 MoveBar(*)
@@ -728,7 +731,7 @@ MoveBar(*)
 </div>
 
 <div class="ex" id="ExImageViewer">
-<p><a class="ex_number" href="#ExImageViewer"></a> Creates a simple image viewer.</p>
+<p><a class="ex_number" href="#ExImageViewer"></a>  Creates a simple image viewer.</p>
 <pre>MyGui := Gui("+Resize")
 MyBtn := MyGui.Add("Button", "default", "&amp;Load New Image")
 MyBtn.OnEvent("Click", LoadNewImage)
@@ -742,27 +745,27 @@ LoadNewImage(*)
     Image := FileSelect(,, "Select an image:", "Images (*.gif; *.jpg; *.bmp; *.png; *.tif; *.ico; *.cur; *.ani; *.exe; *.dll)")
     if Image = ""
         return
-    if (MyRadio.Value)  <em>; Display image at its actual size.</em>
+    if (MyRadio.Value)<em>; Display image at its actual size.</em>
     {
         Width := 0
         Height := 0
     }
-    else <em>; Second radio is selected: Resize the image to fit the screen.</em>
+    else<em>; Second radio is selected: Resize the image to fit the screen.</em>
     {
-        Width := A_ScreenWidth - 28  <em>; Minus 28 to allow room for borders and margins inside.</em>
-        Height := -1  <em>; "Keep aspect ratio" seems best.</em>
+        Width := A_ScreenWidth - 28<em>; Minus 28 to allow room for borders and margins inside.</em>
+        Height := -1<em>; "Keep aspect ratio" seems best.</em>
     }
-    MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)  <em>; Load the image.</em>
+    MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)<em>; Load the image.</em>
     MyGui.Title := Image
-    MyGui.Show("xCenter y0 AutoSize")  <em>; Resize the window to match the picture size.</em>
+    MyGui.Show("xCenter y0 AutoSize")<em>; Resize the window to match the picture size.</em>
 }</pre>
 </div>
 
 <div class="ex" id="ExEditor">
-<p><a class="ex_number" href="#ExEditor"></a> Creates a simple text editor with menu bar.</p>
+<p><a class="ex_number" href="#ExEditor"></a>  Creates a simple text editor with menu bar.</p>
 <pre>
 <em>; Create the MyGui window:</em>
-MyGui := Gui("+Resize", "Untitled")  <em>; Make the window resizable.</em>
+MyGui := Gui("+Resize", "Untitled")<em>; Make the window resizable.</em>
 
 <em>; Create the submenus for the menu bar:</em>
 FileMenu := Menu()
@@ -770,7 +773,7 @@ FileMenu.Add("&amp;New", MenuFileNew)
 FileMenu.Add("&amp;Open", MenuFileOpen)
 FileMenu.Add("&amp;Save", MenuFileSave)
 FileMenu.Add("Save &amp;As", MenuFileSaveAs)
-FileMenu.Add() <em>; Separator line.</em>
+FileMenu.Add()<em>; Separator line.</em>
 FileMenu.Add("E&amp;xit", MenuFileExit)
 HelpMenu := Menu()
 HelpMenu.Add("&amp;About", MenuHelpAbout)
@@ -790,21 +793,21 @@ MainEdit := MyGui.Add("Edit", "WantTab W600 R20")
 MyGui.OnEvent("DropFiles", Gui_DropFiles)
 MyGui.OnEvent("Size", Gui_Size)
 
-MenuFileNew()  <em>; Apply default settings.</em>
-MyGui.Show()  <em>; Display the window.</em>
+MenuFileNew()<em>; Apply default settings.</em>
+MyGui.Show()<em>; Display the window.</em>
 
 MenuFileNew(*)
 {
-    MainEdit.Value := ""  <em>; Clear the Edit control.</em>
-    FileMenu.Disable("3&amp;")  <em>; Gray out &amp;Save.</em>
+    MainEdit.Value := ""<em>; Clear the Edit control.</em>
+    FileMenu.Disable("3&amp;")<em>; Gray out &amp;Save.</em>
     MyGui.Title := "Untitled"
 }
 
 MenuFileOpen(*)
 {
-    MyGui.Opt("+OwnDialogs")  <em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
+    MyGui.Opt("+OwnDialogs")<em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
     SelectedFileName := FileSelect(3,, "Open File", "Text Documents (*.txt)")
-    if SelectedFileName = "" <em>; No file selected.</em>
+    if SelectedFileName = ""<em>; No file selected.</em>
         return
     global CurrentFileName := readContent(SelectedFileName)
 }
@@ -816,22 +819,22 @@ MenuFileSave(*)
 
 MenuFileSaveAs(*)
 {
-    MyGui.Opt("+OwnDialogs")  <em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
+    MyGui.Opt("+OwnDialogs")<em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
     SelectedFileName := FileSelect("S16",, "Save File", "Text Documents (*.txt)")
-    if SelectedFileName = "" <em>; No file selected.</em>
+    if SelectedFileName = ""<em>; No file selected.</em>
         return
     global CurrentFileName := saveContent(SelectedFileName)
 }
 
-MenuFileExit(*)  <em>; User chose "Exit" from the File menu.</em>
+MenuFileExit(*)<em>; User chose "Exit" from the File menu.</em>
 {
     WinClose()
 }
 
 MenuHelpAbout(*)
 {
-    About := Gui("+owner" MyGui.Hwnd)  <em>; Make the main window the owner of the "about box".</em>
-    MyGui.Opt("+Disabled")  <em>; Disable main window.</em>
+    About := Gui("+owner" MyGui.Hwnd)<em>; Make the main window the owner of the "about box".</em>
+    MyGui.Opt("+Disabled")<em>; Disable main window.</em>
     About.Add("Text",, "Text for about box.")
     About.Add("Button", "Default", "OK").OnEvent("Click", About_Close)
     About.OnEvent("Close", About_Close)
@@ -840,23 +843,23 @@ MenuHelpAbout(*)
 
 About_Close(*)
     {
-        MyGui.Opt("-Disabled")  <em>; Re-enable the main window (must be done prior to the next step).</em>
-        About.Destroy()  <em>; Destroy the about box.</em>
+        MyGui.Opt("-Disabled")<em>; Re-enable the main window (must be done prior to the next step).</em>
+        About.Destroy()<em>; Destroy the about box.</em>
     }
 }
 
 readContent(FileName)
 {
     try
-        FileContent := FileRead(FileName)  <em>; Read the file's contents into the variable.</em>
+        FileContent := FileRead(FileName)<em>; Read the file's contents into the variable.</em>
     catch
     {
         MsgBox("Could not open '" FileName "'.")
         return
     }
-    MainEdit.Value := FileContent  <em>; Put the text into the control.</em>
-    FileMenu.Enable("3&amp;")  <em>; Re-enable &amp;Save.</em>
-    MyGui.Title := FileName  <em>; Show file name in title bar.</em>
+    MainEdit.Value := FileContent<em>; Put the text into the control.</em>
+    FileMenu.Enable("3&amp;")<em>; Re-enable &amp;Save.</em>
+    MyGui.Title := FileName<em>; Show file name in title bar.</em>
     return FileName
 }
 
@@ -866,7 +869,7 @@ saveContent(FileName)
     {
         if FileExist(FileName)
             FileDelete(FileName)
-        FileAppend(MainEdit.Value, FileName)  <em>; Save the contents to the file.</em>
+        FileAppend(MainEdit.Value, FileName)<em>; Save the contents to the file.</em>
     }
     catch
     {
@@ -878,14 +881,14 @@ saveContent(FileName)
     return FileName
 }
 
-Gui_DropFiles(thisGui, Ctrl, FileArray, *)  <em>; Support drag &amp; drop.</em>
+Gui_DropFiles(thisGui, Ctrl, FileArray, *)<em>; Support drag &amp; drop.</em>
 {
-    CurrentFileName := readContent(FileArray[1])  <em>; Read the first file only (in case there's more than one).</em>
+    CurrentFileName := readContent(FileArray[1])<em>; Read the first file only (in case there's more than one).</em>
 }
 
 Gui_Size(thisGui, MinMax, Width, Height)
 {
-    if MinMax = -1  <em>; The window has been minimized. No action needed.</em>
+    if MinMax = -1<em>; The window has been minimized. No action needed.</em>
         return
     <em>; Otherwise, the window has been resized or maximized. Resize the Edit control to match.</em>
     MainEdit.Move(,, Width-20, Height-20)

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GetMethod - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The GetMethod function retrieves the implementation function of a method." />
+<title>GetMethod - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GetMethod 関数は、メソッドの実装関数を取得します。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,60 +20,60 @@
 <dl>
   <dt>値</dt>
   <dd>
-    <p>型：<a href="Any.htm">Any</a></p>
-    <p>Any value, of any type except ComObject.</p>
+    <p>型：<a href="Any.htm">任意</a></p>
+    <p>ComObject 以外の任意の型の値。</p>
   </dd>
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the method to retrieve.</p>
-    <p>Omit this parameter to perform validation on <em>Value</em> itself and return <em>Value</em> if successful.</p>
+    <p>取得するメソッド名。</p>
+    <p>このパラメータを省略すると、<em>Value</em>自体のバリデーションが行われ、成功した場合に<em>Value</em>が返されます。</p>
   </dd>
   <dt>ParamCount</dt>
   <dd>
     <tp>型：<a href="../Concepts.htm#numbers">整数</a></tp>
-    <p>The number of parameters that would be passed to the method or function. If specified, the method's MinParams, MaxParams and IsVariadic properties may be queried to verify that it can accept this number of parameters. If those properties are not present, the parameter count is not verified.</p>
-    <p>This count should not include the implicit <code>this</code> parameter.</p>
-    <p>If omitted (or if the parameter count was not verified), a basic check is performed for a Call method to verify that the object is most likely callable.</p>
+    <p>メソッドや関数に渡されるパラメータの数です。指定された場合、メソッドの MinParams、MaxParams、IsVariadic プロパティを照会して、この数のパラメータを受け入れることができることを確認することができます。これらのプロパティが存在しない場合、パラメータ数の確認は行われない。</p>
+    <p>このカウントには、暗黙の<code>this</code>パラメータを含めてはならない。</p>
+    <p>省略された場合（またはパラメータ数が確認されなかった場合）、オブジェクトが呼び出し可能である可能性が高いことを確認するために、Callメソッドに対して基本的なチェックが実行されます。</p>
   </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-<p>This function returns the function object which contains the implementation of the method, or <em>Value</em> itself if <em>Name</em> was omitted.</p>
+<p>この関数は、メソッドの実装を含む関数オブジェクト、または<em>Name</em>が省略された場合は<em>Value</em>自体を返す。</p>
 
 <h2 id="Errors">エラー</h2>
-<p>If the method is not found or cannot be retrieved without invoking a property getter, a <a href="Error.htm#MethodError">MethodError</a> is thrown.</p>
-<p>If validation is attempted, exceptions may be thrown as a result of querying the method's properties. A <a href="Error.htm#ValueError">ValueError</a> or <a href="Error.htm#MethodError">MethodError</a> is thrown if validation fails.</p>
+<p>メソッドが見つからない場合、またはプロパティゲッターを呼び出さずに取得できない場合は、<a href="Error.htm#MethodError">MethodError</a>がスローされます。</p>
+<p>バリデーションが試みられた場合、メソッドのプロパティを照会した結果、例外が発生することがあります。バリデーションに失敗した場合、<a href="Error.htm#ValueError">ValueError</a>または<a href="Error.htm#MethodError">MethodError</a>がスローされる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Methods may be defined through one of the following:</p>
+<p>メソッドは、以下のいずれかによって定義することができる：</p>
 <ul>
-  <li>A dynamic property with a <em>call</em> accessor function. 包含：
+  <li><em>コールアクセサー</em>関数を持つダイナミックプロパティです。包含：
     <ul>
-      <li>Any property created by a <a href="../Objects.htm#Custom_Classes_method">method definition</a> within a class.</li>
-      <li>Any property created by passing a descriptor like <code>{Call: fn}</code> to <a href="Object.htm#DefineProp">DefineProp</a>, where <em>fn</em> implements the method.</li>
-      <li>Any predefined/built-in method.</li>
+      <li>クラス内の<a href="../Objects.htm#Custom_Classes_method">メソッド定義</a>によって作成されるすべてのプロパティ。</li>
+      <li>記述子を渡すことで作成されるプロパティ、以下のような<code>{Call:fn}</code> から<a href="Object.htm#DefineProp">DefineProp</a>へ、<em>fn</em>はメソッドを実装しています。</li>
+      <li>任意の定義済み/組み込みの方法。</li>
     </ul>
   </li>
-  <li>An own value property of the object or one of its base objects, where the value is a <a href="../misc/Functor.htm">function object</a>.</li>
-  <li>A dynamic property with a getter which returns a function object. This case is not supported by GetMethod.</li>
-  <li>Handling within a __Call <a href="../Objects.htm#Meta_Functions">meta-function</a>. Methods implemented this way cannot be detected and may not even have a corresponding function object, so are not supported by GetMethod.</li>
+  <li>オブジェクトまたはそのベースとなるオブジェクトの1つの独自の値プロパティで、値が<a href="../misc/Functor.htm">関数オブジェクト</a>である場合。</li>
+  <li>関数オブジェクトを返すゲッターを持つダイナミックプロパティです。このケースはGetMethodではサポートされていません。</li>
+  <li><a href="../Objects.htm#Meta_Functions">メタファンクション</a>__Call内で処理します。この方法で実装されたメソッドは検出できず、対応する関数オブジェクトもない可能性があるため、GetMethodではサポートされません。</li>
 </ul>
-<p>When calling the function object, it is necessary to supply a value for the normally-hidden <em>this</em> parameter. For example, <code>Method(Value, Parameters*)</code>.</p>
-<p>Although the standard implementation of GetMethod has limitations as described above, if <code>Value.GetMethod(Name)</code> is used instead of <code>GetMethod(Value, Name)</code>, the object <em>Value</em> can define its own implementation of GetMethod.</p>
-<p><code>GetMethod(Value, "Call", N)</code> is not the same as <code>GetMethod(Value,, N)</code>, as the Call method takes the function object itself as a parameter, and its usage may otherwise differ from that of <em>Value</em>. For instance, <code>Func.Prototype.Call</code> is a single method which applies to all built-in and user-defined functions, and as such must accept any number of parameters.</p>
+<p>関数オブジェクトを呼び出す際には、通常は隠されている<em>this</em>パラメータに値を与える必要があります。例えば、<code>Method(Value, Parameters*)</code>のようなものです。</p>
+<p>GetMethodの標準的な実装には上記のような制限がありますが、<code>GetMethod(Value, Name)</code>の代わりに<code>Value.GetMethod(Name)</code>を使用すれば、オブジェクト<em>Value</em>は独自のGetMethodの実装を定義できます。</p>
+<p><code>GetMethod(Value, "Call", N)</code>は、<code>GetMethod(Value,, N)</code>とは異なり、Callメソッドは関数オブジェクト自身をパラメータとし、その使用方法は<em>Value</em>と異なる場合があります。例えば、<code>Func.Prototype.Call</code>は、すべての組み込み関数とユーザー定義関数に適用される単一のメソッドであり、そのため、任意の数のパラメータを受け入れる必要があります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Objects.htm">Objects</a>, <a href="HasMethod.htm">HasMethod</a>, <a href="HasBase.htm">HasBase</a>, <a href="HasProp.htm">HasProp</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Retrieves and reports information about the <a href="Any.htm#GetMethod">GetMethod method</a>.</p>
+<p><a class="ex_number" href="#ExBasic"></a> <a href="Any.htm#GetMethod">GetMethod メソッド</a>に関する情報を取得し、報告する。</p>
 <pre>
-method := GetMethod({}, "GetMethod")  <em>; It's also a method.</em>
-MsgBox method.MaxParams  <em>; Takes 2 parameters, including 'this'.</em>
-MsgBox method = GetMethod  <em>; Actually the same object in this case.</em>
+method := GetMethod({}, "GetMethod")<em>; メソッドでもあります。</em>
+MsgBox method.MaxParams<em>; 'this'を含む2つのパラメータを取る。</em>
+MsgBox method = GetMethod<em>; 実はこの場合、同じオブジェクトなんです。</em>
 </pre>
 </div>
 

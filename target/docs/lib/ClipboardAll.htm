@@ -55,24 +55,24 @@
 
 <div class="ex" id="ExVar">
 <p><a class="ex_number" href="#ExVar"></a> 変数を使ってクリップボードのすべてを保存・復元します。</p>
-<pre>ClipSaved := ClipboardAll()   <em>; クリップボード全体を任意の変数に保存します。
+<pre>ClipSaved := ClipboardAll()<em>; クリップボード全体を任意の変数に保存します。
 ; ... ここで、大量のテキストを素早く貼り付けるなど、クリップボードを一時的に使用する ...</em>
-A_Clipboard := ClipSaved   <em>; 元のクリップボードを復元する。<i>ClipboardAll</i>ではなく、<i>A_Clipboard</i>を使用していることに注意してください。</em>
-ClipSaved := ""  <em>; クリップボードが非常に大きい場合に備えて、メモリを解放しています。</em></pre>
+A_Clipboard := ClipSaved<em>; 元のクリップボードを復元する。<i>ClipboardAll</i>ではなく、<i>A_Clipboard</i>を使用していることに注意してください。</em>
+ClipSaved := ""<em>; クリップボードが非常に大きい場合に備えて、メモリを解放しています。</em></pre>
 </div>
 
 <div class="ex" id="ExFile">
 <p><a class="ex_number" href="#ExFile"></a> クリップボードにあるすべてのものを、ファイルを使って保存・復元します。</p>
 <pre><em>; オプション1：既存のファイルを削除し、FileAppendを使用します。</em>
 <a href="FileDelete.htm">FileDelete</a> "Company Logo.clip"
-<a href="FileAppend.htm">FileAppend</a> ClipboardAll(), "Company Logo.clip" <em>; ファイル拡張子は問いません。</em>
+<a href="FileAppend.htm">FileAppend</a> ClipboardAll(), "Company Logo.clip"<em>; ファイル拡張子は問いません。</em>
 
 <em>; オプション2：FileOpenを上書きモードで使用し、File.RawWriteを使用します。</em>
 ClipData := ClipboardAll()
 <a href="FileOpen.htm">FileOpen</a>("Company Logo.clip", "w").<a href="File.htm#RawWrite">RawWrite</a>(ClipData)</pre>
 <p>後でファイルをクリップボードに（または変数に）読み戻すには、次の例に従います。</p>
-<pre>ClipData := FileRead("Company Logo.clip", "RAW")  <em>; この場合、FileReadはBufferを返します。</em>
-A_Clipboard := ClipboardAll(ClipData)  <em>; BufferをClipboardAllに変換してアサインする。</em></pre>
+<pre>ClipData := FileRead("Company Logo.clip", "RAW")<em>; この場合、FileReadはBufferを返します。</em>
+A_Clipboard := ClipboardAll(ClipData)<em>; BufferをClipboardAllに変換してアサインする。</em></pre>
 </div>
 
 </body>

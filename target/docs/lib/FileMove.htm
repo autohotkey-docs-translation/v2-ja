@@ -83,21 +83,21 @@ MoveFilesAndFolders(SourcePattern, DestinationFolder, DoOverwrite := false)
 {
     ErrorCount := 0
     if DoOverwrite = 1
-        DoOverwrite := 2  <em>; モード 2 とモード 1 の比較については、<a href="DirMove.htm">DirMove</a>を参照してください。</em>
+        DoOverwrite := 2<em>; モード 2 とモード 1 の比較については、<a href="DirMove.htm">DirMove</a>を参照してください。</em>
     <em>; まず、すべてのファイルを移動します（フォルダは移動しません）：</em>
     try
         FileMove SourcePattern, DestinationFolder, DoOverwrite
     catch as Err
         ErrorCount := Err.Extra
     <em>; 今度は、すべてのフォルダを移動します：</em>
-    Loop Files, SourcePattern, "D"  <em>; Dは「フォルダだけを取り出す」という意味です。</em>
+    Loop Files, SourcePattern, "D"<em>; Dは「フォルダだけを取り出す」という意味です。</em>
     {
         try
             DirMove A_LoopFilePath, DestinationFolder "\" A_LoopFileName, DoOverwrite
         catch
         {
             ErrorCount += 1
-            <em>; 各問題フォルダを名前で報告する。.</em>
+            <em>; 各問題フォルダを名前で報告する。</em>
             MsgBox "Could not move " A_LoopFilePath " into " DestinationFolder
         }
     }

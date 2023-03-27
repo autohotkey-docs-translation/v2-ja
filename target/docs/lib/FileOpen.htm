@@ -29,9 +29,9 @@
     <p>開くファイルのパス。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される。</p>
     <p>以下のようにアスタリスク（または2つ）を指定すると、標準入力／出力／エラーストリームを開くことができます：</p>
     <pre>
-FileOpen("*", "r")   <em>; 標準入力用</em>
-FileOpen("*", "w")   <em>; 標準出力用</em>
-FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
+FileOpen("*", "r")<em>; 標準入力用</em>
+FileOpen("*", "w")<em>; 標準出力用</em>
+FileOpen("**", "w")<em>; 標準エラー用</em></pre>
   </dd>
 
   <dt>Flags</dt>
@@ -183,13 +183,13 @@ catch as Err
         . "`n`n" Type(Err) ":" Err.Message
     return
 }
-TestString := "This is a test string.`r`n"  <em>; この方法でファイルを書く場合、改行には `n ではなく `r`n を使用します。</em>
+TestString := "This is a test string.`r`n"<em>; この方法でファイルを書く場合、改行には `n ではなく `r`n を使用します。</em>
 FileObj.Write(TestString)
 FileObj.Close()
 
 <em>; ファイルが書き込まれたので、その内容をメモリに読み返してください。</em>
 try
-    FileObj := FileOpen(FileName, "r-d") <em>; read the file ("r")は、削除（"-d"）を除くすべてのアクセスを共有する。</em>
+    FileObj := FileOpen(FileName, "r-d")<em>; read the file ("r")は、削除（"-d"）を除くすべてのアクセスを共有する。</em>
 catch as Err
 {
     MsgBox "Can't open '" FileName "' for reading."
@@ -216,10 +216,10 @@ DllCall("AllocConsole")
 stdin  := FileOpen("*", "r")
 stdout := FileOpen("*", "w")
 stdout.Write("Enter your query.`n\&gt; ")
-stdout.Read(0) <em>; 書き込みバッファをフラッシュする。</em>
+stdout.Read(0)<em>; 書き込みバッファをフラッシュする。</em>
 query := RTrim(stdin.ReadLine(), "`n")
 stdout.WriteLine("Your query was '" query "'. Have a nice day.")
-stdout.Read(0) <em>; 書き込みバッファをフラッシュする。</em>
+stdout.Read(0)<em>; 書き込みバッファをフラッシュする。</em>
 Sleep 5000
 </pre>
 </div>
