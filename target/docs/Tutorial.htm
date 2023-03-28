@@ -95,7 +95,6 @@
     <li>Find the newly created file on your desktop and right-click it.</li>
     <li>Click "Edit Script".</li>
     <li>A window should have popped up, probably Notepad. If so, SUCCESS!
-    
     <p>So now that you have created a script, we need to add stuff into the file. For a list of all built-in function and variables, see <a href="#s5">section 5</a>.</p>
     <p>Here is a very basic script containing a hotkey which types text using the <a href="lib/Send.htm">Send</a> function when the hotkey is pressed:</p>
     <pre>
@@ -279,15 +278,15 @@ Numpad0 &amp; Numpad2::
 <h3 id="s24">d. 例</h3>
 <pre class="NoIndent">::btw::by the way  <em>; Replaces "btw" with "by the way" as soon as you press an <a href="Hotstrings.htm#EndChars">default ending character</a>.</em></pre>
 <pre class="NoIndent">:*:btw::by the way  <em>; Replaces "btw" with "by the way" without needing an ending character.</em></pre>
-<pre class="NoIndent">^n::<em>; CTRL+N hotkey</em>
+<pre class="NoIndent">^n::  <em>; CTRL+N hotkey</em>
 {
-    Run "notepad.exe"<em>; Run Notepad when you press CTRL+N.</em>
-}<em>; This ends the hotkey. The code below this will not be executed when pressing the hotkey.</em></pre>
-<pre class="NoIndent">^b::<em>; CTRL+B hotkey</em>
+    Run "notepad.exe"  <em>; Run Notepad when you press CTRL+N.</em>
+}  <em>; This ends the hotkey. The code below this will not be executed when pressing the hotkey.</em></pre>
+<pre class="NoIndent">^b::  <em>; CTRL+B hotkey</em>
 {
-    Send "{Ctrl down}c{Ctrl up}"<em>; Copies the selected text. ^c could be used as well, but this method is more secure.</em>
-    SendInput "[b]{Ctrl down}v{Ctrl up}[/b]"<em>; Wraps the selected text in BBCode tags to make it bold in a forum.</em>
-}<em>; This ends the hotkey. The code below this will not be executed when pressing the hotkey.</em></pre>
+    Send "{Ctrl down}c{Ctrl up}"  <em>; Copies the selected text. ^c could be used as well, but this method is more secure.</em>
+    SendInput "[b]{Ctrl down}v{Ctrl up}[/b]" <em>; Wraps the selected text in BBCode tags to make it bold in a forum.</em>
+}  <em>; This ends the hotkey. The code below this will not be executed when pressing the hotkey.</em></pre>
 
 <h2 id="s3">3 - Sending Keystrokes</h2>
 <p>So now you decided that you want to send (type) keys to a program. We can do that. Use the <a href="lib/Send.htm">Send</a> function. This function literally sends keystrokes, to simulate typing or pressing of keys.</p>
@@ -350,14 +349,14 @@ Send "abc"       <em>; CORRECT</em></pre>
 <p>To hold down or release a key, enclose the key name in curly brackets and then use the word UP or DOWN. 事例：</p>
 <pre><em>; This is how you hold one key down and press another key (or keys).
 ; If one method doesn't work in your program, please try the other.</em>
-Send "^s"<em>; Both of these send CTRL+S</em>
-Send "{Ctrl down}s{Ctrl up}"<em>; Both of these send CTRL+S</em>
+Send "^s"                     <em>; Both of these send CTRL+S</em>
+Send "{Ctrl down}s{Ctrl up}"  <em>; Both of these send CTRL+S</em>
 Send "{Ctrl down}c{Ctrl up}"
 Send "{b down}{b up}"
 Send "{Tab down}{Tab up}"
-Send "{Up down}"<em>; Press down the up-arrow key.</em>
-Sleep 1000<em>; Keep it down for one second.</em>
-Send "{Up up}"<em>; Release the up-arrow key.</em></pre>
+Send "{Up down}"  <em>; Press down the up-arrow key.</em>
+Sleep 1000        <em>; Keep it down for one second.</em>
+Send "{Up up}"    <em>; Release the up-arrow key.</em></pre>
 
 <p>But now you are wondering <i>"How can I make my really long Send functions readable?"</i>. Easy. Use what is known as a continuation section. Simply specify an opening parenthesis on a new line, then your content, finally a closing parenthesis on its own line. For more information, read about <a href="Scripts.htm#continuation">Continuation Sections</a>.</p>
 <pre>Send "
@@ -368,7 +367,7 @@ Apples are a fruit.
 )"</pre>
 <p class="note"><strong>Note:</strong> There are several different forms of Send. Each has their own special features. If one form of Send does not work for your needs, try another type of Send. Simply replace the function name "Send" with one of the following: SendText, SendInput, SendPlay, SendEvent. For more information on what each one does, <a href="lib/Send.htm">read this</a>.</p>
 
-<h3 id="s31">a. Games  </h3>
+<h3 id="s31">a. Games </h3>
 <p class="warning"><strong>This is important:</strong> A lot of games, especially modern ones, have cheat prevention software. Things like GameGuard, Hackshield, PunkBuster and several others. Not only is bypassing these systems in violation of the games policies and could get you banned, they are complex to work around.</p>
 <p>If a game has a cheat prevention system and your hotkeys, hotstrings and Send functions do not work, you are out of luck. However there are methods that can increase the chance of working in some games, but there is no magical <i>"make it work in my game now!!!"</i> button. So try <b>ALL</b> of these before giving up.</p>
 
@@ -382,7 +381,7 @@ Run A_ProgramFiles "\Some_Program\Program.exe"
 
 <em>; Run a website:</em>
 Run "https://www.autohotkey.com"</pre>
-<p>There are some other advanced features as well, such as command line parameters and CLSID. If you want to learn more about that stuff, visit the <a href="lib/Run.htm">Run</a> page.  </p>
+<p>There are some other advanced features as well, such as command line parameters and CLSID. If you want to learn more about that stuff, visit the <a href="lib/Run.htm">Run</a> page. </p>
 <p>Here are a few more samples:</p>
 <pre><em>; Several programs do not need a full path, such as Windows-standard programs:</em>
 Run "notepad.exe"
@@ -405,16 +404,13 @@ Function Parameter1, Parameter2, Parameter3  <em>; without parentheses</em></pre
 <p>The parameters support any kind of expression; this means for example:</p>
 <ol>
     <li>You can do math in them:
-        
         <pre>SubStr(37 * 12, 1, 2)
 SubStr(A_Hour - 12, 2)</pre>
     </li>
     <li>You can call another functions inside them (note that these function calls must be specified with parentheses as they are not at the start of the line):
-        
         <pre>SubStr(A_AhkPath, InStr(A_AhkPath, "AutoHotkey"))</pre>
     </li>
     <li>Text needs to be wrapped in quotes:
-        
         <pre>SubStr("I'm scripting, awesome!", 16)</pre>
     </li>
 </ol>

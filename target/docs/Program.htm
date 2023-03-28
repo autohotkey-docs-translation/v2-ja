@@ -11,9 +11,9 @@
 <body>
 <h1>Using the Program</h1>
 <p>AutoHotkey doesn't do anything on its own; it needs a script to tell it what to do. A script is simply a plain text file with the <code>.ahk</code> filename extension containing instructions for the program, like a configuration file, but much more powerful. A script can do as little as performing a single action and then exiting, but most scripts define a number of <a href="Hotkeys.htm">hotkeys</a>, with each hotkey followed by one or more actions to take when the hotkey is pressed.</p>
-<pre>#z::Run "https://www.autohotkey.com"<em>; Win+Z</em>
+<pre>#z::Run "https://www.autohotkey.com"  <em>; Win+Z</em>
 
-^!n::<em>; Ctrl+Alt+N</em>
+^!n::  <em>; Ctrl+Alt+N</em>
 {
     if WinExist("Untitled - Notepad")
         WinActivate
@@ -45,7 +45,6 @@
 <p>There are a few common ways to create a script file:</p>
 <ul>
   <li>In Notepad (or a <a href="misc/Editors.htm">text editor</a> of your choice), save a file with the <code>.ahk</code> filename extension. On some systems you may need to enclose the name in quotes to ensure the editor does not add another extension (such as .txt).
-  
   <p class="note">Be sure to save the file as UTF-8 with BOM if it will contain non-ASCII characters. For details, see the <a href="FAQ.htm#nonascii">FAQ</a>.</p></li>
   <li>In Explorer, right-click in empty space in the folder where you want to save the script, then select <strong>New</strong> and <strong>AutoHotkey Script</strong>. You can then type a name for the script (taking care not to erase the <code>.ahk</code> extension if it is visible).</li>
   <li>In the <a href="#dash">Dash</a>, select <a href="#newscript">New script</a>, type a name for the script (excluding the <code>.ahk</code> extension) and click <em>Create</em> or <em>Edit</em>. The template used to create the script and the location it will be saved can be configured within this window, and set as default if desired.</li>
@@ -69,7 +68,7 @@
 
 <h2 id="tray-icon">Tray Icon</h2>
 <p>By default, each script adds its own icon to the taskbar notification area (commonly known as the tray).</p>
-<p>The tray icon usually looks like this (but the color or letter changes when the script is <a href="lib/Pause.htm">paused</a> or <a href="lib/Suspend.htm">suspended</a>):  <img src="static/ahk16.png" alt="H"></p>
+<p>The tray icon usually looks like this (but the color or letter changes when the script is <a href="lib/Pause.htm">paused</a> or <a href="lib/Suspend.htm">suspended</a>): <img src="static/ahk16.png" alt="H"></p>
 <p>Right-click the tray icon to show the tray menu, which has the following options by default:</p>
 <ul>
 <li>Open - Open the script's <a href="#main-window">main window</a>.</li>
@@ -103,21 +102,21 @@
 <p>Closing this window with <a href="lib/WinClose.htm">WinClose</a> (even from another script) causes the script to exit, but most other methods just hide the window and leave the script running.</p>
 <p>Minimizing the main window causes it to automatically be hidden. This is done to prevent any owned windows (such as GUI windows or certain dialog windows) from automatically being minimized, but also has the effect of hiding the main window's taskbar button. To instead allow the main window to be minimized normally, override the default handling with <a href="lib/OnMessage.htm">OnMessage</a>. 事例：</p>
 <pre>; This prevents the main window from hiding on minimize:
-OnMessage 0x0112, PreventAutoMinimize<em>; WM_SYSCOMMAND = 0x0112</em>
-OnMessage 0x0005, PreventAutoMinimize<em>; WM_SIZE = 0x0005
+OnMessage 0x0112, PreventAutoMinimize <em>; WM_SYSCOMMAND = 0x0112</em>
+OnMessage 0x0005, PreventAutoMinimize <em>; WM_SIZE = 0x0005
 ; This prevents owned GUI windows (but not dialogs) from automatically minimizing:</em>
 OnMessage 0x0018, PreventAutoMinimize
 Persistent
 
 PreventAutoMinimize(wParam, lParam, uMsg, hwnd) {
-    if (uMsg = 0x0112 &amp;&amp; wParam = 0xF020 &amp;&amp; hwnd = A_ScriptHwnd) {<em>; SC_MINIMIZE = 0xF020</em>
+    if (uMsg = 0x0112 &amp;&amp; wParam = 0xF020 &amp;&amp; hwnd = A_ScriptHwnd) { <em>; SC_MINIMIZE = 0xF020</em>
         WinMinimize
-        return 0<em>; Prevent main window from hiding.</em>
+        return 0 <em>; Prevent main window from hiding.</em>
     }
-    if (uMsg = 0x0005 &amp;&amp; wParam = 1 &amp;&amp; hwnd = A_ScriptHwnd)<em>; SIZE_MINIMIZED = 1</em>
-        return 0<em>; Prevent main window from hiding.</em>
-    if (uMsg = 0x0018 &amp;&amp; lParam = 1)<em>; SW_PARENTCLOSING = 1</em>
-        return 0<em>; Prevent owned window from minimizing.</em>
+    if (uMsg = 0x0005 &amp;&amp; wParam = 1 &amp;&amp; hwnd = A_ScriptHwnd) <em>; SIZE_MINIMIZED = 1</em>
+        return 0 <em>; Prevent main window from hiding.</em>
+    if (uMsg = 0x0018 &amp;&amp; lParam = 1) <em>; SW_PARENTCLOSING = 1</em>
+        return 0 <em>; Prevent owned window from minimizing.</em>
 }</pre>
 
 <h3 id="title">Main Window Title</h3>

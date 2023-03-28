@@ -119,7 +119,7 @@ GetWebBrowser()
     static msg := DllCall("RegisterWindowMessage", "Str", "WM_HTML_GETOBJECT")
     lResult := SendMessage(msg, 0, 0, "Internet Explorer_Server1", "ahk_class IEFrame")
     if !lResult
-        return<em>; IEが見つかりません。</em>
+        return  <em>; IEが見つかりません。</em>
     static IID_IHTMLDocument2 := GUID("{332C4425-26CB-11D0-B483-00C04FD90119}")
     static VT_UNKNOWN := 13
     DllCall("oleacc\ObjectFromLresult", "Ptr", lResult
@@ -140,7 +140,7 @@ GetWebBrowser()
     return ComValue(VT_DISPATCH, pweb.ptr)
 }
 
-GUID(sGUID)<em>; 文字列をバイナリGUIDに変換し、Bufferで返す。</em>
+GUID(sGUID) <em>; 文字列をバイナリGUIDに変換し、Bufferで返す。</em>
 {
     GUID := Buffer(16, 0)
     if DllCall("ole32\CLSIDFromString", "WStr", sGUID, "Ptr", GUID) &lt; 0

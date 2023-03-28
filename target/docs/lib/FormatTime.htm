@@ -256,20 +256,20 @@ MsgBox "January 1st of 2005 is in the following ISO year and week number:"年 �
 <div class="ex" id="ExFileTime">
 <p><a class="ex_number" href="#ExFileTime"></a> ファイルの日付・タイムスタンプを変更します。</p>
 <pre>FileName := FileSelect(3,, "Pick a file")
-if FileName = ""<em>; ユーザーがファイルを選択しなかった。</em>
+if FileName = "" <em>; The user didn't pick a file.</em>
     return
 FileTime := FileGetTime(FileName)
-FileTime := FormatTime(FileTime)<em>; 最後のパラメータが省略されているため、長い日付と時刻が取得されます。</em>
+FileTime := FormatTime(FileTime)   <em>; Since the last parameter is omitted, the long date and time are retrieved.</em>
 MsgBox "The selected file was last modified at " FileTime</pre>
 </div>
 
 <div class="ex" id="ExFormatSec">
 <p><a class="ex_number" href="#ExFormatSec"></a> 指定された秒数を、対応する時・分・秒数（hh:mm:ss形式）に変換します。</p>
-<pre>MsgBox FormatSeconds(7384)<em>; 7384 = 2時間 + 3分 + 4秒。という結果になる：2:03:04</em>
+<pre>MsgBox FormatSeconds(7384)  <em>; 7384 = 2 hours + 3 minutes + 4 seconds. It yields:2:03:04</em>
 
-FormatSeconds(NumberOfSeconds)<em>; 指定された秒数を hh:mm:ss 形式に変換する。</em>
+FormatSeconds(NumberOfSeconds)  <em>; Convert the specified number of seconds to hh:mm:ss format.</em>
 {
-    time := 19990101<em>; 任意の日付の午前0時。</em>
+    time := 19990101  <em>; *Midnight* of an arbitrary date.</em>
     time := DateAdd(time, NumberOfSeconds, "Seconds")
     return NumberOfSeconds//3600 ":" FormatTime(time, "mm:ss")
     <em>/*

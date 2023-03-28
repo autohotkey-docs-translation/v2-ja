@@ -60,10 +60,10 @@
 <p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>はVT_BYREF(0x4000)フラグを含むので、空カッコ<code>[]</code>で参照値の読み書きが可能です。</p>
 <p>参照を作成する場合、<em>Value</em>には、指定された型の値を格納するのに十分な容量を持つ変数またはバッファのメモリアドレスが必要です。例えば、以下のようにすれば、VBScriptの関数が書き込むことができる変数を作成することができます。</p>
 <pre>vbuf := Buffer(24, 0)
-vref := ComValue(0x400C, vbuf.ptr)<em>; 0x400C は、VT_BYREF と VT_VARIANT の組み合わせである。</em>
+vref := ComValue(0x400C, vbuf.ptr)  <em>; 0x400C は、VT_BYREF と VT_VARIANT の組み合わせである。</em>
 
 vref[] := "in value"
-sc.Run("Example", vref)<em>; scは、<a href="#ExByRef">以下の例</a>のように初期化する必要があります。</em>
+sc.Run("Example", vref)  <em>; scは、<a href="#ExByRef">以下の例</a>のように初期化する必要があります。</em>
 MsgBox vref[]</pre>
 <p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。この場合VT_VARIANTなので、<a href="DllCall.htm">DllCall</a>で <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a>を呼び出すか、もっと簡単な方法で解放することができます。<code>vref[] := 0</code>のように整数を代入する。</p>
 <p>上記のようにメソッドがVT_BYREFとVT_VARIANTの組み合わせを受け付ける場合、<a href="../Concepts.htm#variable-references">VarRef</a>を代わりに使用することができます。事例：</p>
@@ -104,10 +104,10 @@ sc.Run("Example", var.ref)
 MsgBox var[]
 
 <em>; 同じことをもう一度、よりダイレクトに。</em>
-variant_buf := Buffer(24, 0)<em>; VARIANTのために十分な大きさのバッファを作成する。</em>
-var := ComValue(0x400C, variant_buf.ptr)<em>; VARIANTへの参照を行う。</em>
+variant_buf := Buffer(24, 0)  <em>; VARIANTのために十分な大きさのバッファを作成する。</em>
+var := ComValue(0x400C, variant_buf.ptr)  <em>; VARIANTへの参照を行う。</em>
 var[] := "in value"
-sc.Run("Example", var)<em>; VT_BYREF ComValueそのものを渡す。[] や .ref は使わない。</em>
+sc.Run("Example", var)  <em>; VT_BYREF ComValueそのものを渡す。[] や .ref は使わない。</em>
 MsgBox var[]
 <em>; VARIANTが文字列やオブジェクトを含む場合は、明示的に解放する必要があります。
 ; VariantClearを呼び出すか、純粋な数値を代入することで対応します。</em>

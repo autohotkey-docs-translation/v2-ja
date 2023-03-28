@@ -172,7 +172,7 @@ SetKeyDelay 0, 50, "Play"</pre>
   <li>
   <p><a href="lib/ControlSend.htm">スリープ</a>を挟んだキーのダウンとアップのイベントを試してみてください。</p>
   <pre>Send "{<i>KEY</i> down}"
-Sleep 10<em>; 様々なミリ秒を試してみてください。</em>
+Sleep 10 <em>; 様々なミリ秒を試してみてください。</em>
 Send "{<i>KEY</i> up}"</pre>
   </li>
 </ul>
@@ -197,25 +197,25 @@ FileDelete "C:\My Temp File.txt"</pre>
 <p>一時ファイルの使用を避けるには（特に出力が大きい場合）、<a href="lib/Run.htm">Run</a>関数の例にあるように、<a href="lib/Run.htm#ExStdOut">Shell.Exec()</a>メソッドの使用を検討します。</p>
 <h3 id="close">他のスクリプトを閉じたり、一時停止したり、中断したり、再読み込みしたりするにはどうしたらよいですか？</h3>
 <p>まず、別のスクリプトを閉じる例を紹介します。</p>
-<pre>DetectHiddenWindows True<em>; スクリプトの隠されたメインウィンドウを検出できるようにします。</em>
-SetTitleMatchMode 2<em>; 以下、ファイルのフルパスを指定する必要を回避することができます。</em>
-WinClose "ScriptFileName.ahk - AutoHotkey"<em>; スクリプトの名前（大文字と小文字が区別されます）を反映するように更新します。</em></pre>
+<pre>DetectHiddenWindows True  <em>; スクリプトの隠されたメインウィンドウを検出できるようにします。</em>
+SetTitleMatchMode 2  <em>; 以下、ファイルのフルパスを指定する必要を回避することができます。</em>
+WinClose "ScriptFileName.ahk - AutoHotkey"  <em>; スクリプトの名前（大文字と小文字が区別されます）を反映するように更新します。</em></pre>
 <p>他のスクリプトを<a href="lib/Suspend.htm">中断</a>、<a href="lib/Pause.htm">一時停止</a>、<a href="lib/Reload.htm">再読み込み</a>するには、上記の最後の行を次のいずれかに置き換えてください。</p>
-<pre>PostMessage 0x0111, 65305,,, "ScriptFileName.ahk - AutoHotkey"<em>; サスペンド</em>
-PostMessage 0x0111, 65306,,, "ScriptFileName.ahk - AutoHotkey"<em>; ボーズ</em>
-PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"<em>; リロード</em></pre>
+<pre>PostMessage 0x0111, 65305,,, "ScriptFileName.ahk - AutoHotkey"  <em>; サスペンド</em>
+PostMessage 0x0111, 65306,,, "ScriptFileName.ahk - AutoHotkey"  <em>; ボーズ</em>
+PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; リロード</em></pre>
 <h3 id="repeat">スクリプトを終了させることなく、繰り返し動作を停止させるにはどうすればよいですか？</h3>
 <p>キーを押すだけでスクリプト全体を一時停止または再開するには、この例のようにホットキーを「<a href="lib/Pause.htm">一時停止</a>」機能に割り当てます。</p>
-<pre>^!p::Pause<em>; Ctrl+Alt+P を押すと一時停止します。もう一度押すと再開します。</em></pre>
+<pre>^!p::Pause  <em>; Ctrl+Alt+P を押すと一時停止します。もう一度押すと再開します。</em></pre>
 <p><a href="lib/Loop.htm">ループ</a>内で繰り返されるアクションを停止するには、次のような動作例を考えてみましょう。このホットキーは、それ自体が繰り返されるアクションの開始と停止の両方を行います。つまり、ホットキーを1回押せばLoopが開始される。同じホットキーをもう一度押すと停止します。</p>
 <pre>#MaxThreadsPerHotkey 3
 #z::<em><strong>; Win+Zのホットキー（このホットキーはお好みで変更してください）。</strong></em>
 {
     static KeepWinZRunning := false
-    if KeepWinZRunning<em>; これは、下層の<a href="misc/Threads.htm">スレッドが</a>すでに下のループを実行していることを意味します。</em>
+    if KeepWinZRunning  <em>; これは、下層の<a href="misc/Threads.htm">スレッドが</a>すでに下のループを実行していることを意味します。</em>
     {
-        KeepWinZRunning := false<em>; そのスレッドのループを停止させる信号を送る。</em>
-        return<em>; このスレッドを終了すると、その下にあるスレッドが再開され、上の行で行われた変更を見ることができます。</em>
+        KeepWinZRunning := false  <em>; そのスレッドのループを停止させる信号を送る。</em>
+        return  <em>; このスレッドを終了すると、その下にあるスレッドが再開され、上の行で行われた変更を見ることができます。</em>
     }
     <em>; それ以外の場合。</em>
     KeepWinZRunning := true
@@ -227,10 +227,10 @@ PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"<em>; リロード
         ToolTip
         Sleep 1000
         <strong><em>; しかし、以下の残りの部分は変更しないでください。</em></strong>
-        if not KeepWinZRunning<em>; 再びWin-Zを押すことでループを止める合図をした。</em>
-            break<em>; このループから抜け出そう。</em>
+        if not KeepWinZRunning  <em>; 再びWin-Zを押すことでループを止める合図をした。</em>
+            break  <em>; このループから抜け出そう。</em>
     }
-    KeepWinZRunning := false<em>; 次にこのホットキーを押すときに備えて、リセットを行います。</em>
+    KeepWinZRunning := false  <em>; 次にこのホットキーを押すときに備えて、リセットを行います。</em>
 }
 #MaxThreadsPerHotkey 1</pre>
 <h3 id="help">AutoHotkeyの関数のコンテキスト依存ヘルプを、どのエディターでも使えるようにするにはどうしたらよいですか？</h3>
@@ -239,7 +239,7 @@ PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"<em>; リロード
 <p>Internet Explorerの場合、おそらく最も確実な方法は、<a href="https://www.autohotkey.com/forum/topic19256.html">www.autohotkey.com/forum/topic19256.html</a>で示したように、DllCallとCOMを使用することです。これに関連して、アドレスバーやステータスバーの内容は、<a href="https://www.autohotkey.com/forum/topic19255.html">www.autohotkey.com/forum/topic19255.html</a>のデモのように取得することができます。</p>
 <p><strong>古く、信頼性の低い方法：</strong>以下の例の手法は、ほとんどのページでMS Internet Explorerで動作します。他のブラウザでも同様の手法が使えるかもしれません。</p>
 <pre>Run "www.yahoo.com"
-MouseMove 0, 0<em>; ステータスバーに "Done "の代わりにマウスホバーリンクが表示されないようにします。</em>
+MouseMove 0, 0  <em>; ステータスバーに "Done "の代わりにマウスホバーリンクが表示されないようにします。</em>
 WinWait "Yahoo!- "
 WinActivate
 if StatusBarWait("Done", 30)

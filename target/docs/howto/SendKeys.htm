@@ -52,8 +52,8 @@
   <li><code>^{+}{Left}</code> produces <kbd>Ctrl</kbd>+<kbd>+</kbd> followed by <kbd>Left</kbd></li>
   <li><code>^+Left</code> produces <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> followed literally by the letters <code>eft</code></li>
 </ul>
-<p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>"</kbd>を押すと、次の例では2つの引用符が送られ、挿入点が左に移動して引用符の内側を入力できる状態になります。</p><!-- span works around a highlighter bug (4/12/22) -->
-
+<p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>"</kbd>を押すと、次の例では2つの引用符が送られ、挿入点が左に移動して引用符の内側を入力できる状態になります。</p>
+<!-- span works around a highlighter bug (4/12/22) -->
 <pre><span class="no-highlight">^+"</span>::Send '""{Left}'</pre>
 <p>Sendは、<code>^!+#{}</code>以外の任意の1文字について、それを対応するキーの組み合わせに変換し、その組み合わせを押したり離したりする。例えば、<code>Send "aB"</code>は、<kbd>A</kbd>を押して離し、<kbd>Shift</kbd>+<kbd>B</kbd>を押して離します。同様に、中括弧で囲まれたキー名は、デフォルトで押したり離したりされます。例えば、<code>Send "{Ctrl}a"</code>を実行すると、<kbd>Ctrl</kbd>を押したまま離し、<kbd>A</kbd>を押したまま離すことになり、おそらく望むところではありません。</p>
 <p>キーを押す（押し続ける）、または離すだけなら、キー名を中括弧で囲み、その後にスペースを入れ、"down"または"up"という言葉を入れます。次の例では、<kbd>Ctrl</kbd>+<kbd>CapsLock</kbd>が <kbd>Shift</kbd>のトグルとして機能するようにします。</p>
@@ -107,7 +107,7 @@
 <p>最初の場合は、「Send」→「<a href="../lib/Sleep.htm">Sleep</a>」→「Send」と呼び出すだけでよいです。</p>
 <p><a href="../lib/SetKeyDelay.htm">SetKeyDelay</a> 2番目のケースに存在します。この機能は、各キーストロークの間に実行される遅延と、キーストロークの持続時間（つまり、キーを押してから離すまでの遅延）を設定できます。</p>
 <pre>^1::{
-    SetKeyDelay 75, 25<em>; キー間75ms、ダウン/アップ間25ms。</em>
+    SetKeyDelay 75, 25  <em>; キー間75ms、ダウン/アップ間25ms。</em>
     SendEvent "You should see the keys{bs 4}text appear gradually."
 }</pre>
 <p class="warning"><strong>警告：</strong>SendInputは、キー遅延をサポートしておらず、デフォルトのSendもサポートしていません。</p>
@@ -125,15 +125,15 @@
 <p>一般的にかなり高速ですが、SendTextはまだ各文字を一度に送信する必要があり、Sendは一般的に少なくとも2倍のメッセージ（<em>キーダウン・キーアップ</em>）を送信する必要があります。そのため、大量のテキストを送信する際には、顕著な遅延が発生します。また、遅延が長くなると、ユーザーの入力と衝突したり、キーボードのフォーカスがずれたり、その他の条件が変化するリスクが高くなるため、信頼性が低くなる可能性があります。</p>
 <p>一般的には、クリップボードにテキストを置き、それを<em>貼り付ける</em>方が、より速く、より確実です。事例：</p>
 <pre>^1::{
-    old_clip := ClipboardAll()<em>; クリップボードの内容をすべて保存する</em>
+    old_clip := ClipboardAll()  <em>; クリップボードの内容をすべて保存する</em>
     A_Clipboard := "
     (Join`s
         このテキストは、クリップボードに置かれます。
         で、Ctrl+Vを送ると下に貼り付けられます。
 )"
     Send "^v"
-    Sleep 500<em>; Ctrl+V が処理されるまで少し待つ。</em>
-    A_Clipboard := old_clip<em>; 以前のクリップボードの内容を復元する</em>
+    Sleep 500  <em>; Ctrl+V が処理されるまで少し待つ。</em>
+    A_Clipboard := old_clip  <em>; 以前のクリップボードの内容を復元する</em>
 }</pre>
 
 </body>
