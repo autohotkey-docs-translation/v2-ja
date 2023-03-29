@@ -289,18 +289,18 @@ else
 <li>定義されている場合、デフォルトの動作を行わなければならりません。例えば、__setが値を保存しない場合、その値は保存されることはありません。</li>
 <li>メソッドが<code>returnを</code>使うかどうかで動作が変わることはありません（もちろん、__getや__callは依然として値を返す必要がありますが）。</li>
 </ul>
-<p>メソッドやプロパティのパラメータは、Arrayとして渡されます。これは、連鎖するベース/スーパークラスの呼び出しを最適化し、（MaxParamsの検証との組み合わせで）作者に引数を処理することを奨励します。For __setの場合、代入される値は別途渡される。</p>
+<p>メソッドやプロパティのパラメータは、Arrayとして渡されます。これは、連鎖するベース/スーパークラスの呼び出しを最適化し、（MaxParamsの検証との組み合わせで）作者に引数を処理することを奨励します。For __setの場合、代入される値は別途渡されます。</p>
 <pre><code><div>this.__call(name, args)
 this.__get(name, args)
 this.__set(name, args, value)
 </div></code></pre>
-<p>定義されたプロパティやメソッドは、ベースオブジェクトで定義されたかどうかにかかわらず、メタファンクションよりも優先される。</p>
+<p>定義されたプロパティやメソッドは、ベースオブジェクトで定義されたかどうかにかかわらず、メタファンクションよりも優先されます。</p>
 <p>オブジェクトがforループに渡されるときや、SetTimerで関数オブジェクトが呼び出されるときなど、__Enum（旧 _NewEnum）またはCallの内部呼び出しでは__Callは呼び出されません。</p>
 <p>静的メソッド __New は、そのクラスで定義されているか、スーパークラスから継承されている場合、各クラスの初期化時に呼び出されます。詳しくは、<a href="#staticclass-variables">静的/クラス変数</a>（上）、および、<a href="Objects.htm#static__New">クラスの初期化</a>をご覧ください。</p>
 <h3 id="array">配列</h3>
 <p><code>クラス配列のオブジェクト拡張</code></p>
 <p>配列オブジェクトは、インデックス1が最初の要素である値のリストまたはシーケンスを含んでいます。</p>
-<p>配列の要素を代入・取得する場合、インデックスの絶対値が 1 から配列の<a href="lib/Array.htm#Length">Length</a>の間でなければならず、そうでない場合は例外が発生する。配列のサイズは、適切な方法で要素を挿入または削除するか、<a href="lib/Array.htm#Length">Length</a>を代入することで変更することができます。</p>
+<p>配列の要素を代入・取得する場合、インデックスの絶対値が 1 から配列の<a href="lib/Array.htm#Length">Length</a>の間でなければなりません。そうでない場合は例外が発生します。配列のサイズは、適切な方法で要素を挿入または削除するか、<a href="lib/Array.htm#Length">Length</a>を代入することで変更することができます。</p>
 <p>現在、要素にアクセスする際には括弧が必要です。例えば、<code>a.1</code>はプロパティを指し、<code>a[1]</code>は要素を指します。</p>
 <p>負の値を使用すると、逆方向のインデックスを作成することができます。</p>
 <p><a href="lib/Array.htm#Clone">Clone</a>、<a href="lib/Array.htm#Delete">Delete</a>、<a href="lib/Array.htm#InsertAt">InsertAt</a>、<a href="lib/Array.htm#Pop">Pop</a>、<a href="lib/Array.htm#Push">Push</a>、<a href="lib/Array.htm#RemoveAt">RemoveAt</a>の使い方は基本的に変わりません。HasKeyは<a href="lib/Array.htm#Has">Has</a>に名称変更されました。<a href="lib/Array.htm#Length">Length</a>がプロパティになりました。<a href="lib/Array.htm#Capacity">Capacity</a>プロパティを追加しました。</p>
@@ -315,11 +315,11 @@ this.__set(name, args, value)
 <li><a href="lib/Map.htm#Count">Count</a>がプロパティになりました。</li>
 <li>新しいプロパティ：<a href="lib/Map.htm#Capacity">Capacity</a>, <a href="lib/Map.htm#CaseSense">CaseSense</a></li>
 <li>新しい手法：<a href="lib/Map.htm#Get">Get</a>, <a href="lib/Map.htm#Set">Set</a>, <a href="lib/Map.htm#Clear">Clear</a></li>
-<li>文字列のキーはデフォルトで大文字と小文字が区別され、Integerに変換されることはない。</li>
+<li>文字列のキーはデフォルトで大文字と小文字が区別され、Integerに変換されることはありません。</li>
 </ul>
 <p>現在、Floatキーは文字列に変換されたままです。</p>
-<p><code>a.b</code>はプロパティを、<code>a["b"]</code>は要素を意味します。v1とは異なり、配列の要素を代入することで誤ってプロパティやメソッドを無効化することはできない。</p>
-<p>マップに<a href="lib/Map.htm#Default">Default</a>プロパティが定義されていない限り、存在しない要素の値を取得しようとすると例外がスローされる。<code>MapObj.Get(key, default)</code>は、各リクエストに対して明示的にデフォルト値を提供するために使用することができます。</p>
+<p><code>a.b</code>はプロパティを、<code>a["b"]</code>は要素を意味します。v1とは異なり、配列の要素を代入することで誤ってプロパティやメソッドを無効化することはできません。</p>
+<p>マップに<a href="lib/Map.htm#Default">Default</a>プロパティが定義されていない限り、存在しない要素の値を取得しようとすると例外がスローされます。<code>MapObj.Get(key, default)</code>は、各リクエストに対して明示的にデフォルト値を提供するために使用することができます。</p>
 <p>キーと値のペアのリストからマップを作成するには、<code>Map(Key, Value, ...)</code>を使用します。</p>
 <h3 id="enumeration">列挙</h3>
 <p>列挙者モデルの変更：</p>
@@ -327,35 +327,35 @@ this.__set(name, args, value)
 <li>NewEnum()を__Enum(n)に置き換えました。</li>
 <li>必須パラメータnには、for-loopの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
 <li>Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は<code>VarRef</code>を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
-<li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされる。これにより、関数オブジェクト（クロージャなど）を直接使用することができます。</li>
+<li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされます。これにより、関数オブジェクト（クロージャなど）を直接使用することができます。</li>
 </ul>
 <p>配列要素とプロパティが分離されたため、プロパティの列挙には<a href="lib/Object.htm#OwnProps">OwnProps</a>を呼び出して明示的に列挙者を作成する必要があります。</p>
 <h3 id="bound-functions">バウンド関数</h3>
-<p>バウンドファンクションが呼び出されると、呼び出し元から渡されたパラメータが、バウンドファンクションの作成時に省略された位置を埋める。例えば、<code>F.Bind(,b).Call(a,c)</code>は<code>F(,b,a,c)</code>ではなく<code>F(a,b,c)</code>を呼び出します。</p>
+<p>バウンドファンクションが呼び出されると、呼び出し元から渡されたパラメータが、バウンドファンクションの作成時に省略された位置を埋めます。例えば、<code>F.Bind(,b).Call(a,c)</code>は<code>F(,b,a,c)</code>ではなく<code>F(a,b,c)</code>を呼び出します。</p>
 <h3 id="com-objects-comobject">COMオブジェクト(ComObject)</h3>
 <p>COMラッパーオブジェクトは、バリアントタイプによっていくつかの異なるクラスのインスタンスとして識別されるようになりました（以前のように、どのメソッドとプロパティをサポートするかに影響します）：</p>
 <ul>
 <li><code>ComValueは</code>、すべてのCOMラッパーオブジェクトの基本クラスです。</li>
-<li><code>ComObject</code>は、VT_DISPATCHの非NULLポインタのためのもので、つまり、通常、通常のオブジェクト構文を使用してスクリプトから呼び出すことができる有効なCOMオブジェクトである。</li>
+<li><code>ComObject</code>は、VT_DISPATCHの非NULLポインタのためのもので、つまり、通常、通常のオブジェクト構文を使用してスクリプトから呼び出すことができる有効なCOMオブジェクトです。</li>
 <li><code>ComObjArray</code>は、VT_ARRAY(SafeArrays)用です。</li>
 <li><code>ComValueRef</code>は、VT_BYREF用です。</li>
 </ul>
-<p>これらのクラスは、<code>obj が ComObject</code>などのタイプチェックに使用できます。ComValue型、ComObjArray型、ComValueRef型（ComObjectは除く）のオブジェクトは、それぞれのプロトタイプオブジェクトを変更することにより、プロパティとメソッドを定義することができる。</p>
+<p>これらのクラスは、<code>obj が ComObject</code>などのタイプチェックに使用できます。ComValue型、ComObjArray型、ComValueRef型（ComObjectは除く）のオブジェクトは、それぞれのプロトタイプオブジェクトを変更することにより、プロパティとメソッドを定義することができます。</p>
 <p><code>ComObject(CLSID)</code>は、ComObjectを作成します。つまり、これは新しいComObjCreateです。</p>
 <p>注：古いコードを更新しているときに、ComObjectにIntegerを渡したためにTypeErrorが発生した場合、代わりにComValueを呼び出す必要がある可能性があります。</p>
-<p><code>ComValue(vt, value)</code>は、ラッパーオブジェクトを作成します。上記のいずれかのクラスのインスタンスを返すことができます。これは、<code>ComObjParameter(vt, value)</code>、<code>ComObject(vt, value)</code>、およびパラメータとして<em>バリアント型</em>と <em>値</em>を使用していた他の名前を置き換える。<em>値</em>は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。特に、以下のものは整数を渡されたときの挙動が以前と異なる：R4, R8, Cy, Date. ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</p>
+<p><code>ComValue(vt, value)</code>は、ラッパーオブジェクトを作成します。上記のいずれかのクラスのインスタンスを返すことができます。これは、<code>ComObjParameter(vt, value)</code>、<code>ComObject(vt, value)</code>、およびパラメータとして<em>バリアント型</em>と <em>値</em>を使用していた他の名前を置き換えます。<em>値</em>は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。特に、以下のものは整数を渡されたときの挙動が以前と異なります：R4, R8, Cy, Date. ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</p>
 <p><code>ComObjFromPtr(pdsp)</code>は<code>ComObjEnwrap(dsp)</code>と同様の関数ですが、ObjFromPtrのようにポインタに対してAddRefを呼び出すことはしません。v1での同等品は<code>ComObject(9, dsp, 1)</code>です。v1で第3パラメータを省略するとAddRefが発生しました。</p>
 <p>ComValueとComObjFromPtrは、AddRefが自動的に呼び出されることはないので、その点ではv1の<code>ComObject(9, value, 1)</code>や<code>ComObject(13, value, 1)</code>と同じ挙動をすることに注意。これは、古いスクリプトを更新する際に、<code>ObjAddRef(value)</code>を追加する必要があるとは限らず、多くのスクリプトが古い関数を間違って使用していたためです。</p>
 <p>VT_BYREF、VT_ARRAY、VT_UNKNOWNのバリアントタイプを持つCOMラッパーオブジェクトに、<code>ComObjValue(ComObj)</code>と同等の<code>Ptr</code>プロパティが付くようになりました。これにより、DllCallやComCallに<code>Ptr</code>のarg型で渡すことができるようになります。また、VT_BYREF（呼び出し元の型付き変数にアクセス）、VT_ARRAY（SAFEARRAYフィールドにアクセス）、VT_UNKNOWN（vtableポインタを取得）で使用できるNumPutやNumGetにオブジェクトを直接渡すことができます。</p>
-<p>VT_DISPATCHまたはVT_UNKNOWNというバリアントタイプとNULLインターフェイスポインターを持つCOMラッパーオブジェクトが、読み取りまたは割り当て可能な<code>Ptr</code>プロパティを持つようになりました。非NULLポインタが割り当てられると、このプロパティは読み取り専用になります。これはDllCallやComCallでの使用を想定しており、関数が戻った後にポインタを手動でラップする必要がない。</p>
-<p>ComObjArrayの列挙がArrayと一致するようになりました。つまり、<code>for value in arr</code>や<code>for index, value in arr</code>ではなく、<code>for value, vartype in arr</code>です。。<code>index</code>の開始値はComObjArrayの下限値（<code>arr.MinIndex()</code>）であり、通常は0である。</p>
+<p>VT_DISPATCHまたはVT_UNKNOWNというバリアントタイプとNULLインターフェイスポインターを持つCOMラッパーオブジェクトが、読み取りまたは割り当て可能な<code>Ptr</code>プロパティを持つようになりました。非NULLポインタが割り当てられると、このプロパティは読み取り専用になります。これはDllCallやComCallでの使用を想定しており、関数が戻った後にポインタを手動でラップする必要がありません。</p>
+<p>ComObjArrayの列挙がArrayと一致するようになりました。つまり、<code>for value in arr</code>や<code>for index, value in arr</code>ではなく、<code>for value, vartype in arr</code>です。。<code>index</code>の開始値はComObjArrayの下限値（<code>arr.MinIndex()</code>）であり、通常は0です。</p>
 <p>整数型I1、I8、UI1、UI2、UI4、UI8は、StringではなくIntegerに変換されるようになりました。これらはCOMコールで稀に発生しますが、VT_BYREFラッパーにも適用されます。VT_ERRORはIntegerに変換されなくなり、代わりにComValueが生成されます。</p>
 <p>COMオブジェクトが、プロパティやメソッドの呼び出しに失敗したときに、<a href="Variables.htm#LastError">A_LastError</a>を設定しなくなりました。</p>
 <h3 id="default-property">デフォルトのプロパティ</h3>
 <p>COMオブジェクトは「デフォルト・プロパティ」を持つことができ、これには2つの用途があります：</p>
 <ul>
 <li>オブジェクトの<em>値</em>です。例えば、VBScriptでは、<code>MsgBox obj</code>は、そのデフォルトのメンバーを呼び出すことによって、オブジェクトを評価します。</li>
-<li>コレクションのインデックス付きプロパティで、通常は<code>Item</code>または<code>item</code>と名付けられる。</li>
+<li>コレクションのインデックス付きプロパティで、通常は<code>Item</code>または<code>item</code>と名付けられます。</li>
 </ul>
 <p>AutoHotkey v1にはデフォルトプロパティの概念がなかったため、COMオブジェクトラッパーはプロパティ名が省略された場合、デフォルトプロパティを呼び出していました（例：<code>obj[]</code>または<code>obj[,x]</code>.</p>
 <p>しかし、AutoHotkey v2では、プロパティを配列/マップ/コレクションの項目から分離しており、そのために<code>obj[x]</code>はオブジェクトのデフォルトのプロパティ（<code>x</code>が存在するかどうか）にマッピングされています。AutoHotkeyオブジェクトの場合、これは<code>__Item</code>です。</p>
@@ -382,7 +382,7 @@ this.__set(name, args, value)
 <li>EnvUpdate（有用性は非常に低く、単純な<a href="lib/SendMessage.htm">SendMessage</a>に置き換えることができます。）</li>
 <li>Exception (<a href="lib/Error.htm">Error</a>または適切なサブクラスを使用)</li>
 <li>FileReadLine（ファイル<a href="lib/LoopFiles.htm">読み込みループ</a>または<a href="lib/FileOpen.htm">FileOpen</a>を使用します。）</li>
-<li>Func (<code>MyFunc</code>のように直接参照を使用する)</li>
+<li>Func (<code>MyFunc</code>のように直接参照を使用します)</li>
 <li>Gosub</li>
 <li>Gui、GuiControl、GuiControlGet（<a href="#gui">Gui</a>の項参照）</li>
 <li>IfEqual</li>
@@ -401,22 +401,22 @@ this.__set(name, args, value)
 <li>IfWinNotActive</li>
 <li>IfWinNotExist</li>
 <li>If between/is/in/contains (ただし、<a href="#isXXX">isXXX</a>を参照)</li>
-<li>Input（<a href="lib/InputHook.htm">InputHookを</a>使用）</li>
+<li>Input（<a href="lib/InputHook.htm">InputHook</a>を使用）</li>
 <li>IsFunc</li>
 <li>Menu（<a href="lib/Menu.htm">Menu/MenuBarクラス</a>、<a href="lib/TraySetIcon.htm">TraySetIcon</a>、<a href="Variables.htm#IconTip">A_IconTip</a>、<a href="Variables.htm#IconHidden">A_IconHidden</a>、<a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>を使用します）。</li>
-<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handleを</a>使用します。）</li>
+<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handle</a>を使用します。）</li>
 <li>MenuGetName（メニュー名がないため、<a href="lib/MenuFromHandle.htm">MenuFromHandle</a>が最も近い代替となる）</li>
-<li>Progress （<a href="lib/Gui.htm">Guiを</a>使用）</li>
+<li>Progress （<a href="lib/Gui.htm">Gui</a>を使用）</li>
 <li>SendRaw （代わりに<code>Send "{Raw}"</code>または<a href="lib/Send.htm#SendText">SendText</a>を使用します。）</li>
 <li>SetBatchLines（-1がデフォルトの動作になりました。）</li>
 <li>SetEnv</li>
-<li>SetFormat (<a href="lib/Format.htm">Formatは</a>文字列の書式設定に使用できます)</li>
+<li>SetFormat (<a href="lib/Format.htm">Format</a>は文字列の書式設定に使用できます)</li>
 <li>SoundGet/SoundSet（<a href="#Sound">サウンド機能</a>参照）</li>
 <li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）。</li>
-<li>SplashImage（<a href="lib/Gui.htm">Guiを</a>使用）</li>
-<li>SplashTextOn/Off(<a href="lib/Gui.htm">Gui</a>使用)</li>
+<li>SplashImage（<a href="lib/Gui.htm">Gui</a>を使用）</li>
+<li>SplashTextOn/Off(<a href="lib/Gui.htm">Gui</a>を使用)</li>
 <li>StringCaseSense (各種パラメータを使用)</li>
-<li>StringGetPos（<a href="lib/InStr.htm">InStrを</a>使用します。）</li>
+<li>StringGetPos（<a href="lib/InStr.htm">InStr</a>を使用）</li>
 <li>StringLeft<br>
 
 StringLen<br>
@@ -442,7 +442,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>#IfWinActive、#IfWinExist、#IfWinNotActive、#IfWinNotExist<a href="lib/_HotIf.htm#optimization">（#HotIf Optimization</a>参照）</li>
 <li>#InstallKeybdHook (<a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a>関数を使用)</li>
 <li>#InstallMouseHook (<a href="lib/InstallMouseHook.htm">InstallMouseHook</a>関数を使用)</li>
-<li>#KeyHistory （<code>KeyHistory Nを</code>使用します。）</li>
+<li>#KeyHistory （<code>KeyHistory N</code>を使用します。）</li>
 <li>#LTrim</li>
 <li>#MaxHotkeysPerInterval （<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を使用します。）</li>
 <li>#MaxMem (各変数の最大容量が無制限になりました)</li>
@@ -464,8 +464,8 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>FileSelectFolder → <a href="lib/DirSelect.htm">DirSelect</a></li>
 <li>#If → <a href="lib/_HotIf.htm">#HotIf</a></li>
 <li>#IfTimeout → <a href="lib/_HotIfTimeout.htm">HotIfTimeout</a></li>
-<li>StringLower → <a href="lib/StrLower.htm">StrLower</a> and <a href="lib/StrLower.htm">StrTitle</a></li>
-<li>StringUpper → <a href="lib/StrLower.htm">StrUpper</a> and <a href="lib/StrLower.htm">StrTitle</a></li>
+<li>StringLower → <a href="lib/StrLower.htm">StrLower</a> および <a href="lib/StrLower.htm">StrTitle</a></li>
+<li>StringUpper → <a href="lib/StrLower.htm">StrUpper</a> および <a href="lib/StrLower.htm">StrTitle</a></li>
 <li>UrlDownloadToFile → <a href="lib/Download.htm">Download</a></li>
 <li>WinMenuSelectItem → <a href="lib/MenuSelect.htm">MenuSelect</a></li>
 <li>LV, TV and SB functions → methods of <a href="lib/GuiControl.htm">GuiControl</a></li>
@@ -479,7 +479,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <h3 id="modified-commandsfunctions">変更されたコマンド/ファンクション</h3>
 <p class="note">セクションタイトルについて：v2にはコマンドはなく、関数だけです。タイトルは両バージョンを指しています。</p>
 <p>SendEventメソッドでAltイベントを送信したときに、<a href="lib/BlockInput.htm">BlockInput</a>が一瞬だけ無効になることがなくなりました。これはもともと、Windows XPの一部のバージョンで、BlockInputが人工的なAltイベントをブロックしてしまうというバグを回避するために行われたものです。</p>
-<p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返す。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>
+<p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返します。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>
 <p><a href="lib/ClipWait.htm">ClipWait</a>は、待ち時間が終了した場合は0を、そうでない場合は1を返すようになりました。ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
 <p><code>ComObj()</code>:この機能は、ワイルドカードのような名前で、さまざまな接尾辞をつけることができました。<code>ComObjActive(CLSID)</code>,<code>ComObjParameter(vt, value)</code>,<code>ComObjEnwrap(dsp)</code>のように、特定の種類のパラメータでよく使われる名前もありました。その代わり、関数やクラスが別々になり、ワイルドカードの名前もなくなりました。詳細は「<a href="#com-objects-comobject">COMオブジェクト（ComObject）</a>」を参照してください。</p>
 <p>Control:<a href="lib/Control.htm">Control関数</a><a href="lib/SendMessage.htm">SendMessageと</a> <a href="lib/PostMessage.htm">PostMessageで</a>使用される<a href="lib/Control.htm#Parameter"><em>Control</em>パラメータに</a>いくつかの変更が加えられました：</p>
@@ -498,18 +498,18 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/Edit.htm">Edit</a>は、スクリプトがstdinから読み込まれた場合、<code>*</code>のためのエディタを開こうとするのではなく、何もしないようになりました。</p>
 <p><a href="lib/EnvSet.htm">EnvSet</a>で、valueパラメータが完全に省略された場合、環境変数を削除するようになりました。</p>
 <p><a href="lib/Exit.htm">Exit</a>は、これまで、スクリプトが永続的でない場合、Exitを呼び出したスレッドによって中断された他のスレッドがあったとしても、<a href="lib/ExitApp.htm">ExitApp</a>として動作していました。もはや、これ以上ないほどです。その代わり、常に現在のスレッドを適切に終了させ、（非永続的な場合）最後のスレッドが終了した後にのみスクリプトを終了させます。これにより、<code>finally</code>文が実行され、ローカル変数が解放され、ローカル変数に含まれるオブジェクトに対して<code>__delete</code>が呼び出される可能性があります。</p>
-<p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppendとFileReadは、コードページ変換（バイナリデータの読み書き）を無効にするオプション<code>"RAW"</code>をサポートしています。これは<code>*c</code>（ドキュメントのClipboardAllを参照）を置き換えるものです。FileAppend は<code>Buffer-like</code>オブジェクトを受け取ることができ、その場合、変換は行われない。</p>
+<p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppendとFileReadは、コードページ変換（バイナリデータの読み書き）を無効にするオプション<code>"RAW"</code>をサポートしています。これは<code>*c</code>（ドキュメントのClipboardAllを参照）を置き換えるものです。FileAppend は<code>Buffer-like</code>オブジェクトを受け取ることができ、その場合、変換は行われません。</p>
 <p><a href="lib/FileCopy.htm">FileCopy</a>と<a href="lib/FileMove.htm">FileMove</a>で、コピー元のパスに<code>*</code>または<code>?</code>がなく、ファイルが見つからなかった場合に例外が発生するようになりました。ただし、ソースパスにワイルドカードが含まれている場合、0個のファイルをコピーまたは移動することは、依然としてエラーとはみなされません。</p>
 <p><a href="lib/FileOpen.htm">FileOpen</a>がファイルを開くのに失敗した場合、例外を投げるようになりました。そうでなければ、実際の障害発生箇所ではなく、オブジェクトに最初にアクセスしようとしたときに例外が発生します（スクリプトが障害をチェックしない場合）。</p>
 <p><a href="lib/File.htm#RawRead">File.RawRead</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。</p>
 <p>スクリプトによって割り当てられたバッファの場合、変数よりも新しい<code>Buffer</code>オブジェクトが優先されます。任意のオブジェクトを使用できますが、<code>Ptr</code>と <code>Size</code>プロパティを持つ必要があります。</p>
-<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>:ただし、文字列（または文字列を含む変数）を受け取ることができ、その場合、<em>Bytes</em>は文字列のサイズ（バイト）をデフォルトとします。文字列には2進数のゼロを含むことができる。</p>
+<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>:ただし、文字列（または文字列を含む変数）を受け取ることができ、その場合、<em>Bytes</em>は文字列のサイズ（バイト）をデフォルトとします。文字列には2進数のゼロを含むことができます。</p>
 <p><a href="lib/File.htm#ReadLine">File.ReadLine</a>が常に行末として<code>`r</code>、<code>`n</code>、<code>`r`n</code>をサポートするようになり、行末を戻り値に含めないようになりました。EOL変換が有効でない場合、<a href="lib/File.htm#Read">File.Read</a>によって行末がそのままスクリプトに返されます。</p>
 <p><a href="lib/FileEncoding.htm">FileEncoding</a>で、コードページを<code>CP</code>プレフィックスなしで番号で指定できるようになりました。そのパラメータはもはやオプションではありませんが、まだ明示的に空白にすることができます。</p>
 <p><a href="lib/FileExist.htm">FileExist</a>は、すべてのディレクトリリストに含まれる<code>.</code>と<code>.</code>を無視するようになったので、dirが存在するが空である場合、<code>FileExist("dir*")</code>は真ではなく偽になりました。</p>
 <p><a href="lib/FileGetAttrib.htm">FileGetAttrib</a>とA_LoopFileAttribに、リパースポイントやシンボリックリンクを表す「L」の文字が含まれるようになりました。</p>
 <p>コンパイルされていないスクリプトの <a href="lib/FileInstall.htm">FileInstall</a> は、コピー元とコピー先が同じパスの場合、ファイルをコピーしようとしなくなりました（相対パスを解決した後、コピー元が <a href="Variables.htm#WorkingDir">A_WorkingDir</a> ではなく <a href="Variables.htm#ScriptDir">A_ScriptDir</a> への相対パスになっていたため）。v1ではErrorLevelが1に設定されていましたが、これはほとんど気づかれませんでした。2つの異なるパスでファイルを自分自身にコピーしようとすると、やはりエラーになります。</p>
-<p>FileSelectFile（現在は<a href="lib/FileSelect.htm">FileSelect</a>という名前）には、オプション4とMでアクセスできる2つのマルチセレクトモードがありました。オプション4と対応するモードは削除され、しばらくは文書化されていませんでした。FileSelectでマルチセレクトモードを使用した場合、<code>C:⇄Dir⇄File1⇄File2</code>のような文字列ではなく、パスのArrayを返すようになりました。各配列要素には、ファイルのフルパスが含まれます。ユーザーがキャンセルした場合は、配列は空になります。</p>
+<p>FileSelectFile（現在は<a href="lib/FileSelect.htm">FileSelect</a>という名前）には、オプション4とMでアクセスできる2つのマルチセレクトモードがありました。オプション4と対応するモードは削除され、しばらくは文書化されていませんでした。FileSelectでマルチセレクトモードを使用した場合、<code>C:\Dir`nFile1`nFile2</code>のような文字列ではなく、パスのArrayを返すようになりました。各配列要素には、ファイルのフルパスが含まれます。ユーザーがキャンセルした場合は、配列は空になります。</p>
 <p>FileSelectは、従来のGetOpenFileName/GetSaveFileName APIに代わり、Windows Vista以降に存在するIFileDialog APIを使用するようになりました。これにより、ダイアログがカレントワーキングディレクトリを変更することに関連する（ビルトインの）回避策が不要になります。</p>
 <p><em>Filter</em>が省略された場合、FileSelectはデフォルトで "Text Documents (*.txt)"という冗長なフィルターを持たないようになりました。</p>
 <p>FileSelectで、<code>スペース*.extを含むパターン</code>のようなフィルターパターンからスペースを取り除かなくなりました。テストでは、パターンの両側にあるスペース（<code>*.cpp; *.h</code>のセミコロンの後など）は、すでにOSによって無視されているので、悪影響はないはずです。</p>
@@ -523,8 +523,8 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/GroupDeactivate.htm">GroupDeactivate</a>は、<kbd>Alt</kbd>+<kbd>Esc</kbd>および<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>システム ホットキーとタスク バーに近い方法でウィンドウが選択されるようになりました。具体的には以下です。</p>
 <ul>
 <li>所有するウィンドウは評価対象外です。オーナーウィンドウが適格（グループと一致しない）である場合、オーナーウィンドウまたはその所有ウィンドウのいずれか、最後にアクティブだった方をアクティブにします。グループメンバーが所有するウィンドウはアクティブにならなくなりますが、所有するウィンドウ自体をグループに追加しても効果はありません。(以前の動作は、所有するすべてのウィンドウを循環させ、所有者を起動させることはありませんでした)。</li>
-<li>無効化されたウィンドウは、その所有するウィンドウがそれよりも最近アクティブであった場合を除き、スキップされる。</li>
-<li>WS_EX_NOACTIVATE スタイルを持つウィンドウは、おそらくアクティベートされることを想定していないため、スキップされます。また、<kbd>Alt</kbd>+<kbd>Esc</kbd>と<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーでもスキップされる。</li>
+<li>無効化されたウィンドウは、その所有するウィンドウがそれよりも最近アクティブであった場合を除き、スキップされます。</li>
+<li>WS_EX_NOACTIVATE スタイルを持つウィンドウは、おそらくアクティベートされることを想定していないため、スキップされます。また、<kbd>Alt</kbd>+<kbd>Esc</kbd>と<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーでもスキップされます。</li>
 <li>WS_EX_TOOLWINDOW を持ち、WS_EX_APPWINDOW を持たないウィンドウは、タスクバーと Alt-Tab から省略され、スキップされます。</li>
 </ul>
 <p><a href="lib/Hotkey.htm">ホットキー</a>のデフォルトが、スクリプトの一番下の<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）にならないようになりました。Hotkey/HotstringおよびHotIfスレッドのデフォルトは、ホットキーと同じ基準なので、<code>Hotkey A_ThisHotkey,"Off"</code>は、現在のホットキーがコンテキスト依存であってもオフにします。他のすべてのスレッドは、自動実行セクションで使用される最後の設定がデフォルトで、それ自体は基準なしがデフォルトです（グローバルホットキー）。</p>
@@ -533,11 +533,11 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>これにより、以下の特殊文字列の曖昧さが解消されるなどの利点があります：<code>On</code>, <code>Off</code>, <code>Toggle</code>, <code>AltTab</code>, <code>ShiftAltTab</code>, <code>AltTabAndMenu</code>, <code>AltTabMenuDismiss</code>. 以前の動作は、ラベル/関数が存在する場合、その名前を使用するものでしたが、<em>Label</em>パラメータに変数参照や式が含まれていない場合に限り、その名前を使用します。</li>
 </ul>
 <p><a href="lib/Hotkey.htm">Hotkey</a>と <a href="lib/Hotstring.htm">Hotstring</a>で、<a href="lib/_SuspendExempt.htm">Suspend</a>を免除するSオプション（新しい<a href="lib/_SuspendExempt.htm">#SuspendExempt</a>指令と同等）と、免除を無効にするS0オプションが追加されました。</p>
-<p>"Hotkey If"をはじめとするIfサブコマンドを個別機能に置き換えた：<a href="lib/HotIf.htm">HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist</a>.</p>
+<p>"Hotkey If"をはじめとするIfサブコマンドを個別機能に置き換えました：<a href="lib/HotIf.htm">HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist</a>.</p>
 <p><a href="lib/HotIf.htm">HotIf</a>（旧Hotkey If）は、<code>and</code>または<code>or</code>演算子を使用した式を認識するようになりました。v1では、これらの演算子はロード時に<code>&amp;&amp;</code>や <code>||</code>に置き換えられるため、これは機能しませんでした。</p>
 <p><a href="lib/Hotkey.htm">Hotkey</a>に <code>UseErrorLevel</code>オプションがなくなり、ErrorLevelを設定しないようになりました。失敗した場合は例外が発生します。エラーメッセージは、<code>Exception.Extra</code>にキーまたはホットキーの名前を、例外のクラスで失敗の理由を示す、一定の（より短い）メッセージに変更されました。</p>
 <p><a href="lib/_HotIf.htm">#HotIf</a>（旧#If）は、1つのパラメータ（ThisHotkey）を持つ関数を暗黙のうちに作成するようになりました。すべての関数のデフォルトとして、この関数はassume-localです。式はローカル変数の作成とグローバル変数の読み込みが可能ですが、式に宣言を含めることができないため、グローバル変数に直接代入することはできません。</p>
-<p><a href="lib/_HotIf.htm">#HotIf</a>は、<a href="lib/WinActive.htm">WinActive</a>や <a href="lib/WinExist.htm">WinExist</a>への単純な呼び出しをフックスレッドで直接評価できるように最適化されています（v1では#IfWinが、<a href="lib/HotIf.htm">HotIfWin</a>は現在もそうです）。これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。この最適化は、<a href="lib/WinActive.htm">WinActive</a>または<a href="lib/WinExist.htm">WinExist</a>への単一の呼び出しと最大2つのパラメータを含む式に適用され、各パラメータは単純な引用文字列で、結果はオプションで<code>!</code> または <code>not</code>で反転される。例えば、<code>#HotIf WinActive("Chrome")</code>や<code>#HotIf !WinExist("Popup") </code>のようなものです。これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができる。例えば、<code>HotIf '!WinExist("Popup")'</code>と<code>HotIfWinNotExist "Popup"</code>は同じホットキー変種を参照しています。</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>は、<a href="lib/WinActive.htm">WinActive</a>や <a href="lib/WinExist.htm">WinExist</a>への単純な呼び出しをフックスレッドで直接評価できるように最適化されています（v1では#IfWinが、<a href="lib/HotIf.htm">HotIfWin</a>は現在もそうです）。これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。この最適化は、<a href="lib/WinActive.htm">WinActive</a>または<a href="lib/WinExist.htm">WinExist</a>への単一の呼び出しと最大2つのパラメータを含む式に適用され、各パラメータは単純な引用文字列で、結果はオプションで<code>!</code> または <code>not</code>で反転されます。例えば、<code>#HotIf WinActive("Chrome")</code>や<code>#HotIf !WinExist("Popup") </code>のようなものです。これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができます。例えば、<code>HotIf '!WinExist("Popup")'</code>と<code>HotIfWinNotExist "Popup"</code>は同じホットキー変種を参照しています。</p>
 <p><code>KeyHistory N</code>は、キーヒストリーを表示するのではなく、キーヒストリーバッファーのサイズを変更します。これは"#KeyHistory N"に置き換わるものです。</p>
 <p><a href="lib/ImageSearch.htm">ImageSearch</a>は、画像が見つかった場合は true、見つからなかった場合は false を返し、検索ができなかった場合は例外を投げる。ErrorLevelが設定されていない。</p>
 <p><a href="lib/IniDelete.htm">IniDelete</a>、<a href="lib/IniRead.htm">IniRead</a>、<a href="lib/IniWrite.htm">IniWrite</a>は、<a href="Variables.htm#LastError">A_LastError</a>をオペレーティングシステムのGetLastError()関数の結果に設定します。</p>
@@ -559,16 +559,16 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p>OnClipboardChangeラベルが存在する場合、自動的に呼び出されることはなくなりました。代わりにv1.1.20で追加された<a href="lib/OnClipboardChange.htm">OnClipboardChange</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。</p>
 <p><a href="lib/OnError.htm">OnError</a>に名前ではなく、関数オブジェクトを要求するようになりました。後述の「<a href="#error-handling">エラー処理</a>」もご参照ください。</p>
 <p>OnExitコマンドは削除されました。代わりにv1.1.20で追加された<a href="lib/OnExit.htm">OnExit</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。A_ExitReasonも削除され、その値はOnExitコールバック関数のパラメータとして利用できます。</p>
-<p><a href="lib/OnMessage.htm">OnMessageは</a>、関数名（文字列）が渡されたときに使用されていた、メッセージごとの単一関数モードがなくなり、参照による関数のみを受け入れるようになりました。<code>OnMessage(x, MyFunc)</code>を使用します。<em>MyFunc</em>は文字通り関数の名前ですが、v1と同等のものは<code>OnMessage(x, Func("MyFunc"))</code>で、<code>OnMessage(x, "MyFunc")</code>と異なり、他の関数がメッセージxを監視し続けることができることに注意してください。<code>OnMessage(x,"")</code>と<code>OnMessage(x)</code>がエラーになったので、メッセージの監視を止めるには、<code>OnMessage(x, MyFunc, 0)</code>を使います。失敗した場合、OnMessageは例外を投げる。</p>
-<p><a href="lib/Pause.htm">Pause</a>は、ホットキーの1行目で使用すると<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の適用除外になるため、<code>#p::Pause</code>は、一時停止を切り替えるのに適さなくなった。したがって、<code>Pause()</code>は現在のスレッドを一時停止するだけになり（ListVars/Pauseのような組み合わせの場合）、<code>Pause(v)</code>は常に基本スレッドで動作するようになりました。<code>v</code>は、0、1または-1でなければならない。第2パラメータを削除しました。</p>
+<p><a href="lib/OnMessage.htm">OnMessageは</a>、関数名（文字列）が渡されたときに使用されていた、メッセージごとの単一関数モードがなくなり、参照による関数のみを受け入れるようになりました。<code>OnMessage(x, MyFunc)</code>を使用します。<em>MyFunc</em>は文字通り関数の名前ですが、v1と同等のものは<code>OnMessage(x, Func("MyFunc"))</code>で、<code>OnMessage(x, "MyFunc")</code>と異なり、他の関数がメッセージxを監視し続けることができることに注意してください。<code>OnMessage(x,"")</code>と<code>OnMessage(x)</code>がエラーになったので、メッセージの監視を止めるには、<code>OnMessage(x, MyFunc, 0)</code>を使います。失敗した場合、OnMessageは例外を投げます。</p>
+<p><a href="lib/Pause.htm">Pause</a>は、ホットキーの1行目で使用すると<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の適用除外になるため、<code>#p::Pause</code>は、一時停止を切り替えるのに適さなくなりました。したがって、<code>Pause()</code>は現在のスレッドを一時停止するだけになり（ListVars/Pauseのような組み合わせの場合）、<code>Pause(v)</code>は常に基本スレッドで動作するようになりました。<code>v</code>は、0、1または-1でなければならない。第2パラメータを削除しました。</p>
 <p><a href="lib/PixelSearch.htm">PixelSearch</a>と <a href="lib/PixelGetColor.htm">PixelGetColor</a>は、他の関数との整合性のために、BGRの代わりにRGB値を使用します。どちらの関数も、問題が発生すると例外をスローし、ErrorLevelを設定しなくなりました。PixelSearchは、その色が見つかった場合、trueを返します。PixelSearchのスローモードは、デスクトップコンポジションとの非互換性により、ほとんどの最新システムで使用できないため、削除されました。</p>
-<p><a href="lib/PostMessage.htm">PostMessage</a>:後述の<a href="#SendMessage">SendMessageを</a>参照してください。</p>
+<p><a href="lib/PostMessage.htm">PostMessage</a>:後述の<a href="#SendMessage">SendMessage</a>を参照してください。</p>
 <p><a href="lib/Random.htm">Random</a>は、オペレーティングシステムの乱数発生器を利用し、いくつかの制限を解除し、より便利に使用できるように改良されました。</p>
 <ul>
 <li>符号付き整数値の64ビット全範囲をサポートするようになりました（32ビットから増加）。</li>
 <li>浮動小数点数は、32ビット乱数ではなく53ビット乱数から生成され、Min以上Max未満でなければなりません（ただし、浮動小数点数の丸め誤差により、理論上はMaxと等しくなる場合があります）。</li>
 <li>パラメータはすでに任意の順序で指定することができましたが、最初のパラメータだけを指定すると、他のバウンドが2147483647ではなく0にデフォルト設定されるようになりました。例えば、<code>Random(9)</code>は0から9の間の数を返します。</li>
-<li>両パラメータを省略した場合、戻り値は0～2147483647の整数ではなく、0.0（包含）～1.0（概ね排他）の浮動小数点数である。</li>
+<li>両パラメータを省略した場合、戻り値は0～2147483647の整数ではなく、0.0（包含）～1.0（概ね排他）の浮動小数点数です。</li>
 <li>乱数生成器の種付けはシステムが自動的に行い、手動で種付けする方法は提供しないため、<em>NewSeed</em>パラメータに代わるものはない。</li>
 </ul>
 <p><a href="lib/RegExMatch.htm">RegExMatch</a>のオプションOとPが削除され、O（オブジェクト）モードが必須となりました。RegExMatch オブジェクトが列挙型（for-loop）に対応しました。マッチオブジェクトの構文が変更されました：</p>
@@ -603,13 +603,13 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>現在のループREG項目がサブキーの場合、<em>ValueName</em>のデフォルトは空（サブキーのデフォルト値）、<em>ValueType</em>の指定が必要です。</li>
 <li>現在のループREGアイテムが値の場合、<em>ValueName</em>と <em>ValueType</em>のデフォルトはその値の名前と型であるが、一方または両方をオーバーライドすることができる。</li>
 </ul>
-<p>それ以外の場合、RegWrite、RegRead、A_LoopRegNameとの整合性のために、空白または省略された<em>ValueName</em>を持つRegDeleteは、キーのデフォルト値（キー自体ではなく）を削除するようになりました。AHK_DEFAULT "というフレーズは、もはや特別な意味を持ちません。キーを削除するには、<a href="lib/RegDeleteKey.htm">RegDeleteKey</a>(new)を使用します。</p>
+<p>それ以外の場合、RegWrite、RegRead、A_LoopRegNameとの整合性のために、空白または省略された<em>ValueName</em>を持つRegDeleteは、キーのデフォルト値（キー自体ではなく）を削除するようになりました。"AHK_DEFAULT" というフレーズは、もはや特別な意味を持ちません。キーを削除するには、<a href="lib/RegDeleteKey.htm">RegDeleteKey</a>(new)を使用します。</p>
 <p><a href="lib/RegRead.htm">RegRead</a>に、IniRead のような<em>Default</em>パラメータが追加されました。</p>
 <p>RegReadには、出力変数の後に値の種類を指定する、文書化されていない5パラメータモードがありました。これは削除されました。</p>
 <p>スクリプトがstdinから読み込まれた場合、<a href="lib/Reload.htm">Reload</a>は何もしないようになりました。</p>
-<p>ErrorLevelが削除されたため、<a href="lib/Run.htm">Run</a>および<a href="lib/Run.htm">RunWait</a>が <code>UseErrorLevel</code>オプションを認識しなくなりました。代わりにtry/catchを使用します。<a href="Variables.htm#LastError">A_LastError</a>は無条件に設定され、例外が捕捉/抑制された後に検査することができる。RunWaitは、終了コードを返します。</p>
+<p>ErrorLevelが削除されたため、<a href="lib/Run.htm">Run</a>および<a href="lib/Run.htm">RunWait</a>が <code>UseErrorLevel</code>オプションを認識しなくなりました。代わりにtry/catchを使用します。<a href="Variables.htm#LastError">A_LastError</a>は無条件に設定され、例外が捕捉/抑制された後に検査することができます。RunWaitは、終了コードを返します。</p>
 <p><a href="lib/Send.htm">Send</a>（およびその亜種）は、ホットキーおよび<a href="lib/Click.htm">クリック</a>と一致する方法で<code>{LButton}</code>と <code>{RButton}</code>を解釈するようになりました。つまり、ユーザーがシステム設定でボタンを入れ替えても、LButtonがプライマリボタン、RButtonがセカンダリボタンになります。</p>
-<p id="SendMessage"><a href="lib/SendMessage.htm">SendMessageと</a> <a href="lib/PostMessage.htm">PostMessageでは</a>、wParamとlParamが整数またはPtrプロパティを持つオブジェクトである必要があります。以前は、<code>"</code>で始まる式であればアドレスで文字列が渡されましたが、それ以外の文字列は整数に強制されていました。変数のアドレス（以前は<code>&amp;var</code>、現在は<code>StrPtr(var)</code>）を渡しても、変数の長さを更新しなくなりました（<code>VarSetStrCapacity(&amp;var, -1)</code>を使用してください）。</p>
+<p id="SendMessage"><a href="lib/SendMessage.htm">SendMessageと</a> <a href="lib/PostMessage.htm">PostMessage</a>では、wParamとlParamが整数またはPtrプロパティを持つオブジェクトである必要があります。以前は、<code>"</code>で始まる式であればアドレスで文字列が渡されましたが、それ以外の文字列は整数に強制されていました。変数のアドレス（以前は<code>&amp;var</code>、現在は<code>StrPtr(var)</code>）を渡しても、変数の長さを更新しなくなりました（<code>VarSetStrCapacity(&amp;var, -1)</code>を使用してください）。</p>
 <p>SendMessageとPostMessageは、失敗（またはタイムアウト）時に例外を投げるようになり、ErrorLevelを設定しないようになりました。SendMessageは、メッセージの返信を返します。</p>
 <p><a href="lib/SetTimer.htm">SetTimer</a>はラベル名や関数名をサポートしなくなりましたが、式が使えるようになり、関数は名前で直接参照できるようになったので、使い方は非常に似ています：<code>SetTimer MyFunc</code>. オブジェクトを受け取る他の関数と同様に、SetTimerもオブジェクトを返す式が使えるようになりました（以前は変数参照が必要でした）。</p>
 <p><a href="lib/Sort.htm">Sort</a>は、以下の変更を受けました：</p>
@@ -628,15 +628,15 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>デバイス名やコンポーネント名を取得するための<a href="lib/SoundGetName.htm">SoundGetName</a>を追加しました。</li>
 <li>COMインターフェースを取得するための<a href="lib/SoundGetInterface.htm">SoundGetInterface</a>を追加しました。</li>
 </ul>
-<p><a href="lib/StrGet.htm">StrGet</a>:<em>Length</em>が負の場合、その絶対値は、文字列が含むかもしれない2進数のゼロを含む、変換する正確な文字数を示します--言い換えれば、結果は常に正確にその長さの文字列になります。<em>Length</em>が正の場合、変換後の文字列はv1のように最初の2進数ゼロで終了する。</p>
-<p><a href="lib/StrGet.htm">StrGet</a>/<a href="lib/StrPut.htm">StrPut</a>:<em>Address</em>パラメータには、新しい<code>Buffer</code>オブジェクトのような<code>Ptr</code>と <code>Size</code>プロパティを持つオブジェクトを指定することができます。読み書きが自動的に制限されるのは、<code>Size</code>（単位はバイト）です。<em>Length</em>も指定された場合は、<em>Size</em>（UTF-16の場合は2倍）を超えてはならない。</p>
-<p>StrPutの戻り値がバイト単位になったので、Buffer()に直接渡すことができる。</p>
+<p><a href="lib/StrGet.htm">StrGet</a>:<em>Length</em>が負の場合、その絶対値は、文字列が含むかもしれない2進数のゼロを含む、変換する正確な文字数を示します--言い換えれば、結果は常に正確にその長さの文字列になります。<em>Length</em>が正の場合、変換後の文字列はv1のように最初の2進数ゼロで終了します。</p>
+<p><a href="lib/StrGet.htm">StrGet</a>/<a href="lib/StrPut.htm">StrPut</a>:<em>Address</em>パラメータには、新しい<code>Buffer</code>オブジェクトのような<code>Ptr</code>と <code>Size</code>プロパティを持つオブジェクトを指定することができます。読み書きが自動的に制限されるのは、<code>Size</code>（単位はバイト）です。<em>Length</em>も指定された場合は、<em>Size</em>（UTF-16の場合は2倍）を超えてはいけません。</p>
+<p>StrPutの戻り値がバイト単位になったので、Buffer()に直接渡すことができます。</p>
 <p><a href="lib/StrReplace.htm">StrReplace</a>では、<em>OutputVarCount</em>の代わりに<em>CaseSense</em>パラメータが追加され、パラメータが1つ右に移動し、<em>Limit</em>がそれに続いています。</p>
 <p><a href="lib/Suspend.htm">Suspend</a>:ホットキーやホットストリングの最初の行をSuspendの呼び出しにすることで、自動的にSuspendが免除されるようになることはなくなりました。代わりに、<code>#SuspendExempt</code>または<code>S</code>オプションを使用してください。"Permit" パラメータ値は無効となりました。</p>
 <p><a href="lib/Switch.htm">Switch</a>は、デフォルトで文字列の大文字小文字を区別して比較するようになりました。また、大文字小文字を区別するモードを上書きし、（数値ではなく）文字列の比較を強制する<em>CaseSense</em>パラメータがあります。以前はStringCaseSenseがOnに変更された場合のみ大文字と小文字を区別していました。</p>
 <p><a href="lib/SysGet.htm">SysGet</a>のサブコマンドは数値のみとなり、その他のサブコマンドは関数に分割されました。詳しくは後述の「<a href="#sub-commands">サブコマンド</a>」をご覧ください。</p>
-<p>TrayTipの使い方が、<code>TrayTip [Text, Title, Options]</code>に変更になりました。<em>オプション</em>は、スペースまたはタブで区切られた、0個以上の大文字小文字を区別しないオプションの文字列です。オプションは、<code>Iconx</code>、<code>Icon！</code>、<code>Iconi</code>、<code>Mute</code>、および以前のように任意の数値です。<em>Text</em>が省略されてもTrayTipが表示されるようになった（v1より誤ってやってしまいにくくなった）。<em>Seconds</em>パラメータは、もはや存在しません（Windows Vista以降では効果がありませんでした）。スクリプトは、NIIF_USER (0x4) と NIIF_LARGE_ICON (0x20) フラグを組み合わせて (0x24) 使用し、トレイアイコンの大きいバージョンを通知に含めることができるようになります。NIIF_USER (0x4) は、小さなアイコンのために単独で使用することもできますが、すべてのOSで一貫した結果を得ることができない場合があります。</p>
-<p>設定されていない変数を読み込むとエラーが発生するようになったため、#Warn UseUnsetLocal と UseUnsetGlobal は削除されました。<a href="lib/IsSet.htm">IsSet</a>でエラーを回避し、<a href="lib/Try.htm">try/</a><a href="lib/Catch.htm">catch</a>または<a href="lib/OnError.htm">OnError</a>で処理することができます。</p>
+<p>TrayTipの使い方が、<code>TrayTip [Text, Title, Options]</code>に変更になりました。<em>オプション</em>は、スペースまたはタブで区切られた、0個以上の大文字小文字を区別しないオプションの文字列です。オプションは、<code>Iconx</code>、<code>Icon！</code>、<code>Iconi</code>、<code>Mute</code>、および以前のように任意の数値です。<em>Text</em>が省略されてもTrayTipが表示されるようになった（v1より誤ってやってしまいにくくなりました）。<em>Seconds</em>パラメータは、もはや存在しません（Windows Vista以降では効果がありませんでした）。スクリプトは、NIIF_USER (0x4) と NIIF_LARGE_ICON (0x20) フラグを組み合わせて (0x24) 使用し、トレイアイコンの大きいバージョンを通知に含めることができるようになります。NIIF_USER (0x4) は、小さなアイコンのために単独で使用することもできますが、すべてのOSで一貫した結果を得ることができない場合があります。</p>
+<p>設定されていない変数を読み込むとエラーが発生するようになったため、#Warn UseUnsetLocal と UseUnsetGlobal は削除されました。<a href="lib/IsSet.htm">IsSet</a>でエラーを回避し、<a href="lib/Try.htm">try</a>/<a href="lib/Catch.htm">catch</a>または<a href="lib/OnError.htm">OnError</a>で処理することができます。</p>
 <p><a href="lib/_Warn.htm#VarUnset">#Warn VarUnset</a>を追加しました。デフォルトは MsgBox です。無効化されていない場合、各変数への最初の非動的参照で、直接の非動的代入や参照演算子（&amp;）の対象として使用されたり、IsSetに直接渡されたりすることがない場合に警告が表示されます。</p>
 <p>Exit が通常の関数になったため、<a href="lib/_Warn.htm#Unreachable">#Warn Unreachable で</a> <code>Exit</code>呼び出しに続く行を到達不能と見なさないようにしました。</p>
 <p>トップレベルのクラスが割り当てによって上書きされることがなくなったため、#Warn ClassOverwriteは削除されました。(ただし、ローカル変数によって暗黙的にシャドウされることができるようになりました。これは#Warn LocalSameAsGlobalで検出できます)。</p>
