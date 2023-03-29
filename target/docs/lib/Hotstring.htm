@@ -108,8 +108,8 @@ MsgBox "The previous value was: " prev_chars</pre>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExHelper">
-<p><a class="ex_number" href="#ExHelper"></a> Hotstring Helper. The following script might be useful if you are a heavy user of hotstrings. It's based on the v1 script created by Andreas Borutta. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>
-<pre>#h::  <em>; Win+H hotkey</em>
+<p><a class="ex_number" href="#ExHelper"></a>  Hotstring Helper. The following script might be useful if you are a heavy user of hotstrings. It's based on the v1 script created by Andreas Borutta. By pressing <kbd>Win</kbd>+<kbd>H</kbd> (or another hotkey of your choice), the currently selected text can be turned into a hotstring.  For example, if you have "by the way" selected in a word processor, pressing <kbd>Win</kbd>+<kbd>H</kbd> will prompt you for its abbreviation (e.g. btw), add the new hotstring to the script and activate it.</p>
+<pre>#h::<em>; Win+H hotkey</em>
 {
     <em>; Get the text currently selected. The clipboard is used instead of
     ; EditGetSelectedText because it works in a greater variety of editors
@@ -117,22 +117,22 @@ MsgBox "The previous value was: " prev_chars</pre>
     ; restored later. Although this handles only plain text, it seems better
     ; than nothing:</em>
     ClipboardOld := A_Clipboard
-    A_Clipboard := "" <em>; Must start off blank for detection to work.</em>
+    A_Clipboard := ""<em>; Must start off blank for detection to work.</em>
     Send "^c"
-    if !ClipWait(1)  <em>; ClipWait timed out.</em>
+    if !ClipWait(1)<em>; ClipWait timed out.</em>
     {
-        A_Clipboard := ClipboardOld <em>; Restore previous contents of clipboard before returning.</em>
+        A_Clipboard := ClipboardOld<em>; Restore previous contents of clipboard before returning.</em>
         return
     }
     <em>; Replace CRLF and/or LF with `n for use in a "send-raw" hotstring:
 ; The same is done for any other characters that might otherwise
     ; be a problem in raw mode:</em>
-    ClipContent := StrReplace(A_Clipboard, "``", "````")  <em>; Do this replacement first to avoid interfering with the others below.</em>
+    ClipContent := StrReplace(A_Clipboard, "``", "````")<em>; Do this replacement first to avoid interfering with the others below.</em>
     ClipContent := StrReplace(ClipContent, "`r`n", "``n")
     ClipContent := StrReplace(ClipContent, "`n", "``n")
     ClipContent := StrReplace(ClipContent, "`t", "``t")
     ClipContent := StrReplace(ClipContent, "`;", "```;")
-    A_Clipboard := ClipboardOld  <em>; Restore previous contents of clipboard.</em>
+    A_Clipboard := ClipboardOld<em>; Restore previous contents of clipboard.</em>
     ShowInputBox(":T:`::" ClipContent)
 }
 
@@ -147,7 +147,7 @@ ShowInputBox(DefaultValue)
 
 Example entry::T:btw`::by the way
     )", "New Hotstring",, DefaultValue)
-    if IB.Result = "Cancel"  <em>; The user pressed Cancel.</em>
+    if IB.Result = "Cancel"<em>; The user pressed Cancel.</em>
         return
 
 if RegExMatch(IB.Value, "(?P&lt;Label&gt;:.*?:(?P&lt;Abbreviation&gt;.*?))::(?P&lt;Replacement&gt;.*)", &amp;Entered)
@@ -158,8 +158,8 @@ if RegExMatch(IB.Value, "(?P&lt;Label&gt;:.*?:(?P&lt;Abbreviation&gt;.*?))::(?P&
             MsgText := "You didn't provide a replacement"
         else
         {
-            Hotstring Entered.Label, Entered.Replacement  <em>; Enable the hotstring now.</em>
-            FileAppend "`n" IB.Value, A_ScriptFullPath  <em>; Save the hotstring for later use.</em>
+            Hotstring Entered.Label, Entered.Replacement<em>; Enable the hotstring now.</em>
+            FileAppend "`n" IB.Value, A_ScriptFullPath<em>; Save the hotstring for later use.</em>
         }
     }
     else

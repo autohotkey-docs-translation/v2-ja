@@ -28,7 +28,7 @@
   <dt>&amp;Ref</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>An indirect reference to the variable. This would usually not be passed directly, as in <code>IsSetRef(&amp;MyVar)</code>, but indirectly, such as to check a parameter <em>containing</em> a VarRef prior to <a href="../Variables.htm#deref">dereferencing</a> it. </p>
+    <p>An indirect reference to the variable. This would usually not be passed directly, as in <code>IsSetRef(&amp;MyVar)</code>, but indirectly, such as to check a parameter <em>containing</em> a VarRef prior to <a href="../Variables.htm#deref">dereferencing</a> it.  </p>
   </dd>
 
 </dl>
@@ -49,26 +49,26 @@
 <p><a href="../Functions.htm#ByRef">ByRef parameters</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Shows different uses for IsSet and IsSetRef.</p>
+<p><a class="ex_number" href="#ExBasic"></a>  Shows different uses for IsSet and IsSetRef.</p>
 <pre>
 Loop 2
-    if !IsSet(MyVar)  <em>; Is this the first "use" of MyVar?</em>
-        MyVar := A_Index  <em>; Initialize on first "use".</em>
+    if !IsSet(MyVar)<em>; Is this the first "use" of MyVar?</em>
+        MyVar := A_Index<em>; Initialize on first "use".</em>
 MsgBox Function1(&amp;MyVar)
 MsgBox Function2(&amp;MyVar)
 
-Function1(&amp;Param)  <em>; ByRef parameter.</em>
+Function1(&amp;Param)<em>; ByRef parameter.</em>
 {
-    if IsSet(Param)  <em>; Pass Param itself, which is an alias for MyVar.</em>
-        return Param  <em>; ByRef parameters are automatically dereferenced.</em>
+    if IsSet(Param)<em>; Pass Param itself, which is an alias for MyVar.</em>
+        return Param<em>; ByRef parameters are automatically dereferenced.</em>
     else
         return "unset"
 }
 
 Function2(Param)
 {
-    if IsSetRef(Param)  <em>; Pass the VarRef contained by Param.</em>
-        return %Param%  <em>; Explicitly dereference Param.</em>
+    if IsSetRef(Param)<em>; Pass the VarRef contained by Param.</em>
+        return %Param%<em>; Explicitly dereference Param.</em>
     else
         return "unset"
 }</pre>

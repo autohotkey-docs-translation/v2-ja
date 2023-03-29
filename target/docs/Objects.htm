@@ -38,7 +38,7 @@ ul.list_of_p li { margin: 1em 0; }
   <li><a href="#Usage">Basic Usage</a> - <a href="#Usage_Simple_Arrays">Arrays</a>, <a href="#Usage_Associative_Arrays">Maps (Associative Arrays)</a>, <a href="#Usage_Objects">Objects</a>, <a href="#Usage_Freeing_Objects">Freeing Objects</a></li>
   <li><a href="#Extended_Usage">Extended Usage</a> - <a href="#Usage_Arrays_of_Arrays">Arrays of Arrays</a></li>
   <li><a href="#Custom_Objects">Custom Objects</a> - <a href="#creating-a-base-object">Creating a Base Object</a>, <a href="#Custom_Classes">Classes</a>, <a href="#Custom_NewDelete">Construction and Destruction</a>, <a href="#Meta_Functions">Meta-Functions</a></li>
-  <li><a href="#primitive">Primitive Values</a></li>
+  <li><a href="#primitive">プリミティブ値</a></li>
   <li><a href="#Implementation">Implementation</a> - <a href="#Reference_Counting">Reference-Counting</a>, <a href="#ObjPtr">Pointers to Objects</a></li>
 </ul>
 
@@ -131,11 +131,11 @@ arr[1] := {}  <em>; Creates a second object, implicitly freeing the first object
 arr.RemoveAt(1)  <em>; Removes and frees the second object.</em></pre>
 <p id="Circular_References">Because all references to an object must be released before the object can be freed, objects containing circular references aren't freed automatically. For instance, if <code>x.child</code> refers to <code>y</code> and <code>y.parent</code> refers to <code>x</code>, clearing <code>x</code> and <code>y</code> is not sufficient since the parent object still contains a reference to the child and vice versa. To resolve this situation, remove the circular reference.</p>
 <pre>
-x := {}, y := {}             <em>; Create two objects.</em>
-x.child := y, y.parent := x  <em>; Create a circular reference.</em>
+x := {}, y := {}<em>; Create two objects.</em>
+x.child := y, y.parent := x<em>; Create a circular reference.</em>
 
-y.parent := ""               <em>; The circular reference must be removed before the objects can be freed.</em>
-x := "", y := ""             <em>; Without the above line, this would not free the objects.</em>
+y.parent := ""<em>; The circular reference must be removed before the objects can be freed.</em>
+x := "", y := ""<em>; Without the above line, this would not free the objects.</em>
 </pre>
 <p>For more advanced usage and details, see <a href="#Reference_Counting">Reference Counting</a>.</p>
 
@@ -263,7 +263,7 @@ static Method()
         ...
     }
 
-Property[<i>Parameters</i>]  <em>; Use brackets only when parameters are present.</em>
+Property[<i>Parameters</i>]<em>; Use brackets only when parameters are present.</em>
     {
         <span class="dec">get</span> {
             return <i>value of property</i>
@@ -295,7 +295,7 @@ ShorterProperty =&gt; <i>Expression which calculates property value</i>
 <p>To access an instance variable (even within a method), always specify the target object; for example, <code><b>this</b>.InstanceVar</code>.</p>
 <p>Declarations like <code>x.y := z</code> are also supported, provided that <code>x</code> was previously defined in this class. For example, <code>x := {}, x.y := 42</code> declares <code>x</code> and also initializes <code>this.x.y</code>.</p>
 
-<h4 id="Custom_Classes_staticvar">Static/Class Variables</h4>
+<h4 id="Custom_Classes_staticvar">静的クラス変数</h4>
 <p>Static/class variables belong to the class itself, but their values can be inherited by subclasses. They are declared like instance variables, but using the static keyword:</p>
 <pre>static ClassVar := Expression</pre>
 <p>These declarations are evaluated only once, when the class is <a href="#static__New">initialized</a>. A static method named <em>__Init</em> is automatically defined for this purpose.</p>
@@ -389,7 +389,7 @@ Method()
     }
 }
 
-Env["PATH"] .= ";" A_ScriptDir  <em>; Only affects this script and child processes.</em>
+Env["PATH"] .= ";" A_ScriptDir<em>; Only affects this script and child processes.</em>
 MsgBox Env["PATH"]</pre>
 <p><code>__Item</code> is effectively a default property name (if such a property has been defined):</p>
 <ul>
@@ -444,13 +444,13 @@ __Delete()
 MsgBox B.SharedValue
 
 class A {
-    static SharedArray := B.SharedArray   <em>; A1          ; B3</em>
-    static SharedValue := 42                            <em>; B4</em>
+    static SharedArray := B.SharedArray<em>; A1          ; B3</em>
+    static SharedValue := 42<em>; B4</em>
 }
 
 class B {
-    static SharedArray := StrSplit("XYZ") <em>; A2          ; B1</em>
-    static SharedValue := A.SharedValue   <em>; A3 (Error)  ; B2</em>
+    static SharedArray := StrSplit("XYZ")<em>; A2          ; B1</em>
+    static SharedValue := A.SharedValue<em>; A3 (Error)  ; B2</em>
 }</pre>
 
 <h3 id="Meta_Functions">Meta-Functions</h3>
@@ -476,7 +476,7 @@ class <i>ClassName</i> {
   <li><i>Call</i>: Throw a <a href="lib/Error.htm#MethodError">MethodError</a>.</li>
   <li>If parameters were given, throw an exception (there's no object to forward the parameters to).</li>
   <li><i>Get</i>: Throw a <a href="lib/Error.htm#PropertyError">PropertyError</a>.</li>
-  <li><i>Set</i>: Define a new property with the given value, such as by calling <a href="lib/Object.htm#DefineProp">DefineProp</a>. </li>
+  <li><i>Set</i>: Define a new property with the given value, such as by calling <a href="lib/Object.htm#DefineProp">DefineProp</a>.  </li>
 </ul>
 <p>Any <a href="misc/Functor.htm">callable object</a> can be used as a meta-function by assigning it to the relevant property.</p>
 <p>Meta-functions are not called in the following cases:</p>
@@ -490,10 +490,10 @@ class <i>ClassName</i> {
 <p><a href="#Custom_Classes_property">Property syntax</a> and <a href="lib/Object.htm#DefineProp">DefineProp</a> can be used to define properties which compute a value each time they are evaluated, but each property must be defined in advance. By contrast, <em>__Get</em> and <em>__Set</em> can be used to implement properties which are known only at the moment they are invoked.</p>
 <p>For example, a "proxy" object could be created which sends requests for properties over the network (or through some other channel). A remote server would send back a response containing the value of the property, and the proxy would return the value to its caller. Even if the name of each property was known in advance, it would not be logical to define each property individually in the proxy class since every property does the same thing (send a network request). Meta-functions receive the property name as a parameter, so are a good solution to this problem.</p>
 
-<h2 id="primitive">Primitive Values</h2>
+<h2 id="primitive">プリミティブ値</h2>
 <p>Primitive values, such as strings and numbers, cannot have their own properties and methods. However, primitive values support the same kind of <a href="#delegation">delegation</a> as objects. That is, any property or method call on a primitive value is delegated to a predefined prototype object, which is also accessible via the <a href="lib/Class.htm#Prototype">Prototype</a> property of the corresponding class. The following classes relate to primitive values:</p>
 <ul style="line-height: 1.5">
-  <li>Primitive (extends <a href="lib/Any.htm">Any</a>) <ul style="padding-left: 1.7em">
+  <li>Primitive (extends <a href="lib/Any.htm">Any</a>)  <ul style="padding-left: 1.7em">
     <li>番号 <ul style="padding-left: 1.7em">
       <li>Float</li>
       <li>整数</li>

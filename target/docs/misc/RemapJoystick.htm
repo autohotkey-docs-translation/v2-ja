@@ -64,25 +64,25 @@ Joy4::Send "Sincerely,{Enter}John Smith"  <em>; Have button #4 send a two-line s
 <p>This method is necessary in cases where a key or mouse button must be held down for the entire time that you're holding down a joystick button. The following example makes the joystick's second button become the left-arrow key:</p>
 <pre>Joy2::
 {
-    Send "{Left down}"  <em>; Hold down the left-arrow key.</em>
-    <a href="../lib/KeyWait.htm">KeyWait</a> "Joy2"  <em>; Wait for the user to release the joystick button.</em>
-    Send "{Left up}"  <em>; Release the left-arrow key.</em>
+    Send "{Left down}"<em>; Hold down the left-arrow key.</em>
+    <a href="../lib/KeyWait.htm">KeyWait</a> "Joy2"<em>; Wait for the user to release the joystick button.</em>
+    Send "{Left up}"<em>; Release the left-arrow key.</em>
 }</pre>
 
 <h4 id="Method_3">Method #3</h4>
 <p>This method is necessary in cases where you have more than one joystick hotkey of the type described in Method #2, and you sometimes press and release such hotkeys simultaneously. The following example makes the joystick's third button become the left mouse button:</p>
 <pre>Joy3::
 {
-    Send "{LButton down}"   <em>; Hold down the left mouse button.</em>
+    Send "{LButton down}"<em>; マウスの左ボタンを押したままにします。</em>
     SetTimer WaitForButtonUp3, 10
 }
 
 WaitForButtonUp3()
 {
-    if <a href="../lib/GetKeyState.htm">GetKeyState</a>("Joy3")  <em>; The button is still, down, so keep waiting.</em>
+    if <a href="../lib/GetKeyState.htm">GetKeyState</a>("Joy3")<em>; The button is still, down, so keep waiting.</em>
         return
     <em>; Otherwise, the button has been released.</em>
-    Send "{LButton up}"  <em>; Release the left mouse button.</em>
+    Send "{LButton up}"<em>; Release the left mouse button.</em>
     SetTimer , 0
 }
 </pre>
@@ -91,20 +91,20 @@ WaitForButtonUp3()
 <p>Some programs or games might require a key to be sent repeatedly (as though you are holding it down on the keyboard). The following example achieves this by sending spacebar keystrokes repeatedly while you hold down the joystick's second button:</p>
 <pre>Joy2::
 {
-    Send "{Space down}"   <em>; Press the spacebar down.</em>
-    SetTimer WaitForJoy2, <strong>30</strong>  <em>; Reduce the number <strong>30</strong> to 20 or 10 to send keys faster. Increase it to send slower.</em>
+    Send "{Space down}"<em>; Press the spacebar down.</em>
+    SetTimer WaitForJoy2, <strong>30</strong><em>; Reduce the number <strong>30</strong> to 20 or 10 to send keys faster. Increase it to send slower.</em>
 }
 
 WaitForJoy2()
 {
-    if not GetKeyState("Joy2")  <em>; The button has been released.</em>
+    if not GetKeyState("Joy2")<em>; The button has been released.</em>
     {
-        Send "{Space up}"  <em>; Release the spacebar.</em>
-        SetTimer , 0  <em>; Stop monitoring the button.</em>
+        Send "{Space up}"<em>; Release the spacebar.</em>
+        SetTimer , 0<em>; Stop monitoring the button.</em>
         return
     }
     <em>; Since above didn't "return", the button is still being held down.</em>
-    Send "{Space down}"  <em>; Send another Spacebar keystroke.</em>
+    Send "{Space down}"<em>; Send another Spacebar keystroke.</em>
 }</pre>
 
 <h3 id="context-sensitive-joystick-buttons">Context-sensitive Joystick Buttons</h3>
@@ -122,9 +122,9 @@ WaitForJoy2()
 
 WatchAxis()
 {
-    JoyX := <a href="../lib/GetKeyState.htm">GetKeyState</a>("JoyX")  <em>; Get position of X axis.</em>
-    JoyY := GetKeyState("JoyY")  <em>; Get position of Y axis.</em>
-    KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
+    JoyX := <a href="../lib/GetKeyState.htm">GetKeyState</a>("JoyX")<em>; Get position of X axis.</em>
+    JoyY := GetKeyState("JoyY")<em>; Get position of Y axis.</em>
+    KeyToHoldDownPrev := KeyToHoldDown<em>; Prev now holds the key that was down before (if any).</em>
 
 if JoyX &gt; 70
         KeyToHoldDown := "Right"
@@ -137,15 +137,15 @@ if JoyX &gt; 70
     else
         KeyToHoldDown := ""
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
-        return  <em>; Do nothing.</em>
+if KeyToHoldDown = KeyToHoldDownPrev<em>; The correct key is already down (or no key is needed).</em>
+        return<em>; Do nothing.</em>
 
 <em>; Otherwise, release the previous key and press down the new key:</em>
-    SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
-    if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
-        Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>
-    if KeyToHoldDown   <em>; There is a key to press down.</em>
-        Send "{" KeyToHoldDown " down}"  <em>; Press it down.</em>
+    SetKeyDelay -1<em>; Avoid delays between keystrokes.</em>
+    if KeyToHoldDownPrev<em>; There is a previous key to release.</em>
+        Send "{" KeyToHoldDownPrev " up}"<em>; Release it.</em>
+    if KeyToHoldDown<em>; There is a key to press down.</em>
+        Send "{" KeyToHoldDown " down}"<em>; Press it down.</em>
 }</pre>
 
 <h3 id="joystick-pov-hat">Joystick POV Hat</h3>
@@ -155,33 +155,33 @@ if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or 
 WatchPOV()
 {
     static KeyToHoldDown := ""
-    POV := GetKeyState("JoyPOV")  <em>; Get position of the POV control.</em>
-    KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
+    POV := GetKeyState("JoyPOV")<em>; Get position of the POV control.</em>
+    KeyToHoldDownPrev := KeyToHoldDown<em>; Prev now holds the key that was down before (if any).</em>
 
 <em>; Some joysticks might have a smooth/continous POV rather than one in fixed increments.
 ; To support them all, use a range:</em>
-    if POV &lt; 0   <em>; No angle to report</em>
+    if POV &lt; 0<em>; No angle to report</em>
         KeyToHoldDown := ""
-    else if POV &gt; 31500                <em>; 315 to 360 degrees: Forward</em>
+    else if POV &gt; 31500<em>; 315 to 360 degrees: Forward</em>
         KeyToHoldDown := "Up"
-    else if POV &gt;= 0 and POV &lt;= 4500      <em>; 0 to 45 degrees: Forward</em>
+    else if POV &gt;= 0 and POV &lt;= 4500<em>; 0 to 45 degrees: Forward</em>
         KeyToHoldDown := "Up"
-    else if POV &gt;= 4501 and POV &lt;= 13500  <em>; 45 to 135 degrees: Right</em>
+    else if POV &gt;= 4501 and POV &lt;= 13500<em>; 45 to 135 degrees: Right</em>
         KeyToHoldDown := "Right"
-    else if POV &gt;= 13501 and POV &lt;= 22500 <em>; 135 to 225 degrees: Down</em>
+    else if POV &gt;= 13501 and POV &lt;= 22500<em>; 135 to 225 degrees: Down</em>
         KeyToHoldDown := "Down"
-    else                                  <em>; 225 to 315 degrees: Left</em>
+    else<em>; 225 to 315 degrees: Left</em>
         KeyToHoldDown := "Left"
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
-        return  <em>; Do nothing.</em>
+if KeyToHoldDown = KeyToHoldDownPrev<em>; The correct key is already down (or no key is needed).</em>
+        return<em>; Do nothing.</em>
 
 <em>; Otherwise, release the previous key and press down the new key:</em>
-    SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
-    if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
-        Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>
-    if KeyToHoldDown   <em>; There is a key to press down.</em>
-        Send "{" KeyToHoldDown " down}"  <em>; Press it down.</em>
+    SetKeyDelay -1<em>; Avoid delays between keystrokes.</em>
+    if KeyToHoldDownPrev<em>; There is a previous key to release.</em>
+        Send "{" KeyToHoldDownPrev " up}"<em>; Release it.</em>
+    if KeyToHoldDown<em>; There is a key to press down.</em>
+        Send "{" KeyToHoldDown " down}"<em>; Press it down.</em>
 }</pre>
 
 <h3 id="auto-repeating-other">Auto-repeating a Keystroke</h3>

@@ -29,6 +29,7 @@
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
+    
     <ul>
       <li><a href="#Add">Add</a>: Adds or modifies a menu item.</li>
       <li><a href="#AddStandard">AddStandard</a>: Adds the standard tray menu items.</li>
@@ -47,6 +48,7 @@
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
+    
     <ul>
       <li><a href="#ClickCount">ClickCount</a>: Retrieves or sets the number of clicks required to activate the tray menu's default item.</li>
       <li><a href="#Default">Default</a>: Retrieves or sets the default menu item.</li>
@@ -54,6 +56,7 @@
     </ul>
   </li>
   <li>General:
+    
     <ul>
       <li><a href="#MenuItemName">MenuItemName</a></li>
       <li><a href="#Win32_Menus">Win32 Menus</a></li>
@@ -389,9 +392,9 @@ MyMenuBar := <span class="func">MenuBar</span>()
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Adds a new menu item to the bottom of the tray icon menu.</p>
-<pre>A_TrayMenu.Add()  <em>; Creates a separator line.</em>
-A_TrayMenu.Add("Item1", MenuHandler)  <em>; Creates a new menu item.</em>
+<p><a class="ex_number" href="#ExBasic"></a>  Adds a new menu item to the bottom of the tray icon menu.</p>
+<pre>A_TrayMenu.Add()<em>; Creates a separator line.</em>
+A_TrayMenu.Add("Item1", MenuHandler)<em>; Creates a new menu item.</em>
 Persistent
 
 MenuHandler(ItemName, ItemPos, MyMenu) {
@@ -400,12 +403,12 @@ MenuHandler(ItemName, ItemPos, MyMenu) {
 </div>
 
 <div class="ex" id="ExPopup">
-<p><a class="ex_number" href="#ExPopup"></a> Creates a popup menu that is displayed when the user presses a hotkey.</p>
+<p><a class="ex_number" href="#ExPopup"></a>  Creates a popup menu that is displayed when the user presses a hotkey.</p>
 <pre><em>; Create the popup menu by adding some items to it.</em>
 MyMenu := Menu()
 MyMenu.Add "Item 1", MenuHandler
 MyMenu.Add "Item 2", MenuHandler
-MyMenu.Add  <em>; Add a separator line.</em>
+MyMenu.Add<em>; Add a separator line.</em>
 
 <em>; Create another menu destined to become a submenu of the above menu.</em>
 Submenu1 := Menu()
@@ -415,23 +418,23 @@ Submenu1.Add "Item B", MenuHandler
 <em>; Create a submenu in the first menu (a right-arrow indicator). When the user selects it, the second menu is displayed.</em>
 MyMenu.Add "My Submenu", Submenu1
 
-MyMenu.Add  <em>; Add a separator line below the submenu.</em>
-MyMenu.Add "Item 3", MenuHandler  <em>; Add another menu item beneath the submenu.</em>
+MyMenu.Add<em>; Add a separator line below the submenu.</em>
+MyMenu.Add "Item 3", MenuHandler<em>; Add another menu item beneath the submenu.</em>
 
 MenuHandler(Item, *) {
     MsgBox "You selected " Item
 }
 
-#z::MyMenu.Show  <em>; i.e. press the Win-Z hotkey to show the menu.</em></pre>
+#z::MyMenu.Show<em>; i.e. press the Win-Z hotkey to show the menu.</em></pre>
 </div>
 
 <div class="ex" id="ExTray">
-<p><a class="ex_number" href="#ExTray"></a> Demonstrates some of the various menu object members.</p>
+<p><a class="ex_number" href="#ExTray"></a>  Demonstrates some of the various menu object members.</p>
 <pre>#SingleInstance
 Persistent
-tray := A_TrayMenu <em>; For convenience.</em>
-tray.delete <em>; Delete the standard items.</em>
-tray.add <em>; separator</em>
+tray := A_TrayMenu<em>; For convenience.</em>
+tray.delete<em>; Delete the standard items.</em>
+tray.add<em>; separator</em>
 tray.add "TestToggleCheck", TestToggleCheck
 tray.add "TestToggleEnable", TestToggleEnable
 tray.add "TestDefault", TestDefault
@@ -446,8 +449,8 @@ tray.add "Test", Test
 TestToggleCheck(*)
 {
     tray.ToggleCheck "TestToggleCheck"
-    tray.Enable "TestToggleEnable" <em>; Also enables the next test since it can't undo the disabling of itself.</em>
-    tray.add "TestDelete", TestDelete <em>; Similar to above.</em>
+    tray.Enable "TestToggleEnable"<em>; Also enables the next test since it can't undo the disabling of itself.</em>
+    tray.add "TestDelete", TestDelete<em>; Similar to above.</em>
 }
 
 TestToggleEnable(*)
@@ -501,14 +504,14 @@ Test(Item, *)
 </div>
 
 <div class="ex" id="ExIcon">
-<p><a class="ex_number" href="#ExIcon"></a> Demonstrates how to add icons to menu items.</p>
+<p><a class="ex_number" href="#ExIcon"></a>  Demonstrates how to add icons to menu items.</p>
 <pre>FileMenu := Menu()
 FileMenu.Add("Script Icon", MenuHandler)
 FileMenu.Add("Suspend Icon", MenuHandler)
 FileMenu.Add("Pause Icon", MenuHandler)
-FileMenu.SetIcon("Script Icon", A_AhkPath, 2) <em>; 2nd icon group from the file</em>
-FileMenu.SetIcon("Suspend Icon", A_AhkPath, -206) <em>; icon with resource ID 206</em>
-FileMenu.SetIcon("Pause Icon", A_AhkPath, -207) <em>; icon with resource ID 207</em>
+FileMenu.SetIcon("Script Icon", A_AhkPath, 2)<em>; 2nd icon group from the file</em>
+FileMenu.SetIcon("Suspend Icon", A_AhkPath, -206)<em>; icon with resource ID 206</em>
+FileMenu.SetIcon("Pause Icon", A_AhkPath, -207)<em>; icon with resource ID 207</em>
 MyMenuBar := MenuBar()
 MyMenuBar.Add("&amp;File", FileMenu)
 MyGui := Gui()
@@ -522,7 +525,7 @@ MenuHandler(*) {
 </div>
 
 <div class="ex" id="ExDllCall">
-<p><a class="ex_number" href="#ExDllCall"></a> Reports the number of items in a menu and the ID of the last item.</p>
+<p><a class="ex_number" href="#ExDllCall"></a>  Reports the number of items in a menu and the ID of the last item.</p>
 <pre>
 MyMenu := Menu()
 MyMenu.Add "Item 1", NoAction

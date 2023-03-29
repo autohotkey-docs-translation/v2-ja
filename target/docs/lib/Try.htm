@@ -45,24 +45,24 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ex_basic">
-<p><a class="ex_number" href="#ex_basic"></a> Demonstrates the basic concept of try/catch/throw.</p>
-<pre>try  <em>; Attempts to execute code.</em>
+<p><a class="ex_number" href="#ex_basic"></a>  Demonstrates the basic concept of try/catch/throw.</p>
+<pre>try<em>; Attempts to execute code.</em>
 {
     HelloWorld
     MakeToast
 }
-catch as e  <em>; Handles the first error thrown by the block above.</em>
+catch as e<em>; Handles the first error thrown by the block above.</em>
 {
     MsgBox "An error was thrown!`nSpecifically:" e.Message
     Exit
 }
 
-HelloWorld()  <em>; Always succeeds.</em>
+HelloWorld()<em>; Always succeeds.</em>
 {
     MsgBox "Hello, world!"
 }
 
-MakeToast()  <em>; Always fails.</em>
+MakeToast()<em>; Always fails.</em>
 {
     <em>; Jump immediately to the try block's error handler:</em>
     <a href="Throw.htm">throw</a> Error(A_ThisFunc " is not implemented, sorry")
@@ -71,7 +71,7 @@ MakeToast()  <em>; Always fails.</em>
 </div>
 
 <div class="ex" id="ex_el">
-<p><a class="ex_number" href="#ex_el"></a> Demonstrates basic error handling of built-in functions.</p>
+<p><a class="ex_number" href="#ex_el"></a>  Demonstrates basic error handling of built-in functions.</p>
 <pre>try
 {
     <em>; The following tries to back up certain types of files:</em>
@@ -93,29 +93,29 @@ else
 </div>
 
 <div class="ex" id="ex_com">
-<p><a class="ex_number" href="#ex_com"></a> Demonstrates the use of try/catch dealing with COM errors. For details about the COM object used below, see <a href="https://learn.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa227633(v=vs.60)">Using the ScriptControl (Microsoft Docs)</a>.</p>
+<p><a class="ex_number" href="#ex_com"></a>  Demonstrates the use of try/catch dealing with COM errors. For details about the COM object used below, see <a href="https://learn.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa227633(v=vs.60)">Using the ScriptControl (Microsoft Docs)</a>.</p>
 <pre>try
 {
     obj := ComObject("ScriptControl")
-    obj.ExecuteStatement('MsgBox "This is embedded VBScript"')  <em>; This line produces an Error.</em>
-    obj.InvalidMethod()  <em>; This line would produce a MethodError.</em>
+    obj.ExecuteStatement('MsgBox "This is embedded VBScript"')<em>; This line produces an Error.</em>
+    obj.InvalidMethod()<em>; This line would produce a MethodError.</em>
 }
-catch MemberError  <em>; Covers MethodError and PropertyError.</em>
+catch MemberError<em>; Covers MethodError and PropertyError.</em>
 {
     MsgBox "We tried to invoke a member that doesn't exist."
 }
 catch as e
 {
     <em>; For more detail about the object that e contains, see <a href="Error.htm">Error Object</a>.</em>
-    MsgBox("Exception thrown!`n`nwhat: " e.what "`nfile: " e.file 
-        . "`nline: " e.line "`nmessage: " e.message "`nextra: " e.extra,, 16) 
+    MsgBox("Exception thrown!`n`nwhat:" e.what "`nfile:" e.file
+        . "`nline:" e.line "`nmessage:" e.message "`nextra:" e.extra,, 16)
 }
 </pre>
 </div>
 
 <div class="ex" id="ex_nesting">
-<p><a class="ex_number" href="#ex_nesting"></a> Demonstrates nesting try-catch statements.</p>
-<pre>try Example1 <em>; Any single statement can be on the same line with a Try statement.</em>
+<p><a class="ex_number" href="#ex_nesting"></a>  Demonstrates nesting try-catch statements.</p>
+<pre>try Example1<em>; Any single statement can be on the same line with a Try statement.</em>
 catch Number as e
     MsgBox "Example1() threw " e
 
@@ -125,7 +125,7 @@ Example1()
     catch Number as e
     {
         if (e = 1)
-            throw <em>; Rethrow the caught value to our caller.</em>
+            throw<em>; Rethrow the caught value to our caller.</em>
         else
             MsgBox "Example2() threw " e
     }

@@ -204,7 +204,7 @@
 {
     while condition
         <em>; 各繰り返しで実行される ;ステートメント</em>
-} <em>; これらの中括弧は現在必須であり、そうでなければ else は while と関連付けられる。</em>
+}<em>; これらの中括弧は現在必須であり、そうでなければ else は while と関連付けられる。</em>
 else
     <em>; 条件が偽の場合に実行されるステートメント</em>
 </pre>
@@ -264,10 +264,10 @@ else
 <li>ArrayとMapには、オブジェクトの現在の配列またはマップの割り当てに対応するCapacityプロパティがあります。</li>
 </ul>
 <p>その他、冗長なObj関数（Objectの組み込みメソッドをミラーリングしたもの）を削除しました。<a href="lib/Object.htm#HasOwnProp">ObjHasOwnProp</a>（旧ObjHasKey）と<a href="lib/Object.htm#OwnProps">ObjOwnProps</a>（旧ObjNewEnum）は、これらのメソッドを再定義したオブジェクト（およびそれらが定義されていないプリミティブプロトタイプ）を安全に検査するために保持されています。ObjCountは<a href="lib/Object.htm#OwnPropCount">ObjOwnPropCount</a>（機能のみ、すべてのObjectに対して）に置き換えられ、Mapは独自の<a href="lib/Map.htm#Count">Count</a>プロパティを持ちます。</p>
-<p>ObjRawGetとObjRawSetは、<a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>と <a href="lib/Object.htm#DefineProp">DefineProp</a>に統合された。<code>Map</code>タイプ、メタファンクションの動作方法の変更、DefineProp自体がメタファンクションに取って代わるなど、当初追加した理由は他の変更に取って代わられた。</p>
+<p>ObjRawGetとObjRawSetは、<a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>と <a href="lib/Object.htm#DefineProp">DefineProp</a>に統合されました。<code>Map</code>タイプ、メタファンクションの動作方法の変更、DefineProp自体がメタファンクションに取って代わるなど、当初追加した理由は他の変更に取って代わられた。</p>
 <p>つまり、クラス名への代入は、ローカル変数がグローバルクラスの影になる場合（関数内で代入する場合はデフォルトで発生）を除き、オプションの警告ではなく、エラーになるようになりました。</p>
-<h3 id="primitive-values">Primitive Values</h3>
-<p>プリミティブ値は、v1の「デフォルトのベースオブジェクト」の代わりに、メソッドやプロパティの呼び出しをその型に応じたプロトタイプオブジェクトに委ねることで、オブジェクトを模倣します。IntegerとFloatはNumberを拡張しています。StringとNumberはPrimitiveを継承しています。PrimitiveとObjectはAnyを拡張します。これらはすべて、あらかじめ定義されたクラスとして存在します。</p>
+<h3 id="primitive-values">プリミティブ値</h3>
+<p>プリミティブ値は、v1の「デフォルトのベースオブジェクト」の代わりに、メソッドやプロパティの呼び出しをその型に応じたプロトタイプオブジェクトに委ねることで、オブジェクトを模倣します。整数と浮動小数点数はNumberを拡張しています。文字列とNumberはPrimitiveを継承しています。PrimitiveとObjectはAnyを拡張します。これらはすべて、あらかじめ定義されたクラスとして存在します。</p>
 <h3 id="properties-and-methods">プロパティとメソッド</h3>
 <p>メソッドは、v2.0-a104からv2.0-a127までと異なり、プロパティに分離して定義されています。ただし、v1とは異なり、クラスメソッド定義（または組み込みメソッド）で作成されたプロパティは、デフォルトで読み取り専用となります。メソッドは、一般的にv1のように動作する新しい値プロパティを割り当てることによって、まだ作成することができます。</p>
 <p>Objectクラスは、プロパティとメソッドを扱うための新しいメソッドを定義しています：<a href="lib/Object.htm#DefineProp">DefineProp</a>, <a href="lib/Object.htm#DeleteProp">DeleteProp</a>, <a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>, <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>, <a href="lib/Object.htm#OwnProps">OwnProps</a>. すべての値（ComObjectを除く）に対して、追加のメソッドが定義されています：<a href="lib/Any.htm#GetMethod">GetMethod</a>, <a href="lib/Any.htm#HasProp">HasProp</a>, <a href="lib/Any.htm#HasMethod">HasMethod</a>.</p>
@@ -275,18 +275,18 @@ else
 <p>すべての組み込みメソッドとプロパティ（<code>base</code>を含む）は、ユーザー定義と同じ方法で定義されます。これにより、一貫した動作が保証され、組み込みとユーザー定義の両方のメンバーを検出、検索、再定義することができます。</p>
 <p>プロパティがパラメータを受け付けない場合、パラメータは自動的にプロパティが返すオブジェクトに渡されます（または、投げられます）。</p>
 <p>存在しないプロパティを取得しようとすると、<code>__get</code>が定義されていない限り、すべてのタイプの値またはオブジェクトに対してエラーとして扱われる。ただし、存在しないプロパティを設定すると、ほとんどの場合、作成されます。</p>
-<p>多次元配列のハックを削除しました。<code>x.y[z]:=1</code>で<code>x.y</code>にオブジェクトが生成されなくなり、<code>x</code>.__itemが2つのパラメータを扱わない限り（またはx.__item.__itemが扱うなど）<code>x[y,z]</code>はエラーになる。</p>
+<p>多次元配列のハックを削除しました。<code>x.y[z]:=1</code>で<code>x.y</code>にオブジェクトが生成されなくなり、<code>x</code>.__itemが2つのパラメータを扱わない限り（またはx.__item.__itemが扱うなど）<code>x[y,z]</code>はエラーになります。</p>
 <p>プロパティが<code>get</code>を定義し、<code>set</code>を定義していない場合、値を代入すると、プロパティをオーバーライドする代わりにthrowが発生します。</p>
 <p><a href="lib/Object.htm#DefineProp">DefineProp</a>は、メタファンクションを定義することなく、特定のプロパティの取得、設定、<em>または呼び出し</em>時の動作を定義するために使用することができます。クラスのプロパティ定義とメソッド定義は同じ仕組みを利用しているため、プロパティのゲッター/セッターとメソッドを同名で定義することが可能です。</p>
 <p><code>{}</code> オブジェクトリテラルが、<em>所有プロパティ</em>の値やオブジェクトの <code>base</code> を直接設定するようになりました。つまり、<code>__Set</code>やプロパティセッターはもはや呼び出されない（これは通常、パラメータリスト内で<code>base</code>が設定されている場合にのみ可能である）。</p>
-<h3 id="staticclass-variables">Static/Class Variables</h3>
+<h3 id="staticclass-variables">静的クラス変数</h3>
 <p>静的/クラス変数のイニシャライザーは、<code>静的な__Init</code>メソッドのコンテキスト内で実行されるようになったので、<code>これ</code>はクラスを参照し、イニシャライザーはローカル変数を作成することができます。これらは、クラスが初めて参照されたときに評価されます（自動実行部が始まる前に評価されるのではなく、厳密には定義順に評価されます）。クラスがすぐに参照されない場合は、実行中にクラス定義に到達した時点で評価されるため、グローバル変数の初期化は、クラスに入れずに最初に行うことができます。</p>
 <h3 id="meta-functions">Meta-Functions</h3>
 <p>メタファンクションが大幅に簡略化され、通常のメソッドと同じように動作するようになりました：</p>
 <ul>
 <li>階層構造の中でどこに定義されるかは重要ではありません。</li>
-<li>オーバーライドされた場合、ベースバージョンは自動的に呼び出されない。スクリプトは必要に応じて<code>super.__xxx()</code>を呼び出すことができます。</li>
-<li>定義されている場合、デフォルトの動作を行わなければならない。例えば、__setが値を保存しない場合、その値は保存されることはない。</li>
+<li>オーバーライドされた場合、ベースバージョンは自動的に呼び出されません。スクリプトは必要に応じて<code>super.__xxx()</code>を呼び出すことができます。</li>
+<li>定義されている場合、デフォルトの動作を行わなければならりません。例えば、__setが値を保存しない場合、その値は保存されることはありません。</li>
 <li>メソッドが<code>returnを</code>使うかどうかで動作が変わることはありません（もちろん、__getや__callは依然として値を返す必要がありますが）。</li>
 </ul>
 <p>メソッドやプロパティのパラメータは、Arrayとして渡されます。これは、連鎖するベース/スーパークラスの呼び出しを最適化し、（MaxParamsの検証との組み合わせで）作者に引数を処理することを奨励します。For __setの場合、代入される値は別途渡される。</p>
@@ -418,9 +418,13 @@ this.__set(name, args, value)
 <li>StringCaseSense (各種パラメータを使用)</li>
 <li>StringGetPos（<a href="lib/InStr.htm">InStrを</a>使用します。）</li>
 <li>StringLeft<br>
+
 StringLen<br>
+
 StringMid<br>
+
 StringRight<br>
+
 StringTrimLeft<br>
 StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.htm">SubStr</a>を使用します。</li>
 <li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplaceを</a>使用します。）</li>
@@ -969,8 +973,11 @@ Name    := MonitorGetName(N)
 <h3 id="removed">削除</h3>
 <p>+Delimiter<br>
 +Hwnd<em>OutputVar</em> (<a href="lib/Gui.htm#Hwnd">GuiObj.Hwnd</a> または <a href="lib/GuiControl.htm#Hwnd">GuiCtrl.Hwnd</a> を代わりに使用してください。)<br>
+
 +Label<br>
+
 +LastFoundExist<br>
+
 Gui GuiName: Default</p>
 <h3 id="control-options">Control Options</h3>
 <p>+/-Background は、解釈とサポートがより一貫しています。ListView/TreeView/StatusBar/Progressだけでなく、"Gui Color" をサポートしていたすべてのコントロールが<code>+Background</code><i>Color</i>と <code>+BackgroundDefault</code> （<code>-Background</code>と同義）をサポートしました。</p>

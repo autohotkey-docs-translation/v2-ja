@@ -61,55 +61,55 @@
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExList">
-<p><a class="ex_number" href="#ExList"></a> Retrieves a list of running processes via <a href="DllCall.htm">DllCall</a> then shows them in a message box.</p>
-<pre>d := "  |  "  <em>; string separator</em>
-s := 4096  <em>; size of buffers and arrays (4 KB)</em>
+<p><a class="ex_number" href="#ExList"></a>  Retrieves a list of running processes via <a href="DllCall.htm">DllCall</a> then shows them in a message box.</p>
+<pre>d := "  |  "<em>; string separator</em>
+s := 4096<em>; size of buffers and arrays (4 KB)</em>
 
-ScriptPID := ProcessExist()  <em>; The PID of this running script.</em>
+ScriptPID := ProcessExist()<em>; The PID of this running script.</em>
 <em>; Get the handle of this script with PROCESS_QUERY_INFORMATION (0x0400):</em>
 h := DllCall("OpenProcess", "UInt", 0x0400, "Int", false, "UInt", ScriptPID, "Ptr")
 <em>; Open an adjustable access token with this process (TOKEN_ADJUST_PRIVILEGES = 32):</em>
 DllCall("Advapi32.dll\OpenProcessToken", "Ptr", h, "UInt", 32, "PtrP", &amp;t := 0)
 <em>; Retrieves the locally unique identifier of the debug privilege:</em>
 DllCall("Advapi32.dll\LookupPrivilegeValue", "Ptr", 0, "Str", "SeDebugPrivilege", "Int64P", &amp;luid := 0)
-ti := Buffer(16, 0)  <em>; structure of privileges</em>
-NumPut( "UInt", 1  <em>; one entry in the privileges array...</em>
+ti := Buffer(16, 0)<em>; structure of privileges</em>
+NumPut( "UInt", 1<em>; one entry in the privileges array...</em>
       , "Int64", luid
-      , "UInt", 2  <em>; Enable this privilege: SE_PRIVILEGE_ENABLED = 2</em>
+      , "UInt", 2<em>; Enable this privilege: SE_PRIVILEGE_ENABLED = 2</em>
       , ti)
 <em>; Update the privileges of this process with the new access token:</em>
 r := DllCall("Advapi32.dll\AdjustTokenPrivileges", "Ptr", t, "Int", false, "Ptr", ti, "UInt", 0, "Ptr", 0, "Ptr", 0)
-DllCall("CloseHandle", "Ptr", t)  <em>; Close this access token handle to save memory.</em>
-DllCall("CloseHandle", "Ptr", h)  <em>; Close this process handle to save memory.</em>
+DllCall("CloseHandle", "Ptr", t)<em>; Close this access token handle to save memory.</em>
+DllCall("CloseHandle", "Ptr", h)<em>; Close this process handle to save memory.</em>
 
-hModule := DllCall("LoadLibrary", "Str", "Psapi.dll")  <em>; Increase performance by preloading the library.</em>
-a := Buffer(s)  <em>; An array that receives the list of process identifiers:</em>
-c := 0  <em>; counter for process idendifiers</em>
+hModule := DllCall("LoadLibrary", "Str", "Psapi.dll")<em>; Increase performance by preloading the library.</em>
+a := Buffer(s)<em>; An array that receives the list of process identifiers:</em>
+c := 0<em>; counter for process idendifiers</em>
 l := ""
 DllCall("Psapi.dll\EnumProcesses", "Ptr", a, "UInt", s, "UIntP", &amp;r)
-Loop r // 4  <em>; Parse array for identifiers as DWORDs (32 bits):</em>
+Loop r // 4<em>; Parse array for identifiers as DWORDs (32 bits):</em>
 {
     id := NumGet(a, A_Index * 4, "UInt")
     <em>; Open process with: PROCESS_VM_READ (0x0010) | PROCESS_QUERY_INFORMATION (0x0400)</em>
     h := DllCall("OpenProcess", "UInt", 0x0010 | 0x0400, "Int", false, "UInt", id, "Ptr")
     if !h
         continue
-    n := Buffer(s, 0)  <em>; a buffer that receives the base name of the module:</em>
+    n := Buffer(s, 0)<em>; a buffer that receives the base name of the module:</em>
     e := DllCall("Psapi.dll\GetModuleBaseName", "Ptr", h, "Ptr", 0, "Ptr", n, "UInt", s//2)
-    if !e    <em>; fall-back method for 64-bit processes when in 32-bit mode:</em>
+    if !e<em>; fall-back method for 64-bit processes when in 32-bit mode:</em>
         e := DllCall("Psapi.dll\GetProcessImageFileName", "Ptr", h, "Ptr", n, "UInt", s//2)
     SplitPath StrGet(n), &amp;n
-    DllCall("CloseHandle", "Ptr", h)  <em>; close process handle to save memory</em>
-    if (n &amp;&amp; e)  <em>; if image is not null add to list:</em>
+    DllCall("CloseHandle", "Ptr", h)<em>; close process handle to save memory</em>
+    if (n &amp;&amp; e)<em>; if image is not null add to list:</em>
         l .= n "`n", c++
 }
-DllCall("FreeLibrary", "Ptr", hModule)  <em>; Unload the library to free memory.</em>
+DllCall("FreeLibrary", "Ptr", hModule)<em>; Unload the library to free memory.</em>
 <em>;l := Sort(l)  ; Uncomment this line to sort the list alphabetically.</em>
 MsgBox StrReplace(l, "`n", d), c " Processes", 0</pre>
 </div>
 
 <div class="ex" id="ExListCOM">
-<p><a class="ex_number" href="#ExListCOM"></a> Retrieves a list of running processes via COM. For Win32_Process, see <a href="https://learn.microsoft.com/windows/win32/cimwin32prov/win32-process">Microsoft Docs</a>.</p>
+<p><a class="ex_number" href="#ExListCOM"></a>  Retrieves a list of running processes via COM. For Win32_Process, see <a href="https://learn.microsoft.com/windows/win32/cimwin32prov/win32-process">Microsoft Docs</a>.</p>
 <pre>MyGui := Gui(, "Process List")
 LV := MyGui.Add("ListView", "x2 y0 w400 h500", ["Process Name","Command Line"])
 for process in ComObjGet("winmgmts:").ExecQuery("Select * from Win32_Process")
