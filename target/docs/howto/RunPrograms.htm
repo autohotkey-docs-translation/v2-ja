@@ -61,8 +61,8 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 
 <h2>変数を含む</h2>
 <p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、"Program Files" ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
-<pre>Run A_ComSpec<em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
-Run A_MyDocuments<em>; ユーザーのDocumentsフォルダを開く。</em></pre>
+<pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
+Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
 <p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結する。事例：</p>
 <pre>Run 'notepad.exe "' A_MyDocuments '\AutoHotkey.ahk"'</pre>
 <p>また、<a href="../lib/Format.htm">Format</a>を使用して置換を行う方法もあります。事例：</p>
@@ -72,7 +72,7 @@ Run A_MyDocuments<em>; ユーザーのDocumentsフォルダを開く。</em></pr
 <h2>実行時パラメータ</h2>
 <p>実行するコマンドラインの他に、Run関数はその動作に影響を与えるいくつかの<a href="../Concepts.htm#parameters">パラメータ</a>を受け付けます。</p>
 <p><em>WorkingDir</em>は、新しいプロセスの作業ディレクトリを指定します。プログラムに相対パスを指定した場合は、このディレクトリからの相対パスとなります。コマンドラインパラメータの相対パスもこのディレクトリからの相対パスであることが多いが、それはプログラムによって異なる。</p>
-<pre>Run "cmd", "C:\"<em>; コマンドプロンプトをC:\ に開きます。</em></pre>
+<pre>Run "cmd", "C:\"  <em>; コマンドプロンプトをC:\ に開きます。</em></pre>
 <p><em>オプション</em>は、プログラムを画面にポップアップさせるのではなく、最小化または非表示にして実行するために使用できることが多いですが、プログラムによっては無視されることもあります。</p>
 <p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われる。事例：</p>
 <pre>Run "notepad",,, &amp;pid
@@ -82,7 +82,7 @@ SendText "Hello, world!"</pre>
 <h2>システム動詞</h2>
 <p><a href="../lib/Run.htm#verbs">システム動詞</a>とは、システムやアプリケーションが特定のファイルタイプに対して登録するアクションのことです。これらは通常、エクスプローラーのファイルの右クリックメニューで利用できますが、実際の名前はメニューに表示されるテキストと必ずしも一致しません。例えば、AutoHotkeyスクリプトには、スクリプトをエディタで開く「edit」動詞と、（Ahk2Exeがインストールされていれば）スクリプトを<a href="../Scripts.htm#ahk2exe">コンパイル</a>する「compile」動詞があります。</p>
 <p>"Edit "は、Runがデフォルトで認識する一般的な動詞のリストの1つで、次のように、単語の後にスペースとファイル名を書くだけで使用することができます。</p>
-<pre>Run 'edit ' A_ScriptFullPath<em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当する。</em></pre>
+<pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当する。</em></pre>
 <p>システムに登録されている動詞は、以下のように*接頭辞をつけることで実行することができます。</p>
 <pre>Run '*Compile-Gui ' A_ScriptFullPath</pre>
 <p>Ahk2Exeがインストールされている場合、現在のスクリプトがあらかじめ選択された状態でAhk2Exe Guiが開かれます。</p>

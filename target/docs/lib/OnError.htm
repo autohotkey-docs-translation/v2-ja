@@ -75,7 +75,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Logs errors caused by the script into a text file instead of displaying them to the user.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Logs errors caused by the script into a text file instead of displaying them to the user.</p>
 <pre>
 OnError LogError
 i := Integer("cause_error")
@@ -89,7 +89,7 @@ LogError(exception, mode) {
 </div>
 
 <div class="ex" id="ExAccumulator">
-<p><a class="ex_number" href="#ExAccumulator"></a>  Use OnError to implement alternative error handling methods. Caveat: OnError is ineffective while <a href="Try.htm">Try</a> is active.</p>
+<p><a class="ex_number" href="#ExAccumulator"></a> Use OnError to implement alternative error handling methods. Caveat: OnError is ineffective while <a href="Try.htm">Try</a> is active.</p>
 <pre>
 AccumulateErrors()
 {
@@ -100,22 +100,22 @@ AccumulateErrors()
 
 class ErrorAccumulator
 {
-    Errors := []<em>; Array for accumulated errors.</em>
+    Errors := []                        <em>; Array for accumulated errors.</em>
     _cb := AccumulateError.Bind(this.Errors)
-    Start() =&gt; OnError(this._cb, -1)<em>; Register our cb before others.</em>
-    Stop() =&gt; OnError(this._cb, 0)<em>; Unregister our cb.</em>
-    Last =&gt; this.Errors[-1]<em>; Most recent error.</em>
-    Count =&gt; this.Errors.Length<em>; Number of accumulated errors.</em>
-    __item[i] =&gt; this.Errors[i]<em>; Shortcut for indexing.</em>
-    __delete() =&gt; this.Stop()<em>; For tying to function scope.</em>
+    Start() =&gt; OnError(this._cb, -1)    <em>; Register our cb before others.</em>
+    Stop() =&gt; OnError(this._cb, 0)      <em>; Unregister our cb.</em>
+    Last =&gt; this.Errors[-1]             <em>; Most recent error.</em>
+    Count =&gt; this.Errors.Length         <em>; Number of accumulated errors.</em>
+    __item[i] =&gt; this.Errors[i]         <em>; Shortcut for indexing.</em>
+    __delete() =&gt; this.Stop()           <em>; For tying to function scope.</em>
 }
 
 <em>; This is the OnError callback function. 'errors' is given a value via Bind().</em>
 AccumulateError(errors, e, mode)
 {
-    if mode != "Return"<em>; Not continuable.</em>
+    if mode != "Return" <em>; Not continuable.</em>
         return
-    if e.What = ""<em>; Expression defect or similar, not a built-in function.</em>
+    if e.What = "" <em>; Expression defect or similar, not a built-in function.</em>
         return
     try {
         <em>; Try to print the error to stdout.</em>
@@ -124,7 +124,7 @@ AccumulateError(errors, e, mode)
             FileAppend "     Specifically:" e.Extra "`n", "*"
     }
     errors.Push(e)
-    return -1<em>; Continue.</em>
+    return -1 <em>; Continue.</em>
 }
 
 RearrangeWindows()

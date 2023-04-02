@@ -95,7 +95,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, notepad_id</pre>
 <h2 id="timeout">タイムアウト</h2>
 <p>デフォルトでは、WinWaitは一致するウィンドウが表示されるまで無期限に待機します。<a href="../Program.htm#tray-icon">トレイアイコン</a>からスクリプトの<a href="../Program.htm#main-window">メインウィンドウ</a>を開くことで、この現象が起きているかどうかを判断できます（ただし、<a href="../lib/_NoTrayIcon.htm">トレイアイコンを無効</a>にしている場合は除く）。デフォルトでは、通常<a href="../lib/ListLines.htm#Remarks">ListLines</a>ビューでウィンドウが開きます。WinWaitがまだ待機している場合は、行のリストの一番下に表示され、その後に待機を始めてからの秒数が表示されます。表示メニューから「更新」を選択しない限り、数値は更新されません。</p>
 <p>この例を実行し、上記のようにメインウィンドウを開いてみてください。</p>
-<pre>WinWait "Untitled - Notpad"<em>;（意図的な誤字）</em></pre>
+<pre>WinWait "Untitled - Notpad"  <em>; （意図的な誤字）</em></pre>
 <p>スクリプトがウィンドウ待ちでスタックしている場合は、通常、スクリプトを終了するか再読み込みしてスタックを解除する必要があります。このような事態を未然に防ぐ（あるいは再発を防ぐ）には、WinWaitの<em>Timeout</em>パラメータを使用します。例えば、この場合、ウィンドウが表示されるまで最大で5秒待ちます。</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if WinWait("ahk_pid " notepad_pid,, 5)
@@ -137,7 +137,7 @@ if notepad_id := WinWait("ahk_pid " notepad_pid,, 2)
 &gt;^Down::MoveActiveWindowBy(  0, +10)
 
 MoveActiveWindowBy(x, y) {
-    WinExist "A"<em>; アクティブウィンドウをLast Found Windowにする。</em>
+    WinExist "A"  <em>; アクティブウィンドウをLast Found Windowにする。</em>
     WinGetPos &amp;current_x, &amp;current_y
     WinMove current_x + x, current_y + y
 }</pre>

@@ -61,15 +61,15 @@
     <strong>?</strong> false  <em>; We don't have any red products, so don't bother calling the function.</em>
     <strong>:</strong> ProductIsAvailableInColor(Product, Color)</pre>
 <p>The following examples are equivalent to those above:</p>
-<pre>FileAppend "This is the text to append.`n"<strong>,</strong><em>; A comment is allowed here.</em>
-    A_ProgramFiles "\SomeApplication\LogFile.txt"<em>; Comment.</em>
+<pre>FileAppend "This is the text to append.`n"<strong>,</strong>   <em>; A comment is allowed here.</em>
+    A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em>
 
-if Color = "Red" or Color = "Green"  or Color = "Blue" <strong>or</strong><em>; Comment.</em>
-    Color = "Black" or Color = "Gray" or Color = "White" <strong>and</strong><em>; Comment.</em>
-    ProductIsAvailableInColor(Product, Color)<em>; Comment.</em>
+if Color = "Red" or Color = "Green"  or Color = "Blue" <strong>or</strong>   <em>; Comment.</em>
+    Color = "Black" or Color = "Gray" or Color = "White" <strong>and</strong>   <em>; Comment.</em>
+    ProductIsAvailableInColor(Product, Color)   <em>; Comment.</em>
 
 ProductIsAvailable := (Color = "Red") <strong>?</strong>
-    false <strong>:</strong><em>; We don't have any red products, so don't bother calling the function.</em>
+    false <strong>:</strong> <em>; We don't have any red products, so don't bother calling the function.</em>
     ProductIsAvailableInColor(Product, Color)</pre>
 <p>Although the indentation used in the examples above is optional, it might improve clarity by indicating which lines belong to ones above them. Also, blank lines or <a href="Language.htm#comments">comments</a> may be added between or at the end of any of the lines in the above examples.</p>
 <p>A continuation operator cannot be used with an auto-replace hotstring or directive other than <a href="lib/_HotIf.htm">#HotIf</a>.</p>
@@ -89,8 +89,8 @@ MsgBox(
 <p>Continuation expressions may contain normal <a href="#continuation-section">continuation sections</a>. Therefore, as with any line containing an expression, if a line begins with a non-escaped open parenthesis (<code>(</code>), it is considered to be the start of a continuation section unless there is a closing parenthesis (<code>)</code>) on the same line.</p>
 <p>Quoted strings cannot span multiple lines using this method alone. However, see above.</p>
 <p>Continuation by enclosure can be combined with a continuation operator. 事例：</p>
-<pre>myarray :=<em>; The assignment operator causes continuation.</em>
-[<em>; Brackets enclose the following two lines.</em>
+<pre>myarray :=  <em>; The assignment operator causes continuation.</em>
+[  <em>; Brackets enclose the following two lines.</em>
   "item 1",
   "item 2",
 ]</pre>
@@ -136,11 +136,11 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p id="non-continuation"><strong>(</strong> or <strong>)</strong>: If an opening or closing parenthesis appears to the right of the initial opening parenthesis (except as a parameter of the <a href="#Join">Join</a> option), the line is reinterpreted as an expression instead of the beginning of a continuation section. This enables expressions like <code>(x.y)[z]()</code> to be used at the start of a line, and also allows <a href="#continuation-expr">multi-line expressions</a> to start with a line like <code>((</code> or <code>(MyFunc(</code>.</p>
 <p><a href="misc/EscapeChar.htm">Escape sequences</a> such as `n (linefeed) and `t (tab) are supported inside the continuation section except when the <a href="#accent">accent (`) option</a> has been specified.</p>
 <p>When the <a href="#CommentOption">comment option</a> is absent, semicolon and /*..*/ comments are not supported within the interior of a continuation section because they are seen as literal text. However, comments can be included on the bottom and top lines of the section. 事例：</p>
-<pre>FileAppend "<em>; Comment.
+<pre>FileAppend "   <em>; Comment.
 ; Comment.</em>
-( LTrim Join<em>; Comment.</em>
+( LTrim Join    <em>; Comment.</em>
     &nbsp;; This is <strong>not</strong> a comment; it is literal. Include the word <i>Comments</i> in the line above to make it a comment.
-)", "C:\File.txt"<em>; Comment.</em></pre>
+)", "C:\File.txt"   <em>; Comment.</em></pre>
 <p>As a consequence of the above, semicolons never need to be <a href="misc/EscapeChar.htm">escaped</a> within a continuation section.</p>
 <p>Since a closing parenthesis indicates the end of a continuation section, to have a line start with literal closing parenthesis, precede it with an accent/backtick: <code>`)</code>. However, this cannot be combined with the <a href="#accent">accent (`) option</a>.</p>
 <p>A continuation section can be immediately followed by a line containing the open-parenthesis of another continuation section. This allows the options mentioned above to be varied during the course of building a single line.</p>
@@ -247,7 +247,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
   <li>Compiling does not typically improve the performance of a script.</li>
   <li><a href="lib/_NoTrayIcon.htm">#NoTrayIcon</a> and <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a> affect the behavior of compiled scripts.</li>
   <li>The built-in variable <a href="Variables.htm#IsCompiled">A_IsCompiled</a> contains 1 if the script is running in compiled form. Otherwise, it is blank.</li>
-  <li>When parameters are passed to Ahk2Exe, a message indicating the success or failure of the compiling process is written to stdout. Although the message will not appear at the command prompt, it can be "caught" by means such as redirecting output to a file.  </li>
+  <li>When parameters are passed to Ahk2Exe, a message indicating the success or failure of the compiling process is written to stdout. Although the message will not appear at the command prompt, it can be "caught" by means such as redirecting output to a file. </li>
   <li>Additionally in the case of a failure, Ahk2Exe has exit codes indicating the kind of error that occurred. These error codes can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/ErrorCodes.md">GitHub (ErrorCodes.md)</a>.</li>
 </ul>
 <p>The compiler's source code and newer versions can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe">GitHub</a>.</p>
@@ -267,7 +267,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>See <a href="misc/Ahk2ExeDirectives.htm">Script Compiler Directives</a> for more details.</p>
 
 <h3 id="mpress">Compressing Compiled Scripts</h3>
-<p>Ahk2Exe optionally uses MPRESS or UPX freeware to compress compiled scripts. If <strong>MPRESS.exe</strong> and/or <strong>UPX.exe</strong> has been copied to the "Compiler" subfolder where AutoHotkey was installed, either can be used to compress the .exe as directed by the <code>/compress</code> parameter or the GUI setting.  </p>
+<p>Ahk2Exe optionally uses MPRESS or UPX freeware to compress compiled scripts. If <strong>MPRESS.exe</strong> and/or <strong>UPX.exe</strong> has been copied to the "Compiler" subfolder where AutoHotkey was installed, either can be used to compress the .exe as directed by the <code>/compress</code> parameter or the GUI setting. </p>
 <p><strong>MPRESS</strong> official website (downloads and information): <a href="http://www.matcode.com/mpress.htm">http://www.matcode.com/mpress.htm</a><br>MPRESS mirror: <a href="https://www.autohotkey.com/mpress/">https://www.autohotkey.com/mpress/</a></p>
 <p><strong>UPX</strong> official website (downloads and information): <a href="https://upx.github.io/">https://upx.github.io/</a></p>
 <p><strong>Note:</strong> While compressing the script executable prevents casual inspection of the script's source code using a plain text editor like Notepad or a PE resource editor, it does not prevent the source code from being extracted by tools dedicated to that purpose.</p>
@@ -422,9 +422,9 @@ if (codepage != "")
     codepage := " /CP" . codepage
 cmd := Format('"{1}"{2} "%1" %*', A_AhkPath, codepage)
 key := "AutoHotkeyScript\Shell\Open\Command"
-if A_IsAdmin<em>; Set for all users.</em>
+if A_IsAdmin    <em>; Set for all users.</em>
     RegWrite cmd, "REG_SZ", "HKCR\" key
-else<em>; Set for current user only.</em>
+else            <em>; Set for current user only.</em>
     RegWrite cmd, "REG_SZ", "HKCU\Software\Classes\" key</pre>
 <p>This assumes AutoHotkey has already been installed. Results may be less than ideal if it has not.</p>
 
@@ -451,7 +451,7 @@ Pause</pre>
 <pre class="no-highlight">AutoHotkey /Debug "myscript.ahk"
 AutoHotkey /Debug=localhost:9000 "myscript.ahk"</pre>
 <p id="debug_attach">To attach the debugger to a script which is already running, send it a message as shown below:</p>
-<pre>ScriptPath := ""<em>; SET THIS TO THE FULL PATH OF THE SCRIPT</em>
+<pre>ScriptPath := "" <em>; SET THIS TO THE FULL PATH OF THE SCRIPT</em>
 A_DetectHiddenWindows := true
 if WinExist(ScriptPath " ahk_class AutoHotkey")
     <em>; Optional parameters:
