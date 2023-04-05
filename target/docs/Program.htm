@@ -45,6 +45,7 @@
 <p>There are a few common ways to create a script file:</p>
 <ul>
   <li>In Notepad (or a <a href="misc/Editors.htm">text editor</a> of your choice), save a file with the <code>.ahk</code> filename extension. On some systems you may need to enclose the name in quotes to ensure the editor does not add another extension (such as .txt).
+  
   <p class="note">Be sure to save the file as UTF-8 with BOM if it will contain non-ASCII characters. For details, see the <a href="FAQ.htm#nonascii">FAQ</a>.</p></li>
   <li>In Explorer, right-click in empty space in the folder where you want to save the script, then select <strong>New</strong> and <strong>AutoHotkey Script</strong>. You can then type a name for the script (taking care not to erase the <code>.ahk</code> extension if it is visible).</li>
   <li>In the <a href="#dash">Dash</a>, select <a href="#newscript">New script</a>, type a name for the script (excluding the <code>.ahk</code> extension) and click <em>Create</em> or <em>Edit</em>. The template used to create the script and the location it will be saved can be configured within this window, and set as default if desired.</li>
@@ -68,7 +69,7 @@
 
 <h2 id="tray-icon">Tray Icon</h2>
 <p>By default, each script adds its own icon to the taskbar notification area (commonly known as the tray).</p>
-<p>The tray icon usually looks like this (but the color or letter changes when the script is <a href="lib/Pause.htm">paused</a> or <a href="lib/Suspend.htm">suspended</a>): <img src="static/ahk16.png" alt="H"></p>
+<p>The tray icon usually looks like this (but the color or letter changes when the script is <a href="lib/Pause.htm">paused</a> or <a href="lib/Suspend.htm">suspended</a>):  <img src="static/ahk16.png" alt="H"></p>
 <p>Right-click the tray icon to show the tray menu, which has the following options by default:</p>
 <ul>
 <li>Open - Open the script's <a href="#main-window">main window</a>.</li>
@@ -106,7 +107,7 @@ OnMessage 0x0112, PreventAutoMinimize <em>; WM_SYSCOMMAND = 0x0112</em>
 OnMessage 0x0005, PreventAutoMinimize <em>; WM_SIZE = 0x0005
 ; This prevents owned GUI windows (but not dialogs) from automatically minimizing:</em>
 OnMessage 0x0018, PreventAutoMinimize
-Persistent
+永続的
 
 PreventAutoMinimize(wParam, lParam, uMsg, hwnd) {
     if (uMsg = 0x0112 &amp;&amp; wParam = 0xF020 &amp;&amp; hwnd = A_ScriptHwnd) { <em>; SC_MINIMIZE = 0xF020</em>
@@ -213,7 +214,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <p>Typically full paths and quote marks would be used for the path to AutoHotkeyUX.exe and launcher.ahk, which can be found in the UX subdirectory of the AutoHotkey installation. An appropriate version of AutoHotkey32.exe or AutoHotkey64.exe can be used instead of AutoHotkeyUX.exe (which is just a copy).</p>
 <p><em>Switches</em> can be a mixture of any of the <a href="Scripts.htm#cmd">standard switches</a> and the following launcher-only switches:</p>
 <table class="info">
-  <tr><th>Switch</th><th>Meaning</th></tr>
+  <tr><th>Switch</th><th>意味</th></tr>
   <tr id="SlashLaunch">
     <td>/Launch</td>
     <td>Causes the launcher to exit immediately after launching the script, instead of waiting in the background for it to terminate. The launcher's exit code is the process ID (PID) of the new script process.</td>

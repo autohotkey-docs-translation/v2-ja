@@ -24,7 +24,7 @@
     <p>The number of the message to monitor or query, which should be between 0 and 4294967295 (0xFFFFFFFF). If you do not wish to monitor a <a href="../misc/SendMessageList.htm">system message</a> (that is, one below 0x0400), it is best to choose a number greater than 4096 (0x1000) to the extent you have a choice. This reduces the chance of interfering with messages used internally by current and future versions of AutoHotkey.</p>
   </dd>
 
-  <dt>Function</dt>
+  <dt>機能</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>The function object to call when the message is received. The function's parameters and return value are described <a href="#The_Functions_Parameters">below</a>.</p>
@@ -127,7 +127,7 @@ WM_LBUTTONDOWN(wParam, lParam, msg, hwnd)
 <pre><em>; The following DllCall is optional: it tells the OS to shut down this script first (prior to all other applications).</em>
 DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
 OnMessage(0x0011, On_WM_QUERYENDSESSION)
-Persistent
+永続的
 
 On_WM_QUERYENDSESSION(wParam, lParam, *)
 {
@@ -172,9 +172,9 @@ StopBlockingShutdown(*)
 </div>
 
 <div class="ex" id="ExCustom">
-<p><a class="ex_number" href="#ExCustom"></a> Receives a custom message and up to two numbers from some other script or program (to send strings rather than numbers, see the example after this one).</p>
+<p><a class="ex_number" href="#ExCustom"></a>  Receives a custom message and up to two numbers from some other script or program (to send strings rather than numbers, see the example after this one).</p>
 <pre>OnMessage 0x5555, MsgMonitor
-Persistent
+永続的
 
 MsgMonitor(wParam, lParam, msg, *)
 {
@@ -192,11 +192,11 @@ DetectHiddenWindows False  <em>; Must not be turned off until after PostMessage.
 </div>
 
 <div class="ex" id="ExSendString">
-<p><a class="ex_number" href="#ExSendString"></a> Sends a string of any length from one script to another. To use this, save and run both of the following scripts then press <kbd>Win</kbd>+<kbd>Space</kbd> to show an input box that will prompt you to type in a string. Both scripts must use the same <a href="../Concepts.htm#native-encoding">native encoding</a>.</p>
+<p><a class="ex_number" href="#ExSendString"></a>  Sends a string of any length from one script to another. To use this, save and run both of the following scripts then press <kbd>Win</kbd>+<kbd>Space</kbd> to show an input box that will prompt you to type in a string. Both scripts must use the same <a href="../Concepts.htm#native-encoding">native encoding</a>.</p>
 <p>Save the following script as <strong>Receiver.ahk</strong> then launch it.</p>
 <pre filename="Receiver.ahk">#SingleInstance
 OnMessage 0x004A, Receive_WM_COPYDATA  <em>; 0x004A is WM_COPYDATA</em>
-Persistent
+永続的
 
 Receive_WM_COPYDATA(wParam, lParam, msg, hwnd)
 {

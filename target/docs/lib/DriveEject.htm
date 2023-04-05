@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>DriveEject / DriveRetract - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The DriveEject and DriveRetract functions eject or retract the tray of the specified CD/DVD drive, or eject a removable drive." />
+<title>DriveEject / DriveRetract - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="DriveEject、DriveRetractは、指定されたCD/DVDドライブのトレイの取り出しや収納、リムーバブルドライブの取り出しができる機能です。" />
 <meta name="ahk:equiv-v1" content="lib/Drive.htm#Eject" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>DriveEject / DriveRetract</h1>
 
-<p>Ejects or retracts the tray of the specified CD/DVD drive, or ejects a removable drive.</p>
+<p>指定したCD/DVDドライブのトレイを排出または収納したり、リムーバブルドライブを取り出したりすることができます。</p>
 
 <pre class="Syntax"><span class="func">DriveEject</span> <span class="optional">Drive</span>
 <span class="func">DriveRetract</span> <span class="optional">Drive</span></pre>
@@ -24,21 +24,21 @@
   
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>The drive letter optionally followed by a colon or a colon and backslash. For example, <code>D</code>, <code class="no-highlight">D:</code> or <code>D:\</code>.</p>
-        <p>This can also be a device path in the form <code>\\?\Volume{...}</code>, which can be discovered by running <a href="https://learn.microsoft.com/windows-server/administration/windows-commands/mountvol">mountvol</a> at the command line. In this case the drive is not required to be assigned a drive letter.</p>
-        <p>If omitted, it defaults to the first CD/DVD drive found by iterating from A to Z. An exception is thrown if no drive is found.</p>
+        <p>ドライブ文字にコロンまたはコロンとバックスラッシュを付加することも可能です。例えば、<code>D</code>、<code class="no-highlight">D:</code>、<code>D:\など</code>。</p>
+        <p>これは、コマンドラインで<a href="https://learn.microsoft.com/windows-server/administration/windows-commands/mountvol">mountvol</a>を実行することで発見できる<code>\\?\Volume{...}</code>ような形のデバイスパスであることもあります。この場合、ドライブにドライブレターを割り当てる必要はありません。</p>
+        <p>省略された場合、AからZまで反復して見つかった最初のCD/DVDドライブがデフォルトとなります。ドライブが見つからない場合は例外がスローされます。</p>
     </dd>
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An exception is thrown on failure, if detected.</p>
-<p>These functions will probably not work on a network drive or any drive lacking the "Eject" option in Explorer. The underlying system functions do not always report failure, so an exception may or may not be thrown.</p>
+<p>検出された場合、失敗時に例外がスローされる。</p>
+<p>これらの機能は、ネットワークドライブやエクスプローラーの「取り出し」オプションがないドライブでは、おそらく機能しないでしょう。基礎となるシステム関数が常に失敗を報告するとは限らないため、例外が発生する場合もあれば、発生しない場合もあります。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This function waits for the ejection or retraction to complete before allowing the script to continue.</p>
-<p>It may be possible to detect the previous tray state by measuring the time the function takes to complete, as in <a href="#ExToggle">the example below</a>.</p>
-<p>Ejecting a removable drive is generally equivalent to using the "Eject" context menu option in Explorer, except that no warning is shown if files are in use. Unlike the Safely Remove Hardware option, this only dismounts the volume identified by the <em>Drive</em> parameter, not the overall device.</p>
-<p>DriveEject and DriveRetract correspond to the <a href="https://learn.microsoft.com/windows-hardware/drivers/ddi/ntddstor/ni-ntddstor-ioctl_storage_eject_media">IOCTL_STORAGE_EJECT_MEDIA</a> and <a href="https://learn.microsoft.com/windows-hardware/drivers/ddi/ntddstor/ni-ntddstor-ioctl_storage_load_media">IOCTL_STORAGE_LOAD_MEDIA</a> control codes, which may also have an effect on drive types other than CD/DVD, such as tape drives.</p>
+<p>この機能は、射出または後退が完了するのを待ってからスクリプトを続行させるものです。</p>
+<p><a href="#ExToggle">以下の例</a>のように、機能が完了するまでの時間を測定することで、以前のトレイの状態を検出できる場合があります。</p>
+<p>リムーバブルドライブの取り出しは、ファイルが使用中の場合に警告が表示されないことを除けば、エクスプローラーのコンテキストメニューオプション「取り出し」と概ね同じです。ハードウェアの安全な取り外し」オプションとは異なり、デバイス全体ではなく、<em>ドライブ</em>パラメータで特定されたボリュームのみをマウント解除します。</p>
+<p>DriveEject、DriveRetractは、<a href="https://learn.microsoft.com/windows-hardware/drivers/ddi/ntddstor/ni-ntddstor-ioctl_storage_eject_media">IOCTL_STORAGE_EJECT_MEDIA</a>、<a href="https://learn.microsoft.com/windows-hardware/drivers/ddi/ntddstor/ni-ntddstor-ioctl_storage_load_media">IOCTL_STORAGE_LOAD_MEDIA</a>制御コードに対応しており、テープドライブなどCD/DVD以外のドライブタイプにも影響を与える場合があります。</p>
 
 
 <h2 id="Related">関連</h2>
@@ -47,17 +47,17 @@
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExEject">
-<p><a class="ex_number" href="#ExEject"></a> Ejects (opens) the tray of the first CD/DVD drive.</p>
+<p><a class="ex_number" href="#ExEject"></a> 1台目のCD/DVDドライブのトレイをイジェクト（開く）します。</p>
 <pre>DriveEject()</pre>
 </div>
 
 <div class="ex" id="ExRetract">
-<p><a class="ex_number" href="#ExRetract"></a> Retracts (closes) the tray of the first CD/DVD drive.</p>
+<p><a class="ex_number" href="#ExRetract"></a> 1台目のCD/DVDドライブのトレイを収納する（閉じる）。</p>
 <pre>DriveRetract()</pre>
 </div>
 
 <div class="ex" id="ExEjectAll">
-<p><a class="ex_number" href="#ExEjectAll"></a> Ejects all removable drives (except CD/DVD drives).</p>
+<p><a class="ex_number" href="#ExEjectAll"></a> すべてのリムーバブルドライブ（CD/DVDドライブを除く）をイジェクトします。</p>
 <pre>Loop Parse DriveGetList("REMOVABLE")
 {
     if MsgBox("Eject " A_LoopField ":, even if files are open?",, "y/n") = "yes"
@@ -68,12 +68,12 @@ else
 </div>
 
 <div class="ex" id="ExToggle">
-<p><a class="ex_number" href="#ExToggle"></a> Defines a hotkey which toggles the tray to the opposite state (open or closed), based on the time the function takes to complete.</p>
+<p><a class="ex_number" href="#ExToggle"></a> 機能が完了するまでの時間に応じて、トレイを反対の状態（開または閉）に切り替えるホットキーを定義します。</p>
 <pre>#c::
 {
     DriveEject
-    <em>; If the function completed quickly, the tray was probably already ejected.
-; In that case, retract it:</em>
+    <em>; もし、この機能がすぐに終了した場合、トレイはすでに排出されている可能性があります。
+; その場合は撤回してください：</em>
     if (A_TimeSinceThisHotkey &lt; 1000)  <em>; Adjust this time if needed.</em>
         DriveRetract
 }</pre>

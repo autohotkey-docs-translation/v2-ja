@@ -119,6 +119,7 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
 </tr>
 <tr id="asterisk">
   <td>* or P<br>
+    
     (suffix)</td>
   <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
     <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタである。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用する。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
@@ -427,9 +428,9 @@ return DllCall("SetSystemTime", "Ptr", SystemTime)
 <pre><em>/*
   <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarListの</a>VTableにあるメソッドです：
 IUnknown:
-0 QueryInterface  -- use <a href="ComObjQuery.htm">ComObjQuery</a> instead
-      1 AddRef          -- use <a href="ObjAddRef.htm">ObjAddRef</a> instead
-      2 Release         -- use <a href="ObjAddRef.htm">ObjRelease</a> instead
+0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
+      1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a> の代わりに使用
+      2 Release         -- <a href="ObjAddRef.htm">ObjRelease</a>の代わりに使用
     ITaskbarList:
 3 HrInit
       4 AddTab
