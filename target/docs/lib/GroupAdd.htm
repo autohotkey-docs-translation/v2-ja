@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GroupAdd - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The GroupAdd function adds a window specification to a window group, creating the group if necessary." />
+<title>GroupAdd - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GroupAdd 関数は、ウィンドウの仕様をウィンドウグループに追加し、必要に応じてグループを作成します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>GroupAdd</h1>
 
-<p>Adds a window specification to a window group, creating the group if necessary.</p>
+<p>ウィンドウの仕様をウィンドウグループに追加し、必要に応じてグループを作成します。</p>
 
 <pre class="Syntax"><span class="func">GroupAdd</span> GroupName <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,7 +21,7 @@
   <dt>GroupName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the group to which to add this window specification. If the group doesn't exist, it will be created. Group names are not case sensitive.</p>
+    <p>このウィンドウ仕様を追加するグループの名前。グループが存在しない場合は、作成されます。グループ名の大文字と小文字は区別されません。</p>
   </dd>
 
   <dt>WinTitle</dt>
@@ -33,7 +33,7 @@
   <dt>WinText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> is ON at the time that <a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupDeactivate.htm">GroupDeactivate</a>, and <a href="GroupClose.htm">GroupClose</a> are used.</p>
+    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="GroupActivate.htm">GroupActivate</a>、<a href="GroupDeactivate.htm">GroupDeactivate</a>、<a href="GroupClose.htm">GroupClose</a>を使用する際に<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素を検出する。</p>
   </dd>
 
   <dt>ExcludeTitle</dt>
@@ -51,42 +51,42 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Each use of this function adds a new rule to a group. In other words,  a group consists of a set of criteria rather than a fixed list of windows. Later, when a group is used by a function such as <a href="GroupActivate.htm">GroupActivate</a>, each window on the desktop is checked against each of these criteria. If a window matches one of the criteria in the group, it is considered a match.</p>
-<p>Although <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> do not directly affect the behavior of this function, they do affect the other group functions such as <a href="GroupActivate.htm">GroupActivate</a> and <a href="GroupClose.htm">GroupClose</a>. They also affect the use of ahk_group in any other function's <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
-<p>A window group is typically used to bind together a collection of related windows, which is useful for tasks that involve many related windows, or an application that owns many subwindows. For example, if you frequently work with many instances of a graphics program or text editor, you can use <a href="GroupActivate.htm">GroupActivate</a> on a hotkey to visit each instance of that program, one at a time, without having to use alt-tab or task bar buttons to locate them.</p>
-<p>Since the entries in each group need to be added only once, this function is typically used during <a href="../Scripts.htm#auto">script startup</a>. Attempts to add duplicate entries to a group are ignored.</p>
-<p>To include <u>all</u> windows in a group (except the special Program Manager window), use this example:</p>
+<p>この機能を使用するたびに、グループに新しいルールが追加されます。つまり、グループとは、ウィンドウの固定されたリストではなく、一連の基準で構成されているのです。その後、<a href="GroupActivate.htm">GroupActivate</a>などの機能でグループが使用されると、デスクトップ上の各ウィンドウがこれらの各条件に照合されます。ウィンドウがグループ内の条件のいずれかに一致する場合、一致とみなされます。</p>
+<p><a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>と <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>は、この関数の動作に直接影響しませんが、<a href="GroupActivate.htm">GroupActivate</a>や <a href="GroupClose.htm">GroupClose</a>など他のグループ関数に影響します。また、他の関数の<a href="../misc/WinTitle.htm">WinTitle</a>でahk_groupを使用する場合にも影響します。</p>
+<p>ウィンドウグループは、通常、関連するウィンドウの集合体を束ねるために使用されます。これは、多くの関連するウィンドウを含むタスクや、多くのサブウィンドウを所有するアプリケーションに便利です。例えば、グラフィックプログラムやテキストエディタの多くのインスタンスを頻繁に使用する場合、ホットキーの<a href="GroupActivate.htm">GroupActivate</a>を使用すると、alt-tabやタスクバーボタンを使用してそれらのインスタンスを探すことなく、一度にそれぞれのプログラムのインスタンスを訪問できます。</p>
+<p>各グループのエントリーは一度だけ追加する必要があるため、この機能は通常、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に使用されます。重複したエントリーをグループに追加しようとする試みは無視されます。</p>
+<p>グループ内の<u>すべて</u>のウィンドウ（特別なProgram Managerウィンドウを除く）を含めるには、次の例を使用します：</p>
 <pre>GroupAdd "AllWindows"</pre>
-<p>All windowing functions can operate upon a window group by specifying <code>ahk_group MyGroupName</code> for the <em>WinTitle</em> parameter. The functions <a href="WinMinimize.htm">WinMinimize</a>, <a href="WinMaximize.htm">WinMaximize</a>, <a href="WinRestore.htm">WinRestore</a>, <a href="WinHide.htm">WinHide</a>, <a href="WinShow.htm">WinShow</a>, <a href="WinClose.htm">WinClose</a>, and <a href="WinKill.htm">WinKill</a> will act upon <strong>all</strong> the group's windows. To instead act upon only the topmost window, follow this example:</p>
+<p><em>WinTitle</em>パラメータに<code>ahk_group MyGroupName</code>を指定することで、すべてのウィンドウ関数がウィンドウグループに対して操作できるようになります。<a href="WinMinimize.htm">WinMinimize</a>、<a href="WinMaximize.htm">WinMaximize</a>、<a href="WinRestore.htm">WinRestore</a>、<a href="WinHide.htm">WinHide</a>、<a href="WinShow.htm">WinShow</a>、<a href="WinClose.htm">WinClose</a>、<a href="WinKill.htm">WinKill</a>関数は、グループの<strong>すべて</strong>のウィンドウに対して作用します。その代わりに、一番上のウィンドウだけを操作する場合は、次のようにします：</p>
 <pre>WinHide WinExist("ahk_group <strong>MyGroup</strong>")</pre>
-<p>By contrast, the other window functions such as <a href="WinActivate.htm">WinActivate</a> and <a href="WinExist.htm">WinExist</a> will operate only upon the topmost window of the group.</p>
+<p>一方、<a href="WinActivate.htm">WinActivate</a>や <a href="WinExist.htm">WinExist</a>などの他のウィンドウ機能は、グループの最上位のウィンドウに対してのみ動作します。</p>
 <h2 id="Related">関連</h2>
 <p><a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupDeactivate.htm">GroupDeactivate</a>, <a href="GroupClose.htm">GroupClose</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExIE">
-<p><a class="ex_number" href="#ExIE"></a>  Press a hotkey to traverse all open MSIE windows.</p>
-<pre><em>; In global code, to be evaluated at startup:</em>
-GroupAdd "MSIE", "ahk_class IEFrame" <em>; Add only Internet Explorer windows to this group.</em>
+<p><a class="ex_number" href="#ExIE"></a> ホットキーを押すと、開いているすべてのMSIEウィンドウを縦断することができます。</p>
+<pre><em>; グローバルコードで、起動時に評価される：</em>
+GroupAdd "MSIE", "ahk_class IEFrame"<em>; Internet Explorerのウィンドウだけをこのグループに追加</em>します。
 
-<em>; Assign a hotkey to activate this group, which traverses
-; through all open MSIE windows, one at a time (i.e. each
-; press of the hotkey).</em>
+<em>;このグループを起動するためのホットキーを割り当てます。
+; 開いているすべてのMSIEウィンドウを一度に1つずつ（つまり、それぞれのウィンドウに
+; ホットキーの押下）。</em>
 Numpad1::GroupActivate "MSIE", "r"</pre>
 </div>
 
 <div class="ex" id="ExOutlook">
-  <p><a class="ex_number" href="#ExOutlook"></a>  Press a hotkey to visit each MS Outlook 2002 window, one at a time.</p>
-  <pre><em>; In global code, to be evaluated at startup:</em>
+  <p><a class="ex_number" href="#ExOutlook"></a> ホットキーを押して、MS Outlook 2002の各ウィンドウを1つずつ訪問します。</p>
+  <pre><em>; グローバルコードで、起動時に評価される：</em>
 SetTitleMatchMode 2
-GroupAdd "mail", "Message - Microsoft Word" <em>; This is for mails currently being composed</em>
-GroupAdd "mail", "- Message (" <em>; This is for already opened items
-; Need extra text to avoid activation of a phantom window:</em>
+GroupAdd "mail", "Message - Microsoft Word"<em>;これは現在作成中のメールのための</em>ものです。
+Groupadd "mail", "- Message ("<em>;これは既に開封されたものが対象です。
+; ファントムウィンドウの起動を避けるため、テキストを追加する必要がある：</em>
 GroupAdd "mail", "Advanced Find", "Sear&amp;ch for the word(s)"
 GroupAdd "mail", , "Recurrence:"
 GroupAdd "mail", "Reminder"
 GroupAdd "mail", "- Microsoft Outlook"
 
-<em>; Assign a hotkey to visit each Outlook window, one at a time.</em>
+<em>; Outlookの各ウィンドウを一度に訪問するためのホットキーを割り当てます。</em>
 Numpad5::GroupActivate "mail"</pre>
 </div>
 
