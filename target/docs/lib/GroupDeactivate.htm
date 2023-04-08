@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GroupDeactivate - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The GroupDeactivate function is similar to the GroupActivate function but activates the next window not in the group." />
+<title>GroupDeactivate - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GroupDeactivate 関数は、GroupActivate 関数と似ていますが、グループに属さない次のウィンドウをアクティブにします。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>GroupDeactivate</h1>
 
-<p>Similar to <a href="GroupActivate.htm">GroupActivate</a> except activates the next window <strong>not</strong> in the group.</p>
+<p><a href="GroupActivate.htm">GroupActivate</a>と似ていますが、グループ内に<strong>ない</strong>次のウィンドウをアクティブにします。</p>
 
 <pre class="Syntax"><span class="func">GroupDeactivate</span> GroupName <span class="optional">, Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,38 +21,38 @@
   <dt>GroupName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the target group, as originally defined by <a href="GroupAdd.htm">GroupAdd</a>.</p>
+    <p><a href="GroupAdd.htm">GroupAdd</a>で元々定義されている対象グループの名前です。</p>
   </dd>
 
   <dt>モード</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If omitted, the function activates the oldest non-member window. この動作を変更するには、次の文字を指定します：</p>
-    <p><strong>R:</strong> The newest non-member window (the one most recently active) is activated, but only if a member of the group is active when the function is given. "R "は、一時的に関係ない作業に切り替えるケースに有効です。When you return to the group via <a href="GroupActivate.htm">GroupActivate</a>, GroupDeactivate, or <a href="GroupClose.htm">GroupClose</a>, the window you were most recently working with is activated rather than the oldest window.</p>
+    <p>省略された場合、最も古い非会員ウィンドウをアクティブにします。この動作を変更するには、次の文字を指定します：</p>
+    <p><strong>R：</strong>最も新しい非メンバーウィンドウ（最も最近アクティブになったウィンドウ）がアクティブになりますが、この関数が与えられたときにグループのメンバーがアクティブである場合に限られます。"R"は、一時的に関係ない作業に切り替えるケースに有効です。<a href="GroupActivate.htm">GroupActivate</a>、GroupDeactivate、<a href="GroupClose.htm">GroupClose</a>でグループに戻ると、最も古いウィンドウではなく、直近で作業していたウィンドウがアクティブになります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>GroupDeactivate causes the first window that does <strong>not</strong> match any of the group's window specifications to be activated. Using GroupDeactivate a second time will activate the next window in the series and so on. Normally, GroupDeactivate is assigned to a hotkey so that this window-traversal behavior is automated by pressing that key.</p>
-<p>This function is useful in cases where you have a collection of favorite windows that are almost always running. By adding these windows to a group, you can use GroupDeactivate to visit each window that isn't one of your favorites and decide whether to close it. This allows you to clean up your desktop much more quickly than doing it manually.</p>
-<p>GroupDeactivate selects windows in a manner similar to the <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> system hotkey. 具体的：</p>
+<p>GroupDeactivateは、グループのウィンドウ仕様のいずれにも合致<strong>しない</strong>最初のウィンドウをアクティブにする。2回目にGroupDeactivateを使用すると、シリーズの次のウィンドウがアクティブになり、以下同様です。通常、GroupDeactivateはホットキーに割り当てられており、そのキーを押すことでウィンドウ遷移の動作が自動化されるようになっています。</p>
+<p>この機能は、ほぼ常時起動しているお気に入りのウィンドウが集まっているような場合に有効です。これらのウィンドウをグループ化することで、GroupDeactivateを使って、お気に入り以外のウィンドウを訪問し、閉じるかどうかを決定することができます。これにより、手動で行うよりもはるかに早くデスクトップをクリーンアップすることができます。</p>
+<p>GroupDeactivateは、<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーと同様の方法でウィンドウを選択します。具体的：</p>
 <ul>
-  <li>Owned windows, such as certain dialogs and tool windows, are not evaluated. However, if the owner window is eligible for activation, the most recently active owned window is activated instead, unless the owner was active more recently. This is determined by calling <a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastactivepopup">GetLastActivePopup</a>.</li>
-  <li>Windows with the WS_EX_TOPMOST or WS_EX_NOACTIVATE styles are skipped.</li>
-  <li>Windows with the WS_EX_TOOLWINDOW style but without the WS_EX_APPWINDOW style are skipped. (These windows are generally also omitted from Alt-Tab and the taskbar.)</li>
-  <li>Disabled windows are skipped, unless a window it owns (such as a modal dialog) was active more recently than the window itself.</li>
-  <li>Hidden or cloaked windows are skipped.</li>
-  <li>The Desktop is skipped.</li>
+  <li>特定のダイアログやツールウィンドウなど、所有するウィンドウは評価されません。ただし、オーナーウィンドウがアクティブ化の対象となる場合、オーナーがより最近アクティブ化した場合を除き、最も最近アクティブ化したオーナーウィンドウが代わりにアクティブ化されます。これは、<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastactivepopup">GetLastActivePopup</a>を呼び出すことで決定されます。</li>
+  <li>WS_EX_TOPMOST または WS_EX_NOACTIVATE スタイルを持つウィンドウはスキップされます。</li>
+  <li>WS_EX_TOOLWINDOW スタイルを持ち、WS_EX_APPWINDOW スタイルを持たないウィンドウはスキップされます。(これらのウィンドウは、一般的にAlt-Tabやタスクバーも省略されます)。</li>
+  <li>無効化されたウィンドウは、そのウィンドウが所有するウィンドウ（モーダルダイアログなど）がウィンドウ自身よりも最近アクティブだった場合を除き、スキップされます。</li>
+  <li>隠れているウィンドウ、隠されているウィンドウはスキップされます。</li>
+  <li>デスクトップはスキップされます。</li>
 </ul>
-<p>Although the taskbar is skipped due to the WS_EX_TOPMOST style, it is activated if there are no other eligible windows and the active window matches the group.</p>
+<p>WS_EX_TOPMOST のスタイルによりタスクバーはスキップされますが、他に対象となるウィンドウがなく、アクティブなウィンドウがグループに一致する場合にアクティブ化されます。</p>
 <p>ウィンドウグループの詳細については、<a href="GroupAdd.htm">GroupAdd</a>を参照してください。</p>
 <h2 id="Related">関連</h2>
 <p><a href="GroupAdd.htm">GroupAdd</a>, <a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupClose.htm">GroupClose</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a>  Activates the oldest window which is not a member of a window group.</p>
-<pre>GroupDeactivate "MyFavoriteWindows"  <em>; Visit non-favorite windows to clean up desktop.</em></pre>
+<p><a class="ex_number" href="#ExBasic"></a> ウィンドウグループのメンバーでない最も古いウィンドウをアクティブにします。</p>
+<pre>GroupDeactivate "MyFavoriteWindows"<em>;デスクトップをきれいにするために、お気に入りでないウィンドウを訪問します。</em></pre>
 </div>
 
 </body>
