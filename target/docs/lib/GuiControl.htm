@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GuiControl Object - Methods &amp; Properties | AutoHotkey v2</title>
-<meta name="description" content="The GuiControl object provides an interface for a GUI control to perform actions, such as moving, or to retrieve or set values, such as its text." />
+<title>GuiControl Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<meta name="description" content="GuiControlオブジェクトは、GUIコントロールが移動などの動作を行ったり、テキストなどの値を取得・設定したりするためのインターフェースを提供します。" />
 <meta name="ahk:equiv-v1" content="lib/GuiControl.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,52 +14,51 @@
 <h1>GuiControl Object</h1>
 <pre class="NoIndent">class Gui.Control extends Object</pre>
 
-<p>Provides an interface for modifying GUI controls and retrieving information about them. <a href="Gui.htm#Add">Gui.Add</a>, <a href="Gui.htm#__Item">Gui.__Item</a> and <a href="GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a> return an object of this type.</p>
+<p>GUIコントロールを変更したり、コントロールに関する情報を取得するためのインターフェイスを提供します。<a href="Gui.htm#Add">Gui.Add</a>、<a href="Gui.htm#__Item">Gui.__Item</a>、<a href="GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a>は、このタイプのオブジェクトを返します。</p>
 
-<p>"GuiCtrl" is used below as a placeholder for instances of the <code>Gui.Control</code> class.</p>
-<p><code>Gui.Control</code> serves as the base class for all GUI controls, but each type of control has its own class. Some of the following methods are defined by the prototype of the appropriate class, or the <code>Gui.List</code> base class. See <a href="../ObjList.htm">Built-in Classes</a> for a full list.</p>
-<p>In addition to the methods and property inherited from <a href="Object.htm">Object</a>, GuiControl objects may have the following predefined methods and properties.</p>
+<p>"GuiCtrl"は、<code>Gui.Control</code>クラスのインスタンスのプレースホルダーとして、以下で使用されます。</p>
+<p><code>Gui.Control</code>はすべてのGUIコントロールの基本クラスとして機能しますが、コントロールの種類によって独自のクラスが存在します。以下のメソッドの一部は、該当するクラスのプロトタイプ、または<code>Gui.List</code>の基底クラスで定義されます。全リストは「<a href="../ObjList.htm">組込クラス</a>」をご覧ください。</p>
+<p><a href="Object.htm">Object</a>から継承されたメソッドとプロパティに加えて、GuiControlオブジェクトは、以下の定義済みのメソッドとプロパティを持つことができます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
   <li><a href="#Methods">Methods</a>:
     
     <ul>
-      <li><a href="#Add">Add</a>: Appends the specified entries at the current list of a ListBox, DropDownList, ComboBox, or Tab control.</li>
-      <li><a href="#Choose">Choose</a>: Sets the selection in a ListBox, DropDownList, ComboBox, or Tab control to be the specified value.</li>
-      <li><a href="#Delete">Delete</a>: Deletes the specified entry or all entries of a ListBox, DropDownList, ComboBox, or Tab control.</li>
-      <li><a href="#Focus">Focus</a>: Sets keyboard focus to the control.</li>
-      <li><a href="#GetPos">GetPos</a>: Retrieves the position and size of the control.</li>
-      <li><a href="#Move">Move</a>: Moves and/or resizes the control.</li>
-      <li><a href="#OnCommand">OnCommand</a>: Registers a function or method to be called when a control notification is received via the WM_COMMAND message.</li>
+      <li><a href="#Add">Add</a>:ListBox、DropDownList、ComboBox、Tab コントロールの現在のリストに、指定された項目を追加する。</li>
+      <li><a href="#Choose">Choose</a>:ListBox、DropDownList、ComboBox、Tab コントロールの選択範囲を指定された値に設定します。</li>
+      <li><a href="#Delete">Delete</a>:ListBox、DropDownList、ComboBox、Tab コントロールの指定された項目またはすべての項目を削除する。</li>
+      <li><a href="#Focus">Focus</a>:コントロールにキーボードフォーカスを設定します。</li>
+      <li><a href="#GetPos">GetPos</a>:コントロールの位置と大きさを取得します。</li>
+      <li><a href="#Move">Move</a>:コントロールの移動およびサイズ変更を行います。</li>
+      <li><a href="#OnCommand">OnCommand</a>:WM_COMMANDメッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</li>
       <li><a href="#OnEvent">OnEvent</a>:与えられたイベントが発生したときに呼び出される関数またはメソッドを登録します。</li>
-      <li><a href="#OnNotify">OnNotify</a>: Registers a function or method to be called when a control notification is received via the WM_NOTIFY message.</li>
-      <li><a href="#Opt">Opt</a>: Sets various options and styles for the appearance and behavior of the control.</li>
-      <li><a href="#Redraw">Redraw</a>: Redraws the region of the GUI window occupied by the control.</li>
-      <li><a href="#SetFont">SetFont</a>: Sets the font typeface, size, style, and/or color for the control.</li>
-      <li><a href="#SetFormat">SetFormat</a>: Sets the display format of a DateTime control.</li>
-      <li><a href="#UseTab">UseTab</a>: Causes subsequently added controls to be belong to the specified tab of a Tab control.</li>
+      <li><a href="#OnNotify">OnNotify</a>:WM_NOTIFYメッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</li>
+      <li><a href="#Opt">Opt</a>:コントロールの外観や動作に関するさまざまなオプションやスタイルを設定します。</li>
+      <li><a href="#Redraw">Redraw</a>:コントロールが占有するGUIウィンドウの領域を再描画する。</li>
+      <li><a href="#SetFont">SetFont</a>:コントロールのフォントの書体、サイズ、スタイル、色などを設定する。</li>
+      <li><a href="#SetFormat">SetFormat</a>:DateTime コントロールの表示形式を設定します。</li>
+      <li><a href="#UseTab">UseTab</a>:追加されたコントロールは、タブコントロールの指定されたタブに所属するようにします。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
     
     <ul>
-      <li><a href="#ClassNN">ClassNN</a>: Retrieves the ClassNN of the control.</li>
-      <li><a href="#Enabled">Enabled</a>: Retrieves the current interaction state of the control, or enables or disables (grays out) it.</li>
-      <li><a href="#Focused">Focused</a>: Retrieves the current focus state of the control.</li>
-      <li><a href="#Gui">Gui</a>: Retrieves the control's GUI parent.</li>
-      <li><a href="#Hwnd">Hwnd</a>: Retrieves the HWND of the control.</li>
-      <li><a href="#Name">Name</a>: Retrieves or sets the explicit name of the control.</li>
-      <li><a href="#Text">Text</a>: Retrieves or sets the text/caption of the control.</li>
-      <li><a href="#Type">Type</a>: Retrieves the type of the control.</li>
-      <li><a href="#Value">Value</a>: Retrieves or sets new contents into a value-capable control.</li>
-      <li><a href="#Visible">Visible</a>: Retrieves the current visibility state of the control, or shows or hides it.</li>
+      <li><a href="#ClassNN">ClassNN</a>:コントロールの ClassNN を取得します。</li>
+      <li><a href="#Enabled">Enabled</a>:コントロールの現在のインタラクションの状態を取得し、有効または無効（グレイアウト）にします。</li>
+      <li><a href="#Focused">Focused</a>:コントロールの現在のフォーカス状態を取得する。</li>
+      <li><a href="#Gui">Gui</a>:コントロールの GUI 親を取得します。</li>
+      <li><a href="#Hwnd">Hwnd</a>:コントロールの HWND を取得します。</li>
+      <li><a href="#Name">Name</a>:コントロールの明示的な名前を取得または設定します。</li>
+      <li><a href="#Text">Text</a>:コントロールのテキスト/キャプションを取得または設定する。</li>
+      <li><a href="#Type">Type</a>:コントロールの種類を取得します。</li>
+      <li><a href="#Value">Value</a>:値付け可能なコントロールに新しいコンテンツを取得または設定する。</li>
+      <li><a href="#Visible">Visible</a>:コントロールの現在の表示状態を取得し、表示または非表示にします。</li>
     </ul>
   </li>
-  <li><a href="#GenRemarks">General Remarks</a>:
-    
+  <li><a href="#GenRemarks">一般的な備考</a>：
     <ul>
-      <li><a href="#redraw-remarks">Redraw</a>: Performance-related remarks about redraw behaviour of controls.</li>
+      <li><a href="#redraw-remarks">Redraw</a>:コントロールの再描画動作に関するパフォーマンスに関する注意事項。</li>
     </ul>
   </li>
 </ul>
@@ -67,82 +66,82 @@
 <h2 id="Methods">メソッド</h2>
 <div class="methodShort" id="Add">
 <h3>Add</h3>
-<p>Appends list items to a ListBox, DropDownList or ComboBox, or tabs to a Tab control.</p>
+<p>ListBox、DropDownList、ComboBoxにはリストアイテムを、Tabコントロールにはタブを追加します。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Add</span>(Items)</pre>
 <dl>
   <dt>Items</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>の<a href="../Concepts.htm#objects">配列</a></p>
-    <p>An array of strings (e.g. <code>["Red","Green","Blue"]</code>) to be inserted at the end of the control's list. To replace (overwrite) the list instead, use <a href="#Delete">GuiCtrl.Delete</a> beforehand.</p>
+    <p>コントロールのリストの最後に挿入する文字列の配列（例：<code>["Red", "Green", "Blue"]</code>）。代わりにリストを置き換える（上書きする）には、あらかじめ<a href="#Delete">GuiCtrl.Delete</a>を使用してください。</p>
   </dd>
 </dl>
-<p>Use <a href="#Choose">GuiCtrl.Choose</a> to select an item.</p>
+<p><a href="#Choose">GuiCtrl.Choose</a>で項目を選択します。</p>
 <p>関連:<a href="ListView.htm#Add">ListView.Add</a>, <a href="TreeView.htm#Add">TreeView.Add</a></p>
 </div>
 
 <div class="methodShort" id="Choose">
 <h3>Choose</h3>
-<p>Sets the selection in a ListBox, DropDownList, ComboBox, or Tab control to be the specified value.</p>
+<p>ListBox、DropDownList、ComboBox、Tab コントロールの選択範囲を指定された値に設定します。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Choose</span>(Value)</pre>
 <dl>
   <dt>値</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>This parameter should be 1 for the first entry, 2 for the second, etc.</p>
-    <p>If <em>Value</em> is a string (even a numeric string), the entry whose leading part matches <em>Value</em> will be selected. 検索では、大文字と小文字は区別されません。For example, if the control contains the item "UNIX Text", specifying the word unix (lowercase) would be enough to select it. For a <a href="GuiControls.htm#ListBoxMulti">multi-select ListBox</a>, all matching items are selected.</p>
-    <p>If <em>Value</em> is zero or empty, the current selection is removed.</p></dd>
+    <p>このパラメータは、最初のエントリーの場合は1、2番目のエントリーの場合は2、などとします。</p>
+    <p><em>Value</em>が文字列（数値文字列でも可）の場合、先頭部分が<em>Value</em>と一致するエントリーが選択されます。検索では、大文字と小文字は区別されません。例えば、コントロールに「UNIXテキスト」という項目がある場合、unix（小文字）という単語を指定すれば、それだけで選択できます。<a href="GuiControls.htm#ListBoxMulti">複数選択リストボックス</a>の場合、一致するすべての項目が選択されます。</p>
+    <p><em>Value</em>が0または空の場合、現在の選択項目は削除されます。</p></dd>
 </dl>
-<p>To select or deselect <u>all</u> items in a <a href="GuiControls.htm#ListBoxMulti">multi-select ListBox</a>, follow this example:</p>
-<pre>PostMessage 0x0185, 1, -1, ListBox  <em>; Select all items. 0x0185 is LB_SETSEL.</em>
-PostMessage 0x0185, 0, -1, ListBox  <em>; Deselect all items.</em>
-ListBox.Choose(0)  <em>; Deselect all items.</em></pre>
-<p>Unlike <a href="ControlChooseIndex.htm">ControlChooseIndex</a>, this method does not raise a <a href="GuiOnEvent.htm#Change">Change</a> or <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a> event.</p>
+<p><a href="GuiControls.htm#ListBoxMulti">多項目選択リストボックス</a>の<u>全項目</u>を選択または選択解除するには、次のようにします：</p>
+<pre>PostMessage 0x0185, 1, -1, ListBox  <em>; 全項目を選択。0x0185はLB_SETSELです。</em>
+PostMessage 0x0185, 0, -1, ListBox  <em>;すべてのアイテムの選択を解除する。</em>
+ListBox.Choose(0)  <em>; すべての項目の選択を解除する。</em></pre>
+<p><a href="ControlChooseIndex.htm">ControlChooseIndex</a>とは異なり、このメソッドは<a href="GuiOnEvent.htm#Change">Change</a>または<a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>イベントを発生させません。</p>
 </div>
 
 <div class="methodShort" id="Delete">
 <h3>Delete</h3>
-<p>Deletes the specified entry or all entries of a ListBox, DropDownList, ComboBox, or Tab control.</p>
+<p>ListBox、DropDownList、ComboBox、Tab コントロールの指定された項目またはすべての項目を削除する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Delete</span>(<span class="optional">Value</span>)</pre>
 <dl>
   <dt>値</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>This parameter should be 1 for the first entry, 2 for the second, etc. If omitted, all entries are deleted.</p>
+    <p>このパラメータは、最初のエントリーの場合は1、2番目のエントリーの場合は2、などとします。省略された場合は、すべてのエントリーが削除されます。</p>
   </dd>
 </dl>
-<p>For tab controls, you should note that a tab's sub-controls stay associated with their original tab number; that is, they are never associated with their tab's actual display-name. For this reason, renaming or removing a tab will not change the tab number to which the sub-controls belong. For example, if there are three tabs <code>["Red","Green","Blue"]</code> and the second tab is removed by means of <code>MyTab.Delete(2)</code>, the sub-controls originally associated with Green will now be associated with Blue. Because of this behavior, only tabs at the end should generally be removed. Tabs that are removed in this way can be added back later, at which time they will reclaim their original set of controls.</p>
+<p>タブコントロールの場合、タブのサブコントロールは元のタブ番号に関連付けられ、タブの実際の表示名には関連付けられないことに注意する必要があります。このため、タブの名前を変更したり削除しても、サブコントロールが属するタブ番号は変更されません。例えば、3つのタブ<code>["Red", "Green", "Blue"]</code>があり、<code>MyTab.Delete(2)</code>で2番目のタブを削除すると、もともとGreenに関連していたサブコントロールは、Blueに関連付けられます。この動作のため、一般的には末尾のタブのみを削除する必要があります。この方法で削除されたタブは、後で再び追加することができ、その時は元の操作系を取り戻します。</p>
 <p>関連:<a href="ListView.htm#Delete">ListView.Delete</a>, <a href="TreeView.htm#Delete">TreeView.Delete</a></p>
 </div>
 
 <div class="methodShort" id="Focus">
 <h3>Focus</h3>
-<p>Sets keyboard focus to the control.</p>
+<p>コントロールにキーボードフォーカスを設定します。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Focus</span>()</pre>
-<p>注：To be effective, the window generally must not be minimized or hidden.</p>
+<p>注：効果的に使用するためには、一般的にウィンドウを最小化または非表示にする必要はありません。</p>
 </div>
 
 <div class="methodShort" id="GetPos">
 <h3>GetPos</h3>
-<p>Retrieves the position and size of the control.</p>
+<p>コントロールの位置と大きさを取得します。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">GetPos</span>(<span class="optional">X, Y, Width, Height</span>)</pre>
-<p>各パラメータは、それぞれの座標を格納する変数への<a href="../Concepts.htm#variable-references">参照</a>とする。The position is relative to the GUI window's client area, which is the area not including title bar, menu bar, and borders.</p>
-<p>Unlike <a href="ControlGetPos.htm">ControlGetPos</a>, this method applies <a href="Gui.htm#DPIScale">DPI scaling</a> to the returned coordinates (unless the <code>-DPIScale</code> option was used).</p>
+<p>各パラメータは、それぞれの座標を格納する変数への<a href="../Concepts.htm#variable-references">参照</a>とする。位置は、GUIウィンドウのクライアント領域（タイトルバー、メニューバー、ボーダーを含まない領域）からの相対位置です。</p>
+<p><a href="ControlGetPos.htm">ControlGetPos</a>とは異なり、このメソッドは返された座標に<a href="Gui.htm#DPIScale">DPIスケーリング</a>を適用します（<code>-DPIScale</code>オプションが使用されていない場合）。</p>
 <p>Example:</p>
 <pre>MyEdit.GetPos(&amp;x, &amp;y, &amp;w, &amp;h)
-MsgBox "The X coordinate is " x ". The Y coordinate is " y ". The width is " w ". The height is " h "."
+MsgBox "The X coordinate is " x ". Y座標は" y "です。幅は" w "です。高さは " h "です。"
 </pre>
 </div>
 
 <div class="methodShort" id="Move">
 <h3>Move</h3>
-<p>Moves and/or resizes the control.</p>
+<p>コントロールの移動およびサイズ変更を行います。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Move</span>(<span class="optional">X, Y, Width, Height</span>)</pre>
 <dl>
   <dt>X, Y</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The new position, relative to the GUI window's client area, which is the area not including title bar, menu bar, and borders.</p></dd>
-  <dt>Width, Height</dt><dd>
+    <p>GUIウィンドウのクライアント領域（タイトルバー、メニューバー、ボーダーを含まない領域）に対する相対的な新しい位置。</p></dd>
+  <dt>幅、高さ</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>新しいサイズです。</p></dd>
 </dl>
-<p>Unlike <a href="ControlMove.htm">ControlMove</a>, this method applies <a href="Gui.htm#DPIScale">DPI scaling</a> to the coordinates (unless the <code>-DPIScale</code> option was used).</p>
+<p><a href="ControlMove.htm">ControlMove</a>とは異なり、このメソッドは座標に<a href="Gui.htm#DPIScale">DPIスケーリング</a>を適用します（<code>-DPIScale</code>オプションが使用されていない場合）。</p>
 <p>例：</p>
 <pre>MyEdit.Move(10, 20, 200, 100)
 MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
@@ -150,76 +149,76 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 
 <div class="methodShort" id="OnCommand">
 <h3>OnCommand</h3>
-<p>Registers a function or method to be called when a control notification is received via the <a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a> message.</p>
+<p><a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">OnCommand</span>(NotifyCode, Callback <span class="optional">, AddRemove</span>)</pre>
-<p>See <a href="GuiOnCommand.htm">OnCommand</a> for details.</p>
+<p>詳しくは<a href="GuiOnCommand.htm">OnCommand</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="OnEvent">
 <h3>OnEvent</h3>
-<p>Registers a function or method to be called when the given <a href="GuiOnEvent.htm#Control_Events">event</a> is raised.</p>
+<p>与えられた<a href="GuiOnEvent.htm#Control_Events">イベント</a>が発生したときに呼び出される関数またはメソッドを登録します。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">OnEvent</span>(EventName, Callback <span class="optional">, AddRemove</span>)</pre>
 <p>詳しくは<a href="GuiOnEvent.htm">OnEvent</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="OnNotify">
 <h3>OnNotify</h3>
-<p>Registers a function or method to be called when a control notification is received via the <a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a> message.</p>
+<p><a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">OnNotify</span>(NotifyCode, Callback <span class="optional">, AddRemove</span>)</pre>
-<p>See <a href="GuiOnNotify.htm">OnNotify</a> for details.</p>
+<p>詳しくは<a href="GuiOnNotify.htm">OnNotify</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="Opt">
 <h3>Opt</h3>
-<p>Adds or removes various options and styles of the control.</p>
+<p>コントロールの各種オプションやスタイルを追加・削除する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Opt</span>(Options)</pre>
 <dl>
   <dt>オプション</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Either  <a href="GuiControls.htm">control-specific</a> or <a href="Gui.htm#OtherOptions">general</a> options and styles.</p>
+    <p><a href="GuiControls.htm">コントロールに特化</a>したもの、<a href="Gui.htm#OtherOptions">一般的</a>なオプションやスタイルのいずれかを選択します。</p>
   </dd>
 </dl>
-<p>In the following example, the control is <a href="Gui.htm#Disabled">disabled</a> and its <a href="Gui.htm#Background">background</a> is restored to the system default:</p>
+<p>次の例では、コントロールが<a href="Gui.htm#Disabled">無効化</a>され、その<a href="Gui.htm#Background">背景</a>がシステムデフォルトに戻されています：</p>
 <pre>MyEdit.Opt("+Disabled -Background")</pre>
-<p>In the next example, the OK button is made the new default button:</p>
+<p>次の例では、OKボタンが新しいデフォルトボタンになります：</p>
 <pre>OKButton.Opt("+Default")</pre>
-<p>Although <a href="../misc/Styles.htm">styles</a> and extended styles are also recognized, some of them cannot be applied or removed after a control has been created. Even if a change is successfully applied, the control might choose to ignore it.</p>
+<p><a href="../misc/Styles.htm">スタイル</a>や拡張スタイルも認識されるが、コントロール作成後に適用・削除できないものもある。変更が正常に適用されたとしても、コントロールはそれを無視することを選択するかもしれません。</p>
 </div>
 
 <div class="methodShort" id="Redraw">
 <h3>Redraw</h3>
-<p>Redraws the region of the GUI window occupied by the control.</p>
+<p>コントロールが占有するGUIウィンドウの領域を再描画する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">Redraw</span>()</pre>
-<p>Although this may cause an unwanted flickering effect when called repeatedly and rapidly, it solves display artifacts for certain control types such as <a href="GuiControls.htm#GroupBox">GroupBoxes</a>.</p>
+<p>これは、繰り返し高速に呼び出された場合に不要なちらつきが発生する可能性がありますが、<a href="GuiControls.htm#GroupBox">GroupBox</a>などの特定のコントロールタイプの表示アーチファクトを解決することができます。</p>
 </div>
 
 <div class="methodShort" id="SetFont">
 <h3>SetFont</h3>
-<p>Sets the font typeface, size, style, and/or color for the control.</p>
-<p>注：Omit both parameters to set the font to the GUI's current font, as set by <a href="Gui.htm#SetFont">Gui.SetFont</a>. Otherwise, any font attributes which are not specified will be copied from the control's previous font. Text color is changed only if specified in <em>Options</em>.</p>
+<p>コントロールのフォントの書体、サイズ、スタイル、色などを設定する。</p>
+<p>注：両方のパラメータを省略すると、<a href="Gui.htm#SetFont">Gui.SetFont</a>で設定されたGUIのカレントフォントに設定されます。それ以外の場合、指定されていないフォント属性は、コントロールの以前のフォントからコピーされます。文字色は、<em>オプション</em>で指定した場合のみ変更されます。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">SetFont</span>(<span class="optional">Options, FontName</span>)</pre>
-<p>For details about both parameters, see <a href="Gui.htm#SetFont">Gui.SetFont</a>.</p>
+<p>両パラメータの詳細については、<a href="Gui.htm#SetFont">Gui.SetFont</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="SetFormat">
 <h3>SetFormat</h3>
-<p>Sets the display format of a <a href="GuiControls.htm#DateTime">DateTime</a> control.</p>
+<p><a href="GuiControls.htm#DateTime">DateTime</a>コントロールの表示形式を設定する。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">SetFormat</span>(<span class="optional">Format</span>)</pre>
-  <p>See <a href="GuiControls.htm#DateTimeFormat">SetFormat</a> for details.</p>
+  <p>詳しくは<a href="GuiControls.htm#DateTimeFormat">SetFormat</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="UseTab">
 <h3>UseTab</h3>
-<p>Causes subsequently added controls to be belong to the specified tab of a Tab control.</p>
+<p>追加されたコントロールは、タブコントロールの指定されたタブに所属するようにします。</p>
 <pre class="Syntax">GuiCtrl.<span class="func">UseTab</span>(<span class="optional">Value, ExactMatch</span>)</pre>
 <dl>
   <dt>値</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>This parameter should be 1 for the first tab, 2 for the second, etc. If <em>Value</em> is not an integer, the tab whose leading part matches <em>Value</em> will be used. 検索では、大文字と小文字は区別されません。For example, if a the control contains the tab "UNIX Text", specifying the word unix (lowercase) would be enough to use it. If <em>Value</em> is zero, a blank string or omitted, subsequently controls are added outside the Tab control.</p>
+    <p>このパラメータは、1番目のタブには1、2番目のタブには2、などとします。<em>Value</em>が整数でない場合、先頭部分が<em>Value</em>と一致するタブが使用されます。検索では、大文字と小文字は区別されません。例えば、あるコントロールに　"UNIX Text" というタブがある場合、unix（小文字）という単語を指定すれば、それを使用することができます。<em>Value</em>が 0、空文字列、または省略された場合、Tab コントロールの外側にコントロールが追加されます。</p>
   </dd>
   <dt>ExactMatch</dt><dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>If this parameter is true, <em>Value</em> has to be an exact match, but not case sensitive.</p>
+    <p>このパラメータがtrueの場合、<em>Value</em>は完全一致でなければならないが、大文字と小文字は区別されなません。</p>
   </dd>
 </dl>
 </div>
@@ -227,52 +226,52 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <h2 id="Properties">属性</h2>
 <div class="methodShort" id="ClassNN">
 <h3>ClassNN</h3>
-<p>Retrieves the ClassNN of the control.</p>
+<p>コントロールの ClassNN を取得します。</p>
 <pre class="Syntax">ClassNN := GuiCtrl.ClassNN</pre>
 </div>
 
 <div class="methodShort" id="Enabled">
 <h3>Enabled</h3>
-<p>Retrieves the current interaction state of the control, or enables or disables (grays out) it.</p>
+<p>コントロールの現在のインタラクションの状態を取得し、有効または無効（グレイアウト）にします。</p>
 <pre class="Syntax">RetrievedState := GuiCtrl.Enabled</pre>
 <pre class="Syntax">GuiCtrl.Enabled := NewState</pre>
-<p>For Tab controls, this will also enable or disable all of the tab's sub-controls. However, any sub-control explicitly disabled via <code>GuiCtrl.Enabled := false</code> will remember that setting and thus remain disabled even after its Tab control is re-enabled.</p>
+<p>タブコントロールの場合、タブのサブコントロールもすべて有効または無効になります。ただし、<code>GuiCtrl.Enabled := false</code> で明示的に無効化されたサブコントロールは、その設定を記憶しているため、そのタブコントロールが再度有効化された後も無効のままです。</p>
 </div>
 
 <div class="methodShort" id="Focused">
 <h3>Focused</h3>
-<p>Retrieves the current focus state of the control.</p>
+<p>コントロールの現在のフォーカス状態を取得する。</p>
 <pre class="Syntax">RetrievedState := GuiCtrl.Focused</pre>
-<p>注：To be effective, the window generally must not be minimized or hidden.</p>
+<p>注：効果的に使用するためには、一般的にウィンドウを最小化または非表示にする必要はありません。</p>
 </div>
 
 <div class="methodShort" id="Gui">
 <h3>Gui</h3>
-<p>Retrieves the <a href="Gui.htm">Gui object</a> of the control's parent GUI window.</p>
+<p>コントロールの親GUIウィンドウの<a href="Gui.htm">Guiオブジェクト</a>を取得します。</p>
 <pre class="Syntax">GuiObj := GuiCtrl.Gui</pre>
 </div>
 
 <div class="methodShort" id="Hwnd">
 <h3>Hwnd</h3>
-<p>Retrieves the window handle (HWND) of the control.  </p>
+<p>コントロールのウィンドウハンドル(HWND)を取得します。 </p>
 <pre class="Syntax">Hwnd := GuiCtrl.Hwnd</pre>
 <p>コントロールのHWNDは、<a href="PostMessage.htm">PostMessage</a>、<a href="SendMessage.htm">SendMessage</a>、<a href="DllCall.htm">DllCall</a>でよく使用されます。</p>
 </div>
 
 <div class="methodShort" id="Name">
 <h3>名前</h3>
-<p>Retrieves or sets the name of the control.</p>
+<p>コントロールの名前を取得または設定します。</p>
 <pre class="Syntax">RetrievedName := GuiCtrl.Name</pre>
 <pre class="Syntax">GuiCtrl.Name := NewName</pre>
-<p>The control's name can be used with <a href="Gui.htm#__Item">Gui.__Item</a> to retrieve the GuiControl object. For most input-capable controls, the name is also used by <a href="Gui.htm#Submit">Gui.Submit</a>.</p>
+<p>コントロールの名前は、<a href="Gui.htm#__Item">Gui.__Item</a>でGuiControlオブジェクトを取得することができます。ほとんどの入力可能なコントロールの場合、この名前は<a href="Gui.htm#Submit">Gui.Submit</a>でも使用されます。</p>
 </div>
 
 <div class="methodShort" id="Text">
 <h3>Text</h3>
-<p>Retrieves or sets the text/caption of the control.</p>
+<p>コントロールのテキスト/キャプションを取得または設定する。</p>
 <pre class="Syntax">RetrievedText := GuiCtrl.Text</pre>
 <pre class="Syntax">GuiCtrl.Text := NewText</pre>
-<p>注：If the control has no visible caption text and no (single) text value, this property corresponds to the control's hidden caption text (like <a href="ControlGetText.htm">ControlGetText</a>/<a href="ControlSetText.htm">ControlSetText</a>).</p>
+<p>注：コントロールに可視キャプションテキストがなく、（単一の）テキスト値もない場合、このプロパティはコントロールの非表示キャプションテキストに対応します（<a href="ControlSetText.htm">ControlGetText</a>/<a href="ControlGetText.htm">ControlSetText</a>のように）。</p>
 <p><strong>Caption/display text</strong>: The <em>Text</em> property retrieves or sets the caption/display text of the following control types: <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">Checkbox</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#Text">Text</a>. Since the control will not expand automatically, use <code>GuiCtrl.<a href="#Move">Move</a>("w300")</code> or similar if the control needs to be widened.</p>
 
 <p><strong><a href="GuiControls.htm#DateTime">DateTime</a></strong>: The <em>Text</em> property retrieves the formatted text displayed by the control. Assigning a formatted date/time string to the control is not supported. To change the date/time being displayed, assign <a href="#Value">GuiCtrl.Value</a> a date-time stamp in <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> format.</p>
@@ -290,7 +289,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 
 <div class="methodShort" id="Type">
 <h3>型</h3>
-<p>Retrieves the type of the control.</p>
+<p>コントロールの種類を取得します。</p>
 <pre class="Syntax">RetrievedType := GuiCtrl.Type</pre>
 <p>Depending on the <a href="GuiControls.htm">control type</a>, <var>RetrievedType</var> is one of the following strings: Text, Edit, UpDown, Pic, Button, CheckBox, Radio, DDL, ComboBox, ListBox, ListView, TreeView, Link, Hotkey, DateTime, MonthCal, Slider, Progress, GroupBox, Tab, Tab2, Tab3, StatusBar, ActiveX, Custom.</p>
 </div>
@@ -344,7 +343,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 
 <div class="methodShort" id="Visible">
 <h3>Visible</h3>
-<p>Retrieves the current visibility state of the control, or shows or hides it.</p>
+<p>コントロールの現在の表示状態を取得し、表示または非表示にします。</p>
 <pre class="Syntax">RetrievedState := GuiCtrl.Visible</pre>
 <pre class="Syntax">GuiCtrl.Visible := NewState</pre>
 <p>For Tab controls, this will also show or hide all of the tab's sub-controls. If you additionally want to prevent a control's shortcut key (underlined letter) from working, disable the control via <code>GuiCtrl.Enabled := false</code>.</p>

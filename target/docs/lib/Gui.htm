@@ -66,8 +66,8 @@
   <li>General:
     
     <ul>
-      <li><a href="#Navigate">Keyboard Navigation</a></li>
-      <li><a href="#Appear">Window Appearance</a></li>
+      <li><a href="#Navigate">キーボードナビゲーション</a></li>
+      <li><a href="#Appear">ウィンドウの外観</a></li>
       <li><a href="#GenRemarks">総論</a></li>
       <li><a href="#Related">関連</a></li>
       <li><a href="#Examples">例</a></li>
@@ -85,7 +85,7 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>このパラメータには、<a href="#Opt">Gui.Opt</a>がサポートする任意のオプションを含めることができます。</p>
   </dd>
-  <dt>Title</dt><dd>
+  <dt>タイトル</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>ウィンドウのタイトルです。省略された場合、<a href="../Variables.htm#ScriptName">A_ScriptName</a>の現在の値がデフォルトとなる。</p>
   </dd>
@@ -248,7 +248,7 @@ MyGui.Show</pre>
   <dt>X, Y</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>新しい位置（スクリーン座標）。</p></dd>
-  <dt>Width, Height</dt><dd>
+  <dt>幅、高さ</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>新しいサイズです。</p></dd>
 </dl>
@@ -280,176 +280,177 @@ MyGui.Move(x-10,, w+20)</pre>
   <p>このパラメータの効果は累積的である。つまり、明示的に指定された設定のみを変更し、他の設定はすべて変更されないままである。</p>
   <p>オプションを追加する場合はプラス記号を、削除する場合はマイナス記号を指定します。事例：<code>MyGui.Opt("+Resize -MaximizeBox")</code>.</p>
   <p><strong>AlwaysOnTop</strong>:<a href="WinSetAlwaysOnTop.htm">WinSetAlwaysOnTop</a>と同じ効果で、ウィンドウが他のすべてのウィンドウより上にあるようにします。</p>
-  <p><strong>Border</strong>: Provides a thin-line border around the window. This is not common.</p>
-  <p><strong>Caption</strong> (present by default): Provides a title bar and a thick window border/edge. When removing the caption from a window that will use <a href="WinSetTransColor.htm">WinSetTransColor</a>, remove it only after setting the TransColor.</p>
-  <p><strong>Disabled</strong>: Disables the window, which prevents the user from interacting with its controls. This is often used on a window that owns other windows (see <a href="#Owner">Owner</a>).</p>
-  <p id="DPIScale"><strong>DPIScale</strong>: Use <code>MyGui.Opt("-DPIScale")</code> to disable <a href="../misc/DPIScaling.htm">DPI scaling</a>, which is enabled by default. If DPI scaling is enabled, coordinates and sizes passed to or retrieved from the Gui and <a href="GuiControl.htm">GuiControl</a> methods/properties are automatically scaled based on <a href="../Variables.htm#ScreenDPI">screen DPI</a>. For example, with a DPI of 144 (150%), <code>MyGui.Show("w100")</code> would make the Gui 150 (100 * 1.5) pixels wide, and resizing the window to 200 pixels wide via the mouse or <a href="WinMove.htm">WinMove</a> would cause <code>MyGui.GetClientPos(,,&amp;W)</code> to set <em>W</em> to 133 (200 // 1.5). <a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a> contains the system's current DPI.</p>
-  <p>DPI scaling only applies to the Gui and <a href="GuiControl.htm">GuiControl</a> methods/properties, so coordinates coming directly from other sources such as ControlGetPos or WinGetPos will not work. There are a number of ways to deal with this:</p>
+  <p><strong>Border</strong>:ウィンドウの周囲に細い線のボーダーを提供します。これは一般的ではありません。</p>
+  <p>
+<strong>Caption</strong>（デフォルトで存在する）：タイトルバーと太いウィンドウのボーダー/エッジを提供します。<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用するウィンドウからキャプションを削除する場合、TransColorを設定した後に削除してください。</p>
+  <p><strong>Disabled</strong>:ウィンドウを無効化し、ユーザーがそのコントロールと対話することを防ぎます。他のウィンドウを所有するウィンドウでよく使われます（「<a href="#Owner">所有者</a>」参照）。</p>
+  <p id="DPIScale"><strong>DPIScale</strong>:デフォルトで有効になっている<a href="../misc/DPIScaling.htm">DPIスケーリング</a>を無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。DPIスケーリングが有効な場合、Guiおよび<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティに渡されたり、そこから取得された座標やサイズは、<a href="../Variables.htm#ScreenDPI">画面のDPI</a>に基づいて自動的にスケーリングされます。例えば、DPIが144（150％）の場合、<code>MyGui.Show("w100")</code>でGuiを150（100 * 1.5）ピクセル幅にし、マウスや<a href="WinMove.htm">WinMove</a>でウィンドウを200ピクセル幅にリサイズすると<code>MyGui.GetClientPos(,,&amp;W)</code>で<em>Wに</em>133（200 // 1.5）設定します。<a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a>は、システムの現在の DPI を含んでいます。</p>
+  <p>DPIスケーリングはGuiと<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティにのみ適用されるので、ControlGetPosやWinGetPosのような他のソースから直接得られる座標は動作しません。対処法はいくつもあります：</p>
   <ul>
-    <li>Avoid using hard-coded coordinates wherever possible.  For example, use the <a href="#xp">xp</a>, <a href="#xs">xs</a>, <a href="#xm">xm</a> and <a href="#PosPlusMargin">x+m</a> options for positioning controls and specify height in <a href="#R">rows of text</a> instead of pixels.</li>
-    <li>Enable (<code>MyGui.Opt("+DPIScale")</code>) and disable (<code>MyGui.Opt("-DPIScale")</code>) scaling on the fly, as needed. Changing the setting does not affect positions or sizes which have already been set.</li>
-    <li>Manually scale the coordinates. For example, <code>x*(A_ScreenDPI/96)</code> converts x from logical/GUI coordinates to physical/non-GUI coordinates.</li>
+    <li>可能な限り、ハードコードされた座標の使用を避けます。例えば、コントロールの位置指定に<a href="#xp">xp</a>、<a href="#xs">xs</a>、<a href="#xm">xm</a>、<a href="#PosPlusMargin">x+m</a>オプションを使い、高さをピクセルではなく<a href="#R">テキストの行数</a>で指定します。</li>
+    <li>必要に応じて、スケーリングをその場で有効化（<code>MyGui.Opt("+DPIScale")</code>）、無効化（<code>MyGui.Opt("-DPIScale")</code>）することができます。設定を変更しても、すでに設定されている位置やサイズには影響しません。</li>
+    <li>座標を手動でスケーリングする。例えば、<code>x*(A_ScreenDPI/96)</code>はxを論理/GUI座標から物理/非GUI座標に変換する。</li>
   </ul>
-  <p id="LastFound"><strong>LastFound</strong>:Sets the window to be the <a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a> (though this is unnecessary in a <a href="GuiOnEvent.htm#Threads">GUI thread</a> because it is done automatically), which allows functions such as <a href="WinGetStyle.htm">WinGetStyle</a> and <a href="WinSetTransparent.htm">WinSetTransparent</a> to operate on it even if it is hidden (that is, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> is not necessary). This is especially useful for changing the properties of the window before showing it. 事例：</p>
+  <p id="LastFound"><strong>LastFound</strong>:ウィンドウを<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>に設定します（ただし、<a href="GuiOnEvent.htm#Threads">GUIスレッド</a>では自動的に行われるため不要）。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>や <a href="WinSetTransparent.htm">WinSetTransparent</a>などの関数が、ウィンドウが隠れていても操作できるようになります（つまり、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>は不要です）。これは、ウィンドウを表示する前にウィンドウのプロパティを変更する場合に特に有効です。事例：</p>
   <pre>MyGui.Opt("+LastFound")
 WinSetTransColor(CustomColor " 150", MyGui)
 MyGui.Show()</pre>
-  <p id="MaximizeBox"><strong>MaximizeBox</strong>: Enables the maximize button in the title bar. This is also included as part of <em>Resize</em> below.</p>
-  <p id="MinimizeBox"><strong>MinimizeBox</strong> (present by default): Enables the minimize button in the title bar.</p>
-  <p id="MinSize"><strong>MinSize</strong> and <strong>MaxSize</strong>: Determines the minimum and/or maximum size of the window, such as when the user drags its edges to resize it. Specify the word <em>MinSize</em> and/or <em>MaxSize</em> with no suffix to use the window's current size as the limit (if the window has no current size, it will use the size from the first use of <a href="#Show">Gui.Show</a>). Alternatively, append the width, followed by an X, followed by the height; for example: <code>MyGui.Opt("+Resize +MinSize640x480")</code>. The dimensions are in pixels, and they specify the size of the window's client area (which excludes borders, title bar, and <a href="#MenuBar">menu bar</a>). Specify each number as decimal, not hexadecimal.</p>
-  <p>Either the width or the height may be omitted to leave it unchanged (e.g. <code>+MinSize640x</code> or <code>+MinSizex480</code>). Furthermore, Min/MaxSize can be specified more than once to use the window's current size for one dimension and an explicit size for the other. For example, <code>+MinSize +MinSize640x</code> would use the window's current size for the height and 640 for the width.</p>
-  <p>If <em>MinSize</em> and <em>MaxSize</em> are never used, the operating system's defaults are used (similarly, <code>MyGui.Opt("-MinSize -MaxSize")</code> can be used to return to the defaults). 注：the window must have <a href="#Resize">+Resize</a> to allow resizing by the user.</p>
-  <p id="OwnDialogs"><strong>OwnDialogs</strong>: <code>MyGui.Opt("+OwnDialogs")</code> should be specified in each <a href="../misc/Threads.htm">thread</a> (such as a event handling function of a Button control) for which subsequently displayed <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="FileSelect.htm">FileSelect</a>, and <a href="DirSelect.htm">DirSelect</a> dialogs should be owned by the window. Such dialogs are modal, meaning that the user cannot interact with the GUI window until dismissing the dialog. By contrast, <a href="ToolTip.htm">ToolTip</a> do not become modal even though they become owned; they will merely stay always on top of their owner. In either case, any owned dialog or window is automatically destroyed when its GUI window is <a href="#Destroy">destroyed</a>.</p>
-  <p>There is typically no need to turn this setting back off because it does not affect other <a href="../misc/Threads.htm">threads</a>. However, if a thread needs to display both owned and unowned dialogs, it may turn off this setting via <code>MyGui.Opt("-OwnDialogs")</code>.</p>
-  <p id="Owner"><strong>Owner</strong>: Use <em>+Owner</em> to make the window owned by another. An owned window has no taskbar button by default, and when visible it is always on top of its owner. It is also automatically destroyed when its owner is destroyed. <em>+Owner</em> can be used before or after the owned window is created. There are two ways to use <em>+Owner</em>, as shown below:</p>
-  <pre>MyGui.Opt("+Owner" OtherGui.Hwnd)  <em>; Make the GUI owned by <i>OtherGui</i>.</em>
-MyGui.Opt("+Owner")  <em>; Make the GUI owned by <a href="../Variables.htm#ScriptHwnd">the script's main window</a> to prevent display of a taskbar button.</em></pre>
-  <p><code>+Owner</code> can be immediately followed by the <a href="#Hwnd">HWND</a> of any top-level window.</p>
-  <p>To prevent the user from interacting with the owner while one of its owned window is visible, disable the owner via <code>MyGui.Opt("+Disabled")</code>. Later (when the time comes to cancel or destroy the owned window), re-enable the owner via <code>MyGui.Opt("-Disabled")</code>. Do this prior to cancel/destroy so that the owner will be reactivated automatically.</p>
-  <p id="Parent"><strong>Parent</strong>: Use <code>+Parent</code> immediately followed by the <a href="#Hwnd">HWND</a> of any window or control to use it as the parent of this window. To convert the GUI back into a top-level window, use <code>-Parent</code>. This option works even after the window is created.</p>
-  <p>既知の制限：<a href="../Program.htm#Installer_uiAccess">Running with UI access</a> prevents the <code>+Parent</code> option from working on an existing window if the new parent is always-on-top and the child window is not.</p>
-  <p id="Resize"><strong>Resize</strong>: Makes the window resizable and enables its maximize button in the title bar. To avoid enabling the maximize button, specify <code>+Resize -MaximizeBox</code>.</p>
-  <p><strong>SysMenu</strong> (present by default): Specify <code>-SysMenu</code> (minus SysMenu) to omit the system menu and icon in the window's upper left corner. This will also omit the minimize, maximize, and close buttons in the title bar.</p>
-  <p id="Theme"><strong>Theme</strong>:By specifying <code>-Theme</code>, all subsequently created controls in the window will have the Classic Theme appearance. To later create additional controls that obey the current theme, turn it back on via <code>+Theme</code>. 注：This option has no effect if the Classic Theme is in effect. Finally, this setting may be changed for an individual control by specifying <code>+Theme</code> or <code>-Theme</code> in its options when it is created.</p>
-  <p><strong>ToolWindow</strong>: Provides a narrower title bar but the window will have no taskbar button. This always hides the maximize and minimize buttons, regardless of whether the <a href="../misc/Styles.htm#WS_MAXIMIZEBOX">WS_MAXIMIZEBOX</a> and <a href="../misc/Styles.htm#WS_MINIMIZEBOX">WS_MINIMIZEBOX</a> styles are present.</p>
+  <p id="MaximizeBox"><strong>MaximizeBox</strong>:タイトルバーの最大化ボタンを有効にします。これは、下記の<em>Resizeの</em>一部としても含まれています。</p>
+  <p id="MinimizeBox"><strong>MinimizeBox</strong>（デフォルトで存在）：タイトルバーの最小化ボタンを有効にします。</p>
+  <p id="MinSize"><strong>MinSize</strong> および <strong>MaxSize</strong>:ユーザーがウィンドウの端をドラッグしてサイズを変更するときなど、ウィンドウの最小および最大サイズを決定する。<em>MinSize</em>や <em>MaxSize</em>を接尾辞なしで指定すると、ウィンドウの現在のサイズを制限として使用します（ウィンドウに現在のサイズがない場合は、<a href="#Show">Gui.Show</a>の最初の使用時のサイズが使用されます）。または、幅の後にXを付け、その後に高さを付けます：<code>MyGui.Opt("+Resize +MinSize640x480")</code>. 寸法はピクセル単位で、ウィンドウのクライアント領域（ボーダー、タイトルバー、<a href="#MenuBar">メニューバー</a>を除く）の大きさを指定します。各数値を16進数ではなく、10進数で指定します。</p>
+  <p>幅または高さのどちらかを省略して変更しないことも可能です（例：<code>+MinSize640x</code>、<code>+MinSizex480</code>）。さらに、Min/MaxSizeを複数回指定することで、一方の次元にウィンドウの現在のサイズを、他方の次元に明示的なサイズを使用することができます。例えば、<code>+MinSize +MinSize640x</code>は、高さにウィンドウの現在のサイズ、幅に640を使用します。</p>
+  <p><em>MinSize</em>と <em>MaxSize</em>が一度も使われていない場合、オペレーティングシステムのデフォルトが使われます（同様に、<code>MyGui.Opt("-MinSize -MaxSize")</code>でデフォルトに戻ることができます）。注：の場合、ユーザーによるサイズ変更を可能にするために、ウィンドウには<a href="#Resize">+Resize</a>が必要です。</p>
+  <p id="OwnDialogs"><strong>OwnDialogs</strong>:<code>MyGui.Opt("+OwnDialogs")</code>は、その後に表示される<a href="MsgBox.htm">MsgBox</a>、<a href="InputBox.htm">InputBox</a>、<a href="FileSelect.htm">FileSelect</a>、<a href="DirSelect.htm">DirSelect</a>ダイアログをウィンドウで所有するための<a href="../misc/Threads.htm">各スレッド</a>（ボタンコントロールのイベント処理関数など）で指定する必要があります。このようなダイアログはモーダルであり、ユーザーはダイアログを閉じるまでGUIウィンドウと対話することができません。これに対して、<a href="ToolTip.htm">ToolTip</a>は所有してもモーダルになることはなく、常に所有者の上に乗っているに過ぎない。いずれの場合も、所有するダイアログやウィンドウは、そのGUIウィンドウが<a href="#Destroy">破棄</a>されると自動的に破棄されます。</p>
+  <p>他の<a href="../misc/Threads.htm">スレッド</a>に影響を与えないため、通常、この設定をオフに戻す必要はありません。ただし、スレッドが所有と未所有の両方のダイアログを表示する必要がある場合は、<code>MyGui.Opt("-OwnDialogs")</code>によってこの設定をオフにすることができます。</p>
+  <p id="Owner"><strong>Owner</strong>:ウィンドウを他の人が所有するようにするには、<em>+Owner</em>を使用します。所有するウィンドウは、デフォルトではタスクバーボタンがなく、表示されているときは常に所有者の上に表示されます。また、所有者が破壊されると自動的に破壊されます。<em>+Owner</em>は、所有するウィンドウが作成される前でも後でも使用できます。<em>Owner</em>の使い方には、以下の2通りがあります：</p>
+  <pre>MyGui.Opt("+Owner" OtherGui.Hwnd)  <em>;GUIを<i>OtherGui</i>の所有にする</em>。
+MyGui.Opt("+Owner")  <em>; タスクバーボタンの表示を防ぐため、GUIを<a href="../Variables.htm#ScriptHwnd">スクリプトのメインウィンドウ</a>に所有</em>させる。</pre>
+  <p><code>+Owner</code>は、任意のトップレベルウィンドウの<a href="#Hwnd">HWND</a>にすぐに続くことができます。</p>
+  <p>オーナーウィンドウが表示されているときに、ユーザーがオーナーと対話できないようにするには、<code>MyGui.Opt("+Disabled")</code>でオーナーを無効化します。後で（所有するウィンドウをキャンセルしたり破棄するとき）、<code>MyGui.Opt("-Disabled")</code>で所有者を再有効化します。オーナーが自動的に再活性化されるように、キャンセル/破棄の前にこの操作を行います。</p>
+  <p id="Parent"><strong>Parent</strong>:ウィンドウやコントロールの<a href="#Hwnd">HWNDに続けて</a> <code>+Parent</code>を使用すると、そのウィンドウの親として使用することができます。GUIをトップレベルのウィンドウに戻すには、<code>-Parent</code>を使用します。このオプションは、ウィンドウを作成した後でも機能します。</p>
+  <p>既知の制限：<a href="../Program.htm#Installer_uiAccess">UIアクセスで実行</a>すると、新しい親が常にトップで子ウィンドウがそうでない場合、<code>+Parent</code>オプションが既存のウィンドウで機能しない。</p>
+  <p id="Resize"><strong>Resize</strong>:ウィンドウのサイズを変更できるようにし、タイトルバーの最大化ボタンを有効にします。最大化ボタンを有効にしない場合は、<code>+Resize -MaximizeBox</code>を指定します。</p>
+  <p><strong>SysMenu</strong>（デフォルトで存在する）：ウィンドウ左上のシステムメニューとアイコンを省略する場合は、<code>-SysMenu</code>（マイナスSysMenu）を指定する。これにより、タイトルバーの最小化、最大化、および閉じるボタンも省略されます。</p>
+  <p id="Theme"><strong>Theme</strong>:<code>Themeを</code>指定すると、その後に作成されるウィンドウ内のコントロールはすべてクラシックテーマの外観となります。現在のテーマに従った制御を後から追加で作成する場合は、<code>+Theme</code>でオンに戻してください。注：このオプションは、「クラシックテーマ」が有効な場合は効果がありません。この設定は、コントロールの作成時にオプションで<code>+Theme</code>または<code>-Theme</code>を指定することで、個々のコントロールに対して変更することができます。</p>
+  <p><strong>ToolWindow</strong>:タイトルバーの幅が狭くなりますが、ウィンドウにタスクバーボタンが表示されなくなります。<a href="../misc/Styles.htm#WS_MAXIMIZEBOX">WS_MAXIMIZEBOX</a>と<a href="../misc/Styles.htm#WS_MINIMIZEBOX">WS_MINIMIZEBOX</a>のスタイルが存在するかどうかに関わらず、常に最大化、最小化ボタンを非表示にします。</p>
   <p><strong>(Unnamed Style）</strong>：プラス記号またはマイナス記号の直後に、10進数または16進数の<a href="../misc/Styles.htm">スタイル番号</a>を指定します。</p>
-  <p><strong>(Unnamed ExStyle)</strong>:プラス記号またはマイナス記号の直後に文字Eと10進数または16進数の拡張スタイル番号を指定します。For example, <code>+E0x40000</code> would add the WS_EX_APPWINDOW style, which provides a taskbar button for a window that would otherwise lack one. ここに書かれていない他の拡張スタイル（ほとんど使用されないため）については、「<a href="https://learn.microsoft.com/windows/win32/winmsg/extended-window-styles">拡張ウィンドウスタイル｜Microsoft Docs</a>」を参照し、完全なリストを入手してください。</p></dd>
+  <p><strong>(Unnamed ExStyle)</strong>:プラス記号またはマイナス記号の直後に文字Eと10進数または16進数の拡張スタイル番号を指定します。例えば、<code>+E0x40000</code>は、WS_EX_APPWINDOWスタイルを追加し、タスクバーボタンがないウィンドウに、タスクバーボタンを提供します。ここに書かれていない他の拡張スタイル（ほとんど使用されないため）については、「<a href="https://learn.microsoft.com/windows/win32/winmsg/extended-window-styles">拡張ウィンドウスタイル｜Microsoft Docs</a>」を参照し、完全なリストを入手してください。</p></dd>
 </dl>
 </div>
 
 <div class="methodShort" id="Restore">
 <h3>Restore</h3>
-<p>Unhides the window (if necessary) and restores it, if it was minimized or maximized beforehand.</p>
+<p>ウィンドウが最小化または最大化されている場合、必要に応じてウィンドウの非表示を解除し、元に戻します。</p>
 <pre class="Syntax">MyGui.<span class="func">Restore</span>()</pre>
 </div>
 
 <div class="methodShort" id="SetFont">
 <h3>SetFont</h3>
-<p>Sets the font typeface, size, style, and/or color for controls added to the window from this point onward.</p>
-<p>注：Omit both parameters to restore the font to the system's default GUI typeface, size, and color. Otherwise, any font attributes which are not specified will be copied from the previous font.</p>
+<p>これ以降にウィンドウに追加されるコントロールのフォントの書体、サイズ、スタイル、カラーを設定します。</p>
+<p>注：両方のパラメーターを省略すると、フォントをシステムのデフォルトのGUI書体、サイズ、色に戻すことができます。それ以外の場合、指定されていないフォント属性は、前のフォントからコピーされます。</p>
 <pre class="Syntax">MyGui.<span class="func">SetFont</span>(<span class="optional">Options, FontName</span>)</pre>
 <dl>
   <dt>オプション</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Zero or more options. Each option is either a single letter immediately followed by a value, or a single word. To specify more than one option, include a space between each. 事例：<code>cBlue s12 bold</code>.</p>
-  <p>The following words are supported: <strong>bold</strong>, <em>italic</em>, <s>strike</s>, <u>underline</u>, and norm. <em>Norm</em> returns the font to normal weight/boldness and  turns off italic, strike, and underline (but it retains the existing color and size). It is possible to use norm to turn off all attributes and then selectively turn on others. For example, specifying <code>norm italic</code> would set the font to normal then to italic.</p>
-  <p><strong>C</strong>:Color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value -- or specify the word Default to return to the system's default color (black on most systems). Example values:<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. 注：<a href="GuiControls.htm#Button">Buttons</a> do not obey custom colors. Also, an individual control can be created with a font color other than the current one by including the C option. 事例：<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
-  <p><strong>S</strong>:Size (in points). 事例：<code>s12</code> (specify decimal, not hexadecimal)</p>
-  <p><strong>W</strong>:Weight (boldness), which is a number between 1 and 1000 (400 is normal and 700 is bold). 事例：<code>w600</code> (specify decimal, not hexadecimal)</p>
-  <p id="fontq"><strong>Q</strong>:Text rendering quality. 事例：<code>q3</code>. Q should be followed by a number from the following table:</p>
+    <p>選択肢は0個以上。各オプションは、1文字に続けて値を指定するか、1つの単語を指定します。複数のオプションを指定する場合は、各オプションの間にスペースを入れてください。事例：<code>cBlue s12 bold</code>.</p>
+  <p>以下の単語に対応しています：<strong>bold</strong>, <em>italic</em>, <s>strike</s>, <u>underline</u>, および norm. <em>Norm</em>は、フォントを通常のウェイト/太さに戻し、イタリック、ストライク、アンダーラインをオフにします（ただし、既存の色とサイズは保持されます）。ノームを使ってすべての属性をオフにし、他の属性を選択的にオンにすることが可能です。例えば、<code>norm italic</code>を指定すると、フォントはノーマルに設定された後、イタリックに設定されます。</p>
+  <p><strong>C</strong>:色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値 -- あるいはDefaultを指定すると、システムのデフォルトカラー（ほとんどのシステムでは黒）に戻ります。例値：<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. 注：<a href="GuiControls.htm#Button">ボタン</a>はカスタムカラーに従わない。また、Cオプションを含めることで、現在のフォントカラー以外のフォントカラーを持つ個別コントロールを作成することができます。事例：<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
+  <p><strong>S</strong>:サイズ（単位：ポイント）。事例：<code>s12</code>（16進数ではなく、10進数を指定します。）</p>
+  <p><strong>W</strong>:ウェイト（太字）、1～1000の数値（400が普通、700が太字）。事例：<code>w600</code>（16進数ではなく10進数で指定してください。）</p>
+  <p id="fontq"><strong>Q</strong>:テキスト描画の品質。事例：<code>q3</code>. Qの後には、次の表から番号を選んでください：</p>
   <table class="info">
     <tr>
       <th>番号</th>
-      <th abbr="Constant">Windows Constant</th>
+      <th abbr="Constant">ウィンドウズ定数</th>
       <th abbr="説明">説明</th>
     </tr>
     <tr>
       <td>0</td>
       <td>DEFAULT_QUALITY</td>
-      <td>Appearance of the font does not matter.</td>
+      <td>フォントの外観は問いません。</td>
     </tr>
     <tr>
       <td>1</td>
       <td>DRAFT_QUALITY</td>
-      <td>Appearance of the font is less important than when the PROOF_QUALITY value is used.</td>
+      <td>フォントの外観は、PROOF_QUALITY 値を使用する場合よりも重要ではありません。</td>
     </tr>
     <tr>
       <td>2</td>
       <td>PROOF_QUALITY</td>
-      <td>Character quality of the font is more important than exact matching of the logical-font attributes.</td>
+      <td>フォントの文字品質は、論理フォント属性の完全一致よりも重要である。</td>
     </tr>
     <tr>
       <td>3</td>
       <td>NONANTIALIASED_QUALITY</td>
-      <td>Font is never antialiased, that is, font smoothing is not done.</td>
+      <td>フォントのアンチエイリアスは行われません。つまり、フォントスムージングは行われません。</td>
     </tr>
     <tr>
       <td>4</td>
       <td>ANTIALIASED_QUALITY</td>
-      <td>Font is antialiased, or smoothed, if the font supports it and the size of the font is not too small or too large.</td>
+      <td>フォントがアンチエイリアスをサポートしており、フォントのサイズが小さすぎたり大きすぎたりしない場合は、アンチエイリアス、またはスムージングが行われます。</td>
     </tr>
     <tr>
       <td>5</td>
       <td>CLEARTYPE_QUALITY</td>
-      <td>If set, text is rendered (when possible) using ClearType antialiasing method.</td>
+      <td>設定されている場合、テキストは（可能な限り）ClearTypeアンチエイリアシング方式でレンダリングされます。</td>
     </tr>
   </table>
-  <p>For more details of what these values mean, see <a href="https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfonta">Microsoft Docs: CreateFont</a>.</p>
-  <p>Since the highest quality setting is usually the default, this feature is more typically used to disable anti-aliasing in specific cases where doing so makes the text clearer.</p></dd>
+  <p>これらの値の意味の詳細については、<a href="https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfonta">Microsoft Docs を参照してください：CreateFont</a>.</p>
+  <p>通常、最高画質がデフォルトであるため、この機能は、アンチエイリアスを無効にすることで、テキストがより鮮明になる特定のケースで使用されることが一般的です。</p></dd>
   <dt>FontName</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>FontName</em> may be the name of any font, such as one from the <a href="../misc/FontsStandard.htm">font table</a>. If <em>FontName</em> is omitted or does not exist on the system, the previous font's typeface will be used (or if none, the system's default GUI typeface). This behavior is useful to make a GUI window have a similar font on multiple systems, even if some of those systems lack the preferred font. For example, by using the following methods in order, Verdana will be given preference over Arial, which in turn is given preference over MS sans serif:</p>
+    <p><em>FontName</em>には、<a href="../misc/FontsStandard.htm">フォントテーブル</a>のような任意のフォントの名前を指定することができる。<em>FontName</em>が省略された場合、またはシステム上に存在しない場合は、以前のフォントの書体が使用されます（存在しない場合は、システムのデフォルトのGUI書体が使用されます）。この動作は、GUIウィンドウが複数のシステムで同じようなフォントを持つようにするのに便利で、それらのシステムの一部が優先フォントを持たない場合であっても、この動作は有効です。例えば、以下の方法を順番に使用すると、VerdanaはArialよりも優先され、MS sans serifよりも優先されます：</p>
   <pre>MyGui.SetFont(, "MS sans serif")
 MyGui.SetFont(, "Arial")
 MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
 </dl>
-<p>On a related note, the operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. これらのダイアログは、<a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>でデモされているように、<a href="DllCall.htm">DllCall</a>を介して表示することができます。</p>
+<p>また、オペレーティングシステムには、フォント、色、アイコンを選択するダイアログボックスが標準装備されています。これらのダイアログは、<a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>でデモされているように、<a href="DllCall.htm">DllCall</a>を介して表示することができます。</p>
 </div>
 
 <div class="methodShort" id="Show">
 <h3>Show</h3>
-<p>By default, this makes the window visible, unminimizes it (if necessary) and <a href="WinActivate.htm">activates</a> it.</p>
+<p>デフォルトでは、ウィンドウを可視化し、（必要に応じて）最小化を解除し、<a href="WinActivate.htm">アクティブ化</a>します。</p>
 <pre class="Syntax">MyGui.<span class="func">Show</span>(<span class="optional">Options</span>)</pre>
 <dl>
   <dt>オプション</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Omit the X, Y, W, and H options below to have the window retain its previous size and position. If there is no previous position, the window will be auto-centered in one or both dimensions if the X and/or Y options mentioned below are absent. If there is no previous size, the window will be auto-sized according to the size and positions of the controls it contains.</p>
-  <p>Zero or more of the following strings may be present in <em>Options</em> (specify each number as decimal, not hexadecimal):</p>
-  <p><strong>Wn</strong>: Specify for <strong>n</strong> the width (in pixels) of the window's client area (the client area excludes the window's borders, title bar, and <a href="#MenuBar">menu bar</a>).</p>
-  <p><strong>Hn</strong>: Specify for <strong>n</strong> the height of the window's client area, in pixels.</p>
-  <p><strong>Xn</strong>: Specify for <strong>n</strong> the window's X-position on the screen, in pixels. Position 0 is the leftmost column of pixels visible on the screen.</p>
-  <p><strong>Yn</strong>: Specify for <strong>n</strong> the window's Y-position on the screen, in pixels. Position 0 is the topmost row of pixels visible on the screen.</p>
-  <p><strong>Center</strong>: Centers the window horizontally and vertically on the screen.</p>
-  <p><strong>xCenter</strong>:Centers the window horizontally on the screen. 事例：<code>MyGui.Show("xCenter y0")</code>.</p>
-  <p><strong>yCenter</strong>: Centers the window vertically on the screen.</p>
-  <p id="AutoSize"><strong>AutoSize</strong>:Resizes the window to accommodate only its currently visible controls. This is useful to resize the window after new controls are added, or existing controls are resized, hidden, or unhidden. 事例：<code>MyGui.Show("AutoSize Center")</code>.</p>
-  <p><em><strong>One of the following may also be present:</strong></em></p>
-  <p><strong>Minimize</strong>: Minimizes the window and activates the one beneath it.</p>
-  <p><strong>Maximize</strong>: Maximizes and activates the window.</p>
-  <p><strong>Restore</strong>: Unminimizes or unmaximizes the window, if necessary. The window is also shown and activated, if necessary.</p>
-  <p><strong>NoActivate</strong>: Unminimizes or unmaximizes the window, if necessary. The window is also shown without activating it.</p>
-  <p><strong>NA</strong>: Shows the window without activating it. If the window is minimized, it will stay that way but will probably rise higher in the z-order (which is the order seen in the alt-tab selector). If the window was previously hidden, this will probably cause it to appear on top of the active window even though the active window is not deactivated.</p>
-  <p><strong>Hide</strong>:Hides the window and activates the one beneath it. This is identical in function to <a href="#Hide">Gui.Hide</a> except that it allows a hidden window to be moved or resized without showing it. 事例：<code>MyGui.Show("Hide x55 y66 w300 h200")</code>.</p></dd>
+    <p>以下のX、Y、W、Hのオプションを省略すると、ウィンドウは以前のサイズと位置を維持します。前の位置がない場合、後述のXおよびYオプションがなければ、ウィンドウは1次元または両次元で自動中心化されます。以前のサイズがない場合、ウィンドウは、それが含むコントロールのサイズと位置に応じて自動サイズになります。</p>
+  <p><em>オプション</em>には、以下の文字列を0個以上指定することができます（各数値は16進数ではなく10進数で指定してください）：</p>
+  <p><strong>Wn</strong>:ウィンドウのクライアント領域の幅（ピクセル）を<strong>n</strong>に指定する（クライアント領域はウィンドウのボーダー、タイトルバー、<a href="#MenuBar">メニューバー</a>を除く）。</p>
+  <p><strong>Hn</strong>:ウィンドウのクライアント領域の高さを<strong>n</strong>にピクセル単位で指定する。</p>
+  <p><strong>Xn</strong>:画面上のウィンドウの X 位置を<strong>n</strong>にピクセル単位で指定する。ポジション0は、画面上で見えるピクセルの一番左の列です。</p>
+  <p><strong>Yn</strong>:画面上のウィンドウの Y 位置をピクセル単位で<strong>n</strong>に指定する。ポジション0は、画面上で見える一番上の画素列です。</p>
+  <p><strong>Center</strong>:画面上でウィンドウを縦横にセンタリングします。</p>
+  <p><strong>xCenter</strong>:画面上でウィンドウを水平方向にセンタリングします。事例：<code>MyGui.Show("xCenter y0")</code>.</p>
+  <p><strong>yCenter</strong>:画面上でウィンドウを縦方向にセンタリングします。</p>
+  <p id="AutoSize"><strong>AutoSize</strong>:現在表示されているコントロールのみを収容するためにウィンドウのサイズを変更する。これは、新しいコントロールが追加されたり、既存のコントロールがサイズ変更されたり、隠されたり、隠されなかったりした後に、ウィンドウのサイズを変更するのに便利です。事例：<code>MyGui.Show("AutoSize Center")</code>.</p>
+  <p><em><strong>また、以下のいずれかが存在する場合があります：</strong></em></p>
+  <p><strong>Minimize</strong>:ウィンドウを最小化し、その下のウィンドウをアクティブにします。</p>
+  <p><strong>Maximize</strong>:ウィンドウを最大化し、アクティブ化します。</p>
+  <p><strong>Restore</strong>:必要に応じて、ウィンドウの最小化または最大化を解除します。また、必要に応じてウィンドウを表示し、起動します。</p>
+  <p><strong>NoActivate</strong>:必要に応じて、ウィンドウの最小化または最大化を解除します。また、ウィンドウをアクティブにしなくても表示されます。</p>
+  <p><strong>NA</strong>:ウィンドウをアクティブにせずに表示します。ウィンドウが最小化された場合、その状態を維持しますが、おそらくzオーダー（alt-tabセレクタで見られる順序）でより高く上昇します。ウィンドウが以前は隠れていた場合、アクティブなウィンドウが非アクティブになっていないにもかかわらず、ウィンドウがアクティブなウィンドウの上に表示されてしまうことが考えられます。</p>
+  <p><strong>Hide</strong>:ウィンドウを隠し、その下にあるウィンドウをアクティブにします。この機能は<a href="#Hide">Gui.Hide</a>と同じですが、非表示のウィンドウを表示せずに移動したりサイズを変更したりすることができます。事例：<code>MyGui.Show("Hide x55 y66 w300 h200")</code>.</p></dd>
 </dl>
 </div>
 
 <div class="methodShort" id="Submit">
 <h3>Submit</h3>
-<p>Collects the values from named controls and composes them into an <a href="Object.htm">Object</a>. オプションでウィンドウを非表示にすることができます。</p>
+<p>名前付きコントロールから値を収集し、<a href="Object.htm">オブジェクトに</a>合成する。オプションでウィンドウを非表示にすることができます。</p>
 <pre class="Syntax">NamedCtrlContents := MyGui.<span class="func">Submit</span>(<span class="optional">Hide</span>)</pre>
 <dl>
   <dt>Hide</dt><dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>If omitted or 1 (true), the window will be hidden. If 0 (false), the window will not be hidden.</p>
+    <p>省略時または 1（true）の場合、ウィンドウは非表示となる。0（false）の場合、ウィンドウは非表示にならない。</p>
   </dd>
 </dl>
-<p>The returned object contains one own property per named control, like <code>NamedCtrlContents.%GuiCtrl.<a href="GuiControl.htm#Name">Name</a>% := GuiCtrl.<a href="GuiControl.htm#Value">Value</a></code>, with the exceptions noted below. Only input-capable controls which support <a href="GuiControl.htm#Value">GuiCtrl.Value</a> and have been given a name are included. Use <code>NamedCtrlContents.NameOfControl</code> to retrieve an individual value or <a href="Object.htm#OwnProps">OwnProps</a> to enumerate them all.</p>
-<p>For <a href="GuiControls.htm#DropDownList">DropDownList</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a> and <a href="GuiControls.htm#Tab">Tab</a>, the text of the selected item/tab is stored instead of its position number if the control <strong>lacks</strong> the <a href="#AltSubmit">AltSubmit</a> option, or if the ComboBox's text does not match a list item. Otherwise, <a href="GuiControl.htm#Value">Value</a> (the item's position number) is stored.</p>
-<p id="submit-radio">If only one <a href="GuiControls.htm#Radio">Radio</a> button in a radio group has a name, Submit stores the number of the currently selected button instead of the control's <a href="GuiControl.htm#Value">Value</a>. 1 is the first radio button (according to original creation order), 2 is the second, and so on. If there is no button selected, 0 is stored.</p>
-<p>Excluded because they are not input-capable: <a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Progress">Progress</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
-<p>Also excluded: <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#ActiveX">ActiveX</a>, <a href="GuiControls.htm#Custom">Custom</a>.</p>
+<p>返されたオブジェクトは、<code>NamedCtrlContents.%GuiCtrl.<a href="GuiControl.htm#Name">Name</a>% := GuiCtrl.<a href="GuiControl.htm#Value">Value</a></code>のように、名前付きコントロールごとに1つの独自のプロパティを含みますが、以下に示す例外はあります。<a href="GuiControl.htm#Value">GuiCtrl.Value</a>をサポートし、名前が付与された入力可能なコントロールのみが含まれます。個々の値を取得するには<code>NamedCtrlContents.NameOfControl</code>を使用し、すべてを列挙するには<a href="Object.htm#OwnProps">OwnProps</a>を使用します。</p>
+<p><a href="GuiControls.htm#DropDownList">DropDownList</a>、<a href="GuiControls.htm#ComboBox">ComboBox</a>、<a href="GuiControls.htm#ListBox">ListBox</a>、<a href="GuiControls.htm#Tab">Tab</a>については、コントロールに<a href="#AltSubmit">AltSubmit</a>オプションが<strong>ない</strong>場合、またはComboBoxのテキストがリストアイテムと一致しない場合、その位置番号ではなく、選択アイテム/Tabのテキストが格納されます。それ以外の場合は、<a href="GuiControl.htm#Value">Value</a>（アイテムの位置番号）が格納されます。</p>
+<p id="submit-radio">ラジオグループの<a href="GuiControls.htm#Radio">ラジオ</a>ボタンに1つだけ名前がある場合、Submitはコントロールの<a href="GuiControl.htm#Value">Value</a>ではなく、現在選択されているボタンの番号を保存します。1は1番目のラジオボタン（オリジナル作成順）、2は2番目のラジオボタン、といった具合に。選択されているボタンがない場合は、0が格納されます。</p>
+<p>入力可能でないため除外：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Progress">Progress</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
+<p>同様に除外：<a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#ActiveX">ActiveX</a>, <a href="GuiControls.htm#Custom">Custom</a>.</p>
 </div>
 
 <div class="methodShort" id="__Enum">
 <h3>__Enum</h3>
-<p>Enumerates the GUI's controls.</p>
-<pre class="Syntax">For Ctrl in MyGui
-For Hwnd, Ctrl in MyGui</pre>
-<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはない。Instead, the Gui object is passed directly to a <a href="For.htm">for-loop</a>, which calls __Enum once and then calls the enumerator once for each iteration of the loop. Each call to the enumerator returns the next control. forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
+<p>GUI のコントロールを列挙する。</p>
+<pre class="Syntax">MyGuiのCtrlの場合
+MyGuiのHwnd、Ctrlの場合</pre>
+<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはない。その代わりに、Guiオブジェクトは直接<a href="For.htm">for-loopに渡され、for-loop</a>は__Enumを一度呼び出し、ループの各繰り返しで列挙器を一度呼び出します。列挙者を呼び出すたびに、次のコントロールが返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
   <dt>Hwnd</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The control's HWND. 2パラメータモード時のみ存在します。</p>
+    <p>コントロールのHWNDです。2パラメータモード時のみ存在します。</p>
   </dd>
   <dt>Ctrl</dt>
   <dd>
     <p>型：<a href="GuiControl.htm">GuiControl</a></p>
-    <p>The control's object.</p>
+    <p>コントロールのオブジェクトです。</p>
   </dd>
 </dl>
 <p>事例：</p>
-<pre>For Hwnd, GuiCtrlObj in MyGui
+<pre>MyGuiのHwnd、GuiCtrlObjの場合
     MsgBox "Control #" A_Index " is " GuiCtrlObj.ClassNN</pre>
 </div>
 
@@ -457,8 +458,8 @@ For Hwnd, Ctrl in MyGui</pre>
 <h3>__New</h3>
 <p>新しいGuiインスタンスを構築します。</p>
 <pre class="Syntax">MyGui.<span class="func">__New</span>(<span class="optional">Options, Title, EventObj</span>)</pre>
-<p>A Gui subclass may override __New and call <code>super.__New(Options, Title, this)</code> to handle its own events. In such cases, events for the main window (such as Close) do not pass an explicit Gui parameter, as <code>this</code> already contains a reference to the Gui.</p>
-<p>An exception is thrown if the window has already been constructed or destroyed.</p>
+<p>Guiのサブクラスは、__Newをオーバーライドして、独自のイベントを処理するために<code>super.__New(Options, Title, this)</code>をコールすることができます。このような場合、メインウィンドウのイベント（閉じるなど）は、<code>これ</code>はすでにGuiへの参照を含んでいるため、明示的なGuiパラメータを渡すことはありません。</p>
+<p>ウィンドウが既に構築または破棄されている場合は、例外が発生します。</p>
 </div>
 
 <h2 id="Properties">属性</h2>
@@ -467,38 +468,38 @@ For Hwnd, Ctrl in MyGui</pre>
 <p>ウィンドウの背景色を取得または設定します。</p>
 <pre class="Syntax">RetrievedColor := MyGui.BackColor</pre>
 <pre class="Syntax">MyGui.BackColor := NewColor</pre>
-<p><em>RetrievedColor</em> is a 6-digit RGB value of the current color previously set by this property, or an empty string if the default color is being used.</p>
-<p><em>NewColor</em> is one of the 16 primary <a href="../misc/Colors.htm">HTML color names</a>, a hexadecimal RGB color value (the 0x prefix is optional), a pure numeric RGB color value, or the word Default (or an empty string) for its default color. Example values: <code>"Silver"</code>, <code>"FFFFAA"</code>, <code>0xFFFFAA</code>, <code>"Default"</code>, <code>""</code>.</p>
-<p>By default, the window's background color is the system's color for the face of buttons.</p>
-<p>The color of the <a href="#MenuBar">menu bar</a> and its submenus can be changed as in this example: <code>MyMenuBar.<a href="Menu.htm#SetColor">SetColor</a> "White"</code>.</p>
-<p>To make the background transparent, use <a href="WinSetTransColor.htm">WinSetTransColor</a>. However, if you do this without first having assigned a custom window via <a href="#BackColor">Gui.BackColor</a>, buttons will also become transparent. To prevent this, first assign a custom color and then make that color transparent. 事例：</p>
+<p><em>RetrievedColor</em>は、このプロパティで以前に設定された現在の色の 6 桁の RGB 値であり、デフォルトの色が使用されている場合は空文字列である。</p>
+<p><em>NewColor</em>は、16の主要な<a href="../misc/Colors.htm">HTMLカラー名</a>、16進数のRGBカラー値（接頭辞0xはオプション）、純粋な数値のRGBカラー値、またはデフォルトカラーを表すDefault（または空の文字列）のいずれかです。例値：<code>"Silver"</code>, <code>"FFFFAA"</code>, <code>0xFFFFAA</code>, <code>"Default"</code>, <code>""</code>.</p>
+<p>デフォルトでは、ウィンドウの背景色は、ボタンの表面のシステムの色になります。</p>
+<p>この例のように、<a href="#MenuBar">メニューバー</a>と、そのサブメニューの色を変更することができます：<code>MyMenuBar.<a href="Menu.htm#SetColor">SetColor</a> "White"</code>.</p>
+<p>背景を透明にする場合は、<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用します。ただし、<a href="#BackColor">Gui.BackColor</a>でカスタムウィンドウを割り当てずにこの操作を行うと、ボタンも透明になります。これを防ぐには、まずカスタムカラーを割り当て、そのカラーを透明にします。事例：</p>
 <pre>MyGui.BackColor := "EEAA99"
 WinSetTransColor("EEAA99", MyGui)</pre>
-<p>To additionally remove the border and title bar from a window with a transparent background, use the following: <code>MyGui.Opt("-Caption")</code></p>
-<p>To illustrate the above, there is an example of an on-screen display (OSD) near the bottom of this page.</p>
+<p>背景が透明なウィンドウから、ボーダーとタイトルバーを追加で削除するには、次のようにします：<code>MyGui.Opt("-Caption")</code></p>
+<p>上記を説明するために、本ページの下部付近にOSD（オンスクリーンディスプレイ）の例を掲載しています。</p>
 </div>
 
 <div class="methodShort" id="FocusedCtrl">
 <h3>FocusedCtrl</h3>
-<p>Retrieves the <a href="GuiControl.htm">GuiControl object</a> of the GUI's focused control.</p>
+<p>GUI のフォーカスされているコントロールの<a href="GuiControl.htm">GuiControl オブジェクト</a>を取得します。</p>
 <pre class="Syntax">GuiCtrlObj := MyGui.FocusedCtrl</pre>
-<p>注：To be effective, the window generally must not be minimized or hidden.</p>
+<p>注：効果的に使用するためには、一般的にウィンドウを最小化または非表示にする必要はありません。</p>
 </div>
 
 <div class="methodShort" id="Hwnd">
 <h3>Hwnd</h3>
 <p>GUIウィンドウのウィンドウハンドル（HWND）を取得する。</p>
 <pre class="Syntax">CurrentHwnd := MyGui.Hwnd</pre>
-<p>A GUI's HWND is often used with <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, and <a href="DllCall.htm">DllCall</a>. It can also be used directly in a <a href="../misc/WinTitle.htm#ahk_id">WinTitle parameter</a>.</p></div>
+<p>GUIのHWNDは、<a href="PostMessage.htm">PostMessage</a>、<a href="SendMessage.htm">SendMessage</a>、<a href="DllCall.htm">DllCall</a>で、よく使われます。また、<a href="../misc/WinTitle.htm#ahk_id">WinTitleパラメータ</a>で直接使用することも可能です。</p></div>
 
 <div class="methodShort" id="MarginX">
 <h3>MarginX</h3>
 <p>側面とその後に作成されるコントロールの間の水平マージンのサイズを取得または設定します。</p>
 <pre class="Syntax">RetrievedValue := MyGui.MarginX</pre>
 <pre class="Syntax">MyGui.MarginX := NewValue</pre>
-<p><em>RetrievedValue</em> is the number of pixels of the current horizontal margin.</p>
-<p><em>NewValue</em> is the number of pixels of space to leave at the left and right side of the window when auto-positioning any control that lacks an explicit <a href="#XY">X coordinate</a>. Also, the margin is used to determine the horizontal distance that separates auto-positioned controls from each other. Finally, the margin is taken into account by the first use of <a href="#Show">Gui.Show</a> to calculate the window's size (when no explicit size is specified).</p>
-<p>By default, this margin is proportional to the size of the currently selected <a href="#SetFont">font</a> (1.25 times font-height for left &amp; right).</p>
+<p><em>RetrievedValue</em>は、現在の水平マージンのピクセル数である。</p>
+<p><em>NewValue</em>は、<a href="#XY">X座標</a>が明示されていないコントロールを自動配置する際に、ウィンドウの左右に残すスペースのピクセル数です。また、マージンは、自動配置されたコントロール同士を隔てる水平方向の距離を決定するために使用されます。最後に、マージンは<a href="#Show">Gui.Show</a>の最初の使用でウィンドウのサイズを計算する際に考慮されます（サイズが明示的に指定されていない場合）。</p>
+<p>デフォルトでは、このマージンは現在選択されている<a href="#SetFont">フォント</a>のサイズに比例します（左と右はfont-heightの1.25倍）。</p>
 </div>
 
 <div class="methodShort" id="MarginY">
@@ -506,9 +507,9 @@ WinSetTransColor("EEAA99", MyGui)</pre>
 <p>側面とその後に作成されるコントロールの間の垂直マージンのサイズを取得または設定します。</p>
 <pre class="Syntax">RetrievedValue := MyGui.MarginY</pre>
 <pre class="Syntax">MyGui.MarginY := NewValue</pre>
-<p><em>RetrievedValue</em> is the number of pixels of the current vertical margin.</p>
-<p><em>NewValue</em> is the number of pixels of space to leave at the top and bottom side of the window when auto-positioning any control that lacks an explicit <a href="#XY">Y coordinate</a>. Also, the margin is used to determine the vertical distance that separates auto-positioned controls from each other. Finally, the margin is taken into account by the first use of <a href="#Show">Gui.Show</a> to calculate the window's size (when no explicit size is specified).</p>
-<p>By default, this margin is proportional to the size of the currently selected <a href="#SetFont">font</a> (0.75 times font-height for top &amp; bottom).</p>
+<p><em>RetrievedValue</em>は、現在の垂直マージンのピクセル数である。</p>
+<p><em>NewValue</em>は、<a href="#XY">Y座標</a>が明示されていないコントロールを自動配置する際に、ウィンドウの上側と下側に残すスペースのピクセル数です。また、マージンは、自動配置されたコントロール同士を分離する垂直距離を決定するために使用されます。最後に、マージンは<a href="#Show">Gui.Show</a>の最初の使用でウィンドウのサイズを計算する際に考慮されます（サイズが明示的に指定されていない場合）。</p>
+<p>デフォルトでは、このマージンは現在選択されている<a href="#SetFont">フォント</a>のサイズに比例します（上部と下部はフォントハイトの0.75倍）。</p>
 </div>
 
 <div class="methodShort" id="MenuBar">
@@ -516,21 +517,21 @@ WinSetTransColor("EEAA99", MyGui)</pre>
 <p>ウィンドウのメニューバーを取得または設定する。</p>
 <pre class="Syntax">MyGui.MenuBar := Bar</pre>
 <pre class="Syntax">Bar := MyGui.MenuBar</pre>
-<p><em>Bar</em> is a <a href="Menu.htm">MenuBar object</a> created by <a href="Menu.htm#Call">MenuBar()</a>. 事例：</p>
+<p><em>Bar</em>は、<a href="Menu.htm#Call">MenuBar()</a>で生成された<a href="Menu.htm">MenuBarオブジェクト</a>です。事例：</p>
 <pre>FileMenu := Menu()
-FileMenu.Add "&amp;Open`tCtrl+O", (*) =&gt; FileSelect()  <em>; See remarks below about Ctrl+O.</em>
+FileMenu.Add "&amp;Open`tCtrl+O", (*) =&gt; FileSelect()  <em>; Ctrl+Oについては後述します</em>。
 FileMenu.Add "E&amp;xit", (*) =&gt; ExitApp()
 HelpMenu := Menu()
 HelpMenu.Add "&amp;About", (*) =&gt; MsgBox("Not implemented")
 Menus := MenuBar()
-Menus.Add "&amp;File", FileMenu  <em>; Attach the two submenus that were created above.</em>
+Menus.Add "&amp;File", FileMenu  <em>; 上記で作成した2つのサブメニューを添付する</em>。
 Menus.Add "&amp;Help", HelpMenu
 MyGui := Gui()
 MyGui.MenuBar := Menus
 MyGui.Show "w300 h200"</pre>
-<p>In the first line above, notice that <code>&amp;Open</code> is followed by <code>Ctrl+O</code> (with a tab character in between). This indicates a keyboard shortcut that the user may press instead of selecting the menu item. If the shortcut uses only the standard modifier key names Ctrl, Alt and Shift, it is automatically registered as a <em>keyboard accelerator</em> for the GUI. Single-character accelerators with no modifiers are case-sensitive and can be triggered by unusual means such as IME or <kbd>Alt</kbd>+NNNN.</p>
-<p>If a particular key combination does not work automatically, the use of a <a href="_HotIf.htm">context-sensitive hotkey</a> may be required. However, such hotkeys typically cannot be triggered by <a href="Send.htm">Send</a> and are more likely to interfere with other scripts than a standard keyboard accelerator.</p>
-<p>To remove a window's current menu bar, use <code>MyGui.MenuBar := ""</code> (that is, assign an empty string).</p>
+<p>上の1行目では、<code>&amp;Open</code>の後に<code>Ctrl+O</code>（間にタブ文字が入る）が入っていることに注目してください。これは、ユーザーがメニュー項目を選択する代わりに押すことができるキーボードショートカットを示しています。ショートカットが標準的な修飾キー名であるCtrl、Alt、Shiftのみを使用する場合、GUI用の<em>キーボードアクセラレータ</em>として自動的に登録されます。修飾語のない1文字のアクセラレータは大文字と小文字を区別し、IMEや<kbd>Alt+NNNN</kbd>など通常とは異なる手段でトリガーすることができます。</p>
+<p>特定のキーの組み合わせが自動的に機能しない場合は、<a href="_HotIf.htm">コンテキスト依存のホットキー</a>の使用が必要になる場合があります。しかし、このようなホットキーは一般的に<a href="Send.htm">Send</a>でトリガーすることができず、標準的なキーボードアクセラレータよりも他のスクリプトに干渉する可能性が高いです。</p>
+<p>ウィンドウの現在のメニューバーを削除するには、<code>MyGui.MenuBar := ""</code>（つまり、空の文字列を代入する）を使用します。</p>
 </div>
 
 <div class="methodShort" id="Name">
@@ -541,7 +542,7 @@ MyGui.Show "w300 h200"</pre>
 </div>
 
 <div class="methodShort" id="Title">
-<h3>Title</h3>
+<h3>タイトル</h3>
 <p>GUI のタイトルを取得または設定します。</p>
 <pre class="Syntax">RetrievedTitle := MyGui.Title</pre>
 <pre class="Syntax">MyGui.Title := NewTitle</pre>
@@ -549,31 +550,31 @@ MyGui.Show "w300 h200"</pre>
 
 <div class="methodShort" id="__Item">
 <h3>__Item</h3>
-<p>Retrieves the <a href="GuiControl.htm">GuiControl object</a> associated with the specified name, text, ClassNN or HWND.</p>
+<p>指定された名前、テキスト、ClassNN、HWND に関連する<a href="GuiControl.htm">GuiControl オブジェクト</a>を取得します。</p>
 <pre class="Syntax">GuiCtrlObj := Gui[Name]</pre>
 </div>
 
-<h2 id="Navigate">Keyboard Navigation</h2>
-<p>A GUI window may be navigated via <kbd>Tab</kbd>, which moves keyboard focus to the next input-capable control (controls from which the <a href="#Tabstop">Tabstop</a> style has been removed are skipped). The order of navigation is determined by the order in which the controls were originally added. When the window is shown for the first time, the first input-capable control that has the Tabstop style (which most control types have by default) will have keyboard focus, unless that control is a Button and there is a Default button, in which case the latter is focused instead.</p>
-<p id="ShortcutKey">Certain controls may contain an ampersand (&amp;) to create a keyboard shortcut, which might be displayed in the control's text as an underlined character (depending on system settings). A user activates the shortcut by holding down <kbd>Alt</kbd> then typing the corresponding character. For buttons, checkboxes,  and radio buttons, pressing the shortcut is the same as clicking the control. For GroupBoxes and Text controls, pressing the shortcut causes keyboard focus to jump to the first input-capable <a href="#Tabstop">tabstop</a> control that was created after it. However, if more than one control has the same shortcut key, pressing the shortcut will alternate keyboard focus among all controls with the same shortcut.</p>
-<p>To display a literal ampersand inside the control types mentioned above, specify two consecutive ampersands as in this example: <code>MyGui.Add("Button",, "Save &amp;&amp; Exit")</code>.</p>
+<h2 id="Navigate">キーボードナビゲーション</h2>
+<p>GUIウィンドウは<kbd>Tab</kbd>で移動することができ、キーボードフォーカスは次の入力可能なコントロールに移動します（<a href="#Tabstop">Tabstop</a>スタイルが削除されたコントロールはスキップされます）。ナビゲーションの順序は、コントロールが最初に追加された順序によって決定されます。ただし、そのコントロールがボタンであり、かつデフォルトのボタンがある場合は、後者が代わりにフォーカスされます。</p>
+<p id="ShortcutKey">一部のコントロールには、キーボードショートカットを作成するためのアンパサンド（&amp;）が含まれている場合があり、コントロールのテキストに下線文字として表示される場合があります（システム設定に依存）。<kbd>Alt</kbd>を押しながら文字を入力することで、ショートカットを有効にすることができます。ボタン、チェックボックス、ラジオボタンの場合、ショートカットを押すことはコントロールをクリックすることと同じです。グループボックスとテキストコントロールの場合、ショートカットを押すと、その後に作成された最初の入力可能な<a href="#Tabstop">タブストップ</a>コントロールにキーボードフォーカスが移動するようにします。ただし、複数のコントロールが同じショートカットキーを持つ場合、ショートカットキーを押すと、同じショートカットキーを持つすべてのコントロールの間でキーボードフォーカスが交互に変わります。</p>
+<p>上記のコントロールタイプの中にリテラルなアンパサンドを表示するには、この例のように2つの連続したアンパサンドを指定します：<code>MyGui.Add("Button",, "Save &amp;&amp; Exit")</code>.</p>
 
-<h2 id="Appear">Window Appearance</h2>
-<p>For its icon, a GUI window uses the tray icon that was in effect at the time the window was created. Thus, to have a different icon, change the tray icon before creating the window. 事例：<code><a href="TraySetIcon.htm">TraySetIcon</a>("MyIcon.ico")</code>. It is also possible to have a different large icon for a window than its small icon (the large icon is displayed in the alt-tab task switcher). This can be done via <a href="LoadPicture.htm">LoadPicture</a> and <a href="SendMessage.htm">SendMessage</a>; for example:</p>
-<pre>iconsize := 32  <em>; Ideal size for alt-tab varies between systems and OS versions.</em>
+<h2 id="Appear">ウィンドウの外観</h2>
+<p>GUIウィンドウのアイコンは、ウィンドウの作成時に有効だったトレイアイコンを使用します。したがって、別のアイコンを持つには、ウィンドウを作成する前にトレイアイコンを変更します。事例：<code><a href="TraySetIcon.htm">TraySetIcon</a>("MyIcon.ico")</code>. また、ウィンドウの大アイコンを小アイコンと異なるものにすることも可能です（大アイコンはalt-tabタスクスイッチャーに表示されます）。これは、<a href="LoadPicture.htm">LoadPicture</a>と <a href="SendMessage.htm">SendMessage</a>で行うことができます；例えば、：</p>
+<pre>iconsize := 32  <em>; alt-tabの理想的なサイズは、システムやOSのバージョンによって異なる。</em>
 hIcon := LoadPicture("My Icon.ico", "Icon1 w" iconsize " h" iconsize, &amp;imgtype)
 MyGui := Gui()
-SendMessage(0x0080, 1, hIcon, MyGui)  <em>; 0x0080 is WM_SETICON; and 1 means ICON_BIG (vs. 0 for ICON_SMALL).</em>
+SendMessage(0x0080, 1, hIcon, MyGui)  <em>; 0x0080はWM_SETICONで、1はICON_BIG（ICON_SMALLは0）を意味します。</em>
 MyGui.Show()</pre>
-<p>Due to OS limitations, Checkboxes, Radio buttons, and GroupBoxes for which a non-default text color was specified will take on the Classic Theme appearance.</p>
-<p>関連トピック<a href="#MarginX">window's margin</a>.</p>
+<p>OSの制限により、デフォルト以外の文字色が指定されたチェックボックス、ラジオボタン、グループボックスは、クラシックテーマの外観となります。</p>
+<p>関連トピック<a href="#MarginX">ウィンドウのマージン</a></p>
 
 <h2 id="GenRemarks">総論</h2>
-<p>Use the <a href="GuiControl.htm">GuiControl object</a> to operate upon individual controls in a GUI window.</p>
-<p>Each GUI window may have up to 11,000 controls. However, use caution when creating more than 5000 controls because system instability may occur for certain control types.</p>
-<p id="deleted">The GUI window is automatically <a href="#Destroy">destroyed</a> when the Gui object is deleted, which occurs when its <a href="../Objects.htm#Reference_Counting">reference count</a> reaches zero. However, this does not typically occur while the window is visible, as <a href="#Show">Show</a> automatically increments the reference count. While the window is visible, the user can interact with it and raise events which are handled by the script. When the user closes the window or it is hidden by <a href="#Hide">Hide</a>, <a href="#Show">Show</a> or <a href="#Submit">Submit</a>, this extra reference is released.</p>
-<p>To keep a GUI window "alive" without calling <a href="#Show">Show</a> or retaining a reference to its Gui object, the script can increment the object's reference count with <a href="ObjAddRef.htm">ObjAddRef</a> (in which case <a href="ObjAddRef.htm">ObjRelease</a> must be called when the window is no longer needed). For example, this might be done when using a hidden GUI window to <a href="OnMessage.htm">receive messages</a>, or if the window is shown by "external" means such as <a href="WinShow.htm">WinShow</a> (by this script or any other).</p>
-<p>If the script is not <a href="../Scripts.htm#persistent">persistent</a> for any other reason, it will exit after the last visible GUI is closed; either when the last thread completes or immediately if no threads are running.</p>
+<p><a href="GuiControl.htm">GUI</a>ウィンドウの各コントロールを操作するには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を使用します。</p>
+<p>1つのGUIウィンドウには、最大11,000個のコントロールが可能です。ただし、コントロールの種類によってはシステムが不安定になる可能性があるため、5000個以上のコントロールを作成する場合は注意してください。</p>
+<p id="deleted">GUIウィンドウは、Guiオブジェクトが削除されたとき（<a href="../Objects.htm#Reference_Counting">参照カウント</a>がゼロになったとき）に、自動的に<a href="#Destroy">破棄</a>されます。ただし、ウィンドウが表示されている間は、<a href="#Show">Show</a>が自動的に参照カウントを増加させるため、通常は発生しません。ウィンドウが表示されている間、ユーザーはウィンドウと対話し、スクリプトによって処理されるイベントを発生させることができます。ユーザーがウィンドウを閉じたり、<a href="#Hide">Hide</a>、<a href="#Show">Show</a>、<a href="#Submit">Submit</a>でウィンドウが隠されたりすると、この余分な参照は解放されます。</p>
+<p><a href="#Show">Show</a>を呼び出したり、Guiオブジェクトへの参照を保持することなくGUIウィンドウを「生かす」ために、スクリプトは<a href="ObjAddRef.htm">ObjAddRef</a>でオブジェクトの参照カウントを増やすことができます（この場合、ウィンドウが不要になったときに<a href="ObjAddRef.htm">ObjRelease</a>が呼び出される必要があります）。例えば、非表示のGUIウィンドウを使用して<a href="OnMessage.htm">メッセージを受信</a>する場合や、<a href="WinShow.htm">WinShow</a>などの「外部」手段でウィンドウを表示する場合（このスクリプトや他のスクリプトによる）などに行われることがあります。</p>
+<p>他の理由でスクリプトが<a href="../Scripts.htm#persistent">持続</a>しない場合、最後に表示されたGUIが閉じられた後に終了します。最後のスレッドが完了したとき、またはスレッドが実行されていない場合は直ちに終了します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="GuiControl.htm">GuiControl object</a>, <a href="GuiFromHwnd.htm">GuiFromHwnd</a>, <a href="GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a>, <a href="GuiControls.htm">Control Types</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="Menu.htm">Menu object</a>, <a href="Control.htm">Control functions</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="FileSelect.htm">FileSelect</a>, <a href="DirSelect.htm">DirSelect</a></p>
@@ -581,19 +582,19 @@ MyGui.Show()</pre>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExPopup">
-<p><a class="ex_number" href="#ExPopup"></a>  Creates a popup window.</p>
+<p><a class="ex_number" href="#ExPopup"></a> ポップアップウィンドウを作成します。</p>
 <pre>MyGui := Gui(, "Title of Window")
-MyGui.Opt("+AlwaysOnTop +Disabled -SysMenu +Owner")  <em>; +Owner avoids a taskbar button.</em>
+MyGui.Opt("+AlwaysOnTop +Disabled -SysMenu +Owner")  <em>; +Ownerはタスクバーボタンを回避することができる。</em>
 MyGui.Add("Text",, "Some text to display.")
-MyGui.Show("NoActivate")  <em>; NoActivate avoids deactivating the currently active window.</em></pre>
+MyGui.Show("NoActivate")  <em>; NoActivateは、現在アクティブなウィンドウを非アクティブにすることを回避する。</em></pre>
 </div>
 
 <div class="ex" id="ExInputBox">
-<p><a class="ex_number" href="#ExInputBox"></a>  Creates a simple input-box that asks for the first and last name.</p>
+<p><a class="ex_number" href="#ExInputBox"></a> 姓と名を入力するシンプルな入力ボックスを作成します。</p>
 <pre>MyGui := Gui(, "Simple Input Example")
 MyGui.Add("Text",, "First name:")
 MyGui.Add("Text",, "Last name:")
-MyGui.Add("Edit", "vFirstName ym")  <em>; The ym option starts a new column of controls.</em>
+MyGui.Add("Edit", "vFirstName ym")  <em>; ymオプションは、コントロールの新しい列を開始します。</em>
 MyGui.Add("Edit", "vLastName")
 MyGui.Add("Button", "default", "OK").OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
@@ -601,13 +602,13 @@ MyGui.Show()
 
 ProcessUserInput(*)
 {
-    Saved := MyGui.Submit()  <em>; Save the contents of named controls into an object.</em>
+    Saved := MyGui.Submit()  <em>; 名前付きコントロールの内容を、オブジェクトに保存する。</em>
     MsgBox("You entered '" Saved.FirstName " " Saved.LastName "'.")
 }</pre>
 </div>
 
 <div class="ex" id="ExTab">
-<p><a class="ex_number" href="#ExTab"></a>  Creates a tab control with multiple tabs, each containing different controls to interact with.</p>
+<p><a class="ex_number" href="#ExTab"></a> 複数のタブを持つタブコントロールを作成し、それぞれのタブには異なるコントロールが配置され、対話することができます。</p>
 <pre>MyGui := Gui()
 Tab := MyGui.Add("Tab3",, ["First Tab","Second Tab","Third Tab"])
 MyGui.Add("Checkbox", "vMyCheckbox", "Sample checkbox")
@@ -615,9 +616,9 @@ Tab.UseTab(2)
 MyGui.Add("Radio", "vMyRadio", "Sample radio1")
 MyGui.Add("Radio",, "Sample radio2")
 Tab.UseTab(3)
-MyGui.Add("Edit", "vMyEdit r5")  <em>; r5 means 5 rows tall.</em>
-Tab.UseTab()  <em>; i.e. subsequently-added controls will not belong to the tab control.</em>
-Btn := MyGui.Add("Button", "default xm", "OK")  <em>; xm puts it at the bottom left corner.</em>
+MyGui.Add("Edit", "vMyEdit r5")  <em>; r5は5列の高さを意味します。</em>
+Tab.UseTab()  <em>; つまり、その後に追加されたコントロールは、タブコントロールに属さない。</em>
+Btn := MyGui.Add("Button", "default xm", "OK")  <em>; xmは左下に配置します。</em>
 Btn.OnEvent("Click", ProcessUserInput)
 MyGui.OnEvent("Close", ProcessUserInput)
 MyGui.OnEvent("Escape", ProcessUserInput)
@@ -625,18 +626,18 @@ MyGui.Show()
 
 ProcessUserInput(*)
 {
-    Saved := MyGui.Submit()  <em>; Save the contents of named controls into an object.</em>
+    Saved := MyGui.Submit()  <em>; 名前付きコントロールの内容を、オブジェクトに保存します。</em>
     MsgBox("You entered:`n" Saved.MyCheckbox "`n" Saved.MyRadio "`n" Saved.MyEdit)
 }</pre>
 </div>
 
 <div class="ex" id="ExListBox">
-<p><a class="ex_number" href="#ExListBox"></a>  Creates a ListBox control containing files in a directory.</p>
+<p><a class="ex_number" href="#ExListBox"></a> ディレクトリ内のファイルを含む ListBox コントロールを作成します。</p>
 <pre>MyGui := Gui()
 MyGui.Add("Text",, "Pick a file to launch from the list below.")
 LB := MyGui.Add("ListBox", "w640 r10")
 LB.OnEvent("DoubleClick", LaunchFile)
-Loop Files, "C:\*.*"  <em>; Change this folder and wildcard pattern to suit your preferences.</em>
+Loop Files, "C:\*.*"  <em>; このフォルダとワイルドカードのパターンをお好みで変更してください。</em>
     LB.Add([A_LoopFilePath])
 MyGui.Add("Button", "Default", "OK").OnEvent("Click", LaunchFile)
 MyGui.Show()
@@ -645,7 +646,7 @@ LaunchFile(*)
 {
     if MsgBox("Would you like to launch the file or document below?`n`n" LB.Text,, 4) = "No"
         return
-    <em>; Otherwise, try to launch it:</em>
+    <em>; それ以外の場合は、起動してみてください：</em>
     try Run(LB.Text)
     if A_LastError
         MsgBox("Could not launch the specified file. Perhaps it is not associated with anything.")
@@ -653,11 +654,11 @@ LaunchFile(*)
 </div>
 
 <div class="ex" id="ExToolTip">
-<p><a class="ex_number" href="#ExToolTip"></a>  Displays a context-sensitive help (via ToolTip) whenever the user moves the mouse over a particular control.</p>
+<p><a class="ex_number" href="#ExToolTip"></a> ユーザーが特定のコントロールの上にマウスを移動すると、（ToolTipを介して）コンテキストセンシティブヘルプを表示させます。</p>
 <pre>
 MyGui := Gui()
 MyEdit := MyGui.Add("Edit")
-<em>; Store the tooltip text in a custom property:</em>
+<em>; カスタムプロパティにツールチップテキストを格納する：</em>
 MyEdit.ToolTip := "This is a tooltip for the control whose name is MyEdit."
 MyDDL := MyGui.Add("DropDownList",, ["Red","Green","Blue"])
 MyDDL.ToolTip := "Choose a color from the drop-down list."
@@ -686,17 +687,17 @@ On_WM_MOUSEMOVE(wParam, lParam, msg, Hwnd)
 </div>
 
 <div class="ex" id="ExOSD">
-<p><a class="ex_number" href="#ExOSD"></a>  Creates an On-screen display (OSD) via transparent window.</p>
+<p><a class="ex_number" href="#ExOSD"></a> 透明なウィンドウでオンスクリーンディスプレイ(OSD)を作成します。</p>
 <pre>MyGui := Gui()
-MyGui.Opt("+AlwaysOnTop -Caption +ToolWindow")  <em>; +ToolWindow avoids a taskbar button and an alt-tab menu item.</em>
+MyGui.Opt("+AlwaysOnTop -Caption +ToolWindow")  <em>; +ToolWindowは、タスクバーボタンとalt-tabメニュー項目を回避する。</em>
 MyGui.BackColor := "EEAA99"  <em>; Can be any RGB color (it will be made transparent below).</em>
-MyGui.SetFont("s32")  <em>; Set a large font size (32-point).</em>
-CoordText := MyGui.Add("Text", "cLime", "XXXXX YYYYY")  <em>; XX &amp; YY serve to auto-size the window.
-; Make all pixels of this color transparent and make the text itself translucent (150):</em>
+MyGui.SetFont("s32")  <em>; 大きなフォントサイズ（32ポイント）を設定します。</em>
+CoordText := MyGui.Add("Text", "cLime", "XXXXX YYYY")  <em>; XXとYYは、ウィンドウサイズを自動化する役割を果たします。
+; この色のすべてのピクセルを透明にし、テキスト自体を半透明にする（150）：</em>
 WinSetTransColor(MyGui.BackColor " 150", MyGui)
 SetTimer(UpdateOSD, 200)
-UpdateOSD()  <em>; Make the first update immediate rather than waiting for the timer.</em>
-MyGui.Show("x0 y400 NoActivate")  <em>; NoActivate avoids deactivating the currently active window.</em>
+UpdateOSD()  <em>; 最初の更新をタイマー待ちではなく、即時更新にする。</em>
+MyGui.Show("x0 y400 NoActivate")  <em>; NoActivateは、現在アクティブなウィンドウを非アクティブにすることを回避する。</em>
 
 UpdateOSD(*)
 {
@@ -706,14 +707,14 @@ UpdateOSD(*)
 </div>
 
 <div class="ex" id="ExProgressBar">
-<p><a class="ex_number" href="#ExProgressBar"></a>  Creates a moving progress bar overlayed on a background image.</p>
+<p><a class="ex_number" href="#ExProgressBar"></a> 背景画像に重なるように動くプログレスバーを作成します。</p>
 <pre>MyGui := Gui()
 MyGui.BackColor := "White"
 MyGui.Add("Picture", "x0 y0 h350 w450", A_WinDir "\Web\Wallpaper\Windows\img0.jpg")
 MyBtn := MyGui.Add("Button", "Default xp+20 yp+250", "Start the Bar Moving")
 MyBtn.OnEvent("Click", MoveBar)
 MyProgress := MyGui.Add("Progress", "w416")
-MyText := MyGui.Add("Text", "wp")  <em>; wp means "use width of previous".</em>
+MyText := MyGui.Add("Text", "wp")  <em>; wpは「前の幅を使え」という意味です。</em>
 MyGui.Show()
 
 MoveBar(*)
@@ -731,7 +732,7 @@ MoveBar(*)
 </div>
 
 <div class="ex" id="ExImageViewer">
-<p><a class="ex_number" href="#ExImageViewer"></a>  Creates a simple image viewer.</p>
+<p><a class="ex_number" href="#ExImageViewer"></a> シンプルなイメージビューアを作成します。</p>
 <pre>MyGui := Gui("+Resize")
 MyBtn := MyGui.Add("Button", "default", "&amp;Load New Image")
 MyBtn.OnEvent("Click", LoadNewImage)
@@ -745,69 +746,69 @@ LoadNewImage(*)
     Image := FileSelect(,, "Select an image:", "Images (*.gif; *.jpg; *.bmp; *.png; *.tif; *.ico; *.cur; *.ani; *.exe; *.dll)")
     if Image = ""
         return
-    if (MyRadio.Value)  <em>; Display image at its actual size.</em>
+    if (MyRadio.Value)  <em>; 画像を実際の大きさで表示する。</em>
     {
         Width := 0
         Height := 0
     }
-    else <em>; Second radio is selected: Resize the image to fit the screen.</em>
+    else <em>; 2番目のラジオが選択</em>されている：<em>画面に合わせて画像をリサイズする。</em>
     {
-        Width := A_ScreenWidth - 28  <em>; Minus 28 to allow room for borders and margins inside.</em>
-        Height := -1  <em>; "Keep aspect ratio" seems best.</em>
+        Width := A_ScreenWidth - 28  <em>; 内側にボーダーや余白のスペースを確保するため、28をマイナスする。</em>
+        Height := -1  <em>; "アスペクト比を保つ "が一番良さそうです。</em>
     }
-    MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)  <em>; Load the image.</em>
+    MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)  <em>; 画像を読み込みます。</em>
     MyGui.Title := Image
-    MyGui.Show("xCenter y0 AutoSize")  <em>; Resize the window to match the picture size.</em>
+    MyGui.Show("xCenter y0 AutoSize")  <em>; 画像サイズに合わせてウィンドウをリサイズする。</em>
 }</pre>
 </div>
 
 <div class="ex" id="ExEditor">
-<p><a class="ex_number" href="#ExEditor"></a>  Creates a simple text editor with menu bar.</p>
+<p><a class="ex_number" href="#ExEditor"></a> メニューバーを持つシンプルなテキストエディタを作成します。</p>
 <pre>
 <em>; Create the MyGui window:</em>
-MyGui := Gui("+Resize", "Untitled")  <em>; Make the window resizable.</em>
+MyGui := Gui("+Resize", "Untitled")  <em>; ウィンドウをリサイズ可能にする。</em>
 
-<em>; Create the submenus for the menu bar:</em>
+<em>; メニューバーのサブメニューを作成する：</em>
 FileMenu := Menu()
 FileMenu.Add("&amp;New", MenuFileNew)
 FileMenu.Add("&amp;Open", MenuFileOpen)
 FileMenu.Add("&amp;Save", MenuFileSave)
 FileMenu.Add("Save &amp;As", MenuFileSaveAs)
-FileMenu.Add() <em>; Separator line.</em>
+FileMenu.Add()  <em>;区切り線です。</em>
 FileMenu.Add("E&amp;xit", MenuFileExit)
 HelpMenu := Menu()
 HelpMenu.Add("&amp;About", MenuHelpAbout)
 
-<em>; Create the menu bar by attaching the submenus to it:</em>
+<em>; サブメニューをくっつけてメニューバーを作成する：</em>
 MyMenuBar := MenuBar()
 MyMenuBar.Add("&amp;File", FileMenu)
 MyMenuBar.Add("&amp;Help", HelpMenu)
 
-<em>; Attach the menu bar to the window:</em>
+<em>; メニューバーをウィンドウに貼り付ける：</em>
 MyGui.MenuBar := MyMenuBar
 
-<em>; Create the main Edit control:</em>
+<em>; メインのEditコントロールを作成します：</em>
 MainEdit := MyGui.Add("Edit", "WantTab W600 R20")
 
-<em>; Apply events:</em>
+<em>; イベントを適用します：</em>
 MyGui.OnEvent("DropFiles", Gui_DropFiles)
 MyGui.OnEvent("Size", Gui_Size)
 
-MenuFileNew()  <em>; Apply default settings.</em>
-MyGui.Show()  <em>; Display the window.</em>
+MenuFileNew()  <em>;デフォルトの設定を適用する。</em>
+MyGui.Show()  <em>; ウィンドウを表示します。</em>
 
 MenuFileNew(*)
 {
-    MainEdit.Value := ""  <em>; Clear the Edit control.</em>
-    FileMenu.Disable("3&amp;")  <em>; Gray out &amp;Save.</em>
+    MainEdit.Value := ""  <em>; Editコントロールをクリアします。</em>
+    FileMenu.Disable("3&amp;")  <em>;グレイアウトと保存.</em>
     MyGui.Title := "Untitled"
 }
 
 MenuFileOpen(*)
 {
-    MyGui.Opt("+OwnDialogs")  <em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
+    MyGui.Opt("+OwnDialogs")  <em>; メインウィンドウに戻る前に、FileSelectダイアログを強制終了させる。</em>
     SelectedFileName := FileSelect(3,, "Open File", "Text Documents (*.txt)")
-    if SelectedFileName = "" <em>; No file selected.</em>
+    if SelectedFileName = ""  <em>; ファイルが選択されていない。</em>
         return
     global CurrentFileName := readContent(SelectedFileName)
 }
@@ -819,22 +820,22 @@ MenuFileSave(*)
 
 MenuFileSaveAs(*)
 {
-    MyGui.Opt("+OwnDialogs")  <em>; Force the user to dismiss the FileSelect dialog before returning to the main window.</em>
+    MyGui.Opt("+OwnDialogs")  <em>; メインウィンドウに戻る前に、FileSelectダイアログを強制終了させる。</em>
     SelectedFileName := FileSelect("S16",, "Save File", "Text Documents (*.txt)")
-    if SelectedFileName = "" <em>; No file selected.</em>
+    if SelectedFileName = ""  <em>; ファイルが選択されていない。</em>
         return
     global CurrentFileName := saveContent(SelectedFileName)
 }
 
-MenuFileExit(*)  <em>; User chose "Exit" from the File menu.</em>
+MenuFileExit(*)  <em>; ユーザーはファイルメニューから "Exit"を選択しました。</em>
 {
     WinClose()
 }
 
 MenuHelpAbout(*)
 {
-    About := Gui("+owner" MyGui.Hwnd)  <em>; Make the main window the owner of the "about box".</em>
-    MyGui.Opt("+Disabled")  <em>; Disable main window.</em>
+    About := Gui("+owner" MyGui.Hwnd)  <em>; メインウィンドウを「アバウトボックス」のオーナーにする</em>。
+    MyGui.Opt("+Disabled")  <em>; メインウィンドウを無効にする。</em>
     About.Add("Text",, "Text for about box.")
     About.Add("Button", "Default", "OK").OnEvent("Click", About_Close)
     About.OnEvent("Close", About_Close)
@@ -843,23 +844,23 @@ MenuHelpAbout(*)
 
 About_Close(*)
     {
-        MyGui.Opt("-Disabled")  <em>; Re-enable the main window (must be done prior to the next step).</em>
-        About.Destroy()  <em>; Destroy the about box.</em>
+        MyGui.Opt("-Disabled")  <em>; メインウィンドウを再度有効にします（次のステップの前に行う必要があります）。</em>
+        About.Destroy()  <em>;アバウトボックスを破棄します。</em>
     }
 }
 
 readContent(FileName)
 {
     try
-        FileContent := FileRead(FileName)  <em>; Read the file's contents into the variable.</em>
+        FileContent := FileRead(FileName)  <em>; ファイルの中身を変数に読み込む。</em>
     catch
     {
         MsgBox("Could not open '" FileName "'.")
         return
     }
-    MainEdit.Value := FileContent  <em>; Put the text into the control.</em>
-    FileMenu.Enable("3&amp;")  <em>; Re-enable &amp;Save.</em>
-    MyGui.Title := FileName  <em>; Show file name in title bar.</em>
+    MainEdit.Value := FileContent  <em>; コントロールにテキストを入れる。</em>
+    FileMenu.Enable("3&amp;")  <em>; 再度有効化および保存。</em>
+    MyGui.Title := FileName  <em>; タイトルバーにファイル名を表示する。</em>
     return FileName
 }
 
@@ -869,28 +870,28 @@ saveContent(FileName)
     {
         if FileExist(FileName)
             FileDelete(FileName)
-        FileAppend(MainEdit.Value, FileName)  <em>; Save the contents to the file.</em>
+        FileAppend(MainEdit.Value, FileName)  <em>; 内容をファイルに保存する。</em>
     }
     catch
     {
         MsgBox("The attempt to overwrite '" FileName "' failed.")
         return
     }
-    <em>; Upon success, Show file name in title bar (in case we were called by MenuFileSaveAs):</em>
+    <em>; 成功したら、タイトルバーにファイル名を表示する（MenuFileSaveAsから呼び出された場合のため）：</em>
     MyGui.Title := FileName
     return FileName
 }
 
-Gui_DropFiles(thisGui, Ctrl, FileArray, *)  <em>; Support drag &amp; drop.</em>
+Gui_DropFiles(thisGui, Ctrl, FileArray, *)  <em>; ドラッグ＆ドロップに対応。</em>
 {
-    CurrentFileName := readContent(FileArray[1])  <em>; Read the first file only (in case there's more than one).</em>
+    CurrentFileName := readContent(FileArray[1])  <em>; 最初のファイルだけ読み込む（複数ある場合）。</em>
 }
 
 Gui_Size(thisGui, MinMax, Width, Height)
 {
-    if MinMax = -1  <em>; The window has been minimized. No action needed.</em>
+    if MinMax = -1  <em>;ウィンドウは最小化されました。何もする必要はない。</em>
         return
-    <em>; Otherwise, the window has been resized or maximized. Resize the Edit control to match.</em>
+    <em>; それ以外の場合は、ウィンドウのサイズが変更されたり、最大化されたりしています。それに合わせてEditコントロールのサイズを変更します。</em>
     MainEdit.Move(,, Width-20, Height-20)
 }</pre>
 </div>
