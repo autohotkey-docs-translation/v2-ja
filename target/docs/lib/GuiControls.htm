@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>GUI Control Types - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="GUI control types are elements of interaction which can be added to a GUI window using the Gui object's Add method." />
+<title>GUI Control Types - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GUIコントロールタイプは、GUIオブジェクトのAddメソッドを使用してGUIウィンドウに追加することができるインタラクションの要素です。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -27,53 +27,53 @@
   <li><a href="#Link">Link</a>, <a href="#Hotkey">Hotkey</a>, <a href="#DateTime">DateTime</a></li>
   <li><a href="#MonthCal">MonthCal</a>, <a href="#Slider">Slider</a>, <a href="#Progress">Progress</a></li>
   <li><a href="#GroupBox">GroupBox</a>, <a href="#Tab">Tab3</a>, <a href="#StatusBar">StatusBar</a></li>
-  <li><a href="#ActiveX">ActiveX</a> (e.g. Internet Explorer Control)</li>
+  <li><a href="#ActiveX">ActiveX</a>(Internet Explorer Controlなど)</li>
   <li><a href="#Custom">Custom</a></li>
 </ul>
 
 <h2 id="Text">Text</h2>
-<p>Description: A region containing borderless text that the user cannot edit. Often used to label other controls.</p>
+<p>Description:ユーザーが編集できない、境界のないテキストを含む領域。他のコントロールのラベルに使用されることが多い。</p>
 <p>事例：</p>
 <pre>MyGui.Add("Text",, "Please enter your name:")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddText(, "Please enter your name:")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_text.png" alt="Text" />
-<p>In this case, the last parameter is the string to display. It may contain linefeeds (`n) to start new lines. また、1本の長い線を、<a href="../Scripts.htm#continuation">継続部</a>によっていくつかの短い線に分割することができます。</p>
-<p>If a width (W) is specified in <em>Options</em> but no <a href="Gui.htm#R">rows (R)</a> or height (H), the text will be word-wrapped as needed, and the control's height will be set automatically.</p>
+<p>この場合、最後のパラメータは表示する文字列となります。新しい行を開始するための改行(`n)を含むことができる。また、1本の長い線を、<a href="../Scripts.htm#continuation">継続部</a>によっていくつかの短い線に分割することができます。</p>
+<p><em>オプション</em>で幅（W）を指定し、<a href="Gui.htm#R">行（R）</a>または高さ（H）を指定しない場合、テキストは必要に応じてワードラップされ、コントロールの高さが自動的に設定されます。</p>
 
-<p>To detect when the user clicks the text, use the <a href="GuiOnEvent.htm#Click">Click event</a>. 事例：</p>
+<p>ユーザーがテキストをクリックしたことを検出するには、<a href="GuiOnEvent.htm#Click">Click イベント</a>を使用します。事例：</p>
 <pre>MyGui := Gui()
 FakeLink := MyGui.Add("Text", "", "Click here to launch Google.")
 FakeLink.SetFont("underline cBlue")
 FakeLink.OnEvent("Click", LaunchGoogle)
 
-<em>; Alternatively, a <a href="#Link">Link</a> control can be used:</em>
+<em>; また、<a href="#Link">Link</a>コントロールも使用することができます：</em>
 MyGui.Add("Link",, 'Click &lt;a href="www.google.com"&gt;here&lt;/a&gt; to launch Google.')
 MyGui.Show()
 
 LaunchGoogle(*) {
     Run("www.google.com")
 }</pre>
-<p>Text controls also support the <a href="GuiOnEvent.htm#DoubleClick">DoubleClick event</a>.</p>
-<p id="SS_NOTIFY">Only Text controls with the SS_NOTIFY (0x100) style send click and double-click notifications, so <a href="GuiOnEvent.htm">OnEvent</a> automatically adds this style when a Click or DoubleClick callback is registered. The SS_NOTIFY style causes the OS to automatically copy the control's text to the clipboard when it is double-clicked.</p>
-<p>An ampersand (&amp;) may be used in the text to underline one of its letters. 事例：</p>
+<p>テキストコントロールは<a href="GuiOnEvent.htm#DoubleClick">DoubleClickイベント</a>にも対応しています。</p>
+<p id="SS_NOTIFY">SS_NOTIFY（0x100）スタイルを持つTextコントロールだけがクリックやダブルクリックの通知を送るので、<a href="GuiOnEvent.htm">OnEvent</a>はClickやDoubleClickコールバックが登録されると自動的にこのスタイルを追加します。SS_NOTIFYスタイルは、コントロールがダブルクリックされたときに、OSが自動的にコントロールのテキストをクリップボードにコピーするようにします。</p>
+<p>本文中でアンパサンド（&amp;）を使用し、1文字に下線を引くことができる。事例：</p>
 <pre>MyGui.Add("Text",, "&amp;First Name:")
 MyGui.Add("Edit")</pre>
-<p>In the example above, the letter F will be underlined, which allows the user to press the <a href="Gui.htm#ShortcutKey">shortcut key</a> <kbd>Alt</kbd>+<kbd>F</kbd> to set keyboard focus to the first input-capable control that was added after the text control. To instead display a literal ampersand, specify two consecutive ampersands (&amp;&amp;). To disable all special treatment of ampersands, include <a href="../misc/Styles.htm#SS_NOPREFIX">0x80</a> in the control's options.</p>
-<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください：<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
+<p>上の例では、Fという文字に下線が引かれ、ユーザーは<a href="Gui.htm#ShortcutKey">ショートカットキー</a> <kbd>Alt</kbd>+<kbd>F</kbd>を押すことで、テキストコントロールの後に追加された最初の入力可能なコントロールにキーボードフォーカスを設定することができるようになります。アンパサンドを表示させる場合は、アンパサンド（&amp;&amp;）を2つ連続して指定します。アンパサンドに対する特別な処理をすべて無効にするには、コントロールのオプションに<a href="../misc/Styles.htm#SS_NOPREFIX">0x80を</a>含めます。</p>
+<p><em>Right</em>, <em>Center</em>, and <em>Hidden</em>など他のオプションについては、<a href="Gui.htm#OtherOptions">一般的なオプション</a>を参照してください。こちらもご覧ください：<a href="Gui.htm#PosSize">位置とサイズの制御</a></p>
 
 <h2 id="Edit">Edit</h2>
-<p>Description: An area where free-form text can be typed by the user.</p>
+<p>Description:ユーザーが自由にテキストを入力できる領域。</p>
 <p>事例：</p>
 <pre>MyGui.Add("Edit", "r9 vMyEdit w135", "Text to appear inside the edit control (omit this parameter to start off empty).")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddEdit("r9 vMyEdit w135", "Text to appear inside the edit control (omit this parameter to start off empty).")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_edit.png" alt="Edit" />
-<p>The control will be multi-line if it has more than one row of text. For example, specifying <code>r3</code> in <em>Options</em> will create a 3-line edit control with the following default properties: a vertical scroll bar, word-wrapping enabled, and <kbd>Enter</kbd> captured as part of the input rather than triggering the window's <a href="#DefaultButton">default button</a>.</p>
-<p>To start a new line in a multi-line edit control, the last parameter (contents) may contain either a solitary linefeed (`n) or a carriage return and linefeed (`r`n). Both methods produce literal `r`n pairs inside the Edit control. However, when the control's content is retrieved via <a href="Gui.htm#Submit">MyGui.Submit</a> or <a href="GuiControl.htm#Value">GuiCtrl.Value</a>, each `r`n in the text is always translated to a plain linefeed (`n). To bypass this End-of-Line translation, use <a href="GuiControl.htm#Text">GuiCtrl.Text</a>. To write the text to a file, follow this example: <code><a href="FileAppend.htm">FileAppend</a>(MyEdit.Text, "C:\Saved File.txt")</code>.</p>
-<p>If the control has word-wrapping enabled (which is the default for multi-line edit controls), any wrapping that occurs as the user types will not produce linefeed characters (only <kbd>Enter</kbd> can do that).</p>
+<p>コントロールは、テキストが2行以上ある場合、複数行になります。例えば、<em>Options</em>で <code>r3</code>を指定すると、次のようなデフォルトのプロパティを持つ3行エディットコントロールが作成されます：垂直スクロールバー、ワードラッピングを有効にし、<kbd>Enter</kbd>はウィンドウの<a href="#DefaultButton">デフォルトボタン</a>をトリガーするのではなく、入力の一部としてキャプチャされます。</p>
+<p>複数行の編集コントロールで改行するには、最後のパラメータ（contents）に単独のラインフィード（`n）またはキャリッジリターンとラインフィード（`r`n）を指定します。どちらの方法も、Editコントロールの中にリテラルな`r`nペアを生成します。しかし、<a href="Gui.htm#Submit">MyGui.Submit</a>や <a href="GuiControl.htm#Value">GuiCtrl.Value</a>でコントロールの内容を取得する場合、テキスト内の各`r`nは常にプレーンなラインフィード（`n）に変換されます。この行末変換を回避するためには、<a href="GuiControl.htm#Text">GuiCtrl.Text</a>を使用します。テキストをファイルに書き出すには、この例に従います：<code><a href="FileAppend.htm">FileAppend</a>(MyEdit.Text, "C:\Saved File.txt")</code>.</p>
+<p>コントロールがワードラッピングを有効にしている場合（複数行編集コントロールのデフォルト）、ユーザーが入力する際に発生するラップは、改行文字を生成しません（<kbd>Enter</kbd>だけがそれを行うことができます）。</p>
 <p>Whenever the user changes the control's content, the <a href="GuiOnEvent.htm#Change">Change</a> event is raised.</p>
 <p>TIP:To load a text file into an Edit control, use <a href="FileRead.htm">FileRead</a> and <a href="GuiControl.htm#Value">GuiCtrl.Value</a>. 事例：</p>
 <pre>MyEdit := MyGui.Add("Edit", "R20")
@@ -93,7 +93,7 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 <p id="WantReturn"><strong>WantReturn</strong>: Specify <code>-WantReturn</code> (minus WantReturn) to prevent a multi-line edit control from capturing <kbd>Enter</kbd>. Pressing <kbd>Enter</kbd> will then be the same as pressing the window's <a href="#DefaultButton">default button</a> (if any). In this case, the user may press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to start a new line.</p>
 <p><strong>WantTab</strong>:Causes <kbd>Tab</kbd> to produce a tab character rather than navigating to the next control. Without this option, the user may press <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to produce a tab character inside a multi-line edit control. 注：<em>WantTab</em> also works in a single-line edit control.</p>
 <p><strong>Wrap</strong>: Specify <code>-Wrap</code> (minus Wrap) to turn off word-wrapping in a multi-line edit control. Since this style cannot be changed after the control has been created, use one of the following to change it: 1) <a href="Gui.htm#Destroy">Destroy</a> then recreate the window and its control; or 2) Create two overlapping edit controls, one with wrapping enabled and the other without it. The one not currently in use can be kept empty and/or hidden.</p>
-<p>See <a href="Gui.htm#OtherOptions">general options</a> for other options like <em>Right</em>, <em>Center</em>, and <em>Hidden</em>. こちらもご覧ください：<a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
+<p><em>Right</em>, <em>Center</em>, and <em>Hidden</em>など他のオプションについては、<a href="Gui.htm#OtherOptions">一般的なオプション</a>を参照してください。こちらもご覧ください：<a href="Gui.htm#PosSize">位置とサイズの制御</a></p>
 <p><strong>A more powerful edit control</strong>: HiEdit is a free, multitabbed, large-file edit control consuming very little memory. It can edit both text and binary files. For details and a demonstration, see <a href="https://github.com/majkinetor/mm-autohotkey/tree/master/HiEdit">HiEdit on GitHub</a>.</p>
 
 <h2 id="UpDown">UpDown</h2>
@@ -101,10 +101,10 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 <p>事例：</p>
 <pre>MyGui.Add("Edit")
 MyGui.Add("UpDown", "vMyUpDown Range1-10", 5)</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddEdit()
 MyGui.AddUpDown("vMyUpDown Range1-10", 5)</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_updown.png" alt="UpDown" />
 <p>In the example above, the Edit control is the UpDown's buddy control. Whenever the user presses one of the arrow buttons, the number in the Edit control is automatically increased or decreased.</p>
 <p>An UpDown's buddy control can also be a <a href="#Text">Text control</a> or <a href="#ListBox">ListBox</a>. However, due to OS limitations, controls other than these (such as ComboBox and DropDownList) might not work properly with the <a href="GuiOnEvent.htm#Change">Change</a> event and other features.</p>
@@ -129,7 +129,7 @@ MyGui.AddUpDown("vMyUpDown Range1-10", 5)</pre>
 <p>Description: An area containing an image (see last two paragraphs for supported file types). The last parameter is the filename of the image, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
 <p>事例：</p>
 <pre>MyGui.Add("Picture", "w300 h-1", "C:\My Pictures\Company Logo.gif")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddPicture("w300 h-1", "C:\My Pictures\Company Logo.gif")</pre>
 <p>To retain the image's actual width and/or height, omit the W and/or H options. Otherwise, the image is scaled to the specified width and/or height (this width and height also determines which icon to load from a multi-icon .ICO file). To shrink or enlarge the image while preserving its aspect ratio, specify -1 for one of the dimensions and a positive number for the other. For example, specifying <code>w200 h-1</code> would make the image 200 pixels wide and cause its height to be set automatically. If the picture cannot be loaded or displayed (e.g. file not found), an error is thrown and the control is not added.</p>
 <p>Picture controls support the <a href="GuiOnEvent.htm#Click">Click</a> and <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a> events, with the same <a href="#SS_NOTIFY">caveat</a> as Text controls.</p>
@@ -150,11 +150,11 @@ MyGui.Show</pre>
 <p>事例：</p>
 <pre>MyBtn := MyGui.Add("Button", "Default w80", "OK")
 MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em></pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyBtn := MyGui.AddButton("Default w80", "OK")
 MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 </pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_button.png" alt="Button" />
 <p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user clicks the button or presses <kbd>Space</kbd> or <kbd>Enter</kbd> while it has the focus.</p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>.</p>
@@ -169,9 +169,9 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p>Description: A small box that can be checked or unchecked to represent On/Off, Yes/No, etc.</p>
 <p>事例：</p>
 <pre>MyGui.Add("CheckBox", "vShipToBillingAddress", "Ship to billing address?")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddCheckBox("vShipToBillingAddress", "Ship to billing address?")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_check.png" alt="Checkbox" />
 <p>The last parameter is a label displayed next to the box, which is typically used as a prompt or description of what the checkbox does. It may include linefeeds (`n) to start new lines. If a width (W) is specified in <em>Options</em> but no <a href="Gui.htm#R">rows (R)</a> or height (H), the control's text will be word-wrapped as needed, and the control's height will be set automatically.</p>
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the number 1 for checked, 0 for unchecked, and -1 for gray/indeterminate.</p>
@@ -184,15 +184,15 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p>Description: A radio button is a small empty circle that can be checked (on) or unchecked (off).</p>
 <p>事例：</p>
 <pre>MyGui.Add("Radio", "vMyRadioGroup", "Wait for all items to be in stock before shipping.")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddRadio("vMyRadioGroup", "Wait for all items to be in stock before shipping.")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_radio.png" alt="Radio" />
 <p>These controls usually appear in <em>radio groups</em>, each of which contains two or more radio buttons. When the user clicks a radio button to turn it on, any others in its radio group are turned off automatically (the user may also navigate inside a group with the arrow keys). A radio group is created automatically around all consecutively added radio buttons. To start a new group, specify the word <strong>Group</strong> in the <em>Options</em> of the first button of the new group -- or simply add a non-radio control in between, since that automatically starts a new group.</p>
 <p>For the last parameter, specify the label to display to the right of the radio button. This label is typically used as a prompt or description, and it may include linefeeds (`n) to start new lines. If a width (W) is specified in <em>Options</em> but no rows (R) or height (H), the control's text will be word-wrapped as needed, and the control's height will be set automatically.</p>
 <p>Specify the word <strong>Checked</strong> in <em>Options</em> to have the button start off in the "on" state. The word Checked may optionally be followed immediately by a 0 or 1 to indicate the starting state: 0 for unchecked and 1 for checked. In other words, <code>"Checked"</code> and <code>"Checked" VarContainingOne</code> are the same.</p>
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the number 1 for "on" and 0 for "off". To instead retrieve the position number of the selected radio option within a radio group, <a href="GuiControl.htm#Name">name</a> only one of the radio buttons and use <a href="Gui.htm#submit-radio">MyGui.Submit</a>.</p>
-<p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user turns on the button. Unlike the single-variable mode in the previous paragraph, the event callback must be registered for each button in a radio group for which it should be called. This allows the flexibility to ignore the clicks of certain buttons.  </p>
+<p>The <a href="GuiOnEvent.htm#Click">Click</a> event is raised whenever the user turns on the button. Unlike the single-variable mode in the previous paragraph, the event callback must be registered for each button in a radio group for which it should be called. This allows the flexibility to ignore the clicks of certain buttons. </p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>.</p>
 <p>既知の制限：Certain desktop themes might not display a radio button's text properly. If this occurs, try including <code>-Wrap</code> (minus Wrap) in the control's options. However, this also prevents having more than one line of text.</p>
 
@@ -200,9 +200,9 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; Call MyBtn_Click when clicked.</em>
 <p>Description: A list of choices that is displayed in response to pressing a small button.  In this case, the last parameter of <a href="Gui.htm#Add">MyGui.Add</a> is an <a href="Array.htm">Array</a> like <code>["Choice1","Choice2","Choice3"]</code>.</p>
 <p>事例：</p>
 <pre>MyGui.Add("DropDownList", "vColorChoice", ["Black","White","Red"])</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddDropDownList("vColorChoice", ["Black","White","Red"])</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_ddl.png" alt="DDL" />
 <p>To have one of the items pre-selected when the window first appears, include in <em>Options</em> the word <strong>Choose</strong> followed immediately by the number of an item to be pre-selected. For example, <code>Choose5</code> would pre-select the fifth item (as with other options, it can also be a variable such as <code>"Choose" Var</code>). After the control is created, use <a href="GuiControl.htm#Value">GuiCtrl.Value</a>, <a href="GuiControl.htm#Text">GuiCtrl.Text</a> or <a href="GuiControl.htm#Choose">GuiCtrl.Choose</a> to change the selection, and <a href="GuiControl.htm#Add">GuiCtrl.Add</a> or <a href="GuiControl.htm#Delete">GuiCtrl.Delete</a> to add or remove entries from the list.</p>
 <p>Specify either the word <strong>Uppercase</strong> or <strong>Lowercase</strong> in <em>Options</em> to automatically convert all items in the list to uppercase or lowercase. Specify the word <strong>Sort</strong> to automatically sort the contents of the list alphabetically (this also affects any items  added later via <a href="GuiControl.htm#Add">GuiCtrl.Add</a>). The Sort option also enables incremental searching whenever the list is dropped down; this allows an item to be selected by typing the first few characters of its name.</p>
@@ -221,9 +221,9 @@ MyGui.Show("h70")</pre>
 <p>Description: Same as DropDownList but also permits free-form text to be entered as an alternative to picking an item from the list.</p>
 <p>事例：</p>
 <pre>MyGui.Add("ComboBox", "vColorChoice", ["Red","Green","Blue"])</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddComboBox("vColorChoice", ["Red","Green","Blue"])</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_combo.png" alt="ComboBox" />
 <p>In addition to allowing all the same options as DropDownList above, the word <strong>Limit</strong> may be included in <em>Options</em> to restrict the user's input to the visible width of the ComboBox's edit field. Also, the word <strong>Simple</strong> may be specified to make the ComboBox behave as though it is an Edit field with a ListBox beneath it.</p>
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the position number of the currently selected item (the first item is 1, the second is 2, etc.) or 0 if the control contains text which does not match a list item. To get the contents of the ComboBox's edit field, use <a href="GuiControl.htm#Text">GuiCtrl.Text</a>. <a href="Gui.htm#Submit">MyGui.Submit</a> stores the text, unless the word <strong>AltSubmit</strong> is in the control's <em>Options</em> and the text matches a list item, in which case it stores the position number of the item.</p>
@@ -233,9 +233,9 @@ MyGui.Show("h70")</pre>
 <p>Description: A relatively tall box containing a list of choices that can be selected. In this case, the last parameter of <a href="Gui.htm#Add">MyGui.Add</a> is an <a href="Array.htm">Array</a> like <code>["Choice1","Choice2","Choice3"]</code>.</p>
 <p>事例：</p>
 <pre>MyGui.Add("ListBox", "r5 vColorChoice", ["Red","Green","Blue"])</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddListBox("r5 vColorChoice", ["Red","Green","Blue"])</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_list.png" alt="ListBox" />
 <p id="ChooseLB">To have one of the items pre-selected when the window first appears, include in <em>Options</em> the word <strong>Choose</strong> followed immediately by the number of an item to be pre-selected. For example, <code>Choose5</code> would pre-select the fifth item. To have multiple items pre-selected, use <a href="GuiControl.htm#Choose">GuiCtrl.Choose</a> multiple times (requires the <a href="#ListBoxMulti">Multi</a> option). After the control is created, use <a href="GuiControl.htm#Value">GuiCtrl.Value</a>, <a href="GuiControl.htm#Text">GuiCtrl.Text</a> or <a href="GuiControl.htm#Choose">GuiCtrl.Choose</a> to change the selection, and <a href="GuiControl.htm#Add">GuiCtrl.Add</a> or <a href="GuiControl.htm#Delete">GuiCtrl.Delete</a> to add or remove entries from the list.</p>
 <p>If the <a href="#ListBoxMulti">Multi</a> option is absent, <a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the position number of the currently selected item (the first item is 1, the second is 2, etc.) or 0 if there is no item selected. To get the selected item's text instead, use <a href="GuiControl.htm#Text">GuiCtrl.Text</a>. If the <a href="#ListBoxMulti">Multi</a> option is used, <a href="GuiControl.htm#Value">GuiCtrl.Value</a> and <a href="GuiControl.htm#Text">GuiCtrl.Text</a> return an array of items instead of a single item.</p>
@@ -264,10 +264,10 @@ MyGui.Show("h70")</pre>
 <p>事例：</p>
 <pre>MyGui.Add("Link",, 'This is a &lt;a href="https://www.autohotkey.com"&gt;link&lt;/a&gt;')
 MyGui.Add("Link",, 'Links may be used anywhere in the text like &lt;a id="A"&gt;this&lt;/a&gt; or &lt;a id="B"&gt;that&lt;/a&gt;')</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddLink(, 'This is a &lt;a href="https://www.autohotkey.com"&gt;link&lt;/a&gt;')
 MyGui.AddLink(, 'Links may be used anywhere in the text like &lt;a id="A"&gt;this&lt;/a&gt; or &lt;a id="B"&gt;that&lt;/a&gt;')</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_link.png" alt="Link" />
 
 <p>Whenever the user clicks on a link, the <a href="GuiOnEvent.htm#Click">Click</a> event is raised. If the control has no Click callback (registered by calling <a href="GuiOnEvent.htm">OnEvent</a>), the link's HREF is automatically executed as though passed to the <a href="Run.htm">Run</a> function.</p>
@@ -287,13 +287,13 @@ MyGui.Show()</pre>
 <p>Description: A box that looks like a single-line edit control but instead accepts a keyboard combination pressed by the user. For example, if the user presses <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> on an English keyboard layout, the box would display "Ctrl + Alt + C".</p>
 <p>事例：</p>
 <pre>MyGui.Add("Hotkey", "vChosenHotkey")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddHotkey("vChosenHotkey")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_hotkey.png" alt="Hotkey" />
 <p><a href="GuiControl.htm#Value">GuiCtrl.Value</a> returns the control's hotkey modifiers and name, which are compatible with the <a href="Hotkey.htm">Hotkey</a> function. 例：<code>^!C</code>, <code>+!Home</code>, <code>+^Down</code>, <code>^Numpad1</code>, <code>!NumpadEnd</code>. If there is no hotkey in the control, the value is blank.</p>
 <p class="note"><strong>注意</strong>：Some keys are displayed the same even though they are retrieved as different names. For example, both <code>^Numpad7</code> and <code>^NumpadHome</code> might be displayed as Ctrl + Num 7.</p>
-<p>By default, the control starts off with no hotkey specified. To instead have a default, specify its modifiers and name as the last parameter as in this example: <code>MyGui.Add("Hotkey", "vChosenHotkey", "^!p")</code>. The only modifiers supported are ^ (Ctrl), ! (Alt), and + (Shift). See the <a href="../KeyList.htm">key list</a> for available key names.</p>
+<p>By default, the control starts off with no hotkey specified. To instead have a default, specify its modifiers and name as the last parameter as in this example:<code>MyGui.Add("Hotkey", "vChosenHotkey", "^!p")</code>. 対応する修飾語は、^ (Ctrl), ! (Alt) および +(Shift) のみです。See the <a href="../KeyList.htm">key list</a> for available key names.</p>
 <p>Whenever the user changes the control's content (by pressing a key), the <a href="GuiOnEvent.htm#Change">Change</a> event is raised.</p>
 <p class="note"><strong>注意</strong>：The event is raised even when an incomplete hotkey is present. For example, if the user holds down <kbd>Ctrl</kbd>, the event is raised once and <a href="GuiControl.htm#Value">Value</a> returns only a circumflex (^). When the user completes the hotkey, the event is raised again and <a href="GuiControl.htm#Value">Value</a> returns the complete hotkey.</p>
 <p>To restrict the types of hotkeys the user may enter, include the word <strong>Limit</strong> followed by the sum of one or more of the following numbers:</p>
@@ -314,9 +314,9 @@ MyGui.Show()</pre>
 <p>Description: A box that looks like a single-line edit control but instead accepts a date and/or time. A drop-down calendar is also provided.</p>
 <p>事例：</p>
 <pre>MyGui.Add("DateTime", "vMyDateTime", "LongDate")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddDateTime("vMyDateTime", "LongDate")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_datetime.png" alt="DateTime" />
 <p>The last parameter is a format string, as described below.</p>
 <div class="methodShort" id="DateTimeFormat">
@@ -355,9 +355,9 @@ MyGui.Show()</pre>
 <p>Description: A tall and wide control that displays all the days of the month in calendar format. The user may select a single date or a range of dates.</p>
 <p>事例：</p>
 <pre>MyGui.Add("MonthCal", "vMyCalendar")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddMonthCal("vMyCalendar")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_monthcal.png" alt="MonthCal" />
 <p>To have a date other than today pre-selected, specify it as the third parameter in YYYYMMDD format (e.g. <code>20050531</code>). A range of dates may also be pre-selected by including a dash between two dates (e.g. <code>"20050525-20050531"</code>).</p>
 <p>It is usually best to omit width (W) and height (H) for a MonthCal because it automatically sizes itself to fit exactly one month. To display more than one month vertically, specify <code>R2</code> or higher in <em>Options</em>. To display more than one month horizontally, specify <code>W-2</code> (W negative two) or higher. These options may both be present to expand in both directions.</p>
@@ -380,9 +380,9 @@ MyGui.Show()</pre>
 <p>Description: A sliding bar that the user can move along a vertical or horizontal track. The standard volume control in the taskbar's tray is an example of a slider.</p>
 <p>事例：</p>
 <pre>MyGui.Add("Slider", "vMySlider", 50)</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddSlider("vMySlider", 50)</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_slider.png" alt="Slider" />
 <p>Specify the starting position of the slider as the last parameter. If the last parameter  is omitted, the slider starts off at 0 or the number in the allowable range that is closest to 0.</p>
 <p>The user may slide the control by the following means: 1) dragging the bar with the mouse; 2) clicking inside the bar's track area with the mouse; 3) turning the mouse wheel while the control has focus; or 4) pressing the following keys while the control has focus: <kbd>↑</kbd>, <kbd>→</kbd>, <kbd>↓</kbd>, <kbd>←</kbd>, <kbd>PgUp</kbd>, <kbd>PgDn</kbd>, <kbd>Home</kbd>, and <kbd>End</kbd>.</p>
@@ -405,8 +405,8 @@ MyGui.Show()</pre>
   <tr><td>2</td><td>TB_PAGEUP</td><td>The user pressed <kbd>PgUp</kbd>.</td></tr>
   <tr><td>3</td><td>TB_PAGEDOWN</td><td>The user pressed <kbd>PgDn</kbd>.</td></tr>
   <tr><td>4</td><td>TB_THUMBPOSITION</td><td>The user moved the slider via the mouse wheel, or finished a drag-and-drop to a new position.</td></tr>
-  <tr><td>6</td><td>TB_TOP</td><td>The user pressed <kbd>Home</kbd> to send the slider to the left or top side.  </td></tr>
-  <tr><td>7</td><td>TB_BOTTOM</td><td>The user pressed <kbd>End</kbd> to send the slider to the right or bottom side.  </td></tr>
+  <tr><td>6</td><td>TB_TOP</td><td>The user pressed <kbd>Home</kbd> to send the slider to the left or top side. </td></tr>
+  <tr><td>7</td><td>TB_BOTTOM</td><td>The user pressed <kbd>End</kbd> to send the slider to the right or bottom side. </td></tr>
 </table>
 <p><strong>Only if the AltSubmit option is used:</strong></p>
 <table class="info">
@@ -434,9 +434,9 @@ MyGui.Show()</pre>
 <p>Description: A dual-color bar typically used to indicate how much progress has been made toward the completion of an operation.</p>
 <p>事例：</p>
 <pre>MyGui.Add("Progress", "w200 h20 cBlue vMyProgress", 75)</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddProgress("w200 h20 cBlue vMyProgress", 75)</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_progress.png" alt="Progress" />
 <p>Specify the starting position of the bar as the third parameter (if omitted, the bar starts off at 0 or the number in the allowable range that is closest to 0). To later change the position of the bar, follow these examples, all of which operate upon a progress bar whose <a href="GuiControl.htm#Name">Name</a> is MyProgress:</p>
 <pre>MyGui["MyProgress"].<a href="GuiControl.htm#Value">Value</a> += 20  <em>; Increase the current position by 20.</em>
@@ -455,9 +455,9 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 <p>Description: A rectangular border/frame, often used around other controls to indicate they are related. In this case, the last parameter is the title of the box, which if present is displayed at its upper-left edge.</p>
 <p>事例：</p>
 <pre>MyGui.Add("GroupBox", "w200 h100", "Geographic Criteria")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddGroupBox("w200 h100", "Geographic Criteria")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_group.png" alt="GroupBox" />
 <p>By default, a GroupBox's title may have only one line of text. This can be overridden by specifying <code>Wrap</code> in <em>Options</em>.</p>
 <p>To specify the number of rows inside the control (or its height and width), see <a href="Gui.htm#PosSize">position and sizing of controls</a>.</p>
@@ -472,9 +472,9 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 </ul>
 <p>事例：</p>
 <pre>MyGui.Add("Tab3",, ["General","View","Settings"])</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>MyGui.AddTab3(, ["General","View","Settings"])</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_tab.png" alt="タブ" />
 <p id="ChooseTab">The last parameter above is an <a href="Array.htm">Array</a> of tab names. To have one of the tabs pre-selected when the window first appears, include in <em>Options</em> the word <strong>Choose</strong> followed immediately by the number of a tab to be pre-selected. For example, <code>Choose5</code> would pre-select the fifth tab (as with other options, it can also be a variable such as <code>"Choose" Var</code>). After the control is created, use <a href="GuiControl.htm#Value">Value</a>, <a href="GuiControl.htm#Text">Text</a> or <a href="GuiControl.htm#Choose">Choose</a> to change the selected tab, and <a href="GuiControl.htm#Add">Add</a> or <a href="GuiControl.htm#Delete">Delete</a> to add or remove tabs.</p>
 <p id="TabCmd">After creating a Tab control, subsequently added controls automatically belong to its first tab. This can be changed at any time by following these examples (in this case, <em>Tab</em> is the <a href="GuiControl.htm">GuiControl object</a> of the first tab control and <em>Tab2</em> of the second one):</p>
@@ -537,10 +537,10 @@ Tab.UseTab("Name", true)  <em>; Same as above but requires exact match (not case
 <p>事例：</p>
 <pre>SB := MyGui.Add("StatusBar",, "Bar's starting text (omit to start off empty).")
 SB.SetText("There are " . RowCount . " rows selected.")</pre>
-<p>Or:</p>
+<p>あるいは：</p>
 <pre>SB := MyGui.AddStatusBar(, "Bar's starting text (omit to start off empty).")
 SB.SetText("There are " . RowCount . " rows selected.")</pre>
-<p>Appearance:</p>
+<p>アピアランス（外観）：</p>
 <img src="../static/ctrl_status.png" alt="StatusBar" />
 <p>The simplest use of a status bar is to call <a href="#SB_SetText">SB.SetText</a> whenever something changes that should be reported to the user. To report more than one piece of information, divide the bar into sections via <a href="#SB_SetParts">SB.SetParts</a>. To display icon(s) in the bar, call <a href="#SB_SetIcon">SB.SetIcon</a>.</p>
 
