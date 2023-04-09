@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>HasBase - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The HasBase function returns a non-zero number if the specified value is derived from the specified base object." />
+<title>HasBase - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="HasBase 関数は、指定された値が指定されたベースオブジェクトから派生したものである場合、0 以外の数値を返す。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,28 +13,28 @@
 
 <h1>HasBase</h1>
 
-<p>Returns a non-zero number if the specified value is derived from the specified base object.</p>
+<p>指定された値が指定されたベースオブジェクトから派生したものである場合、0 以外の数値を返します。</p>
 
 <pre class="Syntax">HasBase := <span class="func">HasBase</span>(Value, BaseObj)</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
   <dt>値</dt>
   <dd>
-    <p>Any value, of any type.</p>
+    <p>任意の値、任意の型。</p>
   </dd>
   <dt>BaseObj</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#objects">Object</a></p>
-    <p>The potential base object to test.</p>
+    <p>テストするベースオブジェクトの候補です。</p>
   </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-<p>This function returns true if <em>BaseObj</em> is in <em>Value</em>'s chain of base objects, otherwise false.</p>
+<p>この関数は、<em>BaseObj</em>が <em>Value</em>のベースオブジェクトの連鎖の中にあれば真を、そうでなければ偽を返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The following code is roughly equivalent to this function:</p>
+<p>次のコードは、この機能とほぼ同等です：</p>
 <pre>MyHasBase(Value, BaseObj) {
     b := Value
     while b := ObjGetBase(b)
@@ -42,15 +42,15 @@
             return true
     return false
 }</pre>
-<p>For example, <code>HasBase(Obj, Array.Prototype)</code> is true if <em>Obj</em> is an instance of Array or any derived class. This the same check performed by <code>Obj is Array</code>; however, instances can be based on other instances, whereas <code>is</code> requires a Class.</p>
-<p>HasBase accepts both objects and <a href="../Objects.htm#primitive">primitive values</a>. For example, <code>HasBase(1, 0.base)</code> returns true.</p>
+<p>例えば、<code>HasBase(Obj, Array.Prototype)</code>は、<em>Obj</em>が Array またはその派生クラスのインスタンスである場合に真となる。これは、<code>Obj is Array</code>で行われるチェックと同じです。しかし、インスタンスは他のインスタンスに基づくことができるのに対し、<code>is</code>はクラスを必要とします。</p>
+<p>HasBaseは、オブジェクトと<a href="../Objects.htm#primitive">プリミティブな値</a>の両方を受け入れます。例えば、<code>HasBase(1, 0.base)</code>は真を返します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Objects.htm">Objects</a>, <a href="Object.htm#Base">Obj.Base</a>, <a href="Any.htm#GetBase">ObjGetBase</a>, <a href="HasMethod.htm">HasMethod</a>, <a href="HasProp.htm">HasProp</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Illustrates the use of this function.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 本機能の使用方法を説明します。</p>
 <pre>
 thebase := {key: "value"}
 derived := {base: thebase}

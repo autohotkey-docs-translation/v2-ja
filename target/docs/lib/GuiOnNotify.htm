@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>OnNotify (GUI) - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The OnNotify method of a GuiControl object registers a function or method to be called when a control notification is received via the WM_NOTIFY message." />
+<title>OnNotify (GUI) - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GuiControlオブジェクトのOnNotifyメソッドは、WM_NOTIFYメッセージで制御通知を受信したときに呼び出す関数やメソッドを登録するものです。" />
 <meta name="ahk:equiv-v1" content="lib/GuiControl.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
 <body>
 
 <h1>OnNotify</h1>
-<p><a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録します。</p>
+<p><a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</p>
 <pre class="Syntax"><a href="GuiControl.htm">GuiCtrl</a>.<span class="func">OnNotify</span>(NotifyCode, Callback <span class="optional">, AddRemove</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -20,47 +20,47 @@
   <dt>NotifyCode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The control-defined notification code to monitor.</p>
+    <p>監視する制御定義の通知コード。</p>
   </dd>
   
   <dt>Callback</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../misc/Functor.htm">Function Object</a></p>
-    <p>The function, method or object to call when the event is raised.</p>
-    <p>If the GUI has an event sink (that is, if <a href="Gui.htm#Call">Gui()</a>'s <em>EventObj</em> parameter was specified), this parameter may be the name of a method belonging to the event sink.</p>
-    <p>Otherwise, this parameter must be a <a href="../misc/Functor.htm">function object</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
+    <p>イベントが発生したときに呼び出す関数、メソッド、またはオブジェクトを指定します。</p>
+    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。</p>
+    <p>それ以外の場合は、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければならない。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (call the callback after any previously registered callbacks). Otherwise, specify one of the following numbers:</p>
+    <p>省略された場合、デフォルトは1（以前に登録されたコールバックの後にコールバックを呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
-      <li>1 = Call the callback after any previously registered callbacks.</li>
-      <li>-1 = Call the callback before any previously registered callbacks.</li>
-      <li>0 = Do not call the callback.</li>
+      <li>1 = 以前に登録されたコールバックの後にコールバックを呼び出します。</li>
+      <li>-1 = 以前に登録されたコールバックより先にコールバックを呼び出します。</li>
+      <li>0 = コールバックを呼び出さない。</li>
     </ul>
   </dd>
 </dl>
 
 <h2 id="WM_NOTIFY">WM_NOTIFY</h2>
-<p>Certain types of controls send a <a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a> message whenever an interesting event occurs or the control requires information from the program. The <em>lParam</em> parameter of this message contains a pointer to a structure containing information about the notification. The type of structure depends on the notification code and the type of control which raised the notification, but is always based on <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>.</p>
-<p>To determine which notifications are available (if any), what type of structure they provide and how they interpret the return value, refer to the control's documentation. <a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">Control Library (Microsoft Docs)</a> contains links to each of the the Windows common controls. The notification codes (numbers) can be found in the Windows SDK, or by searching the Internet.</p>
-<p>AutoHotkey uses the <em>idFrom</em> and <em>hwndFrom</em> fields to identify which control sent the notification, in order to dispatch it to the appropriate object. The <em>code</em> field contains the notification code. Since these must match up to the <em>GuiControl</em> and <em>NotifyCode</em> used to register the callback, they are rarely useful to the script.</p>
+<p>ある種のコントロールは、興味深いイベントが発生したり、コントロールがプログラムから情報を要求されたりすると、<a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージを送信します。このメッセージの<em>lParam</em>パラメータは、通知に関する情報を含む構造体へのポインタを含みます。構造の種類は、通知コードと通知を行ったコントロールの種類によって異なりますが、常に<a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>をベースにしています。</p>
+<p>どの通知が利用可能か（もしあれば）、どのような構造を提供し、どのように戻り値を解釈するかについては、コントロールのドキュメントを参照してください。<a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">コントロールライブラリ（Microsoft Docs）</a>には、Windows共通の各コントロールへのリンクが含まれています。通知コード（数字）は、Windows SDK、またはインターネットで検索して確認できます。</p>
+<p>AutoHotkeyは、<em>idFrom</em>と <em>hwndFrom</em>フィールドを使用して、どのコントロールが通知を送信したかを識別し、適切なオブジェクトにディスパッチするために使用します。<em>コード</em>フィールドには、通知コードが入ります。これらはコールバックの登録に使用した<em>GuiControl</em>と <em>NotifyCode</em>と一致する必要があるため、スクリプトに役立つことはほとんどない。</p>
 
-<h2 id="Callback_Parameters">Callback Parameters</h2>
-<p>The <a href="GuiOnEvent.htm#Callback_Parameters">notes for OnEvent</a> regarding <code>this</code> and bound functions also apply to OnNotify.</p>
-<p>The callback receives two parameters:</p>
+<h2 id="Callback_Parameters">コールバックパラメータ</h2>
+<p><a href="GuiOnEvent.htm#Callback_Parameters">OnEventの注意事項</a>である、<code>この関数</code>とバインドされた関数に関する注意事項は、OnNotifyにも適用される。</p>
+<p>コールバックは2つのパラメーターを受け取ります：</p>
 <pre class="Syntax"><i>Callback</i>(GuiControl, lParam)</pre>
-<p>As noted above, <em>lParam</em> is the address of a notification structure derived from <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>. Its exact type depends on the type of control and notification code. If the structure contains additional information about the notification, the callback can retrieve it with <a href="NumGet.htm">NumGet</a> and/or <a href="StrGet.htm">StrGet</a>.</p>
+<p>前述の通り、<em>lParam</em>は <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>から派生した通知構造体のアドレスである。その正確な種類は、制御の種類と通知コードに依存します。構造体が通知に関する追加情報を含む場合、コールバックは<a href="NumGet.htm">NumGet</a>および/または<a href="StrGet.htm">StrGet</a>でそれを取得することができます。</p>
 
-<h2 id="Callback_Return_Value">Callback Return Value</h2>
-<p>If multiple callbacks have been registered for an event, a callback may return a non-empty value to prevent any remaining callbacks from being called.</p>
-<p>The return value may have additional meaning, depending on the notification. For example, the ListView notification <a href="https://learn.microsoft.com/windows/win32/controls/lvn-beginlabeledit">LVN_BEGINLABELEDIT</a> (-175 or -105) prevents the user from editing the label if the callback returns TRUE (1).</p>
+<h2 id="Callback_Return_Value">コールバックの戻り値</h2>
+<p>イベントに対して複数のコールバックが登録されている場合、コールバックは空でない値を返し、残りのコールバックが呼ばれないようにすることができます。</p>
+<p>戻り値は、通知によって追加の意味を持つ場合があります。例えば、ListViewの通知<a href="https://learn.microsoft.com/windows/win32/controls/lvn-beginlabeledit">LVN_BEGINLABELEDIT</a>（-175または-105）は、コールバックがTRUE（1）を返す場合、ユーザーがラベルを編集できないようにします。</p>
 
 <h2 id="Related">関連</h2>
-<p>These notes for <a href="GuiOnEvent.htm">OnEvent</a> also apply to OnNotify: <a href="GuiOnEvent.htm#Threads">Threads</a>, <a href="GuiOnEvent.htm#Destroying_the_GUI">Destroying the GUI</a>.</p>
-<p><a href="GuiOnCommand.htm">OnCommand</a> can be used for notifications which are sent as a WM_COMMAND message.</p>
+<p><a href="GuiOnEvent.htm">OnEvent</a>に関するこれらの注意は、OnNotifyにも適用される：<a href="GuiOnEvent.htm#Threads">スレッド</a>、<a href="GuiOnEvent.htm#Destroying_the_GUI">GUIを破壊</a>する。</p>
+<p><a href="GuiOnCommand.htm">OnCommand</a>は、WM_COMMANDメッセージとして送信される通知に対して使用することができる。</p>
 
 </body>
 </html>

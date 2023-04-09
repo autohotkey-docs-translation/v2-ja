@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>OnCommand (GUI) - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The OnCommand method of a GuiControl object registers a function or method to be called when a control notification is received via the WM_COMMAND message." />
+<title>OnCommand (GUI) - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="GuiControlオブジェクトのOnCommandメソッドは、WM_COMMANDメッセージで制御通知を受け取ったときに呼び出される関数やメソッドを登録します。" />
 <meta name="ahk:equiv-v1" content="lib/GuiControl.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
 <body>
 
 <h1>OnCommand</h1>
-<p><a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録します。</p>
+<p><a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a>メッセージで制御通知を受信したときに呼び出される関数やメソッドを登録する。</p>
 <pre class="Syntax"><a href="GuiControl.htm">GuiCtrl</a>.<span class="func">OnCommand</span>(NotifyCode, Callback <span class="optional">, AddRemove</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -20,46 +20,46 @@
   <dt>NotifyCode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The control-defined notification code to monitor.</p>
+    <p>監視する制御定義の通知コード。</p>
   </dd>
   
   <dt>Callback</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../misc/Functor.htm">Function Object</a></p>
-    <p>The function, method or object to call when the event is raised.</p>
-    <p>If the GUI has an event sink (that is, if <a href="Gui.htm#Call">Gui()</a>'s <em>EventObj</em> parameter was specified), this parameter may be the name of a method belonging to the event sink.</p>
-    <p>Otherwise, this parameter must be a <a href="../misc/Functor.htm">function object</a>.</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
+    <p>イベントが発生したときに呼び出す関数、メソッド、またはオブジェクトを指定します。</p>
+    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。</p>
+    <p>それ以外の場合は、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければならない。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (call the callback after any previously registered callbacks). Otherwise, specify one of the following numbers:</p>
+    <p>省略された場合、デフォルトは1（以前に登録されたコールバックの後にコールバックを呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
-      <li>1 = Call the callback after any previously registered callbacks.</li>
-      <li>-1 = Call the callback before any previously registered callbacks.</li>
-      <li>0 = Do not call the callback.</li>
+      <li>1 = 以前に登録されたコールバックの後にコールバックを呼び出します。</li>
+      <li>-1 = 以前に登録されたコールバックより先にコールバックを呼び出します。</li>
+      <li>0 = コールバックを呼び出さない。</li>
     </ul>
   </dd>
 </dl>
 
 <h2 id="WM_COMMAND">WM_COMMAND</h2>
-<p>Certain types of controls send a <a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a> message whenever an interesting event occurs. These are usually standard Windows controls which have been around a long time, as newer controls use the WM_NOTIFY message (see <a href="GuiOnNotify.htm">OnNotify</a>). Commonly used notification codes are translated to events, which the script can monitor with <a href="GuiOnEvent.htm">OnEvent</a>.</p>
-<p>The message's parameters contain the control ID, HWND and notification code, which AutoHotkey uses to dispatch the notification to the appropriate callback. There are no additional parameters.</p>
-<p>To determine which notifications are available (if any), refer to the control's documentation. <a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">Control Library (Microsoft Docs)</a> contains links to each of the the Windows common controls (however, only a few of these use WM_COMMAND). The notification codes (numbers) can be found in the Windows SDK, or by searching the Internet.</p>
+<p>ある種のコントロールは、興味深いイベントが発生するたびに<a href="https://learn.microsoft.com/windows/win32/menurc/wm-command">WM_COMMAND</a>メッセージを送信します。新しいコントロールはWM_NOTIFYメッセージ（<a href="GuiOnNotify.htm">OnNotify</a>参照）を使用するため、これらは通常、古くからあるWindows標準コントロールです。一般的に使用される通知コードはイベントに変換され、スクリプトは<a href="GuiOnEvent.htm">OnEvent</a>で監視することができます。</p>
+<p>メッセージのパラメータには、コントロールID、HWND、通知コードが含まれ、AutoHotkeyはこれを使用して、適切なコールバックに通知をディスパッチします。追加のパラメータはありません。</p>
+<p>どの通知が利用可能か（もしあれば）については、コントロールのマニュアルを参照してください。<a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">コントロールライブラリ（Microsoft Docs）</a>には、Windows共通の各コントロールへのリンクが含まれています（ただし、WM_COMMANDを使用するものはごく一部です）。通知コード（数字）は、Windows SDK、またはインターネットで検索して確認できます。</p>
 
-<h2 id="Callback_Parameters">Callback Parameters</h2>
-<p>The <a href="GuiOnEvent.htm#Callback_Parameters">notes for OnEvent</a> regarding <code>this</code> and bound functions also apply to OnCommand.</p>
-<p>The callback receives one parameter:</p>
+<h2 id="Callback_Parameters">コールバックパラメータ</h2>
+<p><a href="GuiOnEvent.htm#Callback_Parameters">OnEventの注意事項</a>である、<code>この関数</code>とバインドされた関数に関する注意事項は、OnCommandにも適用される。</p>
+<p>コールバックは1つのパラメーターを受け取ります：</p>
 <pre class="Syntax"><i>Callback</i>(GuiControl)</pre>
 
-<h2 id="Callback_Return_Value">Callback Return Value</h2>
-<p>If multiple callbacks have been registered for an event, a callback may return a non-empty value to prevent any remaining callbacks from being called.</p>
-<p>The return value is ignored by the control.</p>
+<h2 id="Callback_Return_Value">コールバックの戻り値</h2>
+<p>イベントに対して複数のコールバックが登録されている場合、コールバックは空でない値を返し、残りのコールバックが呼ばれないようにすることができます。</p>
+<p>戻り値は、制御によって無視される。</p>
 
 <h2 id="Related">関連</h2>
-<p>These notes for <a href="GuiOnEvent.htm">OnEvent</a> also apply to OnCommand: <a href="GuiOnEvent.htm#Threads">Threads</a>, <a href="GuiOnEvent.htm#Destroying_the_GUI">Destroying the GUI</a>.</p>
-<p><a href="GuiOnNotify.htm">OnNotify</a> can be used for notifications which are sent as a WM_NOTIFY message.</p>
+<p><a href="GuiOnEvent.htm">OnEvent</a>に関するこれらの注意は、OnCommandにも適用されます：<a href="GuiOnEvent.htm#Threads">スレッド</a>、<a href="GuiOnEvent.htm#Destroying_the_GUI">GUIを破壊</a>する。</p>
+<p><a href="GuiOnNotify.htm">OnNotify</a>は、WM_NOTIFYメッセージとして送信される通知に対して使用することができる。</p>
 
 </body>
 </html>

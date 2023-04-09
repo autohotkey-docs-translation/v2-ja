@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>If - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The If statement specifies one or more statements to execute if an expression evaluates to true." />
+<title>If - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="If文は、ある式がtrueと評価された場合に実行する1つまたは複数の文を指定します。" />
 <meta name="ahk:equiv-v1" content="lib/IfExpression.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,17 +12,17 @@
 <body>
 
 <h1>If</h1>
-<p>Specifies one or more <a href="../Concepts.htm#statement">statements</a> to execute if an <a href="../Variables.htm#Expressions">expression</a> evaluates to true.</p>
+<p><a href="../Variables.htm#Expressions">式</a>がtrueと評価された場合に実行する1つ以上の<a href="../Concepts.htm#statement">ステートメント</a>を指定します。</p>
 <pre class="Syntax"><span class="func">If</span> <i>Expression</i>
 {
     <i>Statements</i>
 }</pre>
 
 <h2 id="Remarks">備考</h2>
-<p>If the <em>If</em> statement's expression evaluates to true (which is any result other than an empty string or the number 0), the line or <a href="Block.htm">block</a> underneath it is executed. Otherwise, if there is a corresponding <a href="Else.htm">Else</a> statement, execution jumps to the line or block underneath it.</p>
-<p>If an <em>If</em> owns more than one line, those lines must be enclosed in braces (to create a <a href="Block.htm">block</a>). However, if only one line belongs to an <em>If</em>, the braces are optional. See the examples at the bottom of this page.</p>
-<p>The space after <code>if</code> is optional if the expression starts with an open-parenthesis, as in <code>if(expression)</code>.</p>
-<p id="otb">The One True Brace (OTB) style may optionally be used. 事例：</p>
+<p><em>If</em>文の式がtrueと評価された場合（空文字列や数値0以外の結果）、その下の行や<a href="Block.htm">ブロック</a>が実行されます。それ以外の場合、対応する<a href="Else.htm">Else</a>文があれば、実行はその下の行またはブロックにジャンプする。</p>
+<p>複数の行を所有する<em>場合</em>は、それらの行を中括弧で囲む必要があります（<a href="Block.htm">ブロック</a>を作成するため）。ただし、1つの<em>If</em>に1行しか属さない場合は、中括弧は省略可能です。本ページ下部の例をご覧ください。</p>
+<p><code>if</code> <code>(expression)</code>のように、式が開括弧で始まる場合、<code>if</code>の後のスペースは任意である。</p>
+<p id="otb">OTB（One True Brace）スタイルはオプションで使用することができます。事例：</p>
 <pre>if (x &lt; y) {
     <em>; ...</em>
 }
@@ -34,20 +34,20 @@ if IsDone {
 } else {
     <em>; ...</em>
 }</pre>
-<p>Unlike an <em>If</em> statement, an <a href="Else.htm">Else</a> statement supports any type of statement immediately to its right.</p>
+<p><em>If</em>文とは異なり、<a href="Else.htm">Else</a>文はその右側にあるどのタイプの文もサポートします。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Variables.htm#Expressions">Expressions</a>, <a href="../Variables.htm#ternary">Ternary operator (a?b:c)</a>, <a href="Block.htm">Blocks</a>, <a href="Else.htm">Else</a>, <a href="While.htm">While-loop</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExOne">
-<p><a class="ex_number" href="#ExOne"></a> If <var>A_Index</var> is greater than 100, return.</p>
+<p><a class="ex_number" href="#ExOne"></a> <var>A_Index</var>が 100 より大きい場合、リターンする。</p>
 <pre>if (A_Index &gt; 100)
     return</pre>
 </div>
 
 <div class="ex" id="ExMultiple">
-<p><a class="ex_number" href="#ExMultiple"></a> If the result of <code>A_TickCount - StartTime</code> is greater than the result of <code>2*MaxTime + 100</code>, show "Too much time has passed." and terminate the script.</p>
+<p><a class="ex_number" href="#ExMultiple"></a> <code>A_TickCount-StartTime</code>の結果が<code>2*MaxTime+100</code>の結果より大きい場合、"Too much time has passed. "と表示し、スクリプトを終了する。</p>
 <pre>if (A_TickCount - StartTime &gt; 2*MaxTime + 100)
 {
     MsgBox "Too much time has passed."
@@ -58,22 +58,22 @@ if IsDone {
 <div class="ex" id="ExComplex">
 <p><a class="ex_number" href="#ExComplex"></a> この例は、次のように実行されます：</p>
 <ol>
-  <li>If <var>Color</var> is the word "Blue" or "White":
+  <li><var>Color</var>が「Blue」または「White」という単語である場合：
     <ol>
       <li>Show "The color is one of the allowed values.".</li>
-      <li>Terminate the script.</li>
+      <li>スクリプトを終了させます。</li>
     </ol>
   </li>
-  <li>Otherwise if <var>Color</var> is the word "Silver":
+  <li>それ以外の場合、<var>Color</var>が"Silver"である場合：
     <ol>
       <li>Show "Silver is not an allowed color.".</li>
-      <li>Stop further checks.</li>
+      <li>それ以上のチェックを停止する。</li>
     </ol>
   </li>
   <li>それ以外：
     <ol>
       <li>Show "This color is not recognized.".</li>
-      <li>Terminate the script.</li>
+      <li>スクリプトを終了させます。</li>
     </ol>
   </li>
 </ol>
@@ -94,7 +94,7 @@ else
 }</pre>
 </div>
 <div class="ex" id="ExMultiStatement">
-<p><a class="ex_number" href="#ExMultiStatement"></a> A single <a href="../Variables.htm#comma">multi-statement</a> line does not need to be enclosed in braces.</p>
+<p><a class="ex_number" href="#ExMultiStatement"></a> 1つの<a href="../Variables.htm#comma">複数文</a>の行は、中括弧で囲む必要はない。</p>
 <pre>MyVar := 3
 if (MyVar &gt; 2)
     MyVar++, MyVar := MyVar - 4, MyVar .= " test"

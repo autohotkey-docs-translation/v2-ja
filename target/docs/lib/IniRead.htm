@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>IniRead - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The IniRead function reads a value, section or list of section names from a standard format .ini file." />
+<title>IniRead - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="IniRead関数は、標準フォーマットの.iniファイルから値、セクション、またはセクション名のリストを読み取ります。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>IniRead</h1>
 
-<p>Reads a value, section or list of section names from a standard format .ini file.</p>
+<p>標準フォーマットの.iniファイルから値、セクション、またはセクション名のリストを読み込みます。</p>
 
 <pre class="Syntax">Value := <span class="func">IniRead</span>(Filename, Section, Key <span class="optional">, Default</span>)
 Section := <span class="func">IniRead</span>(Filename, Section)
@@ -23,51 +23,51 @@ SectionNames := <span class="func">IniRead</span>(Filename)</pre>
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the .ini file, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
+    <p>.iniファイルの名前。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。</p>
   </dd>
 
   <dt>Section</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The section name in the .ini file, which is the heading phrase that appears in square brackets (do not include the brackets in this parameter).</p>
+    <p>.iniファイル内のセクション名で、角括弧内に表示される見出し語です（このパラメータに括弧は含めないでください）。</p>
   </dd>
 
   <dt>Key</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The key name in the .ini file.</p>
+    <p>.iniファイル内のキー名です。</p>
   </dd>
 
   <dt>Default</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The value to return on failure, such as if the requested key, section or file is not found. If omitted, an <a href="Error.htm#OSError">OSError</a> is thrown on failure.</p>
+    <p>要求されたキー、セクション、またはファイルが見つからない場合など、失敗したときに返す値。省略された場合、失敗時に<a href="Error.htm#OSError">OSError</a>が投げられます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the actual value of the specified key. If the value cannot be retrieved, the default value indicated by the <em>Default</em> parameter is returned.</p>
-<p>If the <em>Key</em> parameter is omitted, this function returns an entire section. Comments and empty lines are omitted. Only the first 65,533 characters of the section are retrieved.</p>
-<p>If the <em>Key</em> and <em>Section</em> parameters are omitted, this function returns a linefeed (<code>`n</code>) delimited list of section names.</p>
+<p>この関数は、指定されたキーの実際の値を返します。値が取得できない場合は、<em>Default</em>パラメータで示されるデフォルト値が返されます。</p>
+<p><em>Key</em>パラメータが省略された場合は、セクション全体を返します。コメントや空行は省略されます。セクションの最初の65,533文字のみが検索されます。</p>
+<p><em>Key</em>および<em>Section</em>パラメータが省略された場合，セクション名をラインフィード(<code>`n</code>)で区切ったリストを返します．</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown on failure, but only if <em>Default</em> is omitted.</p>
-<p>Regardless of whether an exception is thrown, <a href="../Variables.htm#LastError">A_LastError</a> is set to the result of the operating system's GetLastError() function.</p>
+<p><em>Default</em>が省略された場合のみ、失敗時に<a href="Error.htm#OSError">OSError</a>が投げられます。</p>
+<p>例外の発生有無にかかわらず、<a href="../Variables.htm#LastError">A_LastError</a>にはオペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The operating system automatically omits leading and trailing spaces/tabs from the retrieved string. To prevent this, enclose the string in single or double quote marks. The outermost set of single or double quote marks is also omitted, but any spaces inside the quote marks are preserved.</p>
-<p>Values longer than 65,535 characters are likely to yield inconsistent results.</p>
-<p>A standard ini file looks like:</p>
+<p>オペレーティングシステムは、取得した文字列から先頭と末尾のスペース/タブを自動的に省略します。これを防ぐには、文字列をシングルクォートまたはダブルクォートで囲んでください。最も外側にあるシングルクォートまたはダブルクォートのセットも省略されるが、クォートマーク内のスペースは保持される。</p>
+<p>65,535文字より長い値は、一貫性のない結果になる可能性が高いです。</p>
+<p>標準的なiniファイルは次のようなものです：</p>
 <pre>[SectionName]
 Key=Value</pre>
-<p><b>Unicode:</b> IniRead and IniWrite rely on the external functions <a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a> and <a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a> to read and write values. These functions support Unicode only in UTF-16 files; all other files are assumed to use the system's default ANSI code page.</p>
+<p><b>ユニコード：</b>IniReadとIniWriteは、値の読み書きに外部関数<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a>と <a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a>に依存しています。これらの関数は、UTF-16ファイルでのみUnicodeをサポートし、それ以外のファイルではシステムのデフォルトのANSIコードページを使用するものとします。</p>
 <h2 id="Related">関連</h2>
 <p><a href="IniDelete.htm">IniDelete</a>, <a href="IniWrite.htm">IniWrite</a>, <a href="RegRead.htm">RegRead</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="FileRead.htm">FileRead</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Reads the value of a key located in section2 from a standard format .ini file and stores it in <var>Value</var>.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 標準フォーマットの.iniファイルからsection2にあるキーの値を読み出し、<var>Value</var>に格納します。</p>
 <pre>Value := IniRead("C:\Temp\myfile.ini", "section2", "key")
 MsgBox "The value is " Value</pre>
 </div>

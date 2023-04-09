@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ImageSearch - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ImageSearch function searches a region of the screen for an image." />
+<title>ImageSearch - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="イメージサーチ機能は、画面上のある領域を検索して画像を探す機能です。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>ImageSearch</h1>
 
-<p>Searches a region of the screen for an image.</p>
+<p>画面内の領域を検索して画像を探します。</p>
 
 <pre class="Syntax"><span class="func">ImageSearch</span> &amp;OutputVarX, &amp;OutputVarY, X1, Y1, X2, Y2, ImageFile</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,71 +21,71 @@
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>References to the output variables in which to store the X and Y coordinates of the upper-left pixel of where the image was found on the screen (if no match is found, the variables are made blank). Coordinates are relative to the active window unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p>画面上で画像が見つかった場所の左上ピクセルのX、Y座標を格納する出力変数への参照（一致しない場合は空白とする）。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
   </dd>
 
   <dt>X1, Y1</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The X and Y coordinates of the upper left corner of the rectangle to search. Coordinates are relative to the active window unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p>検索する矩形の左上隅のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
   </dd>
 
   <dt>X2, Y2</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The X and Y coordinates of the lower right corner of the rectangle to search. Coordinates are relative to the active window unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p>検索する矩形の右下隅のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
   </dd>
 
   <dt>ImageFile</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The file name of an image, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. Supported image formats include ANI, BMP, CUR, EMF, Exif, GIF, ICO, JPG, PNG, TIF, and WMF (BMP images must be 16-bit or higher). Other sources of icons include the following types of files: EXE, DLL, CPL, SCR, and other types that contain icon resources.</p>
-      <p><strong>Options</strong>:Zero or more of the following strings may be also be present immediately before the name of the file. 各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"*2 *w100 *h-1 C:\Main Logo.bmp"</code>.</p>
-      <p><strong>*IconN</strong>: To use an icon group other than the first one in the file, specify <code>*Icon</code> followed immediately by the number of the group. For example, <code>*Icon2</code> would load the default icon from the second icon group.</p>
-    <p><strong>*n</strong> (variation): Specify for <strong>n</strong> a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of each pixel's color. For example, if <code>*2</code> is specified and the color of a pixel is 0x444444, any color from 0x424242 to 0x464646 will be considered a match. This parameter is helpful if the coloring of the image varies slightly or if <em>ImageFile</em> uses a format such as GIF or JPG that does not accurately represent an image on the screen. If you specify 255 shades of variation, all colors will match. The default is 0 shades.</p>
-    <p><strong>*TransN</strong>:This option makes it easier to find a match by specifying one color within the image that will match any color on the screen. It is most commonly used to find PNG, GIF, and TIF files that have some transparent areas (however, icons do not need this option because their transparency is automatically supported). For GIF files, <code>*TransWhite</code> might be most likely to work. For PNG and TIF files, <code>*TransBlack</code> might be best. Otherwise, specify for <strong>N</strong> some other color name or RGB value (see the <a href="../misc/Colors.htm">color chart</a> for guidance, or use <a href="PixelGetColor.htm">PixelGetColor</a> in its RGB mode). 例：<code>*TransBlack</code>, <code>*TransFFFFAA</code>, <code>*Trans0xFFFFAA</code>.</p>
-    <p><strong>*wn</strong> and <strong>*hn</strong>: Width and height to which to scale the image (this width and height also determines which icon to load from a multi-icon .ICO file). If both these options are omitted, icons loaded from ICO, DLL, or EXE files are scaled to the system's default small-icon size, which is usually 16 by 16 (you can force the actual/internal size to be used by specifying <code>*w0 *h0</code>). Images that are not icons are loaded at their actual size. To shrink or enlarge the image while preserving its aspect ratio, specify -1 for one of the dimensions and a positive number for the other. For example, specifying <code>*w200 *h-1</code> would make the image 200 pixels wide and cause its height to be set automatically.</p>
-    <p>A <a href="../misc/ImageHandles.htm">bitmap or icon handle</a> can be used instead of a filename. For example, <code>"HBITMAP:*" handle</code>.</p>
+    <p>画像のファイル名。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。対応する画像形式は、ANI、BMP、CUR、EMF、Exif、GIF、ICO、JPG、PNG、TIF、WMF（BMP画像は16ビット以上）です。その他、アイコンのソースとして、以下のような種類のファイルがあります：EXE、DLL、CPL、SCRなど、アイコンリソースを含むタイプ。</p>
+      <p><strong>Options</strong>:ファイル名の直前には、以下の文字列が0個以上存在してもよい。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"*2 *w100 *h-1 C:\Main Logo.bmp"</code>.</p>
+      <p><strong>*IconN</strong>:ファイル内の先頭以外のアイコングループを使用する場合は、<code>*Icon</code>の後にグループの番号を続けて指定してください。例えば、<code>*Icon2</code>は、2番目のアイコングループからデフォルトのアイコンをロードします。</p>
+    <p><strong>*n</strong> (variation):<strong>n</strong>には、各画素の色の赤、緑、青の各成分の強度が、どちらの方向にも変化する許容階調数を示す 0～255 の数値（包括）を指定します。例えば、<code>*2</code>が指定され、画素の色が0x44444の場合、0x424242から0x464646までの任意の色が一致するとみなされます。このパラメータは、イメージの色合いが微妙に異なる場合や、<em>ImageFile</em>がGIFやJPGなど、画面上のイメージを正確に表現できないフォーマットを使用している場合に有効です。255色のバリエーションを指定した場合、すべての色が一致します。デフォルトは0階調です。</p>
+    <p><strong>*TransN</strong>:このオプションは、画面上のどの色とも一致するような色を画像内で1つ指定することで、一致する色を見つけやすくするものです。透明な部分があるPNG、GIF、TIFファイルを探すのに最もよく使われます（ただし、アイコンは自動的に透明化されるため、このオプションは必要ありません）。GIFファイルの場合、<code>*TransWhite</code>が最も可能性が高いかもしれません。PNGやTIFファイルの場合、<code>*TransBlack</code>が最適かもしれません。それ以外の場合は、<strong>N</strong>に他の色名やRGB値を指定します（<a href="../misc/Colors.htm">カラーチャート</a>を参考にするか、RGBモードの<a href="PixelGetColor.htm">PixelGetColor</a>を使用します）。例：<code>*TransBlack</code>, <code>*TransFFFFAA</code>, <code>*Trans0xFFFFAA</code>.</p>
+    <p><strong>*wn</strong> および <strong>*hn</strong>:画像を拡大縮小する幅と高さ（この幅と高さは、マルチアイコン.ICOファイルからどのアイコンを読み込むかも決定する）。これらのオプションが省略された場合、ICO、DLL、EXEファイルから読み込まれたアイコンは、通常16×16のシステムのデフォルトのスモールアイコンサイズにスケーリングされます（<code>*w0 *h0</code>を指定すると、実際の/内部のサイズを強制的に使用することができます）。アイコンでない画像は、実際のサイズで読み込まれます。画像のアスペクト比を保ったまま縮小・拡大する場合は、一方の寸法に-1、他方の寸法に正の数を指定します。例えば、<code>*w200 *h-1</code>を指定すると、画像の幅は200ピクセルになり、高さは自動的に設定される。</p>
+    <p>ファイル名の代わりに<a href="../misc/ImageHandles.htm">ビットマップやアイコンハンドル</a>を使用することができます。例えば、<code>"HBITMAP:*"ハンドル</code>です。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-<p>This function returns 1 (true) if the image was found in the specified region, or 0 (false) if it was not found.</p>
+<p>この関数は、指定された領域で画像が見つかった場合は 1（真）を、見つからなかった場合は 0（偽）を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#ValueError">ValueError</a> is thrown if an invalid parameter was detected or the image could not be loaded.</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if an internal function call fails.</p>
+<p>無効なパラメータが検出された場合、または画像を読み込むことができなかった場合、<a href="Error.htm#ValueError">ValueError</a>がスローされます。</p>
+<p>内部関数呼び出しに失敗した場合、<a href="Error.htm#OSError">OSError</a>が投げられる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>ImageSearch can be used to detect graphical objects on the screen that either lack text or whose text cannot be easily retrieved. For example, it can be used to discover the position of picture buttons, icons, web page links, or game objects. Once located, such objects can be clicked via <a href="Click.htm">Click</a>.</p>
-<p>A strategy that is sometimes useful is to search for a small clipping from an image rather than the entire image. This can improve reliability in cases where the image as a whole varies, but certain parts within it are always the same. One way to extract a clipping is to:</p>
+<p>ImageSearchは、テキストがない、またはテキストを容易に検索できない画面上のグラフィカルオブジェクトを検出するために使用されます。例えば、絵柄のボタンやアイコン、Webページのリンク、ゲームオブジェクトの位置などを発見するのに利用できます。このようなオブジェクトは、位置が決まれば、<a href="Click.htm">Click</a>でクリックすることが可能です。</p>
+<p>画像全体ではなく、画像から小さく切り取ったものを検索するのも有効な手段です。これにより、画像全体が変化しても、その中のある部分は常に同じであるような場合の信頼性を向上させることができます。クリッピングを抽出する方法の1つです：</p>
 <ol>
-  <li>Press <kbd>Alt</kbd>+<kbd>PrtSc</kbd> while the image is visible in the active window. This places a screenshot on the clipboard.</li>
-  <li>Open an image processing program such as Paint.</li>
-  <li>Paste the contents of the clipboard (that is, the screenshot).</li>
-  <li>Select a region that does not vary and that is unique to the image.</li>
-  <li>Copy and paste that region to a new image document.</li>
-  <li>Save it as a small file for use with ImageSearch.</li>
+  <li>アクティブウィンドウに画像が表示されている状態で、 <kbd>Alt</kbd>+<kbd>PrtSc</kbd>を押します。クリップボードにスクリーンショットを配置します。</li>
+  <li>ペイントなどの画像処理ソフトを起動します。</li>
+  <li>クリップボードの内容（つまり、スクリーンショット）を貼り付けます。</li>
+  <li>ばらつきがなく、画像に特徴がある領域を選択します。</li>
+  <li>その領域をコピーして、新しい画像ドキュメントに貼り付けます。</li>
+  <li>ImageSearchで使用するために小さなファイルとして保存してください。</li>
 </ol>
-<p>To be a match, an image on the screen must be the same size as the one loaded via the <em>ImageFile</em> parameter and its options.</p>
-<p>The region to be searched must be visible; in other words, it is not possible to  search a region of a window hidden behind another window. By contrast, images that lie partially beneath the mouse cursor can usually be detected. The exception to this is game cursors, which in most cases will obstruct any images beneath them.</p>
-<p>Since the search starts at the top row of the region and moves downward, if there is more than one match, the one closest to the top will be found.</p>
-<p>Icons containing a transparent color automatically allow that color to match any color on the screen. Therefore, the color of what lies behind the icon does not matter.</p>
-<p>ImageSearch supports 8-bit color screens (256-color) or higher.</p>
-<p>The search behavior may vary depending on the display adapter's color depth (especially for GIF and JPG files). Therefore, if a script will run under multiple color depths, it is best to test it on each depth setting. You can use the shades-of-variation option (*n) to help make the behavior consistent across multiple color depths.</p>
-<p>If the image on the screen is translucent, ImageSearch will probably fail to find it. To work around this, try the shades-of-variation option (*n) or make the window temporarily opaque via <code><a href="WinSetTransparent.htm">WinSetTransparent</a>("Off")</code>.</p>
+<p>一致するためには、画面上の画像は、<em>ImageFile</em>パラメータとそのオプションで読み込まれた画像と同じサイズでなければなりません。</p>
+<p>検索する領域は可視でなければなりません。言い換えれば、ウィンドウが他のウィンドウの後ろに隠れている領域を検索することは不可能です。一方、マウスカーソルの下に部分的にある画像は、通常、検出することができます。ただし、ゲームカーソルは例外で、ほとんどの場合、その下にある画像が邪魔になります。</p>
+<p>検索は領域の最上段から始まり、下へ下へと移動していくので、複数のマッチングがある場合は、一番上に近いものが検索されることになります。</p>
+<p>透明な色を含むアイコンは、自動的にその色が画面上のどの色とも一致するようになります。したがって、アイコンの後ろにあるものの色は関係ありません。</p>
+<p>ImageSearchは、8ビットカラー画面（256色）以上に対応しています。</p>
+<p>ディスプレイアダプターの色深度により、検索動作が異なる場合があります（特にGIFファイル、JPGファイル）。したがって、複数の色深度でスクリプトを実行する場合は、各色深度の設定でテストするのがベストです。shades-of-variationオプション（*n）を使用することで、複数の色深度での動作の一貫性を持たせることができます。</p>
+<p>画面上の画像が半透明な場合、ImageSearchはおそらく検索に失敗する。これを回避するには、shades-of-variationオプション（*n）を試すか、<code><a href="WinSetTransparent.htm">WinSetTransparent</a>("Off")</code>でウィンドウを一時的に不透明にする必要があります。</p>
 <h2 id="Related">関連</h2>
 <p><a href="PixelSearch.htm">PixelSearch</a>, <a href="PixelGetColor.htm">PixelGetColor</a>, <a href="CoordMode.htm">CoordMode</a>, <a href="MouseGetPos.htm">MouseGetPos</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Searches a region of the active window for an image and stores in <var>FoundX</var> and <var>FoundY</var> the X and Y coordinates of the upper-left pixel of where the image was found.</p>
-<pre>ImageSearch &amp;FoundX, &amp;FoundY, 40, 40, 300, 300, "C:\My Images\test.bmp"</pre>
+<p><a class="ex_number" href="#ExBasic"></a> アクティブウィンドウの画像領域を検索し、画像が見つかった場所の左上ピクセルのX座標とY座標を<var>FoundX</var>と <var>FoundY</var>に格納します。</p>
+<pre>ImageSearch &amp;FoundX, &amp;FoundY, 40, 40, 300, 300, "C:¥My Imagestest.bmp"</pre>
 </div>
 <div class="ex" id="ExScreen">
-<p><a class="ex_number" href="#ExScreen"></a> Searches a region of the screen for an image and stores in <var>FoundX</var> and <var>FoundY</var> the X and Y coordinates of the upper-left pixel of where the image was found, including advanced error handling.</p>
-<pre>CoordMode "Pixel"  <em>; Interprets the coordinates below as relative to the screen rather than the active window.</em>
+<p><a class="ex_number" href="#ExScreen"></a> 高度なエラー処理を含め、画面の領域を画像検索し、画像が見つかった場所の左上ピクセルのXおよびY座標を<var>FoundX</var>および<var>FoundY</var>に格納します。</p>
+<pre>CoordMode "Pixel"  <em>; 以下の座標を、アクティブなウィンドウではなく、スクリーンからの相対座標として解釈します。</em>
 try
 {
     if ImageSearch(&amp;FoundX, &amp;FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "*Icon3 " A_ProgramFiles "\SomeApp\SomeApp.exe")
