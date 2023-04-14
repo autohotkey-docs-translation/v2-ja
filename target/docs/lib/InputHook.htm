@@ -27,8 +27,8 @@
     <p id="option-i"><strong>I</strong>:<a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにする。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
     <p id="option-l"><strong>L</strong>:長さの制限（例：<code>L5</code>）。入力の最大許容長を示す。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
     <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。<a href="#OnChar">OnChar</a>、<a href="#OnKeyDown">OnKeyDown</a>、<a href="#KeyOpt">KeyOptと組み合わせて</a>使用すると便利です。 <em><a href="#EndKeys">EndKeys</a></em>.</p>
-    <p id="option-m"><strong>M</strong>:<kbd>Ctrl</kbd>+<kbd>A</kbd> から<kbd>Ctrl</kbd>+<kbd>Z</kbd>のような修飾されたキー操作は、実際のASCII文字に対応する場合に認識され、転写されます。Consider this example, which recognizes <kbd>Ctrl</kbd>+<kbd>C</kbd>:</p>
-    <pre>CtrlC := Chr(3) <em>; Store the character for Ctrl-C in the CtrlC var.</em>
+    <p id="option-m"><strong>M</strong>:<kbd>Ctrl</kbd>+<kbd>A</kbd> から<kbd>Ctrl</kbd>+<kbd>Z</kbd>のような修飾されたキー操作は、実際のASCII文字に対応する場合に認識され、転写されます。<kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
+    <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納</em>する。
 ih := InputHook("L1 M")
 ih.Start()
 ih.Wait()
