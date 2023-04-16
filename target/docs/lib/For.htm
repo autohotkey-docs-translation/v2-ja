@@ -22,11 +22,11 @@
   <dt>Value2</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variables">変数</a></p>
-    <p>各反復の最初に列挙者が返す値を格納するための変数です。これらの値の性質は、<em>Expression</em>によって決定される列挙子によって定義される。これらの変数は<a href="../Language.htm#dynamic-variables">動的</a>にはありえない。</p>
+    <p>各反復の最初に列挙者が返す値を格納するための変数です。これらの値の性質は、<em>Expression</em>によって決定される列挙子によって定義されます。これらの変数は<a href="../Language.htm#dynamic-variables">動的</a>にはありえない。</p>
     <p>ループが切れたり終了したりすると、これらの変数は元の値に戻されます。ループ変数が<a href="../Functions.htm#ByRef">ByRef パラメータ</a>である場合、対象変数はループの影響を受けません。また、その変数を参照する<a href="../Functions.htm#closures">クロージャ</a>（ローカルな場合）も影響を受けず、ループの外でその変数が持っていた値だけを見ることができます。</p>
     <p class="warning"><strong>注：</strong>ループ本体内で定義されていても、ループ変数を参照するネストされた関数は、現在の反復の値を見たり変更したりすることはできません。代わりに、変数を明示的に渡すか、その値をパラメータに<a href="Func.htm#Bind">バインド</a>してください。</p>
     <p>列挙者がサポートしている場合、最大19個の変数がサポートされます。</p>
-    <p>変数は省略可能です。例えば、<code>myMapのvalueに対して</code>、<em>myMap</em>のenumeratorを第2パラメータのみで呼び出し、第1パラメータを省略します。列挙者がユーザー定義で、パラメータが必須である場合は、通常通り例外が発生する。<a href="../Objects.htm#__Enum">Enum</a>に渡されるパラメータカウントは、変数やカンマがない場合は0、ない場合は1にカンマの数を加えたものになります。</p>
+    <p>変数は省略可能です。例えば、<code>myMapのvalueに対して</code>、<em>myMap</em>のenumeratorを第2パラメータのみで呼び出し、第1パラメータを省略します。列挙者がユーザー定義で、パラメータが必須である場合は、通常通り例外が発生します。<a href="../Objects.htm#__Enum">Enum</a>に渡されるパラメータカウントは、変数やカンマがない場合は0、ない場合は1にカンマの数を加えたものになります。</p>
   </dd>
 
   <dt>式</dt>
@@ -42,8 +42,8 @@
 <p>列挙の流れは以下の通りです：</p>
 <ul>
   <li>ループが始まる前に、<i>Expression</i>が評価され、ターゲットオブジェクトが決定されます。</li>
-  <li>オブジェクトの<code>__Enum</code>メソッドを呼び出して <a href="Enumerator.htm"><i>列挙者</i></a>オブジェクトになります。そのようなメソッドが存在しない場合、オブジェクト自体が列挙者オブジェクトであるとみなされる。</li>
-  <li>各反復の最初に、次の値または値のペアを取得するために列挙者が<a href="Enumerator.htm#Call">呼び出されます</a>。false（0または空文字列）を返すと、ループは終了する。</li>
+  <li>オブジェクトの<code>__Enum</code>メソッドを呼び出して <a href="Enumerator.htm"><i>列挙者</i></a>オブジェクトになります。そのようなメソッドが存在しない場合、オブジェクト自体が列挙者オブジェクトであるとみなされます。</li>
+  <li>各反復の最初に、次の値または値のペアを取得するために列挙者が<a href="Enumerator.htm#Call">呼び出されます</a>。false（0または空文字列）を返すと、ループは終了します。</li>
 </ul>
 <p>for-loopと厳密に同じではありませんが、以下のようにこの処理を実演しています：</p>
 <pre>_enum := <i>Expression</i>
@@ -60,7 +60,7 @@ while _enum(&amp;Value1, &amp;Value2)
 <p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。</p>
 
 <h2 id="COM_Objects">COM Objects</h2>
-<p><i>Value1</i>と<i>Value2</i>は列挙者に直接渡されるため、どのような値が割り当てられるかは、列挙されるオブジェクトの種類に依存する。COM オブジェクトの場合、<i>Value1</i>には<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-next">IEnumVARIANT::Next()</a>が返す値が、<i>Value2</i>にはその<a href="https://learn.microsoft.com/openspecs/windows_protocols/ms-oaut/3fe7db9f-5803-4dc4-9d14-5425d3f5461f">バリアントタイプ</a>を表す数値が含まれます。例えば、<a href="https://learn.microsoft.com/previous-versions/x4k5wbx4(v=vs.85)">Scripting.Dictionary</a>オブジェクトで使用する場合、各<i>Value1</i>には辞書のキーが含まれ、<i>Value2</i>は通常、文字列の場合は8、整数の場合は3です。タイプコードの一覧は<a href="ComObjType.htm">ComObjType</a>を参照してください。</p>
+<p><i>Value1</i>と<i>Value2</i>は列挙者に直接渡されるため、どのような値が割り当てられるかは、列挙されるオブジェクトの種類に依存します。COM オブジェクトの場合、<i>Value1</i>には<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-next">IEnumVARIANT::Next()</a>が返す値が、<i>Value2</i>にはその<a href="https://learn.microsoft.com/openspecs/windows_protocols/ms-oaut/3fe7db9f-5803-4dc4-9d14-5425d3f5461f">バリアントタイプ</a>を表す数値が含まれます。例えば、<a href="https://learn.microsoft.com/previous-versions/x4k5wbx4(v=vs.85)">Scripting.Dictionary</a>オブジェクトで使用する場合、各<i>Value1</i>には辞書のキーが含まれ、<i>Value2</i>は通常、文字列の場合は8、整数の場合は3です。タイプコードの一覧は<a href="ComObjType.htm">ComObjType</a>を参照してください。</p>
 <p><a href="ComObjArray.htm">SafeArray</a>を列挙する場合、<i>Value1</i>には現在の要素が、<i>Value2</i>にはそのバリアントタイプが含まれる。</p>
 
 <h2 id="Related">関連</h2>
@@ -87,7 +87,7 @@ MsgBox windows</pre>
 </div>
 
 <div class="ex" id="ExFibF">
-<p><a class="ex_number" href="#ExFibF"></a> <a href="../Variables.htm#fat-arrow">ファットアロー関数として</a>列挙子を定義する。フィボナッチ数列から、無期限または停止するまで数値を返します。</p>
+<p><a class="ex_number" href="#ExFibF"></a> <a href="../Variables.htm#fat-arrow">ファットアロー関数として</a>列挙子を定義します。フィボナッチ数列から、無期限または停止するまで数値を返します。</p>
 <pre>for n in FibF()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break
@@ -102,7 +102,7 @@ FibF() {
 </div>
 
 <div class="ex" id="ExFibC">
-<p><a class="ex_number" href="#ExFibC"></a> 列挙者を<a href="../Objects.htm#Custom_Classes">クラス</a>として定義する。<a href="#ExFibF">前例</a>に準ずる。</p>
+<p><a class="ex_number" href="#ExFibC"></a> 列挙者を<a href="../Objects.htm#Custom_Classes">クラス</a>として定義します。<a href="#ExFibF">前例</a>に準ずる。</p>
 <pre>for n in FibC()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break

@@ -45,7 +45,7 @@ Add 2, 3  <em>; 行頭で使用する場合は、括弧を省略することが�
 
 <h2 id="param">パラメータ</h2>
 <p>関数を定義すると、そのパラメータが名前の横の括弧に記載されます（名前と括弧の間に空白があってはいけません）。関数がパラメータを受け付けない場合は、括弧の中を空にしてください（例）。<code>GetCurrentTimestamp()</code>.</p>
-<p id="ByRef"><strong>ByRef パラメータ</strong>：関数から見ると、パラメータは、この例のように<em>ByRef</em>としてマークされていない限り、基本的に<a href="#Local">ローカル変数</a>と同じである。</p>
+<p id="ByRef"><strong>ByRef パラメータ</strong>：関数から見ると、パラメータは、この例のように<em>ByRef</em>としてマークされていない限り、基本的に<a href="#Local">ローカル変数</a>と同じです。</p>
 <pre>a := 1, b := 2
 Swap(&amp;a, &amp;b)
 MsgBox a ',' b
@@ -65,7 +65,7 @@ Swap(&amp;Left, &amp;Right)
     %Right% := temp
 }</pre>
 <p><a href="lib/Return.htm">return</a>は関数の呼び出し側に1つの値しか返せないので、VarRefは余分な結果を返すために使用することができます。これは、呼び出し元が、関数が値を格納する変数（通常は空）への参照を渡すことで実現されます。</p>
-<p>大きな文字列を関数に渡す場合、<em>ByRef</em>を使用すると、文字列のコピーを作成する必要がないため、パフォーマンスが向上し、メモリを節約することができます。同様に、<em>ByRef</em>を使用して長い文字列を呼び出し元に送り返すと、通常、<code>Return HugeString</code>のようなものよりも性能が良くなります。しかし、関数が受け取るのは、文字列への参照ではなく、<em>変数</em>への参照である。将来の改良により、これらの目的でのByRefの使用に取って代わる可能性があります。</p>
+<p>大きな文字列を関数に渡す場合、<em>ByRef</em>を使用すると、文字列のコピーを作成する必要がないため、パフォーマンスが向上し、メモリを節約することができます。同様に、<em>ByRef</em>を使用して長い文字列を呼び出し元に送り返すと、通常、<code>Return HugeString</code>のようなものよりも性能が良くなります。しかし、関数が受け取るのは、文字列への参照ではなく、<em>変数</em>への参照です。将来の改良により、これらの目的でのByRefの使用に取って代わる可能性があります。</p>
 <p>既知の制限事項：</p>
 <ul>
   <li>オブジェクトのプロパティ（<code>foo.bar</code>など）や<a href="lib/A_Clipboard.htm">A_Clipboard</a>などの <a href="Variables.htm#BuiltIn">組み込み変数</a>に対してVarRefを構成することはできないので、これらを<em>ByRef</em>で渡すことはできない。</li>
@@ -204,7 +204,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>LogToFile(TextToLog)
 {
     <em>; LogFileNameは、以前この関数の外のどこかで値を与えられていました。
-; FileAppend は、組み込み関数を含む事前定義されたグローバル変数である。</em>
+; FileAppend は、組み込み関数を含む事前定義されたグローバル変数です。</em>
     FileAppend TextToLog "`n", LogFileName
 }</pre>
 <p>それ以外の場合、関数内で既存のグローバル変数を参照する（または新規に作成する）には、その変数を使用する前にグローバル変数として宣言します。事例：</p>
@@ -255,7 +255,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>global LogFileName, MaxRetries := 5
 static TotalAttempts := 0, PrevResult</pre>
 <p id="DeclareInit">変数は、宣言と同じ行で、代入を続けて初期化することができる。<a href="#InitStatic">静的イニシャライザ</a>とは異なり、ローカルとグローバルのイニシャライザは、関数が呼ばれるたびに実行されます。つまり、<code>local x := 0</code>のような行は、2つの行を別々に書いたのと同じ効果がある。<code>local x</code> followed by <code>x := 0</code>. どのような<a href="Variables.htm#AssignOp">代入演算子</a>でも使用できますが、<code>global HitCount += 1</code>のような複合代入では、変数にあらかじめ値が代入されていることが必要です。</p>
-<p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>static</em>という言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロック</a>やELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。<code>Array1</code>や<code>Array99</code>などの変数への非動的な参照は、すでにアドレスに解決されているため、<code>global Array%i%</code> のような動的な宣言は不可能である。</p>
+<p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>static</em>という言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロック</a>やELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。<code>Array1</code>や<code>Array99</code>などの変数への非動的な参照は、すでにアドレスに解決されているため、<code>global Array%i%</code> のような動的な宣言は不可能です。</p>
 
 <h2 id="DynCall">関数を動的に呼び出す</h2>
 <p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクト</a>を生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という式では、<em>GetKeyState</em>は実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
@@ -274,7 +274,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <p><em>AND、OR</em>、<a href="Variables.htm#ternary">三項演算子</a>を<a href="Variables.htm#Expressions">式</a>中で使用すると、（関数呼び出しの有無にかかわらず）性能を向上させるために短絡させることができます。ショートサーキットは、式の最終結果に影響を与える可能性のない部分の評価を拒否することで動作します。この概念を説明するために、この例を考えてみましょう。</p>
 <pre>if (ColorName != "" AND not FindColor(ColorName))
     MsgBox ColorName " could not be found."</pre>
-<p>上の例では、<em>ColorName</em>変数が空の場合、FindColor()関数が呼ばれることはありません。これは、<em>AND</em>の左辺が<em>false</em>であるため、その右辺は最終的な結果を<em>true</em>にすることができないからである。</p>
+<p>上の例では、<em>ColorName</em>変数が空の場合、FindColor()関数が呼ばれることはありません。これは、<em>AND</em>の左辺が<em>false</em>であるため、その右辺は最終的な結果を<em>true</em>にすることができないからです。</p>
 <p>このため、ある関数が<em>AND</em>や <em>OR</em>の右辺で呼び出された場合、その関数が生み出す副作用（グローバル変数の内容の変更など）が発生しない可能性があることを認識しておくことが重要です。</p>
 <p>また、短絡的な評価は、ネストした<em>AND</em>と<em>OR</em>にカスケードすることに注意する必要があります。例えば、以下の式では、<em>ColorName</em>が空白の場合は、左端の比較のみが行われます。そうすると、左辺だけで最終的な答えが確実に決まるからです。</p>
 <pre>if (ColorName = "" <u>OR</u> FindColor(ColorName, Region1) <u>OR</u> FindColor(ColorName, Region2))
@@ -295,7 +295,7 @@ outer(x) {
 outer("title")
 </pre>
 <p>ネストされた関数は、それを直ちに囲む関数の外では名前によってアクセスできませんが、その関数の内部では、他のネストされた関数の内部も含めて、どこでもアクセスできます（例外あり）。</p>
-<p>デフォルトでは、ネストされた関数は、それを囲む関数の<a href="#static">静的</a>変数に、動的にもアクセスすることができます。しかし、入れ子になった関数内の非動的代入は、外側の関数にその変数に対する宣言も非動的代入もない場合、通常ローカル変数に解決される。</p>
+<p>デフォルトでは、ネストされた関数は、それを囲む関数の<a href="#static">静的</a>変数に、動的にもアクセスすることができます。しかし、入れ子になった関数内の非動的代入は、外側の関数にその変数に対する宣言も非動的代入もない場合、通常ローカル変数に解決されます。</p>
 <p id="capture-var">デフォルトでは、以下の条件を満たす場合、入れ子関数は外側の関数の非静的ローカル変数を自動的に「キャプチャ」します。</p>
 <ol>
   <li>外側の関数は、次のうち少なくとも1つの方法で変数を参照する必要があります。
@@ -308,7 +308,7 @@ outer("title")
 </ol>
 <p>変数を捕捉した入れ子の関数は<a href="#closures">クロージャ</a>と呼ばれます。</p>
 <p>外側の関数の非静的なローカル変数は、キャプチャしない限り<a href="Language.htm#dynamic-variables">動的にアクセス</a>することはできません。</p>
-<p>明示的な宣言は、それを包含する関数のローカル変数よりも常に優先される。例えば、<code>local x</code>は、外側の関数の<code>x</code>とは無関係に、現在の関数にローカルな変数を宣言します。外側関数の<a href="#Global">グローバル</a>宣言は、明示的な宣言で上書きされる場合を除き、ネストした関数にも影響します。</p>
+<p>明示的な宣言は、それを包含する関数のローカル変数よりも常に優先されます。例えば、<code>local x</code>は、外側の関数の<code>x</code>とは無関係に、現在の関数にローカルな変数を宣言します。外側関数の<a href="#Global">グローバル</a>宣言は、明示的な宣言で上書きされる場合を除き、ネストした関数にも影響します。</p>
 <p>関数が<a href="#AssumeGlobal">assume-global</a>と宣言された場合、その関数の<em>外</em>で作られたローカル変数や静的変数は、関数自身やそのネストした関数から直接アクセスできません。一方、静的と仮定された入れ子の関数は、その関数自体が<a href="#static-functions">静的と宣言</a>されていない限り、外側の関数の変数を参照することができます。</p>
 <p>関数はデフォルトで<a href="#AssumeLocal">assume-local</a>であり、これはネストされた関数、<a href="#AssumeStatic">assume-static</a>関数の内部であっても同様です。ただし、外側の関数が<a href="#AssumeGlobal">assume-global</a>の場合、入れ子になった関数は、外側の関数のローカル変数やスタティック変数を参照できる以外は、デフォルトでassume-globalと同じように動作します。</p>
 <p>各関数定義は、関数そのものを含む読み取り専用の変数、つまり<a href="lib/Func.htm">Func</a>または<a href="#closures">Closure</a>オブジェクトを作成します。使用例については、以下をご参照ください。</p>
@@ -319,7 +319,7 @@ outer("title")
     x := "outer value"
     static inner() {
         x := "inner value"  <em>; innerのローカルに変数を作成します。</em>
-        MsgBox type(inner)  <em>; "Func "と表示される。</em>
+        MsgBox type(inner)  <em>; "Func "と表示されます。</em>
     }
     inner()
     MsgBox x  <em>; "外側の値 "を表示する</em>
@@ -328,7 +328,7 @@ outer()</pre>
 <p>静的関数は、明示的に静的と宣言されていない限り、自身のボディの外にある他のネストした関数を参照することはできません。なお、関数が<a href="#AssumeStatic">assume-static</a>であっても、関数パラメータを参照すれば、non-staticの入れ子関数はクロージャになる可能性があります。</p>
 
 <h3 id="closures">クロージャ</h3>
-<p><em>クロージャ</em>とは、<em>自由</em>変数の集合に束縛されたネストされた関数のことです。自由変数は、外側の関数のローカル変数で、ネストした関数でも使用される。クロージャは、1つまたは複数のネストした関数が、外側の関数が戻った後でも、外側の関数と変数を共有することを可能にします。</p>
+<p><em>クロージャ</em>とは、<em>自由</em>変数の集合に束縛されたネストされた関数のことです。自由変数は、外側の関数のローカル変数で、ネストした関数でも使用されます。クロージャは、1つまたは複数のネストした関数が、外側の関数が戻った後でも、外側の関数と変数を共有することを可能にします。</p>
 <p>クロージャを作るには、外側の関数の変数を参照する入れ子関数を定義するだけです。事例：</p>
 <pre>
 make_greeter(f)
@@ -337,7 +337,7 @@ make_greeter(f)
     {
         MsgBox Format(f, subject)
     }
-    return greet  <em>; クロージャーを返り値とする。</em>
+    return greet  <em>; クロージャーを返り値とします。</em>
 }
 
 g := make_greeter("Hello, {}!")

@@ -134,7 +134,7 @@ AppsKey Up::ToolTip
       <p>制限:1）"Up"は<a href="KeyList.htm">ジョイスティックボタン</a>では動作しません。2）"Up"のホットキーで通常／下対応のホットキーがない場合、そのキーが完全に引き継がれ、downがスタックするのを防ぎます。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
       <p>"Up"ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
       <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例：</p>
-      <pre>LControl &amp; F1::return  <em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とする。</em>
+      <pre>LControl &amp; F1::return  <em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とします。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
@@ -175,7 +175,7 @@ WheelDown::Send "{Volume_Down}" <em>;</em>
 <pre id="prefix">Numpad0 &amp; Numpad1::MsgBox "You pressed Numpad1 while holding down Numpad0."
 Numpad0 &amp; Numpad2::Run "Notepad"</pre>
 <p><strong>プレフィックスキーが本来の機能を失う。</strong>上記の例では、Numpad0が<em>プレフィックスキー</em>になりますが、Numpad0が単独で押された場合、本来の機能を失うことになります。これを避けるために、スクリプトでNumpad0に次のような新しいアクションを実行させるように設定することができる。</p>
-<pre>Numpad0::WinMaximize "A"   <em>; アクティブ／フォアグラウンドウィンドウを最大化する。</em>
+<pre>Numpad0::WinMaximize "A"   <em>; アクティブ／フォアグラウンドウィンドウを最大化します。</em>
 Numpad0::Send "{Numpad0}"  <em>; Numpad0 の<i>リリース</i>でNumpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
 <p><strong>リリース時に発射：</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離す</em>と指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞</a>を付けることで回避できます。</p>
 <p id="combo_mods"><strong>モディファイア：</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl</kbd>+<kbd>1</kbd>で起動し、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>では起動しないでしょう。</p>
@@ -206,7 +206,7 @@ RControl &amp; Enter::ShiftAltTab  <em>; 右クリックを離すことなく、
 <pre>MButton &amp; WheelDown::MsgBox "You turned the mouse wheel down while holding down the middle button."
 ^!WheelUp::MsgBox "You rotated the wheel up while holding down Control+Alt."</pre>
 <p id="HWheel">マウスがサポートしている場合、WheelLeftとWheelRightのキー名で水平スクロールを検出することができます。マウスによっては、ホイールが1つで、上下スクロールや左右に傾けることができるものもあります。一般的には、ホイールを片側に寄せた状態でWheelLeftやWheelRightの信号を繰り返し送信し、連続スクロールを模擬します。これにより、通常、ホットキーが繰り返し実行されることになります。</p>
-<p>組込変数<strong>A_EventInfo</strong>には、車輪が回転した量（通常120）が格納される。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
+<p>組込変数<strong>A_EventInfo</strong>には、車輪が回転した量（通常120）が格納されます。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
 <ul>
   <li>マウスのハードウェアが1ノッチ未満の距離を報告する場合、A_EventInfoは120未満である可能性があります。</li>
   <li>マウスの種類によっては）ホイールを素早く回している場合、A_EventInfoが120より大きくなる場合があります。以下のようなホットキーは、マウスの解析に役立ちます。<code>~WheelDown::ToolTip A_EventInfo</code></li>
@@ -277,7 +277,7 @@ WheelDown::AltTab
 WheelUp::ShiftAltTab</pre>
 <p>選択したウィンドウをアクティブにせずにAlt-Tabメニューをキャンセルするには、<kbd>Esc</kbd>を押すか送信してください。次の例では、左<kbd>Ctrl</kbd>を押しながら<kbd>CapsLock</kbd>を押すと、メニューが表示され、その中で先に進むことができます。そして、左<kbd>Ctrl</kbd>を離すと選択したウィンドウがアクティブになり、マウスホイールを押すとキャンセルされます。この例を実行する前に、<a href="#AltTabWindow">AltTabWindow</a>ウィンドウグループを以下のように定義してください。</p>
 <pre>LCtrl &amp; CapsLock::AltTab
-#HotIf WinExist("ahk_group AltTabWindow")  <em>; alt-tab メニューが画面上に存在することを示す。</em>
+#HotIf WinExist("ahk_group AltTabWindow")  <em>; alt-tab メニューが画面上に存在することを示します。</em>
 *MButton::Send "{Blind}{Escape}"  <em>; Altが押されていても押されていなくても発射されるように、*の接頭辞を付けています。</em>
 #HotIf</pre>
 <p>スクリプトで<code>{Alt Down}</code>を送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}</code>も送信する必要がある場合があります。</p>

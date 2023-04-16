@@ -21,8 +21,8 @@
   <dd>
     <p>型：<a href="ComObject.htm">ComObject</a></p>
     <p>イベントを発生させるオブジェクトです。</p>
-    <p>オブジェクトが IConnectionPointContainer インターフェースをサポートしていない場合、またはオブジェクトのクラスに関する型情報を取得できない場合は、エラーメッセージを表示する。これを抑制したり、<a href="Try.htm">try</a><a href="Catch.htm">/</a><a href="Try.htm">catch</a>で処理することができる。</p>
-    <p>IProvideClassInfo インターフェースは、オブジェクトがクラスをサポートしている場合、そのクラスに関する型情報を取得するために使用される。そうでない場合、ComObjConnectはオブジェクトのIDispatchインターフェースを介して型情報を取得しようとしますが、これは信頼性に欠ける可能性があります。</p>
+    <p>オブジェクトが IConnectionPointContainer インターフェースをサポートしていない場合、またはオブジェクトのクラスに関する型情報を取得できない場合は、エラーメッセージを表示します。これを抑制したり、<a href="Try.htm">try</a><a href="Catch.htm">/</a><a href="Try.htm">catch</a>で処理することができる。</p>
+    <p>IProvideClassInfo インターフェースは、オブジェクトがクラスをサポートしている場合、そのクラスに関する型情報を取得するために使用されます。そうでない場合、ComObjConnectはオブジェクトのIDispatchインターフェースを介して型情報を取得しようとしますが、これは信頼性に欠ける可能性があります。</p>
   </dd>
 
   <dt>PrefixOrSink</dt>
@@ -42,9 +42,9 @@
     <i class="dull">... イベント処理コード...</i>
     return <i>ReturnValue</i>
 }</pre>
-<p><i>Prefix</i>は、文字列の場合は<em>PrefixOrSink</em>パラメータと同じでなければならず、それ以外の場合は省略する。<b>EventName</b>は、その関数が処理すべきイベントの名前に置き換える必要があります。</p>
-<p><i>Params</i>は、イベントが持つあらゆるパラメータに対応します。イベントにパラメータがない場合、<i>Params</i>は完全に省略されるべきである。<i>ComObj</i>は、ComObjConnectに渡されたオリジナルのラッパー・オブジェクトへの参照を含む追加パラメータです。"ComObj"は、スクリプトの文脈でより意味のある名前に置き換えてください。</p>
-<p>なお、イベントハンドラには戻り値がある場合があります。COM固有のタイプの値を返すには、<a href="ComValue.htm">ComValue(type, value)</a>を使用します。例えば、<code>return ComValue(0,0)</code>はVT_EMPTY型のバリアントを返し、これはJavaScriptの関数から<code>undefinedを</code>返す（あるいは返さない）ことと同じである。</p>
+<p><i>Prefix</i>は、文字列の場合は<em>PrefixOrSink</em>パラメータと同じでなければならず、それ以外の場合は省略します。<b>EventName</b>は、その関数が処理すべきイベントの名前に置き換える必要があります。</p>
+<p><i>Params</i>は、イベントが持つあらゆるパラメータに対応します。イベントにパラメータがない場合、<i>Params</i>は完全に省略されるべきです。<i>ComObj</i>は、ComObjConnectに渡されたオリジナルのラッパー・オブジェクトへの参照を含む追加パラメータです。"ComObj"は、スクリプトの文脈でより意味のある名前に置き換えてください。</p>
+<p>なお、イベントハンドラには戻り値がある場合があります。COM固有のタイプの値を返すには、<a href="ComValue.htm">ComValue(type, value)</a>を使用します。例えば、<code>return ComValue(0,0)</code>はVT_EMPTY型のバリアントを返し、これはJavaScriptの関数から<code>undefinedを</code>返す（あるいは返さない）ことと同じです。</p>
 <p><code>ComObjConnect(yourObject, "<i>Prefix</i>")</code>を呼び出し、イベントハンドリングを有効にします。</p>
 <p><code>ComObjConnect(yourObject)</code>を呼び出し、オブジェクトの接続を解除する（イベントの処理を停止する）。</p>
 <p>パラメータの数がわからない場合は、<a href="../Functions.htm#Variadic">変分関数</a>を使用することができます。</p>
@@ -53,7 +53,7 @@
 <p><em>PrefixOrSink</em>がオブジェクトの場合、イベントが発生するたびに、そのオブジェクトの対応するメソッドが呼び出されます。オブジェクトは動的に構築することができますが、<em>PrefixOrSink</em>はクラスまたはクラスのインスタンスを参照するのが一般的です。その場合、メソッドは上記のように定義されるが、<em>Prefix</em>は含まれない。</p>
 <p>メソッドの呼び出しと同様に、メソッドの（通常は非表示の）<code>this</code>パラメータは、メソッドが呼び出されたオブジェクトへの参照を含んでいます；すなわち、COMオブジェクトではなく、イベントシンクオブジェクトです。イベントハンドラにコンテキストを提供したり、イベントハンドラ間で値を共有するために使用することができます。</p>
 <p>イベントごとにメソッドを定義することなく、すべてのイベントをキャッチするには、<a href="../Objects.htm#Meta_Functions">__Callメタファンクション</a>を定義します。</p>
-<p><em>COMオブジェクト</em>が接続を解放すると、<em>PrefixOrSink</em>への参照は自動的に解放される。例えば、Internet Explorerは終了時にこのような動作をします。スクリプトが<em>PrefixOrSink</em>への参照を保持しない場合、<a href="../Objects.htm#Custom_NewDelete">__Delete</a>を使用することでその発生を検出することができます。オブジェクトがリモートプロセスによってホストされており、そのプロセスが予期せず終了した場合、システムが接続を解除するまでに数分かかることがあります。</p>
+<p><em>COMオブジェクト</em>が接続を解放すると、<em>PrefixOrSink</em>への参照は自動的に解放されます。例えば、Internet Explorerは終了時にこのような動作をします。スクリプトが<em>PrefixOrSink</em>への参照を保持しない場合、<a href="../Objects.htm#Custom_NewDelete">__Delete</a>を使用することでその発生を検出することができます。オブジェクトがリモートプロセスによってホストされており、そのプロセスが予期せず終了した場合、システムが接続を解除するまでに数分かかることがあります。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>スクリプトは<em>ComObj</em>への参照を保持する必要があります。そうしないと、自動的に解放され、COMオブジェクトから切断され、それ以降のイベントが検出されなくなるからです。接続が不要になったことを検出する標準的な方法はないため、スクリプトはComObjConnectを呼び出して手動で接続を切断する必要があります。</p>

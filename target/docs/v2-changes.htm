@@ -59,7 +59,7 @@
 <li><code>Func("MyFunc")</code>の代わりに<code>MyFunc</code>を使用します。</li>
 <li><a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組み込み関数に渡す場合は、<code>MyFunc</code>の代わりに "MyFunc"</code>を使用してください。名前（文字列）の受け渡しはサポートされなくなりました。</li>
 <li>関数を値で呼び出す場合、<code>%myVar%()</code>の代わりに<code>myVar()</code>を使用します。</li>
-<li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得する。<code>myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用します。</li>
+<li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得します。<code>myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用します。</li>
 </ul>
 <p>氏名は数字で始まることはできず、従来は認められていた以下の文字を含むことはできません：<code>@ # $</code>. 使用できる文字は、英字、数字、アンダースコア、非ASCII文字のみです。</p>
 <p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。これは、<code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
@@ -215,7 +215,7 @@ else
 <p>式中の改行文字（<code>`n</code>）はスペースとして扱われます。これにより、複数行の式を、デフォルトのオプション（<code>Join</code>の省略など）で継続セクションを使って書くことができます。</p>
 <p>これらの文字をエスケープする必要がなくなったため、<code>,</code>と<code>%</code> のオプションは削除されました。</p>
 <p>継続セクションの可能性のあるオプションに（<code>Join</code>オプションの一部以外として）<code>(</code>または<code>)</code>が現れる場合、全体の行は継続セクションの開始として解釈されません。つまり、<code>(x.y)()</code>や<code>(x=y) &amp;&amp; z()</code>のような行は、式として解釈されます。複数行の表現は、最初の物理行に少なくとも1つの他の<code>(</code>または<code>)</code>がある場合に限り、行頭の開括弧で始めることもできます。例えば、式全体を<code>((</code> ... <code>))</code>で囲むことができます。</p>
-<p>上記の場合を除き、無効なオプションが存在する場合、無効なオプションを無視するのではなく、ロードタイムエラーを表示する。</p>
+<p>上記の場合を除き、無効なオプションが存在する場合、無効なオプションを無視するのではなく、ロードタイムエラーを表示します。</p>
 <p><code>(</code>で始まり、<code>:</code>で終わる行は、<code>(</code>がラベル名として有効でなくなったため、ラベルのように見えることを理由に継続セクションの開始対象から除外されなくなりました。これにより、<code>（Join:</code>のようなものが継続部分を開始することが可能になります。ただし、<code>(:</code>はエラーで、<code>(::</code>はホットキーのままです。</p>
 <p>式や関数・プロパティ定義では、<code>(</code>/<code>[</code>/<code>{</code>は、対応する<code>)</code>/<code>]</code>/<code>}</code>と一致させなければならないという事実を利用した新しい行継続の方法がサポートされています。つまり、ある行に閉じない<code>(</code>/<code>[</code>/<code>{</code> が含まれている場合、開閉記号の数が釣り合うまで、後続の行と結合されます。行末のブレース<code>{</code>は、他に閉じない記号がなく、ブレースの直前に演算子がない場合、（オブジェクトリテラルの開始ではなく）ワントゥルーブレースとみなされます。</p>
 <h3 id="continuation-lines">継続行</h3>
@@ -249,7 +249,7 @@ else
 </ul>
 <p>混在していたObject型は、<code>Object</code>、<code>Array</code>、<code>Map</code>（連想配列）に分割されました。</p>
 <p>Objectは、すべてのユーザー定義<strong>および組み込み</strong>オブジェクトのルートクラスとなりました（VarRefおよびCOMオブジェクトは除きます）。<code>Object.Prototype</code>に追加されたメンバーは、すべてのAutoHotkeyオブジェクトに継承されます。</p>
-<p><code>演算子</code>はクラスを期待するので、<code>xはy</code>は、ベースオブジェクトチェーンで<code>y.Prototype</code>をチェックする。<code>y</code>そのものを確認するには、<code>x.HasBase(y)</code>または<code>HasBase(x, y)</code>を呼び出します。</p>
+<p><code>演算子</code>はクラスを期待するので、<code>xはy</code>は、ベースオブジェクトチェーンで<code>y.Prototype</code>をチェックします。<code>y</code>そのものを確認するには、<code>x.HasBase(y)</code>または<code>HasBase(x, y)</code>を呼び出します。</p>
 <p>ユーザー定義クラスは、<code>Object</code>、<code>Array</code>、<code>Map</code>などの組み込みクラスを明示的に拡張することも可能です（ただし、拡張することが必ずしも有用とは限りません）。</p>
 <p><code>新しい</code>オペレーターは削除されました。代わりに、<code>MyClass()</code>のように演算子を省略するだけです。クラスではない別のオブジェクトを<em>元に</em>オブジェクトを構成するには、<code>{}</code>または<code>Object()</code>で（あるいは他の手段で）作成し、その<code>ベース</code>を設定します。<code>__Init</code>と <code>__New</code>は、必要に応じて明示的に呼び出すことができますが、一般的にはクラスをインスタンス化するときにのみ適切です。</p>
 <p>ネストされたクラス定義は、単純な値プロパティではなく、<em>get</em>および<em>call</em>アクセッサ関数を持つ動的プロパティを生成するようになりました。これは、次のような行動をサポートするためです：</p>
@@ -274,7 +274,7 @@ else
 <p>Object、Array、Mapはそれぞれ別の型となり、配列の要素はプロパティとは別になりました。</p>
 <p>すべての組み込みメソッドとプロパティ（<code>base</code>を含む）は、ユーザー定義と同じ方法で定義されます。これにより、一貫した動作が保証され、組み込みとユーザー定義の両方のメンバーを検出、検索、再定義することができます。</p>
 <p>プロパティがパラメータを受け付けない場合、パラメータは自動的にプロパティが返すオブジェクトに渡されます（または、投げられます）。</p>
-<p>存在しないプロパティを取得しようとすると、<code>__get</code>が定義されていない限り、すべてのタイプの値またはオブジェクトに対してエラーとして扱われる。ただし、存在しないプロパティを設定すると、ほとんどの場合、作成されます。</p>
+<p>存在しないプロパティを取得しようとすると、<code>__get</code>が定義されていない限り、すべてのタイプの値またはオブジェクトに対してエラーとして扱われます。ただし、存在しないプロパティを設定すると、ほとんどの場合、作成されます。</p>
 <p>多次元配列のハックを削除しました。<code>x.y[z]:=1</code>で<code>x.y</code>にオブジェクトが生成されなくなり、<code>x</code>.__itemが2つのパラメータを扱わない限り（またはx.__item.__itemが扱うなど）<code>x[y,z]</code>はエラーになります。</p>
 <p>プロパティが<code>get</code>を定義し、<code>set</code>を定義していない場合、値を代入すると、プロパティをオーバーライドする代わりにthrowが発生します。</p>
 <p><a href="lib/Object.htm#DefineProp">DefineProp</a>は、メタファンクションを定義することなく、特定のプロパティの取得、設定、<em>または呼び出し</em>時の動作を定義するために使用することができます。クラスのプロパティ定義とメソッド定義は同じ仕組みを利用しているため、プロパティのゲッター/セッターとメソッドを同名で定義することが可能です。</p>
@@ -586,7 +586,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>可変型コールバック関数の特殊な挙動を削除し、<code>&amp;</code>オプション（パラメータリストのアドレスを渡す）を追加しました。</li>
 <li>コールバックメモリを解放し、関連する関数オブジェクトを解放するための<code>CallbackFree(Address)</code>を追加しました。</li>
 </ul>
-<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合される。<code>RootKey, Key</code>の代わりに、<code>RootKeyKey</code>と書いてください。リモートレジストリに接続する場合は<code>\\ComputerName\RootKey\Key</code>の代わりに<code>、\\ComputerName\RootKey\Key</code>を使用します。</p>
+<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合されます。<code>RootKey, Key</code>の代わりに、<code>RootKeyKey</code>と書いてください。リモートレジストリに接続する場合は<code>\\ComputerName\RootKey\Key</code>の代わりに<code>、\\ComputerName\RootKey\Key</code>を使用します。</p>
 <p>RegWriteのパラメータは、IniWriteのように<em>Value</em>を最初に置くように並び替えました（ただし、<em>Value</em>が唯一のパラメータだったシングルパラメータモードには影響しません）。</p>
 <p><em>KeyName</em>が省略され、現在のループREGアイテムがサブキーである場合、RegDelete、RegRead、RegWriteはそのサブキー内の値に対して動作するようになりました。つまり、<em>KeyName</em>のデフォルトは<code>A_LoopRegKey "\" A_LoopRegName</code>です（A_LoopRegKeyはA_LoopRegSubKeyに統合されているので注意してください）。以前は以下のように振る舞っていました：</p>
 <ul>
@@ -618,8 +618,8 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <ul>
 <li>サポートされていないコントロールタイプを削除しました。</li>
 <li>レガシーミキサーコンポーネントタイプを削除しました。</li>
-<li>コンポーネントを名前とインデックスで参照できるようにする。</li>
-<li>デバイスは、ネームプレフィックスやインデックスで参照できるようにする。</li>
+<li>コンポーネントを名前とインデックスで参照できるようにします。</li>
+<li>デバイスは、ネームプレフィックスやインデックスで参照できるようにします。</li>
 <li>ボリュームとミュートの機能に分割。</li>
 <li>デバイス名やコンポーネント名を取得するための<a href="lib/SoundGetName.htm">SoundGetName</a>を追加しました。</li>
 <li>COMインターフェースを取得するための<a href="lib/SoundGetInterface.htm">SoundGetInterface</a>を追加しました。</li>
@@ -642,7 +642,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/WinMove.htm">WinMove</a>では、<code class="no-highlight">DEFAULT</code>というリテラルワードに対する特別な処理を行わなくなりました。パラメータを省略するか、代わりに空文字列を指定します（v1、v2ともに有効です）。</p>
 <p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitCloseがLast Found Windowを設定するようになったので、WinWaitCloseがタイムアウトした場合はfalseを返し、<code>WinExist()</code>は最後に見つかったウィンドウを返すようになりました。タイムアウトについては、0を指定しても0.5を指定したのと同じではなく、可能な限り短い待ち時間を生成するようになりました。</p>
 <p><strong>アンソートです：</strong></p>
-<p><a href="lib/InStr.htm">InStr</a>、<a href="lib/SubStr.htm">SubStr</a>、<a href="lib/RegExMatch.htm">RegExMatch</a>、<a href="lib/RegExReplace.htm">RegExReplaceの</a> <em>StartingPos</em>が負の場合、末尾からの位置と解釈される。位置-1が最後の文字で、位置0は無効です（v1では位置0が最後の文字でしたが）。</p>
+<p><a href="lib/InStr.htm">InStr</a>、<a href="lib/SubStr.htm">SubStr</a>、<a href="lib/RegExMatch.htm">RegExMatch</a>、<a href="lib/RegExReplace.htm">RegExReplaceの</a> <em>StartingPos</em>が負の場合、末尾からの位置と解釈されます。位置-1が最後の文字で、位置0は無効です（v1では位置0が最後の文字でしたが）。</p>
 <p>これまでOn/OffやOn/Off/Toggle（他の文字列は不可）を受け付けていた機能では、代わりに1/0/-1が必要となります。OnとOffは、通常、<code>True</code>と <code>False</code>に置き換えられるでしょう。On/Offを返していた変数が1/0を返すようになり、式でより便利になりました。</p>
 <ul>
 <li><a href="lib/_UseHook.htm">#UseHook</a>と <a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>は <code>1</code>、<code>0</code>、<code>True</code>、<code>False</code>を許可します。(他と違い、実際には表現に対応していません)。</li>
@@ -693,7 +693,7 @@ Loop Reg, RootKey\Key [, Mode]
 <p><em>Options</em>パラメータは、Guiのコントロールオプションと同様に、スペースまたはタブで区切られた0個以上の大文字と小文字を区別しないオプションの文字列を受け付けます。例えば、サポートされているすべてのオプションが含まれます：<code>x0 y0 w100 h100 T10.0 Password*</code>. <code>T</code>はタイムアウト、<code>Password</code>は同等のEditコントロールオプションと同じ使用法です。</p>
 <p>幅と高さのオプションは、クライアント領域（タイトルバーとウィンドウフレームを除く領域）のサイズを設定するようになり、テーマへの依存度が低くなりました。</p>
 <p><em>Title</em>パラメータが空文字列の場合、タイトルは空白となります。ユーザー定義関数のオプションパラメータと同様に、完全に省略された場合のみ、<a href="Variables.htm#ScriptName">A_ScriptName</a>がデフォルトとなります。</p>
-<p><em>Obj</em>は、<code>result</code>（"OK"、"Cancel"、"Timeout"を含む）および<code>value</code>のプロパティを持つオブジェクトである。</p>
+<p><em>Obj</em>は、<code>result</code>（"OK"、"Cancel"、"Timeout"を含む）および<code>value</code>のプロパティを持つオブジェクトです。</p>
 <h4 id="msgbox">MsgBox</h4>
 <pre>Result := MsgBox([Text, Title, Options])
 </pre>
@@ -762,7 +762,7 @@ Str   := DriveGetStatusCD(Drive)
 Int   := DriveGetCapacity(Path)
 Int   := DriveGetSpaceFree(Path)
 
-<em>; Where ...は、オプションのWinTitleなどを意味する。</em>
+<em>; Where ...は、オプションのWinTitleなどを意味します。</em>
 
 Int   := WinGetID(...)
 Int   := WinGetIDLast(...)
@@ -1070,8 +1070,8 @@ Gui GuiName:デフォルト</p>
 <p><a href="lib/OnError.htm">OnError</a>コールバックは、以下の値のいずれかを含む第2パラメータを取るようになりました：</p>
 <ul>
 <li>"Return":-1を返すとスレッドを継続し、0と1は以前のように動作します。</li>
-<li>"Exit":コンティニュアスには対応していません。ゼロ以外を返すと、それ以降の処理は停止するが、スレッドは終了する。</li>
-<li>"ExitApp":これは致命的なエラーです。ゼロ以外を返すと、それ以降の処理は停止するが、スクリプトは終了する。</li>
+<li>"Exit":コンティニュアスには対応していません。ゼロ以外を返すと、それ以降の処理は停止するが、スレッドは終了します。</li>
+<li>"ExitApp":これは致命的なエラーです。ゼロ以外を返すと、それ以降の処理は停止するが、スクリプトは終了します。</li>
 </ul>
 <h3 id="errorlevel">ErrorLevel</h3>
 <p>ErrorLevelは削除されました。スクリプトはエラーチェックをせずに書かれることが多いので（おそらく通常）、エラーにErrorLevelを設定する方針では、エラーが検出されないことがよくあります。すぐにエラーメッセージが表示されるのは、少し対立的に見えるかもしれませんが、一般的にはより有用です。</p>
@@ -1109,7 +1109,7 @@ Gui GuiName:デフォルト</p>
 <li>メモリ割り当ての失敗により、オブジェクト割り当てに失敗しました。</li>
 </ul>
 <p>上記の条件の中には、v1では検出されるが、表現の途中では検出されないものがある。例えば、<code>A_AhkPath := x</code>は、v1で検出されるが、<code>y := x, A_AhkPath := x</code>は、v2でのみ検出されます。</p>
-<p>演算子<code>+=</code>,<code>-=</code>,<code>--</code>,<code>++</code>を単独で使用しても、空の変数を 0 として扱わなくなりました。これは、v1とは異なり、空の変数を単独で使用した場合は0として扱い、式の途中や複数文のカンマを使用した場合は0として扱わないというものである。</p>
+<p>演算子<code>+=</code>,<code>-=</code>,<code>--</code>,<code>++</code>を単独で使用しても、空の変数を 0 として扱わなくなりました。これは、v1とは異なり、空の変数を単独で使用した場合は0として扱い、式の途中や複数文のカンマを使用した場合は0として扱わないというものです。</p>
 <h3 id="functions-1">機能紹介</h3>
 <p>関数は一般に、失敗すると例外を投げます。特に：</p>
 <ul>

@@ -55,7 +55,7 @@
 <p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>"</kbd>を押すと、次の例では2つの引用符が送られ、挿入点が左に移動して引用符の内側を入力できる状態になります。</p>
 <!-- span works around a highlighter bug (4/12/22) -->
 <pre><span class="no-highlight">^+"</span>::Send '""{Left}'</pre>
-<p>Sendは、<code>^!+#{}</code>以外の任意の1文字について、それを対応するキーの組み合わせに変換し、その組み合わせを押したり離したりする。例えば、<code>Send "aB"</code>は、<kbd>A</kbd>を押して離し、<kbd>Shift</kbd>+<kbd>B</kbd>を押して離します。同様に、中括弧で囲まれたキー名は、デフォルトで押したり離したりされます。例えば、<code>Send "{Ctrl}a"</code>を実行すると、<kbd>Ctrl</kbd>を押したまま離し、<kbd>A</kbd>を押したまま離すことになり、おそらく望むところではありません。</p>
+<p>Sendは、<code>^!+#{}</code>以外の任意の1文字について、それを対応するキーの組み合わせに変換し、その組み合わせを押したり離したりします。例えば、<code>Send "aB"</code>は、<kbd>A</kbd>を押して離し、<kbd>Shift</kbd>+<kbd>B</kbd>を押して離します。同様に、中括弧で囲まれたキー名は、デフォルトで押したり離したりされます。例えば、<code>Send "{Ctrl}a"</code>を実行すると、<kbd>Ctrl</kbd>を押したまま離し、<kbd>A</kbd>を押したまま離すことになり、おそらく望むところではありません。</p>
 <p>キーを押す（押し続ける）、または離すだけなら、キー名を中括弧で囲み、その後にスペースを入れ、"down"または"up"という言葉を入れます。次の例では、<kbd>Ctrl</kbd>+<kbd>CapsLock</kbd>が <kbd>Shift</kbd>のトグルとして機能するようにします。</p>
 <pre>*^CapsLock::{
     if GetKeyState("Shift")
@@ -70,7 +70,7 @@
 <ul>
   <li>その他のホットキー修飾記号は、Sendではサポートされていません。例えば、<code>&gt;^a::</code>は<kbd>RCtrl</kbd>+<kbd>A</kbd>に対応しますが、この組み合わせを送信するには、<code>Send "{RCtrl down}a{RCtrl up}"</code>のように、キー名をフルスペルで記述する必要があります。</li>
   <li>キー名は、ホットキー内では中括弧で囲むことはありませんが、Sendでは必ず中括弧で囲む必要があります（1文字より長い場合）。</li>
-  <li>送信は大文字と小文字を区別します。例えば、<code>Send "^A"</code>、<kbd>Ctrl</kbd>と <em>大文字</em>の"a"の組み合わせになるので、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>で送信します。これに対して、<code>^a::</code>と<code>^A::</code>は等価である。</li>
+  <li>送信は大文字と小文字を区別します。例えば、<code>Send "^A"</code>、<kbd>Ctrl</kbd>と <em>大文字</em>の"a"の組み合わせになるので、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>で送信します。これに対して、<code>^a::</code>と<code>^A::</code>は等価です。</li>
 </ul>
 <p>これは、Sendが複数の目的を果たすのに対し、ホットキーはキーの組み合わせに最適化されているためです。</p>
 <p>なお、<a href="../Hotstrings.htm">ホットストリング</a>はテキスト入力の検出専用なので、ホットストリングトリガーのテキスト内では、記号<code>^!+#{}</code>は特別な意味を持ちません。ただし、ホットストリングの<em>置換</em>テキストは、Sendと同じ構文を使用します（<a href="../Hotstrings.htm#T">Tオプション</a>を使用した場合を除く）。以下のホットストリングがアクティブな状態で "{" を入力すると、"}"を送信し、さらに<kbd>左</kbd>で挿入点を中括弧の間に戻す。</p>
@@ -87,14 +87,14 @@
 <p>Sendは、他にもいくつかの特殊な構成要素をサポートしています。</p>
 <ul>
   <li><code>{U+00B5}</code>Unicodeの文字を序列値（文字コード）で送信します。</li>
-  <li><code>{ASC 0181}</code>Alt+Numpad のシーケンスを送信する。</li>
+  <li><code>{ASC 0181}</code>Alt+Numpad のシーケンスを送信します。</li>
   <li><code class="no-highlight">{Click <i>Options</i>}</code> マウスをクリックしたり動かしたりします。</li>
 </ul>
 <p>全リストは、「<a href="../lib/Send.htm#keynames">主要な名称</a>」をご覧ください。</p>
 
 <h2>モードとオプション</h2>
 <p>キーを送信しても、物理的にキーを押すという行為を完全に再現することはできません。OSでは、キーを送信する方法がいくつか用意されており、それぞれに注意点があります。時には、望む結果を得るために、さまざまな方法を試すだけでなく、タイミングを微調整することも必要です。</p>
-<p><a href="../lib/Send.htm#Send_variants">主なメソッド</a>は、SendInput、SendEvent、SendPlayです。一般的にSendInputが最も信頼性が高いので、デフォルトではSendはSendInputと同義である。<a href="../lib/SendMode.htm">SendMode</a>を使用することで、SendをSendEventまたはSendPlayと同義にすることができます。ドキュメントには<a href="../lib/Send.htm#SendInputDetail">SendInput</a>と <a href="../lib/Send.htm#SendPlayDetail">SendPlay</a>の他の長所と短所が長々と書かれていますが、SendInputで問題があったときにSendEventやSendPlayを試してみるだけでもいいと思います。</p>
+<p><a href="../lib/Send.htm#Send_variants">主なメソッド</a>は、SendInput、SendEvent、SendPlayです。一般的にSendInputが最も信頼性が高いので、デフォルトではSendはSendInputと同義です。<a href="../lib/SendMode.htm">SendMode</a>を使用することで、SendをSendEventまたはSendPlayと同義にすることができます。ドキュメントには<a href="../lib/Send.htm#SendInputDetail">SendInput</a>と <a href="../lib/Send.htm#SendPlayDetail">SendPlay</a>の他の長所と短所が長々と書かれていますが、SendInputで問題があったときにSendEventやSendPlayを試してみるだけでもいいと思います。</p>
 <p class="warning"><strong>警告：</strong>SendPlayは、<a href="../Program.htm#Installer_uiAccess">UIアクセスで実行</a>しない限り、最新のシステムで動作しない傾向があります。</p>
 <p>また、<a href="../lib/ControlSend.htm">ControlSend</a>も試してみる価値のあるオプションです。これは、キー操作を送信する公式な方法を使わず、指定したウィンドウに直接メッセージを送信します。主な利点は、これらのメッセージを受信するためにウィンドウが通常アクティブである必要がないことです。しかし、システムによるキーボード入力の通常処理をバイパスするため、うまくいかないこともあります。</p>
 

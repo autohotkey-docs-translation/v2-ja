@@ -57,10 +57,10 @@
 </table>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>インターフェースがサポートされていない場合など、失敗した場合は例外が発生する。</p>
+<p>インターフェースがサポートされていない場合など、失敗した場合は例外が発生します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>2パラメータモードでは、この関数は<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>と同等である。SID と IID の両方が指定された場合、内部で<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>インターフェースの問い合わせを行い、<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a>を呼び出します。</p>
+<p>2パラメータモードでは、この関数は<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>と同等です。SID と IID の両方が指定された場合、内部で<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>インターフェースの問い合わせを行い、<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a>を呼び出します。</p>
 <p><a href="ComCall.htm">ComCall</a>は、ネイティブインターフェースのメソッドを呼び出すために使用することができます。</p>
 
 <h2 id="Related">関連</h2>
@@ -68,7 +68,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExClassName">
-<p><a class="ex_number" href="#ExClassName"></a> オブジェクトのクラス名を決定する。</p>
+<p><a class="ex_number" href="#ExClassName"></a> オブジェクトのクラス名を決定します。</p>
 <pre>
 obj := ComObject("Scripting.Dictionary")
 
@@ -76,7 +76,7 @@ MsgBox "Interface name:" ComObjType(obj, "name")
 
 IID_IProvideClassInfo := "{B196B283-BAB4-101A-B69C-00AA00341D07}"
 
-<em>;オブジェクトの IProvideClassInfo インタフェースを要求する。</em>
+<em>;オブジェクトの IProvideClassInfo インタフェースを要求します。</em>
 try
     pci := ComObjQuery(obj, IID_IProvideClassInfo)
 catch
@@ -85,7 +85,7 @@ catch
     return
 }
 
-<em>;GetClassInfo を呼び出し、ITypeInfo インターフェースへのポインタを取得する。</em>
+<em>;GetClassInfo を呼び出し、ITypeInfo インターフェースへのポインタを取得します。</em>
 ComCall(3, pci, "ptr*", &amp;ti := 0)
 
 <em>; 自動洗浄を確実にするために、Wrap tiを使用します。</em>
@@ -94,10 +94,10 @@ ti := ComValue(13, ti)
 <em>;オブジェクトの完全な型名を得るためにGetDocumentationを呼び出す。</em>
 ComCall(12, ti, "int", -1, "ptr*", &amp;pname := 0, "ptr", 0, "ptr", 0, "ptr", 0)
 
-<em>; BSTRポインタを使用可能な文字列に変換する。</em>
+<em>; BSTRポインタを使用可能な文字列に変換します。</em>
 name := StrGet(pname, "UTF-16")
 
-<em>;クリーンアップする。</em>
+<em>;クリーンアップ</em>
 DllCall("oleaut32\SysFreeString", "ptr", pname)
 pci := ti := ""
 
@@ -115,7 +115,7 @@ if WebBrowser := GetWebBrowser()
 
 GetWebBrowser()
 {
-    <em>;最上位のIEウィンドウのドキュメントオブジェクトへの生ポインタを取得する。</em>
+    <em>;最上位のIEウィンドウのドキュメントオブジェクトへの生ポインタを取得します。</em>
     static msg := DllCall("RegisterWindowMessage", "Str", "WM_HTML_GETOBJECT")
     lResult := SendMessage(msg, 0, 0, "Internet Explorer_Server1", "ahk_class IEFrame")
     if !lResult
@@ -132,7 +132,7 @@ GetWebBrowser()
     static SID_SWebBrowserApp := IID_IWebBrowserApp
     pweb := ComObjQuery(pdoc, SID_SWebBrowserApp, IID_IWebBrowserApp)
     
-<em>; WebBrowserオブジェクトをIDispatchとして返し、使い勝手を良くする。
+<em>; WebBrowserオブジェクトをIDispatchとして返し、使い勝手を良くします。
 ; これは、IWebBrowserAppがIDispatchから派生したものであるためです。
 ; pwebは自動的にptrを解放するので、それに対抗するためにAddRefします。</em>
     ObjAddRef(pweb.ptr)

@@ -32,7 +32,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <h2 id="ttm">タイトルマッチング</h2>
 <p>ウィンドウをタイトルで指定する場合、いくつかの注意点があります。</p>
 <ul>
-  <li>ウィンドウのタイトルは、<a href="../misc/RegEx-QuickRef.htm#opt_i">i)修飾子</a>によるRegExマッチングモードを使用する場合を除き、常に大文字と小文字が区別される。</li>
+  <li>ウィンドウのタイトルは、<a href="../misc/RegEx-QuickRef.htm#opt_i">i)修飾子</a>によるRegExマッチングモードを使用する場合を除き、常に大文字と小文字が区別されます。</li>
   <li>デフォルトでは、関数はウィンドウタイトルの部分文字列を期待します。例えば、"Notepad"は、"Untitled - Notepad"と"C:\A\B.ahk - Notepad++"の両方にマッチする可能性があります。<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>を使用すると、関数の代わりにプレフィックス、完全一致、またはRegExパターンを期待するようにすることができます。</li>
   <li>デフォルトでは、隠しウィンドウは無視されます（<a href="../lib/WinShow.htm">WinShow</a>を除く）。<a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>を使用することで変更可能です。</li>
 </ul>
@@ -57,7 +57,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 WinWait "ahk_class Notepad"
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
-<p>ウィンドウクラスは、上図のように "ahk_class"という単語を使ってタイトルと区別する。複数の条件を組み合わせる場合は、ウィンドウのタイトルを最初に記載します。事例："Untitled ahk_class Notepad".</p>
+<p>ウィンドウクラスは、上図のように "ahk_class"という単語を使ってタイトルと区別します。複数の条件を組み合わせる場合は、ウィンドウのタイトルを最初に記載します。事例："Untitled ahk_class Notepad".</p>
 <p><strong>Related:</strong> <a href="../misc/WinTitle.htm#ahk_class">ahk_class</a></p>
 
 <h2 id="exe">Process Name/Path</h2>
@@ -104,14 +104,14 @@ if WinWait("ahk_pid " notepad_pid,, 5)
     WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2
 }</pre>
 <p>if文の下の<a href="../lib/Block.htm">ブロック</a>は、WinWaitが一致するウィンドウを見つけた場合のみ実行されます。タイムアウトした場合、そのブロックはスキップされ、閉じ波括弧の後（その後にコードがある場合）に実行が継続されます。</p>
-<p>なお、"WinWait "の後の括弧は、関数の結果を<a href="../Language.htm#expressions">式</a>（<a href="../lib/If.htm">if文</a>の条件など）で使用したい場合に必要です。<a href="../Language.htm#function-calls">関数の呼び出し</a>そのものが、関数の結果の代用品と考えることができます。例えば、WinWaitがタイムアウト前にマッチを見つけた場合、結果は非ゼロとなる。<code>if 1</code>はif文の下のブロックを実行し、<code>if 0</code>はそれをスキップする。!</p>
+<p>なお、"WinWait "の後の括弧は、関数の結果を<a href="../Language.htm#expressions">式</a>（<a href="../lib/If.htm">if文</a>の条件など）で使用したい場合に必要です。<a href="../Language.htm#function-calls">関数の呼び出し</a>そのものが、関数の結果の代用品と考えることができます。例えば、WinWaitがタイムアウト前にマッチを見つけた場合、結果は非ゼロとなる。<code>if 1</code>はif文の下のブロックを実行し、<code>if 0</code>はそれをスキップします。</p>
 <p>別の書き方としては、待ち時間がタイムアウトしたら早めにリターンする（言い換えれば、アボートする）。事例：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if !WinWait("ahk_pid " notepad_pid,, 5)
     return
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
-<p>結果は、<a href="../Variables.htm#unary">論理not</a>演算子（<code>!</code>または<code>not</code>）を適用して反転させる。WinWaitがタイムアウトした場合、その結果は0となる。<code>!0</code>の結果は1なので、WinWaitがタイムアウトしたときにif文で<code>return</code>を実行する。</p>
+<p>結果は、<a href="../Variables.htm#unary">論理not</a>演算子（<code>!</code>または<code>not</code>）を適用して反転させる。WinWaitがタイムアウトした場合、その結果は0となる。<code>!0</code>の結果は1なので、WinWaitがタイムアウトしたときにif文で<code>return</code>を実行します。</p>
 <p>WinWaitの結果は、実際にはウィンドウのID（上記の通り）か、タイムアウトした場合はゼロになります。また、IDでウィンドウを参照したい場合は、if文の中で直接使用するのではなく、結果を変数に代入することができます。</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 notepad_id := WinWait("ahk_pid " notepad_pid,, 5)
@@ -127,7 +127,7 @@ if notepad_id := WinWait("ahk_pid " notepad_pid,, 2)
     WinActivate notepad_id
     WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, notepad_id
 }</pre>
-<p>その場合、<code>:=</code>（代入）と<code>=</code>や <code>==</code>（比較）を混同しないように注意してください。例えば、<code>myvar := 0</code>の場合は新しい値を割り当て、毎回同じ結果（偽）を出すのに対し、<code>if myvar = 0</code>は、以前に割り当てられた値を0と比較する。</p>
+<p>その場合、<code>:=</code>（代入）と<code>=</code>や <code>==</code>（比較）を混同しないように注意してください。例えば、<code>myvar := 0</code>の場合は新しい値を割り当て、毎回同じ結果（偽）を出すのに対し、<code>if myvar = 0</code>は、以前に割り当てられた値を0と比較します。</p>
 
 <h2 id="math">Expressions (Math etc.)</h2>
 <p>ウィンドウを移動させる場合、<a href="../lib/WinGetPos.htm">WinGetPos</a>関数で取得できる以前の位置やサイズからの相対移動が便利なことが多いです。例えば、<kbd>RCtrl</kbd>を押しながら矢印キーを押すことで、アクティブなウィンドウを各方向に10ピクセルずつ移動させることができるホットキーのセットは次のとおりです。</p>
@@ -137,7 +137,7 @@ if notepad_id := WinWait("ahk_pid " notepad_pid,, 2)
 &gt;^Down::MoveActiveWindowBy(  0, +10)
 
 MoveActiveWindowBy(x, y) {
-    WinExist "A"  <em>; アクティブウィンドウをLast Found Windowにする。</em>
+    WinExist "A"  <em>; アクティブウィンドウをLast Found Windowにします。</em>
     WinGetPos &amp;current_x, &amp;current_y
     WinMove current_x + x, current_y + y
 }</pre>

@@ -62,7 +62,7 @@
 <h2 id="Threads">スレッド</h2>
 <p>各イベントコールバックは新しい<a href="../misc/Threads.htm">スレッド</a>で呼び出されるため、<a href="SendMode.htm">SendMode</a>などの設定のデフォルト値で新たにスタートします。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
 <p>GUI<a href="../misc/Threads.htm">スレッド</a>が起動すると、そのスレッドの<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>がGUIウィンドウそのものとしてスタートします。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>、<a href="WinSetTransparent.htm">WinSetTransparent</a>、<a href="ControlGetFocus.htm">ControlGetFocus</a>などのウィンドウやコントロールに関する関数が、GUIウィンドウ自体を操作する際に（たとえそれが隠されていても）WinTitleやWinTextを省略することができます。</p>
-<p>注意書きがある場合を除き、各イベントは1つのオブジェクトにつき1スレッドずつに制限されています。そのイベントによって開始された前のスレッドが終了する前にイベントが発生した場合、通常、そのイベントは破棄される。これを防ぐには、コールバックの最初の行<a href="Critical.htm">にCritical</a>を使用します（ただし、この場合、ホットキーの押下など他の<a href="../misc/Threads.htm">スレッド</a>もバッファリング/ディファーされます）。</p>
+<p>注意書きがある場合を除き、各イベントは1つのオブジェクトにつき1スレッドずつに制限されています。そのイベントによって開始された前のスレッドが終了する前にイベントが発生した場合、通常、そのイベントは破棄されます。これを防ぐには、コールバックの最初の行<a href="Critical.htm">にCritical</a>を使用します（ただし、この場合、ホットキーの押下など他の<a href="../misc/Threads.htm">スレッド</a>もバッファリング/ディファーされます）。</p>
 
 <h2 id="Destroying_the_GUI">GUIを破壊する</h2>
 <p>GUIが破壊されると、すべてのイベントコールバックが解放されます。したがって、イベントのディスパッチ中にGUIが破壊された場合、その後のイベントコールバックは呼び出されません。わかりやすくするために、コールバックはGUIを破壊した後、<a href="#Callback_Return_Value">空でない値を返す</a>ようにします。</p>
@@ -81,9 +81,9 @@
 <table class="info">
   <tr><th>Event</th><th>育てたのは...</th></tr>
   <tr><td><a href="#Change">Change</a></td><td>コントロールの値が変化します。</td></tr>
-  <tr><td><a href="#Click">Click</a></td><td>コントロールがクリックされる。</td></tr>
-  <tr><td><a href="#DoubleClick">DoubleClick</a></td><td>コントロールがダブルクリックされる。</td></tr>
-  <tr><td><a href="#ColClick">ColClick</a></td><td>ListViewのカラムヘッダーの1つがクリックされた。</td></tr>
+  <tr><td><a href="#Click">Click</a></td><td>コントロールがクリックされます。</td></tr>
+  <tr><td><a href="#DoubleClick">DoubleClick</a></td><td>コントロールがダブルクリックされます。</td></tr>
+  <tr><td><a href="#ColClick">ColClick</a></td><td>ListViewのカラムヘッダーの1つがクリックされました。</td></tr>
   <tr><td><a href="#Ctrl-ContextMenu">ContextMenu</a></td><td>コントロールにキーボードフォーカスがある状態で、ユーザーがコントロールを右クリックするか、<kbd>メニュー</kbd>または<kbd>Shift</kbd>+<kbd>F10</kbd>を押した場合。</td></tr>
   <tr><td><a href="#Focus">Focus</a></td><td>コントロールがキーボードフォーカスを獲得します。</td></tr>
   <tr><td><a href="#LoseFocus">LoseFocus</a></td><td>コントロールはキーボードフォーカスを失います。</td></tr>
@@ -104,7 +104,7 @@
 <pre>myGui := Gui()
 myGui.AddText("", "Press Alt+F4 or the X button in the title bar.")
 myGui.OnEvent("Close", myGui_Close)
-myGui_Close(thisGui) {  <em>; このパラメータの宣言は任意</em>である。
+myGui_Close(thisGui) {  <em>; このパラメータの宣言は任意</em>です。
     if MsgBox("Are you sure you want to close the GUI?",, "y/n") = "No"
         return true  <em>; true = 1</em>
 }
@@ -175,7 +175,7 @@ myGui.Show</pre>
       <li>1 = ウィンドウが最大化されます。</li>
       <li>-1 = ウィンドウが最小化されます。</li>
     </ul>
-    <p>最大化されたウィンドウは、復元/最大化解除せずにサイズを変更することができるため、値が1の場合、必ずしもユーザーがウィンドウを最大化したことに応じてこのイベントが発生したことを意味しないことに注意する。</p></dd>
+    <p>最大化されたウィンドウは、復元/最大化解除せずにサイズを変更することができるため、値が1の場合、必ずしもユーザーがウィンドウを最大化したことに応じてこのイベントが発生したことを意味しないことに注意します。</p></dd>
   <dt>幅、高さ</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>ウィンドウのクライアント領域（タイトルバー、メニューバー、ボーダーを除く領域）の新しい幅と高さを指定します。</p></dd>
@@ -195,7 +195,7 @@ myGui.Show</pre>
   <dt>Info</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><a href="GuiControls.htm#Slider">スライダー</a>コントロールの場合、<em>Info</em>はスライダーの動き方を示す数値である。詳しくは、「<a href="GuiControls.htm#slider-change">変化の検出（スライダー）</a>」をご覧ください。</p>
+    <p><a href="GuiControls.htm#Slider">スライダー</a>コントロールの場合、<em>Info</em>はスライダーの動き方を示す数値です。詳しくは、「<a href="GuiControls.htm#slider-change">変化の検出（スライダー）</a>」をご覧ください。</p>
     <p>それ以外のコントロールについては、現在、<em>Info</em>は意味を持ちません。</p>
   </dd>
 </dl>
@@ -210,7 +210,7 @@ Link_<span class="func">Click</span>(GuiCtrlObj, Info, Href)</pre>
   <dt>Info</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ListView:クリックされた項目の行番号、またはマウスが項目上にない場合は0を指定する。</p>
+    <p>ListView:クリックされた項目の行番号、またはマウスが項目上にない場合は0を指定します。</p>
     <p>TreeView:クリックされた項目のID、またはマウスが項目上にない場合は0を指定します。</p>
     <p>Link:リンクにID属性がある場合は文字列、ない場合はリンクのインデックス（整数値）です。</p>
     <p>StatusBar:クリックした部分の品番（ただし、バー右側のサイズグリップ付近をクリックした場合、品番は非常に大きな整数になる可能性があります）。</p>

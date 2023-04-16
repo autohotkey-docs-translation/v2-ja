@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>FileRead - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="FileRead 関数は、ファイルの内容を取得する。" />
+<meta name="description" content="FileRead 関数は、ファイルの内容を取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,7 +21,7 @@
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される。</p>
+    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。</p>
   </dd>
   
   <dt>オプション</dt>
@@ -39,7 +39,7 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="Buffer.htm">バッファ</a></p>
-<p>説明： 指定されたファイルの内容を返します。戻り値は、RAWオプションが有効でファイルを開くことができる場合はBufferオブジェクト、それ以外の場合は文字列である。ファイルが存在しないか、その他の理由でオープンできない場合は、空文字列が返される。</p>
+<p>説明： 指定されたファイルの内容を返します。戻り値は、RAWオプションが有効でファイルを開くことができる場合はBufferオブジェクト、それ以外の場合は文字列です。ファイルが存在しないか、その他の理由でオープンできない場合は、空文字列が返されます。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ファイルのオープンや読み取りに問題があった場合、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
@@ -51,7 +51,7 @@
 <pre>buf := FileRead(A_AhkPath, "RAW")
 if StrGet(buf, 2, "cp0") == "MZ"  <em>; 実行ファイルのように見えるが...。</em>
 {
-    <em>; COFF ファイルのヘッダーからマシンタイプを読み込む。</em>
+    <em>; COFF ファイルのヘッダーからマシンタイプを読み込みます。</em>
     machine := NumGet(buf, NumGet(buf, 0x3C, "uint") + 4, "ushort")
     machine := machine=0x8664 ? "x64" : machine=0x014C ? "x86" : "unknown"
     <em>; マシンの種類とファイルサイズを表示します。</em>
@@ -72,18 +72,18 @@ buf := ""</pre>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> テキストファイルを<em>MyTextに</em>読み込む。</p>
+<p><a class="ex_number" href="#ExBasic"></a> テキストファイルを<em>MyTextに</em>読み込みます。</p>
 <pre>MyText := FileRead("C:\My Documents\My File.txt")</pre>
 </div>
 
 <div class="ex" id="ExSort">
-<p><a class="ex_number" href="#ExSort"></a> ファイルの中身を素早くソートする。</p>
+<p><a class="ex_number" href="#ExSort"></a> ファイルの中身を素早くソートします。</p>
 <pre>
 Contents := FileRead("C:\Address List.txt")
 Contents := Sort(Contents)
 FileDelete "C:\Address List (alphabetical).txt"
 FileAppend Contents, "C:\Address List (alphabetical).txt"
-Contents := "" <em>; メモリを解放する。</em>
+Contents := "" <em>; メモリを解放します。</em>
 </pre>
 </div>
 

@@ -24,11 +24,11 @@
     <p><u>以下の文字列を0個以上並べたもの（順番は自由、間に任意のスペースを入れます）：</u></p>
     <p id="option-b"><strong>B</strong>:<a href="#BackspaceIsUndo">BackspaceIsUndo</a>をfalseに設定し、<kbd>Backspace</kbd>を無視するようにします。</p>
     <p id="option-c"><strong>C</strong>:<a href="#CaseSensitive">CaseSensitive</a>をtrueに設定し、<em>MatchList</em>の大文字小文字を区別するようにします。</p>
-    <p id="option-i"><strong>I</strong>:<a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにする。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
-    <p id="option-l"><strong>L</strong>:長さの制限（例：<code>L5</code>）。入力の最大許容長を示す。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
+    <p id="option-i"><strong>I</strong>:<a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
+    <p id="option-l"><strong>L</strong>:長さの制限（例：<code>L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
     <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。<a href="#OnChar">OnChar</a>、<a href="#OnKeyDown">OnKeyDown</a>、<a href="#KeyOpt">KeyOptと組み合わせて</a>使用すると便利です。 <em><a href="#EndKeys">EndKeys</a></em>.</p>
     <p id="option-m"><strong>M</strong>:<kbd>Ctrl</kbd>+<kbd>A</kbd> から<kbd>Ctrl</kbd>+<kbd>Z</kbd>のような修飾されたキー操作は、実際のASCII文字に対応する場合に認識され、転写されます。<kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
-    <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納</em>する。
+    <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納</em>します。
 ih := InputHook("L1 M")
 ih.Start()
 ih.Wait()
@@ -95,7 +95,7 @@ if (ih.Input = CtrlC)
   <li><a href="#Option_Properties">Option Properties</a>:
     <ul>
       <li><a href="#BackspaceIsUndo">BackspaceIsUndo</a>:<kbd>Backspace</kbd>が、最近押された文字をInputバッファの最後から削除するかどうかを制御します。</li>
-      <li><a href="#CaseSensitive">CaseSensitive</a>:<em>MatchList</em>が大文字と小文字を区別するかどうかを制御する。</li>
+      <li><a href="#CaseSensitive">CaseSensitive</a>:<em>MatchList</em>が大文字と小文字を区別するかどうかを制御します。</li>
       <li><a href="#FindAnywhere">FindAnywhere</a>:各マッチが入力テキストの部分文字列となり得るかどうかを制御します。</li>
       <li><a href="#MinSendLevel">MinSendLevel</a>:収集する入力の最小<a href="SendLevel.htm">送信</a>レベルを取得または設定します。</li>
       <li><a href="#NotifyNonText">NotifyNonText</a>:テキスト以外のキーが押されたときに、<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックを呼び出すかどうかを制御します。</li>
@@ -124,13 +124,13 @@ if (ih.Input = CtrlC)
   <p id="KeyOpt-plus"><strong>+</strong> (plus):それ以外の場合は、何の効果もなく、以前の<code>-</code>をキャンセルします。</p>
   <p id="KeyOpt-e"><strong>E</strong>:End key. 有効な場合、キーを押すとInputが終了し、<a href="#EndReason">EndReason</a>にEndKeyという単語が、<a href="#EndKey">EndKey</a>プロパティにキーの正規化された名前が設定されます。<em>EndKeys</em>パラメータとは異なり、Shiftキーの状態は無視されます。例えば、<code>@</code>と <code>2</code>はどちらもUSキーボードレイアウトの<code>{vk32}</code>と同等です。</p>
   <p id="KeyOpt-i"><strong>I</strong>:テキストの無視。このキーによって通常生成されるテキストはすべて無視され、キーは非テキストキーとして扱われる（<a href="#VisibleNonText">VisibleNonText</a>参照）。そのキーが通常テキストを生成しない場合、効果はありません。</p>
-  <p id="KeyOpt-n"><strong>N</strong>:Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにする。</p>
-  <p id="KeyOpt-s"><strong>S</strong>:キーを処理した後、サプレス（ブロック）する。<code>S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味する。</p>
-  <p id="KeyOpt-v"><strong>V</strong>:Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味する。</p>
+  <p id="KeyOpt-n"><strong>N</strong>:Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにします。</p>
+  <p id="KeyOpt-s"><strong>S</strong>:キーを処理した後、サプレス（ブロック）します。<code>S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味します。</p>
+  <p id="KeyOpt-v"><strong>V</strong>:Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味します。</p>
   </dd>
 </dl>
 <p id="KeyOpt-remarks">オプションは、仮想キーコードとスキャンコードの両方で設定でき、累積されます。</p>
-<p>キーが名前で指定されている場合、オプションはVKまたはSCで設定されます。2つの物理キーが同じVKを共有し、SCによって異なる場合（<kbd>Up</kbd>と <kbd>NumpadUp</kbd>など）、SCによって扱われる。一方、VK番号を使用する場合は、そのVKを生成するすべての物理キーに適用されます（これは、アクティブなキーボードレイアウトに依存するため、時間と共に変化する可能性があります）。</p>
+<p>キーが名前で指定されている場合、オプションはVKまたはSCで設定されます。2つの物理キーが同じVKを共有し、SCによって異なる場合（<kbd>Up</kbd>と <kbd>NumpadUp</kbd>など）、SCによって扱われます。一方、VK番号を使用する場合は、そのVKを生成するすべての物理キーに適用されます（これは、アクティブなキーボードレイアウトに依存するため、時間と共に変化する可能性があります）。</p>
 <p>VK番号でオプションを削除しても、SCで設定されていたオプションには影響しませんし、その逆も同様です。ただし、キー名でオプションが削除され、そのキー名がVKで扱われる場合、対応するSCについてもオプションが削除されます（スクリプトのキーボードレイアウトに準じます）。これにより、<a href="#all-keys">すべてのキー</a>にオプションを適用した後に、キー名を指定して除外することができます。</p>
 <p>VKで<code>+V</code>を設定し、SCで<code>+S</code>を設定した場合（またはその逆）、<code>+V</code>が優先されます。</p>
 </div>
@@ -220,7 +220,7 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">InputHook.OnChar := MyFunc</pre>
 <p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
 <p>この関数には、以下のパラメータが渡されます：<code>InputHook, Char</code>. <em>Char</em>は、文字または文字を含む文字列です。</p>
-<p>複数の文字が存在することは、最後のキー押下の前にデッドキーが使用されていたことを示しますが、2つのキーは1つの文字に変換することができませんでした。例えば、あるキーボードレイアウトでは、<kbd>`</kbd><kbd>e</kbd>は <code>è</code>を、<kbd>`</kbd><kbd>z</kbd>は <code>`z</code>を出力する。</p>
+<p>複数の文字が存在することは、最後のキー押下の前にデッドキーが使用されていたことを示しますが、2つのキーは1つの文字に変換することができませんでした。例えば、あるキーボードレイアウトでは、<kbd>`</kbd><kbd>e</kbd>は <code>è</code>を、<kbd>`</kbd><kbd>z</kbd>は <code>`z</code>を出力します。</p>
 <p>終了キーが押されても、この関数が呼び出されることはありません。</p>
 </div>
 
@@ -230,7 +230,7 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">InputHook.OnKeyDown := MyFunc</pre>
 <p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
 <p>キーダウンの通知は、まず<a href="#KeyOpt">KeyOpt</a>または<a href="#NotifyNonText">NotifyNonText</a>で有効化する必要があります。</p>
-<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することである。</p>
+<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することです。</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 <p>終了キーが押されても、この関数が呼び出されることはありません。</p>
 </div>
@@ -240,8 +240,8 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">MyFunc := InputHook.OnKeyUp</pre>
 <pre class="Syntax">InputHook.OnKeyUp := MyFunc</pre>
 <p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
-<p>キーアップ通知は、まず<a href="#KeyOpt">KeyOpt</a>または<a href="#NotifyNonText">NotifyNonText</a>で有効化する必要があります。キーが押されたときに、テキストとみなされるか非テキストとみなされるかは、キーが押されたときに判断されます。InputHookがキーダウンを検出せずにキーアップを検出した場合、非テキストとみなされる。</p>
-<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することである。</p>
+<p>キーアップ通知は、まず<a href="#KeyOpt">KeyOpt</a>または<a href="#NotifyNonText">NotifyNonText</a>で有効化する必要があります。キーが押されたときに、テキストとみなされるか非テキストとみなされるかは、キーが押されたときに判断されます。InputHookがキーダウンを検出せずにキーアップを検出した場合、非テキストとみなされます。</p>
+<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することです。</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 </div>
 
@@ -257,7 +257,7 @@ if (ih.Input = CtrlC)
 </div>
 
 <div class="methodShort" id="CaseSensitive"><h3>CaseSensitive</h3>
-<p><em>MatchList</em>が大文字と小文字を区別するかどうかを制御する。</p>
+<p><em>MatchList</em>が大文字と小文字を区別するかどうかを制御します。</p>
 <pre class="Syntax">Boolean := InputHook.CaseSensitive</pre>
 <pre class="Syntax">InputHook.CaseSensitive := Boolean</pre>
 <p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. オプション<strong>C</strong>は、値をtrueにします。</p>
@@ -276,7 +276,7 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">Level := InputHook.MinSendLevel</pre>
 <pre class="Syntax">InputHook.MinSendLevel := Level</pre>
 <p>型：<a href="../Concepts.htm#numbers">整数</a>既定値：0. オプション<strong>I</strong>では、1（または所定の値）に設定されます。</p>
-<p><em>Level</em>は 0～101 の整数を指定する。この値より<em>低い</em>送信レベルを持つイベントは無視されます。例えば、101を指定すると<a href="Send.htm">SendEvent</a>で生成されたすべての入力が無視され、1を指定するとデフォルトの送信レベル（0）の入力のみが無視される。</p>
+<p><em>Level</em>は 0～101 の整数を指定します。この値より<em>低い</em>送信レベルを持つイベントは無視されます。例えば、101を指定すると<a href="Send.htm">SendEvent</a>で生成されたすべての入力が無視され、1を指定するとデフォルトの送信レベル（0）の入力のみが無視されます。</p>
 <p><a href="Send.htm#SendInput">SendInput</a>および<a href="Send.htm#SendPlay">SendPlay</a>メソッドは、この設定にかかわらず、常に無視されます。AutoHotkey以外のソースで生成された入力は、この設定の結果、決して無視されることはありません。</p>
 </div>
 
@@ -286,7 +286,7 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">InputHook.NotifyNonText := Boolean</pre>
 <p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false.</p>
 <p>Trueに設定すると <kbd>Left</kbd> または <kbd>Alt</kbd>+<kbd>F</kbd>を押したときなど、テキストを生成しないすべてのキー入力に対して通知を行うことができます。このプロパティを設定しても、キーの<a href="#KeyOpt">オプション</a>には影響しません。なぜなら、テキストの生成は、キーが押された時点のアクティブウィンドウのキーボードレイアウトに依存するからです。 </p>
-<p>NotifyNonText は、VK コードが一致する前のキーダウンがテキストと非テキストのどちらに分類されるかを考慮して、キーアップイベントに適用される。例えば、NotifyNonTextがtrueの場合、<kbd>Ctrl</kbd>+<kbd>A</kbd>を押すと、<kbd>Ctrl</kbd>と <kbd>A</kbd>の両方で<a href="#OnKeyDown">OnKeyDown</a>と <a href="#OnKeyUp">OnKeyUp</a>が呼び出されますが、<a href="#KeyOpt">KeyOpt</a>でそのキーに対する通知を有効にしていなければ、<kbd>A</kbd>単独で押してもOnKeyDownやOnKeyUpは呼ばれません。</p>
+<p>NotifyNonText は、VK コードが一致する前のキーダウンがテキストと非テキストのどちらに分類されるかを考慮して、キーアップイベントに適用されます。例えば、NotifyNonTextがtrueの場合、<kbd>Ctrl</kbd>+<kbd>A</kbd>を押すと、<kbd>Ctrl</kbd>と <kbd>A</kbd>の両方で<a href="#OnKeyDown">OnKeyDown</a>と <a href="#OnKeyUp">OnKeyUp</a>が呼び出されますが、<a href="#KeyOpt">KeyOpt</a>でそのキーに対する通知を有効にしていなければ、<kbd>A</kbd>単独で押してもOnKeyDownやOnKeyUpは呼ばれません。</p>
 <p>どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</p>
 </div>
 
@@ -295,7 +295,7 @@ if (ih.Input = CtrlC)
 <pre class="Syntax">Seconds := InputHook.Timeout</pre>
 <pre class="Syntax">InputHook.Timeout := Seconds</pre>
 <p>型：<a href="../Concepts.htm#numbers">浮動小数点数</a>既定値：0.0 (none). オプション<strong>T</strong>では、タイムアウト値も設定します。</p>
-<p>通常、タイムアウトは<a href="#Start">Start</a>が呼ばれた時点で開始されるが、Inputの実行中に本プロパティに値が代入された場合は、再開されます。タイムアウト時間が経過しても入力が継続している場合は、入力は終了し、<a href="#EndReason">EndReason</a>に Timeout という単語が設定される。</p>
+<p>通常、タイムアウトは<a href="#Start">Start</a>が呼ばれた時点で開始されるが、Inputの実行中に本プロパティに値が代入された場合は、再開されます。タイムアウト時間が経過しても入力が継続している場合は、入力は終了し、<a href="#EndReason">EndReason</a>に Timeout という単語が設定されます。</p>
 </div>
 
 <div class="methodShort" id="VisibleNonText"><h3>VisibleNonText</h3>
@@ -340,7 +340,7 @@ if (ih.Input = CtrlC)
   </tr>
   <tr>
     <td>Match</td>
-    <td>Inputが<em>MatchList</em>の項目の1つに一致する。<a href="#Match">Match</a>プロパティには、一致した項目が含まれます。</td>
+    <td>Inputが<em>MatchList</em>の項目の1つに一致します。<a href="#Match">Match</a>プロパティには、一致した項目が含まれます。</td>
   </tr>
   <tr>
     <td>EndKey</td>

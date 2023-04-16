@@ -39,9 +39,9 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p id="cdecl">ほとんどの関数は「C」呼び出し規約ではなく、標準呼び出し規約を使用しているため、<em>Cdecl</em>という言葉は通常省略されます（wsprintfのように様々な数の引数を受け付ける関数は例外です）。なお、オブジェクト指向のC++関数の多くは<i>thiscall</i>の規約を使用していますが、これはサポートされていません。</p>
-      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきである。単語と単語の間は、スペースまたはタブで区切る。事例：<code>"Cdecl Str"</code>.</p>
+      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきです。単語と単語の間は、スペースまたはタブで区切る。事例：<code>"Cdecl Str"</code>.</p>
       <p>64ビットコードには個別の "C" 呼び出し規約が存在しないため、<i>Cdecl</i>を指定することができますが、AutoHotkeyの64ビットビルドには何の効果もありません。</p>
-      <p><em>ReturnType</em>:関数が32ビット符号付き整数（Int）、BOOL、または何も返さない場合は、<em>ReturnType</em>を省略することができる。それ以外の場合は、以下の<a href="#types">型式表</a>からいずれかの引数型を指定する。<a href="#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
+      <p><em>ReturnType</em>:関数が32ビット符号付き整数（Int）、BOOL、または何も返さない場合は、<em>ReturnType</em>を省略することができる。それ以外の場合は、以下の<a href="#types">型式表</a>からいずれかの引数型を指定します。<a href="#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
   </dd>
 
 </dl>
@@ -73,12 +73,12 @@
 <tr>
   <td><span id="astr"></span>AStr</td>
   <td>
-    <p>AStr を指定すると、入力値が自動的に ANSI に変換されます。この変換に使用される一時メモリは、変換された入力文字列分の大きさしかないため、関数によって書き込まれた値は破棄される。出力パラメータとしてANSI文字列を受け取るには、次の例に従います：</p>
-<pre>buf := Buffer(<i>length</i>)  <em>; 一時的なバッファを確保する。</em>
+    <p>AStr を指定すると、入力値が自動的に ANSI に変換されます。この変換に使用される一時メモリは、変換された入力文字列分の大きさしかないため、関数によって書き込まれた値は破棄されます。出力パラメータとしてANSI文字列を受け取るには、次の例に従います：</p>
+<pre>buf := Buffer(<i>length</i>)  <em>; 一時的なバッファを確保します。</em>
 DllCall("<i>Function</i>", "ptr", buf)  <em>; バッファを関数に渡す。</em>
-str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する。</em>
+str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得します。</em>
 </pre>
-    <p>まれに使われる<a href="#asterisk">AStr*</a>arg型もサポートされており、新しい文字列がANSIからネイティブフォーマットであるUTF-16に変換される以外は<a href="#strp">Str*</a>型と同様の動作をする。</p>
+    <p>まれに使われる<a href="#asterisk">AStr*</a>arg型もサポートされており、新しい文字列がANSIからネイティブフォーマットであるUTF-16に変換される以外は<a href="#strp">Str*</a>型と同様の動作をします。</p>
     <p>同等のWin32型などについては、「<a href="../Compat.htm#DllCall">バイナリ互換性</a>」を参照してください。</p>
   </td>
 </tr>
@@ -94,11 +94,11 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
 </tr>
 <tr>
   <td>Short</td>
-  <td>16ビットの整数で、範囲は-32768（-0x8000）～32767（0x7FFF）である。<a href="#unsigned">符号なし</a>ショート（UShort）は、WORDを期待する関数で使用することができます。</td>
+  <td>16ビットの整数で、範囲は-32768（-0x8000）～32767（0x7FFF）です。<a href="#unsigned">符号なし</a>ショート（UShort）は、WORDを期待する関数で使用することができます。</td>
 </tr>
 <tr>
   <td>Char</td>
-  <td>8ビットの整数で、範囲は-128（-0x80）～127（0x7F）である。<a href="#unsigned">符号なし</a>文字（UChar）は、BYTEを期待する関数で使用することができます。</td>
+  <td>8ビットの整数で、範囲は-128（-0x80）～127（0x7F）です。<a href="#unsigned">符号なし</a>文字（UChar）は、BYTEを期待する関数で使用することができます。</td>
 </tr>
 <tr>
   <td>Float</td>
@@ -121,7 +121,7 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
   <td>* or P<br>
     (suffix)</td>
   <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
-    <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタである。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用する。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
+    <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタです。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用します。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
     <p class="note"><strong>注意</strong>："Char*"は<a href="#str">"Str"</a>と同じではありません。"Char*"は8ビット数値のアドレスを渡すのに対し、<a href="#str">"Str"</a>は一連の文字のアドレスを渡しますが、これはAutoHotkeyのバージョンによって16ビット（ユニコード）または8ビット（"AStr"の場合）であることがあります。同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
     <p>AutoHotkeyの変数には固定型がないため、関数に渡されるアドレスは、呼び出し元の変数ではなく、一時メモリを指しています。</p>
     </td>
@@ -146,13 +146,13 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得する�
 <p>DllCallは、以下のいずれかの条件下で<a href="Error.htm">Error</a>を投げる：</p>
 <ul>
   <li><a href="Error.htm#OSError">OSError</a>:<a href="#HRESULT">HRESULT</a>戻り値が使用され、関数がエラー値（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）を返しました。<code>Exception.Extraには</code>、16進数のエラーコードが含まれます。</li>
-  <li><a href="Error.htm#TypeError">TypeError</a>:<em>[DllFile\]Function</em>パラメータは、浮動小数点数である。文字列または正の整数が必要です。</li>
-  <li><a href="Error.htm#ValueError">ValueError</a>:<a href="#types">戻り値の型</a>、または指定された<a href="#types">argの型</a>のいずれかが無効である。</li>
+  <li><a href="Error.htm#TypeError">TypeError</a>:<em>[DllFile\]Function</em>パラメータは、浮動小数点数です。文字列または正の整数が必要です。</li>
+  <li><a href="Error.htm#ValueError">ValueError</a>:<a href="#types">戻り値の型</a>、または指定された<a href="#types">argの型</a>のいずれかが無効です。</li>
   <li><a href="Error.htm#TypeError">TypeError</a>:引数に予期せぬ型の値が渡された。例えば、文字列（<a href="#str">str</a>）引数に数値として評価される<a href="../Variables.htm#Expressions">式</a>が渡された、数値引数に数値以外の文字列が渡された、<a href="#ptr">Ptr</a>型で<em>ない</em>引数にオブジェクトが渡された、などです。</li>
   <li><a href="Error.htm">Error</a>:指定された<em>DllFile</em>は、アクセスまたはロードできませんでした。<em>DllFile</em>に明示的なパスが指定されていない場合、そのファイルはシステムのPATHまたは<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>に存在する必要があります。このエラーは、ユーザーがファイルにアクセスする権限がない場合、またはAutoHotkeyが32ビットでDLLが64ビットの場合、またはその逆の場合にも発生することがあります。</li>
   <li><a href="Error.htm">Error</a>:指定された関数はDLL内に見つかりませんでした。</li>
   <li><a href="Error.htm">Error</a>:関数は呼び出されましたが、致命的な例外が発生して異常終了しました。<code>Exception.Extra</code>は例外コードを含む。例えば、0xC0000005は "アクセス違反"を意味します。このような場合、スレッドは（<a href="Try.htm">try</a>が使用されていない場合）中止されますが、<a href="#asterisk">アスタリスク</a>変数はまだ更新されます。致命的な例外の例としては、NULL（0）のような無効なポインタを再参照することが挙げられます。<a href="#cdecl">Cdecl</a>関数は、次の段落で説明するようなエラーを発生させることはないので、引数が少なすぎる場合に例外を発生させることがあります。</li>
-  <li><a href="Error.htm">Error</a>:関数を呼び出したが、渡された引数が多すぎたり少なすぎたりした。<code>Exception.Extra</code>には、引数リストが不正確であったバイト数が格納される。正の値の場合、引数が多すぎる（または引数が大きすぎる）か、<a href="#cdecl">CDecl</a>が必要な呼び出しである。負の値であれば、渡された引数が少なすぎる。このような状況は、機能の確実な動作のために修正する必要があります。このエラーの存在は、例外が発生したことを示す場合もあります。なお、x64の呼び出し規約により、64ビットビルドではこのエラーは発生しない。</li>
+  <li><a href="Error.htm">Error</a>:関数を呼び出したが、渡された引数が多すぎたり少なすぎたりした。<code>Exception.Extra</code>には、引数リストが不正確であったバイト数が格納されます。正の値の場合、引数が多すぎる（または引数が大きすぎる）か、<a href="#cdecl">CDecl</a>が必要な呼び出しです。負の値であれば、渡された引数が少なすぎる。このような状況は、機能の確実な動作のために修正する必要があります。このエラーの存在は、例外が発生したことを示す場合もあります。なお、x64の呼び出し規約により、64ビットビルドではこのエラーは発生しない。</li>
 </ul>
 
 <h2 id="except">ネイティブの例外とA_LastError</h2>
@@ -174,16 +174,16 @@ Loop 500
 <p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を"<a href="#str">str</a>"としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr（MyVar）</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>.</p>
 
 <h2 id="struct">構造体・配列</h2>
-<p>構造体とは、メモリ上に隣接して格納された<em>メンバー</em>（フィールド）の集合体である。ほとんどのメンバーが整数になる傾向があります。</p>
+<p>構造体とは、メモリ上に隣接して格納された<em>メンバー</em>（フィールド）の集合体です。ほとんどのメンバーが整数になる傾向があります。</p>
 <p>構造体（またはメモリブロック配列）のアドレスを受け取る関数は、何らかの方法でメモリを確保し、そのメモリアドレスを関数に渡すことで呼び出すことができます。この目的には、<a href="Buffer.htm">Buffer</a>オブジェクトが推奨されます。一般的には以下の手順で行われます：</p>
 <p>1)<code>MyStruct := Buffer(123, 0)</code>を呼び出して、構造体のデータを保持するバッファを確保します。<code>123</code>を構造体のサイズと同じ大きさ以上の数値（バイト数）に置き換えてください。最後のパラメータにゼロを指定することはオプションです。これは、すべてのメンバーを2進数のゼロに初期化し、次のステップでNumPutを頻繁に呼び出すのを避けるために通常使用します。</p>
-<p>2)ターゲット関数が構造体の初期値を使用する場合は、<code><a href="NumPut.htm">NumPut</a>("UInt", 123, MyStruct, 4)</code>を呼び出して、0 以外の値を持つべきメンバーを初期化する。<code>123</code>をターゲットメンバに入れる整数に置き換える（文字列のアドレスを格納する場合は<code>StrPtr(Var)</code>を指定する）。<code>4</code>を対象部材のオフセットに置き換える（「オフセット」の説明については手順4参照）。<code>"UInt"</code>を適切な型（メンバーがポインタまたはハンドルの場合は<code>"Ptr"</code>など）に置き換える。</p>
-<p>3)<em>MyStruct</em>をPtr引数として、ターゲット関数を呼び出す。例えば、<code>DllCall("MyDllMyFunc", "Ptr", MyStruct)</code>となります。この機能は、メンバーの一部を検査したり、変更したりするものである。DllCallは自動的にバッファのアドレスを使用しますが、これは通常<code>MyStruct.Ptr</code>を使用して取得されます。</p>
-<p>4)<code>MyInteger :=<a href="NumGet.htm">NumGet</a>(MyStruct, 4, "UInt")</code>を使って、構造体から任意の整数を取得します。<code>4</code>を構造体内の対象メンバーのオフセットに置き換える。最初のメンバーは常にオフセット0にあります。第2部材は、オフセット0に第1部材の大きさ（通常4）を加えた位置にある。2番目以降のメンバーは、前のメンバーのオフセットにサイズを足したものになります。DWORD、Int<a href="#Int">などの32ビット整数</a>のようなほとんどのメンバーは、4バイトのサイズです。<code>"UInt"</code>を適切な型に置き換えるか、メンバーがポインタまたはハンドルである場合は省略する。</p>
+<p>2)ターゲット関数が構造体の初期値を使用する場合は、<code><a href="NumPut.htm">NumPut</a>("UInt", 123, MyStruct, 4)</code>を呼び出して、0 以外の値を持つべきメンバーを初期化します。<code>123</code>をターゲットメンバに入れる整数に置き換える（文字列のアドレスを格納する場合は<code>StrPtr(Var)</code>を指定する）。<code>4</code>を対象部材のオフセットに置き換える（「オフセット」の説明については手順4参照）。<code>"UInt"</code>を適切な型（メンバーがポインタまたはハンドルの場合は<code>"Ptr"</code>など）に置き換える。</p>
+<p>3)<em>MyStruct</em>をPtr引数として、ターゲット関数を呼び出す。例えば、<code>DllCall("MyDllMyFunc", "Ptr", MyStruct)</code>となります。この機能は、メンバーの一部を検査したり、変更したりするものです。DllCallは自動的にバッファのアドレスを使用しますが、これは通常<code>MyStruct.Ptr</code>を使用して取得されます。</p>
+<p>4)<code>MyInteger :=<a href="NumGet.htm">NumGet</a>(MyStruct, 4, "UInt")</code>を使って、構造体から任意の整数を取得します。<code>4</code>を構造体内の対象メンバーのオフセットに置き換える。最初のメンバーは常にオフセット0にあります。第2部材は、オフセット0に第1部材の大きさ（通常4）を加えた位置にある。2番目以降のメンバーは、前のメンバーのオフセットにサイズを足したものになります。DWORD、Int<a href="#Int">などの32ビット整数</a>のようなほとんどのメンバーは、4バイトのサイズです。<code>"UInt"</code>を適切な型に置き換えるか、メンバーがポインタまたはハンドルである場合は省略します。</p>
 <p>実際の使用方法については、「<a href="#ExStruct">構造例</a>」を参照してください。</p>
 
 <h2 id="limits">既知の制限事項</h2>
-<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1)<em>MyVar</em>をPtr/アドレスとしてではなく、<a href="#str">"Str"</a>引数として渡す。2) DllCallを呼び出した後、<code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(MyVar, -1)</code>を呼んで変数の内部に保存された長さを更新する。</p>
+<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1)<em>MyVar</em>をPtr/アドレスとしてではなく、<a href="#str">"Str"</a>引数として渡す。2) DllCallを呼び出した後、<code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(MyVar, -1)</code>を呼んで変数の内部に保存された長さを更新します。</p>
 <p>関数によって変数に格納された2進数のゼロは、ターミネーターとして機能し、ほとんどの組み込み関数によってゼロの右側のすべてのデータがアクセスまたは変更されるのを防ぐことができます。しかし、このようなデータは、<a href="StrPtr.htm">StrPtr</a>で文字列のアドレスを取得し、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a>、<a href="StrGet.htm">StrGet</a>、<a href="StrPut.htm">StrPut</a>、DllCall自身など他の関数に渡すことで操作することができます。</p>
 <p>渡された文字列のアドレスを返す関数が、期待とは異なるメモリーアドレスに同一の文字列を返すことがあります。例えば、プログラミング言語で<code>CharLower(CharUpper(MyVar))</code>を呼び出すと、<em>MyVar</em>の内容が小文字に変換されます。しかし、DllCallで同じことをすると、CharLowerが<em>MyVar</em>と同じ内容の別の/一時的な文字列を操作したため、次の呼び出しの後、<em>MyVar</em>は大文字になります：</p>
 <pre>MyVar := "ABC"
@@ -223,8 +223,8 @@ if not DllCall("IsWindowVisible", "Ptr", WinExist("Untitled - Notepad"))  <em>; 
 
 <div class="ex" id="ExWsprintf">
 <p><a class="ex_number" href="#ExWsprintf"></a> APIのwsprintf()を呼び出し、数字432に先頭のゼロをパッドして10文字幅(0000000432)にします。</p>
-<pre>ZeroPaddedNumber := Buffer(20)  <em>; バッファが新しい文字列を受け入れるのに十分な大きさであることを確認する。</em>
-DllCall("wsprintf", "Ptr", ZeroPaddedNumber, "Str", "%010d", "Int", 432, "Cdecl")  <em>; Cdecl の呼び出し規約を必要とする。</em>
+<pre>ZeroPaddedNumber := Buffer(20)  <em>; バッファが新しい文字列を受け入れるのに十分な大きさであることを確認します。</em>
+DllCall("wsprintf", "Ptr", ZeroPaddedNumber, "Str", "%010d", "Int", 432, "Cdecl")  <em>; Cdecl の呼び出し規約を必要とします。</em>
 MsgBox StrGet(ZeroPaddedNumber)
 
 <em>; または、<a href="Format.htm">Format</a>関数とゼロフラグを組み合わせて使用します：</em>
@@ -303,7 +303,7 @@ DllCall("CloseHandle", "Ptr", hFile)  <em>; ファイルを閉じる。</em>
 
 <em>; ファイルが書き込まれたので、その内容をメモリに読み返してください。</em>
 GENERIC_READ := 0x80000000  <em>; 書き込みではなく、読み込みのためにファイルを開く。</em>
-OPEN_EXISTING := 3  <em>; このモードは、オープンするファイルが既に存在することを示す。</em>
+OPEN_EXISTING := 3  <em>; このモードは、オープンするファイルが既に存在することを示します。</em>
 FILE_SHARE_READ := 0x1 <em>; こちらがファイルを開いている間に、他のプロセスがファイルを開くことができるかどうかです。</em>
 FILE_SHARE_WRITE := 0x2
 hFile := DllCall("CreateFile", "Str", FileName, "UInt", GENERIC_READ, "UInt", FILE_SHARE_READ|FILE_SHARE_WRITE, "Ptr", 0, "UInt", OPEN_EXISTING, "UInt", 0, "Ptr", 0)
@@ -321,7 +321,7 @@ MsgBox "The following string was read from the file:" StrGet(Buf)</pre>
 
 <div class="ex" id="ExHideCursor">
 <p><a class="ex_number" href="#ExHideCursor"></a> <kbd>Win</kbd>+<kbd>C</kbd>を押したときに、マウスカーソルを隠す。後でカーソルを表示させるには、このホットキーをもう一度押してください。</p>
-<pre>OnExit (*) =&gt; SystemCursor("Show")  <em>; スクリプト終了時にカーソルが表示されるようにする。</em>
+<pre>OnExit (*) =&gt; SystemCursor("Show")  <em>; スクリプト終了時にカーソルが表示されるようにします。</em>
 
 #c::SystemCursor("Toggle")  <em>; Win+CホットキーでカーソルのON/OFFを切り替えられます。</em>
 
@@ -374,7 +374,7 @@ MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>
 
 <div class="ex" id="ExStructRect">
 <p><a class="ex_number" href="#ExStructRect"></a> 構造例です。FillRect()に、一時的に赤く塗る画面の一部を示すRECT構造体のアドレスを渡す。</p>
-<pre>Rect := Buffer(16)  <em>; 4バイトの整数を4つ保持する容量を設定する。</em>
+<pre>Rect := Buffer(16)  <em>; 4バイトの整数を4つ保持する容量を設定します。</em>
 <a href="NumPut.htm">NumPut</a>( "Int", 0                  <em>; 左</em>
       , "Int", 0                  <em>; top</em>
       , "Int", A_ScreenWidth//2   <em>; right</em>
@@ -388,18 +388,18 @@ DllCall("DeleteObject", "Ptr", hBrush)  <em>; クリーンアップ。</em></pre
 </div>
 
 <div class="ex" id="ExSystemTime">
-<p><a class="ex_number" href="#ExSystemTime"></a> 構造例です。システムの時計を指定した日付と時刻に変更する。未来の日付に変更すると、スケジュールされたタスクが早期に実行される可能性があるため、注意が必要です！</p>
+<p><a class="ex_number" href="#ExSystemTime"></a> 構造例です。システムの時計を指定した日付と時刻に変更します。未来の日付に変更すると、スケジュールされたタスクが早期に実行される可能性があるため、注意が必要です！</p>
 <pre>SetSystemTime("20051008142211")  <em>; <a href="FileSetTime.htm#YYYYMMDD">タイムスタンプ</a>を渡す（UTCではなくローカル）。</em>
 
 SetSystemTime(YYYYMMDDHHMISS)
-<em>; システムクロックを指定した日付と時刻に設定する。
+<em>; システムクロックを指定した日付と時刻に設定します。
 ; 呼び出し側は、入力されるパラメータが有効な日付-時間スタンプであることを確認する必要があります。
 ; (UTCではなく現地時間)。成功すれば0以外を、そうでなければ0を返す。</em>
 {
-    <em>; SetSystemTime()で使用するため、パラメータをローカル時間からUTCに変換する。</em>
+    <em>; SetSystemTime()で使用するため、パラメータをローカル時間からUTCに変換します。</em>
     UTC_Delta := DateDiff(A_Now, A_NowUTC, "Seconds")  <em>; 四捨五入の関係で、「秒」の方が正確です。</em>
     UTC_Delta := Round(-UTC_Delta/60)  <em>; 正確を期すため、分単位に丸めて表示します。</em>
-    YYYYMMDDHHMISS := DateAdd(YYYYMMDDHHMISS, UTC_Delta, "Minutes")  <em>; UTC に変換するためのオフセットを適用する。</em>
+    YYYYMMDDHHMISS := DateAdd(YYYYMMDDHHMISS, UTC_Delta, "Minutes")  <em>; UTC に変換するためのオフセットを適用します。</em>
 
 SystemTime := Buffer(16)  <em>; この構造体は8個のUShortで構成されています。</em>
 
@@ -440,7 +440,7 @@ IUnknown:
 IID_ITaskbarList  := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
 CLSID_TaskbarList := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
 
-<em>; TaskbarListオブジェクトを作成する。</em>
+<em>; TaskbarListオブジェクトを作成します。</em>
 tbl := ComObject(CLSID_TaskbarList, IID_ITaskbarList)
 
 activeHwnd := WinExist("A")

@@ -15,7 +15,7 @@
 <p>プログラムの起動は、<a href="../lib/Run.htm">Run</a>関数を呼び出して、プログラムのコマンドラインを<a href="../Concepts.htm#parameters">パラメータ</a>として<a href="../Concepts.htm#pass-parameters">渡す</a>ことで行います。</p>
 <pre>Run "C:\Windows\notepad.exe"</pre>
 <p>この例では、メモ帳を起動します。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
-<p>この段階では、ホットキー（言い換えれば、キーボードショートカットの割り当て）を定義していないので、すぐに指示が実行される。この場合、スクリプトは他にすることがないので、自動的に終了します。学習しながら便利なホットキーを作りたい方は、まず「<a href="WriteHotkeys.htm">ホットキーの書き方</a>」をご覧ください。</p>
+<p>この段階では、ホットキー（言い換えれば、キーボードショートカットの割り当て）を定義していないので、すぐに指示が実行されます。この場合、スクリプトは他にすることがないので、自動的に終了します。学習しながら便利なホットキーを作りたい方は、まず「<a href="WriteHotkeys.htm">ホットキーの書き方</a>」をご覧ください。</p>
 <p class="note"><strong>注：</strong>「実行」は、ドキュメント、フォルダ、URLを開くためにも使用できます。</p>
 <p>他のプログラムを起動する場合は、上記の例のパスを起動したいプログラムのパスに置き換えるだけです。プログラムによってはパスがシステムに登録されているものもあり、その場合は拡張子「.exe」の有無にかかわらず、プログラムのファイル名だけを渡すことで対応できます（場合によっては拡張子「.exe」のないものもあります）。事例：</p>
 <pre>Run "notepad"</pre>
@@ -38,8 +38,8 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>しかし、なぜメモ帳が使えたのでしょうか？notepad」と「wordpad」のどちらかを単独で実行しても動作しますが、その理由は異なります。wordpad.exeはnotepad.exeと異なり、環境変数PATHに記載されている各ディレクトリを確認しても見つけることができない。別の方法で探すことも可能で、その場合はRun関数でプログラム名とパラメータを分離する必要があります。</p>
 <p>そこで、この場合、Run関数には、次のような形で、ちょっとした手助けが必要です。</p>
 <ul>
-  <li>明示的に拡張子「.exe」を使用する。</li>
-  <li>wordpad.exeのフルパスを明示的に使用する。</li>
+  <li>明示的に拡張子「.exe」を使用します。</li>
+  <li>wordpad.exeのフルパスを明示的に使用します。</li>
   <li>番組名を引用符で囲んでください。</li>
 </ul>
 <p>とりあえず、一番簡単な選択肢を選んでください。</p>
@@ -56,14 +56,14 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <pre>Run 'wordpad.exe "C:\Program Files\AutoHotkey\license.txt"'</pre>
 <p>もちろん、その場合、テキスト中の<em>文字通りの</em>シングルクォート（またはアポストロフィー）はエスケープ（<code>`'</code>）する必要があります。</p>
 <p>コードの書き方によって、どの引用符が実際に実行機能で処理されるかが変わります。上の2つの例では、Run関数が<code>wordpad.exe "C:\Program FilesAutoHotkey@license.txt"</code>という文字列を受け取っています。Run機能は、これを<em>プログラム名</em>と <em>パラメータ</em>（それ以外のすべて）に分割するか、システムに委ねるかのどちらかです。いずれの場合も、残りの引用符がどのように解釈されるかは、ターゲットとなるプログラムに完全に依存します。</p>
-<p>多くのプログラムでは、引用符の前にバックスラッシュがある場合、パラメータの一部として扱います。例えば、2つのパラメータの代わりに、<code>'my.exe "A\" B'を実行</code>して、値<code>A" Bを</code>持つパラメータを生成するかもしれません。これはプログラム次第で、通常、<code>Run ''my.exe "A\\" B'"</code>のようにバックスラッシュを2重にすることで回避することが可能です。これは通常2つのパラメータ（<code>A</code>、<code>B</code>）を生成する。</p>
+<p>多くのプログラムでは、引用符の前にバックスラッシュがある場合、パラメータの一部として扱います。例えば、2つのパラメータの代わりに、<code>'my.exe "A\" B'を実行</code>して、値<code>A" Bを</code>持つパラメータを生成するかもしれません。これはプログラム次第で、通常、<code>Run ''my.exe "A\\" B'"</code>のようにバックスラッシュを2重にすることで回避することが可能です。これは通常2つのパラメータ（<code>A</code>、<code>B</code>）を生成します。</p>
 <p>ほとんどのプログラムは、引用符を一種のトグルとして解釈し、「スペースはパラメーターを終了する」と「スペースはパラメーターに含まれる」の間でモードを切り替えます。つまり、<code>Run 'my.exe "A B"'</code>は一般的に <code>Run 'my.exe A" "B'</code> と同等ですそこで、スラッシュの問題を回避する別の方法として、<code>Run 'my.exe "A"\ B'</code>のように、パラメータ全体ではなく<em>スペース</em>を引用するか、スラッシュの前で引用を終了します。</p>
 
 <h2>変数を含む</h2>
 <p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、"Program Files" ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
 <pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
 Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
-<p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結する。事例：</p>
+<p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結します。事例：</p>
 <pre>Run 'notepad.exe "' A_MyDocuments '\AutoHotkey.ahk"'</pre>
 <p>また、<a href="../lib/Format.htm">Format</a>を使用して置換を行う方法もあります。事例：</p>
 <pre>Run Format('notepad.exe "{1}\AutoHotkey.ahk"', A_MyDocuments)</pre>
@@ -74,7 +74,7 @@ Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></
 <p><em>WorkingDir</em>は、新しいプロセスの作業ディレクトリを指定します。プログラムに相対パスを指定した場合は、このディレクトリからの相対パスとなります。コマンドラインパラメータの相対パスもこのディレクトリからの相対パスであることが多いが、それはプログラムによって異なる。</p>
 <pre>Run "cmd", "C:\"  <em>; コマンドプロンプトをC:\ に開きます。</em></pre>
 <p><em>オプション</em>は、プログラムを画面にポップアップさせるのではなく、最小化または非表示にして実行するために使用できることが多いですが、プログラムによっては無視されることもあります。</p>
-<p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われる。事例：</p>
+<p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われます。事例：</p>
 <pre>Run "notepad",,, &amp;pid
 WinWaitActive "ahk_pid " pid
 SendText "Hello, world!"</pre>
@@ -82,7 +82,7 @@ SendText "Hello, world!"</pre>
 <h2>システム動詞</h2>
 <p><a href="../lib/Run.htm#verbs">システム動詞</a>とは、システムやアプリケーションが特定のファイルタイプに対して登録するアクションのことです。これらは通常、エクスプローラーのファイルの右クリックメニューで利用できますが、実際の名前はメニューに表示されるテキストと必ずしも一致しません。例えば、AutoHotkeyスクリプトには、スクリプトをエディタで開く「edit」動詞と、（Ahk2Exeがインストールされていれば）スクリプトを<a href="../Scripts.htm#ahk2exe">コンパイル</a>する「compile」動詞があります。</p>
 <p>"Edit "は、Runがデフォルトで認識する一般的な動詞のリストの1つで、次のように、単語の後にスペースとファイル名を書くだけで使用することができます。</p>
-<pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当する。</em></pre>
+<pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当します。</em></pre>
 <p>システムに登録されている動詞は、以下のように*接頭辞をつけることで実行することができます。</p>
 <pre>Run '*Compile-Gui ' A_ScriptFullPath</pre>
 <p>Ahk2Exeがインストールされている場合、現在のスクリプトがあらかじめ選択された状態でAhk2Exe Guiが開かれます。</p>
