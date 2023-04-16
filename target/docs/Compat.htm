@@ -32,7 +32,7 @@
   <li><a href="#DllCall">DllCall</a>で外部関数に文字列を渡します。</li>
   <li><a href="lib/PostMessage.htm">PostMessage</a>や <a href="lib/SendMessage.htm">SendMessage</a>で文字列を渡す。</li>
   <li><a href="#NumPutGet">NumPut/NumGet</a>で文字列を直接操作することができます。</li>
-  <li>特定の文字数を保持する<a href="#Buffer">Buffer</a>を確保する。</li>
+  <li>特定の文字数を保持する<a href="#Buffer">Buffer</a>を確保します。</li>
 </ul>
 <p>AutoHotkey v2はネイティブでUnicode（UTF-16）を使用しますが、一部の外部ライブラリやウィンドウメッセージではANSI文字列を必要とする場合があります。</p>
 <p><strong>ANSI：</strong>1文字が<strong>1バイト</strong>（8ビット）です。127以上の文字コードは、お使いのシステムの言語設定（または、ファイルへの書き込みなど、テキストをエンコードする際に選択されたコードページ）に依存します。</p>
@@ -54,17 +54,17 @@ StrPut(source_string, ansi_buf)</pre>
   <tr><th>&nbsp;</th><th class="center">文字サイズ</th><th>C / Win32 Types</th><th>エンコード</th></tr>
   <tr><td class="Syntax center">WStr</td><td class="center">16-bit</td><td>wchar_t*, WCHAR*, LPWSTR, LPCWSTR</td><td>UTF-16</td></tr>
   <tr><td class="Syntax center">AStr</td><td class="center">8-bit</td><td>char*, CHAR*, LPSTR, LPCSTR</td><td>ANSI（システムデフォルトのANSIコードページ）</td></tr>
-  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>AutoHotkey v2 の<b>WStr</b>に相当する。</td></tr>
+  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>AutoHotkey v2 の<b>WStr</b>に相当します。</td></tr>
 </table>
 <p>パラメータに "Str" または "WStr" を使用した場合、文字列のアドレスが関数に渡されます。"AStr"の場合、文字列の一時的なANSIコピーが作成され、そのアドレスが代わりに渡される。バッファは入力文字列を保持するのに十分な大きさしかないため、原則として "AStr"を出力パラメータに使用するべきではありません。</p>
 <p class="note"><b>注：</b>"AStr"および "WStr"は、パラメータおよび関数の戻り値に対して同様に有効です。</p>
 <p>一般に、スクリプトがDllCallを介して、文字列をパラメータとして受け付ける関数を呼び出す場合、以下のアプローチのうちの1つ以上を取る必要があります。</p>
 <ol>
-  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に "Str"型を使用します。例えば、DeleteFile関数は、<code>DeleteFileA</code>と <code>DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileW</code>を試行する。
+  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に "Str"型を使用します。例えば、DeleteFile関数は、<code>DeleteFileA</code>と <code>DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileW</code>を試行します。
   <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
 DllCall("DeleteFile", "Str", filename)</pre>
   <p>どちらの場合も、修正されていない元の文字列のアドレスが関数に渡されます。</p>
-  <p>DllCallは、元の名前の関数が見つからなかった場合にのみ、Wサフィックスを追加するため、この方法が裏目に出る場合もあります。例えば、shell32.dllはExtractIconExW、ExtractIconExA、ExtractIconExをサフィックスなしでエクスポートし、最後の2つは同等である。その場合、Wサフィックスを省略すると、ANSIバージョンが呼び出されることになります。</p></li>
+  <p>DllCallは、元の名前の関数が見つからなかった場合にのみ、Wサフィックスを追加するため、この方法が裏目に出る場合もあります。例えば、shell32.dllはExtractIconExW、ExtractIconExA、ExtractIconExをサフィックスなしでエクスポートし、最後の2つは同等です。その場合、Wサフィックスを省略すると、ANSIバージョンが呼び出されることになります。</p></li>
   <li>関数が入力として特定のタイプの文字列を受け入れる場合、スクリプトは適切な文字列タイプを使用することができます。
   <pre>DllCall("DeleteFileA", "AStr", filename)
 DllCall("DeleteFileW", "WStr", filename)</pre></li>
@@ -83,10 +83,10 @@ NumPut(type_of_char, <i>n</i>th_char, buffer_or_address, (<i>n</i>-1)*size_of_ch
 <p>ポインターは32ビットビルドでは4バイト、64ビットビルドでは8バイトです。構造体やDllCallを使用するスクリプトは、両方のプラットフォームで正しく実行するために、これを考慮する必要があります。影響を受ける具体的な地域は以下の通りです。</p>
 <ul>
   <li>1つ以上のポインタを含む構造体のフィールドのオフセット計算を行う。</li>
-  <li>1つ以上のポインタを含む構造体のサイズを計算する。</li>
+  <li>1つ以上のポインタを含む構造体のサイズを計算します。</li>
   <li><a href="lib/DllCall.htm">DllCall</a>、<a href="lib/NumPut.htm">NumPut</a>、<a href="lib/NumGet.htm">NumGet</a>で使用される型名です。</li>
 </ul>
-<p>サイズとオフセットの計算には、<a href="Variables.htm#PtrSize">A_PtrSize</a>を使用します。DllCall、NumPut、NumGetについては、適宜<a href="lib/DllCall.htm">Ptr</a>型を使用する。</p>
+<p>サイズとオフセットの計算には、<a href="Variables.htm#PtrSize">A_PtrSize</a>を使用します。DllCall、NumPut、NumGetについては、適宜<a href="lib/DllCall.htm">Ptr</a>型を使用します。</p>
 <p>フィールドのオフセットは、通常、そのフィールドに先行するすべてのフィールドの合計サイズであることを忘れないでください。また、ハンドル（HWNDやHBITMAPなどの型も含む）は基本的にポインタ型であることに注意してください。</p>
 <pre><em>/*
   typedef struct _PROCESS_INFORMATION {
