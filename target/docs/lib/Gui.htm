@@ -279,7 +279,7 @@ MyGui.Move(x-10,, w+20)</pre>
   <p><strong>AlwaysOnTop</strong>:<a href="WinSetAlwaysOnTop.htm">WinSetAlwaysOnTop</a>と同じ効果で、ウィンドウが他のすべてのウィンドウより上にあるようにします。</p>
   <p><strong>Border</strong>:ウィンドウの周囲に細い線のボーダーを提供します。これは一般的ではありません。</p>
   <p>
-<strong>Caption</strong>（デフォルトで存在する）：タイトルバーと太いウィンドウのボーダー/エッジを提供します。<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用するウィンドウからキャプションを削除する場合、TransColorを設定した後に削除してください。</p>
+<strong>Caption</strong>（デフォルトで存在します）：タイトルバーと太いウィンドウのボーダー/エッジを提供します。<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用するウィンドウからキャプションを削除する場合、TransColorを設定した後に削除してください。</p>
   <p><strong>Disabled</strong>:ウィンドウを無効化し、ユーザーがそのコントロールと対話することを防ぎます。他のウィンドウを所有するウィンドウでよく使われます（「<a href="#Owner">所有者</a>」参照）。</p>
   <p id="DPIScale"><strong>DPIScale</strong>:デフォルトで有効になっている<a href="../misc/DPIScaling.htm">DPIスケーリング</a>を無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。DPIスケーリングが有効な場合、Guiおよび<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティに渡されたり、そこから取得された座標やサイズは、<a href="../Variables.htm#ScreenDPI">画面のDPI</a>に基づいて自動的にスケーリングされます。例えば、DPIが144（150％）の場合、<code>MyGui.Show("w100")</code>でGuiを150（100 * 1.5）ピクセル幅にし、マウスや<a href="WinMove.htm">WinMove</a>でウィンドウを200ピクセル幅にリサイズすると<code>MyGui.GetClientPos(,,&amp;W)</code>で<em>Wに</em>133（200 // 1.5）設定します。<a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a>は、システムの現在の DPI を含んでいます。</p>
   <p>DPIスケーリングはGuiと<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティにのみ適用されるので、ControlGetPosやWinGetPosのような他のソースから直接得られる座標は動作しません。対処法はいくつもあります：</p>
@@ -307,7 +307,7 @@ MyGui.Opt("+Owner")  <em>; タスクバーボタンの表示を防ぐため、GU
   <p id="Parent"><strong>Parent</strong>:ウィンドウやコントロールの<a href="#Hwnd">HWNDに続けて</a> <code>+Parent</code>を使用すると、そのウィンドウの親として使用することができます。GUIをトップレベルのウィンドウに戻すには、<code>-Parent</code>を使用します。このオプションは、ウィンドウを作成した後でも機能します。</p>
   <p>既知の制限：<a href="../Program.htm#Installer_uiAccess">UIアクセスで実行</a>すると、新しい親が常にトップで子ウィンドウがそうでない場合、<code>+Parent</code>オプションが既存のウィンドウで機能しない。</p>
   <p id="Resize"><strong>Resize</strong>:ウィンドウのサイズを変更できるようにし、タイトルバーの最大化ボタンを有効にします。最大化ボタンを有効にしない場合は、<code>+Resize -MaximizeBox</code>を指定します。</p>
-  <p><strong>SysMenu</strong>（デフォルトで存在する）：ウィンドウ左上のシステムメニューとアイコンを省略する場合は、<code>-SysMenu</code>（マイナスSysMenu）を指定します。これにより、タイトルバーの最小化、最大化、および閉じるボタンも省略されます。</p>
+  <p><strong>SysMenu</strong>（デフォルトで存在）：ウィンドウ左上のシステムメニューとアイコンを省略する場合は、<code>-SysMenu</code>（マイナスSysMenu）を指定します。これにより、タイトルバーの最小化、最大化、および閉じるボタンも省略されます。</p>
   <p id="Theme"><strong>Theme</strong>:<code>Themeを</code>指定すると、その後に作成されるウィンドウ内のコントロールはすべてクラシックテーマの外観となります。現在のテーマに従った制御を後から追加で作成する場合は、<code>+Theme</code>でオンに戻してください。注：このオプションは、「クラシックテーマ」が有効な場合は効果がありません。この設定は、コントロールの作成時にオプションで<code>+Theme</code>または<code>-Theme</code>を指定することで、個々のコントロールに対して変更することができます。</p>
   <p><strong>ToolWindow</strong>:タイトルバーの幅が狭くなりますが、ウィンドウにタスクバーボタンが表示されなくなります。<a href="../misc/Styles.htm#WS_MAXIMIZEBOX">WS_MAXIMIZEBOX</a>と<a href="../misc/Styles.htm#WS_MINIMIZEBOX">WS_MINIMIZEBOX</a>のスタイルが存在するかどうかに関わらず、常に最大化、最小化ボタンを非表示にします。</p>
   <p><strong>(Unnamed Style）</strong>：プラス記号またはマイナス記号の直後に、10進数または16進数の<a href="../misc/Styles.htm">スタイル番号</a>を指定します。</p>
@@ -528,7 +528,7 @@ MyGui.MenuBar := Menus
 MyGui.Show "w300 h200"</pre>
 <p>上の1行目では、<code>&amp;Open</code>の後に<code>Ctrl+O</code>（間にタブ文字が入る）が入っていることに注目してください。これは、ユーザーがメニュー項目を選択する代わりに押すことができるキーボードショートカットを示しています。ショートカットが標準的な修飾キー名であるCtrl、Alt、Shiftのみを使用する場合、GUI用の<em>キーボードアクセラレータ</em>として自動的に登録されます。修飾語のない1文字のアクセラレータは大文字と小文字を区別し、IMEや<kbd>Alt+NNNN</kbd>など通常とは異なる手段でトリガーすることができます。</p>
 <p>特定のキーの組み合わせが自動的に機能しない場合は、<a href="_HotIf.htm">コンテキスト依存のホットキー</a>の使用が必要になる場合があります。しかし、このようなホットキーは一般的に<a href="Send.htm">Send</a>でトリガーすることができず、標準的なキーボードアクセラレータよりも他のスクリプトに干渉する可能性が高いです。</p>
-<p>ウィンドウの現在のメニューバーを削除するには、<code>MyGui.MenuBar := ""</code>（つまり、空の文字列を代入する）を使用します。</p>
+<p>ウィンドウの現在のメニューバーを削除するには、<code>MyGui.MenuBar := ""</code>（つまり、空の文字列を代入）を使用します。</p>
 </div>
 
 <div class="methodShort" id="Name">
