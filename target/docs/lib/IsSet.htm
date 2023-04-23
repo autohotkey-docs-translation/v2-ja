@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>IsSet / IsSetRef - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The IsSet operator and IsSetRef function return a non-zero number if the specified variable has been assigned a value." />
+<title>IsSet / IsSetRef - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="IsSet 演算子および IsSetRef 関数は、指定された変数に値が割り当てられている場合、0 以外の数値を返します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -22,53 +22,53 @@
   <dt>Var</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variables">変数</a></p>
-    <p>A direct variable reference. 事例：<code>IsSet(MyVar)</code>.</p>
+    <p>直接の変数参照です。事例：<code>IsSet(MyVar)</code>.</p>
   </dd>
 
   <dt>&amp;Ref</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>An indirect reference to the variable. This would usually not be passed directly, as in <code>IsSetRef(&amp;MyVar)</code>, but indirectly, such as to check a parameter <em>containing</em> a VarRef prior to <a href="../Variables.htm#deref">dereferencing</a> it. </p>
+    <p>変数への間接的な参照。これは通常、<code>IsSetRef(&amp;MyVar)</code>のように直接渡されるのではなく、VarRefを<em>含む</em>パラメータを<a href="../Variables.htm#deref">再参照する</a>前にチェックするような間接的なものである。 </p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-<p>The return value is 1 (true) if <em>Var</em> or the variable represented by <em>Ref</em> has been assigned a value, otherwise 0 (false).</p>
+<p>戻り値は、<em>Var</em>または<em>Ref</em>で表される変数に値が割り当てられている場合は 1（真）、それ以外の場合は 0（偽）である。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Use IsSet to check a variable directly, as in <code>IsSet(MyGlobalVar)</code>.</p>
-<p>Use IsSetRef to check a <a href="../Concepts.htm#variable-references">VarRef</a>, which would typically be contained by a variable, as in the example below.</p>
-<p>A variable which has not been assigned a value is also known as an <a href="../Concepts.htm#uninitialized-variables">uninitialized variable</a>. Attempting to read an uninitialized variable causes an exception to be thrown. IsSet can be used to avoid this, such as for initializing a global or static variable on first use.</p>
-<p class="note"><strong>Note:</strong> <a href="../Functions.htm#InitStatic">Static initializers</a> such as <code>static my_static_array := []</code> are evaluated only once, the first time they are reached during execution, so typically do not require the use of IsSet.</p>
-<p>Although IsSet uses the same syntax as a function call, it may be considered more of an operator than a function. The keyword <em>IsSet</em> is reserved for the use shown here and cannot be redefined as a variable or function. IsSet cannot be called indirectly because any attempt to pass an uninitialized variable would cause an error to be thrown.</p>
-<p>IsSetRef can also be used to check a specific variable, by using it with the <a href="../Variables.htm#ref">reference operator</a>. When using it this way, be aware of the need to <a href="../Functions.htm#Global">declare the variable</a> first if it is global. For example, the <code>&amp;</code> in <code>IsSetRef(&amp;MyVar)</code> would cause <em>MyVar</em> to resolve to a local variable by default, if used within an assume-local function which lacks the declaration <code>global MyVar</code>.</p>
+<p><code>IsSet(MyGlobalVar)</code>のように、変数を直接チェックする場合は、IsSetを使用します。</p>
+<p>IsSetRefを使用すると、以下の例のように、通常変数に含まれる<a href="../Concepts.htm#variable-references">VarRef</a>をチェックすることができます。</p>
+<p>値が割り当てられていない変数は、<a href="../Concepts.htm#uninitialized-variables">uninitialized variable</a>とも呼ばれます。初期化されていない変数を読み込もうとすると、例外が発生します。IsSetは、グローバル変数や静的変数の初回使用時の初期化など、これを回避するために使用することができます。</p>
+<p class="note"><strong>注：</strong> <code>static my_static_array := []</code>のような<a href="../Functions.htm#InitStatic">静的初期化子</a>は、実行中に最初に到達したときに一度だけ評価されるため、通常、IsSetの使用は必要ありません。</p>
+<p>IsSetは関数呼び出しと同じ構文を使っていますが、関数というより演算子と考えた方がいいかもしれません。キーワード<em>IsSet</em>は、ここに示す用途のために予約されており、変数や関数として再定義することはできない。初期化されていない変数を渡そうとするとエラーが発生するため、IsSetを間接的に呼び出すことはできない。</p>
+<p>IsSetRefは、<a href="../Variables.htm#ref">参照演算子</a>と併用することで、特定の変数をチェックすることも可能です。このような使い方をする場合、<a href="../Functions.htm#Global">変数</a>がグローバルな場合は最初に<a href="../Functions.htm#Global">宣言</a>する必要があることに注意してください。例えば、<code>IsSetRef(&amp;MyVar)</code>の<code>&amp;</code>は、<code>グローバルMyVar</code>の宣言がない想定ローカル関数内で使用すると、<em>MyVar</em>がデフォルトでローカル変数に解決されます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="../Functions.htm#ByRef">ByRef parameters</a></p>
+<p><a href="../Functions.htm#ByRef">ByRefパラメータ</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Shows different uses for IsSet and IsSetRef.</p>
+<p><a class="ex_number" href="#ExBasic"></a> IsSetとIsSetRefの使い分けを紹介しています。</p>
 <pre>
 Loop 2
-    if !IsSet(MyVar)  <em>; Is this the first "use" of MyVar?</em>
+    if !IsSet(MyVar)  <em>; MyVarの最初の「使用」か？</em>
         MyVar := A_Index  <em>; Initialize on first "use".</em>
 MsgBox Function1(&amp;MyVar)
 MsgBox Function2(&amp;MyVar)
 
 Function1(&amp;Param)  <em>; ByRef parameter.</em>
 {
-    if IsSet(Param)  <em>; Pass Param itself, which is an alias for MyVar.</em>
-        return Param  <em>; ByRef parameters are automatically dereferenced.</em>
+    if IsSet(Param)  <em>; MyVarのエイリアスであるParamそのものを渡します</em>。
+        return Param  <em>; ByRefパラメータは自動的に再参照さ</em>れる。
     else
         return "unset"
 }
 
 Function2(Param)
 {
-    if IsSetRef(Param)  <em>; Pass the VarRef contained by Param.</em>
-        return %Param%  <em>; Explicitly dereference Param.</em>
+    if IsSetRef(Param)  <em>; Paramが含むVarRefを渡す</em>。
+        return %Param%  <em>;明示的にParamをデリファレンスする。</em>
     else
         return "unset"
 }</pre>
