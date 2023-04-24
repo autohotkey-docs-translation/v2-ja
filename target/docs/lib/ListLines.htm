@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ListLines - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ListLines function enables or disables line logging or displays the script lines most recently executed." />
+<title>ListLines - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ListLines機能は、行のロギングを有効または無効にしたり、最近実行されたスクリプトの行を表示したりする機能です。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,9 +21,9 @@
   <dt>モード</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>If omitted, the history of lines most recently executed is shown. The first parameter affects only the behavior of the <a href="../misc/Threads.htm">current thread</a> as follows:</p>
-      <p><code>1</code> または <code>True</code>:Includes subsequently-executed lines in the history. This is the starting default for all scripts.</p>
-      <p><code>0</code> または <code>False</code>:Omits subsequently-executed lines from the history.</p></dd>
+      <p>省略した場合は、直近に実行された行の履歴を表示します。最初のパラメータは、次のように<a href="../misc/Threads.htm">現在のスレッド</a>の動作にのみ影響します：</p>
+      <p><code>1</code> または <code>True</code>:ヒストリーの中で、その後に実行された行を含みます。これは、すべてのスクリプトの開始時のデフォルトです。</p>
+      <p><code>0</code> または <code>False</code>:その後に実行された行を履歴から省略します。</p></dd>
 
 </dl>
 
@@ -32,18 +32,18 @@
 <p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>ListLines (with no parameter) is equivalent to selecting the "View-&gt;Lines most recently executed" menu item in the main window. It can help <a href="../Scripts.htm#debug">debug a script</a>.</p>
-<p><code>ListLines Mode</code> can be used to selectively omit some lines from the history, which can help prevent the history from filling up too quickly (such as in a loop with many fast iterations).  The line which called ListLines is also removed from the line history, to prevent clutter. Additionally, performance may be reduced by a few percent while line logging is enabled.</p>
-<p>When the ListLines mode is changed, the current line (generally the one that called ListLines or assigned to A_ListLines) is omitted from the line history.</p>
+<p>ListLines（パラメータなし）は、メインウィンドウの「View-&gt;Lines most recently executed」メニュー項目を選択することと同等です。<a href="../Scripts.htm#debug">スクリプトのデバッグ</a>に役立てることができます。</p>
+<p><code>ListLinesモード</code>を使用すると、履歴から一部の行を選択的に省略することができ、履歴が早くいっぱいになるのを防ぐことができます（高速反復の多いループの場合など）。ListLinesを呼んでいた行も、ごちゃごちゃしないように、行履歴から削除しています。また、ラインロギングを有効にしている間は、パフォーマンスが数％低下する場合があります。</p>
+<p>ListLinesモードが変更されると、現在の行（一般にListLinesを呼び出した、またはA_ListLinesに割り当てられた行）が行履歴から省かれる。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
-<p>The built-in variable A_ListLines contains 1 if ListLines is enabled and 0 otherwise.</p>
-<p>On a related note, the built-in variables <a href="../Variables.htm#LineNumber">A_LineNumber</a> and <a href="../Variables.htm#LineFile">A_LineFile</a> contain the currently executing line number and the file name to which it belongs.</p>
+<p>内蔵変数A_ListLinesは、ListLinesが有効な場合は1を、そうでない場合は0を格納します。</p>
+<p>これに関連して、組み込み変数<a href="../Variables.htm#LineNumber">A_LineNumber</a>と <a href="../Variables.htm#LineFile">A_LineFile</a>には、現在実行中の行番号とその行が属するファイル名が格納されます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="KeyHistory.htm">KeyHistory</a>, <a href="ListHotkeys.htm">ListHotkeys</a>, <a href="ListVars.htm">ListVars</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Enables and disables line logging for specific lines and then displays the result.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 特定の行のラインロギングを有効／無効にし、その結果を表示する。</p>
 <pre>x := "This line is logged"
 ListLines False
 x := "This line is not logged"
