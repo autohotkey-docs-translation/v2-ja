@@ -14,14 +14,14 @@
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#Intro">Introduction and Simple Example</a></li>
-  <li><a href="#Options">Options and Styles for the Options Parameter</a></li>
+  <li><a href="#Intro">導入と簡単な例</a></li>
+  <li><a href="#Options">Optionsパラメータのオプションとスタイル</a></li>
   <li><a href="#BuiltIn">Built-in Methods for TreeViews</a></li>
   <li><a href="#Events">イベント情報</a></li>
   <li><a href="#Remarks">備考</a></li>
   <li><a href="#Examples">例</a></li>
 </ul>
-<h2 id="Intro">Introduction and Simple Example</h2>
+<h2 id="Intro">導入と簡単な例</h2>
 <p>A Tree-View displays a hierarchy of items by indenting child items beneath their parents. The most common example is Explorer's tree of drives and folders.</p>
 <p>A TreeView usually looks like this:</p>
 <img src="../static/ctrl_treeview.png" alt="TreeView" />
@@ -40,10 +40,10 @@ P2C2 := TV.Add("Parent 2's second child", P2)
 P2C2C1 := TV.Add("Child 2's first child", P2C2)
 
 MyGui.Show  <em>; Show the window and its TreeView.</em></pre>
-<h2 id="Options">Options and Styles for the Options Parameter</h2>
-<p><strong>Background:</strong> Specify the word Background followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). 例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. If this option is not present, the TreeView initially defaults to the system's default background color. Specifying <code>BackgroundDefault</code> or <code>-Background</code> applies the system's default background color (usually white). For example, a TreeView can be restored to the default color via <code>TV.Opt("+BackgroundDefault")</code>.</p>
+<h2 id="Options">Optionsパラメータのオプションとスタイル</h2>
+<p><strong>Background（背景）：</strong>Backgroundの後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（0xは省略可）を指定します。例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. If this option is not present, the TreeView initially defaults to the system's default background color. <code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用されます。For example, a TreeView can be restored to the default color via <code>TV.Opt("+BackgroundDefault")</code>.</p>
 <p><strong>Buttons</strong>: Specify <code>-Buttons</code> (minus Buttons) to avoid displaying a plus or minus button to the left of each item that has children.</p>
-<p><strong>C</strong>:Text color. Specify the letter C followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). 例：<code>cRed</code>, <code>cFF2211</code>, <code>c0xFF2211</code>, <code>cDefault</code>.</p>
+<p><strong>C</strong>:Text color. 文字Cの直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>cRed</code>, <code>cFF2211</code>, <code>c0xFF2211</code>, <code>cDefault</code>.</p>
 <p id="Checked"><strong>Checked:</strong> Provides a checkbox at the left side of each item. When <a href="#Add">adding</a> an item, specify the word <em>Check</em> in its options to have the box to start off checked instead of unchecked. The user may either click the checkbox or press the spacebar to check or uncheck an item. To discover which items in a TreeView are currently checked, call the <a href="#GetNext">GetNext method</a> or <a href="#Get">Get method</a>.</p>
 <p><strong>HScroll</strong>: Specify <code>-HScroll</code> (minus HScroll) to disable horizontal scrolling in the control (in addition, the control will not display any horizontal scroll bar).</p>
 <p id="ImageList"><strong>ImageList</strong>: This is the means by which icons are added to a TreeView. Specify the word <em>ImageList</em> followed immediately by the ImageListID returned from a previous call to <a href="ListView.htm#IL_Create">IL_Create</a>. This option has an effect only when creating a TreeView (however, the <a href="#SetImageList">SetImageList method</a> does not have this limitation). Here is a working example:</p>
@@ -63,9 +63,9 @@ MyTree_Edit(TV, Item)
 {
     TV.Modify(TV.GetParent(Item), "Sort")  <em>; This works even if the item has no parent.</em>
 }</pre>
-<p><strong>R</strong>: Rows of height (upon creation). Specify the letter R followed immediately by the number of rows for which to make room inside the control. For example, <code>R10</code> would make the control 10 items tall.</p>
+<p><strong>R</strong>:高さの列（作成時）。Rの文字の後に、コントロール内のスペースを確保するための行数を指定します。For example, <code>R10</code> would make the control 10 items tall.</p>
 <p id="WantF2"><strong>WantF2</strong>: Specify <code>-WantF2</code> (minus WantF2) to prevent <kbd>F2</kbd> from <a href="#ReadOnly">editing</a> the currently selected item. This setting is ignored unless <a href="#ReadOnly">-ReadOnly</a> is also in effect.</p>
-<p><strong>(Unnamed numeric styles):</strong> Since styles other than the above are rarely used, they do not have names. See the <a href="../misc/Styles.htm#TreeView">TreeView styles table</a> for a list.</p>
+<p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。See the <a href="../misc/Styles.htm#TreeView">TreeView styles table</a> for a list.</p>
 <h2 id="BuiltIn">Built-in Methods for TreeViews</h2>
 <p>In addition to the <a href="GuiControl.htm">default methods/properties of a GUI control</a>, TreeView controls have the following methods (defined in the Gui.TreeView class).</p>
 <p><strong>Item methods:</strong></p>
@@ -87,7 +87,7 @@ MyTree_Edit(TV, Item)
 </ul>
 <p><strong>Other methods:</strong></p>
 <ul>
-  <li><a href="#SetImageList">SetImageList</a>: Sets or replaces an ImageList for displaying icons.</li>
+  <li><a href="#SetImageList">SetImageList</a>:アイコンを表示するための ImageList を設定または置き換える。</li>
 </ul>
 <div class="methodShort" id="Add">
   <h3>Add</h3>
@@ -107,7 +107,7 @@ MyTree_Edit(TV, Item)
     <dt>オプション</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Contains zero or more words from the list below (not case sensitive). 単語と単語の間は、スペースまたはタブで区切る。To remove an option, precede it with a minus sign. To add an option, a plus sign is permitted but not required.</p>
+      <p>Contains zero or more words from the list below (not case sensitive). 単語と単語の間は、スペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
       <p id="Bold"><strong>Bold</strong>: Displays the item's name in a bold font. To later un-bold the item, use <code>TV.Modify(ItemID, "-Bold")</code>. The word <em>Bold</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state.</p>
       <p id="Check"><strong>Check</strong>: Shows a checkmark to the left of the item (if the TreeView has <a href="#Checked">checkboxes</a>). To later uncheck it, use <code>TV.Modify(ItemID, "-Check")</code>. The word <em>Check</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state. In other words, both <code>"Check"</code> and <code>"Check" <strong>.</strong> VarContainingOne</code> are the same (the period used here is the <a href="../Variables.htm#concat">concatenation operator</a>).</p>
       <p id="Expand"><strong>Expand</strong>: Expands the item to reveal its children (if any). To later collapse the item, use <code>TV.Modify(ItemID, "-Expand")</code>. If there are no children, the <a href="#Modify">Modify method</a> returns 0 instead of the item's ID. By contrast, the <a href="#Add">Add method</a> marks the item as expanded in case children are added to it later. Unlike "Select" (below), expanding an item does not automatically expand its parent. Finally, the word <em>Expand</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state. In other words, both <code>"Expand"</code> and <code>"Expand" <strong>.</strong> VarContainingOne</code> are the same.</p>
@@ -236,7 +236,7 @@ Loop
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The ID number of the item, whose text to be retrieved. <em>RetrievedText</em> has a maximum length of 8191.</p>
+      <p>The ID number of the item, whose text to be retrieved. <em>RetrievedText</em>の長さは最大8191です。</p>
     </dd>
   </dl>
 </div>
@@ -260,13 +260,13 @@ Loop
 </div>
 <div class="methodShort" id="SetImageList">
   <h3>SetImageList</h3>
-  <p>Sets or replaces an <a href="ListView.htm#IL">ImageList</a> for displaying icons, and returns the ImageListID that was previously associated with this control (or 0 if none).</p>
+  <p>アイコンを表示するための<a href="ListView.htm#IL">ImageList</a>を設定または置換し、このコントロールに以前関連付けられていた ImageListID を返します（ない場合は 0）。</p>
   <pre class="Syntax">PrevImageListID := TV.<span class="func">SetImageList</span>(ImageListID <span class="optional">, IconType</span>)</pre>
     <dl>
       <dt>ImageListID</dt>
       <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>The number returned from a previous call to <a href="ListView.htm#IL_Create">IL_Create</a>.</p>
+        <p>以前に<a href="ListView.htm#IL_Create">IL_Create</a>を呼び出した際に返された番号。</p>
       </dd>
       <dt>IconType</dt>
       <dd>
@@ -275,10 +275,10 @@ Loop
       </dd>
     </dl>
     <p>
-      Any such detached ImageList should normally be destroyed via <a href="ListView.htm#IL_Destroy">IL_Destroy</a>.</p>
+      このような切り離されたImageListは、通常<a href="ListView.htm#IL_Destroy">IL_Destroy</a>で破棄する必要があります。</p>
 </div>
 <h2 id="Events">イベント情報</h2>
-<p>The following events can be detected by calling <a href="GuiOnEvent.htm">OnEvent</a> to register a callback function or method:</p>
+<p><a href="GuiOnEvent.htm">OnEvent</a>を呼び出してコールバック関数やメソッドを登録することで、以下のイベントを検出することができます：</p>
 <table class="info">
   <tr><th>Event</th><th>育てたのは...</th></tr>
   <tr><td><a href="GuiOnEvent.htm#Click">Click</a></td><td>コントロールがクリックされます。</td></tr>
@@ -286,12 +286,12 @@ Loop
   <tr><td><a href="GuiOnEvent.htm#Ctrl-ContextMenu">ContextMenu</a></td><td>コントロールにキーボードフォーカスがある状態で、ユーザーがコントロールを右クリックするか、<kbd>メニュー</kbd>または<kbd>Shift</kbd>+<kbd>F10</kbd>を押した場合。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#Focus">Focus</a></td><td>コントロールがキーボードフォーカスを獲得します。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a></td><td>コントロールはキーボードフォーカスを失います。</td></tr>
-  <tr><td><a href="GuiOnEvent.htm#ItemCheck">ItemCheck</a></td><td>An item is checked or unchecked.</td></tr>
-  <tr><td><a href="GuiOnEvent.htm#ItemEdit">ItemEdit</a></td><td>An item's label is edited by the user.</td></tr>
+  <tr><td><a href="GuiOnEvent.htm#ItemCheck">ItemCheck</a></td><td>項目がチェックされているか、チェックされていないかの状態です。</td></tr>
+  <tr><td><a href="GuiOnEvent.htm#ItemEdit">ItemEdit</a></td><td>アイテムのラベルは、ユーザーが編集します。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ItemExpand">ItemExpand</a></td><td>An item is expanded or collapsed.</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ItemSelect">ItemSelect</a></td><td>An item is selected.</td></tr>
 </table>
-<p>Additional (rarely-used) notifications can be detected by using <a href="GuiOnNotify.htm">OnNotify</a>. These notifications are <a href="https://learn.microsoft.com/windows/win32/controls/bumper-tree-view-control-reference-notifications">documented at Microsoft Docs</a>. Microsoft Docs does not show the numeric value of each notification code; those can be found in the Windows SDK or by searching the Internet.</p>
+<p><a href="GuiOnNotify.htm">OnNotify</a>を使用することで、追加の（ほとんど使用されない）通知を検出することができます。これらの通知については、<a href="https://learn.microsoft.com/windows/win32/controls/bumper-tree-view-control-reference-notifications">Microsoft Docsで文書化</a>されています。Microsoft Docsには、各通知コードの数値は掲載されていませんので、Windows SDKやインターネットで検索してご確認ください。</p>
 
 <h2 id="Remarks">備考</h2>
 <p id="Enter">To detect when the user has pressed <kbd>Enter</kbd> while a TreeView has focus, use a <a href="GuiControls.htm#DefaultButton">default button</a> (which can be hidden if desired). 事例：</p>
@@ -316,7 +316,7 @@ ButtonOK(*) {
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExAdvanced">
-<p><a class="ex_number" href="#ExAdvanced"></a> The following is a working script that is more elaborate than the one near the top of this page. It creates and displays a TreeView containing all folders in the all-users Start Menu. When the user selects a folder, its contents are shown in a ListView to the right (like Windows Explorer). In addition, a <a href="GuiControls.htm#StatusBar">StatusBar</a> control shows information about the currently selected folder.</p>
+<p><a class="ex_number" href="#ExAdvanced"></a> 以下は、このページのトップ付近にあるスクリプトよりも、より精巧に作られたワーキングスクリプトです。It creates and displays a TreeView containing all folders in the all-users Start Menu. When the user selects a folder, its contents are shown in a ListView to the right (like Windows Explorer). In addition, a <a href="GuiControls.htm#StatusBar">StatusBar</a> control shows information about the currently selected folder.</p>
 <pre><em>; The following folder will be the root folder for the TreeView. Note that loading might take a long
 ; time if an entire drive such as C:\ is specified:</em>
 TreeRoot := A_MyDocuments
