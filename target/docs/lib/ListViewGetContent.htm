@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ListViewGetContent - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ListViewGetContent function returns a list of items/rows from a ListView." />
+<title>ListViewGetContent - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ListViewGetContent関数は、ListViewから項目/列のリストを返します。" />
 <meta name="ahk:equiv-v1" content="lib/ControlGet.htm#List" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,14 +22,14 @@
     <dt>オプション</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>Specifices what to retrieve. If blank or omitted, all the text in the ListView is retrieved. Otherwise, specify zero or more of the following words, each separated from the next with a space or tab:</p>
-        <p><strong>Selected:</strong> Returns only the selected (highlighted) rows rather than all rows. If none, the return value is blank.</p>
-        <p><strong>Focused:</strong> Returns only the focused row. If none, the return value is blank.</p>
-        <p id="ColN"><strong>Col4:</strong> Returns only the fourth column (field) rather than all columns (replace 4 with a number of your choice).</p>
-        <p><strong>Count:</strong> Returns a single number that is the total number of rows in the ListView.</p>
-        <p><strong>Count Selected:</strong> Returns the number of selected (highlighted) rows.</p>
-        <p><strong>Count Focused:</strong> Returns the row number (position) of the focused row (0 if none).</p>
-        <p><strong>Count Col:</strong> Returns the number of columns in the control (or -1 if the count cannot be determined).</p>
+        <p>何を取得するのかを具体的に示します。空白または省略された場合は、ListView 内の全てのテキストが取得されます。それ以外の場合は、次の単語を0個以上、スペースまたはタブで区切って指定します：</p>
+        <p><strong>Selected：</strong>すべての行ではなく、選択された（ハイライトされた）行のみを返します。ない場合は、空白を返します。</p>
+        <p><strong>Focused:</strong>フォーカスされている行のみを返します。ない場合は、空白を返します。</p>
+        <p id="ColN"><strong>Col4:</strong>すべての列ではなく、4番目の列（フィールド）だけを返します（4は任意の数字に置き換えてください）。</p>
+        <p><strong>Count:</strong>リストビューの行の総数を1つだけ返します。</p>
+        <p><strong>Count Selected:</strong>選択されている（ハイライトされている）行の数を返します。</p>
+        <p><strong>Count Focused:</strong> フォーカスされた行の行番号（位置）を返します（ない場合は0）。</p>
+        <p><strong>Count Col：</strong>コントロール内のカラム数を返します（カウントが確定できない場合は-1）。</p>
     </dd>
     <dt>Control</dt>
     <dd>
@@ -60,18 +60,18 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns a list of items/rows. Within each row, each field (column) except the last will end with a tab character (`t). To access the items/rows individually, use a <a href="LoopParse.htm">parsing loop</a> as in <a href="#ExListView">example #1</a>.</p>
+<p>この関数は、項目／行のリストを返します。各行の中で、最後を除く各フィールド（列）はタブ文字（`t）で終わります。項目や行に個別にアクセスするには、<a href="#ExListView">例1</a>.のような<a href="LoopParse.htm">解析ループ</a>を使用します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられます。</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent to the control, or if the process owning the ListView could not be opened, perhaps due to a lack of user permissions or because it is locked.</p>
-<p>A <a href="Error.htm#ValueError">ValueError</a> is thrown if the <a href="#ColN">Col<em>N</em> option</a> specifies a nonexistent column.</p>
+<p>コントロールにメッセージを送信できなかった場合、またはユーザー権限の欠如やロックされているためにリストビューを所有するプロセスを開くことができなかった場合、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
+<p><a href="#ColN"><em>ColN</em>オプションで</a>存在しないカラムを指定した場合、<a href="Error.htm#ValueError">ValueError</a>が投げられます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Some applications store their ListView text privately, which prevents their text from being retrieved. このような場合、通常、例外は発生しませんが、取得したフィールドはすべて空となります。</p>
-<p>The columns in a ListView can be resized via <a href="SendMessage.htm">SendMessage</a> as shown in this example:</p>
+<p>アプリケーションによっては、ListViewのテキストを非公開で保存し、そのテキストを取得できないようにしているものもあります。このような場合、通常、例外は発生しませんが、取得したフィールドはすべて空となります。</p>
+<p>この例のように、<a href="SendMessage.htm">SendMessage</a>を介してListViewのカラムのサイズを変更することができます：</p>
 <pre>SendMessage(0x101E, 0, 80, "SysListView321", WinTitle)  <em>; 0x101E is the message LVM_SETCOLUMNWIDTH.</em></pre>
-<p>In the above, 0 indicates the first column (specify 1 for the second, 2 for the third, etc.) Also, 80 is the new width. Replace 80 with -1 to autosize the column. Replace it with -2 to do the same but also take into account the header text width.</p>
+<p>上記の場合、0は1列目を示します（2列目は1、3列目は2などを指定します）。また、80は新しい幅です。80を-1に置き換えると、カラムのサイズが自動化されます。これを-2に置き換えると、同じようになりますが、ヘッダーテキストの幅も考慮されます。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
@@ -79,9 +79,9 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExListView">
-<p><a class="ex_number" href="#ExListView"></a> Extracts the individual rows and fields out of a ListView.</p>
+<p><a class="ex_number" href="#ExListView"></a> ListViewから個々の行とフィールドを抽出します。</p>
 <pre>List := ListViewGetContent("Selected", "SysListView321", WinTitle)
-Loop Parse, List, "`n"  <em>; Rows are delimited by linefeeds (`n).</em>
+Loop Parse, List, "`n"  <em>;行は改行(`n)で区切られます。</em>
 {
     RowNumber := A_Index
     Loop Parse, A_LoopField, A_Tab  <em>; Fields (columns) in each row are delimited by tabs (A_Tab).</em>
