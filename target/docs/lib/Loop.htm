@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Loop - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Loop statement performs a series of code lines repeatedly: either the specified number of times or until a Break statement is encountered." />
+<title>Loop - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Loop文は、一連のコード行を繰り返し実行します：指定された回数、またはBreak文に遭遇するまで、そのどちらかを行います。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,20 +21,20 @@
   <dt>Count</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>How many times (iterations) to perform the loop. If omitted, the Loop continues indefinitely until a <a href="Break.htm">break</a> or <a href="Return.htm">return</a> is encountered. However, an explicit blank value or number less than 1 causes the loop to be skipped entirely.</p>
-    <p><em>Count</em> is evaluated only once, right before the loop begins. For instance, if <em>Count</em> is an expression with side-effects such as function calls or assignments, the side-effects occur only once.</p>
-    <p>If <em>Count</em> is enclosed in parentheses, a space or tab is not required. 事例：<code>Loop(2)</code></p>
+    <p>ループを何回（反復）実行するか。省略された場合、Loopは<a href="Break.htm">ブレーク</a>または<a href="Return.htm">リターン</a>が発生するまで無期限に継続される。ただし、明示的な空白値や1未満の数値は、ループが完全にスキップされることになります。</p>
+    <p><em>Count</em>は、ループが始まる直前に一度だけ評価されます。例えば、<em>Count</em>が関数呼び出しや代入などの副作用を持つ式の場合、副作用は一度だけ発生します。</p>
+    <p><em>Count</em>が括弧で囲まれている場合、スペースやタブは必要ありません。事例：<code>Loop(2)</code></p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>The loop statement is usually followed by a <a href="Block.htm">block</a>, which is a collection of statements that form the <em>body</em> of the loop. ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。</p>
-<p>A common use of this statement is an infinite loop that uses the <a href="Break.htm">break</a> statement somewhere in the loop's <em>body</em> to determine when to stop the loop.</p>
-<p>The use of <a href="Break.htm">break</a> and <a href="Continue.htm">continue</a> inside a loop are encouraged as alternatives to <a href="Goto.htm">goto</a>, since they generally make a script more understandable and maintainable. One can also create a "While" or "Do...While/Until" loop by making the first or last statement of the loop's <em>body</em> an IF statement that conditionally issues the <a href="Break.htm">break</a> statement, but the use of <a href="While.htm">While</a> or <a href="Until.htm">Loop...Until</a> is usually preferred.</p>
-<p>組込変数<strong>A_Index</strong>には、現在のループの繰り返し回数が格納されます。It contains 1 the first time the loop's <em>body</em> is executed. 2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先されます。A_Index works inside all types of loops, including <a href="LoopFiles.htm">file-loops</a> and <a href="LoopReg.htm">registry-loops</a>; but A_Index contains 0 outside of a loop.</p>
-<p>A_Index can be assigned any integer value by the script. If <em>Count</em> is specified, changing A_Index affects the number of iterations that will be performed. For example, <code>A_Index := 3</code> would make the loop statement act as though it is on the third iteration (A_Index will be 4 on the next iteration), while <code>A_Index--</code> would prevent the current iteration from being counted toward the total.</p>
-<p>The loop may optionally be followed by an <a href="Else.htm">Else</a> statement, which is executed if <em>Count</em> is zero.</p>
+<p>ループ文の後には、通常、ループの<em>本体</em>を形成する文の集合体である<a href="Block.htm">ブロック</a>が続きます。ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。</p>
+<p>この文の一般的な使い方は、無限ループで、ループ<em>本体</em>のどこかにある<a href="Break.htm">break</a>文を使って、ループを止めるタイミングを判断するものです。</p>
+<p>ループの中で<a href="Break.htm">break</a>や <a href="Continue.htm">continue</a>を使うことは、一般にスクリプトをより理解しやすく、保守しやすくするため、<a href="Goto.htm">goto</a>に代わるものとして推奨されています。ループ<em>本体</em>の最初か最後の文を、条件付きで<a href="Break.htm">break</a>文を発行するIF文にすることで、「While」または「Do...While/Until」ループを作ることもできますが、通常は<a href="While.htm">While</a>または<a href="Until.htm">Loop...Until</a>を使うことが好ましいです。</p>
+<p>組込変数<strong>A_Index</strong>には、現在のループの繰り返し回数が格納されます。ループ<em>本体</em>が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先されます。A_Indexは、<a href="LoopFiles.htm">ファイルループ</a>や <a href="LoopReg.htm">レジストリループ</a>を含むすべての種類のループの内部で動作しますが、A_Indexはループの外部で0を含みます。</p>
+<p>A_Indexには、スクリプトによって任意の整数値を割り当てることができる。<em>Count</em>が指定されている場合、A_Indexを変更すると、実行される反復処理の回数に影響します。例えば、<code>A_Index := 3</code>とすると、ループ文は3回目の反復にあるかのように動作し（次の反復ではA_Indexは4になります）、<code>A_Index--</code>は現在の反復が合計にカウントされないようにします。</p>
+<p>ループの後には、<em>Count</em>がゼロの場合に実行される<a href="Else.htm">Else</a>文がオプションで付いていることがある。</p>
 <p><a href="Block.htm#otb">OTB（One True Brace）スタイル</a>はオプションで使用することができます。事例：</p>
 <pre>Loop {
     ...
@@ -42,30 +42,30 @@
 Loop RepeatCount {
     ...
 }</pre>
-<p>Specialized loops: Loops can be used to automatically retrieve files, folders, or registry items (one at a time). See <a href="LoopFiles.htm">file-loop</a> and <a href="LoopReg.htm">registry-loop</a> for details. In addition, <a href="LoopRead.htm">file-reading loops</a> can operate on the entire contents of a file, one line at a time. Finally, <a href="LoopParse.htm">parsing loops</a> can operate on the individual fields contained inside a delimited string.</p>
+<p>Specialized loops:ループを使用して、ファイル、フォルダー、レジストリ項目を（1つずつ）自動的に取得することができます。詳しくは<a href="LoopFiles.htm">file-loop</a>、<a href="LoopReg.htm">registry-loop</a>をご覧ください。また、<a href="LoopRead.htm">ファイル読み込みループ</a>は、ファイルの内容全体を1行ずつ操作することができます。最後に、<a href="LoopParse.htm">解析ループ</a>は、区切られた文字列の中に含まれる個々のフィールドを操作することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Until.htm">Until</a>, <a href="While.htm">While-loop</a>, <a href="For.htm">For-loop</a>, <a href="LoopFiles.htm">Files-and-folders loop</a>, <a href="LoopReg.htm">Registry loop</a>, <a href="LoopRead.htm">File-reading loop</a>, <a href="LoopParse.htm">Parsing loop</a>, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a>, <a href="Block.htm">Blocks</a>, <a href="Else.htm">Else</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Creates a loop with 3 iterations.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 3回繰り返されるループを作成します。</p>
 <pre>Loop 3
 {
-    MsgBox "Iteration number is " A_Index  <em>; A_Index will be 1, 2, then 3</em>
+    MsgBox "反復番号は " A_Index  <em>; A_Index は 1, 2, そして 3の順になります。</em>
     Sleep 100
 }</pre>
 </div>
 
 <div class="ex" id="ExBreakContinue">
-<p><a class="ex_number" href="#ExBreakContinue"></a> Creates an infinite loop, but it will be terminated after the 25th iteration.</p>
+<p><a class="ex_number" href="#ExBreakContinue"></a> 無限ループを作成しますが、25回目の反復で終了します。</p>
 <pre>Loop
 {
     if (A_Index &gt; 25)
-        break  <em>; Terminate the loop</em>
+        break  <em>;ループを終了させます</em>
     if (A_Index &lt; 20)
-        continue <em>; Skip the below and start a new iteration</em>
-    MsgBox "A_Index = " A_Index <em>; This will display only the numbers 20 through 25</em>
+        continue  <em>; 以下をスキップして、新しい反復を開始します。</em>
+    MsgBox "A_Index = " A_Index  <em>; 20から25までの数字だけを表示します。</em>
 }</pre>
 </div>
 
