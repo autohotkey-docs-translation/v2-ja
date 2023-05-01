@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Loop Parse - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Loop Parse statement retrieves substrings (fields) from a string, one at a time." />
+<title>Loop Parse - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Loop Parse文は、文字列から部分文字列（フィールド）を1つずつ取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,21 +21,21 @@
   <dt>String</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The string to analyze.</p>
+    <p>解析する文字列です。</p>
   </dd>
 
   <dt>Delimiters</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If this parameter is blank or omitted, each character of the input string will be treated as a separate substring.</p>
-      <p id="CSV">If this parameter is <code>"CSV"</code>, the string will be parsed in standard comma separated value format. Here is an example of a CSV line produced by MS Excel:</p>
+      <p>このパラメータが空白または省略された場合、入力文字列の各文字は個別の部分文字列として扱われます。</p>
+      <p id="CSV">このパラメータが<code>"CSV"</code>の場合、文字列は標準的なカンマ区切り値形式で解析されます。ここでは、MS Excelで作成したCSVの行の例を示します：</p>
 <pre class="no-highlight">"first field",SecondField,"the word ""special"" is quoted literally",,"last field, has literal comma"</pre>
-      <p>Otherwise, <em>Delimiters</em> contains one or more  characters (case sensitive), each of which is used to determine where the boundaries between substrings occur.</p>
-      <p>Delimiter characters are not considered to be part of the substrings themselves. In addition, if there is nothing between a pair of delimiters within the input string, the corresponding substring will be empty.</p>
-      <p>事例：<code>','</code> (a comma) would divide the string based on every occurrence of a comma. Similarly, <code>A_Tab A_Space</code> would start a new substring every time a space or tab is encountered in the input string.</p>
-      <p>To use a string as a delimiter rather than a character, first use <a href="StrReplace.htm">StrReplace</a> to replace all occurrences of the string with a single character that is never used literally in the text, e.g. one of these special characters: ¢¤¥¦§©ª«®µ¶. Consider this example, which uses the string &lt;br&gt; as a delimiter:</p>
+      <p>それ以外の場合、<em>Delimiters</em>は1つ以上の文字（大文字と小文字を区別する）を含み、それぞれの文字は部分文字列間の境界がどこにあるかを決定するために使用されます。</p>
+      <p>デリミタ文字は、部分文字列自体の一部とはみなされません。また、入力文字列の中で一対の区切り文字の間に何もない場合、対応する部分文字列は空となります。</p>
+      <p>事例：<code>','</code>（カンマ）は、カンマが出現するたびに文字列を分割することになります。同様に、<code>A_Tab A_Spaceは</code>、入力文字列の中でスペースやタブに遭遇するたびに新しい部分文字列を開始します。</p>
+      <p>文字列を文字ではなく区切り文字として使用するには、まず<a href="StrReplace.htm">StrReplace</a>を使用して、文字列のすべての出現箇所を、テキスト内で文字通り使用されることのない単一の文字（例えば、これらの特殊文字のいずれか）に置き換えます：¢¤¥¦§©ª«®µ¶. 文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
       <pre>NewHTML := StrReplace(HTMLString, "&lt;br&gt;", "¢")
-Loop Parse, NewHTML, "¢" <em>; Parse the string based on the cent symbol.</em>
+Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析します。</em>
 {
 ...
 }</pre>
@@ -44,27 +44,27 @@ Loop Parse, NewHTML, "¢" <em>; Parse the string based on the cent symbol.</em>
   <dt>OmitChars</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>An optional list of characters (case sensitive) to exclude from the beginning and end of each substring. For example, if <em>OmitChars</em> is <code>A_Space A_Tab</code>, spaces and tabs will be removed from the beginning and end (but not the middle) of every retrieved substring.</p>
-    <p>If <em>Delimiters</em> is blank, <em>OmitChars</em> indicates which characters should be excluded from consideration (the loop will not see them).</p>
+    <p>それぞれの部分文字列の先頭と末尾から除外する文字（大文字と小文字を区別する）のリスト（オプション）です。例えば、<em>OmitChars</em>が <code>A_Space A_Tab</code>の場合、検索されたすべての部分文字列の先頭と末尾からスペースとタブが削除されます（中央は削除されない）。</p>
+    <p><em>Delimiters</em>が空白の場合、<em>OmitChars</em>は考慮から除外されるべき文字を示します（ループはそれらを見ません）。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>A string parsing loop is useful when you want to operate on each field contained in a string, one at a time. Parsing loops use less memory than <a href="StrSplit.htm">StrSplit</a> (though either way the memory use is temporary) and in most cases they are easier to use.</p>
-<p id="LoopField">The built-in variable <strong>A_LoopField</strong> exists within any parsing loop. It contains the contents of the current substring (field). If an inner parsing loop is enclosed by an outer parsing loop, the innermost loop's field will take precedence.</p>
-<p>Although there is no built-in variable "A_LoopDelimiter", the example at the very bottom of this page demonstrates how to detect which delimiter was encountered for each field.</p>
-<p>There is no restriction on the size of the input string or its fields.</p>
-<p>To arrange the fields in a different order prior to parsing, use the <a href="Sort.htm">Sort</a> function.</p>
-<p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、<a href="Loop.htm">Loop</a>を参照してください。</p>
-<p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。Note that the loop always has at least one iteration unless <em>String</em> is empty or <em>Delimiters</em> is omitted and all characters in <em>String</em> are included in <em>OmitChars</em>.</p>
+<p>文字列解析ループは、文字列に含まれる各フィールドを一度に操作したい場合に便利です。解析ループは<a href="StrSplit.htm">StrSplit</a>よりもメモリ使用量が少なく（どちらにしてもメモリ使用は一時的ですが）、ほとんどの場合、使い勝手が良いです。</p>
+<p id="LoopField">組込変数<strong>A_LoopField</strong>は、任意の構文解析ループ内に存在します。現在の部分文字列（フィールド）の内容を含んでいます。内側の解析ループが外側の解析ループに囲まれている場合、最も内側のループのフィールドが優先されます。</p>
+<p>内蔵変数「A_LoopDelimiter」はありませんが、このページの一番下にある例では、各フィールドでどのデリミタに遭遇したかを検出する方法を示しています。</p>
+<p>入力文字列やそのフィールドのサイズに制限はありません。</p>
+<p>解析前にフィールドを別の順序で並べるには、<a href="Sort.htm">ソート</a>機能を使用します。</p>
+<p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」を参照してください。</p>
+<p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。なお、<em>String</em>が空であるか、<em>Delimiters</em>が省略され、<em>String</em>のすべての文字が<em>OmitChars</em>に含まれない限り、ループは常に少なくとも1回繰り返されます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="StrSplit.htm">StrSplit</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="Loop.htm">Loop</a>, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a>, <a href="Block.htm">Blocks</a>, <a href="Sort.htm">Sort</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileSetTime.htm">FileSetTime</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Parses a comma-separated string.</p>
+<p><a class="ex_number" href="#ExBasic"></a> カンマ区切りの文字列をパースします。</p>
 <pre>Colors := "red,green,blue"
 Loop parse, Colors, ","
 {
@@ -73,8 +73,8 @@ Loop parse, Colors, ","
 </div>
 
 <div class="ex" id="ExFileRead">
-<p><a class="ex_number" href="#ExFileRead"></a> Reads the lines inside a variable, one by one (similar to a <a href="LoopRead.htm">file-reading</a> loop). A file can be loaded into a variable via <a href="FileRead.htm">FileRead</a>.</p>
-<pre>Loop parse, FileContents, "`n", "`r"  <em>; Specifying `n prior to `r allows both Windows and Unix files to be parsed.</em>
+<p><a class="ex_number" href="#ExFileRead"></a> 変数内の行を1行ずつ読み込みます（<a href="LoopRead.htm">ファイル読み込み</a>ループに似ています）。<a href="FileRead.htm">FileRead</a>により、ファイルを変数に読み込むことができます。</p>
+<pre>Loop parse, FileContents, "`n", "`r"  <em>; `r の前に `n を指定すると、Windows と Unix の両方のファイルをパースすることができます。</em>
 {
     Result := MsgBox("Line number " A_Index " is " A_LoopField ".`n`nContinue?",, "y/n")
 }
@@ -82,7 +82,7 @@ until Result = "No"</pre>
 </div>
 
 <div class="ex" id="ExClipboard">
-<p><a class="ex_number" href="#ExClipboard"></a> This is the same as the example above except that it's for the clipboard. It's useful whenever the clipboard contains files, such as those copied from an open Explorer window (the program automatically converts such files to their file names).</p>
+<p><a class="ex_number" href="#ExClipboard"></a> これは、クリップボード用であることを除けば、上の例と同じです。クリップボードにファイルが含まれている場合、例えば開いているエクスプローラーウィンドウからコピーされたファイル（プログラムは自動的にファイル名に変換します）などは、この機能を使うと便利です。</p>
 <pre>Loop parse, A_Clipboard, "`n", "`r"
 {
     Result := MsgBox("File number " A_Index " is " A_LoopField ".`n`nContinue?",, "y/n")
@@ -91,7 +91,7 @@ until Result = "No"</pre>
 </div>
 
 <div class="ex" id="ExCSV">
-<p><a class="ex_number" href="#ExCSV"></a> Parses a comma separated value (CSV) file.</p>
+<p><a class="ex_number" href="#ExCSV"></a> CSV（Comma Separated Value）ファイルを解析します。</p>
 <pre>Loop read, "C:\Database Export.csv"
 {
     LineNumber := A_Index
@@ -105,17 +105,17 @@ until Result = "No"</pre>
 </div>
 
 <div class="ex" id="ExDelimiter">
-<p><a class="ex_number" href="#ExDelimiter"></a> Determines which delimiter was encountered.</p>
-<pre><em>; Initialize string to search.</em>
+<p><a class="ex_number" href="#ExDelimiter"></a> どのデリミタに遭遇したかを判定します。</p>
+<pre><em>; 検索する文字列を初期化します。</em>
 Colors := "red,green|blue;yellow|cyan,magenta"
-<em>; Initialize counter to keep track of our position in the string.</em>
+<em>; 文字列中の位置を記録するためのカウンターを初期化します。</em>
 Position := 0
 
 Loop Parse, Colors, ",|;"
 {
-    <em>; Calculate the position of the delimiter at the end of this field.</em>
+    <em>; このフィールドの末尾にあるデリミタの位置を計算します。</em>
     Position += StrLen(A_LoopField) + 1
-    <em>; Retrieve the delimiter found by the parsing loop.</em>
+    <em>; 解析ループで見つかったデリミターを取得します。</em>
     Delimiter := SubStr(Colors, Position, 1)
 
 MsgBox "Field:" A_LoopField "`nDelimiter:" Delimiter
