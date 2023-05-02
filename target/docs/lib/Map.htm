@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Map Object - Methods &amp; Properties | AutoHotkey v2</title>
-<meta name="description" content="A Map object associates or maps one set of values, called keys, to another set of values." />
+<title>Map Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<meta name="description" content="Mapオブジェクトは、キーと呼ばれる1つの値の集合を、別の値の集合に関連付ける、またはマッピングします。" />
 <meta name="ahk:equiv-v1" content="lib/Object.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +12,11 @@
 <body>
 
 <h1>Map Object</h1>
-<pre class="NoIndent">class Map extends Object</pre>
+<pre class="NoIndent">クラスは、拡張オブジェクトに割り当てられます。</pre>
 
-<p>A <strong>Map</strong> object associates or <em>maps</em> one set of values, called <em>keys</em>, to another set of values. A key and the value it is mapped to are known as a key-value pair. A map can contain any number of key-value pairs, but each key must be unique.</p>
-<p>A key may be any <a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> reference or null-terminated <a href="../Concepts.htm#strings">String</a>. Comparison of string keys is case-sensitive, while objects are compared by reference/address. <a href="../Concepts.htm#numbers">Float</a> keys are automatically converted to String.</p>
-<p>The simplest use of a map is to retrieve or set a key-value pair via the implicit <a href="#__Item">__Item</a> property, by simply writing the key between brackets following the map object. 事例：</p>
+<p><strong>Map</strong>オブジェクトは、<em>キー</em>と呼ばれる1つの値の集合を、別の値の集合に関連付ける、または<em>マッピング</em>します。キーとそのキーに対応する値をキー・バリュー・ペアと呼びます。マップには、任意の数のキーと値のペアを含めることができますが、各キーは一意でなければなりません。</p>
+<p>キーは、<a href="../Concepts.htm#numbers">整数</a>、<a href="../Objects.htm">オブジェクト</a>参照、ヌル文字で終端された<a href="../Concepts.htm#strings">文字列</a>のいずれかを指定することができます。文字列キーの比較は大文字と小文字を区別し、オブジェクトの比較は参照/アドレスで行います。<a href="../Concepts.htm#numbers">Float</a>キーは自動的に String に変換されます。</p>
+<p>マップの最も単純な使用方法は、暗黙の<a href="#__Item">__Item</a>プロパティによってキーと値のペアを取得または設定することであり、マップオブジェクトの後に続く括弧の間にキーを記述するだけです。事例：</p>
 <pre>clrs := Map()
 clrs["Red"] := "ff0000"
 clrs["Green"] := "00ff00"
@@ -24,35 +24,35 @@ clrs["Blue"] := "0000ff"
 for clr in Array("Blue", "Green")
     MsgBox clrs[clr]
 </pre>
-<p>"MapObj" is used below as a placeholder for any Map object, as "Map" is the class itself.</p>
-<p>In addition to the methods and property inherited from <a href="Object.htm">Object</a>, Map objects have the following predefined methods and properties.</p>
+<p>"Map"はクラスそのものなので、以下ではあらゆるMapオブジェクトのプレースホルダとして "MapObj"を使用します。</p>
+<p>Mapオブジェクトは、<a href="Object.htm">Object</a>から継承されたメソッドやプロパティに加え、以下のような定義済みのメソッドやプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
-  <li><a href="#StaticMethods">静的メソッド</a>です。
+  <li><a href="#StaticMethods">静的メソッドです。</a>
     <ul>
-      <li><a href="#Call">Call</a>: Creates a Map and sets items.</li>
+      <li><a href="#Call">Call</a>:Mapを作成し、項目を設定する。</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
     <ul>
-      <li><a href="#Clear">Clear</a>: Removes all key-value pairs from a map.</li>
-      <li><a href="#Clone">Clone</a>: Returns a shallow copy of a map.</li>
-      <li><a href="#Delete">Delete</a>: Removes a key-value pair from a map.</li>
-      <li><a href="#Get">Get</a>: Returns the value associated with a key, or a default value.</li>
-      <li><a href="#Has">Has</a>: Returns true if the specified key has an associated value within a map.</li>
-      <li><a href="#Set">Set</a>: Sets zero or more items.</li>
-      <li><a href="#__Enum">__Enum</a>: Enumerates key-value pairs.</li>
-      <li><a href="#__New">__New</a>: Sets items. Equivalent to Set.</li>
+      <li><a href="#Clear">Clear</a>:マップからすべてのキーとバリューのペアを削除します。</li>
+      <li><a href="#Clone">Clone</a>:マップの浅いコピーを返します。</li>
+      <li><a href="#Delete">Delete</a>:マップからキーとバリューのペアを削除します。</li>
+      <li><a href="#Get">Get</a>:キーに関連する値、またはデフォルト値を返します。</li>
+      <li><a href="#Has">Has</a>:指定されたキーがマップ内に関連する値を持つ場合、true を返す。</li>
+      <li><a href="#Set">Set</a>:0個以上の項目を設定する。</li>
+      <li><a href="#__Enum">__Enum</a>:キーとバリューのペアを列挙します。</li>
+      <li><a href="#__New">__New</a>:項目を設定します。セットに相当します。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
     <ul>
-      <li><a href="#Count">Count</a>: Retrieves the number of key-value pairs present in a map.</li>
-      <li><a href="#Capacity">Capacity</a>: Retrieves or sets the current capacity of a map.</li>
-      <li><a href="#CaseSense">CaseSense</a>: Retrieves or sets a map's case sensitivity setting.</li>
-      <li><a href="#Default">Default</a>: Defines the default value returned when a key is not found.</li>
-      <li><a href="#__Item">__Item</a>: Retrieves or sets the value of a key-value pair.</li>
+      <li><a href="#Count">Count</a>:マップに存在するキーとバリューのペアの数を取得します。</li>
+      <li><a href="#Capacity">Capacity</a>:マップの現在の容量を取得または設定します。</li>
+      <li><a href="#CaseSense">CaseSense</a>:マップの大文字と小文字の区別の設定を取得または設定します。</li>
+      <li><a href="#Default">Default</a>:キーが見つからない場合に返されるデフォルト値を定義します。</li>
+      <li><a href="#__Item">__Item</a>:キーと値のペアの値を取得または設定します。</li>
     </ul>
   </li>
 </ul>
@@ -60,72 +60,72 @@ for clr in Array("Blue", "Green")
 <h2 id="StaticMethods">静的メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Creates a Map and sets items.</p>
+<p>Mapを作成し、項目を設定する。</p>
 <pre class="Syntax">MapObj := <span class="func">Map</span>(Key1, Value1, Key2, Value2, ...)</pre>
-<p>This is equivalent to setting each item with <code>MapObj[Key] := Value</code>, except that <a href="#__Item">__Item</a> is not called and <a href="#Capacity">Capacity</a> is automatically adjusted to avoid expanding multiple times during a single call.</p>
+<p>これは、<code>MapObj[Key] := Value</code>で各項目を設定することと同じですが、<a href="#__Item">__Item</a>が呼ばれないことと、1回の呼び出しで複数回展開しないように<a href="#Capacity">容量</a>が自動的に調整されることが異なります。</p>
 <p>パラメータは<a href="#__New">__New</a>で定義します。</p>
 </div>
 
 <h2 id="Methods">メソッド</h2>
 
 <div class="methodShort" id="Clear"><h3>Clear</h3>
-<p>Removes all key-value pairs from a map.</p>
+<p>マップからすべてのキーとバリューのペアを削除します。</p>
 <pre class="Syntax">MapObj.<span class="func">Clear</span>()</pre>
 </div>
 
 <div class="methodShort" id="Clone"><h3>Clone</h3>
-<p>Returns a shallow copy of a map.</p>
+<p>マップの浅いコピーを返します。</p>
 <pre class="Syntax">Clone := MapObj.<span class="func">Clone</span>()</pre>
-<p>All key-value pairs are copied to the new map. オブジェクトの<em>参照</em>はコピーされますが（通常の代入と同様）、オブジェクトそのものはコピーされません。</p>
+<p>すべてのキーとバリューのペアが新しいマップにコピーされます。オブジェクトの<em>参照</em>はコピーされますが（通常の代入と同様）、オブジェクトそのものはコピーされません。</p>
 <p><a href="Object.htm#Clone">Obj.Clone</a>に準じて、自プロパティ、自メソッド、ベースはコピーされます。</p>
 </div>
 
 <div class="methodShort" id="Delete"><h3>Delete</h3>
-<p>Removes a key-value pair from a map.</p>
+<p>マップからキーとバリューのペアを削除します。</p>
 <pre class="Syntax">MapObj.<span class="func">Delete</span>(Key)</pre>
 <dl>
   <dt>Key</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> or <a href="../Concepts.htm#strings">String</a></p>
-    <p>Any single key. If the map does not contain this key, an <a href="Error.htm#UnsetError">UnsetItemError</a> is thrown.</p>
+    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> または <a href="../Concepts.htm#strings">String</a></p>
+    <p>任意の1つのキーです。マップにこのキーが含まれていない場合、<a href="Error.htm#UnsetError">UnsetItemError</a>が投げられる。</p>
   </dd>
 </dl>
-<p>Returns the removed value.</p>
+<p>削除された値を返します。</p>
 </div>
 
 <div class="methodShort" id="Get"><h3>Get</h3>
-<p>Returns the value associated with a key, or a default value.</p>
+<p>キーに関連する値、またはデフォルト値を返します。</p>
 <pre class="Syntax">Value := MapObj.<span class="func">Get</span>(Key <span class="optional">, Default</span>)</pre>
 <p>この方法では、次のようなことができます。</p>
 <ul>
-  <li>Return the value associated with <em>Key</em>, if found.</li>
-  <li><em>Default</em>パラメータが指定されている場合は、その値を返す。</li>
-  <li>Return the value of <code>MapObj.Default</code>, if defined.</li>
+  <li><em>Key</em>に関連する値が見つかれば、その値を返す。</li>
+  <li><em>Default</em>パラメータが指定されている場合は、その値を返します。</li>
+  <li><code>MapObj.Default</code>が定義されている場合、その値を返します。</li>
   <li><a href="Error.htm#UnsetError">UnsetItemError</a>を投げる。</li>
 </ul>
-<p>When <em>Default</em> is omitted, this is equivalent to <code>MapObj[Key]</code>, except that <a href="#__Item">__Item</a> is not called.</p>
+<p><em>Default</em>が省略された場合、<a href="#__Item">__Item</a>が呼び出されないことを除けば<code>MapObj[Key]</code>と同等である。</p>
 </div>
 
 <div class="methodShort" id="Has"><h3>Has</h3>
-<p>Returns true if the specified key has an associated value within a map, otherwise false.</p>
+<p>指定されたキーがマップ内に関連する値を持つ場合はtrueを、そうでない場合はfalseを返します。</p>
 <pre class="Syntax">MapObj.<span class="func">Has</span>(Key)</pre>
 </div>
 
 <div class="methodShort" id="Set"><h3>Set</h3>
-<p>Sets zero or more items.</p>
+<p>0個以上の項目を設定する。</p>
 <pre class="Syntax">MapObj.<span class="func">Set</span>(<span class="optional">Key, Value, Key2, Value2, ...</span>)</pre>
-<p>This is equivalent to setting each item with <code>MapObj[Key] := Value</code>, except that <a href="#__Item">__Item</a> is not called and <a href="#Capacity">Capacity</a> is automatically adjusted to avoid expanding multiple times during a single call.</p>
+<p>これは、<code>MapObj[Key] := Value</code>で各項目を設定することと同じですが、<a href="#__Item">__Item</a>が呼ばれないことと、1回の呼び出しで複数回展開しないように<a href="#Capacity">容量</a>が自動的に調整されることが異なります。</p>
 <p>Returns the map.</p>
 </div>
 
 <div class="methodShort" id="__Enum"><h3>__Enum</h3>
-<p>Enumerates key-value pairs.</p>
+<p>キーとバリューのペアを列挙します。</p>
 <pre class="Syntax">For Key <span class="optional">, Value</span> in MapObj</pre>
-<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはない。Instead, the map object is passed directly to a <a href="For.htm">for-loop</a>, which calls __Enum once and then calls the enumerator once for each iteration of the loop. Each call to the enumerator returns the next key and/or value. forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
+<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはありません。その代わり、マップオブジェクトは直接<a href="For.htm">forループ</a>に渡され、forループは__Enumを一度呼び出し、ループの各繰り返しで列挙器を一度呼び出します。列挙者を呼び出すたびに、次のキーや値が返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
   <dt>Key</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> or <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> または <a href="../Concepts.htm#strings">String</a></p>
     <p>The key.</p>
   </dd>
   <dt>値</dt>
@@ -136,7 +136,7 @@ for clr in Array("Blue", "Green")
 </div>
 
 <div class="methodShort" id="__New"><h3>__New</h3>
-<p>Sets items. Equivalent to <a href="#Set">Set</a>.</p>
+<p>項目を設定します。<a href="#Set">セット</a>に相当します。</p>
 <pre class="Syntax">MapObj.<span class="func">__New</span>(<span class="optional">Key, Value, Key2, Value2, ...</span>)</pre>
 <p>このメソッドは<a href="#Call">Call</a>をサポートするために存在し、直接呼び出すことは意図していません。<a href="../Objects.htm#Custom_NewDelete">建設と破壊</a>をご覧ください。</p>
 </div>
@@ -144,25 +144,25 @@ for clr in Array("Blue", "Green")
 <h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Count"><h3>Count</h3>
-<p>Retrieves the number of key-value pairs present in a map.</p>
+<p>マップに存在するキーとバリューのペアの数を取得します。</p>
 <pre class="Syntax">Count := MapObj.<span class="func">Count</span></pre>
 </div>
 
 <div class="methodShort" id="Capacity"><h3>Capacity</h3>
-<p>Retrieves or sets the current capacity of a map.</p>
+<p>マップの現在の容量を取得または設定します。</p>
 <pre class="Syntax">MapObj.<span class="func">Capacity</span> := MaxItems</pre>
 <pre class="Syntax">MaxItems := MapObj.<span class="func">Capacity</span></pre>
 <dl>
 	<dt>MaxItems</dt>
 	<dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The maximum number of key-value pairs the map should be able to contain before it must be automatically expanded.  If setting a value less than the current number of key-value pairs, that number is used instead, and any unused space is freed.</p>
+    <p>自動的に拡張される前に、マップが含むことのできるキーと値のペアの最大数を指定します。現在のキーと値のペアの数より少ない値を設定した場合、その数が代わりに使用され、未使用のスペースは解放される。</p>
   </dd>
 </dl>
 </div>
 
 <div class="methodShort" id="CaseSense"><h3>CaseSense</h3>
-<p>Retrieves or sets a map's case sensitivity setting.</p>
+<p>マップの大文字と小文字の区別の設定を取得または設定します。</p>
 <pre class="Syntax">MapObj.<span class="func">CaseSense</span> := Setting</pre>
 <pre class="Syntax">Setting := MapObj.<span class="func">CaseSense</span></pre>
 <dl>
@@ -170,31 +170,31 @@ for clr in Array("Blue", "Green")
 	<dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>以下のいずれかの値：</p>
-    <p><code>"On"</code>: Key lookups are case sensitive. This is the default setting.</p>
+    <p><code>"On"</code>:キーのルックアップは大文字と小文字を区別します。これは初期設定です。</p>
     <p><code>"Off"</code>:A～Zは小文字と同一視されます。</p>
-    <p><code>"Locale"</code>:Key lookups are case insensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
-    <p>When assigning a value, the strings <code>"1"</code> and <code>"0"</code> can also be used.</p>
+    <p><code>"Locale"</code>:キー検索は、現在のユーザーのロケールの規則に従って、大文字と小文字を区別しません。例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
+    <p>値を割り当てる場合、文字列<code>"1"</code>、<code>"0"</code>も使用可能です。</p>
   </dd>
 </dl>
-<p>Attempting to assign to this property causes an exception to be thrown if the Map is not empty.</p>
+<p>このプロパティに代入しようとすると、Mapが空でない場合は例外が発生する。</p>
 </div>
 
 <div class="methodShort" id="Default"><h3>デフォルト</h3>
-<p>Defines the default value returned when a key is not found.</p>
+<p>キーが見つからない場合に返されるデフォルト値を定義します。</p>
 <pre class="Syntax">MapObj.<span class="func">Default</span> := Value</pre>
-<p>このプロパティは、実はデフォルトでは存在せず、スクリプトで定義することができます。When the script queries a key which is not found, the map checks for this property before throwing an <a href="Error.htm#UnsetError">UnsetItemError</a>. <a href="Object.htm#DefineProp">動的プロパティ</a>や <a href="../Objects.htm#Meta_Functions">メタファンクション</a>など、通常の方法で実装できますが、どのキーが照会されたかを判断するには、代わりに<a href="#__Item">__Item</a>や<a href="#Get">Get</a>をオーバーライドする必要があります。</p>
+<p>このプロパティは、実はデフォルトでは存在せず、スクリプトで定義することができます。スクリプトが見つからないキーを照会するとき、マップは<a href="Error.htm#UnsetError">UnsetItemError</a>を投げる前にこのプロパティをチェックします。<a href="Object.htm#DefineProp">動的プロパティ</a>や <a href="../Objects.htm#Meta_Functions">メタファンクション</a>など、通常の方法で実装できますが、どのキーが照会されたかを判断するには、代わりに<a href="#__Item">__Item</a>や<a href="#Get">Get</a>をオーバーライドする必要があります。</p>
 </div>
 
 <div class="methodShort" id="__Item"><h3>__Item</h3>
-<p>Retrieves or sets the value of a key-value pair.</p>
+<p>キーと値のペアの値を取得または設定します。</p>
 <pre class="Syntax">Value := MapObj[Key]</pre>
 <pre class="Syntax">MapObj[Key] := Value</pre>
 <dl>
   <dt>Key</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> or <a href="../Concepts.htm#strings">String</a></p>
-    <p>When retrieving a value, <em>Key</em> must be a unique value previously associated with another value. An <a href="Error.htm#UnsetError">UnsetItemError</a> is thrown if <em>Key</em> has no associated value within the map, unless a <a href="#Default">Default</a> property is defined, in which case its value is returned.</p>
-    <p>When assigning a value, <em>Key</em> can be any value to associate with <em>Value</em>; in other words, the <em>key</em> used to later access <em>Value</em>. <a href="../Concepts.htm#numbers">Float</a> keys are automatically converted to String.</p>
+    <p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Objects.htm">object</a> または <a href="../Concepts.htm#strings">String</a></p>
+    <p>値を取得する場合、<em>Key</em>は他の値と以前に関連づけられたユニークな値でなければならない。ただし、<a href="#Default">Default</a>プロパティが定義されている場合は、その値が返されます。</p>
+    <p>値を割り当てる際、<em>Key</em>には <em>Value</em>と関連付ける任意の値、言い換えれば、<em>Value</em>に後からアクセスするための<em>キー</em>を指定することができる。<a href="../Concepts.htm#numbers">Float</a>キーは自動的に String に変換されます。</p>
   </dd>
 </dl>
 <p>プロパティ名 __Item は、上記のように通常は省略されますが、プロパティをオーバーライドする際に使用されます。</p>
