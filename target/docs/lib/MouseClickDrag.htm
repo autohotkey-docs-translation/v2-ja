@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>MouseClickDrag - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The MouseClickDrag function clicks and holds the specified mouse button, moves the mouse to the destination coordinates, then releases the button." />
+<title>MouseClickDrag - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="MouseClickDrag 関数は、指定されたマウスボタンをクリックしたまま、移動先の座標にマウスを移動し、ボタンを離すものです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,59 +21,59 @@
   <dt>WhichButton</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>クリックするボタンです。Left, Right, Middle (or just the first letter of each of these). Specify X1 for the fourth button and X2 for the fifth. 事例：<code>MouseClickDrag "X1", ...</code>.</p>
+    <p>クリックするボタンです。左、右、真ん中（またはそれぞれの頭文字だけ）。第4ボタンにX1、第5ボタンにX2を指定します。事例：<code>MouseClickDrag "X1", ...</code>.</p>
     <p>左はプライマリーボタン、右はセカンダリーボタンに対応します。ユーザーがシステム設定でボタンを入れ替えると、ボタンの物理的な位置は入れ替わりますが、効果は変わりません。</p>
   </dd>
 
   <dt>X1, Y1</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The x/y coordinates of the drag's starting position (the mouse will be moved to these coordinates right before the drag is started). 座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。If omitted, the mouse's current position is used.</p>
+    <p>ドラッグ開始位置のx/y座標（マウスはドラッグ開始直前にこの座標に移動します）。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。省略された場合、マウスの現在位置が使用されます。</p>
   </dd>
 
   <dt>X2, Y2</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The x/y coordinates to drag the mouse to (that is, while the button is held down). 座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
+    <p>マウスをドラッグする先のx/y座標（つまり、ボタンを押したままの状態）。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
   </dd>
 
   <dt>Speed</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The speed to move the mouse in the range 0 (fastest) to 100 (slowest).</p>
-    <p class="note"><strong>注意</strong>：A speed of 0 will move the mouse instantly.</p>
-    <p>If omitted, the default speed (as set by <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a> or 2 otherwise) will be used.</p>
-    <p><em>Speed</em> is ignored for <a href="SendMode.htm">SendInput/Play modes</a>; they move the mouse instantaneously (though <a href="SetMouseDelay.htm">SetMouseDelay</a> has a mode that applies to SendPlay). To visually move the mouse more slowly -- such as a script that performs a demonstration for an audience -- use <code><a href="Send.htm#Click">SendEvent {Click 100 200}</a></code> or <code><a href="SendMode.htm">SendMode</a> Event</code> (optionally in conjuction with <a href="BlockInput.htm">BlockInput</a>).</p>
+    <p>マウスを動かす速度を0（最速）～100（最遅）の範囲で指定します。</p>
+    <p class="note"><strong>注意</strong>：スピードを0にすると、マウスが瞬時に動きます。</p>
+    <p>省略された場合、デフォルトの速度（<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>で設定されたもの、またはそれ以外の2）が使用されることになります。</p>
+    <p><a href="SendMode.htm">SendInput/Playモード</a>では<em>Speed</em>は無視され、マウスは瞬時に移動します（ただし、<a href="SetMouseDelay.htm">SetMouseDelay</a>にはSendPlayに適用されるモードがあります）。観客に向けてデモンストレーションを行うスクリプトのように、視覚的にゆっくりとマウスを動かしたい場合は、次のようにします。 <code><a href="Send.htm#Click">SendEvent {Click 100 200}</a></code>または<code><a href="SendMode.htm">SendMode</a>Event</code>（オプションで<a href="BlockInput.htm">BlockInputと</a>併用する）。</p>
   </dd>
 
   <dt>Relative</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If omitted, the X and Y coordinates will be treated as absolute values. この動作を変更するには、次の文字を指定します：</p>
-    <p><strong>R:</strong> The X1 and Y1 coordinates will be treated as offsets from the current mouse position. In other words, the cursor will be moved from its current position by X1 pixels to the right (left if negative) and Y1 pixels down (up if negative). Similarly, the X2 and Y2 coordinates will be treated as offsets from the X1 and Y1 coordinates. For example, the following would first move the cursor down and to the right by 5 pixels from its starting position, and then drag it from that position down and to the right by 10 pixels: <code>MouseClickDrag "Left", 5, 5, 10, 10, , "R"</code>.</p>
+    <p>省略した場合、X、Y座標は絶対値として扱われます。この動作を変更するには、次の文字を指定します：</p>
+    <p><strong>R：</strong>X1、Y1座標は、現在のマウス位置からのオフセットとして扱われます。つまり、カーソルは現在位置から右にX1ピクセル（マイナスの場合は左）、下にY1ピクセル（マイナスの場合は上）だけ移動することになります。同様に、X2、Y2座標は、X1、Y1座標からのオフセットとして扱われます。例えば、次のようにすると、まずカーソルを開始位置から下と右に5ピクセル移動させ、その位置から下と右に10ピクセルずつドラッグします：<code>MouseClickDrag "Left", 5, 5, 10, 10, , "R"</code>.</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>This function uses the sending method set by <a href="SendMode.htm">SendMode</a>.</p>
-<p>Dragging can also be done via the various Send functions, which is more flexible because the mode can be specified via the function name. 事例：</p>
+<p><a href="SendMode.htm">SendModeで</a>設定された送信方式を使用します。</p>
+<p>ドラッグは各種送信機能でも行えますが、機能名でモードを指定できるため、より柔軟な対応が可能です。事例：</p>
 <pre>SendEvent "{Click 6 52 Down}{click 45 52 Up}"</pre>
-<p>Another advantage of the method above is that unlike MouseClickDrag, it automatically compensates when the user has swapped the left and right mouse buttons via the system's control panel.</p>
-<p><a href="SendMode.htm">SendPlayモード</a>は、他のモードに比べ、より幅広いゲームにおいてマウスイベントを正常に発生させることができます。However, dragging via SendPlay might not work in RichEdit controls (and possibly others) such as those of WordPad and Metapad.</p>
-<p>Some applications and games may have trouble tracking the mouse if it moves too quickly. The <em>speed</em> parameter or <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a> can be used to reduce the speed (in the default <a href="SendMode.htm">SendEvent mode</a> only).</p>
-<p><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーによる物理的なマウス操作が、マウス関数によって生成されるシミュレーションマウスイベントを妨害することを防ぐことができます。However, this is generally not needed for the <a href="SendMode.htm">SendInput/Play</a> modes because they automatically postpone the user's physical mouse activity until afterward.</p>
-<p>There is an automatic delay after every click-down and click-up of the mouse (except for <a href="SendMode.htm">SendInput mode</a>). This delay also occurs after the movement of the mouse during the drag operation. ディレイの長さを変更する場合は、<a href="SetMouseDelay.htm">SetMouseDelay</a>を使用します。</p>
+<p>上記の方法のもう一つの利点は、MouseClickDragとは異なり、ユーザーがシステムのコントロールパネルでマウスの左右のボタンを入れ替えた場合に自動的に補正されることです。</p>
+<p><a href="SendMode.htm">SendPlayモード</a>は、他のモードに比べ、より幅広いゲームにおいてマウスイベントを正常に発生させることができます。ただし、WordPadやMetapadなどのRichEditコントロールでは、SendPlayによるドラッグが効かない場合があります（他のコントロールも可能性があります）。</p>
+<p>アプリケーションやゲームによっては、マウスの動きが速いと追従できないことがあります。<em>speed</em>パラメータまたは<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>を使用すると、速度を下げることができます（デフォルトの<a href="SendMode.htm">SendEventモードのみ</a>）。</p>
+<p><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーによる物理的なマウス操作が、マウス関数によって生成されるシミュレーションマウスイベントを妨害することを防ぐことができます。ただし、<a href="SendMode.htm">SendInput/Play</a>モードでは、ユーザーの物理的なマウス操作を自動的に後回しにするため、一般にこの操作は必要ない。</p>
+<p>マウスのクリックダウンとクリックアップのたびに、自動的に遅延が発生します（<a href="SendMode.htm">SendInputモード</a>は除く）。この遅延は、ドラッグ操作の際のマウスの移動後にも発生します。ディレイの長さを変更する場合は、<a href="SetMouseDelay.htm">SetMouseDelay</a>を使用します。</p>
 <h2 id="Related">関連</h2>
 <p><a href="CoordMode.htm">CoordMode</a>, <a href="SendMode.htm">SendMode</a>, <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="Click.htm">Click</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseGetPos.htm">MouseGetPos</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="BlockInput.htm">BlockInput</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Clicks and holds the left mouse button, moves the mouse cursor to the destination coordinates, then releases the button.</p>
+<p><a class="ex_number" href="#ExBasic"></a> マウスの左ボタンをクリックしたまま、マウスカーソルを移動先の座標に移動させ、ボタンを離します。</p>
 <pre>MouseClickDrag "left", 0, 200, 600, 400</pre>
 </div>
 
 <div class="ex" id="ExPaint">
-<p><a class="ex_number" href="#ExPaint"></a> Opens MS Paint and draws a little house.</p>
+<p><a class="ex_number" href="#ExPaint"></a> MS Paintを開き、小さな家を描きます。</p>
 <pre>Run "mspaint.exe"
 if !WinWaitActive("ahk_class MSPaintApp",, 2)
     return
