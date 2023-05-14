@@ -21,7 +21,7 @@
   <dt>[DllFile\]Function</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>DLLまたはEXEのファイル名の後にバックスラッシュを付け、関数名を指定します。事例：<code>"MyDLL\MyFunction"</code>（ファイル拡張子".dll "は省略時のデフォルトです）。絶対パスが指定されない場合、<em>DllFile</em>はシステムのPATHまたは<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。なお、DllCallはバックスラッシュを含むパスを想定しています(\)。フォワードスラッシュ（/）はサポートされていません。</p>
+      <p>DLLまたはEXEのファイル名の後にバックスラッシュを付け、関数名を指定します。例えば：<code>"MyDLL\MyFunction"</code>（ファイル拡張子".dll "は省略時のデフォルトです）。絶対パスが指定されない場合、<em>DllFile</em>はシステムのPATHまたは<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。なお、DllCallはバックスラッシュを含むパスを想定しています(\)。フォワードスラッシュ（/）はサポートされていません。</p>
       <p id="std">User32.dll、Kernel32.dll、ComCtl32.dll、Gdi32.dllに存在する関数を呼び出す場合、<em>DllFile</em>を省略することができます。例えば、<code>"User32IsWindowVisible"</code>は<code>"IsWindowVisible"</code>と同じ結果を得ることができる。</p>
       <p>指定された名前の関数が見つからない場合は、自動的に "W"（ユニコード）の接尾辞が付加されます。例えば、<code>"MessageBox"</code>は<code>"MessageBoxW"</code>と同じです。</p>
       <p>DLLを<em>繰り返し</em>呼び出す場合、<a href="#load">あらかじめロードして</a>おくことでパフォーマンスを飛躍的に向上させることができます。</p>
@@ -39,7 +39,7 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p id="cdecl">ほとんどの関数は「C」呼び出し規約ではなく、標準呼び出し規約を使用しているため、<em>Cdecl</em>という言葉は通常省略されます（wsprintfのように様々な数の引数を受け付ける関数は例外です）。なお、オブジェクト指向のC++関数の多くは<i>thiscall</i>の規約を使用していますが、これはサポートされていません。</p>
-      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきです。単語と単語の間は、スペースまたはタブで区切る。事例：<code>"Cdecl Str"</code>.</p>
+      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきです。単語と単語の間は、スペースまたはタブで区切る。例えば：<code>"Cdecl Str"</code>.</p>
       <p>64ビットコードには個別の "C" 呼び出し規約が存在しないため、<i>Cdecl</i>を指定することができますが、AutoHotkeyの64ビットビルドには何の効果もありません。</p>
       <p><em>ReturnType</em>:関数が32ビット符号付き整数（Int）、BOOL、または何も返さない場合は、<em>ReturnType</em>を省略することができる。それ以外の場合は、以下の<a href="#types">型式表</a>からいずれかの引数型を指定します。<a href="#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
   </dd>
@@ -160,12 +160,12 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 <p>組込変数<a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が格納されます。</p>
 
 <h2 id="load">パフォーマンス</h2>
-<p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。事例：</p>
+<p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。例えば：</p>
 <pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; ループ内でDllCallしてライブラリを読み込む必要を回避。</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
 DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約のため、使用後はDLLをアンロードすることがあります。</em></pre>
-<p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。事例：</p>
+<p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。例えば：</p>
 <pre><em>; 次の例では、DLLがまだロードされていない場合、GetModuleHandleの代わりにLoadLibraryを使用してください。</em>
 <strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
 Loop 500

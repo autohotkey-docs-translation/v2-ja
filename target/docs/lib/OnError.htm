@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>OnError - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The OnError function causes the specified function to be called automatically when an unhandled error occurs." />
+<title>OnError - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="OnError 関数は、処理されないエラーが発生したときに、指定された関数が自動的に呼び出されるようにする。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,61 +21,61 @@
   <dt>機能</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>The function object to call when an unhandled error occurs. The function's parameters and return value are described <a href="#Function">below</a>.</p>
+    <p>処理されないエラーが発生したときに呼び出す関数オブジェクトです。この関数のパラメータと戻り値について、<a href="#Function">以下</a>に説明します。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (call the function after any previously registered functions). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p>省略した場合、デフォルトは1（以前に登録された関数の後に呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
-      <li>1 = Call the function after any previously registered functions.</li>
-      <li>-1 = Call the function before any previously registered functions.</li>
-      <li>0 = Do not call the function.</li>
+      <li>1 = 以前に登録した機能の後に機能を呼び出します。</li>
+      <li>-1 = 過去に登録された機能よりも先に機能を呼び出します。</li>
+      <li>0 = 関数を呼び出しません。</li>
     </ul>
   </dd>
 
 </dl>
 
 <h2 id="Function">機能</h2>
-<p>The function should accept two parameters:</p>
+<p>この関数は2つのパラメータを受け取る必要があります：</p>
 <pre class="Syntax"><i>FunctionName</i>(Thrown, Mode)</pre>
 <dl>
   <dt>Thrown</dt>
   <dd>
     <p>型：<a href="Any.htm">任意</a></p>
-    <p>The thrown value, usually an <a href="Error.htm">Error object</a>.</p>
+    <p>投げられた値（通常は<a href="Error.htm">Errorオブジェクト</a>）。</p>
   </dd>
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>One of the following strings:</p>
+    <p>以下の文字列のいずれか1つ：</p>
     <ul>
-      <li><code>"Return"</code>: <em>Thrown</em> is a continuable runtime error. The thread continues if the callback returns -1; otherwise the thread exits.</li>
-      <li><code>"Exit"</code>: <em>Thrown</em> is a non-continuable runtime error or a value <a href="Throw.htm">thrown</a> by the script. The thread will exit.</li>
-      <li><code>"ExitApp"</code>: <em>Thrown</em> is a critical runtime error, such as corruption detected by DllCall. The program will exit.</li>
+      <li><code>"Return"</code>:<em>Thrown</em>は継続可能なランタイムエラーです。コールバックが-1を返した場合はスレッドを継続し、それ以外の場合はスレッドを終了します。</li>
+      <li><code>"Exit"</code>:<em>Thrown</em>は、継続不可能なランタイムエラーまたはスクリプトによって<a href="Throw.htm">スロー</a>される値です。スレッドが終了します。</li>
+      <li><code>"ExitApp"</code>:DllCallで検出された破損などの重大なランタイムエラーが発生した場合、<em>スロー</em>されます。プログラムが終了します。</li>
     </ul>
   </dd>
 </dl>
 
 <h3 id="Return_Value">戻り値</h3>
-<p>The callback function can return one of the following values (other values are reserved for future use and should be avoided):</p>
+<p>コールバック関数は、以下のいずれかの値を返すことができます（その他の値は将来の使用のために予約されており、避ける必要があります）：</p>
 <ul>
-  <li><code>0</code>, <code>""</code> or no <code>return</code>: Allow error handling to proceed as normal.</li>
-  <li><code>1</code>: Suppress the default error dialog and any remaining error callbacks.</li>
-  <li><code>-1</code>: As above, but if <em>Mode</em> is <code>"Return"</code>, execution of the current thread is permitted to continue.</li>
+  <li><code>0</code>, <code>""</code> or no <code>return</code>:エラー処理を通常通り行うことができるようにします。</li>
+  <li><code>1</code>:デフォルトのエラーダイアログと残りのエラーコールバックを抑制します。</li>
+  <li><code>-1</code>:上記と同様ですが、<em>Mode</em>が <code>"Return"</code>の場合、現在のスレッドの実行を継続することが許可されます。</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
-<p><em>Function</em> is called only for errors or exceptions which would normally cause an error message to be displayed. It cannot be called for a load-time error, since OnError cannot be called until after the script has loaded.</p>
-<p><em>Function</em> is called on the current <a href="../misc/Threads.htm">thread</a>, before it exits (that is, before the call stack unwinds).</p>
+<p>通常であればエラーメッセージが表示されるようなエラーや例外が発生した場合にのみ、<em>関数</em>が呼び出されます。OnErrorはスクリプトがロードされた後でないと呼び出せないため、ロードタイムエラーでは呼び出せません。</p>
+<p><em>関数</em>は、現在の<a href="../misc/Threads.htm">スレッド</a>が終了する前に（つまり、コールスタックが巻き戻される前に）、呼び出されます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Try.htm">Try</a>, <a href="Catch.htm">Catch</a>, <a href="Throw.htm">Throw</a>, <a href="OnExit.htm">OnExit</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Logs errors caused by the script into a text file instead of displaying them to the user.</p>
+<p><a class="ex_number" href="#ExBasic"></a> スクリプトによって発生したエラーをユーザーに表示するのではなく、テキストファイルにログを記録します。</p>
 <pre>
 OnError LogError
 i := Integer("cause_error")
@@ -89,7 +89,7 @@ LogError(exception, mode) {
 </div>
 
 <div class="ex" id="ExAccumulator">
-<p><a class="ex_number" href="#ExAccumulator"></a> Use OnError to implement alternative error handling methods. Caveat: OnError is ineffective while <a href="Try.htm">Try</a> is active.</p>
+<p><a class="ex_number" href="#ExAccumulator"></a> OnErrorを使用して、代替のエラー処理方法を実装します。Caveat:<a href="Try.htm">Try</a>が有効な間はOnErrorは無効です。</p>
 <pre>
 AccumulateErrors()
 {
@@ -110,7 +110,7 @@ class ErrorAccumulator
     __delete() =&gt; this.Stop()           <em>; For tying to function scope.</em>
 }
 
-<em>; This is the OnError callback function. 'errors' is given a value via Bind().</em>
+<em>; これはOnErrorコールバック関数である。'errors' には Bind() で値を与えます。</em>
 AccumulateError(errors, e, mode)
 {
     if mode != "Return" <em>; Not continuable.</em>

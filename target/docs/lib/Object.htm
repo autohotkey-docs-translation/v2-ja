@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Object - Methods &amp; Properties | AutoHotkey v2</title>
-<meta name="description" content="Object is the basic class from which other AutoHotkey object classes derive." />
+<title>Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<meta name="description" content="Objectは、他のAutoHotkeyのオブジェクトクラスが派生する基本クラスです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -13,39 +13,39 @@
 <h1>Object</h1>
 <pre class="NoIndent">class Object extends Any</pre>
 
-<p><strong>Object</strong> is the basic class from which other AutoHotkey object classes derive. Each instance of Object consists of a set of "own properties" and a base object, from which more properties are inherited. Objects also have methods, but these are just properties which can be called.</p>
-<p>There are value properties and dynamic properties. Value properties simply contain a value. Dynamic properties do not contain a value, but instead call an <em>accessor function</em> depending on how they are accessed (get, set or call).</p>
-<p>"Obj" is used below as a placeholder for any instance of the Object class.</p>
-<p>All instances of Object are based on <code>Object.Prototype</code>, which is based on <code>Any.Prototype</code>. In addition to the methods and property inherited from <a href="Any.htm">Any</a>, Objects have the following predefined methods and properties.</p>
+<p><strong>Object</strong>は、他のAutoHotkeyのオブジェクトクラスが派生する基本クラスです。Objectの各インスタンスは、「自身のプロパティ」のセットと、より多くのプロパティが継承されるベースオブジェクトから構成されています。オブジェクトにもメソッドがありますが、これは呼び出すことができるプロパティにすぎません。</p>
+<p>バリュープロパティとダイナミックプロパティがあります。バリュープロパティは、単に値を含むだけである。ダイナミックプロパティは値を持たず、アクセス方法（get、set、call）に応じて<em>アクセッサ関数</em>を呼び出します。</p>
+<p>以下、"Obj" はObjectクラスのインスタンスを表すプレースホルダーとして使用します。</p>
+<p>Objectのインスタンスはすべて<code>Object.Prototype</code>に基づいており、これは<code>Any.Prototype</code>に基づいている。<a href="Any.htm">Any</a>から継承されるメソッドやプロパティに加え、Objectsは以下のような定義済みのメソッドやプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
   <li><a href="#StaticMethods">静的メソッドです。</a>
     <ul>
-      <li><a href="#Call">Call</a>: Creates a new Object.</li>
+      <li><a href="#Call">Call</a>:新しいObjectを作成します。</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
     <ul>
-      <li><a href="#Clone">Clone</a>: Returns a shallow copy of an object.</li>
-      <li><a href="#DefineProp">DefineProp</a>: Defines a new own property.</li>
-      <li><a href="#DeleteProp">DeleteProp</a>: Removes an own property from an object.</li>
-      <li><a href="#GetOwnPropDesc">GetOwnPropDesc</a>: Returns a descriptor for a given own property, compatible with DefineProp.</li>
-      <li><a href="#HasOwnProp">HasOwnProp</a>: Returns true if an object owns a property by the specified name.</li>
-      <li><a href="#OwnProps">OwnProps</a>: Enumerates an object's own properties.</li>
+      <li><a href="#Clone">Clone</a>:オブジェクトのシャローコピーを返す。</li>
+      <li><a href="#DefineProp">DefineProp</a>:新しい自身のプロパティを定義する。</li>
+      <li><a href="#DeleteProp">DeleteProp</a>:オブジェクトから自身のプロパティを削除する。</li>
+      <li><a href="#GetOwnPropDesc">GetOwnPropDesc</a>:DefinePropと互換性のある、与えられた自身のプロパティの記述子を返します。</li>
+      <li><a href="#HasOwnProp">HasOwnProp</a>:オブジェクトが指定された名前のプロパティを所有している場合、true を返します。</li>
+      <li><a href="#OwnProps">OwnProps</a>:オブジェクト自身のプロパティを列挙する。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
     <ul>
-      <li><a href="#Base">Base</a>: Retrieves or sets an object's base object.</li>
+      <li><a href="#Base">Base</a>:オブジェクトのベースオブジェクトを取得または設定する。</li>
     </ul>
   </li>
   <li><a href="#Functions">Functions</a>:
     <ul>
-      <li><a href="#SetBase">ObjSetBase</a>: Set an object's base object.</li>
-      <li><a href="#GetCapacity">ObjGetCapacity</a>, <a href="#SetCapacity">ObjSetCapacity</a>: Retrieve or set an Object's capacity to contain properties.</li>
-      <li><a href="#OwnPropCount">ObjOwnPropCount</a>: Retrieve the number of own properties contained by an object.</li>
-      <li>ObjHasOwnProp, ObjOwnProps: Equivalent to the corresponding predefined method, but cannot be overridden.</li>
+      <li><a href="#SetBase">ObjSetBase</a>:オブジェクトのベースオブジェクトを設定する。</li>
+      <li><a href="#GetCapacity">ObjGetCapacity</a>, <a href="#SetCapacity">ObjSetCapacity</a>:プロパティを含む Object の容量を取得または設定する。</li>
+      <li><a href="#OwnPropCount">ObjOwnPropCount</a>:オブジェクトに含まれる自身のプロパティの数を取得する。</li>
+      <li>ObjHasOwnProp, ObjOwnProps:対応する定義済みメソッドと同等ですが、オーバーライドすることはできません。</li>
     </ul>
   </li>
 </ul>
@@ -53,60 +53,60 @@
 <h2 id="StaticMethods">静的メソッド</h2>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Creates a new Object.</p>
+<p>新しいObjectを作成します。</p>
 <pre class="Syntax">Obj := <span class="func">Object</span>()</pre>
 </div>
 
 <h2 id="Methods">メソッド</h2>
 
 <div class="methodShort" id="Clone"><h3>Clone</h3>
-<p>Returns a shallow copy of an object.</p>
+<p>オブジェクトのシャローコピーを返す。</p>
 <pre class="Syntax">Clone := Obj.<span class="func">Clone</span>()</pre>
-<p>Each property or method owned by the object is copied into the clone. Object <em>references</em> are copied (like with a normal assignment), not the objects themselves; in other words, if a property contains a reference to an object, the clone will contain a reference to the same object.</p>
-<p>Dynamic properties are copied, not invoked.</p>
-<p>The clone has the same base object as the original object.</p>
+<p>オブジェクトが所有する各プロパティやメソッドは、クローンにコピーされます。オブジェクトの<em>参照</em>がコピーされるのであって、オブジェクトそのものがコピーされるわけではありません。言い換えれば、プロパティにオブジェクトへの参照が含まれている場合、クローンには同じオブジェクトへの参照が含まれます。</p>
+<p>ダイナミックプロパティはコピーされ、呼び出されることはありません。</p>
+<p>クローンは、元のオブジェクトと同じベースオブジェクトを持ちます。</p>
 </div>
 
 <div class="methodShort" id="DefineProp"><h3>DefineProp</h3>
-<p>Defines a new own property.</p>
+<p>新しい自身のプロパティを定義する。</p>
 <pre class="Syntax">Obj.<span class="func">DefineProp</span>(Name, Desc)</pre>
 <dl>
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the property.</p>
+    <p>プロパティの名前です。</p>
   </dd>
   <dt>Desc</dt>
   <dd>
     <p>型：Object</p>
-    <p>An object with one of the following own properties, or both <em>Get</em> and <em>Set</em>:</p>
-    <p><code>Get</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property's value is retrieved.</p>
-    <p><code>Set</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property is assigned a value. Its second parameter is the value being assigned.</p>
-    <p><code>Call</code>: The <a href="../misc/Functor.htm">function object</a> to call when the property is called. </p>
-    <p><code>Value</code>: Any value to assign to the property.</p>
+    <p>以下のいずれかの自プロパティを持つオブジェクト、または<em>Get</em>と<em>Set</em>の両方を持つオブジェクト：</p>
+    <p><code>Get</code>:プロパティの値が取得されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。</p>
+    <p><code>Set</code>:プロパティに値が割り当てられたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。その第2パラメータは、割り当てられる値である。</p>
+    <p><code>Call</code>:プロパティが呼び出されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。 </p>
+    <p><code>Value</code>:プロパティに割り当てる任意の値。</p>
   </dd>
 </dl>
-<p>Returns the target object (<em>Obj</em>).</p>
-<p>This method can be used to convert a value property to a dynamic property or vice versa, but it is not possible to specify both a value and accessor functions.</p>
-<p>If any one of the accessor functions is omitted, behavior is inherited from a base object.</p>
+<p>対象オブジェクト<em>（Obj</em>）を返します。</p>
+<p>この方法は、バリュープロパティをダイナミックプロパティに、またはその逆に変換するために使用することができますが、バリューとアクセッサ関数の両方を指定することはできません。</p>
+<p>アクセサー関数を省略した場合、動作はベースオブジェクトから継承されます。</p>
 <ul>
-  <li>An inherited value property is equivalent to a set of accessor functions which return or call the value, or store a new value in <code>this</code>. Note that a new value would overwrite any dynamic property in <code>this</code> itself, and override any inherited accessor functions.</li>
-  <li>If no <em>Set</em> or value is defined or inherited, attempting to set the property will throw an exception.</li>
-  <li>If no <em>Call</em> is defined or inherited, <em>Get</em> may be called to retrieve a function object, which is then called.</li>
-  <li>If no <em>Get</em> is defined or inherited but there is a <em>Call</em> accessor function, the function itself becomes the property's value (read-only).</li>
+  <li>継承された値プロパティは、値を返すか呼び出すか、あるいは<code>これ</code>に新しい値を格納するアクセッサ関数のセットと同等です。新しい値は、<code>これ</code>自体の動的プロパティを上書きし、継承されたアクセッサ関数を上書きすることに注意してください。</li>
+  <li><em>Set</em>や値が定義されていない、または継承されていない場合、プロパティを設定しようとすると例外が発生します。</li>
+  <li><em>Call</em>が定義または継承されていない場合、<em>Get</em>を呼び出して関数オブジェクトを取得し、その関数オブジェクトを呼び出すことができます。</li>
+  <li><em>Get</em>が定義または継承されていないが、<em>Call</em>アクセサ関数が存在する場合、その関数自体がプロパティの値となります（読み取り専用）。</li>
 </ul>
-<p>As with methods, the first parameter of <em>Get</em>, <em>Set</em> or <em>Call</em> is <code>this</code> (the target object). For <em>Set</em>, the second parameter is <code>value</code> (the value being assigned). These parameters are defined automatically by method and property definitions within a class, but must be defined explicitly if using normal functions. Any other parameters passed by the caller are appended to the parameter list.</p>
-<p>The <code>MaxParams</code> and <code>IsVariadic</code> properties of the function objects are evaluated to determine whether the property may accept parameters. If <code>MaxParams</code> is 1 for <em>get</em> or 2 for <em>set</em> and <code>IsVariadic</code> is false or undefined, the property cannot accept parameters; they are instead forwarded to the <a href="../Objects.htm#__Item">__Item</a> property of the object returned by <em>get</em>.</p>
+<p>メソッドと同様に、<em>Get</em>、<em>Set</em>、<em>Call</em>の第1パラメータは<code>this</code>（対象オブジェクト）です。<em>Set</em>の場合、第2パラメータは<code>value</code>（割り当てられる値）です。これらのパラメータは、クラス内のメソッドやプロパティ定義によって自動的に定義されますが、通常の関数を使用する場合は明示的に定義する必要があります。呼び出し元から渡された他のパラメータは、パラメータリストに追加されます。</p>
+<p>関数オブジェクトの<code>MaxParams</code>および<code>IsVariadic</code>プロパティが評価され、そのプロパティがパラメータを受け入れることができるかどうかが決定されます。<code>MaxParams</code>が<em>get</em>が 1、<em>set</em>が 2 で、<code>IsVariadic</code>が false または undefined の場合、このプロパティはパラメータを受け取ることができません; これらは、代わりに <em>get</em> によって返されたオブジェクトの <a href="../Objects.htm#__Item">__Item</a> プロパティに転送されます。</p>
 </div>
 
 <div class="methodShort" id="DeleteProp"><h3>DeleteProp</h3>
-<p>Removes an own property from an object.</p>
+<p>オブジェクトから自身のプロパティを削除する。</p>
 <pre class="Syntax">Obj.<span class="func">DeleteProp</span>(Name)</pre>
 <dl>
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A property name.</p>
+    <p>プロパティ名です。</p>
   </dd>
 </dl>
 <p>Returns the value of the removed property (blank if none).</p>
@@ -119,70 +119,70 @@
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A property name.</p>
+    <p>プロパティ名です。</p>
   </dd>
 </dl>
-<p>For a dynamic property, the return value is a new object with an own property for each accessor function: <code>Get</code>, <code>Set</code>, <code>Call</code>. Each property is present only if the corresponding accessor function is defined in <em>Obj</em> itself. For a value property, the return value is a new object with a property named <code>Value</code>. In such cases, <code>Obj.GetOwnPropDesc(Name).Value == Obj.%Name%</code>.</p>
-<p>Modifying the returned object has no effect on <em>Obj</em> unless <a href="#DefineProp">DefineProp</a> is called.</p>
-<p>A <a href="Error.htm#PropertyError">PropertyError</a> is thrown if <em>Obj</em> does not own a property by that name. The script can determine whether a property is dynamic by checking <code>not desc.HasProp("Value")</code>, where <em>desc</em> is the return value of GetOwnPropDesc.</p>
+<p>動的プロパティの場合、戻り値は、各アクセッサ関数に対応する独自のプロパティを持つ新しいオブジェクトになります：<code>Get</code>, <code>Set</code>, <code>Call</code>. 各プロパティは、対応するアクセサー関数が<em>Obj</em>自身に定義されている場合にのみ存在します。Valueプロパティの場合、<code>Value</code>という名前のプロパティを持つ新しいオブジェクトが返り値となる。このような場合、<code>Obj.GetOwnPropDesc(Name).Value == Obj.%Name%</code>.</p>
+<p>返されたオブジェクトを変更しても、<a href="#DefineProp">DefineProp</a>が呼び出されない限り、<em>Obj</em>には何の影響もない。</p>
+<p><em>Obj</em>がその名前のプロパティを所有していない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。スクリプトは、<code>not desc.HasProp("Value")</code> をチェックすることによって、プロパティが動的かどうかを判断することができます。</p>
 </div>
 
 <div class="methodShort" id="HasOwnProp"><h3>HasOwnProp</h3>
-<p>Returns true if an object owns a property by the specified name, otherwise false.</p>
+<p>オブジェクトが指定された名前のプロパティを所有している場合は真を、そうでない場合は偽を返します。</p>
 <pre class="Syntax">Obj.<span class="func">HasOwnProp</span>(Name)</pre>
-<p>The default implementation of this method is also defined as a function: <code>ObjHasOwnProp(Obj, Name)</code>.</p>
+<p>また、このメソッドのデフォルトの実装は、関数として定義されています：<code>ObjHasOwnProp(Obj, Name)</code>.</p>
 </div>
 
 <div class="methodShort" id="OwnProps"><h3>OwnProps</h3>
-<p>Enumerates an object's own properties.</p>
+<p>オブジェクト自身のプロパティを列挙する。</p>
 <pre class="Syntax">For Name <span class="optional">, Value</span> in Obj.<span class="func">OwnProps</span>()</pre>
-<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。The enumerator is typically passed directly to a <a href="For.htm">for-loop</a>, which calls the enumerator once for each iteration of the loop. Each call to the enumerator returns the next property name and/or value. forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
+<p>新しい<a href="Enumerator.htm">列挙者</a>を返します。列挙子は通常、<a href="For.htm">forループに</a>直接渡され、ループの反復ごとに列挙子を1回呼び出します。列挙者を呼び出すたびに、次のプロパティ名や値が返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
   <dt>名前</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The property's name.</p>
+    <p>プロパティの名前です。</p>
   </dd>
   <dt>値</dt>
   <dd>
-    <p>The property's value.</p>
-    <p>If the property has a getter method, it is called to obtain the value (unless <em>Value</em> is omitted).</p>
+    <p>プロパティの値です。</p>
+    <p>プロパティにゲッターメソッドがある場合は、そのメソッドを呼び出して値を取得します（<em>Value</em>が省略された場合を除く）。</p>
   </dd>
 </dl>
-<p>Dynamic properties are included in the enumeration. However:</p>
+<p>ダイナミックプロパティは、列挙に含まれます。但し:</p>
 <ul>
-  <li>Since only the object's own properties are enumerated, the property must be defined directly in <em>Obj</em>.</li>
-  <li>If only the first variable was specified, the property's name is returned and its getter is not called.</li>
-  <li>If two variables were specified, the enumerator attempts to call the property's getter to retrieve the value.
+  <li>オブジェクト自身のプロパティのみが列挙されるため、プロパティは<em>Obj</em>で直接定義する必要があります。</li>
+  <li>最初の変数のみが指定された場合、そのプロパティの名前が返され、そのゲッターは呼び出されない。</li>
+  <li>2つの変数が指定された場合、列挙者はプロパティのゲッターを呼び出して値の取得を試みる。
     <ul>
-      <li>If the getter requires parameters, the property is skipped.</li>
-      <li>If <em>Obj</em> itself does not define a getter for this property, it is skipped.
-        <p class="warning"><strong>Note:</strong> Properties defined by a method definition typically do not have a getter, so are skipped.</p>
+      <li>ゲッターにパラメータが必要な場合、そのプロパティはスキップされます。</li>
+      <li><em>Obj</em>自身がこのプロパティのゲッターを定義していない場合、スキップされます。
+        <p class="warning"><strong>注：</strong>メソッド定義で定義されたプロパティは、通常ゲッターを持たないため、スキップされます。</p>
       </li>
-      <li>If <em>Obj</em> is a class prototype object, the getter should not (and in some cases cannot) be called; so the property is skipped.</li>
-      <li>If the getter throws an exception, it is propagated (not suppressed). The caller can continue enumeration at the next property only if it retained a reference to the enumerator (i.e. not if it passed the enumerator directly to a for-loop, since in that case the enumerator is freed when the for-loop aborts).</li>
+      <li><em>Obj</em>がクラスプロトタイプオブジェクトの場合、ゲッターは呼ばれるべきでなく（場合によっては呼べない）、そのためプロパティはスキップされます。</li>
+      <li>ゲッターが例外をスローした場合、その例外は伝播される（抑制されない）。呼び出し側は、列挙子への参照を保持している場合にのみ、次のプロパティで列挙を続けることができます（つまり、列挙子を直接forループに渡した場合は、forループがアボートしたときに列挙子が解放されるため、列挙子を渡さない）。</li>
     </ul>
   </li>
 </ul>
-<p>To enumerate own properties without calling property getters, or to enumerate all properties regardless of type, pass only a single variable to the for-loop or enumerator. <a href="#GetOwnPropDesc">GetOwnPropDesc</a> can be used to differentiate value properties from dynamic properties, while also retrieving the value or getter/setter/method.</p>
-<p>Methods are typically excluded from enumeration in the two-parameter mode, because evaluation of the property normally depends on whether the object has a corresponding getter or value, either in the same object or a base object. To avoid inconsistency when two variables are specified, OwnProps skips over own properties that have only a <em>Call</em> accessor function. 事例：</p>
+<p>プロパティゲッターを呼ばずに自分のプロパティを列挙したり、型に関係なくすべてのプロパティを列挙するには、for-loopやenumeratorに単一の変数のみを渡します。<a href="#GetOwnPropDesc">GetOwnPropDesc</a>は、値プロパティと動的プロパティを区別するために使用でき、同時に値またはゲッター/セッター/メソッドを取得することもできます。</p>
+<p>なぜなら、プロパティの評価は、通常、オブジェクトに対応するゲッターや値があるかどうか（同じオブジェクトかベースオブジェクトのいずれか）に依存するからです。2つの変数が指定された場合の矛盾を避けるため、OwnPropsは<em>Call</em>アクセサー関数のみを持つ自身のプロパティをスキップする。例えば：</p>
 <ul>
-  <li>If OwnProps returned the method itself when no getter is defined, defining a getter would then prevent the method from being returned. Scripts relying on the two variable mode to retrieve methods would then miss some methods.</li>
-  <li>If OwnProps returned the method itself when a getter is defined by a base object, this would be inconsistent with normal evaluation of the property.</li>
+  <li>OwnPropsはゲッターが定義されていない場合、メソッドそのものを返すので、ゲッターを定義するとメソッドが返されなくなります。2変数モードでメソッドを取得するスクリプトは、いくつかのメソッドを見逃すことになります。</li>
+  <li>ゲッターがベースオブジェクトによって定義されている場合に、OwnPropsがメソッド自体を返すと、プロパティの通常の評価と矛盾することになります。</li>
 </ul>
-<p>The default implementation of this method is also defined as a function: <code>ObjOwnProps(Obj)</code>.</p>
+<p>また、このメソッドのデフォルトの実装は、関数として定義されています：<code>ObjOwnProps(Obj)</code>.</p>
 </div>
 
 <h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Base"><h3>Base</h3>
-<p>Retrieves or sets an object's <a href="../Objects.htm#delegation">base object</a>.</p>
+<p>オブジェクトの<a href="../Objects.htm#delegation">ベースオブジェクト</a>を取得または設定する。</p>
 <pre class="Syntax">BaseObj := Obj.Base</pre>
 <pre class="Syntax">Obj.Base := BaseObj</pre>
-<p><em>BaseObj</em> must be an Object.</p>
-<p>If assigning the new base would change the native type of the object, an exception is thrown. An object's native type is decided by the nearest prototype object belonging to a built-in class, such as <code>Object.Prototype</code> or <code>Array.Prototype</code>. For example, an instance of Array must always derive from <code>Array.Prototype</code>, either directly or indirectly.</p>
-<p>Properties and methods are inherited from the base object dynamically, so changing an object's base also changes which inherited properties and methods are available.</p>
-<p>This property is inherited from <a href="Any.htm">Any</a>; however, it can be set only for instances of Object.</p>
+<p><em>BaseObj</em>は Object でなければなりません。</p>
+<p>新しいベースを割り当てると、オブジェクトのネイティブタイプが変更される場合は、例外がスローされます。オブジェクトのネイティブタイプは、<code>Object.Prototype</code>や <code>Array.Prototype</code>などの組み込みクラスに属する、最も近いプロトタイプオブジェクトによって決定されます。例えば、Arrayのインスタンスは必ず<code>Array.Prototype</code>から直接または間接的に派生していなければならない。</p>
+<p>プロパティやメソッドはベースオブジェクトから動的に継承されるため、オブジェクトのベースを変更すると、継承されたプロパティやメソッドを利用できるものも変更されます。</p>
+<p>このプロパティは<a href="Any.htm">Any</a>から継承されますが、Objectのインスタンスに対してのみ設定することができます。</p>
 <p>こちらもご覧ください：<a href="Any.htm#GetBase">ObjGetBase</a>, <a href="#SetBase">ObjSetBase</a></p>
 </div>
 
@@ -192,7 +192,7 @@
 <p>オブジェクトの<a href="../Objects.htm#delegation">ベースとなるオブジェクト</a>を設定します。</p>
 <pre class="Syntax"><span class="func">ObjSetBase</span>(Obj, BaseObj)</pre>
 <p><a href="../Objects.htm#Meta_Functions">メタファンクション</a>や <a href="../Objects.htm#Custom_Classes_property">プロパティファンクション</a>は呼び出されません。<a href="#Base">Base</a>プロパティをオーバーライドしても、この関数の動作に影響はありません。</p>
-<p>An exception is thrown if <em>Obj</em> or <em>BaseObj</em> is of an incorrect type.</p>
+<p><em>Obj</em>または<em>BaseObj</em>が不正な型である場合、例外が発生します。</p>
 <p>こちらもご覧ください：<a href="Any.htm#GetBase">ObjGetBase</a>, <a href="#Base">Base property</a></p>
 </div>
 
@@ -208,17 +208,17 @@
 	<dt>MaxProps</dt>
 	<dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The new capacity. If less than the current number of own properties, that number is used instead, and any unused space is freed.</p>
+    <p>新しい容量です。現在の自プロパティの数より少ない場合、その数が代わりに使用され、未使用のスペースは解放されます。</p>
   </dd>
 </dl>
-<p>Returns the new capacity.</p>
-<p>An exception is thrown if <em>Obj</em> is of an incorrect type.</p>
+<p>新しい容量を返します。</p>
+<p><em>Obj</em>が不正な型である場合は例外が発生します。</p>
 </div>
 
 <div class="methodShort" id="GetCapacity"><h3>ObjGetCapacity</h3>
 <pre class="Syntax">MaxItems := <span class="func">ObjGetCapacity</span>(Obj)</pre>
 <p>オブジェクトの内部配列のプロパティの現在の容量を返します。</p>
-<p>An exception is thrown if <em>Obj</em> is of an incorrect type.</p>
+<p><em>Obj</em>が不正な型である場合は例外が発生します。</p>
 </div>
 
 </body>

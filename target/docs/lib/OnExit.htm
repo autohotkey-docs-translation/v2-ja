@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>OnExit - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The OnExit function causes the specified function to be called automatically when the script exits." />
+<title>OnExit - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="OnExit関数は、スクリプトの終了時に指定された関数が自動的に呼び出されるようにするものです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,30 +21,30 @@
   <dt>機能</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>The function object to call when the script is exiting. The function's parameters and return value are described <a href="#Function">below</a>.</p>
+    <p>スクリプトの終了時に呼び出す関数オブジェクトです。この関数のパラメータと戻り値について、<a href="#Function">以下</a>に説明します。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (call the function after any previously registered functions). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p>省略した場合、デフォルトは1（以前に登録された関数の後に呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
-      <li>1 = Call the function after any previously registered functions.</li>
-      <li>-1 = Call the function before any previously registered functions.</li>
-      <li>0 = Do not call the function.</li>
+      <li>1 = 以前に登録した機能の後に機能を呼び出します。</li>
+      <li>-1 = 過去に登録された機能よりも先に機能を呼び出します。</li>
+      <li>0 = 関数を呼び出しません。</li>
     </ul>
   </dd>
 
 </dl>
 
 <h2 id="Function">機能</h2>
-<p>The function should accept two parameters:</p>
+<p>この関数は2つのパラメータを受け取る必要があります：</p>
 <pre class="Syntax"><i>FunctionName</i>(ExitReason, ExitCode)</pre>
 <dl>
   <dt>ExitReason</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>One of the following words:</p>
+    <p>次のいずれかの言葉：</p>
     <table class="info" id="ExitReason">
       <tr>
     <th>Word</th>
@@ -52,39 +52,39 @@
   </tr>
   <tr id="logoff">
     <td>Logoff</td>
-    <td>The user is logging off.</td>
+    <td>ユーザーがログオフしている。</td>
   </tr>
   <tr>
     <td>Shutdown</td>
-    <td>The system is being shut down or restarted, such as by the <a href="Shutdown.htm">Shutdown</a> function.</td>
+    <td><a href="Shutdown.htm">シャットダウン</a>機能などで、システムがシャットダウンまたは再起動中です。</td>
   </tr>
   <tr id="close">
     <td>Close</td>
     <td>
-      <p>The script was sent a WM_CLOSE or WM_QUIT message, had a critical error, or is being closed in some other way. Although all of these are unusual, WM_CLOSE might be caused by <a href="WinClose.htm">WinClose</a> having been used on the script's main window. To close (hide) the window without terminating the script, use <a href="WinHide.htm">WinHide</a>.</p>
-      <p>If the script is exiting due to a critical error or its <a href="../Program.htm#main-window">main window</a> being destroyed, it will unconditionally terminate after the OnExit thread completes.</p>
-      <p>If the main window is being destroyed, it may still exist but cannot be displayed. This condition can be detected by monitoring the WM_DESTROY message with <a href="OnMessage.htm">OnMessage</a>.</p>
+      <p>スクリプトにWM_CLOSEまたはWM_QUITメッセージが送信されたか、クリティカルエラーが発生したか、または他の方法で終了しています。いずれも異常ですが、WM_CLOSEは、スクリプトのメインウィンドウで<a href="WinClose.htm">WinClose</a>が使用されたことが原因かもしれません。スクリプトを終了させずにウィンドウを閉じる（隠す）には、<a href="WinHide.htm">WinHide</a>を使用します。</p>
+      <p>クリティカルエラーや<a href="../Program.htm#main-window">メインウィンドウ</a>の破壊によってスクリプトが終了する場合、OnExitスレッドが完了した後に無条件で終了します。</p>
+      <p>メインウィンドウが破壊されている場合、存在しても表示できないことがあります。この状態は、<a href="OnMessage.htm">OnMessage</a>でWM_DESTROYメッセージを監視することで検出することができます。</p>
     </td>
   </tr>
   <tr>
     <td>Error</td>
-    <td>A runtime error occurred in a script that is not <a href="../Scripts.htm#persistent">persistent</a>. An example of a runtime error is <a href="Run.htm">Run/RunWait</a> being unable to launch the specified program or document.</td>
+    <td><a href="../Scripts.htm#persistent">永続的</a>でないスクリプトでランタイムエラーが発生しました。ランタイムエラーの例として、<a href="Run.htm">Run/RunWait</a>が指定されたプログラムやドキュメントを起動できないことが挙げられます。</td>
   </tr>
   <tr>
     <td>Menu</td>
-    <td>The user selected Exit from the main window's menu or from the standard tray menu.</td>
+    <td>ユーザーは、メインウィンドウのメニューまたは標準トレイメニューから「終了」を選択しました。</td>
   </tr>
   <tr>
     <td>Exit</td>
-    <td>The <a href="Exit.htm">Exit</a> or <a href="ExitApp.htm">ExitApp</a> function was used (includes <a href="Menu.htm">custom menu items</a>).</td>
+    <td><a href="Exit.htm">Exit</a>または<a href="ExitApp.htm">ExitApp</a>機能を使用した（<a href="Menu.htm">カスタムメニュー項目</a>も含む）。</td>
   </tr>
   <tr>
     <td>Reload</td>
-    <td>The script is being reloaded via the <a href="Reload.htm">Reload</a> function or menu item.</td>
+    <td>スクリプトは、<a href="Reload.htm">リロード</a>機能またはメニュー項目によって再読み込みされています。</td>
   </tr>
   <tr>
     <td>Single</td>
-    <td>The script is being replaced by a new instance of itself as a result of <a href="_SingleInstance.htm">#SingleInstance</a>.</td>
+    <td>スクリプトは、<a href="_SingleInstance.htm">#SingleInstance</a>の結果、自分自身の新しいインスタンスに置き換えられています。</td>
   </tr>
 </table>
   </dd>
@@ -96,24 +96,24 @@
 </dl>
 
 <h3 id="Return_Value">戻り値</h3>
-<p>The function can return a non-zero integer to prevent the script from exiting (with some <a href="#close">rare exceptions</a>) and subsequent functions from being called. Otherwise, the script exits after all registered functions are called.</p>
+<p>この関数は0以外の整数を返すことで、スクリプトの終了（<a href="#close">ごく稀な例外</a>を除く）や後続の関数の呼び出しを防ぐことができる。そうでない場合は、登録されたすべての関数が呼び出された後、スクリプトは終了する。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Any number of OnExit functions can be registered. An OnExit function usually should not call ExitApp; if it does, the script terminates immediately.</p>
-<p>OnExit functions are called when the script exits by any means (except when it is killed by something like "End Task"). It is also called whenever <a href="_SingleInstance.htm">#SingleInstance</a> and <a href="Reload.htm">Reload</a> ask a previous instance to terminate.</p>
-<p>A script can detect and optionally abort a system shutdown or logoff via <code>OnMessage(0x0011, On_WM_QUERYENDSESSION)</code> (see <a href="OnMessage.htm#ExShutdown">OnMessage example #2</a> for a working script).</p>
-<p>The OnExit <a href="../misc/Threads.htm">thread</a> does not obey <a href="_MaxThreads.htm">#MaxThreads</a> (it will always launch when needed). In addition, while it is running, it cannot be interrupted by any <a href="../misc/Threads.htm">thread</a>, including <a href="../Hotkeys.htm">hotkeys</a>, <a href="Menu.htm">custom menu items</a>, and <a href="SetTimer.htm">timed subroutines</a>. However, it will be interrupted (and the script will terminate) if the user chooses Exit from the tray menu or main menu, or the script is asked to terminate as a result of <a href="Reload.htm">Reload</a> or <a href="_SingleInstance.htm">#SingleInstance</a>. Because of this, an OnExit function should be designed to finish quickly unless the user is aware of what it is doing.</p>
-<p>If the OnExit <a href="../misc/Threads.htm">thread</a> encounters a failure condition such as a runtime error, the script will terminate.</p>
-<p>If the OnExit <a href="../misc/Threads.htm">thread</a> was launched due to an <a href="Exit.htm">Exit</a> or <a href="ExitApp.htm">ExitApp</a> function that specified an exit code, that exit code is used unless an OnExit function returns true (preventing exit) or calls ExitApp.</p>
-<p>Whenever an exit attempt is made, each OnExit function starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a>. これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
+<p>OnExitの機能はいくつでも登録可能です。OnExit関数は、通常、ExitAppを呼び出すべきではありません。</p>
+<p>OnExit関数は、スクリプトが何らかの手段で終了したときに呼び出されます（"End Task "などで強制終了された場合を除く）。また、<a href="_SingleInstance.htm">#SingleInstance</a>や <a href="Reload.htm">Reload</a>で前のインスタンスの終了を要求されたときにも呼び出されます。</p>
+<p>スクリプトは、<code>OnMessage(0x0011, On_WM_QUERYENDSESSION)</code>によって、システムのシャットダウンやログオフを検出し、オプションで中止することができます（動作するスクリプトについては、<a href="OnMessage.htm#ExShutdown">OnMessage の例 #2</a>を参照）。</p>
+<p>OnExit<a href="../misc/Threads.htm">スレッド</a>は <a href="_MaxThreads.htm">#MaxThreads</a>に従いません（必要なときに常に起動します）。また、実行中は、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定サブルーチン</a>など、いかなる<a href="../misc/Threads.htm">スレッド</a>によっても中断することができない。ただし、トレイメニューやメインメニューでユーザーが「終了」を選択した場合や、<a href="Reload.htm">Reload</a>や <a href="_SingleInstance.htm">#SingleInstance</a>の結果、スクリプトの終了を求められた場合は、中断されます（スクリプトも終了します）。このため、OnExit関数は、ユーザーが何をしているのかを意識しない限り、すぐに終了するように設計する必要があります。</p>
+<p>OnExit<a href="../misc/Threads.htm">スレッド</a>がランタイムエラーなどの失敗条件に遭遇した場合、スクリプトは終了します。</p>
+<p>OnExit<a href="../misc/Threads.htm">スレッド</a>が、終了コードを指定した<a href="Exit.htm">Exit</a>または<a href="ExitApp.htm">ExitApp</a>関数によって起動された場合、OnExit関数がtrueを返すか（終了を阻止する）ExitAppを呼び出さない限り、その終了コードが使用されます。</p>
+<p>終了を試みるたびに、各 OnExit 関数は<a href="SendMode.htm">SendMode</a>などの設定のデフォルト値で新たに開始されます。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="OnError.htm">OnError</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="ExitApp.htm">ExitApp</a>, <a href="Shutdown.htm">Shutdown</a>, <a href="Persistent.htm">Persistent</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Return.htm">Return</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Asks the user before exiting the script. To test this example, right-click the tray icon and click Exit.</p>
-<pre class="NoIndent">Persistent  <em>; Prevent the script from exiting automatically.</em>
+<p><a class="ex_number" href="#ExBasic"></a> スクリプトを終了する前に、ユーザーに問いかけます。この例を試すには、トレイアイコンを右クリックし、［終了］をクリックします。</p>
+<pre class="NoIndent">Persistent<em>; スクリプトが自動的に終了するのを防ぎます。</em>
 OnExit ExitFunc
 
 ExitFunc(ExitReason, ExitCode)
@@ -129,7 +129,7 @@ ExitFunc(ExitReason, ExitCode)
 </div>
 
 <div class="ex" id="ExFnObj">
-<p><a class="ex_number" href="#ExFnObj"></a> Registers a method to be called on exit.</p>
+<p><a class="ex_number" href="#ExFnObj"></a> 終了時に呼び出されるメソッドを登録します。</p>
 <pre><a href="Persistent.htm">Persistent</a>  <em>; Prevent the script from exiting automatically.</em>
 OnExit MyObject.Exiting
 

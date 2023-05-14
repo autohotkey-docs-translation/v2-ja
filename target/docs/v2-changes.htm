@@ -199,7 +199,7 @@
 <p><code>*/</code> を行末に置いて複数行のコメントを終了できるようになり、他の言語での <code>/* */</code> の動作に関する共通の混乱点を解決しました。(例えば、<code>*/</code>で終わるホットストリングでは)曖昧さが生じる恐れがあるため、<code>*/</code>の前に<code>/*</code>がないものは無視されるようになりました(AHK_L revision 54での変更点を取り消します)。</p>
 <p>64ビット符号付き整数のサポート範囲外の整数定数や数値文字列は、最小/最大値で上限が設定されるのではなく、オーバーフロー/ラップアラウンドするようになりました。これは数学の演算子と一致しているので、<code>9223372036854775807+1 == 9223372036854775808</code>（ただしどちらも-9223372036854775808が出ます）。これにより、64ビット値に対するビット演算が容易になります。</p>
 <p>数値文字列の場合、数字の前にスペースとタブ以外の空白文字が許されるケースは少なくなっています。一般的なルールとして（v1、v2ともに）スペースとタブのみが許可されていますが、Cランタイムライブラリの規約により他の空白文字が許容される場合もあります。</p>
-<p><code>else</code>は <code>loop</code>、<code>for</code>、<code>while</code>、<code>catchと</code>一緒に使えるようになりました。For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <code>catch</code>、<code>try</code>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<code>catch</code>がなくても実行されません）。そのため、<code>else</code>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。事例：</p>
+<p><code>else</code>は <code>loop</code>、<code>for</code>、<code>while</code>、<code>catchと</code>一緒に使えるようになりました。For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <code>catch</code>、<code>try</code>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<code>catch</code>がなくても実行されません）。そのため、<code>else</code>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。例えば：</p>
 <pre>if condition
 {
     while condition
@@ -550,7 +550,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/MouseClick.htm">MouseClick</a>と <a href="lib/MouseClickDrag.htm">MouseClickDrag</a>は、マウスボタンの入れ替えに関するシステム設定の影響を受けなくなりました。"Left"は常にプライマリボタン、"Right"はセカンダリボタンです。</p>
 <p><a href="lib/MsgBox.htm">MsgBox</a>は、最もよく使われるパラメータを優先し、使いやすさを向上させるために構文が変更されました。使い方の概要は、さらに下の<a href="#msgbox">MsgBox</a>を参照してください。</p>
 <p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。スクリプトによって割り当てられたバッファの場合、変数よりも新しい<code>Buffer</code>オブジェクトが優先されます。任意のオブジェクトを使用できますが、<code>Ptr</code>と <code>Size</code>プロパティを持つ必要があります。</p>
-<p>NumPutのパラメータは、値の並びを変更し、各数値の前に（現在は必須の）タイプ文字列を置くことができるようになった。事例：<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. NumGetでもTypeが必須となりました。(DllCallと比較して、NumPutの入力パラメータはdll関数のパラメータに対応し、NumGetの戻り型パラメータはdll関数の戻り型文字列に対応します)。</p>
+<p>NumPutのパラメータは、値の並びを変更し、各数値の前に（現在は必須の）タイプ文字列を置くことができるようになった。例えば：<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. NumGetでもTypeが必須となりました。(DllCallと比較して、NumPutの入力パラメータはdll関数のパラメータに対応し、NumGetの戻り型パラメータはdll関数の戻り型文字列に対応します)。</p>
 <p><code>Object(obj)</code>と<code>Object(ptr)</code>を使って参照とポインタの変換を行っていましたが、<code>ObjPtrAddRef(obj)</code>と<code>ObjFromPtrAddRef(ptr)</code>という別の関数に移行されました。また、これらの関数には、参照カウントをインクリメントしないバージョンもあります：<code>ObjPtr(obj)</code>と<code>ObjFromPtr(ptr)</code>です。</p>
 <p>OnClipboardChangeラベルが存在する場合、自動的に呼び出されることはなくなりました。代わりにv1.1.20で追加された<a href="lib/OnClipboardChange.htm">OnClipboardChange</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。</p>
 <p><a href="lib/OnError.htm">OnError</a>に名前ではなく、関数オブジェクトを要求するようになりました。後述の「<a href="#error-handling">エラー処理</a>」もご参照ください。</p>
@@ -1126,7 +1126,7 @@ Gui GuiName:デフォルト</p>
 <p>以前は検出されなかったいくつかのエラーに対して例外がスローされ、（以前はErrorLevelの設定によって）誤ってエラーとしてマークされていたいくつかの条件が修正されました。</p>
 <p>一部のエラーメッセージが変更されました。</p>
 <h3 id="catch">Catch</h3>
-<p><a href="lib/Catch.htm">Catch</a>の構文が変更され、特定のエラークラスをキャッチする一方、他のエラークラスはキャッチしない（コールスタックのさらに上の別のCatchに制御を移す、またはエラーを報告してスレッドを終了する）方法が提供されました。これまでは、すべての型のスローされた値をキャッチし、型をチェックして再スローする必要がありました。事例：</p>
+<p><a href="lib/Catch.htm">Catch</a>の構文が変更され、特定のエラークラスをキャッチする一方、他のエラークラスはキャッチしない（コールスタックのさらに上の別のCatchに制御を移す、またはエラーを報告してスレッドを終了する）方法が提供されました。これまでは、すべての型のスローされた値をキャッチし、型をチェックして再スローする必要がありました。例えば：</p>
 <pre><em>; Old (v1には `is` や Error クラスがないため、古い v2.0-a のルールを使ってデモを行う)</em>
 try
     SendMessage msg,,, "Control1", "The Window"

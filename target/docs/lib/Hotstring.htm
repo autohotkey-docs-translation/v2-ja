@@ -55,7 +55,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
 
 <h2 id="Errors">エラー</h2>
 <p>パラメータが不正な場合、またはメモリ確保に失敗した場合は、例外を投げます。</p>
-<p><em>Replacement</em>が省略され、<em>String</em>が有効であるが既存のホットストリングと一致しない場合、<a href="Error.htm#TargetError">TargetError</a>がスローされます。これは、ホットストリングの存在をテストするために利用することができます。事例：</p>
+<p><em>Replacement</em>が省略され、<em>String</em>が有効であるが既存のホットストリングと一致しない場合、<a href="Error.htm#TargetError">TargetError</a>がスローされます。これは、ホットストリングの存在をテストするために利用することができます。例えば：</p>
 <pre>try
     Hotstring "::btw"
 catch TargetError
@@ -69,7 +69,7 @@ catch TargetError
 <p>スクリプトに少なくとも1つのホットストリングがあると、そのスクリプトは永続的なものになります。Hotstring スクリプトも、<code>#SingleInstance Off</code>が指定されていない限り、自動的に<a href="_SingleInstance.htm">#SingleInstance</a>となります。</p>
 
 <h2 id="variant">バリアント（複製）Hotstrings</h2>
-<p>各定義が異なる<a href="HotIf.htm">HotIf</a>基準、<a href="../Hotstrings.htm#C">大文字小文字</a>の区別（<code>C</code> vs. <code>C0</code>/<code>C1</code>）、または、<a href="../Hotstrings.htm#Question">単語の区別</a>（<code>?</code>）を持つ場合、特定のホットストリングを複数回作成することができます。これらは<em>ホットストリング・バリアント</em>と呼ばれています。事例：</p>
+<p>各定義が異なる<a href="HotIf.htm">HotIf</a>基準、<a href="../Hotstrings.htm#C">大文字小文字</a>の区別（<code>C</code> vs. <code>C0</code>/<code>C1</code>）、または、<a href="../Hotstrings.htm#Question">単語の区別</a>（<code>?</code>）を持つ場合、特定のホットストリングを複数回作成することができます。これらは<em>ホットストリング・バリアント</em>と呼ばれています。例えば：</p>
 <pre>HotIfWinActive "ahk_group CarForums"
 Hotstring "::btw", "behind the wheel"
 HotIfWinActive "Inter-Office Chat"
@@ -81,7 +81,7 @@ Hotstring "::btw", "by the way"</pre>
 
 <h2 id="EndChars">EndChars</h2>
 <pre class="Syntax">OldValue := <span class="func">Hotstring</span>("EndChars" <span class="optional">, NewValue</span>)</pre>
-<p>ホットストリングレコグナイザーで<a href="../Hotstrings.htm#EndChars">終端文字</a>として使用される文字のセットを取得または変更します。事例：</p>
+<p>ホットストリングレコグナイザーで<a href="../Hotstrings.htm#EndChars">終端文字</a>として使用される文字のセットを取得または変更します。例えば：</p>
 <pre>prev_chars := Hotstring("EndChars", "-()[]{}':;`"/\,.?!`n `t")
 MsgBox "The previous value was: " prev_chars</pre>
 <p><a href="Hotstring.htm#EndChars">#Hotstring EndChars</a>も、この設定に影響します。</p>
@@ -99,7 +99,7 @@ MsgBox "The previous value was: " prev_chars</pre>
 
 <h2 id="NewOptions">デフォルトのオプションを設定する</h2>
 <pre class="Syntax"><span class="func">Hotstring</span> NewOptions</pre>
-<p>その後に作成されるホットストリングに新しいデフォルトオプションを設定するには、Hotstring関数にオプションを先頭や末尾のコロンを付けずに渡します。事例：<code>Hotstring "T"</code>.</p>
+<p>その後に作成されるホットストリングに新しいデフォルトオプションを設定するには、Hotstring関数にオプションを先頭や末尾のコロンを付けずに渡します。例えば：<code>Hotstring "T"</code>.</p>
 <p><a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>や<a href="../Hotstrings.htm#Question">単語の区別（？）</a>をオンにすると、それ以降にHotstring関数を呼び出したときに、どの既存のホットストリングが見つかるかにも影響します。例えば、<code>Hotstring ":T:btw"</code>はデフォルトで<code>::BTW</code>を検索しますが、<code>Hotstring "C"</code>または<code><a href="_Hotstring.htm">#Hotstring</a>C</code>が有効な場合は検索しません。これは、相互に排他的なオプションを渡すことによって、元に戻したり上書きしたりすることができます。例えば、<code>C0</code>と <code>C1</code>は<code>C</code>を上書きします。</p>
 
 <h2 id="Related">関連</h2>

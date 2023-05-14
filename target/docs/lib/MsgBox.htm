@@ -254,7 +254,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 <h2 id="Remarks">備考</h2>
 <p>メッセージボックスは通常このように表示されます：</p>
 <img src="../static/dlg_message.png" alt="MsgBox" />
-<p>ユーザーがどのボタンを押したかを判断するには、関数の<a href="#Result">戻り値</a>を使用します。事例：</p>
+<p>ユーザーがどのボタンを押したかを判断するには、関数の<a href="#Result">戻り値</a>を使用します。例えば：</p>
 <pre>Result := MsgBox("Would you like to continue?(press Yes or No)",, "YesNo")
 if Result = "Yes"
     MsgBox "You pressed Yes."
@@ -271,7 +271,7 @@ if MsgBox("Retry or cancel?",, "R/C") = "Retry"
 <p><strong>The Help button</strong>:<em>オプション</em>でヘルプボタンオプション（16384）がある場合、以下の両方が成立していないと、ヘルプボタンを押しても効果がありません：</p>
 <ol>
   <li>メッセージボックスは、<a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>により、GUIウィンドウに所有されます。</li>
-  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。事例：<code><a href="OnMessage.htm">OnMessage</a>(0x0053, "WM_HELP")</code>. WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
+  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。例えば：<code><a href="OnMessage.htm">OnMessage</a>(0x0053, "WM_HELP")</code>. WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
 </ol>
 <p><strong>閉じるボタン（メッセージボックスのタイトルバー内）</strong>：メッセージボックスはOSの組み込み機能なので、その<strong>X</strong>ボタンは特定のボタンが存在する場合にのみ有効になります。OKボタンしかない場合は、<strong>X</strong>ボタンをクリックするとOKを押したのと同じになります。それ以外の場合は、キャンセルボタンがない限りXボタンは無効で、その場合は<strong>X</strong>をクリックするとキャンセルを押したのと同じことになります。</p>
 <p id="max"><strong>最大で7回の通話が可能</strong>：メッセージボックスを表示している<a href="../misc/Threads.htm">スレッド</a>は、通常、中断することができ、前の呼び出しが戻る前に新しいスレッドが独自のメッセージボックスを表示することができます。MsgBoxの呼び出しは最大7回まで可能ですが、7回目を超えると<a href="Error.htm">Error</a>が投げられます。中断されたスレッドでMsgBoxを呼び出すと、スレッドが再開されるまで戻ることができないことに注意してください。</p>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>OnClipboardChange - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The OnClipboardChange function causes the specified function to be called automatically whenever the clipboard's content changes." />
+<title>OnClipboardChange - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="OnClipboardChange関数は、クリップボードの内容が変更されるたびに、指定された関数が自動的に呼び出されるようにするものです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,24 +21,24 @@
   <dt>機能</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>The function object to call. The function's parameter and return value are described <a href="#Function">below</a>.</p>
+    <p>呼び出す関数オブジェクト。この関数のパラメータと戻り値について、<a href="#Function">以下に</a>説明します。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (call the function after any previously registered functions). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p>省略した場合、デフォルトは1（以前に登録された関数の後に呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
-      <li>1 = Call the function after any previously registered functions.</li>
-      <li>-1 = Call the function before any previously registered functions.</li>
-      <li>0 = Do not call the function.</li>
+      <li>1 = 以前に登録した機能の後に機能を呼び出します。</li>
+      <li>-1 = 過去に登録された機能よりも先に機能を呼び出します。</li>
+      <li>0 = 関数を呼び出しません。</li>
     </ul>
   </dd>
 
 </dl>
 
 <h2 id="Function">機能</h2>
-<p>The function should accept one parameter:</p>
+<p>この関数は1つのパラメータを受け取る必要があります：</p>
 <pre class="Syntax"><i>FunctionName</i>(Type)</pre>
 <dl>
   <dt>Type</dt>
@@ -46,26 +46,26 @@
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>以下の番号のいずれか1つ：</p>
     <ul>
-      <li>0 = Clipboard is now empty.</li>
-      <li>1 = Clipboard contains something that can be expressed as text (this includes <a href="A_Clipboard.htm#CopiedFiles">files copied</a> from an Explorer window).</li>
-      <li>2 = Clipboard contains something entirely non-text such as a picture.</li>
+      <li>0 = クリップボードが空っぽになりました。</li>
+      <li>1 = クリップボードにテキストとして表現できるものが入っている（エクスプローラーウィンドウから<a href="A_Clipboard.htm#CopiedFiles">コピーされたファイル</a>も含まれる）。</li>
+      <li>2 = クリップボードには、画像など、まったくテキスト以外のものが入っています。</li>
     </ul>
   </dd>
 </dl>
 
 <h3 id="Return_Value">戻り値</h3>
-<p>If this is the last or only OnClipboardChange function, the return value is ignored. Otherwise, the function can return a non-zero integer to prevent subsequent functions from being called.</p>
+<p>この関数が最後の、あるいは唯一のOnClipboardChange関数である場合、戻り値は無視されます。そうでない場合は、後続の関数が呼び出されないように、0以外の整数を返すことができます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If the clipboard changes while an OnClipboardChange function is already running, that notification event is lost. If this is undesirable, use <a href="Critical.htm">Critical</a>. However, this will also buffer/defer other <a href="../misc/Threads.htm">threads</a> (such as the press of a hotkey) that occur while the OnClipboardChange thread is running.</p>
-<p>If the script itself changes the clipboard, its OnClipboardChange functions are typically not executed immediately; that is, functions immediately below the function that changed the clipboard are likely to execute beforehand. To force the functions to execute immediately, use a short delay such as <code><a href="Sleep.htm">Sleep</a> 20</code> after changing the clipboard.</p>
+<p>OnClipboardChange関数がすでに実行されている間にクリップボードが変更された場合、その通知イベントは失われます。これが好ましくない場合は、<a href="Critical.htm">Critical</a>を使用します。ただし、この場合、OnClipboardChangeスレッドの実行中に発生する他の<a href="../misc/Threads.htm">スレッド</a>（ホットキーの押下など）もバッファリング/ディファーされます。</p>
+<p>スクリプト自身がクリップボードを変更する場合、そのOnClipboardChange関数は通常すぐには実行されません。つまり、クリップボードを変更した関数のすぐ下の関数が事前に実行される可能性があります。即座に実行させたい場合は、クリップボード変更後に<code><a href="Sleep.htm">Sleep</a>20</code>などの短いディレイを使用します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="A_Clipboard.htm">A_Clipboard</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Briefly displays a tooltip for each clipboard change.</p>
+<p><a class="ex_number" href="#ExBasic"></a> クリップボードの変更ごとにツールチップを短く表示します。</p>
 <pre>OnClipboardChange ClipChanged
 
 ClipChanged(clip_type) {

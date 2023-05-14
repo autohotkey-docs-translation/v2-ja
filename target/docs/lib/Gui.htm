@@ -103,7 +103,7 @@ MyGui.<span class="func">Add</span>ControlType(<span class="optional">Options, T
   <dt>ControlType</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>これは、以下のいずれかとなります：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#UpDown">UpDown</a>, <a href="GuiControls.htm#Picture">Picture (or Pic)</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">Checkbox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#DropDownList">DropDownList (or DDL)</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#Hotkey">Hotkey</a>, <a href="GuiControls.htm#DateTime">DateTime</a>, <a href="GuiControls.htm#MonthCal">MonthCal</a>, <a href="GuiControls.htm#Slider">Slider</a>, <a href="GuiControls.htm#Progress">Progress</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Tab">Tab, Tab2, Tab3</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>, <a href="GuiControls.htm#ActiveX">ActiveX</a>, <a href="GuiControls.htm#Custom">Custom</a></p>
-  <p>事例：</p>
+  <p>例えば：</p>
   <pre>MyGui := Gui()
 MyGui.Add("Text",, "Please enter your name:")
 MyGui.AddEdit("vName")
@@ -118,11 +118,11 @@ MyGui.Show</pre></dd>
   <p><strong>H</strong>:高さをピクセル単位で指定します。<strong>H</strong>と <strong>R</strong>の両方のオプションがない場合、DropDownList、ComboBox、ListBox、空の複数行編集コントロールのデフォルトは3行、GroupBoxのデフォルトは2行、垂直スライダーとプログレスバーのデフォルトは5行、水平スライダーのデフォルトは30ピクセル（太さが指定されている場合は除く）、水平プログレッサーは現在のフォントサイズの2倍、ホットキーコントロールは1行、タブコントロールは10行になります。その他のコントロールタイプについては、その内容に基づいて高さが自動的に計算されます。なお、DropDownListとComboBoxの場合、<strong>H</strong>はコントロールの常時表示部分とリスト部分の高さを合わせた値です（ただし、高さを低く設定しても、少なくとも1つのアイテムは常にリスト内に表示されます）。また、すべてのタイプのコントロールにおいて、<strong>R</strong>オプションで行数を指定すると、テキストの部分的な行や不完全な行が表示されるのを防ぐことができるため、通常は<strong>H</strong>を使用するよりも好ましいとされています。</p>
   <p><strong>wp+n</strong>、<strong>hp+n</strong>、<strong>wp-n</strong>、<strong>hp-n</strong>（<strong>n</strong>は任意の数値）は、コントロールの幅や高さを、先に追加したコントロールの幅や高さと同じにするために使用し、オプションでプラスまたはマイナスを調整することができます。例えば、<code>wp</code>はコントロールの幅を前のコントロールの幅に設定し、<code>wp-50</code>は前のコントロールの幅より50小さい幅に設定します。</p>
   <p id="XY"><strong>X</strong>, <strong>Y</strong>:X-position, Y-position. 例えば、<code>x0 y0</code>を指定すると、コントロールはウィンドウのクライアント領域（タイトルバーとメニューバーがある場合はその下の領域）の左上隅に配置されます。</p>
-  <p id="PosPlus"><strong>x+n</strong>、<strong>y+n</strong>（<strong>n</strong>は任意の数）：オプションのプラス記号は、先に追加されたコントロールの右端または下端（それぞれ）に対して相対的にコントロールを配置するために含めることができます。例えば、<code>Y+10</code>を指定すると、標準的なパディング距離ではなく、前のコントロールの下10ピクセルに位置します。同様に、<code>X+10</code>を指定すると、コントロールは前のコントロールの右端から10ピクセル右に位置します。<code>X-10</code>のような負の数は絶対位置決め用に予約されているため、負のオフセットを使用する場合は、その前にプラス記号を含めます。事例：<code>X+-10</code>.</p>
+  <p id="PosPlus"><strong>x+n</strong>、<strong>y+n</strong>（<strong>n</strong>は任意の数）：オプションのプラス記号は、先に追加されたコントロールの右端または下端（それぞれ）に対して相対的にコントロールを配置するために含めることができます。例えば、<code>Y+10</code>を指定すると、標準的なパディング距離ではなく、前のコントロールの下10ピクセルに位置します。同様に、<code>X+10</code>を指定すると、コントロールは前のコントロールの右端から10ピクセル右に位置します。<code>X-10</code>のような負の数は絶対位置決め用に予約されているため、負のオフセットを使用する場合は、その前にプラス記号を含めます。例えば：<code>X+-10</code>.</p>
   <p id="PosPlusMargin"><strong>X+、</strong> <strong>Y+</strong>の場合、ウィンドウの現在の<a href="#MarginX">マージン</a>の代用として<strong>M</strong>という文字が使えます。例えば、<code>x+m</code>は、前のコントロールの右端に標準的なパディング距離を加えたものを使用します。<code>xp y+m</code>は、コントロールが前のコントロールの下に位置します。一方、相対的なX座標を単独で（xpまたはx+で）指定すると、通常はデフォルトで<code>yp</code>が指定されます。</p>
   <p id="xp"><strong>xp+n</strong>、<strong>yp+n</strong>、<strong>xp-n</strong>、<strong>yp-n</strong>（<strong>n</strong>は任意の数値）は、前のコントロールの左上隅を基準としてコントロールを配置するために使用でき、これは<a href="GuiControls.htm#GroupBox">GroupBox</a>でコントロールを囲む場合によく使用されます。</p>
   <p id="xm"><strong>xm</strong>と <strong>ym</strong>は、それぞれウィンドウの左端と上端の<a href="#MarginX">マージン</a>にコントロールを配置するために使用します（この2つの後にプラス/マイナス記号と数字を付けることもできます）。</p>
-  <p id="xs"><strong>xs</strong>と <strong>ys</strong>：これらは<strong>xm</strong>と <strong>ym</strong>に似ていますが、オプションに<a href="#Section">Section</a>という単語を持つコントロールを事前に追加して保存した座標を参照する点が異なります（ウィンドウの最初のコントロールは、オプションにその単語が指定されていなくても、常に新しいセクションを開始します）。事例：</p>
+  <p id="xs"><strong>xs</strong>と <strong>ys</strong>：これらは<strong>xm</strong>と <strong>ym</strong>に似ていますが、オプションに<a href="#Section">Section</a>という単語を持つコントロールを事前に追加して保存した座標を参照する点が異なります（ウィンドウの最初のコントロールは、オプションにその単語が指定されていなくても、常に新しいセクションを開始します）。例えば：</p>
   <pre>MyGui := Gui()
 MyGui.Add("Edit", "w600")  <em>;ウィンドウの上部にかなり広いエディットコントロールを追加します。</em>
 MyGui.Add("Text",<strong>"section</strong>", "First Name:")  <em>; このコントロールの位置を保存し、新しいセクションを開始します。</em>
@@ -275,7 +275,7 @@ MyGui.Move(x-10,, w+20)</pre>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>パフォーマンス上の理由から、すべてのオプションを1行で設定し、ウィンドウを作成する前に（つまり、<a href="#Add">Gui.Add</a>などの他のメソッドを使用する前に）設定することをお勧めします。</p>
   <p>このパラメータの効果は累積的です。つまり、明示的に指定された設定のみを変更し、他の設定はすべて変更されないままです。</p>
-  <p>オプションを追加する場合はプラス記号を、削除する場合はマイナス記号を指定します。事例：<code>MyGui.Opt("+Resize -MaximizeBox")</code>.</p>
+  <p>オプションを追加する場合はプラス記号を、削除する場合はマイナス記号を指定します。例えば：<code>MyGui.Opt("+Resize -MaximizeBox")</code>.</p>
   <p><strong>AlwaysOnTop</strong>:<a href="WinSetAlwaysOnTop.htm">WinSetAlwaysOnTop</a>と同じ効果で、ウィンドウが他のすべてのウィンドウより上にあるようにします。</p>
   <p><strong>Border</strong>:ウィンドウの周囲に細い線のボーダーを提供します。これは一般的ではありません。</p>
   <p>
@@ -288,7 +288,7 @@ MyGui.Move(x-10,, w+20)</pre>
     <li>必要に応じて、スケーリングをその場で有効化（<code>MyGui.Opt("+DPIScale")</code>）、無効化（<code>MyGui.Opt("-DPIScale")</code>）することができます。設定を変更しても、すでに設定されている位置やサイズには影響しません。</li>
     <li>座標を手動でスケーリングします。例えば、<code>x*(A_ScreenDPI/96)</code>はxを論理/GUI座標から物理/非GUI座標に変換します。</li>
   </ul>
-  <p id="LastFound"><strong>LastFound</strong>:ウィンドウを<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>に設定します（ただし、<a href="GuiOnEvent.htm#Threads">GUIスレッド</a>では自動的に行われるため不要）。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>や <a href="WinSetTransparent.htm">WinSetTransparent</a>などの関数が、ウィンドウが隠れていても操作できるようになります（つまり、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>は不要です）。これは、ウィンドウを表示する前にウィンドウのプロパティを変更する場合に特に有効です。事例：</p>
+  <p id="LastFound"><strong>LastFound</strong>:ウィンドウを<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>に設定します（ただし、<a href="GuiOnEvent.htm#Threads">GUIスレッド</a>では自動的に行われるため不要）。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>や <a href="WinSetTransparent.htm">WinSetTransparent</a>などの関数が、ウィンドウが隠れていても操作できるようになります（つまり、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>は不要です）。これは、ウィンドウを表示する前にウィンドウのプロパティを変更する場合に特に有効です。例えば：</p>
   <pre>MyGui.Opt("+LastFound")
 WinSetTransColor(CustomColor " 150", MyGui)
 MyGui.Show()</pre>
@@ -329,12 +329,12 @@ MyGui.Opt("+Owner")  <em>; タスクバーボタンの表示を防ぐため、GU
 <dl>
   <dt>Options</dt><dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>選択肢は0個以上。各オプションは、1文字に続けて値を指定するか、1つの単語を指定します。複数のオプションを指定する場合は、各オプションの間にスペースを入れてください。事例：<code>cBlue s12 bold</code>.</p>
+    <p>選択肢は0個以上。各オプションは、1文字に続けて値を指定するか、1つの単語を指定します。複数のオプションを指定する場合は、各オプションの間にスペースを入れてください。例えば：<code>cBlue s12 bold</code>.</p>
   <p>以下の単語に対応しています：<strong>bold</strong>, <em>italic</em>, <s>strike</s>, <u>underline</u>, および norm. <em>Norm</em>は、フォントを通常のウェイト/太さに戻し、イタリック、ストライク、アンダーラインをオフにします（ただし、既存の色とサイズは保持されます）。ノームを使ってすべての属性をオフにし、他の属性を選択的にオンにすることが可能です。例えば、<code>norm italic</code>を指定すると、フォントはノーマルに設定された後、イタリックに設定されます。</p>
-  <p><strong>C</strong>:色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値 -- あるいはDefaultを指定すると、システムのデフォルトカラー（ほとんどのシステムでは黒）に戻ります。例値：<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. 注：<a href="GuiControls.htm#Button">ボタン</a>はカスタムカラーに従わない。また、Cオプションを含めることで、現在のフォントカラー以外のフォントカラーを持つ個別コントロールを作成することができます。事例：<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
-  <p><strong>S</strong>:サイズ（単位：ポイント）。事例：<code>s12</code>（16進数ではなく、10進数を指定します。）</p>
-  <p><strong>W</strong>:ウェイト（太字）、1～1000の数値（400が普通、700が太字）。事例：<code>w600</code>（16進数ではなく10進数で指定してください。）</p>
-  <p id="fontq"><strong>Q</strong>:テキスト描画の品質。事例：<code>q3</code>. Qの後には、次の表から番号を選んでください：</p>
+  <p><strong>C</strong>:色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値 -- あるいはDefaultを指定すると、システムのデフォルトカラー（ほとんどのシステムでは黒）に戻ります。例値：<code>cRed</code>, <code>cFFFFAA</code>, <code>cDefault</code>. 注：<a href="GuiControls.htm#Button">ボタン</a>はカスタムカラーに従わない。また、Cオプションを含めることで、現在のフォントカラー以外のフォントカラーを持つ個別コントロールを作成することができます。例えば：<code>MyGui.Add("Text", "cRed", "My Text")</code>.</p>
+  <p><strong>S</strong>:サイズ（単位：ポイント）。例えば：<code>s12</code>（16進数ではなく、10進数を指定します。）</p>
+  <p><strong>W</strong>:ウェイト（太字）、1～1000の数値（400が普通、700が太字）。例えば：<code>w600</code>（16進数ではなく10進数で指定してください。）</p>
+  <p id="fontq"><strong>Q</strong>:テキスト描画の品質。例えば：<code>q3</code>. Qの後には、次の表から番号を選んでください：</p>
   <table class="info">
     <tr>
       <th>Number</th>
@@ -398,16 +398,16 @@ MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
   <p><strong>Xn</strong>:画面上のウィンドウの X 位置を<strong>n</strong>にピクセル単位で指定します。ポジション0は、画面上で見えるピクセルの一番左の列です。</p>
   <p><strong>Yn</strong>:画面上のウィンドウの Y 位置をピクセル単位で<strong>n</strong>に指定します。ポジション0は、画面上で見える一番上の画素列です。</p>
   <p><strong>Center</strong>:画面上でウィンドウを縦横にセンタリングします。</p>
-  <p><strong>xCenter</strong>:画面上でウィンドウを水平方向にセンタリングします。事例：<code>MyGui.Show("xCenter y0")</code>.</p>
+  <p><strong>xCenter</strong>:画面上でウィンドウを水平方向にセンタリングします。例えば：<code>MyGui.Show("xCenter y0")</code>.</p>
   <p><strong>yCenter</strong>:画面上でウィンドウを縦方向にセンタリングします。</p>
-  <p id="AutoSize"><strong>AutoSize</strong>:現在表示されているコントロールのみを収容するためにウィンドウのサイズを変更します。これは、新しいコントロールが追加されたり、既存のコントロールがサイズ変更されたり、隠されたり、隠されなかったりした後に、ウィンドウのサイズを変更するのに便利です。事例：<code>MyGui.Show("AutoSize Center")</code>.</p>
+  <p id="AutoSize"><strong>AutoSize</strong>:現在表示されているコントロールのみを収容するためにウィンドウのサイズを変更します。これは、新しいコントロールが追加されたり、既存のコントロールがサイズ変更されたり、隠されたり、隠されなかったりした後に、ウィンドウのサイズを変更するのに便利です。例えば：<code>MyGui.Show("AutoSize Center")</code>.</p>
   <p><em><strong>また、以下のいずれかが存在する場合があります：</strong></em></p>
   <p><strong>Minimize</strong>:ウィンドウを最小化し、その下のウィンドウをアクティブにします。</p>
   <p><strong>Maximize</strong>:ウィンドウを最大化し、アクティブ化します。</p>
   <p><strong>Restore</strong>:必要に応じて、ウィンドウの最小化または最大化を解除します。また、必要に応じてウィンドウを表示し、起動します。</p>
   <p><strong>NoActivate</strong>:必要に応じて、ウィンドウの最小化または最大化を解除します。また、ウィンドウをアクティブにしなくても表示されます。</p>
   <p><strong>NA</strong>:ウィンドウをアクティブにせずに表示します。ウィンドウが最小化された場合、その状態を維持しますが、おそらくzオーダー（alt-tabセレクタで見られる順序）でより高く上昇します。ウィンドウが以前は隠れていた場合、アクティブなウィンドウが非アクティブになっていないにもかかわらず、ウィンドウがアクティブなウィンドウの上に表示されてしまうことが考えられます。</p>
-  <p><strong>Hide</strong>:ウィンドウを隠し、その下にあるウィンドウをアクティブにします。この機能は<a href="#Hide">Gui.Hide</a>と同じですが、非表示のウィンドウを表示せずに移動したりサイズを変更したりすることができます。事例：<code>MyGui.Show("Hide x55 y66 w300 h200")</code>.</p></dd>
+  <p><strong>Hide</strong>:ウィンドウを隠し、その下にあるウィンドウをアクティブにします。この機能は<a href="#Hide">Gui.Hide</a>と同じですが、非表示のウィンドウを表示せずに移動したりサイズを変更したりすることができます。例えば：<code>MyGui.Show("Hide x55 y66 w300 h200")</code>.</p></dd>
 </dl>
 </div>
 
@@ -446,7 +446,7 @@ MyGuiのHwnd、Ctrlの場合</pre>
     <p>コントロールのオブジェクトです。</p>
   </dd>
 </dl>
-<p>事例：</p>
+<p>例えば：</p>
 <pre>MyGuiのHwnd、GuiCtrlObjの場合
     MsgBox "Control #" A_Index " is " GuiCtrlObj.ClassNN</pre>
 </div>
@@ -469,7 +469,7 @@ MyGuiのHwnd、Ctrlの場合</pre>
 <p><em>NewColor</em>は、16の主要な<a href="../misc/Colors.htm">HTMLカラー名</a>、16進数のRGBカラー値（接頭辞0xはオプション）、純粋な数値のRGBカラー値、またはデフォルトカラーを表すDefault（または空の文字列）のいずれかです。例値：<code>"Silver"</code>, <code>"FFFFAA"</code>, <code>0xFFFFAA</code>, <code>"Default"</code>, <code>""</code>.</p>
 <p>デフォルトでは、ウィンドウの背景色は、ボタンの表面のシステムの色になります。</p>
 <p>この例のように、<a href="#MenuBar">メニューバー</a>と、そのサブメニューの色を変更することができます：<code>MyMenuBar.<a href="Menu.htm#SetColor">SetColor</a> "White"</code>.</p>
-<p>背景を透明にする場合は、<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用します。ただし、<a href="#BackColor">Gui.BackColor</a>でカスタムウィンドウを割り当てずにこの操作を行うと、ボタンも透明になります。これを防ぐには、まずカスタムカラーを割り当て、そのカラーを透明にします。事例：</p>
+<p>背景を透明にする場合は、<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用します。ただし、<a href="#BackColor">Gui.BackColor</a>でカスタムウィンドウを割り当てずにこの操作を行うと、ボタンも透明になります。これを防ぐには、まずカスタムカラーを割り当て、そのカラーを透明にします。例えば：</p>
 <pre>MyGui.BackColor := "EEAA99"
 WinSetTransColor("EEAA99", MyGui)</pre>
 <p>背景が透明なウィンドウから、ボーダーとタイトルバーを追加で削除するには、次のようにします：<code>MyGui.Opt("-Caption")</code></p>
@@ -514,7 +514,7 @@ WinSetTransColor("EEAA99", MyGui)</pre>
 <p>ウィンドウのメニューバーを取得または設定します。</p>
 <pre class="Syntax">MyGui.MenuBar := Bar</pre>
 <pre class="Syntax">Bar := MyGui.MenuBar</pre>
-<p><em>Bar</em>は、<a href="Menu.htm#Call">MenuBar()</a>で生成された<a href="Menu.htm">MenuBarオブジェクト</a>です。事例：</p>
+<p><em>Bar</em>は、<a href="Menu.htm#Call">MenuBar()</a>で生成された<a href="Menu.htm">MenuBarオブジェクト</a>です。例えば：</p>
 <pre>FileMenu := Menu()
 FileMenu.Add "&amp;Open`tCtrl+O", (*) =&gt; FileSelect()  <em>; Ctrl+Oについては後述します</em>。
 FileMenu.Add "E&amp;xit", (*) =&gt; ExitApp()
@@ -557,7 +557,7 @@ MyGui.Show "w300 h200"</pre>
 <p>上記のコントロールタイプの中にリテラルなアンパサンドを表示するには、この例のように2つの連続したアンパサンドを指定します：<code>MyGui.Add("Button",, "Save &amp;&amp; Exit")</code>.</p>
 
 <h2 id="Appear">ウィンドウの外観</h2>
-<p>GUIウィンドウのアイコンは、ウィンドウの作成時に有効だったトレイアイコンを使用します。したがって、別のアイコンを持つには、ウィンドウを作成する前にトレイアイコンを変更します。事例：<code><a href="TraySetIcon.htm">TraySetIcon</a>("MyIcon.ico")</code>. また、ウィンドウの大アイコンを小アイコンと異なるものにすることも可能です（大アイコンはalt-tabタスクスイッチャーに表示されます）。これは、<a href="LoadPicture.htm">LoadPicture</a>と <a href="SendMessage.htm">SendMessage</a>で行うことができます；例えば、：</p>
+<p>GUIウィンドウのアイコンは、ウィンドウの作成時に有効だったトレイアイコンを使用します。したがって、別のアイコンを持つには、ウィンドウを作成する前にトレイアイコンを変更します。例えば：<code><a href="TraySetIcon.htm">TraySetIcon</a>("MyIcon.ico")</code>. また、ウィンドウの大アイコンを小アイコンと異なるものにすることも可能です（大アイコンはalt-tabタスクスイッチャーに表示されます）。これは、<a href="LoadPicture.htm">LoadPicture</a>と <a href="SendMessage.htm">SendMessage</a>で行うことができます；例えば、：</p>
 <pre>iconsize := 32  <em>; alt-tabの理想的なサイズは、システムやOSのバージョンによって異なる。</em>
 hIcon := LoadPicture("My Icon.ico", "Icon1 w" iconsize " h" iconsize, &amp;imgtype)
 MyGui := Gui()

@@ -60,7 +60,7 @@ MyArray := Array(Item1, Item2, ..., ItemN)</pre>
 <pre>RemovedValue := MyArray.RemoveAt(Index)</pre>
 <p>Remove the last item using the <a href="lib/Array.htm#Pop">Pop</a> method:</p>
 <pre>RemovedValue := MyArray.Pop()</pre>
-<p><a href="lib/Array.htm#Length">Length</a> returns the number of items in the array. Looping through an array's contents can be done either by index or with a For-loop. 事例：</p>
+<p><a href="lib/Array.htm#Length">Length</a> returns the number of items in the array. Looping through an array's contents can be done either by index or with a For-loop. 例えば：</p>
 <pre>MyArray := ["one", "two", "three"]
 
 <em>; Iterate from 1 to the end of the array:</em>
@@ -109,20 +109,20 @@ MyObject.Property[Parameters] := Value</pre>
 <p>An object may also support indexing: <code>MyArray[Index]</code> actually invokes the <a href="#__Item">__Item</a> property of <code>MyArray</code>, passing <code>Index</code> as a parameter.</p>
 
 <h3 id="object-literal">Object Literal</h3>
-<p>An object literal can be used within an <a href="Language.htm#expressions">expression</a> to create an improvised object. An object literal consists of a pair of braces (<code>{}</code>) enclosing a list of comma-delimited name-value pairs. Each pair consists of a literal (unquoted) <a href="Concepts.htm#names">property name</a> and a value (sub-expression) separated by a colon (<code>:</code>). 事例：</p>
+<p>An object literal can be used within an <a href="Language.htm#expressions">expression</a> to create an improvised object. An object literal consists of a pair of braces (<code>{}</code>) enclosing a list of comma-delimited name-value pairs. Each pair consists of a literal (unquoted) <a href="Concepts.htm#names">property name</a> and a value (sub-expression) separated by a colon (<code>:</code>). 例えば：</p>
 <pre>Coord := {X: 13, Y: 240}</pre>
 <p>This is equivalent:</p>
 <pre>Coord := Object()
 Coord.X := 13
 Coord.Y := 240</pre>
 <p>Each name-value pair causes a value property to be defined, with the exception that <a href="lib/Object.htm#Base">Base</a> can be set (with the same restrictions as a normal assignment).</p>
-<p><a href="Variables.htm#deref">Name substitution</a> allows a property name to be determined by evaluating an <a href="Language.htm#expressions">expression</a> or <a href="Concepts.htm#variables">variable</a>. 事例：</p>
+<p><a href="Variables.htm#deref">Name substitution</a> allows a property name to be determined by evaluating an <a href="Language.htm#expressions">expression</a> or <a href="Concepts.htm#variables">variable</a>. 例えば：</p>
 <pre>parts := StrSplit("key = value", "=", " ")
 pair := {%parts[1]%: parts[2]}
 MsgBox pair.key</pre>
 
 <h3 id="Usage_Freeing_Objects">Freeing Objects</h3>
-<p>Scripts do not free objects explicitly. When the last reference to an object is released, the object is freed automatically. A reference stored in a variable is released automatically when that variable is assigned some other value. 事例：</p>
+<p>Scripts do not free objects explicitly. When the last reference to an object is released, the object is freed automatically. A reference stored in a variable is released automatically when that variable is assigned some other value. 例えば：</p>
 <pre>obj := {}  <em>; Creates an object.</em>
 obj := ""  <em>; Releases the last reference, and therefore frees the object.</em></pre>
 <p>Similarly, a reference stored in a property or array element is released when that property or array element is assigned some other value or removed from the object.</p>
@@ -142,7 +142,7 @@ x := "", y := ""             <em>; Without the above line, this would not free t
 <h2 id="Extended_Usage">Extended Usage</h2>
 
 <h3 id="Usage_Arrays_of_Arrays">Arrays of Arrays</h3>
-<p>Although "multi-dimensional" arrays are not supported, a script can combine multiple arrays or maps. 事例：</p>
+<p>Although "multi-dimensional" arrays are not supported, a script can combine multiple arrays or maps. 例えば：</p>
 <pre>
 grid := [[1,2,3],
          [4,5,6],
@@ -150,7 +150,7 @@ grid := [[1,2,3],
 MsgBox grid[1][3] <em>; 3</em>
 MsgBox grid[3][2] <em>; 8</em>
 </pre>
-<p id="Array2D">A custom object can implement multi-dimensional support by defining an <a href="#__Item">__Item</a> property. 事例：</p>
+<p id="Array2D">A custom object can implement multi-dimensional support by defining an <a href="#__Item">__Item</a> property. 例えば：</p>
 <pre>
 class Array2D extends Array {
     __new(x, y) {
@@ -396,7 +396,7 @@ MsgBox Env["PATH"]</pre>
   <li><code><i>object</i>[<i>params</i>]</code> is equivalent to <code><i>object</i>.__Item[<i>params</i>]</code> when there are parameters.</li>
   <li><code><i>object</i>[]</code> is equivalent to <code><i>object</i>.__Item</code>.</li>
 </ul>
-<p>事例：</p>
+<p>例えば：</p>
 <pre>
 obj := {}
 obj[] := Map()     <em>; Equivalent to obj.__Item := Map()</em>
@@ -407,7 +407,7 @@ MsgBox obj["base"]                  <em>; 10</em>
 <p class="note"><strong>Note:</strong> When an explicit property name is combined with empty brackets, as in <code>obj.prop[]</code>, it is handled as two separate operations: first retrieve <code>obj.prop</code>, then invoke the default property of the result. This is part of the language syntax, so is not dependent on the object.</p>
 
 <h3 id="Custom_NewDelete">Construction and Destruction</h3>
-<p>Whenever an object is created by the default implementation of <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>, the new object's <code>__New</code> method is called in order to allow custom initialization. Any parameters passed to <code><i>ClassName</i>()</code> are forwarded to <code>__New</code>, so can affect the object's initial content or how it is constructed. When an object is destroyed, <code>__Delete</code> is called. 事例：</p>
+<p>Whenever an object is created by the default implementation of <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>, the new object's <code>__New</code> method is called in order to allow custom initialization. Any parameters passed to <code><i>ClassName</i>()</code> are forwarded to <code>__New</code>, so can affect the object's initial content or how it is constructed. When an object is destroyed, <code>__Delete</code> is called. 例えば：</p>
 <pre>m1 := GMem(0, 10)
 m2 := {base:GMem.Prototype}, m2.__New(0, 30)
 
@@ -506,13 +506,13 @@ class <i>ClassName</i> {
 <p>Note that <code>x is Any</code> would ordinarily be true for any value within AutoHotkey's type hierarchy, but false for COM objects.</p>
 
 <h3 id="primitive-extension">Adding Properties and Methods</h3>
-<p>Properties and methods can be added for all values of a given type by modifying that type's prototype object. However, since a primitive value is not an Object and cannot have its own properties or methods, the primitive prototype objects do not derive from <code>Object.Prototype</code>. In other words, methods such as <a href="lib/Object.htm#DefineProp">DefineProp</a> and <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a> are not accessible by default. They can be called indirectly. 事例：</p>
+<p>Properties and methods can be added for all values of a given type by modifying that type's prototype object. However, since a primitive value is not an Object and cannot have its own properties or methods, the primitive prototype objects do not derive from <code>Object.Prototype</code>. In other words, methods such as <a href="lib/Object.htm#DefineProp">DefineProp</a> and <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a> are not accessible by default. They can be called indirectly. 例えば：</p>
 <pre>
 DefProp := {}.DefineProp
 DefProp( "".base, "Length", { get: StrLen } )
 MsgBox A_AhkPath.length " == " StrLen(A_AhkPath)
 </pre>
-<p>Although primitive values can inherit value properties from their prototype, an exception is thrown if the script attempts to set a value property on a primitive value. 事例：</p>
+<p>Although primitive values can inherit value properties from their prototype, an exception is thrown if the script attempts to set a value property on a primitive value. 例えば：</p>
 <pre>"".base.test := 1  <em>; Don't try this at home.</em>
 MsgBox "".test  <em>; 1</em>
 "".test := 2  <em>; Error: Property is read-only.</em></pre>

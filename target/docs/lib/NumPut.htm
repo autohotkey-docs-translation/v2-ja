@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>NumPut - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The NumPut function stores one or more numbers in binary format at the specified address+offset." />
+<title>NumPut - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="NumPut関数は、指定されたアドレス+オフセットに1つ以上の数値をバイナリ形式で格納します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -20,41 +20,41 @@
   <dt>Type</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>One of the following strings: UInt, UInt64, Int, Int64, Short, UShort, Char, UChar, Double, Float, Ptr or UPtr</p>
-      <p>For all integer types, or when passing pure integers, signed vs. unsigned does not affect the result due to the use of two's complement to represent signed integers.</p>
-      <p>These type names must be enclosed in quotes when used as literal strings.</p>
-      <p>For details see <a href="DllCall.htm#types">DllCall Types</a>.</p>
+      <p>以下の文字列のいずれか1つ：UInt, UInt64, Int, Int64, Short, UShort, Char, UChar, Double, Float, Ptr or UPtr</p>
+      <p>すべての整数型、または純粋な整数を渡す場合、符号付き整数を表現するために2の補数を使用するため、符号付きと符号無しは結果に影響しません。</p>
+      <p>これらの型名をリテラル文字列として使用する場合は、引用符で囲む必要があります。</p>
+      <p>詳しくは<a href="DllCall.htm#types">DllCallの種類</a>をご覧ください。</p>
     </dd>
 
   <dt>Number</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The number to store.</p>
+    <p>保存する番号です。</p>
   </dd>
 
   <dt>Target</dt>
   <dd>
     <p>型：<a href="Buffer.htm">オブジェクト</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-		<p>A <a href="Buffer.htm">Buffer</a>-like object or memory address.</p>
-    <p>Any object which implements <a href="Buffer.htm#Ptr">Ptr</a> and <a href="Buffer.htm#Size">Size</a> properties may be used, but this function is optimized for the native <a href="Buffer.htm">Buffer</a> object. Passing an object with these properties ensures that the function does not write to an invalid memory location; doing so could cause crashes or other unpredictable behaviour.</p>
+		<p><a href="Buffer.htm">Buffer</a>のようなオブジェクトまたはメモリアドレス。</p>
+    <p><a href="Buffer.htm#Ptr">Ptr</a>と<a href="Buffer.htm#Size">Size</a>プロパティを実装しているオブジェクトであれば何でも使用できますが、この関数はネイティブの<a href="Buffer.htm">Buffer</a>オブジェクトに最適化されています。これらのプロパティを持つオブジェクトを渡すことで、関数が無効なメモリ位置に書き込まないようにします。そうすると、クラッシュやその他の予測不可能な動作の原因になります。</p>
 	</dd>
 
   <dt>Offset</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>An offset - in bytes - which is added to <em>Target</em> to determine the target address. 省略された場合、デフォルトは 0 です。</p>
+    <p>ターゲットアドレスを決定するために<em>Target</em>に追加されるオフセット（バイト単位）です。省略された場合、デフォルトは 0 です。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the address to the right of the last item written. This can be used when writing a non-contiguous sequence of numbers, such as in a structure for use with <a href="DllCall.htm">DllCall</a>, where some fields are not being set. However, in many cases it is simpler and more efficient to specify multiple <em>Type</em>, <em>Number</em> pairs instead. Passing the address back to NumPut is less safe than passing a Buffer-like object with an updated <em>Offset</em>.</p>
+<p>この関数は、最後に書き込まれた項目の右側のアドレスを返します。<a href="DllCall.htm">DllCall</a>で使用する構造体のように、一部のフィールドが設定されていない、連続しない数値列を記述する場合に使用できます。しかし、多くの場合、代わりに複数の<em>Type</em>と<em>Number</em>のペアを指定する方がシンプルで効率的です。NumPutにアドレスを返すのは、<em>Offset</em>を更新したBufferのようなオブジェクトを渡すよりも安全性に欠けます。</p>
 
 <h2 id="General_Remarks">総論</h2>
-<p>A sequence of numbers can be written by repeating <em>Type</em> and <em>Number</em> any number of times after the first <em>Number</em>. Each number is written at the next byte after the previous number, with no padding. When creating a structure for use with <a href="DllCall.htm">DllCall</a>, be aware that some fields may need explicit padding added due to data alignment requirements.</p>
-<p>If an integer is too large to fit in the specified <em>Type</em>, its most significant bytes are ignored; e.g. <code>NumPut("Char", 257, buf)</code> would store the number 1.</p>
-<p>An exception may be thrown if the target address is invalid. However, some invalid addresses cannot be detected as such and may cause unpredictable behaviour. Passing a <a href="Buffer.htm">Buffer</a> object instead of an address ensures that the target address can always be validated.</p>
+<p>最初の<em>Number</em>の後に<em>Type</em>と <em>Number</em>を任意の回数繰り返すことで、一連のNumberを記述することができます。各数値は、前の数値の次のバイトに、パディングなしで書き込まれます。<a href="DllCall.htm">DllCall</a>で使用する構造体を作成する場合、データ配列の要件により、フィールドによっては明示的にパディングを追加する必要があることに留意してください。</p>
+<p>整数が大きすぎて指定した<em>Type</em>に収まらない場合、その最上位バイトは無視されます。例えば、<code>NumPut("Char", 257, buf)</code>は数値1を格納する。</p>
+<p>ターゲットアドレスが無効な場合、例外が発生することがあります。しかし、無効なアドレスの中には、それを検出できないものもあり、予測できない挙動を引き起こす可能性があります。アドレスの代わりに<a href="Buffer.htm">Buffer</a>オブジェクトを渡すことで、ターゲットアドレスが常に検証できるようになります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="NumGet.htm">NumGet</a>, <a href="DllCall.htm">DllCall</a>, <a href="Buffer.htm">Buffer object</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a></p>
