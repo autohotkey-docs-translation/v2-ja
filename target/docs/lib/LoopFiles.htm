@@ -66,7 +66,7 @@
   </tr>
   <tr id="LoopFileShortPath">
     <td>A_LoopFileShortPath</td>
-    <td><p>現在検索しているファイル／フォルダの 8.3 ショートパスと名前。例えば：C:\MYDOCU~1\ADDRES~1.txt. <em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。</p>
+    <td><p>現在検索しているファイル／フォルダの 8.3 ショートパスと名前。事例：C:\MYDOCU~1\ADDRES~1.txt. <em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。</p>
       <p>一つのファイルやフォルダの8.3の完全なパスと名前を取得するには、この例のように<em>FilePattern</em>にその名前を指定します：</p>
 <pre>Loop Files, "C:\My Documents\Address List.txt"
     ShortPathName := A_LoopFileShortPath</pre>
@@ -78,7 +78,7 @@
   </tr>
   <tr id="LoopFileDir">
     <td>A_LoopFileDir</td>
-    <td><em>A_LoopFileName</em>が存在するディレクトリのパス。<em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。ルートディレクトリには、末尾のバックスラッシュは含まれません。例えば：C:</td>
+    <td><em>A_LoopFileName</em>が存在するディレクトリのパス。<em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。ルートディレクトリには、末尾のバックスラッシュは含まれません。事例：C:</td>
   </tr>
   <tr id="LoopFileTimeModified">
     <td>A_LoopFileTimeModified</td>
@@ -116,7 +116,7 @@
 <pre>if A_LoopFileAttrib ~= "[HRS]"  <em>; H (Hidden), R (Read-only), S (System) のいずれかに該当するファイルをスキップします。<a href="../Variables.htm#regex">~= operator</a>を参照。</em>
     continue  <em>; このファイルをスキップして、次のファイルに移る。</em></pre>
 <p>再帰検索で絶対パスではなく相対パスを取得するには、<a href="SetWorkingDir.htm">SetWorkingDir</a>でループ前のベースフォルダに変更し、Loopでパスを省略します（例：<code>Loop Files, "*.*", "R"</code>)。これにより、<a href="#LoopFilePath">A_LoopFilePath</a>には、ベースフォルダからの相対的なファイルのパスが含まれることになります。</p>
-<p>ファイルループは、自分の権限でファイルやフォルダを作成したり、名前を変更したりすると、それ自体が混乱することがあります。例えば、<a href="FileMove.htm">FileMove</a>などでファイル名を変更した場合、そのようなファイルが2回見つかる可能性があります：旧名称ならば、新名称とします。これを回避するには、ファイルのリストを作成した後にのみファイル名を変更します。例えば：</p>
+<p>ファイルループは、自分の権限でファイルやフォルダを作成したり、名前を変更したりすると、それ自体が混乱することがあります。例えば、<a href="FileMove.htm">FileMove</a>などでファイル名を変更した場合、そのようなファイルが2回見つかる可能性があります：旧名称ならば、新名称とします。これを回避するには、ファイルのリストを作成した後にのみファイル名を変更します。事例：</p>
 <pre>FileList := ""
 Loop Files, "*.jpg"
     FileList .= A_LoopFileName "`n"
@@ -129,7 +129,7 @@ Loop Parse, FileList, "`n"
   <li><code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィックス</a>を使用します（注意事項あり）。</li>
 </ul>
 <p>それ以外の場合、259文字より長いファイルパターンは、ファイルやフォルダーを見つけることができません。この制限は、<em>FilePattern</em>と、サブフォルダへの再帰中に使用される一時的なパターンの両方に適用されます。</p>
-<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。例えば：<code>Loop Files "*.txt", "R" {</code>.</p>
+<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Files "*.txt", "R" {</code>.</p>
 <p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」を参照してください。</p>
 <p>ループの後に<a href="Else.htm">Else</a>文が続くことがありますが、これは一致するファイルやディレクトリが見つからなかった場合に実行されます（つまり、ループの反復回数がゼロの場合）。</p>
 

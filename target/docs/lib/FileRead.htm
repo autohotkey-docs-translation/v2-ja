@@ -27,7 +27,7 @@
   <dt>Options</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。例えば：<code>"`n m5000 UTF-8"</code></p>
+    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"`n m5000 UTF-8"</code></p>
     <p><strong>エンコード</strong>：<a href="FileEncoding.htm">FileEncoding</a>が受け付けるエンコーディング名（空文字列を除く）を指定すると、ファイルに UTF-8 または UTF-16 のバイト順マークがない場合に、そのエンコーディングを使用します。省略された場合、デフォルトは<a href="../Variables.htm#FileEncoding">A_FileEncoding</a>となる。</p>
     <p><strong>RAW</strong>:RAW（大文字と小文字を区別しない）を指定すると、ファイルの内容を<a href="#Binary">生のバイナリデータ</a>として読み込み、文字列の代わりに<a href="Buffer.htm">Buffer</a>オブジェクトを返します。このオプションは、以前に指定されたエンコーディングを上書きし、その逆もまた然りです。</p>
     <p><strong>m1024</strong>:このオプションを省略すると、メモリ不足でない限りファイル全体が読み込まれ、その場合はエラーメッセージが表示されてスレッドが終了します（ただし、<a href="Try.htm">Try</a>を使用することでこれを回避できます）。それ以外の場合は、1024を10進数または16進数のバイト数に置き換えてください。これより大きなファイルの場合は、その先頭部分のみを読み込みます。</p>
@@ -47,7 +47,7 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Binary">バイナリデータの読み取り</h2>
-<p><code>RAW</code>オプションを使用した場合、戻り値は、ファイルの未修正の内容を含む<a href="Buffer.htm">Buffer</a>オブジェクトとなる。オブジェクトの<a href="Buffer.htm#Size">Size</a>プロパティは、読み込んだバイト数を返します。<a href="NumGet.htm">NumGet</a>または<a href="StrGet.htm">StrGet</a>を使用して、バッファからデータを取得することができます。例えば：</p>
+<p><code>RAW</code>オプションを使用した場合、戻り値は、ファイルの未修正の内容を含む<a href="Buffer.htm">Buffer</a>オブジェクトとなる。オブジェクトの<a href="Buffer.htm#Size">Size</a>プロパティは、読み込んだバイト数を返します。<a href="NumGet.htm">NumGet</a>または<a href="StrGet.htm">StrGet</a>を使用して、バッファからデータを取得することができます。事例：</p>
 <pre>buf := FileRead(A_AhkPath, "RAW")
 if StrGet(buf, 2, "cp0") == "MZ"  <em>; 実行ファイルのように見えるが...。</em>
 {

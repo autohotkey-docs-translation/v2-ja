@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Pause - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Pause function pauses the script's current thread." />
+<title>Pause - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Pause 関数は、スクリプトの現在のスレッドを一時停止します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -23,43 +23,43 @@
   <dt>NewState</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If omitted, the <a href="../misc/Threads.htm">current thread</a> is paused. Otherwise, specify one of the following values:</p>
-    <p><code>1</code> または <code>True</code>:Marks the thread beneath the current thread as paused so that when it resumes, it will finish the function it was running (if any) and then enter a paused state. If there is no thread beneath the current thread, the script itself is paused, which prevents <a href="SetTimer.htm">timers</a> from running (this effect is the same as having used the menu item "Pause Script" while the script has no threads).</p>
-    <p><code>0</code> または <code>False</code>:Unpauses the underlying thread.</p>
-    <p><code>-1</code>: Toggles the pause state of the underlying thread.</p>
+    <p>省略された場合、<a href="../misc/Threads.htm">現在のスレッド</a>は一時停止されます。それ以外の場合は、次のいずれかの値を指定します：</p>
+    <p><code>1</code> または <code>True</code>:現在のスレッドの下にあるスレッドを一時停止状態としてマークし、再開時に実行中の関数があればそれを終了させ、一時停止状態に入るようにします。現在のスレッドの下にスレッドがない場合、スクリプト自体が一時停止され、<a href="SetTimer.htm">タイマー</a>の実行が妨げられます（この効果は、スクリプトにスレッドがないときにメニュー項目「スクリプトの一時停止」を使用した場合と同じです）。</p>
+    <p><code>0</code> または <code>False</code>:基礎となるスレッドの一時停止を解除します。</p>
+    <p><code>-1</code>:基礎となるスレッドの一時停止状態をトグルします。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p><a href="../Variables.htm#IsPaused">A_IsPaused</a> contains the pause state of the underlying thread.</p>
-<p>By default, the script can also be paused via its <a href="../Program.htm#tray-icon">tray icon</a> or <a href="../Program.htm#main-window">main window</a>.</p>
-<p>Unlike <a href="Suspend.htm">Suspend</a> -- which disables <a href="../Hotkeys.htm">hotkeys</a> and <a href="../Hotstrings.htm">hotstrings</a> -- turning on pause will freeze the thread (the <a href="../misc/Threads.htm">current thread</a> if <em>NewState</em> was omitted, otherwise the underlying thread). As a side-effect, any interrupted threads beneath it will lie dormant.</p>
-<p>Whenever any thread is paused, <a href="SetTimer.htm">timers</a> will not run. By contrast, explicitly launched threads such as <a href="../Hotkeys.htm">hotkeys</a> and <a href="Menu.htm">menu items</a> can still be launched; but when their <a href="../misc/Threads.htm">threads</a> finish, the underlying thread will still be paused. In other words, each thread can be paused independently of the others.</p>
-<p>With the default icons, the color of the tray icon changes from green to red whenever the script's <a href="../misc/Threads.htm">current thread</a> is in a paused state. This color change can be avoided by freezing the icon, which is achieved by specifying 1 for the last parameter of TraySetIcon. 例えば：</p>
+<p><a href="../Variables.htm#IsPaused">A_IsPaused</a>は、基礎となるスレッドの一時停止状態を含んでいます。</p>
+<p>デフォルトでは、<a href="../Program.htm#tray-icon">トレイアイコン</a>または<a href="../Program.htm#main-window">メインウィンドウ</a>からスクリプトを一時停止することも可能です。</p>
+<p><a href="../Hotkeys.htm">ホットキー</a>や <a href="../Hotstrings.htm">ホットストリング</a>を無効にする<a href="Suspend.htm">Suspend</a>とは異なり、pauseをオンにするとスレッド（<em>NewState</em>が省略された場合は<a href="../misc/Threads.htm">現在のスレッド</a>、そうでない場合はその下のスレッド）がフリーズします。副次的な効果として、その下にある中断されたスレッドは休眠状態になります。</p>
+<p>どのスレッドも一時停止すると、<a href="SetTimer.htm">タイマー</a>は実行されません。一方、<a href="../Hotkeys.htm">ホットキー</a>や <a href="Menu.htm">メニュー項目</a>など、明示的に起動されたスレッドはまだ起動可能ですが、それらの<a href="../misc/Threads.htm">スレッド</a>が終了すると、その下にあるスレッドはまだ一時停止しています。つまり、各スレッドは他のスレッドとは独立して一時停止することができるのです。</p>
+<p>デフォルトのアイコンでは、スクリプトの<a href="../misc/Threads.htm">カレントスレッド</a>が一時停止状態にあるときは、トレイアイコンの色が緑から赤に変化します。この色の変化は、TraySetIconの最後のパラメータに1を指定することで、アイコンを凍結することで回避することができます。事例：</p>
 <pre><a href="TraySetIcon.htm">TraySetIcon</a> ,, 1</pre>
-<p>To disable <a href="SetTimer.htm">timers</a> without pausing the script, use <a href="Thread.htm">Thread "NoTimers"</a>.</p>
-<p>A script is always halted (though not officially paused) while it is displaying any kind of <a href="Menu.htm">menu</a> (tray menu, menu bar, GUI context menu, etc.)</p>
+<p>スクリプトを一時停止せずに<a href="SetTimer.htm">タイマー</a>を無効にするには、<a href="Thread.htm">Thread "NoTimers"</a>を使用します。</p>
+<p>スクリプトが何らかの<a href="Menu.htm">メニュー</a>（トレイメニュー、メニューバー、GUIコンテキストメニューなど）を表示している間は、常に中断されます（正式には一時停止ではありません）。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Suspend.htm">Suspend</a>, <a href="Menu.htm">Menu object</a>, <a href="ExitApp.htm">ExitApp</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="SetTimer.htm">SetTimer</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExHalt">
-<p><a class="ex_number" href="#ExHalt"></a> Use Pause to halt the script, such as to inspect variables.</p>
+<p><a class="ex_number" href="#ExHalt"></a> 変数の検査など、スクリプトを停止させる場合は、Pauseを使用します。</p>
 <pre>ListVars
 Pause
 ExitApp <em>; This line will not execute until the user unpauses the script.</em></pre>
 </div>
 
 <div class="ex" id="ExHotkey">
-<p><a class="ex_number" href="#ExHotkey"></a> Press a hotkey once to pause the script. Press it again to unpause.</p>
+<p><a class="ex_number" href="#ExHotkey"></a> ホットキーを1回押すと、スクリプトを一時停止することができます。もう一度押すと、一時停止が解除されます。</p>
 <pre>Pause::Pause -1  <em>; The Pause/Break key.</em>
 #p::Pause -1  <em>; Win+P</em></pre>
 </div>
 
 <div class="ex" id="ExPostMessage">
-<p><a class="ex_number" href="#ExPostMessage"></a> Sends a Pause command to another script.</p>
+<p><a class="ex_number" href="#ExPostMessage"></a> 他のスクリプトにPauseコマンドを送信します。</p>
 <pre>DetectHiddenWindows True
 WM_COMMAND := 0x0111
 ID_FILE_PAUSE := 65403

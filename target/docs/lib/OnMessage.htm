@@ -69,7 +69,7 @@ OnMessage MsgNumber, Function, 1  <em>; Option 2 - specify MaxThreads 1</em></pr
 
 <h2 id="Additional_Information_Available_to_the_Function">機能で利用できる追加情報</h2>
 <p>上記で受け取ったパラメータに加えて、この関数は組み込み変数<a href="../Variables.htm#EventInfo">A_EventInfo</a>を参照することができ、SendMessageでメッセージが送信された場合は0が格納されます。PostMessageで送信された場合、メッセージが投稿された<a href="../Variables.htm#TickCount">tick-count の時間</a>が含まれます。</p>
-<p>モニター機能で<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>は、メッセージが送信された親ウィンドウとして始まります（コントロールに送信された場合も同様です）。ウィンドウが隠れていてもGUIウィンドウ（スクリプトのメインウィンドウなど）でない場合は、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>をオンにしてから使用します。例えば：</p>
+<p>モニター機能で<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>は、メッセージが送信された親ウィンドウとして始まります（コントロールに送信された場合も同様です）。ウィンドウが隠れていてもGUIウィンドウ（スクリプトのメインウィンドウなど）でない場合は、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>をオンにしてから使用します。事例：</p>
 <pre>DetectHiddenWindows True
 MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to which the message was sent.</em></pre>
 
@@ -86,20 +86,20 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <ul>
   <li>メッセージが送信ではなく投稿であり、0x0311より大きい番号を持つ場合、関数の最初の行に<a href="Critical.htm">Critical</a>を指定することで、その関数が完了するまでバッファリングすることができます。また、<a href="Thread.htm">スレッドインタラプト</a>は、関数が終了するまでの時間が長ければ、同じ効果を得ることができます。</li>
   <li><a href="Critical.htm">Critical</a>を使用して<a href="Critical.htm#Interval">メッセージチェックの間隔を</a>長くすると、メッセージが送信される前に機能が完了する時間が長くなります。信頼性のために16以上の間隔が必要な場合があります。システムタイマーの粒度（通常は15.6ミリ秒）により、非クリティカルスレッドのデフォルト間隔（5ミリ秒）は、関数が開始した瞬間に経過しているように見えるかもしれません。</li>
-  <li>モニター関数が素早く戻るようにすることで、<em>MaxThreads</em>のためにメッセージが見逃されるリスクを減らすことができます。One way to do this is to have it queue up a future thread by <a href="PostMessage.htm">posting</a> to its own script a monitored message number greater than 0x0311. That message's function should use <a href="Critical.htm">Critical</a> as its first line to ensure that its messages are buffered. Alternatively, a <a href="SetTimer.htm">timer</a> can be used to queue up a future thread.</li>
-  <li>Specifying a higher value for the <a href="#MaxThreads">MaxThreads</a> parameter allows the function to be interrupted to process the newly-received message.</li>
+  <li>モニター関数が素早く戻るようにすることで、<em>MaxThreads</em>のためにメッセージが見逃されるリスクを減らすことができます。一つの方法として、0x0311より大きい監視メッセージ番号を自身のスクリプトに<a href="PostMessage.htm">投稿</a>することで、未来のスレッドをキューに入れることができます。そのメッセージの関数は、メッセージがバッファリングされることを保証するために、その最初の行として<a href="Critical.htm">Critical</a>を使用する必要があります。また、<a href="SetTimer.htm">タイマー</a>を使って未来のスレッドをキューに入れることも可能です。</li>
+  <li><a href="#MaxThreads">MaxThreads</a>パラメータに高い値を指定すると、新しく受信したメッセージを処理するために関数を中断させることができます。</li>
 </ul>
-<p id="buffering">If a monitored message that is numerically greater than 0x0311 is posted while the script is <a href="../misc/Threads.htm#Interrupt">uninterruptible</a>, the message is buffered; that is, its function is not called until the script becomes interruptible. However, messages which are sent rather than posted cannot be buffered as they must provide a return value. Posted messages also might not be buffered when a modal message loop is running, such as for a system dialog, ListView drag-drop operation or menu.</p>
-<p>If a monitored message arrives and is not buffered, its function is called immediately even if the thread is <a href="../misc/Threads.htm#Interrupt">uninterruptible</a> when the message is received.</p>
-<p>The <a href="../misc/Threads.htm">priority</a> of OnMessage threads is always 0. Consequently, no messages are monitored or buffered when the current thread's priority is higher than 0.</p>
-<p>Caution should be used when monitoring system messages (those below 0x0400). For example, if a monitor function does not finish quickly, the response to the message might take longer than the system expects, which might cause side-effects. Unwanted behavior may also occur if a monitor function returns an integer to suppress further processing of a message, but the system expected different processing or a different response.</p>
-<p>When the script is displaying a system dialog such as <a href="MsgBox.htm">MsgBox</a>, any message posted to a control is not monitored. For example, if the script is displaying a message box and the user clicks a button in a GUI window, the WM_LBUTTONDOWN message is sent directly to the button without calling the monitor function.</p>
-<p>Although an external program may post messages directly to a script's thread via PostThreadMessage() or other API call, this is not recommended because the messages would be lost if the script is displaying a system window such as a <a href="MsgBox.htm">message box</a>. Instead, it is usually best to post or send the messages to the script's main window or one of its GUI windows.</p>
+<p id="buffering">スクリプトが<a href="../misc/Threads.htm#Interrupt">中断不可能な</a>状態で0x0311より大きい数値の監視メッセージが投稿された場合、そのメッセージはバッファリングされます；つまり、スクリプトが中断可能になるまでその関数は呼ばれません。しかし、投稿ではなく送信されるメッセージは、戻り値を提供する必要があるため、バッファリングすることはできません。システムダイアログ、リストビューのドラッグ＆ドロップ操作、メニューなどのモーダルメッセージループが実行されている場合、投稿されたメッセージがバッファされない場合があります。</p>
+<p>監視対象メッセージが到着し、バッファリングされていない場合、メッセージ受信時にスレッドが<a href="../misc/Threads.htm#Interrupt">中断不可能</a>であったとしても、その関数は直ちに呼び出されます。</p>
+<p>OnMessageスレッドの<a href="../misc/Threads.htm">優先順位</a>は常に0です。その結果、現在のスレッドの優先順位が0より高い場合、メッセージの監視やバッファリングは行われない。</p>
+<p>システムメッセージ（0x0400以下のメッセージ）を監視する場合は、注意が必要です。例えば、モニター関数が早く終わらない場合、メッセージに対する応答がシステムの想定よりも長くなり、副作用が発生する可能性があります。また、モニター関数が整数値を返してメッセージのさらなる処理を抑制しているにもかかわらず、システムが別の処理または別の応答を期待していた場合にも、望ましくない動作が発生することがあります。</p>
+<p>スクリプトが<a href="MsgBox.htm">MsgBox</a>などのシステムダイアログを表示している場合、コントロールに投稿されたメッセージは監視されません。例えば、スクリプトがメッセージボックスを表示しているときに、ユーザーがGUIウィンドウのボタンをクリックした場合、WM_LBUTTONDOWNメッセージはモニター関数を呼び出すことなく、直接ボタンに送信されます。</p>
+<p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。その代わりに、スクリプトのメインウィンドウまたはGUIウィンドウの1つにメッセージを投稿または送信するのが通常最適です。</p>
 <h2 id="Related">関連</h2>
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLButtonDown">
-<p><a class="ex_number" href="#ExLButtonDown"></a> Monitors mouse clicks in a GUI window. 関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
+<p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a>イベント</p>
 <pre>MyGui := Gui(, "Example Window")
 MyGui.Add("Text",, "Click anywhere in this window.")
 MyGui.Add("Edit", "w200")
@@ -123,7 +123,7 @@ WM_LBUTTONDOWN(wParam, lParam, msg, hwnd)
 </div>
 
 <div class="ex" id="ExShutdown">
-<p><a class="ex_number" href="#ExShutdown"></a> Detects system shutdown/logoff and allows the user to abort it. On Windows Vista and later, the system displays a user interface showing which program is blocking shutdown/logoff and allowing the user to force shutdown/logoff. On older OSes, the script displays a confirmation prompt. 関連トピック<a href="OnExit.htm">OnExit</a></p>
+<p><a class="ex_number" href="#ExShutdown"></a> システムのシャットダウン/ログオフを検出し、ユーザーがそれを中止できるようにします。Windows Vista以降では、シャットダウン/ログオフをブロックしているプログラムを示すユーザーインターフェイスを表示し、ユーザーが強制的にシャットダウン/ログオフできるようにします。古いOSの場合、スクリプトは確認プロンプトを表示します。関連トピック<a href="OnExit.htm">OnExit</a></p>
 <pre><em>; The following DllCall is optional: it tells the OS to shut down this script first (prior to all other applications).</em>
 DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
 OnMessage(0x0011, On_WM_QUERYENDSESSION)
@@ -172,7 +172,7 @@ StopBlockingShutdown(*)
 </div>
 
 <div class="ex" id="ExCustom">
-<p><a class="ex_number" href="#ExCustom"></a> Receives a custom message and up to two numbers from some other script or program (to send strings rather than numbers, see the example after this one).</p>
+<p><a class="ex_number" href="#ExCustom"></a> 他のスクリプトやプログラムから、カスタムメッセージと最大2つの数字を受信する（数字ではなく文字列を送信する場合は、この後の例を参照してください）。</p>
 <pre>OnMessage 0x5555, MsgMonitor
 Persistent
 
@@ -192,8 +192,8 @@ DetectHiddenWindows False  <em>; Must not be turned off until after PostMessage.
 </div>
 
 <div class="ex" id="ExSendString">
-<p><a class="ex_number" href="#ExSendString"></a> Sends a string of any length from one script to another. To use this, save and run both of the following scripts then press <kbd>Win</kbd>+<kbd>Space</kbd> to show an input box that will prompt you to type in a string. Both scripts must use the same <a href="../Concepts.htm#native-encoding">native encoding</a>.</p>
-<p>Save the following script as <strong>Receiver.ahk</strong> then launch it.</p>
+<p><a class="ex_number" href="#ExSendString"></a> あるスクリプトから別のスクリプトへ、任意の長さの文字列を送信します。これを使うには、次の2つのスクリプトを保存して実行し、<kbd>Win</kbd>+<kbd>Space</kbd>を押して入力ボックスを表示し、文字列を入力するよう促します。両方のスクリプトは同じ<a href="../Concepts.htm#native-encoding">ネイティブエンコーディング</a>を使用する必要があります。</p>
+<p>以下のスクリプトを<strong>Receiver.ahk</strong>として保存し、起動してください。</p>
 <pre filename="Receiver.ahk">#SingleInstance
 OnMessage 0x004A, Receive_WM_COPYDATA  <em>; 0x004A is WM_COPYDATA</em>
 Persistent
@@ -206,7 +206,7 @@ Receive_WM_COPYDATA(wParam, lParam, msg, hwnd)
     ToolTip A_ScriptName "`nReceived the following string:`n" CopyOfData
     return true  <em>; Returning 1 (true) is the traditional way to acknowledge this message.</em>
 }</pre>
-<p>Save the following script as <strong>Sender.ahk</strong> then launch it. After that, press the <kbd>Win</kbd>+<kbd>Space</kbd> hotkey.</p>
+<p>以下のスクリプトを<strong>Sender.ahk</strong>として保存し、起動してください。その後、<kbd>Win</kbd>+<kbd>Space</kbd>のホットキーを押してください。</p>
 <pre filename="Sender.ahk">TargetScriptTitle := "Receiver.ahk ahk_class AutoHotkey"
 
 #space::  <em>; Win+Space hotkey. Press it to show an input box for entry of a message string.</em>
@@ -216,7 +216,7 @@ Receive_WM_COPYDATA(wParam, lParam, msg, hwnd)
         return
     result := Send_WM_COPYDATA(ib.Value, TargetScriptTitle)
     if result = ""
-        MsgBox "SendMessage failed or timed out. Does the following WinTitle exist?:`n" TargetScriptTitle
+        MsgBox "SendMessage failed or timed out. 次のWinTitleは存在しますか？:`n" TargetScriptTitle
     else if (result = 0)
         MsgBox "Message sent but the target window responded with 0, which may mean it ignored it."
 }
@@ -244,7 +244,7 @@ Send_WM_COPYDATA(StringToSend, TargetScriptTitle)
 }</pre>
 </div>
 
-<p>See the <a href="../scripts/index.htm#WinLIRC">WinLIRC client script</a> for a demonstration of how to use OnMessage to receive a notification when data has arrived on a network connection.</p>
+<p>ネットワーク接続でデータが到着したときに通知を受け取るOnMessageの使い方のデモは、<a href="../scripts/index.htm#WinLIRC">WinLIRCクライアントスクリプト</a>をご覧ください。</p>
 
 </body>
 </html>
