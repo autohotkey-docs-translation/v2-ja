@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>RegCreateKey - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The RegCreateKey function creates a registry key without writing a value." />
+<title>RegCreateKey - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="RegCreateKey関数は、値を書き込むことなくレジストリキーを作成します。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,8 +23,8 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>レジストリキーのフルネームです。</p>
-  <p>HKEY_LOCAL_MACHINE、HKEY_USERS、HKEY_CURRENT_USER、HKEY_CLASSES_ROOT、HKEY_CURRENT_CONFIG（またはHKLMなど、それぞれの略称）で始まる必要があります。To access a <a href="LoopReg.htm#remote">remote registry</a>, prepend the computer name and a slash, as in this example:\\workstation01\HKEY_LOCAL_MACHINE</p>
-    <p><em>KeyName</em> can be omitted only if a <a href="LoopReg.htm">registry loop</a> is running, in which case it defaults to the key of the current loop item (even if the key has been deleted during the loop). If the item is a subkey, the full name of that subkey is used by default.</p>
+  <p>HKEY_LOCAL_MACHINE、HKEY_USERS、HKEY_CURRENT_USER、HKEY_CLASSES_ROOT、HKEY_CURRENT_CONFIG（またはHKLMなど、それぞれの略称）で始まる必要があります。<a href="LoopReg.htm#remote">リモートレジストリ</a>にアクセスするには、この例のように、コンピュータ名の前にスラッシュを付けます：\\workstation01\HKEY_LOCAL_MACHINE</p>
+    <p><em>KeyName</em>は <a href="LoopReg.htm">レジストリループ</a>が実行されている場合にのみ省略可能で、その場合は現在のループアイテムのキーがデフォルトとなります（ループ中にキーが削除された場合も同様）。項目がサブキーの場合、デフォルトでそのサブキーのフルネームが使用されます。</p>
   </dd>
 
 </dl>
@@ -33,16 +33,16 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If <em>KeyName</em> specifies an existing registry key, RegCreateKey verifies that the script has write access to the key, but makes no changes. Otherwise, RegCreateKey attempts to create the key (along with its ancestors, if necessary).</p>
-<p>For details about how to access the registry of a remote computer, see the remarks in <a href="LoopReg.htm#remote">registry loop</a>.</p>
-<p>To create subkeys in the 64-bit sections of the registry in a 32-bit script or vice versa, use <a href="SetRegView.htm">SetRegView</a>.</p>
+<p><em>KeyName</em>が既存のレジストリキーを指定した場合、RegCreateKeyはスクリプトがキーへの書き込みアクセス権を持っているかどうかを確認しますが、変更は行いません。そうでない場合は、RegCreateKeyはキーを作成しようとします（必要であれば、その先祖も）。</p>
+<p>リモートコンピュータのレジストリにアクセスする方法については、<a href="LoopReg.htm#remote">レジストリループ</a>の備考を参照してください。</p>
+<p>32ビットスクリプトでレジストリの64ビットセクションにサブキーを作成する場合、またはその逆の場合は、<a href="SetRegView.htm">SetRegView</a>を使用します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="RegRead.htm">RegRead</a>, <a href="RegWrite.htm">RegWrite</a>, <a href="LoopReg.htm">Registry-loop</a>, <a href="SetRegView.htm">SetRegView</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Creates an empty registry key. If Notepad++ is installed, this has the effect of adding it to the "open with" menu for .ahk files.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 空のレジストリキーを作成します。Notepad++がインストールされている場合、.ahkファイルの「open with」メニューに追加される効果もあります。</p>
 <pre>RegCreateKey "HKCU\Software\Classes\.ahk\OpenWithList\notepad++.exe"</pre>
 </div>
 

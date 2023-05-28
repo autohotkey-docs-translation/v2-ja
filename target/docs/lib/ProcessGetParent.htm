@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ProcessGetParent - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ProcessGetParent function returns the process ID (PID) of the process which created the specified process." />
+<title>ProcessGetParent - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ProcessGetParent 関数は、指定されたプロセスを作成したプロセスのプロセス ID（PID）を返します。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,28 +22,28 @@
     <dt>PIDOrName</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>If blank or omitted, the script's own process is used. Otherwise, specify either a number (the PID) or a process name:</p>
-        <p><strong>PID：</strong>プロセスID。これは、ある特定のプロセスを一意に識別するための番号である（この番号は、そのプロセスが生きている間だけ有効である）。新しく立ち上げたプロセスのPIDは、<a href="Run.htm">Run</a>機能で決定することができます。同様に、<a href="WinGetPID.htm">WinGetPID</a>でウィンドウのPIDを知ることができます。</p>
+        <p>空白または省略された場合、スクリプト自身のプロセスが使用されます。それ以外の場合は、数字（PID）またはプロセス名のいずれかを指定します：</p>
+        <p><strong>PID：</strong>プロセスID。これは、ある特定のプロセスを一意に識別するための番号である（この番号は、そのプロセスが生きている間だけ有効です）。新しく立ち上げたプロセスのPIDは、<a href="Run.htm">Run</a>機能で決定することができます。同様に、<a href="WinGetPID.htm">WinGetPID</a>でウィンドウのPIDを知ることができます。</p>
         <p><strong>名前：</strong>プロセスの名前は通常、notepad.exeやwinword.exeなどの実行ファイルと同じです（パスなし）。一つの名前が複数の実行中のプロセスに一致する可能性があるため、最初のプロセスのみが操作されることになります。名前の大文字と小文字は区別されません。</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the process ID (PID) of the process which created the specified process.</p>
+<p>説明： 指定されたプロセスを作成したプロセスのプロセス ID（PID）を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the specified process could not be found.</p>
+<p>指定されたプロセスが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If the parent process is no longer running, there is some risk that the returned PID has been reused by the system, and now identifies a different process.</p>
+<p>親プロセスが既に実行されていない場合、返されたPIDがシステムによって再利用され、別のプロセスを識別している可能性があります。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Process.htm">Process functions</a></p>
+<p><a href="Process.htm">プロセス機能</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Display the name of the process which launched the script.</p>
+<p><a class="ex_number" href="#ExBasic"></a> スクリプトを起動したプロセス名を表示します。</p>
 <pre>try
     MsgBox ProcessGetName(ProcessGetParent())
 catch
