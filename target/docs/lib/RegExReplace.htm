@@ -21,14 +21,14 @@
   <dt>Haystack</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The string whose content is searched and replaced. This may contain binary zero.</p>
+    <p>The string whose content is searched and replaced. バイナリーゼロを含む場合があります。</p>
   </dd>
 
   <dt>NeedleRegEx</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The pattern to search for, which is a Perl-compatible regular expression (PCRE). The pattern's <a href="../misc/RegEx-QuickRef.htm#Options">options</a> (if any) must be included at the beginning of the string followed by a close-parenthesis. For example, the pattern <span class="regex"><span class="red">i)</span>abc.*123</span> would turn on the case-insensitive option and search for "abc", followed by zero or more occurrences of any character, followed by "123". If there are no options, the ")" is optional; for example, <span class="regex">)abc</span> is equivalent to <span class="regex">abc</span>.</p>
-    <p>Although <em>NeedleRegEx</em> cannot contain binary zero, the pattern <code>\x00</code> can be used to match a binary zero within <em>Haystack</em>.</p>
+    <p>検索するパターンで、Perl互換正規表現（PCRE）です。パターンの<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>がある場合は、文字列の先頭に含める必要があり、その後に閉じ括弧が続きます。例えば、<span class="regex"><span class="red">i)</span>abc.*123</span>というパターンは、大文字小文字を区別しないオプションをオンにし、"abc "の後に任意の文字が0回以上出現し、その後に "123 "が続くものを検索対象とします。オプションがない場合、")"はオプションです。例えば、<span class="regex">)abcは</span> <span class="regex">abcと</span>同等です。</p>
+    <p><em>NeedleRegEx</em>はバイナリーゼロを含むことができませんが、<em>Haystack</em>内のバイナリーゼロに一致させるために、パターン<code>\x00</code>を使用することができます。</p>
   </dd>
 
   <dt>置換</dt>
@@ -54,9 +54,9 @@
   <dt>StartingPos</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If <em>StartingPos</em> is omitted, it defaults to 1 (the beginning of <em>Haystack</em>). Otherwise, specify 2 to start at the second character, 3 to start at the third, and so on.  If <em>StartingPos</em> is beyond the length of <em>Haystack</em>, the search starts at the empty string that lies at the end of <em>Haystack</em> (which typically results in no replacements).</p>
-    <p>Specify a negative <em>StartingPos</em> to start at that position from the right. For example, -1 starts at the last character and -2 starts at the next-to-last character. If <em>StartingPos</em> tries to go beyond the left end of <em>Haystack</em>, all of <em>Haystack</em> is searched.</p>
-    <p>Specify 0 to start at the end of <em>Haystack</em>; i.e. the position to the right of the last character. This can be used with zero-width assertions such as <code>(?&lt;=a)</code>.</p>
+    <p><em>StartingPos</em>が省略された場合、デフォルトは 1（<em>Haystack</em>の先頭）です。それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。If <em>StartingPos</em> is beyond the length of <em>Haystack</em>, the search starts at the empty string that lies at the end of <em>Haystack</em> (which typically results in no replacements).</p>
+    <p>負の<em>StartingPos</em>を指定すると、その位置で右からスタートする。例えば、-1は最後の文字から、-2はその次の文字から始まります。<em>StartingPos</em>が <em>Haystack</em>の左端を越えようとした場合、<em>Haystack</em>の全てが検索される。</p>
+    <p>0を指定すると、<em>Haystack</em>の末尾、つまり最後の文字の右側の位置から開始します。これは、<code>(?&lt;=a)</code>のようなゼロ幅のアサーションで使用することができます。</p>
     <p>Regardless of the value of <em>StartingPos</em>, the return value is always a complete copy of <em>Haystack</em> -- the only difference is that more of its left side might be unaltered compared to what would have happened with a <em>StartingPos</em> of 1.</p>
   </dd>
 
@@ -75,21 +75,21 @@
 <p>For details, see <a href="RegExMatch.htm#Errors">RegExMatch</a>.</p>
 
 <h2 id="Options">Options</h2>
-<p>See <a href="../misc/RegEx-QuickRef.htm#Options">Options</a> for modifiers such as <span class="regex"><span class="red">i)</span>abc</span>, which turns off case-sensitivity in the pattern "abc".</p>
+<p>パターン "abc "の大文字小文字を区別しない<span class="regex"><span class="red">i)</span>abc</span>などの修飾語については、<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>を参照してください。</p>
 <h2 id="Performance">パフォーマンス</h2>
 <p>To replace simple substrings, use <a href="StrReplace.htm">StrReplace</a> because it is faster than RegExReplace.</p>
 <p>If you know what the maximum number of replacements will be, specifying that for the <em>Limit</em> parameter improves performance because the search can be stopped early (this might also reduce the memory load on the system during the operation). For example, if you know there can be only one match near the beginning of a large string, specify a limit of 1.</p>
-<p>To improve performance, the 100 most recently used regular expressions are kept cached in memory (in compiled form).</p>
-<p>The <a href="../misc/RegEx-QuickRef.htm#Study">study option (S)</a> can sometimes improve the performance of a regular expression that is used many times (such as in a loop).</p>
+<p>パフォーマンスを向上させるため、最近使用された100個の正規表現をメモリ上にキャッシュしておきます（コンパイルされた状態）。</p>
+<p><a href="../misc/RegEx-QuickRef.htm#Study">学習オプション(S)</a>は、（ループ内などで）何度も使用される正規表現のパフォーマンスを向上させることができる場合があります。</p>
 <h2 id="Remarks">備考</h2>
-<p>Most characters like abc123 can be used literally inside a regular expression. However, the characters <strong>\.*?+[{|()^$</strong> must be preceded by a backslash to be seen as literal. For example, <strong>\.</strong> is a literal period and <strong>\\</strong> is a literal backslash. Escaping can be avoided by using \Q...\E. 事例：<span class="regex">\QLiteral Text\E</span>.</p>
-<p>Within a regular expression, special characters such as tab and newline can be escaped with either an accent (`) or a backslash (\). For example, `t is the same as \t.</p>
-<p>To learn the basics of regular expressions (or refresh your memory of pattern syntax), see the <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>.</p>
+<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。ただし、<strong>\.*?+[{|()^$</strong>の前にバックスラッシュがないとリテラルとみなされない。例えば、<strong>.</strong>はリテラルピリオド、<strong>.</strong>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。For example, `t is the same as \t.</p>
+<p>正規表現の基本を学ぶ（またはパターン構文の記憶を取り戻す）には、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <h2 id="Related">関連</h2>
 <p><a href="RegExMatch.htm">RegExMatch</a>, <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>, <a href="../misc/RegExCallout.htm">Regular Expression Callouts</a>, <a href="StrReplace.htm">StrReplace</a>, <a href="InStr.htm">InStr</a></p>
-<p>Common sources of text data: <a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
+<p>テキストデータの一般的なソース：<a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
 <h2 id="Examples">例</h2>
-<p>For general RegEx examples, see the <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>.</p>
+<p>一般的なRegExの例については、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>を参照してください。</p>
 <div class="ex" id="ExDollar">
 <p><a class="ex_number" href="#ExDollar"></a> Reports "abc123xyz" because the $ allows a match only at the end.</p>
 <pre>MsgBox RegExReplace("abc123123", "123$", "xyz")</pre>
