@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>RegWrite - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The RegWrite function writes a value to the registry." />
+<title>RegWrite - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="RegWrite関数は、レジストリに値を書き込む関数です。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -23,13 +23,13 @@
   <dt>値</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The value to be written. Long text values can be broken up into several shorter lines by means of a <a href="../Scripts.htm#continuation">continuation section</a>, which might improve readability and maintainability.</p>
+    <p>書き込むべき値。長いテキスト値は、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさや保守性が向上する可能性があります。</p>
   </dd>
 
   <dt>ValueType</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Must be either REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ, REG_DWORD, or REG_BINARY.</p>
+    <p>REG_SZ、REG_EXPAND_SZ、REG_MULTI_SZ、REG_DWORD、またはREG_BINARYのいずれかでなければなりません。</p>
     <p><em>ValueType</em> can be omitted only if <em>KeyName</em> is omitted and the current <a href="LoopReg.htm">registry loop</a> item is a value, as noted below.</p>
   </dd>
 
@@ -38,13 +38,13 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>レジストリキーのフルネームです。</p>
     <p>HKEY_LOCAL_MACHINE、HKEY_USERS、HKEY_CURRENT_USER、HKEY_CLASSES_ROOT、HKEY_CURRENT_CONFIG（またはHKLMなど、それぞれの略称）で始まる必要があります。<a href="LoopReg.htm#remote">リモートレジストリ</a>にアクセスするには、この例のように、コンピュータ名の前にスラッシュを付けます：\\workstation01\HKEY_LOCAL_MACHINE</p>
-    <p><em>KeyName</em>は <a href="LoopReg.htm">レジストリループ</a>が実行されている場合のみ省略可能で、その場合、現在のループアイテムのキーがデフォルトとなる。項目がサブキーの場合、デフォルトでそのサブキーのフルネームが使用されます。If the item is a value, <em>ValueType</em> and <em>ValueName</em> default to the type and name of that value, but can be overridden.</p>
+    <p><em>KeyName</em>は <a href="LoopReg.htm">レジストリループ</a>が実行されている場合のみ省略可能で、その場合、現在のループアイテムのキーがデフォルトとなる。項目がサブキーの場合、デフォルトでそのサブキーのフルネームが使用されます。項目が値の場合、<em>ValueType</em>と<em>ValueName</em>のデフォルトはその値の型と名前であるが、オーバーライドすることができる。</p>
   </dd>
 
   <dt>ValueName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the value that will be written to. If blank or omitted, the key's default value will be used (except as noted above). RegEditでは、デフォルト値が「(Default)」と表示されます。</p>
+    <p>書き込まれる値の名前です。空白または省略された場合、キーのデフォルト値が使用されます（上記を除く）。RegEditでは、デフォルト値が「(Default)」と表示されます。</p>
   </dd>
 
 </dl>
@@ -54,31 +54,31 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If <em>KeyName</em> specifies a subkey which does not exist, RegWrite attempts to create it (along with its ancestors, if necessary). Although RegWrite can write directly into a root key, some operating systems might refuse to write into HKEY_CURRENT_USER's top level.</p>
-<p>To create a key without writing any values to it, use <a href="RegCreateKey.htm">RegCreateKey</a>.</p>
-<p>If <em>ValueType</em> is REG_DWORD, <em>Value</em> should be between -2147483648 and 4294967295 (0xFFFFFFFF). In the registry, REG_DWORD values are always expressed as positive decimal numbers. To read it as a negative number with means such as <a href="RegRead.htm">RegRead</a>, convert it to a signed 32-bit integer by using <code>OutputVar := OutputVar &lt;&lt; 32 &gt;&gt; 32</code> or similar.</p>
-<p>When writing a REG_BINARY key, use a string of hex characters, e.g. the REG_BINARY value of 01,a9,ff,77 can be written by using the string 01A9FF77.</p>
-<p>When writing a REG_MULTI_SZ key, you must separate each component from the next with a linefeed character (`n). The last component may optionally end with a linefeed as well. No blank components are allowed. In other words, do not specify two linefeeds in a row (`n`n) because that will result in a shorter-than-expected value being written to the registry.</p>
-<p>To retrieve and operate upon multiple registry keys or values, consider using a <a href="LoopReg.htm">registry-loop</a>.</p>
-<p>For details about how to access the registry of a remote computer, see the remarks in <a href="LoopReg.htm#remote">registry-loop</a>.</p>
-<p>To read and write entries from the 64-bit sections of the registry in a 32-bit script or vice versa, use <a href="SetRegView.htm">SetRegView</a>.</p>
+<p><em>KeyName</em>が存在しないサブキーを指定した場合、RegWriteはそれを作成しようとします（必要であれば、その祖先も一緒に）。RegWriteはルートキーに直接書き込むことができますが、OSによってはHKEY_CURRENT_USERの最上位に書き込むことを拒否する場合があります。</p>
+<p>値を書き込まずにキーを作成するには、<a href="RegCreateKey.htm">RegCreateKey</a>を使用します。</p>
+<p><em>ValueType</em>がREG_DWORDの場合、<em>Value</em>は-2147483648から4294967295（0xFFFFFFF）の間とする。レジストリでは、REG_DWORDの値は常に正の10進数で表現されます。<a href="RegRead.htm">RegRead</a>などで負の数として読み込む場合は、<code>OutputVar := OutputVar &lt;&lt; 32 &gt;&gt;32</code>などで符号付き32ビット整数に変換してください。</p>
+<p>REG_BINARYキーを書くときは、16進数の文字列を使用します。例えば、REG_BINARY値01,a9,ff,77は、01A9FF77という文字列で書くことができます。</p>
+<p>REG_MULTI_SZキーを書くときは、各コンポーネントと次のコンポーネントをラインフィード文字（`n）で区切る必要があります。最後のコンポーネントは、オプションとして、ラインフィードで終了することもできる。ブランク部品は不可です。つまり、2つ並んだ改行（`n`n）を指定すると、予想以上に短い値がレジストリに書き込まれることになるので、指定しないようにしましょう。</p>
+<p>複数のレジストリキーや値を取得し、操作するためには、<a href="LoopReg.htm">レジストリループ</a>の使用を検討します。</p>
+<p>リモートコンピュータのレジストリにアクセスする方法については、<a href="LoopReg.htm#remote">registry-loop</a>の備考を参照してください。</p>
+<p>32ビットスクリプトでレジストリの64ビットセクションのエントリを読み書きしたり、その逆を行うには、<a href="SetRegView.htm">SetRegView</a>を使用します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RegCreateKey.htm">RegCreateKey</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="RegRead.htm">RegRead</a>, <a href="LoopReg.htm">Registry-loop</a>, <a href="SetRegView.htm">SetRegView</a>, <a href="IniWrite.htm">IniWrite</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Writes a string to the registry.</p>
+<p><a class="ex_number" href="#ExBasic"></a> レジストリに文字列を書き込みます。</p>
 <pre>RegWrite "Test Value", "REG_SZ", "HKEY_LOCAL_MACHINE\SOFTWARE\TestKey", "MyValueName"</pre>
 </div>
 
 <div class="ex" id="ExBinary">
-<p><a class="ex_number" href="#ExBinary"></a> Writes binary data to the registry.</p>
+<p><a class="ex_number" href="#ExBinary"></a> レジストリにバイナリデータを書き込みます。</p>
 <pre>RegWrite "01A9FF77", "REG_BINARY", "HKEY_CURRENT_USER\Software\TEST_APP", "TEST_NAME"</pre>
 </div>
 
 <div class="ex" id="ExMulti">
-<p><a class="ex_number" href="#ExMulti"></a> Writes a multi-line string to the registry.</p>
+<p><a class="ex_number" href="#ExMulti"></a> レジストリに複数行の文字列を書き込みます。</p>
 <pre>RegWrite "Line1`nLine2", "REG_MULTI_SZ", "HKEY_CURRENT_USER\Software\TEST_APP", "TEST_NAME"</pre>
 </div>
 
