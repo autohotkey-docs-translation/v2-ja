@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Run / RunWait - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Run and RunWait functions run an external program. RunWait will wait until the program finishes before continuing." />
+<title>Run / RunWait - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Run関数とRunWait関数は、外部プログラムを実行します。RunWaitは、プログラムが終了するまで待ってから続行します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,7 @@
 
 <h1>Run / RunWait</h1>
 
-<p>外部プログラムを実行します。Unlike Run, RunWait will wait until the program finishes before continuing.</p>
+<p>外部プログラムを実行します。Runとは異なり、RunWaitはプログラムが終了するまで待機してから続行します。</p>
 
 <pre class="Syntax">
 <span class="func">Run</span> Target <span class="optional">, WorkingDir, Options, &amp;OutputVarPID</span>
@@ -27,56 +27,56 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dt>Target</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>A document, URL, executable file (.exe, .com, .bat, etc.), shortcut (.lnk), or <a href="#verbs">system verb</a> to launch (see remarks). If <em>Target</em> is a local file and no path was specified with it, <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> will be searched first. If no matching file is found there, the system will search for and launch the file if it is integrated ("known"), e.g. by being contained in one of the PATH folders.</p>
-      <p>To pass parameters, add them immediately after the program or document name. For example, <code>Run 'MyProgram.exe Param1 Param2'</code>.</p>
-      <p>If the program/document name or a parameter contains spaces, it is safest to enclose it in double quotes (even though it may work without them in some cases). For example, <code>Run '"My Program.exe" "param with spaces"'</code>.</p>
+      <p>起動する文書、URL、実行ファイル（.exe、.com、.batなど）、ショートカット（.lnk）、<a href="#verbs">システム動詞</a>のこと（備考参照）。<em>Target</em>がローカルファイルでパスが指定されていない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>が最初に検索されます。そこに一致するファイルが見つからない場合、PATHフォルダの1つに含まれているなど、統合されている（「既知」）場合は、そのファイルを検索して起動します。</p>
+      <p>パラメータを渡すには、プログラム名や文書名の直後にパラメータを追加します。例えば、<code>Run 'MyProgram.exe Param1 Param2'</code></p>
+      <p>プログラム/ドキュメント名やパラメータにスペースが含まれる場合は、二重引用符で囲むのが最も安全です（場合によっては引用符なしでも動作することがあります）。例えば <code>Run '"My Program.exe" "param with spaces"'</code>.</p>
   </dd>
 
   <dt>WorkingDir</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>The working directory for the launched item. Do not enclose the name in double quotes even if it contains spaces. If omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used.</p>
+      <p>起動したアイテムの作業ディレクトリです。空白を含む場合でも、ダブルクォーテーションで囲まないでください。省略した場合は、スクリプト自身の作業ディレクトリ<a href="../Variables.htm#WorkingDir">（A_WorkingDir</a>）が使用されます。</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If omitted, the function launches <em>Target</em> normally. To change this behavior, specify one or more of the following words:</p>
-      <p><strong>Max</strong>: launch maximized</p>
-      <p><strong>Min</strong>: launch minimized</p>
-      <p><strong>Hide</strong>: launch hidden (cannot be used in combination with either of the above)</p>
-      <p class="note"><strong>注意</strong>：Some applications (e.g. Calc.exe) do not obey the requested startup state and thus Max/Min/Hide will have no effect.</p>
+      <p>省略された場合は、<em>Target</em>を正常に起動します。この動作を変更するには、以下の単語を1つ以上指定します：</p>
+      <p><strong>Max</strong>:最大化して起動</p>
+      <p><strong>Min</strong>:最小化して起動</p>
+      <p><strong>Hide</strong>:隠して起動（上記2つとの併用は不可）</p>
+      <p class="note"><strong>注意</strong>：一部のアプリケーション（Calc.exeなど）は、要求されたスタートアップ状態に従わないため、Max/Min/Hideは効果を発揮しないことがあります。</p>
   </dd>
 
   <dt>&amp;OutputVarPID</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-      <p>A reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. The variable will be made blank if the PID could not be determined, which usually happens if a system verb, document, or shortcut is launched rather than a direct executable file. RunWait also supports this parameter, though its <em>OutputVarPID</em> must be checked in <a href="../misc/Threads.htm">another thread</a> (otherwise, the PID will be invalid because the process will have terminated by the time the line following RunWait executes).</p>
-      <p>After the Run function retrieves a PID, any windows to be created by the process might not exist yet. To wait for at least one window to be created, use <code><a href="WinWait.htm">WinWait</a> "ahk_pid " OutputVarPID</code>.</p>
+      <p>新しく起動したプログラムの固有の<a href="../misc/WinTitle.htm#ahk_pid">Process ID(PID)</a>を格納する出力変数へのリファレンス。PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
+      <p>Run関数がPIDを取得した後、プロセスによって作成されるウィンドウは、まだ存在しないかもしれません。少なくとも1つのウィンドウが作成されるのを待つには、<code><a href="WinWait.htm">WinWait</a>"ahk_pid " OutputVarPID</code>を使用します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>Unlike Run, RunWait will wait until <em>Target</em> is closed or exits, at which time the return value will be the program's exit code (as a signed 32-bit integer). Some programs will appear to return immediately even though they are still running; these programs spawn another process.</p>
+<p>RunWaitはRunと異なり、<em>Target</em>がクローズされるか終了するまで待機し、その時の戻り値はプログラムの終了コード（符号付き32ビット整数）となります。プログラムによっては、まだ実行中であるにもかかわらず、すぐに戻ってくるように見えるものがありますが、これは別のプロセスを生成するものです。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>If <em>Target</em> cannot be launched, an exception is thrown (that is, an error window is displayed) and the current thread is exited, unless the error is caught by a <a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a> statement. 事例：</p>
+<p><em>Target</em>を起動できない場合、<a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a>文によってエラーが捕捉されない限り、例外が発生し（つまり、エラーウィンドウが表示され）、現在のスレッドが終了する。事例：</p>
 <pre>try
     Run "NonExistingFile"
 catch
     MsgBox "File does not exist."
 </pre>
-<p>The built-in variable <a href="../Variables.htm#LastError">A_LastError</a> is set to the result of the operating system's GetLastError() function.</p>
+<p>組込変数<a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 <h2 id="Remarks">備考</h2>
-<p>When running a program via <a href="../Variables.htm#ComSpec">ComSpec</a> (cmd.exe) -- perhaps because you need to redirect the program's input or output -- if the path or name of the executable contains spaces, the entire string should be enclosed in an outer pair of quotes. In the following example, the outer quotes are highlighted in yellow:</p>
+<p><a href="../Variables.htm#ComSpec">ComSpec</a>（cmd.exe）を使ってプログラムを実行する場合（プログラムの入力や出力をリダイレクトする必要があるため）、実行ファイルのパスや名前にスペースが含まれている場合は、その文字列全体を外側の引用符で囲む必要があります。以下の例では、外側の引用符が黄色で強調表示されています：</p>
 <pre>Run A_ComSpec ' /c <span class="style3">"</span>"C:\My Utility.exe" "param 1" "second param" &gt;"C:\My File.txt"<span class="style3">"</span>'</pre>
-<p>Performance may be slightly improved if <em>Target</em> is an exact path, e.g. <code>Run 'C:\Windows\Notepad.exe "C:\My Documents\Test.txt"'</code> rather than <code>Run "C:\My Documents\Test.txt"</code>.</p>
-<p>Special <a href="../misc/CLSID-List.htm">CLSID folders</a> may be opened via Run. 事例：</p>
+<p>Run<code>"C:゙My DocumentsTest.txt "</code>よりも<code>Run 'C:゙WindowsNotepad.exe "C:゙My DocumentsTest.txt"</code>のように<em>Target</em>が完全パスであればパフォーマンスは若干向上するかもしれません。</p>
+<p>特殊な<a href="../misc/CLSID-List.htm">CLSIDフォルダ</a>は、「ファイル名を指定して実行」で開くことができます。事例：</p>
 <pre>Run "::{20d04fe0-3aea-1069-a2d8-08002b30309d}"  <em>; Opens the "My Computer" folder.</em>
 Run "::{645ff040-5081-101b-9f08-00aa002f954e}"  <em>; Opens the Recycle Bin.</em></pre>
-<p id="verbs">System verbs correspond to actions available in a file's right-click menu in the Explorer. If a file is launched without a verb, the default verb (usually "open") for that particular file type will be used. If specified, the verb should be followed by the name of the target file. The following verbs are currently supported:</p>
+<p id="verbs">システム動詞は、エクスプローラーのファイルの右クリックメニューで利用できるアクションに対応しています。動詞を指定せずにファイルを起動した場合、そのファイルタイプのデフォルトの動詞（通常は「open」）が使用されます。指定された場合、動詞の後にターゲットファイル名が続くようにする。現在、以下の動詞に対応しています：</p>
 <table class="info">
   <tr>
     <th style="width:8%">Verb</th>
@@ -84,40 +84,40 @@ Run "::{645ff040-5081-101b-9f08-00aa002f954e}"  <em>; Opens the Recycle Bin.</em
   </tr>
   <tr>
     <td>*<i>verb</i></td>
-    <td>Any system-defined or custom verb. 事例：<code>Run "*Compile " A_ScriptFullPath</code>. The <a href="#RunAs">*RunAs</a> verb may be used in place of the <i>Run as administrator</i> right-click menu item.</td>
+    <td>システムで定義された、またはカスタムされた任意の動詞。事例：<code>Run "*Compile " A_ScriptFullPath</code>. <i>管理者として実行</i>右クリックメニューの代わりに<a href="#RunAs">*RunAs</a>動詞を使用することができます。</td>
   </tr>
   <tr>
     <td>properties</td>
     <td>
-      <p>Displays the Explorer's properties window for the indicated file. 事例：<code>Run 'properties "C:\My File.txt"'</code></p>
-      <p class="note"><strong>注意</strong>：The properties window will automatically close when the script terminates. To prevent this, use <a href="WinWait.htm">WinWait</a> to wait for the window to appear, then use <a href="WinWaitClose.htm">WinWaitClose</a> to wait for the user to close it.</p>
+      <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。事例：<code>Run 'properties "C:\My File.txt"'</code></p>
+      <p class="note"><strong>注意</strong>：スクリプトが終了すると、プロパティウィンドウは自動的に閉じます。これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
     </td>
   </tr>
   <tr>
     <td>find</td>
-    <td>Opens an instance of the Explorer's Search Companion or Find File window at the indicated folder. 事例：<code>Run "find D:\"</code></td>
+    <td>エクスプローラの「検索仲間」または「ファイル検索」ウィンドウのインスタンスを、指定されたフォルダーで開くことができます。事例：<code>Run "find D:\"</code></td>
   </tr>
   <tr>
     <td>explore</td>
-    <td>Opens an instance of Explorer at the indicated folder. 事例：<code>Run "explore " A_ProgramFiles</code>.</td>
+    <td>指定されたフォルダーにエクスプローラーのインスタンスを開きます。事例：<code>Run "explore " A_ProgramFiles</code>.</td>
   </tr>
   <tr>
     <td>edit</td>
-    <td>Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it. 事例：<code>Run 'edit "C:\My File.txt"'</code></td>
+    <td>指示されたファイルを編集用に開きます。表示されたファイルの種類に「編集」アクションが関連付けられていない場合は、動作しないことがあります。事例：<code>Run 'edit "C:\My File.txt"'</code></td>
   </tr>
   <tr>
     <td>open</td>
-    <td>Opens the indicated file (normally not needed because it is the default action for most file types). 事例：<code>Run 'open "My File.txt"'</code>.</td>
+    <td>指定されたファイルを開く（ほとんどのファイルタイプでデフォルトの動作であるため、通常は必要ありません）。事例：<code>Run 'open "My File.txt"'</code>.</td>
   </tr>
   <tr>
     <td>print</td>
-    <td>Prints the indicated file with the associated application, if any. 事例：<code>Run 'print "My File.txt"'</code></td>
+    <td>指定されたファイルを、もしあれば、関連するアプリケーションとともに印刷します。事例：<code>Run 'print "My File.txt"'</code></td>
   </tr>
 </table>
-<p>While RunWait is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
+<p>RunWaitが待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>を使って新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 
 <h2 id="RunAs">Run as Administrator</h2>
-<p>For an executable file, the <em>*RunAs</em> verb is equivalent to selecting <em>Run as administrator</em> from the right-click menu of the file. For example, the following code attempts to restart the current script as admin:</p>
+<p>実行ファイルの場合、<em>*RunAs</em>動詞は、そのファイルの右クリックメニューから「<em>管理者として実行</em>」を選択することと同じです。例えば、次のコードは、現在のスクリプトをadminとして再起動しようとするものです：</p>
 <pre>full_command_line := DllCall("GetCommandLine", "str")
 
 if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
@@ -133,45 +133,45 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 }
 
 MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
-<p>If the user cancels the UAC dialog or Run fails for some other reason, the script will simply exit.</p>
-<p>Using <a href="../Scripts.htm#SlashR">/restart</a> ensures that a <a href="_SingleInstance.htm">single instance</a> prompt is not shown if the new instance of the script starts before ExitApp is called.</p>
-<p>If UAC is disabled, <em>*RunAs</em> will launch the process without elevating it. Checking for <code>/restart</code> in the command line ensures that the script does not enter a runaway loop in that case. Note that <code>/restart</code> is a built-in switch, so is not included in the <a href="../Scripts.htm#cmd_args">array of command-line parameters</a>.</p>
-<p>The example can be modified to fit the script's needs:</p>
+<p>ユーザーがUACダイアログをキャンセルした場合、またはその他の理由でRunに失敗した場合、スクリプトは単に終了します。</p>
+<p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
+<p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
+<p>この例は、スクリプトの必要性に応じて変更することができます：</p>
 <ul>
-  <li>If the script absolutely requires admin rights, check A_IsAdmin a second time in case <em>*RunAs</em> failed to elevate the script (i.e. because UAC is disabled).</li>
-  <li>To keep the script running even if the user cancels the UAC prompt, move ExitApp into the try block.</li>
-  <li>To keep the script running even if it failed to restart (i.e. because the script file has been changed or deleted), remove ExitApp and use RunWait instead of Run. On success, <code>/restart</code> causes the new instance to terminate the old one. On failure, the new instance exits and RunWait returns.</li>
+  <li>スクリプトにどうしても管理者権限が必要な場合、<em>*RunAs</em>でスクリプトの昇格に失敗した場合（UACが無効になっている場合など）に備えて、A_IsAdminを2回目もチェックします。</li>
+  <li>ユーザーがUACプロンプトをキャンセルしてもスクリプトを実行し続けるために、ExitAppをtryブロックに移動します。</li>
+  <li>再起動に失敗した場合（スクリプトファイルが変更または削除された場合など）でもスクリプトを実行し続けるには、ExitAppを削除して、Runの代わりにRunWaitを使用します。成功すると、<code>/restart</code>によって新しいインスタンスが古いインスタンスを終了させます。失敗すると、新しいインスタンスは終了し、RunWaitが戻ります。</li>
 </ul>
-<p>AutoHotkey's installer registers the <em>RunAs</em> verb for <em>.ahk</em> files, which allows <code>Run "*RunAs script.ahk"</code> to launch a script as admin.</p>
+<p>AutoHotkeyのインストーラは、<em>.ahk</em>ファイルに対して<em>RunAs</em>動詞を登録しており、<code>Run "*RunAs script.ahk"</code>でスクリプトを管理者として起動できます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RunAs.htm">RunAs</a>, <a href="Process.htm">Process functions</a>, <a href="Exit.htm">Exit</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="DllCall.htm">DllCall</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Run is able to launch Windows system programs from any directory. Note that executable file extensions such as .exe can be omitted.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Runは、任意のディレクトリからWindowsシステムのプログラムを起動することができます。なお、.exeなどの実行ファイルの拡張子は省略可能です。</p>
 <pre>Run "notepad"</pre>
 </div>
 
 <div class="ex" id="ExURL">
-<p><a class="ex_number" href="#ExURL"></a> Run is able to launch URLs:</p>
-<p>The following opens an internet address in the user's default web browser.</p>
+<p><a class="ex_number" href="#ExURL"></a> Runは、URLの起動が可能です：</p>
+<p>以下は、ユーザーのデフォルトのウェブブラウザでインターネットアドレスを開くものです。</p>
 <pre>Run "https://www.google.com"</pre>
-<p>The following opens the default e-mail application with the recipient filled in.</p>
+<p>以下は、受信者が記入されたデフォルトの電子メールアプリケーションを開くものです。</p>
 <pre>Run "mailto:someone@somedomain.com"</pre>
-<p>The following does the same as above, plus the subject and body.</p>
+<p>以下は、上記と同じに、件名と本文を追加します。</p>
 <pre>Run "mailto:someone@somedomain.com?subject=This is the subject line&amp;body=This is the message body's text."</pre>
 </div>
 
 <div class="ex" id="ExErrorLevel">
-<p><a class="ex_number" href="#ExErrorLevel"></a> Opens a document in a maximized application and displays a custom error message on failure.</p>
+<p><a class="ex_number" href="#ExErrorLevel"></a> 最大化されたアプリケーションでドキュメントを開き、失敗時にカスタムエラーメッセージを表示します。</p>
 <pre>try Run("ReadMe.doc", , "Max")
 if A_LastError
     MsgBox "The document could not be launched."</pre>
 </div>
 
 <div class="ex" id="ExVerb">
-<p><a class="ex_number" href="#ExVerb"></a> Runs the dir command in minimized state and stores the output in a text file. After that, the text file and its properties dialog will be opened.</p>
+<p><a class="ex_number" href="#ExVerb"></a> 最小化状態でdirコマンドを実行し、出力をテキストファイルに保存します。その後、テキストファイルとそのプロパティダイアログが開かれます。</p>
 <pre>RunWait A_ComSpec " /c dir C:\ &gt;&gt;C:\DirTest.txt", , "Min"
 Run "C:\DirTest.txt"
 Run "properties C:\DirTest.txt"
@@ -179,20 +179,20 @@ Persistent  <em>; Keep the script from exiting, otherwise the properties dialog 
 </div>
 
 <div class="ex" id="ExCLSID">
-<p><a class="ex_number" href="#ExCLSID"></a> Run is able to launch <a href="../misc/CLSID-List.htm">CLSIDs</a>:</p>
-<p>The following opens the recycle bin.</p>
+<p><a class="ex_number" href="#ExCLSID"></a> Runは<a href="../misc/CLSID-List.htm">CLSID</a>を起動することができます：</p>
+<p>以下は、ごみ箱を開くものです。</p>
 <pre>Run "::{645ff040-5081-101b-9f08-00aa002f954e}"</pre>
-<p>The following opens the "My Computer" directory.</p>
+<p>以下は、「マイコンピュータ」ディレクトリを開きます。</p>
 <pre>Run "::{20d04fe0-3aea-1069-a2d8-08002b30309d}"</pre>
 </div>
 
 <div class="ex" id="ExMultipleCmds">
-<p><a class="ex_number" href="#ExMultipleCmds"></a> To run multiple commands consecutively, use "&amp;&amp;" between each.</p>
+<p><a class="ex_number" href="#ExMultipleCmds"></a> 複数のコマンドを連続して実行する場合は、各コマンドの間に"&amp;&amp;"を使用します。</p>
 <pre>Run A_ComSpec "/c dir /b &gt; C:\list.txt &amp;&amp; type C:\list.txt &amp;&amp; pause"</pre>
 </div>
 
 <div class="ex" id="ExStdOut">
-<p><a class="ex_number" href="#ExStdOut"></a> The following custom functions can be used to run a command and retrieve its output or to run multiple commands in one go and retrieve their output. For the WshShell object, see <a href="https://learn.microsoft.com/previous-versions/aew9yb99(v=vs.85)">Microsoft Docs</a>.</p>
+<p><a class="ex_number" href="#ExStdOut"></a> 以下のカスタム関数を使用して、コマンドを実行してその出力を取得したり、複数のコマンドを一度に実行してその出力を取得したりすることができます。WshShellオブジェクトについては、<a href="https://learn.microsoft.com/previous-versions/aew9yb99(v=vs.85)">Microsoft Docs</a>を参照してください。</p>
 <pre>MsgBox RunWaitOne("dir " A_ScriptDir)
 
 MsgBox RunWaitMany("
@@ -223,7 +223,7 @@ RunWaitMany(commands) {
 </div>
 
 <div class="ex" id="ExecScript">
-<p><a class="ex_number" href="#ExecScript"></a> Executes the given code as a new AutoHotkey process.</p>
+<p><a class="ex_number" href="#ExecScript"></a> 与えられたコードを新しいAutoHotkeyのプロセスとして実行します。</p>
 <pre>ExecScript(Script, Wait:=true)
 {
     shell := ComObject("WScript.Shell")

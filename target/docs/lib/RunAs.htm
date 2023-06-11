@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>RunAs - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The RunAs function specifies a set of user credentials to use for all subsequent uses of Run and RunWait functions." />
+<title>RunAs - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="RunAs関数は、RunおよびRunWait関数のその後のすべての使用で使用するユーザー資格情報のセットを指定します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,33 +21,33 @@
   <dt>User</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If this and the other parameters are all omitted, the RunAs feature will be turned off, which restores <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> to their default behavior. Otherwise, this is the username under which new processes will be created.</p>
+    <p>このパラメータと他のパラメータをすべて省略した場合、RunAs機能はオフになり、<a href="Run.htm">Run</a>と <a href="Run.htm">RunWait</a>はデフォルトの動作に戻ります。それ以外の場合は、新しいプロセスが作成されるユーザー名となります。</p>
   </dd>
 
   <dt>Password</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>User</em>'s password.</p>
+    <p><em>ユーザー</em>のパスワードです。</p>
   </dd>
 
   <dt>Domain</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>User</em>'s domain. To use a local account, leave this blank. If that fails to work, try using @YourComputerName.</p>
+    <p><em>ユーザーの</em>ドメイン。ローカルアカウントを使用する場合は、空欄のままにしてください。これでうまくいかない場合は、@YourComputerNameを使用してみてください。</p>
   </dd>
 
 </dl>
 <h2 id="Remarks">備考</h2>
-<p>If the script is running with restricted privileges due to User Account Control (UAC), any programs it launches will typically also be restricted, even if RunAs is used. To elevate a process, use <a href="Run.htm#RunAs">Run *RunAs</a> instead.</p>
-<p>This function does nothing other than notify AutoHotkey to use (or not use) alternate user credentials for all subsequent uses of <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a>. The credentials are not validated by this function.</p>
-<p>If an invalid <em>User</em>, <em>Password</em>, or <em>Domain</em> is specified, <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> will display an error message explaining the problem (unless this error is caught by a <a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a> statement).</p>
-<p>While the RunAs feature is in effect, <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> will not able to launch documents, URLs, or system verbs. In other words, the file to be launched must be an executable file.</p>
-<p>The "Secondary Logon" service must be set to manual or automatic for this function to work (the OS should automatically start it upon demand if set to manual).</p>
+<p>ユーザーアカウント制御（UAC）により制限された権限でスクリプトが実行されている場合、RunAsを使用していても、スクリプトが起動するプログラムも制限されるのが一般的です。プロセスを昇格させるには、代わりに<a href="Run.htm#RunAs">Run *RunAs</a>を使用します。</p>
+<p>この関数は、その後の<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>のすべての使用において、代替ユーザー認証情報を使用する（または使用しない）ことをAutoHotkeyに通知する以外に何も行いません。この機能では、資格証明書は検証されません。</p>
+<p>無効な<em>User</em>、<em>Password</em>、<em>Domain</em>が指定された場合、<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>は問題を説明するエラーメッセージを表示します（このエラーが<a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a>文によって捕捉される場合を除きます）。</p>
+<p>RunAs機能が有効な間は、<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>は、ドキュメント、URL、システム動詞を起動することができなくなります。つまり、起動するファイルは実行可能なファイルである必要があります。</p>
+<p>この機能を使用するには、「セカンダリログオン」サービスを手動または自動に設定する必要があります（手動に設定した場合は、要求に応じてOSが自動的に起動する必要があります）。</p>
 <h2 id="Related">関連</h2>
 <p><a href="Run.htm">Run</a>, <a href="Run.htm">RunWait</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Opens the registry editor as administrator.</p>
+<p><a class="ex_number" href="#ExBasic"></a> レジストリエディタを管理者として開く。</p>
 <pre>RunAs "Administrator", "MyPassword"
 Run "RegEdit.exe"
 RunAs  <em>; Reset to normal behavior.</em></pre>
