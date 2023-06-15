@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SendMode - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SendMode function causes Send, Click, MouseMove, MouseClick and MouseClickDrag to use the Event or Play mode rather than the default (Input)." />
+<title>SendMode - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SendMode関数は、Send、Click、MouseMove、MouseClick、MouseClickDragがデフォルト（Input）ではなく、EventまたはPlayモードを使用するようにします。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -22,19 +22,19 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>次のいずれかの単語を指定します。</p>
-    <p><strong>Event</strong>: Switches to the <a href="Send.htm#SendEvent">SendEvent</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, and <a href="MouseMove.htm">MouseMove</a>/<a href="MouseClick.htm">Click</a>/<a href="MouseClickDrag.htm">Drag</a>.</p>
-    <p><strong>Input</strong>:This is the starting default used by all scripts. It uses the <a href="Send.htm#SendInput">SendInput</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, and <a href="MouseMove.htm">MouseMove</a>/<a href="MouseClick.htm">Click</a>/<a href="MouseClickDrag.htm">Drag</a>. 既知の制限事項：</p>
+    <p><strong>Event</strong>:<a href="Send.htm">送信</a>、<a href="Send.htm">テキスト送信</a>、<a href="Click.htm">クリック</a>、<a href="MouseMove.htm">マウス移動</a>/<a href="MouseClick.htm">クリック</a>/<a href="MouseClickDrag.htm">ドラッグ</a>で、<a href="Send.htm#SendEvent">SendEvent</a>メソッドへ切り替わります。</p>
+    <p><strong>Input</strong>:これは、すべてのスクリプトで使用される開始時のデフォルトです。<a href="Send.htm#SendInput">SendInput</a>メソッドを使用して、<a href="Send.htm">Send</a>、<a href="Send.htm">SendText</a>、<a href="Click.htm">Click</a>、<a href="MouseMove.htm">MouseMove</a>/<a href="MouseClick.htm">Click</a>/<a href="MouseClickDrag.htm">Drag</a>を行っています。既知の制限事項：</p>
     <ul>
-      <li>Windows Explorer ignores SendInput's simulation of certain navigational hotkeys such as <kbd>Alt</kbd>+<kbd>←</kbd>. To work around this, use either <code>SendEvent "!{Left}"</code> or <code>SendInput "{Backspace}"</code>.</li>
+      <li>Windows Explorerでは、<kbd>Alt</kbd>+<kbd>←</kbd>などの特定のナビゲーションホットキーのSendInputのシミュレーションが無視されます。これを回避するには、<code>SendEvent "!{Left}"</code>または<code>SendInput "{Backspace}"</code>のいずれかを使用します。</li>
     </ul>
-    <p><strong>InputThenPlay</strong>: Same as above except that rather than falling back to Event mode when SendInput is <a href="Send.htm#SendInputUnavail">unavailable</a>, it reverts to Play mode (below). This also causes the <a href="Send.htm#SendInput">SendInput function</a> itself to revert to Play mode when SendInput is unavailable.</p>
-    <p id="Play"><strong>Play</strong>:Switches to the <a href="Send.htm#SendPlay">SendPlay</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, and <a href="MouseMove.htm">MouseMove</a>/<a href="MouseClick.htm">Click</a>/<a href="MouseClickDrag.htm">Drag</a>. 既知の制限事項：</p>
+    <p><strong>InputThenPlay</strong>:SendInputが使用<a href="Send.htm#SendInputUnavail">できない</a>場合にEventモードに戻るのではなく、Playモード（下記）に戻る点を除き、上記と同じ。これにより、SendInputが使用できない場合は、<a href="Send.htm#SendInput">SendInput機能</a>自体がPlayモードに戻るようにもなっています。</p>
+    <p id="Play"><strong>Play</strong>:<a href="Send.htm">送信</a>、<a href="Send.htm">テキスト送信</a>、<a href="Click.htm">クリック</a>、<a href="MouseMove.htm">マウス移動</a>/<a href="MouseClick.htm">クリック</a>/<a href="MouseClickDrag.htm">ドラッグ</a>のメソッドを<a href="Send.htm#SendPlay">SendPlay</a>へ切り替えます。既知の制限事項：</p>
     <ul>
-      <li>Characters that do not exist in the current keyboard layout (such as Ô in English) cannot be sent. これを回避するためには、<a href="Send.htm#SendEvent">SendEvent</a>を使用します。</li>
-      <li>Simulated mouse dragging might have no effect in RichEdit controls (and possibly others) such as those of WordPad and Metapad. To use an alternate mode for a particular drag, follow this example: <code><a href="Send.htm#SendEvent">SendEvent</a> "{Click 6 52 Down}{Click 45 52 Up}"</code>.</li>
-      <li>Simulated mouse wheel rotation produces movement in only one direction (usually downward, but upward in some applications). Also, wheel rotation might have no effect in applications such as MS Word and Notepad. To use an alternate mode for a particular rotation, follow this example: <code><a href="Send.htm#SendEvent">SendEvent</a> "{WheelDown 5}"</code>.</li>
-      <li>If <code>SendMode "Play"</code> is called during <a href="../Scripts.htm#auto">script startup</a>, all remapped keys are affected and might lose some of their functionality. See <a href="../misc/Remap.htm#SendPlay">SendPlay remapping limitations</a> for details.</li>
-      <li>SendPlay does not trigger AutoHotkey's hotkeys or hotstrings, or global hotkeys registered by other programs or the OS.</li>
+      <li>現在のキーボードレイアウトに存在しない文字（英語のÔなど）は、送信できません。これを回避するためには、<a href="Send.htm#SendEvent">SendEvent</a>を使用します。</li>
+      <li>WordPadやMetapadのようなRichEditコントロールでは、マウスドラッグのシミュレーションが効かない場合があります（他のコントロールの場合もあります）。特定のドラッグにオルタネートモードを使用する場合は、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a>"{Click 6 52 Down}{Click 45 52 Up}"</code>を送信します。</li>
+      <li>マウスのホイールを回転させると、1つの方向（通常は下向きだが、アプリケーションによっては上向き）のみが動くようにシミュレートされる。また、MS Wordやメモ帳などのアプリケーションでは、ホイール回転の効果がない場合があります。特定の回転にオルタネートモードを使用するには、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a> "{WheelDown 5}"</code>.</li>
+      <li><a href="../Scripts.htm#auto">スクリプト起動</a>時に<code>SendMode "Play"</code>が呼び出されると、すべてのリマップキーが影響を受け、機能の一部が失われる可能性があります。詳しくは<a href="../misc/Remap.htm#SendPlay">SendPlayリマッピングの制限</a>をご覧ください。</li>
+      <li>SendPlayは、AutoHotkeyのホットキーやホットストリング、他のプログラムやOSが登録したグローバルホットキーをトリガーしません。</li>
     </ul>
   </dd>
 </dl>
@@ -44,21 +44,21 @@
 <p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Since SendMode also changes the mode of <a href="Click.htm">Click</a> and <a href="MouseMove.htm">MouseMove</a>/<a href="MouseClick.htm">Click</a>/<a href="MouseClickDrag.htm">Drag</a>, there may be times when you wish to use a different mode for a particular mouse event. The easiest way to do this is via <a href="Send.htm#Click">{Click}</a>. 事例：</p>
+<p>SendModeは<a href="Click.htm">Click</a>や<a href="MouseClickDrag.htm">MouseMove</a><a href="MouseMove.htm">/Click/Drag</a>のモードも変更するので、特定のマウスイベントに対して異なるモードを使用したい場合があります。一番簡単なのは<a href="Send.htm#Click">{クリック}</a>で行う方法です。事例：</p>
 <pre>SendEvent "{Click 100 200}"  <em>; SendEvent uses the older, traditional method of clicking.</em></pre>
-<p>If SendMode is used during <a href="../Scripts.htm#auto">script startup</a>, it also affects <a href="../misc/Remap.htm">keyboard and mouse remapping</a>. In particular, if you use <code>SendMode "Play"</code> with remapping, see <a href="../misc/Remap.htm#SendPlay">SendPlay remapping limitations</a>.</p>
-<p>The built-in variable <strong>A_SendMode</strong> contains the current setting.</p>
+<p><a href="../Scripts.htm#auto">スクリプト起動</a>時にSendModeを使用した場合、<a href="../misc/Remap.htm">キーボードとマウスのリマッピング</a>にも影響します。特に、<code>SendMode "Play"</code>をリマッピングで使用する場合は、<a href="../misc/Remap.htm#SendPlay">SendPlayリマッピングの制限</a>を参照してください。</p>
+<p>組込変数<strong>A_SendMode</strong>には、現在の設定が格納されています。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="Send.htm">Send</a>, <a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="Click.htm">Click</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseClickDrag.htm">MouseClickDrag</a>, <a href="MouseMove.htm">MouseMove</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Makes Send synonymous with SendInput. Recommended for new scripts due to its superior speed and reliability.</p>
+<p><a class="ex_number" href="#ExBasic"></a> SendをSendInputと同義にする。速度や信頼性に優れているため、新しいスクリプトにおすすめです。</p>
 <pre>SendMode "Input"</pre>
 </div>
 
 <div class="ex" id="ExInputThenPlay">
-<p><a class="ex_number" href="#ExInputThenPlay"></a> Makes Send synonymous with SendInput, but falls back to SendPlay if SendInput is not available.</p>
+<p><a class="ex_number" href="#ExInputThenPlay"></a> SendをSendInputと同義にしますが、SendInputが利用できない場合はSendPlayにフォールバックします。</p>
 <pre>SendMode "InputThenPlay"</pre>
 </div>
 

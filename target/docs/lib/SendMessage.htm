@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SendMessage - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SendMessage function sends a message to a window or control and waits for acknowledgement." />
+<title>SendMessage - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SendMessage関数は、ウィンドウまたはコントロールにメッセージを送信し、確認応答を待ちます。" />
 <meta name="ahk:equiv-v1" content="lib/PostMessage.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,14 +29,14 @@
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
     <p>メッセージのパラメータです。省略された場合、各パラメータのデフォルトは 0 です。</p>
-    <p>Each parameter must be an <a href="../Concepts.htm#numbers">integer</a> or an object with a <a href="Buffer.htm#Ptr">Ptr</a> property, such as a <a href="Buffer.htm">Buffer</a>. For messages which require a pointer to a string, use a Buffer or the <a href="StrPtr.htm">StrPtr</a> function. If the string contained by a variable is changed by passing the variable's address to SendMessage, the variable's length must be updated afterward by calling <a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity(&amp;MyVar, -1)</a>.</p>
+    <p>各パラメータは、<a href="../Concepts.htm#numbers">整数</a>または<a href="Buffer.htm">Buffer</a>などの<a href="Buffer.htm#Ptr">Ptr</a>プロパティを持つオブジェクトでなければなりません。文字列へのポインタが必要なメッセージには、Bufferまたは<a href="StrPtr.htm">StrPtr</a>関数を使用します。SendMessageに変数のアドレスを渡して変数が含む文字列を変更した場合、その後<a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity(&amp;MyVar, -1)</a>を呼び出して変数の長さを更新する必要があります。</p>
     <p>AutoHotkeyまたはターゲットウィンドウが32ビットの場合、パラメータの下位32ビットのみが使用されます。つまり、符号付き値の場合は-2147483648～2147483647（-0x80000000～0x7FFFFFFF）、符号なし値の場合は0～4294967295（0xFFFFFF）範囲外の場合は値が切り捨てられます。AutoHotkeyとターゲットウィンドウの両方が64ビットである場合、<a href="../Concepts.htm#pure-numbers">AutoHotkeyがサポートする</a>任意の整数値を使用することができます。</p>
   </dd>
 
   <dt>Control</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>If this parameter is omitted, the message will be sent directly to the target window rather than one of its controls. それ以外の場合は、コントロールのClassNN、テキスト、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトをパラメータとすることができます。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
+    <p>このパラメータが省略された場合、メッセージはそのコントロールの1つではなく、ターゲットウィンドウに直接送信されます。それ以外の場合は、コントロールのClassNN、テキスト、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトをパラメータとすることができます。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     <p>本パラメータでHWND（整数またはオブジェクト）を指定する場合、コントロール（子ウィンドウ）のHWNDであることは必須ではありません。つまり、トップレベルウィンドウのHWNDにもなり得るのです。</p>
   </dd>
 
@@ -67,32 +67,32 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The maximum number of milliseconds to wait for the target window to process the message. If omitted, it defaults to 5000 (milliseconds). If the message is not processed within this time, a <a href="Error.htm#TimeoutError">TimeoutError</a> is thrown.</p>
+    <p>ターゲットウィンドウがメッセージを処理するまでの最大待ち時間（ミリ秒）を指定します。省略した場合、デフォルトは5000（ミリ秒）です。この時間内にメッセージが処理されない場合、<a href="Error.htm#TimeoutError">TimeoutError</a>が投げられます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the result of the message, which might sometimes be a "reply" depending on the nature of the message and its target window.</p>
-<p>The range of possible values depends on the target window and the version of AutoHotkey that is running.  When using a 32-bit version of AutoHotkey, or if the target window is 32-bit, the result is a 32-bit unsigned integer between 0 and 4294967295. When using the 64-bit version of AutoHotkey with a 64-bit window, the result is a 64-bit signed integer between -9223372036854775808 and 9223372036854775807.</p>
-<p>If the result is intended to be a 32-bit signed integer (a value from -2147483648 to 2147483648), it can be truncated to 32-bit and converted to a signed value as follows:</p>
+<p>この関数はメッセージの結果を返します。メッセージの性質やターゲットウィンドウによっては、"返信"となる場合があります。</p>
+<p>設定可能な値の範囲は、ターゲットウィンドウと実行中のAutoHotkeyのバージョンに依存します。32ビット版のAutoHotkeyを使用している場合、またはターゲットウィンドウが32ビットの場合、結果は0～4294967295の32ビット符号なし整数になります。64ビット版AutoHotkeyを64ビットウィンドウで使用する場合、結果は-9223372036854775808から9223372036854775807の間の64ビット符号付き整数となります。</p>
+<p>結果が32ビット符号付き整数（-2147483648から2147483648までの値）を意図している場合、次のように32ビットに切り捨てて符号付き値に変換することができます：</p>
 <pre>MsgReply := MsgReply &lt;&lt; 32 &gt;&gt; 32</pre>
-<p>This conversion may be necessary even on AutoHotkey 64-bit, because results from 32-bit windows are zero-extended. For example, a result of -1 from a 32-bit window is seen as 0xFFFFFFFF on any version of AutoHotkey, whereas a result of -1 from a 64-bit window is seen as 0xFFFFFFFF on AutoHotkey 32-bit and -1 on AutoHotkey 64-bit.</p>
+<p>AutoHotkeyの64bit版でも、32bitウィンドウの結果はゼロ拡張されるため、この変換が必要な場合があります。例えば、32ビットウィンドウからの-1の結果は、どのバージョンのAutoHotkeyでも0xFFFFFFとして表示されますが、64ビットウィンドウからの-1の結果は、AutoHotkey 32ビットでは0xFFFFFF、AutoHotkey 64ビットでは-1として表示されます。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウまたはコントロールが見つからない場合、<a href="Error.htm#TargetError">TargetError</a>が投げられます。</p>
-<p>A <a href="Error.htm#TimeoutError">TimeoutError</a> is thrown if the message timed out.</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if a message could not be sent. 例えば、ターゲットウィンドウがスクリプトよりも高い整合性レベルで実行されている場合（スクリプトは管理者として実行されているが、スクリプトはそうではない）、メッセージがブロックされることがあります。</p>
+<p>メッセージがタイムアウトした場合、<a href="Error.htm#TimeoutError">TimeoutError</a>が投げられます。</p>
+<p>メッセージを送信できなかった場合、<a href="Error.htm#OSError">OSError</a>が投げられます。例えば、ターゲットウィンドウがスクリプトよりも高い整合性レベルで実行されている場合（スクリプトは管理者として実行されているが、スクリプトはそうではない）、メッセージがブロックされることがあります。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>誤ったウィンドウにメッセージを送信したり、無効なメッセージを送信したりすると、予期せぬ動作が発生したり、ターゲットアプリケーションがクラッシュしたりする可能性があるため、この関数は慎重に使用しなければなりません。これは、ほとんどのアプリケーションが、外部ソースからのある種のメッセージを期待するように設計されていないためです。</p>
-<p>SendMessage waits for the target window to process the message, up until the timeout period expires. By contrast, <a href="PostMessage.htm">PostMessage</a> places the message in the message queue associated with the target window without waiting for acknowledgement or reply.</p>
-<p>String parameters must be passed by <a href="StrPtr.htm">address</a>. 事例：</p>
+<p>SendMessageは、ターゲットウィンドウがメッセージを処理するのを、タイムアウト時間まで待ちます。一方、<a href="PostMessage.htm">PostMessage</a>は、確認や返信を待たずに、ターゲットウィンドウに関連するメッセージキューにメッセージを配置します。</p>
+<p>文字列パラメータは、<a href="StrPtr.htm">アドレス</a>で渡す必要があります。事例：</p>
 <pre>ListVars
 WinWaitActive "ahk_class AutoHotkey"
 SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre>
-<p>非表示や無効になっているものも含め、システム内のすべてのウィンドウにメッセージを送るには、<em>WinTitleに</em> <code>0xFFFF</code>を指定します（0xFFFFはHWND_BROADCAST）。This technique should be used only for messages intended to be broadcast, such as the following example:</p>
+<p>非表示や無効になっているものも含め、システム内のすべてのウィンドウにメッセージを送るには、<em>WinTitleに</em> <code>0xFFFF</code>を指定します（0xFFFFはHWND_BROADCAST）。この手法は、次の例のように、放送を目的としたメッセージにのみ使用する必要があります：</p>
 <pre>SendMessage 0x001A,,,, 0xFFFF  <em>; 0x001A is WM_SETTINGCHANGE</em></pre>
 <p>スクリプトにメッセージを受信させるには、<a href="OnMessage.htm">OnMessage</a>を使用します。</p>
 <p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」を参照してください。</p>
@@ -104,7 +104,7 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExMonitorPower">
-<p><a class="ex_number" href="#ExMonitorPower"></a> Turns off the monitor via hotkey. In the SendMessage line, replace the number 2 with -1 to turn the monitor on or replace it with 1 to activate the monitor's low-power mode.</p>
+<p><a class="ex_number" href="#ExMonitorPower"></a> ホットキーでモニターをオフにします。SendMessage行で、モニターの電源をオンにする場合は数字の2を-1に、モニターの低電力モードを有効にする場合は数字を1に置き換えてください。</p>
 <pre>#o::  <em>; Win+O hotkey</em>
 {
     Sleep 1000  <em>; Give user a chance to release keys (in case their release would wake up the monitor again).
@@ -114,22 +114,22 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 </div>
 
 <div class="ex" id="ExScreenSave">
-<p><a class="ex_number" href="#ExScreenSave"></a> Starts the user's chosen screen saver.</p>
+<p><a class="ex_number" href="#ExScreenSave"></a> ユーザーが選択したスクリーンセーバーを起動します。</p>
 <pre>SendMessage 0x0112, 0xF140, 0,, "Program Manager"  <em>; 0x0112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE.</em></pre>
 </div>
 
 <div class="ex" id="ExVScrollUp">
-<p><a class="ex_number" href="#ExVScrollUp"></a> Scrolls up by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollUp"></a> 1行分スクロールアップします（垂直スクロールバーを持つコントロールの場合）。</p>
 <pre>SendMessage 0x0115, 0, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExVScrollDown">
-<p><a class="ex_number" href="#ExVScrollDown"></a> Scrolls down by one line (for a control that has a vertical scroll bar).</p>
+<p><a class="ex_number" href="#ExVScrollDown"></a> 1行分スクロールダウンします（垂直スクロールバーを持つコントロールの場合）。</p>
 <pre>SendMessage 0x0115, 1, 0, ControlGetFocus("A")</pre>
 </div>
 
 <div class="ex" id="ExWinamp">
-<p><a class="ex_number" href="#ExWinamp"></a> Asks Winamp which track number is currently active (see <a href="../misc/Winamp.htm">Automating Winamp</a> for more information).</p>
+<p><a class="ex_number" href="#ExWinamp"></a> Winampに、現在アクティブなトラック番号を問い合わせます（詳しくは「<a href="../misc/Winamp.htm">Winampの自動化</a>」を参照）。</p>
 <pre>SetTitleMatchMode 2
 track := SendMessage(0x0400, 0, 120,, "- Winamp")
 track++  <em>; Winamp's count starts at 0, so adjust by 1.</em>
@@ -138,7 +138,7 @@ MsgBox "Track #" track " is active or playing."
 </div>
 
 <div class="ex" id="ExPID">
-<p><a class="ex_number" href="#ExPID"></a> Finds the process ID of an AHK script (an alternative to <a href="WinGetPID.htm">WinGetPID</a>).</p>
+<p><a class="ex_number" href="#ExPID"></a> AHKスクリプトのプロセスIDを検索します（<a href="WinGetPID.htm">WinGetPID</a>の代わりとなるもの）。</p>
 <pre>SetTitleMatchMode 2
 DetectHiddenWindows true
 pid := SendMessage(0x0044, 0x405, 0, , "SomeOtherScript.ahk - AutoHotkey v")
