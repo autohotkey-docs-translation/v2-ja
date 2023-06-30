@@ -30,14 +30,14 @@
     <p>The function to call.</p>
     <p>The callback accepts four parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
     <pre class="NoIndent">MyCallback(wParam, lParam, msg, hwnd) { ...</pre>
-    <p>Although the names you give the parameters do not matter, the following values are sequentially assigned to them:</p>
+    <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
     <ol>
       <li>メッセージのWPARAMの値です。</li>
       <li>メッセージのLPARAM値です。</li>
       <li>The message number, which is useful in cases where a callback monitors more than one message.</li>
       <li>メッセージの送信先のウィンドウまたはコントロールのHWND（ユニークID）です。HWNDは、<a href="../misc/WinTitle.htm#ahk_id">WinTitleパラメータ</a>で直接使用することができます。</li>
     </ol>
-    <p>You can omit one or more parameters from the end of the callback's parameter list if the corresponding information is not needed, but in this case an asterisk must be specified as the final parameter, e.g. <code>MyCallback(Param1, *)</code>.</p>
+    <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
     <p>WPARAMとLPARAMは、スクリプトを実行するexeが32ビットか64ビットかに応じて、符号なし32ビット整数（0から2<sup>32</sup>-1）または符号付き64ビット整数<sup>（-2</sup>63から2<sup>63</sup>-1）です。32ビットスクリプトの場合、入力されるパラメータが符号付き整数であることを意図している場合、この例に従って負の数を明らかにすることができます：</p>
     <pre>if (A_PtrSize = 4 &amp;&amp; wParam &gt; 0x7FFFFFFF)  <em>; Checking <a href="../Variables.htm#PtrSize">A_PtrSize</a> ensures the script is 32-bit.</em>
     wParam := -(~wParam) - 1</pre>

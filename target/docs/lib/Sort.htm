@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Sort - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Sort function arranges a variable's contents in alphabetical, numerical, or random order (optionally removing duplicates)." />
+<title>Sort - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Sort関数は、変数の内容をアルファベット順、数値順、ランダム順に並べる（オプションで重複を削除）。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -27,69 +27,69 @@
   <dt>Options</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, <em>String</em> will be sorted in ascending alphabetical order (case-insensitive), using a linefeed (`n) as separator. Otherwise, specify a string of one or more options from the <a href="#Options">Options section</a> below (in any order, with optional spaces in between).</p>
+    <p>未設定または省略された場合、<em>String</em>はアルファベットの昇順でソートされます（大文字小文字は区別されません）。それ以外の場合は、以下の<a href="#Options">「オプション」セクション</a>から1つ以上のオプション文字列を指定する（任意の順序で、間に任意のスペースを入れる）。</p>
   </dd>
   
   <dt id="callback">Callback</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>If unset or omitted, no custom sorting will be performed. Otherwise, specify the function to call that compares any two items in the list.</p>
-    <p>The callback accepts three parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>未設定または省略された場合、カスタムソートは行われない。そうでない場合は、リスト内の任意の2つの項目を比較する関数を呼び出すように指定する。</p>
+    <p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
     <pre class="NoIndent">MyCallback(First, Second, Offset) { ...</pre>
-    <p>Although the names you give the parameters do not matter, the following values are sequentially assigned to them:</p>
+    <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
     <ol>
-      <li>The first item.</li>
-      <li>The second item.</li>
-      <li>The offset (in characters) of the second item from the first as seen in the original/unsorted list (see examples).</li>
+      <li>最初の項目。</li>
+      <li>２つ目の項目。</li>
+      <li>元の/ソートされていないリストで見た、最初の項目から2番目の項目のオフセット（文字数）（例を参照）。</li>
     </ol>
-    <p>You can omit one or more parameters from the end of the callback's parameter list if the corresponding information is not needed, but in this case an asterisk must be specified as the final parameter, e.g. <code>MyCallback(Param1, *)</code>.</p>
-    <p>When the callback deems the first parameter to be greater than the second, it should return a positive integer; when it deems the two parameters to be equal, it should return 0, "", or nothing; otherwise, it should return a negative integer. If a decimal point is present in the returned value, that part is ignored (i.e. 0.8 is the same as 0).</p>
-    <p>The callback uses the same global (or thread-specific) settings as the Sort function that called it.</p>
-    <p class="note"><strong>Note:</strong> All options except D, Z, and U are ignored when <em>Callback</em> is specified (though N, C, and CL still affect how <a href="#unique">duplicates</a> are detected).</p>
+    <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
+    <p>2つのパラメータが等しいと判断した場合は、0、""、または何も返さず、そうでない場合は負の整数を返します。返される値に小数点がある場合、その部分は無視されます（つまり0.8は0と同じ）。</p>
+    <p>コールバックは、それを呼び出したSort関数と同じグローバルな（あるいはスレッド固有の）設定を使用します。</p>
+    <p class="note"><strong>注意：</strong> <em>Callback</em>を指定した場合、D、Z、U以外のすべてのオプションは無視される（ただし、N、C、CLは<a href="#unique">重複の</a>検出方法に影響する）。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the sorted version of the specified string.</p>
+<p>この関数は、指定された文字列をソートして返します。</p>
 
 <h2 id="Options">Options</h2>
-<p><strong>C</strong>, <strong>C1</strong> or <strong>COn</strong>: Case-sensitive sort (ignored if the N option is also present).</p>
-<p><strong>C0</strong> or <strong>COff</strong>: Case-insensitive sort. The uppercase letters A-Z are considered identical to their lowercase counterparts for the purpose of the sort. This is the default mode if none of the other case sensitivity options are used.</p>
-<p><strong>CL</strong> or <strong>CLocale</strong>:Case-insensitive sort based on the current user's locale. 例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。Depending on the content of the items being sorted, the performance will be 1 to 8 times worse than the default method of insensitivity.</p>
-<p><strong>CLogical:</strong> Like <em>CLocale</em>, but digits in the strings are considered as numerical content rather than text. For example, "A2" is considered less than "A10". However, if two numbers differ only by the presence of a leading zero, the string with leading zero may be considered <em>less</em> than the other string. The exact behavior may differ between OS versions.</p>
-<p><strong>D</strong><em>x</em>: Specifies <em>x</em> as the delimiter character, which determines where each item begins and ends. The delimiter is always case-sensitive. If this option is not present, <em>x</em> defaults to linefeed (`n). In most cases this will work even if lines end with CR+LF (`r`n), but the carriage return (`r) is included in comparisons and therefore affects the sort order. For example, <code>"B`r`nA"</code> will sort as expected, but <code>"A`r`nA`t`r`nB"</code> will place <code>A`t`r</code> before <code>A`r</code>.</p>
-<p><strong>N:</strong> Numeric sort. Each item is assumed to be a number rather than a string (for example, if this option is not present, the string 233 is considered to be less than the string 40 due to alphabetical ordering). Both decimal and hexadecimal strings (e.g. 0xF1) are considered to be numeric. Strings that do not start with a number are considered to be zero for the purpose of the sort. Numbers are treated as 64-bit floating point values so that the decimal portion of each number (if any) is taken into account.</p>
-<p><strong>P</strong><em>n</em>: Sorts items based on character position <em>n</em> (do not use hexadecimal for <em>n</em>). If this option is not present, <em>n</em> defaults to 1, which is the position of the first character. The sort compares each string to the others starting at its <em>n</em>th character. If <em>n</em> is greater than the length of any string, that string is considered to be blank for the purpose of the sort. When used with option N (numeric sort), the string's character position is used, which is not necessarily the same as the number's digit position.</p>
-<p><strong>R:</strong> Sorts in reverse order (alphabetically or numerically depending on the other options).</p>
-<p><strong>Random:</strong> Sorts in random order. This option causes all other options except D, Z, and U to be ignored (though N, C, and CL still affect how duplicates are detected). 例：</p>
+<p><strong>C</strong>, <strong>C1</strong> or <strong>COn</strong>:大文字小文字を区別してソートします（Nオプションがある場合は無視されます）。</p>
+<p><strong>C0</strong> or <strong>COff</strong>:大文字小文字を区別しないソート。大文字のA-Zは、小文字のA-Zと同じとみなされます。これは、他の大文字小文字の区別オプションが使われていない場合のデフォルト・モードです。</p>
+<p><strong>CL</strong> or <strong>CLocale</strong>:現在のユーザーのロケールに基づき、大文字小文字を区別せずにソートします。例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。ソートされる項目の内容にもよるが、デフォルトの不感症の方法よりも1倍から8倍パフォーマンスが悪くなります。</p>
+<p><strong>CLogical：</strong> <em>CLocaleと似て</em>いるが、文字列中の数字はテキストではなく数値の内容とみなされます。例えば、"A2 "は "A10 "よりも小さいとみなされる。しかし、2つの数値が先頭のゼロの有無によってのみ異なる場合、先頭のゼロがある文字列は、もう一方の文字列よりも<em>小さい</em>とみなされることがある。正確な動作はOSのバージョンによって異なる場合があります。</p>
+<p><strong>D</strong><em>x</em>:区切り文字として<em>x</em>を指定し、各項目の始まりと終わりを決定する。区切り文字は常に大文字と小文字を区別します。このオプションがない場合、<em>x</em>のデフォルトは改行（`n）です。ほとんどの場合、行末がCR+LF（`r`n）であっても機能するが、キャリッジリターン（`r）は比較に含まれるため、ソートの順番に影響します。例えば、<code>"B`r`nA "</code>は期待通りにソートされるが、<code>"A`r`nA`t`r`nB "</code>は<code>A`t`r</code>を <code>A`r</code>の前に置く。</p>
+<p><strong>N:</strong>数値ソート。各項目は文字列ではなく数値であるとみなされます（たとえば、このオプションがない場合、アルファベット順のため、文字列233は文字列40より小さいとみなされます）。10進数および16進数の文字列（例えば0xF1）はいずれも数値とみなされます。数字で始まらない文字列は、ソートの目的上ゼロとみなされます。数値は64ビットの浮動小数点値として扱われ、各数値の10進数部分（もしあれば）が考慮されます。</p>
+<p><strong>P</strong><em>n</em>:文字位置<em>n</em>に基づいて項目をソートする（<em>n</em>には 16 進数を使用しない）。このオプションがない場合、<em>n</em>のデフォルトは1で、これは最初の文字の位置である。ソートは各文字列を<em>n</em>文字目から他の文字列と比較する。<em>n</em>が文字列の長さより大きい場合、その文字列はソートの目的のために空白であるとみなされる。オプションN（数値ソート）と併用する場合、文字列の文字位置が使われるが、これは必ずしも数値の桁位置と同じではない。</p>
+<p><strong>R:</strong>逆順に並べ替える（アルファベット順か数字順かは他のオプションによる）。</p>
+<p><strong>Random:</strong>ランダムな順序でソートする。このオプションは、D、Z、U以外のすべてのオプションを無視する（ただし、N、C、CLは重複の検出方法に影響を与える）。例：</p>
 <pre>MyVar := Sort(MyVar, "Random")
 MyVar := Sort(MyVar, "Random Z D|")</pre>
-<p id="unique"><strong>U:</strong> Removes duplicate items from the list so that every item is unique. If the C option is in effect, the case of items must match for them to be considered identical. If the N option is in effect, an item such as 2 would be considered a duplicate of 2.0. If either the P or \ (backslash) option is in effect, the entire item must be a duplicate, not just the substring that is used for sorting. If the Random option or <a href="#callback">custom sorting</a> is in effect, duplicates are removed only if they appear adjacent to each other as a result of the sort. For example, when <code>"A|B|A"</code> is sorted randomly, the result could contain either one or two A's.</p>
-<p><strong>Z:</strong> To understand this option, consider a variable that contains <code>"RED`nGREEN`nBLUE`n"</code>. If the Z option is not present, the last linefeed (`n) is considered to be part of the last item, and thus there are only 3 items. But by specifying Z, the last `n (if present) will be considered to delimit a blank item at the end of the list, and thus there are 4 items (the last being blank).</p>
-<p><strong>\:</strong> Sorts items based on the substring that follows the last backslash in each. If an item has no backslash, the entire item is used as the substring. This option is useful for sorting bare filenames (i.e. excluding their paths), such as the example below, in which the AAA.txt line is sorted above the BBB.txt line because their directories are ignored for the purpose of the sort:</p>
+<p id="unique"><strong>U:</strong>リストから重複する項目を削除し、すべての項目が一意になるようにします。Cオプションが有効な場合、同一とみなされるためには、項目の大文字と小文字が一致しなければならない。Nオプションが有効な場合、2のような項目は2.0と重複しているとみなされる。Pオプションまたは(バックスラッシュ)オプションのいずれかが有効な場合、ソートに使用される部分文字列だけでなく、項目全体が重複していなければなりません。ランダム・オプションまたは<a href="#callback">カスタム・ソート</a>が有効な場合、重複は、ソートの結果、隣接して表示された場合にのみ削除される。例えば、<code>"A|B|A "</code>がランダムにソートされた場合、結果には1つまたは2つのAが含まれる可能性があります。</p>
+<p><strong>Z：</strong>このオプションを理解するために、<code>"RED`nGREEN`nBLUE`n "</code>を含む変数を考えてみよう。Zオプションがない場合、最後の改行(`n)は最後の項目の一部とみなされるため、項目は3つしかありません。しかし、Zを指定することで、最後の`n（存在する場合）はリストの最後にある空白の項目を区切るとみなされるため、4つの項目（最後の項目は空白）が存在することになります。</p>
+<p><strong>\:</strong>各項目の最後のバックスラッシュに続く部分文字列に基づいて項目をソートします。項目にバックスラッシュがない場合は、項目全体が部分文字列として使われる。このオプションは、以下の例のように、（パスを除いた）素のファイル名をソートするのに便利です。この例では、AAA.txt行がBBB.txt行の上にソートされるが、これはソートの目的上、これらのディレクトリが無視されるからです：</p>
 <pre>C:\BBB\AAA.txt
 C:\AAA\BBB.txt</pre>
-<p class="note"><strong>Note:</strong> Options N and P are ignored when the \ (backslash) option is present.</p>
+<p class="note"><strong>注：</strong>NとPのオプションは、N(バックスラッシュ)オプションがある場合は無視されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This function is typically used to sort a variable that contains a list of lines, with each line ending in a linefeed character (`n). One way to get a list of lines into a variable is to load an entire file via <a href="FileRead.htm">FileRead</a>.</p>
-<p>If a large variable was sorted and later its contents are no longer needed, you can free its memory by making it blank, e.g. <code>MyVar := ""</code>.</p>
+<p>この関数は通常、行末が改行文字（`n）で終わる行のリストを含む変数をソートするために使われる。行のリストを変数に取り込む1つの方法は、<a href="FileRead.htm">FileRead</a>でファイル全体を読み込むことである。</p>
+<p>大きな変数がソートされ、後でその内容が不要になった場合、例えば<code>MyVar := ""</code>のように空白にすることでメモリを解放することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="FileRead.htm">FileRead</a>, <a href="LoopRead.htm">File-reading loop</a>, <a href="LoopParse.htm">Parsing loop</a>, <a href="StrSplit.htm">StrSplit</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="A_Clipboard.htm">A_Clipboard</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExNumbers">
-<p><a class="ex_number" href="#ExNumbers"></a> Sorts a comma-separated list of numbers.</p>
+<p><a class="ex_number" href="#ExNumbers"></a> コンマで区切られた数値のリストをソートする。</p>
 <pre>MyVar := "5,3,7,9,1,13,999,-4"
 MyVar := Sort(MyVar, "N D,")  <em>; Sort numerically, use comma as delimiter.</em>
 MsgBox MyVar   <em>; The result is -4,1,3,5,7,9,13,999</em></pre>
 </div>
 
 <div class="ex" id="ExFileContents">
-<p><a class="ex_number" href="#ExFileContents"></a> Sorts the contents of a file.</p>
+<p><a class="ex_number" href="#ExFileContents"></a> ファイルの内容をソートする。</p>
 <pre>Contents := <a href="FileRead.htm">FileRead</a>("C:\Address List.txt")
 FileDelete "C:\Address List (alphabetical).txt"
 FileAppend Sort(Contents), "C:\Address List (alphabetical).txt"
@@ -97,7 +97,7 @@ Contents := "" <em>; メモリを解放します。</em></pre>
 </div>
 
 <div class="ex" id="ExFilenames">
-<p><a class="ex_number" href="#ExFilenames"></a> Makes a hotkey to copy files from an open Explorer window and put their sorted filenames onto the clipboard.</p>
+<p><a class="ex_number" href="#ExFilenames"></a> 開いているエクスプローラーウィンドウからファイルをコピーし、ソートされたファイル名をクリップボードに置くホットキーを作成します。</p>
 <pre>#c:: <em>; Win+C</em>
 {
     A_Clipboard := "" <em>; Must be blank for detection to work.</em>
@@ -109,7 +109,7 @@ Contents := "" <em>; メモリを解放します。</em></pre>
 </div>
 
 <div class="ex" id="ExCustom">
-<p><a class="ex_number" href="#ExCustom"></a> Demonstrates custom sorting via a callback function.</p>
+<p><a class="ex_number" href="#ExCustom"></a> コールバック関数によるカスタム・ソートのデモンストレーション。</p>
 <pre>MyVar := "This`nis`nan`nexample`nstring`nto`nbe`nsorted"
 MsgBox Sort(MyVar,, LengthSort)
 LengthSort(a1, a2, *)
