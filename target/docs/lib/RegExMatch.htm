@@ -34,14 +34,14 @@
   <dt>&amp;OutputVar</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p><a href="#MatchObject">マッチオブジェクト</a>を格納する出力変数への参照を指定する。マッチオブジェクトは、マッチ全体の位置、長さ、値、および<a href="../misc/RegEx-QuickRef.htm#subpat">キャプチャしたサブパターン</a>が存在する場合はその値を取得するために使用することができる。</p>
+    <p>If unset or omitted, no output variable will be used. Otherwise, specify a reference to a output variable in which to store a <a href="#MatchObject">match object</a>, which can be used to retrieve the position, length and value of the overall match and of each <a href="../misc/RegEx-QuickRef.htm#subpat">captured subpattern</a>, if any are present.</p>
     <p>パターンが見つからない場合（つまり、関数が0を返す場合）、この変数は空白にされる。</p>
   </dd>
 
   <dt>StartingPos</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><em>StartingPos</em>が省略された場合、デフォルトは 1（<em>Haystack</em>の先頭）です。それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。<em>StartingPos</em>が <em>Haystack</em>の長さを超えている場合、<em>Haystack</em>の末尾にある空の文字列から検索を開始します（通常、一致しない結果になります）。</p>
+    <p>If unset or omitted, it defaults to 1 (the beginning of <em>Haystack</em>). それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。If <em>StartingPos</em> is beyond the length of <em>Haystack</em>, the search starts at the empty string that lies at the end of <em>Haystack</em> (which typically results in no match).</p>
     <p>負の<em>StartingPos</em>を指定すると、その位置で右からスタートする。例えば、-1は最後の文字から、-2はその次の文字から始まります。<em>StartingPos</em>が <em>Haystack</em>の左端を越えようとした場合、<em>Haystack</em>の全てが検索される。</p>
     <p>0を指定すると、<em>Haystack</em>の末尾、つまり最後の文字の右側の位置から開始します。これは、<code>(?&lt;=a)</code>のようなゼロ幅のアサーションで使用することができます。</p>
     <p><em>StartingPos</em>の値に関係なく、戻り値は常に<em>Haystack</em>の最初の文字からの相対値です。例えば、"123abc789"の "abc"の位置は、常に4です。</p>
@@ -58,15 +58,15 @@
 <p><strong>実行エラー：</strong>正規表現の<em>実行</em>中にエラーが発生した場合、<a href="Error.htm">Error</a>が投げられます。エラーオブジェクトの<em>Extra</em>プロパティには、PCREのエラー番号が記載されています。このようなエラーは稀ですが、発生しやすいのは「空文字列の可能性が多すぎる」（-22）、「再帰が深すぎる」（-21）、「マッチの限界に達した」（-8）です。このような場合は、可能な限り * を ?、+、{0,3} のような制限に置き換えるなど、より制限の多いパターンに設計し直すようにしてください。</p>
 
 <h2 id="Options">Options</h2>
-<p>パターン "abc "の大文字小文字を区別しない<span class="regex"><span class="red">i)</span>abc</span>などの修飾語については、<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>を参照してください。</p>
+<p>See <a href="../misc/RegEx-QuickRef.htm#Options">RegEx Quick Reference</a> for options such as <span class="regex"><span class="red">i)</span>abc</span>, which turns off case-sensitivity.</p>
 
 <h2 id="MatchObject">マッチオブジェクト(RegExMatchInfo)</h2>
 <p>一致した場合、一致した情報を含むオブジェクトが<em>OutputVar</em>に格納される。このオブジェクトは、以下のメソッドとプロパティを持ちます：</p>
 <p><strong>Match.Pos</strong>, <strong>Match.Pos[N]</strong> または <strong>Match.Pos(N)</strong>:全体一致の位置、または取り込んだサブパターンの位置を返します。</p>
 <p><strong>Match.Len</strong>, <strong>Match.Len[N]</strong> または <strong>Match.Len(N)</strong>:全体的なマッチの長さ、またはキャプチャしたサブパターンの長さを返します。</p>
 <p><strong>Match.Name[N]</strong> または <strong>Match.Name(N)</strong>:与えられたサブパターンがある場合、その名前を返します。</p>
-<p><strong>Match.Count</strong>:<em>N</em>の最大値でもある、全体のサブパターン（捕獲グループ）数を返す。</p>
-<p><strong>Match.Mark</strong>:最後に出会った<span class="regex">(*MARK:NAME)</span>の<em>NAME</em>を、該当する場合に返します。</p>
+<p><strong>Match.Count:</strong> Returns the overall number of subpatterns (capturing groups), which is also the maximum value for <em>N</em>.</p>
+<p><strong>Match.Mark:</strong> Returns the <em>NAME</em> of the last encountered <span class="regex">(*MARK:NAME)</span>, when applicable.</p>
 <p><strong>Match[]</strong> または <strong>Match[N]</strong>:全体的なマッチ、またはキャプチャしたサブパターンを返します。</p>
 <p>以上のことから、<em>N</em>は以下のいずれかになることができます：</p>
 <ul>
@@ -74,7 +74,7 @@
   <li>サブパターンの番号で、名前も持っているものでもよい。</li>
   <li>サブパターンの名前です。</li>
 </ul>
-<p><strong>Match.N</strong>:<strong>Match["N"]</strong>の略記で、<em>N</em>は定義されたプロパティ（上記一覧）と衝突しない任意の引用されていない名前または数字です。例えば、<code>match.1や</code> <code>match.Year</code>などです。</p>
+<p><strong>Match.N:</strong> Shorthand for <strong>Match["N"]</strong>, where <em>N</em> is any unquoted name or number which does not conflict with a defined property (listed above). 例えば、<code>match.1や</code> <code>match.Year</code>などです。</p>
 <p>また、このオブジェクトは列挙をサポートしています。つまり、<a href="For.htm">for-loop</a>がサポートされています。または、<code><a href="Loop.htm">Loop</a>Match.Count</code>を使用します。</p>
 
 <h2 id="Performance">パフォーマンス</h2>
@@ -84,11 +84,11 @@
 
 <h2 id="Remarks">備考</h2>
 <p id="NamedSubPat">サブパターンには、パターン<span class="regex">(?P&lt;Year&gt;d{4})</span>における<em>Year</em>という単語のような名前を付けることができる。このような名前は、最大32文字の英数字とアンダースコアで構成されます。名前付きサブパターンにも番号が振られるため、「Year」の後に<a href="../misc/RegEx-QuickRef.htm#subpat">名前なしサブパターン</a>が発生した場合、<code>OutputVar[1]</code>ではなく<code>OutputVar[2]<code>に格納されることに注意しましょう。</p>
-<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。ただし、<strong>\.*?+[{|()^$</strong>の前にバックスラッシュがないとリテラルとみなされない。例えば、<strong>.</strong>はリテラルピリオド、<strong>.</strong>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
-<p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。例えば、`tは<b>x</b>オプションを使う場合を除き、\tと同じです。</p>
+<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。However, any of the characters in the set <code>\.*?+[{|()^$</code> must be preceded by a backslash to be seen as literal. 例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。For example, <span class="regex">`t</span> is the same as <span class="regex">\t</span> except when the <a href="../misc/RegEx-QuickRef.htm#opt_x">x option</a> is used.</p>
 <p>正規表現の基本を学ぶ（またはパターン構文の記憶を取り戻す）には、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <p>AutoHotkeyの正規表現は、<a href="http://www.pcre.org/">www.pcre.org</a>のPerl-compatible Regular Expressions (PCRE)を使用して実装されています。</p>
-<p><a href="../Variables.htm#Expressions">式</a>の中で、<code>a <a href="../Variables.htm#regex">~=</a> b</code>は<code>RegExMatch(a, b)</code>の略記として使うことができます。</p>
+<p>Within an <a href="../Variables.htm#Expressions">expression</a>, <code>a ~= b</code> can be used as shorthand for <code>RegExMatch(a, b)</code>.</p>
 <h2 id="Related">関連</h2>
 <p><a href="RegExReplace.htm">RegExReplace</a>, <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>, <a href="../misc/RegExCallout.htm">Regular Expression Callouts</a>, <a href="InStr.htm">InStr</a>, <a href="SubStr.htm">SubStr</a>, <a href="SetTitleMatchMode.htm#RegEx">SetTitleMatchMode RegEx</a>, <a href="https://www.autohotkey.com/forum/topic16164.html">Global matching and Grep (forum link)</a></p>
 <p>テキストデータの一般的なソース：<a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>

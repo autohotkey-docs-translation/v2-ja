@@ -20,7 +20,7 @@
 <p>他のプログラムを起動する場合は、上記の例のパスを起動したいプログラムのパスに置き換えるだけです。プログラムによってはパスがシステムに登録されているものもあり、その場合は拡張子「.exe」の有無にかかわらず、プログラムのファイル名だけを渡すことで対応できます（場合によっては拡張子「.exe」のないものもあります）。事例：</p>
 <pre>Run "notepad"</pre>
 
-<h2>コマンドラインパラメーター</h2>
+<h2 id="Command-line_Parameters">コマンドラインパラメーター</h2>
 <p>プログラムがコマンドラインパラメーターを受け付ける場合は、<a href="../lib/Run.htm">Run</a>関数の最初のパラメーターの一部として渡すことができます。以下の例では、license.txtをメモ帳で開いているはずです。</p>
 <pre>
 Run "notepad C:\Program Files\AutoHotkey\license.txt"
@@ -46,7 +46,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <pre>Run "wordpad.exe C:\Program Files\AutoHotkey\license.txt"</pre>
 <p>これでWordPadは起動するのですが、エラーが表示されます。"C:\Program" は見つかりませんでした。</p>
 
-<h2>引用符とスペース</h2>
+<h2 id="Quote_Marks_and_Spaces">引用符とスペース</h2>
 <p>コマンドラインパラメーターをプログラムに渡す際、パラメーターにスペースが含まれている場合、各パラメーターを引用符で囲む必要があることがよくあります。これはメモ帳では必要なかったのですが、メモ帳は一般的な例外です。単純に引用符を増やせばいいという安直な発想で解決できるかもしれません。</p>
 <pre>Run "wordpad.exe "C:\Program Files\AutoHotkey\license.txt""</pre>
 <p>しかし、デフォルトでは、リテラルテキストの開始と終了を示すために引用符が使用されるため、これは機能しません。では、コマンドラインを終了させるのではなく、コマンドライン内にリテラルな引用符を入れるにはどうすればよいのでしょうか。</p>
@@ -59,7 +59,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>多くのプログラムでは、引用符の前にバックスラッシュがある場合、パラメータの一部として扱います。例えば、2つのパラメータの代わりに、<code>'my.exe "A\" B'を実行</code>して、値<code>A" Bを</code>持つパラメータを生成するかもしれません。これはプログラム次第で、通常、<code>Run ''my.exe "A\\" B'"</code>のようにバックスラッシュを2重にすることで回避することが可能です。これは通常2つのパラメータ（<code>A</code>、<code>B</code>）を生成します。</p>
 <p>ほとんどのプログラムは、引用符を一種のトグルとして解釈し、「スペースはパラメーターを終了する」と「スペースはパラメーターに含まれる」の間でモードを切り替えます。つまり、<code>Run 'my.exe "A B"'</code>は一般的に <code>Run 'my.exe A" "B'</code> と同等ですそこで、スラッシュの問題を回避する別の方法として、<code>Run 'my.exe "A"\ B'</code>のように、パラメータ全体ではなく<em>スペース</em>を引用するか、スラッシュの前で引用を終了します。</p>
 
-<h2>変数を含む</h2>
+<h2 id="Including_Variables">変数を含む</h2>
 <p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、"Program Files" ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
 <pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
 Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
@@ -69,7 +69,7 @@ Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></
 <pre>Run Format('notepad.exe "{1}\AutoHotkey.ahk"', A_MyDocuments)</pre>
 <p class="note"><strong>注：</strong>Formatは、0やスペースによるパディングや、数値を10進数ではなく16進数でフォーマットするなど、追加のフォーマットを同時に実行することができます。</p>
 
-<h2>実行時パラメータ</h2>
+<h2 id="Runs_Parameters">実行時パラメータ</h2>
 <p>実行するコマンドラインの他に、Run関数はその動作に影響を与えるいくつかの<a href="../Concepts.htm#parameters">パラメータ</a>を受け付けます。</p>
 <p><em>WorkingDir</em>は、新しいプロセスの作業ディレクトリを指定します。プログラムに相対パスを指定した場合は、このディレクトリからの相対パスとなります。コマンドラインパラメータの相対パスもこのディレクトリからの相対パスであることが多いが、それはプログラムによって異なる。</p>
 <pre>Run "cmd", "C:\"  <em>; コマンドプロンプトをC:\ に開きます。</em></pre>
@@ -79,7 +79,7 @@ Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></
 WinWaitActive "ahk_pid " pid
 SendText "Hello, world!"</pre>
 
-<h2>システム動詞</h2>
+<h2 id="System_Verbs">システム動詞</h2>
 <p><a href="../lib/Run.htm#verbs">システム動詞</a>とは、システムやアプリケーションが特定のファイルタイプに対して登録するアクションのことです。これらは通常、エクスプローラーのファイルの右クリックメニューで利用できますが、実際の名前はメニューに表示されるテキストと必ずしも一致しません。例えば、AutoHotkeyスクリプトには、スクリプトをエディタで開く「edit」動詞と、（Ahk2Exeがインストールされていれば）スクリプトを<a href="../Scripts.htm#ahk2exe">コンパイル</a>する「compile」動詞があります。</p>
 <p>"Edit "は、Runがデフォルトで認識する一般的な動詞のリストの1つで、次のように、単語の後にスペースとファイル名を書くだけで使用することができます。</p>
 <pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当します。</em></pre>
@@ -87,7 +87,7 @@ SendText "Hello, world!"</pre>
 <pre>Run '*Compile-Gui ' A_ScriptFullPath</pre>
 <p>Ahk2Exeがインストールされている場合、現在のスクリプトがあらかじめ選択された状態でAhk2Exe Guiが開かれます。</p>
 
-<h2>環境</h2>
+<h2 id="Environment">環境</h2>
 <p>新しいプロセスが起動すると、一般的にそのプロセスを起動したプロセス（<em>親プロセス</em>）の<em>環境</em>を引き継ぎます。これは基本的に、スクリプトの<a href="../Concepts.htm#environment-variables">環境変数</a>がすべて、<a href="../lib/Run.htm">Run</a>で起動したプログラムに継承されることを意味します。</p>
 <p>場合によっては、プログラムを起動する前に<a href="../lib/EnvSet.htm">EnvSet</a>で環境変数を設定し、プログラムの動作に影響を与えたり、情報を渡したりすることができます。また、スクリプトは<a href="../lib/EnvGet.htm">EnvGet</a>を使用して、親プロセスから継承した環境変数を読み込むことができます。</p>
 <p>64ビットシステムでは、スクリプトを実行するEXEが32ビットか64ビットかに応じて、スクリプト自身の環境が大きく変化します。32ビットプロセスは、環境変数が異なるだけでなく、互換性のために<a href="https://learn.microsoft.com/windows/win32/winprog64/file-system-redirector">ファイルシステムのリダイレクト</a>が行われている。</p>

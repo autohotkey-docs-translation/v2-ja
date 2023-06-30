@@ -21,31 +21,13 @@
   <dt>Part#</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Which part number of the bar to retrieve. Default 1, which is usually the part that contains the text of interest.</p>
+    <p>If unset or omitted, it defaults to 1, which is usually the part that contains the text of interest. Otherwise, specify the part number of the bar to retrieve.</p>
   </dd>
 
-  <dt>WinTitle</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
-  </dd>
-
-  <dt>WinText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
-  </dd>
-
-  <dt>ExcludeTitle</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
-  </dd>
-
-  <dt>ExcludeText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
+    <p>If each of these is unset or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. Otherwise, specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
   </dd>
 
 </dl>
@@ -58,13 +40,13 @@
 <p>An exception is thrown in any of the following cases:</p>
 <ul>
   <li><a href="Error.htm#TargetError">TargetError</a>: The target window could not be found or does not contain a standard status bar.</li>
-  <li><a href="Error.htm#OSError">OSError</a>: There was a problem sending the SB_GETPARTS message, or no reply was received within 2000ms.</li>
+  <li><a href="Error.htm#OSError">OSError</a>: There was a problem sending the SB_GETPARTS message, or no reply was received within 2000&nbsp;ms.</li>
   <li><a href="Error.htm#OSError">OSError</a>: Memory could not be allocated within the process which owns the status bar.</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
 <p>This function attempts to read the first <em>standard</em> status bar on a window (Microsoft common control: msctls_statusbar32). Some programs use their own status bars or special versions of the MS common control, in which case the text cannot be retrieved.</p>
-<p>Rather than using this function in a loop, it is usually more efficient to use <a href="StatusBarWait.htm">StatusBarWait</a>, which contains optimizations that avoid the overhead of repeated calls to StatusBarGetText.</p>
+<p>Rather than using StatusBarGetText in a loop, it is usually more efficient to use <a href="StatusBarWait.htm">StatusBarWait</a>, which contains optimizations that avoid the overhead of repeated calls to StatusBarGetText.</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>

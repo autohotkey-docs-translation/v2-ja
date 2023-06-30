@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>OnClipboardChange - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="OnClipboardChange関数は、クリップボードの内容が変更されるたびに、指定された関数が自動的に呼び出されるようにするものです。" />
+<meta name="description" content="The OnClipboardChange function registers a function to be called automatically whenever the clipboard's content changes." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,54 +11,44 @@
 <body>
 
 <h1>OnClipboardChange</h1>
+<p>Registers a <a href="../Functions.htm">function</a> to be called automatically whenever the clipboard's content changes.</p>
 
-<p>クリップボードの内容が変更されるたびに、指定された関数が自動的に呼び出されるようにします。</p>
-
-<pre class="Syntax"><span class="func">OnClipboardChange</span> Function <span class="optional">, AddRemove</span></pre>
+<pre class="Syntax"><span class="func">OnClipboardChange</span> Callback <span class="optional">, AddRemove</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>機能</dt>
+  <dt>Callback</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>呼び出す関数オブジェクト。この関数のパラメータと戻り値について、<a href="#Function">以下に</a>説明します。</p>
-  </dd>
-  
-  <dt>AddRemove</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>省略した場合、デフォルトは1（以前に登録された関数の後に呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
-    <ul>
-      <li>1 = 以前に登録した機能の後に機能を呼び出します。</li>
-      <li>-1 = 過去に登録された機能よりも先に機能を呼び出します。</li>
-      <li>0 = 関数を呼び出しません。</li>
-    </ul>
-  </dd>
-
-</dl>
-
-<h2 id="Function">機能</h2>
-<p>この関数は1つのパラメータを受け取る必要があります：</p>
-<pre class="Syntax"><i>FunctionName</i>(Type)</pre>
-<dl>
-  <dt>Type</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>以下の番号のいずれか1つ：</p>
+    <p>The function to call.</p>
+    <p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <pre class="NoIndent">MyCallback(DataType) { ...</pre>
+    <p>Although the name you give the parameter does not matter, it is assigned one of the following numbers:</p>
     <ul>
       <li>0 = クリップボードが空っぽになりました。</li>
       <li>1 = クリップボードにテキストとして表現できるものが入っている（エクスプローラーウィンドウから<a href="A_Clipboard.htm#CopiedFiles">コピーされたファイル</a>も含まれる）。</li>
       <li>2 = クリップボードには、画像など、まったくテキスト以外のものが入っています。</li>
     </ul>
+    <p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
+    <p>If this is the last or only callback, the return value is ignored. Otherwise, it can return a non-zero integer to prevent subsequent callbacks from being called.</p>
   </dd>
+  
+  <dt>AddRemove</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If unset or omitted, it defaults to 1 (call the callback after any previously registered callbacks). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <ul>
+      <li>1 = 以前に登録されたコールバックの後にコールバックを呼び出します。</li>
+      <li>-1 = 以前に登録されたコールバックより先にコールバックを呼び出します。</li>
+      <li>0 = コールバックを呼び出さない。</li>
+    </ul>
+  </dd>
+
 </dl>
 
-<h3 id="Return_Value">戻り値</h3>
-<p>この関数が最後の、あるいは唯一のOnClipboardChange関数である場合、戻り値は無視されます。そうでない場合は、後続の関数が呼び出されないように、0以外の整数を返すことができます。</p>
-
 <h2 id="Remarks">備考</h2>
-<p>OnClipboardChange関数がすでに実行されている間にクリップボードが変更された場合、その通知イベントは失われます。これが好ましくない場合は、<a href="Critical.htm">Critical</a>を使用します。ただし、この場合、OnClipboardChangeスレッドの実行中に発生する他の<a href="../misc/Threads.htm">スレッド</a>（ホットキーの押下など）もバッファリング/ディファーされます。</p>
-<p>スクリプト自身がクリップボードを変更する場合、そのOnClipboardChange関数は通常すぐには実行されません。つまり、クリップボードを変更した関数のすぐ下の関数が事前に実行される可能性があります。即座に実行させたい場合は、クリップボード変更後に<code><a href="Sleep.htm">Sleep</a>20</code>などの短いディレイを使用します。</p>
+<p>If the clipboard changes while a callback is already running, that notification event is lost. これが好ましくない場合は、<a href="Critical.htm">Critical</a>を使用します。ただし、この場合、OnClipboardChangeスレッドの実行中に発生する他の<a href="../misc/Threads.htm">スレッド</a>（ホットキーの押下など）もバッファリング/ディファーされます。</p>
+<p>If the script itself changes the clipboard, the callbacks are typically not executed immediately; that is, statements immediately below the statement that changed the clipboard are likely to execute beforehand. To force the callbacks to execute immediately, use a short delay such as <code><a href="Sleep.htm">Sleep</a> 20</code> after changing the clipboard.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="A_Clipboard.htm">A_Clipboard</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a></p>
@@ -68,8 +58,8 @@
 <p><a class="ex_number" href="#ExBasic"></a> クリップボードの変更ごとにツールチップを短く表示します。</p>
 <pre>OnClipboardChange ClipChanged
 
-ClipChanged(clip_type) {
-    ToolTip "Clipboard data type:" clip_type
+ClipChanged(DataType) {
+    ToolTip "Clipboard data type:" DataType
     Sleep 1000
     ToolTip  <em>;チップを切る。</em>
 }</pre>

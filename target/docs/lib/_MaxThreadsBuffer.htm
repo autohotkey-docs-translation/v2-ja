@@ -28,8 +28,8 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>このタイプのバッファリングはデフォルトでOFFになっており、通常、良いことよりも悪いことの方が多いため、このディレクティブはほとんど使用されません。例えば、誤ってホットキーを2回押してしまった場合、この設定をONにすると、そのホットキーのサブルーチンは、最初の<a href="../misc/Threads.htm">スレッド</a>が1秒未満で終了した場合、自動的に2回目を実行します（このタイプのバッファは、設計上1秒後に終了します）。なお、AutoHotkeyは他にもいくつかの方法でホットキーをバッファリングしています（<code><a href="Thread.htm">Thread</a> "Interrupt"</code> and <code><a href="Critical.htm">Critical</a></code>). ただ、この特殊な方法は有害であるため、デフォルトでオフになっています。</p>
-<p>このディレクティブの主な用途は、キーボードのオートリピート機能の応答性を高めることです。たとえば、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の設定が1（デフォルト）のホットキーを押し続けているとき、そのホットキーサブルーチンがすでに実行されていると、キー入力は無視されます。そのため、サブルーチンが終了すると、次のオートリピートキー入力が来るのを待たなければならず、オートリピートサイクルのキー入力の間に挟まれるため、50ms以上かかる場合があります。この50msの遅延は、自動リピート中に最良の応答時間を必要とするホットキーに対してこのディレクティブを有効にすることで回避することができます。</p>
+<p>このタイプのバッファリングはデフォルトでOFFになっており、通常、良いことよりも悪いことの方が多いため、このディレクティブはほとんど使用されません。例えば、誤ってホットキーを2回押してしまった場合、この設定をONにすると、そのホットキーのサブルーチンは、最初の<a href="../misc/Threads.htm">スレッド</a>が1秒未満で終了した場合、自動的に2回目を実行します（このタイプのバッファは、設計上1秒後に終了します）。Note that AutoHotkey buffers hotkeys in several other ways (such as <a href="Thread.htm#Interrupt">Thread Interrupt</a> and <a href="Critical.htm">Critical</a>). ただ、この特殊な方法は有害であるため、デフォルトでオフになっています。</p>
+<p>このディレクティブの主な用途は、キーボードのオートリピート機能の応答性を高めることです。たとえば、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の設定が1（デフォルト）のホットキーを押し続けているとき、そのホットキーサブルーチンがすでに実行されていると、キー入力は無視されます。Thus, when the subroutine finishes, it must wait for the next auto-repeat keypress to come in, which might take 50&nbsp;ms or more due to being caught in between keystrokes of the auto-repeat cycle. This 50&nbsp;ms delay can be avoided by enabling this directive for any hotkey that needs the best possible response time while it is being auto-repeated.</p>
 <p>他の#ディレクティブと同様に、このディレクティブもスクリプト内で関数であるかのように位置づけるべきではありません（つまり、サブルーチンの中に含ませる必要はありません）。代わりに、その影響を受けさせたい最初のホットキーの直前に配置します。</p>
 <p>他のディレクティブと同様に、#MaxThreadsBufferは条件付きで実行することはできません。</p>
 <h2 id="Related">関連</h2>

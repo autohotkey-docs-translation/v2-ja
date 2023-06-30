@@ -14,7 +14,7 @@
 
 <p><a href="A_Clipboard.htm">クリップボード</a>にデータが入るまで待ちます。</p>
 
-<pre class="Syntax"><span class="func">ClipWait</span> <span class="optional">Timeout, WaitForAnyData</span></pre>
+<pre class="Syntax"><span class="func">ClipWait</span> <span class="optional">Timeout, WaitFor</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
@@ -24,10 +24,11 @@
     <p>省略した場合は、無期限で待機します。そうでない場合は、この秒数（小数点以下も可）以上待つことはありません。</p>
   </dd>
 
-  <dt>WaitForAnyData</dt>
+  <dt>WaitFor</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>このパラメータが省略されるか0（false）の場合、この関数はより選択的に、テキストまたはファイルが現れるのを特別に待ちます（「テキスト」には、メモ帳に貼り付けたときにテキストを生成するようなものも含まれます）。このパラメータが1（true）の場合、この関数はあらゆる種類のデータがクリップボードに表示されるのを待ちます。</p>
+    <p>This parameter specifies what to wait for. If omitted, it defaults to 0 (wait only for text or files). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p><strong>0:</strong> The function is more selective, waiting specifically for text or files to appear ("text" includes anything that would produce text when you paste into Notepad).</p>
+    <p><strong>1:</strong> The function waits for data of any kind to appear on the clipboard.</p>
     <p>その他の値は、将来の使用のために予約されています。</p>
   </dd>
 
@@ -40,7 +41,7 @@
 <h2 id="Remarks">備考</h2>
 <p>このクリップボードが空白かどうかをチェックする独自のループよりも、この関数を使用する方がよいでしょう。これは、この関数によってクリップボードが開かれることがないため、パフォーマンスが向上し、クリップボードを使用している可能性のある他のアプリケーションと干渉する可能性が回避されるためです。</p>
 <p>この機能は、テキストに変換可能なもの（HTMLなど）をテキストとみなします。また、エクスプローラーウィンドウで<kbd>Ctrl</kbd><kbd>+</kbd><kbd>C</kbd>でコピーしたようなファイルもテキストとみなします。このようなファイルは、スクリプト内でクリップボード変数が参照されるたびに、自動的にそのファイル名（フルパス付き）に変換されます。詳しくは<a href="A_Clipboard.htm">A_Clipboard</a>をご覧ください。</p>
-<p>最後のパラメータに1（true）を指定すると、クリップボードに何らかのデータが表示されたときに、この関数が満たされます。<a href="ClipboardAll.htm">ClipboardAll</a>と併用することで、画像などテキスト以外のものを保存することができます。</p>
+<p>When 1 is present as the last parameter, the function will be satisfied when any data appears on the clipboard. <a href="ClipboardAll.htm">ClipboardAll</a>と併用することで、画像などテキスト以外のものを保存することができます。</p>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>秒単位で待機する場合は、第1パラメータに浮動小数点値を指定します。例えば、最大250ミリ秒待機する場合は、0.25と指定します。</p>
 <h2 id="Related">関連</h2>

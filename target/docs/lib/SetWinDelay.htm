@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SetWinDelay - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SetWinDelay function sets the delay that will occur after each windowing function, such as WinActivate." />
+<title>SetWinDelay - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SetWinDelay関数は、WinActivateなどの各ウィンドウ関数の後に発生する遅延を設定します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,7 +21,7 @@
   <dt>Delay</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ミリ秒単位の時間。遅延が全くない場合は-1、可能な限り小さな遅延の場合は0を使用します。If unset, the default delay is 100.</p>
+    <p>ミリ秒単位の時間。遅延が全くない場合は-1、可能な限り小さい場合は0を指定する。</p>
   </dd>
 
 </dl>
@@ -31,17 +31,18 @@
 <p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>A short delay (sleep) is done automatically after every windowing function except <a href="WinActive.htm">WinActive</a> and <a href="WinExist.htm">WinExist</a>. This is done to improve the reliability of scripts because a window sometimes needs a period of "rest" after being created,  activated, minimized, etc. so that it has a chance to update itself and respond to the next function that the script may attempt to send to it.</p>
+<p>SetWinDelayを使用しない場合、デフォルトの遅延は100である。</p>
+<p><a href="WinActive.htm">WinActive</a>と <a href="WinExist.htm">WinExist</a>を除くすべてのウィンドウ関数の後に、短いディレイ（スリープ）が自動的に行われる。これは、スクリプトの信頼性を向上させるためである。というのも、ウィンドウは、作成、アクティブ化、最小化などの後、それ自身を更新し、スクリプトがウィンドウに送信しようとする次の関数に応答する機会を得るために、一定期間の「休息」を必要とすることがあるからである。</p>
 <p>遅延は-1（全く遅延しない）でも可能ですが、CPUに負荷がかかってもスクリプトが正しく動作する信頼性を高めるために、少なくとも0を使用することをお勧めします。</p>
-<p>遅延が 0 の場合、内部的に Sleep(0) が実行され、スクリプトのタイムスライスの残りを、それを必要とする他のプロセスに提供します。ない場合は、Sleep(0)は全く眠らない。</p>
+<p>遅延が 0 の場合、内部的に Sleep(0) が実行され、スクリプトのタイムスライスの残りを、それを必要とする他のプロセスに提供します。ない場合は、Sleep(0)は全くスリープしない。</p>
 <p>CPUが遅い場合や負荷が高い場合、ウィンドウアニメーションが有効な場合は、より高い遅延値が必要になる場合があります。</p>
-<p>The built-in variable <strong>A_WinDelay</strong> contains the current setting.</p>
+<p>組込変数<strong>A_WinDelay</strong>には、現在の設定が格納されています。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SetControlDelay.htm">SetControlDelay</a>, <a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="SendMode.htm">SendMode</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Causes a delay of 10 ms to occur after each windowing function.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 各ウィンドウィング機能の後に10msのディレイを発生させます。</p>
 <pre>SetWinDelay 10</pre>
 </div>
 

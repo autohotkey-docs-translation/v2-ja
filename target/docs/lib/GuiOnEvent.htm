@@ -61,7 +61,7 @@
 
 <h2 id="Threads">スレッド</h2>
 <p>各イベントコールバックは新しい<a href="../misc/Threads.htm">スレッド</a>で呼び出されるため、<a href="SendMode.htm">SendMode</a>などの設定のデフォルト値で新たにスタートします。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
-<p>GUI<a href="../misc/Threads.htm">スレッド</a>が起動すると、そのスレッドの<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>がGUIウィンドウそのものとしてスタートします。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>、<a href="WinSetTransparent.htm">WinSetTransparent</a>、<a href="ControlGetFocus.htm">ControlGetFocus</a>などのウィンドウやコントロールに関する関数が、GUIウィンドウ自体を操作する際に（たとえそれが隠されていても）WinTitleやWinTextを省略することができます。</p>
+<p>GUI<a href="../misc/Threads.htm">スレッド</a>が起動すると、そのスレッドの<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>がGUIウィンドウそのものとしてスタートします。This allows functions for windows and controls -- such as <a href="WinGetStyle.htm">WinGetStyle</a>, <a href="WinSetTransparent.htm">WinSetTransparent</a>, and <a href="ControlGetFocus.htm">ControlGetFocus</a> -- to omit <em>WinTitle</em> and <em>WinText</em> when operating upon the GUI window itself (even if it is hidden).</p>
 <p>注意書きがある場合を除き、各イベントは1つのオブジェクトにつき1スレッドずつに制限されています。そのイベントによって開始された前のスレッドが終了する前にイベントが発生した場合、通常、そのイベントは破棄されます。これを防ぐには、コールバックの最初の行<a href="Critical.htm">にCritical</a>を使用します（ただし、この場合、ホットキーの押下など他の<a href="../misc/Threads.htm">スレッド</a>もバッファリング/ディファーされます）。</p>
 
 <h2 id="Destroying_the_GUI">GUIを破壊する</h2>

@@ -118,7 +118,7 @@ ListBox.Choose(0)  <em>; すべての項目の選択を解除します。</em></
 <div class="methodShort" id="GetPos">
 <h3>GetPos</h3>
 <p>コントロールの位置と大きさを取得します。</p>
-<pre class="Syntax">GuiCtrl.<span class="func">GetPos</span>(<span class="optional">X, Y, Width, Height</span>)</pre>
+<pre class="Syntax">GuiCtrl.<span class="func">GetPos</span>(<span class="optional">&amp;X, &amp;Y, &amp;Width, &amp;Height</span>)</pre>
 <p>各パラメータは、それぞれの座標を格納する変数への<a href="../Concepts.htm#variable-references">参照</a>とします。位置は、GUIウィンドウのクライアント領域（タイトルバー、メニューバー、ボーダーを含まない領域）からの相対位置です。</p>
 <p><a href="ControlGetPos.htm">ControlGetPos</a>とは異なり、このメソッドは返された座標に<a href="Gui.htm#DPIScale">DPIスケーリング</a>を適用します（<code>-DPIScale</code>オプションが使用されていない場合）。</p>
 <p>Example:</p>
@@ -270,15 +270,15 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <pre class="Syntax">RetrievedText := GuiCtrl.Text</pre>
 <pre class="Syntax">GuiCtrl.Text := NewText</pre>
 <p>注：コントロールに可視キャプションテキストがなく、（単一の）テキスト値もない場合、このプロパティはコントロールの非表示キャプションテキストに対応します（<a href="ControlSetText.htm">ControlGetText</a>/<a href="ControlGetText.htm">ControlSetText</a>のように）。</p>
-<p><strong>Caption/display text</strong>:<em>Text</em>プロパティは、以下のコントロールタイプのキャプション/表示テキストを取得または設定します：<a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">Checkbox</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#Text">Text</a>. コントロールは自動的に拡大されないので、拡大したい場合は<code>GuiCtrl.<a href="#Move">Move</a>("w300")</code>などを使用してください。</p>
+<p><strong>Caption/display text:</strong> The <em>Text</em> property retrieves or sets the caption/display text of the following control types:<a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">Checkbox</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#GroupBox">GroupBox</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#Text">Text</a>. コントロールは自動的に拡大されないので、拡大したい場合は<code>GuiCtrl.<a href="#Move">Move</a>("w300")</code>などを使用してください。</p>
 
-<p><strong><a href="GuiControls.htm#DateTime">DateTime</a></strong>:<em>Text</em>プロパティは、コントロールが表示する書式付きテキストを取得します。コントロールにフォーマットされた日付/時刻文字列を割り当てることはサポートされていません。表示される日時を変更するには、<a href="#Value">GuiCtrl.Value</a>に <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>形式の日付-時刻スタンプを割り当てます。</p>
+<p><strong><a href="GuiControls.htm#DateTime">DateTime</a>:</strong> The <em>Text</em> property retrieves the formatted text displayed by the control. コントロールにフォーマットされた日付/時刻文字列を割り当てることはサポートされていません。表示される日時を変更するには、<a href="#Value">GuiCtrl.Value</a>に <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a>形式の日付-時刻スタンプを割り当てます。</p>
 
-<p><strong><a href="GuiControls.htm#Edit">Edit</a></strong>:他のコントロールと同様に、テキストはそのまま取得または設定され、行末の翻訳は行われません。複数行のEditコントロールのテキストを取得または設定し、かつ<code>`r`n</code>と <code>`n</code>の間の翻訳を行うには、<a href="#Value">GuiCtrl.Value</a>を使用します。</p>
+<p><strong><a href="GuiControls.htm#Edit">Edit</a>:</strong> As with other controls, the text is retrieved or set as-is; no end-of-line translation is performed. 複数行のEditコントロールのテキストを取得または設定し、かつ<code>`r`n</code>と <code>`n</code>の間の翻訳を行うには、<a href="#Value">GuiCtrl.Value</a>を使用します。</p>
 
-<p><strong><a href="GuiControls.htm#StatusBar">StatusBar</a></strong>:<em>Text</em>プロパティは、最初の部分のテキストのみを取得または設定します（より柔軟に対応するためには<a href="GuiControls.htm#SB_SetText">SB.SetText</a>を使用してください）。</p>
+<p><strong><a href="GuiControls.htm#StatusBar">StatusBar</a>:</strong> The <em>Text</em> property retrieves or sets the text of the first part only (use <a href="GuiControls.htm#SB_SetText">SB.SetText</a> for greater flexibility).</p>
 
-<p><strong>リスト項目のテキスト</strong>：<em>Text</em>プロパティは、以下のコントロールタイプにおいて、現在選択されている項目/タブを取得または設定します：<a href="GuiControls.htm#Tab">Tab</a>, <a href="GuiControls.htm#DropDownList">DropDownList</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>.</p>
+<p><strong>List item text:</strong> The <em>Text</em> property retrieves or sets the currently selected item/tab for the following control types: <a href="GuiControls.htm#Tab">Tab</a>, <a href="GuiControls.htm#DropDownList">DropDownList</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>.</p>
 <p><em>NewText</em>には、選択する項目/タブの全文（大文字・小文字を区別しない）を指定します。</p>
 <p>コンボボックスの場合、選択された項目がない場合は、コントロールのエディットフィールドのテキストを代わりに取得します。その他のコントロールの場合、<em>RetrievedText</em>は、空/空白となります。同様に、<em>NewText</em>が空/空白の場合は、現在のアイテム/タブが非選択になります。</p>
 <p><a href="GuiControls.htm#ListBoxMulti">多選択リストボックス</a>の場合、<em>RetrievedText</em>は配列になります。<em>NewText</em>は配列にはできませんが、複数の項目が一致した場合、すべて選択されます。テキストが異なる複数の項目を選択する場合は、<a href="#Choose">GuiCtrl.Choose</a>を繰り返し呼び出します。</p>
@@ -315,7 +315,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 
 <p><strong>Hotkey</strong></p>
 <p><em>RetrievedValue</em>は、<a href="GuiControls.htm#Hotkey">Hotkey</a>コントロールにホットキーがある場合は修飾子およびキー名、それ以外は空白とします。例：<code>^!C</code>, <code>^Home</code>, <code>+^NumpadHome</code>.</p>
-<p><em>NewValue</em>には、キー名を持つ修飾語のセット、またはコントロールをクリアするためのブランクを指定することができます。例：<code>^!c</code>, <code>^Numpad1</code>, <code>+Home</code>. 対応する修飾語は、^ (Ctrl), ! (Alt) および +(Shift) のみです。使用可能なキー名については、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
+<p><em>NewValue</em>には、キー名を持つ修飾語のセット、またはコントロールをクリアするためのブランクを指定することができます。例：<code>^!c</code>, <code>^Numpad1</code>, <code>+Home</code>. The only modifiers supported are ^ (Control), ! (Alt), and + (Shift). 使用可能なキー名については、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
 
 <p><strong>Checkbox / Radio</strong></p>
 <p><em>RetrievedValue</em>は、<a href="GuiControls.htm#Checkbox">Checkbox</a>または<a href="GuiControls.htm#Radio">Radio</a>コントロールがチェックされている場合は 1、チェックされていない場合は 0、灰色のチェックマークがある場合は -1 となります。</p>

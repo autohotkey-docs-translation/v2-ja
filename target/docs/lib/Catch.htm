@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>Catch - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="Catch文は、Try文の実行中に値やエラーが投げられた場合に実行するコードを指定します。" />
+<meta name="description" content="The Catch statement specifies one or more statements to execute if a value or error is thrown during execution of a Try statement." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>Catch</h1>
 
-<p><a href="Try.htm">try</a>文の実行中に値やエラーが発生した場合に実行するコードを指定します。</p>
+<p>Specifies one or more statements to execute if a value or error is thrown during execution of a <a href="Try.htm">Try</a> statement.</p>
 
 <pre class="Syntax" style="line-height: 120%"><span class="func">Catch</span> <span class="optional">ErrorClass</span> <span class="optional"><span class="func">as</span> OutputVar</span>
 {
@@ -26,7 +26,7 @@
     <p>型：<a href="Class.htm">Class</a></p>
     <p><code>Error</code>、<code>TimeoutError</code>、<code>MyCustomError</code>など、捕捉すべき値のクラスです。これは、カンマで区切られたクラスのリストであることも可能です。各クラスの<a href="Class.htm#Prototype">プロトタイプ</a>はロード時に解決されるため、クラスは任意の表現ではなく、正確なフルネームで指定する必要があります。<a href="Error.htm">Error</a>から派生していなくても、<a href="../ObjList.htm">組み込み</a>クラスや<a href="../Objects.htm#Custom_Classes">ユーザー定義</a>クラスであれば使用可能です。</p>
     <p>クラスが指定されていない場合、デフォルトは<code>Error</code>です。</p>
-    <p>何でもかんでもキャッチする場合は、<code>Catch Any</code>を使用します。</p>
+    <p>To catch anything at all, use <code>catch Any</code>.</p>
     <p>無効なクラス名を使用した場合や、同名のローカル変数が存在するためにクラスにアクセスできない場合、ロードタイムエラーが表示されます。</p>
   </dd>
 
@@ -46,10 +46,10 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>複数の<em>catch</em>文は、それぞれ異なるクラス（または複数のクラス）を指定して、次々に使用することができます。値がリストアップされたクラスのインスタンスでない場合、この<em>トライキャッチ</em>では捕らえられませんが、コールスタックのさらに上のクラスで捕らえることができるかもしれません。</p>
-<p><em>catch</em>の使用はすべて、その上の<a href="Try.htm">try</a>文に属する（関連付けられる）必要があります。<em>catch</em>は、<a href="Block.htm">ブロック</a>を使ってその動作を変更しない限り、常にその上にある最も近い未取得の<em>try</em>文に属す。</p>
-<p>パラメータリストは、オプションで括弧で囲むことができ、その場合、<code>Catch</code>の後のスペースまたはタブはオプションです。</p>
-<p><em>Catch</em>の後には、オプションで<a href="Else.htm">else</a>を付けることができます。<a href="Else.htm">else</a>は、関連するtryブロック内で例外がスローされなかった場合に実行されます。</p>
+<p>Multiple <em>Catch</em> statements can be used one after the other, with each one specifying a different class (or multiple classes). If the value is not an instance of any of the listed classes, it is not caught by this <em>Try-Catch</em>, but might be caught by one further up the call stack.</p>
+<p>Every use of <em>Catch</em> must belong to (be associated with) a <a href="Try.htm">Try</a> statement above it. A <em>Catch</em> always belongs to the nearest unclaimed <em>Try</em> statement above it unless a <a href="Block.htm">block</a> is used to change that behavior.</p>
+<p>The parameter list may optionally be enclosed in parentheses, in which case the space or tab after <code>catch</code> is optional.</p>
+<p><em>Catch</em> may optionally be followed by <a href="Else.htm">Else</a>, which is executed if no exception was thrown within the associated <em>Try</em> block.</p>
 <p><a href="Block.htm#otb">OTB（One True Brace）スタイル</a>はオプションで使用することができます。事例：</p>
 <pre>try {
     ...

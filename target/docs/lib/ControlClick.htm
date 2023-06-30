@@ -21,62 +21,44 @@
   <dt>Control-or-Pos</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-      <p>このパラメータが省略された場合、ターゲットウィンドウ自体がクリックされることになる。それ以外の場合は、以下の2つのモードのいずれかが使用されます。</p>
-      <p>モード1（ポジション）です。ターゲットウィンドウの<a href="CoordMode.htm#Client">クライアント領域の</a>左上隅を基準としたX、Y座標を指定します。X座標はY座標の前にあり、その間に少なくとも1つのスペースまたはタブが必要です。事例：<code>X55 Y33</code>. 指定された座標にコントロールがある場合、その正確な座標でクリックイベントを送信します。コントロールがない場合は、対象のウィンドウ自体にイベントが送られます（ウィンドウの性質によっては、何の効果もない場合もあります）。</p>
-    <p class="note"><strong>注意</strong>：モード1では、<em>Options</em>パラメータのXとYのオプション文字は無視されます。</p>
-      <p>モード2（コントロール）です。コントロールの ClassNN、テキスト、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指定します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
-      <p>デフォルトでは、モード2がモード1より優先されます。例えば、万が一、テキストやClassNNが「Xnnn Ynnn」の形式を持つコントロールがあった場合、モード2が作用することになる。これを上書きして無条件にモード1を使用するには、次の例のように<em>Options</em>にPosという語を指定します。<code>ControlClick "x255 y152", WinTitle,,,, "Pos"</code>.</p>
+      <p>If unset or omitted, the target window itself will be clicked. Otherwise, use one of the following modes.</p>
+      <p><strong>Mode 1 (Position):</strong> Specify the X and Y coordinates relative to the upper left corner of the target window's <a href="CoordMode.htm#Client">client area</a>. X座標はY座標の前にあり、その間に少なくとも1つのスペースまたはタブが必要です。事例：<code>"X55 Y33"</code>. 指定された座標にコントロールがある場合、その正確な座標でクリックイベントを送信します。コントロールがない場合は、対象のウィンドウ自体にイベントが送られます（ウィンドウの性質によっては、何の効果もない場合もあります）。</p>
+    <p class="note"><strong>Note:</strong> In mode 1, the X and Y option letters of the <em>Options</em> parameter are ignored.</p>
+      <p><strong>Mode 2 (Control):</strong> Specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
+      <p>デフォルトでは、モード2がモード1より優先されます。For example, in the unlikely event that there is a control whose text or ClassNN has the format "Xnnn Ynnn", it would be acted upon by mode 2. これを上書きして無条件にモード1を使用するには、次の例のように<em>Options</em>にPosという語を指定します。<code>ControlClick "x255 y152", WinTitle,,,, "Pos"</code>.</p>
   </dd>
 
-  <dt>WinTitle</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
-  </dd>
-
-  <dt>WinText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
+    <p>If each of these is unset or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. Otherwise, specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
   </dd>
 
   <dt>WhichButton</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>クリックするボタンです。LEFT、RIGHT、MIDDLE（またはそれぞれの頭文字のみ）。省略または空白の場合、LEFTボタンが使用されます。</p>
-      <p>X1（XButton1、マウス第4ボタン）、X2（XButton2、マウス第5ボタン）にも対応しています。</p>
-      <p>WheelUp（WU）、WheelDown（WD）、WheelLeft（WL）、WheelRight（WR）にも対応しています。この場合、<em>ClickCount</em>はホイールを回すためのノッチ数です。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If unset or omitted, it defaults to Left (the left mouse button). Otherwise, specify the button to click or the rotate/push direction of the mouse wheel.</p>
+    <p><strong>Button:</strong> Left, Right, Middle (or just the first letter of each of these); or X1 (fourth button) or X2 (fifth button).</p>
+    <p><strong>Mouse wheel:</strong> Specify WheelUp or WU to turn the wheel upward (away from you); specify WheelDown or WD to turn the wheel downward (toward you). ホイールを左に押す場合はWheelLeft（またはWL）、右に押す場合はWheelRight（またはWR）をそれぞれ指定します。<em>ClickCount</em>は、ホイールを回すノッチの数です。</p>
     </dd>
 
   <dt>ClickCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>送信するクリック数です。省略または空白の場合は、1クリック送信されます。</p>
+    <p>If unset or omitted, it defaults to 1. Otherwise, specify the number of times to click the mouse button or turn the mouse wheel.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>以下のオプション文字のうち、0個以上を連続させたもの。事例：d x50 y25</p>
-      <p><strong>NA</strong>:信頼性を向上させる可能性がある。以下の<a href="#Reliability">信頼性</a>をご参照ください。</p>
-      <p><strong>D</strong>:マウスボタンを押しながら離さない（ダウンイベントを発生させる）。<strong>D</strong>と <strong>U</strong>の両方のオプションがない場合、完全なクリック（下と上）が送信されます。</p>
-      <p><strong>U</strong>:マウスボタンを離す（つまりアップイベントを発生させる）。<strong>D</strong>オプションがすでに存在する場合、このオプションは存在してはならない（その逆も同様）。</p>
-      <p><strong>Pos</strong>:Posという単語を<em>Options</em>のどこかに指定すると、上記の<em>Control-or-Pos</em>パラメータで説明したX/Yポジショニングモードを無条件に使用することができます。</p>
-      <p><strong>Xn</strong>:コントロールの左上隅を基準として、クリックする X 位置を<strong>n</strong>に指定します。未指定の場合、クリックはコントロールの水平方向の中心で行われます。</p>
-      <p><strong>Yn</strong>:コントロールの左上隅を基準として、クリックするY位置を<strong>n</strong>に指定します。未指定の場合、クリックはコントロールの垂直方向の中心で行われます。</p>
-      <p><strong>X</strong>と <strong>Y</strong>のオプションには、10進数（16進数ではない）を使用します。</p>
-  </dd>
-
-  <dt>ExcludeTitle</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
-  </dd>
-
-  <dt>ExcludeText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
+      <p>If unset or omitted, each click consists of a down-event followed by an up-event, and occurs at the center of the control when mode 2 is in effect. Otherwise, specify a series of one or more of the following options. 事例：<code>"d x50 y25"</code>.</p>
+      <p><strong>NA:</strong> May improve reliability. 以下の<a href="#Reliability">信頼性</a>をご参照ください。</p>
+      <p><strong>D：</strong>マウスボタンを押しながら離さない（ダウンイベントを発生させます）。If both the D and U options are absent, a complete click (down and up) will be sent.</p>
+      <p><strong>U:</strong>マウスボタンを離す（つまりアップイベントを発生させます）。This option should not be present if the D option is already present (and vice versa).</p>
+      <p><strong>Pos:</strong> Specify the word Pos anywhere in <em>Options</em> to unconditionally use the X/Y positioning mode as described in the <em>Control-or-Pos</em> parameter above.</p>
+      <p><strong>X</strong><em>n</em>:Specify for <em>n</em> the X position to click at, relative to the control's upper left corner. 未指定の場合、クリックはコントロールの水平方向の中心で行われます。</p>
+      <p><strong>Y</strong><em>n</em>:Specify for <em>n</em> the Y position to click at, relative to the control's upper left corner. 未指定の場合、クリックはコントロールの垂直方向の中心で行われます。</p>
+      <p>Use decimal (not hexadecimal) numbers for the X and Y options.</p>
   </dd>
 
 </dl>
@@ -96,7 +78,7 @@
 <p>2)以下のように、第6パラメータ（<em>Options</em>）の任意の場所に文字列NAを指定します。</p>
 <pre>SetControlDelay -1
 ControlClick "Toolbar321", WinTitle,,,, "NA"</pre>
-<p><code>NA</code>は、ターゲットウィンドウをアクティブとしてマークすることを避け、その入力処理をスクリプトのそれと統合することを避けるため、マウスの物理的な動きが干渉しない場合があります（ただし、通常はターゲットウィンドウがアクティブでない場合のみ）。ただし、この方法は、すべての種類のウィンドウやコントロールに有効とは限りません。</p>
+<p>The NA option avoids marking the target window as active and avoids merging its input processing with that of the script, which may prevent physical movement of the mouse from interfering (but usually only when the target window is not active). ただし、この方法は、すべての種類のウィンドウやコントロールに有効とは限りません。</p>
 <h2 id="Remarks">備考</h2>
 <p>すべてのアプリケーションが、マウスホイールの回転に対して1以上の<em>ClickCount</em>を指定するわけではありません。そのような場合は、この例のようにLoopを使ってホイールを1ノッチ以上回し、5ノッチ分回してください。</p>
 <pre>Loop 5

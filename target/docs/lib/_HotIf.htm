@@ -38,7 +38,7 @@
 <p>文脈依存性をオフにするには、#HotIfを無表現で指定します。事例：</p>
 <pre>#HotIf</pre>
 <p>他のディレクティブと同様に、#HotIfは条件付きで実行することはできません。</p>
-<p>マウスやキーボードのホットキーが#HotIfによって無効化されると、本来の機能を発揮します。つまり、そのようなホットキーがないかのように、アクティブウィンドウに通過します。ただし、1つだけ例外があります。ジョイスティックのホットキー：#HotIfは機能しますが、他の番組がボタンを押したところを見ることを防ぐことはできません。</p>
+<p>マウスやキーボードのホットキーが#HotIfによって無効化されると、本来の機能を発揮します。つまり、そのようなホットキーがないかのように、アクティブウィンドウに通過します。ただし、1つだけ例外があります。Controller hotkeys:#HotIfは機能しますが、他の番組がボタンを押したところを見ることを防ぐことはできません。</p>
 <p>#HotIfは、<kbd>Enter</kbd>や <kbd>Space</kbd>などの通常のキーの動作を変更するためにも使用できます。これは、特定のウィンドウがそのキーを無視したり、好ましくない動作をする場合に有効です。事例：</p>
 <pre>#HotIf WinActive("Reminders ahk_class #32770")  <em>; Outlookの "リマインダー "ウィンドウ。</em>
 Enter::Send "!o"  <em>; Enterキーを押すと、選択したリマインダーをスヌーズするのではなく、開くようにします。</em>
@@ -53,7 +53,7 @@ Enter::Send "!o"  <em>; Enterキーを押すと、選択したリマインダー
 #HotIf
 ^!c::MsgBox "You pressed Control+Alt+C in a window other than Notepad/WordPad."</pre>
 <p>複数のバリアントが発射対象となる場合、スクリプトの先頭に最も近いものだけが発射されます。ただし、グローバルバリアント（#HotIfの基準がないもの）については例外です。常に最も低い優先順位を持つので、他の variant が適格でない場合にのみ発火します（この例外は<a href="../Hotstrings.htm">ホットストリング</a>には適用されません）。</p>
-<p>重複するホットキーを作成する場合、^!+#などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。例えば、<code>^!c</code>は<code>!^c</code>と同じです。ただし、キーは一貫したスペルで表記する必要があります。例えば、<em>Esc</em>はこの目的では<em>Escape</em>と同じではありません（ただし、ケースは重要ではありません）。また、<a href="../Hotkeys.htm#wildcard">ワイルドカード接頭辞(*)</a>を持つホットキーは、ワイルドカードでないものと全く別物です。例えば、<code>*F1</code>と<code>F1</code>は、それぞれ独自のバリアントセットを持っているでしょう。</p>
+<p>When creating duplicate hotkeys, the order of <a href="../Hotkeys.htm#Symbols">modifier symbols</a> such as <code>^!+#</code> does not matter. For example, <code>^!c</code> is the same as <code>!^c</code>. ただし、キーは一貫したスペルで表記する必要があります。For example, <em>Esc</em> is not the same as <em>Escape</em> for this purpose (though the case does not matter). Also, any hotkey with a <a href="../Hotkeys.htm#wildcard">wildcard prefix (*)</a> is entirely separate from a non-wildcard one; for example, <code>*F1</code> and <code>F1</code> would each have their own set of variants.</p>
 
 <p><a href="GroupAdd.htm">ウィンドウグループ</a>を使用すると、ウィンドウのグループに対してホットキーを実行させることができます。事例：
 <pre>
@@ -67,7 +67,7 @@ GroupAdd "MyGroup", "ahk_class WordPadClass"
 <p>ホットキーのバリエーションを動的に（スクリプトの実行中に）作成するには、<a href="HotIf.htm">HotIf</a>を参照してください。</p>
 
 <h2 id="expression-evaluation">式評価</h2>
-<p>ホットキーを構成するキー、マウス、ジョイスティックボタンの組み合わせが押されると、#HotIf式が評価され、ホットキーが起動するかどうかが決定されます。</p>
+<p>When the key, mouse or controller button combination which forms a hotkey is pressed, the #HotIf expression is evaluated to determine if the hotkey should activate.</p>
 <p class="warning"><strong>注意：</strong>スクリプトは、キーが押されたときだけ式が評価されることを想定してはいけません（下記参照）。</p>
 <p>この式は、プログラムがホットキーが有効かどうかを知る必要があるときに評価されることもあります。例えば、<code>a &amp; b::</code> のようなカスタムの組み合わせの #HotIf 式は、プレフィックスキー（この例では<code>a</code>）が押されたときに評価され、カスタム修飾キーとして機能するかどうかを判断することができます。</p>
 <p class="warning" id="lag"><strong>注意：</strong>無反応のスクリプトで#HotIfを使用すると、入力ラグが発生したり、ホットキーが壊れたりすることがあります（下記参照）。</p>
@@ -108,7 +108,7 @@ Hotkey "#n", "On"   <em>; 同じホットキーを再びオンにします。</e
 
 <h2 id="general-remarks">総論</h2>
 <p>また、#HotIfは、適切な場合、プレフィックスキーを本来の機能に戻します（<a href="../Hotkeys.htm#prefix">プレフィックスキー</a>は、<code>a &amp; b</code>のようなホットキーの<kbd>A</kbd>です）。この現象は、指定したプリフィクスに対して有効なホットキーがない場合に発生します。</p>
-<p>ホットキーが#HotIfによって現在無効になっている場合、そのキーまたはマウスボタンは、<a href="KeyHistory.htm">KeyHistory</a>の「タイプ」列に"#"文字で表示されます。これは、スクリプトのデバッグに役立ちます。</p>
+<p>ホットキーが#HotIfによって現在無効になっている場合、そのキーまたはマウスボタンは、<a href="KeyHistory.htm">KeyHistory</a>の「タイプ」列に"#"文字で表示されます。This can help <a href="../Scripts.htm#debug">debug a script</a>.</p>
 <p><a href="../Hotkeys.htm#alttab">Alt-tabのホットキー</a>は、#HotIfの影響を受けません。これらはすべてのウィンドウで有効です。</p>
 <p><a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>は、#HotIfで設定することができます。事例：</p>
 <pre>#HotIf <a href="WinExist.htm">WinExist</a>("ahk_class Notepad")

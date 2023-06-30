@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Sleep - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Sleep function waits the specified amount of time before continuing." />
+<title>Sleep - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="スリープ機能は、指定された時間だけ待ってから続行する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,33 +21,33 @@
   <dt>Delay</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The amount of time to pause (in milliseconds) between 0 and 2147483647 (24 days).</p>
+    <p>0から2147483647（24日間）の間の休止時間（ミリ秒）。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Due to the granularity of the OS's time-keeping system, <em>Delay</em> is typically rounded up to the nearest multiple of 10 or 15.6 milliseconds (depending on the type of hardware and drivers installed). To achieve a shorter delay, see <a href="#ExShorterSleep">Examples</a>.</p>
-<p>The actual delay time might wind up being longer than what was requested if the CPU is under load. This is because the OS gives each needy process a slice of CPU time (typically 20 milliseconds) before giving another timeslice to the script.</p>
-<p>A delay of 0 yields the remainder of the script's current timeslice to any other processes that need it (as long as they are not significantly lower in <a href="ProcessSetPriority.htm">priority</a> than the script). Thus, a delay of 0 produces an actual delay between 0 and 20ms (or more), depending on the number of needy processes (if there are no needy processes, there will be no delay at all). However, a <em>Delay</em> of 0 should always wind up being shorter than any longer <em>Delay</em> would have been.</p>
-<p>While sleeping, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
-<p><strong>Sleep -1</strong>: A delay of -1 does not sleep but instead makes the script immediately check its message queue. This can be used to force any pending <a href="../misc/Threads.htm">interruptions</a> to occur at a specific place rather than somewhere more random. See <a href="Critical.htm">Critical</a> for more details.</p>
+<p>OSの時間管理システムの粒度のため、<em>Delay</em>は通常、10ミリ秒または15.6ミリ秒の倍数に切り上げられる（インストールされているハードウェアとドライバーの種類によって異なる）。ディレイを短くするには、<a href="#ExShorterSleep">例</a>を参照。</p>
+<p>CPUに負荷がかかっている場合、実際の遅延時間は要求されたものよりも長くなるかもしれない。これは、OSがスクリプトに別のタイムスライスを与える前に、各必要なプロセスにCPU時間のスライス（通常20ミリ秒）を与えるためである。</p>
+<p>遅延を0にすると、スクリプトの現在のタイムスライスの残りを、それを 必要とする他のプロセス(スクリプトより<a href="ProcessSetPriority.htm">優先順位</a>が著しく低くない限り)に渡す。したがって、遅延が0の場合、実際の遅延は0～20ms（またはそれ以上）となり、必要とされるプロセスの数に依存する（必要とされるプロセスがない場合、遅延はまったく発生しない）。しかし、<em>Delay</em>を0にすると、<em>Delayが</em>長くなるよりも短くなるはずだ。</p>
+<p>スリープ中、新しい<a href="../misc/Threads.htm">スレッド</a>は <a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー</a>、<a href="SetTimer.htm">タイマー</a>で起動できる。</p>
+<p><strong>Sleep -1:</strong>ディレイを-1にすると、スクリプトはスリープせず、すぐにメッセージキューをチェックするようになる。これは、保留中の<a href="../misc/Threads.htm">中断</a>をランダムな場所ではなく、特定の場所に強制的に発生させるために使用できる。詳細は<a href="Critical.htm">クリティカル</a>を参照のこと。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="SetControlDelay.htm">SetControlDelay</a>, <a href="SetWinDelay.htm">SetWinDelay</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Waits 1 second before continuing execution.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 実行を続ける前に1秒待つ。</p>
 <pre>Sleep 1000</pre>
 </div>
 
 <div class="ex" id="ExExpr">
-<p><a class="ex_number" href="#ExExpr"></a> Waits 30 minutes before continuing execution.</p>
+<p><a class="ex_number" href="#ExExpr"></a> 実行を続ける前に30分待つ。</p>
 <pre>MyVar := 30 * 60000 <em>; 30 means minutes and times 60000 gives the time in milliseconds.</em>
 Sleep MyVar <em>; Sleep for 30 minutes.</em></pre>
 </div>
 
 <div class="ex" id="ExShorterSleep">
-<p><a class="ex_number" href="#ExShorterSleep"></a> Demonstrates how to sleep for less time than the normal 10 or 15.6 milliseconds. 注：While a script like this is running, the entire operating system and all applications are affected by timeBeginPeriod below.</p>
+<p><a class="ex_number" href="#ExShorterSleep"></a> 通常の10ミリ秒や15.6ミリ秒よりも短い時間でスリープする方法を示します。注：このようなスクリプトが実行されている間、オペレーティング・システム全体とすべてのアプリケーションは、以下のtimeBeginPeriodの影響を受ける。</p>
 <pre>
 SleepDuration := 1  <em>; This can sometimes be finely adjusted (e.g. 2 is different than 3) depending on the value below.</em>
 TimePeriod := 3 <em>; Try 7 or 3.  See comment below.

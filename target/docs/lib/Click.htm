@@ -19,13 +19,13 @@
 <dl>
   <dt>Options</dt>
   <dd>
-    <p>以下の構成要素のうち、0個以上を指定します。<var>Coords</var>, <var>WhichButton</var>, <var>ClickCount</var>, <var>DownOrUp</var>, and/or <var>Relative</var>. 各コンポーネントは、少なくとも1つのスペース、タブ、カンマで次のコンポーネントと区切る（文字列内または個別のパラメータとして）。コンポーネントは、<var>ClickCount</var>を除いて、どのような順序で表示されても構いません。</p>
-    <p><strong>Coords（座標）：</strong>クリックする前にマウスカーソルを移動させるX、Y座標です。例えば、<code>Click "100 200"</code>は、マウスの左ボタンを特定の位置でクリックすることができます。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。省略された場合は、カーソルの現在位置が使用されます。</p>
-    <p><strong>WhichButton</strong>左（デフォルト）、右、中（またはそれぞれの最初の文字）、またはマウスの4番目か5番目のボタン（X1またはX2）。例えば、<code>クリック「右」</code>すると、マウスカーソルの現在位置でマウスの右ボタンをクリックすることができます。左はプライマリーボタン、右はセカンダリーボタンに対応します。ユーザーがシステム設定でボタンを入れ替えると、ボタンの物理的な位置は入れ替わりますが、効果は変わりません。</p>
-    <p><var>WhichButton</var>には、ホイールを上方向（自分から離れる方向）に向けるWheelUpまたはWU、ホイールを下方向（自分から近づく方向）に向けるWheelDownまたはWDを指定することも可能です。WheelLeft（またはWL）またはWheelRight（またはWR）を指定することもできる。<var>ClickCount</var>には、ホイールを回すノッチ数を指定します。ただし、アプリケーションによっては、マウスホイールの<var>ClickCount</var>の値が1以上であることに従わないものもあります。それらのために、<a href="Loop.htm">Loop</a>などの手段でClick機能を複数回使用します。</p>
-    <p><strong>ClickCount（クリックカウント）：</strong>マウスをクリックする回数を指定します。例えば、<code>Click 2</code>は、マウスカーソルの現在位置でダブルクリックを行います。省略された場合、ボタンは1回クリックされます。<var>Coords</var>が指定されている場合は、<var>ClickCount</var>はその後に表示されなければならない。クリックせずにマウスを動かす場合は、ゼロ（0）を指定します（例：<code>クリック「100 200 0」</code>）。</p>
-    <p><strong>DownOrUp：</strong>このコンポーネントは通常省略され、その場合、各クリックはダウンイベントとアップイベントから構成されます。それ以外の場合は、マウスボタンを離さずに押し下げるDown（または文字D）を指定します。その後、Up（またはUの文字）という単語を使ってマウスボタンを離します。例えば、<code>Click "Down"</code>は、マウスの左ボタンを押し下げ、そのまま保持します。</p>
-    <p><strong>Relative（相対）：</strong>RelまたはRelativeという単語は、指定されたXおよびY座標を現在のマウス位置からのオフセットとして扱います。つまり、カーソルは現在位置から右にXピクセル（負の場合は左）、下にYピクセル（負の場合は上）だけ移動します。</p>
+    <p>If unset or omitted, a single left click is performed at the mouse cursor's current position. Otherwise, specify one or more of the following components:<var>Coords</var>, <var>WhichButton</var>, <var>ClickCount</var>, <var>DownOrUp</var>, and/or <var>Relative</var>. 各コンポーネントは、少なくとも1つのスペース、タブ、カンマで次のコンポーネントと区切る（文字列内または個別のパラメータとして）。コンポーネントは、<var>ClickCount</var>を除いて、どのような順序で表示されても構いません。</p>
+    <p><strong>Coords:</strong> If omitted, the cursor's current position is used. Otherwise, specify the X and Y coordinates to which the mouse cursor is moved prior to clicking. 例えば、<code>Click "100 200"</code>は、マウスの左ボタンを特定の位置でクリックすることができます。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p><strong>WhichButton:</strong> If omitted, it defaults to Left (the left mouse button). Otherwise, specify Left, Right, Middle (or just the first letter of each of these); or X1 (fourth button) or X2 (fifth button). 例えば、<code>クリック「右」</code>すると、マウスカーソルの現在位置でマウスの右ボタンをクリックすることができます。左はプライマリーボタン、右はセカンダリーボタンに対応します。ユーザーがシステム設定でボタンを入れ替えると、ボタンの物理的な位置は入れ替わりますが、効果は変わりません。</p>
+    <p><var>WhichButton</var>には、ホイールを上方向（自分から離れる方向）に向けるWheelUpまたはWU、ホイールを下方向（自分から近づく方向）に向けるWheelDownまたはWDを指定することも可能です。WheelLeft（またはWL）またはWheelRight（またはWR）を指定することもできる。<em>ClickCount</em>は、ホイールを回すノッチの数です。ただし、アプリケーションによっては、マウスホイールの<var>ClickCount</var>の値が1以上であることに従わないものもあります。それらのために、<a href="Loop.htm">Loop</a>などの手段でClick機能を複数回使用します。</p>
+    <p><strong>ClickCount:</strong> If omitted, it defaults to 1. Otherwise, specify the number of times to click the mouse button or turn the mouse wheel. 例えば、<code>Click 2</code>は、マウスカーソルの現在位置でダブルクリックを行います。<var>Coords</var>が指定されている場合は、<var>ClickCount</var>はその後に表示されなければならない。クリックせずにマウスを動かす場合は、ゼロ（0）を指定します（例：<code>クリック「100 200 0」</code>）。</p>
+    <p><strong>DownOrUp:</strong> If omitted, each click consists of a down-event followed by an up-event. それ以外の場合は、マウスボタンを離さずに押し下げるDown（または文字D）を指定します。その後、Up（またはUの文字）という単語を使ってマウスボタンを離します。例えば、<code>Click "Down"</code>は、マウスの左ボタンを押し下げ、そのまま保持します。</p>
+    <p><strong>Relative:</strong> If omitted, the X and Y coordinates will be used for absolute positioning. Otherwise, specify the word Rel or Relative to treat the coordinates as offsets from the current mouse position. つまり、カーソルは現在位置から右にXピクセル（負の場合は左）、下にYピクセル（負の場合は上）だけ移動します。</p>
   </dd>
 </dl>
 

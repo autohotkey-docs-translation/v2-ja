@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>SetCapsLockState / SetNumLockState / SetScrollLockState - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SetCapsLockState, SetNumLockState and SetScrollLockState functions set the state of the corresponding key. キーを強制的にON/OFFすることも可能。" />
+<meta name="description" content="SetCapsLockState, SetNumLockState, SetScrollLockState 関数は、対応するキーの状態を設定します。キーを強制的にON/OFFすることも可能。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>SetCapsLockState / SetNumLockState / SetScrollLockState</h1>
 
-<p>Sets the state of <kbd>CapsLock</kbd>/<kbd>NumLock</kbd>/<kbd>ScrollLock</kbd>. キーを強制的にON/OFFすることも可能。</p>
+<p><kbd>CapsLock/</kbd><kbd>NumLock</kbd><kbd>/ScrollLock</kbd>の状態を設定します。キーを強制的にON/OFFすることも可能。</p>
 
 <pre class="Syntax"><span class="func">SetCapsLockState</span> <span class="optional">State</span>
 <span class="func">SetNumLockState</span> <span class="optional">State</span>
@@ -23,34 +23,34 @@
   <dt>State</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If this parameter is omitted, the AlwaysOn/Off attribute of the key is removed (if present). Otherwise, specify one of the following words:</p>
-    <p><strong>On</strong>または1（<a href="../Variables.htm#True">true</a>）：Turns on the key and removes the AlwaysOn/Off attribute of the key (if present).</p>
-	  <p><strong>Off</strong> または 0 （<a href="../Variables.htm#False">false</a>）：Turns off the key and removes the AlwaysOn/Off attribute of the key (if present).</p>
-    <p><strong>AlwaysOn</strong>: Forces the key to stay on permanently.</p>
-    <p><strong>AlwaysOff</strong>: Forces the key to stay off permanently.</p>
+    <p>If unset or omitted, the AlwaysOn/Off attribute of the key is removed (if present). それ以外の場合は、次のいずれかの値を指定します：</p>
+    <p><strong>On</strong>または1（<a href="../Variables.htm#True">true</a>）：キーをオンにし、キーのAlwaysOn/Off属性（存在する場合）を削除します。</p>
+	  <p><strong>Off</strong> または 0 （<a href="../Variables.htm#False">false</a>）：キーをオフにし、キーの AlwaysOn/Off 属性を削除します（存在する場合）。</p>
+    <p><strong>AlwaysOn:</strong> Forces the key to stay on permanently.</p>
+    <p><strong>AlwaysOff:</strong> Forces the key to stay off permanently.</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Alternatively to <a href="#ExToggle">example #3</a> below, a key can also be toggled to its opposite state via the <a href="Send.htm">Send</a> function; for example: <code>Send "{CapsLock}"</code>. However, sending {CapsLock} might require <code><a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a> False</code> beforehand.</p>
-<p>Keeping a key <em>AlwaysOn</em> or <em>AlwaysOff</em> requires the <a href="InstallKeybdHook.htm">keyboard hook</a>, which will be automatically installed in such cases.</p>
+<p>Alternatively to <a href="#ExToggle">example #3</a> below, a key can also be toggled to its opposite state via the <a href="Send.htm">Send</a> function, e.g. <code>Send "{CapsLock}"</code>. ただし、{CapsLock}を送信する場合は、あらかじめ<code><a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>False</code>が必要な場合があります。</p>
+<p>キーを<em>AlwaysOn</em>または<em>AlwaysOff</em>に保つには、<a href="InstallKeybdHook.htm">キーボードフック</a>が必要ですが、このような場合は自動的にインストールされます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>, <a href="GetKeyState.htm">GetKeyState</a></p>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Turns on <kbd>NumLock</kbd> and removes the AlwaysOn/Off attribute of the key (if present).</p>
+<p><a class="ex_number" href="#ExBasic"></a> <kbd>NumLock</kbd>をオンにし、キーのAlwaysOn/Off属性を削除します（存在する場合）。</p>
 <pre>SetNumLockState True</pre>
 </div>
 
 <div class="ex" id="ExAlwaysOff">
-<p><a class="ex_number" href="#ExAlwaysOff"></a> Forces <kbd>ScrollLock</kbd> to stay off permanently.</p>
+<p><a class="ex_number" href="#ExAlwaysOff"></a> <kbd>ScrollLock</kbd>を強制的に永久にOFFにします。</p>
 <pre>SetScrollLockState "AlwaysOff"</pre>
 </div>
 
 <div class="ex" id="ExToggle">
-<p><a class="ex_number" href="#ExToggle"></a> Toggles <kbd>CapsLock</kbd> to its opposite state.</p>
+<p><a class="ex_number" href="#ExToggle"></a> <kbd>CapsLock</kbd>を反対の状態に切り替えます。</p>
 <pre>SetCapsLockState !GetKeyState("CapsLock", "T")</pre>
 </div>
 

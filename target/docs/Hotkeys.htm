@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>ホットキー<span class="headnote">（マウス、ジョイスティック、キーボードショートカット）</span></h1>
+<h1>Hotkeys <span class="headnote">(Mouse, Controller and Keyboard Shortcuts)</span></h1>
 
 
 <h2 id="toc">目次</h2>
@@ -53,7 +53,7 @@
   <tr>
     <td class="center bold">#</td>
     <td>
-      <p>Win（Windowsロゴキー）</p>
+      <p><kbd>Win</kbd> (Windows logo key).</p>
       <p id="win-l"><kbd>Win</kbd>を含むホットキー（例：#a）は、<kbd>L</kbd>のキーストロークを含むテキストを送信する前に、<kbd>Win</kbd>が解除されるのを待ちます。これにより、このようなホットキー内で<a href="lib/Send.htm">送信</a>を使用した場合、PCがロックされるのを防ぐことができます。この動作は、<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>（不要）、<a href="lib/Send.htm#blind">ブラインドモード</a>、<a href="lib/Send.htm#SendText">テキストモード</a>以外のすべての送信モードに適用されます。</p>
       <p class="note"><strong>注：</strong> <kbd>Winを</kbd>含むホットキーを押すと、余分なシミュレーションキー（デフォルトでは<kbd>Ctrl</kbd>）を押すことになる場合があります。<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</p>
     </td>
@@ -131,14 +131,14 @@ AppsKey Up::ToolTip
 *LWin Up::Send "{LControl up}"
 </pre>
       <p>"Up "は、この例のように通常のホットキーでも使用することができます。<code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. <a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します。</p>
-      <p>制限:1）"Up"は<a href="KeyList.htm">ジョイスティックボタン</a>では動作しません。2）"Up"のホットキーで通常／下対応のホットキーがない場合、そのキーが完全に引き継がれ、downがスタックするのを防ぎます。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
+      <p>制限:1) "Up" does not work with <a href="KeyList.htm#Controller">controller buttons</a>; and 2) An "Up" hotkey without a normal/down counterpart hotkey will completely take over that key to prevent it from getting stuck down. これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
       <p>"Up"ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
       <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例：</p>
       <pre>LControl &amp; F1::return  <em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とします。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
-<p class="note"><strong>注意</strong>：キーボードのキーとマウス／ジョイスティックのボタンの完全なリストは、「<a href="KeyList.htm">キーリスト</a>」を参照してください。</p>
+<p class="note"><strong>Note:</strong> See the <a href="KeyList.htm">Key List</a> for a complete list of keyboard keys and mouse/controller buttons.</p>
 <p>複数のホットキーを縦に重ねて、同じ動作をさせることができます。事例：</p>
 <pre>^Numpad0::
 ^Numpad1::
@@ -165,7 +165,7 @@ WheelDown::Send "{Volume_Down}" <em>;</em>
 
 <h2 id="combo">カスタムコンビネーション</h2>
 <p>通常、ショートカットキーの組み合わせは、任意のプレフィックス/モディファイアキー（Ctrl、Alt、Shift、LWin/RWin）と1つのサフィックスキーで構成されます。標準装備の修飾キーは、このような使い方を想定して設計されているため、通常は押してもすぐには効果がありません。</p>
-<p>2つのキー（マウスは含むがジョイスティックボタンは含まない）の間に" &amp; "を使用することで、カスタムな組み合わせを定義することができます。カスタムコンビネーションは、通常使用されないプレフィックスキーでの使用を想定しているため、以下のような特殊な動作をします。</p>
+<p>A custom combination of two keys (including mouse but not controller buttons) can be defined by using " &amp; " between them. カスタムコンビネーションは、通常使用されないプレフィックスキーでの使用を想定しているため、以下のような特殊な動作をします。</p>
 <ul>
   <li>プレフィックスキーは、標準的な修飾キーや<kbd>CapsLock</kbd>のようなトグル可能なキーでない限り、本来の機能を失います。</li>
   <li>プレフィックスキーが他のホットキーのサフィックスとしても使用されている場合、デフォルトではそのホットキーはリリース時に起動され、カスタムコンビネーションの起動に使用されている場合は全く起動されません。キーダウンホットキーと<a href="#keyup">キーアップホットキー</a>が両方ある場合、両方のホットキーが同時に起動します。少なくとも1つのアクティブなカスタムコンビネーションまたはサフィックスホットキー自体のプレフィックスキーに<a href="#Tilde">チルダプレフィックス</a>が適用されている場合、ファイアオンリリース効果は無効となります。</li>
@@ -233,17 +233,17 @@ Numpad1::
     MsgBox "This hotkey is launched regardless of whether NumLock is on."
 }
 </pre>
-<p><a href="#Tilde">チルダ（~）演算子</a>を<a href="#prefix">プレフィックスキー</a>に一度でも使用すると、そのプレフィックスキーの動作をすべての組み合わせで変更します。例えば、以下の2つのホットキーでは、定義のうち1つだけがチルダを含んでいても、アクティブなウィンドウはすべての右クリックを受けます。</p>
+<p>If the <a href="#Tilde">tilde (~) symbol</a> is used with a <a href="#prefix">prefix key</a> even once, it changes the behavior of that prefix key for all combinations. 例えば、以下の2つのホットキーでは、定義のうち1つだけがチルダを含んでいても、アクティブなウィンドウはすべての右クリックを受けます。</p>
 <pre>~RButton &amp; LButton::MsgBox "You pressed the left mouse button while holding down the right."
 RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down the right button."</pre>
 <p><a href="lib/Suspend.htm">サスペンド</a>機能は、一時的に免除したもの以外のホットキーを無効にすることができます。より選択性を高めたい場合は、<a href="lib/_HotIf.htm">#HotIf</a>をご利用ください。</p>
 <p><a href="lib/Hotkey.htm">Hotkey</a>機能により、スクリプトの実行中に動的にホットキーを作成することができます。また、ホットキー機能は、スクリプトの既存のホットキーを個別に変更、無効化、有効化することができます。</p>
-<p>ジョイスティックホットキーは、現在、^（Ctrl）や#（Win）などの修飾語の接頭辞をサポートしていません。しかし、次の例に示すように、<a href="lib/GetKeyState.htm">GetKeyState</a>を使用して、この効果を模倣することができます。</p>
+<p>Controller hotkeys do not currently support modifier prefixes such as ^ (Ctrl) and # (Win). しかし、次の例に示すように、<a href="lib/GetKeyState.htm">GetKeyState</a>を使用して、この効果を模倣することができます。</p>
 <pre>Joy2::
 {
     if not GetKeyState("Control")  <em>; 左右のコントロールキーが押されていない。</em>
         return  <em>; すなわち、何もしない。</em>
-    MsgBox "You pressed the first joystick's second button while holding down the Control key."
+    MsgBox "You pressed the first controller's second button while holding down the Control key."
 }</pre>
 <p>ホットキーは、それ自身の修飾キーが解除されるまで待ってから続行する必要がある場合があります。次のような例を考えてみましょう。</p>
 <pre>^!s::Send "{Delete}"</pre>
@@ -266,11 +266,11 @@ RButton &amp; WheelUp::MsgBox "You turned the mouse wheel up while holding down 
 <pre>RAlt &amp; j::AltTab
 RAlt &amp; k::ShiftAltTab</pre>
 <p><em>AltTab</em>と <em>ShiftAltTab</em>は、ホットキーと同じ行で使用した場合のみ認識される特殊コマンドのひとつです。以下、全リストです。</p>
-<p><strong>AltTab</strong>:alt-tabメニューが表示されている場合は、その中を進んでください。それ以外の場合は、メニューを表示します（ホットキーが2つのキーの組み合わせの場合のみ、それ以外の場合は何もしません）。</p>
-<p><strong>ShiftAltTab</strong>:メニューの後方に移動する以外は、上記と同じです。</p>
-<p><strong>AltTabMenu</strong>:alt-tabメニューの表示／非表示を切り替える。</p>
-<p><strong>AltTabAndMenu</strong>:alt-tabメニューが表示されている場合は、その中を進んでください。それ以外の場合は、メニューを表示します。</p>
-<p><strong>AltTabMenuDismiss</strong>:Alt-tabメニューを閉じる。</p>
+<p><strong>AltTab:</strong> If the alt-tab menu is visible, move forward in it. それ以外の場合は、メニューを表示します（ホットキーが2つのキーの組み合わせの場合のみ、それ以外の場合は何もしません）。</p>
+<p><strong>ShiftAltTab:</strong> Same as above except move backward in the menu.</p>
+<p><strong>AltTabMenu:</strong> Show or hide the alt-tab menu.</p>
+<p><strong>AltTabAndMenu:</strong> If the alt-tab menu is visible, move forward in it. それ以外の場合は、メニューを表示します。</p>
+<p><strong>AltTabMenuDismiss:</strong> Close the Alt-tab menu.</p>
 <p>上記を説明すると、マウスホイールをまるごとAlt-tabの代用品にすることができる。以下のホットキーが有効な場合、中央のボタンをクリックするとメニューが表示され、ホイールを回すとメニューの中を移動します。</p>
 <pre>MButton::AltTabMenu
 WheelDown::AltTab

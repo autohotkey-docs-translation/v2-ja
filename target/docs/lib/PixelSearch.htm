@@ -21,31 +21,31 @@
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p><em>ColorID</em>に一致する最初のピクセルの X 座標と Y 座標を格納する出力変数への参照（一致しない場合、変数は空白にされます）。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
+    <p><em>ColorID</em>に一致する最初のピクセルの X 座標と Y 座標を格納する出力変数への参照（一致しない場合、変数は空白にされます）。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
   </dd>
 
   <dt>X1, Y1</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>検索する矩形の開始角のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
+    <p>検索する矩形の開始角のX、Y座標。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
   </dd>
 
   <dt>X2, Y2</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>検索する矩形の終了角のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
+    <p>検索する矩形の終了角のX、Y座標。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
   </dd>
 
   <dt>ColorID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>検索するカラーIDを指定します。これは通常、赤緑青（RGB）形式の16進数で表現されます。事例：<code>0x9d6346</code>. カラーIDは、Window Spy（トレイメニューからアクセス可能）または<a href="PixelGetColor.htm">PixelGetColor</a>を使用して決定することができます。</p>
+    <p>検索するカラーIDを指定します。This is typically expressed as a hexadecimal number in Red-Green-Blue (RGB) format. 事例：<code>0x9d6346</code>. カラーIDは、Window Spy（トレイメニューからアクセス可能）または<a href="PixelGetColor.htm">PixelGetColor</a>を使用して決定することができます。</p>
   </dd>
 
   <dt>Variation</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>0～255 の間の数値で、色の赤、緑、青の各成分の強さについて、いずれかの方向に許容される変化の階調数を示すものです。例えば、2が指定され、<var>ColorID</var>が0x444444の場合、0x424242から0x464646までのすべての色が一致するとみなされます。このパラメータは、求める色が常に全く同じ色合いでない場合に有効です。255色のバリエーションを指定した場合、すべての色が一致します。デフォルトは0階調です。</p>
+    <p>If unset or omitted, it defaults to 0. Otherwise, specify a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of the color. For example, if 2 is specified and <em>ColorID</em> is 0x444444, any color from 0x424242 to 0x464646 will be considered a match. このパラメータは、求める色が常に全く同じ色合いでない場合に有効です。255色のバリエーションを指定した場合、すべての色が一致します。</p>
   </dd>
 
 </dl>
@@ -58,8 +58,8 @@
 <p>関数が検索を行うことを妨げる問題があった場合、<a href="Error.htm#OSError">OSError</a>がスローされる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>検索する領域は可視でなければなりません。言い換えれば、ウィンドウが他のウィンドウの後ろに隠れている領域を検索することは不可能です。一方、マウスカーソルの下にある画素は、通常、検出することができます。ただし、ゲーム中のカーソルは例外で、ほとんどの場合、その下にあるピクセルを隠すことができます。</p>
-<p>8ビット（256色）までの色深度に対応していますが、高速モードは24ビットまたは32ビットカラーでより優れた性能を発揮します。</p>
+<p>検索する領域は可視でなければなりません。言い換えれば、ウィンドウが他のウィンドウの後ろに隠れている領域を検索することは不可能です。一方、マウスカーソルの下にある画素は、通常、検出することができます。The exception to this is game cursors, which in most cases will obstruct any pixels beneath them.</p>
+<p>Although color depths as low as 8-bit (256-color) are supported, PixelSearch performs much better in 24-bit or 32-bit color.</p>
 <p><em>X1</em>と<em>Y1</em>で指定された座標から検索を開始し、<em>X1</em>から<em>X2</em>までの行のすべてのピクセルが一致するかどうかをチェックします。そこで一致する画素が見つからなければ、一致する画素が見つかるまで、<em>Y2</em>に向かって1行ずつ検索を続けます。</p>
 <p>検索順序は、パラメータの順序に依存します。つまり、<em>X1</em>が <em>X2</em>より大きい場合、<em>X1</em>列目から右から左へ検索を行うことになる。同様に、<em>Y1</em>が <em>Y2</em>より大きい場合は、下から上に向かって検索を行うことになります。</p>
 <p>検索する領域が大きく、高い頻度で検索を繰り返す場合、CPU時間を多く消費する可能性があります。これを緩和するために、面積を最小限に抑えます。</p>
@@ -68,7 +68,7 @@
 <p><a href="PixelGetColor.htm">PixelGetColor</a>, <a href="ImageSearch.htm">ImageSearch</a>, <a href="CoordMode.htm">CoordMode</a>, <a href="MouseGetPos.htm">MouseGetPos</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> アクティブウィンドウの領域をピクセルで検索し、指定された色に3階調のバリエーションで一致する最初のピクセルのXとY座標を<var>Px</var>と <var>Py</var>に格納します。</p>
+<p><a class="ex_number" href="#ExBasic"></a> Searches a region of the active window for a pixel and stores in <em>Px</em> and <em>Py</em> the X and Y coordinates of the first pixel that matches the specified color with 3 shades of variation.</p>
 <pre>if PixelSearch(&amp;Px, &amp;Py, 200, 200, 300, 300, 0x9d6346, 3)
     MsgBox "A color within 3 shades of variation was found at X" Px " Y" Py
 else

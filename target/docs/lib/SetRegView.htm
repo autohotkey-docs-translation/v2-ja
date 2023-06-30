@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SetRegView - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SetRegView function sets the registry view used by RegRead, RegWrite, RegDelete, RegDeleteKey and Loop Reg, allowing them in a 32-bit script to access the 64-bit registry view and vice versa." />
+<title>SetRegView - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SetRegView関数は、RegRead、RegWrite、RegDelete、RegDeleteKey、Loop Regで使用するレジストリビューを設定し、32ビットスクリプトで64ビットレジストリビューにアクセスできるようにし、逆もまた然りです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -11,7 +11,7 @@
 <body>
 
 <h1>SetRegView</h1>
-<p><a href="RegRead.htm">RegRead</a>、<a href="RegWrite.htm">RegWrite</a>、<a href="RegDelete.htm">RegDelete</a>、<a href="RegDeleteKey.htm">RegDeleteKey</a>および<a href="LoopReg.htm">Loop Reg</a>が使用するレジストリビューを設定し、32ビットスクリプトで64ビットレジストリビューにアクセスできるようにします（逆も同様）。</p>
+<p><a href="RegRead.htm">RegRead</a>、<a href="RegWrite.htm">RegWrite</a>、<a href="RegDelete.htm">RegDelete</a>、<a href="RegDeleteKey.htm">RegDeleteKey</a>および<a href="LoopReg.htm">Loop Regが</a>使用するレジストリビューを設定し、32ビットスクリプトで64ビットレジストリビューにアクセスできるようにします（逆も同様）。</p>
 <pre class="Syntax"><span class="func">SetRegView</span> RegView</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -20,8 +20,8 @@
   <dt>RegView</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Specify <strong>32</strong> to view the registry as a 32-bit application would, or <strong>64</strong> to view the registry as a 64-bit application would.</p>
-      <p>Specify the word <strong>Default</strong> to restore normal behaviour.</p>
+      <p>32ビットアプリケーションのようにレジストリを表示する場合は<strong>32</strong>を、64ビットアプリケーションのようにレジストリを表示する場合は<strong>64</strong>を指定してください。</p>
+      <p>通常の動作に戻す場合は、「<strong>Default</strong>」を指定します。</p>
   </dd>
 
 </dl>
@@ -31,10 +31,10 @@
 <p>前の設定に戻す機能です。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This function is only useful on Windows 64-bit. It has no effect on Windows 32-bit.</p>
-<p>On 64-bit systems, 32-bit applications run on a subsystem of Windows called <a href="https://learn.microsoft.com/windows/win32/winprog64/running-32-bit-applications">WOW64</a>. By default, the system redirects certain <a href="https://learn.microsoft.com/windows/win32/winprog64/shared-registry-keys">registry keys</a> to prevent conflicts. For example, in a 32-bit script, <code>HKLM\SOFTWARE\AutoHotkey</code> is redirected to <code>HKLM\SOFTWARE\Wow6432Node\AutoHotkey</code>. SetRegView allows the registry functions in a 32-bit script to access redirected keys in the 64-bit registry view and vice versa.</p>
+<p>この機能は、Windows 64ビット版でのみ有効です。Windows 32bitでは効果がありません。</p>
+<p>64ビットシステムでは、32ビットアプリケーションは、<a href="https://learn.microsoft.com/windows/win32/winprog64/running-32-bit-applications">WOW64</a>と呼ばれるWindowsのサブシステム上で動作します。デフォルトでは、競合を防ぐために特定の<a href="https://learn.microsoft.com/windows/win32/winprog64/shared-registry-keys">レジストリキー</a>をリダイレクトするようになっています。例えば、32ビットスクリプトの場合、<code>HKLMSOFTWARE\AutoHotkey</code>は <code>HKLMSOFTWAREのWow6432Node\AutoHotkey</code>へリダイレクトされる。SetRegViewにより、32ビットスクリプトのレジストリ関数が64ビットレジストリビューのリダイレクトされたキーにアクセスできるようになり、その逆も可能です。</p>
 
-<p>The built-in variable <strong>A_RegView</strong> contains the current setting.</p>
+<p>組込変数<strong>A_RegViewには</strong>、現在の設定値が格納されています。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 
 <h2 id="Related">関連</h2>
@@ -42,7 +42,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Shows how to set a specific registry view, and how registry redirection affects the script.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 特定のレジストリビューを設定する方法、およびレジストリリダイレクトがスクリプトに与える影響について示します。</p>
 <pre>
 <em>; Access the registry as a 32-bit application would.</em>
 SetRegView 32
@@ -63,7 +63,7 @@ SetRegView "Default"
 </div>
 
 <div class="ex" id="Ex32Or64">
-<p><a class="ex_number" href="#Ex32Or64"></a> Shows how to detect the type of EXE and operating system on which the script is running.</p>
+<p><a class="ex_number" href="#Ex32Or64"></a> スクリプトが実行されているEXEの種類とオペレーティングシステムを検出する方法を示しています。</p>
 <pre>if (A_PtrSize = 8)
     script_is := "64-bit"
 else <em>; if (A_PtrSize = 4)</em>

@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>RunAs - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="RunAs関数は、RunおよびRunWait関数のその後のすべての使用で使用するユーザー資格情報のセットを指定します。" />
+<meta name="description" content="The RunAs function specifies a set of user credentials to use for all subsequent Run and RunWait functions." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>RunAs</h1>
 
-<p><a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>の後続のすべての使用で使用するユーザー認証情報のセットを指定します。</p>
+<p>Specifies a set of user credentials to use for all subsequent <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> functions.</p>
 
 <pre class="Syntax"><span class="func">RunAs</span> <span class="optional">User, Password, Domain</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,26 +21,26 @@
   <dt>User</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>このパラメータと他のパラメータをすべて省略した場合、RunAs機能はオフになり、<a href="Run.htm">Run</a>と <a href="Run.htm">RunWait</a>はデフォルトの動作に戻ります。それ以外の場合は、新しいプロセスが作成されるユーザー名となります。</p>
+    <p>このパラメータと他のパラメータをすべて省略した場合、RunAs機能はオフになり、<a href="Run.htm">Run</a>と <a href="Run.htm">RunWait</a>はデフォルトの動作に戻ります。Otherwise, specify the username under which new processes will be created.</p>
   </dd>
 
   <dt>Password</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>ユーザー</em>のパスワードです。</p>
+    <p>If unset or omitted, it defaults to a blank password. Otherwise, specify the <em>User</em>'s password. Note that passing blank passwords is not allowed by default, according to the OS policy "Accounts: Limit local account use of blank passwords to console logon only".</p>
   </dd>
 
   <dt>Domain</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>ユーザーの</em>ドメイン。ローカルアカウントを使用する場合は、空欄のままにしてください。これでうまくいかない場合は、@YourComputerNameを使用してみてください。</p>
+    <p><p>If unset or omitted, a local account will be used. Otherwise, specify <em>User</em>'s domain. これでうまくいかない場合は、@YourComputerNameを使用してみてください。</p>
   </dd>
 
 </dl>
 <h2 id="Remarks">備考</h2>
-<p>ユーザーアカウント制御（UAC）により制限された権限でスクリプトが実行されている場合、RunAsを使用していても、スクリプトが起動するプログラムも制限されるのが一般的です。プロセスを昇格させるには、代わりに<a href="Run.htm#RunAs">Run *RunAs</a>を使用します。</p>
-<p>この関数は、その後の<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>のすべての使用において、代替ユーザー認証情報を使用する（または使用しない）ことをAutoHotkeyに通知する以外に何も行いません。この機能では、資格証明書は検証されません。</p>
-<p>無効な<em>User</em>、<em>Password</em>、<em>Domain</em>が指定された場合、<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>は問題を説明するエラーメッセージを表示します（このエラーが<a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a>文によって捕捉される場合を除きます）。</p>
+<p>If the script is running with restricted privileges due to <a href="https://en.wikipedia.org/wiki/User_Account_Control">User Account Control (UAC)</a>, any programs it launches will typically also be restricted, even if RunAs is used. To elevate a process, use <a href="Run.htm#RunAs">Run *RunAs</a> instead.</p>
+<p>This function does nothing other than notify AutoHotkey to use (or not use) alternate user credentials for all subsequent <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> functions. この機能では、資格証明書は検証されません。</p>
+<p>If an invalid <em>User</em>, <em>Password</em>, and/or <em>Domain</em> is specified, <a href="Run.htm">Run</a> and <a href="Run.htm">RunWait</a> will display an error message explaining the problem (unless this error is caught by a <a href="Try.htm">Try</a>/<a href="Catch.htm">Catch</a> statement).</p>
 <p>RunAs機能が有効な間は、<a href="Run.htm">Run</a>および<a href="Run.htm">RunWait</a>は、ドキュメント、URL、システム動詞を起動することができなくなります。つまり、起動するファイルは実行可能なファイルである必要があります。</p>
 <p>この機能を使用するには、「セカンダリログオン」サービスを手動または自動に設定する必要があります（手動に設定した場合は、要求に応じてOSが自動的に起動する必要があります）。</p>
 <h2 id="Related">関連</h2>

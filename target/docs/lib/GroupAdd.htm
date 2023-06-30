@@ -24,28 +24,10 @@
     <p>このウィンドウ仕様を追加するグループの名前。グループが存在しない場合は、作成されます。グループ名の大文字と小文字は区別されません。</p>
   </dd>
 
-  <dt>WinTitle</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
-  </dd>
-
-  <dt>WinText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="GroupActivate.htm">GroupActivate</a>、<a href="GroupDeactivate.htm">GroupDeactivate</a>、<a href="GroupClose.htm">GroupClose</a>を使用する際に<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素を検出します。</p>
-  </dd>
-
-  <dt>ExcludeTitle</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
-  </dd>
-
-  <dt>ExcludeText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
+    <p>Specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on at the time that <a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupDeactivate.htm">GroupDeactivate</a>, and <a href="GroupClose.htm">GroupClose</a> are used. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
   </dd>
 
 </dl>
@@ -57,7 +39,7 @@
 <p>各グループのエントリーは一度だけ追加する必要があるため、この機能は通常、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に使用されます。重複したエントリーをグループに追加しようとする試みは無視されます。</p>
 <p>グループ内の<u>すべて</u>のウィンドウ（特別なProgram Managerウィンドウを除く）を含めるには、次の例を使用します：</p>
 <pre>GroupAdd "AllWindows"</pre>
-<p><em>WinTitle</em>パラメータに<code>ahk_group MyGroupName</code>を指定することで、すべてのウィンドウ関数がウィンドウグループに対して操作できるようになります。<a href="WinMinimize.htm">WinMinimize</a>、<a href="WinMaximize.htm">WinMaximize</a>、<a href="WinRestore.htm">WinRestore</a>、<a href="WinHide.htm">WinHide</a>、<a href="WinShow.htm">WinShow</a>、<a href="WinClose.htm">WinClose</a>、<a href="WinKill.htm">WinKill</a>関数は、グループの<strong>すべて</strong>のウィンドウに対して作用します。その代わりに、一番上のウィンドウだけを操作する場合は、次のようにします：</p>
+<p><em>WinTitle</em>パラメータに<code>ahk_group MyGroupName</code>を指定することで、すべてのウィンドウ関数がウィンドウグループに対して操作できるようになります。The functions <a href="WinMinimize.htm">WinMinimize</a>, <a href="WinMaximize.htm">WinMaximize</a>, <a href="WinRestore.htm">WinRestore</a>, <a href="WinHide.htm">WinHide</a>, <a href="WinShow.htm">WinShow</a>, <a href="WinClose.htm">WinClose</a>, and <a href="WinKill.htm">WinKill</a> will act upon <u>all</u> the group's windows. その代わりに、一番上のウィンドウだけを操作する場合は、次のようにします：</p>
 <pre>WinHide WinExist("ahk_group <strong>MyGroup</strong>")</pre>
 <p>一方、<a href="WinActivate.htm">WinActivate</a>や <a href="WinExist.htm">WinExist</a>などの他のウィンドウ機能は、グループの最上位のウィンドウに対してのみ動作します。</p>
 <h2 id="Related">関連</h2>

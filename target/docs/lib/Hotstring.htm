@@ -39,7 +39,7 @@ OldValue := <span class="func">Hotstring</span>("<a href="#MouseReset">MouseRese
     <p><em>置換</em>が関数の場合、1つのパラメータ（ホットストリングの<a href="../Hotstrings.htm#ThisHotkey">名前</a>）で呼び出されます。<a href="../Hotstrings.htm">ダブルコロン構文</a>で定義されたHotstringsは、自動的にパラメータ名<code>ThisHotkey</code>を使用します。Hotstringは、Hotstringの機能を使わずに、<a href="../Hotstrings.htm#Function">関数</a>名を割り当てることもできます。</p>
     <p>すべての文字列が置換テキストとして扱われます。ホットストリングがトリガーされたときに関数を呼び出すようにするには、関数を参照で渡します。なお、ホットストリングの機能を再割り当てした後、元の機能を復元できるのは、<a href="../Hotstrings.htm#Function">名前が与えられて</a>いる場合のみです。</p>
     <p>ホットストリングが既に存在する場合は、このパラメータを省略することができ、その場合、その置換は変更されません。ホットストリングのオプションだけを変更したり、オン/オフを切り替えたりするのに便利です。</p>
-    <p class="note"><strong>注意</strong>：このパラメータを指定しても、以前にこの機能を使用したときにホットストリングが無効になっていた場合は、ホットストリングは無効のままとなります。これを防ぐには、<em>OnOffToggle</em>に<code>"On"</code>という単語を含めます。</p>
+    <p class="note"><strong>Note:</strong> If this parameter is specified but the hotstring is disabled from a previous use of this function, the hotstring will remain disabled. これを防ぐには、<em>OnOffToggle</em>に<code>"On"</code>という単語を含めます。</p>
   </dd>
 
   <dt>OnOffToggle</dt>
@@ -66,7 +66,7 @@ catch TargetError
 <p>スクリプトが<a href="Suspend.htm">中断</a>されると、新しく追加/有効になったホットストリングも中断が解除されるまで中断されます（<a href="Suspend.htm">中断</a>セクションで説明したように除外される場合を除きます）。</p>
 <p><a href="InstallKeybdHook.htm">キーボード</a>や <a href="InstallMouseHook.htm">マウス</a>のフックは、本機能による変更で正当化される場合、取り付けまたは取り外しが可能です。</p>
 <p>この機能は、自分以外のスクリプトのホットストリングを直接有効にしたり無効にしたりすることはできません。</p>
-<p>スクリプトに少なくとも1つのホットストリングがあると、そのスクリプトは永続的なものになります。Hotstring スクリプトも、<code>#SingleInstance Off</code>が指定されていない限り、自動的に<a href="_SingleInstance.htm">#SingleInstance</a>となります。</p>
+<p>Once a script has at least one hotstring, it becomes persistent, meaning that <a href="ExitApp.htm">ExitApp</a> rather than <a href="Exit.htm">Exit</a> should be used to terminate it. Hotstring scripts are also automatically <a href="_SingleInstance.htm">#SingleInstance</a> unless <code>#SingleInstance Off</code> has been specified.</p>
 
 <h2 id="variant">バリアント（複製）Hotstrings</h2>
 <p>各定義が異なる<a href="HotIf.htm">HotIf</a>基準、<a href="../Hotstrings.htm#C">大文字小文字</a>の区別（<code>C</code> vs. <code>C0</code>/<code>C1</code>）、または、<a href="../Hotstrings.htm#Question">単語の区別</a>（<code>?</code>）を持つ場合、特定のホットストリングを複数回作成することができます。これらは<em>ホットストリング・バリアント</em>と呼ばれています。事例：</p>

@@ -21,8 +21,9 @@
   <dt>KeyName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>レジストリキーのフルネームです。</p>
-    <p>HKEY_LOCAL_MACHINE、HKEY_USERS、HKEY_CURRENT_USER、HKEY_CLASSES_ROOT、HKEY_CURRENT_CONFIG（またはHKLMなど、それぞれの略称）で始まる必要があります。<a href="#remote">リモートレジストリ</a>にアクセスするには、この例のように、コンピュータ名の前にバックスラッシュを付けます：\\workstation01\HKEY_LOCAL_MACHINE</p>
+    <p>The full name of the registry key, e.g. <code>"HKLM\Software\SomeApplication"</code>.</p>
+    <p>This must start with HKEY_LOCAL_MACHINE (or HKLM), HKEY_USERS (or HKU), HKEY_CURRENT_USER (or HKCU), HKEY_CLASSES_ROOT (or HKCR), or HKEY_CURRENT_CONFIG (or HKCC).</p>
+    <p>To access a <a href="#remote">remote registry</a>, prepend the computer name and a backslash, e.g. <code>"\\workstation01\HKLM"</code>.</p>
   </dd>
   
   <dt>Mode</dt>
@@ -40,8 +41,8 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>レジストリループは、レジストリ値やサブキーのコレクションを一度に1つずつ操作したい場合に便利です。値とサブキーは逆順（下から上）に取得されるため、ループを中断させることなく、<a href="RegDelete.htm">RegDelete</a>と <a href="RegDeleteKey.htm">RegDeleteKey</a>をループ内で使用することができます。</p>
-<p id="vars">どのレジストリ-ループ内にも、以下の変数が存在します。内側のレジストリループが外側のレジストリループで囲まれている場合、最も内側のループのレジストリ項目が優先されます：</p>
+<p>A registry loop is useful when you want to operate on a collection registry values or subkeys, one at a time. 値とサブキーは逆順（下から上）に取得されるため、ループを中断させることなく、<a href="RegDelete.htm">RegDelete</a>と <a href="RegDeleteKey.htm">RegDeleteKey</a>をループ内で使用することができます。</p>
+<p id="vars">The following variables exist within any registry loop. If an inner registry loop is enclosed by an outer registry loop, the innermost loop's registry item will take precedence:</p>
 <table class="info">
   <tr>
     <th abbr="Var">変数</th>
@@ -57,14 +58,14 @@
   </tr>
   <tr>
     <td>A_LoopRegKey</td>
-    <td>現在のループ項目が含まれるキーのフルネーム。リモートレジストリアクセスの場合、この値にはコンピュータ名は含まれ<strong>ません</strong>。</td>
+    <td>現在のループ項目が含まれるキーのフルネーム。For remote registry access, this value will <u>not</u> include the computer name.</td>
   </tr>
   <tr>
     <td>A_LoopRegTimeModified</td>
     <td>現在のサブキーまたはその値のいずれかが最後に変更された時刻。Format <a href="FileSetTime.htm">YYYYMMDDHH24MISS</a>. 現在検索されている項目がサブキーでない場合（すなわち<em>A_LoopRegType</em>がKEYという単語でない場合）、この変数は空となります。</td>
   </tr>
 </table>
-<p>レジストリループ内で使用する場合、以下の関数を簡略化して使用することで、現在検索されている項目が操作されるべきことを示すことができます：</p>
+<p>When used inside a registry loop, the following functions can be used in a simplified way to indicate that the currently retrieved item should be operated upon:</p>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">Syntax</th>
@@ -106,14 +107,20 @@
 <p><a href="Loop.htm">Loop</a>, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a>, <a href="Block.htm">Blocks</a>, <a href="RegRead.htm">RegRead</a>, <a href="RegWrite.htm">RegWrite</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="SetRegView.htm">SetRegView</a></p>
 
 <h2 id="Examples">例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> 指定されたレジストリサブキーの内容を一度に1項目ずつ取得します。</p>
+<pre>Loop Reg, "HKEY_LOCAL_MACHINE\Software\SomeApplication"
+    MsgBox A_LoopRegName</pre>
+</div>
+
 <div class="ex" id="ExRegDelete">
 <p><a class="ex_number" href="#ExRegDelete"></a> Internet Explorerのユーザーが入力したURLの履歴を削除します。</p>
 <pre>Loop Reg, "HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\TypedURLs"
     RegDelete</pre>
 </div>
 
-<div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> 動作するテストスクリプトです。</p>
+<div class="ex" id="ExTest">
+<p><a class="ex_number" href="#ExTest"></a> 動作するテストスクリプトです。</p>
 <pre>Loop Reg, "HKCUSoftware", "Microsoft", "R KV"  <em>;キーと値を再帰的に取得します。</em>
 {
     if A_LoopRegType = "key"

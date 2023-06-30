@@ -36,15 +36,16 @@
   <dt>KeyName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>レジストリキーのフルネームです。</p>
-    <p>HKEY_LOCAL_MACHINE、HKEY_USERS、HKEY_CURRENT_USER、HKEY_CLASSES_ROOT、HKEY_CURRENT_CONFIG（またはHKLMなど、それぞれの略称）で始まる必要があります。<a href="LoopReg.htm#remote">リモートレジストリ</a>にアクセスするには、この例のように、コンピュータ名の前にスラッシュを付けます：\\workstation01\HKEY_LOCAL_MACHINE</p>
+    <p>The full name of the registry key, e.g. <code>"HKLM\Software\SomeApplication"</code>.</p>
+    <p>This must start with HKEY_LOCAL_MACHINE (or HKLM), HKEY_USERS (or HKU), HKEY_CURRENT_USER (or HKCU), HKEY_CLASSES_ROOT (or HKCR), or HKEY_CURRENT_CONFIG (or HKCC).</p>
+    <p>To access a <a href="LoopReg.htm#remote">remote registry</a>, prepend the computer name and a backslash, e.g. <code>"\\workstation01\HKLM"</code>.</p>
     <p><em>KeyName</em>は <a href="LoopReg.htm">レジストリループ</a>が実行されている場合のみ省略可能で、その場合、現在のループアイテムのキーがデフォルトとなる。項目がサブキーの場合、デフォルトでそのサブキーのフルネームが使用されます。項目が値の場合、<em>ValueType</em>と<em>ValueName</em>のデフォルトはその値の型と名前であるが、オーバーライドすることができる。</p>
   </dd>
 
   <dt>ValueName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>書き込まれる値の名前です。空白または省略された場合、キーのデフォルト値が使用されます（上記を除く）。RegEditでは、デフォルト値が「(Default)」と表示されます。</p>
+    <p>If unset or omitted, the key's default value will be used (except as noted above), which is the value displayed as "(Default)" by RegEdit. Otherwise, specify the name of the value that will be written to. </p>
   </dd>
 
 </dl>
@@ -59,12 +60,12 @@
 <p><em>ValueType</em>がREG_DWORDの場合、<em>Value</em>は-2147483648から4294967295（0xFFFFFFF）の間とする。レジストリでは、REG_DWORDの値は常に正の10進数で表現されます。<a href="RegRead.htm">RegRead</a>などで負の数として読み込む場合は、<code>OutputVar := OutputVar &lt;&lt; 32 &gt;&gt;32</code>などで符号付き32ビット整数に変換してください。</p>
 <p>REG_BINARYキーを書くときは、16進数の文字列を使用します。例えば、REG_BINARY値01,a9,ff,77は、01A9FF77という文字列で書くことができます。</p>
 <p>REG_MULTI_SZキーを書くときは、各コンポーネントと次のコンポーネントをラインフィード文字（`n）で区切る必要があります。最後のコンポーネントは、オプションとして、ラインフィードで終了することもできる。ブランク部品は不可です。つまり、2つ並んだ改行（`n`n）を指定すると、予想以上に短い値がレジストリに書き込まれることになるので、指定しないようにしましょう。</p>
-<p>複数のレジストリキーや値を取得し、操作するためには、<a href="LoopReg.htm">レジストリループ</a>の使用を検討します。</p>
-<p>リモートコンピュータのレジストリにアクセスする方法については、<a href="LoopReg.htm#remote">registry-loop</a>の備考を参照してください。</p>
+<p>複数のレジストリキーや値を取得し、操作するためには、<a href="LoopReg.htm">レジストリループ</a>の利用を検討します。</p>
+<p>リモートコンピュータのレジストリにアクセスする方法については、<a href="LoopReg.htm#remote">レジストリループ</a>の備考を参照してください。</p>
 <p>32ビットスクリプトでレジストリの64ビットセクションのエントリを読み書きしたり、その逆を行うには、<a href="SetRegView.htm">SetRegView</a>を使用します。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="RegCreateKey.htm">RegCreateKey</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="RegRead.htm">RegRead</a>, <a href="LoopReg.htm">Registry-loop</a>, <a href="SetRegView.htm">SetRegView</a>, <a href="IniWrite.htm">IniWrite</a></p>
+<p><a href="RegCreateKey.htm">RegCreateKey</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="RegRead.htm">RegRead</a>, <a href="LoopReg.htm">registry loop</a>, <a href="SetRegView.htm">SetRegView</a>, <a href="IniWrite.htm">IniWrite</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

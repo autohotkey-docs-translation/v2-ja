@@ -28,7 +28,7 @@
   <dt>wParam, lParam</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
-    <p>メッセージのパラメータです。省略された場合、各パラメータのデフォルトは 0 です。</p>
+    <p>If either is unset or omitted, 0 will be sent. Otherwise, specify the first and second component of the message.</p>
     <p>各パラメータは、<a href="../Concepts.htm#numbers">整数</a>または<a href="Buffer.htm">Buffer</a>などの<a href="Buffer.htm#Ptr">Ptr</a>プロパティを持つオブジェクトでなければなりません。文字列へのポインタが必要なメッセージには、Bufferまたは<a href="StrPtr.htm">StrPtr</a>関数を使用します。SendMessageに変数のアドレスを渡して変数が含む文字列を変更した場合、その後<a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity(&amp;MyVar, -1)</a>を呼び出して変数の長さを更新する必要があります。</p>
     <p>AutoHotkeyまたはターゲットウィンドウが32ビットの場合、パラメータの下位32ビットのみが使用されます。つまり、符号付き値の場合は-2147483648～2147483647（-0x80000000～0x7FFFFFFF）、符号なし値の場合は0～4294967295（0xFFFFFF）範囲外の場合は値が切り捨てられます。AutoHotkeyとターゲットウィンドウの両方が64ビットである場合、<a href="../Concepts.htm#pure-numbers">AutoHotkeyがサポートする</a>任意の整数値を使用することができます。</p>
   </dd>
@@ -36,38 +36,20 @@
   <dt>Control</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>このパラメータが省略された場合、メッセージはそのコントロールの1つではなく、ターゲットウィンドウに直接送信されます。それ以外の場合は、コントロールのClassNN、テキスト、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトをパラメータとすることができます。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
+    <p>If unset or omitted, the message will be sent directly to the target window rather than one of its controls. Otherwise, specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. 詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     <p>本パラメータでHWND（整数またはオブジェクト）を指定する場合、コントロール（子ウィンドウ）のHWNDであることは必須ではありません。つまり、トップレベルウィンドウのHWNDにもなり得るのです。</p>
   </dd>
 
-  <dt>WinTitle</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
-  </dd>
-
-  <dt>WinText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
-  </dd>
-
-  <dt>ExcludeTitle</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
-  </dd>
-
-  <dt>ExcludeText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
+    <p>If each of these is unset or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. Otherwise, specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
   </dd>
 
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ターゲットウィンドウがメッセージを処理するまでの最大待ち時間（ミリ秒）を指定します。省略した場合、デフォルトは5000（ミリ秒）です。この時間内にメッセージが処理されない場合、<a href="Error.htm#TimeoutError">TimeoutError</a>が投げられます。</p>
+    <p>If unset or omitted, it defaults to 5000. Otherwise, specify the maximum number of milliseconds to wait for the target window to process the message. この時間内にメッセージが処理されない場合、<a href="Error.htm#TimeoutError">TimeoutError</a>が投げられます。</p>
   </dd>
 
 </dl>

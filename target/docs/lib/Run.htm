@@ -28,30 +28,32 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>起動する文書、URL、実行ファイル（.exe、.com、.batなど）、ショートカット（.lnk）、<a href="#verbs">システム動詞</a>のこと（備考参照）。<em>Target</em>がローカルファイルでパスが指定されていない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>が最初に検索されます。そこに一致するファイルが見つからない場合、PATHフォルダの1つに含まれているなど、統合されている（「既知」）場合は、そのファイルを検索して起動します。</p>
-      <p>パラメータを渡すには、プログラム名や文書名の直後にパラメータを追加します。例えば、<code>Run 'MyProgram.exe Param1 Param2'</code></p>
-      <p>プログラム/ドキュメント名やパラメータにスペースが含まれる場合は、二重引用符で囲むのが最も安全です（場合によっては引用符なしでも動作することがあります）。例えば <code>Run '"My Program.exe" "param with spaces"'</code>.</p>
+      <p>To pass parameters, add them immediately after the program or document name as follows:</p>
+      <pre>Run 'MyProgram.exe Param1 Param2'</pre>
+      <p>If the program/document name or a parameter contains spaces, it is safest to enclose it in double quotes as follows (even though it may work without them in some cases):</p>
+      <pre>Run '"My Program.exe" "param with spaces"'</pre>
   </dd>
 
   <dt>WorkingDir</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>起動したアイテムの作業ディレクトリです。空白を含む場合でも、ダブルクォーテーションで囲まないでください。省略した場合は、スクリプト自身の作業ディレクトリ<a href="../Variables.htm#WorkingDir">（A_WorkingDir</a>）が使用されます。</p>
+      <p>If unset or omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used. Otherwise, specify the working directory for <em>Target</em>.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>省略された場合は、<em>Target</em>を正常に起動します。この動作を変更するには、以下の単語を1つ以上指定します：</p>
-      <p><strong>Max</strong>:最大化して起動</p>
-      <p><strong>Min</strong>:最小化して起動</p>
-      <p><strong>Hide</strong>:隠して起動（上記2つとの併用は不可）</p>
-      <p class="note"><strong>注意</strong>：一部のアプリケーション（Calc.exeなど）は、要求されたスタートアップ状態に従わないため、Max/Min/Hideは効果を発揮しないことがあります。</p>
+      <p>If unset or omitted, <em>Target</em> will be launched normally. Otherwise, specify one or more of the following options:</p>
+      <p><strong>Max:</strong> launch maximized</p>
+      <p><strong>Min:</strong> launch minimized</p>
+      <p><strong>Hide:</strong> launch hidden (cannot be used in combination with either of the above)</p>
+      <p class="note"><strong>Note:</strong> Some applications (e.g. Calc.exe) do not obey the requested startup state and thus Max/Min/Hide will have no effect.</p>
   </dd>
 
   <dt>&amp;OutputVarPID</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-      <p>新しく起動したプログラムの固有の<a href="../misc/WinTitle.htm#ahk_pid">Process ID(PID)</a>を格納する出力変数へのリファレンス。PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
+      <p>If unset or omitted, no output variable will be used. Otherwise, specify a reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
       <p>Run関数がPIDを取得した後、プロセスによって作成されるウィンドウは、まだ存在しないかもしれません。少なくとも1つのウィンドウが作成されるのを待つには、<code><a href="WinWait.htm">WinWait</a>"ahk_pid " OutputVarPID</code>を使用します。</p>
   </dd>
 
@@ -90,7 +92,7 @@ Run "::{645ff040-5081-101b-9f08-00aa002f954e}"  <em>; Opens the Recycle Bin.</em
     <td>properties</td>
     <td>
       <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。事例：<code>Run 'properties "C:\My File.txt"'</code></p>
-      <p class="note"><strong>注意</strong>：スクリプトが終了すると、プロパティウィンドウは自動的に閉じます。これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
+      <p class="note"><strong>Note:</strong> The properties window will automatically close when the script terminates. これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
     </td>
   </tr>
   <tr>
@@ -133,13 +135,13 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 }
 
 MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
-<p>ユーザーがUACダイアログをキャンセルした場合、またはその他の理由でRunに失敗した場合、スクリプトは単に終了します。</p>
+<p>If the user cancels the <a href="https://en.wikipedia.org/wiki/User_Account_Control">User Account Control (UAC)</a> dialog or Run fails for some other reason, the script will simply exit.</p>
 <p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
 <p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
 <p>この例は、スクリプトの必要性に応じて変更することができます：</p>
 <ul>
-  <li>スクリプトにどうしても管理者権限が必要な場合、<em>*RunAs</em>でスクリプトの昇格に失敗した場合（UACが無効になっている場合など）に備えて、A_IsAdminを2回目もチェックします。</li>
-  <li>ユーザーがUACプロンプトをキャンセルしてもスクリプトを実行し続けるために、ExitAppをtryブロックに移動します。</li>
+  <li>If the script absolutely requires admin rights, check <a href="../Variables.htm#IsAdmin">A_IsAdmin</a> a second time in case <em>*RunAs</em> failed to elevate the script (i.e. because UAC is disabled).</li>
+  <li>To keep the script running even if the user cancels the UAC prompt, move <a href="ExitApp.htm">ExitApp</a> into the try block.</li>
   <li>再起動に失敗した場合（スクリプトファイルが変更または削除された場合など）でもスクリプトを実行し続けるには、ExitAppを削除して、Runの代わりにRunWaitを使用します。成功すると、<code>/restart</code>によって新しいインスタンスが古いインスタンスを終了させます。失敗すると、新しいインスタンスは終了し、RunWaitが戻ります。</li>
 </ul>
 <p>AutoHotkeyのインストーラは、<em>.ahk</em>ファイルに対して<em>RunAs</em>動詞を登録しており、<code>Run "*RunAs script.ahk"</code>でスクリプトを管理者として起動できます。</p>

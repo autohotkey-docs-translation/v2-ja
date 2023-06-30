@@ -21,50 +21,32 @@
   <dt>BarText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The text or partial text for the which the function will wait to appear. Default is blank (empty), which means to wait for the status bar to become blank. The text is case sensitive and the matching behavior is determined by <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, similar to <em>WinTitle</em> below.</p>
+    <p>If unset or omitted, the function waits for the status bar to become blank. Otherwise, specify the text or partial text for which the function will wait to appear. The text is case sensitive and the matching behavior is determined by <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, similar to <em>WinTitle</em> below.</p>
     <p>To instead wait for the bar's text to <em>change</em>, either use <a href="StatusBarGetText.htm">StatusBarGetText</a> in a loop, or use the RegEx example at the bottom of this page.</p>
   </dd>
   
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>The number of seconds (can contain a decimal point) to wait before timing out, in which case the return value is 0 (false). Default is blank, which means the function will wait indefinitely.</p>
+    <p>If unset or omitted, the function will wait indefinitely. Otherwise, specify the number of seconds (can contain a decimal point) to wait before timing out, in which case the return value is 0 (false).</p>
   </dd>
   
   <dt>Part#</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>Which part number of the bar to retrieve. Default 1, which is usually the part that contains the text of interest.</p>
+    <p>If unset or omitted, it defaults to 1, which is usually the part that contains the text of interest. Otherwise, specify the part number of the bar to retrieve.</p>
   </dd>
 
-  <dt>WinTitle</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>ウィンドウのタイトルなど、対象のウィンドウを特定する条件。<a href="../misc/WinTitle.htm">WinTitleを</a>参照してください。</p>
-  </dd>
-
-  <dt>WinText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>存在する場合、このパラメータは、ターゲットウィンドウの単一のテキスト要素からの部分文字列でなければなりません（付属のWindow Spyユーティリティによって明らかにされます）。<a href="DetectHiddenText.htm">DetectHiddenText</a>がONの場合、隠しテキスト要素が検出されます。</p>
+    <p>If each of these is unset or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. Otherwise, specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
   </dd>
 
   <dt>Interval</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>How often the status bar should be checked while the function is waiting (in milliseconds). Default is 50. </p>
-  </dd>
-
-  <dt>ExcludeTitle</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>タイトルにこの値が含まれているWindowsは、審査対象外となります。</p>
-  </dd>
-
-  <dt>ExcludeText</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>テキストにこの値が含まれているウィンドウは、検討の対象外となります。</p>
+    <p>If unset or omitted, it defaults to 50. Otherwise, specify how often the status bar should be checked while the function is waiting (in milliseconds).</p>
   </dd>
 
 </dl>
@@ -77,13 +59,13 @@
 <p>An exception is thrown in any of the following cases:</p>
 <ul>
   <li><a href="Error.htm#TargetError">TargetError</a>: The target window could not be found or does not contain a standard status bar.</li>
-  <li><a href="Error.htm#OSError">OSError</a>: There was a problem sending the SB_GETPARTS message, or no reply was received within 2000ms.</li>
+  <li><a href="Error.htm#OSError">OSError</a>: There was a problem sending the SB_GETPARTS message, or no reply was received within 2000&nbsp;ms.</li>
   <li><a href="Error.htm#OSError">OSError</a>: Memory could not be allocated within the process which owns the status bar.</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
-<p>StatusBarWait attempts to read the first <em>standard</em> status bar on a window (class msctls_statusbar32). Some programs use their own status bars or special versions of the MS common control. Such bars are not supported.</p>
-<p>Rather than using <a href="StatusBarGetText.htm">StatusBarGetText</a> in a loop, it is usually more efficient to use StatusBarWait because it contains optimizations that avoid the overhead that repeated calls to <a href="StatusBarGetText.htm">StatusBarGetText</a> would incur.</p>
+<p>This function attempts to read the first <em>standard</em> status bar on a window (Microsoft common control: msctls_statusbar32). Some programs use their own status bars or special versions of the MS common control, in which case such bars are not supported.</p>
+<p>Rather than using <a href="StatusBarGetText.htm">StatusBarGetText</a> in a loop, it is usually more efficient to use StatusBarWait, which contains optimizations that avoid the overhead of repeated calls to <a href="StatusBarGetText.htm">StatusBarGetText</a>.</p>
 <p>StatusBarWait determines its target window before it begins waiting for a match. If that target window is closed, the function will stop waiting even if there is another window matching the specified <em>WinTitle</em> and <em>WinText</em>.</p>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
@@ -106,12 +88,12 @@
 </div>
 
 <div class="ex" id="ExChange">
-<p><a class="ex_number" href="#ExChange"></a> Waits for the status bar of the active window to <strong>change</strong>.</p>
+<p><a class="ex_number" href="#ExChange"></a> Waits for the status bar of the active window to change.</p>
 <pre>SetTitleMatchMode "RegEx"  <em>; Accept <a href="SetTitleMatchMode.htm#RegEx">regular expressions</a> for use below.</em>
 if WinExist("A")  <em>; Set the last-found window to be the active window (for use below).</em>
 {
-    <span class="red">OrigText</span> := StatusBarGetText()
-    StatusBarWait "^(?!^\Q" <span class="red">OrigText</span> "\E$)"  <em>; This regular expression waits for any change to the text.</em>
+    OrigText := StatusBarGetText()
+    StatusBarWait "^(?!^\Q" OrigText "\E$)"  <em>; This regular expression waits for any change to the text.</em>
 }</pre>
 </div>
 

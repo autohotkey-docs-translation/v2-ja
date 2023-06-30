@@ -21,7 +21,7 @@
   <dt>SourcePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>単一のファイル名、またはC:\Temp\*.tmp のようなワイルドカードパターンを指定します。<em>SourcePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+    <p>単一のファイル名、または <code>"C:\Temp\*.tmp"</code> のようなワイルドカードパターンを指定します。<em>SourcePattern</em> is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
   </dd>
 
   <dt>DestPattern</dt>
@@ -38,7 +38,9 @@
   <dt>Overwrite</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>このパラメータは、ファイルがすでに存在する場合に上書きするかどうかを決定します。このパラメータが1（true）の場合、既存のファイルを上書きします。省略時または 0（false）の場合、既存ファイルの上書きを行わない。</p>
+    <p>This parameter specifies whether to overwrite files if they already exist. If omitted, it defaults to 0 (no overwriting). それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p><strong>0:</strong> Do not overwrite existing files. The operation will fail and have no effect if <em>DestPattern</em> already exists as a file or directory.</p>
+    <p><strong>1:</strong> Overwrite existing files. However, any files or subfolders inside <em>DestPattern</em> that do not have a counterpart in <em>SourcePattern</em> will not be deleted.</p>
     <p>その他の値は、将来の使用のために予約されています。</p>
   </dd>
 

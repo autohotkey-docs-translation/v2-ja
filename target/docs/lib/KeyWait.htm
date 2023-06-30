@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>KeyWait - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="KeyWait機能は、キーやマウス・ジョイスティックのボタンが離されたり押し下げられたりするのを待つ機能です。" />
+<meta name="description" content="The KeyWait function waits for a key or mouse/controller button to be released or pressed down." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>KeyWait</h1>
 
-<p>キーやマウス・ジョイスティックボタンが離されたり、押し下げられたりするのを待ちます。</p>
+<p>Waits for a key or mouse/controller button to be released or pressed down.</p>
 
 <pre class="Syntax"><span class="func">KeyWait</span> KeyName <span class="optional">, Options</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,17 +21,17 @@
   <dt>KeyName</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>これは、キーボードから任意の1文字、またはマウス/ジョイスティックボタンのような<a href="../KeyList.htm">キー</a>リストのキー名の1つであることができます。ボタン以外のジョイスティック属性はサポートされていません。</p>
+      <p>This can be just about any single character from the keyboard or one of the key names from the <a href="../KeyList.htm">key list</a>, such as a mouse/controller button. Controller attributes other than buttons are not supported.</p>
       <p>また、<code>vkFF</code>のような明示的な仮想鍵コードを指定することもできる。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。その仮想キーコードは、<a href="../KeyList.htm#SpecialKeys">キー一覧ページ</a>の下部にある手順で決定することができます。</p></dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>このパラメータが空白の場合、指定されたキーまたはマウス/ジョイスティックボタンがユーザーによって物理的に解放されるまで、この関数は無期限に待機することになります。ただし、<a href="InstallKeybdHook.htm">キーボードフック</a>が装着されておらず、<em>KeyName</em>が <a href="Send.htm">Send</a>関数などで人為的に解放されたキーボードキーである場合は、物理的に解放されたとみなされます。<a href="InstallMouseHook.htm">マウスフック</a>未装着時のマウスボタンも同様です。</p>
-      <p>Options:以下の1つ以上の文字列（順序は問わず、間に任意の空白を含みます）：</p>
-      <p><strong>D</strong>:キーが押し下げられるのを待ちます。</p>
-      <p><strong>L</strong>:キーの論理状態（OSやアクティブウィンドウがキーがあると信じている状態）を確認します（物理状態と同じとは限りません）。ジョイスティックボタンの場合、このオプションは無視されます。</p>
-      <p><strong>T</strong>:タイムアウト（例：<code>T3</code>）。タイムアウトして0を返すまでの待ち時間を示す秒数です。キーまたはボタンが指定された状態になった場合、この関数はタイムアウトを待たずに終了します。代わりに、すぐに1が返されます。</p>
+      <p>If this parameter is blank, the function will wait indefinitely for the specified key or mouse/controller button to be physically released by the user. ただし、<a href="InstallKeybdHook.htm">キーボードフック</a>が装着されておらず、<em>KeyName</em>が <a href="Send.htm">Send</a>関数などで人為的に解放されたキーボードキーである場合は、物理的に解放されたとみなされます。<a href="InstallMouseHook.htm">マウスフック</a>未装着時のマウスボタンも同様です。</p>
+      <p>Options: A string of one or more of the following options (in any order, with optional spaces in between):</p>
+      <p><strong>D:</strong> Wait for the key to be pushed down.</p>
+      <p><strong>L:</strong> Check the logical state of the key, which is the state that the OS and the active window believe the key to be in (not necessarily the same as the physical state). This option is ignored for controller buttons.</p>
+      <p><strong>T:</strong> Timeout (e.g. <code>T3</code>). タイムアウトして0を返すまでの待ち時間を示す秒数です。キーまたはボタンが指定された状態になった場合、この関数はタイムアウトを待たずに終了します。代わりに、すぐに1が返されます。</p>
       <p>タイムアウト値には、2.5などの浮動小数点数を指定できますが、0x03などの16進数値を指定してはいけません。</p></dd>
 
 </dl>
@@ -46,7 +46,7 @@
 <p>2つ以上のキーが離されるのを待つには、KeyWaitを連続して使用します。事例：</p>
 <pre>KeyWait "Control"  <em>; ControlとAltの両方が解除</em>されるのを待つ。
 KeyWait "Alt"</pre>
-<p>一連のキーのうち、任意の1つのキーが押下されるのを待つには、<a href="InputHook.htm">InputHook</a>関数の例のセクションを参照してください。</p>
+<p>To wait for any one key among a set of keys to be pressed down, see <a href="InputHook.htm#ExAnyKey">InputHook example #4</a>.</p>
 <h2 id="Related">関連</h2>
 <p><a href="GetKeyState.htm">GetKeyState</a>, <a href="../KeyList.htm">Key List</a>, <a href="InputHook.htm">InputHook</a>, <a href="KeyHistory.htm">KeyHistory</a>, <a href="InstallKeybdHook.htm">InstallKeybdHook</a>, <a href="InstallMouseHook.htm">InstallMouseHook</a>, <a href="ClipWait.htm">ClipWait</a>, <a href="WinWait.htm">WinWait</a></p>
 <h2 id="Examples">例</h2>
@@ -61,7 +61,7 @@ KeyWait "Alt"</pre>
 </div>
 
 <div class="ex" id="ExTimeout">
-<p><a class="ex_number" href="#ExTimeout"></a> ジョイスティックの最初のボタンが押し下げられるまで、最大3秒待ちます。</p>
+<p><a class="ex_number" href="#ExTimeout"></a> Waits up to 3 seconds for the first controller button to be pressed down.</p>
 <pre>KeyWait "Joy1", "D T3"</pre>
 </div>
 
@@ -80,7 +80,7 @@ KeyWait "Alt"</pre>
 </div>
 
 <div class="ex" id="ExRemap">
-<p><a class="ex_number" href="#ExRemap"></a> キーやマウスのボタンをリマップする（<a href="../misc/Remap.htm">内蔵のリマップ</a>機能を使った方が簡単なので、これは説明のためです）。NumpadAddが押されている間、マウスの左ボタンを押し続けることで、NumpadAddが実質的にマウスの左ボタンに変化します。</p>
+<p><a class="ex_number" href="#ExRemap"></a> Remaps a key or mouse button. (<a href="../misc/Remap.htm">内蔵のリマッピング</a>機能を使った方が簡単なので、この例は説明のためだけです)。次のホットキーでは、NumpadAddが押されている間、マウスボタンが押されたままになっており、NumpadAddが効果的にマウスボタンに変換されています。</p>
 <pre>*NumpadAdd::
 {
     MouseClick "left",,, 1, 0, "D"  <em>; Hold down the left mouse button.</em>
@@ -90,7 +90,7 @@ KeyWait "Alt"</pre>
 </div>
 
 <div class="ex" id="ExDouble">
-<p><a class="ex_number" href="#ExDouble"></a> キーがダブルプレスされたことを検出します（ダブルクリックに似ています）。KeyWaitは、RControlキーを押しながら他のキーを変更する際に、キーボードのオートリピート機能が不要な二度押しを発生させないようにするために使用します。これは、ホットキーのスレッドを実行し続けることで、#MaxThreadsPerHotkeyがデフォルト設定の1であることを頼りに、自動繰り返しをブロックすることで実現します。注：<a href="SetTimer.htm">SetTimer</a>ページの下部には、単押し、二度押し、三度押しを区別する、より精巧なスクリプトがあります。</p>
+<p><a class="ex_number" href="#ExDouble"></a> キーがダブルプレスされたことを検出します（ダブルクリックに似ています）。KeyWaitは、RControlキーを押しながら他のキーを変更する際に、キーボードのオートリピート機能が不要な二度押しを発生させないようにするために使用します。これは、ホットキーのスレッドを実行し続けることで、#MaxThreadsPerHotkeyがデフォルト設定の1であることを頼りに、自動繰り返しをブロックすることで実現します。For a more elaborate script that distinguishes between single, double and triple-presses, see <a href="SetTimer.htm#ExampleCount">SetTimer example #3</a>.</p>
 <pre>~RControl::
 {
     if (A_PriorHotkey != "~RControl" or A_TimeSincePriorHotkey &gt; 400)

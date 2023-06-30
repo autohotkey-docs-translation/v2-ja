@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>PixelGetColor - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="PixelGetColor 関数は、指定された x,y 座標にある画素の色を取得します。" />
+<meta name="description" content="The PixelGetColor function retrieves the color of the pixel at the specified X and Y coordinates." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>PixelGetColor</h1>
 
-<p>指定されたx,y座標にある画素の色を取得します。</p>
+<p>Retrieves the color of the pixel at the specified X and Y coordinates.</p>
 
 <pre class="Syntax">Color := <span class="func">PixelGetColor</span>(X, Y <span class="optional">, Mode</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,15 +21,15 @@
   <dt>X, Y</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>画素の X 座標と Y 座標を指定します。座標は、<a href="CoordMode.htm">CoordMode</a>で変更されない限り、アクティブウィンドウからの相対座標となります。</p>
+    <p>画素の X 座標と Y 座標を指定します。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
   </dd>
 
   <dt>Mode</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>このパラメータには、以下の単語を0個以上含めることができます。複数の単語がある場合は、それぞれをスペースで区切ってください（例：<code>"Alt Slow"</code>）。</p>
-      <p><strong>Alt</strong>:色を取得するための代替方法を使用します。通常の方法では、特定のタイプのウィンドウに対して無効または不正確な色が生成される場合に使用します。この方法は、通常の方法より10％程度遅くなります。</p>
-      <p><strong>Slow</strong>:より精巧な方法で色を取得します。これは、特定のフルスクリーンアプリケーションで、他の方法が失敗した場合に機能する可能性があります。この方法は、通常の方法と比較して約3倍の速度がかかります。注：<em>Slow</em>は <em>Alt</em>より優先されるので、この場合は<em>Alt</em>を指定する必要はありません。</p>
+      <p>If unset or omitted, the pixel is retrieved using the normal method. Otherwise, specify one or more of the following words. 複数の単語がある場合は、それぞれをスペースで区切ってください（例：<code>"Alt Slow"</code>）。</p>
+      <p><strong>Alt:</strong> Uses an alternate method to retrieve the color, which should be used when the normal method produces invalid or inaccurate colors for a particular type of window. This method is about 10&nbsp;% slower than the normal method.</p>
+      <p><strong>Slow:</strong> Uses a more elaborate method to retrieve the color, which may work in certain full-screen applications when the other methods fail. この方法は、通常の方法と比較して約3倍の速度がかかります。注：<em>Slow</em>は <em>Alt</em>より優先されるので、この場合は<em>Alt</em>を指定する必要はありません。</p>
     </dd>
 
 </dl>
@@ -42,8 +42,8 @@
 <p>失敗すると<a href="Error.htm#OSError">OSError</a>が投げられる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>つまり、他のウィンドウの後ろに隠れたウィンドウのピクセルカラーを取得することはできません。一方、マウスカーソルの下にある画素は、通常、検出することができます。ただし、ゲームカーソルは例外で、ほとんどの場合、その下にあるピクセルが隠されます。</p>
-<p>Window Spy（トレイのアイコンメニューで利用可能）またはこのページの下にある例で、現在画面に表示されている色を確認することができます。</p>
+<p>つまり、他のウィンドウの後ろに隠れたウィンドウのピクセルカラーを取得することはできません。一方、マウスカーソルの下にある画素は、通常、検出することができます。The exception to this is game cursors, which in most cases will obstruct any pixels beneath them.</p>
+<p>Use Window Spy (available in <a href="../Program.htm#tray-icon">tray icon</a> menu) or the example at the bottom of this page to determine the colors currently on the screen.</p>
 <p>既知の制限事項：</p>
 <ul>
   <li><a href="WinSetTransparent.htm">部分的に透明な</a>ウィンドウや、色の1つが不可視とされたウィンドウ<a href="WinSetTransColor.htm">（WinSetTransColor</a>）は、通常、それ自身の色ではなく、それ自身の背後にあるウィンドウの色を生成します。</li>

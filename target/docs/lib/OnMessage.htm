@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>OnMessage - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="OnMessage関数は、スクリプトが指定されたメッセージを受信するたびに、指定された関数が自動的に呼び出されるようにします。" />
+<meta name="description" content="The OnMessage function registers a function to be called automatically whenever the script receives the specified message." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,9 +12,9 @@
 
 <h1>OnMessage</h1>
 
-<p>スクリプトが指定されたメッセージを受信するたびに、指定された関数が自動的に呼び出されるようにします。</p>
+<p>Registers a <a href="../Functions.htm">function</a> to be called automatically whenever the script receives the specified message.</p>
 
-<pre class="Syntax"><span class="func">OnMessage</span> MsgNumber, Function <span class="optional">, MaxThreads</span></pre>
+<pre class="Syntax"><span class="func">OnMessage</span> MsgNumber, Callback <span class="optional">, MaxThreads</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
@@ -24,77 +24,74 @@
     <p>監視または問い合わせるメッセージの番号で、0から4294967295（0xFFFFFFF）の間でなければなりません。<a href="../misc/SendMessageList.htm">システムメッセージ</a>（つまり0x0400以下のもの）を監視したくない場合は、選択の余地がある範囲で4096（0x1000）より大きい数字を選ぶとよいでしょう。これにより、AutoHotkeyの現在および将来のバージョンで内部的に使用されるメッセージに干渉する可能性を低減することができます。</p>
   </dd>
 
-  <dt>機能</dt>
+  <dt id="The_Functions_Parameters">Callback</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>メッセージを受信したときに呼び出す関数オブジェクトです。この関数のパラメータと戻り値について、<a href="#The_Functions_Parameters">以下</a>に説明します。</p>
+    <p>The function to call.</p>
+    <p>The callback accepts four parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <pre class="NoIndent">MyCallback(wParam, lParam, msg, hwnd) { ...</pre>
+    <p>Although the names you give the parameters do not matter, the following values are sequentially assigned to them:</p>
+    <ol>
+      <li>メッセージのWPARAMの値です。</li>
+      <li>メッセージのLPARAM値です。</li>
+      <li>The message number, which is useful in cases where a callback monitors more than one message.</li>
+      <li>メッセージの送信先のウィンドウまたはコントロールのHWND（ユニークID）です。HWNDは、<a href="../misc/WinTitle.htm#ahk_id">WinTitleパラメータ</a>で直接使用することができます。</li>
+    </ol>
+    <p>You can omit one or more parameters from the end of the callback's parameter list if the corresponding information is not needed, but in this case an asterisk must be specified as the final parameter, e.g. <code>MyCallback(Param1, *)</code>.</p>
+    <p>WPARAMとLPARAMは、スクリプトを実行するexeが32ビットか64ビットかに応じて、符号なし32ビット整数（0から2<sup>32</sup>-1）または符号付き64ビット整数<sup>（-2</sup>63から2<sup>63</sup>-1）です。32ビットスクリプトの場合、入力されるパラメータが符号付き整数であることを意図している場合、この例に従って負の数を明らかにすることができます：</p>
+    <pre>if (A_PtrSize = 4 &amp;&amp; wParam &gt; 0x7FFFFFFF)  <em>; Checking <a href="../Variables.htm#PtrSize">A_PtrSize</a> ensures the script is 32-bit.</em>
+    wParam := -(~wParam) - 1</pre>
   </dd>
 
   <dt id="MaxThreads">MaxThreads</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>この整数は通常省略され、その場合、モニター機能は一度に1<a href="../misc/Threads.htm">スレッド</a>に制限されます。そうしないと、モニタ関数が割り込むたびに、スクリプトがメッセージを時系列に並べずに処理してしまうため、通常はこれが最適です。そのため、<em>MaxThreads</em>の代替として、<a href="#Critical">以下</a>のように<em>Critical</em>を使用することを検討します。</p>
-    <p>モニタ関数が直接または間接的に、その関数の実行中にメッセージを再送信させる場合、（必要であれば）新しいメッセージに対してモニタ関数が呼び出されるように、1より大きいか-1より小さい<em>MaxThreads</em>値を指定することが必要です。スクリプトの自プロセスが自分自身に送信する（投稿しない）メッセージは、遅延やバッファリングができません。</p>
-    <p>0を指定すると、<em>Function</em>で指定された登録済みの機能を解除することができます。</p>
-    <p>デフォルトでは、1つの<em>MsgNumber</em>に対して複数の関数が登録されている場合、登録された順番に呼び出されます。先に登録された関数よりも先に呼び出されるように関数を登録する場合は、<em>MaxThreads</em>に負の値を指定します。例えば、<code>OnMessage Msg, Fn, -2</code>は、<em>Msg</em>にあらかじめ登録されている他の関数の前に<code>Fn</code>を呼び出すように登録し、<em>Fn</em>には最大2スレッドを許可します。ただし、すでに機能が登録されている場合は、一度登録を解除し、再度登録しない限り、順番は変わりません。</p>
+    <p>If unset or omitted, it defaults to 1, meaning the callback is limited to one <a href="../misc/Threads.htm">thread</a> at a time. This is usually best because otherwise, the script would process messages out of chronological order whenever the callback interrupts itself. そのため、<em>MaxThreads</em>の代替として、<a href="#Critical">以下</a>のように<em>Critical</em>を使用することを検討します。</p>
+    <p>If the callback directly or indirectly causes the message to be sent again while the callback is still running, it is necessary to specify a <em>MaxThreads</em> value greater than 1 or less than -1 to allow the callback to be called for the new message (if desired). スクリプトの自プロセスが自分自身に送信する（投稿しない）メッセージは、遅延やバッファリングができません。</p>
+    <p>Specify 0 to unregister the previously registered callback identified by <em>Callback</em>.</p>
+    <p>By default, when multiple callbacks are registered for a single <em>MsgNumber</em>, they are called in the order that they were registered. To register a callback to be called before any previously registered callbacks, specify a negative value for <em>MaxThreads</em>. For example, <code>OnMessage Msg, Fn, -2</code> registers <code>Fn</code> to be called before any other callbacks previously registered for <em>Msg</em>, and allows <em>Fn</em> a maximum of 2 threads. However, if the callback is already registered, the order will not change unless it is unregistered and then re-registered.</p>
   </dd>
 
 </dl>
 
 <h2 id="Usage">使用方法</h2>
+<p>Any number of callbacks can monitor a given <em>MsgNumber</em>.</p>
+<p>Either of these two lines registers a callback to be called <u>after</u> any previously registered callbacks:</p>
+<pre>OnMessage MsgNumber, Callback     <em>; Option 1 - omit MaxThreads</em>
+OnMessage MsgNumber, Callback, 1  <em>; Option 2 - specify MaxThreads 1</em></pre>
+<p>This registers a callback to be called <u>before</u> any previously registered callbacks:</p>
+<pre>OnMessage MsgNumber, Callback, -1</pre>
+<p>To unregister a callback, specify 0 for <em>MaxThreads</em>:</p>
+<pre>OnMessage MsgNumber, Callback, 0</pre>
 
-<p>任意の数の関数または<a href="../misc/Functor.htm">関数オブジェクト</a>が、与えられた<em>MsgNumber</em>を監視することができます。</p>
-<p>この2行のどちらかで、先に登録された関数の<strong>後</strong>に呼び出される関数オブジェクトを登録することができます：</p>
-<pre>OnMessage MsgNumber, Function     <em>; Option 1 - omit MaxThreads</em>
-OnMessage MsgNumber, Function, 1  <em>; Option 2 - specify MaxThreads 1</em></pre>
-<p>先に登録されている関数の<strong>前</strong>に呼び出される関数オブジェクトを登録します：</p>
-<pre>OnMessage MsgNumber, Function, -1</pre>
-<p>関数オブジェクトの登録を解除するには、<em>MaxThreads</em>に0を指定します：</p>
-<pre>OnMessage MsgNumber, Function, 0</pre>
-
-<h2 id="The_Functions_Parameters">関数のパラメータ</h2>
-<p>1つまたは複数のメッセージを監視するために割り当てられた<a href="../Functions.htm">関数</a>は、4つのパラメータを受け入れる必要があります：</p>
-<pre class="Syntax"><i>FunctionName</i>(wParam, lParam, msg, hwnd)</pre>
-<p>パラメータに付ける名前は問いませんが、以下の情報が順次割り当てられます：</p>
-<ul>
-  <li>Parameter #1:メッセージのWPARAMの値です。</li>
-  <li>Parameter #2:メッセージのLPARAM値です。</li>
-  <li>Parameter #3:メッセージ番号。ある機能が複数のメッセージを監視している場合に便利です。</li>
-  <li>Parameter #4:メッセージの送信先のウィンドウまたはコントロールのHWND（ユニークID）です。HWNDは、<a href="../misc/WinTitle.htm#ahk_id">WinTitleパラメータ</a>で直接使用することができます。</li>
-</ul>
-<p>WPARAMとLPARAMは、スクリプトを実行するexeが32ビットか64ビットかに応じて、符号なし32ビット整数（0から2<sup>32</sup>-1）または符号付き64ビット整数<sup>（-2</sup>63から2<sup>63</sup>-1）です。32ビットスクリプトの場合、入力されるパラメータが符号付き整数であることを意図している場合、この例に従って負の数を明らかにすることができます：</p>
-<pre>if (A_PtrSize = 4 &amp;&amp; wParam &gt; 0x7FFFFFFF)  <em>; Checking <a href="../Variables.htm#PtrSize">A_PtrSize</a> ensures the script is 32-bit.</em>
-    wParam := -(~wParam) - 1</pre>
-<p>対応する情報が不要な場合、リストの最後から1つ以上のパラメータを省略することができますが、この場合、最後のパラメータとしてアスタリスクを指定する必要があります。例えば、<code>MyMsgMonitor(wParam, lParam, *)</code>と定義された関数は最初の2つのパラメータのみを受け取り、<code>MyMsgMonitor(*)</code>と定義された関数は何も受け取らないことになります。</p>
-
-<h2 id="Additional_Information_Available_to_the_Function">機能で利用できる追加情報</h2>
-<p>上記で受け取ったパラメータに加えて、この関数は組み込み変数<a href="../Variables.htm#EventInfo">A_EventInfo</a>を参照することができ、SendMessageでメッセージが送信された場合は0が格納されます。PostMessageで送信された場合、メッセージが投稿された<a href="../Variables.htm#TickCount">tick-count の時間</a>が含まれます。</p>
-<p>モニター機能で<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>は、メッセージが送信された親ウィンドウとして始まります（コントロールに送信された場合も同様です）。ウィンドウが隠れていてもGUIウィンドウ（スクリプトのメインウィンドウなど）でない場合は、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>をオンにしてから使用します。事例：</p>
+<h2 id="Additional_Information_Available_to_the_Callback">Additional Information Available to the Callback</h2>
+<p>In addition to the received parameters mentioned above, the callback may also consult the built-in variable <strong>A_EventInfo</strong>, which contains 0 if the message was sent via SendMessage. PostMessageで送信された場合、メッセージが投稿された<a href="../Variables.htm#TickCount">tick-count の時間</a>が含まれます。</p>
+<p>A callback's <a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a> starts off as the parent window to which the message was sent (even if it was sent to a control). If the window is hidden but not a GUI window (such as the <a href="../Program.htm#main-window">script's main window</a>), turn on <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> before using it. 事例：</p>
 <pre>DetectHiddenWindows True
 MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to which the message was sent.</em></pre>
 
-<h2 id="What_the_Function_Should_Return">関数が<em>返すべき</em>もの</h2>
-<p>モニター関数がパラメータなしで<a href="Return.htm">Return</a>を使用するか、""などの空白の値を指定する（または Return を全く使用しない）場合、受信したメッセージは関数が終了したときに通常通り処理されます。関数が<a href="Exit.htm">Exit</a>したり、存在しないファイルを<a href="Run.htm">実行</a>するなどのランタイムエラーが発生した場合も同様です。これに対して、整数を返すと、返信としてすぐに送信されます。つまり、プログラムはそれ以上メッセージを処理しません。例えば、WM_LBUTTONDOWN (0x0201) を監視する関数は、マウスクリックが発生したことをターゲットウィンドウに通知しないように、整数を返すことができる。多くの場合（<a href="PostMessage.htm">PostMessage</a>で届いたメッセージなど）、どの整数を返すかは問題ではありませんが、疑わしい場合は通常0が最も安全です。</p>
+<h2 id="What_the_Callback_Should_Return">What the Callback Should Return</h2>
+<p>If a callback uses <a href="Return.htm">Return</a> without any parameters, or it specifies a blank value such as "" (or it never uses Return at all), the incoming message goes on to be processed normally when the callback finishes. The same thing happens if the callback <a href="Exit.htm">exits</a> or causes a runtime error such as <a href="Run.htm">running</a> a nonexistent file. これに対して、整数を返すと、返信としてすぐに送信されます。つまり、プログラムはそれ以上メッセージを処理しません。For example, a callback monitoring WM_LBUTTONDOWN (0x0201) may return an integer to prevent the target window from being notified that a mouse click has occurred. 多くの場合（<a href="PostMessage.htm">PostMessage</a>で届いたメッセージなど）、どの整数を返すかは問題ではありませんが、疑わしい場合は通常0が最も安全です。</p>
 <p>有効な戻り値の範囲は、スクリプトを実行するexeが32ビットか64ビットかによって異なります。空でない戻り値は、32ビットスクリプトでは -2<sup>31</sup> から 2<sup>32</sup>-1 (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 4</code>) 、64ビットスクリプトでは -2<sup>63</sup> から 2<sup>63</sup>-1 (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 8</code>) でなければなりません。</p>
-<p>与えられたメッセージ番号を監視する関数が複数ある場合は、1つが空でない値を返すまで、1つずつ呼び出されます。</p>
+<p>If there are multiple callbacks monitoring a given message number, they are called one by one until one returns a non-empty value.</p>
 
 <h2 id="Remarks">総論</h2>
-<p>通常の関数呼び出しとは異なり、監視メッセージの到着は、新しい<a href="../misc/Threads.htm">スレッド</a>として関数を呼び出します。このため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定値はデフォルトのまま、関数は新たにスタートします。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
+<p>Unlike a normal function-call, the arrival of a monitored message calls the callback as a new <a href="../misc/Threads.htm">thread</a>. Because of this, the callback starts off fresh with the default values for settings such as <a href="SendMode.htm">SendMode</a> and <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>. これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
 <p>コントロールに送信されたメッセージは（投稿されるのではなく）、システムが裏でコントロールに直接ルーティングするため、監視されることはありません。システムで生成されたメッセージは、そのほとんどが投稿されるため、これが問題になることはほとんどありません。</p>
 <p>スクリプトがアイドル状態で実行され続け、メッセージの着信を監視することを意図している場合、スクリプトの終了を防ぐために<a href="Persistent.htm">Persistent</a>関数を呼び出す必要がある場合があります。OnMessage は、スクリプトを自動的に永続化するわけではありません。例えば、OnMessageを使用してGUIウィンドウへの入力を監視する場合（<a href="#ExLButtonDown">WM_LBUTTONDOWNの例</a>など）、最後のGUIウィンドウが閉じられたときにスクリプトが自動的に終了するようにする方が適切な場合があります。</p>
-<p id="Critical">以前に同じメッセージが到着したために、その関数がまだ実行されている間にメッセージが到着した場合、デフォルトでは、その関数は再び呼び出されず、代わりに、メッセージは監視されていないものとして扱われます。もしこれが望ましくないのであれば、それを回避する方法は複数あります：</p>
+<p id="Critical">If a message arrives while its callback is still running due to a previous arrival of the same message, by default the callback will not be called again; instead, the message will be treated as unmonitored. もしこれが望ましくないのであれば、それを回避する方法は複数あります：</p>
 <ul>
-  <li>メッセージが送信ではなく投稿であり、0x0311より大きい番号を持つ場合、関数の最初の行に<a href="Critical.htm">Critical</a>を指定することで、その関数が完了するまでバッファリングすることができます。また、<a href="Thread.htm">スレッドインタラプト</a>は、関数が終了するまでの時間が長ければ、同じ効果を得ることができます。</li>
-  <li><a href="Critical.htm">Critical</a>を使用して<a href="Critical.htm#Interval">メッセージチェックの間隔を</a>長くすると、メッセージが送信される前に機能が完了する時間が長くなります。信頼性のために16以上の間隔が必要な場合があります。システムタイマーの粒度（通常は15.6ミリ秒）により、非クリティカルスレッドのデフォルト間隔（5ミリ秒）は、関数が開始した瞬間に経過しているように見えるかもしれません。</li>
-  <li>モニター関数が素早く戻るようにすることで、<em>MaxThreads</em>のためにメッセージが見逃されるリスクを減らすことができます。一つの方法として、0x0311より大きい監視メッセージ番号を自身のスクリプトに<a href="PostMessage.htm">投稿</a>することで、未来のスレッドをキューに入れることができます。そのメッセージの関数は、メッセージがバッファリングされることを保証するために、その最初の行として<a href="Critical.htm">Critical</a>を使用する必要があります。また、<a href="SetTimer.htm">タイマー</a>を使って未来のスレッドをキューに入れることも可能です。</li>
-  <li><a href="#MaxThreads">MaxThreads</a>パラメータに高い値を指定すると、新しく受信したメッセージを処理するために関数を中断させることができます。</li>
+  <li>If the message is posted rather than sent and has a number greater than 0x0311, it can be buffered until its callback completes by specifying <a href="Critical.htm">Critical</a> as the first line of the callback. Alternatively, <a href="Thread.htm#Interrupt">Thread Interrupt</a> can achieve the same effect as long as it lasts long enough for the callback to finish.</li>
+  <li>Using <a href="Critical.htm">Critical</a> to increase the <a href="Critical.htm#Interval">message check interval</a> gives the callback more time to complete before any messages are dispatched. 信頼性のために16以上の間隔が必要な場合があります。Due to the granularity of the system timer (usually 15.6 milliseconds), the default interval for non-Critical threads (5 milliseconds) might appear to pass the instant after the callback starts.</li>
+  <li>Ensuring that the callback returns quickly reduces the risk that messages will be missed due to <em>MaxThreads</em>. 一つの方法として、0x0311より大きい監視メッセージ番号を自身のスクリプトに<a href="PostMessage.htm">投稿</a>することで、未来のスレッドをキューに入れることができます。That message's callback should use <a href="Critical.htm">Critical</a> as its first line to ensure that its messages are buffered. また、<a href="SetTimer.htm">タイマー</a>を使って未来のスレッドをキューに入れることも可能です。</li>
+  <li>Specifying a higher value for <a href="#MaxThreads"><em>MaxThreads</em></a> allows the callback to be interrupted to process the newly-received message.</li>
 </ul>
-<p id="buffering">スクリプトが<a href="../misc/Threads.htm#Interrupt">中断不可能な</a>状態で0x0311より大きい数値の監視メッセージが投稿された場合、そのメッセージはバッファリングされます；つまり、スクリプトが中断可能になるまでその関数は呼ばれません。しかし、投稿ではなく送信されるメッセージは、戻り値を提供する必要があるため、バッファリングすることはできません。システムダイアログ、リストビューのドラッグ＆ドロップ操作、メニューなどのモーダルメッセージループが実行されている場合、投稿されたメッセージがバッファされない場合があります。</p>
-<p>監視対象メッセージが到着し、バッファリングされていない場合、メッセージ受信時にスレッドが<a href="../misc/Threads.htm#Interrupt">中断不可能</a>であったとしても、その関数は直ちに呼び出されます。</p>
+<p id="buffering">If a monitored message that is numerically greater than 0x0311 is posted while the script is <a href="../misc/Threads.htm#Interrupt">uninterruptible</a>, the message is buffered; that is, its callback is not called until the script becomes interruptible. しかし、投稿ではなく送信されるメッセージは、戻り値を提供する必要があるため、バッファリングすることはできません。システムダイアログ、リストビューのドラッグ＆ドロップ操作、メニューなどのモーダルメッセージループが実行されている場合、投稿されたメッセージがバッファされない場合があります。</p>
+<p>If a monitored message arrives and is not buffered, its callback is called immediately even if the thread is <a href="../misc/Threads.htm#Interrupt">uninterruptible</a> when the message is received.</p>
 <p>OnMessageスレッドの<a href="../misc/Threads.htm">優先順位</a>は常に0です。その結果、現在のスレッドの優先順位が0より高い場合、メッセージの監視やバッファリングは行われない。</p>
-<p>システムメッセージ（0x0400以下のメッセージ）を監視する場合は、注意が必要です。例えば、モニター関数が早く終わらない場合、メッセージに対する応答がシステムの想定よりも長くなり、副作用が発生する可能性があります。また、モニター関数が整数値を返してメッセージのさらなる処理を抑制しているにもかかわらず、システムが別の処理または別の応答を期待していた場合にも、望ましくない動作が発生することがあります。</p>
-<p>スクリプトが<a href="MsgBox.htm">MsgBox</a>などのシステムダイアログを表示している場合、コントロールに投稿されたメッセージは監視されません。例えば、スクリプトがメッセージボックスを表示しているときに、ユーザーがGUIウィンドウのボタンをクリックした場合、WM_LBUTTONDOWNメッセージはモニター関数を呼び出すことなく、直接ボタンに送信されます。</p>
-<p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。その代わりに、スクリプトのメインウィンドウまたはGUIウィンドウの1つにメッセージを投稿または送信するのが通常最適です。</p>
+<p>システムメッセージ（0x0400以下のメッセージ）を監視する場合は、注意が必要です。For example, if a callback does not finish quickly, the response to the message might take longer than the system expects, which might cause side-effects. Unwanted behavior may also occur if a callback returns an integer to suppress further processing of a message, but the system expected different processing or a different response.</p>
+<p>スクリプトが<a href="MsgBox.htm">MsgBox</a>などのシステムダイアログを表示している場合、コントロールに投稿されたメッセージは監視されません。For example, if the script is displaying a message box and the user clicks a button in a GUI window, the WM_LBUTTONDOWN message is sent directly to the button without calling the callback.</p>
+<p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。Instead, it is usually best to post or send the messages to the <a href="../Program.htm#main-window">script's main window</a> or one of its GUI windows.</p>
 <h2 id="Related">関連</h2>
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">例</h2>
@@ -179,11 +176,11 @@ Persistent
 MsgMonitor(wParam, lParam, msg, *)
 {
     <em>; Since returning quickly is often important, it is better to use ToolTip than</em>
-    <em>; something like MsgBox that would prevent the function from finishing:</em>
+    <em>; something like MsgBox that would prevent the callback from finishing:</em>
     ToolTip "Message " msg " arrived:`nWPARAM:" wParam "`nLPARAM:" lParam
 }
 
-<em>; The following could be used inside some other script to run the function inside the above script:</em>
+<em>; The following could be used inside some other script to run the callback inside the above script:</em>
 SetTitleMatchMode 2
 DetectHiddenWindows True
 if WinExist("Name of Receiving Script.ahk ahk_class AutoHotkey")

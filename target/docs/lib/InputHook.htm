@@ -21,34 +21,34 @@
   <dt>Options</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><u>以下の文字列を0個以上並べたもの（順番は自由、間に任意のスペースを入れます）：</u></p>
-    <p id="option-b"><strong>B</strong>:<a href="#BackspaceIsUndo">BackspaceIsUndo</a>をfalseに設定し、<kbd>Backspace</kbd>を無視するようにします。</p>
-    <p id="option-c"><strong>C</strong>:<a href="#CaseSensitive">CaseSensitive</a>をtrueに設定し、<em>MatchList</em>の大文字小文字を区別するようにします。</p>
-    <p id="option-i"><strong>I</strong>:<a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
-    <p id="option-l"><strong>L</strong>:長さの制限（例：<code>L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
+    <p>A string of zero or more of the following options (in any order, with optional spaces in between):</p>
+    <p id="option-b"><strong>B:</strong> Sets <a href="#BackspaceIsUndo">BackspaceIsUndo</a> to false, which causes <kbd>Backspace</kbd> to be ignored.</p>
+    <p id="option-c"><strong>C:</strong> Sets <a href="#CaseSensitive">CaseSensitive</a> to true, making <em>MatchList</em> case sensitive.</p>
+    <p id="option-i"><strong>I:</strong> Sets <a href="#MinSendLevel">MinSendLevel</a> to 1 or a given value, causing any input with <a href="SendLevel.htm">send level</a> below this value to be ignored. 例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
+    <p id="option-l"><strong>L:</strong> Length limit (e.g. <code>L5</code>). 入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
     <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。<a href="#OnChar">OnChar</a>、<a href="#OnKeyDown">OnKeyDown</a>、<a href="#KeyOpt">KeyOptと組み合わせて</a>使用すると便利です。 <em><a href="#EndKeys">EndKeys</a></em>.</p>
-    <p id="option-m"><strong>M</strong>:<kbd>Ctrl</kbd>+<kbd>A</kbd> から<kbd>Ctrl</kbd>+<kbd>Z</kbd>のような修飾されたキー操作は、実際のASCII文字に対応する場合に認識され、転写されます。<kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
+    <p id="option-m"><strong>M:</strong> Modified keystrokes such as <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are recognized and transcribed if they correspond to real ASCII characters. <kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
     <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納</em>します。
 ih := InputHook("L1 M")
 ih.Start()
 ih.Wait()
 if (ih.Input = CtrlC)
     MsgBox "You pressed Control-C."</pre>
-    <p class="note"><strong>注意</strong>：<kbd>Ctrl</kbd>+<kbd>A</kbd>から<kbd>Ctrl</kbd>+<kbd>Z</kbd>は、<a href="Chr.htm">Chr(1)</a> から <a href="Chr.htm">Chr(26)</a>に対応しています。また、<strong>M</strong>オプションを使用すると、入力中に<kbd>Ctrl</kbd>+<kbd>←</kbd>などの一部のキーボードショートカットが誤動作する場合があります。</p>
-    <p id="option-t"><strong>T</strong>:<a href="#Timeout">タイムアウト</a>を設定します（例：<code>T3</code>または<code>T2.5</code>）。</p>
-    <p id="vis"><strong>V</strong>:<a href="#VisibleText">VisibleText</a>、<a href="#VisibleNonText">VisibleNonText</a>をtrueに設定します。通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
-    <p id="asterisk"><strong>*</strong>:Wildcard. <a href="#FindAnywhere">FindAnywhere</a>をtrueに設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
-    <p id="E"><strong>E</strong>:一文字の終了キーをキーコードではなく、文字コードで扱います。これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。また、与えられた終了文字を実際に生成しないキーの組み合わせが入力を終了するのを防ぎます。例えば、<code>@</code>が終了キーである場合、USレイアウトでは<kbd>Shift</kbd>+<kbd>2</kbd>が、それをトリガーしますが <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd>はそうではありません（Eオプションが使用されている場合）。<strong>C</strong>オプションも使用した場合、終了文字の大文字と小文字は区別されます。</p>
+    <p class="note"><strong>Note:</strong> The characters <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> correspond to <a href="Chr.htm">Chr(1)</a> through <a href="Chr.htm">Chr(26)</a>. Also, the M option might cause some keyboard shortcuts such as <kbd>Ctrl</kbd>+<kbd>←</kbd> to misbehave while an Input is in progress.</p>
+    <p id="option-t"><strong>T:</strong> Sets <a href="#Timeout">Timeout</a> (e.g. <code>T3</code> or <code class="no-highlight">T2.5</code>).</p>
+    <p id="vis"><strong>V:</strong> Sets <a href="#VisibleText">VisibleText</a> and <a href="#VisibleNonText">VisibleNonText</a> to true. 通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
+    <p id="asterisk"><strong>*:</strong> Wildcard. <a href="#FindAnywhere">FindAnywhere</a>をtrueに設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
+    <p id="E"><strong>E:</strong> Handle single-character end keys by character code instead of by keycode. これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。It also prevents key combinations which don't actually produce the given end characters from ending input; for example, if @ is an end key, on the US layout <kbd>Shift</kbd>+<kbd>2</kbd> will trigger it but <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd> will not (if the E option is used). If the C option is also used, the end character is case-sensitive.</p>
   </dd>
 
   <dt id="EndKeys">EndKeys</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>0個以上のキーのリストで、どれかが押されると入力が終了します（終了キー自体は入力バッファに書き込まれません）。この方法でInputを終了させると、EndReasonにEndKeyという単語が設定され、<a href="#EndKey">EndKey</a>プロパティにキーの名前が設定されます。</p>
-    <p><em>EndKeys</em>リストは、<a href="Send.htm">Send</a>関数と同様の形式を使用します。例えば、<code>{Enter}.{Esc}</code>と指定すると、<kbd>Enter</kbd>、<kbd>.</kbd>、<kbd>Esc</kbd>のいずれかが入力を終了させることになる。中括弧そのものを終了キーとして使用する場合は、<code>{{}</code>と <code>{}}</code>を指定します。</p>
-    <p><kbd>Ctrl</kbd>、<kbd>Alt</kbd>、<kbd>Shift</kbd>をエンドキーとして使用する場合は、ニュートラルキーではなく、左または右のバージョンを指定してください。例えば、<code>{Control}</code>ではなく、<code>{LControl}{RControl}</code>を指定します。</p>
-    <p><kbd>Alt</kbd>+<kbd>C</kbd>（！c）のような修飾キーはサポートされていませんが、デフォルトで<code>?!:@&amp;{}の</code>ような非英数字文字は、通常の文字の入力方法に応じて、Shiftキーを押すか押さないかを決定します。<strong>E</strong>オプションがある場合、1文字のキー名は代わりに文字として解釈され、その場合、修飾キーがその文字を生成するために正しい状態でなければなりません。<strong>E</strong>オプションと<strong>M</strong>オプションの両方を使用する場合、<em>EndKey</em>に対応するASCII制御文字を含めることで、<kbd>Ctrl</kbd>+<kbd>A</kbd> から <kbd>Ctrl</kbd>+<kbd>Z</kbd>をサポートします。</p>
-    <p><code>vkFF}や</code> <code>{sc001}の</code>ような明示的なキーコードを指定することも可能です。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。その仮想キーコードは、<a href="../KeyList.htm#SpecialKeys">キーリストのページ</a>下部の手順で決定することができます。</p>
+    <p><em>EndKeys</em> uses a format similar to the <a href="Send.htm">Send</a> function. 例えば、<code>{Enter}.{Esc}</code>と指定すると、<kbd>Enter</kbd>、<kbd>.</kbd>、<kbd>Esc</kbd>のいずれかが入力を終了させることになる。中括弧そのものを終了キーとして使用する場合は、<code>{{}</code>と <code>{}}</code>を指定します。</p>
+    <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end keys, specify the left and/or right version of the key, not the neutral version. 例えば、<code>{Control}</code>ではなく、<code>{LControl}{RControl}</code>を指定します。</p>
+    <p>Although modified keys such as <kbd>Alt</kbd>+<kbd>C</kbd> (!c) are not supported, non-alphanumeric characters such as <code>?!:@&amp;{}</code> by default require <kbd>Shift</kbd> or <kbd>AltGr</kbd> to be pressed or not pressed depending on how the character is normally typed. If the E option is present, single character key names are interpreted as characters instead, and in those cases the modifier keys must be in the correct state to produce that character. When the E and M options are both used, <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are supported by including the corresponding ASCII control characters in <em>EndKeys</em>.</p>
+    <p><code>vkFF}や</code> <code>{sc001}の</code>ような明示的なキーコードを指定することも可能です。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。Its key code can be determined by following the steps at the bottom of the <a href="../KeyList.htm#SpecialKeys">key list page</a>.</p>
   </dd>
 
   <dt id="MatchList">MatchList</dt>
@@ -80,25 +80,25 @@ if (ih.Input = CtrlC)
   </li>
   <li><a href="#General_Properties">General Properties</a>:
     <ul>
-      <li><a href="#EndKey">EndKey</a>:Input を終了させるために押された<a href="#EndKeys">終了キー</a>の名前を返します。</li>
+      <li><a href="#EndKey">EndKey</a>: Returns the name of the end key which was pressed to terminate the Input.</li>
       <li><a href="#EndMods">EndMods</a>:Input終了時に論理的にダウンしていたモディファイアの文字列を返します。</li>
-      <li><a href="#EndReason">EndReason</a>:Input がどのように終了したかを示す<a href="#EndReasons">EndReason の文字列</a>を返す。</li>
-      <li><a href="#InProgress">InProgress</a>:入力中の場合はtrueを、それ以外の場合はfalseを返します。</li>
+      <li><a href="#EndReason">EndReason</a>: Returns an EndReason string indicating how Input was terminated.</li>
+      <li><a href="#InProgress">InProgress</a>: Returns 1 (true) if the Input is in progress, otherwise 0 (false).</li>
       <li><a href="#Input">Input</a>:前回Inputを起動してから収集したテキストを返します。</li>
       <li><a href="#Match">Match</a>:Inputを終了させた<em>MatchList</em>の項目を返します。</li>
-      <li><a href="#OnEnd">OnEnd</a>:Input終了時に呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</li>
-      <li><a href="#OnChar">OnChar</a>:入力バッファに文字が追加された後に呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</li>
-      <li><a href="#OnKeyDown">OnKeyDown</a>:通知可能なキーが押されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</li>
-      <li><a href="#OnKeyUp">OnKeyUp</a>:通知可能なキーがリリースされたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</li>
+      <li><a href="#OnEnd">OnEnd</a>: Retrieves or sets the function object which is called when Input is terminated.</li>
+      <li><a href="#OnChar">OnChar</a>: Retrieves or sets the function object which is called after a character is added to the input buffer.</li>
+      <li><a href="#OnKeyDown">OnKeyDown</a>: Retrieves or sets the function object which is called when a notification-enabled key is pressed.</li>
+      <li><a href="#OnKeyUp">OnKeyUp</a>: Retrieves or sets the function object which is called when a notification-enabled key is released.</li>
     </ul>
   </li>
   <li><a href="#Option_Properties">Option Properties</a>:
     <ul>
-      <li><a href="#BackspaceIsUndo">BackspaceIsUndo</a>:<kbd>Backspace</kbd>が、最近押された文字をInputバッファの最後から削除するかどうかを制御します。</li>
+      <li><a href="#BackspaceIsUndo">BackspaceIsUndo</a>: Controls whether the Backspace key removes the most recently pressed character from the end of the Input buffer.</li>
       <li><a href="#CaseSensitive">CaseSensitive</a>:<em>MatchList</em>が大文字と小文字を区別するかどうかを制御します。</li>
       <li><a href="#FindAnywhere">FindAnywhere</a>:各マッチが入力テキストの部分文字列となり得るかどうかを制御します。</li>
-      <li><a href="#MinSendLevel">MinSendLevel</a>:収集する入力の最小<a href="SendLevel.htm">送信</a>レベルを取得または設定します。</li>
-      <li><a href="#NotifyNonText">NotifyNonText</a>:テキスト以外のキーが押されたときに、<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックを呼び出すかどうかを制御します。</li>
+      <li><a href="#MinSendLevel">MinSendLevel</a>: Retrieves or sets the minimum send level of input to collect.</li>
+      <li><a href="#NotifyNonText">NotifyNonText</a>: Controls whether the OnKeyDown and OnKeyUp callbacks are called whenever a non-text key is pressed.</li>
       <li><a href="#Timeout">Timeout</a>:タイムアウト値を秒単位で取得または設定します。</li>
       <li><a href="#VisibleNonText">VisibleNonText</a>:テキストを生成しないキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</li>
       <li><a href="#VisibleText">VisibleText</a>:テキストを生成するキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</li>
@@ -122,11 +122,11 @@ if (ih.Input = CtrlC)
   <p>以下の1文字オプションのうち1つ以上（スペースとタブは無視されます）。</p>
   <p id="KeyOpt-minus"><strong>-</strong> (minus):<code>-</code>に続くオプションのうち、次の<code>+</code>まで削除します。</p>
   <p id="KeyOpt-plus"><strong>+</strong> (plus):それ以外の場合は、何の効果もなく、以前の<code>-</code>をキャンセルします。</p>
-  <p id="KeyOpt-e"><strong>E</strong>:End key. 有効な場合、キーを押すとInputが終了し、<a href="#EndReason">EndReason</a>にEndKeyという単語が、<a href="#EndKey">EndKey</a>プロパティにキーの正規化された名前が設定されます。<em>EndKeys</em>パラメータとは異なり、Shiftキーの状態は無視されます。例えば、<code>@</code>と <code>2</code>はどちらもUSキーボードレイアウトの<code>{vk32}</code>と同等です。</p>
-  <p id="KeyOpt-i"><strong>I</strong>:テキストの無視。このキーによって通常生成されるテキストはすべて無視され、キーは非テキストキーとして扱われる（<a href="#VisibleNonText">VisibleNonText</a>参照）。そのキーが通常テキストを生成しない場合、効果はありません。</p>
-  <p id="KeyOpt-n"><strong>N</strong>:Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにします。</p>
-  <p id="KeyOpt-s"><strong>S</strong>:キーを処理した後、サプレス（ブロック）します。<code>S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味します。</p>
-  <p id="KeyOpt-v"><strong>V</strong>:Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味します。</p>
+  <p id="KeyOpt-e"><strong>E:</strong> End key. 有効な場合、キーを押すとInputが終了し、<a href="#EndReason">EndReason</a>にEndKeyという単語が、<a href="#EndKey">EndKey</a>プロパティにキーの正規化された名前が設定されます。Unlike the <em>EndKeys</em> parameter, the state of <kbd>Shift</kbd> or <kbd>AltGr</kbd> is ignored. For example, <code>@</code> and <code class="no-highlight">2</code> are both equivalent to <code>{vk32}</code> on the US keyboard layout.</p>
+  <p id="KeyOpt-i"><strong>I:</strong> Ignore text. このキーによって通常生成されるテキストはすべて無視され、キーは非テキストキーとして扱われる（<a href="#VisibleNonText">VisibleNonText</a>参照）。そのキーが通常テキストを生成しない場合、効果はありません。</p>
+  <p id="KeyOpt-n"><strong>N:</strong> Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにします。</p>
+  <p id="KeyOpt-s"><strong>S:</strong> Suppresses (blocks) the key after processing it. <code>S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味します。</p>
+  <p id="KeyOpt-v"><strong>V:</strong> Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味します。</p>
   </dd>
 </dl>
 <p id="KeyOpt-remarks">オプションは、仮想キーコードとスキャンコードの両方で設定でき、累積されます。</p>
@@ -189,7 +189,7 @@ if (ih.Input = CtrlC)
 </div>
 
 <div class="methodShort" id="InProgress"><h3>InProgress</h3>
-<p>入力中の場合はtrueを、それ以外の場合はfalseを返します。</p>
+<p>Returns 1 (true) if the Input is in progress, otherwise 0 (false).</p>
 <pre class="Syntax">Boolean := InputHook.InProgress</pre>
 </div>
 
@@ -202,7 +202,7 @@ if (ih.Input = CtrlC)
 <div class="methodShort" id="Match"><h3>Match</h3>
 <p><em><a href="#MatchList">マッチリスト</a></em>入力終了の原因となった項目を返します。 </p>
 <pre class="Syntax">String := InputHook.Match</pre>
-<p><strong>C</strong>オプションが省略された場合、ユーザーが入力したものと異なる場合がありますが、マッチした項目を元のケースで返します。<a href="#EndReason">EndReason</a>が "Match"でない場合は、空文字列を返します。</p>
+<p>Returns the matched item with its original case, which may differ from what the user typed if the C option was omitted. Returns an empty string if <a href="#EndReason">EndReason</a> is not "Match".</p>
 </div>
 
 <div class="methodShort" id="OnEnd"><h3>OnEnd</h3>
@@ -250,7 +250,7 @@ if (ih.Input = CtrlC)
 <p><kbd>Backspace</kbd>が、最近押された文字をInputバッファの最後から削除するかどうかを制御します。</p>
 <pre class="Syntax">Boolean := InputHook.BackspaceIsUndo</pre>
 <pre class="Syntax">InputHook.BackspaceIsUndo := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. オプション<strong>B</strong>は、値をfalseにします。</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. Option B sets the value to false.</p>
 <p><kbd>Backspace</kbd>がアンドゥとして機能する場合、テキスト入力キーとして扱われます。具体的には、キーが抑制されるかどうかは、<a href="#VisibleNonText">VisibleNonText</a>ではなく、<a href="#VisibleText">VisibleText</a>に依存します。</p>
 <p><kbd>Backspace</kbd>は、<kbd>Ctrl</kbd>などの修飾キーと組み合わせて押された場合、常に無視されます（物理的な状態ではなく、論理的な修飾の状態がチェックされます）。</p>
 <p class="warning"><strong>注：</strong>入力テキストが表示されていて（エディターなど）、その中を矢印キーなどで移動する場合、<kbd>Backspace</kbd>はキャレット（挿入点）の後ろの文字ではなく、やはり最後の文字を削除します。</p>
@@ -260,14 +260,14 @@ if (ih.Input = CtrlC)
 <p><em>MatchList</em>が大文字と小文字を区別するかどうかを制御します。</p>
 <pre class="Syntax">Boolean := InputHook.CaseSensitive</pre>
 <pre class="Syntax">InputHook.CaseSensitive := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. オプション<strong>C</strong>は、値をtrueにします。</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option C sets the value to true.</p>
 </div>
 
 <div class="methodShort" id="FindAnywhere"><h3>FindAnywhere</h3>
 <p>各マッチが入力テキストの部分文字列となり得るかどうかを制御します。</p>
 <pre class="Syntax">Boolean := InputHook.FindAnywhere</pre>
 <pre class="Syntax">InputHook.FindAnywhere := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option<strong>*</strong>は、値をtrueに設定します。</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option * sets the value to true.</p>
 <p>trueの場合、ユーザーが入力した文字列の範囲内であればどこでもマッチします（マッチするのは入力テキストの部分文字列でもかまいません）。Falseの場合、ユーザーが入力した内容全体が、<em>MatchList</em>のフレーズのいずれかに一致しなければならない。いずれの場合も、<em>MatchList</em>のフレーズのうち1つは全文入力する必要があります。</p>
 </div>
 
@@ -275,7 +275,7 @@ if (ih.Input = CtrlC)
 <p>収集する入力の最小<a href="SendLevel.htm">送信</a>レベルを取得または設定します。</p>
 <pre class="Syntax">Level := InputHook.MinSendLevel</pre>
 <pre class="Syntax">InputHook.MinSendLevel := Level</pre>
-<p>型：<a href="../Concepts.htm#numbers">整数</a>既定値：0. オプション<strong>I</strong>では、1（または所定の値）に設定されます。</p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a>既定値：0. Option I sets the value to 1 (or a given value).</p>
 <p><em>Level</em>は 0～101 の整数を指定します。この値より<em>低い</em>送信レベルを持つイベントは無視されます。例えば、101を指定すると<a href="Send.htm">SendEvent</a>で生成されたすべての入力が無視され、1を指定するとデフォルトの送信レベル（0）の入力のみが無視されます。</p>
 <p><a href="Send.htm#SendInput">SendInput</a>および<a href="Send.htm#SendPlay">SendPlay</a>メソッドは、この設定にかかわらず、常に無視されます。AutoHotkey以外のソースで生成された入力は、この設定の結果、決して無視されることはありません。</p>
 </div>
@@ -294,7 +294,7 @@ if (ih.Input = CtrlC)
 <p>タイムアウト値を秒単位で取得または設定します。</p>
 <pre class="Syntax">Seconds := InputHook.Timeout</pre>
 <pre class="Syntax">InputHook.Timeout := Seconds</pre>
-<p>型：<a href="../Concepts.htm#numbers">浮動小数点数</a>既定値：0.0 (none). オプション<strong>T</strong>では、タイムアウト値も設定します。</p>
+<p>型：<a href="../Concepts.htm#numbers">浮動小数点数</a>既定値：0.0 (none). Option T also sets the timeout value.</p>
 <p>通常、タイムアウトは<a href="#Start">Start</a>が呼ばれた時点で開始されるが、Inputの実行中に本プロパティに値が代入された場合は、再開されます。タイムアウト時間が経過しても入力が継続している場合は、入力は終了し、<a href="#EndReason">EndReason</a>に Timeout という単語が設定されます。</p>
 </div>
 
@@ -302,7 +302,7 @@ if (ih.Input = CtrlC)
 <p>テキストを生成しないキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</p>
 <pre class="Syntax">Boolean := InputHook.VisibleNonText</pre>
 <pre class="Syntax">InputHook.VisibleNonText := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. オプション<strong>V</strong>では、trueに設定されます。</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. Option V sets the value to true.</p>
 <p>trueの場合、テキストを生成しないキーやキーの組み合わせは、ホットキーのトリガーになったり、アクティブウィンドウに渡されたりすることがあります。false の場合、ブロックされます。</p>
 <p>どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</p>
 </div>
@@ -311,12 +311,12 @@ if (ih.Input = CtrlC)
 <p>テキストを生成するキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</p>
 <pre class="Syntax">Boolean := InputHook.VisibleText</pre>
 <pre class="Syntax">InputHook.VisibleText := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. オプション<strong>V</strong>では、trueに設定されます。</p>
+<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option V sets the value to true.</p>
 <p>trueの場合、テキストを生成するキーとキーの組み合わせは、ホットキーをトリガーしたり、アクティブウィンドウに渡されることがあります。false の場合、ブロックされます。</p>
-<p>入力バッファにテキストが追加されるようなキー操作は、他のアプリケーションでは通常そうでなくても、テキストを生成したものとしてカウントされます。例えば、<kbd>Ctrl</kbd>+<kbd>A</kbd>は<a href="#option-m"><strong>M</strong></a>オプションを使用した場合、テキストを生成し、<kbd>Esc</kbd>は制御文字<code>Chr(27)</code>を生成します。</p>
+<p>入力バッファにテキストが追加されるようなキー操作は、他のアプリケーションでは通常そうでなくても、テキストを生成したものとしてカウントされます。For instance, <kbd>Ctrl</kbd>+<kbd>A</kbd> produces text if the <a href="#option-m">M option</a> is used, and <kbd>Esc</kbd> produces the control character <code>Chr(27)</code>.</p>
 <p>デッドキーは、通常、即効性はありませんが、テキストを生成するものとしてカウントされます。デッドキーを押すと、次のキーでも文字が出るかもしれません（デッドキーの文字だけなら）。</p>
 <p><kbd>Backspace</kbd>、<a href="#BackspaceIsUndo">アンドゥとして機能</a>する場合のみ、テキストを生成するものとしてカウントされます。</p>
-<p><a href="../KeyList.htm#modifier">標準の修飾キー</a>とCapsLock、NumLock、ScrollLockは常に表示されます（ブロックされません）。</p>
+<p>The <a href="../KeyList.htm#modifier">standard modifier keys</a> and <kbd>CapsLock</kbd>, <kbd>NumLock</kbd> and <kbd>ScrollLock</kbd> are always visible (not blocked).</p>
 </div>
 
 <h2 id="EndReasons">EndReason</h2>
@@ -362,13 +362,13 @@ if (ih.Input = CtrlC)
 <ul>
   <li>このVKまたはSCに対して<a href="#KeyOpt-v">Vオプション</a>が有効な場合、抑制されません。</li>
   <li>このVKまたはSCに対して<a href="#KeyOpt-s">Sオプション</a>が有効である場合は、抑制されます。</li>
-  <li>キーが<a href="../KeyList.htm#modifier">標準の修飾キー</a>、またはCapsLock、NumLock、ScrollLockの場合は、抑制されません。</li>
+  <li>If the key is a <a href="../KeyList.htm#modifier">standard modifier key</a> or <kbd>CapsLock</kbd>, <kbd>NumLock</kbd> or <kbd>ScrollLock</kbd>, it is not suppressed.</li>
   <li>キーがテキストを生成するかどうかに応じて、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>が参照されます。プロパティが false の場合、キーは抑制されます。どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</li>
 </ul>
 <p><a href="InstallKeybdHook.htm">キーボードフック</a>は、入力中は必要ですが、入力終了時に不要になれば自動的にアンインストールされます。</p>
 <p>このスクリプトは、入力が進行している間は<a href="../Scripts.htm#persistent">自動的に永続化</a>されるため、実行中の<a href="../misc/Threads.htm">スレッド</a>がない場合でも入力の監視を継続します。入力が終了すると、スクリプトは自動的に終了することがあります（実行中のスレッドがなく、他の理由でスクリプトが永続的でない場合）。</p>
 <p>AutoHotkeyは、Input Method Editors（IME）をサポートしていません。キーボードフックは、キーボードイベントを受信し、<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tounicodeex">ToUnicodeEx</a>またはToAsciiExを使用してテキストに変換します（1文字をカプセル化する<a href="https://learn.microsoft.com/windows/win32/inputdev/virtual-key-codes#vk_packet">VK_PACKET</a>イベントの場合を除きます）。</p>
-<p>複数の言語やキーボードレイアウトを使用している場合、Inputはスクリプトのキーボードレイアウトではなく、アクティブウィンドウのキーボードレイアウトを使用します（Inputが<a href="#vis">表示</a>されているかどうかは関係ありません）。</p>
+<p>If you use multiple languages or keyboard layouts, InputHook uses the keyboard layout of the active window rather than the script's (regardless of whether the Input is <a href="#vis">visible</a>).</p>
 <p>柔軟性には欠けるが、一般的に<a href="../Hotstrings.htm">ホットストリング</a>は使いやすいです。</p>
 
 <h2 id="comparison">InputHookとInputの比較(v1)</h2>
@@ -481,6 +481,46 @@ SacKeyDown(ih, vk, sc)
         Send "{Text}" Suffix
 }
 </pre>
+</div>
+<div class="ex" id="ExAnyKey">
+<p><a class="ex_number" href="#ExAnyKey"></a> Waits for the user to press any key. Keys that produce no visible character -- such as the modifier keys, function keys, and arrow keys -- are listed as end keys so that they will be detected too.</p>
+<pre>ih := InputHook("L1", "{LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}")
+ih.Start()
+ih.Wait()</pre>
+</div>
+<div class="ex" id="ExHotkey">
+<p><a class="ex_number" href="#ExHotkey"></a> This is a working hotkey example. Since the hotkey has the tilde (~) prefix, its own keystroke will pass through to the active window. Thus, if you type <code>[btw</code> (or one of the other match phrases) in any editor, the script will automatically perform an action of your choice (such as replacing the typed text). For an alternative version of this example, see <a href="Switch.htm#ExInput">Switch</a>.</p>
+<pre>~[::
+{
+    msg := ""
+    ih := InputHook("V T5 L4 C", "{enter}.{esc}{tab}", "btw,otoh,fl,ahk,ca")
+    ih.Start()
+    ih.Wait()
+    if (ih.EndReason = "Max")
+        msg := 'You entered "{1}", which is the maximum length of text.'
+    else if (ih.EndReason = "Timeout")
+        msg := 'You entered "{1}" at which time the input timed out.'
+    else if (ih.EndReason = "EndKey")
+        msg := 'You entered "{1}" and terminated the input with {2}.'
+
+if msg  <em>; If an EndReason was found, skip the rest below.</em>
+    {
+        MsgBox Format(msg, ih.Input, ih.EndKey)
+        return
+    }
+
+<em>; Otherwise, a match was found.</em>
+    if (ih.Input = "btw")
+        Send("{backspace 4}by the way")
+    else if (ih.Input = "otoh")
+        Send("{backspace 5}on the other hand")
+    else if (ih.Input = "fl")
+        Send("{backspace 3}Florida")
+    else if (ih.Input = "ca")
+        Send("{backspace 3}California")
+    else if (ih.Input = "ahk")
+        Run("https://www.autohotkey.com")
+}</pre>
 </div>
 
 </body>

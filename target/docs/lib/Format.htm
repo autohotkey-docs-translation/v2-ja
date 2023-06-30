@@ -47,9 +47,9 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
 <h2 id="FormatSpec">フォーマット指定子</h2>
 <p>各フォーマット指定子は、以下の構成要素をこの順序で含むことができる（空白は除く）：</p>
 <pre class="Syntax">フラグ幅 .精度 ULTタイプ</pre>
-<p><strong>フラグ</strong>：以下の<a href="#Flags">フラグテーブル</a>から0個以上のフラグを指定し、出力の正当化および接頭辞に影響を与える。</p>
-<p><strong>Width</strong>:フォーマットされた値の最小幅を制御する10進数の整数（文字数）。デフォルトでは、値は右寄せになり、パディングにはスペースが使用されます。これは、<code>-</code>（左寄せ）および<code class="no-highlight">0</code>（ゼロプレフィックス）フラグを使用することで上書きすることができます。</p>
-<p><strong>.Precision</strong>:出力タイプに応じて、出力する文字列の最大文字数、小数点以下の桁数、または有効桁数を制御する10進数の整数です。その前に必ず小数点が付きます。精度を指定すると、値が切り捨てられたり、丸められたりすることがあります。出力の種類と精度値によるそれぞれの影響は以下の通りです（出力の種類についての説明は下表を参照）：</p>
+<p><strong>Flags:</strong> Zero or more flags from the <a href="#Flags">flag table</a> below to affect output justification and prefixes.</p>
+<p><strong>Width:</strong> A decimal integer which controls the minimum width of the formatted value, in characters. デフォルトでは、値は右寄せになり、パディングにはスペースが使用されます。これは、<code>-</code>（左寄せ）および<code class="no-highlight">0</code>（ゼロプレフィックス）フラグを使用することで上書きすることができます。</p>
+<p><strong>.Precision:</strong> A decimal integer which controls the maximum number of string characters, decimal places, or significant digits to output, depending on the output type. その前に必ず小数点が付きます。精度を指定すると、値が切り捨てられたり、丸められたりすることがあります。出力の種類と精度値によるそれぞれの影響は以下の通りです（出力の種類についての説明は下表を参照）：</p>
 <ul>
   <li><code>f</code>, <code>e</code>, <code>E</code>:<em>Precision</em>は、小数点以下の桁数を指定します。デフォルトは6です。</li>
   <li><code>g</code>, <code>G</code>:<em>Precision</em>は、最大有効桁数を指定します。デフォルトは6です。</li>
@@ -57,7 +57,7 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
   <li>整数型（<code>d</code>、<code>i</code>、<code>u</code>、<code>x</code>、<code>X</code>、<code>o</code>）の場合、<em>Precision</em>は <em>Width</em>のように接頭辞<code class="no-highlight">0</code>、デフォルト1として動作します。</li>
 </ul>
 <p id="ULT"><b>ULT</b>:文字列の値に適用する大文字と小文字の変換を指定する --<b>U</b>pper、<b>L</b>ower、<b>T</b>itle。<code>s</code>タイプのみ有効です。例えば<code>{:U}</code>や <code>{:.20Ts}</code>のようなものです。小文字の<code>l</code>と <code>t</code>もサポートされているが、<code>u</code>は符号なし整数用に予約されている。</p>
-<p><strong>Type</strong>:入力値がどのように解釈されるべきかを示す、以下の<a href="#Types">タイプテーブル</a>からの文字。省略された場合、デフォルトは<code>s</code>です。</p>
+<p><strong>Type:</strong> A character from the <a href="#Types">type table</a> below indicating how the input value should be interpreted. 省略された場合、デフォルトは<code>s</code>です。</p>
 
 <h2 id="Flags">Flags</h2>
 <table class="info">
@@ -84,9 +84,9 @@ MsgBox Format("{2:x}{1:02x}", arr*)</pre>
     </td>
   </tr>
   <tr>
-    <td><code>&nbsp;</code></td>
+    <td><code> </code></td>
     <td>
-      <p>出力値が符号付きで正数である場合、スペースを<em>1つ</em>使って前置します。<code> </code>と<code>+</code>フラグの両方が表示されている場合、スペースは無視されます。例えば、<code>Format("{: 05d}", 1)</code>は<code class="no-highlight" style="white-space: pre"> 0001</code>を返します。</p>
+      <p>出力値が符号付きで正数である場合、スペースを<em>1つ</em>使って前置します。The space is ignored if both <code> </code> and <code>+</code> flags appear. For example, <code>Format("{:05d}", 1)</code> returns <code class="no-highlight"> 0001</code>.</p>
       <p>省略した場合は、スペースが表示されません。</p>
     </td>
   </tr>

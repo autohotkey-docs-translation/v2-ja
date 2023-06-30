@@ -64,7 +64,7 @@
   <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。ここで、123は<em>MyVar</em>が保持しなければならない16ビット単位（緩やかに文字と呼ばれる）の数である、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(MyVar, 123)</code>を呼び出すことで実現できる。戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
   <p><em>Str</em>引数は、数値（<code>i+1</code>など）に評価される<a href="../Variables.htm#Expressions">式</a>であってはならない。もしそうであれば、関数は呼び出されず、<a href="Error.htm#TypeError">TypeError</a>が投げられる。</p>
   <p id="strp">めったに使われない<a href="#asterisk">Str*</a>arg型は、文字列のアドレスを含む一時変数のアドレスを渡します。関数が一時変数に新しいアドレスを書き込むと、<a href="../Concepts.htm#variable-references">VarRef</a>が渡された場合、新しい文字列はスクリプトの変数にコピーされます。これは、"TCHAR **"や "LPTSTR *"のようなものを期待する関数で使用することができます。しかし、関数がメモリを確保し、呼び出し側がそれを解放することを期待する場合（<a href="https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>を呼び出すなど）、代わりに<code>Ptr*</code>arg型を使用する必要があります。</p>
-  <p class="note"><strong>注意</strong>：関数に文字列を渡すときは、その関数がどの<a href="../Compat.htm#DllCall"><i>型</i></a>の<a href="../Compat.htm#DllCall">文字列</a>を期待しているかを意識してください。</p></td>
+  <p class="note"><strong>Note:</strong> When passing a string to a function, be aware what <a href="../Compat.htm#DllCall"><i>type</i> of string</a> the function expects.</p></td>
 </tr>
 <tr>
   <td><span id="wstr"></span>WStr</td>
@@ -115,14 +115,14 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
   <p>Ptr*パラメータにオブジェクトが渡された場合、呼び出し前にオブジェクトの<code>Ptr</code>プロパティの値が取得され、この値を含む一時変数のアドレスが関数に渡されます。関数が戻った後、新しい値はオブジェクトの<code>Ptr</code>プロパティに再び割り当てられます。</p>
   <p><i>Ptr</i>は接尾辞に*やPを付けて使うこともできます。LPVOID*などを使ってポインタを出力する関数と一緒に使う必要があります。</p>
   <p><i>UPtr</i>も有効ですが、AutoHotkeyは符号なし64ビット整数をサポートしていないため、32ビットビルドでは符号なしのみです。</p>
-  <p class="note"><strong>注意</strong>：<strong>NULL</strong>ハンドルまたはポインタを渡す場合は、整数0を渡します。</p></td>
+  <p class="note"><strong>Note:</strong> To pass a <strong>NULL</strong> handle or pointer, pass the integer 0.</p></td>
 </tr>
 <tr id="asterisk">
   <td>* or P<br>
     (suffix)</td>
   <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
     <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタです。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用します。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
-    <p class="note"><strong>注意</strong>："Char*"は<a href="#str">"Str"</a>と同じではありません。"Char*"は8ビット数値のアドレスを渡すのに対し、<a href="#str">"Str"</a>は一連の文字のアドレスを渡しますが、これはAutoHotkeyのバージョンによって16ビット（ユニコード）または8ビット（"AStr"の場合）であることがあります。同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
+    <p class="note"><strong>Note:</strong> "Char*" is not the same as <a href="#str">"Str"</a> because "Char*" passes the address of an 8-bit number, whereas <a href="#str">"Str"</a> passes the address of a series of characters, which may be either 16-bit (Unicode) or 8-bit (for "AStr"), depending on the version of AutoHotkey. 同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
     <p>AutoHotkeyの変数には固定型がないため、関数に渡されるアドレスは、呼び出し元の変数ではなく、一時メモリを指しています。</p>
     </td>
 </tr>
@@ -197,7 +197,7 @@ result := DllCall("CharLower", "<strong><u>Str</u></strong>", DllCall("CharUpper
 
 <h2 id="dotnet">.NET Framework</h2>
 <p>.NET Frameworkのライブラリは、Common Language Runtime（CLR）と呼ばれる「仮想マシン」によって実行されます。そのため、.NET DLLファイルは通常のDLLファイルとは異なるフォーマットになっており、一般的にDllCallが呼び出せるような関数は含まれていません。</p>
-<p>しかし、AutoHotkeyは、<a href="https://learn.microsoft.com/dotnet/standard/native-interop/com-callable-wrapper">COM呼び出し可能なラッパー</a>を通してCLRを利用することができます。ライブラリが一般的なCOMコンポーネントとしても登録されていない限り、まずCLR自体をDllCallで手動で初期化する必要があります。詳しくは、<a href="https://www.autohotkey.com/forum/topic26191.html">.NET Framework Interop</a>（現在DllCallを利用しており、AutoHotkey v2とは互換性がありません）をご覧ください。</p>
+<p>しかし、AutoHotkeyは、<a href="https://learn.microsoft.com/dotnet/standard/native-interop/com-callable-wrapper">COM呼び出し可能なラッパー</a>を通してCLRを利用することができます。ライブラリが一般的なCOMコンポーネントとしても登録されていない限り、まずCLR自体をDllCallで手動で初期化する必要があります。For details, see <a href="https://www.autohotkey.com/boards/viewtopic.php?t=4633">.NET Framework Interop</a>.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Compat.htm#DllCall">Binary Compatibility</a>, <a href="Buffer.htm">Buffer object</a>, <a href="ComCall.htm">ComCall</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="Run.htm">Run</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>, <a href="../Functions.htm">Functions</a>, <a href="SysGet.htm">SysGet</a>, <a href="_DllLoad.htm">#DllLoad</a>, <a href="https://learn.microsoft.com/windows/win32/apiindex/windows-api-list">Windows API Index</a></p>
@@ -233,7 +233,7 @@ MsgBox Format("{:010}", 432)
 </div>
 
 <div class="ex" id="ExQPC">
-<p><a class="ex_number" href="#ExQPC"></a> <a href="../Variables.htm#TickCount">A_TickCount</a>の10msより精度の高いQueryPerformanceCounter()のデモを行います。</p>
+<p><a class="ex_number" href="#ExQPC"></a> Demonstrates QueryPerformanceCounter(), which gives more precision than <a href="../Variables.htm#TickCount">A_TickCount</a>'s 10&nbsp;ms.</p>
 <pre>DllCall("QueryPerformanceFrequency", "Int64*", &amp;freq := 0)
 DllCall("QueryPerformanceCounter", "Int64*", &amp;CounterBefore := 0)
 Sleep 1000

@@ -38,7 +38,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>既存の <a href="_HotIf.htm">#HotIf</a> 式に条件を設定します。<em>Expression</em>は、通常、<a href="../Language.htm#strings">引用符で囲まれた文字列</a>として記述されますが、#HotIf式にマッチするテキストを返す変数や式にすることもできます。この機能では、新しい式を作成することはできませんが、既存の式を利用して新しいホットキーを作成することができます。<a href="_HotIf.htm#ExDynamic">#HotIf の例5</a>を参照してください。</p>
-    <p class="note"><strong>注意</strong>：HotIf関数は、元のソースコードではなく、渡した文字列を使用します。<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>はスクリプトのロード時に解決されるため、結果の文字のみが考慮されます。例えば、<code>HotIf 'x = "`t"'</code>と<code>HotIf 'x = "' A_Tab '"</code>はどちらも<code>#HotIf x = "`t"</code>に相当します。</p>
+    <p class="note"><strong>Note:</strong> The HotIf function uses the string that you pass to it, not the original source code. <a href="../misc/EscapeChar.htm">エスケープシーケンス</a>はスクリプトのロード時に解決されるため、結果の文字のみが考慮されます。例えば、<code>HotIf 'x = "`t"'</code>と<code>HotIf 'x = "' A_Tab '"</code>はどちらも<code>#HotIf x = "`t"</code>に相当します。</p>
   </dd>
   
   <dt id="if-func">機能</dt>
@@ -85,7 +85,7 @@ Hotkey "^!e", MyFuncForNotepad  <em>; メモ帳でのみ動作するホットキ
 <p>HotIfを使用すると、現在の<a href="../misc/Threads.htm">スレッド</a>でその後に作成されるすべての<a href="../Hotkeys.htm">ホットキー</a>に対してコンテキストセンシティビティを有効にし、<a href="Hotkey.htm">Hotkey</a>関数が変更するホットキーバリアントに影響します。現在のスレッドでHotIf関数のいずれかを最近呼び出したものだけが有効になります。</p>
 <p>文脈依存性をオフにするには（その後に作成したホットキーがすべてのウィンドウで機能するようにするなど）、HotIf関数を呼び出して、パラメータを省略します。事例：<code>HotIf</code> または <code>HotIfWinActive</code>.</p>
 <p>HotIfがホットキーまたは<a href="../misc/Threads.htm">ホットストリングスレッド</a>で使用される前に、ホットキーおよびホットストリング関数は、スレッドを起動したホットキーまたはホットストリングと同じコンテキストにデフォルト設定されます。つまり、<code>Hotkey A_ThisHotkey, "Off "</code>は、現在のホットキーがコンテキストセンシティブであってもオフします。他のすべてのスレッドは、<a href="../Scripts.htm#auto">スクリプトの起動</a>時にHotIfを使用してデフォルトが上書きされない限り、グローバルホットキーの作成または変更をデフォルトとします。</p>
-<p>HotIf関数やディレクティブによってマウスやキーボードのホットキーが無効にされると、その本来の機能を実行します。つまり、そのようなホットキーがないかのようにアクティブウィンドウに通過します。ただし、ジョイスティックのホットキーは、無効化されていてもされていなくても常に通過します。</p>
+<p>HotIf関数やディレクティブによってマウスやキーボードのホットキーが無効にされると、その本来の機能を実行します。つまり、そのようなホットキーがないかのようにアクティブウィンドウに通過します。However, controller hotkeys always pass through, whether they are disabled or not.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Hotkey.htm">Hotkey</a> (function), <a href="../Hotkeys.htm">Hotkeys</a> (general), <a href="_HotIf.htm">#HotIf</a>, <a href="../misc/Threads.htm">Threads</a></p>

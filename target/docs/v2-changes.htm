@@ -1056,7 +1056,7 @@ Gui GuiName:デフォルト</p>
 <p><strong>+/-Option</strong> → <a href="lib/GuiControl.htm#Opt">GuiCtrl.Opt("+/-Option")</a></p>
 <h3 id="other-changes">その他の変更点</h3>
 <p>Progress Guiコントロールは、デフォルトでPBS_SMOOTHスタイルを持たなくなり、システムのビジュアルスタイルに従ってスタイリングされるようになりました。</p>
-<p>DPIが100%以上の場合、デフォルトのマージンやコントロールサイズ（特にボタンコントロール）はv1と若干異なる場合があります。</p>
+<p>The default margins and control sizes (particularly for Button controls) may differ slightly from v1 when DPI is greater than 100&nbsp;%.</p>
 <p><code>GuiCtrl.Value:="new_image.png"</code>で新しい画像の設定に失敗しても、ピクチャーコントロールが現在の画像を削除しないようになりました。ただし、<code>GuiCtrl.Value := ""</code>で現在の画像を削除することは可能です。</p>
 <h2 id="error-handling">エラー処理</h2>
 <p>重大なエラーが発生した場合、スクリプトを終了する前に<a href="lib/OnError.htm">OnError</a>が呼び出されるようになりました。スクリプトが実行可能な状態でない可能性がありますが、OnExitと同様に実行を試みます。</p>
@@ -1185,7 +1185,7 @@ catch Any
 <p>RegEx の改行マッチングのデフォルトは (*ANYCRLF) と (*BSR_ANYCRLF) で、`r`n に加えて `r と `n が認識されます。`a オプションは暗黙のうちに(*BSR_UNICODE)を有効にします。</p>
 <p>RegExのコールアウト関数が可変になりました。<code>pcre_callout</code>変数を介して指定されたコールアウトは、任意の呼び出し可能なオブジェクトであることができ、または<code>pcre_callout</code>自体は、関数（おそらく入れ子関数）として直接定義することができます。関数と変数の<a href="#scope">名前空間が統合</a>されたため、<code>(?C:fn)</code>のような呼び出しパターンは、ユーザー定義関数だけでなく、関数オブジェクトを含むローカル変数やグローバル変数も参照することができます。</p>
 <p>標準入力から読み込まれるスクリプト（例：<code>AutoHotkey.exe *</code>）は、<a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a>やメインウィンドウのタイトルに初期作業ディレクトリを含めなくなりましたが、<a href="Variables.htm#ScriptDir">A_ScriptDir</a>として、またローカルLibフォルダを探すために使用されます。</p>
-<p>自動実行スレッドによって変更された設定は、100ms後に自動実行スレッドが終了したときに再び変更されるのではなく、（それ以降に起動したスレッドの）デフォルト設定に即座に変更されるようになりました。</p>
+<p>Settings changed by the auto-execute thread now become the default settings immediately (for threads launched after that point), rather than after 100&nbsp;ms and then again when the auto-execute thread finishes.</p>
 <p>ダイナミックアロケーションを活用することで、以下の制限を解除しました：</p>
 <ul>
 <li>行または継続部分の最大長は16,383文字です。</li>
@@ -1225,7 +1225,7 @@ MAX_TOKENSに基づいてサイズ設定されていた式評価器内部の配�
 <li>#Persistent を使用しました。</li>
 </ul>
 <h3 id="threads">スレッド</h3>
-<p><a href="misc/Threads.htm">スレッド</a>は、15msの代わりに17msの無停止タイムアウトで開始されます。システムのティックカウントは最小15または16のステップで更新されるため、15は低すぎます。つまり、ティックカウントが正確に間違ったタイミングで更新されると、実質的に時間が経過していないにもかかわらず、スレッドが中断される可能性があります。</p>
+<p><a href="misc/Threads.htm">Threads</a> start out with an uninterruptible timeout of 17&nbsp;ms instead of 15&nbsp;ms. システムのティックカウントは最小15または16のステップで更新されるため、15は低すぎます。つまり、ティックカウントが正確に間違ったタイミングで更新されると、実質的に時間が経過していないにもかかわらず、スレッドが中断される可能性があります。</p>
 <p>スレッドが中断されずにスタートした場合、中断されないタイムアウトが先に切れても、少なくとも1行が実行されるまで中断されないようになりました（例えば、スレッドがスタートした直後に、他のプロセスにCPU時間を与えるために、システムがプロセスを中断した場合）。</p>
 <p><a href="lib/_MaxThreads.htm">#MaxThreads</a>と <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>は、最初の行が以下の関数のいずれかであるサブルーチンの例外を作らないようになりました：<a href="lib/ExitApp.htm">ExitApp</a>, <a href="lib/Pause.htm">Pause</a>, <a href="lib/Edit.htm">Edit</a>, <a href="lib/Reload.htm">Reload</a>, <a href="lib/KeyHistory.htm">KeyHistory</a>, <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/ListVars.htm">ListVars</a>, または <a href="lib/ListHotkeys.htm">ListHotkeys</a>.</p>
 <h3 id="default-settings">デフォルトの設定</h3>
