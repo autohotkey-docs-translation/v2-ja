@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SoundGetInterface - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SoundGetInterface function retrieves a native COM interface of a sound device or component." />
+<title>SoundGetInterface - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SoundGetInterface 関数は、サウンドデバイスまたはコンポーネントのネイティブ COM インタフェースを取得します。" />
 <meta name="ahk:equiv-v1" content="lib/SoundGet.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,47 +25,47 @@
     <p>インターフェース識別子（GUID）。"{xxxxxxx-xxxx-xxxx-xxxx-xxxx}"の形式をとる。</p>
   </dd>
 
-  <dt>Component</dt>
+  <dt>コンポーネント</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The component's display name and/or index. For example, <code>1</code>, <code>"Line in"</code> or <code>"Line in:2"</code>.</p>
-    <p>If omitted or blank, an interface implemented by the device itself is retrieved.</p>
-    <p>For further details, see <a href="Sound.htm#component">Component (Sound Functions)</a>.</p>
+    <p>コンポーネントの表示名とインデックス。例えば、<code>1</code>、<code>"Line in"</code>または<code>"Line in:2"</code>。</p>
+    <p>省略または空白の場合、デバイス自身が実装しているインターフェイスが検索される。</p>
+    <p>詳しくは「<a href="Sound.htm#component">コンポーネント（サウンド機能）</a>」をご覧ください。</p>
   </dd>
 
   <dt>Device</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The device's display name and/or index. For example, <code>1</code>, <code>"Speakers"</code>, <code>"Speakers:2"</code> or <code>"Speakers (Example HD Audio)"</code>.</p>
-    <p>If this parameter is omitted, it defaults to the system's default device for playback (which is not necessarily device 1).</p>
-    <p>For further details, see <a href="Sound.htm#device">Device (Sound Functions)</a>.</p>
+    <p>デバイスの表示名とインデックス。例えば、<code>1</code>、<code>"Speakers"</code>、<code>"Speakers:2"</code>、<code>"Speakers (Example HD Audio)</code>"などです。</p>
+    <p>このパラメーターが省略された場合、デフォルトはシステムのデフォルト再生デバイス（デバイス1とは限らない）となる。</p>
+    <p>詳しくは<a href="Sound.htm#device">デバイス（サウンド機能）</a>をご覧ください。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>On success, the return value is an interface pointer.</p>
-<p>If the interface is not supported, the return value is zero.</p>
+<p>成功した場合の戻り値はインターフェース・ポインターである。</p>
+<p>インターフェイスがサポートされていない場合、戻り値は0である。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>One of the following exceptions may be thrown on failure:</p>
+<p>失敗すると以下の例外のいずれかがスローされる：</p>
 <table class="info">
   <tr><th abbr="Class">エラークラス</th><th>メッセージ</th></tr>
-  <tr><td rowspan="2"><a href="Error.htm#TargetError">TargetError</a></td><td>Device not found</td></tr>
-  <tr> <td>Component not found</td></tr>
-  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>System-generated.</em></td></tr>
+  <tr><td rowspan="2"><a href="Error.htm#TargetError">TargetError</a></td><td>デバイスが見つかりません</td></tr>
+  <tr> <td>コンポーネントが見つかりません</td></tr>
+  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>システムが生成する。</em></td></tr>
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p>The interface is retrieved from one of the following sources:</p>
+<p>インターフェイスは以下のいずれかのソースから取得される：</p>
 <ul>
-  <li>If <em>Component</em> is omitted, <a href="https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a> is called to retrieve the interface.</li>
-  <li><a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> is called for the Connector identified by <em>Component</em>, and if successful, the interface pointer is returned. This can be used to retrieve the <a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-ipart">IPart</a> or <a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iconnector">IConnector</a> interface of the Connector.</li>
-  <li><a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate">IPart::Activate</a> is called for each Subunit unique to the given <em>Component</em>. For example, <em>IID</em> can be <code>"{7FB7B48F-531D-44A2-BCB3-5AD5A134B3DC}"</code> to retrieve the IAudioVolumeLevel interface, which provides access to per-channel volume level controls.</li>
+  <li><em>Component</em>が省略された場合は、<a href="https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a>が呼び出されてインターフェースを取得します。</li>
+  <li><a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>は、<em>Component</em>で識別されるコネクタに対して呼び出され、成功するとインタフェースポインタが返される。コネクタの<a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-ipart">IPart</a>または<a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iconnector">IConnector</a>インタフェースを取得するために使用できます。</li>
+  <li><a href="https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate">IPart::Activate</a>は、与えられた<em>Componentに</em>固有の各Subunitに対して呼び出される。例えば、<em>IID</em>を <code>"{7FB7B48F-531D-44A2-BCB3-5AD5A134B3DC}"</code>とすると、IAudioVolumeLevelインターフェイスを取得することができる。</li>
 </ul>
-<p>Once the interface pointer is retrieved, <a href="ComCall.htm">ComCall</a> can be used to call its methods. Refer to the Windows SDK header files to identify the correct method index.</p>
-<p>The interface pointer must be released by passing it to <a href="ObjAddRef.htm">ObjRelease</a> when it is no longer needed. This can be done by "wrapping" it with <a href="ComValue.htm">ComValue</a>. The wrapped value (an object) can be passed directly to <a href="ComCall.htm">ComCall</a>.</p>
+<p>インターフェイスポインターを取得したら、<a href="ComCall.htm">ComCall</a>を使ってそのメソッドを呼び出すことができる。正しいメソッド・インデックスを特定するために、Windows SDKヘッダーファイルを参照すること。</p>
+<p>インターフェース・ポインターは、不要になったら<a href="ObjAddRef.htm">ObjRelease</a>に渡して解放しなければならない。これは、<a href="ComValue.htm">ComValue</a>で"ラップ"することで可能になる。ラップされた値（オブジェクト）は、直接<a href="ComCall.htm">ComCall</a>に渡すことができる。</p>
 <pre>Interface := ComValue(13, InterfacePtr)</pre>
 
 <h2 id="Related">関連</h2>
@@ -73,7 +73,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExPeakMeter">
-<p><a class="ex_number" href="#ExPeakMeter"></a> Peak meter. A tooltip is displayed with the current peak value, except when the peak value is zero (no sounds are playing).</p>
+<p><a class="ex_number" href="#ExPeakMeter"></a> Peak meter. ピーク値がゼロ（サウンドが再生されていない）の場合を除き、ツールチップに現在のピーク値が表示される。</p>
 <pre><em>; IAudioMeterInformation</em>
 audioMeter := SoundGetInterface("{C02216F6-8C67-4B5B-9D00-D008E73E0064}")
 if audioMeter

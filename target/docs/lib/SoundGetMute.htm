@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SoundGetMute - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SoundGetMute function retrieves a mute setting of a sound device." />
+<title>SoundGetMute - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SoundGetMute 関数は、サウンドデバイスのミュート設定を取得します。" />
 <meta name="ahk:equiv-v1" content="lib/SoundGet.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,47 +19,47 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>Component</dt>
+  <dt>コンポーネント</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The component's display name and/or index. For example, <code>1</code>, <code>"Line in"</code> or <code>"Line in:2"</code>.</p>
-    <p>If omitted or blank, the master mute setting is retrieved.</p>
-    <p>For further details, see <a href="Sound.htm#component">Component (Sound Functions)</a>.</p>
+    <p>コンポーネントの表示名とインデックス。例えば、<code>1</code>、<code>"Line in"</code>または<code>"Line in:2"</code>。</p>
+    <p>省略または空白の場合、マスターミュート設定が取得される。</p>
+    <p>詳しくは「<a href="Sound.htm#component">コンポーネント（サウンド機能）</a>」をご覧ください。</p>
   </dd>
 
   <dt>Device</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>The device's display name and/or index. For example, <code>1</code>, <code>"Speakers"</code>, <code>"Speakers:2"</code> or <code>"Speakers (Example HD Audio)"</code>.</p>
-    <p>If this parameter is omitted, it defaults to the system's default device for playback (which is not necessarily device 1).</p>
-    <p>For further details, see <a href="Sound.htm#device">Device (Sound Functions)</a>.</p>
+    <p>デバイスの表示名とインデックス。例えば、<code>1</code>、<code>"Speakers"</code>、<code>"Speakers:2"</code>、<code>"Speakers (Example HD Audio)</code>"などです。</p>
+    <p>このパラメーターが省略された場合、デフォルトはシステムのデフォルト再生デバイス（デバイス1とは限らない）となる。</p>
+    <p>詳しくは<a href="Sound.htm#device">デバイス（サウンド機能）</a>をご覧ください。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-<p>This function returns 0 (not muted) or 1 (muted).</p>
+<p>この関数は0（ミュートされていない）または1（ミュートされている）を返す。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>One of the following exceptions may be thrown on failure:</p>
+<p>失敗すると以下の例外のいずれかがスローされる：</p>
 <table class="info">
   <tr><th abbr="Class">エラークラス</th><th>メッセージ</th></tr>
-  <tr><td rowspan="3"><a href="Error.htm#TargetError">TargetError</a></td><td>Device not found</td></tr>
-  <tr> <td>Component not found</td></tr>
-  <tr> <td>Component doesn't support this control type</td></tr>
-  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>System-generated.</em></td></tr>
+  <tr><td rowspan="3"><a href="Error.htm#TargetError">TargetError</a></td><td>デバイスが見つかりません</td></tr>
+  <tr> <td>コンポーネントが見つかりません</td></tr>
+  <tr> <td>コンポーネントがこのコントロールタイプをサポートしていない</td></tr>
+  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>システムが生成する。</em></td></tr>
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p>To discover the capabilities of the sound devices installed on the system -- such as the names and available components -- run the <a href="Sound.htm#ExSoundcard">soundcard analysis script</a>.</p>
+<p>システムにインストールされているサウンドデバイスの機能（名前や使用可能なコンポーネントなど）を調べるには、<a href="Sound.htm#ExSoundcard">サウンドカード解析スクリプト</a>を実行します。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Sound.htm">Sound Functions</a></p>
+<p><a href="Sound.htm">サウンド機能</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExMasterMute">
-<p><a class="ex_number" href="#ExMasterMute"></a> Checks whether the default playback device is muted.</p>
+<p><a class="ex_number" href="#ExMasterMute"></a> デフォルトの再生デバイスがミュートされているかどうかをチェックする。</p>
 <pre>master_mute := SoundGetMute()
 if master_mute
     MsgBox "The default playback device is muted."
@@ -68,13 +68,13 @@ else
 </div>
 
 <div class="ex" id="ExLineInMute">
-  <p><a class="ex_number" href="#ExLineInMute"></a> Checks whether "Line In pass-through" is muted.</p>
+  <p><a class="ex_number" href="#ExLineInMute"></a> Line In pass-through」がミュートされているかどうかをチェックする。</p>
   <pre>if SoundGetMute("Line In") = 0
     MsgBox "Line In pass-through is not muted."</pre>
 </div>
 
 <div class="ex" id="ExMicRecordMute">
-  <p><a class="ex_number" href="#ExMicRecordMute"></a> Checks whether the microphone (recording) is muted.</p>
+  <p><a class="ex_number" href="#ExMicRecordMute"></a> マイク（録音）がミュートされているかどうかをチェックします。</p>
   <pre>if SoundGetMute( , "Microphone") = 0
     MsgBox "The microphone (recording) is not muted."</pre>
 </div>

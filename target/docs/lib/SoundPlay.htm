@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>SoundPlay - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The SoundPlay function plays a sound, video, or other supported file type." />
+<title>SoundPlay - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="SoundPlay機能は、サウンド、ビデオ、その他サポートされているファイルタイプを再生します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,10 +21,10 @@
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the file to be played, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
-    <p>To produce standard system sounds, specify an asterisk followed by a number as shown below (note that the <em>Wait</em> parameter has no effect in this mode):</p>
+    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされる。</p>
+    <p>標準的なシステムサウンドを出すには、以下のようにアスタリスクの後に数字を指定する（このモードでは<em>Wait</em>パラメータは効果がないことに注意）：</p>
     <ul>
-      <li>*-1 = Simple beep. If the sound card is not available, the sound is generated using the speaker.</li>
+      <li>*-1 = Simple beep. サウンドカードが使用できない場合、サウンドはスピーカーを使用して生成されます。</li>
       <li>*16 = Hand (stop/error)</li>
       <li>*32 = Question</li>
       <li>*48 = Exclamation</li>
@@ -35,8 +35,8 @@
   <dt>Wait</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, the script's <a href="../misc/Threads.htm">current thread</a> will move on to the next statement(s) while the file is playing. Otherwise, specify 1 or the word WAIT, which causes the current thread to wait until the file is finished playing before continuing. Even while waiting, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
-    <p>既知の制限：If the <em>Wait</em> parameter is not used, the system might consider the playing file to be "in use" until the script closes or until another file is played (even a nonexistent file).</p>
+    <p>未設定または省略された場合、スクリプトの<a href="../misc/Threads.htm">現在のスレッド</a>は、ファイルの再生中に次のステートメントに移ります。そうでない場合は、1またはWAITを指定する。この場合、現在のスレッドは、ファイルの再生が終わるまで待ってから続行する。待機中であっても、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッドを</a>起動することができる。</p>
+    <p>既知の制限：<em>Wait</em>パラメータを使用しない場合、スクリプトが終了するまで、または別のファイル（存在しないファイルでも可）が再生されるまで、システムは再生中のファイルを「使用中」とみなす可能性がある。</p>
   </dd>
 
 </dl>
@@ -45,21 +45,21 @@
 <p>失敗した場合は例外が発生します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>All Windows systems should be able to play .wav files. However, other file types (.mp3, .avi, etc.) might not be playable if the right codecs or features aren't installed on the system.</p>
-<p>Due to a quirk in Windows, .wav files with a path longer than 127 characters will not be played. To work around this, use other file types such as .mp3 (with a path length of up to 255 characters) or use 8.3 short paths (see <a href="LoopFiles.htm#LoopFileShortPath">A_LoopFileShortPath</a> how to retrieve such paths).</p>
-<p>If a file is playing and the current script plays a second file, the first file will be stopped so that the second one can play. On some systems, certain file types might stop playing even when an entirely separate script plays a new file.</p>
-<p>To stop a file that is currently playing, use SoundPlay on a nonexistent filename as in this example: <code>try SoundPlay "Nonexistent.avi"</code>.</p>
-<p>If the script is exited, any currently-playing file that it started will stop.</p>
+<p>すべてのWindowsシステムは.wavファイルを再生できるはずだ。ただし、適切なコーデックや機能がシステムにインストールされていない場合、その他のファイルタイプ（.mp3、.aviなど）は再生できない可能性があります。</p>
+<p>Windowsの癖により、パスが127文字以上の.wavファイルは再生されません。これを回避するには、.mp3（パスの長さは255文字まで）などの他のファイルタイプを使用するか、8.3のショートパスを使用します（そのようなパスを取得する方法については、<a href="LoopFiles.htm#LoopFileShortPath">A_LoopFileShortPathを</a>参照してください）。</p>
+<p>あるファイルが再生中で、現在のスクリプトが2つ目のファイルを再生する場合、2つ目のファイルが再生できるように、1つ目のファイルは停止される。システムによっては、まったく別のスクリプトが新しいファイルを再生しても、特定のファイルタイプの再生が停止することがあります。</p>
+<p>再生中のファイルを停止するには、この例のように、存在しないファイル名でSoundPlayを使う：<code>try SoundPlay "Nonexistent.avi"</code>.</p>
+<p>スクリプトが終了すると、スクリプトが開始した再生中のファイルはすべて停止する。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SoundBeep.htm">SoundBeep</a>, <a href="Sound.htm">Sound Functions</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="../misc/Threads.htm">Threads</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Plays a .wav file located in the Windows directory.</p>
+<p><a class="ex_number" href="#ExBasic"></a> Windowsディレクトリにある.wavファイルを再生する。</p>
 <pre>SoundPlay A_WinDir "\Media\ding.wav"</pre>
 </div>
 
 <div class="ex" id="ExStandardSound">
-<p><a class="ex_number" href="#ExStandardSound"></a> Generates a simple beep.</p>
+<p><a class="ex_number" href="#ExStandardSound"></a> 単純なビープ音を発生させる。</p>
 <pre>SoundPlay "*-1"</pre>
 </div>
 
