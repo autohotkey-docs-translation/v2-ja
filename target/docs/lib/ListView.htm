@@ -117,7 +117,7 @@ LV_DoubleClick(LV, RowNumber)
       <dt id="RowOptions">Options</dt>
       <dd>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>A string containing zero or more options from the list below (not case sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+<p>A string containing zero or more options from the list below (not case-sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
 <p id="Check"><strong>Check:</strong> Shows a checkmark in the row (if the ListView has <a href="#Checked">checkboxes</a>). 後でチェックを外すには、<code>LV.Modify(RowNumber, "-Check")</code>を使用します。</p>
 <p id="ColN"><strong>Col:</strong> Specify the word <em>Col</em> followed immediately by the column number at which to begin applying the parameters <em>Col1</em> and beyond. This is most commonly used with the <a href="#Modify">Modify method</a> to alter individual fields in a row without affecting those that lie to their left.</p>
 <p id="Focus"><strong>Focus:</strong> Sets keyboard focus to the row (often used in conjunction with the <a href="#Select">Select</a> option below). To later de-focus it, use <code>LV.Modify(RowNumber, "-Focus")</code>.</p>
@@ -204,7 +204,7 @@ LV_DoubleClick(LV, RowNumber)
       <dt id="ColOptions">Options</dt>
       <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A string containing zero or more options from the list below (not case sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+    <p>A string containing zero or more options from the list below (not case-sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
     <hr>
     <p><strong><em>一般的なオプションです：</em></strong></p>
     <p><strong>N:</strong> Specify for <em>N</em> the new width of the column, in pixels. この数字は、唯一の選択肢であるならば、引用されないことも可能です。例えば、以下はどちらも有効です：<code>LV.ModifyCol(1, 50)</code> and <code>LV.ModifyCol(1, "50 Integer")</code>.</p>
@@ -224,8 +224,8 @@ LV_DoubleClick(LV, RowNumber)
     <p><strong>Right:</strong> Right-aligns the column's text. IntegerおよびFloatカラムはデフォルトで右寄せになっているため、この属性を指定する必要はありません。このデフォルトは、<code>"Integer Left"</code>や<code>"Float Center"</code>などの指定で上書きすることができます。</p>
     <hr>
     <p><strong><em>ソートオプション：</em></strong></p>
-    <p id="Case"><strong>Case:</strong> The sorting of the column is case sensitive (affects only <a href="#Text">text</a> columns). <em>Case</em>、<em>CaseLocale</em>、<em>Logical</em>の各オプションが省略された場合、大文字のA〜Zは小文字と同一とみなされ、ソートが行われます。</p>
-    <p><strong>CaseLocale:</strong> The sorting of the column is case insensitive based on the current user's locale (affects only <a href="#Text">text</a> columns). 例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。</p>
+    <p id="Case"><strong>Case:</strong> The sorting of the column is case-sensitive (affects only <a href="#Text">text</a> columns). <em>Case</em>、<em>CaseLocale</em>、<em>Logical</em>の各オプションが省略された場合、大文字のA〜Zは小文字と同一とみなされ、ソートが行われます。</p>
+    <p><strong>CaseLocale:</strong> The sorting of the column is case-insensitive based on the current user's locale (affects only <a href="#Text">text</a> columns). 例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。</p>
     <p id="Desc"><strong>Desc:</strong> Descending order. ユーザーが初めてソートするときは、列は降順で始まります。</p>
     <p id="Logical"><strong>Logical:</strong> Same as <em>CaseLocale</em> except that any sequences of digits in the text are treated as true numbers rather than mere characters. 例えば、文字列 "T33"は "T4"よりも大きいと判断されるでしょう。<em>Logical</em>と <em>Case</em>は現在相互排他的です：直近で指定されたものだけが有効になります。</p>
     <p><strong>NoSort:</strong> Prevents a user's click on this column from having any automatic sorting effect. しかし、<a href="GuiOnEvent.htm#ColClick">ColClick</a>イベントはまだ発生するので、スクリプトはカスタムソートなどのアクションで応答することができます。一部の列だけでなく、すべての列のソートを無効にするには、リストビューのオプションに<a href="#NoSort">NoSort</a>を含めます。</p>

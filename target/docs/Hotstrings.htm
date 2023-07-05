@@ -57,7 +57,7 @@
 <p>ホットストリングのデフォルトの動作は、2つの方法で変更することが可能です。</p>
 <ol>
   <li>スクリプトのそのポイントより物理的に下のすべてのホットストリングに影響を与える<a href="lib/_Hotstring.htm">#Hotstring</a>ディレクティブです。次の例では、CとRのオプションを有効にしています。<code>#Hotstring <strong>c r</strong></code>.</li>
-  <li>ホットストリングの最初のコロンのペアの中にオプションを入れる。次の例では、1つのホットストリングに対して、Cと*のオプション（大文字と小文字を区別し、「終端文字は不要」）を有効にしています。<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
+  <li>ホットストリングの最初のコロンのペアの中にオプションを入れる。The following example puts the C and * options (case-sensitive and "ending character not required") into effect for a single hotstring:<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
 </ol>
 <p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定する場合、オプションの間にスペースを任意に含めることができる。</p>
 <p id="Asterisk"><strong>*</strong> (asterisk):ホットストリングのトリガーには、終了文字（<kbd>スペース</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>など）は必要ありません。事例：</p>
@@ -66,8 +66,8 @@
 <p id="Question"><strong>?</strong> (question mark):ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
 <p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。プレーン<strong>B</strong>を使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>バックスペース</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできる。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
 <pre>:*b0:&lt;em&gt;::&lt;/em&gt;{left 5}</pre>
-<p id="C"><strong>C:</strong> Case sensitive:略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
-<p id="C1"><strong>C1:</strong> Do not conform to typed case. このオプションを使用すると、<a href="#auto">自動置換ホットストリング</a>の大文字と小文字を区別せず、実際に入力する文字の大文字と小文字を一致させないようにすることができます。大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
+<p id="C"><strong>C:</strong> Case-sensitive:略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
+<p id="C1"><strong>C1:</strong> Do not conform to typed case. Use this option to make <a href="#auto">auto-replace hotstrings</a> case-insensitive and prevent them from conforming to the case of the characters you actually type. 大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
 <p id="Kn"><strong>Kn:</strong> Key-delay:このオプションはほとんど使用されませんが、オートバックスペースや<a href="#auto">オートリプレースメント</a>によって生じるキーストローク間の遅延を設定します。Specify the new delay for <strong>n</strong>; for example, specify k10 to have a 10&nbsp;ms delay and k-1 to have no delay. このオプションの正確な動作は、どの<a href="#SendMode">送信モード</a>が有効であるかに依存します。</p>
 <ul>
   <li>SI (SendInput):このモードではディレイができないため、Key-delayは無視されます。例外として、SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合は、Hotstringsは以下のSendPlayモード（キーディレイに従う）に戻ります。</li>

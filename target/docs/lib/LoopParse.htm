@@ -30,7 +30,7 @@
       <p>このパラメータが空白または省略された場合、入力文字列の各文字は個別の部分文字列として扱われます。</p>
       <p id="CSV">このパラメータが<code>"CSV"</code>の場合、文字列は標準的なカンマ区切り値形式で解析されます。ここでは、MS Excelで作成したCSVの行の例を示します：</p>
 <pre class="no-highlight">"first field",SecondField,"the word ""special"" is quoted literally",,"last field, has literal comma"</pre>
-      <p>それ以外の場合、<em>Delimiters</em>は1つ以上の文字（大文字と小文字を区別する）を含み、それぞれの文字は部分文字列間の境界がどこにあるかを決定するために使用されます。</p>
+      <p>Otherwise, <em>Delimiters</em> contains one or more  characters (case-sensitive), each of which is used to determine where the boundaries between substrings occur.</p>
       <p>デリミタ文字は、部分文字列自体の一部とはみなされません。また、入力文字列の中で一対の区切り文字の間に何もない場合、対応する部分文字列は空となります。</p>
       <p>事例：<code>','</code>（カンマ）は、カンマが出現するたびに文字列を分割することになります。同様に、<code>A_Tab A_Spaceは</code>、入力文字列の中でスペースやタブに遭遇するたびに新しい部分文字列を開始します。</p>
       <p>文字列を文字ではなく区切り文字として使用するには、まず<a href="StrReplace.htm">StrReplace</a>を使用して、文字列のすべての出現箇所を、テキスト内で文字通り使用されることのない単一の文字（例えば、これらの特殊文字のいずれか）に置き換えます：¢¤¥¦§©ª«®µ¶. 文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
@@ -44,7 +44,7 @@ Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析しま
   <dt>OmitChars</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>それぞれの部分文字列の先頭と末尾から除外する文字（大文字と小文字を区別する）のリスト（オプション）です。例えば、<em>OmitChars</em>が <code>A_Space A_Tab</code>の場合、検索されたすべての部分文字列の先頭と末尾からスペースとタブが削除されます（中央は削除されない）。</p>
+    <p>An optional list of characters (case-sensitive) to exclude from the beginning and end of each substring. 例えば、<em>OmitChars</em>が <code>A_Space A_Tab</code>の場合、検索されたすべての部分文字列の先頭と末尾からスペースとタブが削除されます（中央は削除されない）。</p>
     <p><em>Delimiters</em>が空白の場合、<em>OmitChars</em>は考慮から除外されるべき文字を示します（ループはそれらを見ません）。</p>
   </dd>
 

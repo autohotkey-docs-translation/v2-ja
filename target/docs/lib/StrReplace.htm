@@ -32,28 +32,28 @@
   <dt>ReplaceText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>Needle</em> will be replaced with this text. If omitted or blank, <em>Needle</em> will be replaced with blank (empty). In other words, it will be omitted from the return value.</p>
+    <p>If unset or omitted, <em>Needle</em> will be replaced with blank (empty), meaning it will be omitted from the return value. Otherwise, specify the string to replace <em>Needle</em> with.</p>
   </dd>
   
   <dt>CaseSense</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
     <p>以下の値のいずれか（省略時は0をデフォルトとします）：</p>
-    <p><code>"On"</code> または <code>1</code> (<code>True</code>):検索は大文字と小文字を区別します。</p>
+    <p><code>"On"</code> または <code>1</code> (<code>True</code>):The search is case-sensitive.</p>
     <p><code>"Off"</code> または <code>0</code> (<code>False</code>):A～Zは小文字と同一視されます。</p>
-    <p><code>"Locale"</code>:検索は、現在のユーザーのロケールの規則に従って、大文字と小文字を区別しません。例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
+    <p><code>"Locale"</code>:The search is case-insensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
   </dd>
 
   <dt>&amp;OutputVarCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>Specify a reference to the output variable in which to store the number of replacements that occurred (0 if none).</p>
+    <p>If unset or omitted, no output variable will be used. Otherwise, specify a reference to the output variable in which to store the number of replacements that occurred (0 if none).</p>
   </dd>
 
   <dt>Limit</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><em>Limit</em>が省略された場合、デフォルトは -1 で、<em>Haystack</em>で見つかったパターンの<strong>すべての</strong>出現回数を置き換えます。それ以外の場合は、置換を許可する最大数を指定します。<em>Haystackの</em>最後の入れ替えの右側の部分は変更せずに残しています。</p>
+    <p>If unset or omitted, it defaults to -1, which replaces <u>all</u> occurrences of the pattern found in <em>Haystack</em>. それ以外の場合は、置換を許可する最大数を指定します。The part of <em>Haystack</em> to the right of the last replacement is left unchanged.</p>
   </dd>
 
 </dl>
@@ -63,14 +63,14 @@
 <p>This function returns the replaced version of the specified string.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The built-in variables <a href="../Variables.htm">A_Space</a> and <a href="../Variables.htm">A_Tab</a> contain a single space and a single tab character, respectively. They are useful when searching for spaces and tabs alone or at the beginning or end of <em>Needle</em>.</p>
+<p>The built-in variables <strong>A_Space</strong> and <strong>A_Tab</strong> contain a single space and a single tab character, respectively. They are useful when searching for spaces and tabs alone or at the beginning or end of <em>Needle</em>.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RegExReplace.htm">RegExReplace</a>, <a href="InStr.htm">InStr</a>, <a href="SubStr.htm">SubStr</a>, <a href="StrLen.htm">StrLen</a>, <a href="StrLower.htm">StrLower</a>, <a href="StrLower.htm">StrUpper</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExClipboard">
-<p><a class="ex_number" href="#ExClipboard"></a> Removes all CR+LF's from the clipboard contents.</p>
+<p><a class="ex_number" href="#ExClipboard"></a> Removes all CR-LF pairs from the clipboard contents.</p>
 <pre>A_Clipboard := StrReplace(A_Clipboard, "`r`n")</pre>
 </div>
 

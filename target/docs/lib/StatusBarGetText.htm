@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>StatusbarGetText - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The StatusbarGetText function retrieves the text from a standard status bar control." />
+<title>StatusbarGetText - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="StatusbarGetText 関数は、標準のステータス・バー・コントロールからテキストを取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,39 +21,39 @@
   <dt>Part#</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 1, which is usually the part that contains the text of interest. Otherwise, specify the part number of the bar to retrieve.</p>
+    <p>未設定または省略された場合、デフォルトは1であり、これは通常、関心のあるテキストを含む部分である。それ以外の場合は、検索するバーの品番を指定する。</p>
   </dd>
 
   <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>If each of these is unset or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. Otherwise, specify for <em>WinTitle</em> a <a href="../misc/WinTitle.htm">window title or other criteria</a> to identify the target window and/or for <em>WinText</em> a substring from a single text element of the target window (as revealed by the included Window Spy utility). Hidden text elements are detected if <a href="DetectHiddenText.htm">DetectHiddenText</a> has been turned on. Windows whose title or text contains <em>ExcludeTitle</em> or <em>ExcludeText</em> will not be considered.</p>
+    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the text from a single part of the status bar control.</p>
+<p>この関数は、ステータスバーコントロールの単一部分のテキストを返す。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>An exception is thrown in any of the following cases:</p>
+<p>例外は以下のいずれかの場合にスローされる：</p>
 <ul>
-  <li><a href="Error.htm#TargetError">TargetError</a>: The target window could not be found or does not contain a standard status bar.</li>
-  <li><a href="Error.htm#OSError">OSError</a>: There was a problem sending the SB_GETPARTS message, or no reply was received within 2000&nbsp;ms.</li>
-  <li><a href="Error.htm#OSError">OSError</a>: Memory could not be allocated within the process which owns the status bar.</li>
+  <li><a href="Error.htm#TargetError">TargetError</a>:対象のウィンドウが見つからないか、標準のステータスバーがない。</li>
+  <li><a href="Error.htm#OSError">OSError</a>:SB_GETPARTS メッセージの送信に問題があったか、または 2000 ミリ秒以内に応答を受信しなかった。</li>
+  <li><a href="Error.htm#OSError">OSError</a>:ステータス・バーを所有するプロセス内でメモリが割り当てられなかった。</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
-<p>This function attempts to read the first <em>standard</em> status bar on a window (Microsoft common control: msctls_statusbar32). Some programs use their own status bars or special versions of the MS common control, in which case the text cannot be retrieved.</p>
-<p>Rather than using StatusBarGetText in a loop, it is usually more efficient to use <a href="StatusBarWait.htm">StatusBarWait</a>, which contains optimizations that avoid the overhead of repeated calls to StatusBarGetText.</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字が区別されます。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
+<p>この関数は、ウィンドウ上の最初の<em>標準</em>ステータスバーを読み込もうとする（Microsoft common control：msctls_statusbar32). プログラムによっては、独自のステータスバーやMSコモンコントロールの特別なバージョンを使用しているものもあり、その場合はテキストを取得することができない。</p>
+<p>通常、ループ内で StatusBarGetText を使用するよりも、<a href="StatusBarWait.htm">StatusBarGetText</a>を繰り返し呼び出すことによるオーバーヘッドを回避する最適化を含む<a href="StatusBarWait.htm">StatusBarWait</a>を使用する方が効率的です。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="StatusBarWait.htm">StatusBarWait</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Retrieves and analyzes the text from the first part of a status bar.</p>
+<p><a class="ex_number" href="#ExBasic"></a> ステータスバーの最初の部分からテキストを取得して分析する。</p>
 <pre>RetrievedText := StatusBarGetText(1, "Search Results")
 if InStr(RetrievedText, "found")
     MsgBox "Search results have been found."</pre>
