@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>StrReplace - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The StrReplace function replaces the specified substring with a new string." />
+<title>StrReplace - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="StrReplace 関数は、指定された部分文字列を新しい文字列に置き換える。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -32,55 +32,55 @@
   <dt>ReplaceText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, <em>Needle</em> will be replaced with blank (empty), meaning it will be omitted from the return value. Otherwise, specify the string to replace <em>Needle</em> with.</p>
+    <p>未設定または省略された場合、<em>Needle</em>は空白（empty）に置き換えられ、戻り値から省略される。それ以外の場合は、<em>Needle</em>を置き換える文字列を指定する。</p>
   </dd>
   
   <dt>CaseSense</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
     <p>以下の値のいずれか（省略時は0をデフォルトとします）：</p>
-    <p><code>"On"</code> または <code>1</code> (<code>True</code>):The search is case-sensitive.</p>
+    <p><code>"On"</code> または <code>1</code> (<code>True</code>):検索では大文字と小文字が区別される。</p>
     <p><code>"Off"</code> または <code>0</code> (<code>False</code>):A～Zは小文字と同一視されます。</p>
-    <p><code>"Locale"</code>:The search is case-insensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
+    <p><code>"Locale"</code>:検索は、現在のユーザーのロケールのルールに従って、大文字と小文字を区別しない。例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
   </dd>
 
   <dt>&amp;OutputVarCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>If unset or omitted, no output variable will be used. Otherwise, specify a reference to the output variable in which to store the number of replacements that occurred (0 if none).</p>
+    <p>未設定または省略された場合、出力変数は使用されない。そうでない場合は、置換が発生した回数を格納する出力変数への参照を指定する（何もない場合は0）。</p>
   </dd>
 
   <dt>Limit</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to -1, which replaces <u>all</u> occurrences of the pattern found in <em>Haystack</em>. それ以外の場合は、置換を許可する最大数を指定します。The part of <em>Haystack</em> to the right of the last replacement is left unchanged.</p>
+    <p>未設定または省略された場合、デフォルトは -1 で、<em>Haystack</em>で見つかったパターンの<u>すべての</u>出現回数を置き換えます。それ以外の場合は、置換を許可する最大数を指定します。<em>ヘイスタック</em>の右側はそのまま。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the replaced version of the specified string.</p>
+<p>この関数は、指定された文字列の置換されたバージョンを返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The built-in variables <strong>A_Space</strong> and <strong>A_Tab</strong> contain a single space and a single tab character, respectively. They are useful when searching for spaces and tabs alone or at the beginning or end of <em>Needle</em>.</p>
+<p>組み込み変数<strong>A_Space</strong>と <strong>A_Tab</strong>には、それぞれスペースとタブが1文字ずつ格納される。スペースやタブを単独で、あるいは<em>ニードル</em>の先頭や末尾で検索する場合に便利である。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="RegExReplace.htm">RegExReplace</a>, <a href="InStr.htm">InStr</a>, <a href="SubStr.htm">SubStr</a>, <a href="StrLen.htm">StrLen</a>, <a href="StrLower.htm">StrLower</a>, <a href="StrLower.htm">StrUpper</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExClipboard">
-<p><a class="ex_number" href="#ExClipboard"></a> Removes all CR-LF pairs from the clipboard contents.</p>
+<p><a class="ex_number" href="#ExClipboard"></a> クリップボードの内容からすべてのCR-LFペアを削除する。</p>
 <pre>A_Clipboard := StrReplace(A_Clipboard, "`r`n")</pre>
 </div>
 
 <div class="ex" id="ExVar">
-<p><a class="ex_number" href="#ExVar"></a> Replaces all spaces with pluses.</p>
+<p><a class="ex_number" href="#ExVar"></a> すべてのスペースをプラスに置き換える。</p>
 <pre>NewStr := StrReplace(OldStr, A_Space, "+")</pre>
 </div>
 
 <div class="ex" id="ExRemoveBlankLines">
-<p><a class="ex_number" href="#ExRemoveBlankLines"></a> Removes all blank lines from the text in a variable.</p>
+<p><a class="ex_number" href="#ExRemoveBlankLines"></a> 変数内のテキストからすべての空行を削除する。</p>
 <pre>Loop
 {
     MyString := StrReplace(MyString, "`r`n`r`n", "`r`n",, &amp;Count)

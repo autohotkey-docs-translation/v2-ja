@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>StrGet - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The StrGet function copies a string from a memory address or buffer, optionally converting it from a given code page." />
+<title>StrGet - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="StrGet関数は、メモリアドレスまたはバッファから文字列をコピーし、オプションで指定されたコードページから変換する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -22,46 +22,46 @@ String := <span class="func">StrGet</span>(Source <span class="optional">, Encod
   <dt>Source</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>A <a href="Buffer.htm">Buffer</a>-like object containing the string, or the memory address of the string.</p>
-    <p><a href="Buffer.htm#Ptr">Ptr</a>と<a href="Buffer.htm#Size">Size</a>プロパティを実装しているオブジェクトであれば何でも使用できますが、この関数はネイティブの<a href="Buffer.htm">Buffer</a>オブジェクトに最適化されています。これらのプロパティを持つオブジェクトを渡すことで、関数が不正な場所からメモリを読み込むことがないようにします。そうすると、クラッシュやその他の予測不可能な動作が起こる可能性があります。</p>
-    <p>The string is not required to be <a href="../Concepts.htm#null-termination">null-terminated</a> if a Buffer-like object is provided, or if the <em>Length</em> parameter is specified.</p>
+    <p>文字列を含む<a href="Buffer.htm">Buffer</a>のようなオブジェクト、または文字列のメモリアドレス。</p>
+    <p><a href="Buffer.htm#Ptr">Ptr</a>プロパティと<a href="Buffer.htm#Size">Size</a>プロパティを実装したオブジェクトであれば何でも使用できますが、この関数はネイティブの<a href="Buffer.htm">Buffer</a>オブジェクトに最適化されています。これらのプロパティを持つオブジェクトを渡すことで、関数が不正な場所からメモリを読み込むことがないようにします。そうすると、クラッシュやその他の予測不可能な動作が起こる可能性があります。</p>
+    <p>Bufferライクなオブジェクトが提供される場合、または<em>Length</em>パラメータが指定される場合、文字列は<a href="../Concepts.htm#null-termination">ヌル終端</a>である必要はない。</p>
   </dd>
 
   <dt>Length</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>This can be unset or omitted, if the string is <a href="../Concepts.htm#null-termination">null-terminated</a>. Otherwise, specify the maximum number of <a href="../Concepts.htm#character">characters</a> to read.</p>
-    <p>By default, StrGet only copies up to the first binary zero. If <em>Length</em> is negative, its absolute value indicates the exact number of characters to convert, including any binary zeros that the string might contain - in other words, the result is always a string of exactly that length.</p>
-    <p class="warning"><strong>Note:</strong> Omitting <em>Length</em> when the string is not null-terminated may cause an access violation which terminates the program, or some other undesired result. Specifying an incorrect length may produce unexpected behaviour.</p>
+    <p>文字列が<a href="../Concepts.htm#null-termination">ヌル終端</a>である場合、これは設定しないか省略することができる。それ以外の場合は、読み込む最大<a href="../Concepts.htm#character">文字数</a>を指定する。</p>
+    <p>デフォルトでは、StrGetは最初のバイナリ・ゼロまでしかコピーしない。<em>Length</em>が負の場合、その絶対値は、文字列に含まれる可能性のある2進数のゼロを含め、変換する文字数を正確に示します。</p>
+    <p class="warning"><strong>注意：</strong>文字列がヌル終端でない場合に<em>Length</em>を省略すると、アクセス違反が発生し、プロ グラムが終了するなどの望ましくない結果を引き起こす可能性がある。正しくない長さを指定すると、予期せぬ動作をすることがある。</p>
   </dd>
 
   <dt>エンコード</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, the string is simply copied without any conversion taking place. Otherwise, specify the source encoding; for example, <code>"UTF-8"</code>, <code>"UTF-16"</code> or <code>"CP936"</code>. For numeric identifiers, the prefix "CP" can be omitted only if <em>Length</em> is specified. Specify an empty string or <code>"CP0"</code> to use the system default ANSI code page.</p>
+    <p>未設定または省略された場合、文字列は変換されずに単にコピーされる。それ以外の場合は、ソース・エンコーディングを指定する。例えば、<code>"UTF-8"</code>、<code>"UTF-16"</code>、<code>"CP936"</code>などである。数値識別子では、<em>Length</em>が指定されている場合のみ、接頭辞 "CP"を省略することができる。システム・デフォルトのANSIコード・ページを使用する場合は、空文字列または<code>"CP0"</code>を指定する。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>This function returns the copied or converted string. If the source encoding was specified correctly, the return value always uses the <a href="../Concepts.htm#string-encoding">native encoding</a>. It is always <a href="../Concepts.htm#null-termination">null-terminated</a>, but the null-terminator is not included in the return value's <a href="StrLen.htm">length</a> except when <em>Length</em> is negative as described above.</p>
+<p>この関数は、コピーまたは変換された文字列を返す。ソース・エンコーディングが正しく指定されていれば、返り値は常に<a href="../Concepts.htm#string-encoding">ネイティブ・エンコーディング</a>を使用する。これは常に<a href="../Concepts.htm#null-termination">ヌル終端</a>であるが、上述のように<em>Length</em>が負の場合を除き、ヌル終端は返り値の<a href="StrLen.htm">長さ</a>に含まれない。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#ValueError">ValueError</a> is thrown if invalid parameters are detected.</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if the conversion could not be performed.</p>
+<p>無効なパラメータが検出された場合は<a href="Error.htm#ValueError">ValueError</a>がスローされる。</p>
+<p>変換が実行できなかった場合は<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Note that the return value is always in the <a href="../Concepts.htm#string-encoding">native encoding</a> of the current executable, whereas <i>Encoding</i> specifies how to interpret the string read from the given <i>Source</i>. If no <em>Encoding</em> is specified, the string is simply copied without any conversion taking place.</p>
-<p class="note">In other words, StrGet is used to retrieve text from a memory address or buffer, or convert it to a format the script can understand.</p>
-<p>If conversion between code pages is necessary, the length of the return value may differ from the length of the source string.</p>
+<p>返り値は常に現在の実行ファイルの<a href="../Concepts.htm#string-encoding">ネイティブ・エンコーディング</a>であることに注意してください。一方、<i>Encoding</i>は与えられた<i>Source</i>から読み込まれた文字列をどのように解釈するかを指定します。<em>Encoding</em>が指定されていない場合、文字列は変換されずに単にコピーされる。</p>
+<p class="note">つまり、StrGetは、メモリアドレスやバッファからテキストを取得したり、スクリプトが理解できる形式に変換したりするために使用される。</p>
+<p>コード・ページ間の変換が必要な場合、戻り値の長さがソース文字列の長さと異なることがある。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Concepts.htm#string-encoding">String Encoding</a>, <a href="StrPut.htm">StrPut</a>, <a href="../Compat.htm">Binary Compatibility</a>, <a href="FileEncoding.htm">FileEncoding</a>, <a href="DllCall.htm">DllCall</a>, <a href="Buffer.htm">Buffer object</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExNumEnc">
-<p><a class="ex_number" href="#ExNumEnc"></a> Either <em>Length</em> or <em>Encoding</em> may be specified directly after <em>Source</em>, but in those cases <em>Encoding</em> must be non-numeric.</p>
+<p><a class="ex_number" href="#ExNumEnc"></a> <em>Source</em>の後に<em>Length</em>または<em>Encoding</em>を直接指定することもできるが、その場合<em>Encoding</em>は数値であってはならない。</p>
 <pre>
 str := StrGet(address, "cp0")  <em>; Code page 0, unspecified length</em>
 str := StrGet(address, n, 0)   <em>; Maximum n chars, code page 0</em>

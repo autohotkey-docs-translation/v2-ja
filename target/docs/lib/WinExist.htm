@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinExist - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinExist function checks if the specified window exists and returns the unique ID (HWND) of the first matching window." />
+<title>WinExist - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinExist関数は、指定されたウィンドウが存在するかどうかをチェックし、最初にマッチしたウィンドウのユニークID（HWND）を返す。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -27,13 +27,13 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the <a href="../misc/WinTitle.htm#ahk_id">unique ID (HWND)</a> of the first matching window (or 0 if none).</p>
-<p>Since all non-zero numbers are seen as "true", the statement <code>if WinExist(WinTitle)</code> is true whenever <em>WinTitle</em> exists.</p>
+<p>この関数は、最初にマッチしたウィンドウの<a href="../misc/WinTitle.htm#ahk_id">ユニークID（HWND）</a>を返す（何もなければ0）。</p>
+<p>ゼロでない数字はすべて "真 "とみなされるため、<em>WinTitle</em>が存在するときはいつでも、<code>if WinExist(WinTitle)</code>というステートメントは真となる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If a qualified window exists, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be updated to be that window.</p>
-<p>To discover the HWND of a control (for use with <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a> or <a href="DllCall.htm">DllCall</a>), use <a href="ControlGetHwnd.htm">ControlGetHwnd</a> or <a href="MouseGetPos.htm">MouseGetPos</a>.</p>
-<p><a href="SetWinDelay.htm">SetWinDelay</a> does not apply to this function.</p>
+<p>適格なウィンドウが存在する場合、<a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>は、そのウィンドウに更新される。</p>
+<p>コントロールのHWNDを検出するには（<a href="PostMessage.htm">PostMessage</a>、<a href="SendMessage.htm">SendMessage</a>、または<a href="DllCall.htm">DllCallで</a>使用するため）、<a href="ControlGetHwnd.htm">ControlGetHwnd</a>または<a href="MouseGetPos.htm">MouseGetPos</a>を使用します。</p>
+<p><a href="SetWinDelay.htm">SetWinDelay</a>は、この関数には適用されない。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
@@ -41,18 +41,18 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLastFound">
-<p><a class="ex_number" href="#ExLastFound"></a> Activates either Notepad or another window, depending on which of them was found by the WinExist functions above. Note that the space between an "ahk_" keyword and its criterion value can be omitted; this is especially useful when using variables, as shown by the second WinExist.</p>
+<p><a class="ex_number" href="#ExLastFound"></a> 上記のWinExist関数によって見つかったメモ帳か別のウィンドウのどちらかをアクティブにする。"ahk_"キーワードとその基準値の間のスペースは省略可能であることに注意してください。</p>
 <pre>if WinExist("ahk_class Notepad") or WinExist("ahk_class" ClassName)
     WinActivate <em>; Use the window found by WinExist.</em></pre>
 </div>
 
 <div class="ex" id="ExA">
-<p><a class="ex_number" href="#ExA"></a> Retrieves and reports the unique ID (HWND) of the active window.</p>
+<p><a class="ex_number" href="#ExA"></a> アクティブウィンドウのユニークID（HWND）を取得し、報告する。</p>
 <pre>MsgBox "The active window's ID is " WinExist("A")</pre>
 </div>
 
 <div class="ex" id="ExNot">
-<p><a class="ex_number" href="#ExNot"></a> Returns if the calculator does not exist.</p>
+<p><a class="ex_number" href="#ExNot"></a> 電卓が存在しない場合に返す。</p>
 <pre>if not WinExist("Calculator")
     return</pre>
 </div>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>VerCompare - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The VerCompare function compares two version strings." />
+<title>VerCompare - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="VerCompare関数は、2つのバージョン文字列を比較する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css">
@@ -19,39 +19,39 @@
   <dt>VersionA</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The first version string to be compared.</p>
+    <p>比較される最初のバージョン文字列。</p>
   </dd>
   <dt>VersionB</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The second version string to be compared, optionally prefixed with one of the following operators: <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> or <code>=</code>.</p>
+    <p>比較する2番目のバージョン文字列で、オプションで先頭に以下の演算子のいずれかを付ける：<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code> or <code>=</code>.</p>
   </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>If <em>VersionB</em> begins with an operator symbol, this function returns 1 (true) or 0 (false).</p>
-<p>Otherwise, this function returns one of the following to indicate the relationship between <em>VersionA</em> and <em>VersionB</em>:</p>
+<p><em>VersionB</em>が演算子記号で始まる場合、この関数は 1（真）または 0（偽）を返す。</p>
+<p>そうでない場合、この関数は以下のいずれかを返し、<em>VersionA</em>と<em>VersionB</em>の関係を示す：</p>
 <ul>
-  <li>0 if <em>VersionA</em> is equal to <em>VersionB</em></li>
-  <li>a positive integer if <em>VersionA</em> is greater than <em>VersionB</em></li>
-  <li>a negative integer if <em>VersionA</em> is less than <em>VersionB</em></li>
+  <li>0　は、<em>VersionA</em>と<em>VersionB</em>が等しい場合</li>
+  <li>正の整数は、<em>VersionA</em>が <em>VersionB</em>より大きい場合</li>
+  <li>負の整数は、<em>VersionA</em>が <em>VersionB</em>より小さい場合</li>
 </ul>
-<p>To check for a specific relationship between the two strings, compare the result to 0. 事例：</p>
+<p>2つの文字列間の特定の関係をチェックするには、結果を0と比較する。事例：</p>
 <pre>a_less_than_b := VerCompare(a, b) &lt; 0
 a_greater_than_or_equal_to_b := VerCompare(a, b) &gt;= 0</pre>
 
 <h2 id="Remarks">備考</h2>
-<p>Version strings are compared according to the same rules as <a href="_Requires.htm#compare">#Requires</a>.</p>
-<p>This function should correctly compare <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning 2.0.0</a> version strings, but the parameters are not required to be valid SemVer strings.</p>
-<p>This function can be used in a <a href="Sort.htm#callback">sort callback</a>.</p>
+<p>バージョン文字列は、<a href="_Requires.htm#compare">#Requires</a>と同じルールに従って比較される。</p>
+<p>この関数は<a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning 2.0.0</a>のバージョン文字列を正しく比較しますが、パラメータは有効なSemVer文字列である必要はありません。</p>
+<p>この関数は<a href="Sort.htm#callback">ソートコールバック</a>で使うことができる。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="_Requires.htm">#Requires</a>, <a href="Sort.htm">Sort</a>, <a href="StrCompare.htm">StrCompare</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Checks the version of AutoHotkey in use.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 使用中のAutoHotkeyのバージョンをチェックします。</p>
 <pre>
 if VerCompare(A_AhkVersion, "2.0") &lt; 0
     MsgBox "This version &lt; 2.0; possibly a pre-release version."
@@ -61,7 +61,7 @@ else
 </div>
 
 <div class="ex" id="ExStr">
-<p><a class="ex_number" href="#ExStr"></a> Shows one difference between VerCompare and StrCompare.</p>
+<p><a class="ex_number" href="#ExStr"></a> VerCompareとStrCompareの違いを1つ示す。</p>
 <pre>
 MsgBox VerCompare("1.20.0", "1.3")  <em>; Returns 1</em>
 MsgBox StrCompare("1.20.0", "1.3")  <em>; Returns -1</em>
@@ -69,7 +69,7 @@ MsgBox StrCompare("1.20.0", "1.3")  <em>; Returns -1</em>
 </div>
 
 <div class="ex" id="ExPre">
-<p><a class="ex_number" href="#ExPre"></a> Demonstrates comparison with pre-release versions.</p>
+<p><a class="ex_number" href="#ExPre"></a> プレリリース版との比較を示す。</p>
 <pre>
 MsgBox VerCompare("2.0-a137", "2.0-a136")  <em>; Returns 1</em>
 MsgBox VerCompare("2.0-a137", "2.0")  <em>; Returns -1</em>
@@ -78,7 +78,7 @@ MsgBox VerCompare("10.2-beta.3", "10.2.0")  <em>; Returns -1</em>
 </div>
 
 <div class="ex" id="ExPreRange">
-<p><a class="ex_number" href="#ExPreRange"></a> Demonstrates a range check.</p>
+<p><a class="ex_number" href="#ExPreRange"></a> レンジチェックを実演。</p>
 <pre>
 MsgBox VerCompare("2.0.1", "&gt;=2.0") &amp;&amp; VerCompare("2.0.1", "&lt;2.1")  <em>; Returns 1</em>
 </pre>

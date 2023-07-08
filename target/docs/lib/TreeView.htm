@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>TreeView (GUI) - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The TreeView control displays a hierarchy of items by indenting child items beneath their parents. This page contains the functions to modify it." />
+<title>TreeView (GUI) - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="TreeViewコントロールは、親アイテムの下に子アイテムをインデントすることで、アイテムの階層を表示します。このページには、それを変更するための機能が含まれています。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -16,20 +16,20 @@
 <ul>
   <li><a href="#Intro">導入と簡単な例</a></li>
   <li><a href="#Options">Optionsパラメータのオプションとスタイル</a></li>
-  <li><a href="#BuiltIn">Built-in Methods for TreeViews</a></li>
+  <li><a href="#BuiltIn">TreeViewの組み込みメソッド</a></li>
   <li><a href="#Events">イベント情報</a></li>
   <li><a href="#Remarks">備考</a></li>
   <li><a href="#Examples">例</a></li>
 </ul>
 <h2 id="Intro">導入と簡単な例</h2>
-<p>A Tree-View displays a hierarchy of items by indenting child items beneath their parents. The most common example is Explorer's tree of drives and folders.</p>
-<p>A TreeView usually looks like this:</p>
+<p>ツリービューは、親アイテムの下に子アイテムをインデントすることで、アイテムの階層を表示します。最も一般的な例は、エクスプローラーのドライブとフォルダーのツリーである。</p>
+<p>TreeViewは通常このような形をしている：</p>
 <img src="../static/ctrl_treeview.png" alt="TreeView" />
-<p>The syntax for creating a TreeView is:</p>
+<p>TreeViewを作成する構文は以下の通り：</p>
 <pre class="Syntax" id="GuiAdd">TV := GuiObj.<span class="func">Add</span>("TreeView", Options)</pre>
 <p>あるいは：</p>
 <pre class="Syntax">TV := GuiObj.<span class="func">AddTreeView</span>(Options)</pre>
-<p>Here is a working script that creates and displays a simple hierarchy of items:</p>
+<p>ここでは、アイテムの単純な階層を作成して表示するスクリプトを紹介する：</p>
 <pre>MyGui := Gui()
 TV := MyGui.Add("TreeView")
 <span class="red">P1</span> := <a href="#Add">TV.Add</a>("First parent")
@@ -41,12 +41,12 @@ P2C2C1 := TV.Add("Child 2's first child", P2C2)
 
 MyGui.Show  <em>; Show the window and its TreeView.</em></pre>
 <h2 id="Options">Optionsパラメータのオプションとスタイル</h2>
-<p><strong>Background:</strong> Specify the word <em>Background</em> followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). 例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. If this option is not present, the TreeView initially defaults to the system's default background color. Specifying <code>BackgroundDefault</code> or <code>-Background</code> applies the system's default background color (usually white). For example, a TreeView can be restored to the default color via <code>TV.Opt("+BackgroundDefault")</code>.</p>
-<p><strong>Buttons:</strong> Specify <code>-Buttons</code> (minus Buttons) to avoid displaying a plus or minus button to the left of each item that has children.</p>
+<p><strong>Background：</strong> <em>Background（背景）：Background</em>（背景）という語の直後に色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（0x接頭辞は任意）を指定。例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. このオプションが存在しない場合、TreeViewはシステムのデフォルトの背景色に初期設定されます。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。例えば、TreeViewは<code>TV.Opt("+BackgroundDefault")</code>でデフォルトの色に戻すことができます。</p>
+<p><strong>ボタン：</strong><code>-Buttons</code>（マイナスボタン）を指定すると、子アイテムを持つ各アイテムの左にプラスボタンやマイナスボタンが表示されなくなります。</p>
 <p><strong>C:</strong> Text color. 文字Cの直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>cRed</code>, <code>cFF2211</code>, <code>c0xFF2211</code>, <code>cDefault</code>.</p>
-<p id="Checked"><strong>Checked:</strong> Provides a checkbox at the left side of each item. When <a href="#Add">adding</a> an item, specify the word <em>Check</em> in its options to have the box to start off checked instead of unchecked. The user may either click the checkbox or press the spacebar to check or uncheck an item. To discover which items in a TreeView are currently checked, call the <a href="#GetNext">GetNext method</a> or <a href="#Get">Get method</a>.</p>
-<p><strong>HScroll:</strong> Specify <code>-HScroll</code> (minus HScroll) to disable horizontal scrolling in the control (in addition, the control will not display any horizontal scroll bar).</p>
-<p id="ImageList"><strong>ImageList:</strong> This is the means by which icons are added to a TreeView. Specify the word <em>ImageList</em> followed immediately by the ImageListID returned from a previous call to <a href="ListView.htm#IL_Create">IL_Create</a>. This option has an effect only when creating a TreeView (however, the <a href="#SetImageList">SetImageList method</a> does not have this limitation). Here is a working example:</p>
+<p id="Checked"><strong>チェック済み：</strong>各項目の左側にチェックボックスがあります。項目を<a href="#Add">追加</a>する際、オプションに<em>Check</em>という単語を指定すると、チェックされていないボックスではなく、チェックされたボックスが開始されます。ユーザーは、チェックボックスをクリックするか、スペースバーを押して、項目のチェックを入れたり外したりすることができます。TreeViewのどのアイテムが現在チェックされているかを調べるには、<a href="#GetNext">GetNextメソッド</a>または<a href="#Get">Getメソッド</a>を呼び出します。</p>
+<p><strong>HScroll：</strong> <code>-HScroll</code>（マイナスHScroll）を指定すると、コントロールの水平スクロールが無効になります（さらに、コントロールは水平スクロールバーを表示しません）。</p>
+<p id="ImageList"><strong>ImageList：</strong>TreeViewにアイコンを追加する手段です。<em>ImageList</em>という語の直後に、以前に<a href="ListView.htm#IL_Create">IL_Create</a>をコールして返されたImageListIDを指定する。このオプションはTreeViewを作成するときにのみ効果があります（ただし、<a href="#SetImageList">SetImageListメソッド</a>には、この制限はありません）。以下はその例である：</p>
 <pre>MyGui := Gui()
 ImageListID := <a href="ListView.htm#IL_Create">IL_Create</a>(10)  <em>; Create an ImageList with initial capacity for 10 icons.</em>
 Loop 10  <em>; Load the ImageList with some standard system icons.</em>
@@ -54,8 +54,8 @@ Loop 10  <em>; Load the ImageList with some standard system icons.</em>
 TV := MyGui.Add("TreeView", "ImageList" . ImageListID)
 <a href="#Add">TV.Add</a>("Name of Item", 0, "Icon4")  <em>; Add an item to the TreeView and give it a folder icon.</em>
 MyGui.Show</pre>
-<p><strong>Lines:</strong> Specify <code>-Lines</code> (minus Lines) to avoid displaying a network of lines connecting parent items to their children. However, removing these lines also prevents the plus/minus buttons from being shown for top-level items.</p>
-<p id="ReadOnly"><strong>ReadOnly:</strong> Specify <code>-ReadOnly</code> (minus ReadOnly) to allow editing of the text/name of each item. To edit an item, select it then press <kbd>F2</kbd> (see the <a href="#WantF2">WantF2</a> option below). Alternatively, you can click an item once to select it, wait at least half a second, then click the same item again to edit it. After being edited, an item can be alphabetically repositioned among its siblings via the following example:</p>
+<p><strong>Lines：</strong>親アイテムと子アイテムを結ぶ線のネットワークを表示しないようにするには、<code>-Lines</code>（マイナスLines）を指定します。しかし、これらの行を削除すると、トップレベルのアイテムにプラス/マイナスボタンが表示されなくなる。</p>
+<p id="ReadOnly"><strong>ReadOnly：</strong> <code>-ReadOnly</code>（読み取り専用）を指定すると、各項目のテキストや名前の編集を許可する。項目を編集するには、項目を選択してから<kbd>F2</kbd>キーを押します（下記の<a href="#WantF2">WantF2</a>オプションを参照）。あるいは、項目を一度クリックして選択し、少なくとも半秒待ってから同じ項目をもう一度クリックして編集することもできる。編集後の項目は、次の例に従って、その兄弟の中でアルファベット順に再配置することができます：</p>
 <pre>TV := MyGui.Add("TreeView", "-ReadOnly")
 TV.OnEvent("ItemEdit", MyTree_Edit)  <em>; Call MyTree_Edit whenever a user has finished editing an item.</em>
 <em>; ...</em>
@@ -63,162 +63,162 @@ MyTree_Edit(TV, Item)
 {
     TV.Modify(TV.GetParent(Item), "Sort")  <em>; This works even if the item has no parent.</em>
 }</pre>
-<p><strong>R:</strong> Rows of height (upon creation). Rの文字の後に、コントロール内のスペースを確保するための行数を指定します。For example, <code>R10</code> would make the control 10 items tall.</p>
-<p id="WantF2"><strong>WantF2:</strong> Specify <code>-WantF2</code> (minus WantF2) to prevent <kbd>F2</kbd> from <a href="#ReadOnly">editing</a> the currently selected item. This setting is ignored unless <a href="#ReadOnly">-ReadOnly</a> is also in effect.</p>
-<p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。See the <a href="../misc/Styles.htm#TreeView">TreeView styles table</a> for a list.</p>
-<h2 id="BuiltIn">Built-in Methods for TreeViews</h2>
-<p>In addition to the <a href="GuiControl.htm">default methods/properties of a GUI control</a>, TreeView controls have the following methods (defined in the Gui.TreeView class).</p>
+<p><strong>R:</strong> Rows of height (upon creation). Rの文字の後に、コントロール内のスペースを確保するための行数を指定します。例えば、<code>R10</code>はコントロールの高さを10にする。</p>
+<p id="WantF2"><strong>WantF2：</strong> <code>-WantF2</code>（マイナスWantF2）を指定すると、<kbd>F2</kbd>が現在選択されている項目を<a href="#ReadOnly">編集</a>できないようにする。この設定は、<a href="#ReadOnly">-ReadOnly</a>も有効でない限り無視される。</p>
+<p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。一覧は<a href="../misc/Styles.htm#TreeView">TreeViewスタイルの表</a>を参照。</p>
+<h2 id="BuiltIn">TreeViewの組み込みメソッド</h2>
+<p><a href="GuiControl.htm">GUIコントロールのデフォルトのメソッド/プロパティ</a>に加えて、TreeViewコントロールは以下のメソッドを持ちます（Gui.TreeViewクラスで定義）。</p>
 <p><strong>Item methods:</strong></p>
 <ul>
-  <li><a href="#Add">Add</a>: Adds a new item to the TreeView.</li>
-  <li><a href="#Modify">Modify</a>: Modifies the attributes and/or name of an item.</li>
-  <li><a href="#Delete">Delete</a>: Deletes the specified item or all items.</li>
+  <li><a href="#Add">Add</a>:TreeViewに新しいアイテムを追加します。</li>
+  <li><a href="#Modify">Modify</a>:アイテムの属性や名前を変更する。</li>
+  <li><a href="#Delete">Delete</a>:指定された項目またはすべての項目を削除します。</li>
 </ul>
-<p><strong>Retrieval methods:</strong></p>
+<p><strong>検索方法：</strong></p>
 <ul>
-  <li><a href="#GetSelection">GetSelection</a>: Returns the selected item's ID number.</li>
-  <li><a href="#GetCount">GetCount</a>: Returns the total number of items in the control.</li>
-  <li><a href="#GetParent">GetParent</a>: Returns the specified item's parent as an item ID.</li>
-  <li><a href="#GetChild">GetChild</a>: Returns the ID number of the specified item's first/top child.</li>
-  <li><a href="#GetPrev">GetPrev</a>: Returns the ID number of the sibling above the specified item.</li>
-  <li><a href="#GetNext">GetNext</a>: Returns the ID number of the next item below the specified item.</li>
-  <li><a href="#GetText">GetText</a>: Retrieves the text/name of the specified item.</li>
-  <li><a href="#Get">Get</a>: Returns a non-zero value (item ID) if the specified item has the specified attribute.</li>
+  <li><a href="#GetSelection">GetSelection</a>:選択された項目の ID 番号を返します。</li>
+  <li><a href="#GetCount">GetCount</a>:コントロール内の項目の総数を返します。</li>
+  <li><a href="#GetParent">GetParent</a>:指定された項目の親を項目 ID で返します。</li>
+  <li><a href="#GetChild">GetChild</a>:指定された項目の先頭/末尾の子の ID 番号を返します。</li>
+  <li><a href="#GetPrev">GetPrev</a>:指定された項目の上にある兄弟の ID 番号を返します。</li>
+  <li><a href="#GetNext">GetNext</a>:指定された項目の次の項目の ID 番号を返します。</li>
+  <li><a href="#GetText">GetText</a>:指定された項目のテキスト/名前を取得します。</li>
+  <li><a href="#Get">Get</a>:指定されたアイテムが指定された属性を持つ場合、0 以外の値（アイテム ID）を返します。</li>
 </ul>
-<p><strong>Other methods:</strong></p>
+<p><strong>その他の方法</strong></p>
 <ul>
   <li><a href="#SetImageList">SetImageList</a>:アイコンを表示するための ImageList を設定または置き換える。</li>
 </ul>
 <div class="methodShort" id="Add">
   <h3>Add</h3>
-  <p>Adds a new item to the TreeView and returns its unique Item ID number (or 0 upon failure).</p>
+  <p>TreeViewに新しいアイテムを追加し、そのユニークなアイテムID番号（失敗した場合は0）を返します。</p>
   <pre class="Syntax">UniqueID := TV.<span class="func">Add</span>(Name, <span class="optional">ParentItemID, Options</span>)</pre>
   <dl>
     <dt>名前</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>The displayed text of the item, which can be text or numeric (including numeric <a href="../Variables.htm#Expressions">expression</a> results).</p>
+      <p>テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）。</p>
     </dd>
     <dt>ParentItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The ID number of the new item's parent (omit it or specify 0 to add the item at the top level).</p>
+      <p>新しいアイテムの親のID番号（省略するか、アイテムをトップレベルに追加する場合は0を指定する）。</p>
     </dd>
     <dt>Options</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Contains zero or more options from the list below (not case-sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
-      <p id="Bold"><strong>Bold:</strong> Displays the item's name in a bold font. To later un-bold the item, use <code>TV.Modify(ItemID, "-Bold")</code>. The word <em>Bold</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state.</p>
-      <p id="Check"><strong>Check:</strong> Shows a checkmark to the left of the item (if the TreeView has <a href="#Checked">checkboxes</a>). To later uncheck it, use <code>TV.Modify(ItemID, "-Check")</code>. The word <em>Check</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state. In other words, both <code>"Check"</code> and <code>"Check" <strong>.</strong> VarContainingOne</code> are the same (the period used here is the <a href="../Variables.htm#concat">concatenation operator</a>).</p>
-      <p id="Expand"><strong>Expand:</strong> Expands the item to reveal its children (if any). To later collapse the item, use <code>TV.Modify(ItemID, "-Expand")</code>. If there are no children, the <a href="#Modify">Modify method</a> returns 0 instead of the item's ID. By contrast, the <a href="#Add">Add method</a> marks the item as expanded in case children are added to it later. Unlike the <a href="#Select">Select</a> option below, expanding an item does not automatically expand its parent. Finally, the word <em>Expand</em> may optionally be followed immediately by a 0 or 1 to indicate the starting state. In other words, both <code>"Expand"</code> and <code>"Expand" <strong>.</strong> VarContainingOne</code> are the same.</p>
-      <p><strong>First | Sort | N:</strong> These options apply only to the <a href="#Add">Add method</a>. They specify the new item's position relative to its siblings (a <em>sibling</em> is any other item on the same level). If none of these options is present, the new item is added as the last/bottom sibling. Otherwise, specify the word <em>First</em> to add the item as the first/top sibling, or specify the word <em>Sort</em> to insert it among its siblings in alphabetical order. If a plain integer <em>N</em> is specified, it is assumed to be ID number of the sibling after which to insert the new item (if <em>N</em> is the only option present, it does not have to be enclosed in quotes).</p>
-      <p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this item's icon, which is displayed to the left of the item's name. If this option is absent, the first icon in the <a href="#ImageList">ImageList</a> is used. To display a blank icon, specify a number that is larger than the number of icons in the ImageList. If the control lacks an ImageList, no icon is displayed nor is any space reserved for one.</p>
-      <p id="Select"><strong>Select:</strong> Selects the item. Since only one item at a time can be selected, any previously selected item is automatically de-selected. In addition, this option reveals the newly selected item by expanding its parent(s), if necessary. To find out the current selection, call the <a href="#GetSelection">GetSelection method</a>.</p>
-      <p><strong>Sort:</strong> For the <a href="#Modify">Modify method</a>, this option alphabetically sorts the children of the specified item. To instead sort all top-level items, use <code>TV.Modify(0, "Sort")</code>. If there are no children, 0 is returned instead of the ID of the modified item.</p>
-      <p><strong>Vis:</strong> Ensures that the item is completely visible by scrolling the TreeView and/or expanding its parent, if necessary.</p>
-      <p><strong>VisFirst:</strong> Same as above except that the TreeView is also scrolled so that the item appears at the top, if possible. This option is typically more effective when used with the <a href="#Modify">Modify method</a> than with the <a href="#Add">Add method</a>.</p>
+      <p>以下のリストから0個以上のオプションを含む（大文字小文字は区別しない）。各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+      <p id="Bold"><strong>太字：</strong>項目名を太字で表示します。後でアイテムのボールドを解除するには、<code>TV.Modify(ItemID, "-Bold")</code>を使用します。<em>Boldの</em>直後に、開始状態を示す0または1を続けることもできる。</p>
+      <p id="Check"><strong>チェック</strong>TreeViewに<a href="#Checked">チェックボックス</a>がある場合）アイテムの左にチェックマークを表示します。後でチェックを外すには、<code>TV.Modify(ItemID, "-Check")</code>を使用します。<em>Check</em>の直後に、開始状態を示す0または1を続けることもできる。つまり、<code>"Check"</code>も<code>"Check"<strong>.</strong>VarContainingOne</code>は同じである（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>である）。</p>
+      <p id="Expand"><strong>展開する：</strong>アイテムを展開し、その子アイテムを表示します。後でアイテムを折りたたむには、<code>TV.Modify(ItemID, "-Expand")</code>を使用します。子供がいない場合、<a href="#Modify">Modify メソッド</a>はアイテムの ID ではなく 0 を返します。対照的に、<a href="#Add">Addメソッド</a>は、後でそのアイテムに子供が追加された場合に備えて、そのアイテムを拡張されたものとしてマークする。下の<a href="#Select">「選択」</a>オプションとは異なり、項目を展開してもその親項目は自動的に展開されません。最後に、<em>Expand</em>の直後に、開始状態を示す0または1を続けることもできる。言い換えれば、<code>"Expand"</code>も<code>"Expand"<strong>.</strong>VarContainingOneは</code>同じである。</p>
+      <p><strong>First | Sort | N:</strong>これらのオプションは<a href="#Add">Addメソッド</a>にのみ適用されます。新しいアイテムの位置は、その兄弟アイテム（<em>兄弟アイテム</em>とは、同じレベルにある他のアイテムのことです）との相対的な位置関係で指定されます。これらのオプションがない場合、新しい項目は最後/最下部の兄弟として追加されます。そうでない場合は、<em>First</em>という単語を指定して、その項目を最初の兄弟／一番上の兄弟として追加するか、<em>Sort</em>という単語を指定して、その項目をアルファベット順に兄弟の中に挿入する。プレーンな整数<em>N</em>が指定された場合、それは新しい項目を挿入する兄弟のID番号とみなされる（<em>N</em>が唯一のオプションの場合、引用符で囲む必要はない）。</p>
+      <p><strong>Icon（アイコン）：</strong> <em>Icon（アイコン</em>）という単語と、アイテム名の左に表示されるこのアイテムのアイコンの番号を指定します。このオプションがない場合、<a href="#ImageList">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示するには、ImageList のアイコンの数より大きい数を指定します。コントロールにイメージリストがない場合、アイコンは表示されず、アイコンのためのスペースも確保されません。</p>
+      <p id="Select"><strong>選択：</strong>項目を選択します。一度に1つの項目しか選択できないため、以前に選択されていた項目は自動的に選択解除される。さらに、このオプションは、必要に応じて、その親を展開することによって、新しく選択された項目を明らかにする。現在の選択範囲を知るには、<a href="#GetSelection">GetSelectionメソッド</a>を呼び出します。</p>
+      <p><strong>並べ替え：</strong> <a href="#Modify">Modify メソッド</a>の場合、このオプションは、指定された項目の子をアルファベット順に並べ替えます。代わりにすべてのトップレベル項目をソートするには、<code>TV.Modify(0, "Sort")</code>を使用します。子供がいない場合は、変更された項目のIDの代わりに0が返される。</p>
+      <p><strong>Vis：</strong>必要に応じて、TreeViewをスクロールしたり、親を展開したりして、アイテムが完全に表示されるようにします。</p>
+      <p><strong>VisFirst:</strong>上記と同じですが、TreeViewもスクロールされ、可能であればアイテムが一番上に表示されます。このオプションは通常、<a href="#Add">Addメソッド</a>よりも<a href="#Modify">Modifyメソッド</a>で使用した方が効果的です。</p>
     </dd>
   </dl>
-  <p>注：When adding a large number of items, performance can be improved by using <code>TV.Opt("-Redraw")</code> before adding the items and <code>TV.Opt("+Redraw")</code> afterward. See <a href="GuiControl.htm#redraw-remarks">Redraw</a> for more details.</p>
+  <p>注：多数のアイテムを追加する場合、アイテムを追加する前に<code>TV.Opt("-Redraw")</code>を使用し、その後に<code>TV.Opt("+Redraw")</code>を使用することでパフォーマンスを向上させることができる。詳細は「<a href="GuiControl.htm#redraw-remarks">再描画</a>」を参照。</p>
 </div>
 <div class="methodShort" id="Modify">
   <h3>Modify</h3>
-  <p>Modifies the attributes and/or name of an item, and returns the item's own ID.</p>
+  <p>アイテムの属性や名前を変更し、そのアイテム自身の ID を返す。</p>
   <pre class="Syntax">CurrentItemID := TV.<span class="func">Modify</span>(ItemID <span class="optional">, Options, NewName</span>)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to modify. When only this parameter is present, the specified item is <a href="#Select">selected</a>.</p>
+      <p>修正する項目。このパラメータだけが存在する場合、指定された項目が<a href="#Select">選択</a>される。</p>
     </dd>
     <dt>Options</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>See the list above.</p>
+      <p>上記のリストを参照。</p>
     </dd>
     <dt>NewName</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>The new name of the item. If omitted, the current name is left unchanged.</p>
+      <p>アイテムの新しい名前。省略された場合、現在の名前は変更されない。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="Delete">
   <h3>Delete</h3>
-  <p>Deletes the specified item or all items.</p>
+  <p>指定された項目またはすべての項目を削除します。</p>
   <pre class="Syntax">TV.<span class="func">Delete</span>(<span class="optional">ItemID</span>)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to delete. If omitted, <u>all</u> items in the TreeView are deleted.</p>
+      <p>削除する項目。省略された場合、TreeViewの<u>すべて</u>のアイテムが削除されます。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="GetSelection">
   <h3>GetSelection</h3>
-  <p>Returns the selected item's ID number.</p>
+  <p>選択された項目の ID 番号を返します。</p>
   <pre class="Syntax">SelectedItemID := TV.<span class="func">GetSelection</span>()</pre>
 </div>
 <div class="methodShort" id="GetCount">
   <h3>GetCount</h3>
-  <p>Returns the total number of items in the control.</p>
+  <p>コントロール内の項目の総数を返します。</p>
   <pre class="Syntax">CountNumber := TV.<span class="func">GetCount</span>()</pre>
-  <p>注：The return value will be retrieved instantly, because the control keeps track of the count.</p>
+  <p>注：コントロールがカウントを記録しているため、戻り値は即座に取得される。</p>
 </div>
 <div class="methodShort" id="GetParent">
   <h3>GetParent</h3>
-  <p>Returns the specified item's parent as an item ID.</p>
+  <p>指定された項目の親を項目 ID で返します。</p>
   <pre class="Syntax">ParentItemID := TV.<span class="func">GetParent</span>(ItemID)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to check. Items at the top level have no parent and thus return 0.</p>
+      <p>チェックする項目。トップレベルのアイテムは親を持たないため、0を返す。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="GetChild">
   <h3>GetChild</h3>
-  <p>Returns the ID number of the specified item's first/top child (or 0 if none).</p>
+  <p>指定された項目の先頭/末尾の子の ID 番号を返します（ない場合は 0）。</p>
   <pre class="Syntax">TopChildID := TV.<span class="func">GetChild</span>(ParentItemID)</pre>
   <dl>
     <dt>ParentItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The parent item to check. If this parameter is 0, the ID number of the first/top item in the TreeView is returned.</p>
+      <p>チェックする親アイテム。このパラメータが0である場合、TreeViewの先頭/トップアイテムのID番号が返される。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="GetPrev">
   <h3>GetPrev</h3>
-  <p>Returns the ID number of the sibling above the specified item (or 0 if none).</p>
+  <p>指定された項目の上にある兄弟の ID 番号を返します（ない場合は 0）。</p>
   <pre class="Syntax">PrevItemID := TV.<span class="func">GetPrev</span>(ItemID)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to check.</p>
+      <p>チェックする項目。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="GetNext">
   <h3>GetNext</h3>
-  <p>Returns the ID number of the next item below the specified item (or 0 if none).</p>
+  <p>指定された項目の次の項目の ID 番号を返します（何もない場合は 0）。</p>
   <pre class="Syntax">NextItemID := TV.<span class="func">GetNext</span>(<span class="optional">ItemID, ItemType</span>)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to check. If this parameter is 0 or omitted, the ID number of the first/top item in the TreeView is returned.</p>
+      <p>チェックする項目。このパラメータが0または省略された場合、TreeViewの先頭/トップアイテムのID番号が返される。</p>
     </dd>
     <dt>ItemType</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If omitted, the ID number of the sibling below the specified item will be retrieved. Otherwise specify <code>"Full"</code> or <code>"F"</code> to retrieve the next item regardless of its relationship to the specified item; or specify <code>"Check"</code>, <code>"Checked"</code>, or <code>"C"</code> to get only the next item with a checkmark.</p>
+      <p>省略した場合は、指定した項目より下の兄弟のID番号を取得する。それ以外の場合は、指定された項目との関係に関係なく次の項目を取得するために、<code>"Full"</code>または<code>"F"</code>を指定する。<code>"Check"</code>、<code>"Checked"</code>、または<code>"C"</code>を指定すると、チェックマークが付いた次の項目のみを取得する。</p>
     </dd>
   </dl>
-  <p>The following example traverse the entire tree, item by item:</p>
+  <p>次の例は、ツリー全体を項目ごとに走査するものである：</p>
   <pre>ItemID := 0  <em>; Causes the loop's first iteration to start the search at the top of the tree.</em>
 Loop
 {
@@ -231,33 +231,33 @@ Loop
 </div>
 <div class="methodShort" id="GetText">
   <h3>GetText</h3>
-  <p>Retrieves the text/name of the specified item.</p>
+  <p>指定された項目のテキスト/名前を取得します。</p>
   <pre class="Syntax">RetrievedText := TV.<span class="func">GetText</span>(ItemID)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The ID number of the item, whose text to be retrieved. <em>RetrievedText</em>の長さは最大8191です。</p>
+      <p>テキストを取得する項目のID番号。<em>RetrievedText</em>の長さは最大8191です。</p>
     </dd>
   </dl>
 </div>
 <div class="methodShort" id="Get">
   <h3>Get</h3>
-  <p>Returns a non-zero value (item ID) if the specified item has the specified attribute.</p>
+  <p>指定されたアイテムが指定された属性を持つ場合、0 以外の値（アイテム ID）を返します。</p>
   <pre class="Syntax">CurrentItemID := TV.<span class="func">Get</span>(ItemID, Attribute)</pre>
   <dl>
     <dt>ItemID</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>The item to check.</p>
+      <p>チェックする項目。</p>
     </dd>
     <dt>Attribute</dt>
     <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>Specify <code>"E"</code>, <code>"Expand"</code>, or <code>"Expanded"</code> to determine if the item is currently <a href="#Expand">expanded</a> (that is, its children are being displayed); specify <code>"C"</code>, <code>"Check"</code>, or <code>"Checked"</code> to determine if the item has a <a href="#Check">checkmark</a>; or specify <code>"B"</code> or <code>"Bold"</code> to determine if the item is currently <a href="#Bold">bold</a> in font.</p>
+      <p><code>E"</code>、<code>"Expand"</code>、または<code>"Expanded"</code>を指定すると、その項目が現在<a href="#Expand">展開されて</a>いるかどうか（つまり、その子項目が表示されているかどうか）を判断する。<code>"C"</code>、<code>"Check"</code>、または "<code>Checked"</code>を指定すると、その項目に<a href="#Check">チェックマーク</a>が付いているかどうかを判断する。<code>"B"</code>、または<code>"Bold"</code>を指定すると、その項目が現在<a href="#Bold">太字</a>になっているかどうかを判断する。</p>
     </dd>
   </dl>
-  <p><strong>Tip:</strong> Since an IF-statement sees any non-zero value as "true", <code>if TV.Get(ItemID, "Checked") = ItemID</code> and <code>if TV.Get(ItemID, "Checked")</code> are functionally identical.</p>
+  <p><strong>ヒント：</strong>IFステートメントは、ゼロでない値を "true"とみなすので、<code>TV.Get(ItemID, "Checked") = ItemIDと</code> <code>TV.Get(ItemID, "Checked"</code>)は機能的に同じである。</p>
 </div>
 <div class="methodShort" id="SetImageList">
   <h3>SetImageList</h3>
@@ -272,7 +272,7 @@ Loop
       <dt>IconType</dt>
       <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>省略された場合、デフォルトは 0 です。Otherwise, specify 2 for state icons (state icons are not yet directly supported, but they could be used via <a href="SendMessage.htm">SendMessage</a>).</p>
+        <p>省略された場合、デフォルトは 0 です。そうでない場合は、ステート・アイコンに2を指定する（ステート・アイコンはまだ直接サポートされていないが、<a href="SendMessage.htm">SendMessage</a>を介して使用することができる）。</p>
       </dd>
     </dl>
     <p>
@@ -289,13 +289,13 @@ Loop
   <tr><td><a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a></td><td>コントロールはキーボードフォーカスを失います。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ItemCheck">ItemCheck</a></td><td>項目がチェックされているか、チェックされていないかの状態です。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ItemEdit">ItemEdit</a></td><td>アイテムのラベルは、ユーザーが編集します。</td></tr>
-  <tr><td><a href="GuiOnEvent.htm#ItemExpand">ItemExpand</a></td><td>An item is expanded or collapsed.</td></tr>
-  <tr><td><a href="GuiOnEvent.htm#ItemSelect">ItemSelect</a></td><td>An item is selected.</td></tr>
+  <tr><td><a href="GuiOnEvent.htm#ItemExpand">ItemExpand</a></td><td>アイテムが展開または折りたたまれている。</td></tr>
+  <tr><td><a href="GuiOnEvent.htm#ItemSelect">ItemSelect</a></td><td>アイテムが選択されている。</td></tr>
 </table>
 <p><a href="GuiOnNotify.htm">OnNotify</a>を使用することで、追加の（ほとんど使用されない）通知を検出することができます。これらの通知については、<a href="https://learn.microsoft.com/windows/win32/controls/bumper-tree-view-control-reference-notifications">Microsoft Docsで文書化</a>されています。Microsoft Docsには、各通知コードの数値は掲載されていませんので、Windows SDKやインターネットで検索してご確認ください。</p>
 
 <h2 id="Remarks">備考</h2>
-<p id="Enter">To detect when the user has pressed <kbd>Enter</kbd> while a TreeView has focus, use a <a href="GuiControls.htm#DefaultButton">default button</a> (which can be hidden if desired). 事例：</p>
+<p id="Enter">TreeViewにフォーカスがある状態でユーザーが<kbd>Enter</kbd>を押したことを検出するには、<a href="GuiControls.htm#DefaultButton">デフォルトのボタン</a>を使用します（必要に応じて非表示にすることができます）。事例：</p>
 <pre>MyGui.Add("Button", "Hidden Default", "OK").OnEvent("Click", ButtonOK)
 ...
 ButtonOK(*) {
@@ -304,20 +304,20 @@ ButtonOK(*) {
         return
     MsgBox("Enter was pressed. The selected item ID is " TV.GetSelection())
 }</pre>
-<p>In addition to navigating from item to item with the keyboard, the user may also perform incremental search by typing the first few characters of an item's name. This causes the selection to jump to the nearest matching item.</p>
-<p>Although any length of text can be stored in each item of a TreeView, only the first 260 characters are displayed.</p>
-<p>Although the theoretical maximum number of items in a TreeView is 65536, item-adding performance will noticeably decrease long before then. This can be alleviated somewhat by using the redraw tip described in the <a href="#Add">Add method</a>.</p>
-<p id="ILremarks">Unlike <a href="ListView.htm">ListViews</a>, a TreeView's ImageList is not automatically destroyed when the TreeView is destroyed. Therefore, a script should call <a href="ListView.htm#IL_Destroy">IL_Destroy</a> after destroying a TreeView's window if the ImageList will not be used for anything else. However, this is not necessary if the script will soon be exiting because all ImageLists are automatically destroyed at that time.</p>
-<p>A script may create more than one TreeView per window.</p>
-<p>To perform actions such as resizing, hiding, or changing the font of a TreeView, see <a href="GuiControl.htm">GuiControl object</a>.</p>
-<p>Tree View eXtension (TVX) extends TreeViews to support moving, inserting and deleting. It is demonstrated at <a href="https://www.autohotkey.com/forum/topic19021.html">www.autohotkey.com/forum/topic19021.html</a></p>
+<p>キーボードで項目から項目へ移動するだけでなく、項目名の最初の数文字を入力してインクリメンタル検索を行うこともできる。これにより、選択項目は最も近い一致項目にジャンプする。</p>
+<p>TreeViewの各項目には任意の長さのテキストを格納できるが、表示されるのは最初の260文字だけである。</p>
+<p>TreeViewのアイテムの理論的な最大数は65536ですが、アイテム追加のパフォーマンスはそれよりもずっと前に顕著に低下します。これは、<a href="#Add">Addメソッド</a>で説明した再描画のチップを使うことで、いくらか軽減できる。</p>
+<p id="ILremarks"><a href="ListView.htm">ListView</a>とは異なり、TreeViewのImageListは、TreeViewが破棄されたときに自動的に破棄されることはありません。したがって、スクリプトはTreeViewのウィンドウを破棄した後に<a href="ListView.htm#IL_Destroy">IL_Destroy</a>を呼び出す必要があります。しかし、スクリプトがすぐに終了する場合は、その時点ですべてのImageListsが自動的に破棄されるため、この必要はありません。</p>
+<p>スクリプトは、ウィンドウごとに複数のTreeViewを作成することができます。</p>
+<p>TreeViewのサイズ変更、非表示、フォント変更などのアクションを実行するには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を参照してください。</p>
+<p>Tree View eXtension (TVX) はTreeViewを拡張し、移動、挿入、削除をサポートします。<a href="https://www.autohotkey.com/forum/topic19021.html">www.autohotkey.com/forum/topic19021.html</a>にデモンストレーションがあります。</p>
 <h2 id="Related">関連</h2>
 <p><a href="ListView.htm">ListView</a>, <a href="GuiControls.htm">Other Control Types</a>, <a href="Gui.htm#Call">Gui()</a>, <a href="GuiOnEvent.htm#ContextMenu">ContextMenu event</a>, <a href="GuiControl.htm">Gui object</a>, <a href="GuiControl.htm">GuiControl object</a>, <a href="../misc/Styles.htm#TreeView">TreeView styles table</a></p>
 
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExAdvanced">
-<p><a class="ex_number" href="#ExAdvanced"></a> 以下は、このページのトップ付近にあるスクリプトよりも、より精巧に作られたワーキングスクリプトです。It creates and displays a TreeView containing all folders in the all-users Start Menu. When the user selects a folder, its contents are shown in a ListView to the right (like Windows Explorer). In addition, a <a href="GuiControls.htm#StatusBar">StatusBar</a> control shows information about the currently selected folder.</p>
+<p><a class="ex_number" href="#ExAdvanced"></a> 以下は、このページのトップ付近にあるスクリプトよりも、より精巧に作られたワーキングスクリプトです。全ユーザーのスタートメニューにあるすべてのフォルダを含むTreeViewを作成し、表示します。ユーザーがフォルダを選択すると、その内容が（Windowsエクスプローラのように）右側のリストビューに表示されます。さらに、<a href="GuiControls.htm#StatusBar">StatusBar</a>コントロールは、現在選択されているフォルダに関する情報を表示します。</p>
 <pre><em>; The following folder will be the root folder for the TreeView. Note that loading might take a long
 ; time if an entire drive such as C:\ is specified:</em>
 TreeRoot := A_MyDocuments

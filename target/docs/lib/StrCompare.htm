@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>StrCompare - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The StrCompare function compares two strings alphabetically." />
+<title>StrCompare - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="StrCompare関数は、2つの文字列をアルファベット順に比較する。" />
 <meta name="ahk:equiv-v1" content="index.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,40 +20,40 @@
   <dt>String1, String2</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The strings to be compared.</p>
+    <p>比較する文字列。</p>
   </dd>
   <dt>CaseSense</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
     <p>以下の値のいずれか（省略時は0をデフォルトとします）：</p>
-    <p><code>"On"</code> または <code>1</code> (<code>True</code>):The comparison is case-sensitive.</p>
+    <p><code>"On"</code> または <code>1</code> (<code>True</code>):比較は大文字と小文字を区別する。</p>
     <p><code>"Off"</code> または <code>0</code> (<code>False</code>):A～Zは小文字と同一視されます。</p>
-    <p id="Locale"><code>"Locale"</code>:The comparison is case-insensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
-    <p id="Logical"><code>"Logical"</code>:Like <em>Locale</em>, but digits in the strings are considered as numerical content rather than text. 例えば、"A2 "は "A10 "よりも小さいとみなされる。しかし、2つの数値が先頭のゼロの有無によってのみ異なる場合、先頭のゼロがある文字列は、もう一方の文字列よりも<em>小さい</em>とみなされることがある。正確な動作はOSのバージョンによって異なる場合があります。</p>
+    <p id="Locale"><code>"Locale"</code>:比較は、現在のユーザーのロケールのルールに従って、大文字と小文字を区別しない。例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
+    <p id="Logical"><code>"Logical"</code>:<em>Locale</em>と似ているが、文字列中の数字はテキストではなく数値コンテンツとみなされる。例えば、"A2 "は "A10 "よりも小さいとみなされる。しかし、2つの数値が先頭のゼロの有無によってのみ異なる場合、先頭のゼロがある文字列は、もう一方の文字列よりも<em>小さい</em>とみなされることがある。正確な動作はOSのバージョンによって異なる場合があります。</p>
   </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>To indicate the relationship between <em>String1</em> and <em>String2</em>, this function returns one of the following:</p>
+<p><em>String1</em>と<em>String2</em>の関係を示すために、この関数は以下のいずれかを返す：</p>
 <ul>
-  <li>0, if <em>String1</em> is identical to <em>String2</em></li>
-  <li>a positive integer, if <em>String1</em> is greater than <em>String2</em></li>
-  <li>a negative integer, if <em>String1</em> is less than <em>String2</em></li>
+  <li>0,<em>String1</em>が <em>String2</em>と同じ場合</li>
+  <li>正の整数, <em>String1</em>が <em>String2</em>より大きい場合</li>
+  <li>負の整数、<em>String1</em>が <em>String2</em>より小さい場合</li>
 </ul>
-<p>To check for a specific relationship between the two strings, compare the result to 0. 事例：</p>
+<p>2つの文字列間の特定の関係をチェックするには、結果を0と比較する。事例：</p>
 <pre>a_less_than_b := StrCompare(a, b) &lt; 0
 a_greater_than_or_equal_to_b := StrCompare(a, b) &gt;= 0</pre>
 
 <h2 id="Remarks">備考</h2>
-<p>This function is commonly used for <a href="Sort.htm#callback">sort callbacks</a>.</p>
+<p>この関数は<a href="Sort.htm#callback">ソートコールバック</a>によく使われる。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Sort.htm">Sort</a>, <a href="VerCompare.htm">VerCompare</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExCaseSens">
-<p><a class="ex_number" href="#ExCaseSens"></a> Demonstrates the difference between a case-insensitive and case-sensitive comparison.</p>
+<p><a class="ex_number" href="#ExCaseSens"></a> 大文字小文字を区別しない比較と区別する比較の違いを示す。</p>
 <pre>MsgBox StrCompare("Abc", "abc") <em>; Returns 0</em>
 MsgBox StrCompare("Abc", "abc", true) <em>; Returns -1</em></pre>
 </div>

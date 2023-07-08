@@ -57,7 +57,7 @@ LV_DoubleClick(LV, RowNumber)
     ToolTip("You double-clicked row number " RowNumber ". Text:'" RowText "'")
 }</pre>
 <h2 id="Options">Optionsパラメータのオプションとスタイル</h2>
-<p><strong>Background:</strong> Specify the word <em>Background</em> followed immediately by a color name (see <a href="../misc/Colors.htm">color chart</a>) or RGB value (the 0x prefix is optional). 例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. このオプションがない場合、ListViewの初期値はシステムのデフォルトの背景色になります。Specifying <code>BackgroundDefault</code> or <code>-Background</code> applies the system's default background color (usually white). For example, a ListView can be restored to the default color via <code>LV.Opt("+BackgroundDefault")</code>.</p>
+<p><strong>Background：</strong> <em>Background（背景）：Background</em>（背景）という語の直後に色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（0x接頭辞は任意）を指定。例：<code>BackgroundSilver</code>, <code>BackgroundFFDD99</code>. このオプションがない場合、ListViewの初期値はシステムのデフォルトの背景色になります。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。For example, a ListView can be restored to the default color via <code>LV.Opt("+BackgroundDefault")</code>.</p>
 <p><strong>C:</strong> Text color. 文字Cの直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>cRed</code>, <code>cFF2211</code>, <code>c0xFF2211</code>, <code>cDefault</code>.</p>
 <p id="Checked"><strong>チェック付き：</strong>各行の左側にチェックボックスを提供します。行を<a href="#Add">追加</a>する際、そのオプションに<em>Check</em>という単語を指定すると、スタートするボックスがチェックされていない状態ではなく、チェックされた状態になります。ユーザーは、チェックボックスをクリックするか、スペースバーを押して、行のチェックを入れたり外したりすることができます。</p>
 <p id="Count"><strong>Count:</strong> Specify the word <em>Count</em> followed immediately by the total number of rows that the ListView will ultimately contain. これは制限ではありません：を超える行を追加することができます。その代わり、このオプションはコントロールへのヒントとして機能し、行を追加するたびにメモリを確保するのではなく、一度だけメモリを確保することができます。To improve performance even more, use <code>LV.Opt("-Redraw")</code> prior to adding a large number of rows and <code>LV.Opt("+Redraw")</code> afterward. See <a href="GuiControl.htm#redraw-remarks">Redraw</a> for more details.</p>
@@ -73,7 +73,7 @@ LV_DoubleClick(LV, RowNumber)
 <p><strong>R:</strong> Rows of height (upon creation). Rの文字の後に、コントロール内のスペースを確保するための行数を指定します。例えば、<code>R10</code>とすると、コントロールは10列の高さになります。レポートビュー以外の<a href="#View">ビューモード</a>でListViewを作成した場合、コントロールはテキストの列ではなく、アイコンの列に合うようにサイズ調整されます。注：ListViewの行に<a href="#IL">アイコン</a>を追加すると、各行の高さが高くなるため、このオプションは不正確となります。</p>
 <p id="Sort"><strong>ソート：</strong>コントロールは、最初のカラムの内容に従ってアルファベット順にソートされた状態で保持されます。</p>
 <p id="SortDesc"><strong>SortDesc:</strong>降順以外は上記と同じ。</p>
-<p id="WantF2"><strong>WantF2:</strong> Specify <code>-WantF2</code> (minus WantF2) to prevent <kbd>F2</kbd> from <a href="#ReadOnly">editing</a> the currently focused row. This setting is ignored unless <a href="#ReadOnly">-ReadOnly</a> is also in effect.</p>
+<p id="WantF2"><strong>WantF2:</strong> Specify <code>-WantF2</code> (minus WantF2) to prevent <kbd>F2</kbd> from <a href="#ReadOnly">editing</a> the currently focused row. この設定は、<a href="#ReadOnly">-ReadOnly</a>も有効でない限り無視される。</p>
 <p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。一覧は<a href="../misc/Styles.htm#ListView">ListViewのスタイルの表</a>を参照してください。</p>
 <h2 id="View">View Modes</h2>
 <p>ListViewには5つの表示モードがあり、その中で最も一般的なのはレポートビュー（これがデフォルト）です。他のビューを使用する場合は、オプションリストでその名前を指定します。また、ビューはコントロール作成後に変更することも可能です：<code>LV.Opt("+IconSmall")</code>.</p>
@@ -98,13 +98,13 @@ LV_DoubleClick(LV, RowNumber)
   <li><a href="#InsertCol">InsertCol</a>:指定されたカラム番号に新しいカラムを挿入します。</li>
   <li><a href="#DeleteCol">DeleteCol</a>:指定された列とその下にあるすべてのコンテンツを削除する。</li>
 </ul>
-<p><strong>Retrieval methods:</strong></p>
+<p><strong>検索方法：</strong></p>
 <ul>
   <li><a href="#GetCount">GetCount</a>:行または列の合計数を返します。</li>
   <li><a href="#GetNext">GetNext</a>:次に選択、チェック、またはフォーカスされた行の行番号を返します。</li>
   <li><a href="#GetText">GetText</a>:指定された行と列のテキストを取得する。</li>
 </ul>
-<p><strong>Other methods:</strong></p>
+<p><strong>その他の方法</strong></p>
 <ul>
   <li><a href="#SetImageList">SetImageList</a>:アイコンを表示するための ImageList を設定または置き換える。</li>
 </ul>
@@ -117,11 +117,11 @@ LV_DoubleClick(LV, RowNumber)
       <dt id="RowOptions">Options</dt>
       <dd>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>A string containing zero or more options from the list below (not case-sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+<p>A string containing zero or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
 <p id="Check"><strong>Check:</strong> Shows a checkmark in the row (if the ListView has <a href="#Checked">checkboxes</a>). 後でチェックを外すには、<code>LV.Modify(RowNumber, "-Check")</code>を使用します。</p>
 <p id="ColN"><strong>Col:</strong> Specify the word <em>Col</em> followed immediately by the column number at which to begin applying the parameters <em>Col1</em> and beyond. This is most commonly used with the <a href="#Modify">Modify method</a> to alter individual fields in a row without affecting those that lie to their left.</p>
 <p id="Focus"><strong>Focus:</strong> Sets keyboard focus to the row (often used in conjunction with the <a href="#Select">Select</a> option below). To later de-focus it, use <code>LV.Modify(RowNumber, "-Focus")</code>.</p>
-<p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this row's icon, which is displayed in the left side of the first column. If this option is absent, the first icon in the <a href="#IL">ImageList</a> is used. 空白のアイコンを表示する場合は、-1またはImageListのアイコンの数より大きい数を指定する。If the control lacks a small-icon ImageList, no icon is displayed nor is any space reserved for one in <a href="#View">report view</a>.</p>
+<p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this row's icon, which is displayed in the left side of the first column. このオプションがない場合、<a href="#IL">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示する場合は、-1またはImageListのアイコンの数より大きい数を指定する。If the control lacks a small-icon ImageList, no icon is displayed nor is any space reserved for one in <a href="#View">report view</a>.</p>
 <p>このオプションは1ベースのアイコン番号を受け付けるが、これは内部的に0ベースのインデックスに変換される。したがって、<code>アイコン0</code>は定数<a href="https://learn.microsoft.com/windows/win32/controls/list-view-controls-overview#callback-items-and-the-callback-mask">I_IMAGECALLBACK</a>（通常は-1として定義される）に対応し、<code class="no-highlight">アイコン-1</code>はI_IMAGENONEに対応する。その他の範囲外の値でも、アイコンがあるはずの場所に空白ができることがあります。</p>
 <p id="Select"><strong>Select:</strong> Selects the row. 後で選択を解除するには、<code>LV.Modify(RowNumber, "-Select")</code>を使用します。行を選択する場合、少なくとも1つの行が常に<a href="#Focus">フォーカス</a>を持つようにしておくと、Appsキーがフォーカスを持つ行の近くに<a href="GuiOnEvent.htm#ContextMenu">コンテキストメニュー</a>を表示できるようになるからです。<em>Select</em>の後に、オプションとして、開始状態を示す0または1が続く場合がある。つまり、<code>"Select"</code>も<code>"Select"<strong>.</strong>VarContainingOne</code>は同じです（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>です）。This technique also works with the <a href="#Focus">Focus</a> and <a href="#Check">Check</a> options above.</p>
 <p id="Vis"><strong>Vis:</strong> Ensures that the specified row is completely visible by scrolling the ListView, if necessary. これはLV.Modifyにのみ効果があり、例えば以下のようなものがあります：<code>LV.Modify(RowNumber, "Vis")</code>.</p>
@@ -204,7 +204,7 @@ LV_DoubleClick(LV, RowNumber)
       <dt id="ColOptions">Options</dt>
       <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A string containing zero or more options from the list below (not case-sensitive). Separate each option from the next with a space or tab. オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+    <p>A string containing zero or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
     <hr>
     <p><strong><em>一般的なオプションです：</em></strong></p>
     <p><strong>N:</strong> Specify for <em>N</em> the new width of the column, in pixels. この数字は、唯一の選択肢であるならば、引用されないことも可能です。例えば、以下はどちらも有効です：<code>LV.ModifyCol(1, 50)</code> and <code>LV.ModifyCol(1, "50 Integer")</code>.</p>

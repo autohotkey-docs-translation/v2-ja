@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Try - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Try statement guards one or more statements against runtime errors and values thrown by the Throw statement." />
+<title>Try - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Try文は、実行時エラーやThrow文によって投げられる値に対して、1つ以上の文をガードする。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>Try</h1>
 
-<p>Guards one or more statements against runtime errors and values thrown by the <a href="Throw.htm">Throw</a> statement.</p>
+<p><a href="Throw.htm">Throw</a>ステートメントによってスローされる実行時エラーや値に対して、1 つ以上のステートメントをガードします。</p>
 
 <pre class="Syntax"><span class="func">Try</span> <i>Statement</i></pre>
 <pre class="Syntax" style="line-height: 100%"><span class="func">Try</span>
@@ -20,16 +20,16 @@
     <i>Statements</i>
 }</pre>
 <h2 id="Remarks">備考</h2>
-<p>The <em>Try</em> statement is usually followed by a <a href="Block.htm">block</a> - one or more statements (typically functions or expressions) enclosed in braces. If only a single statement is to be executed, it can be placed on the same line as <em>Try</em> or on the next line, and the braces can be omitted. To specify code that executes only when <em>Try</em> catches an error, use one or more <a href="Catch.htm">Catch</a> statements.</p>
-<p>If <em>Try</em> is used without <em>Catch</em> or <em>Finally</em>, it is equivalent to having <code>catch Error</code> with an empty block.</p>
-<p>A value can be thrown by the <a href="Throw.htm">Throw</a> statement or by the program when a runtime error occurs. When a value is thrown from within a <em>Try</em> block or a function called by one, the following occurs:</p>
+<p>通常、<em>Try</em>文の後には<a href="Block.htm">ブロック</a>（中括弧で囲まれた1つ以上の文（通常は関数や式））が続く。実行する文が1つだけの場合は、<em>Try</em>と同じ行か次の行に記述し、中括弧は省略できる。<em>Try</em>がエラーをキャッチしたときだけ実行するコードを指定するには、1つ以上の<a href="Catch.htm">Catch</a>ステートメントを使用します。</p>
+<p><em>Catch</em>や <em>Finally</em>を使わずに<em>Try</em>を使うと、空のブロックで<code>catch Error</code>を実行するのと同じことになる。</p>
+<p>実行時エラーが発生した場合、<a href="Throw.htm">Throw</a>文またはプログラムによって値が投げられる。<em>Try</em>ブロックまたは<em>Try</em>ブロックによって呼び出された関数の内部から値がスローされると、以下のことが起こる：</p>
 <ul>
-  <li>If there is a <a href="Catch.htm">Catch</a> statement which matches the class of the thrown value, execution is transferred into it.</li>
-  <li>If there is no matching <em>Catch</em> statement but there is a <a href="Finally.htm">Finally</a> statement, it is executed, but once it finishes the value is automatically thrown again.</li>
-  <li>If there is no matching <em>Catch</em> statement or <em>Finally</em> statement, the value is automatically thrown again (unless there is no <em>Catch</em> or <em>Finally</em> at all, as noted above).</li>
+  <li>スローされた値のクラスと一致する<a href="Catch.htm">Catch</a>文があれば、実行はその文に移される。</li>
+  <li>一致する<em>Catch</em>文がなく、<a href="Finally.htm">Finally</a>文がある場合、その文は実行されるが、それが終了すると、値は自動的に再びスローされる。</li>
+  <li>一致する<em>Catch</em>文または<em>Finally</em>文がない場合、値は自動的に再度スローされる（前述のように<em>Catch</em>または<em>Finally</em>がまったくない場合を除く）。</li>
 </ul>
-<p>The last <em>Catch</em> can optionally be followed by <a href="Else.htm"><em>Else</em></a>. If the <em>Try</em> statement completes without an exception being thrown (and without control being transferred elsewhere by <em>Return</em>, <em>Break</em> or similar), the <em>Else</em> statement is executed. Exceptions thrown by the <em>Else</em> statement are not handled by its associated <em>Try</em> statement, but may be handled by an enclosing <em>Try</em> statement. <em>Finally</em> can also be present, but must be placed after <em>Else</em>, and is always executed last.</p>
-<p>The <a href="Block.htm#otb">One True Brace (OTB) style</a> may optionally be used with the <em>Try</em> statement. 事例：</p>
+<p>最後の<em>Catch</em>は、オプションで次のように続けることができます。 <a href="Else.htm"><em>Else</em></a>. 例外がスローされることなく（<em>Return</em>や<em>Break</em>などで制御が他に移ることなく）<em>Try</em>文が完了すると、<em>Else</em>文が実行される。<em>Else</em>文でスローされた例外は、関連する<em>Try</em>文では処理されません。<em>Finally</em>も存在できるが、<em>Else</em>の後に置かなければならず、常に最後に実行される。</p>
+<p><a href="Block.htm#otb">One True Brace (OTB) スタイル</a>は、オプションで<em>Try</em>ステートメントと一緒に使用することができます。事例：</p>
 <pre>try {
     ...
 } catch Error as err {
@@ -45,7 +45,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ex_basic">
-<p><a class="ex_number" href="#ex_basic"></a> Demonstrates the basic concept of <em>Try-Catch</em> and <em>Throw</em>.</p>
+<p><a class="ex_number" href="#ex_basic"></a> <em>Try-Catch</em>と <em>Throw</em>の基本概念を示す。</p>
 <pre>try  <em>; Attempts to execute code.</em>
 {
     HelloWorld
@@ -71,7 +71,7 @@ MakeToast()  <em>; Always fails.</em>
 </div>
 
 <div class="ex" id="ex_el">
-<p><a class="ex_number" href="#ex_el"></a> Demonstrates basic error handling of built-in functions.</p>
+<p><a class="ex_number" href="#ex_el"></a> 組込み関数の基本的なエラー処理を示す。</p>
 <pre>try
 {
     <em>; The following tries to back up certain types of files:</em>
@@ -93,7 +93,7 @@ else
 </div>
 
 <div class="ex" id="ex_com">
-<p><a class="ex_number" href="#ex_com"></a> Demonstrates the use of <em>Try-Catch</em> dealing with COM errors. For details about the COM object used below, see <a href="https://learn.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa227633(v=vs.60)">Using the ScriptControl (Microsoft Docs)</a>.</p>
+<p><a class="ex_number" href="#ex_com"></a> COMエラーを処理する<em>Try-Catch</em>の使用法を示す。以下で使用するCOMオブジェクトの詳細については、<a href="https://learn.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa227633(v=vs.60)">ScriptControlの使用法（Microsoft Docs</a>）を参照してください。</p>
 <pre>try
 {
     obj := ComObject("ScriptControl")
@@ -114,7 +114,7 @@ catch as e
 </div>
 
 <div class="ex" id="ex_nesting">
-<p><a class="ex_number" href="#ex_nesting"></a> Demonstrates nesting <em>Try-Catch</em> statements.</p>
+<p><a class="ex_number" href="#ex_nesting"></a> <em>Try-Catch</em>ステートメントの入れ子を示す。</p>
 <pre>try Example1 <em>; Any single statement can be on the same line with a Try statement.</em>
 catch Number as e
     MsgBox "Example1() threw " e

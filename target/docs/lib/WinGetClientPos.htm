@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinGetClientPos - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinGetClientPos function retrieves the position and size of the specified window's client area." />
+<title>WinGetClientPos - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinGetClientPos関数は、指定されたウィンドウのクライアント領域の位置とサイズを取得します。" />
 <meta name="ahk:equiv-v1" content="lib/WinGetPos.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,13 +22,13 @@
   <dt>&amp;X, &amp;Y</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>References to output variables in which to store the X and Y coordinates of the client area's upper left corner. 省略した場合は、対応する値は保存されません。</p>
+    <p>クライアント領域の左上隅のX座標とY座標を格納する出力変数への参照。省略した場合は、対応する値は保存されません。</p>
   </dd>
 
   <dt>&amp;Width, &amp;Height</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>References to output variables in which to store the width and height of the client area. 省略した場合は、対応する値は保存されません。</p>
+    <p>クライアント領域の幅と高さを格納する出力変数への参照。省略した場合は、対応する値は保存されません。</p>
   </dd>
 
   <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
@@ -40,30 +40,30 @@
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window could not be found.</p>
+<p>ウィンドウが見つからない場合は、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The client area is the part of the window which can contain controls. It excludes the window's title bar, menu (if it has a standard one) and borders.  The position and size of the client area are less dependent on OS version and theme than the values returned by <a href="WinGetPos.htm">WinGetPos</a>.</p>
-<p>The values returned for a minimized window may vary depending on OS and configuration, but are usually -32000 for the X and Y coordinates and zero for the width and height.</p>
+<p>クライアント・エリアはウィンドウの一部で、コントロールを含むことができる。ウィンドウのタイトルバー、メニュー（標準のものがある場合）、ボーダーは除外されます。クライアントエリアの位置とサイズは、<a href="WinGetPos.htm">WinGetPos</a>が返す値よりもOSのバージョンやテーマに依存しない。</p>
+<p>最小化されたウィンドウに対して返される値は、OSや設定によって異なるかもしれないが、通常、XとY座標は-32000、幅と高さは0である。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinGetPos.htm">WinGetPos</a>, <a href="WinMove.htm">WinMove</a>, <a href="ControlGetPos.htm">ControlGetPos</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Retrieves and reports the position and size of the calculator's client area.</p>
+<p><a class="ex_number" href="#ExBasic"></a> 電卓のクライアント領域の位置とサイズを取得して報告する。</p>
 <pre>WinGetClientPos &amp;X, &amp;Y, &amp;W, &amp;H, "Calculator"
 MsgBox "Calculator's client area is at " X "," Y " and its size is " W "x" H</pre>
 </div>
 
 <div class="ex" id="ExA">
-<p><a class="ex_number" href="#ExA"></a> Retrieves and reports the position of the active window's client area.</p>
+<p><a class="ex_number" href="#ExA"></a> アクティブウィンドウのクライアント領域の位置を取得し、報告する。</p>
 <pre>WinGetClientPos &amp;X, &amp;Y,,, "A"
 MsgBox "The active window's client area is at " X "," Y</pre>
 </div>
 
 <div class="ex" id="ExLastFound">
-<p><a class="ex_number" href="#ExLastFound"></a> If Notepad does exist, retrieve and report the position of its client area.</p>
+<p><a class="ex_number" href="#ExLastFound"></a> メモ帳が存在する場合は、そのクライアント領域の位置を取得して報告する。</p>
 <pre>if WinExist("Untitled - Notepad")
 {
     WinGetClientPos &amp;Xpos, &amp;Ypos <em>; Use the window found by WinExist.</em>

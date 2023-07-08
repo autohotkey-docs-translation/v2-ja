@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinClose - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinClose function closes the specified window." />
+<title>WinClose - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinClose関数は、指定したウィンドウを閉じる。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -27,28 +27,28 @@
   <dt>SecondsToWait</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>If omitted or blank, the function will not wait at all. If 0, it will wait 500&nbsp;ms. Otherwise, it will wait the indicated number of seconds (can contain a decimal point or be an <a href="../Variables.htm#Expressions">expression</a>) for the window to close. If the window does not close within that period, the script will continue. While the function is in a waiting state, new <a href="../misc/Threads.htm">threads</a> can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
+    <p>省略または空白の場合、関数はまったく待機しない。0なら500ミリ秒待つ。そうでない場合は、ウィンドウが閉じるまで、指定された秒数（小数点を含むか、<a href="../Variables.htm#Expressions">式</a>にすることができる）を待つ。その期間内にウィンドウが閉じなければ、スクリプトは続行される。機能が待機状態にある間、新しい<a href="../misc/Threads.htm">スレッド</a>は <a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって起動することができる。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the window could not be found, except if the <a href="#group">group</a> mode is used.</p>
-<p>No exception is thrown if a window is found but cannot be closed, so use <a href="WinExist.htm">WinExist</a> or <a href="WinWaitClose.htm">WinWaitClose</a> if you need to determine for certain that a window has closed.</p>
+<p><a href="#group">グループ</a>モードが使用されている場合を除き、ウィンドウが見つからなかった場合は<a href="Error.htm#TargetError">TargetError</a>がスローされる。</p>
+<p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用する。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This function sends a close message to a window. The result depends on the window (it may ask to save data, etc.)</p>
-<p>If a matching window is active, that window will be closed in preference to any other matching window. In general, if more than one window matches, the topmost (most recently used) will be closed.</p>
-<p id="group">This function operates only upon a single window except when <em>WinTitle</em> is <a href="GroupAdd.htm">ahk_group GroupName</a> (with no other criteria specified), in which case all windows in the group are affected.</p>
-<p>WinClose sends a WM_CLOSE message to the target window, which is a somewhat forceful method of closing it. An alternate method of closing is to send the following message. It might produce different behavior because it is similar in effect to pressing <kbd>Alt</kbd>+<kbd>F4</kbd> or clicking the window's close button in its title bar:</p>
+<p>この関数はウィンドウを閉じるメッセージを送信する。結果はウィンドウに依存する（データの保存を求められるなど）。</p>
+<p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられる。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられる。</p>
+<p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>(他の条件が指定されていない) の場合は、グループ内のすべてのウィンドウが対象となる。</p>
+<p>WinCloseはターゲット・ウィンドウにWM_CLOSEメッセージを送る。別の方法として、次のようなメッセージを送ることもできる。<kbd>Alt</kbd>+<kbd>F4</kbd>を押したり、タイトルバーにあるウィンドウの閉じるボタンをクリックしたりするのと同じような効果があるため、異なる動作をするかもしれない：</p>
 <pre>PostMessage 0x0112, 0xF060,,, WinTitle, WinText  <em>; 0x0112 = WM_SYSCOMMAND, 0xF060 = SC_CLOSE</em></pre>
-<p>If a window does not close via WinClose, you can force it to close with <a href="WinKill.htm">WinKill</a>.</p>
+<p>WinCloseで閉じないウィンドウは、<a href="WinKill.htm">WinKill</a>で強制的に閉じることができる。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="WinKill.htm">WinKill</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="ProcessClose.htm">ProcessClose</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="GroupActivate.htm">GroupActivate</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> If Notepad does exist, close it, otherwise close the calculator.</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳があればそれを閉じ、なければ電卓を閉じる。</p>
 <pre>if WinExist("Untitled - Notepad")
     WinClose <em>; Use the window found by WinExist.</em>
 else

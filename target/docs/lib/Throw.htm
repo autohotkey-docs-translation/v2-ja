@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Throw - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Throw statement signals the occurrence of an error. This signal can be caught by a Try-Catch statement." />
+<title>Throw - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Throw文はエラーの発生を知らせる。このシグナルはTry-Catchステートメントでキャッチできる。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>Throw</h1>
 
-<p>エラーの発生を通知します。This signal can be caught by a <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> statement.</p>
+<p>エラーの発生を通知します。このシグナルは<a href="Catch.htm">Try</a>-<a href="Try.htm">Catch</a>ステートメントでキャッチできる。</p>
 
 <pre class="Syntax"><span class="func">Throw</span> <span class="optional">Value</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -20,21 +20,21 @@
 
   <dt>値</dt>
   <dd>
-    <p>A value to throw; typically an <a href="Error.htm">Error</a> object. 事例：</p>
+    <p>スローする値。通常は<a href="Error.htm">Error</a>オブジェクト。事例：</p>
       <pre>throw ValueError("Parameter #1 invalid", -1, theBadParam)</pre>
-      <p>Values of all kinds can be thrown, but if <a href="Catch.htm">Catch</a> is used without specifying a class (or <a href="Try.htm">Try</a> is used without <a href="Catch.htm">Catch</a> or <a href="Finally.htm">Finally</a>), it will only catch instances of the <a href="Error.htm">Error</a> class.</p>
-      <p>While execution is within a <a href="Catch.htm">Catch</a>, <em>Value</em> can be omitted to re-throw the caught value (avoiding the need to specify an output variable just for that purpose). This is supported even within a nested <em>Try-Finally</em>, but not within a nested <em>Try-Catch</em>. The line with <code>throw</code> does not need to be physically contained by the <em>Catch</em> statement's body; it can be used by a called function.</p>
+      <p>あらゆる種類の値を投げることができるが、クラスを指定せずに<a href="Catch.htm">Catch</a>を使用した場合（または<a href="Catch.htm">Catch</a>や <a href="Finally.htm">Finally</a>を指定せずに<a href="Try.htm">Try</a>を使用した場合）、<a href="Error.htm">Error</a>クラスのインスタンスのみをキャッチする。</p>
+      <p><a href="Catch.htm">Catch</a>の中で実行されている間は、<em>Value</em>を省略することで、キャッチした値を再スローすることができる（そのためだけに出力変数を指定する必要はない）。これはネストされた<em>Try-Finally</em>内でもサポートされるが、ネストされた<em>Try-Catch</em>内ではサポートされない。<code>throw</code>の行は、<em>Catch</em>文の本体に物理的に含まれる必要はない。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>The space or tab after <code>throw</code> is optional if the expression is enclosed in parentheses, as in <code>throw(Error())</code>.</p>
-<p>A thrown value or runtime error can be <em>caught</em> by <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a>. In such cases, execution is transferred into the <em>catch</em> statement or to the next statement after the <em>try</em>. If a thrown value is not caught, the following occurs:</p>
+<p><code>throw</code> <code>(Error())</code>のように式が括弧で囲まれている場合、<code>throw</code>の後のスペースまたはタブはオプションである。</p>
+<p>スローされた値や実行時エラーは、<a href="Catch.htm">Try</a>-<a href="Try.htm">Catchで</a><em>キャッチ</em>できる。このような場合、実行は<em>catch</em>文に移されるか、<em>try</em>の次の文に移される。スローされた値がキャッチされなかった場合、以下のことが起こる：</p>
 <ul>
-  <li>Any active <a href="OnError.htm">OnError</a> callbacks are called. Each callback may inspect <em>Value</em> and either suppress or allow further callbacks and default handling.</li>
-  <li>By default, an error message is displayed based on what was thrown. If <em>Value</em> is an <a href="Object.htm">Object</a> and owns a value property named <em>Message</em>, its value is used as the message. If <em>Value</em> is a non-numeric string, it is used as the message. In any other case, a default message is used. If <em>Value</em> is numeric, it is shown below the default message.</li>
-  <li>The thread exits. Note that this does not necessarily occur for continuable errors, but <em>throw</em> is never continuable.</li>
+  <li>アクティブな<a href="OnError.htm">OnError</a>コールバックはすべて呼び出される。各コールバックは<em>Value</em>を検査し、更なるコールバックとデフォルトの処理を抑制するか許可することができる。</li>
+  <li>デフォルトでは、スローされた内容に応じたエラーメッセージが表示される。<em>Value</em>が <a href="Object.htm">Object</a>で、<em>Message</em>という名前のvalueプロパティを持つ場合、その値がメッセージとして使われる。<em>Value</em>が数値以外の文字列の場合、それがメッセージとして使われる。それ以外の場合は、デフォルトのメッセージが使われる。<em>Value</em>が数値の場合、デフォルトメッセージの下に表示される。</li>
+  <li>スレッドは終了する。これは継続可能なエラーでは必ずしも起こらないが、<em>スロー</em>は決して継続できないことに注意。</li>
 </ul>
 
 <h2 id="Related">関連</h2>

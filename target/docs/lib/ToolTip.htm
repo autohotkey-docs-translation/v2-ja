@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>ToolTip - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The ToolTip function creates an always-on-top window anywhere on the screen." />
+<title>ToolTip - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="ToolTip関数は、画面上の任意の場所に、常に上に表示されるウィンドウを作成します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,49 +21,49 @@
   <dt>Text</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, the existing tooltip (if any) will be hidden. Otherwise, specify the text to display in the tooltip. To create a multi-line tooltip, use the linefeed character (`n) in between each line, e.g. <code>"Line1`nLine2"</code>.</p>
+    <p>未設定または省略された場合、既存のツールチップ（もしあれば）は隠される。それ以外の場合は、ツールチップに表示するテキストを指定する。複数行のツールチップを作成するには、各行の間に改行文字(`n)を使用します。</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
   </dd>
 
   <dt>X, Y</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, the tooltip will be shown near the mouse cursor. Otherwise, specify the X and Y position of the tooltip relative to the active window's client area (use <code><a href="CoordMode.htm">CoordMode</a> "ToolTip"</code> to change to screen coordinates).</p>
+    <p>未設定または省略された場合、ツールチップはマウスカーソルの近くに表示される。それ以外の場合は、アクティブ・ウィンドウのクライアント領域に対するツールチップのXとYの位置を指定する（スクリーン座標に変更するには<code><a href="CoordMode.htm">CoordMode</a></code>"<code>ToolTip"</code>を使用する）。</p>
   </dd>
 
   <dt>WhichToolTip</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 1 (the first tooltip). Otherwise, specify a number between 1 and 20 to indicate which tooltip to operate upon when using multiple tooltips simultaneously.</p>
+    <p>未設定または省略された場合、デフォルトは1（最初のツールチップ）です。そうでない場合は、複数のツールチップを同時に使用するときに、どのツールチップを操作するかを示すために、1から20までの数値を指定する。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#nothing">empty string</a></p>
-<p>If a tooltip is being shown or updated, this function returns the tooltip window's <a href="../misc/WinTitle.htm#ahk_id">unique ID (HWND)</a>, which can be used to move the tooltip or send <a href="https://learn.microsoft.com/windows/win32/controls/bumper-tooltip-control-reference-messages">Tooltip Control Messages</a>.</p>
-<p>If <em>Text</em> is omitted or blank, the return value is an empty string.</p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#nothing">空文字列</a></p>
+<p>ツールチップが表示または更新されている場合、この関数はツールチップウィンドウの<a href="../misc/WinTitle.htm#ahk_id">一意のID（HWND</a>）を返し、ツールチップを移動したり、<a href="https://learn.microsoft.com/windows/win32/controls/bumper-tooltip-control-reference-messages">ツールチップコントロールメッセージ</a>を送信したりするのに使用できる。</p>
+<p><em>Text</em>が省略されたか空白の場合、戻り値は空文字列となる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>A tooltip usually looks like this: <img src="../static/dlg_tooltip.png" alt="ToolTip" style="vertical-align: middle" /></p>
-<p>If the X and Y coordinates caused the tooltip to run off-screen, or outside the <a href="MonitorGetWorkArea.htm">monitor's working area</a> on Windows 8 or later, it is repositioned to be entirely visible.</p>
-<p>The tooltip is displayed until one of the following occurs:</p>
+<p>ツールチップは通常このように表示される： <img src="../static/dlg_tooltip.png" alt="ToolTip" style="vertical-align: middle" /></p>
+<p>X座標とY座標が原因でツールチップが画面の外に出ていた場合、またはWindows 8以降で<a href="MonitorGetWorkArea.htm">モニタの作業領域</a>の外に出ていた場合、ツールチップは完全に見えるように再配置されます。</p>
+<p>ツールチップは以下のいずれかが発生するまで表示される：</p>
 <ul>
-  <li>The script terminates.</li>
-  <li>The ToolTip function is executed again with a blank <em>Text</em> parameter.</li>
-  <li>The user clicks on the tooltip (this behavior may vary depending on operating system version).</li>
+  <li>スクリプトは終了する。</li>
+  <li>ToolTip関数は、空白の<em>Text</em>パラメータで再度実行されます。</li>
+  <li>ユーザーがツールチップをクリックする（この動作は、オペレーティングシステムのバージョンによって異なる場合があります）。</li>
 </ul>
-<p>A GUI window may be made the owner of a tooltip by means of the <a href="Gui.htm#OwnDialogs">OwnDialogs option</a>. Such a tooltip is automatically destroyed when its owner is destroyed.</p>
+<p><a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>によって、GUIウィンドウをツールチップのオーナーにすることができる。このようなツールチップは、そのオーナーが破壊されると自動的に破壊される。</p>
 <h2 id="Related">関連</h2>
 <p><a href="CoordMode.htm">CoordMode</a>, <a href="TrayTip.htm">TrayTip</a>, <a href="Gui.htm">GUI</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="FileSelect.htm">FileSelect</a>, <a href="DirSelect.htm">DirSelect</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Shows a multiline tooltip at a specific position in the active window.</p>
+<p><a class="ex_number" href="#ExBasic"></a> アクティブウィンドウの特定の位置に複数行のツールチップを表示する。</p>
 <pre>ToolTip "Multiline`nTooltip", 100, 150</pre>
 </div>
 
 <div class="ex" id="ExAutoHide">
-<p><a class="ex_number" href="#ExAutoHide"></a> Hides a tooltip after a certain amount of time without having to use Sleep (which would stop the current thread).</p>
+<p><a class="ex_number" href="#ExAutoHide"></a> スリープ（現在のスレッドを停止させる）を使用せずに、一定時間後にツールチップを隠す。</p>
 <pre>ToolTip "Timed ToolTip`nThis will be displayed for 5 seconds."
 SetTimer () =&gt; ToolTip(), -5000</pre>
 </div>

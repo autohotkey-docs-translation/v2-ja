@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Switch - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The Switch statement executes one case from a list of mutually exclusive candidates." />
+<title>Switch - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Switch文は、相互に排他的な候補のリストから1つのケースを実行する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -29,36 +29,36 @@
 
   <dt>SwitchValue, CaseValue...</dt>
   <dd>
-    <p>Values to compare, as described in the <a href="#Remarks">remarks</a> below.</p>
+    <p>以下の<a href="#Remarks">備考に</a>あるように、比較する値。</p>
   </dd>
 
   <dt>CaseSense</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Optionally specify one of the following values to force all values to be compared as strings:</p>
-    <p><code>"On"</code> または <code>1</code> (<code>True</code>):Each comparison is case-sensitive.</p>
+    <p>オプションで以下の値のいずれかを指定すると、すべての値が文字列として比較される：</p>
+    <p><code>"On"</code> または <code>1</code> (<code>True</code>):各比較は大文字と小文字を区別する。</p>
     <p><code>"Off"</code> または <code>0</code> (<code>False</code>):A～Zは小文字と同一視されます。</p>
-    <p id="Locale"><code>"Locale"</code>: Each comparison is case-insensitive according to the rules of the current user's locale. For details, see <a href="StrCompare.htm">StrCompare</a>.</p>
+    <p id="Locale"><code>"Locale"</code>:各比較は、現在のユーザーのロケールの規則に従って大文字と小文字を区別しない。詳細は<a href="StrCompare.htm">StrCompare</a>を参照。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>If present, <em>SwitchValue</em> is evaluated once and compared to each case value until a match is found, and then that case is executed. Otherwise, the first case which evaluates to <a href="../Concepts.htm#boolean">true</a> (non-zero and non-empty) is executed. If there is no matching case and a <code>Default</code> is present, it is executed.</p>
-<p>As with the <code>=</code> and <code>==</code> operators, when <em>CaseSense</em> is omitted, numeric comparison is performed if <em>SwitchValue</em> and the case value are both pure numbers, or if one is a pure number and the other is a numeric string. Each case value is considered separately and does not affect the type of comparison used for other case values.</p>
-<p>If the <em>CaseSense</em> parameter is present, all values are compared as strings, not as numbers, and a <a href="Error.htm#TypeError">TypeError</a> is thrown if <em>SwitchValue</em> or a <em>CaseValue</em> evaluates to an object.</p>
-<p>If the <em>CaseSense</em> parameter is omitted, string comparisons are case-sensitive by default.</p>
-<p>Each case may list up to 20 values. Each value must be an <a href="../Language.htm#expressions">expression</a>, but can be a simple one such as a literal number, quoted string or variable. <code>Case</code> and <code>Default</code> must be terminated with a colon <code>:</code>.</p>
-<p>The first statement of each case may be below <code>Case</code> or on the same line, following the colon. Each case implicitly ends at the next <code>Case</code>/<code>Default</code> or the closing brace. Unlike the switch statement found in some other languages, there is no implicit fall-through and <a href="Break.htm">Break</a> is not used (except to break out of an enclosing loop).</p>
-<p>As all cases are enclosed in the same block, a label defined in one case can be the target of <a href="Goto.htm">Goto</a> from another case. However, if a label is placed immediately above <code>Case</code> or <code>Default</code>, it targets the end of the previous case, not the beginning of the next one.</p>
-<p><code>Default</code> is not required to be listed last.</p>
+<p>存在する場合、<em>SwitchValue</em>は一度評価され、一致するものが見つかるまで各ケース値と比較され、そのケースが実行される。そうでない場合は、最初に<a href="../Concepts.htm#boolean">真</a>（ゼロでなく、空でない）と評価されたケースが実行される。一致するケースがなく、<code>デフォルト</code>が存在する場合、そのケースが実行される。</p>
+<p>演算子<code>=</code>や <code>==</code>と同様に、<em>CaseSense</em>が省略された場合、<em>SwitchValue</em>とケース値が両方とも純粋な数値である場合、または一方が純粋な数値で他方が数値文字列である場合に数値比較が実行されます。各ケース値は個別に検討され、他のケース値で使用される比較のタイプには影響しない。</p>
+<p><em>CaseSense</em>パラメータが存在する場合、すべての値は数値ではなく文字列として比較され、<em>SwitchValue</em>または<em>CaseValue</em>がオブジェクトとして評価されると<a href="Error.htm#TypeError">TypeError</a>がスローされる。</p>
+<p><em>CaseSense</em>パラメータが省略された場合、文字列比較はデフォルトで大文字と小文字を区別する。</p>
+<p>各ケースは最大20の値をリストすることができる。各値は<a href="../Language.htm#expressions">式</a>でなければならないが、リテラル数値、引用符で囲まれた文字列、変数などの単純なものでもよい。<code>Case</code>と <code>Defaultは</code>コロン<code>:</code>で終了しなければならない。</p>
+<p>各ケースの最初の文は、<code>Case</code>の下か、コロンに続く同じ行に書くことができる。各ケースは、次の<code>ケース</code><code>/</code> <code>デフォルト</code>または閉じ中括弧で暗黙のうちに終了する。他のいくつかの言語で見られるswitch文とは異なり、暗黙のフォールスルーはなく、<a href="Break.htm">Break</a>は（ループを囲むループから抜け出す場合を除き）使用されない。</p>
+<p>すべてのケースは同じブロックで囲まれているため、あるケースで定義されたラベルは、別のケースからの<a href="Goto.htm">Goto</a>のターゲットになることができる。しかし、ラベルが<code>Case</code>または<code>Default</code>のすぐ上に置かれた場合、次のケースの始まりではなく、前のケースの終わりをターゲットとする。</p>
+<p><code>デフォルト</code>は最後に表示される必要はない。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="If.htm">If</a>, <a href="Else.htm">Else</a>, <a href="Block.htm">Blocks</a></p>
 
 <h2 id="examples">例</h2>
 <div class="ex" id="ExInput">
-<p><a class="ex_number" href="#ExInput"></a> To test this example, type <kbd>[</kbd> followed by one of the abbreviations listed below, any other 5 characters, or Enter/Esc/Tab/<kbd>.</kbd>; or wait for 4 seconds.</p>
+<p><a class="ex_number" href="#ExInput"></a> この例をテストするには、<kbd>[</kbd>の後に以下の略語の1つ、その他の5文字、または Enter/Esc/Tab/<kbd>.</kbd>を入力するか、4秒間待つ。</p>
 <pre>~[::
 {
     ih := InputHook("V T5 L4 C", "{enter}.{esc}{tab}", "btw,otoh,fl,ahk,ca")

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>VarSetStrCapacity - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The VarSetStrCapacity function enlarges a variable's holding capacity or frees its memory. This is not normally needed, but may be used with DllCall or SendMessage or to optimize repeated concatenation." />
+<title>VarSetStrCapacity - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="VarSetStrCapacity関数は、変数の保持容量を増やしたり、メモリを解放したりする。これは通常は必要ないが、DllCallやSendMessageと一緒に使ったり、繰り返しの連結を最適化するために使うことがある。" />
 <meta name="ahk:equiv-v1" content="lib/VarSetCapacity.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,44 +22,44 @@
   <dt>&amp;TargetVar</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>A reference to a variable. 事例：<code>VarSetStrCapacity(&amp;MyVar, 1000)</code>. This can also be a dynamic variable such as <code>Array%i%</code> or a <a href="../Functions.htm#ByRef">function's ByRef parameter</a>.</p>
+    <p>変数への参照。事例：<code>VarSetStrCapacity(&amp;MyVar, 1000)</code>. これは、<code>Array%i%</code>などの動的変数や<a href="../Functions.htm#ByRef">関数の ByRef パラメータ</a>にすることもできます。</p>
   </dd>
 
   <dt>RequestedCapacity</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, the variable's current capacity will be returned and its contents will not be altered. Otherwise, anything currently in the variable is lost (the variable becomes blank).</p>
-    <p>Specify for <em>RequestedCapacity</em> the number of characters that the variable should be able to hold after the adjustment. <em>RequestedCapacity</em> does not include the internal zero terminator. For example, specifying 1 would allow the variable to hold up to one character in addition to its internal terminator. 注：the variable will auto-expand if the script assigns it a larger value later.</p>
-    <p>Since this function is often called simply to ensure the variable has a certain minimum capacity, for performance reasons, it shrinks the variable only when <em>RequestedCapacity</em> is 0. In other words, if the variable's capacity is already greater than <em>RequestedCapacity</em>, it will not be reduced (but the variable will still made blank for consistency).</p>
-    <p>Therefore, to explicitly shrink a variable, first free its memory with <code>VarSetStrCapacity(&amp;Var, 0)</code> and then use <code>VarSetStrCapacity(&amp;Var, NewCapacity)</code> -- or simply let it auto-expand from zero as needed.</p>
-    <p>For performance reasons, freeing a variable whose previous capacity was less than 64 characters might have no effect because its memory is of a permanent type. In this case, the current capacity will be returned rather than 0.</p>
-    <p>For performance reasons, the memory of a variable whose capacity is less than 4096 bytes is not freed by storing an empty string in it (e.g. <code>Var := ""</code>). However, <code>VarSetStrCapacity(&amp;Var, 0)</code> does free it.</p>
-    <p id="neg1">Specify -1 for <em>RequestedCapacity</em> to update the variable's internally-stored string length to the length of its current contents. This is useful in cases where the string has been altered indirectly, such as by passing its <a href="StrPtr.htm">address</a> via <a href="DllCall.htm">DllCall</a> or <a href="SendMessage.htm">SendMessage</a>. In this mode, VarSetStrCapacity returns the length rather than the capacity.</p>
+    <p>省略された場合、変数の現在の容量が返され、その内容は変更されない。そうでなければ、現在変数に入っているものはすべて失われる（変数は空白になる）。</p>
+    <p><em>RequestedCapacity</em>には、調整後に変数が保持できる文字数を指定する。<em>RequestedCapacity</em>には内部ゼロターミネータは含まれない。例えば、1を指定すると、内部ターミネーターに加えて1文字まで保持することができる。注：この変数は、スクリプトが後で大きな値を代入した場合に自動的に拡張されます。</p>
+    <p>この関数は、単に変数の最小容量を確保するために呼ばれることが多いので、パフォーマンス上の理由から、<em>RequestedCapacity</em>が0のときだけ変数を縮小する。言い換えれば、変数の容量がすでに<em>RequestedCapacity</em>より大きい場合、それは減少しない（しかし、一貫性のために変数はまだ空白にされる）。</p>
+    <p>したがって、変数を明示的に縮小するには、まず<code>VarSetStrCapacity(&amp;Var, 0</code>)でメモリを解放し、次に<code>VarSetStrCapacity(&amp;Var, NewCapacity)</code>を使う。</p>
+    <p>性能上の理由から、以前の容量が64文字未満の変数を解放しても、そのメモリは永久型であるため、何の効果もないかもしれない。この場合、0ではなく現在の容量が返される。</p>
+    <p>パフォーマンス上の理由から、容量が4096バイト未満の変数に空文字列を格納してもメモリは解放されない（例：<code>Var := ""</code>）。しかし、<code>VarSetStrCapacity(&amp;Var, 0)</code>はそれを解放する。</p>
+    <p id="neg1"><em>RequestedCapacity</em>に-1を指定すると、変数の内部に格納されている文字列の長さが、現在の内容の長さに更新される。これは、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>で<a href="StrPtr.htm">アドレス</a>を渡すなど、文字列が間接的に変更された場合に便利である。このモードでは、VarSetStrCapacityは容量ではなく長さを返す。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the number of characters that Var can now hold, which will be greater than or equal to <em>RequestedCapacity</em>.</p>
+<p>この関数は、Varが現在保持できる文字数を返し、これは<em>RequestedCapacity</em>以上となる。</p>
 
 <h2 id="Failure">Failure</h2>
-<p>An exception is thrown under any of the following conditions:</p>
+<p>例外は、以下のいずれかの条件でスローされる：</p>
 <ul>
-  <li><em>TargetVar</em> is not a valid variable reference. It is not possible to pass an <a href="../Objects.htm#Usage_Objects">object property</a> or <a href="../Variables.htm#BuiltIn">built-in variable</a> by reference, and therefore not valid to pass one to this function.</li>
-  <li>The requested capacity is too large to fit within any single contiguous memory block available to the script. In rare cases, this may be due to the system running out of memory.</li>
-  <li><em>RequestedCapacity</em> is less than -1 or greater than can theoretically be supported by the current platform.</li>
+  <li><em>TargetVar</em>は有効な変数参照ではありません。<a href="../Objects.htm#Usage_Objects">オブジェクトのプロパティ</a>や <a href="../Variables.htm#BuiltIn">組み込み変数</a>を参照渡しすることはできないので、この関数に渡しても無効である。</li>
+  <li>要求された容量が大きすぎて、スクリプトで使用可能な連続したメモリブロック1個に収まらない。まれに、システムのメモリ不足が原因の場合もある。</li>
+  <li><em>RequestedCapacity</em>が-1より小さいか、現在のプラットフォームが理論的にサポートできる容量より大きい。</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
-<p>The <a href="Buffer.htm">Buffer</a> object offers superior clarity and flexibility when dealing with binary data, structures, DllCall and similar. For instance, a Buffer object can be assigned to a property or array element or be passed to or returned from a function without copying its contents.</p>
-<p>This function can be used to enhance performance when building a string by means of gradual concatenation. This is because multiple automatic resizings can be avoided when you have some idea of what the string's final length will be. In such a case, <em>RequestedCapacity</em> need not be accurate: if the capacity is too small, performance is still improved and the variable will begin auto-expanding when the capacity has been exhausted. If the capacity is too large, some of the memory is wasted, but only temporarily because all the memory can be freed after the operation by means of <code>VarSetStrCapacity(&amp;Var, 0)</code> or <code>Var := ""</code>.</p>
+<p><a href="Buffer.htm">Buffer</a>オブジェクトは、バイナリ・データ、構造体、DllCallなどを扱う際に、優れた明快さと柔軟性を提供する。例えば、Bufferオブジェクトはその内容をコピーすることなく、プロパティや配列要素に代入したり、関数に渡したり関数から返したりすることができる。</p>
+<p>この関数は、漸進的な連結によって文字列を構築する際のパフォーマンスを向上させるために使用できる。これは、文字列の最終的な長さがある程度わかっていれば、何度も自動的にリサイズすることを避けられるからである。その場合、<em>RequestedCapacity</em>は正確である必要はない：容量が小さすぎる場合でも、パフォーマンスは改善され、容量がなくなると変数は自動拡張を開始する。容量が大きすぎる場合、メモリの一部が無駄になるが、<code>VarSetStrCapacity(&amp;Var, 0)</code>または<code>Var := ""</code>によって操作後にすべてのメモリを解放できるため、一時的なものに過ぎない。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Buffer.htm">Buffer object</a>, <a href="DllCall.htm">DllCall</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExConcat">
-<p><a class="ex_number" href="#ExConcat"></a> Optimize by ensuring <em>MyVar</em> has plenty of space to work with.</p>
+<p><a class="ex_number" href="#ExConcat"></a> <em>MyVar</em>に、十分なスペースを確保して最適化する。</p>
 <pre>VarSetStrCapacity(&amp;MyVar, 5120000)  <em>; ~10 MB</em>
 Loop
 {
@@ -70,7 +70,7 @@ Loop
 </div>
 
 <div class="ex" id="ExDllCall">
-<p><a class="ex_number" href="#ExDllCall"></a> Use a variable to receive a string from an external function via <a href="DllCall.htm">DllCall</a>. (Note that the use of a <a href="Buffer.htm#ExString">Buffer object</a> may be preferred; in particular, when dealing with non-Unicode strings.)</p>
+<p><a class="ex_number" href="#ExDllCall"></a> 変数を使用して、<a href="DllCall.htm">DllCall</a>を介して外部関数から文字列を受け取る。(特にUnicode以外の文字列を扱う場合は、<a href="Buffer.htm#ExString">Bufferオブジェクト</a>を使用する方が好ましいかもしれないことに注意してください)。</p>
 <pre>max_chars := 10
 
 Loop 2

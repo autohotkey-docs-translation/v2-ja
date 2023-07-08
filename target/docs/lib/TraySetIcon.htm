@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>TraySetIcon - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The TraySetIcon function changes the script's tray icon (which is also used by GUI and dialog windows)." />
+<title>TraySetIcon - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="TraySetIcon関数は、スクリプトのトレイアイコン（GUIやダイアログウィンドウでも使用される）を変更します。" />
 <meta name="ahk:equiv-v1" content="lib/Menu.htm#Icon" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,31 +22,31 @@
   <dt>FileName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, the <em>current</em> tray icon is used, which is only meaningful for <em>Freeze</em>. Otherwise, specify the path to an icon or image file, or an asterisk (*) to restore the script's default icon.</p>
+    <p>未設定または省略された場合、<em>現在</em>のトレイアイコンが使用され、<em>フリーズ</em>でのみ意味がある。そうでない場合は、アイコンまたは画像ファイルへのパスを指定するか、スクリプトのデフォルトアイコンを復元する場合はアスタリスク（*）を指定する。</p>
     <p>対応フォーマットの一覧は、<a href="GuiControls.htm#IconSupport">ピクチャーコントロール</a>をご覧ください。</p>
   </dd>
   
   <dt>IconNumber</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 1 (the first icon group in the file). Otherwise, specify the number of the icon group to use. For example, <code>2</code> would load the default icon from the second icon group. If negative, the absolute value is assumed to be the resource ID of an icon within an executable file. If <em>FileName</em> is unset or omitted, <em>IconNumber</em> is ignored.</p>
+    <p>未設定または省略された場合、デフォルトは1（ファイル内の最初のアイコングループ）。それ以外の場合は、使用するアイコングループの番号を指定する。例えば、<code>2</code>は2番目のアイコングループからデフォルトのアイコンをロードする。負の場合、絶対値は実行ファイル内のアイコンのリソースIDとみなされる。<em>FileName</em>が設定されていないか省略されている場合、<em>IconNumber</em>は無視されます。</p>
   </dd>
   
   <dt>Freeze</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>If unset or omitted, the icon's frozen/unfrozen state remains unchanged. If true, the icon is frozen. If false, the icon is unfrozen. When the icon has been frozen, <a href="Pause.htm">Pause</a> and <a href="Suspend.htm">Suspend</a> will not change it. To freeze (or unfreeze) the <em>current</em> icon, use the function as follows: <code>TraySetIcon(,, true)</code>.</p>
+    <p>未設定または省略された場合、アイコンの凍結/非凍結状態は変更されない。trueの場合、アイコンはフリーズする。falseの場合、アイコンは凍結されない。アイコンがフリーズしている場合、<a href="Pause.htm">一時停止</a>や <a href="Suspend.htm">サスペンド</a>をしてもアイコンは変わりません。<em>現在</em>のアイコンをフリーズ（またはフリーズ解除）するには、以下の機能を使用します：<code>TraySetIcon(,, true)</code>.</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Changing the tray icon also changes the icon displayed by <a href="InputBox.htm">InputBox</a> and subsequently-created <a href="Gui.htm">GUI</a> windows. <a href="../Scripts.htm#ahk2exe">Compiled scripts</a> are also affected even if a custom icon was specified at the time of compiling. 注：Changing the icon will not unhide the tray icon if it was previously hidden by means such as <a href="_NoTrayIcon.htm">#NoTrayIcon</a>; to do that, use <code><a href="../Variables.htm#IconHidden">A_IconHidden</a> := false</code>.</p>
-<p id="distort">Slight distortion may occur when loading tray icons from file types other than .ICO. This is especially true for 16x16 icons. To prevent this, store the desired tray icon inside a .ICO file.</p>
-<p>There are some icons built into the operating system's DLLs and CPLs that might be useful. 事例：<code>TraySetIcon "Shell32.dll", 174</code>.</p>
-<p>ファイル名の代わりに<a href="../misc/ImageHandles.htm">ビットマップやアイコンハンドル</a>を使用することができます。For example, <code>TraySetIcon "HBITMAP:" handle</code>.</p>
-<p>The built-in variables <strong>A_IconNumber</strong> and <strong>A_IconFile</strong> contain the number and name (with full path) of the current icon (both are blank if the icon is the default).</p>
-<p>The tray icon's tooltip can be changed by assigning a value to <a href="../Variables.htm#IconTip">A_IconTip</a>.</p>
+<p>トレイアイコンを変更すると、<a href="InputBox.htm">InputBox</a>やその後に作成される<a href="Gui.htm">GUI</a>ウィンドウに表示されるアイコンも変更されます。<a href="../Scripts.htm#ahk2exe">コンパイル</a>時にカスタムアイコンを指定した場合でも、<a href="../Scripts.htm#ahk2exe">コンパイル済みのスクリプト</a>は影響を受ける。注：<code><a href="../Variables.htm#IconHidden">A_IconHidden</a> := false</code>を使って変更しても、トレイアイコンが<a href="_NoTrayIcon.htm">#NoTrayIcon</a>などで非表示になっていた場合は、非表示は解除されません。</p>
+<p id="distort">.ICO以外のファイル形式からトレイアイコンを読み込むと、わずかな歪みが発生する場合があります。これは特に16x16アイコンの場合に当てはまります。これを防ぐには、必要なトレイアイコンを.ICOファイルに保存します。</p>
+<p>オペレーティングシステムのDLLやCPLには、便利なアイコンがいくつか組み込まれている。事例：<code>TraySetIcon "Shell32.dll", 174</code>.</p>
+<p>ファイル名の代わりに<a href="../misc/ImageHandles.htm">ビットマップやアイコンハンドル</a>を使うこともできる。例えば、<code>TraySetIcon "HBITMAP: "ハンドル</code>。</p>
+<p>組み込み変数<strong>A_IconNumber</strong>と <strong>A_IconFile</strong>には、現在のアイコンの番号と名前（フルパス付き）が格納される（アイコンがデフォルトの場合は両方とも空白）。</p>
+<p>トレイアイコンのツールチップは、<a href="../Variables.htm#IconTip">A_IconTip</a>に値を代入することで変更できる。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="_NoTrayIcon.htm">#NoTrayIcon</a>, <a href="TrayTip.htm">TrayTip</a>, <a href="Menu.htm">Menu object</a></p>

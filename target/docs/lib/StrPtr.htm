@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>StrPtr - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The StrPtr function returns the current memory address of a string." />
+<title>StrPtr - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="StrPtr関数は、文字列の現在のメモリー・アドレスを返す。" />
 <meta name="ahk:equiv-v1" content="Variables.htm#amp" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,26 +27,26 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the current memory address of <em>Value</em>.</p>
+<p>この関数は、<em>Value</em>の現在のメモリアドレスを返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>The lifetime of an address and which operations are valid to perform on it depend on how <em>Value</em> was passed to this function. There are three distinct cases, shown as example code below. In all cases, if the string will <strong>not</strong> be modified, the return value can be passed <em>directly</em> to a <a href="DllCall.htm">DllCall</a> function or <a href="SendMessage.htm">SendMessage</a>.</p>
+<p>アドレスの寿命と、そのアドレスに対してどの操作が有効かは、<em>Value</em>がこの関数にどのように渡されたかに依存する。以下のコード例に示すように、3つのケースがある。どのような場合でも、文字列が変更され<strong>ない</strong>場合は、戻り値を<em>直接</em> <a href="DllCall.htm">DllCall</a>関数または<a href="SendMessage.htm">SendMessage</a>に渡すことができます。</p>
 <pre>Ptr := StrPtr(MyVar)</pre>
-<p>If <em>Value</em> is a variable reference such as <code>MyVar</code> (and not a built-in variable), the return value is the memory address of the variable's internal string buffer. <code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar)</code> returns the size of the buffer <strong>in characters</strong>, excluding the terminating null character.</p>
-<p>The address should be considered valid <em>only</em> until the variable is freed or has been reassigned by means of any of the <a href="../Variables.htm#AssignOp">assignment operators</a> or by passing it to a built-in function. The address of the contents of a function's <a href="../Functions.htm#Local">local</a> variable is not valid after the function returns, as local variables are freed automatically.</p>
-<p>The address can be stored in a <a href="DllCall.htm#struct">structure</a> or another variable, and passed indirectly to <a href="DllCall.htm">DllCall</a> or <a href="SendMessage.htm">SendMessage</a> or used in other ways, for as long as it remains valid as described above.</p>
-<p>The script may change the value of the string indirectly by passing the address to <a href="NumPut.htm">NumPut</a>, <a href="DllCall.htm">DllCall</a> or <a href="SendMessage.htm">SendMessage</a>. If the length of the string is changed this way, the variable's internal length property must be updated by calling <code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(MyVar, -1)</code>.</p>
+<p><em>Value</em>が <code>MyVar</code>のような変数参照（組み込み変数ではない）の場合、戻り値はその変数の内部文字列バッファのメモリアドレスとなる。<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar)</code>は、終端のヌル文字を除いたバッファのサイズを<strong>文字数</strong>で返します。</p>
+<p>このアドレスは、変数が解放される<em>のみ</em>か、<a href="../Variables.htm#AssignOp">代入演算子</a>によって再代入されるか、組み込み関数に渡されるまで有効であるとみなされるべきである。ローカル変数は自動的に解放されるため、関数の<a href="../Functions.htm#Local">ローカル</a>変数の内容のアドレスは、関数が戻った後は無効となる。</p>
+<p>このアドレスは、<a href="DllCall.htm#struct">構造体</a>や他の変数に格納し、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>に間接的に渡したり、他の方法で使用したりすることができる。</p>
+<p>スクリプトは、<a href="NumPut.htm">NumPut</a>、<a href="DllCall.htm">DllCall</a>、または<a href="SendMessage.htm">SendMessage</a>にアドレスを渡すことで、間接的に文字列の値を変更することができる。この方法で文字列の長さを変更する場合は、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(MyVar, -1)</code>を呼び出して、変数内部の長さプロパティを更新する必要があります。</p>
 <pre>Ptr := StrPtr("literal string")</pre>
-<p>The address of a literal string is valid until the program exits. The script should not attempt to modify the string. The address can be stored in a <a href="DllCall.htm#struct">structure</a> or another variable, and passed indirectly to <a href="DllCall.htm">DllCall</a> or <a href="SendMessage.htm">SendMessage</a> or used in other ways.</p>
+<p>リテラル文字列のアドレスは、プログラムが終了するまで有効である。スクリプトは文字列を変更しようとしてはならない。このアドレスは、<a href="DllCall.htm#struct">構造体</a>や他の変数に格納し、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>に間接的に渡したり、他の方法で使用することができる。</p>
 <pre>SendMessage 0x000C, 0, StrPtr(A_ScriptName " changed this title"),, "A"</pre>
-<p>The address of a temporary string is valid only until evaluation of the overall expression or function call statement is completed, after which time it must not be used. For the example above, the address is valid until SendMessage returns. All of the following yield temporary strings:</p>
+<p>一時文字列のアドレスは、式全体または関数呼び出し文の評価が完了するまでのみ有効で、それ以降は使用してはならない。上の例では、アドレスはSendMessageが戻るまで有効である。以下はすべて、一時的な文字列が得られる：</p>
 <ul>
-  <li>Concatenation.</li>
-  <li>Built-in variables such as <a href="../Variables.htm#ScriptName">A_ScriptName</a>.</li>
-  <li>Functions which return strings.</li>
-  <li>Accessing properties of an object, array elements or map elements.</li>
+  <li>連結。</li>
+  <li><a href="../Variables.htm#ScriptName">A_ScriptName</a>のような組み込み変数。</li>
+  <li>文字列を返す関数。</li>
+  <li>オブジェクト、配列要素、マップ要素のプロパティへのアクセス。</li>
 </ul>
-<p>If not explicitly covered above, it is safe to assume the string is temporary.</p>
+<p>上記で明示的にカバーされていない場合、文字列は一時的なものだと考えて差し支えない。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>, <a href="DllCall.htm">DllCall</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="Buffer.htm">Buffer object</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a></p>
