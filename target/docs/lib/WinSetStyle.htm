@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinSetStyle / WinSetExStyle - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinSetStyle and WinSetExStyle functions change the style or extended style of the specified window, respectively." />
+<title>WinSetStyle / WinSetExStyle - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinSetStyle関数とWinSetExStyle関数は、それぞれ指定されたウィンドウのスタイルまたは拡張スタイルを変更する。" />
 <meta name="ahk:equiv-v1" content="lib/WinSet.htm#Style" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +24,7 @@
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
         <p>正の整数を渡すと、ウィンドウのスタイルを完全に上書きする、つまり、<em>Value</em>に設定します。</p>
-        <p>スタイルの追加、削除、切り替えを簡単に行うには、プラス記号（+）、マイナス記号（-）、キャレット（^）をそれぞれ先頭に持つ数値列を渡します。The new style value is calculated as shown below (where CurrentStyle could be retrieved with <a href="WinGetStyle.htm">WinGetStyle/WinGetExStyle</a>):</p>
+        <p>スタイルの追加、削除、切り替えを簡単に行うには、プラス記号（+）、マイナス記号（-）、キャレット（^）をそれぞれ先頭に持つ数値列を渡します。新しいスタイル値は以下のように計算されます（CurrentStyleは<a href="WinGetStyle.htm">WinGetStyle/WinGetExStyle</a>で取得できます）：</p>
         <table class="info">
             <tr>
                 <th>Operation</th>
@@ -54,7 +54,7 @@
         <p><em>Value</em>が負の整数の場合、対応する数値文字列と同じように扱われます。</p>
         <p>+　または - プレフィックスを文字どおり式で使用するには、プレフィックスまたは値を引用符で囲む必要があります。事例：<code>WinSetStyle("+0x80")</code> or <code>WinSetStyle("^" StylesToToggle)</code>. という<a href="../Variables.htm#Expressions">表現が</a>あるからです。 <code><a href="../Variables.htm#unary">+123</a></code>は123（接頭辞なし）を生成し、<code>^123</code>はシンタックスエラーとなります。</p>
     </dd>
-    <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+    <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
         <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -63,11 +63,11 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウが見つからない場合は、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if the change could not be applied.</p>
+<p>変更が適用できなかった場合は<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>スタイルの一部については、<a href="../misc/Styles.htm">スタイル表</a>をご覧ください。</p>
-<p>After applying certain style changes to a visible window, it might be necessary to redraw the window using <a href="WinRedraw.htm">WinRedraw</a>.</p>
+<p>特定のスタイル変更を可視ウィンドウに適用した後、<a href="WinRedraw.htm">WinRedraw</a>を使用してウィンドウを再描画する必要がある場合があります。</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
@@ -76,12 +76,12 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExStyle">
-<p><a class="ex_number" href="#ExStyle"></a> Removes the active window's title bar (WS_CAPTION).</p>
+<p><a class="ex_number" href="#ExStyle"></a> アクティブウィンドウのタイトルバー(WS_CAPTION)を削除します。</p>
 <pre>WinSetStyle "-0xC00000", "A"</pre>
 </div>
 
 <div class="ex" id="ExExStyle">
-<p><a class="ex_number" href="#ExExStyle"></a> Toggles the WS_EX_TOOLWINDOW attribute, which removes/adds Notepad from the alt-tab list.</p>
+<p><a class="ex_number" href="#ExExStyle"></a> WS_EX_TOOLWINDOW属性をトグルし、altタブのリストからメモ帳を削除/追加します。</p>
 <pre>WinSetExStyle "^0x80", "ahk_class Notepad"</pre>
 </div>
 

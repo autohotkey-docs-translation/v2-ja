@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Long Paths | AutoHotkey v2</title>
-<meta name="description" content="Learn how long paths are handled in AutoHotkey and which techniques are available to bypass path length limitations." />
+<title>ロングパス｜AutoHotkey v2</title>
+<meta name="description" content="AutoHotkeyで長いパスがどのように扱われるのか、また、パスの長さの制限を回避するにはどのようなテクニックがあるのかをご紹介します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,28 +12,28 @@
 <body>
 <h1>Long Paths</h1>
 
-<p>In general, programs are affected by two kinds of path length limitations:</p>
+<p>一般的に、プログラムは2種類のパス長制限の影響を受ける：</p>
 <ol>
-  <li>Functions provided by the operating system generally limit paths to 259 characters, with some exceptions.</li>
-  <li>Code for dealing with paths within the program may rely on the first limitation to simplify the code, effectively placing another 259 character limitation.</li>
+  <li>オペレーティング・システムが提供する関数は、いくつかの例外を除き、通常パスを259文字に制限している。</li>
+  <li>プログラム内でパスを扱うコードは、コードを単純化するために最初の制限に依存する可能性があり、事実上、別の259文字の制限を置くことになる。</li>
 </ol>
-<p>These limitations are often referred to as "MAX_PATH limitations", after the constant <code>MAX_PATH</code>, which has the value 260. One character is generally reserved for a null terminator, leaving 259 characters for the actual path.</p>
-<p>AutoHotkey removes the second kind in most cases, which enables the script to work around the first kind. There are two ways to do this:</p>
+<p>これらの制限は、値260を持つ定数<code>MAX_PATHに</code>ちなんで、しばしば「MAX_PATH制限」と呼ばれる。一般的に1文字はヌルターミネーターとして予約され、259文字が実際のパスに残される。</p>
+<p>AutoHotkeyはほとんどの場合、2番目の種類を削除し、スクリプトが1番目の種類を回避できるようにします。これには2つの方法がある：</p>
 <ul>
-  <li>Long paths can be enabled for AutoHotkey and all other long-path-aware programs on Windows 10. Refer to the <a href="https://learn.microsoft.com/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later">Microsoft documentation</a> for details. In short, this enables most functions to transparently work with long paths, but requires Windows 10 version 1607 or later.</li>
-  <li>In many cases, prefixing the path with <code>\\?\</code> enables it to exceed the usual limit. However, some system functions do not support it (or long paths in general). See <a href="#limitations">Known Limitations</a> for details.</li>
+  <li>Windows 10のAutoHotkeyやその他すべてのロングパス対応プログラムでロングパスを有効にできます。詳細は<a href="https://learn.microsoft.com/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later">マイクロソフトのドキュメントを</a>参照。要するに、これによりほとんどの機能が透過的に長いパスを扱うことができるようになるが、Windows 10のバージョン1607以降が必要だ。</li>
+  <li>多くの場合、パスの前に<code>\\?\</code>を付けると、通常の制限を超えることができる。しかし、システム機能によっては（あるいは一般的に長いパスを）サポートしていないものもある。詳細は「<a href="#limitations">既知の制限事項</a>」を参照。</li>
 </ul>
 
-<h2 id="prefix">Long Path Prefix</h2>
-<p>If supported by the underlying system function, the <code>\\?\</code> prefix -- for example, in <code>\\?\C:\My Folder</code> -- increases the limit to 32,767 characters. However, it does this by skipping <a href="https://learn.microsoft.com/archive/blogs/jeremykuhne/path-normalization">path normalization</a>. Some elements of the path which would normally be removed or altered by normalization instead become part of the file's actual path. Care must be taken as this can allow the creation of paths that "normal" programs cannot access.</p>
-<p>In particular, normalization:</p>
+<h2 id="prefix">ロング・パスのプレフィックス</h2>
+<p>基礎となるシステム機能でサポートされている場合、例えば<code>\\?\C:\My Folder</code>"のように、<code>\\?\</code>という接頭辞を付けると、32,767文字に制限されます。しかし、これは<a href="https://learn.microsoft.com/archive/blogs/jeremykuhne/path-normalization">パスの正規化</a>をスキップすることによって行われる。通常、正規化によって削除または変更されるパスの一部の要素は、代わりにファイルの実際のパスの一部になります。これにより、「通常の」プログラムがアクセスできないパスが作成される可能性があるため、注意が必要である。</p>
+<p>特に正規化だ：</p>
 <ul>
-  <li>Resolves relative paths such as <code>dir\file.ext</code>, <code>\file.ext</code> and <code>C:file.ext</code> (note the absence of a slash).</li>
-  <li>Resolves relative components such as <code>\..</code> and <code>\.</code>.</li>
-  <li>Canonicalizes component/directory separators, replacing <code>/</code> with <code>\</code> and eliminating redundant separators.</li>
-  <li>Trims certain characters, such as a single period at the end of a component (<code>dir.\file</code>) or trailing spaces and periods (<code>dir\filename . .</code>).</li>
+  <li><code>dir\file.ext</code>, <code>\file.ext</code>, <code>C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
+  <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。  </li>
+  <li>コンポーネント/ディレクトリのセパレータを正規化し、<code>/</code>を <code>\</code>に置き換え、冗長なセパレータを削除します。</li>
+  <li>コンポーネント（<code>dir. \file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
 </ul>
-<p>A path can be normalized explicitly by passing it to <a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a> via the function defined below, before applying the prefix. 事例：</p>
+<p>パスは、プレフィックスを適用する前に、以下に定義する関数で<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>に渡すことで、明示的に正規化することができます。事例：</p>
 <pre>MsgBox "\\?\" NormalizePath("..\file.ext")</pre>
 <pre filename="foo.ahk">NormalizePath(path) {
     cc := DllCall("GetFullPathName", "str", path, "uint", 0, "ptr", 0, "ptr", 0, "uint")
@@ -41,33 +41,33 @@
     DllCall("GetFullPathName", "str", path, "uint", cc, "ptr", buf, "ptr", 0)
     return StrGet(buf)
 }</pre>
-<p>A path with the <code>\\?\</code> prefix can also be normalized by this function. However, in that case the working directory is never used, and the root is <code>\\?\</code> (for example, <code>\\?\C:\..</code> resolves to <code>\\?\</code> whereas <code>C:\..</code> resolves to <code>C:\</code>).</p>
+<p><code>\\?\</code>接頭辞を持つパスも、この関数で正規化できる。しかし、その場合、作業ディレクトリは決して使用されず、ルートは<code>\\?\</code> (例えは、<code>\\?\C:\..</code>は、<code>\\?\</code>に解決され、<code>C:\..</code>は、<code>C:\</code>に解決される。).</p>
 
 <h2 id="limitations">既知の制限事項</h2>
-<p>Even when the path itself is not limited to 259 characters, each component (file or directory name) cannot exceed the hard limit imposed by the file system (usually 255 characters).</p>
-<p>These do not support long paths due to limitations of the underlying system function(s):</p>
+<p>パス自体が259文字に制限されていない場合でも、各コンポーネント（ファイル名またはディレクトリ名）は、ファイルシステムによって課されるハードリミット（通常は255文字）を超えることはできません。</p>
+<p>これらは、基礎となるシステム機能の制限により、長いパスをサポートしていない：</p>
 <ul>
-  <li><a href="../lib/DllCall.htm">DllCall</a> (for <em>DllFile</em> and <em>Function</em>)</li>
+  <li><a href="../lib/DllCall.htm">DllCall</a>（<em>DllFile</em>および<em>Function</em>用）</li>
   <li><a href="../lib/DirCopy.htm">DirCopy</a></li>
-  <li><a href="../lib/DirDelete.htm">DirDelete</a>, unless <em>Recurse</em> is false</li>
-  <li><a href="../lib/DirMove.htm">DirMove</a>, unless the R option is used</li>
+  <li><em>Recurse</em>が false でない限り、<a href="../lib/DirDelete.htm">DirDelete</a>。</li>
+  <li><a href="../lib/DirMove.htm">DirMove</a>、Rオプションが使われていない場合</li>
   <li><a href="../lib/FileCreateShortcut.htm">FileCreateShortcut</a></li>
   <li><a href="../lib/FileGetShortcut.htm">FileGetShortcut</a></li>
   <li><a href="../lib/FileRecycle.htm">FileRecycle</a></li>
-  <li><a href="../lib/SoundPlay.htm">SoundPlay</a> (for this, the limit is 127 characters)</li>
-  <li><a href="../lib/DriveSetLabel.htm">DriveSetLabel</a> and <a href="../lib/Drive.htm">DriveGet variants</a> (except <a href="../lib/DriveGetType.htm">DriveGetType</a>)</li>
-  <li>Built-in variables which return special folder paths (for which long paths might be impossible anyway): <a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
+  <li><a href="../lib/SoundPlay.htm">SoundPlay</a>（この場合は127文字まで）</li>
+  <li><a href="../lib/DriveSetLabel.htm">DriveSetLabel</a>および<a href="../lib/Drive.htm">DriveGet のバリエーション</a>(<a href="../lib/DriveGetType.htm">DriveGetType</a>を除く)</li>
+  <li>特殊なフォルダー・パス（長いパスはどのみち不可能かもしれない）を返す組み込み変数：<a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
 </ul>
-<p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a> and <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> support long paths only when Windows 10 long path awareness is enabled, since the <code>\\?\</code> prefix cannot be used. If the working directory exceeds MAX_PATH, it becomes impossible to launch programs with <a href="../lib/Run.htm">Run</a>. These limitations are imposed by the OS.</p>
-<p>It does not appear to be possible to run an executable with a full path which exceeds MAX_PATH. That being the case, it would not be possible to fully test any changes aimed at supporting longer executable paths. Therefore, MAX_PATH limits have been left in place for the following:</p>
+<p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a>と <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>は、Windows 10のロング・パス認識が有効な場合にのみロング・パスに対応します。作業ディレクトリがMAX_PATHを超えると、<a href="../lib/Run.htm">Run</a>でプログラムを起動できなくなる。これらの制限はOSによって課される。</p>
+<p>MAX_PATHを超えるフルパスで実行ファイルを実行することはできないようです。そうなると、より長い実行可能パスをサポートすることを目的とした変更を完全にテストすることはできない。そのため、MAX_PATHの制限は以下のように残されている：</p>
 <ul>
   <li><a href="WinTitle.htm#ahk_exe">ahk_exe</a></li>
-  <li>The default script's path, which is based on the current executable's path.</li>
-  <li>Retrieval of the AutoHotkey installation directory, which is used by <a href="../Variables.htm#AhkPath">A_AhkPath</a> in compiled scripts and may be used to launch Window Spy or the help file.</li>
+  <li>デフォルトのスクリプトのパスで、現在の実行ファイルのパスに基づいている。</li>
+  <li>AutoHotkeyのインストールディレクトリの取得。コンパイルされたスクリプトで<a href="../Variables.htm#AhkPath">A_AhkPath</a>によって使用され、Window Spyまたはヘルプファイルを起動するために使用されます。</li>
   <li><a href="../lib/WinGetProcessPath.htm">WinGetProcessPath</a>.</li>
-  <li><a href="../lib/WinGetProcessName.htm">WinGetProcessName</a> (this theoretically isn't a problem since it is applied only to the name portion, and NTFS only supports names up to 255 chars).</li>
+  <li><a href="../lib/WinGetProcessName.htm">WinGetProcessName</a>（これは名前部分にのみ適用され、NTFSは255文字までの名前しかサポートしないので、理論的には問題ない）。</li>
 </ul>
-<p>Long <a href="../lib/_Include.htm">#Include</a> paths shown in error messages may be truncated arbitrarily.</p>
+<p>エラーメッセージに表示される長い<a href="../lib/_Include.htm">#Include</a>パスは、任意に切り捨てられる可能性があります。</p>
 
 </body>
 </html>

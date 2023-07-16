@@ -1,30 +1,30 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Regular Expressions (RegEx) - Quick Reference | AutoHotkey v2</title>
-<meta name="description" content="This page covers options, commonly used symbols and syntax which can be used inside a regular expression." />
+<title>正規表現（RegEx） - クイックリファレンス｜AutoHotkey v2</title>
+<meta name="description" content="このページでは、正規表現内で使用できるオプション、よく使われる記号、構文について説明します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
 <script src="../static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>Regular Expressions (RegEx) - Quick Reference</h1>
+<h1>正規表現 (RegEx) - クイックリファレンス</h1>
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#fundamentals">Fundamentals</a></li>
-  <li><a href="#Options">Options (case-sensitive)</a></li>
-  <li><a href="#Common">Commonly Used Symbols and Syntax</a></li>
+  <li><a href="#fundamentals">基礎</a></li>
+  <li><a href="#Options">オプション（大文字と小文字を区別）</a></li>
+  <li><a href="#Common">よく使われる記号と構文</a></li>
 </ul>
 
-<h2 id="fundamentals">Fundamentals</h2>
-<p><strong>Match anywhere:</strong> By default, a regular expression matches a substring <em>anywhere</em> inside the string to be searched. For example, the regular expression <span class="regex">abc</span> matches <span class="subj">abc</span>123, 123<span class="subj">abc</span>, and 123<span class="subj">abc</span>xyz. To require the match to occur only at the beginning or end, use an <a href="#anchor">anchor</a>.</p>
-<p><strong>Escaped characters:</strong> Most characters like abc123 can be used literally inside a regular expression. However, any of the characters in the set <code>\.*?+[{|()^$</code> must be preceded by a backslash to be seen as literal. For example, <span class="regex">\.</span> is a literal period and <span class="regex">\\</span> is a literal backslash. エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
-<p><strong>Case-sensitive:</strong> By default, regular expressions are case-sensitive. This can be changed via the "i" option. For example, the pattern <span class="regex">i)abc</span> searches for "abc" without regard to case. See below for other modifiers.</p>
+<h2 id="fundamentals">基礎</h2>
+<p><strong>どこでもマッチする：</strong>デフォルトでは、正規表現は検索される文字列内の<em>任意</em>の部分文字列にマッチする。例えば、正規表現<span class="regex">abc</span>は <span class="subj">abc123</span>、<span class="subj">123</span>abc、123<span class="subj">abcxyz</span>にマッチする。最初か最後だけにマッチを要求するには、<a href="#anchor">アンカー</a>を使う。</p>
+<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字通り使用することができます。しかし、<code>.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュがなければならない。  例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p><strong>大文字と小文字を区別する：</strong>デフォルトでは、正規表現は大文字と小文字を区別します。これは "i"オプションで変更できる。たとえば、<span class="regex">i)abc</span>というパターンは、大文字小文字を区別せずに "abc"を検索する。その他の修飾語については以下を参照のこと。</p>
 
-<h2 id="Options">Options (case-sensitive)</h2>
-<p>At the very beginning of a regular expression, specify zero or more of the following options followed by a close-parenthesis. For example, the pattern <span class="regex"><span class="red">im)</span>abc</span> would search for "abc" with the case-insensitive and multiline options (the parenthesis may be omitted when there are no options). Although this syntax breaks from tradition, it requires no special delimiters (such as forward-slash), and thus there is no need to escape such delimiters inside the pattern. In addition, performance is improved because the options are easier to parse.</p>
+<h2 id="Options">オプション（大文字と小文字を区別）</h2>
+<p>正規表現の冒頭で、以下のオプションを0個以上指定し、その後に閉じ括弧を付ける。例えば<span class="regex"><span class="red">im)</span>abc</span>というパターンは、大文字小文字を区別せず、複数行のオプションをつけて "abc"を検索する（オプションがない場合は括弧を省略できる）。この構文は伝統に反するが、特別な区切り文字（スラッシュなど）を必要としないので、パターン内部でそのような区切り文字をエスケープする必要はない。さらに、オプションの解析が容易になるため、パフォーマンスが向上する。</p>
 <table class="info">
   <tr>
     <th class="center">Option</th>
@@ -32,71 +32,71 @@
   </tr>
   <tr id="opt_i">
     <td class="center bold">i</td>
-    <td>Case-insensitive matching, which treats the letters A through Z as identical to their lowercase counterparts.</td>
+    <td>大文字小文字を区別しないマッチングで、AからZまでを小文字と同じものとして扱う。</td>
   </tr>
   <tr id="Multiline">
     <td class="center bold">m</td>
-    <td><p>Multiline. Views <em>Haystack</em> as a collection of individual lines (if it contains newlines) rather than as a single continuous line. Specifically, it changes the following:</p>
-      <p>1) Circumflex (^) matches immediately after all internal newlines -- as well as at the start of <em>Haystack</em> where it always matches (but it does not match after a newline <em>at the very end</em> of <em>Haystack</em>).</p>
-      <p>2) Dollar-sign ($) matches before any newlines in <em>Haystack</em> (as well as at the very end where it always matches).</p>
-      <p>For example, the pattern <span class="regex"><span class="red">m)</span>^abc$</span> matches xyz`r`n<span class="subj">abc</span>. But without the "m" option, it wouldn't match.</p>
-      <p>The "D" option is ignored when "m" is present.</p></td>
+    <td><p>Multiline. <em>ヘイスタック</em>を連続した1行としてではなく、（改行が含まれている場合は）個々の行の集まりとして表示する。具体的には以下のような変更である：</p>
+      <p>1)サーカムフレックス (^) は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>ヘイスタック</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
+      <p>2)ドル記号 ($) は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
+      <p>例えば、パターン<span class="regex"><span class="red">m)</span>^abc$</span>はxyz`r`n<span class="subj">abc</span>にマッチする。しかし、"m"オプションがなければマッチしない。</p>
+      <p>"D"オプションは "m"があると無視される。</p></td>
   </tr>
   <tr id="opt_s">
     <td class="center bold">s</td>
-    <td>DotAll. This causes a period (.) to match all characters including newlines (normally, it does not match newlines). However, two dots are required to match a CRLF newline sequence (`r`n), not one. Regardless of this option, a negative class such as <span class="regex">[^a]</span> always matches newlines.</td>
+    <td>DotAll. これにより、ピリオド（.）は改行を含むすべての文字にマッチするようになる（通常は改行にはマッチしない）。ただし、CRLF改行シーケンス（`r`n）にマッチさせるには、1つではなく2つのドットが必要である。このオプションに関係なく、<span class="regex">[^a]</span>のような否定クラスは常に改行にマッチする。</td>
   </tr>
   <tr id="opt_x">
     <td class="center bold">x</td>
-    <td>Ignores whitespace characters in the pattern except when escaped or inside a character class. The characters `n and `t are among those ignored because by the time they get to PCRE, they are already raw/literal whitespace characters (by contrast, \n and \t are not ignored because they are PCRE escape sequences). The "x" option also ignores characters between a non-escaped # outside a character class and the next newline character, inclusive. This makes it possible to include comments inside complicated patterns. However, this applies only to data characters; whitespace may never appear within special character sequences such as (?(, which begins a conditional subpattern.</td>
+    <td>パターン内の空白文字は、エスケープされているか文字クラス内にある場合を除き、無視される。`n と `t は PCRE に到達した時点で、すでに生の/リテラルな空白文字であるため無視されます(対照的に、 \n と\t は PCRE のエスケープシーケンスであるため無視されません)。"x"オプションは、文字クラス外のエスケープされていない"#"と次の改行文字の間の文字も無視する。これにより、複雑なパターンの中にコメントを入れることが可能になる。ただし、これはデータ文字にのみ適用され、条件付きサブパターンを開始する(?(,のような特殊文字列の中に空白が現れることはない。</td>
   </tr>
   <tr id="opt_A">
     <td class="center bold">A</td>
-    <td>Forces the pattern to be anchored; that is, it can match only at the start of <em>Haystack</em>. Under most conditions, this is equivalent to explicitly anchoring the pattern by means such as "^".</td>
+    <td>つまり、<em>Haystack</em>の先頭でのみマッチする。ほとんどの条件下では、これは"^"のような手段でパターンを明示的に固定することと同じである。</td>
   </tr>
   <tr id="opt_D">
     <td class="center bold">D</td>
-    <td>Forces dollar-sign ($) to match at the very end of <em>Haystack</em>, even if <em>Haystack</em>'s last item is a newline. Without this option, $ instead matches right before the final newline (if there is one). 注：This option is ignored when the "m" option is present.</td>
+    <td><em>Haystack</em>の最後の項目が改行であっても、ドル記号（$）を強制的に<em>Haystack</em>の最後にマッチさせる。このオプションがない場合、$は最後の改行の直前（改行がある場合）にマッチする。注："m"オプションがある場合、このオプションは無視される。</td>
   </tr>
   <tr id="opt_J">
     <td class="center bold">J</td>
-    <td>Allows duplicate <a href="../lib/RegExMatch.htm#NamedSubPat">named subpatterns</a>. This can be useful for patterns in which only one of a collection of identically-named subpatterns can match. 注：If more than one instance of a particular name matches something, only the leftmost one is stored. Also, variable names are not case-sensitive.</td>
+    <td><a href="../lib/RegExMatch.htm#NamedSubPat">名前付きサブパターン</a>の重複を許可する。これは、同じ名前のサブパターンのコレクションのうち、1つだけがマッチするようなパターンに便利である。注：特定の名前の複数のインスタンスが何かにマッチした場合、一番左にあるものだけが保存される。また、変数名は大文字と小文字を区別しない。</td>
   </tr>
   <tr id="opt_U">
     <td class="center bold">U</td>
-    <td>Ungreedy. Makes the quantifiers <strong>*</strong>, <strong>?</strong>, <strong>+</strong> and <strong>{min,max}</strong> consume only those characters absolutely necessary to form a match, leaving the remaining ones available for the next part of the pattern. When the "U" option is not in effect, an individual quantifier can be made non-greedy by following it with a question mark. Conversely, when "U" <em>is</em> in effect, the question mark makes an individual quantifier greedy.</td>
+    <td>Ungreedy. 量化子<strong>*</strong>,<strong>?</strong>,<strong>+</strong>および<strong>{min,max}</strong>は、マッチを形成するために絶対に必要な文字だけを消費し、残りの文字はパターンの次の部分に使用できるようにする。"U"オプションが有効でない場合、個々の量化詞の後にクエスチョンマークを付けることで、欲張らないようにすることができる。逆に "U"<em>が</em>有効な場合、疑問符は個々の量化詞を貪欲にする。</td>
   </tr>
   <tr id="opt_extra">
     <td class="center bold">X</td>
-    <td>PCRE_EXTRA. Enables PCRE features that are incompatible with Perl. Currently, the only such feature is that any backslash in a pattern that is followed by a letter that has no special meaning causes an exception to be thrown. This option helps reserve unused backslash sequences for future use. Without this option, a backslash followed by a letter with no special meaning is treated as a literal (e.g. \g and g are both recognized as a literal g). Regardless of this option, non-alphabetic backslash sequences that have no special meaning are always treated as literals (e.g. \/ and / are both recognized as forward-slash).</td>
+    <td>PCRE_EXTRA. Perlと互換性のないPCREの機能を有効にする。現在のところ、このような機能は、パターン中のバックスラッシュの後に特別な意味を持たない文字が続くと例外がスローされるということだけである。このオプションは、未使用のバックスラッシュ・シーケンスを将来の使用のために確保するのに役立つ。このオプションがない場合、バックスラッシュの後に特別な意味を持たない文字が続いても、リテラルとして扱われる（例えば、 \g と g は両方ともリテラル g として認識される）。このオプションに関係なく、特別な意味を持たない非アルファベットのバックスラッシュ シーケンスは常にリテラルとして扱われる(例： \/ と / は両方ともフォワードスラッシュとして認識される)。</td>
   </tr>
   <tr id="Study">
     <td class="center bold">S</td>
-    <td>Studies the pattern to try improve its performance. This is useful when a particular pattern (especially a complex one) will be executed many times. If PCRE finds a way to improve performance, that discovery is stored alongside the pattern in the cache for use by subsequent executions of the same pattern (subsequent uses of that pattern should also specify the S option because finding a match in the cache requires that the option letters exactly match, including their order).</td>
+    <td>パターンを研究し、その性能を向上させようとする。これは、特定のパターン（特に複雑なパターン）が何度も実行される場合に便利である。PCRE がパフォーマンスを向上させる方法を発見した場合、その発見はキャッシュにパターンと一緒に保存され、同じパターンの後続の実行で使用できるようになる（キャッシュでマッチを見つけるには、オプションの文字が順番も含めて正確にマッチする必要があるため、そのパターンの後続の使用でも S オプションを指定する必要がある）。</td>
   </tr>
   <tr id="opt_Callout">
     <td class="center bold">C</td>
-    <td>Enables the auto-callout mode. See <a href="RegExCallout.htm#auto">Regular Expression Callouts</a> for more info.</td>
+    <td>自動発信モードを有効にする。詳細は<a href="RegExCallout.htm#auto">正規表現の吹き出し</a>を参照。</td>
   </tr>
   <tr id="NEWLINE_ANY">
     <td class="center bold">`a</td>
-    <td><p>Enables recognition of additional newline markers. By default, only `r`n, `n and `r are recognized. With this option enabled, `v/VT/vertical tab/chr(0xB), `f/FF/formfeed/chr(0xC), NEL/next-line/chr(0x85), LS/line separator/chr(0x2028) and PS/paragraph separator/chr(0x2029) are also recognized.</p>
-      <p>The `a, `n and `r options affect the behavior of <a href="RegEx-QuickRef.htm#anchor">anchors (^ and $)</a> and the <a href="RegEx-QuickRef.htm#dot">dot/period pattern</a>.</p>
-      <p>`a also puts (*BSR_UNICODE) into effect, which causes \R to match any kind of newline. By default, \R matches `n, `r and `r`n; this behaviour can be restored by combining options as follows: `a)(*BSR_ANYCRLF)</p>
+    <td><p>追加の改行マーカーを認識できるようにする。デフォルトでは、`r`n, `n と `r のみが認識される。このオプションを有効にすると、`v/VT/垂直タブ/chr(0xB), `f/FF/formfeed/chr(0xC), NEL/next-line/chr(0x85), LS/line separator/chr(0x2028), PS/paragraph separator/chr(0x2029) も認識される。</p>
+      <p>a, `n, `r オプションは<a href="RegEx-QuickRef.htm#anchor">アンカー (^ と $)</a>と<a href="RegEx-QuickRef.htm#dot">ドット/ピリオドパターン</a>の動作に影響する。</p>
+      <p>また、`aは(*BSR_UNICODE)を有効にしており、これにより \Rはどんな改行にもマッチするようになる。デフォルトで\Rは、`n, `r, `r`nにマッチする：`a)(*BSR_ANYCRLF)</p>
     </td>
   </tr>
   <tr id="opt_esc_n">
     <td class="center bold">`n</td>
-    <td>Causes a solitary linefeed (`n) to be the only recognized newline marker (see above).</td>
+    <td>単独の改行 (`n) を唯一の改行マーカーとして認識させる (上記参照)。</td>
   </tr>
   <tr id="opt_esc_r">
     <td class="center bold">`r</td>
-    <td>Causes a solitary carriage return (`r) to be the only recognized newline marker (see above).</td>
+    <td>キャリッジリターン(`r)を唯一の改行マーカーとして認識させる(上記参照)。</td>
   </tr>
 </table>
-<p class="note"><strong>Note:</strong> Spaces and tabs may optionally be used to separate each option from the next.</p>
+<p class="note"><strong>注：</strong>各オプションと次のオプションを区切るために、オプションでスペースとタブを使用することができます。</p>
 
-<h2 id="Common">Commonly Used Symbols and Syntax</h2>
+<h2 id="Common">よく使われる記号と構文</h2>
 <table class="info">
   <tr>
     <th class="center">Element</th>
@@ -104,95 +104,95 @@
   </tr>
 	<tr id="dot">
 		<td class="center bold">.</td>
-		<td>By default, a dot matches any single character except `r (carriage return) or `n (linefeed), but this can be changed by using the <a href="#opt_s">DotAll (s)</a>, <a href="#opt_esc_n">linefeed (`n)</a>, <a href="#opt_esc_r">carriage return (`r)</a>, or <a href="#NEWLINE_ANY">`a</a> options. For example, <span class="regex">ab.</span> matches <span class="subj">abc</span> and <span class="subj">abz</span> and <span class="subj">ab_</span>.</td>
+		<td>デフォルトでは、ドットは `r (キャリッジリターン) または `n (ラインフィード) 以外の任意の1文字にマッチするが、これは<a href="#opt_s">DotAll (s)</a>、<a href="#opt_esc_n">ラインフィード (`n)</a>、<a href="#opt_esc_r">キャリッジリターン (`r)</a>、または<a href="#NEWLINE_ANY">`a</a>オプションを使うことで変更できる。例えば、<span class="regex">ab.</span>は<span class="subj">abc</span>と <span class="subj">abz</span>と <span class="subj">ab_</span>にマッチする。</td>
 	</tr>
 	<tr>
 		<td class="center bold">*</td>
-		<td><p>An asterisk matches zero or more of the preceding character, <a href="#class">class</a>, or <a href="#subpat">subpattern</a>. For example, <span class="regex">a*</span> matches <span class="subj">a</span>b and <span class="subj">aaa</span>b. It also matches at the very beginning of any string that contains no "a" at all.</p>
-	      <p><strong>Wildcard:</strong> The dot-star pattern <span class="regex">.*</span> is one of the most permissive because it matches zero or more occurrences of <em>any</em> character (except newline: `r and `n). For example, <span class="regex">abc.*123</span> matches <span class="subj">abcAnything123</span> as well as <span class="subj">abc123</span>.</p>		  </td>
+		<td><p>アスタリスクは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個以上にマッチする。例えば、<span class="regex">a*</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。また、"a "をまったく含まない文字列の先頭にもマッチする。</p>
+	      <p><strong>ワイルドカード：</strong>ドットスターパターン<span class="regex">.*</span>は、0個以上の<em>任意</em>の文字（改行を除く）にマッチするため、最も寛容なパターンの1つである：`r and `n). 例えば、<span class="regex">abc.*123</span>は <span class="subj">abc</span> <span class="subj">123</span>だけでなく、<span class="subj">abcAnything123</span>にもマッチする。</p>		  </td>
 	</tr>
 	<tr>
 	  <td class="center bold">?</td>
-	  <td>A question mark matches zero or one of the preceding character, <a href="#class">class</a>, or <a href="#subpat">subpattern</a>. Think of this as "the preceding item is optional". For example, <span class="regex">colou?r</span> matches both <span class="subj">color</span> and <span class="subj">colour</span> because the "u" is optional.</td>
+	  <td>クエスチョンマークは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個または1個にマッチする。これは「前の項目はオプションである」と考えてほしい。例えば、<span class="regex">colou?r</span>は、"u"がオプションなので、<span class="subj">colorと</span> <span class="subj">colourの</span>両方にマッチする。</td>
   </tr>
 	<tr>
 	  <td class="center bold">+</td>
-	  <td>A plus sign matches one or more of the preceding character, <a href="#class">class</a>, or <a href="#subpat">subpattern</a>. For example <span class="regex">a+</span> matches <span class="subj">a</span>b and <span class="subj">aaa</span>b. But unlike <span class="regex">a*</span> and <span class="regex">a?</span>, the pattern <span class="regex">a+</span> does not match at the beginning of strings that lack an "a" character.</td>
+	  <td>プラス記号は、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の1つ以上にマッチする。例えば<span class="regex">a+</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。しかし、<span class="regex">a*</span>や <span class="regex">a?</span>とは異なり、<span class="regex">a+</span>パターンは "a"文字のない文字列の先頭ではマッチしない。</td>
   </tr>
 	<tr>
 	  <td class="center bold">{min,max}</td>
-	  <td><p>Matches between <em>min</em> and <em>max</em> occurrences of the preceding character, <a href="#class">class</a>, or <a href="#subpat">subpattern</a>. For example, <span class="regex">a{1,2}</span> matches  <span class="subj">a</span>b but only the first two a's in <span class="subj">aa</span>ab.</p>
-        <p>Also, {3} means exactly 3 occurrences, and {3<strong>,</strong>} means 3 or more occurrences. 注：The specified numbers must be less than 65536, and the first must be less than or equal to the second.</p></td>
+	  <td><p>直前の文字、<a href="#class">クラス</a>、または<a href="#subpat">サブパターン</a>の<em>最小</em>出現回数から<em>最大</em>出現回数の間にマッチする。たとえば、<span class="regex">a{1,2}</span>は <span class="subj">ab</span>にマッチするが、<span class="subj">aa</span>abの最初の2つのaにしかマッチしない。</p>
+        <p>また、{3}はちょうど3回、{3<strong>,</strong>}は3回以上という意味である。注：指定された数値は65536以下でなければならず、最初の数値は2番目の数値以下でなければならない。</p></td>
   </tr>
 	<tr id="class">
 	  <td class="center bold">[...]</td>
-	  <td><p><strong>Classes of characters:</strong> The square brackets enclose a list or range of characters (or both). For example, <span class="regex">[abc]</span> means "any single character that is either a, b or c". Using a dash in between creates a range; for example, <span class="regex">[a-z]</span> means "any single character that is between lowercase a and z (inclusive)". Lists and ranges may be combined; for example <span class="regex">[a-zA-Z0-9_]</span> means "any single character that is alphanumeric or underscore".</p>
-	    <p>A character class may be followed by <strong>*</strong>, <strong>?</strong>, <strong>+</strong>, or <strong>{min,max}</strong>. For example, <span class="regex">[0-9]+</span> matches one or more occurrence of any digit; thus it matches xyz<span class="subj">123</span> but not abcxyz.</p>
-        <p>The following POSIX named sets are also supported via the form <strong>[[:xxx:]]</strong>, where xxx is one of the following words: alnum, alpha, ascii (0-127), blank (space or tab), cntrl (control character), digit (0-9), xdigit (hex digit), print, graph (print excluding space), punct, lower, upper, space (whitespace), word (same as <a href="#word">\w</a>).</p>
-        <p>Within a character class, characters do not need to be escaped except when they have special meaning inside a class; e.g. <span class="regex">[\^a]</span>, <span class="regex">[a\-b]</span>, <span class="regex">[a\]]</span>, and <span class="regex">[\\a]</span>.</p></td>
+	  <td><p><strong>文字のクラス：</strong>角括弧は文字のリストまたは範囲（または両方）を囲む。例えば、<span class="regex">[abc]</span>は「a、b、cのいずれか1文字」を意味する。例えば、<span class="regex">[a-z]</span>は「小文字のaからzの間にある任意の1文字（含む）」を意味します。例えば、<span class="regex">[a-zA-Z0-9_]</span>は「英数字またはアンダースコアである任意の1文字」を意味する。</p>
+	    <p>文字クラスは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、または<strong>{min,max}</strong>に続くことができる。たとえば、<span class="regex">[0-9]+</span>は、任意の数字が1つ以上出現した場合にマッチする。したがって、<span class="subj">xyz</span>123にはマッチするが、abcxyzにはマッチしない。</p>
+        <p>以下のPOSIX名前付き集合も、<strong>[[:xxx:]]</strong>形式でサポートされている：alnum, alpha, ascii (0-127), blank (space or tab), cntrl (control character), digit (0-9), xdigit (hex digit), print, graph (print excluding space), punct, lower, upper, space (whitespace), word (same as <a href="#word">\w</a>).</p>
+        <p>文字クラス内では、クラス内で特別な意味を持つ場合を除いて文字をエスケープする必要はない； 例：<span class="regex">[\^a]</span>、<span class="regex">[a\-b]</span>、<span class="regex">[\a]]</span>、<span class="regex">[\\a]</span>。。</p></td>
   </tr>
 	<tr>
 	  <td class="center bold">[^...]</td>
-	  <td>Matches any single character that is <strong>not</strong> in the class. For example, <span class="regex">[^/]*</span> matches zero or more occurrences of any character that is <em>not</em> a forward-slash, such as <span class="subj">http:</span>//. Similarly, <span class="regex">[^0-9xyz]</span> matches any single character that isn't a digit and isn't the letter x, y, or z.</td>
+	  <td>クラスに<strong>ない</strong>任意の1文字にマッチする。例えば、<span class="regex">[^/]*は</span>、<span class="subj">http://</span>のような、フォワード・スラッシュで<em>ない</em>文字が0個以上出現した場合にマッチする。同様に、<span class="regex">[^0-9xyz]</span>は、数字でなく、文字x、y、zでない一文字にマッチする。</td>
   </tr>
 	<tr>
 	  <td class="center bold">\d</td>
-	  <td>Matches any single digit (equivalent to the class <span class="regex">[0-9]</span>). Conversely, capital <strong>\D</strong> means "any <em>non</em>-digit". This and the other two below can also be used inside a <a href="#class">class</a>; for example, <span class="regex">[\d.-]</span> means "any single digit, period, or minus sign".</td>
+	  <td>任意の1桁の数字にマッチする（<span class="regex">[0-9]</span>クラスに相当）。逆に、<strong>大文字</strong>は、「数字<em>以外</em>のもの」を意味する。例えば、<span class="regex">[\d.-]</span>は「一桁の数字、ピリオド、マイナス記号」を意味する。</td>
   </tr>
 	<tr>
 	  <td class="center bold">\s</td>
-	  <td>Matches any single whitespace character, mainly space, tab, and newline (`r and `n). Conversely, capital <strong>\S</strong> means "any <em>non</em>-whitespace character".</td>
+	  <td>スペース、タブ、改行(`r と `n)を中心とした空白文字1文字にマッチする。逆に、<strong>大文字</strong>は「空白<em>以外</em>の文字」を意味する。</td>
   </tr>
 	<tr id="word">
 	  <td class="center bold">\w</td>
-	  <td>Matches any single "word" character, namely alphanumeric or underscore. This is equivalent to <span class="regex">[a-zA-Z0-9_]</span>. Conversely, capital <strong>\W</strong> means "any <em>non</em>-word character".</td>
+	  <td>英数字やアンダースコアなどの「単語」1文字にマッチする。これは<span class="regex">[a-zA-Z0-9_]</span>と等価である。逆に、<strong>大文字</strong>は「単語<em>以外</em>の文字」を意味する。</td>
   </tr>
 	<tr id="anchor">
 	  <td class="center bold">^<br>$</td>
-	  <td><p>Circumflex (^) and dollar sign ($) are called <em>anchors</em> because they don't consume any characters; instead, they tie the pattern to the beginning or end of the string being searched.</p>
-	    <p><strong>^</strong> may appear at the beginning of a pattern to require the match to occur at the very beginning of a line. For example, <span class="regex">^abc</span> matches <span class="subj">abc</span>123 but not 123abc.</p>
-	    <p><strong>$</strong> may appear at the end of a pattern to require the match to occur at the very end of a line. For example, <span class="regex">abc$</span> matches 123<span class="subj">abc</span> but not abc123.</p>
-      <p>The two anchors may be combined. For example, <span class="regex">^abc$</span> matches only <span class="subj">abc</span> (i.e. there must be no other characters before or after it).</p>
-      <p>If the text being searched contains multiple lines, the anchors can be made to apply to each line rather than the text as a whole by means of the <a href="#Multiline">"m" option</a>. For example, <span class="regex">m)^abc$</span> matches 123`r`n<span class="subj">abc</span>`r`n789. But without the "m" option, it wouldn't match.</p></td>
+	  <td><p>サーカムフレックス（^）とドル記号（$）は、文字を消費しないので<em>アンカー</em>と呼ばれる。</p>
+	    <p><strong>^</strong>は、行の先頭でマッチすることを要求するために、パターンの先頭に現れることがある。例えば、<span class="regex">^abc</span>は <span class="subj">abc123</span>にマッチするが、123abcにはマッチしない。</p>
+	    <p>パターンの最後に<strong>$</strong>を付けると、行の最後にマッチすることを要求することができる。例えば、<span class="regex">abc$</span>は<span class="subj">123</span>abcにマッチするが、abc123にはマッチしない。</p>
+      <p>2つのアンカーを組み合わせることもできる。例えば、<span class="regex">^abc$</span>は <span class="subj">abc</span>はマッチする（つまり、その前後に他の文字があってはならない）。</p>
+      <p>検索対象のテキストが複数の行を含む場合、<a href="#Multiline">"m "オプション</a>を使って、アンカーをテキスト全体ではなく各行に適用させることができる。例えば、<span class="regex">m)^abc$は</span>123`r`nabc<span class="subj">`</span>r`n789にマッチする。しかし、"m"オプションがなければマッチしない。</p></td>
   </tr>
 	<tr>
 	  <td class="center bold">\b</td>
-	  <td><strong>\b</strong> means "word boundary", which is like an anchor because it doesn't consume any characters. It requires the current character's <a href="#word">status as a word character (\w)</a> to be the opposite of the previous character's. It is typically used to avoid accidentally matching a word that appears inside some other word. For example, <span class="regex">\bcat\b</span> doesn't match catfish, but it matches <span class="subj">cat</span> regardless of what punctuation and whitespace surrounds it. Capital <strong>\B</strong> is the opposite: it requires that the current character <em>not</em> be at a word boundary.</td>
+	  <td><strong>\b</strong>は「単語の境界」を意味し、文字を消費しないのでアンカーのようなものだ。現在の文字の<a href="#word">単語文字としての状態</a>が、前の文字と逆であることを要求する。これは通常、他の単語の中に現れる単語と誤ってマッチングするのを避けるために使われる。例えば、<span class="regex">\bcat\b"</span>は、"catfish"にマッチしないが、<span class="subj">cat</span>は、句読点や空白に関係なくマッチする。キャピタル<strong>\B</strong>はその逆である：この場合、現在の文字が単語境界に<em>ない</em>ことが必要である。</td>
   </tr>
 	<tr>
 	  <td class="center bold">|</td>
-	  <td>The vertical bar separates two or more alternatives. A match occurs if <em>any</em> of the alternatives is satisfied. For example, <span class="regex">gray|grey</span> matches both <span class="subj">gray</span> and <span class="subj">grey</span>. Similarly, the pattern <span class="regex">gr(a|e)y</span> does the same thing with the help of the parentheses described below.</td>
+	  <td>縦棒は2つ以上の選択肢を区切る。選択肢の<em>いずれか</em>を満たせばマッチとなる。例えば、<span class="regex">gray|grey</span>は <span class="subj">gray</span>と <span class="subj">grey</span>の両方にマッチする。同様に、パターン<span class="regex">gr(a|e)y</span>は、以下に説明する括弧の助けを借りて同じことを行う。</td>
   </tr>
 	<tr id="subpat">
 	  <td class="center bold">(...)</td>
-	  <td><p>Items enclosed in parentheses are most commonly used to:</p>
+	  <td><p>括弧で囲まれた項目は、最も一般的に使用される：</p>
 	    <ul>
-	      <li>Determine the order of evaluation. For example, <span class="regex">(Sun|Mon|Tues|Wednes|Thurs|Fri|Satur)day</span> matches the name of any day.</li>
-	      <li>Apply <strong>*</strong>, <strong>?</strong>, <strong>+</strong>, or <strong>{min,max}</strong> to a <em>series</em> of characters rather than just one. For example, <span class="regex">(abc)+</span> matches one or more occurrences of the string "abc"; thus it matches <span class="subj">abcabc</span>123 but not ab123 or bc123.</li>
-          <li id="capture">Capture a subpattern such as the dot-star in <span class="regex">abc<span class="red">(.*)</span>xyz</span>. For example, <a href="../lib/RegExMatch.htm">RegExMatch</a> stores the substring that matches each subpattern in its <a href="../lib/RegExMatch.htm#MatchObject">output array</a>. Similarly, <a href="../lib/RegExReplace.htm">RegExReplace</a> allows the substring that matches each subpattern to be reinserted into the result via <a href="../lib/RegExReplace.htm#BackRef">backreferences</a> like $1. To use the parentheses without the side-effect of capturing a subpattern, specify <strong>?:</strong> as the first two characters inside the parentheses; for example: <span class="regex">(<span class="red">?:</span>.*)</span></li>
-	      <li>Change <a href="#Options">options</a> on-the-fly. For example, <span class="regex">(?im)</span> turns on the case-insensitive and multiline options for the remainder of the pattern (or subpattern if it occurs inside a subpattern). Conversely, <span class="regex">(?-im)</span> would turn them both off. All options are supported except DPS`r`n`a.</li>
+	      <li>評価の順番を決める。例えば、<span class="regex">(Sun|Mon|Tues|Wednes|Thurs|Fri|Satur)day</span>は、どの日の名前にもマッチする。</li>
+	      <li><strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>のいずれかを<em>シリーズ</em>に適用する。たとえば、<span class="regex">(abc)+</span>は、文字列 "abc"の1つ以上の出現にマッチする。したがって、<span class="subj">abcabc123</span>にはマッチするが、ab123やbc123にはマッチしない。</li>
+          <li id="capture"><span class="regex">abc<span class="red">(.*)</span>xyz</span>のドットスターのようなサブパターンをキャプチャする。例えば、<a href="../lib/RegExMatch.htm">RegExMatch</a>は各サブパターンにマッチする部分文字列を<a href="../lib/RegExMatch.htm#MatchObject">出力配列</a>に格納する。同様に、<a href="../lib/RegExReplace.htm">RegExReplace</a>では、各サブパターンにマッチする部分文字列を、$1のような<a href="../lib/RegExReplace.htm#BackRef">後方参照</a>を通じて結果に再挿入することができる。サブパターンを捕捉する副作用を伴わずに括弧を使用するには、括弧内の最初の2文字に<strong>?:</strong>を指定する：<span class="regex">(<span class="red">?:</span>.*)</span></li>
+	      <li><a href="#Options">オプション</a>をその場で変更例えば、<span class="regex">(?im)</span>は、パターン（またはサブパターン内で発生した場合はサブパターン）の残りの部分の大文字小文字を区別しないオプションと複数行オプションをオンにします。逆に、<span class="regex">(?-im)</span>は両方をオフにする。DPS`r`n`aを除くすべてのオプションがサポートされている。</li>
 	    </ul></td>
   </tr>
 	<tr>
 	  <td class="center bold">\t<br>\r<br>etc.</td>
-	  <td><p>These escape sequences stand for special characters. The most common ones are <strong>\t</strong> (tab), <strong>\r</strong> (carriage return), and <strong>\n</strong> (linefeed). In AutoHotkey, an accent (`) may optionally be used in place of the backslash in these cases. Escape sequences in the form <strong>\xhh</strong> are also supported, in which <em>hh</em> is the hex code of any ANSI character between 00 and FF.</p>
-      <p><strong>\R</strong> matches <code>`r`n</code>, <code>`n</code> and <code>`r</code> (however, \R inside a <a href="#class">character class</a> is merely the letter "R").</p></td>
+	  <td><p>これらのエスケープシーケンスは特殊文字を表す。最も一般的なのは、<strong>\t</strong>（タブ）、<strong>\r</strong>（キャリッジリターン）、<strong>\n</strong>（ラインフィード）。AutoHotkeyでは、このような場合、バックスラッシュの代わりにアクセント記号(`)を使用することもできます。<strong>\xhh</strong> 形式のエスケープシーケンスもサポートしており、 <em>hh</em> は00からFFまでのANSI文字の16進コードである。</p>
+      <p><strong>\R</strong>は、<code>`r`n</code>、<code>`n</code>、<code>`r</code>にマッチする(ただし、<a href="#class">文字クラス</a>内では単に "R"となる)。</p></td>
   </tr>
   <tr id="slashP">
     <td class="center bold">\p{xx}<br>\P{xx}<br>\X</td>
-    <td><p>Unicode character properties. <strong>\p{xx}</strong> matches a character with the xx property while <strong>\P{xx}</strong> matches any character <i>without</i> the xx property. For example, <span class="regex">\pL</span> matches any letter and <span class="regex">\p{Lu}</span> matches any upper-case letter. <strong>\X</strong> matches any number of characters that form an extended Unicode sequence.</p>
-    <p>For a full list of supported property names and other details, search for "\p{xx}" at <a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>.</p></td>
+    <td><p>Unicode 文字のプロパティ。<strong>\p{xx}</strong>はxx プロパティを持つ文字にマッチしますが、<strong>\P{xx}</strong>は xx プロパティを<i>持たない</i>任意の文字にマッチします。例えば、<span class="regex">\pL</span>は任意の文字にマッチし、<span class="regex">\p{Lu}"</span>は任意の大文字にマッチします。<strong>\X</strong>は、Unicode シーケンスを形成する任意の数の文字にマッチします。</p>
+    <p>サポートされているプロパティ名の全リストとその他の詳細については、<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>で" \p{xx}" を検索してください。</p></td>
   </tr>
   <tr id="UCP">
     <td class="center bold">(*UCP)</td>
-    <td><p>For performance, \d, \D, \s, \S, \w, \W, \b and \B recognize only ASCII characters by default. If the pattern begins with <strong>(*UCP)</strong>, Unicode properties will be used to determine which characters match. For example, \w becomes equivalent to <span class="regex">[\p{L}\p{N}_]</span> and \d becomes equivalent to <span class="regex">\p{Nd}</span>.</p>
+    <td><p>性能上、\d, \D, \s, \S, \w, \W, \b および \Bは、デフォルトではASCII文字としてしか認識しません。パターンが<strong>(*UCP)</strong>で始まる場合、Unicodeプロパティがどの文字がマッチするかを決定するために使用されます。例えば \wは<span class="regex">[\p{L}\p{N}_]</span>と等価になり、\dは<span class="regex">\p{Nd}</span>と等価になる。</p>
     </td>
   </tr>
 </table>
-<p><strong>Greed:</strong> By default, <strong>*</strong>, <strong>?</strong>, <strong>+</strong>, and <strong>{min,max}</strong> are greedy because they consume all characters up through the <em>last</em> possible one that still satisfies the entire pattern. To instead have them stop at the <em>first</em> possible character, follow them with a question mark. For example, the pattern <span class="regex">&lt;.+&gt;</span> (which lacks a question mark) means: "search for a &lt;, followed by one or more of any character, followed by a &gt;". To stop this pattern from matching the <em>entire</em> string <span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>, append a question mark to the plus sign: <span class="regex">&lt;.+<span class="red">?</span>&gt;</span>. This causes the match to stop at the first '&gt;' and thus it matches only the first tag <span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>.</p>
-<p><strong>Look-ahead and look-behind assertions:</strong> The groups <span class="regex">(?=...)</span>, <span class="regex">(?!...)</span>, <span class="regex">(?&lt;=...)</span>, and <span class="regex">(?&lt;!...)</span> are called <em>assertions</em> because they demand a condition to be met but don't consume any characters. For example, <span class="regex">abc(?=.*xyz)</span> is a look-ahead assertion that requires the string xyz to exist somewhere to the right of the string abc (if it doesn't, the entire pattern is not considered a match). <span class="regex">(?=...)</span> is called a <em>positive</em> look-ahead because it requires that the specified pattern exist. Conversely, <span class="regex">(?!...)</span> is a <em>negative</em> look-ahead because it requires that the specified pattern <em>not</em> exist. Similarly, <span class="regex">(?&lt;=...)</span> and <span class="regex">(?&lt;!...)</span> are positive and negative look-<em>behinds</em> (respectively) because they look to the <em>left</em> of the current position rather than the right. Look-behinds are more limited than look-aheads because they do not support quantifiers of varying size such as <strong>*</strong>, <strong>?</strong>, and <strong>+</strong>. The escape sequence <strong>\K</strong> is similar to a look-behind assertion because it causes any previously-matched characters to be omitted from the final matched string. For example, <span class="regex">foo\Kbar</span> matches "foobar" but reports that it has matched "bar".</p>
-<p><strong>Related:</strong> Regular expressions are supported by <a href="../lib/RegExMatch.htm">RegExMatch</a>, <a href="../lib/RegExReplace.htm">RegExReplace</a>, and <a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
-<p class="note"><strong>Final note:</strong> Although this page touches upon most of the commonly-used RegEx features, there are quite a few other features you may want to explore such as conditional subpatterns. The complete PCRE manual is at <a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a></p>
+<p><strong>貪欲：</strong>デフォルトでは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>, and <strong>{min,max}</strong>は貪欲で、パターン全体を満たす<em>最後</em>の文字まですべての文字を消費する。その代わりに、可能性のある<em>最初</em>の文字で止めさせるには、その後にクエスチョンマークを付ける。例えば <span class="regex">&lt;.+&gt;</span>(クエスチョンマークがない）の意味："&lt;の後に任意の文字が1つ以上続き、その後に&gt;が続くものを検索する". このパターンが、<span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>文字列<em>全体</em>にマッチしないようにするには、プラス記号にクエスチョンマークを追加する：<span class="regex">&lt;.+<span class="red">?</span>&gt;</span>. これにより、マッチは最初の'&gt;'で止まり、最初のタグ<span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>にマッチする。</p>
+<p><strong>ルックアヘッドとルックビハインドのアサーション：</strong>グループ<span class="regex">(?=...)</span>,<span class="regex">(?!..)</span>,<span class="regex">(?&lt;=...)</span>,<span class="regex">(?&lt;!..)</span>は、条件を満たすことを要求するが、文字を消費しないので、<em>アサーション</em>と呼ばれる。たとえば、<span class="regex">abc(?=.*xyz)</span>は、文字列xyzが文字列abcの右側のどこかに存在することを必要とするルックアヘッド・アサーションである（存在しない場合、パターン全体がマッチするとはみなされない）。<span class="regex">(?=...)</span>は、指定されたパターンが存在することを要求するため、<em>正</em>のルックアヘッドと呼ばれる。逆に、<span class="regex">(?!...)</span>は、指定されたパターンが存在<em>しない</em>ことを要求するため、<em>負</em>のルックアヘッドとなる。同様に、<span class="regex">(?&lt;=...)</span>と<span class="regex">(?&lt;!..)</span>は、それぞれ正と負の<em>ルックビハインド</em>である。なぜなら、彼らは現在位置の右ではなく<em>左</em>を見るからである。<strong>*</strong>、<strong>?</strong>、<strong>+</strong>のような大小さまざまな量化子をサポートしていないため、ルックアヘッドよりもルックビハインドは制限されている。エスケープシーケンス<strong>\K</strong>は、マッチした最終文字列から前にマッチした文字が省略されるため、ルックビハインド・ アサーションに似ている。例えば、<span class="regex">foo\Kbar</span>は"foobar"にマッチするが、"bar"にマッチしたと報告する。</p>
+<p><strong>関連</strong>正規表現は<a href="../lib/RegExMatch.htm">RegExMatch</a>、<a href="../lib/RegExReplace.htm">RegExReplace</a>、<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>でサポートされています。</p>
+<p class="note"><strong>最後に：</strong>このページでは、一般的に使用されるRegExの機能のほとんどに触れていますが、条件付きサブパターンなど、他にも調べたい機能がたくさんあります。PCREマニュアルの完全版は<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>にあります。</p>
 
 </body>
 </html>

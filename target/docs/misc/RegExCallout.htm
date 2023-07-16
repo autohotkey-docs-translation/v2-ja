@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Regular Expression Callouts | AutoHotkey v2</title>
-<meta name="description" content="RegEx callouts provide a means of temporarily passing control to the script in the middle of regular expression pattern matching." />
+<title>正規表現の吹き出し｜AutoHotkey v2</title>
+<meta name="description" content="RegExコールアウトは、正規表現パターンマッチングの途中でスクリプトに一時的に制御を渡す手段を提供する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,16 +10,16 @@
 </head>
 <body>
 
-<h1>Regular Expression Callouts</h1>
+<h1>正規表現の吹き出し</h1>
 
-<p>RegEx callouts provide a means of temporarily passing control to the script in the middle of regular expression pattern matching. For detailed information about the PCRE-standard callout feature, see <a href="http://www.pcre.org/pcre.txt">pcre.txt</a>.</p>
+<p>RegExコールアウトは、正規表現パターンマッチングの途中でスクリプトに一時的に制御を渡す手段を提供する。PCRE標準のコールアウト機能の詳細については、<a href="http://www.pcre.org/pcre.txt">pcre.txt</a>を参照してください。</p>
 
-<p>RegEx callouts are currently supported only by <a href="../lib/RegExMatch.htm">RegExMatch</a> and <a href="../lib/RegExReplace.htm">RegExReplace</a>.</p>
+<p>RegExコールアウトは現在、<a href="../lib/RegExMatch.htm">RegExMatch</a>と <a href="../lib/RegExReplace.htm">RegExReplace</a>でのみサポートされている。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
     <li><a href="#syntax">Syntax</a></li>
-    <li><a href="#callout-functions">RegEx Callout Functions</a></li>
+    <li><a href="#callout-functions">RegEx コールアウト関数</a></li>
     <li><a href="#EventInfo">EventInfo</a></li>
     <li><a href="#auto">Auto-Callout</a></li>
     <li><a href="#remarks">備考</a></li>
@@ -27,34 +27,34 @@
 
 <h2 id="syntax">Syntax</h2>
 
-<p>The syntax for a RegEx callout in AutoHotkey is <span class="regex">(?C<em>Number</em>:<em>Function</em>)</span>, where both <em>Number</em> and <em>Function</em> are optional. Colon ':' is allowed only if <em>Function</em> is specified, and is optional if <em>Number</em> is omitted. If <em>Function</em> is specified but is not the name of a <a href="Functor.htm">function object</a>, a compile error occurs and pattern-matching does not begin.</p>
+<p>AutoHotkeyのRegExコールアウトの構文は、<span class="regex">(?C<em>数値</em>:<em>関数</em>)</span>で、<em>数値</em>と<em>関数</em>の両方はオプションです。コロン':'は、<em>Function</em>が指定されている場合のみ許可され、<em>Number</em>が省略されている場合はオプションである。<em>Function</em>が指定されているが<a href="Functor.htm">関数オブジェクト</a>の名前でない場合、コンパイル・エラーが発生し、パターンマッチングは開始されない。</p>
 
-<p>If <em>Function</em> is omitted, the default RegEx callout function named <b>pcre_callout</b> must be defined. If <em>pcre_callout</em> is not defined, RegEx callouts which omit <em>Function</em> are ignored.</p>
+<p><em>Function</em>が省略された場合、<b>pcre_callout</b>というデフォルトのRegExコールアウト関数が定義されなければなりません。<em>pcre_callout</em>が定義されていない場合、<em>Function</em>を省略したRegExコールアウトは無視される。</p>
 
-<h2 id="callout-functions">RegEx Callout Functions</h2>
+<h2 id="callout-functions">RegEx コールアウト関数</h2>
 
 <pre class="Syntax"><i>MyFunction</i>(Match, CalloutNumber, FoundPos, Haystack, NeedleRegEx)
 {
     ...
 }</pre>
-<p>RegEx callout functions may define up to 5 parameters:</p>
+<p>RegExコールアウト関数は、最大5つのパラメータを定義することができる：</p>
 <ul>
-  <li><b>Match:</b> Receives a <a href="../lib/RegExMatch.htm#MatchObject">RegExMatchInfo</a> object containing information about the match so far.</li>
-  <li><b>CalloutNumber:</b> Receives the <em>Number</em> of the RegEx callout.</li>
-  <li><b>FoundPos:</b> Receives the position of the current potential match.</li>
-  <li><b>Haystack:</b> Receives the <em>Haystack</em> passed to RegExMatch or RegExReplace.</li>
-  <li><b>NeedleRegEx:</b> Receives the <em>NeedleRegEx</em> passed to RegExMatch or RegExReplace.</li>
+  <li><b>マッチ：</b>これまでのマッチに関する情報を含む<a href="../lib/RegExMatch.htm#MatchObject">RegExMatchInfo</a>オブジェクトを受け取る。</li>
+  <li><b>コールアウト番号：</b>RegEx コールアウトの<em>番号</em>を受け取ります。</li>
+  <li><b>FoundPos：</b>現在のマッチ候補の位置を受け取る。</li>
+  <li><b>ヘイスタック：</b>RegExMatch または RegExReplace に渡された<em>Haystack</em>を受け取ります。</li>
+  <li><b>NeedleRegEx：</b>RegExMatchまたはRegExReplaceに渡された<em>NeedleRegEx</em>を受け取る。</li>
 </ul>
-<p>These names are suggestive only. Actual names may vary.</p>
+<p>これらの名称はあくまでも示唆的なものである。実際の名称は異なる場合がある。</p>
 
-<p class="warning"><strong>Warning:</strong> Changing the input parameters of <a href="../lib/RegExReplace.htm">RegExReplace</a> or <a href="../lib/RegExMatch.htm">RegExMatch</a> during a call is unsupported and may cause unpredictable behaviour.</p>
+<p class="warning"><strong>警告</strong>呼び出し中に<a href="../lib/RegExReplace.htm">RegExReplace</a>または<a href="../lib/RegExMatch.htm">RegExMatch</a>の入力パラメータを変更することはサポートされておらず、予測不可能な動作を引き起こす可能性があります。</p>
 
-<p>Pattern-matching may proceed or fail depending on the return value of the RegEx callout function:</p>
+<p>パターンマッチングは、RegExコールアウト関数の返り値によって進行したり失敗したりする：</p>
 <ul>
-  <li>If the function returns <b>0</b> or does not return a numeric value, matching proceeds as normal.</li>
-  <li>If the function returns <b>1</b> or greater, matching fails at the current point, but the testing of other matching possibilities goes ahead.</li>
-  <li>If the function returns <b>-1</b>, matching is abandoned.</li>
-  <li>If the function returns a value less than -1, it is treated as a PCRE error code and matching is abandoned. This causes RegExMatch and RegExReplace to throw an exception; the <em>Extra</em> property of the exception object contains the error code.</li>
+  <li>関数が<b>0</b>を返すか、数値を返さない場合、マッチングは通常通り行われる。</li>
+  <li>関数が<b>1</b>以上を返した場合、マッチングは現在の時点で失敗するが、他のマッチングの可能性のテストは続行される。</li>
+  <li>この関数が<b>-1を</b>返した場合、マッチングは放棄される。</li>
+  <li>関数が-1未満の値を返した場合、PCREのエラーコードとして扱われ、マッチングは放棄されます。これにより、RegExMatchとRegExReplaceは例外をスローします。例外オブジェクトの<em>Extra</em>プロパティにはエラー・コードが含まれます。</li>
 </ul>
 
 <p>事例：</p>
@@ -64,12 +64,12 @@ Callout(m, *) {
     MsgBox "m[0]=" m[0] "`nm[1]=" m[1] "`nm[2]=" m[2]
     return 1
 }</pre>
-<p>In the above example, <em>Callout</em> is called once for each substring which matches the part of the pattern preceding the RegEx callout. <span class="regex">\b</span> is used to exclude incomplete words in matches such as <em>The quic</em>, <em>The qui</em>, <em>The qu</em>, etc.</p>
-<p>If any of the input parameters to a <em>RegEx</em> function is modified during a callout, the behaviour is undefined.</p>
+<p>上記の例では、<em>コールアウト</em>は、RegExコールアウトの前にあるパターン部分にマッチする部分文字列ごとに1回ずつ呼び出される。<span class="regex">\b</span>は、<em>The quic</em>、<em>The qui</em>、<em>The qu</em>などのマッチで、不完全な単語を除外するために使用されます。</p>
+<p><em>RegEx</em>関数への入力パラメータのいずれかがコールアウト中に変更された場合、動作は未定義となる。</p>
     
 <h2 id="EventInfo">EventInfo</h2>
 
-<p>Additional information is available by accessing the pcre_callout_block structure via <b>A_EventInfo</b>.</p>
+<p>追加情報は、<b>A_EventInfo</b>を介してpcre_callout_block構造体にアクセスすることで得られる。</p>
 <pre>version           := NumGet(A_EventInfo,  0, "Int")
 callout_number    := NumGet(A_EventInfo,  4, "Int")
 offset_vector     := NumGet(A_EventInfo,  8, "Ptr")
@@ -121,8 +121,8 @@ ListVars
 
 <h2 id="remarks">備考</h2>
 
-<p>RegEx callouts are executed on the current quasi-thread, but the previous value of A_EventInfo will be restored after the RegEx callout function returns.</p>
-<p>PCRE is optimized to abort early in some cases if it can determine that a match is not possible. For all RegEx callouts to be called in such cases, it may be necessary to disable these optimizations by specifying <span class="regex">(*NO_START_OPT)</span> at the start of the pattern.</p>
+<p>RegExコールアウトは現在の準スレッド上で実行されるが、RegExコールアウト関数が戻った後、A_EventInfoの以前の値が復元される。</p>
+<p>PCREは、マッチが不可能と判断された場合、早期に中断するように最適化されている。このような場合にすべてのRegExコールアウトを呼び出すには、パターンの最初に<span class="regex">(*NO_START_OPT)</span>を指定して、これらの最適化を無効にする必要があるかもしれない。</p>
 
 </body>
 </html>

@@ -20,7 +20,7 @@
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#intro">Introduction</a></li>
+  <li><a href="#intro">はじめに</a></li>
   <li><a href="#auto">Script Startup (the Auto-execute Thread)</a>: Taking action immediately upon starting the script, and changing default settings.</li>
   <li><a href="#continuation">Splitting a Long Line into a Series of Shorter Ones</a>: This can improve a script's readability and maintainability.</li>
   <li><a href="#lib">Script Library Folders</a></li>
@@ -29,7 +29,7 @@
   <li><a href="#cp">Script File Codepage</a>: Using non-ASCII characters safely in scripts.</li>
   <li><a href="#debug">Debugging a Script</a>: How to find the flaws in a misbehaving script.</li>
 </ul>
-<h2 id="intro">Introduction</h2>
+<h2 id="intro">はじめに</h2>
 <p>Each script is a plain text file containing lines to be executed by the program (AutoHotkey.exe). A script may also contain <a href="Hotkeys.htm">hotkeys</a> and <a href="Hotstrings.htm">hotstrings</a>, or even consist entirely of them. However, in the absence of hotkeys and hotstrings, a script will perform its functions sequentially from top to bottom the moment it is launched.</p>
 <p>The program loads the script into memory line by line. During loading, the script is <a href="misc/Performance.htm">optimized</a> and validated. Any syntax errors will be displayed, and they must be corrected before the script can run.</p>
 
@@ -163,7 +163,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <ul>
   <li><a href="#ahk2exe-run">Running the Compiler</a></li>
   <li><a href="#ahk2exe-base">Base Executable File</a></li>
-  <li><a href="#CompilerDirectives">Script Compiler Directives</a></li>
+  <li><a href="#CompilerDirectives">スクリプト・コンパイラ・ディレクティブ</a></li>
   <li><a href="#mpress">Compressing Compiled Scripts</a></li>
   <li><a href="#information">Background Information</a></li>
 </ul>
@@ -206,7 +206,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
       </tr>
       <tr id="SlashResourceID">
         <td>/resourceid <i>name</i></td>
-        <td>Assigns a non-standard resource ID to be used for the main script for compilations which use an <a href="#SlashBase">.exe base file</a> (see <a href="Program.htm#embedded-scripts">Embedded Scripts</a>). Numeric resource IDs should consist of a hash sign (#) followed by a decimal number. Default is #1, or any <a href="misc/Ahk2ExeDirectives.htm#ResourceID">ResourceID</a> compiler directive in the script.</td>
+        <td><a href="#SlashBase">.exe ベースファイル</a>を使用するコンパイルのメインスクリプトに使用する非標準のリソース ID を割り当てます (「<a href="Program.htm#embedded-scripts">埋め込みスクリプト</a>」を参照)。数値リソースIDは、ハッシュ記号（#）に続く10進数で構成されなければならない。Default is #1, or any <a href="misc/Ahk2ExeDirectives.htm#ResourceID">ResourceID</a> compiler directive in the script.</td>
       </tr>
       <tr id="SlashCp">
         <td>/cp <i>codepage</i></td>
@@ -256,13 +256,13 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>Each compiled script .exe is based on an executable file which implements the interpreter. The base files included in the Compiler directory have the ".bin" extension; these are versions of the interpreter which do not include the capability to load external script files. Instead, the program looks for a Win32 (RCDATA) resource named "&gt;AUTOHOTKEY SCRIPT&lt;" and loads that, or fails if it is not found.</p>
 <p>The standard AutoHotkey executable files can also be used as the base of a compiled script, by embedding a Win32 (RCDATA) resource with ID 1. (Additional scripts can be added with the <a href="misc/Ahk2ExeDirectives.htm#AddResource">AddResource</a> compiler directive.) This allows the compiled script .exe to be used with the <a href="#SlashScript">/script</a> switch to execute scripts other than the main embedded script. For more details, see <a href="Program.htm#embedded-scripts">Embedded Scripts</a>.</p>
 
-<h3 id="CompilerDirectives">Script Compiler Directives</h3>
-<p>Script compiler directives allow the user to specify details of how a script is to be compiled. Some of the features are:</p>
+<h3 id="CompilerDirectives">スクリプト・コンパイラ・ディレクティブ</h3>
+<p>Script compiler directives allow the user to specify details of how a script is to be compiled. いくつかの特徴を挙げよう：</p>
 <ul>
-  <li>Ability to change the version information (such as the name, description, version...).</li>
-  <li>Ability to add resources to the compiled script.</li>
-  <li>Ability to tweak several miscellaneous aspects of compilation.</li>
-  <li>Ability to remove code sections from the compiled script and vice versa.</li>
+  <li>バージョン情報（名前、説明、バージョン...など）を変更する機能。</li>
+  <li>コンパイルされたスクリプトにリソースを追加する機能。</li>
+  <li>コンパイルのいくつかの雑多な面を微調整する能力。</li>
+  <li>コンパイルされたスクリプトからコードセクションを削除する機能。</li>
 </ul>
 <p>See <a href="misc/Ahk2ExeDirectives.htm">Script Compiler Directives</a> for more details.</p>
 

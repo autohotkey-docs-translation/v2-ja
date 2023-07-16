@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Remapping Keys (Keyboard, Mouse and Controller) | AutoHotkey v2</title>
-<meta name="description" content="Free keyboard remapper that can also remap mouse and controller buttons. It can also automate repetitive tasks by sending keystrokes &amp; mouse clicks.">
+<title>リマッピングキー（キーボード、マウス、コントローラ）｜AutoHotkey v2</title>
+<meta name="description" content="マウスやコントローラーのボタンもリマップできる無料のキーボードリマッパー。また、キー操作やマウスクリックを送信することで、繰り返し作業を自動化することもできる。">
 <meta name="keywords" content="keyboard,remapper,remap,remapping,keys,key,keystrokes,clicks,mouse,buttons,button,controller,gamepad,joystick,hotkeys,hotkey">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,34 +11,34 @@
 </head>
 <body>
 
-<h1>Remapping Keys <span class="headnote">(Keyboard, Mouse and Controller)</span></h1>
+<h1>キーのリマッピング<span class="headnote">（キーボード、マウス、コントローラー）</span></h1>
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#intro">Introduction</a></li>
-  <li><a href="#Remap">Remapping the Keyboard and Mouse</a></li>
+  <li><a href="#intro">はじめに</a></li>
+  <li><a href="#Remap">キーボードとマウスのリマッピング</a></li>
   <li><a href="#remarks">備考</a></li>
-  <li><a href="#moving-the-mouse-cursor">Moving the Mouse Cursor via the Keyboard</a></li>
-  <li><a href="#registry">Remapping via the Registry's "Scancode Map"</a></li>
+  <li><a href="#moving-the-mouse-cursor">キーボードによるマウスカーソルの移動</a></li>
+  <li><a href="#registry">レジストリの "スキャンコードマップ"によるリマッピング</a></li>
   <li><a href="#related">関連する話題</a></li>
 </ul>
 
-<h2 id="intro">Introduction</h2>
-<p><strong>Limitation:</strong> AutoHotkey's remapping feature described below is generally not as pure and effective as remapping directly via the Windows registry. For the advantages and disadvantages of each approach, see <a href="#registry">registry remapping</a>.</p>
-<h2 id="Remap">Remapping the Keyboard and Mouse</h2>
-<p>The syntax for the built-in remapping feature is <code>OriginKey::DestinationKey</code>. For example, a <a href="../Scripts.htm">script</a> consisting only of the following line would make <kbd>A</kbd> behave like <kbd>B</kbd>:</p>
+<h2 id="intro">はじめに</h2>
+<p><strong>制限</strong>以下に説明するAutoHotkeyのリマッピング機能は、一般的にWindowsレジストリ経由で直接リマッピングするほど純粋で効果的ではありません。各アプローチの利点と欠点については、<a href="#registry">レジストリの再マッピング</a>を参照のこと。</p>
+<h2 id="Remap">キーボードとマウスのリマッピング</h2>
+<p>組み込みの再マッピング機能の構文は<code>OriginKey::DestinationKey</code>です。例えば、以下の行だけで構成される<a href="../Scripts.htm">スクリプト</a>は、<kbd>A</kbd>を <kbd>B</kbd>のように動作させる：</p>
 <pre>a::b</pre>
-<p>The above example does not alter <kbd>B</kbd> itself. <kbd>B</kbd> would continue to send the "b" keystroke unless you remap it to something else as shown in the following example:</p>
+<p>上記の例では、<kbd>B</kbd>自体は変更されていない。<kbd>B</kbd>は、次の例のように他のキーにリマップしない限り、"b"キーストロークを送信し続ける：</p>
 <pre>a::b
 b::a</pre>
-<p>The examples above use lowercase, which is recommended for most purposes because it also remaps the corresponding uppercase letters (that is, it will send uppercase when <kbd>CapsLock</kbd> is "on" or <kbd>Shift</kbd> is held down). By contrast, specifying an uppercase letter on the right side forces uppercase. For example, the following line would produce an uppercase B when you type either "a" or "A" (as long as <kbd>CapsLock</kbd> is off):</p>
+<p>上記の例では小文字を使用しているが、これは対応する大文字もリマップするため、ほとんどの目的には小文字が推奨される（つまり、<kbd>CapsLockが</kbd>「オン」または<kbd>Shift</kbd>が押されたままだと大文字が送信される）。対照的に、右側に大文字を指定すると、強制的に大文字になる。例えば、次の行では、"a"または "A"を入力すると、大文字の "B"が表示される（<kbd>CapsLock</kbd>がオフの場合）：</p>
 <pre>a::B</pre>
-<p>Conversely, any modifiers included on the left side but not the right side are automatically released when the key is sent. For example, the following two lines would produce a lowercase "b" when you press either Shift+A or Ctrl+A:</p>
+<p>逆に、左サイドに含まれていて右サイドに含まれていないモディファイアは、キーが送信されると自動的に解除される。例えば、次の2行は、Shift+AまたはCtrl+Aを押すと小文字の "b"が表示される：</p>
 <pre>A::b
 ^a::b</pre>
 
-<h3 id="RemapMouse">Mouse Remapping</h3>
-<p>To remap the mouse instead of the keyboard, use the same approach. 事例：</p>
+<h3 id="RemapMouse">マウスリマッピング</h3>
+<p>キーボードの代わりにマウスをリマップするには、同じ方法を使います。事例：</p>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">Example</th>
@@ -46,19 +46,19 @@ b::a</pre>
   </tr>
   <tr>
     <td><code>MButton::Shift</code></td>
-    <td>Makes the middle button behave like <kbd>Shift</kbd>.</td>
+    <td>真ん中のボタンを<kbd>Shift</kbd>のように動作させる。</td>
   </tr>
   <tr>
     <td><code>XButton1::LButton</code></td>
-    <td>Makes the fourth mouse button behave like the left mouse button.</td>
+    <td>マウスの第4ボタンをマウスの左ボタンのように動作させる。</td>
   </tr>
   <tr>
     <td><code>RAlt::RButton</code></td>
-    <td>Makes the right <kbd>Alt</kbd> behave like the right mouse button.</td>
+    <td>右<kbd>Alt</kbd>をマウスの右ボタンのように動作させる。</td>
   </tr>
 </table>
 
-<h3 id="other-useful-remappings">Other Useful Remappings</h3>
+<h3 id="other-useful-remappings">その他の便利なリマッピング</h3>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">Example</th>
@@ -66,48 +66,48 @@ b::a</pre>
   </tr>
   <tr>
     <td><code>CapsLock::Ctrl</code></td>
-    <td>Makes <kbd>CapsLock</kbd> become <kbd>Ctrl</kbd>. To retain the ability to turn <kbd>CapsLock</kbd> on and off, add the remapping <code>+CapsLock::CapsLock</code> first. This toggles <kbd>CapsLock</kbd> on and off when you hold down <kbd>Shift</kbd> and press <kbd>CapsLock</kbd>. Because both remappings allow additional modifier keys to be held down, the more specific <code>+CapsLock::CapsLock</code> remapping must be placed first for it to work.</td>
+    <td><kbd>CapsLock</kbd>を <kbd>Ctrlに</kbd>する。<kbd>CapsLock</kbd>のオン/オフ機能を保持するには、まずリマッピング<code>+CapsLock::CapsLock</code>を追加する。<kbd>Shift</kbd>を押しながら<kbd>CapsLock</kbd>を押すと、<kbd>CapsLock</kbd>のオン/オフが切り替わります。どちらのリマッピングも修飾キーを押したままにできるため、より特殊な<code>+CapsLock::CapsLock</code>リマッピングを最初に配置しなければ動作しない。</td>
   </tr>
   <tr>
     <td><code>XButton2::^LButton</code></td>
-    <td>Makes the fifth mouse button (XButton2) produce a control-click.</td>
+    <td>マウスの第5ボタン(XButton2)をコントロールクリックする。</td>
   </tr>
   <tr>
     <td><code>RAlt::AppsKey</code></td>
-    <td>Makes the right <kbd>Alt</kbd> become <kbd>Menu</kbd> (which is the key that opens the context menu).</td>
+    <td>右の<kbd>Alt</kbd>を <kbd>Menu</kbd>（コンテキストメニューを開くキー）にする。</td>
   </tr>
   <tr>
     <td><code>RCtrl::RWin</code></td>
-    <td>Makes the right <kbd>Ctrl</kbd> become the right <kbd>Win</kbd>.</td>
+    <td>正しい<kbd>Ctrl</kbd>が正しい<kbd>Win</kbd>になる。</td>
   </tr>
   <tr>
     <td><code>Ctrl::Alt</code></td>
-    <td>Makes both <kbd>Ctrl</kbd> behave like <kbd>Alt</kbd>. However, see <a href="#AltTab">alt-tab issues</a>.</td>
+    <td><kbd>Ctrl</kbd>を <kbd>Alt</kbd>のように動作させる。ただし、<a href="#AltTab">alt-tabの問題</a>を参照。</td>
   </tr>
   <tr>
     <td><code>^x::^c</code></td>
-    <td>Makes <kbd>Ctrl</kbd>+<kbd>X</kbd> produce <kbd>Ctrl</kbd>+<kbd>C</kbd>. It also makes <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> produce <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd>, etc.</td>
+    <td><kbd>Ctrl</kbd>+<kbd>X</kbd>が <kbd>Ctrl</kbd>+<kbd>C</kbd>になる。また、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd>が<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd>などを生成する。</td>
   </tr>
   <tr>
     <td><code>RWin::Return</code></td>
-    <td>Disables the right <kbd>Win</kbd> by having it simply <a href="../lib/Return.htm">return</a>.</td>
+    <td>右<kbd>Win</kbd>は単に<a href="../lib/Return.htm">リターン</a>させることで無効にする。</td>
   </tr>
 </table>
-<p>You can try out any of these examples by copying them into a new text file such as "Remap.ahk", then launching the file.</p>
-<p>See the <a href="../KeyList.htm">Key List</a> for a complete list of key and mouse button names.</p>
+<p>これらの例を "Remap.ahk"のような新しいテキストファイルにコピーし、ファイルを起動することで試すことができる。</p>
+<p>キーとマウスボタンの名前の完全なリストは、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
 <h2 id="remarks">備考</h2>
-<p>The <a href="../lib/_HotIf.htm">#HotIf</a> directive can be used to make selected remappings active only in the windows you specify (or while any given condition is met). 事例：</p>
+<p><a href="../lib/_HotIf.htm">#HotIf</a>ディレクティブは、選択したリマッピングを指定したウィンドウでのみ（または指定した条件が満たされている間）有効にするために使用できます。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
 #HotIf  <em>; This puts subsequent remappings and hotkeys in effect for all windows.</em></pre>
-<p>Remapping a key or button is "complete" in the following respects:</p>
+<p>キーやボタンのリマッピングは、以下の点で「完了」となります：</p>
 <ul>
-  <li>Holding down a modifier such as <kbd>Ctrl</kbd> or <kbd>Shift</kbd> while typing the origin key will put that modifier into effect for the destination key. For example, <code>b::a</code> would produce <kbd>Ctrl</kbd>+<kbd>A</kbd> if you press <kbd>Ctrl</kbd>+<kbd>B</kbd>.</li>
-  <li><kbd>CapsLock</kbd> generally affects remapped keys in the same way as normal keys.</li>
-  <li>The destination key or button is held down for as long as you continue to hold down the origin key. However, some games do not support remapping; in such cases, the keyboard and mouse will behave as though not remapped.</li>
-  <li>Remapped keys will auto-repeat while being held down (except keys remapped to become mouse buttons).</li>
+  <li><kbd>Ctrl</kbd>や<kbd>Shift</kbd>などの修飾子を押しながら原点キーを入力すると、その修飾子が移動先のキーに有効になります。例えば、<code>b::aは</code>、<kbd>Ctrl+</kbd><kbd>B</kbd>を押すと<kbd>Ctrl</kbd>+<kbd>A</kbd>になる。</li>
+  <li><kbd>CapsLockは</kbd>通常、通常のキーと同じようにリマップキーに影響します。</li>
+  <li>デスティネーションキーまたはボタンは、オリジンキーを押し続けている間、押し続けられる。ただし、リマッピングに対応していないゲームもあります。その場合、キーボードとマウスはリマッピングされていないものとして動作します。</li>
+  <li>リマップされたキーは、押したまま自動リピートされます（マウスボタンにリマップされたキーを除く）。</li>
 </ul>
-<p id="HookHotkeys">Although a remapped key can trigger normal hotkeys, by default it cannot trigger mouse hotkeys or <a href="../lib/_UseHook.htm">hook hotkeys</a> (use <a href="../lib/ListHotkeys.htm">ListHotkeys</a> to discover which hotkeys are "hook"). For example, if the remapping <code>a::b</code> is in effect, pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> would trigger the <code>^!b</code> hotkey only if <code>^!b</code> is not a hook hotkey. If <code>^!b</code> is a hook hotkey, you can define <code>^!a</code> as a hotkey if you want <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> to perform the same action as <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>. 事例：</p>
+<p id="HookHotkeys">リマップキーは通常のホットキーをトリガーできますが、デフォルトではマウスホットキーや<a href="../lib/_UseHook.htm">フックホットキー</a>をトリガーすることはできません（どのホットキーが "フック "なのかは<a href="../lib/ListHotkeys.htm">ListHotkeys</a>を使って調べてください）。例えば、<code>a::b</code>のリマッピングが有効な場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>を押すと、<code>^!b</code>ホットキーがトリガーされます。<code>^!b</code>がフックホットキーである場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>で<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>と同じ動作をさせたい場合は、<code>^!a</code>をホットキーとして定義できます。事例：</p>
 <pre>a::b
 ^!a::
 ^!b::ToolTip "You pressed " ThisHotkey
@@ -119,9 +119,9 @@ a::b
 #InputLevel 0
 ^!b::ToolTip "You pressed " ThisHotkey
 </pre>
-<p id="SendPlay">If <a href="../lib/SendMode.htm">SendMode</a> is used during <a href="../Scripts.htm#auto">script startup</a>, it affects all remappings. However, since remapping uses <a href="../lib/Send.htm#blind">Send "{Blind}"</a> and since the <a href="../lib/SendMode.htm">SendPlay mode</a> does not fully support  {Blind}, some remappings might not function properly in SendPlay mode (especially <kbd>Ctrl</kbd>, <kbd>Shift</kbd>, <kbd>Alt</kbd>, and <kbd>Win</kbd>). To work around this, avoid using <code>SendMode "Play"</code> during <a href="../Scripts.htm#auto">script startup</a> when you have remappings; then use the function <a href="../lib/Send.htm#SendPlay">SendPlay</a> vs. Send in other places throughout the script. Alternatively, you could translate your remappings into hotkeys (as described below) that explicitly call SendEvent vs. Send.</p>
-<p id="EscapeBrace">If <em>DestinationKey</em> is meant to be <code>{</code>, it has to be <a href="EscapeChar.htm">escaped</a>, for example, <code>x::`{</code>. Otherwise it is interpreted as the opening brace for the <a href="../Hotkeys.htm">hotkey</a>'s function.</p>
-<p id="actually">When a script is launched, each remapping is translated into a pair of <a href="../Hotkeys.htm">hotkeys</a>. For example, a script containing <code>a::b</code> actually contains the following two hotkeys instead:</p>
+<p id="SendPlay"><a href="../Scripts.htm#auto">スクリプト起動</a>時に<a href="../lib/SendMode.htm">SendMode</a>が使用されると、すべてのリマッピングに影響する。しかし、リマッピングは<a href="../lib/Send.htm#blind">Send "{Blind}"</a>を使用し、<a href="../lib/SendMode.htm">SendPlayモードは</a>{Blind}を完全にはサポートしていないため、一部のリマッピングはSendPlayモードでは正しく機能しない可能性があります（特に<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>）。これを回避するには、リマッピングがある場合は、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に<a href="../lib/Send.htm#SendPlay">SendMode</a> <code>"Play"</code>を使用しないようにします。あるいは、リマッピングをホットキーに変換し（後述）、SendEvent対Sendを明示的に呼び出すこともできる。</p>
+<p id="EscapeBrace"><em>DestinationKey</em>が <code>{</code>の場合は、<code>x::`{</code>のように<a href="EscapeChar.htm">エスケープ</a>しなければならない。そうでない場合は、<a href="../Hotkeys.htm">ホットキー</a>の機能の開始ブレースとして解釈される。</p>
+<p id="actually">スクリプトが起動すると、各リマッピングは<a href="../Hotkeys.htm">ホットキー</a>のペアに変換されます。例えば、<code>a::b</code>を含むスクリプトは、実際には代わりに以下の2つのホットキーを含む：</p>
 <pre>*<strong>a</strong>::
 {
     SetKeyDelay -1   <em>; If the destination key is a mouse button, SetMouseDelay is used instead.</em>
@@ -133,10 +133,10 @@ a::b
     SetKeyDelay -1  <em>; See note below for why press-duration is not specified with either of these SetKeyDelays.</em>
     Send "{Blind}{<strong>b</strong> Up}"
 }</pre>
-<p>However, the above hotkeys vary under the following circumstances:</p>
+<p>ただし、上記のホットキーは以下の状況で変化する：</p>
 <ol>
-  <li>When the source key is the left <kbd>Ctrl</kbd> and the destination key is <kbd>Alt</kbd>, the line <code>Send "{Blind}{LAlt DownR}"</code> is replaced by <code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>. The same is true if the source is the right <kbd>Ctrl</kbd>, except that <code>{RCtrl up}</code> is used.</li>
-  <li>When a keyboard key is being remapped to become a mouse button (e.g. <code>RCtrl::RButton</code>), the hotkeys above use SetMouseDelay in place of SetKeyDelay. In addition, the first hotkey above is replaced by the following, which prevents the keyboard's auto-repeat feature from generating repeated mouse clicks:
+  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。</li>
+  <li>キーボードのキーがマウスボタンにリマップされる場合（例：<code>RCtrl::RButton</code>）、上記のホットキーはSetKeyDelayの代わりにSetMouseDelayを使用します。さらに、上記の最初のホットキーは以下のように置き換えられ、キーボードのオートリピート機能によるマウスクリックの繰り返しを防ぎます：
     <pre>*RCtrl::
 {
     SetMouseDelay -1
@@ -144,7 +144,7 @@ a::b
         Send "{Blind}{RButton DownR}"
 }</pre>
   </li>
-  <li>When the source is a <a href="../Hotkeys.htm#combo">custom combination</a>, the wildcard modifier (*) is omitted to allow the hotkeys to work.</li>
+  <li>ソースが<a href="../Hotkeys.htm#combo">カスタムの組み合わせ</a>である場合、ワイルドカード修飾子（*）はホットキーが機能するように省略されます。</li>
 </ol>
 <p>Note that SetKeyDelay's second parameter (<a href="../lib/SetKeyDelay.htm#dur">press duration</a>) is omitted in the hotkeys above. This is because press-duration does not apply to down-only or up-only events such as <code>{b down}</code> and <code>{b up}</code>. However, it does apply to changes in the state of the modifier keys (Shift, Ctrl, Alt, and Win), which affects remappings such as <code>a::B</code> or <code>a::^b</code>. Consequently, any press-duration a script puts into effect during <a href="../Scripts.htm#auto">script startup</a> will apply to all such remappings.</p>
 <p>Since remappings are translated into hotkeys as described above, the <a href="../lib/Suspend.htm">Suspend</a> function affects them. Similarly, the <a href="../lib/Hotkey.htm">Hotkey</a> function can disable or modify a remapping. For example, the following two functions would disable the remapping <code>a::b</code>.</p>
@@ -159,7 +159,7 @@ Hotkey "*a up", "Off"</pre>
   <li>"Pause" as a destination key name (since it matches the name of a built-in function). Instead use <code>vk13</code> or the corresponding scan code.</li>
   <li>Curly braces {} as destination keys. Instead use the <a href="../lib/Send.htm#vk">VK/SC method</a>; e.g. <code>x::+sc01A</code> and <code>y::+sc01B</code>.</li>
 </ul>
-<h2 id="moving-the-mouse-cursor">Moving the Mouse Cursor via the Keyboard</h2>
+<h2 id="moving-the-mouse-cursor">キーボードによるマウスカーソルの移動</h2>
 <p>The keyboard can be used to move the mouse cursor as demonstrated by the fully-featured <a href="../scripts/index.htm#NumpadMouse">Keyboard-To-Mouse script</a>. Since that script offers smooth cursor movement, acceleration, and other features, it is the recommended approach if you plan to do a lot of mousing with the keyboard. By contrast, the following example is a simpler demonstration:</p>
 <pre>*#up::MouseMove 0, -10, 0, "R"  <em>; Win+UpArrow hotkey =&gt; Move cursor upward</em>
 *#Down::MouseMove 0, 10, 0, "R"  <em>; Win+DownArrow =&gt; Move cursor downward</em>
@@ -179,7 +179,7 @@ Hotkey "*a up", "Off"</pre>
     KeyWait "AppsKey"  <em>; Prevents keyboard auto-repeat from repeating the mouse click.</em>
     SendEvent "{Blind}{RButton up}"
 }</pre>
-<h2 id="registry">Remapping via the Registry's "Scancode Map"</h2>
+<h2 id="registry">レジストリの "スキャンコードマップ"によるリマッピング</h2>
 <p><strong>Advantages:</strong></p>
 <ul>
   <li>Registry remapping is generally more pure and effective than <a href="#Remap">AutoHotkey's remapping</a>. For example, it works in a broader variety of games, it has no known <a href="#AltTab">alt-tab issues</a>, and it is capable of firing AutoHotkey's hook hotkeys  (whereas AutoHotkey's remapping requires a <a href="#HookHotkeys">workaround</a>).</li>

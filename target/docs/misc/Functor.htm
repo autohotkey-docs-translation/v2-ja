@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Function Objects - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="Function objects are either references to Func objects representing actual functions, or objects which can be called like functions." />
+<title>関数オブジェクト - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="関数オブジェクトは、実際の関数を表すFuncオブジェクトへの参照か、関数のように呼び出すことができるオブジェクトです。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,15 +10,15 @@
 </head>
 <body>
 
-<h1>Function Objects</h1>
+<h1>機能オブジェクト</h1>
 
-<p>"Function object" usually means any of the following:</p>
+<p>「機能オブジェクト」とは、通常、以下のいずれかを意味する：</p>
 <ul>
-  <li>A <a href="../lib/Func.htm">Func</a> or <a href="../Functions.htm#closures">Closure</a> object, which represents an actual <a href="../Functions.htm">function</a>; either built-in or defined by the script.</li>
-  <li>A user-defined object which can be called like a function.  This is sometimes also referred to as a "functor".</li>
-  <li>Any other object which can be called like a function, such as a <a href="#BoundFunc">BoundFunc object</a> or a JavaScript function object returned by a COM method.</li>
+  <li><a href="../lib/Func.htm">Func</a>または<a href="../Functions.htm#closures">Closure</a>オブジェクトで、実際の<a href="../Functions.htm">関数を</a>表す。</li>
+  <li>関数のように呼び出すことができるユーザー定義オブジェクト。これは「ファンクター」とも呼ばれる。</li>
+  <li><a href="#BoundFunc">BoundFuncオブジェクトや</a>COMメソッドが返すJavaScript関数オブジェクトなど、関数のように呼び出すことができるその他のオブジェクト。</li>
 </ul>
-<p>Function objects can be used with the following:</p>
+<p>ファンクション・オブジェクトは以下のように使用できる：</p>
 <ul>
   <li><a href="../lib/CallbackCreate.htm">CallbackCreate</a></li>
   <li><a href="../lib/GuiOnEvent.htm">Gui events</a></li>
@@ -36,15 +36,15 @@
   <li><a href="../lib/SetTimer.htm">SetTimer</a></li>
   <li><a href="../lib/Sort.htm">Sort</a></li>
 </ul>
-<p id="HasCall">To determine whether an object appears to be callable, use one of the following:</p>
+<p id="HasCall">オブジェクトが呼び出し可能かどうかを判断するには、以下のいずれかを使用する：</p>
 <ul>
-  <li><code>Value.HasMethod()</code> works with all AutoHotkey values and objects by default, but allows HasMethod to be overridden for some objects or classes. For COM objects, this will typically fail (throw an exception or produce the wrong result) unless the COM object is actually an AutoHotkey object from another process.</li>
-  <li><code>HasMethod(Value)</code> works with all AutoHotkey values and objects and cannot be overridden, but will return false if the presence of a <em>Call</em> method cannot be determined. An exception is thrown if <em>Value</em> is a <a href="../lib/ComObject.htm">ComObject</a>.</li>
+  <li><code>Value.HasMethod()</code>は、デフォルトではすべてのAutoHotkeyの値とオブジェクトで動作しますが、一部のオブジェクトやクラスではHasMethodをオーバーライドできます。COMオブジェクトの場合、COMオブジェクトが実際には別のプロセスのAutoHotkeyオブジェクトでない限り、これは通常失敗します（例外をスローするか、間違った結果を生成します）。</li>
+  <li><code>HasMethod(Value)</code>は、すべてのAutoHotkeyの値およびオブジェクトで動作し、オーバーライドすることはできません。<em>Value</em>が <a href="../lib/ComObject.htm">ComObject</a>の場合は例外がスローされる。</li>
 </ul>
 
 <h2 id="User-Defined">User-Defined</h2>
 <!-- TODO: Explain how a user-defined object could be useful -->
-<p>User-defined function objects must define a <em>Call</em> method containing the implementation of the "function".</p>
+<p>ユーザー定義関数オブジェクトは、"関数 "の実装を含む<em>Call</em>メソッドを定義しなければならない。</p>
 <pre>class YourClassName {
     Call(a, b) {  <em>; Declare parameters as needed, or an <a href="../Functions.htm#Variadic">array*</a>.</em>
         <em>;...</em>
@@ -53,9 +53,9 @@
     <em>;...</em>
 }
 </pre>
-<p>This applies to <em>instances</em> of <em>YourClassName</em>, such as the object returned by <code>YourClassName()</code>. Replacing <code>Call</code> with <code>static Call</code> would instead override what occurs when <em>YourClassName</em> itself is called.</p>
+<p>これは、<code>YourClassName()</code>が返すオブジェクトなど、<em>YourClassName</em>の<em>インスタンス</em>に適用されます。<code>Call</code>を <code>static Call</code>に置き換えると、代わりに<em>YourClassName</em>自身が呼び出されたときに起こることがオーバーライドされる。</p>
 <h3 id="User-Defined-Examples">例</h3>
-<p>The following example defines a function array which can be called; when called, it calls each element of the array in turn.</p>
+<p>呼び出されると、配列の各要素を順番に呼び出す。</p>
 <pre>class FuncArrayType extends Array {
     Call(params*) {
         <em>; Call a list of functions.</em>
@@ -86,13 +86,13 @@ Two(param1, param2) {
 }</pre>
 
 <h2 id="BoundFunc">BoundFunc Object</h2>
-<p>Acts like a function, but just passes predefined parameters to another function.</p>
-<p>There are two ways that BoundFunc objects can be created:</p>
+<p>関数のように動作するが、定義済みのパラメータを別の関数に渡すだけである。</p>
+<p>BoundFuncオブジェクトを作成する方法は2つある：</p>
 <ul>
-  <li>By calling the <a href="../lib/Func.htm#Bind">Func.Bind</a> method, which binds parameter values to a function.</li>
-  <li>By calling the <a href="../lib/ObjBindMethod.htm">ObjBindMethod</a> function, which binds parameter values and a method name to a target object.</li>
+  <li><a href="../lib/Func.htm#Bind">Func.Bind</a>メソッドを呼び出すことで、パラメータ値を関数にバインドする。</li>
+  <li><a href="../lib/ObjBindMethod.htm">ObjBindMethod</a>関数を呼び出すことで、パラメータ値とメソッド名をターゲット・オブジェクトにバインドする。</li>
 </ul>
-<p>BoundFunc objects can be called as shown in the example below. When the BoundFunc is called, it calls the function or method to which it is bound, passing a combination of bound parameters and the caller's parameters. Unbound parameter positions are assigned positions from the caller's parameter list, left to right. 事例：</p>
+<p>BoundFuncオブジェクトは、以下の例のように呼び出すことができる。BoundFuncが呼び出されると、バインドされている関数やメソッドが呼び出され、バインドされているパラメータと呼び出し元のパラメータの組み合わせが渡される。未束縛のパラメータ位置は、呼び出し元のパラメータリストから左から右へと割り当てられる。事例：</p>
 <pre>fn := RealFn.Bind(1)  <em>; Bind first parameter only</em>
 fn(2)      <em>; Shows "1, 2"</em>
 fn.Call(3) <em>; Shows "1, 3"</em>
@@ -105,13 +105,13 @@ fn(, 4)    <em>; Error: 'a' was omitted</em>
 RealFn(a, b, c:="c") {
     MsgBox a ", " b
 }</pre>
-<p><a href="../lib/ObjBindMethod.htm">ObjBindMethod</a> can be used to bind to a method even when it isn't possible to retrieve a reference to the method itself. 事例：</p>
+<p><a href="../lib/ObjBindMethod.htm">ObjBindMethod</a>は、メソッド自体への参照を取得できない場合でも、メソッドにバインドするために使用できます。事例：</p>
 <pre>Shell := ComObject("Shell.Application")
 RunBox := ObjBindMethod(Shell, "FileRun")
 <em>; Show the Run dialog.</em>
 RunBox</pre>
-<p>For a more complex example, see <a href="../lib/SetTimer.htm#ExampleClass">SetTimer</a>.</p>
-<p>Other properties and methods are inherited from <a href="../lib/Func.htm">Func</a>, but do not reflect the properties of the target function or method (which is not required to be implemented as a function). The BoundFunc acts as an anonymous variadic function with no other formal parameters, similar to the <a href="../Variables.htm#fat-arrow">fat arrow function</a> below:</p>
+<p>より複雑な例については、<a href="../lib/SetTimer.htm#ExampleClass">SetTimer</a>を参照のこと。</p>
+<p>その他のプロパティやメソッドは<a href="../lib/Func.htm">Func</a>から継承されるが、対象となる関数やメソッドのプロパティは反映されない（関数として実装する必要はない）。BoundFuncは、以下の<a href="../Variables.htm#fat-arrow">ファット・アロー関数</a>と同様に、他の正式なパラメーターを持たない無名バリアド関数として機能する：</p>
 <pre>Func_Bind(fn, bound_args*) {
     return (args*) =&gt; (args.InsertAt(1, bound_args*), fn(args*))
 }</pre>

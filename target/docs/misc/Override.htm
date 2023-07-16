@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Overriding or Disabling Hotkeys | AutoHotkey v2</title>
-<meta name="description" content="Learn how to override or disable built-in Windows hotkeys." />
+<title>ホットキーの上書きと無効化｜AutoHotkey v2</title>
+<meta name="description" content="Windowsに内蔵されているホットキーを無効にする方法をご紹介します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,27 +10,27 @@
 </head>
 
 <body>
-<h1>Overriding or Disabling Hotkeys</h1>
+<h1>ホットキーの上書きと無効化</h1>
 
-<p>You can disable all built-in Windows hotkeys except <kbd>Win</kbd>+<kbd>L</kbd> and <kbd>Win</kbd>+<kbd>U</kbd> by making the following change to the registry (this should work on all OSes but a reboot is probably required):</p>
+<p>レジストリを以下のように変更することで、<kbd>Win</kbd>+<kbd>L</kbd>と<kbd>Win</kbd>+<kbd>U</kbd>以外のすべてのWindows内蔵ホットキーを無効にすることができる（すべてのOSで動作するはずだが、おそらく再起動が必要）：</p>
 <pre>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
 NoWinKeys REG_DWORD 0x00000001 (1)</pre>
-<p>But read on if you want to do more than just disable them all.</p>
-<p>Hotkeys owned by another application can be overridden or disabled simply by assigning them to an action in the script. The most common use for this feature is to change the hotkeys that are built into Windows itself. For example, if you wish <kbd>Win</kbd>+<kbd>E</kbd> (the shortcut key that launches Windows Explorer) to perform some other action, use this:</p>
+<p>しかし、それらをすべて無効にするだけでなく、それ以上のことをしたいのであれば、続きを読んでほしい。</p>
+<p>他のアプリケーションが所有するホットキーは、スクリプトのアクションに割り当てるだけで、オーバーライドしたり無効にしたりできます。この機能の最も一般的な使い方は、ウィンドウズ自体に組み込まれているホットキーを変更することだ。例えば、<kbd>Win</kbd>+<kbd>E</kbd>（ウィンドウズ・エクスプローラーを起動するショートカット・キー）に他の動作をさせたい場合は、こうする：</p>
 <pre>#e::MsgBox "This hotkey is now owned by the script."</pre>
-<p>In the next example, the <kbd>Win</kbd>+<kbd>R</kbd> hotkey, which is used to open the RUN window, is completely disabled:</p>
+<p>次の例では、RUNウィンドウを開くのに使われる<kbd>Win</kbd>+<kbd>R</kbd>ホットキーが完全に無効になっている：</p>
 <pre>#r::return</pre>
-<p>Similarly, to disable both <kbd>Win</kbd>, use this:</p>
+<p>同様に、両方の<kbd>Win</kbd>を無効にするには、次のようにする：</p>
 <pre>LWin::return
 RWin::return</pre>
-<p>To disable or change an application's non-global hotkey (that is, a shortcut key that only works when that application is the active window), consider the following example which disables <kbd>Ctrl</kbd>+<kbd>P</kbd> (Print) only for Notepad, leaving the key in effect for all other types of windows:</p>
+<p>アプリケーションの非グローバルホットキー（つまり、そのアプリケーションがアクティブウィンドウであるときにのみ機能するショートカットキー）を無効にしたり変更したりするには、次の例を参考にしてください。<kbd>Ctrl</kbd>+<kbd>P</kbd>（印刷）をメモ帳でのみ無効にし、他のすべての種類のウィンドウでは有効なままにしておきます：</p>
 <pre>$^p::
 {
 	if WinActive("ahk_class Notepad")
 		return  <em>; i.e. do nothing, which causes Control-P to do nothing in Notepad.</em>
 	Send "^p"
 }</pre>
-<p>In the above example, the $ prefix is needed so that the hotkey can "send itself" without activating itself (which would otherwise trigger a warning dialog about an infinite loop). こちらもご覧ください：<a href="../Hotkeys.htm#Context">context-sensitive hotkeys</a>.</p>
-<p>You can try out any of the above examples by copying them into a new text file such as "Override.ahk", then launching the file.</p>
+<p>上記の例では、ホットキーがアクティブにならずに「自分自身を送信」できるように、$接頭辞が必要です（そうしないと、無限ループに関する警告ダイアログが表示されます）。こちらもご覧ください：<a href="../Hotkeys.htm#Context">context-sensitive hotkeys</a>.</p>
+<p>上記の例を「Override.ahk」のような新しいテキストファイルにコピーし、そのファイルを起動することで試すことができる。</p>
 </body>
 </html>

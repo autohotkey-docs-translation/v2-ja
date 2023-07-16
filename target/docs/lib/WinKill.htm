@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinKill - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinKill function forces the specified window to close." />
+<title>WinKill - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinKill 関数は、指定したウィンドウを強制的に閉じる。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+  <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
     <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -37,16 +37,16 @@
 <p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用する。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This function  first makes a brief attempt to close the window normally. If that fails, it will attempt to force the window closed by terminating its process.</p>
+<p>この関数はまず、ウィンドウを普通に閉じようとする短い試みを行う。これが失敗すると、プロセスを終了させてウィンドウを強制的に閉じようとする。</p>
 <p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられる。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられる。</p>
-<p id="group">This function operates only upon a single window except when <em>WinTitle</em> is <a href="GroupAdd.htm">ahk_group GroupName</a>, in which case all windows in the group are affected.</p>
+<p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となる。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="ProcessClose.htm">ProcessClose</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="GroupActivate.htm">GroupActivate</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> If Notepad does exist, force it to close, otherwise force the calculator to close.</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳が存在する場合はそれを強制的に閉じ、そうでない場合は電卓を強制的に閉じる。</p>
 <pre>if WinExist("Untitled - Notepad")
     WinKill <em>; Use the window found by WinExist.</em>
 else

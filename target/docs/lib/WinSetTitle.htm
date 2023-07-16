@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinSetTitle - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinSetTitle function changes the title of the specified window." />
+<title>WinSetTitle - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinSetTitle関数は、指定したウィンドウのタイトルを変更する。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -21,10 +21,10 @@
   <dt>NewTitle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The new title for the window. If this is the only parameter given, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used.</p>
+    <p>ウィンドウの新しいタイトル。パラメータがこれだけの場合、<a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>が使用される。</p>
   </dd>
 
-  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+  <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
     <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -34,28 +34,28 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウが見つからない場合は、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if the change could not be applied.</p>
+<p>変更が適用できなかった場合は<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>A change to a window's title might be merely temporary if the application that owns the window frequently changes the title.</p>
+<p>ウィンドウを所有するアプリケーションが頻繁にタイトルを変更する場合、ウィンドウのタイトルの変更は一時的なものに過ぎないかもしれない。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="WinMove.htm">WinMove</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a>, <a href="WinGetPos.htm">WinGetPos</a>, <a href="Win.htm">Win functions</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Changes the title of Notepad. この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳のタイトルを変更します。この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>WinSetTitle("This is a new title", "Untitled - Notepad")</pre>
 </div>
 
 <div class="ex" id="ExLastFound">
-<p><a class="ex_number" href="#ExLastFound"></a> Opens Notepad, waits until it is active and changes its title. この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
+<p><a class="ex_number" href="#ExLastFound"></a> メモ帳を開き、アクティブになるまで待ち、タイトルを変更する。この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>Run "notepad.exe"
 WinWaitActive "Untitled - Notepad"
 WinSetTitle "This is a new title" <em>; Use the window found by WinWaitActive.</em></pre>
 </div>
 
 <div class="ex" id="ExMainWin">
-<p><a class="ex_number" href="#ExMainWin"></a> Opens the <a href="../Program.htm#main-window">main window</a>, waits until it is active and changes its title.</p>
+<p><a class="ex_number" href="#ExMainWin"></a> <a href="../Program.htm#main-window">メイン・ウィンドウ</a>を開き、アクティブになるまで待ち、タイトルを変更する。</p>
 <pre>ListVars
 WinWaitActive "ahk_class AutoHotkey"
 WinSetTitle "This is a new title" <em>; Use the window found by WinWaitActive.</em></pre>

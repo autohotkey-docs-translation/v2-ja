@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinSetTransColor - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinSetTransColor function makes all pixels of the chosen color invisible inside the specified window." />
+<title>WinSetTransColor - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinSetTransColor関数は、指定されたウィンドウ内で、選択された色のすべてのピクセルを見えなくします。" />
 <meta name="ahk:equiv-v1" content="lib/WinSet.htm#TransColor" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,11 +22,11 @@
     <dt>Color</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>Specify a color name or RGB value (see the <a href="../misc/Colors.htm">color chart</a> for guidance, or use <a href="PixelGetColor.htm">PixelGetColor</a> in its RGB mode). To additionally make the visible part of the window partially transparent, append a space (not a comma) followed by the transparency level (0-255). 事例：<code>WinSetTransColor "EEAA99 150", <i>WinTitle</i></code>.</p>
-        <p>If the value is a string, any numeric color value must be in hexadecimal format. The color value can be omitted; for example, <code>WinSetTransColor " 150"</code> (with the leading space) is equivalent to <code>WinSetTransparent 150</code>.</p>
-        <p>The word <code>"Off"</code> (case-insensitive) may be specified to completely turn off transparency for a window. This is functionally identical to <code><a href="WinSetTransparent.htm">WinSetTransparent</a> "Off", <i>WinTitle</i></code>. Specifying <code>"Off"</code> is different than specifying 255 because it may improve performance and reduce usage of system resources (but probably only when desktop composition is disabled).</p>
+        <p>色名またはRGB値を指定する（ガイダンスとして<a href="../misc/Colors.htm">カラー</a>チャートを参照するか、RGBモードの<a href="PixelGetColor.htm">PixelGetColor</a>を使用する）。さらにウィンドウの可視部分を部分的に透明にするには、スペース（カンマではない）の後に透明度（0～255）を追加する。事例：<code>WinSetTransColor "EEAA99 150", <i>WinTitle</i></code>.</p>
+        <p>値が文字列の場合、色の数値は16進数でなければならない。例えば、<code>WinSetTransColor " 150"</code>（先頭スペースあり）は、<code>WinSetTransparent 150</code>と同じです。</p>
+        <p><code>"Off"</code>（大文字と小文字を区別しない）を指定すると、ウィンドウの透明度を完全にオフにすることができる。これは<code><a href="WinSetTransparent.htm">WinSetTransparent</a> "Off"、<i>WinTitle</i></code>と機能的に同じである。<code>Off</code>を指定すると、パフォーマンスが向上し、システムリソースの使用量が減る可能性があるため、255を指定するのとは異なる（ただし、おそらくデスクトップ合成が無効になっている場合のみ）。</p>
     </dd>
-    <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+    <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
         <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -35,21 +35,21 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウが見つからない場合は、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if the change could not be applied.</p>
+<p>変更が適用できなかった場合は<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>This allows the contents of the window behind it to show through. If the user clicks on an invisible pixel, the click will "fall through" to the window behind it.</p>
-<p>To change a window's existing TransColor, it may be necessary to turn off transparency before making the change.</p>
+<p>これにより、背後のウィンドウの内容が透けて見える。ユーザーが不可視のピクセルをクリックすると、そのクリックは背後のウィンドウに「フォールスルー」される。</p>
+<p>ウィンドウの既存のTransColorを変更するには、変更する前に透明度をオフにする必要があります。</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
 <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
-<p>This function is often used to create on-screen displays and other visual effects. There is an example of an on-screen display <a href="Gui.htm#ExOSD">at the bottom of the Gui object page</a>. For a simple demonstration via hotkeys, see <a href="WinSetTransparent.htm#ExTransHotkey">example #4</a> on the <a href="WinSetTransparent.htm">WinSetTransparent</a> page.</p>
+<p>この機能は、オンスクリーンディスプレイやその他のビジュアルエフェクトを作成するためによく使用される。<a href="Gui.htm#ExOSD">Guiオブジェクト・ページの一番下</a>にオンスクリーン表示の例がある。ホットキーによる簡単なデモンストレーションは、<a href="WinSetTransparent.htm">WinSetTransparent</a>ページの<a href="WinSetTransparent.htm#ExTransHotkey">例4</a>を参照してください。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinSetTransparent.htm">WinSetTransparent</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Makes all white pixels in Notepad invisible. This example may not work well with the new Notepad on Windows 11 or later.</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳のすべての白いピクセルを見えなくする。この例は、Windows11以降の新しいメモ帳ではうまく動作しないかもしれません。</p>
 <pre>WinSetTransColor "White", "Untitled - Notepad"</pre>
 </div>
 

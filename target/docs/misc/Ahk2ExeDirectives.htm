@@ -1,186 +1,185 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Script Compiler Directives | AutoHotkey v2</title>
-<meta name="description" content="Script compiler directives allow the user to specify details of how a script is to be compiled via Ahk2Exe." />
+<title>スクリプトコンパイラディレクティブ｜AutoHotkey v2</title>
+<meta name="description" content="スクリプトコンパイラディレクティブにより、Ahk2Exeでどのようにスクリプトをコンパイルするかの詳細を指定することができます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
 <script src="../static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>Script Compiler Directives</h1>
+<h1>スクリプト・コンパイラ・ディレクティブ</h1>
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#Intro1">Introduction</a></li>
-  <li><a href="#IgnoreKeep">Directives that control the script behaviour</a>:</li>
+  <li><a href="#Intro1">はじめに</a></li>
+  <li><a href="#IgnoreKeep">スクリプトの動作を制御するディレクティブ</a>：</li>
   <ul>
     <li><a href="#IgnoreKeep">IgnoreBegin</a></li>
     <li><a href="#IgnoreKeep">IgnoreEnd</a></li>
     <li><a href="#IgnoreKeep">IgnoreKeep</a></li>
   </ul>
-  <li><a href="#Directives">Directives that control executable metadata</a>:</li>
+  <li><a href="#Directives">実行メタデータを制御するディレクティブ</a>：</li>
   <ul>
-    <li><a href="#Intro2">Introduction</a></li>
-    <li><a href="#AddResource">AddResource</a>: Adds a resource to the .exe.</li>
-    <li><a href="#Bin">Bin / Base</a>: Specifies the base version of AutoHotkey to use.</li>
-    <li><a href="#ConsoleApp">ConsoleApp</a>: Sets Console mode.</li>
-    <li><a href="#Cont">Cont</a>: Specifies a directive continuation line.</li>
-    <li><a href="#Debug">Debug</a>: Shows directive debugging text.</li>
-    <li><a href="#ExeName">ExeName</a>: Specifies the location and name for the .exe.</li>
-    <li><a href="#Let">Let</a>: Sets a user variable.</li>
-    <li><a href="#Nop">Nop</a>: Does nothing.</li>
-    <li><a href="#Obey">Obey</a>: Obeys a command or expression.</li>
-    <li><a href="#PostExec">PostExec</a>: Runs a program after compilation.</li>
-    <li><a href="#ResourceID">ResourceID</a>: Assigns a non-standard resource ID to the main script.</li>
-    <li><a href="#SetMainIcon">SetMainIcon</a>: Sets the main icon.</li>
-    <li><a href="#SetProp">Set<i>Prop</i></a>: Sets an .exe property.</li>
-    <li><a href="#Set">Set</a>: Sets a miscellaneous property.</li>
-    <li><a href="#UpdateManifest">UpdateManifest</a>: Changes the .exe's manifest.</li>
-    <li><a href="#UseResourceLang">UseResourceLang</a>: Changes the resource language.</li>
+    <li><a href="#Intro2">はじめに</a></li>
+    <li><a href="#AddResource">AddResource</a>:.exe にリソースを追加する。</li>
+    <li><a href="#Bin">Bin / Base</a>:使用するAutoHotkeyの基本バージョンを指定します。</li>
+    <li><a href="#ConsoleApp">ConsoleApp</a>:コンソールモードを設定する。</li>
+    <li><a href="#Cont">Cont</a>:指示継続行を指定する。</li>
+    <li><a href="#Debug">Debug</a>:ディレクティブのデバッグテキストを表示する。</li>
+    <li><a href="#ExeName">ExeName</a>:.exeの場所と名前を指定します。</li>
+    <li><a href="#Let">Let</a>:ユーザー変数を設定する。</li>
+    <li><a href="#Nop">Nop</a>:何もしない。</li>
+    <li><a href="#Obey">Obey</a>:命令や表現に従う。</li>
+    <li><a href="#PostExec">PostExec</a>:コンパイル後にプログラムを実行する。</li>
+    <li><a href="#ResourceID">ResourceID</a>:非標準のリソースIDをメインスクリプトに割り当てる。</li>
+    <li><a href="#SetMainIcon">SetMainIcon</a>:メインアイコンを設定する。</li>
+    <li><a href="#SetProp">Set<i>Prop</i></a>:.exe プロパティを設定します。</li>
+    <li><a href="#Set">Set</a>:雑多なプロパティを設定する。</li>
+    <li><a href="#UpdateManifest">UpdateManifest</a>:.exe のマニフェストを変更します。</li>
+    <li><a href="#UseResourceLang">UseResourceLang</a>:リソースの言語を変更する。</li>
   </ul>
 </ul>
-<h2 id="Intro1">Introduction</h2>
-<p>Script compiler directives allow the user to specify details of how a script is to be compiled via <a href="../Scripts.htm#ahk2exe">Ahk2Exe</a>. Some of the features are:</p>
+<h2 id="Intro1">はじめに</h2>
+<p>スクリプトコンパイラディレクティブにより、<a href="../Scripts.htm#ahk2exe">Ahk2Exe</a>で、どのようにスクリプトをコンパイルするかの詳細を指定することができます。いくつかの特徴を挙げよう：</p>
 <ul>
-  <li>Ability to change the version information (such as the name, description, version...).</li>
-  <li>Ability to add resources to the compiled script.</li>
-  <li>Ability to tweak several miscellaneous aspects of compilation.</li>
-  <li>Ability to remove code sections from the compiled script and vice versa.</li>
+  <li>バージョン情報（名前、説明、バージョン...など）を変更する機能。</li>
+  <li>コンパイルされたスクリプトにリソースを追加する機能。</li>
+  <li>コンパイルのいくつかの雑多な面を微調整する能力。</li>
+  <li>コンパイルされたスクリプトからコードセクションを削除する機能。</li>
 </ul>
-<p>The script compiler looks for special comments in the source script and recognises these as Compiler Directives. All compiler directives are introduced by the string <code>@Ahk2Exe-</code>, preceded by the comment flag (usually <code>;</code>).</p>
+<p>スクリプトコンパイラは、ソーススクリプト内の特別なコメントを探し、コンパイラディレクティブとして認識します。すべてのコンパイラディレクティブは<code>@Ahk2Exe-</code>という文字列で始まり、その前にコメントフラグ (通常は<code>;</code>) が付きます。</p>
 
-<h2 id="IgnoreKeep">Directives that control the script behaviour</h2>
-<p>It is possible to remove code sections from the compiled script by wrapping them in directives:</p>
+<h2 id="IgnoreKeep">スクリプトの動作を制御するディレクティブ</h2>
+<p>ディレクティブで囲むことによって、コンパイルされたスクリプトからコードセクションを削除することができる：</p>
 <pre class="NoIndent">MsgBox "This message appears in both the compiled and uncompiled script"
 <em>;@Ahk2Exe-IgnoreBegin</em>
 MsgBox "This message does NOT appear in the compiled script"
 <em>;@Ahk2Exe-IgnoreEnd</em>
 MsgBox "This message appears in both the compiled and uncompiled script"
 </pre>
-<p>The reverse is also possible, i.e. marking a code section to only be executed in the compiled script:</p>
+<p>その逆も可能である。つまり、コンパイルされたスクリプトでのみ実行されるコードセクションをマークするのである：</p>
 <pre class="NoIndent"><em>/*@Ahk2Exe-Keep
 MsgBox "This message appears only in the compiled script"
 */</em>
 MsgBox "This message appears in both the compiled and uncompiled script"
 </pre>
-<p>This has advantage over <a href="../Variables.htm#IsCompiled">A_IsCompiled</a> because the code is completely removed from the compiled script during preprocessing, thus making the compiled script smaller. The reverse is also true: it will not be necessary to check for <a href="../Variables.htm#IsCompiled">A_IsCompiled</a> because the code is inside a comment block in the uncompiled script.</p>
+<p>これは<a href="../Variables.htm#IsCompiled">A_IsCompiled</a>よりも利点がある。なぜなら、前処理中にコンパイルされたスクリプトからコードが完全に取り除かれるため、コンパイルされたスクリプトが小さくなるからだ。逆もまた然りである：このコードは、コンパイルされていないスクリプトのコメント・ブロック内にあるので、<a href="../Variables.htm#IsCompiled">A_IsCompiled</a>をチェックする必要はない。</p>
 
-<h2 id="Directives">Directives that control executable metadata</h2>
-<h3 id="Intro2">Introduction</h3>
-<p>In the parameters of these directives, the following escape sequences are supported: <code>``</code>, <code>`,</code>, <code>`n</code>, <code>`r</code> and <code>`t</code>. Commas <em>always</em> need to be escaped, regardless of the parameter position. "Integer" refers to unsigned 16-bit integers (0..0xFFFF).</p>
+<h2 id="Directives">実行メタデータを制御するディレクティブ</h2>
+<h3 id="Intro2">はじめに</h3>
+<p>これらのディレクティブのパラメータでは、以下のエスケープシーケンスがサポートされています：<code>``</code>, <code>`,</code>, <code>`n</code>, <code>`r</code> and <code>`t</code>. カンマは、パラメータの位置に関係なく、<em>常</em>にエスケープする必要がある。「整数」とは、符号なし16ビット整数（0～0xFFFF）を指す。</p>
 
-<p>If required, directive parameters can reference the following list of standard built-in variables by enclosing the variable name with <code>%</code> signs:</p>
+<p>必要であれば、ディレクティブパラメータは、変数名を<code>%</code>記号で囲むことによって、以下の標準組み込み変数のリストを参照することができます：</p>
 <p id="group1"><strong>Group 1:</strong> <a href="../Variables.htm#AhkPath">A_AhkPath</a>, <a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#AppDataCommon">A_AppDataCommon</a>, <a href="../Variables.htm#ComputerName">A_ComputerName</a>, <a href="../Variables.htm#ComSpec">A_ComSpec</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#DesktopCommon">A_DesktopCommon</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#ProgramsCommon">A_ProgramsCommon</a>, <a href="../Variables.htm#ScriptDir">A_ScriptDir</a>, <a href="../Variables.htm#ScriptFullPath">A_ScriptFullPath</a>, <a href="../Variables.htm#ScriptName">A_ScriptName</a>, <a href="../Variables.htm#Space">A_Space</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#StartMenuCommon">A_StartMenuCommon</a>, <a href="../Variables.htm#Startup">A_Startup</a>, <a href="../Variables.htm#StartupCommon">A_StartupCommon</a>, <a href="../Variables.htm#Tab">A_Tab</a>, <a href="../Variables.htm#Temp">A_Temp</a>, <a href="../Variables.htm#UserName">A_UserName</a>, <a href="../Variables.htm#WinDir">A_WinDir</a>.</p>
 
 <p><strong>Group 2:</strong> <a href="../Variables.htm#AhkVersion">A_AhkVersion</a>, <a href="../Variables.htm#IsCompiled">A_IsCompiled</a>, <a href="../Variables.htm#PtrSize">A_PtrSize</a>.</p>
 
-<p id="WorkFileName">In addition to these variable names, the special variable <strong>A_WorkFileName</strong> holds the temporary name of the processed .exe file. This can be used to pass the file name as a parameter to any <a href="#PostExec">PostExec</a> directives which need to access the generated .exe.</p>
+<p id="WorkFileName">これらの変数名に加えて、特殊変数<strong>A_WorkFileName</strong>は、処理された.exeファイルの一時的な名前を保持する。これは、生成された .exe にアクセスする必要のある<a href="#PostExec">PostExec</a>ディレクティブのパラメータとしてファイル名を渡すために使われます。</p>
 
-<p id="BasePath">Furthermore, the special variable <strong>A_BasePath</strong> contains the full path and name of the selected base file.</p>
+<p id="BasePath">さらに、特別な変数<strong>A_BasePath</strong>は、選択されたベースファイルのフルパスと名前を含んでいる。</p>
 
-<p id="PriorLine">Also, the special variable <strong>A_PriorLine</strong> contains the source line immediately preceding the current compiler directive. Intervening lines of blanks and comments only are ignored, as are any intervening compiler directive lines. This variable can be used to 'pluck' constant information from the script source, and use it in later compiler directives. An example would be accessing the version number of the script, which may be changed often. Accessing the version number in this way means that it needs to be changed only once in the source code, and the change will get copied through to the necessary directive. (See the RegEx example below for more information.)</p>
+<p id="PriorLine">また、特殊変数<strong>A_PriorLine</strong>には、現在のコンパイラ指令の直前のソース行が格納される。空白やコメントだけの行は無視され、コンパイラ指令の行も無視される。この変数は、スクリプトのソースから定数情報を「抜き取り」、後のコンパイラのディレクティブで使用するために使うことができる。例えば、頻繁に変更される可能性のあるスクリプトのバージョン番号にアクセスするような場合である。この方法でバージョン番号にアクセスするということは、バージョン番号をソースコードの中で一度だけ変更すればよく、その変更は必要なディレクティブにコピーされるということです。(詳細は以下のRegExの例を参照)。</p>
 
-<p>As well, special user variables can be created with the format <code>U_<i>Name</i></code> using the <a href="#Let">Let</a> and <a href="#Obey">Obey</a> directives, described below.</p>
+<p>また、以下に説明する<a href="#Let">Let</a>ディレクティブと<a href="#Obey">Obey</a>ディレクティブを使用して、特別なユーザー変数を<code><i>U_Name</i></code>形式で作成することもできます。</p>
 
-<p>In addition to being available for directive parameters, all variables can be accessed from any RT_MENU, RT_DIALOG, RT_STRING, RT_ACCELERATORS, RT_HTML, and RT_MANIFEST file supplied to the <a href="#AddResource">AddResource</a> directive, below.</p>
+<p>すべての変数は、<a href="#AddResource">AddResource</a>ディレクティブのパラメータとして利用できるだけでなく、以下の<a href="#AddResource">AddResource</a>ディレクティブに与えられたRT_MENU、RT_DIALOG、RT_STRING、RT_ACCELERATORS、RT_HTML、RT_MANIFESTファイルからアクセスすることができます。</p>
 
-<p>If needed, the value returned from the above variables can be manipulated by including at the end of the built-in variable name before the ending <code>%</code>, up to 2 parameters (called p2 and p3) all separated by tilde <code>~</code>. The p2 and p3 parameters will be used as literals in the 2nd and 3rd parameters of a <a href="../lib/RegExReplace.htm">RegExReplace</a> function to manipulate the value returned. (See <a href="RegEx-QuickRef.htm">RegEx Quick Reference</a>.) Note that p3 is optional.</p>
+<p>必要であれば、上記の変数から返される値は、組み込み変数名の末尾の<code>%</code>より前に、チルダ<code>~</code>で区切られた2つまでのパラメータ（p2とp3と呼ばれる）を含めることで操作できる。p2 と p3 パラメータは、<a href="../lib/RegExReplace.htm">RegExReplace</a>関数の 2 番目と 3 番目のパラメータでリテラルとして使用され、返される値を操作します。(<a href="RegEx-QuickRef.htm">RegExクイックリファレンス</a>参照。) p3はオプションであることに注意。</p>
 
-<p>To include a tilde as data in p2 or p3, preceded it with a back-tick, i.e. <code>`~</code>. To include a back-tick character as data in p2 or p3, double it, i.e. <code>``</code>.</p>
+<p>p2またはp3にチルダをデータとして含めるには、チルダの前にバックチック、すなわち<code>`~</code>を付ける。バックティック文字をp2またはp3のデータとして含めるには、それをダブルにする<code>``</code>。</p>
 
-<strong>RegEx examples:</strong>
+<strong>RegEx の例：</strong>
 <ul>
   <li>
     <pre class="NoIndent">%A_ScriptName~\.[^\.]+$~.exe%</pre>
-    <p>This replaces the extension plus preceding full-stop, with <code>.exe</code> in the actual script name.<br>(<code>\.[^\.]+$~.exe</code> means scan for a <code>.</code> followed by 1 or more non-<code>.</code> characters followed by end-of-string, and replace them with <code>.exe</code>)</p>
+    <p>これは、実際のスクリプト名では、拡張子とその前の完全停止を<code>.exe</code>に置き換えます。<br><code>(\.[^.]+$~.exe</code>は、<code>.</code>の後に<code>.</code>以外の文字が1文字以上続くか、文字列の末尾が.<code>exe</code>であるかをスキャンし、<code>.exe</code>に置き換えることを意味する)</p>
   </li>
   <li>
-    <p>Assume there is a source line followed by two compiler directives as follows:</p>
+    <p>ソース行に続いて、次のような2つのコンパイラ指令があるとする：</p>
     <pre>CodeVersion := "1.2.3.4", company := "My Company"</pre>
     <pre><em>;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%</em></pre>
     <pre><em>;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%</em></pre>
-    <p>These directives copy the version number <code>1.2.3.4</code> into the special variable <code>U_version</code>, and the company name <code>My Company</code> into the special variable <code>U_company</code> for use in other directives later.<br>
-    (The <code>{1}</code> in the first regex was changed to <code>{3}</code> in the second regex to select after the third <code>"</code> to extract the company name.)</p>
+    <p>これらのディレクティブはバージョン番号<code>1.2.3.4</code>を特殊変数<code>U_version</code>にコピーし、会社名<code>My Company</code>を特殊変数<code>U_company</code>にコピーして、後で他のディレクティブで使えるようにします。<br>
+    (最初の正規表現の<code>{1}</code>は2番目の正規表現の<code>{3}</code>に変更され、会社名を抽出するために3番目の<code>"</code>の後を選択する)</p>
   </li>
 </ul>
-<p><strong>Other examples:</strong> Other working examples which can be downloaded and examined, are available from <a href="https://github.com/AutoHotkey/Ahk2Exe/releases/tag/DemoCode_1">here</a>.</p>
+<p><strong>その他の例：</strong>ダウンロードして調べることができる他の実例は、<a href="https://github.com/AutoHotkey/Ahk2Exe/releases/tag/DemoCode_1">ここ</a>から入手できる。</p>
 
 <h3 id="AddResource">AddResource</h3>
-<p>Adds a resource to the compiled executable. (Also see <a href="#UseResourceLang">UseResourceLang</a> below)</p>
+<p>コンパイル済みの実行ファイルにリソースを追加する。(以下の<a href="#UseResourceLang">UseResourceLang</a>も参照）。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-AddResource</span> FileName <span class="optional">, ResourceName</span></pre>
 <dl>
   <dt>FileName</dt>
-  <dd>The filename of the resource to add. 絶対パスが指定されていない場合、ファイルはスクリプト自身のディレクトリにある（または相対的な）ものとみなされます。The type of the resource (as an integer or string) can be explicitly specified by prepending an asterisk to it:<code class="no-highlight">*type Filename</code>. If omitted, Ahk2Exe automatically detects the type according to the file extension.</dd>
-  <dt>ResourceName</dt>
-  <dd><i>(Optional)</i> The name that the resource will have (can be a string or an integer). If omitted, it defaults to the name (with no path) of the file, in uppercase.</dd>
+  <dd>追加するリソースのファイル名。絶対パスが指定されていない場合、ファイルはスクリプト自身のディレクトリにある（または相対的な）ものとみなされます。リソースのタイプ（整数または文字列）を明示的に指定するには、その前にアスタリスクを付ける：<code class="no-highlight">*type Filename</code>. 省略された場合、Ahk2Exeはファイルの拡張子によって自動的にタイプを検出します。</dd>
+  <dt>リソース名</dt>
+  <dd><i>(オプション)</i>リソースの名前 (文字列または整数)。省略された場合、デフォルトは大文字のファイル名（パスなし）である。</dd>
 </dl>
-<p>Here is a list of common standard resource types and the extensions that trigger them by default.</p>
+<p>以下は、一般的な標準リソースタイプと、それをデフォルトでトリガーするエクステンションのリストです。</p>
 <ul>
   <li>2 (RT_BITMAP): <code>.bmp</code>, <code>.dib</code></li>
   <li>4 (RT_MENU)</li>
   <li>5 (RT_DIALOG)</li>
   <li>6 (RT_STRING)</li>
   <li>9 (RT_ACCELERATORS)</li>
-  <li>10 (RT_RCDATA): Every single other extension.</li>
+  <li>10 (RT_RCDATA):他のすべてのエクステンション。</li>
   <li>11 (RT_MESSAGETABLE)</li>
-  <li>12 (RT_GROUP_CURSOR): <code>.cur</code> (not yet supported)</li>
+  <li>12 (RT_GROUP_CURSOR):<code>.cur</code>（未対応）</li>
   <li>14 (RT_GROUP_ICON): <code>.ico</code></li>
   <li>23 (RT_HTML): <code>.htm</code>, <code>.html</code>, <code>.mht</code></li>
-  <li>24 (RT_MANIFEST): <code>.manifest</code>. If the name for the resource is not specified, it defaults to <code>1</code></li>
+  <li>24 (RT_MANIFEST):<code>.manifest</code>. リソース名が指定されていない場合、デフォルトは<code>1</code>です。</li>
 </ul>
-<p><strong>Example 1:</strong> To replace the standard icons (other than the <a href="#SetMainIcon">main icon</a>):</p>
+<p><strong>例1：</strong>（<a href="#SetMainIcon">メインアイコン</a>以外の）標準アイコンを置き換える場合：</p>
 <pre><em>;@Ahk2Exe-AddResource Icon1.ico, 160  ; Replaces 'H on blue'
 ;@Ahk2Exe-AddResource Icon2.ico, 206  ; Replaces 'S on green'
 ;@Ahk2Exe-AddResource Icon3.ico, 207  ; Replaces 'H on red'
 ;@Ahk2Exe-AddResource Icon4.ico, 208  ; Replaces 'S on red'</em></pre>
 
-<p><strong>Example 2:</strong> To include another script as a separate RCDATA resource (see <a href="../Program.htm#embedded-scripts">Embedded Scripts</a>):</p>
+<p><strong>例2：</strong>別のスクリプトを別のRCDATAリソースとして含める場合（「<a href="../Program.htm#embedded-scripts">埋め込みスクリプト</a>」を参照）：</p>
 <pre><em>;@Ahk2Exe-AddResource MyScript1.ahk, #2
 ;@Ahk2Exe-AddResource MyScript2.ahk, MYRESOURCE</em></pre>
-<p>Note that each script added with this directive will be fully and separately processed by the compiler, and can include further directives. If there are any competing directives overall, the last encountered by the compiler will be used.</p>
+<p>このディレクティブで追加された各スクリプトは、コンパイラによって完全かつ個別に処理され、さらにディレクティブを含めることができることに注意してください。全体として競合するディレクティブがあれば、コンパイラが最後に見つけたものが使われる。</p>
 
 <h3 id="Bin">Bin / Base</h3>
-<p>Specifies the base version of AutoHotkey to be used to generate the .exe file. This directive may be overridden by a base file parameter specified in the GUI or CLI. This directive can be specified many times if necessary, but only in the top level script file (i.e. not in an <a href="../lib/_Include.htm">#Include</a> file). The compiler will be run at least once for each Bin/Base directive found. (If an actual comment is appended to this directive, it must use the <code> ;</code> flag. To truly comment out this directive, insert a space after the first comment flag.)</p>
+<p>.exeファイルの生成に使用するAutoHotkeyのベースバージョンを指定します。このディレクティブは、GUIまたはCLIで指定されたベースファイルのパラメータによって上書きされる可能性があります。このディレクティブは、必要であれば何度でも指定できるが、トップレベルのスクリプトファイルでのみ指定する（つまり、<a href="../lib/_Include.htm">#Include</a>ファイルでは指定しない）。コンパイラは、Bin/Baseディレクティブが見つかるたびに少なくとも1回は実行されます。(このディレクティブに実際のコメントを付加する場合は、<code>;</code>フラグを使用しなければならない。このディレクティブを本当にコメントアウトするには、最初のコメントフラグの後にスペースを挿入する)。</p>
 
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Bin </span> [Path\]Name <span class="optional">, [Exe_path\][Name], Codepage</span> <em>; Deprecated</em>
 <span class="func">;@Ahk2Exe-Base</span> [Path\]Name <span class="optional">, [Exe_path\][Name], Codepage</span></pre>
 <dl>
   <dt>[Path\]Name</dt>
-  <dd>The *.bin or *.exe file to use. If no extension is supplied, <code>.bin</code> is assumed. The file is assumed to be in (or relative to) the compiler's own directory if an absolute path isn't specified. A DOS mask may be specified for <em>Name</em>, e.g. <code>ANSI*</code>, <code>Unicode 32*</code>, <code>Unicode 64*</code>, or <code>*bit</code> for all three. The compiler will be run for each *.bin or *.exe file that matches. Any use of built-in variable replacements must only be from <a href="#group1">group 1</a> above.</dd>
+  <dd>使用する*.binまたは*.exeファイル。拡張子が与えられない場合は、<code>.bin</code>とみなされる。絶対パスが指定されていない場合、ファイルはコンパイラー自身のディレクトリにある（または相対的な）ものとみなされる。DOSマスクは、例えば<code>ANSI*</code>、<code>Unicode 32*</code>、<code>Unicode 64*</code>、またはこれら3つすべてに<code>*bit</code>を指定することができる。コンパイラーは、マッチした*.binまたは*.exeファイルごとに実行される。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。</dd>
   <dt>[Exe_path\][Name]</dt>
-  <dd><i>(Optional)</i> The file name to be given to the .exe. Any extension supplied will be replaced by <code>.exe</code>. If no path is specified, the .exe will be created in the script folder. If no name is specified, the .exe will have the default name. (This parameter can be overridden by the <a href="#ExeName">ExeName</a> directive.)</dd>
+  <dd><i>(オプション)</i>.exeに付けるファイル名。提供された拡張子はすべて<code>.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。(このパラメータは<a href="#ExeName">ExeName</a>ディレクティブで上書きすることができます)。</dd>
   <dt>Codepage</dt>
-  <dd><i>(Optional)</i> Overrides the default <a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">codepage</a>
-  used to process script files. (Scripts should begin with a Unicode byte-order-mark (BOM), rendering the use of this parameter unnecessary.)</dd>
+  <dd><i>(オプション)</i> スクリプトファイルの処理に使われるデフォルトの<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">コードページ</a>を上書きする。(スクリプトはユニコードのバイトオーダーマーク(BOM)で始まるはずなので、このパラメータの使用は不要です)。</dd>
 </dl>
 
 <h3 id="ConsoleApp">ConsoleApp</h3>
-<p>Changes the executable subsystem to Console mode.</p>
+<p>実行サブシステムをコンソールモードに変更する。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-ConsoleApp</span></pre>
 
 <h3 id="Cont">Cont</h3>
-<p>Specifies a continuation line for the preceding directive. This allows a long-lined directive to be formatted so that it is easy to read in the source code.</p>
+<p>直前のディレクティブの継続行を指定する。これにより、長い行のディレクティブをソースコード上で読みやすいように書式設定することができます。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Cont</span> Text</pre>
 <dl>
   <dt>Text</dt>
-  <dd>The text to be appended to the previous directive line, before that line is processed. The text starts after the single space following the <code>Cont</code> key-word.</dd>
+  <dd>その行が処理される前に、前の指示行に追加されるテキスト。テキストは<code>Cont</code>キーワードに続く半角スペースの後に始まる。</dd>
 </dl>
 
 <h3 id="Debug">Debug</h3>
-<p>Shows a message box with the supplied text, for debugging purposes.</p>
+<p>デバッグ用に、指定したテキストでメッセージボックスを表示する。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Debug</span> Text</pre>
 <dl>
   <dt>Text</dt>
-  <dd>The text to be shown. Include any special variables between <code>%</code> signs to see the (manipulated) contents.</dd>
+  <dd>表示するテキスト。操作された）内容を見るには、<code>%</code>記号の間に特別な変数を含める。</dd>
 </dl>
 
 <h3 id="ExeName">ExeName</h3>
-<p>Specifies the location and name given to the generated .exe file. (Also see the <a href="#Bin">Base</a> directive.) This directive may be overridden by an output file specified in the GUI or CLI.</p>
+<p>生成される .exe ファイルの場所と名前を指定します。(<a href="#Bin">Base</a>ディレクティブも参照してください。) このディレクティブは、GUIやCLIで指定された出力ファイルによって上書きされることがあります。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-ExeName</span> [Path\][Name]</pre>
 <dl>
   <dt>[Path\][Name]</dt>
-  <dd>The .exe file name. Any extension supplied will be replaced by <code>.exe</code>. If no path is specified, the .exe will be created in the script folder. If no name is specified, the .exe will have the default name.</dd>
+  <dd>The .exe file name. 提供された拡張子はすべて<code>.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。</dd>
 </dl>
 <strong>Example:</strong>
 <pre><em>;@Ahk2Exe-Obey U_bits, = %A_PtrSize% * 8
@@ -188,21 +187,21 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 ;@Ahk2Exe-ExeName %A_ScriptName~\.[^\.]+$%_%U_type%_%U_bits%</em></pre>
 
 <h3 id="Let">Let</h3>
-<p>Creates (or modifies) one or more user variables which can be accessed by <code>%U_<i>Name</i>%</code>, similar to the built-in variables (see above).</p>
+<p>組み込み変数（上記参照）と同様に、<code>%<i>U</i>_Name%</code>でアクセスできる 1 つ以上のユーザー変数を作成（または変更）します。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Let</span> Name = Value <span class="optional">, Name = Value, ...</span></pre>
 <dl>
-  <dt>名前</dt>
-  <dd>The name of the variable (with or without the leading <code>U_</code>).</dd>
+  <dt>名称</dt>
+  <dd>変数名（先頭の<code>U_</code>はあってもなくてもよい）。</dd>
   <dt>値</dt>
-  <dd>The value to be used.</dd>
+  <dd>使用する値。</dd>
 </dl>
 
 <h3 id="Nop">Nop</h3>
-<p>Does nothing.</p>
+<p>何もしない。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Nop</span> <span class="optional">Text</span></pre>
 <dl>
   <dt>Text</dt>
-  <dd><i>(Optional)</i> Any text, which is ignored.</dd>
+  <dd><i>(オプショナル）</i>任意のテキスト 。</dd>
 </dl>
 <strong>Example:</strong>
 <pre>Ver := A_AhkVersion "" <em>; If quoted literal not empty, do 'SetVersion'
@@ -210,86 +209,86 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 ;@Ahk2Exe-%U_V%        %A_AhkVersion%%A_PriorLine~U)^(.+")(.*)".*$~$2%</em></pre>
 
 <h3 id="Obey">Obey</h3>
-<p>Obeys isolated AutoHotkey commands or expressions, with result in <code>U_<i>Name</i></code>.</p>
+<p>孤立した AutoHotkey コマンドまたは式に従います。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Obey</span> Name, CmdOrExp <span class="optional">, Extra</span></pre>
 <dl>
-  <dt>名前</dt>
-  <dd>The name of the variable (with or without the leading <code>U_</code>) to receive the result.</dd>
+  <dt>名称</dt>
+  <dd>結果を受け取る変数名（先頭の<code>U_はあっても</code>なくてもよい）。</dd>
   <dt>CmdOrExp</dt>
   <dd>
-    <p>The command or expression to obey.</p>
-    <p><strong>Command</strong> format must use <em>Name</em> as the output variable (often the first parameter), e.g.</p>
+    <p>従えという命令や表現。</p>
+    <p><strong>コマンド・</strong>フォーマットでは、出力変数（多くの場合、最初のパラメーター）として<em>Name</em>を使用しなければならない。</p>
     <pre><em>;@Ahk2Exe-Obey U_date, FormatTime U_date`, R D2 T2</em></pre>
-    <p><strong>Expression</strong> format must start with <code>=</code>, e.g.</p>
+    <p><strong>式</strong>の書式は<code>=</code>で始まる必要があります。</p>
     <pre><em>;@Ahk2Exe-Obey U_type, = "%A_IsUnicode%" ? "Unicode" : "ANSI"</em></pre>
-    <p>Expressions can be written in command format, e.g.</p>
+    <p>式はコマンド形式で書くことができる。</p>
     <pre><em>;@Ahk2Exe-Obey U_bits, U_bits := %A_PtrSize% * 8</em></pre>
-    <p>If needed, separate multiple commands and expressions with <code>`n</code>.</p>
+    <p>必要であれば、複数のコマンドや式を<code>「n</code>」で区切ってください。</p>
   </dd>
   <dt>Extra</dt>
-  <dd><i>(Optional)</i> A number (1-9) specifying the number of extra results to be returned. e.g. if extra = 2, results will be returned in <code>U_<i>name</i></code>, <code>U_<i>name</i>1</code>, and <code>U_<i>name</i>2</code>. The values in the <code><i>name</i></code>s must first be set by the expression or command.</dd>
+  <dd><i>(オプション）</i>返す追加結果の数を指定する数値（1～9）。例えば、extra = 2の場合、結果は<code>U_<i>名</i></code>、<code>U_<i>名</i>1&lt;//c3&gt;、<code>U_<i>名</i>2&lt;//c5&gt;で返される。<code><i>名前</i></code>の値は、まず式やコマンドによって設定されなければならない。</dd>
 </dl>
 
 <h3 id="PostExec">PostExec</h3>
-<p>Specifies a program to be executed after a successful compilation, before (or after) any <a href="../Scripts.htm#mpress">Compression</a> is applied to the .exe. This directive can be present many times and will be executed in the order encountered by the compiler, in the appropriate queue as specified by the <em>When</em> parameter.</p>
+<p>コンパイルに成功した後、.exeに<a href="../Scripts.htm#mpress">圧縮</a>が適用される前（または後）に実行されるプログラムを指定します。このディレクティブは何度も指定することができ、<em>When</em>パラメータで指定された適切なキューで、コンパイラが見つけた順番に実行される。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-PostExec</span> Program [parameters] <span class="optional">, When, WorkingDir, Hidden, IgnoreErrors</span></pre>
 <dl>
-  <dt>Program [parameters]</dt>
-  <dd>The program to execute, plus parameters. To allow access to the processed .exe file, specify the special variable <a href="#WorkFileName">A_WorkFileName</a> as a quoted parameter, such as <code>"%A_WorkFileName%"</code>. If the program changes the .exe, the altered .exe must be moved back to the input file specified by <code>%A_WorkFileName%</code>, by the program. (Note that the .exe will contain binary data.)</dd>
+  <dt>プログラム [パラメーター］</dt>
+  <dd>実行するプログラムとパラメータ。処理された.exeファイルへのアクセスを許可するには、<code>"%A_WorkFileName%"</code>のように、引用符で囲まれたパラメータとして特殊変数<a href="#WorkFileName">A_WorkFileName</a>を指定する。プログラムが.exeを変更した場合、変更された.exeは、プログラムによって<code>%A_WorkFileName%</code>で指定された入力ファイルに戻される必要があります。(.exeにはバイナリデータが含まれることに注意）。</dd>
   <dt>When</dt>
   <dd>
-    <p><i>(Optional)</i> Leave blank to execute before any <a href="../Scripts.htm#mpress">Compression</a> is done. Otherwise set to a number to run after compression as follows:</p>
+    <p><i>(オプション)</i> <a href="../Scripts.htm#mpress">圧縮が</a>実行される前に実行する場合は空白のままにします。そうでない場合は、以下のように圧縮後に実行する数値を設定する：</p>
     <ul>
-      <li>0 - Only run when no compression is specified.</li>
-      <li>1 - Only run when MPRESS compression is specified.</li>
-      <li>2 - Only run when UPX compression is specified.</li>
+      <li>0 - 圧縮が指定されていない場合にのみ実行される。</li>
+      <li>1 - MPRESS 圧縮が指定されているときのみ実行される。</li>
+      <li>2 - UPX圧縮が指定されている場合にのみ実行される。</li>
     </ul>
   </dd>
   <dt>WorkingDir</dt>
-  <dd><i>(Optional)</i> The working directory for the program. 空白を含む場合でも、ダブルクォーテーションで囲まないでください。If omitted, the directory of the compiler (Ahk2Exe) will be used.</dd>
+  <dd><i>(オプション）</i>プログラムの作業ディレクトリ。空白を含む場合でも、ダブルクォーテーションで囲まないでください。省略された場合は、コンパイラ(Ahk2Exe)のディレクトリが使用されます。</dd>
   <dt>Hidden</dt>
-  <dd><i>(Optional)</i> If set to 1, the program will be launched hidden.</dd>
+  <dd><i>(オプション)</i>1に設定すると、プログラムは隠れて起動する。</dd>
   <dt>IgnoreErrors</dt>
-  <dd><i>(Optional)</i> If set to 1, any errors that occur during the launching or running of the program will not be reported to the user.</dd>
+  <dd><i>(オプション）</i>1に設定すると、プログラムの起動中または実行中に発生したエラーは、ユーザーに報告されない。</dd>
 </dl>
-<p><strong>Example 1:</strong> (To use the first two examples, first download <a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/BinMod.ahk">BinMod.ahk</a> and compile it according to the instructions in the downloaded script.)</p>
-<p>This example can be used to remove a reference to "AutoHotkey" in the generated .exe to disguise that it is a compiled AutoHotkey script:</p>
+<p><strong>例1:</strong>(最初の2つの例を使うには、まず<a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/BinMod.ahk">BinMod.ahk</a>をダウンロードし、ダウンロードしたスクリプトの指示に従ってコンパイルする)</p>
+<p>この例は、生成された.exeから "AutoHotkey"への参照を削除し、コンパイルされたAutoHotkeyスクリプトであることを偽装するために使用できます：</p>
 <pre><em>;@Ahk2Exe-Obey U_au, = "%A_IsUnicode%" ? 2 : 1    ; Script ANSI or Unicode?
 ;@Ahk2Exe-PostExec "BinMod.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  "%U_au%2.&gt;AUTOHOTKEY SCRIPT&lt;. DATA              "</em></pre>
-<p><strong>Example 2:</strong> This example will alter a UPX compressed .exe so that it can't be de-compressed with <code>UPX -d</code>:</p>
+<p><strong>例 2：</strong>UPX で圧縮された .exe を<code>UPX -d</code>で解凍できないようにする例です：</p>
 <pre><em>;@Ahk2Exe-PostExec "BinMod.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  "11.UPX." "1.UPX!.", 2</em></pre>
-<p>(There are other examples mentioned in the <a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/BinMod.ahk">BinMod.ahk</a> script.)</p>
-<p><strong>Example 3:</strong> This example specifies the <a href="../Scripts.htm#mpress">Compression</a> to be used on a compiled script, if none is specified in the CLI or GUI. The default parameters normally used by the compiler are shown.</p><p>For MPRESS:</p>
+<p>(<a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/BinMod.ahk">BinMod.ahk</a>スクリプトには他にも例がある)。</p>
+<p><strong>例3：</strong>この例では、CLIまたはGUIで何も指定されていない場合に、コンパイルされたスクリプトで使用する<a href="../Scripts.htm#mpress">圧縮</a>を指定します。コンパイラが通常使用するデフォルト・パラメータを示す。</p><p>For MPRESS:</p>
 <pre><em>;@Ahk2Exe-PostExec "MPRESS.exe" "%A_WorkFileName%" -q -x, 0,, 1</em></pre>
 <p>For UPX:</p>
 <pre><em>;@Ahk2Exe-PostExec "UPX.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  -q --all-methods --compress-icons=0, 0,, 1</em></pre>
 
 <h3 id="ResourceID">ResourceID</h3>
-<p>Assigns a non-standard resource ID to be used for the main script for compilations which use an <a href="#Bin">.exe base file</a> (see <a href="../Program.htm#embedded-scripts">Embedded Scripts</a>). This directive may be overridden by a Resource ID specified in the GUI or CLI. This directive is ignored if it appears in a script inserted by the <a href="#AddResource">AddResource</a> directive.</p>
-<pre class="Syntax"><span class="func">;@Ahk2Exe-ResourceID</span> Name</pre>
+<p><a href="#Bin">.exe ベースファイル</a>を使用するコンパイルのメインスクリプトに使用する非標準のリソース ID を割り当てます (「<a href="../Program.htm#embedded-scripts">埋め込みスクリプト</a>」を参照)。このディレクティブは、GUIまたはCLIで指定されたリソースIDによって上書きされる。このディレクティブは、<a href="#AddResource">AddResource</a>ディレクティブによって挿入されたスクリプトの中に現れると無視されます。</p>
+<pre class="Syntax"><span class="func">リソースID</span>名前</pre>
 <dl>
-  <dt>名前</dt>
-  <dd>The resource ID to use. Numeric resource IDs should consist of a hash sign (#) followed by a decimal number.</dd>
+  <dt>名称</dt>
+  <dd>使用するリソースID。数値リソースIDは、ハッシュ記号（#）に続く10進数で構成されなければならない。</dd>
 </dl>
 
-<h3 id="SetMainIcon">SetMainIcon</h3>
-<p>Overrides the custom EXE icon used for compilation. (To change the other icons, see the <a href="#AddResource">AddResource</a> example.) This directive may be overridden by an icon file specified in the GUI or CLI. The new icon might not be immediately visible in Windows Explorer if the compiled file existed before with a different icon, however the new icon can be shown by selecting <code>Refresh Windows Icons</code> from the Ahk2Exe <code>File</code> menu.</p>
+<h3 id="SetMainIcon">メインアイコンの設定</h3>
+<p>コンパイルに使用されるカスタム EXE アイコンを上書きします。(他のアイコンを変更するには、<a href="#AddResource">AddResource</a>の例を参照のこと。) このディレクティブは、GUIまたはCLIで指定されたアイコンファイルによって上書きされることがある。しかし、Ahk2Exe<code>ファイル</code>メニューから<code>Windowsアイコンの更新</code>を選択することで、新しいアイコンを表示することができます。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-SetMainIcon</span> <span class="optional">IcoFile</span></pre>
 <dl>
   <dt>IcoFile</dt>
-  <dd><i>(Optional)</i> The icon file to use. If omitted, the default AutoHotkey icon is used.</dd>
+  <dd><i>(オプション）</i>使用するアイコンファイル。省略された場合、デフォルトのAutoHotkeyアイコンが使用されます。</dd>
 </dl>
 
 <h3 id="SetProp">Set<em>Prop</em></h3>
-<p>Changes a property in the compiled executable's version information. Note that all properties are processed in alphabetical order, regardless of the order they are specified.</p>
+<p>コンパイルされた実行ファイルのバージョン情報のプロパティを変更します。すべてのプロパティは、指定された順番に関係なく、アルファベット順に処理されることに注意してください。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Set<i>Prop</i></span> Value</pre>
 <dl>
   <dt><em>Prop</em></dt>
   <dd>
-    <p>The name of the property to change. Must be one of those listed below.</p>
+    <p>変更するプロパティの名前。以下のいずれかに該当すること。</p>
     <table class="info">
       <tr>
         <th abbr="Prop">Property</th>
@@ -297,91 +296,91 @@ MsgBox "This message appears in both the compiled and uncompiled script"
       </tr>
       <tr>
         <td>CompanyName</td>
-        <td>Changes the company name.</td>
+        <td>社名を変更する。</td>
       </tr>
       <tr>
         <td>Copyright</td>
-        <td>Changes the legal copyright information.</td>
+        <td>法的な著作権情報を変更します。</td>
       </tr>
       <tr>
         <td>説明</td>
-        <td>Changes the file description. On Windows 8 and above, this also changes the script's name in Task Manager under "Processes".</td>
+        <td>ファイルの説明を変更します。Windows 8以上では、タスクマネージャの「プロセス」でスクリプトの名前も変更されます。</td>
       </tr>
       <tr>
         <td>FileVersion</td>
-        <td>Changes the file version, in both text and raw binary format. (See <em>Version</em> below, for more details.)</td>
+        <td>ファイルのバージョンを、テキスト形式と生のバイナリ形式の両方で変更します。(詳細は下記<em>バージョン</em>を参照）。</td>
       </tr>
       <tr>
         <td>InternalName</td>
-        <td>Changes the internal name.</td>
+        <td>内部名称を変更する。</td>
       </tr>
       <tr>
         <td>言語</td>
-        <td>Changes the <a href="Languages.htm">language code</a>. Please note that hexadecimal numbers must have an <code>0x</code> prefix.</td>
+        <td><a href="Languages.htm">言語コード</a>を変更する。16進数には<code>0x</code>のプレフィックスが必要です。</td>
       </tr>
       <tr>
         <td>LegalTrademarks</td>
-        <td>Changes the legal trademarks information.</td>
+        <td>法定商標情報を変更する。</td>
       </tr>
       <tr>
-        <td>名前</td>
-        <td>Changes the product name and the internal name.</td>
+        <td>名称</td>
+        <td>製品名と内部名称を変更します。</td>
       </tr>
       <tr>
         <td>OrigFilename</td>
-        <td>Changes the original filename information.</td>
+        <td>元のファイル名情報を変更する。</td>
       </tr>
       <tr>
         <td>ProductName</td>
-        <td>Changes the product name.</td>
+        <td>商品名を変更します。</td>
       </tr>
       <tr>
         <td>ProductVersion</td>
-        <td>Changes the product version, in both text and raw binary format. (See <em>Version</em> below, for more details.)</td>
+        <td>製品バージョンを、テキスト形式と生のバイナリ形式の両方で変更します。(詳細は下記<em>バージョン</em>を参照）。</td>
       </tr>
       <tr>
         <td>バージョン</td>
         <td>
-          <p>Changes the file version and the product version, in both text and raw binary format.</p>
-          <p>Ahk2Exe fills the binary version fields with the period-delimited numbers (up to four) that may appear at the beginning of the version text. Unfilled fields are set to zero. For example, <code>1.3-alpha</code> would produce a binary version number of <code>1.3.0.0</code>. If this property is not modified, it defaults to the AutoHotkey version used to compile the script.</p>
+          <p>ファイルのバージョンと製品のバージョンを、テキスト形式と生のバイナリ形式の両方で変更します。</p>
+          <p>Ahk2Exe はバイナリのバージョンフィールドに、バージョンテキストの先頭に表示されるピリオドで区切られた数字（最大4つ）を入力します。未記入のフィールドはゼロに設定される。たとえば、<code>1.3-alpha</code>なら、バイナリのバージョン番号は<code>1.3.0.0</code>となる。このプロパティが変更されない場合、スクリプトのコンパイルに使用されたAutoHotkeyのバージョンがデフォルトになります。</p>
         </td>
       </tr>
     </table>
   </dd>
   <dt>値</dt>
-  <dd>The value to set the property to.</dd>
+  <dd>プロパティを設定する値。</dd>
 </dl>
 
 <h3 id="Set">Set</h3>
-<p>Changes other miscellaneous properties in the compiled executable's version information not covered by the <a href="#SetProp">SetProp</a> directive. Note that all properties are processed in alphabetical order, regardless of the order they are specified. This directive is for specialised use only.</p>
+<p><a href="#SetProp">SetProp</a>ディレクティブでカバーされていない、 コンパイルされた実行ファイルのバージョン情報の その他の雑多なプロパティを変更する。すべてのプロパティは、指定された順番に関係なく、アルファベット順に処理されることに注意してください。本指令は特殊用途にのみ適用される。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Set</span> Prop, Value</pre>
 <dl>
   <dt>Prop</dt>
-  <dd>The name of the property to change.</dd>
+  <dd>変更するプロパティの名前。</dd>
   <dt>値</dt>
-  <dd>The value to set the property to.</dd>
+  <dd>プロパティを設定する値。</dd>
 </dl>
 
 <h3 id="UpdateManifest">UpdateManifest</h3>
-<p>Changes details in the .exe's manifest. This directive is for specialised use only.</p>
+<p>.exe のマニフェストの詳細を変更します。本指令は特殊用途にのみ適用される。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-UpdateManifest</span> RequireAdmin <span class="optional">, Name, Version, UIAccess</span></pre>
 <dl>
   <dt>RequireAdmin</dt>
-  <dd>Set to 1 to change the executable to require administrative privileges when run. Set to 2 to change the executable to request highest available privileges when run. Set to 0 to leave unchanged.</dd>
-  <dt>名前</dt>
-  <dd><i>(Optional)</i> The name to be set in the manifest.</dd>
+  <dd>実行時に管理者権限を必要とする実行ファイルに変更するには1を設定する。実行時に利用可能な最高権限を要求するように実行ファイルを変更するには2を設定する。変更しない場合は0を設定する。</dd>
+  <dt>名称</dt>
+  <dd><i>(オプション)</i>マニフェストに設定する名前。</dd>
   <dt>バージョン</dt>
-  <dd><i>(Optional)</i> The version to be set in the manifest.</dd>
+  <dd><i>(オプション)</i>マニフェストに設定するバージョン。</dd>
   <dt>UIAccess</dt>
-  <dd><i>(Optional)</i> Set to 1 to make UIAccess true in the manifest.</dd>
+  <dd><i>(オプション)</i> マニフェストでUIAccessをtrueにするには1を設定します。  </dd>
 </dl>
 
 <h3 id="UseResourceLang">UseResourceLang</h3>
-<p>Changes the resource language used by <a href="#AddResource">AddResource</a>. This directive is positional and affects all <a href="#AddResource">AddResource</a> directives that follow it.</p>
+<p><a href="#AddResource">AddResource</a>が使用するリソース言語を変更します。このディレクティブは位置指定であり、それに続くすべての<a href="#AddResource">AddResource</a>ディレクティブに影響します。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-UseResourceLang</span> LangCode</pre>
 <dl>
   <dt>LangCode</dt>
-  <dd>The <a href="Languages.htm">language code</a>. Please note that hexadecimal numbers must have an <code>0x</code> prefix. The default resource language is US English (0x0409).</dd>
+  <dd><a href="Languages.htm">言語コード</a>。16進数には<code>0x</code>のプレフィックスが必要です。デフォルトのリソース言語はUS English (0x0409)です。</dd>
 </dl>
 
 </body>

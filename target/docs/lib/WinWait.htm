@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinWait - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinWait function waits until the specified window exists." />
+<title>WinWait - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinWait関数は、指定されたウィンドウが存在するまで待つ。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+  <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
     <p>これらのうち少なくとも1つは必須である。<em>WinTitle</em>には <a href="../misc/WinTitle.htm">ウィンドウのタイトル</a>、またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、<em>WinText</em>にはターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -27,28 +27,28 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>How many seconds to wait before timing out and returning 0. Leave blank to allow the function to wait indefinitely.</p>
+    <p>タイムアウトして0を返すまでの待ち時間。無期限に待機させる場合は空白のままにする。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the <a href="../misc/WinTitle.htm#ahk_id">HWND (unique ID)</a> of a matching window if one was found, or 0 if the function timed out.</p>
+<p>この関数は、一致するウィンドウが見つかればその<a href="../misc/WinTitle.htm#ahk_id">HWND（ユニークID）</a>を返し、タイムアウトした場合は0を返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If a matching window comes into existence, the function will not wait for <em>Timeout</em> to expire. Instead, it will update the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> and return, allowing the script to continue execution.</p>
-<p>If <em>WinTitle</em> specifies an invalid HWND (either as an Integer or via the Hwnd property of an object), the function returns immediately, without waiting for <em>Timeout</em> to expire. Waiting for another window to be created with the same HWND value would not be meaningful, as there would likely be no relation between the two windows.</p>
+<p>マッチするウィンドウが存在する場合、この関数は<em>タイムアウト</em>が切れるのを待たない。代わりに、<a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>を更新して戻り、スクリプトの実行を続行できるようにする。</p>
+<p><em>WinTitle</em>が無効なHWNDを指定した場合（整数として、またはオブジェクトのHwndプロパティを通して）、関数は<em>タイムアウト</em>の時間切れを待たずに即座に戻ります。同じHWND値で別のウィンドウが作成されるのを待っても、2つのウィンドウの間には何の関係もない可能性が高いので、意味がない。</p>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
-<p>If another <a href="../misc/Threads.htm">thread</a> changes the contents of any variable(s) that were used for this function's parameters, the function will not see the change -- it will continue to use the title and text that were originally present in the variables when the function first started waiting.</p>
-<p>Unlike <a href="WinWaitActive.htm">WinWaitActive</a>, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> cannot be used. Therefore, at least one of the window parameters (<em>WinTitle</em>, <em>WinText</em>, <em>ExcludeTitle</em>, <em>ExcludeText</em>) must be non-blank.</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on, even if <em>WinTitle</em> is a HWND or object.</p>
+<p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
+<p><a href="WinWaitActive.htm">WinWaitActive</a>とは異なり、<a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>は使用できない。したがって、ウィンドウ・パラメータ（<em>WinTitle</em>、<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>）の少なくとも1つは空白であってはならない。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<em>WinTitle</em>がHWNDまたはオブジェクトであっても、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWait.htm">ProcessWait</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Opens Notepad and waits a maximum of 3 seconds until it exists. If WinWait times out, an error message is shown, otherwise Notepad is minimized.</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、存在するまで最大3秒待つ。WinWaitがタイムアウトした場合はエラーメッセージが表示され、そうでない場合はメモ帳が最小化される。</p>
 <pre>Run "notepad.exe"
 if WinWait("Untitled - Notepad", , 3)
     WinMinimize <em>; Use the window found by WinWait.</em>

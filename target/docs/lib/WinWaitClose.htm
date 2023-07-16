@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>WinWaitClose - Syntax &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="The WinWaitClose function waits until no matching windows can be found." />
+<title>WinWaitClose - 構文と使用法｜AutoHotkey v2</title>
+<meta name="description" content="WinWaitClose関数は、一致するウィンドウが見つからなくなるまで待つ。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+  <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
     <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
@@ -27,7 +27,7 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>How many seconds to wait before timing out and returning 0. Leave blank to allow the function to wait indefinitely.</p>
+    <p>タイムアウトして0を返すまでの待ち時間。無期限に待機させる場合は空白のままにする。</p>
   </dd>
 
 </dl>
@@ -37,10 +37,10 @@
 <p>この関数は、タイムアウトした場合は 0（偽）を、そうでない場合は 1（真）を返します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Whenever no matching windows exist, the function will not wait for <em>Timeout</em> to expire. Instead, it will immediately return 1 and the script will continue executing. Conversely, the function may continue waiting even after a matching window is closed, until no more matching windows can be found.</p>
-<p>Since <code>"A"</code> matches whichever window is active at any given moment, <code>WinWaitClose "A"</code> typically waits indefinitely. To instead wait for the current active window to close, specify its title or unique ID as in the following example:</p>
+<p>マッチするウィンドウが存在しない場合、この関数は<em>タイムアウト</em>が切れるのを待たない。その代わり、即座に1が返され、スクリプトの実行が継続される。逆に、マッチするウィンドウが閉じた後でも、マッチするウィンドウが見つからなくなるまで、関数は待ち続けることができる。</p>
+<p><code>WinWaitClose "A"</code>は、その時点でアクティブなウィンドウにマッチするため、通常は無期限に待機する。現在のアクティブ・ウィンドウが閉じるのを待つには、次の例のようにタイトルかユニークIDを指定する：</p>
 <pre>WinWaitClose WinExist("A")</pre>
-<p>WinWaitClose updates the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> whenever it finds a matching window. One use for this is to identify or operate on the window after the function times out. 事例：</p>
+<p>WinWaitCloseは、一致するウィンドウが見つかるたびに、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>を更新します。この用途のひとつは、ファンクションがタイムアウトした後にウィンドウを特定したり操作したりすることである。事例：</p>
 <pre>
 Gui("", "Test window " Random()).Show("w300 h50")  <em>; Show a test window.</em>
 if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
@@ -50,16 +50,16 @@ if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 }
 </pre>
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
-<p>If another <a href="../misc/Threads.htm">thread</a> changes the contents of any variable(s) that were used for this function's parameters, the function will not see the change -- it will continue to use the title and text that were originally present in the variables when the function first started waiting.</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。Hidden windows are not detected unless <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> has been turned on, even if <em>WinTitle</em> is a HWND or object.</p>
+<p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
+<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<em>WinTitle</em>がHWNDまたはオブジェクトであっても、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWaitClose.htm">ProcessWaitClose</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Opens Notepad, waits until it exists and then waits until it is closed.</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、それが存在するまで待ち、閉じるまで待つ。</p>
 <pre>Run "notepad.exe"
-WinWait "無題-メモ帳"
+WinWait "Untitled - Notepad"
 WinWaitClose <em>; Use the window found by WinWait.</em>
 MsgBox "Notepad is now closed."</pre>
 </div>
