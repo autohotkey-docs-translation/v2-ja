@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>PostMessage / SendMessage Tutorial | AutoHotkey v2</title>
-<meta name="description" content="Learn how to send messages to a window or its controls using the PostMessage or SendMessage functions." />
+<title>PostMessage / SendMessage チュートリアル｜AutoHotkey v2</title>
+<meta name="description" content="PostMessage関数やSendMessage関数を使用して、ウィンドウやそのコントロールにメッセージを送信する方法について説明します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,38 +10,38 @@
 </head>
 
 <body>
-<h1>PostMessage / SendMessage Tutorial <span class="headnote">by Rajat</span></h1>
+<h1>PostMessage / SendMessage チュートリアル<span class="headnote">by Rajat</span></h1>
 
-<p>This page explains how to send messages to a window or its controls via <a href="../lib/PostMessage.htm">PostMessage</a> or <a href="../lib/SendMessage.htm">SendMessage</a> and will answer some questions like:</p>
+<p>このページでは、<a href="../lib/PostMessage.htm">PostMessage</a>や <a href="../lib/SendMessage.htm">SendMessage</a>を使ってウィンドウやそのコントロールにメッセージを送る方法を説明し、以下のような質問に答える：</p>
 <ul>
-  <li>"How do I press a button on a minimized window?"</li>
-  <li>"How do I select a menu item when <a href="../lib/MenuSelect.htm">MenuSelect</a> doesn't work with it?!"</li>
-  <li>"This is a skinnable window.... how do I send a command that works every time?"</li>
-  <li>"and what about <strong>hidden</strong> windows?!"</li>
+  <li>「最小化されたウィンドウのボタンを押すには？」</li>
+  <li>"「<a href="../lib/MenuSelect.htm">MenuSelect</a>が機能しないメニュー項目を選択するには？」</li>
+  <li>「これはスキナブル・ウィンドウです......毎回機能するコマンドを送るには？」</li>
+  <li>「<strong>隠し</strong>窓はどうするんだ？」</li>
 </ul>
-<p>Requirements: Winspector Spy (<a href="https://www.softpedia.com/get/Security/Security-Related/Winspector.shtml">can be found here</a>)</p>
-<p>As a first example, note that <a href="../lib/MenuSelect.htm">MenuSelect</a> fails to work with the menu bar on Outlook Express's "New Message" window. In other words, this code will not work:</p>
+<p>必要条件ウィンスペクター・スパイ（<a href="https://www.softpedia.com/get/Security/Security-Related/Winspector.shtml">ここにある</a>）</p>
+<p>最初の例として、<a href="../lib/MenuSelect.htm">MenuSelect</a>がOutlook Expressの "New Message "ウィンドウのメニューバーで動作しないことに注意してください。つまり、このコードは機能しない：</p>
 <pre>MenuSelect "New Message",, "&amp;Insert", "&amp;Picture..."</pre>
-<p>But <a href="../lib/PostMessage.htm">PostMessage</a> can get the job done:</p>
+<p>しかし、<a href="../lib/PostMessage.htm">PostMessage</a>は仕事をこなすことができる：</p>
 <pre>PostMessage 0x0111, 40239, 0, , "New Message"</pre>
-<p>Works like a charm! But what the heck is that? 0x0111 is the hex code of <a href="SendMessageList.htm">wm_command message</a> and 40239 is the code that this particular window understands as menu-item 'Insert Picture' selection. Now let me tell you how to find a value such as 40239:</p>
+<p>魅力的に機能する！でも、あれは一体何なんだ？0x0111は<a href="SendMessageList.htm">wm_commandメッセージ</a>の16進コードであり、40239はこの特定のウィンドウがメニュー項目の'Insert Picture'選択として理解するコードである。では、40239のような値を見つける方法を説明しよう：</p>
 <ol>
-  <li>Open Winspector Spy and a "New Message" window.</li>
-  <li>Drag the crosshair from Winspector Spy's window to "New Message" window's titlebar (the portion not covered by Winspector Spy's overlay).</li>
-  <li>Right click the selected window in the list on left and select 'Messages'.</li>
-  <li>Right click the blank window and select 'Edit message filter'.</li>
-  <li>Press the 'filter all' button and then dbl click 'wm_command' on the list on left. This way you will only monitor this message.</li>
-  <li>Now go to the "New Message" window and select from its menu bar: Insert &gt; Picture.</li>
-  <li>Come back to Winspector Spy and press the traffic light button to pause monitoring.</li>
-  <li>Expand the wm_command messages that've accumulated (forget others if any).</li>
-  <li>What you want to look for (usually) is a code 0 message. sometimes there are wm_command messages saying 'win activated' or 'win destroyed' and other stuff.. not needed. You'll find that there's a message saying 'Control ID: 40239' ...that's it!</li>
-  <li>Now put that in the above function and you've got it! It's the wParam value.</li>
+  <li>Winspector Spyと "New Message"ウィンドウを開きます。</li>
+  <li>Winspector Spyのウィンドウから十字線を "New Message"ウィンドウのタイトルバー（Winspector Spyのオーバーレイで覆われていない部分）にドラッグする。</li>
+  <li>左側のリストで選択したウィンドウを右クリックし、「メッセージ」を選択します。</li>
+  <li>空白のウィンドウを右クリックし、「Edit message filter」を選択する。</li>
+  <li>'filter all'ボタンを押して、左のリストにある'wm_command'をダブルクリックする。こうすることで、このメッセージだけを監視することができる。</li>
+  <li>"新規メッセージ"ウィンドウに移動し、メニューバーから選択する：Insert &gt; Picture.</li>
+  <li>ウィンスペクター・スパイに戻り、信号ボタンを押して監視を一時停止する。</li>
+  <li>溜まっているwm_commandメッセージを展開する（もしあれば他のものは忘れる）。</li>
+  <li>探したいのは（通常は）コード0のメッセージだ。時々、wm_commandに'win activated'とか'win destroyed'とかいうメッセージが出る。コントロールIDというメッセージが表示されます：：40239' ...以上！</li>
+  <li>これを上記の関数に入れれば完成です！wParamの値です。</li>
 </ol>
-<p>For the next example I'm taking Paint because possibly everyone will have that. Now let's say it's an app where you have to select a tool from a toolbar using AutoHotkey; say the dropper tool is to be selected.</p>
-<p>What will you do? Most probably a mouse click at the toolbar button, right? But toolbars can be moved and hidden! This one can be moved/hidden too. So if the target user has done any of this then your script will fail at that point. But the following function will still work:</p>
-<pre>PostMessage 0x0111, 639,,, "Untitled - Paint"</pre>
-<p>Another advantage to <a href="../lib/PostMessage.htm">PostMessage</a> is that the Window can be in the background; by contrast, sending mouse clicks would require it to be active.</p>
-<p>Here are some more examples. 注：I'm using WinXP Pro (SP1) ... if you use a different OS then your params may change (only applicable to apps like Wordpad and Notepad that come with windows; for others the params shouldn't vary):</p>
+<p>次の例ではペイントを取り上げる。ここで、AutoHotkeyを使ってツールバーからツールを選択するアプリを考えてみよう。</p>
+<p>どうするつもりだ？おそらく、ツールバーのボタンをマウスでクリックしたんだろう？しかし、ツールバーは動かしたり隠したりできる！こちらも移動/非表示が可能。そのため、ターゲット・ユーザーがこのいずれかを行った場合、スクリプトはその時点で失敗する。しかし、次の関数はまだ機能する：</p>
+<pre>ポストメッセージ 0x0111, 639,,, "無題 - ペイント"</pre>
+<p><a href="../lib/PostMessage.htm">PostMessage</a>のもう一つの利点は、ウィンドウをバックグラウンドにできることである。対照的に、マウスクリックを送信するには、ウィンドウをアクティブにする必要がある。</p>
+<p>以下はその例である。注：私はWinXP Pro (SP1)を使っています...もし違うOSを使っているなら、パラメータが変わるかもしれません（ワードパッドやメモ帳のようなウィンドウズ付属のアプリにのみ適用されます：）</p>
 <pre><em>;makes writing color teal in Wordpad</em>
 <a href="../lib/PostMessage.htm">PostMessage</a> 0x0111, 32788, 0, , "Document - WordPad"</pre>
 <pre><em>;opens about box in Notepad</em>
@@ -69,17 +69,17 @@ ReloadAllAhkScripts(ThisHotkey)
     Reload
 }
 </pre>
-<p>This above was for PostMessage. <a href="../lib/SendMessage.htm">SendMessage</a> works the same way but additionally waits for a return value, which can be used for things such as getting the currently playing track in Winamp (see <a href="Winamp.htm">Automating Winamp</a> for an example).</p>
-<p>Here are some more notes:</p>
+<p>これはPostMessage用である。<a href="../lib/SendMessage.htm">SendMessage</a>も同じように動作するが、さらに戻り値を待つ。この戻り値は、Winampで現在再生中のトラックを取得する場合などに使用できる（例として<a href="Winamp.htm">Winampの自動化</a>を参照）。</p>
+<p>以下はそのメモである：</p>
 <ul>
-  <li>The note above regarding OS being XP and msg values changing with different OSes is purely cautionary. if you've found a msg that works on your system (with a certain version of a software) then you can be sure it'll work on another system too with the same version of the software. In addition, most apps keep these msg values the same even on different versions of themselves (e.g. Windows Media Player and Winamp).</li>
-  <li>If you've set the filter to show only wm_command in Winspector Spy and still you're getting a flood of messages then right click that message and select hide (msg name)... you don't want to have a look at a msg that appears without you interacting with the target software.</li>
-  <li>The right pointing arrow in Winspector Spy shows the msg values and the blurred left pointing arrows show the returned value. A 0 (zero) value can by default safely be taken as 'no error' (use it with SendMessage).</li>
-  <li>For posting to hidden windows add this to script: <code>DetectHiddenWindows True</code></li>
+  <li>OSがXPであること、そしてOSが異なるとmsgの値が変化することに関する上記の注釈は、純粋に注意のためのものである。もし、あなたのシステムで（あるバージョンのソフトで）動作するメッセージを見つけたのなら、同じバージョンのソフトで他のシステムでも動作することは間違いない。さらに、ほとんどのアプリは、バージョンが違ってもこれらのmsg値を同じに保つ（例：Windows Media PlayerとWinamp）。</li>
+  <li>Winspector Spyでwm_commandだけを表示するようにフィルタを設定してもメッセージが大量に表示される場合は、そのメッセージを右クリックしてhide (msg name)を選択してください。</li>
+  <li>Winspector Spy の右向きの矢印は msg の値を示し、ぼかした左向きの矢印は返された値を示しています。0（ゼロ）値は、デフォルトでは「エラーなし」と考えて差し支えない（SendMessageで使用する）。</li>
+  <li>非表示のウィンドウに投稿するには、スクリプトに以下を追加する：<code>DetectHiddenWindows True</code></li>
 </ul>
-<p>注：There are apps with which this technique doesn't work. I've had mixed luck with VB and Delphi apps. This technique is best used with C, C++ apps. With VB apps the 'LParam' of the same function keeps changing from one run to another. With Delphi apps... the GUI of some apps doesn't even use wm_command. It probably uses mouse pos &amp; clicks.</p>
-<p>Go and explore.... and share your experiences in the AutoHotkey Forum. Feedback is welcome!</p>
-<p>This tutorial is not meant for total newbies (no offense meant) since these functions are considered advanced features. So if after reading the above you've not made heads or tails of it, please forget it.</p>
+<p>注：このテクニックが使えないアプリもある。VBとDelphiのアプリには、いろいろな運があった。このテクニックは、CやC++のアプリで使うのが最適だ。VBアプリでは、同じ関数の'LParam'が実行ごとに変わり続ける。Delphiアプリでは...いくつかのアプリのGUIはwm_commandすら使わない。おそらくマウスのポーズとクリックを使っているのだろう。</p>
+<p>そしてAutoHotkeyフォーラムであなたの経験を共有してください。フィードバックは大歓迎だ！</p>
+<p>このチュートリアルは全くの初心者向けではありません（悪意はありません）。だから、上記を読んでもさっぱり理解できないなら、もう忘れてほしい。</p>
 <p>-Rajat</p>
 </body>
 </html>
