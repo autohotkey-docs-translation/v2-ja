@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Threads - Behaviour &amp; Priority | AutoHotkey v2</title>
-<meta name="description" content='The "current thread" is defined as the flow of execution invoked by the most recent event; examples include hotkeys, SetTimer subroutines, custom menu items, and GUI events.' />
+<title>スレッド - 動作と優先順位｜AutoHotkey v2</title>
+<meta name="description" content="「カレント・スレッド」とは、直近のイベントによって呼び出される実行フローと定義される。例としては、ホットキー、SetTimerサブルーチン、カスタム・メニュー・アイテム、GUIイベントなどがある。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,46 +12,46 @@
 <body>
 <h1>スレッド</h1>
 
-<p>The <em>current thread</em> is defined as the flow of execution invoked by the most recent event; examples include <a href="../Hotkeys.htm">hotkeys</a>, <a href="../lib/SetTimer.htm">SetTimer subroutines</a>, <a href="../lib/Menu.htm">custom menu items</a>, and <a href="../lib/Gui.htm#Events">GUI events</a>. The <em>current thread</em> can be executing functions within its own subroutine or within other subroutines called by that subroutine.</p>
-<p>Although AutoHotkey doesn't actually use multiple threads, it simulates some of that behavior: If a second thread is started -- such as by pressing another hotkey while the previous is still running -- the <em>current thread</em> will be interrupted (temporarily halted) to allow the new thread to become <em>current</em>. If a third thread is started while the second is still running, both the second and first will be in a dormant state, and so on.</p>
-<p>When the <em>current thread</em> finishes, the one most recently interrupted will be resumed, and so on, until all the threads finally finish. When resumed, a thread's settings for things such as <a href="../lib/SendMode.htm">SendMode</a> and <a href="../lib/SetKeyDelay.htm">SetKeyDelay</a> are automatically restored to what they were just prior to its interruption; in other words, a thread will experience no side-effects from having been interrupted (except for a possible change in the <a href="../lib/WinActivate.htm">active window</a>).</p>
-<p class="note"><strong>Note:</strong> The <a href="../lib/KeyHistory.htm">KeyHistory</a> function/menu-item shows how many threads are in an interrupted state and the <a href="../lib/ListHotkeys.htm">ListHotkeys</a> function/menu-item shows which hotkeys have threads.</p>
-<p>A single script can have multiple simultaneous <a href="../lib/MsgBox.htm">MsgBox</a>, <a href="../lib/InputBox.htm">InputBox</a>, <a href="../lib/FileSelect.htm">FileSelect</a>, and <a href="../lib/DirSelect.htm">DirSelect</a> dialogs. This is achieved by launching a new thread (via <a href="../Hotkeys.htm">hotkey</a>, <a href="../lib/SetTimer.htm">timed subroutine</a>, <a href="../lib/Menu.htm">custom menu item</a>, etc.) while a prior thread already has a dialog displayed.</p>
-<p>By default, a given <a href="../Hotkeys.htm">hotkey</a> or <a href="../Hotstrings.htm">hotstring</a> subroutine cannot be run a second time if it is already running. Use <a href="../lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a> to change this behavior.</p>
-<p><strong>Related:</strong> The <a href="../lib/Thread.htm">Thread</a> function sets the priority or interruptibility of threads.</p>
+<p><em>現在のスレッドは</em>、最新のイベントによって呼び出された実行フローとして定義されます。例としては、<a href="../Hotkeys.htm">ホットキー</a>、<a href="../lib/SetTimer.htm">SetTimerサブルーチン</a>、<a href="../lib/Menu.htm">カスタムメニュー項目</a>、<a href="../lib/Gui.htm#Events">GUIイベントなどが</a>あります。<em>現在のスレッド</em>は、自身のサブルーチン内で関数を実行することも、そのサブルーチンから呼び出された他のサブルーチン内で関数を実行することもできる。</p>
+<p>AutoHotkeyは実際にはマルチスレッドを使用しませんが、その動作の一部をシミュレートしています：前のスレッドがまだ実行されているときに別のホットキーを押すなどして、2番目のスレッドが開始されると、新しいスレッドが<em>実行</em>できるように、<em>現在のスレッド</em>は中断（一時的に停止）される。2番目のスレッドがまだ実行されている間に3番目のスレッドが開始されると、2番目と1番目のスレッドの両方が休止状態になり、以下同様となる。</p>
+<p><em>現在のスレッド</em>が終了すると、直近に中断されたスレッドが再開され、最終的にすべてのスレッドが終了するまで、これが繰り返される。再開されると、スレッドの<a href="../lib/SendMode.htm">SendMode</a>や <a href="../lib/SetKeyDelay.htm">SetKeyDelay</a>などの設定は、中断される直前の状態に自動的に復元される。言い換えれば、スレッドは中断されたことによる副作用を経験しない（<a href="../lib/WinActivate.htm">アクティブ・ウィンドウ</a>が変更される可能性を除いて）。</p>
+<p class="note"><strong>注：</strong> <a href="../lib/KeyHistory.htm">KeyHistory</a>関数/メニュー項目は、中断状態にあるスレッドの数を示し、<a href="../lib/ListHotkeys.htm">ListHotkeys</a>関数/メニュー項目は、どのホットキーにスレッドがあるかを示します。</p>
+<p>1つのスクリプトで複数の<a href="../lib/MsgBox.htm">MsgBox</a>、<a href="../lib/InputBox.htm">InputBox</a>、<a href="../lib/FileSelect.htm">FileSelect</a>、<a href="../lib/DirSelect.htm">DirSelect</a>ダイアログを同時に表示することができます。これは、前のスレッドがすでにダイアログを表示している間に、新しいスレッドを（<a href="../Hotkeys.htm">ホットキー</a>、<a href="../lib/SetTimer.htm">時限サブルーチン</a>、<a href="../lib/Menu.htm">カスタムメニュー項目</a>などを介して）起動することで達成される。</p>
+<p>デフォルトでは、指定した<a href="../Hotkeys.htm">ホットキー</a>または<a href="../Hotstrings.htm">ホットストリング</a>のサブルーチンがすでに実行されている場合、2回目の実行はできません。この動作を変更するには<a href="../lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>を使います。</p>
+<p><strong>関連</strong> <a href="../lib/Thread.htm">Thread</a>関数は、スレッドの優先度や割り込み可能性を設定する。</p>
 
-<h2 id="Priority">Thread Priority</h2>
-<p>Any thread (<a href="../Hotkeys.htm">hotkey</a>, <a href="../lib/SetTimer.htm">timed subroutine</a>, <a href="../lib/Menu.htm">custom menu item</a>, etc.) with a priority lower than that of the <em>current thread</em> cannot interrupt it. During that time, such timers will not run, and any attempt by the user to create a thread (such as by pressing a <a href="../Hotkeys.htm">hotkey</a> or <a href="../lib/GuiControls.htm#Button">GUI button</a>) will have no effect, nor will it be buffered. Because of this, it is usually best to design high priority threads to finish quickly, or use <a href="../lib/Critical.htm">Critical</a> instead of making them high priority.</p>
-<p>The default priority is 0. All threads use the default priority unless changed by one of the following methods:</p>
+<h2 id="Priority">スレッドの優先順位</h2>
+<p><em>現在のスレッドより</em>優先順位の低いスレッド（<a href="../Hotkeys.htm">ホットキー</a>、<a href="../lib/SetTimer.htm">時限サブルーチン</a>、<a href="../lib/Menu.htm">カスタムメニュー項目</a>など）は、そのスレッドに割り込むことができない。その間、そのようなタイマーは実行されず、ユーザーが（<a href="../Hotkeys.htm">ホットキー</a>や <a href="../lib/GuiControls.htm#Button">GUIボタン</a>を押すなどして）スレッドを作成しようとしても、何の効果もなく、バッファリングもされない。このため、通常は優先順位の高いスレッドを素早く終了するように設計するか、優先順位を高くする代わりに<a href="../lib/Critical.htm">クリティカル</a>を使用するのが最善である。</p>
+<p>デフォルトの優先順位は0である。以下のいずれかの方法で変更しない限り、すべてのスレッドはデフォルトの優先順位を使用する：</p>
 <ul>
-  <li>A timed subroutine is given a specific priority via <a href="../lib/SetTimer.htm">SetTimer</a>.</li>
-  <li>A hotkey is given a specific priority via the <a href="../lib/Hotkey.htm">Hotkey</a> function.</li>
-  <li>A <a href="../Hotstrings.htm">hotstring</a> is given a specific priority when it is defined, or via the <a href="../lib/_Hotstring.htm">#Hotstring</a> directive.</li>
-  <li>A custom menu item is given a specific priority via the <a href="../lib/Menu.htm#Add">Menu.Add</a> method.</li>
-  <li>The <em>current thread</em> sets its own priority via the <a href="../lib/Thread.htm">Thread</a> function.</li>
+  <li>時間指定されたサブルーチンは、<a href="../lib/SetTimer.htm">SetTimer</a>によって特定の優先順位が与えられる。</li>
+  <li>ホットキーは、<a href="../lib/Hotkey.htm">ホットキー</a>機能によって特定の優先順位が与えられます。</li>
+  <li><a href="../Hotstrings.htm">ホットストリング</a>は、定義されたとき、または<a href="../lib/_Hotstring.htm">#Hotstring</a>ディレクティブによって特定の優先順位が与えられます。</li>
+  <li>カスタムメニュー項目は、<a href="../lib/Menu.htm#Add">Menu.Add</a>メソッドによって特定の優先順位が与えられます。</li>
+  <li><em>現在のスレッド</em>は、<a href="../lib/Thread.htm">スレッド</a>関数を介して自身の優先順位を設定する。</li>
 </ul>
-<p>The <a href="../lib/OnExit.htm">OnExit</a> callback function (if any) will always run when called for, regardless of the <em>current thread</em>'s priority.</p>
+<p><a href="../lib/OnExit.htm">OnExit</a>コールバック関数（もしあれば）は、<em>現在のスレッド</em>の優先順位に関係なく、呼ばれれば常に実行される。</p>
 
-<h2 id="Interrupt">Thread Interruptibility</h2>
-<p>For most types of events, new threads are permitted to launch only if the current thread is <em>interruptible</em>. A thread can be <em>uninterruptible</em> for a number of reasons, including:</p>
+<h2 id="Interrupt">スレッドの中断可能性</h2>
+<p>ほとんどのタイプのイベントでは、現在のスレッドが<em>割り込み可能な</em>場合にのみ、新しいスレッドの起動が許可される。スレッドが<em>中断不可能に</em>なるのは、以下のような理由がある：</p>
 <ul>
-  <li>The thread has been marked as <em>critical</em>. <a href="../lib/Critical.htm">Critical</a> may have been called by the thread itself or by <a href="../Scripts.htm#auto">the auto-execute thread</a>.</li>
-  <li>The thread has not been running long enough to meet the conditions for becoming interruptible, as set by <a href="../lib/Thread.htm#Interrupt">Thread Interrupt</a>.</li>
-  <li>One of the script's menus is being displayed (such as the <a href="../Program.htm#tray-icon">tray icon</a> menu or a menu bar).</li>
-  <li>A delay is being performed by <a href="../lib/Send.htm">Send</a> (most often due to <a href="../lib/SetKeyDelay.htm">SetKeyDelay</a>), <a href="../lib/WinActivate.htm">WinActivate</a>, or a <a href="../lib/A_Clipboard.htm">Clipboard</a> operation.</li>
-  <li>An <a href="../lib/OnExit.htm">OnExit</a> thread is executing.</li>
-  <li>A warning dialog is being displayed due to the <a href="../lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a> limit being reached, or due to a problem activating the keyboard or mouse hook (very rare).</li>
+  <li>このスレッドは<em>クリティカル</em>としてマークされている。<a href="../lib/Critical.htm">クリティカル</a>は、スレッド自身または<a href="../Scripts.htm#auto">自動実行スレッド</a>によって呼び出された可能性がある。</li>
+  <li>スレッドは、<a href="../lib/Thread.htm#Interrupt">スレッド割り込み</a>によって設定された割り込み可能になる条件を満たすのに十分な時間実行されていない。</li>
+  <li>スクリプトのメニューのいずれかが表示されている（<a href="../Program.htm#tray-icon">トレイアイコン</a>メニューやメニューバーなど）。</li>
+  <li><a href="../lib/Send.htm">Send</a>（多くの場合<a href="../lib/SetKeyDelay.htm">SetKeyDelay</a>による）、<a href="../lib/WinActivate.htm">WinActivate</a>、または<a href="../lib/A_Clipboard.htm">クリップボード</a>操作によって遅延が実行されている。</li>
+  <li><a href="../lib/OnExit.htm">OnExit</a>スレッドが実行されている。</li>
+  <li><a href="../lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>の上限に達しているか、キーボードまたはマウスフックの起動に問題があるため、警告ダイアログが表示されている（非常にまれ）。</li>
 </ul>
-<h3 id="Behave">Behavior of Uninterruptible Threads</h3>
-<p>Unlike high-priority threads, events that occur while the thread is uninterruptible are not discarded. For example, if the user presses a <a href="../Hotkeys.htm">hotkey</a> while the current thread is uninterruptible, the hotkey is buffered indefinitely until the current thread finishes or becomes interruptible, at which time the hotkey is launched as a new thread.</p>
-<p>Any thread may be interrupted in emergencies. Emergencies consist of:</p>
+<h3 id="Behave">無停止スレッドの挙動</h3>
+<p>優先度の高いスレッドとは異なり、スレッドが中断できない間に発生したイベントは破棄されない。たとえば、現在のスレッドが割り込み不可能な状態でユーザーが<a href="../Hotkeys.htm">ホットキー</a>を押すと、現在のスレッドが終了するか割り込み可能になるまで、ホットキーは無期限にバッファリングされ、その時点でホットキーは新しいスレッドとして起動されます。</p>
+<p>緊急時にはどのスレッドも中断される可能性がある。緊急事態とは</p>
 <ul>
-  <li>An <a href="../lib/OnExit.htm">OnExit</a> callback.</li>
-  <li>Any <a href="../lib/OnMessage.htm">OnMessage</a> function that monitors a message which is not <a href="../lib/OnMessage.htm#buffering">buffered</a>.</li>
-  <li>Any <a href="../lib/CallbackCreate.htm">callback</a> indirectly triggered by the thread itself (e.g. via <a href="../lib/PostMessage.htm">SendMessage</a> or <a href="../lib/DllCall.htm">DllCall</a>).</li>
+  <li><a href="../lib/OnExit.htm">OnExit</a>コールバック。</li>
+  <li><a href="../lib/OnMessage.htm#buffering">バッファリングされて</a>いないメッセージを監視する<a href="../lib/OnMessage.htm">OnMessage</a>関数。</li>
+  <li>スレッド自身によって間接的にトリガーされる<a href="../lib/CallbackCreate.htm">コールバック</a>（<a href="../lib/PostMessage.htm">SendMessage</a>や <a href="../lib/DllCall.htm">DllCall</a>など）。</li>
 </ul>
-<p>To avoid these interruptions, temporarily disable such functions.</p>
-<p>A <a href="../lib/Critical.htm">critical</a> thread becomes interruptible when a <a href="../lib/MsgBox.htm">MsgBox</a> or other dialog is displayed. However, unlike <a href="../lib/Thread.htm#Interrupt">Thread Interrupt</a>, the thread becomes critical (and therefore uninterruptible) again after the user dismisses the dialog.</p>
+<p>このような中断を避けるには、このような機能を一時的に無効にしてください。</p>
+<p><a href="../lib/MsgBox.htm">MsgBox</a>などのダイアログが表示されると、<a href="../lib/Critical.htm">クリティカル・スレッド</a>が割り込み可能になる。しかし、<a href="../lib/Thread.htm#Interrupt">スレッド割り込み</a>とは異なり、ユーザーがダイアログを解除した後、スレッドは再びクリティカルになる（つまり割り込み不可能になる）。</p>
 
 </body>
 </html>
