@@ -15,76 +15,76 @@
 <p>変更点の技術的な詳細については、<a href="https://github.com/AutoHotkey/AutoHotkey/tree/alpha">GitHub</a>を参照してください。</p>
 
 <h2 id="v2.0.4">2.0.4 - July 3, 2023</h2>
-<p>Changed the Reload button on error/warning dialogs to explicitly close the dialog, even if the current script instance isn't terminated.</p>
-<p>Removed an optimization for <code>return var</code> which caused the variable to appear blank when accessed within a <code>finally</code> block.</p>
-<p>Fixed Default (Switch) to allow space before the colon.</p>
-<p>Fixed Array.Prototype.RemoveAt to return the removed value when Length is "explicitly omitted" with <code>unset</code> or <code>var?</code>.</p>
-<p>Fixed crashing when a ComObject is passed to a for-loop with only the second variable specified.</p>
-<p><strong>Changes merged from v1.1.37.00 and v1.1.37.01:</strong></p>
-<p>Changed COM method and property calls to pass large integers as VT_I8, not VT_R8 (floating-point), so the original type and precision is retained. Integers in the 32-bit range are still passed as VT_I4.</p>
-<p>Added support for multi-variable enumerators (for-loops) with IDispatch-wrapped AutoHotkey objects. Both the script invoking the object and the object itself must be running a supported AutoHotkey version.</p>
-<p>Fixed omitted parameters to receive their default values rather than the "optional argument marker" when an AutoHotkey method is called via IDispatch (COM). The reverse translation was already done when <em>calling</em> COM methods in previous versions.</p>
-<p>Fixed <code>VerCompare(a, "&gt;" b)</code> and reduced code size marginally.</p>
-<p>Fixed AltTab-related load-time errors to be consistent with other errors.</p>
-<p>Fixed errors thrown by a ComObject wrapper not being propagated correctly if it is called via an object/COM.</p>
-<p>Fixed the Hotkey GUI control to allow setting the symbols <code>^</code>, <code>!</code> and <code>+</code> as hotkeys.</p>
-<p>Fixed the Hotkey control to include modifiers when its value is set to a symbol.</p>
-<p>Fixed potential misbehaviour of InputHook.KeyOpt() with single chars.</p>
+<p>エラー/警告ダイアログのリロードボタンを、現在のスクリプトインスタンスが終了していなくても、明示的にダイアログを閉じるように変更。</p>
+<p><code>finally</code>ブロック内でアクセスすると変数が空白に表示される原因となっていた<code>return var</code>の最適化を削除。</p>
+<p>デフォルト(Switch)でコロンの前にスペースが入るように修正。</p>
+<p>Array.Prototype.RemoveAtで、Lengthが<code>unset</code>または<code>var?</code></p>
+<p>ComObjectが2番目の変数のみ指定されたforループに渡されるとクラッシュする問題を修正。</p>
+<p><strong>v1.1.37.00およびv1.1.37.01からの変更をマージ：</strong></p>
+<p>COMのメソッドとプロパティの呼び出しで、大きな整数をVT_R8（浮動小数点）ではなくVT_I8として渡すように変更。32ビット範囲の整数はVT_I4として渡される。</p>
+<p>IDispatchでラップされたAutoHotkeyオブジェクトで、多変数の列挙子（for-loop）のサポートを追加しました。オブジェクトを呼び出すスクリプトとオブジェクト自体の両方が、サポートされているAutoHotkeyバージョンを実行している必要があります。</p>
+<p>AutoHotkeyメソッドがIDispatch（COM）を介して呼び出された場合、省略されたパラメータが「オプション引数マーカー」ではなく、デフォルト値を受け取るように修正されました。逆変換は、以前のバージョンでCOMメソッドを<em>呼び出す</em>ときにすでに行われていた。</p>
+<p><code>VerCompare(a, "&gt;" b)</code>を修正し、コードサイズをわずかに縮小。</p>
+<p>AltTab関連のロードタイムエラーを他のエラーと矛盾しないように修正。</p>
+<p>ComObjectラッパーがオブジェクト/COM経由で呼び出された場合にスローされるエラーが正しく伝搬されない問題を修正。</p>
+<p>ホットキーGUIコントロールを修正し、記号 <code>^</code>, <code>!</code>と<code>+</code>をホットキーとして設定できるようにした。</p>
+<p>ホットキーコントロールの値がシンボルに設定されている場合、修飾子が含まれるように修正。</p>
+<p>InputHook.KeyOpt()が単一文字で誤動作する可能性があったのを修正。</p>
 <ul>
-<li>Option removal potentially not affecting the corresponding SC.</li>
-<li>Options potentially also being applied to sc000.</li>
+<li>オプションの削除は、対応するSCに影響を与えない可能性がある。</li>
+<li>オプションはsc000にも適用される可能性がある。</li>
 </ul>
-<p>Fixed a bug with custom combos where a set of hotkeys like <code>a &amp; b::</code>, <code>a::</code> and <code>a up::</code> would fail to suppress the release of <kbd>a</kbd> if <code>a::</code> alone is disabled with #HotIf.</p>
-<p>Fixed a bug where a key-down event is correctly suppressed by a hotkey, but sending an additional key-down with SendLevel &gt; 0 would prevent the subsequent key-up from being suppressed, even if the sent event is ignored due to #InputLevel.</p>
-<p>Fixed <code>a &amp; b up::</code> not suppressing <kbd>b</kbd> if <code>a &amp; b::</code> is present but disabled by #HotIf.</p>
-<p>Fixed an issue with hotkeys not firing due to a race condition. If a modifier hotkey such as <code>~*RWin::</code> called Send or GetKeyState too soon, the OS could report that RWin isn't down, so the hook's modifier state would be "corrected" and hotkeys would wrongly fire or fail to fire. This was likely to occur only if another keyboard hook was installed more recently than the script's own hook, since in that case the OS would not update key state until the other hook's thread has resumed and returned.</p>
-<p>Fixed hotstrings to use the Last Found Window set by #HotIf.</p>
-<p>Fixed an issue where any attempt to reinstall the keyboard or mouse hook would fail if the OS had automatically uninstalled the hook. It is still necessary to meet certain conditions before any such attempt can be made.</p>
-<p>Optimized allocation of cached COM property names for built-in IDispatch.</p>
-<p>Refactored code to support a build configuration for AutoHotkey as a DLL.</p>
+<p>カスタムコンボで、<code>a &amp; b::</code>、<code>a::</code>、<code>a up::</code>のようなホットキーのセットが、#HotIfで<code>a::</code>だけが無効になっている場合、<kbd>a</kbd>のリリースを抑制できないバグを修正。</p>
+<p>キーダウンイベントがホットキーによって正しく抑制されるが、SendLevel &gt; 0で追加のキーダウンを送信すると、送信されたイベントが#InputLevelによって無視されても、それに続くキーアップが抑制されないというバグを修正した。</p>
+<p><code>a &amp; b::</code> が存在するが #HotIf によって無効化されている場合、<code>a &amp; b up::</code>が <kbd>b</kbd>を抑制しないように修正。</p>
+<p>競合状態によりホットキーが起動しない問題を修正しました。もし<code>~*RWin::</code>のようなモディファイアホットキーがSendやGetKeyStateを呼び出すのが早すぎると、OSはRWinがダウンしていないと報告する可能性があり、フックのモディファイアの状態が「修正」され、ホットキーが誤って発火したり、発火しなかったりします。この現象は、他のキーボードフックがスクリプト自身のフックよりも最近にインストールされた場合にのみ発生する可能性がある。その場合、他のフックのスレッドが再開して戻るまで、OSはキーの状態を更新しないからだ。</p>
+<p>ホットストリングが#HotIfで設定されたLast Found Windowを使用するように修正した。</p>
+<p>OSが自動的にフックをアンインストールした場合、キーボードまたはマウスフックを再インストールしようとすると失敗する問題を修正しました。このような試みを行うには、やはり一定の条件を満たす必要がある。</p>
+<p>組み込み IDispatch 用にキャッシュされた COM プロパティ名の割り当てが最適化されました。</p>
+<p>DLL として AutoHotkey のビルド設定をサポートするようにコードをリファクタリングしました。</p>
 
 <h2 id="v2.0.3">2.0.3 - June 19, 2023</h2>
-<p>Fixed <code>Hotkey("a", "b")</code> to use the original function of "b", not "a". [PR #318]</p>
-<p>Fixed FileSetAttribute crash when used in a File Reading Loop. [PR #323]</p>
-<p>Fixed duplicate Gui control name errors to correctly abort the thread.</p>
-<p>Fixed DateTime/MonthCal Range option not applying minimum value.</p>
-<p>Fixed <code>s[x] =&gt; x</code> and other single-line properties starting with "s".</p>
-<p>Fixed a bug with deleting a breakpoint on a static line containing <code>=&gt;</code>.</p>
-<p>Fixed Button control not becoming default when clicked.</p>
-<p>Fixed PixelSearch to unset X when pixel is not found.</p>
-<p>Fixed hotstring with escape sequence causing next line to be skipped.</p>
-<p>Fixed WinTitle ignoring character 1 when "ahk_" is at character 2.</p>
-<p>Fixed remapping to utilize right-hand modifier already being down. For example, <code>+x::+y</code> will no longer release RShift to press LShift.</p>
-<p>Changed error message for <code>a == b &amp;&amp; c()</code> and similar cases to avoid alluding to legacy <code>=</code>.</p>
-<p>Improved error message for some cases of unintended line continuation.</p>
-<p>Fixed reserved words to be permitted as method names, as documented.</p>
-<p>Fixed duplicate OnMessage calls for some keyboard messages.</p>
-<p>Fixed inter-referenced closures being deleted prematurely.</p>
-<p>Fixed SetFont to permit leading spaces in the Options parameter.</p>
-<p>Fixed sending of <code>{ASC nnnn}</code>.</p>
-<p>Fixed <code>a.base := a</code> to throw an error.</p>
-<p>Fixed <code>x.y := unset</code> causing crashes or undefined behaviour.</p>
-<p>Fixed GuiControl.Move() to be relative to the GUI's client area even when the GUI is not its parent.</p>
-<p>Fixed Menu Add overwriting items which were appended by Menu Insert.</p>
-<strong>Launcher</strong>
-<p>Run Dash instead of showing the old Welcome page in the documentation, when run without parameters.</p>
-<p>Fixed version selection GUI raising an error if Enter is pressed without selecting a version. [PR UX/#4]</p>
-<p>Suppress errors when checking whether an absent version can be downloaded.</p>
-<p>Fixed absent version download prompt to not show the UAC shield if UAC is disabled.</p>
-<p>Fixed issues with #Requires interpretation.</p>
+<p><code>Hotkey("a", "b")</code>が "a"ではなく、"b"の本来の機能を使うように修正。[PR #318]</p>
+<p>FileSetAttribute をファイル読み込みループで使用するとクラッシュする問題を修正しました。[PR #323]</p>
+<p>GUIコントロール名の重複エラーを修正し、スレッドを正しく中断するようにした。</p>
+<p>DateTime/MonthCal Rangeオプションで最小値が適用されない問題を修正。</p>
+<p><code>s[x] =&gt; x</code>と"s"で始まる他の単一行のプロパティを修正。</p>
+<p><code>=&gt;</code>を含む静的行のブレークポイントを削除する際のバグを修正。</p>
+<p>ボタンコントロールをクリックするとデフォルトにならない問題を修正</p>
+<p>PixelSearchでピクセルが見つからなかった場合にXをセットしないように修正。</p>
+<p>エスケープシーケンスが次の行をスキップするホットストリングを修正。</p>
+<p>WinTitleで "ahk_"が2文字目にある場合、1文字目を無視するように修正。</p>
+<p>右手モディファイアーがすでにダウンしていることを利用するようにリマッピングを修正。例えば、<code>+x::+yは</code>、RShiftを離してLShiftを押すことができなくなる。</p>
+<p><code>a == b &amp;&amp; c(</code>)と同様の場合のエラーメッセージを変更し、レガシー<code>=</code>を暗示しないようにした。</p>
+<p>意図しない行が続く場合のエラーメッセージを改善。</p>
+<p>ドキュメントにあるように、予約語をメソッド名として許可するように修正。</p>
+<p>一部のキーボード・メッセージのOnMessage呼び出しが重複していたのを修正。</p>
+<p>相互参照されたクロージャが早期に削除される問題を修正。</p>
+<p>SetFontを修正し、Optionsパラメータの先頭のスペースを許可するようにした。</p>
+<p><code>{ASC nnnn}</code>の送信を修正。</p>
+<p><code>a.base := a</code>がエラーを投げるように修正。</p>
+<p><code>x.y := unset</code>がクラッシュや未定義の動作を引き起こす問題を修正。</p>
+<p>GUIがその親でない場合でも、GuiControl.Move()がGUIのクライアント領域に対して相対的になるように修正しました。</p>
+<p>メニュー追加で、メニュー挿入で追加された項目が上書きされるのを修正しました。</p>
+<strong>ランチャー</strong>
+<p>パラメータなしで実行した場合、ドキュメントの古いウェルカムページを表示する代わりにDashを実行します。</p>
+<p>バージョン選択GUIで、バージョンを選択せずにEnterキーを押すとエラーが発生する問題を修正。[PR UX/#4]</p>
+<p>不在のバージョンがダウンロード可能かどうかをチェックする際のエラーを抑制する。</p>
+<p>UACが無効になっている場合、UACシールドを表示しないよう、不在バージョンのダウンロードプロンプトを修正。</p>
+<p>Requiresの解釈に関する問題を修正。</p>
 <ul>
-<li>Support omitting the "v" prefix.</li>
-<li>Support operators (<code>&gt; &gt;= &lt; &lt;= =</code>).</li>
-<li>Support a single digit for the version.</li>
+<li>接頭辞 "v"の省略をサポート。</li>
+<li>サポート演算子(<code>&gt; &gt;= &lt; &lt;= =</code>)</li>
+<li>バージョンは1桁をサポート。</li>
 </ul>
-<strong>Installation</strong>
-<p>Fixed the default installation directory for command-line use.</p>
-<p>Renamed the Start menu shortcut from "AutoHotkey" to "AutoHotkey Dash".</p>
-<p>Fixed EnableUIAccess when running as SYSTEM.</p>
-<p>Fixed EnableUIAccess to verify the private key when selecting a certificate.</p>
+<strong>インストール</strong>
+<p>コマンドライン用のデフォルトのインストールディレクトリを修正。</p>
+<p>スタートメニューのショートカットの名前を "AutoHotkey" から "AutoHotkey Dash" に変更。</p>
+<p>SYSTEMとして実行中のEnableUIAccessを修正しました。</p>
+<p>証明書選択時にEnableUIAccessが秘密鍵を検証するように修正。</p>
 <strong>Dash</strong>
-<p>Fixed Launch Config GUI to update the "Run as administrator" and "Run with UI access" options.</p>
-<p>Fixed Up/Down key handling in the Launch Config GUI.</p>
+<p>Launch Config GUIを修正し、「管理者として実行」および「UIアクセスで実行」オプションを更新。</p>
+<p>Launch Config GUIにおけるUp/Downキーの処理を修正。</p>
 
 <h2 id="v2.0.2">2.0.2 - 2023年1月2日</h2>
 <p>Short DllCall の arg タイプと、無効なタイプに対する未定義の挙動を修正しました。</p>
