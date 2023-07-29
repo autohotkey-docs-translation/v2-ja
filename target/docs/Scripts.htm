@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Scripts - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="Learn details about scripts in general, splitting long lines, compiling a script, passing command line parameters, codepage and debugging." />
+<title>スクリプト - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="スクリプト全般、長い行の分割、スクリプトのコンパイル、コマンドラインパラメータの渡し方、コードページ、デバッグについて詳しく学ぶ。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,57 +10,57 @@
 </head>
 <body>
 
-<h1>Scripts</h1>
-<p>Related topics:</p>
+<h1>スクリプト</h1>
+<p>関連トピック</p>
 <ul>
-  <li><a href="Program.htm">Using the Program</a>: How to use AutoHotkey, in general.</li>
-  <li><a href="Concepts.htm">Concepts and Conventions</a>: General explanation of various concepts utilised by AutoHotkey.</li>
-  <li><a href="Language.htm">Scripting Language</a>: Specific details about syntax (how to write scripts).</li>
+  <li><a href="Program.htm">プログラムの使用</a>AutoHotkeyの一般的な使い方。</li>
+  <li><a href="Concepts.htm">概念と慣習</a>：AutoHotkeyで利用される様々な概念についての一般的な説明。</li>
+  <li><a href="Language.htm">スクリプト言語</a>：構文に関する具体的な詳細（スクリプトの書き方）。</li>
 </ul>
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#intro">はじめに</a></li>
-  <li><a href="#auto">Script Startup (the Auto-execute Thread)</a>: Taking action immediately upon starting the script, and changing default settings.</li>
-  <li><a href="#continuation">Splitting a Long Line into a Series of Shorter Ones</a>: This can improve a script's readability and maintainability.</li>
-  <li><a href="#lib">Script Library Folders</a></li>
-  <li><a href="#ahk2exe">Convert a Script to an EXE (Ahk2Exe)</a>: Convert a .ahk script into a .exe file that can run on any PC.</li>
-  <li><a href="#cmd">Passing Command Line Parameters to a Script</a>: The variable A_Args contains the incoming parameters.</li>
-  <li><a href="#cp">Script File Codepage</a>: Using non-ASCII characters safely in scripts.</li>
-  <li><a href="#debug">Debugging a Script</a>: How to find the flaws in a misbehaving script.</li>
+  <li><a href="#auto">スクリプトの起動（自動実行スレッド）</a>：スクリプトを起動したら即座にアクションを起こし、デフォルト設定を変更する。</li>
+  <li><a href="#continuation">長い線を短い線に分割する</a>：これにより、スクリプトの可読性と保守性が向上する。</li>
+  <li><a href="#lib">スクリプトライブラリフォルダ</a></li>
+  <li><a href="#ahk2exe">スクリプトをEXEに変換する(Ahk2Exe)</a>：.ahkスクリプトをどのPCでも実行できる.exeファイルに変換します。</li>
+  <li><a href="#cmd">スクリプトにコマンドラインパラメータを渡す</a>：変数A_Argsには、入力されるパラメータが格納される。</li>
+  <li><a href="#cp">スクリプトファイルのコードページ</a>：スクリプトで非ASCII文字を安全に使用する。</li>
+  <li><a href="#debug">スクリプトのデバッグ</a>:誤動作するスクリプトの欠陥を見つける方法。</li>
 </ul>
 <h2 id="intro">はじめに</h2>
-<p>Each script is a plain text file containing lines to be executed by the program (AutoHotkey.exe). A script may also contain <a href="Hotkeys.htm">hotkeys</a> and <a href="Hotstrings.htm">hotstrings</a>, or even consist entirely of them. However, in the absence of hotkeys and hotstrings, a script will perform its functions sequentially from top to bottom the moment it is launched.</p>
-<p>The program loads the script into memory line by line. During loading, the script is <a href="misc/Performance.htm">optimized</a> and validated. Any syntax errors will be displayed, and they must be corrected before the script can run.</p>
+<p>各スクリプトは、プログラム（AutoHotkey.exe）によって実行される行を含むプレーンテキストファイルです。スクリプトには、<a href="Hotkeys.htm">ホットキー</a>や <a href="Hotstrings.htm">ホットストリング</a>が含まれることもありますし、それらだけで構成されることもあります。しかし、ホットキーやホットストリングがない場合、スクリプトは起動した瞬間に上から下へと順次機能を実行する。</p>
+<p>プログラムはスクリプトを一行ずつメモリにロードする。ロード中、スクリプトは<a href="misc/Performance.htm">最適化</a>され、検証される。構文エラーはすべて表示され、スクリプトを実行する前に修正する必要があります。</p>
 
-<h2 id="auto">Script Startup (the Auto-execute Thread)</h2>
+<h2 id="auto">スクリプトの起動（自動実行スレッド）</h2>
 <p>スクリプトが読み込まれた後、<em>自動実行スレッド</em>は、スクリプトの先頭行で実行を開始し、<a href="lib/Return.htm">Return</a>、<a href="lib/ExitApp.htm">ExitApp</a>、<a href="lib/Exit.htm">Exit</a>などの停止指示があるまで実行を続ける。スクリプトの物理的な端は、<a href="lib/Exit.htm">Exit</a>としても機能します。</p>
-<p id="persistent">The script will terminate after completing startup if it lacks <a href="Hotkeys.htm">hotkeys</a>, <a href="Hotstrings.htm">hotstrings</a>, visible <a href="lib/Gui.htm">GUIs</a>, active <a href="lib/SetTimer.htm">timers</a>, <a href="lib/OnClipboardChange.htm">clipboard monitors</a> and <a href="lib/InputHook.htm">InputHooks</a>, and has not called the <a href="lib/Persistent.htm">Persistent</a> function. Otherwise, it will stay running in an idle state, responding to events such as hotkeys, hotstrings, <a href="lib/GuiOnEvent.htm">GUI events</a>, <a href="lib/Menu.htm">custom menu items</a>, and <a href="lib/SetTimer.htm">timers</a>. If these conditions change after startup completes (for example, the last timer is disabled), the script may exit when the last running thread completes or the last GUI closes.</p>
-<p>Whenever any new <a href="misc/Threads.htm">thread</a> is launched (whether by a <a href="Hotkeys.htm">hotkey</a>, <a href="Hotstrings.htm">hotstring</a>, <a href="lib/SetTimer.htm">timer</a>, or some other event), the following settings are copied from the auto-execute thread. If not set by the auto-execute thread, the standard defaults will apply (as documented on each of the following pages): <a href="lib/CoordMode.htm">CoordMode</a>, <a href="lib/Critical.htm">Critical</a>, <a href="lib/DetectHiddenText.htm">DetectHiddenText</a>, <a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="lib/FileEncoding.htm">FileEncoding</a>, <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/SendLevel.htm">SendLevel</a>, <a href="lib/SendMode.htm">SendMode</a>, <a href="lib/SetControlDelay.htm">SetControlDelay</a>, <a href="lib/SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>, <a href="lib/SetKeyDelay.htm">SetKeyDelay</a>, <a href="lib/SetMouseDelay.htm">SetMouseDelay</a>, <a href="lib/SetRegView.htm">SetRegView</a>, <a href="lib/SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>, <a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="lib/SetWinDelay.htm">SetWinDelay</a>, and <a href="lib/Thread.htm">Thread</a>.</p>
-<p>Each <a href="misc/Threads.htm">thread</a> retains its own collection of the above settings, so changes made to those settings will not affect other threads.</p>
-<p>The "default setting" for one of the above functions usually refers to the current setting of the auto-execute thread, which starts out the same as the program-defined default setting.</p>
-<p>Traditionally, the top of the script has been referred to as the <em>auto-execute section</em>. However, the auto-execute thread is not limited to just the top of the script. Any functions which are called on the auto-execute thread may also affect the default settings. As directives and function, hotkey, hotstring and class definitions are skipped when encountered during execution, it is possible for startup code to be placed throughout each file. For example, a global variable used by a group of hotkeys may be initialized above (or even below) those hotkeys rather than at the top of the script.</p>
+<p id="persistent"><a href="Hotkeys.htm">ホットキー</a>、<a href="Hotstrings.htm">ホットストリング</a>、表示可能な<a href="lib/Gui.htm">GUI</a>、アクティブ<a href="lib/SetTimer.htm">タイマー</a>、<a href="lib/OnClipboardChange.htm">クリップボードモニター</a>、<a href="lib/InputHook.htm">InputHooks</a>がなく、<a href="lib/Persistent.htm">Persistent</a>関数を呼び出していない場合、スクリプトは起動完了後に終了します。そうでなければ、アイドル状態で動作し続け、ホットキー、ホットストリング、<a href="lib/GuiOnEvent.htm">GUIイベント</a>、<a href="lib/Menu.htm">カスタムメニュー項目</a>、<a href="lib/SetTimer.htm">タイマー</a>などのイベントに反応する。起動完了後にこれらの条件が変更された場合（たとえば、最後のタイマーが無効になった場合）、最後に実行されたスレッドが完了するか、最後のGUIが閉じると、スクリプトが終了することがあります。</p>
+<p>新しい<a href="misc/Threads.htm">スレッドが</a>（<a href="Hotkeys.htm">ホットキー</a>、<a href="Hotstrings.htm">ホットストリング</a>、<a href="lib/SetTimer.htm">タイマー</a>、その他のイベントによって）起動されるたびに、以下の設定が自動実行スレッドからコピーされます。自動実行スレッドによって設定されていない場合は、標準のデフォルトが適用される（以下の各ページに記載）：<a href="lib/CoordMode.htm">CoordMode</a>, <a href="lib/Critical.htm">Critical</a>, <a href="lib/DetectHiddenText.htm">DetectHiddenText</a>, <a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="lib/FileEncoding.htm">FileEncoding</a>, <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/SendLevel.htm">SendLevel</a>, <a href="lib/SendMode.htm">SendMode</a>, <a href="lib/SetControlDelay.htm">SetControlDelay</a>, <a href="lib/SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>, <a href="lib/SetKeyDelay.htm">SetKeyDelay</a>, <a href="lib/SetMouseDelay.htm">SetMouseDelay</a>, <a href="lib/SetRegView.htm">SetRegView</a>, <a href="lib/SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>, <a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="lib/SetWinDelay.htm">SetWinDelay</a>, and <a href="lib/Thread.htm">Thread</a>.</p>
+<p>各<a href="misc/Threads.htm">スレッド</a>は上記の設定のコレクションを保持するため、これらの設定を変更しても他のスレッドには影響しない。</p>
+<p>上記の関数の「デフォルト設定」とは、通常、自動実行スレッドの現在の設定を指し、プログラム定義のデフォルト設定と同じように開始される。</p>
+<p>伝統的に、スクリプトの最上部は<em>自動実行セクション</em>と呼ばれてきた。しかし、自動実行スレッドはスクリプトの先頭だけに限定されるわけではない。自動実行スレッドで呼び出される関数も、デフォルト設定に影響を与える可能性がある。ディレクティブや関数、ホットキー、ホットストリング、クラス定義は、実行中に遭遇するとスキップされるため、起動コードを各ファイル全体に配置することが可能です。例えば、ホットキーのグループで使用されるグローバル変数は、スクリプトの先頭ではなく、それらのホットキーの上（または下）で初期化することができます。</p>
 
-<h2 id="continuation">Splitting a Long Line into a Series of Shorter Ones</h2>
-<p>Long lines can be divided up into a collection of smaller ones to improve readability and maintainability. This does not reduce the script's execution speed because such lines are merged in memory the moment the script launches.</p>
-<p>There are three methods, and they can generally be used in combination:</p>
+<h2 id="continuation">長い線を短い線に分割する</h2>
+<p>長い行を小さな行の集まりに分割することで、読みやすさと保守性を向上させることができる。このような行は、スクリプトが起動した瞬間にメモリ上にマージされるため、スクリプトの実行速度が低下することはない。</p>
+<p>3つの方法があり、一般的に組み合わせて使うことができる：</p>
 <ul>
-  <li><a href="#continuation-line">Continuation operator</a>: Start or end a line with an expression operator to join it to the previous or next line.</li>
+  <li><a href="#continuation-line">継続オペレーター</a>：式演算子で行を開始または終了し、前の行または次の行に連結する。</li>
   <li><a href="#continuation-expr">囲い込みによる継続</a>：()、[]、{}で囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができます。</li>
-  <li><a href="#continuation-section">継続の部</a>：Mark a group of lines to be merged together, with additional options such as what text (or code) to insert between lines.</li>
+  <li><a href="#continuation-section">継続の部</a>：マージする行のグループをマークし、行間に挿入するテキスト（またはコード）などのオプションを追加する。</li>
 </ul>
-<p id="continuation-line"><strong>Continuation operator:</strong> A line that starts with a comma or any other <a href="Variables.htm#Operators">expression operator</a> (except ++ and --) is automatically merged with the line directly above it. Similarly, a line that ends with an expression operator is automatically merged with the line below it. In the following example, the second line is appended to the first because it begins with a comma:</p>
+<p id="continuation-line"><strong>継続演算子：</strong>カンマまたはその他の<a href="Variables.htm#Operators">式演算子</a>（++と--を除く）で始まる行は、その直上の行に自動的にマージされる。同様に、式演算子で終わる行は、自動的にその下の行にマージされる。次の例では、2行目はコンマで始まっているため、1行目に追加される：</p>
 <pre>FileAppend "This is the text to append.`n"   <em>; A comment is allowed here.</em>
     <strong>,</strong> A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em></pre>
-<p>Similarly, the following lines would get merged into a single line because the last two start with "and" or "or":</p>
+<p>同様に、次の2行は "and"または "or"で始まるので、1行にまとめられる：</p>
 <pre>if Color = "Red" or Color = "Green"  or Color = "Blue"   <em>; Comment.</em>
     <strong>or</strong> Color = "Black" or Color = "Gray" or Color = "White"   <em>; Comment.</em>
     <strong>and</strong> ProductIsAvailableInColor(Product, Color)   <em>; Comment.</em></pre>
-<p>The <a href="Variables.htm#ternary">ternary operator</a> is also a good candidate:</p>
+<p><a href="Variables.htm#ternary">三項演算子も</a>良い候補である：</p>
 <pre>ProductIsAvailable := (Color = "Red")
     <strong>?</strong> false  <em>; We don't have any red products, so don't bother calling the function.</em>
     <strong>:</strong> ProductIsAvailableInColor(Product, Color)</pre>
-<p>The following examples are equivalent to those above:</p>
+<p>以下の例は上記と同等である：</p>
 <pre>FileAppend "This is the text to append.`n"<strong>,</strong>   <em>; A comment is allowed here.</em>
     A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em>
 
@@ -71,9 +71,9 @@ if Color = "Red" or Color = "Green"  or Color = "Blue" <strong>or</strong>   <em
 ProductIsAvailable := (Color = "Red") <strong>?</strong>
     false <strong>:</strong> <em>; We don't have any red products, so don't bother calling the function.</em>
     ProductIsAvailableInColor(Product, Color)</pre>
-<p>Although the indentation used in the examples above is optional, it might improve clarity by indicating which lines belong to ones above them. Also, blank lines or <a href="Language.htm#comments">comments</a> may be added between or at the end of any of the lines in the above examples.</p>
-<p>A continuation operator cannot be used with an auto-replace hotstring or directive other than <a href="lib/_HotIf.htm">#HotIf</a>.</p>
-<p id="continuation-expr"><strong>Continuation by enclosure:</strong> If a line contains an expression or function/property definition with an unclosed <code>(</code>/<code>[</code>/<code>{</code>, it is joined with subsequent lines until the number of opening and closing symbols balances out. In other words, a sub-expression enclosed in parentheses, brackets or braces can automatically span multiple lines in most cases. 事例：</p>
+<p>上の例で使われているインデントは任意だが、どの行がその上の行に属するかを示すことで、より明瞭になるかもしれない。また、上記の例の行間や行末に空行や<a href="Language.htm#comments">コメント</a>を追加してもよい。</p>
+<p>継続演算子は、自動置換ホットストリングや<a href="lib/_HotIf.htm">#HotIf</a>以外のディレクティブでは使用できません。</p>
+<p id="continuation-expr"><strong>囲みによる継続：</strong>ある行に式や関数・プロパティの定義があり、その定義が閉じていない<code>(</code>/<code>[</code>/<code>{</code>場合、開閉記号の数が釣り合うまで後続の行と結合される。言い換えれば、括弧、ブラケット、ブレースで囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができる。事例：</p>
 <pre>
 myarray := [
   "item 1",
@@ -85,68 +85,68 @@ MsgBox(
     "ok iconi"
     )
 </pre>
-<p>Continuation expressions may contain both types of <a href="Language.htm#comments">comments</a>.</p>
-<p>Continuation expressions may contain normal <a href="#continuation-section">continuation sections</a>. Therefore, as with any line containing an expression, if a line begins with a non-escaped open parenthesis (<code>(</code>), it is considered to be the start of a continuation section unless there is a closing parenthesis (<code>)</code>) on the same line.</p>
-<p>Quoted strings cannot span multiple lines using this method alone. However, see above.</p>
-<p>Continuation by enclosure can be combined with a continuation operator. 事例：</p>
+<p>継続表現は両方のタイプの<a href="Language.htm#comments">コメント</a>を含むことができる。</p>
+<p>継続表現は通常の<a href="#continuation-section">継続セクション</a>を含むことができる。したがって、式を含むすべての行と同様に、エスケープされていない開括弧（<code>(</code>）で始まる行は、同じ行に閉括弧（<code>）</code>）がない限り、継続セクションの開始とみなされる。</p>
+<p>引用符で囲まれた文字列は、この方法だけでは複数行にまたがることはできない。ただし、上記を参照のこと。</p>
+<p>囲みによる継続は、継続演算子と組み合わせることができる。事例：</p>
 <pre>myarray :=  <em>; The assignment operator causes continuation.</em>
 [  <em>; Brackets enclose the following two lines.</em>
   "item 1",
   "item 2",
 ]</pre>
-<p>Brace (<code>{</code>) at the end of a line does not cause continuation if the program determines that it should be interpreted as the beginning of a block (<a href="lib/Block.htm#otb">OTB style</a>) rather than the start of an <a href="Language.htm#object-literal">object literal</a>. Specifically (in descending order of precedence):</p>
+<p>行末のブレース（<code>{</code>）は、<a href="Language.htm#object-literal">オブジェクト・リテラル</a>の開始ではなく、ブロックの開始（<a href="lib/Block.htm#otb">OTBスタイル</a>）として解釈されるべきであるとプログラムが判断した場合、継続を引き起こさない。具体的には（優先順位の高い順に）：</p>
 <ul>
-  <li>A brace is never interpreted as the beginning of a block if it is preceded by an unclosed <code>(</code>/<code>[</code>/<code>{</code>, since that would produce an invalid expression. For example, the brace in <code>If ({</code> is the start of an object literal.</li>
-  <li>An object literal cannot legally follow <code>)</code> or <code>]</code>, so if the brace follows either of those symbols (excluding whitespace), it is interpreted as the beginning of a block (such as for a function or property definition).</li>
-  <li>For <a href="Language.htm#control-flow">control flow statements</a> which require a body (and therefore support OTB), the brace can be the start of an object literal only if it is preceded by an operator, such as <code>:= {</code> or <code>for x <strong>in</strong> {</code>. In particular, the brace in <code>Loop {</code> is always block-begin, and <code>If {</code> and <code>While {</code> are always errors.</li>
+  <li>中括弧の前に閉じない<code>(</code>/<code>[</code>/<code>{</code>がある場合、中括弧はブロックの開始と解釈されることはない。例えば、<code>If ({</code>のブレースはオブジェクト・リテラルの開始である。</li>
+  <li>オブジェクト・リテラルは法律上、<code>)</code>または<code>]</code>に続くことはできないので、中括弧がこれらの記号のどちらかに続く場合（空白を除く）、（関数やプロパティ定義のような）ブロックの開始として解釈される。</li>
+  <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code>for x<strong>in</strong>{</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code>Loop {</code>の中括弧は常にブロック開始であり、<code>If {</code>と <code>While {</code>は常にエラーである。</li>
 </ul>
-<p>A brace can be safely used for line continuation with any function call, expression or control flow statement which does not require a body. 事例：</p>
+<p>中括弧は、本文を必要としない関数呼び出し、式、制御フロー文であれば、行の継続のために安全に使うことができる。事例：</p>
 <pre>myfn() {
     return {
         key: "value"
     }
 }</pre>
-<p id="continuation-section"><strong>Continuation section:</strong> This method should be used to merge a large number of lines or when the lines are not suitable for the other methods. Although this method is especially useful for <a href="Hotstrings.htm">auto-replace hotstrings</a>, it can also be used with any <a href="Variables.htm#Expressions">expression</a>. 事例：</p>
+<p id="continuation-section"><strong>継続セクション：</strong>この方法は、多数の行を統合する場合や、行が他の方法に適さない場合に使用する。このメソッドは<a href="Hotstrings.htm">自動置換ホットストリング</a>に特に有効ですが、どんな<a href="Variables.htm#Expressions">式</a>にも使えます。事例：</p>
 <pre><em>; EXAMPLE #1:</em>
 Var := "
 (
 一行分のテキストです。
-By default, the hard carriage return (Enter) between the previous line and this one will be stored.
-	This line is indented with a tab; by default, that tab will also be stored.
-Additionally, "quote marks" are <a href="#continuation_quotes">automatically escaped</a> when appropriate.
+デフォルトでは、前の行とこの行の間のハードキャリッジリターン（Enter）が保存される。
+	この行はタブでインデントされている。デフォルトでは、このタブも保存される。
+さらに、「引用符」は必要に応じて<a href="#continuation_quotes">自動的にエスケープ</a>される。
 )"
 
 <em>; EXAMPLE #2:</em>
 FileAppend "
 (
 Line 1 of the text.
-Line 2 of the text. By default, a linefeed (`n) is present between lines.
+Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入ります。
 )", A_Desktop "\My File.txt"</pre>
-<p>In the examples above, a series of lines is bounded at the top and bottom by a pair of parentheses. This is known as a <em>continuation section</em>. Notice that any code after the closing parenthesis is also joined with the other lines (without any delimiter), but the opening and closing parentheses are not included.</p>
-<p>If the line above the continuation section ends with a <a href="Concepts.htm#names">name</a> character and the section does not start inside a quoted string, a single space is automatically inserted to separate the name from the contents of the continuation section.</p>
-<p id="continuation_quotes">Quote marks are automatically escaped (i.e. they are interpreted as literal characters) if the continuation section starts inside a quoted string, as in the examples above. Otherwise, quote marks act as they do normally; that is, continuation sections can contain expressions with quoted strings.</p>
-<p id="continuation_defaults">By default, leading spaces or tabs are omitted based on the indentation of the first line inside the continuation section. 最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。 </p>
-<p>The default behavior of a continuation section can be overridden by including one or more of the following options to the right of the section's opening parenthesis. If more than one option is present, separate each one from the previous with a space. 事例：<code>( LTrim Join|</code>.</p>
-<p id="Join"><strong>Join:</strong> Specifies how lines should be connected together. If this option is omitted, each line except the last will be followed by a linefeed character (`n). If the word <em>Join</em> is specified by itself, lines are connected directly to each other without any characters in between. Otherwise, the word <em>Join</em> should be followed immediately by as many as 15 characters. For example, <code>Join`s</code> would insert a space after each line except the last. Another example is <code>Join`r`n</code>, which inserts CR+LF between lines. Similarly, <code>Join|</code> inserts  a pipe between lines. To have the final line in the section also ended by a join-string, include a blank line immediately above the section's closing parenthesis.</p>
-<p id="LTrim"><strong>LTrim:</strong> Omits all spaces and tabs at the beginning of each line. This is usually unnecessary because of the <a href="#continuation_defaults">default "smart" behaviour</a>.</p>
-<p id="LTrim0"><strong>LTrim0</strong> (LTrim followed by a zero): Turns off the omission of spaces and tabs from the beginning of each line.</p>
-<p id="RTrim0"><strong>RTrim0</strong> (RTrim followed by a zero): Turns off the omission of spaces and tabs from the end of each line.</p>
-<p id="CommentOption"><strong>Comments</strong> (or <strong>Comment</strong> or <strong>Com</strong> or <strong>C</strong>): Allows <a href="Language.htm#comments">semicolon comments</a> inside the continuation section (but not <code>/*..*/</code>). Such comments (along with any spaces and tabs to their left) are entirely omitted from the joined result rather than being treated as literal text. Each comment can appear to the right of a line or on a new line by itself.</p>
-<p id="accent"><strong>`</strong> (accent): Treats each backtick character literally rather than as an <a href="misc/EscapeChar.htm">escape character</a>. This also prevents the translation of any explicitly specified escape sequences such as <code>`r</code> and <code>`t</code>.</p>
-<p id="non-continuation"><strong>(</strong> or <strong>)</strong>: If an opening or closing parenthesis appears to the right of the initial opening parenthesis (except as a parameter of the <a href="#Join">Join</a> option), the line is reinterpreted as an expression instead of the beginning of a continuation section. This enables expressions like <code>(x.y)[z]()</code> to be used at the start of a line, and also allows <a href="#continuation-expr">multi-line expressions</a> to start with a line like <code>((</code> or <code>(MyFunc(</code>.</p>
-<p><a href="misc/EscapeChar.htm">Escape sequences</a> such as `n (linefeed) and `t (tab) are supported inside the continuation section except when the <a href="#accent">accent (`) option</a> has been specified.</p>
-<p>When the <a href="#CommentOption">comment option</a> is absent, semicolon and /*..*/ comments are not supported within the interior of a continuation section because they are seen as literal text. However, comments can be included on the bottom and top lines of the section. 事例：</p>
+<p>上記の例では、一連の線は上下に括弧で囲まれている。これは<em>継続区間</em>として知られている。閉じ括弧の後のコードも（区切り記号なしで）他の行と結合されるが、開き括弧と閉じ括弧は含まれないことに注意。</p>
+<p>継続セクションの上の行が<a href="Concepts.htm#names">名前</a>文字で終わっており、そのセクションが引用符で囲まれた文字列で始まっていない場合、名前と継続セクションの内容を区切るために、1つのスペースが自動的に挿入される。</p>
+<p id="continuation_quotes">上記の例のように、引用符で囲まれた文字列の中で継続セクションが始まる場合、引用符は自動的にエスケープされる（つまり、リテラル文字として解釈される）。それ以外の場合、引用符は通常と同じように機能する。つまり、継続セクションは引用符で囲まれた文字列を含むことができる。</p>
+<p id="continuation_defaults">デフォルトでは、継続セクション内の最初の行のインデントに基づいて、先頭のスペースやタブが省略される。最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。 </p>
+<p>継続セクションのデフォルトの動作は、セクションの開始括弧の右側に以下のオプションを1つ以上含めることで上書きすることができる。複数のオプションがある場合は、それぞれをスペースで区切る。事例：<code>( LTrim Join|</code>.</p>
+<p id="Join"><strong>Join:</strong>線をどのようにつなげるかを指定します。このオプションが省略された場合、最後の行を除く各行の後には改行文字 (`n) が続く。<em>Join</em>という単語が単独で指定された場合、行と行の間は文字なしで直接接続される。そうでない場合は、<em>Join</em>という語の直後に15文字でも続くようにする。例えば、<code>Join`s</code>は最後の行を除く各行の後にスペースを挿入する。他の例としては、行と行の間にCR+LFを挿入する<code>Join`r`n</code>がある。同様に、<code>Join|</code>は行間にパイプを挿入する。セクションの最終行も結合文字列で終わらせるには、セクションの閉じ括弧のすぐ上に空白行を入れる。</p>
+<p id="LTrim"><strong>LTrim：</strong>各行の先頭のスペースとタブをすべて削除する。<a href="#continuation_defaults">デフォルトの "スマート"な振る舞い</a>のため、これは通常不要である。</p>
+<p id="LTrim0"><strong>LTrim0</strong>（LTrimの後に0が続く）：行頭のスペースとタブの省略をオフにする。</p>
+<p id="RTrim0"><strong>RTrim0</strong>（RTrimの後に0が続く）：行末のスペースとタブの省略をオフにする。</p>
+<p id="CommentOption"><strong>Comments</strong> (または <strong>Comment</strong> または <strong>Com</strong> または <strong>C</strong>):継続セクション内での<a href="Language.htm#comments">セミコロン・コメント</a>を許可する（ただし<code>/*..*/は</code>不可）。そのようなコメントは（その左にあるスペースやタブとともに）、リテラルテキストとして扱われるのではなく、結合結果から完全に省略される。各コメントは、行の右側に表示することも、それ自体で改行することもできる。</p>
+<p id="accent"><strong>`</strong> (accent):各バックティック文字を<a href="misc/EscapeChar.htm">エスケープ文字</a>としてではなく、文字通りに扱う。また、<code>`r</code>や<code>`t</code>のような明示的に指定されたエスケープシーケンスも変換されなくなる。</p>
+<p id="non-continuation"><strong>(</strong> または <strong>)</strong>:最初の開始括弧の右側に開始括弧または閉じ括弧がある場合（<a href="#Join">Join</a>オプションのパラメータを除く）、その行は継続セクションの開始ではなく、式として再解釈される。これにより、<code>(x.y)[z]()の</code>ような式を行頭で使用できるようになり、また、<a href="#continuation-expr">複数行の式</a>を <code>((</code>や<code>(MyFunc(</code>のように行で始めることもできる。</p>
+<p>`n (改行) や `t (タブ) などの<a href="misc/EscapeChar.htm">エスケープシーケンス</a>は、<a href="#accent">アクセント (`) オプション</a>が指定されている場合を除き、継続セクションの内部でサポートされています。</p>
+<p><a href="#CommentOption">commentオプション</a>がない場合、セミコロンと/*..*/コメントは、リテラルテキストとみなされるため、継続セクションの内部ではサポートされない。ただし、セクションの最下行と最上行にコメントを入れることができる。事例：</p>
 <pre>FileAppend "   <em>; Comment.
 ; Comment.</em>
 ( LTrim Join    <em>; Comment.</em>
     &nbsp;; This is <strong>not</strong> a comment; it is literal. Include the word <i>Comments</i> in the line above to make it a comment.
 )", "C:\File.txt"   <em>; Comment.</em></pre>
-<p>As a consequence of the above, semicolons never need to be <a href="misc/EscapeChar.htm">escaped</a> within a continuation section.</p>
-<p>Since a closing parenthesis indicates the end of a continuation section, to have a line start with literal closing parenthesis, precede it with an accent/backtick: <code>`)</code>. However, this cannot be combined with the <a href="#accent">accent (`) option</a>.</p>
+<p>上記の結果、セミコロンを継続セクション内で<a href="misc/EscapeChar.htm">エスケープ</a>する必要はない。</p>
+<p>閉じ括弧は継続セクションの終わりを示すので、リテラルな閉じ括弧で行を開始するには、その前にアクセント記号/バックチックを付ける：<code>`)</code>. ただし、<a href="#accent">アクセント(`)オプション</a>との併用はできない。</p>
 <p>A continuation section can be immediately followed by a line containing the open-parenthesis of another continuation section. This allows the options mentioned above to be varied during the course of building a single line.</p>
 <p>The piecemeal construction of a continuation section by means of <a href="lib/_Include.htm">#Include</a> is not supported.</p>
 
-<h2 id="lib">Script Library Folders</h2>
+<h2 id="lib">スクリプトライブラリフォルダ</h2>
 <p>The library folders provide a few standard locations to keep shared scripts which other scripts utilise by means of <a href="lib/_Include.htm">#Include</a>. A library script typically contains a function or class which is designed to be used and reused in this manner. Placing library scripts in one of these locations makes it easier to write scripts that can be shared with others and work across multiple setups. The library locations are:</p>
 <pre><a href="Variables.htm#ScriptDir">A_ScriptDir</a> "\Lib\"  <em>; Local library.</em>
 <a href="Variables.htm#MyDocuments">A_MyDocuments</a> "\AutoHotkey\Lib\"  <em>; User library.</em>

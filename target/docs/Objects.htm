@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Objects - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="How to use objects, define new types of objects, and other details about how objects work in AutoHotkey." />
+<title>オブジェクト - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="オブジェクトの使用方法、新しいタイプのオブジェクトの定義、AutoHotkeyでのオブジェクトの動作に関するその他の詳細。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -16,51 +16,51 @@ ul.list_of_p li { margin: 1em 0; }
 
 <h1>オブジェクト</h1>
 
-<p>An <i>object</i> combines a number of <em>properties</em> and <a href="Concepts.htm#methods"><em>methods</em></a>.</p>
-<p>Related topics:</p>
+<p><i>オブジェクト</i>は、いくつかの<em>プロパティと</em>メソッドを組み合わせたものである。 <a href="Concepts.htm#methods"><em>メソッド</em></a>.</p>
+<p>関連トピック</p>
 <ul>
-  <li><a href="Concepts.htm#objects">Objects</a>: General explanation of objects.</li>
-  <li><a href="Concepts.htm#object-protocol">Object Protocol</a>: Specifics about how a script interacts with an object.</li>
-  <li><a href="misc/Functor.htm">Function objects</a>: Objects which can be <em>called</em>.</li>
+  <li><a href="Concepts.htm#objects">オブジェクト</a>：オブジェクトの一般的な説明。</li>
+  <li><a href="Concepts.htm#object-protocol">オブジェクトプロトコル</a>：スクリプトがオブジェクトとどのように相互作用するかについての詳細。</li>
+  <li><a href="misc/Functor.htm">機能オブジェクト</a>：<em>呼び出す</em>ことができるオブジェクト。</li>
 </ul>
 
-<p><b>IsObject</b> can be used to determine if a value is an object:</p>
+<p><b>IsObject</b>は、値がオブジェクトであるかどうかを判定するために使用できます：</p>
 <pre>Result := IsObject(<i>expression</i>)</pre>
 
-<p>See <a href="ObjList.htm">Built-in Classes</a> for a list of standard object types. There are two fundamental types:</p>
+<p>標準的なオブジェクト・タイプのリストについては、<a href="ObjList.htm">組み込みクラス</a>を参照のこと。基本的には2つのタイプがある：</p>
 <ul>
-  <li><strong>AutoHotkey objects</strong> are instances of the <a href="lib/Object.htm">Object</a> class. These support ad hoc properties, and have methods for discovering which properties exist. <a href="lib/Array.htm">Array</a>, <a href="lib/Map.htm">Map</a> and all user defined and built-in classes are derived from Object.</li>
-  <li><strong>COM objects</strong> such as those created by <a href="lib/ComObject.htm">ComObject</a>. These are implemented by external libraries, so often differ in behaviour to AutoHotkey objects. ComObject typically represents a COM or "Automation" object implementing the <a href="https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch">IDispatch interface</a>, but is also used to <a href="lib/ComValue.htm">wrap values of specific types</a> to be passed to COM objects and functions.</li>
+  <li><strong>AutoHotkeyオブジェクト</strong>は <a href="lib/Object.htm">Object</a>クラスのインスタンスです。これらはアドホック・プロパティに対応し、どのプロパティが存在するかを発見するメソッドを持っている。<a href="lib/Array.htm">Array</a>、<a href="lib/Map.htm">Map</a>、そしてすべてのユーザー定義クラスと組み込みクラスはObjectから派生している。</li>
+  <li><a href="lib/ComObject.htm">ComObject</a>で作成されるような<strong>COMオブジェクト</strong>。これらは外部ライブラリによって実装されているため、AutoHotkeyオブジェクトとは動作が異なることがよくあります。ComObjectは通常、<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch">IDispatchインターフェイスを</a>実装したCOMまたは「オートメーション」オブジェクトを表しますが、COMオブジェクトや関数に渡される<a href="lib/ComValue.htm">特定の型の値をラップ</a>するためにも使用されます。</li>
 </ul>
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#Usage">Basic Usage</a> - <a href="#Usage_Simple_Arrays">Arrays</a>, <a href="#Usage_Associative_Arrays">Maps (Associative Arrays)</a>, <a href="#Usage_Objects">Objects</a>, <a href="#Usage_Freeing_Objects">Freeing Objects</a></li>
-  <li><a href="#Extended_Usage">Extended Usage</a> - <a href="#Usage_Arrays_of_Arrays">Arrays of Arrays</a></li>
+  <li><a href="#Extended_Usage">拡張使用法</a>-<a href="#Usage_Arrays_of_Arrays">配列の配列</a></li>
   <li><a href="#Custom_Objects">Custom Objects</a> - <a href="#creating-a-base-object">Creating a Base Object</a>, <a href="#Custom_Classes">Classes</a>, <a href="#Custom_NewDelete">Construction and Destruction</a>, <a href="#Meta_Functions">Meta-Functions</a></li>
   <li><a href="#primitive">プリミティブ値</a></li>
   <li><a href="#Implementation">Implementation</a> - <a href="#Reference_Counting">Reference-Counting</a>, <a href="#ObjPtr">Pointers to Objects</a></li>
 </ul>
 
-<span id="Syntax"></span><h2 id="Usage">Basic Usage</h2>
+<span id="Syntax"></span><h2 id="Usage">基本的な使い方</h2>
 
 <h3 id="Usage_Simple_Arrays">Arrays</h3>
-<p>Create an <a href="lib/Array.htm">Array</a>:</p>
+<p><a href="lib/Array.htm">配列</a>を作成する：</p>
 <pre>MyArray := [Item1, Item2, ..., ItemN]
 MyArray := Array(Item1, Item2, ..., ItemN)</pre>
-<p>Retrieve an item (or <em>array element</em>):</p>
+<p>項目 (または<em>配列要素</em>) を取得します：</p>
 <pre>Value := MyArray[Index]</pre>
-<p>Change the value of an item (<code>Index</code> must be between 1 and Length, or an equivalent reverse index):</p>
+<p>項目の値を変更する（<code>Index</code>は1からLengthの間、または同等の逆インデックスでなければならない）：</p>
 <pre>MyArray[Index] := Value</pre>
-<p>Insert one or more items at a given index using the <a href="lib/Array.htm#InsertAt">InsertAt</a> method:</p>
+<p><a href="lib/Array.htm#InsertAt">InsertAt</a>メソッドを使用して、指定されたインデックスに1つ以上の項目を挿入します：</p>
 <pre>MyArray.InsertAt(Index, Value, Value2, ...)</pre>
-<p>Append one or more items using the <a href="lib/Array.htm#Push">Push</a> method:</p>
+<p><a href="lib/Array.htm#Push">Push</a>メソッドを使用して、1つまたは複数のアイテムを追加します：</p>
 <pre>MyArray.Push(Value, Value2, ...)</pre>
-<p>Remove an item using the <a href="lib/Array.htm#RemoveAt">RemoveAt</a> method:</p>
+<p><a href="lib/Array.htm#RemoveAt">RemoveAt</a>メソッドを使用して項目を削除します：</p>
 <pre>RemovedValue := MyArray.RemoveAt(Index)</pre>
-<p>Remove the last item using the <a href="lib/Array.htm#Pop">Pop</a> method:</p>
+<p><a href="lib/Array.htm#Pop">Pop</a>メソッドを使って最後の項目を削除する：</p>
 <pre>RemovedValue := MyArray.Pop()</pre>
-<p><a href="lib/Array.htm#Length">Length</a> returns the number of items in the array. Looping through an array's contents can be done either by index or with a For-loop. 事例：</p>
+<p><a href="lib/Array.htm#Length">Length</a>は、配列の項目数を返します。配列の中身をループするには、インデックスを使う方法と、Forループを使う方法がある。事例：</p>
 <pre>MyArray := ["one", "two", "three"]
 
 <em>; Iterate from 1 to the end of the array:</em>
@@ -77,59 +77,59 @@ For value in MyArray
 </pre>
 
 <h3 id="Usage_Associative_Arrays">Maps (Associative Arrays)</h3>
-<p>A <a href="lib/Map.htm">Map</a> or associative array is an object which contains a collection of unique keys and a collection of values, where each key is associated with one value. Keys can be strings, integers or objects, while values can be of any type. An associative array can be created as follows:</p>
+<p><a href="lib/Map.htm">Map</a>または連想配列は、一意のキーと値のコレクションを含むオブジェクトで、各キーは1つの値と関連付けられています。キーは文字列、整数、オブジェクトのいずれでもよく、値はどのような型でもよい。連想配列は次のようにして作ることができる：</p>
 <pre>MyMap := Map("KeyA", ValueA, "KeyB", ValueB, ..., "KeyZ", ValueZ)</pre>
-<p>Retrieve an item, where <code>Key</code> is a <a href="Concepts.htm#variables">variable</a> or <a href="Language.htm#expressions">expression</a>:</p>
+<p>項目を取得する。<code>キー</code>は <a href="Concepts.htm#variables">変数</a>または<a href="Language.htm#expressions">式</a>：</p>
 <pre>Value := MyMap[Key]</pre>
-<p>Assign an item:</p>
+<p>項目を割り当てます：</p>
 <pre>MyMap[Key] := Value</pre>
-<p>Remove an item using the <a href="lib/Array.htm#Delete">Delete</a> method:</p>
+<p><a href="lib/Array.htm#Delete">Delete</a>メソッドを使用して項目を削除します：</p>
 <pre>RemovedValue := MyMap.Delete(Key)</pre>
-<p>Enumerating items:</p>
+<p>項目を列挙する：</p>
 <pre>MyMap := Map("ten", 10, "twenty", 20, "thirty", 30)
 <a href="lib/For.htm">For</a> key, value in MyMap
     MsgBox key ' = ' value</pre>
 
 <h3 id="Usage_Objects">オブジェクト</h3>
-<p>An object can have <em>properties</em> and <em>items</em> (such as array elements). Items are accessed using <code>[]</code> as shown in the previous sections. Properties are usually accessed by writing a dot followed by an identifier (just a <a href="Concepts.htm#names">name</a>). <em>Methods</em> are properties which can be called.</p>
+<p>オブジェクトは<em>プロパティ</em>と <em>アイテム</em>（配列要素など）を持つことができる。項目へのアクセスは、前のセクションで示したように<code>[]</code>を使用する。プロパティは通常、ドットの後に識別子（単なる<a href="Concepts.htm#names">名前</a>）を書いてアクセスする。<em>メソッド</em>は、呼び出すことができるプロパティである。</p>
 <p><strong>例：</strong></p>
-<p>Retrieve or set a property literally named <em>Property</em>:</p>
+<p>文字どおり<em>Property</em>という名前のプロパティを取得または設定します：</p>
 <pre>Value := MyObject.Property</pre>
 <pre>MyObject.Property := Value</pre>
-<p>Retrieve or set a property where the name is determined by evaluating an <a href="Language.htm#expressions">expression</a> or <a href="Concepts.htm#variables">variable</a>:</p>
+<p><a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>の評価によって名前が決定されるプロパティを取得または設定する：</p>
 <pre>Value := MyObject.%Expression%</pre>
 <pre>MyObject.%Expression% := Value</pre>
-<p>Call a property/method literally named <em>Method</em>:</p>
+<p>文字通り<em>Method</em>という名前のプロパティ/メソッドを呼び出す：</p>
 <pre>ReturnValue := MyObject.Method(Parameters)</pre>
-<p>Call a property/method where the name is determined by evaluating an expression or variable:</p>
+<p>式または変数の評価によって名前が決定されるプロパティ/メソッドを呼び出す：</p>
 <pre>ReturnValue := MyObject.%Expression%(Parameters)</pre>
-<p>Sometimes parameters are accepted when retrieving or assigning properties:</p>
+<p>プロパティの取得や割り当ての際にパラメータを受け付けることがある：</p>
 <pre>Value := MyObject.Property[Parameters]
 MyObject.Property[Parameters] := Value</pre>
-<p>An object may also support indexing: <code>MyArray[Index]</code> actually invokes the <a href="#__Item">__Item</a> property of <code>MyArray</code>, passing <code>Index</code> as a parameter.</p>
+<p>オブジェクトはインデックスをサポートすることもある：<code>MyArray[Index]</code>は、実際には<code>MyArray</code>の<a href="#__Item">__Item</a>プロパティを呼び出し、<code>Index</code>をパラメータとして渡す。</p>
 
-<h3 id="object-literal">Object Literal</h3>
-<p>An object literal can be used within an <a href="Language.htm#expressions">expression</a> to create an improvised object. An object literal consists of a pair of braces (<code>{}</code>) enclosing a list of comma-delimited name-value pairs. Each pair consists of a literal (unquoted) <a href="Concepts.htm#names">property name</a> and a value (sub-expression) separated by a colon (<code>:</code>). 事例：</p>
+<h3 id="object-literal">オブジェクト・リテラル</h3>
+<p>オブジェクト・リテラルを<a href="Language.htm#expressions">式</a>の中で使うと、即席のオブジェクトを作ることができる。オブジェクト・リテラルは、カンマで区切られた名前と値のペアのリストを中括弧（<code>{}</code>）で囲んだものである。各ペアは、コロン（<code>:</code>）で区切られたリテラル（引用符で囲まれていない）<a href="Concepts.htm#names">プロパティ名</a>と値（サブ式）で構成されます。事例：</p>
 <pre>Coord := {X: 13, Y: 240}</pre>
-<p>This is equivalent:</p>
+<p>これは等価だ：</p>
 <pre>Coord := Object()
 Coord.X := 13
 Coord.Y := 240</pre>
-<p>Each name-value pair causes a value property to be defined, with the exception that <a href="lib/Object.htm#Base">Base</a> can be set (with the same restrictions as a normal assignment).</p>
-<p><a href="Variables.htm#deref">Name substitution</a> allows a property name to be determined by evaluating an <a href="Language.htm#expressions">expression</a> or <a href="Concepts.htm#variables">variable</a>. 事例：</p>
+<p>各名前と値のペアは、値のプロパティを定義させるが、例外として<a href="lib/Object.htm#Base">Base</a>を設定することができる（通常の代入と同じ制限がある）。</p>
+<p><a href="Variables.htm#deref">名前の置換</a>は、<a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>を評価することによってプロパティ名を決定することができます。事例：</p>
 <pre>parts := StrSplit("key = value", "=", " ")
 pair := {%parts[1]%: parts[2]}
 MsgBox pair.key</pre>
 
-<h3 id="Usage_Freeing_Objects">Freeing Objects</h3>
-<p>Scripts do not free objects explicitly. When the last reference to an object is released, the object is freed automatically. A reference stored in a variable is released automatically when that variable is assigned some other value. 事例：</p>
+<h3 id="Usage_Freeing_Objects">オブジェクトの解放</h3>
+<p>スクリプトは明示的にオブジェクトを解放しない。オブジェクトへの最後の参照が解放されると、オブジェクトは自動的に解放される。変数に格納された参照は、その変数に他の値が代入されると自動的に解放される。事例：</p>
 <pre>obj := {}  <em>; Creates an object.</em>
 obj := ""  <em>; Releases the last reference, and therefore frees the object.</em></pre>
-<p>Similarly, a reference stored in a property or array element is released when that property or array element is assigned some other value or removed from the object.</p>
+<p>同様に、プロパティや配列要素に格納された参照は、そのプロパティや配列要素に他の値が割り当てられたり、オブジェクトから削除されたりすると解放される。</p>
 <pre>arr := [{}]  <em>; Creates an array containing an object.</em>
 arr[1] := {}  <em>; Creates a second object, implicitly freeing the first object.</em>
 arr.RemoveAt(1)  <em>; Removes and frees the second object.</em></pre>
-<p id="Circular_References">Because all references to an object must be released before the object can be freed, objects containing circular references aren't freed automatically. For instance, if <code>x.child</code> refers to <code>y</code> and <code>y.parent</code> refers to <code>x</code>, clearing <code>x</code> and <code>y</code> is not sufficient since the parent object still contains a reference to the child and vice versa. To resolve this situation, remove the circular reference.</p>
+<p id="Circular_References">オブジェクトを解放する前に、オブジェクトへの参照をすべて解放しなければならないので、循環参照を含むオブジェクトは自動的に解放されない。例えば、<code>x.child</code>が <code>y</code>を参照し、<code>y.parent</code>が <code>x</code>を参照している場合、<code>x</code>と <code>y</code>をクリアするだけでは不十分である。この状況を解決するには、循環参照を削除する。</p>
 <pre>
 x := {}, y := {}             <em>; Create two objects.</em>
 x.child := y, y.parent := x  <em>; Create a circular reference.</em>
@@ -137,12 +137,12 @@ x.child := y, y.parent := x  <em>; Create a circular reference.</em>
 y.parent := ""               <em>; The circular reference must be removed before the objects can be freed.</em>
 x := "", y := ""             <em>; Without the above line, this would not free the objects.</em>
 </pre>
-<p>For more advanced usage and details, see <a href="#Reference_Counting">Reference Counting</a>.</p>
+<p>より高度な使い方や詳細については、<a href="#Reference_Counting">参照カウント</a>を参照のこと。</p>
 
-<h2 id="Extended_Usage">Extended Usage</h2>
+<h2 id="Extended_Usage">延長使用</h2>
 
-<h3 id="Usage_Arrays_of_Arrays">Arrays of Arrays</h3>
-<p>Although "multi-dimensional" arrays are not supported, a script can combine multiple arrays or maps. 事例：</p>
+<h3 id="Usage_Arrays_of_Arrays">配列の配列</h3>
+<p>「多次元」配列はサポートされていないが、スクリプトは複数の配列やマップを組み合わせることができる。事例：</p>
 <pre>
 grid := [[1,2,3],
          [4,5,6],
@@ -150,7 +150,7 @@ grid := [[1,2,3],
 MsgBox grid[1][3] <em>; 3</em>
 MsgBox grid[3][2] <em>; 8</em>
 </pre>
-<p id="Array2D">A custom object can implement multi-dimensional support by defining an <a href="#__Item">__Item</a> property. 事例：</p>
+<p id="Array2D">カスタム・オブジェクトは、<a href="#__Item">__Item</a>プロパティを定義することで、多次元サポートを実装することができます。事例：</p>
 <pre>
 class Array2D extends Array {
     __new(x, y) {
@@ -180,19 +180,19 @@ Loop grid.Height {
 }
 MsgBox gridtext
 </pre>
-<p>A real script should perform error-checking and override other methods, such as <a href="#__Enum">__Enum</a> to support enumeration.</p>
+<p>本当のスクリプトは、エラーチェックを行い、列挙をサポートする<a href="#__Enum">__Enum</a>のような他のメソッドをオーバーライドすべきである。</p>
 
-<h2 id="Custom_Objects">Custom Objects</h2>
-<p>There are two general ways to create custom objects:</p>
+<h2 id="Custom_Objects">カスタムオブジェクト</h2>
+<p>カスタム・オブジェクトを作成するには、一般的に2つの方法がある：</p>
 <ul>
-  <li><em>Ad hoc</em>: create an object and add properties.</li>
-  <li><em>Delegation</em>: define properties in a shared <em>base object</em> or class.</li>
+  <li><em>アドホック</em>：オブジェクトを作成し、プロパティを追加する。</li>
+  <li><em>代表</em>共有<em>ベース・オブジェクト</em>またはクラスのプロパティを定義する。</li>
 </ul>
-<p><a href="#Meta_Functions">Meta-functions</a> can be used to further control how an object behaves.</p>
-<p class="note"><strong>Note:</strong> Within this section, an <em>object</em> is any instance of the <a href="lib/Object.htm">Object</a> class. This section does not apply to COM objects.</p>
+<p><a href="#Meta_Functions">メタファンクション</a>は、オブジェクトの振る舞いをさらにコントロールするために使うことができる。</p>
+<p class="note"><strong>注：</strong>このセクションでは、<em>オブジェクト</em>とは <a href="lib/Object.htm">Object</a>クラスのインスタンスを指します。このセクションはCOMオブジェクトには適用されない。</p>
 
-<h3 id="ad-hoc">Ad Hoc</h3>
-<p>Properties and methods (callable properties) can generally be added to new objects at any time. For example, an object with one property and one method might be constructed like this:</p>
+<h3 id="ad-hoc">アドホック</h3>
+<p>プロパティとメソッド（呼び出し可能なプロパティ）は通常、いつでも新しいオブジェクトに追加できる。例えば、1つのプロパティと1つのメソッドを持つオブジェクトは次のように構築される：</p>
 <pre><em>; Create an object.</em>
 thing := {}
 <em>; Store a value.</em>
@@ -205,43 +205,42 @@ thing.test()
 thing_test(this) {
     MsgBox this.foo
 }</pre>
-<p>You could similarly create the above object with <code>thing := {foo: "bar"}</code>. When using the {property:value} notation, quote marks must not be used for properties.</p>
-<p>When <code>thing.test()</code> is called, <i>thing</i> is automatically inserted at the beginning of the parameter list. By convention, the function is named by combining the "type" of object and the method name, but this is not a requirement.</p>
-<p>In the example above, <em>test</em> could be assigned some other function or value after it is defined, in which case the original function is lost and cannot be called via this property. An alternative is to define a read-only method, as shown below:</p>
+<p>同様に、<code>thing := {foo："bar"}</code>. {property:value}表記を使う場合、プロパティに引用符を使ってはならない。</p>
+<p><code>thing.test()</code>が呼ばれると、<i>thing</i>は自動的にパラメータ・リストの先頭に挿入される。慣習上、関数はオブジェクトの「タイプ」とメソッド名を組み合わせて命名されるが、これは必須条件ではない。</p>
+<p>上記の例では、<em>test</em>が定義された後に他の関数や値が割り当てられる可能性があり、その場合、元の関数は失われ、このプロパティを通じて呼び出すことはできない。別の方法として、以下のように読み取り専用のメソッドを定義することもできる：</p>
 <pre>thing.DefineProp 'test', {call: thing_test}</pre>
 <p>こちらもご覧ください：<a href="lib/Object.htm#DefineProp">DefineProp</a></p>
 
-<h3 id="delegation">Delegation</h3>
-<p>Objects are <em>prototype-based</em>. That is, any properties not defined in the object itself can instead be defined in the object's <a href="lib/Object.htm#Base">base</a>. This is known as <em>inheritance by delegation</em> or <em>differential inheritance</em>, because an object can implement only the parts that make it different, while delegating the rest to its base.</p>
-<p>Although a base object is also generally known as a prototype, we use "a class's <a href="lib/Class.htm#Prototype">Prototype</a>" to mean the object upon which every instance of the class is based, and "base" to mean the object upon which an instance is based.</p>
-<p class="note">AutoHotkey's object design was influenced primarily by JavaScript and Lua, with a little C#. We use <code><i>obj</i>.base</code> in place of JavaScript's <code><i>obj</i>.__proto__</code> and <code><i>cls</i>.Prototype</code> in place of JavaScript's <code><i>func</i>.prototype</code>. (Class objects are used in place of constructor functions.)</p>
+<h3 id="delegation">代表</h3>
+<p>オブジェクトは<em>プロトタイプベース</em>。つまり、オブジェクト自体で定義されていないプロパティは、代わりにオブジェクトの<a href="lib/Object.htm#Base">ベース</a>で定義することができる。これは、<em>委譲による継承</em>または<em>差分継承</em>と呼ばれるもので、オブジェクトは、そのオブジェクトを異なるものにする部分のみを実装し、残りをベースに委譲することができるからである。</p>
+<p>ベース・オブジェクトは一般にプロトタイプとも呼ばれるが、「クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>」はクラスのすべてのインスタンスがベースとするオブジェクトを意味し、「ベース」はインスタンスがベースとするオブジェクトを意味する。</p>
+<p class="note">AutoHotkeyのオブジェクトデザインは、主にJavaScriptとLuaの影響を受けており、C#も少し含まれています。JavaScriptの<code><i>obj</i>.__proto__</code>の代わりに<code><i>obj</i>.base&lt;//c0&gt;を使い、JavaScriptの<code><i>func</i>.prototype&lt;//c6&gt;の代わりに<code><i>cls</i>.Prototype&lt;//c4&gt;を使います。(クラス・オブジェクトはコンストラクタ関数の代わりに使われる）。</p>
 
-<p>An object's base is also used to identify its type or class. For example, <code>x := []</code> creates an object <em>based on</em> <code>Array.Prototype</code>, which means that the expressions <code>x is Array</code> and <code>x.HasBase(Array.Prototype)</code> are true, and <code>type(x)</code> returns "Array". Each class's Prototype is based on the Prototype of its base class, so <code>x.HasBase(Object.Prototype)</code> is also true.</p>
-<p>Any instance of Object or a derived class can be a base object, but an object can only be <a href="lib/Object.htm#Base">assigned as the base</a> of an object with the same native type. This is to ensure that built-in methods can always identify the native type of an object, and operate only on objects that have the correct binary structure.</p>
-<p>Base objects can be defined two different ways:</p>
+<p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>xがArray</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が "Array"を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
+<p>Objectのインスタンスや派生クラスはすべてベース・オブジェクトになることができるが、オブジェクトは同じネイティブ・タイプを持つオブジェクトの<a href="lib/Object.htm#Base">ベースとしてのみ割り当てる</a>ことができる。これは、組み込みメソッドが常にオブジェクトのネイティブ・タイプを識別し、正しいバイナリ構造を持つオブジェクトに対してのみ操作できるようにするためである。</p>
+<p>ベース・オブジェクトは2つの異なる方法で定義できる：</p>
 <ul>
-  <li>By <a href="#creating-a-base-object">creating a normal object</a>.</li>
-  <li>By <a href="#Custom_Classes">defining a class</a>. Each class has a <a href="lib/Class.htm#Prototype">Prototype</a> property containing an object which all instances of that class are based on, while the class itself becomes the base object of any direct subclasses.</li>
+  <li><a href="#creating-a-base-object">通常のオブジェクトを作成</a>する。</li>
+  <li><a href="#Custom_Classes">クラスを定義する</a>ことによって。各クラスには、そのクラスのすべてのインスタンスがベースとするオブジェクトを含む<a href="lib/Class.htm#Prototype">Prototype</a>プロパティがあり、クラス自体は直接のサブクラスのベース・オブジェクトとなる。</li>
 </ul>
-<p>A base object can be assigned to the <a href="lib/Object.htm#Base">base</a> property of another object, but typically an object's base is set implicitly when it is created.</p>
+<p>ベース・オブジェクトは他のオブジェクトの<a href="lib/Object.htm#Base">ベース</a>・プロパティに割り当てることができますが、通常、オブジェクトのベースはオブジェクトが作成されるときに暗黙的に設定されます。</p>
 
-<h3 id="creating-a-base-object">Creating a Base Object</h3>
-<p>Any object can be used as the base of any other object which has the same native type. The following example builds on the previous example under <a href="#ad-hoc">Ad Hoc</a> (combine the two before running it):</p>
+<h3 id="creating-a-base-object">ベースオブジェクトの作成</h3>
+<p>どんなオブジェクトでも、同じネイティブ・タイプを持つ他のオブジェクトのベースとして使うことができる。次の例は、<a href="#ad-hoc">アドホック（Ad Hoc）</a>の前の例を基にしたものである（実行する前にこの2つを組み合わせてください）：</p>
 <pre>other := {}
 other.base := thing
 other.test()</pre>
-<p>In this case, <i>other</i> inherits <i>foo</i> and <i>test</i> from <i>thing</i>. This inheritance is dynamic, so if <code>thing.foo</code> is modified, the change will be reflected by <code>other.foo</code>. If the script assigns to <code>other.foo</code>, the value is stored in <i>other</i> and any further changes to <code>thing.foo</code> will have no effect on <code>other.foo</code>. When <code>other.test()</code> is called, its <i>this</i> parameter contains a reference to <i>other</i> instead of <i>thing</i>.</p>
+<p>この場合、<i>other</i>は <i>thing</i>から<i>foo</i>と <i>test</i>を継承する。この継承は動的なので、<code>thing.foo</code>が変更されると、その変更は<code>other.foo</code>に反映される。スクリプトが<code>other.foo</code>に代入した場合、その値は<i>other</i>に格納され、<code>thing.foo</code>をさらに変更しても<code>other.foo</code>には影響しません。<code>other.test()</code>が呼び出されると、<i>this</i>パラメータには<i>thing</i>の代わりに<i>other</i>への参照が含まれる。</p>
 
-<h3 id="Custom_Classes">Classes</h3>
-<blockquote>In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
-<a href="https://en.wikipedia.org/wiki/Class_(computer_programming)" class="source">Wikipedia</a></blockquote>
-<p>In more general terms, a <em>class</em> is a set or category of things having some property or attribute in common. In AutoHotkey, a <code>class</code> defines properties to be shared by instances of the class (and methods, which are callable properties). An <em>instance</em> is just an object which inherits properties from the class, and can typically also be identified as belonging to that class (such as with the expression <code><i>instance</i> is <i>ClassName</i></code>). Instances are typically created by calling <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>.</p>
-<p>Since <a href="lib/Object.htm">Objects</a> are <a href="#ad-hoc">dynamic</a> and <a href="#delegation">prototype-based</a>, each class consists of two parts:</p>
+<h3 id="Custom_Classes">クラス</h3>
+<blockquote>オブジェクト指向プログラミングでは、クラスはオブジェクトを作成するための拡張可能なプログラム・コード・テンプレートであり、状態の初期値（メンバ変数）や動作の実装（メンバ関数またはメソッド）を提供する。<a href="https://en.wikipedia.org/wiki/Class_(computer_programming)" class="source">ウィキペディア</a></blockquote>
+<p>より一般的な言い方をすれば、<em>クラス</em>とは、何らかの特性や属性を共通に持つ物事の集合やカテゴリーのことである。AutoHotkeyでは、<code>クラス</code>はそのクラスのインスタンスで共有されるプロパティ（および呼び出し可能なプロパティであるメソッド）を定義します。<em>インスタンス</em>とは、クラスからプロパティを継承したオブジェクトのことで、通常はそのクラスに属していることを識別することもできます（<code><i>instance</i>is<i>ClassName</i>という</code>表現など）。インスタンスは通常、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>を呼び出して作成します。</p>
+<p><a href="lib/Object.htm">オブジェクト</a>は <a href="#ad-hoc">動的</a>で<a href="#delegation">プロトタイプベース</a>なので、各クラスは2つの部分で構成される：</p>
 <ul>
-  <li>The class has a <a href="lib/Class.htm#Prototype">Prototype</a> object, on which all instances of the class are based. All methods and dynamic properties that apply to instances of the class are contained by the prototype object. This includes all properties and methods which lack the <code>static</code> keyword.</li>
-  <li>The class itself is an object, containing only static methods and properties. This includes all properties and methods with the <code>static</code> keyword, and all nested classes. These do not apply to a specific instance, and can be used by referring to the class itself by name.</li>
+  <li>クラスには<a href="lib/Class.htm#Prototype">Prototype</a>オブジェクトがあり、このオブジェクトを基にクラスのすべてのインスタンスが作られる。クラスのインスタンスに適用されるすべてのメソッドとダイナミック・プロパティは、プロトタイプ・オブジェクトに含まれている。これには、<code>static</code>キーワードを持たないすべてのプロパティとメソッドが含まれる。</li>
+  <li>クラスそのものはオブジェクトで、静的メソッドとプロパティだけを含んでいる。これには、<code>static</code>キーワードを持つすべてのプロパティとメソッド、およびすべてのネストされたクラスが含まれます。これらは特定のインスタンスには適用されず、クラス自体を名前で参照することで使用できる。</li>
 </ul>
-<p>The following shows most of the elements of a class definition:</p>
+<p>以下に、クラス定義のほとんどの要素を示す：</p>
 <pre>class ClassName extends BaseClassName
 {
     InstanceVar := <i>Expression</i>
@@ -282,46 +281,46 @@ ShortProperty
 ShorterProperty =&gt; <i>Expression which calculates property value</i>
 }
 </pre>
-<p>When the script is loaded, this constructs a <a href="lib/Class.htm">Class</a> object and stores it in a <a href="Functions.htm#Global">global</a> constant (read-only variable) with the name <i>ClassName</i>. If <code>extends BaseClassName</code> is present, <i>BaseClassName</i> must be the full name of another class. The full name of each class is stored in <code><i>ClassName</i>.Prototype.__Class</code>.</p>
-<p>Because the class itself is accessed through a variable, the class name cannot be used to both reference the class and create a separate variable (such as to hold an instance of the class) in the same context. For example, <code>box := Box()</code> will not work, because <code>box</code> and <code>Box</code> both resolve to the same thing. Attempting to reassign a top-level (not nested) class in this manner results in a load time error.</p>
-<p>Within this documentation, the word "class" on its own usually means a class object constructed with the <code>class</code> keyword.</p>
-<p>Class definitions can contain variable declarations, method definitions and nested class definitions.</p>
+<p>スクリプトがロードされると、<a href="lib/Class.htm">Class</a>オブジェクトが構築され、<i>ClassName</i>という名前の<a href="Functions.htm#Global">グローバル</a>定数（読み取り専用変数）に格納されます。<code>extends BaseClassName</code>がある場合、<i>BaseClassName</i>は他のクラスの完全な名前でなければならない。各クラスの完全な名前は<code><i>ClassName</i>.Prototype.__Class</code>に格納されます。</p>
+<p>クラス自体は変数を通してアクセスされるため、クラス名を使用してクラスを参照し、同じコンテキストで別の変数（クラスのインスタンスを保持するなど）を作成することはできません。例えば、<code>box := Box()</code>は、<code>box</code>も <code>Box</code>も同じものに解決されるため、機能しない。この方法でトップ・レベルの（入れ子になっていない）クラスを再割り当てしようとすると、ロード・タイム・エラーになります。</p>
+<p>この文書では、「クラス」という単語は通常、<code>class</code>キーワードで構築されたクラス・オブジェクトを意味する。</p>
+<p>クラス定義には、変数宣言、メソッド定義、ネストされたクラス定義を含めることができます。</p>
 
-<h4 id="Custom_Classes_var">Instance Variables</h4>
-<p>An <em>instance variable</em> is one that each instance of the class has its own copy of. They are declared and behave like normal assignments, but the <code>this.</code> prefix is omitted (only directly within the class body):</p>
+<h4 id="Custom_Classes_var">インスタンス変数</h4>
+<p><em>インスタンス変数</em>とは、クラスの各インスタンスがそれ自身のコピーを持つ変数である。これらは宣言され、通常の代入と同じように振る舞いますが、<code>this.</code>接頭辞は省略されます（クラス本体内でのみ）：</p>
 <pre>InstanceVar := Expression</pre>
-<p>These declarations are evaluated each time a new instance of the class is created with <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>, after all base-class declarations are evaluated but before <a href="#Custom_NewDelete">__New</a> is called. This is achieved by automatically creating a method named <em>__Init</em> containing a call to <code>super.__Init()</code> and inserting each declaration into it. Therefore, a single class definition must not contain both an __Init method and an instance variable declaration.</p>
-<p><em>Expression</em> can access other instance variables and methods via <code>this</code>. Global variables may be read, but not assigned. An additional assignment (or use of the <a href="Variables.htm#ref">reference operator</a>) within the expression will generally create a variable local to the __Init method. For example, <code>x := y := 1</code> would set <code>this.x</code> and a local variable <code>y</code> (which would be freed once all initializers have been evaluated).</p>
-<p>To access an instance variable (even within a method), always specify the target object; for example, <code><b>this</b>.InstanceVar</code>.</p>
-<p>Declarations like <code>x.y := z</code> are also supported, provided that <code>x</code> was previously defined in this class. For example, <code>x := {}, x.y := 42</code> declares <code>x</code> and also initializes <code>this.x.y</code>.</p>
+<p>これらの宣言は、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>でクラスの新しいインスタンスが生成されるたびに評価され、すべての基本クラス宣言が評価された後、<a href="#Custom_NewDelete">__New</a>が呼ばれる前に評価されます。これは、<code>super.__Init(</code>)への呼び出しを含む<em>__Init</em>という名前のメソッドを自動的に作成し、そこに各宣言を挿入することで実現される。したがって、1つのクラス定義に__Initメソッドとインスタンス変数宣言の両方を含めることはできません。</p>
+<p><em>式</em>は <code>これ</code>を介して他のインスタンス変数やメソッドにアクセスできる。グローバル変数は読み込むことはできるが、代入することはできない。式の中で追加の代入（または<a href="Variables.htm#ref">参照演算子</a>の使用）を行うと、一般的に__Initメソッドのローカル変数が作成される。例えば、<code>x := y := 1</code>とすると、<code>this.x</code>とローカル変数<code>y</code>が設定される（初期化子がすべて評価されると解放される）。</p>
+<p>インスタンス変数にアクセスするには（メソッド内であっても）、例えば、<code><b>this</b>.InstanceVar</code>のようにします。</p>
+<p><code>x.y:=z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code>this.x.y</code>も初期化する。</p>
 
 <h4 id="Custom_Classes_staticvar">静的クラス変数</h4>
-<p>Static/class variables belong to the class itself, but their values can be inherited by subclasses. They are declared like instance variables, but using the static keyword:</p>
+<p>静的変数/クラス変数はクラスそのものに属しますが、その値はサブクラスに継承させることができます。インスタンス変数と同じように、staticキーワードを使って宣言する：</p>
 <pre>static ClassVar := Expression</pre>
-<p>These declarations are evaluated only once, when the class is <a href="#static__New">initialized</a>. A static method named <em>__Init</em> is automatically defined for this purpose.</p>
-<p>Each declaration acts as a normal property assignment, with the class object as the target. <em>Expression</em> has the same interpretation as for instance variables, except that <code>this</code> refers to the class itself.</p>
-<p>To assign to a class variable anywhere else, always specify the class object; for example, <code><b>ClassName</b>.ClassVar := Value</code>. If a subclass does not own a property by that name, <code><i>Subclass</i>.ClassVar</code> can also be used to retrieve the value; so if the value is a reference to an object, subclasses will share that object by default. However, <code><i>Subclass</i>.ClassVar := y</code> would store the value in <em>Subclass</em>, not in <em>ClassName</em>.</p>
-<p>Declarations like <code>static x.y := z</code> are also supported, provided that <code>x</code> was previously defined in this class. For example, <code>static x := {}, x.y := 42</code> declares <code>x</code> and also initializes <code><i>ClassName</i>.x.y</code>.  Because <a href="lib/Class.htm#Prototype">Prototype</a> is implicitly defined in each class, <code>static Prototype.sharedValue := 1</code> can be used to set values which are dynamically inherited by all instances of the class (until shadowed by a property on the instance itself).</p>
+<p>これらの宣言は、クラスが<a href="#static__New">初期化</a>されるときに一度だけ評価される。この目的のために、<em>__Init</em>という静的メソッドが自動的に定義される。</p>
+<p>各宣言は、クラス・オブジェクトをターゲットとして、通常のプロパティ割り当てとして動作します。<em>式</em>は、<code>this</code>がクラス自身を参照することを除いて、インスタンス変数と同じ解釈をする。</p>
+<p>例えば、<code><b>ClassName</b>.ClassVar := Value</code>のようにします。サブクラスがその名前のプロパティを所有していない場合、<code><i>Subclass</i>.ClassVar</code>を使用して値を取得することもできます。したがって、値がオブジェクトへの参照である場合、サブクラスはデフォルトでそのオブジェクトを共有します。ただし、<code><i>Subclass</i>.ClassVar := y</code>は、<em>ClassName</em>ではなく<em>Subclass</em>に値を格納します。</p>
+<p><code>static x.y := z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>static x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code><i>ClassName</i>.x.y</code>も初期化します。<a href="lib/Class.htm#Prototype">Prototype</a>は各クラスで暗黙的に定義されているため、<code>static Prototype.sharedValue := 1</code>を使用すると、クラスのすべてのインスタンスに動的に継承される値を設定できます（インスタンス自体のプロパティによってシャドウされるまで）。</p>
 
-<h4 id="Custom_Classes_class">Nested Classes</h4>
-<p>Nested class definitions allow a class object to be associated with a static/class variable of the outer class instead of a separate global variable. In the example above, <code>class NestedClass</code> constructs a <a href="lib/Class.htm">Class</a> object and stores it in <code>ClassName.NestedClass</code>. Subclasses could inherit <em>NestedClass</em> or override it with their own nested class (in which case <code>(<i>WhichClass</i>.NestedClass)()</code> could be used to instantiate whichever class is appropriate).</p>
+<h4 id="Custom_Classes_class">入れ子のクラス</h4>
+<p>入れ子になったクラス定義では、クラス・オブジェクトを別のグローバル変数ではなく、外側のクラスの静的/クラス変数に関連付けることができます。上記の例では、<code>NestedClassクラス</code>が <a href="lib/Class.htm">Class</a>オブジェクトを構築し、<code>ClassName.NestedClass</code>に格納しています。サブクラスは、<em>NestedClass</em>を継承するか、独自のネスト・クラスでオーバーライドすることができます（この場合、<code>(<i>WhichClass</i>.NestedClass)()</code>を使用して、適切なクラスをインスタンス化できます）。</p>
 <pre>
 class NestedClass
 {
     ...
 }
 </pre>
-<p>Nesting a class does not imply any particular relationship to the outer class. The nested class is not instantiated automatically, nor do instances of the nested class have any connection with an instance of the outer class, unless the script explicitly makes that connection.</p>
-<p>However, due to the way methods work for <a href="lib/Object.htm">Objects</a>, <code><i>WhichClass</i>.NestedClass()</code> implicitly passes <em>WhichClass</em> as the first parameter, equivalent to <code><i>WhichClass</i>.NestedClass.Call(<i>WhichClass</i>)</code>. Unless <code>static Call()</code> is overridden, this parameter is automatically passed to <a href="#Custom_NewDelete">__New</a>.</p>
+<p>クラスを入れ子にすることは、外側のクラスとの特定の関係を意味するものではない。ネストされたクラスは自動的にインスタンス化されないし、ネストされたクラスのインスタンスは、スクリプトが明示的にその接続を行わない限り、アウター・クラスのインスタンスとの接続を持たない。</p>
+<p>しかし、<a href="lib/Object.htm">オブジェクト</a>に対するメソッドの動作方法のため、<code><i>WhichClass</i>.NestedClass()</code>は、<em>WhichClass</em>を最初のパラメータとして暗黙的に渡しており、<code><i>WhichClass</i>.NestedClass.Call(<i>WhichClass</i>)</code>と同等です。<code>static Call()</code>がオーバーライドされない限り、このパラメータは自動的に<a href="#Custom_NewDelete">__New</a>に渡される。</p>
 
 <h4 id="Custom_Classes_method">メソッド</h4>
-<p>Method definitions look identical to function definitions. Each method definition creates a <a href="lib/Func.htm">Func</a> with a hidden first parameter named <code>this</code>, and defines a property which is used to call the method or retrieve its function object.</p>
-<p>There are two types of methods:</p>
+<p>メソッド定義は関数定義と同じように見える。各メソッド定義は、<code>this</code>という名前の隠された第1パラメータを持つ<a href="lib/Func.htm">Func</a>を作成し、メソッドの呼び出しやその関数オブジェクトの取得に使用されるプロパティを定義する。</p>
+<p>方法には2種類ある：</p>
 <ul>
-  <li>Instance methods are defined as below, and are attached to the class's <a href="lib/Class.htm#Prototype">Prototype</a>, which makes them accessible via any instance of the class. When the method is called, <code>this</code> refers to an instance of the class.</li>
-  <li>Static methods are defined by preceding the method name with the separate keyword <code>static</code>. These are attached to the class object itself, but are also inherited by subclasses, so <code>this</code> refers to either the class itself or a subclass.</li>
+  <li>インスタンス・メソッドは以下のように定義され、クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>にアタッチされます。メソッドが呼ばれると、<code>これ</code>はクラスのインスタンスを参照する。</li>
+  <li>静的メソッドは、メソッド名の前に個別のキーワード<code>static</code>を付けて定義します。これらはクラス・オブジェクト自体に付属していますが、サブクラスにも継承されます。</li>
 </ul>
-<p>The method definition below creates a property of the same type as <code><i>target</i>.DefineProp('Method', {call: <i>funcObj</i>})</code>. By default, <code><i>target</i>.Method</code> returns <em>funcObj</em> and attempting to assign to <code><i>target</i>.Method</code> throws an error. These defaults can be overridden by <a href="#Custom_Classes_property">defining a property</a> or calling <a href="lib/Object.htm#DefineProp">DefineProp</a>.</p>
+<p>以下のメソッド定義では、<code><i>target</i>.DefineProp('Method', {call：<i>funcObj</i>})</code>. デフォルトでは、<code><i>target</i>.Method</code>は <em>funcObj</em>を返し、<code><i>target</i>.Method</code>に代入しようとするとエラーがスローされます。これらのデフォルトは、<a href="#Custom_Classes_property">プロパティを定義</a>するか<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すことでオーバーライドできます。</p>
 <pre>
 Method()
 {
@@ -329,22 +328,22 @@ Method()
 }
 </pre>
 
-<p><a href="Variables.htm#fat-arrow">Fat arrow syntax</a> can be used to define a single-line method which returns an expression:</p>
+<p><a href="Variables.htm#fat-arrow">ファット・アロー構文</a>は、式を返す単一行のメソッドを定義するために使用できます：</p>
 <pre>Method() =&gt; <i>Expression</i></pre>
 
 <h4 id="Custom_Classes_super">Super</h4>
-<p>Inside a method or a property getter/setter, the keyword <code>super</code> can be used in place of <code>this</code> to access the superclass versions of methods or properties which are overridden in a derived class. For example, <code>super.Method()</code> in the class defined above would typically call the version of <em>Method</em> which was defined within <em>BaseClassName</em>. 注：</p>
+<p>メソッドやプロパティのゲッター/セッターの内部では、派生クラスでオーバーライドされているメソッドやプロパティのスーパークラスのバージョンにアクセスするために、<code>this</code>の代わりに<code>super</code>キーワードを使用することができます。例えば、上で定義したクラスの<code>super.Method()</code>は、通常、<em>BaseClassName</em>の中で定義されたバージョンの<em>Method</em>を呼び出します。注：</p>
 <ul>
-  <li><code>super.Method()</code> always invokes the base of the class or prototype object associated with the current method's original definition, even if <code>this</code> is derived from a <em>subclass</em> of that class or some other class entirely.</li>
-  <li><code>super.Method()</code> implicitly passes <code>this</code> as the first (hidden) parameter.</li>
-  <li>Since it is not known where (or whether) <em>ClassName</em> exists within the chain of base objects, <em>ClassName</em> itself is used as the starting point. Therefore, <code>super.Method()</code> is mostly equivalent to <code>(<i>ClassName</i>.Prototype.base.Method)(this)</code> (but without <em>Prototype</em> when <em>Method</em> is static). However, <code><i>ClassName</i>.Prototype</code> is resolved at load time.</li>
-  <li>An error is thrown if the property is not defined in a superclass or cannot be invoked.</li>
+  <li><code>super.Method()</code>は、たとえ<code>それが</code>そのクラスの<em>サブクラスや</em>他のクラスから派生したものであっても、現在のメソッドの元の定義に関連付けられたクラスやプロトタイプオブジェクトのベースを常に呼び出します。</li>
+  <li><code>super.Method()</code>は、暗黙のうちに<code>これ</code>を最初の（隠し）パラメータとして渡す。</li>
+  <li><em>ClassName</em>がベース・オブジェクトの連鎖のどこに存在するか（あるいは存在するかどうか）は不明なので、<em>ClassName</em>自体が開始点として使用される。したがって、<code>super.Method()</code>は、<code>(<i>ClassName</i>.Prototype.base.Method)(this)</code>とほぼ等価である（ただし、<em>Method</em>がstaticの場合は<em>Prototype</em>を含まない）。しかし、<code><i>ClassName</i>.Prototype</code>はロード時に解決される。</li>
+  <li>そのプロパティがスーパークラスで定義されていないか、呼び出すことができない場合はエラーがスローされる。</li>
 </ul>
-<p>The keyword <code>super</code> must be followed by one of the following symbols: <code>.[(</code></p>
-<p><code>super()</code> is equivalent to <code>super.call()</code>.</p>
+<p>キーワード<code>super</code>の後には、以下の記号のいずれかをつけなければならない：<code>.[(</code></p>
+<p><code>super()</code>は<code>super.call()</code>と等価である。</p>
 
 <h4 id="Custom_Classes_property">属性</h4>
-<p>A property definition creates a <a href="lib/Object.htm#DefineProp">dynamic property</a>, which calls a method instead of simply storing or returning a value.</p>
+<p>プロパティ定義は、単に値を格納したり返したりするのではなく、メソッドを呼び出す<a href="lib/Object.htm#DefineProp">動的プロパティ</a>を作成します。</p>
 <pre>Property[<i>Parameters</i>]
 {
     <span class="dec">get</span> {
@@ -355,33 +354,33 @@ Method()
     }
 }
 </pre>
-<p><em>Property</em> is simply the name of the property, which will be used to invoke it. For example, <code>obj.Property</code> would call <em>get</em> while <code>obj.Property := value</code> would call <em>set</em>. Within <em>get</em> or <em>set</em>, <code>this</code> refers to the object being invoked. Within <em>set</em>, <code>value</code> contains the value being assigned.</p>
-<p>Parameters can be defined by enclosing them in square brackets to the right of the property name, and are passed the same way - but they should be omitted when parameters are not present (see below). Aside from using square brackets, parameters of properties are defined the same way as parameters of methods - optional, ByRef and variadic parameters are supported.</p>
-<p>If a property is invoked with parameters but has none defined, parameters are automatically forwarded to the <a href="#__Item">__Item</a> property of the object returned by <em>get</em>. For example, <code>this.Property[x]</code> would have the same effect as <code>(this.Property)[x]</code> or <code>y := this.Property, y[x]</code>. Empty brackets (<code>this.Property[]</code>) always cause the __Item property <em>of Property's value</em> to be invoked, but a variadic call such as <code>this.Property[args*]</code> has this effect only if the number of parameters is non-zero.</p>
-<p>Static properties can be defined by preceding the property name with the separate keyword <code>static</code>. In that case, <code>this</code> refers to the class itself or a subclass.</p>
-<p>The return value of <em>set</em> is ignored. For example, <code>val := obj.Property := 42</code> always assigns <code>val := 42</code> regardless of what the property does, unless it throws an exception or exits the thread.</p>
-<p>Each class can define one or both halves of a property. If a class overrides a property, it can use <code><a href="#Custom_Classes_super">super.Property</a></code> to access the property defined by its base class. If <em>Get</em> or <em>Set</em> is not defined, it can be inherited from a base object. If <em>Get</em> is undefined, the property can return a value inherited from a base. If <em>Set</em> is undefined in this and all base objects (or is obscured by an inherited value property), attempting to set the property causes an exception to be thrown.</p>
-<p>A property definition with both <em>get</em> and <em>set</em> actually creates two separate functions, which do not share local or static variables or nested functions. As with methods, each function has a hidden parameter named <code>this</code>, and <em>set</em> has a second hidden parameter named <code>value</code>. Any explicitly defined parameters come after those.</p>
-<p>While a property definition defines the <em>get</em> and <em>set</em> accessor functions for a property in the same way as <a href="lib/Object.htm#DefineProp">DefineProp</a>, a method definition defines the <em>call</em> accessor function. Any class may contain a property definition and a method definition with the same name. If a property without a <em>call</em> accessor function (a method) is called, <em>get</em> is invoked with no parameters and the result is then called as a method.</p>
+<p><em>Property</em>は単にプロパティの名前であり、このプロパティを呼び出すために使用される。例えば、<code>obj.Property</code>は <em>get</em>を呼び、<code>obj.Property :=value</code>は <em>set</em>を呼びます。<em>get</em>または<em>set</em>の中では、<code>これ</code>は呼び出されるオブジェクトを指す。<em>セット</em>内では、<code>value</code>に代入される値が含まれる。</p>
+<p>パラメータは、プロパティ名の右側に角括弧で囲んで定義することができ、同じように渡されます - ただし、パラメータが存在しない場合は省略する必要があります（下記参照）。角括弧を使用することを除けば、プロパティのパラメータはメソッドのパラメータと同じように定義され、オプショナル、ByRef、バリアディックパラメータに対応しています。</p>
+<p>プロパティがパラメータ付きで呼び出され、何も定義されていない場合、パラメータは自動的に<em>get</em>によって返されるオブジェクトの<a href="#__Item">__Item</a>プロパティに転送される。例えば、<code>this.Property[x]</code>は、<code>(this.Property)[x]</code>または<code>y := this.Property, y[x]</code>と同じ効果を持つ。空括弧（<code>this.Property[]</code>）は、常に<em>Propertyの値</em>の__Itemプロパティを呼び出しますが、<code>this.Property[args*]</code>のようなバリアディック呼び出しは、パラメータの数がゼロでない場合にのみ、この効果を持ちます。</p>
+<p>スタティック・プロパティは、プロパティ名の前に<code>static</code>という個別のキーワードを付けて定義することができます。その場合、<code>this</code>はクラスそのものかサブクラスを指す。</p>
+<p><em>set</em>の戻り値は無視される。例えば、<code>val := obj.Property := 42</code>は、例外をスローするかスレッドを終了しない限り、プロパティが何をするかに関係なく、常に<code>val := 42</code>を代入する。</p>
+<p>各クラスはプロパティの片方または両方を定義できる。クラスがプロパティをオーバーライドする場合は <code><a href="#Custom_Classes_super">super.Property</a></code>を使用して、ベース・クラスで定義されたプロパティにアクセスできます。<em>Get</em>または<em>Set</em>が定義されていない場合は、ベース・オブジェクトから継承することができる。<em>Get</em>が未定義の場合、プロパティはベースから継承した値を返すことができます。<em>Set</em>がこのオブジェクトとすべてのベースオブジェクトで未定義である場合（または継承された値プロパティによって隠されている場合）、プロパティを設定しようとすると例外がスローされます。</p>
+<p><em>get</em>と <em>set</em>の両方を持つプロパティ定義は、実際には2つの別々の関数を作成し、ローカル変数や静的変数、入れ子関数を共有することはありません。メソッドと同様、各関数には<code>this</code>という隠しパラメータがあり、<em>set</em>には <code>value</code>という2番目の隠しパラメータがある。明示的に定義されたパラメータはその後に来る。</p>
+<p>プロパティ定義では、<a href="lib/Object.htm#DefineProp">DefineProp</a>と同じようにプロパティの<em>get</em>と <em>set</em>のアクセサ関数を定義しますが、メソッド定義では<em>呼び出し</em>のアクセサ関数を定義します。どのクラスも、同じ名前のプロパティ定義とメソッド定義を含むことができる。<em>呼び出し</em>アクセッサ関数（メソッド）を持たないプロパティが呼び出された場合、<em>get</em>はパラメータなしで呼び出され、その結果はメソッドとして呼び出される。</p>
 
-<h4 id="Custom_Classes_property_short">Fat Arrow Properties</h4>
-<p><a href="Variables.htm#fat-arrow">Fat arrow syntax</a> can be used to define a <a href="#Custom_Classes_property">property</a> getter or setter which returns an expression:</p>
+<h4 id="Custom_Classes_property_short">ファット・アロー・プロパティーズ</h4>
+<p><a href="Variables.htm#fat-arrow">ファット・アロー構文</a>を使用すると、式を返す<a href="#Custom_Classes_property">プロパティ・ゲッター</a>またはセッターを定義できます：</p>
 <pre>ShortProperty[<i>Parameters</i>]
 {
     <span class="dec">get</span> =&gt; <i>Expression which calculates property value</i>
     <span class="dec">set</span> =&gt; <i>Expression which stores or otherwise handles</i> <span class="biv">value</span>
 }</pre>
-<p>When defining only a getter, the braces and <code>get</code> can be omitted:</p>
+<p>ゲッターだけを定義する場合、中括弧と<code>get</code>は省略できる：</p>
 <pre>ShorterProperty[<i>Parameters</i>] =&gt; <i>Expression which calculates property value</i></pre>
-<p>In both cases, the square brackets must be omitted unless parameters are defined.</p>
+<p>いずれの場合も、パラメータが定義されていない限り、角括弧は省略しなければならない。</p>
 
 <h3 id="__Enum">__Enum Method</h3>
 <pre class="Syntax">__Enum(NumberOfVars)</pre>
-<p>The __Enum method is called when the object is passed to a <a href="lib/For.htm">for-loop</a>. This method should return an <a href="lib/Enumerator.htm">enumerator</a> which will return items contained by the object, such as array elements. If left undefined, the object cannot be passed directly to a for-loop unless it has an <a href="lib/Enumerator.htm#Call">enumerator-compatible Call method</a>.</p>
-<p><em>NumberOfVars</em> contains the number of variables passed to the for-loop. If <em>NumberOfVars</em> is 2, the enumerator is expected to assign the key or index of an item to the first parameter and the value to the second parameter. Each key or index should be accepted as a parameter of the <a href="#__Item">__Item</a> property. This enables <a href="AHKL_DBGPClients.htm">DBGp-based debuggers</a> to get or set a specific item after listing them by invoking the enumerator.</p>
+<p>Enumメソッドは、オブジェクトが<a href="lib/For.htm">forループ</a>に渡されるときに呼び出される。このメソッドは、配列要素など、オブジェクトに含まれる項目を返す<a href="lib/Enumerator.htm">列挙子</a>を返す必要があります。未定義のままだと、<a href="lib/Enumerator.htm#Call">列挙子と互換性のあるCallメソッド</a>を持たない限り、オブジェクトを直接forループに渡すことはできない。</p>
+<p><em>NumberOfVars</em>には、forループに渡される変数の数が入る。<em>NumberOfVars</em>が2の場合、列挙者は項目のキーまたはインデックスを最初のパラメータに、値を2番目のパラメータに代入することが期待される。各キーまたはインデックスは、<a href="#__Item">__Item</a>プロパティのパラメータとして受け入れられるべきである。これにより、<a href="AHKL_DBGPClients.htm">DBGpベースのデバッガ</a>は、列挙器を呼び出して項目をリストアップした後、特定の項目を取得または設定できるようになる。</p>
 
 <h3 id="__Item">__Item Property</h3>
-<p>The __Item property is invoked when the indexing operator (array syntax) is used with the object. In the following example, the property is declared as static so that the indexing operator can be used on the Env class itself. For another example, see <a href="#Array2D">Array2D</a>.</p>
+<p>Itemプロパティは、インデックス演算子（配列構文）がオブジェクトと共に使用されるときに呼び出される。以下の例では、Envクラス自体でインデックス演算子を使用できるように、プロパティはstaticとして宣言されています。他の例としては、<a href="#Array2D">Array2D</a>を参照。</p>
 <pre>class Env {
     static __Item[name] {
         get =&gt; EnvGet(name)
@@ -393,8 +392,8 @@ Env["PATH"] .= ";" A_ScriptDir  <em>; Only affects this script and child process
 MsgBox Env["PATH"]</pre>
 <p><code>__Item</code> is effectively a default property name (if such a property has been defined):</p>
 <ul>
-  <li><code><i>object</i>[<i>params</i>]</code> is equivalent to <code><i>object</i>.__Item[<i>params</i>]</code> when there are parameters.</li>
-  <li><code><i>object</i>[]</code> is equivalent to <code><i>object</i>.__Item</code>.</li>
+  <li>パラメータがある場合、<code><i>object</i>[<i>params</i>]</code>は<code><i>object</i>.__Item[<i>params</i>]</code>と等価である。</li>
+  <li><code><i>object</i>[]</code>は<code><i>object</i>.__Item</code>と等価である。</li>
 </ul>
 <p>事例：</p>
 <pre>
@@ -404,10 +403,10 @@ obj["base"] := 10
 MsgBox obj.base = Object.prototype  <em>; True</em>
 MsgBox obj["base"]                  <em>; 10</em>
 </pre>
-<p class="note"><strong>Note:</strong> When an explicit property name is combined with empty brackets, as in <code>obj.prop[]</code>, it is handled as two separate operations: first retrieve <code>obj.prop</code>, then invoke the default property of the result. This is part of the language syntax, so is not dependent on the object.</p>
+<p class="note"><strong>注意：</strong> <code>obj.prop[]</code>のように、明示的なプロパティ名が空括弧と組み合わされている場合、それは2つの別々の操作として扱われます：まず<code>obj.prop</code>を取得し、次に結果のデフォルト・プロパティを呼び出します。これは言語構文の一部であり、オブジェクトに依存するものではない。</p>
 
-<h3 id="Custom_NewDelete">Construction and Destruction</h3>
-<p>Whenever an object is created by the default implementation of <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>, the new object's <code>__New</code> method is called in order to allow custom initialization. Any parameters passed to <code><i>ClassName</i>()</code> are forwarded to <code>__New</code>, so can affect the object's initial content or how it is constructed. When an object is destroyed, <code>__Delete</code> is called. 事例：</p>
+<h3 id="Custom_NewDelete">コンストラクタとデストラクタ</h3>
+<p><a href="lib/Class.htm#Call"><em>ClassName</em>()</a>のデフォルト実装によってオブジェクトが生成されるたびに、新しいオブジェクトの<code>__New</code>メソッドが呼び出されます。<code><i>ClassName</i>()</code>に渡されたパラメータはすべて<code>__New</code>に転送されるため、オブジェクトの初期内容や構築方法に影響を与える可能性があります。オブジェクトが破棄されると、<code>__Delete</code>が呼ばれる。事例：</p>
 <pre>m1 := GMem(0, 10)
 m2 := {base:GMem.Prototype}, m2.__New(0, 30)
 
@@ -428,18 +427,18 @@ __Delete()
         DllCall("GlobalFree", "Ptr", this.ptr)
     }
 }</pre>
-<p>__Delete is not called for any object which owns a property named "__Class". <a href="lib/Class.htm#Prototype">Prototype objects</a> have this property by default.</p>
-<p>If an exception or runtime error is thrown while __Delete is executing and is not handled within __Delete, it acts as though __Delete was called from a new <a href="misc/Threads.htm">thread</a>. That is, an error dialog is displayed and __Delete returns, but the thread does not exit (unless it was already exiting).</p>
-<p>If the script is directly terminated by any means, including the tray menu or <a href="lib/ExitApp.htm">ExitApp</a>, any functions which have yet to return do not get the chance to do so. Therefore, any objects referenced by local variables of those functions are not released, so __Delete is not called.</p>
-<p>When the script exits, objects contained by global and static variables are released automatically in an arbitrary, implementation-defined order. When __Delete is called during this process, some global or static variables may have already been released, but any references contained by the object itself are still valid. It is therefore best for __Delete to be entirely self-contained, and not rely on any global or static variables.</p>
+<p>__Deleteは、"__Class"というプロパティを所有するオブジェクトに対しては呼び出されません。<a href="lib/Class.htm#Prototype">プロトタイプ・オブジェクト</a>はデフォルトでこのプロパティを持っている。</p>
+<p>Deleteの実行中に例外または実行時エラーがスローされ、__Delete内で処理されない場合、__Deleteは新しい<a href="misc/Threads.htm">スレッド</a>から呼び出されたかのように動作します。つまり、エラー・ダイアログが表示され、__Deleteが戻るが、スレッドは終了しない（すでに終了していた場合を除く）。</p>
+<p>トレイメニューや<a href="lib/ExitApp.htm">ExitApp</a>など、何らかの手段でスクリプトが直接終了した場合、まだ戻っていない関数はその機会を得られない。したがって、これらの関数のローカル変数によって参照されるオブジェクトは解放されないので、__Deleteは呼び出されない。</p>
+<p>スクリプトが終了すると、グローバル変数と静的変数に含まれるオブジェクトは、実装で定義された任意の順序で自動的に解放される。この処理中に__Deleteが呼ばれた場合、グローバル変数やスタティック変数はすでに解放されている可能性があるが、オブジェクト自身が含む参照はまだ有効である。したがって、__Deleteは完全に自己完結型とし、グローバル変数や静的変数に依存しないのがベストである。</p>
 
-<h4 id="static__New">Class Initialization</h4>
-<p>Each class is initialized automatically when a reference to the class is evaluated for the first time. For example, if <em>MyClass</em> has not yet been initialized, <code>MyClass.MyProp</code> would cause the class to be initialized before the property is retrieved. Initialization consists of calling two static methods: __Init and __New.</p>
-<p><code>static __Init</code> is defined automatically for every class, and always begins with a reference to the base class if one was specified, to ensure it is initialized. <a href="#Custom_Classes_staticvar">Static/class variables</a> and <a href="#Custom_Classes_class">nested classes</a> are initialized in the order that they were defined, except when a nested class is referenced during initialization of a previous variable or class.</p>
-<p>If the class defines or inherits a <code>static __New</code> method, it is called immediately after __Init. It is important to note that __New may be called once for the class in which it is defined <em>and</em> once for each subclass which does not define its own (or which calls <code>super.__New()</code>). This can be used to perform common initialization tasks for each subclass, or modify subclasses in some way before they are used.</p>
-<p>If <code>static __New</code> is not intended to act on derived classes, that can be avoided by checking the value of <code>this</code>. In some cases it may be sufficient for the method to delete itself, such as with <code>this.DeleteProp('__New')</code>; however, the first execution of __New might be for a subclass if one is nested in the base class or referenced during initialization of a static/class variable.</p>
-<p>A class definition also has the effect of referencing the class. In other words, when execution reaches a class definition during <a href="Scripts.htm#auto">script startup</a>, __Init and __New are called automatically, unless the class was already referenced by the script. However, if execution is prevented from reaching the class definition, such as by <code>return</code> or an infinite loop, the class is initialized only if it is referenced.</p>
-<p>Once automatic initialization begins, it will not occur again for the same class. This is generally not a problem unless multiple classes refer to each other. For example, consider the two classes below. When <code>A</code> is initialized first, evaluating <code>B.SharedArray</code> (A1) causes <code>B</code> to be initialized before retrieving and returning the value, but <code>A.SharedValue</code> (A3) is undefined and does not cause initialization of <code>A</code> because it is already in progress. In other words, if <code>A</code> is accessed or initialized first, the order is A1 to A3; otherwise it is B1 to B4:</p>
+<h4 id="static__New">クラスの初期化</h4>
+<p>各クラスは、そのクラスへの参照が初めて評価されるときに自動的に初期化される。例えば、<em>MyClass</em>がまだ初期化されていない場合、<code>MyClass.MyProp</code>はプロパティが取得される前にクラスを初期化します。初期化は、2つの静的メソッドを呼び出すことからなる：__Init and __New.</p>
+<p><code>static __Init</code>は、すべてのクラスに対して自動的に定義され、ベース・クラスが指定されていれば常にそのクラスへの参照から始まり、確実に初期化される。<a href="#Custom_Classes_staticvar">静的/クラス変数</a>と <a href="#Custom_Classes_class">ネストされたクラス</a>は、定義された順番に初期化されます。ただし、ネストされたクラスが前の変数やクラスの初期化中に参照された場合は除きます。</p>
+<p>クラスが<code>static __New</code>メソッドを定義または継承している場合、 __Init の直後に呼び出されます。__Newは、それが定義されているクラスに対して一度だけ呼び出されることに注意することが重要であり<em>そして</em>、定義されていないサブクラス（または<code>super.__New()</code>を呼び出すサブクラス）ではそれぞれ1回呼び出されるということです。これは、各サブクラスに対して共通の初期化タスクを実行したり、サブクラスを使用する前に何らかの方法で修正したりするために使用できる。</p>
+<p><code>static __New</code>が派生クラスに対して作用することを意図していない場合は、<code>this</code>の値をチェックすることで回避できる。場合によっては、<code>this.DeleteProp('__New')</code>のように、メソッド自体を削除すれば十分かもしれません。しかし、__Newの最初の実行は、サブクラスが基本クラスに入れ子になっている場合や、静的/クラス変数の初期化中に参照される場合があります。</p>
+<p>クラス定義は、クラスを参照する効果もある。言い換えると、<a href="Scripts.htm#auto">スクリプトの起動</a>中に実行がクラス定義に達すると、__Initと__Newが自動的に呼び出されます。しかし、<code>return</code>や無限ループなど、実行がクラス定義に到達できない場合は、クラスが参照されている場合のみ初期化される。</p>
+<p>一度自動初期化が開始されると、同じクラスで再び初期化が行われることはない。これは、複数のクラスが互いに参照し合わない限り、一般的には問題にはならない。例えば、以下の2つのクラスを考えてみよう。<code>A</code>が最初に初期化される場合、<code>B.SharedArray</code>（A1）を評価すると、値を取得して返す前に<code>B</code>が初期化されるが、<code>A.SharedValue</code>（A3）は未定義であり、すでに進行中のため<code>A</code>の初期化は起こらない。言い換えれば、<code>A</code>が最初にアクセスまたは初期化された場合、順番はA1からA3となり、そうでない場合はB1からB4となる：</p>
 <pre>MsgBox A.SharedArray.Length
 MsgBox B.SharedValue
 
@@ -465,33 +464,33 @@ class <i>ClassName</i> {
   <dt>名前</dt>
   <dd><p>プロパティまたはメソッドの名前です。</p></dd>
   <dt>Params</dt>
-  <dd><p>An <a href="lib/Array.htm">Array</a> of parameters. This includes only the parameters between <code>()</code> or <code>[]</code>, so may be empty. The meta-function is expected to handle cases such as <code>x.y[z]</code> where <code>x.y</code> is undefined.</p></dd>
+  <dd><p>パラメータの<a href="lib/Array.htm">配列</a>。これは、<code>()</code>または<code>[]</code>の間のパラメータのみを含むので、空でもよい。メタファンクションは、<code>x.</code> <code>y</code>が未定義の<code>x.y[z]</code>のようなケースを処理することが期待される。</p></dd>
   <dt>値</dt>
-  <dd><p>The value being assigned.</p></dd>
+  <dd><p>割り当てられている値。</p></dd>
 </dl>
-<p>Meta-functions define what happens when an undefined property or method is invoked. For example, if <code>obj.unk</code> has not been assigned a value, it invokes the <i>__Get</i> meta-function. Similarly, <code>obj.unk := value</code> invokes <i>__Set</i> and <code>obj.unk()</code> invokes <i>__Call</i>.</p>
-<p>Properties and methods can be defined in the object itself or any of its <a href="#delegation">base objects</a>. In general, for a meta-function to be called for every property, one must avoid defining any properties. Built-in properties such as <a href="lib/Object.htm#Base">Base</a> can be overridden with a <a href="#Custom_Classes_property">property definition</a> or <a href="lib/Object.htm#DefineProp">DefineProp</a>.</p>
-<p>If a meta-function is defined, it must perform whatever default action is required. For example, the following might be expected:</p>
+<p>メタファンクションは、未定義のプロパティやメソッドが呼び出されたときに何が起こるかを定義する。例えば、<code>obj.unk</code>に値が割り当てられていない場合、<i>__Get</i>メタファンクションを呼び出す。同様に、<code>obj.unk := value</code>は <i>__Set</i>を起動し、<code>obj.unk()</code>は<i>__Call</i>を起動する。</p>
+<p>プロパティとメソッドは、オブジェクト自身またはその<a href="#delegation">ベース・オブジェクト</a>のいずれかに定義することができる。一般的に、すべてのプロパティに対してメタファンクションを呼び出すには、プロパティを定義しないようにしなければならない。<a href="lib/Object.htm#Base">Base</a>のような組み込みプロパティは、<a href="#Custom_Classes_property">プロパティ定義</a>または<a href="lib/Object.htm#DefineProp">DefineProp</a>でオーバーライドできます。</p>
+<p>メタファンクションが定義されている場合、そのメタファンクションは必要なデフォルトアクションを実行しなければならない。例えば、次のようなことが予想される：</p>
 <ul>
   <li><i>Call</i>: Throw a <a href="lib/Error.htm#MethodError">MethodError</a>.</li>
-  <li>If parameters were given, throw an exception (there's no object to forward the parameters to).</li>
-  <li><i>Get</i>: Throw a <a href="lib/Error.htm#PropertyError">PropertyError</a>.</li>
-  <li><i>Set</i>: Define a new property with the given value, such as by calling <a href="lib/Object.htm#DefineProp">DefineProp</a>. </li>
+  <li>パラメータが与えられた場合は、例外を投げる（パラメータを転送するオブジェクトがない）。</li>
+  <li><i>Get</i>:<a href="lib/Error.htm#PropertyError">PropertyError</a>をスローする。</li>
+  <li><i>Set</i>:<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すなどして、指定された値を持つ新しいプロパティを定義する。 </li>
 </ul>
-<p>Any <a href="misc/Functor.htm">callable object</a> can be used as a meta-function by assigning it to the relevant property.</p>
-<p>Meta-functions are not called in the following cases:</p>
+<p><a href="misc/Functor.htm">呼び出し可能なオブジェクト</a>は、関連するプロパティに代入することで、メタファンクションとして使用することができる。</p>
+<p>メタファンクションは以下の場合には呼び出されない：</p>
 <ul>
-  <li><code>x[y]</code>: Using square brackets without a property name only invokes the <a href="#__Item">__Item</a> property.</li>
-  <li><code>x()</code>: Calling the object itself only invokes the <code>Call</code> method. This includes internal calls made by built-in functions such as <a href="lib/SetTimer.htm">SetTimer</a> and <a href="lib/Hotkey.htm">Hotkey</a>.</li>
-  <li>Internal calls to other meta-functions or double-underscore methods do not trigger <code>__Call</code>.</li>
+  <li><code>x[y]</code>:プロパティ名なしで角括弧を使用すると、<a href="#__Item">__Item</a>プロパティのみが呼び出されます。</li>
+  <li><code>x()</code>:オブジェクト自体を呼び出すと、<code>Call</code>メソッドが呼び出されるだけである。これには、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組込関数による内部呼び出しも含まれる。</li>
+  <li>他のメタファンクションやダブルアンダースコアメソッドへの内部呼び出しは<code>__Call</code>をトリガーしない。</li>
 </ul>
 
-<h4 id="Dynamic_Properties">Dynamic Properties</h4>
-<p><a href="#Custom_Classes_property">Property syntax</a> and <a href="lib/Object.htm#DefineProp">DefineProp</a> can be used to define properties which compute a value each time they are evaluated, but each property must be defined in advance. By contrast, <em>__Get</em> and <em>__Set</em> can be used to implement properties which are known only at the moment they are invoked.</p>
-<p>For example, a "proxy" object could be created which sends requests for properties over the network (or through some other channel). A remote server would send back a response containing the value of the property, and the proxy would return the value to its caller. Even if the name of each property was known in advance, it would not be logical to define each property individually in the proxy class since every property does the same thing (send a network request). Meta-functions receive the property name as a parameter, so are a good solution to this problem.</p>
+<h4 id="Dynamic_Properties">ダイナミック・プロパティ</h4>
+<p><a href="#Custom_Classes_property">Property構文</a>と <a href="lib/Object.htm#DefineProp">DefineProp</a>は、評価されるたびに値を計算するプロパティを定義するために使用できますが、各プロパティは事前に定義する必要があります。対照的に、<em>__Get</em>と <em>__Set</em>は、呼び出された瞬間にしかわからないプロパティを実装するために使うことができる。</p>
+<p>例えば、プロパティに対するリクエストをネットワーク経由で（あるいは他のチャネル経由で）送信する「プロキシ」オブジェクトを作成することができる。リモートサーバーはプロパティの値を含む応答を送り返し、プロキシはその値を呼び出し元に返す。各プロパティの名前が事前に分かっていたとしても、どのプロパティも同じこと（ネットワーク・リクエストを送信する）を行うので、プロキシ・クラスで各プロパティを個別に定義するのは論理的ではない。メタ・ファンクションはプロパティ名をパラメータとして受け取るので、この問題に対する良い解決策となる。</p>
 
 <h2 id="primitive">プリミティブ値</h2>
-<p>Primitive values, such as strings and numbers, cannot have their own properties and methods. However, primitive values support the same kind of <a href="#delegation">delegation</a> as objects. That is, any property or method call on a primitive value is delegated to a predefined prototype object, which is also accessible via the <a href="lib/Class.htm#Prototype">Prototype</a> property of the corresponding class. The following classes relate to primitive values:</p>
+<p>文字列や数値などのプリミティブ値は、独自のプロパティやメソッドを持つことはできない。しかし、プリミティブ値はオブジェクトと同じような<a href="#delegation">デリゲーション</a>をサポートする。つまり、プリミティブ値に対するプロパティやメソッドの呼び出しは、定義済みの<a href="lib/Class.htm#Prototype">プロトタイプ</a>・オブジェクトに委譲される。以下のクラスは、プリミティブ値に関するものです：</p>
 <ul style="line-height: 1.5">
   <li>Primitive (extends <a href="lib/Any.htm">Any</a>) <ul style="padding-left: 1.7em">
     <li>Number <ul style="padding-left: 1.7em">
@@ -501,49 +500,49 @@ class <i>ClassName</i> {
     <li>String</li>
   </ul></li>
 </ul>
-<p>Although checking the <a href="lib/Type.htm">Type</a> string is generally faster, the type of a value can be tested by checking whether it has a given base. For example, <code>n.HasBase(Number.Prototype)</code> or <code>n is Number</code> is true if <em>n</em> is a pure Integer or Float, but not if <em>n</em> is a numeric string, since String does not derive from Number. By contrast, <code>IsNumber(n)</code> is true if <em>n</em> is a number or a numeric string.</p>
-<p><a href="lib/Any.htm#GetBase">ObjGetBase</a> and the <a href="lib/Any.htm#Base">Base</a> property return one of the predefined prototype objects when appropriate.</p>
-<p>Note that <code>x is Any</code> would ordinarily be true for any value within AutoHotkey's type hierarchy, but false for COM objects.</p>
+<p><a href="lib/Type.htm">Type</a>文字列をチェックする方が一般的に速いが、値の型は、それが指定されたベースを持っているかどうかをチェックすることによってテストすることができる。例えば、<code>n.HasBase(Number.Prototype)</code>または<code>n is Number</code>は、<em>n</em>が純粋なIntegerまたはFloatの場合は真ですが、<em>n</em>が数値文字列の場合は真ではありません。対照的に、<code>IsNumber(n)</code>は<em>n</em>が数値または数値文字列の場合に真となる。</p>
+<p><a href="lib/Any.htm#GetBase">ObjGetBase</a>と <a href="lib/Any.htm#Base">Base</a>プロパティは、適切な場合、定義済みのプロトタイプ・オブジェクトの1つを返します。</p>
+<p>通常、<code>x is Any</code>はAutoHotkeyの型階層内のどの値に対してもtrueになりますが、COMオブジェクトに対してはfalseになることに注意してください。</p>
 
-<h3 id="primitive-extension">Adding Properties and Methods</h3>
-<p>Properties and methods can be added for all values of a given type by modifying that type's prototype object. However, since a primitive value is not an Object and cannot have its own properties or methods, the primitive prototype objects do not derive from <code>Object.Prototype</code>. In other words, methods such as <a href="lib/Object.htm#DefineProp">DefineProp</a> and <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a> are not accessible by default. They can be called indirectly. 事例：</p>
+<h3 id="primitive-extension">プロパティとメソッドの追加</h3>
+<p>プロパティとメソッドは、その型のプロトタイプ・オブジェクトを修正することによって、与えられた型のすべての値に対して追加することができる。しかし、プリミティブ値はObjectではなく、独自のプロパティやメソッドを持つことができないため、プリミティブプロトタイプオブジェクトは<code>Object.Prototype</code>から派生しません。つまり、<a href="lib/Object.htm#DefineProp">DefineProp</a>や <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>といったメソッドは、デフォルトではアクセスできない。間接的に呼ばれることもある。事例：</p>
 <pre>
 DefProp := {}.DefineProp
 DefProp( "".base, "Length", { get: StrLen } )
 MsgBox A_AhkPath.length " == " StrLen(A_AhkPath)
 </pre>
-<p>Although primitive values can inherit value properties from their prototype, an exception is thrown if the script attempts to set a value property on a primitive value. 事例：</p>
+<p>プリミティブ値はそのプロトタイプから値プロパティを継承できますが、スクリプトがプリミティブ値に値プロパティを設定しようとすると例外がスローされます。事例：</p>
 <pre>"".base.test := 1  <em>; Don't try this at home.</em>
 MsgBox "".test  <em>; 1</em>
 "".test := 2  <em>; Error: Property is read-only.</em></pre>
-<p>Although __Set and property setters can be used, they are not useful since primitive values should be considered immutable.</p>
+<p>Setやプロパティ・セッターを使うこともできるが、プリミティブ値は不変であると考えるべきであるので、これらは有用ではない。</p>
 
-<h2 id="Implementation">Implementation</h2>
-<span id="Refs"></span><h3 id="Reference_Counting">Reference-Counting</h3>
-<p>AutoHotkey uses a basic reference-counting mechanism to automatically free the resources used by an object when it is no longer referenced by the script.  Script authors should not invoke this mechanism explicitly, except when dealing directly with unmanaged <a href="#ObjPtr">pointers to objects</a>.</p>
-<p>Temporary references returned by functions, methods or operators within an expression are released after evaluation of that expression has completed or been aborted. In the following example, the new <a href="#GMem">GMem</a> object is freed only after MsgBox has returned:</p>
+<h2 id="Implementation">実施</h2>
+<span id="Refs"></span><h3 id="Reference_Counting">リファレンス・カウント</h3>
+<p>AutoHotkeyは、基本的な参照カウント機構を使用して、オブジェクトがスクリプトから参照されなくなったときに、そのオブジェクトが使用していたリソースを自動的に解放します。アンマネージドな<a href="#ObjPtr">オブジェクトへのポインター</a>を直接扱う場合を除き、スクリプト作成者はこのメカニズムを明示的に呼び出すべきではない。</p>
+<p>式内の関数、メソッド、または演算子によって返された一時参照は、その式の評価が完了または中止された後に解放されます。次の例では、新しい<a href="#GMem">GMem</a>オブジェクトはMsgBoxが返った後にのみ解放される：</p>
 <pre>MsgBox <a href="lib/DllCall.htm">DllCall</a>("GlobalSize", "ptr", GMem(0, 20).ptr, "ptr")  <em>; 20</em></pre>
-<p class="note"><strong>Note:</strong> In this example, <code>.ptr</code> could have been omitted since the <a href="lib/DllCall.htm#ptr">Ptr</a> arg type permits objects with a <code>Ptr</code> property. However, the pattern shown above will work even with other property names.</p>
-<p>To run code when the last reference to an object is being released, implement the <a href="#Custom_NewDelete">__Delete</a> meta-function.</p>
-<p><b>Known Limitations:</b></p>
+<p class="note"><strong>注：</strong>この例では、<a href="lib/DllCall.htm#ptr">Ptr</a>arg型が<code>Ptr</code>プロパティを持つオブジェクトを許可しているため、<code>.ptr</code>を省略することができました。しかし、上に示したパターンは、他のプロパティ名でも機能する。</p>
+<p>オブジェクトへの最後の参照が解放されるときにコードを実行するには、<a href="#Custom_NewDelete">__Delete</a>メタ関数を実装します。</p>
+<p><b>既知の制限：</b></p>
 <ul>
-  <li>Circular references must be broken before an object can be freed. For details and an example, see <a href="#Circular_References">Freeing Objects</a>.</li>
-  <li>Although references in static and global variables are released automatically when the program exits, references in non-static local variables or on the expression evaluation stack are not.  These references are only released if the function or expression is allowed to complete normally.</li>
+  <li>オブジェクトを解放する前に、循環参照を切断しなければならない。詳細と例については、<a href="#Circular_References">オブジェクトの解放</a>を参照してください。</li>
+  <li>静的変数やグローバル変数への参照は、プログラムが終了すると自動的に解放されるが、非静的ローカル変数や式評価スタックへの参照は解放されない。これらの参照は、関数や式が正常に完了した場合にのみ解放される。</li>
 </ul>
-<p>Although memory used by the object is reclaimed by the operating system when the program exits, <a href="#Custom_NewDelete">__Delete</a> will not be called unless all references to the object are freed.  This can be important if it frees other resources which are not automatically reclaimed by the operating system, such as temporary files.</p>
+<p>オブジェクトが使用していたメモリは、プログラムが終了するときにオペレーティング・システムによって回収されますが、オブジェクトへのすべての参照が解放されない限り、<a href="#Custom_NewDelete">__Delete</a>は呼び出されません。これは、一時ファイルなど、オペレーティング・システムによって自動的に取り戻されない他のリソースを解放する場合に重要な意味を持つ。</p>
 
-<h3 id="ObjPtr">Pointers to Objects</h3>
-<p>In some rare cases it may be necessary to pass an object to external code via DllCall or store it in a binary data structure for later retrieval. An object's address can be retrieved via <code>address := ObjPtr(myObject)</code>; however, this effectively makes two references to the object, but the program only knows about the one in <em>myObject</em>. If the last <em>known</em> reference to the object was released, the object would be deleted. Therefore, the script must inform the object that it has gained a reference. This can be done as follows (the two lines below are equivalent):</p>
+<h3 id="ObjPtr">オブジェクトへのポインタ</h3>
+<p>まれに、DllCallを介して外部コードにオブジェクトを渡したり、後で取り出すためにバイナリ・データ構造に格納したりする必要がある場合がある。オブジェクトのアドレスは、<code>address := ObjPtr(myObject)</code>で取得することができる。しかし、これは事実上オブジェクトへの参照を2つ作ることになり、プログラムは<em>myObject</em>の中の1つしか知らない。オブジェクトへの最後の<em>既知</em>の参照が解放された場合、オブジェクトは削除される。したがって、スクリプトはオブジェクトに参照を得たことを通知しなければならない。これは以下のようにできる（以下の2行は同等）：</p>
 <pre>
 ObjAddRef(address := ObjPtr(myObject))
 address := ObjPtrAddRef(myObject)
 </pre>
-<p>The script must also inform the object when it is finished with that reference:</p>
-<pre>ObjRelease(address)</pre>
-<p>Generally each new copy of an object's address should be treated as another reference to the object, so the script should call <a href="lib/ObjAddRef.htm">ObjAddRef</a> when it gains a copy and <a href="lib/ObjAddRef.htm">ObjRelease</a> immediately before losing one. For example, whenever an address is copied via something like <code>x := address</code>, <a href="lib/ObjAddRef.htm">ObjAddRef</a> should be called. Similarly, when the script is finished with <em>x</em> (or is about to overwrite <em>x</em>'s value), it should call <a href="lib/ObjAddRef.htm">ObjRelease</a>.</p>
-<p id="ObjFromPtr">To convert an address to a proper reference, use the ObjFromPtr function:</p>
+<p>スクリプトはまた、その参照を終了するときにオブジェクトに通知しなければならない：</p>
+<pre>ObjRelease(アドレス)</pre>
+<p>一般に、オブジェクトのアドレスの新しいコピーはそれぞれ、そのオブジェクトへの別の参照として扱われるべきです。したがって、スクリプトは、コピーを得たときに<a href="lib/ObjAddRef.htm">ObjAddRef</a>を呼び出し、コピーを失う直前に<a href="lib/ObjAddRef.htm">ObjRelease</a>を呼び出す必要があります。例えば、<code>x := address</code>のようにアドレスがコピーされるときは、必ず<a href="lib/ObjAddRef.htm">ObjAddRef</a>が呼ばれなければならない。同様に、スクリプトが<em>x</em>の処理を終えたら（あるいは<em>x</em>の値を上書きしようとしたら）、<a href="lib/ObjAddRef.htm">ObjRelease</a>を呼び出すべきである。</p>
+<p id="ObjFromPtr">アドレスを適切な参照に変換するには、ObjFromPtr関数を使用します：</p>
 <pre>myObject := ObjFromPtr(address)</pre>
-<p>ObjFromPtr assumes that <em>address</em> is a counted reference, and claims ownership of it. In other words, <code>myObject := ""</code> would cause the reference originally represented by <em>address</em> to be released. After that, <em>address</em> must be considered invalid. To instead make a new reference, use one of the following:</p>
+<p>ObjFromPtrは、<em>アドレス</em>がカウントされた参照であると仮定し、その所有権を主張する。つまり、<code>myObject := ""</code>とすると、もともと<em>address</em>で表されていた参照が解放される。それ以降の<em>アドレス</em>は無効とみなされる。その代わりに新しいリファレンスを作成するには、以下のいずれかを使用する：</p>
 <pre>
 ObjAddRef(address), myObject := ObjFromPtr(address)
 myObject := ObjFromPtrAddRef(address)
