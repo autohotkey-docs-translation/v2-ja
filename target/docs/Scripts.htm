@@ -110,17 +110,17 @@ MsgBox(
 <pre><em>; EXAMPLE #1:</em>
 Var := "
 (
-一行分のテキストです。
-デフォルトでは、前の行とこの行の間のハードキャリッジリターン（Enter）が保存される。
-	この行はタブでインデントされている。デフォルトでは、このタブも保存される。
-さらに、「引用符」は必要に応じて<a href="#continuation_quotes">自動的にエスケープ</a>される。
+A line of text.
+By default, the hard carriage return (Enter) between the previous line and this one will be stored.
+	This line is indented with a tab; by default, that tab will also be stored.
+Additionally, "quote marks" are <a href="#continuation_quotes">automatically escaped</a> when appropriate.
 )"
 
 <em>; EXAMPLE #2:</em>
 FileAppend "
 (
 Line 1 of the text.
-Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入ります。
+Line 2 of the text. By default, a linefeed (`n) is present between lines.
 )", A_Desktop "\My File.txt"</pre>
 <p>上記の例では、一連の線は上下に括弧で囲まれている。これは<em>継続区間</em>として知られている。閉じ括弧の後のコードも（区切り記号なしで）他の行と結合されるが、開き括弧と閉じ括弧は含まれないことに注意。</p>
 <p>継続セクションの上の行が<a href="Concepts.htm#names">名前</a>文字で終わっており、そのセクションが引用符で囲まれた文字列で始まっていない場合、名前と継続セクションの内容を区切るために、1つのスペースが自動的に挿入される。</p>
@@ -143,41 +143,41 @@ Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入
 )", "C:\File.txt"   <em>; Comment.</em></pre>
 <p>上記の結果、セミコロンを継続セクション内で<a href="misc/EscapeChar.htm">エスケープ</a>する必要はない。</p>
 <p>閉じ括弧は継続セクションの終わりを示すので、リテラルな閉じ括弧で行を開始するには、その前にアクセント記号/バックチックを付ける：<code>`)</code>. ただし、<a href="#accent">アクセント(`)オプション</a>との併用はできない。</p>
-<p>A continuation section can be immediately followed by a line containing the open-parenthesis of another continuation section. This allows the options mentioned above to be varied during the course of building a single line.</p>
-<p>The piecemeal construction of a continuation section by means of <a href="lib/_Include.htm">#Include</a> is not supported.</p>
+<p>継続セクションの直後に、別の継続セクションの開括弧を含む行を続けることができる。これにより、1つのラインを構築する過程で、上記のオプションを変化させることができる。</p>
+<p><a href="lib/_Include.htm">Include</a>による継続セクションの断片的な構築はサポートされていない。</p>
 
 <h2 id="lib">スクリプトライブラリフォルダ</h2>
-<p>The library folders provide a few standard locations to keep shared scripts which other scripts utilise by means of <a href="lib/_Include.htm">#Include</a>. A library script typically contains a function or class which is designed to be used and reused in this manner. Placing library scripts in one of these locations makes it easier to write scripts that can be shared with others and work across multiple setups. The library locations are:</p>
+<p>ライブラリフォルダは、<a href="lib/_Include.htm">#Include</a>によって他のスクリプトが利用する共有スクリプトを保管するための、いくつかの標準的な場所を提供する。ライブラリ・スクリプトには通常、このように使用・再利用されるように設計された関数やクラスが含まれている。ライブラリスクリプトをこれらの場所のいずれかに置くと、他の人と共有でき、複数のセットアップで動作するスクリプトを簡単に書くことができます。図書館の場所は以下の通り：</p>
 <pre><a href="Variables.htm#ScriptDir">A_ScriptDir</a> "\Lib\"  <em>; Local library.</em>
 <a href="Variables.htm#MyDocuments">A_MyDocuments</a> "\AutoHotkey\Lib\"  <em>; User library.</em>
 "directory-of-the-currently-running-AutoHotkey.exe\Lib\"  <em>; Standard library.</em></pre>
-<p>The library folders are searched in the order shown above.</p>
-<p>For example, if a script includes the line <code>#Include &lt;MyLib&gt;</code>, the program searches for a file named "MyLib.ahk" in the local library. If not found there, it searches for it in the user library, and then the standard library. If a match is still not found and the library's name contains an underscore (e.g. <code>MyPrefix_MyFunc</code>), the program searches again with just the prefix (e.g. <code>MyPrefix.ahk</code>).</p>
-<p>Although by convention a library file generally contains only a single function or class of the same name as its filename, it may also contain private functions that are called only by it. However, such functions should have fairly distinct names because they will still be in the global namespace; that is, they will be callable from anywhere in the script.</p>
+<p>ライブラリフォルダは上記の順序で検索されます。</p>
+<p>例えば、スクリプトに<code>#Include&lt;MyLib&gt;</code>という行が含まれていると、プログラムはローカル・ ライブラリから「MyLib.ahk」という名前のファイルを探す。そこで見つからなければ、ユーザー・ライブラリーを探し、次に標準ライブラリーを探す。それでも一致するものが見つからず、ライブラリ名にアンダースコア（例：<code>MyPrefix_MyFunc</code>）が含まれている場合、プログラムは接頭辞（例：<code>MyPrefix.ahk</code>）だけで再度検索を行います。</p>
+<p>通常、ライブラリ・ファイルには、ファイル名と同じ名前の関数やクラスが1つだけ含まれるのが通例だが、そのファイルによってのみ呼び出されるプライベート関数が含まれることもある。しかし、このような関数は、グローバル名前空間に存在するため、かなり明確な名前を持つ必要がある。</p>
 
-<h2 id="ahk2exe">Convert a Script to an EXE (Ahk2Exe)</h2>
-<p>A script compiler (courtesy of fincs, with additions by TAC109) is included with the program.</p>
-<p>Once a script is compiled, it becomes a standalone executable; that is, AutoHotkey.exe is not required in order to run the script. The compilation process creates an executable file which contains the following: the AutoHotkey interpreter, the script, any files it <a href="lib/_Include.htm">includes</a>, and any files it has incorporated via the <a href="lib/FileInstall.htm">FileInstall</a> function. Additional files can be included using <a href="misc/Ahk2ExeDirectives.htm">compiler directives</a>.</p>
-<p>The same compiler is used for v1.1 and v2 scripts. The compiler distinguishes script versions by checking the major version of the base file supplied.</p>
-<h3 id="ahk2exe-toc">Compiler Topics</h3>
+<h2 id="ahk2exe">スクリプトをEXEに変換 (Ahk2Exe)</h2>
+<p>スクリプト・コンパイラ（fincs氏提供、TAC109氏追加）がプログラムに含まれている。</p>
+<p>つまり、スクリプトを実行するためにAutoHotkey.exeは必要ありません。コンパイル・プロセスは、以下を含む実行可能ファイルを作成する：AutoHotkeyインタープリタ、スクリプト、スクリプトに<a href="lib/_Include.htm">含まれる</a>ファイル、<a href="lib/FileInstall.htm">FileInstall</a>関数で取り込んだファイル。<a href="misc/Ahk2ExeDirectives.htm">コンパイラのディレクティブ</a>を使って、追加ファイルをインクルードすることができる。</p>
+<p>v1.1とv2のスクリプトには同じコンパイラが使用される。コンパイラーは、提供されたベースファイルのメジャーバージョンをチェックすることで、スクリプトのバージョンを区別する。</p>
+<h3 id="ahk2exe-toc">コンパイラ・トピックス</h3>
 <ul>
-  <li><a href="#ahk2exe-run">Running the Compiler</a></li>
-  <li><a href="#ahk2exe-base">Base Executable File</a></li>
+  <li><a href="#ahk2exe-run">コンパイラの実行</a></li>
+  <li><a href="#ahk2exe-base">基本実行ファイル</a></li>
   <li><a href="#CompilerDirectives">スクリプト・コンパイラ・ディレクティブ</a></li>
-  <li><a href="#mpress">Compressing Compiled Scripts</a></li>
-  <li><a href="#information">Background Information</a></li>
+  <li><a href="#mpress">コンパイル済みスクリプトの圧縮</a></li>
+  <li><a href="#information">背景情報</a></li>
 </ul>
-<h3 id="ahk2exe-run">Running the Compiler</h3>
-<p>Ahk2Exe can be used in the following ways:</p>
+<h3 id="ahk2exe-run">コンパイラの実行</h3>
+<p>Ahk2Exeは次のような使い方ができます：</p>
 <ul>
   <li>
-    <p><strong>GUI Interface:</strong> Run the "Convert .ahk to .exe" item in the Start Menu. (After invoking the GUI, there may be a pause before the window is shown; see <a href="#information">Background Information</a> for more details.)</p>
+    <p><strong>GUIインターフェース：</strong>スタートメニューの「.ahkを.exeに変換」を実行します。(GUIを起動した後、ウィンドウが表示されるまで一時停止することがある。詳細は<a href="#information">背景情報</a>を参照)。</p>
   </li>
   <li>
-    <p><strong>Right-click:</strong> Within an open Explorer window, right-click any .ahk file and select "Compile Script" (only available if the script compiler option was chosen when AutoHotkey was installed). This creates an EXE file of the same base filename as the script, which appears after a short time in the same directory. 注：The EXE file is produced using the same custom icon, .bin file and <a href="#mpress">compression</a> setting that were last saved in Method #1 above, or as specified by any relevant <a href="misc/Ahk2ExeDirectives.htm">compiler directive</a> in the script.</p>
+    <p><strong>右クリックします：</strong>開いているエクスプローラウィンドウで、任意の.ahkファイルを右クリックし、"Compile Script"を選択します（AutoHotkeyのインストール時にスクリプトコンパイラオプションが選択されている場合のみ使用可能）。これにより、スクリプトと同じベースファイル名のEXEファイルが作成され、しばらくすると同じディレクトリに現れる。注：EXEファイルは、上記の方法#1で最後に保存したものと同じカスタムアイコン、.binファイル、<a href="#mpress">圧縮</a>設定、またはスクリプト内の関連する<a href="misc/Ahk2ExeDirectives.htm">コンパイラディレクティブ</a>で指定されたものを使用して作成されます。</p>
   </li>
   <li id="ahk2exeCmd">
-    <p><strong>Command Line:</strong> The compiler can be run from the command line by using the parameters shown below. If any command line parameters are used, the script is compiled immediately unless <code class="no-highlight">/gui</code> is used. All parameters are optional, except that there must be one <code class="no-highlight">/gui</code> or <code class="no-highlight">/in</code> parameter.</p>
+    <p><strong>コマンドライン：</strong>コンパイラーは、以下に示すパラメーターを使用してコマンドラインから実行することができる。コマンドラインパラメーターが使われた場合、<code class="no-highlight">/gui</code>が使われない限り、スクリプトは直ちにコンパイルされる。<code class="no-highlight">/gui</code>または<code class="no-highlight">/in</code>パラメータが1つなければならないことを除いて、すべてのパラメータはオプションである。</p>
     <style>
       #param_pairs td:not(:last-child) {
         white-space: nowrap;
@@ -185,56 +185,56 @@ Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入
     </style>
     <table class="info" id="param_pairs">
       <tr>
-        <th abbr="Param">Parameter pair</th>
+        <th abbr="Param">パラメータペア</th>
         <th>意味</th>
       </tr>
       <tr id="SlashIn">
         <td>/in <i>script_name</i></td>
-        <td>The path and name of the script to compile. This is mandatory if any other parameters are used, unless <code class="no-highlight">/gui</code> is used.</td>
+        <td>コンパイルするスクリプトのパスと名前。これは、<code class="no-highlight">/gui</code>が使用されていない限り、他のパラメータが使用されている場合は必須である。</td>
       </tr>
       <tr id="SlashOut">
         <td>/out <i>exe_name</i></td>
-        <td>The path\name of the output .exe to be created. Default is the directory\base_name of the input file plus extension of .exe, or any relevant <a href="misc/Ahk2ExeDirectives.htm">compiler directive</a> in the script.</td>
+        <td>作成される出力.exeのパス名。デフォルトは、入力ファイルのディレクトリベース名と拡張子.exe、またはスクリプト内の関連する<a href="misc/Ahk2ExeDirectives.htm">コンパイラディレクティブ</a>である。</td>
       </tr>
       <tr id="slashIcon">
         <td>/icon <i>icon_name</i></td>
-        <td>The icon file to be used. Default is the last icon saved in the GUI interface, or any <a href="misc/Ahk2ExeDirectives.htm#SetMainIcon">SetMainIcon</a> compiler directive in the script.</td>
+        <td>使用するアイコンファイル。デフォルトは、GUIインターフェイスに最後に保存されたアイコンか、スクリプトの<a href="misc/Ahk2ExeDirectives.htm#SetMainIcon">SetMainIcon</a>コンパイラディレクティブです。</td>
       </tr>
       <tr id="SlashBase">
         <td>/base <i>file_name</i></td>
-        <td>The base file to be used (a .bin or .exe file). The major version of the base file used must be the same as the version of the script to be compiled. Default is the last base file name saved in the GUI interface, or any <a href="misc/Ahk2ExeDirectives.htm#Bin">Base</a> compiler directive in the script.</td>
+        <td>使用するベースファイル（.binまたは.exeファイル）。使用するベースファイルのメジャーバージョンは、コンパイルするスクリプトのバージョンと同じでなければならない。デフォルトは、GUIインターフェイスで最後に保存されたベースファイル名、またはスクリプト内の任意の<a href="misc/Ahk2ExeDirectives.htm#Bin">Base</a>コンパイラディレクティブです。</td>
       </tr>
       <tr id="SlashResourceID">
         <td>/resourceid <i>name</i></td>
-        <td><a href="#SlashBase">.exe ベースファイル</a>を使用するコンパイルのメインスクリプトに使用する非標準のリソース ID を割り当てます (「<a href="Program.htm#embedded-scripts">埋め込みスクリプト</a>」を参照)。数値リソースIDは、ハッシュ記号（#）に続く10進数で構成されなければならない。Default is #1, or any <a href="misc/Ahk2ExeDirectives.htm#ResourceID">ResourceID</a> compiler directive in the script.</td>
+        <td><a href="#SlashBase">.exe ベースファイル</a>を使用するコンパイルのメインスクリプトに使用する非標準のリソース ID を割り当てます (「<a href="Program.htm#embedded-scripts">埋め込みスクリプト</a>」を参照)。数値リソースIDは、ハッシュ記号（#）に続く10進数で構成されなければならない。デフォルトは#1、またはスクリプト中の<a href="misc/Ahk2ExeDirectives.htm#ResourceID">ResourceID</a>コンパイラディレクティブ。</td>
       </tr>
       <tr id="SlashCp">
         <td>/cp <i>codepage</i></td>
-        <td>Overrides the default codepage used to read script files. For a list of possible values, see <a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">Code Page Identifiers</a>. Note that Unicode scripts should begin with a byte-order-mark (BOM), rendering the use of this parameter unnecessary.</td>
+        <td>スクリプトファイルの読み込みに使われるデフォルトのコードページを上書きする。取り得る値のリストについては、<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">コードページ識別子</a>を参照のこと。Unicodeスクリプトはバイトオーダーマーク（BOM）で始まるべきであるので、このパラメータの使用は不要であることに注意してください。</td>
       </tr>
       <tr id="SlashCompress">
         <td>/compress <i>n</i></td>
-        <td><a href="#mpress">Compress</a> the exe? 0 = no, 1 = use MPRESS if present, 2 = use UPX if present. Default is the last setting saved in the GUI interface.</td>
+        <td><a href="#mpress">Compress</a> the exe?0 = no, 1 = use MPRESS if present, 2 = use UPX if present. デフォルトは、GUI インターフェースで最後に保存された設定です。</td>
       </tr>
       <tr id="SlashGui">
         <td>/gui</td>
-        <td>Shows the GUI instead of immediately compiling. The other parameters can be used to override the settings last saved in the GUI. <code>/in</code> is optional in this case.</td>
+        <td>すぐにコンパイルする代わりにGUIを表示する。その他のパラメーターは、GUIで最後に保存した設定を上書きするために使用できる。<code>/in</code> is optional in this case.</td>
       </tr>
       <tr id="SlashGuiSilent">
         <td>/silent [verbose]</td>
-        <td>Disables all message boxes and instead outputs errors to the standard error stream (stderr); or to the standard output stream (stdout) if stderr fails. Other messages are also output to stdout. Optionally enter the word <code>verbose</code> to output status messages to stdout as well.</td>
+        <td>すべてのメッセージ・ボックスを無効にし、代わりに標準エラー・ストリーム（stderr）にエラーを出力する。stderrが失敗した場合は、標準出力ストリーム（stdout）にエラーを出力する。その他のメッセージも標準出力に出力される。オプションで<code>verbose</code>と入力すると、ステータス・メッセージを標準出力にも出力する。</td>
       </tr>
       <tr id="SlashAhk">
-        <td class="warning"><strong>Deprecated:</strong><br>/ahk <i>file_name</i></td>
-        <td class="warning">The path\name of AutoHotkey.exe to be used as a utility when compiling the script.</td>
+        <td class="warning"><strong>非推奨：</strong><br>/ahk <i>file_name</i></td>
+        <td class="warning">スクリプトのコンパイル時にユーティリティとして使用するAutoHotkey.exeのパス名。</td>
       </tr>
       <tr id="SlashMpress">
-        <td class="warning"><strong>Deprecated:</strong><br>/mpress <i>0or1</i></td>
-        <td class="warning"><a href="#mpress">Compress</a> the exe with MPRESS? 0 = no, 1 = yes. Default is the last setting used in the GUI interface.</td>
+        <td class="warning"><strong>非推奨：</strong><br>/mpress <i>0or1</i></td>
+        <td class="warning">MPRESSでexeを<a href="#mpress">圧縮</a>しますか？0 = no, 1 = yes. デフォルトは、GUI インターフェースで最後に使用された設定です。</td>
       </tr>
       <tr id="SlashBin">
-        <td class="warning"><strong>Deprecated:</strong><br>/bin <i>file_name</i></td>
-        <td class="warning">The .bin file to be used. Default is the last .bin file name saved in the GUI interface.</td>
+        <td class="warning"><strong>非推奨：</strong><br>/bin <i>file_name</i></td>
+        <td class="warning">使用する .bin ファイル。デフォルトは、GUIインターフェイスで最後に保存された.binファイル名です。</td>
       </tr>
     </table>
     <p>事例：</p>
@@ -243,37 +243,37 @@ Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入
 </ul>
 <p>注:</p>
 <ul>
-  <li>Parameters containing spaces must be enclosed in double quotes.</li>
-  <li>Compiling does not typically improve the performance of a script.</li>
-  <li><a href="lib/_NoTrayIcon.htm">#NoTrayIcon</a> and <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a> affect the behavior of compiled scripts.</li>
-  <li>The built-in variable <a href="Variables.htm#IsCompiled">A_IsCompiled</a> contains 1 if the script is running in compiled form. Otherwise, it is blank.</li>
-  <li>When parameters are passed to Ahk2Exe, a message indicating the success or failure of the compiling process is written to stdout. Although the message will not appear at the command prompt, it can be "caught" by means such as redirecting output to a file. </li>
-  <li>Additionally in the case of a failure, Ahk2Exe has exit codes indicating the kind of error that occurred. These error codes can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/ErrorCodes.md">GitHub (ErrorCodes.md)</a>.</li>
+  <li>スペースを含むパラメータは二重引用符で囲む必要があります。</li>
+  <li>通常、コンパイルによってスクリプトのパフォーマンスが向上することはない。</li>
+  <li><a href="lib/_NoTrayIcon.htm">#NoTrayIcon</a>と <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>は、コンパイルされたスクリプトの動作に影響します。</li>
+  <li>組み込み変数<a href="Variables.htm#IsCompiled">A_IsCompiled</a>は、スクリプトがコンパイルされた形式で実行されている場合、1を含む。それ以外は空白。</li>
+  <li>Ahk2Exe にパラメータが渡されると、コンパイルの成否を示すメッセージが標準出力に書き出されます。このメッセージはコマンドプロンプトには表示されないが、出力をファイルにリダイレクトするなどの方法で「キャッチ」することができる。 </li>
+  <li>さらに失敗した場合、Ahk2Exeは発生したエラーの種類を示す終了コードを持っています。これらのエラーコードは<a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/ErrorCodes.md">GitHub（ErrorCodes.md）</a>で見ることができる。</li>
 </ul>
-<p>The compiler's source code and newer versions can be found at <a href="https://github.com/AutoHotkey/Ahk2Exe">GitHub</a>.</p>
+<p>コンパイラーのソースコードと新しいバージョンは<a href="https://github.com/AutoHotkey/Ahk2Exe">GitHub</a>で見ることができる。</p>
 
-<h3 id="ahk2exe-base">Base Executable File</h3>
-<p>Each compiled script .exe is based on an executable file which implements the interpreter. The base files included in the Compiler directory have the ".bin" extension; these are versions of the interpreter which do not include the capability to load external script files. Instead, the program looks for a Win32 (RCDATA) resource named "&gt;AUTOHOTKEY SCRIPT&lt;" and loads that, or fails if it is not found.</p>
-<p>The standard AutoHotkey executable files can also be used as the base of a compiled script, by embedding a Win32 (RCDATA) resource with ID 1. (Additional scripts can be added with the <a href="misc/Ahk2ExeDirectives.htm#AddResource">AddResource</a> compiler directive.) This allows the compiled script .exe to be used with the <a href="#SlashScript">/script</a> switch to execute scripts other than the main embedded script. For more details, see <a href="Program.htm#embedded-scripts">Embedded Scripts</a>.</p>
+<h3 id="ahk2exe-base">基本実行ファイル</h3>
+<p>コンパイルされた各スクリプト.exeは、インタプリタを実装した実行ファイルをベースにしている。Compilerディレクトリに含まれる基本ファイルの拡張子は".bin "である。これらは、外部スクリプトファイルを読み込む機能を含まないバージョンのインタープリターである。代わりに、プログラムは"&gt;AUTOHOTKEY SCRIPT&lt;"という名前のWin32 (RCDATA)リソースを探し、それをロードするか、見つからなければ失敗する。</p>
+<p>標準のAutoHotkey実行ファイルは、ID 1のWin32 (RCDATA)リソースを埋め込むことで、コンパイル済みスクリプトのベースとして使用することもできます。(追加のスクリプトは<a href="misc/Ahk2ExeDirectives.htm#AddResource">AddResource</a>コンパイラディレクティブで追加できます。) これにより、コンパイルされたスクリプト.exeを<a href="#SlashScript">/script</a>スイッチで使用し、メインの埋め込みスクリプト以外のスクリプトを実行することができます。詳しくは<a href="Program.htm#embedded-scripts">埋め込みスクリプト</a>をご覧ください。</p>
 
 <h3 id="CompilerDirectives">スクリプト・コンパイラ・ディレクティブ</h3>
-<p>Script compiler directives allow the user to specify details of how a script is to be compiled. いくつかの特徴を挙げよう：</p>
+<p>スクリプトコンパイラディレクティブは、スクリプトのコンパイル方法の詳細を指定します。いくつかの特徴を挙げよう：</p>
 <ul>
   <li>バージョン情報（名前、説明、バージョン...など）を変更する機能。</li>
   <li>コンパイルされたスクリプトにリソースを追加する機能。</li>
   <li>コンパイルのいくつかの雑多な面を微調整する能力。</li>
   <li>コンパイルされたスクリプトからコードセクションを削除する機能。</li>
 </ul>
-<p>See <a href="misc/Ahk2ExeDirectives.htm">Script Compiler Directives</a> for more details.</p>
+<p>詳しくは<a href="misc/Ahk2ExeDirectives.htm">スクリプト・コンパイラ・ディレクティブ</a>を参照してください。</p>
 
-<h3 id="mpress">Compressing Compiled Scripts</h3>
-<p>Ahk2Exe optionally uses MPRESS or UPX freeware to compress compiled scripts. If <strong>MPRESS.exe</strong> and/or <strong>UPX.exe</strong> has been copied to the "Compiler" subfolder where AutoHotkey was installed, either can be used to compress the .exe as directed by the <code>/compress</code> parameter or the GUI setting. </p>
-<p><strong>MPRESS</strong> official website (downloads and information): <a href="http://www.matcode.com/mpress.htm">http://www.matcode.com/mpress.htm</a><br>MPRESS mirror: <a href="https://www.autohotkey.com/mpress/">https://www.autohotkey.com/mpress/</a></p>
-<p><strong>UPX</strong> official website (downloads and information): <a href="https://upx.github.io/">https://upx.github.io/</a></p>
-<p><strong>Note:</strong> While compressing the script executable prevents casual inspection of the script's source code using a plain text editor like Notepad or a PE resource editor, it does not prevent the source code from being extracted by tools dedicated to that purpose.</p>
+<h3 id="mpress">コンパイル済みスクリプトの圧縮</h3>
+<p>Ahk2Exeはコンパイルされたスクリプトを圧縮するためにMPRESSまたはUPXフリーウェアをオプションで使用します。<strong>MPRESS.exe</strong>および/または<strong>UPX.exeが</strong>AutoHotkeyがインストールされた "Compiler"サブフォルダにコピーされている場合、<code>/compress</code>パラメータまたはGUI設定の指示に従い、どちらかを使用して.exeを圧縮することができます。 </p>
+<p><strong>MPRESS</strong>公式サイト（ダウンロードと情報）：<a href="http://www.matcode.com/mpress.htm">http://www.matcode.com/mpress.htm</a><br>MPRESS mirror: <a href="https://www.autohotkey.com/mpress/">https://www.autohotkey.com/mpress/</a></p>
+<p><strong>UPX</strong>公式サイト（ダウンロードと情報）：<a href="https://upx.github.io/">https://upx.github.io/</a></p>
+<p><strong>注意:</strong>スクリプトの実行ファイルを圧縮すると、メモ帳のようなプレーンテキストエディタやPEリソースエディタを使って、スクリプトのソースコードを気軽に閲覧することができなくなりますが、そのような目的に特化したツールによってソースコードが抽出されることは防げません。</p>
 
-<h3 id="information">Background Information</h3>
- <p>The following folder structure is supported, where the running version of <code>Ahk2Exe.exe</code> is in the first \Compiler directory shown below:</p>
+<h3 id="information">背景情報</h3>
+ <p>以下のフォルダ構成がサポートされており、実行バージョンの<code>Ahk2Exe.exe</code>は、以下に示す1つ目の \compilerディレクトリにあります：</p>
 <pre class="no-highlight">\AutoHotkey 
    AutoHotkeyA32.exe 
    AutoHotkeyU32.exe
@@ -290,55 +290,55 @@ Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入
    \v2.0-beta.1
       AutoHotkey32.exe
       AutoHotkey64.exe</pre>
-<p>The base file search algorithm runs for a short amount of time when Ahk2Exe starts, and works as follows:</p>
-<p>Qualifying AutoHotkey .exe files and all .bin files are searched for in the compiler's directory, the compiler's parent directory, and any of the compiler's sibling directories with directory names that start with <code>AutoHotkey</code> or <code>V</code>, but do not start with <code>AutoHotkey_H</code>. The selected directories are searched recursively. Any AutoHotkey.exe files found are excluded, leaving files such as AutoHotkeyA32.exe, AutoHotkey64.exe, etc. plus all .bin files found. All .exe files that are included must have a name starting with <code>AutoHotkey</code> and a file description containing the word <code>AutoHotkey</code>, and  must have a version of <code class="no-highlight">1.1.34+</code> or <code class="no-highlight">2.0-a135+</code>.</p>
-<p>A version of the AutoHotkey interpreter is also needed (as a utility) for a successful compile, and one is selected using a similar algorithm. In most cases the version of the interpreter used will match the version of the base file selected by the user for the compile.</p>
+<p>ベースファイル検索アルゴリズムは、Ahk2Exeの起動時に短時間実行され、以下のように動作します：</p>
+<p>修飾されたAutoHotkeyの.exeファイルとすべての.binファイルは、コンパイラのディレクトリ、コンパイラの親ディレクトリ、および<code>AutoHotkey</code>または<code>V</code>で始まり、<code>AutoHotkey_H</code>で始まらないディレクトリ名を持つコンパイラの兄弟ディレクトリで検索されます。選択されたディレクトリは再帰的に検索される。検出されたAutoHotkey.exeファイルは除外され、AutoHotkeyA32.exe、AutoHotkey64.exeなどのファイルと、検出されたすべての.binファイルが残ります。含まれるすべての.exeファイルは、<code>AutoHotkey</code>で始まる名前と、<code>AutoHotkey</code>という単語を含むファイル説明が必要で、バージョンは<code class="no-highlight">1.1.34+</code>または<code class="no-highlight">2.0-a135+</code>でなければなりません。</p>
+<p>コンパイルを成功させるには、AutoHotkeyインタプリタのバージョンも（ユーティリティとして）必要で、同様のアルゴリズムで選択されます。ほとんどの場合、使用されるインタープリターのバージョンは、ユーザーがコンパイル用に選択したベースファイルのバージョンと一致する。</p>
 
 
-<h2 id="cmd">Passing Command Line Parameters to a Script</h2>
-<p>Scripts support command line parameters. The format is:</p>
+<h2 id="cmd">スクリプトにコマンドラインパラメータを渡す</h2>
+<p>スクリプトはコマンドラインパラメーターをサポートする。形式：</p>
 <pre>AutoHotkey.exe [<i>Switches</i>] [<i>Script Filename</i>] [<i>Script Parameters</i>]</pre>
-<p>And for compiled scripts, the format is:</p>
+<p>また、コンパイルされたスクリプトの場合、フォーマットは次のようになる：</p>
 <pre>CompiledScript.exe [<i>Switches</i>] [<i>Script Parameters</i>]</pre>
-<p><strong>Switches:</strong> Zero or more of the following:</p>
+<p><strong>スイッチ:</strong>以下のうち0個以上：</p>
 <table class="info">
   <tr><th>Switch</th><th>意味</th><th class="wrap" abbr="Compiled?">Works compiled?</th></tr>
   <tr id="SlashF">
     <td>/force</td>
-    <td>Launch unconditionally, skipping any warning dialogs. This has the same effect as <a href="lib/_SingleInstance.htm">#SingleInstance Off</a>.</td>
+    <td>無条件に起動し、警告ダイアログをスキップする。これは<a href="lib/_SingleInstance.htm">#SingleInstance Off</a>と同じ効果を持つ。</td>
     <td>Yes</td>
   </tr>
   <tr id="SlashR">
     <td>/restart</td>
-    <td>Indicate that the script is being restarted and should attempt to close a previous instance of the script (this is also used by the <a href="lib/Reload.htm">Reload</a> function, internally).</td>
+    <td>スクリプトが再起動され、スクリプトの以前のインスタンスを閉じようとしていることを示す（これは、内部的に<a href="lib/Reload.htm">Reload</a>関数でも使用される）。</td>
     <td>Yes</td>
   </tr>
   <tr id="ErrorStdOut">
     <td>/ErrorStdOut<br><br>/ErrorStdOut=<em>Encoding</em></td>
     <td>
-      <p>Send syntax errors that prevent a script from launching to the standard error stream (stderr) rather than displaying a dialog. See <a href="lib/_ErrorStdOut.htm">#ErrorStdOut</a> for details.</p>
-      <p>An <a href="lib/FileEncoding.htm">encoding</a> can optionally be specified. For example, <code>/ErrorStdOut=UTF-8</code> encodes messages as UTF-8 before writing them to stderr.</p>
+      <p>スクリプトの起動を妨げる構文エラーを、ダイアログを表示するのではなく、標準エラーストリーム（stderr）に送る。詳細は<a href="lib/_ErrorStdOut.htm">#ErrorStdOut</a>を参照。</p>
+      <p>オプションで<a href="lib/FileEncoding.htm">エンコーディング</a>を指定することもできる。例えば、<code>/ErrorStdOut=UTF-8</code>は、標準エラー出力に書き込む前にメッセージをUTF-8にエンコードする。</p>
     </td>
     <td>No</td>
   </tr>
   <tr id="SlashDebug">
     <td>/Debug</td>
-    <td>Connect to a debugging client. For more details, see <a href="#idebug">Interactive Debugging</a>.</td>
+    <td>デバッグ・クライアントに接続する。詳細は<a href="#idebug">インタラクティブ・デバッグ</a>を参照。</td>
     <td>No</td>
   </tr>
   <tr id="CPn">
     <td>/CP<i>n</i></td>
     <td>
-      <p>Overrides the default codepage used to read script files. For more details, see <a href="#cp">Script File Codepage</a>.</p>
+      <p>スクリプトファイルの読み込みに使われるデフォルトのコードページを上書きする。詳細は<a href="#cp">スクリプトファイルのコードページ</a>を参照。</p>
     </td>
     <td>No</td>
   </tr>
   <tr id="validate">
     <td>/Validate</td>
     <td>
-      <p>AutoHotkey loads the script and then exits instead of running it.</p>
-      <p>By default, load-time errors and warnings are displayed as usual. The <a href="#ErrorStdOut">/ErrorStdOut</a> switch can be used to suppress or capture any error messages.</p>
-      <p>The process exit code is zero if the script successfully loaded, or non-zero if there was an error.</p>
+      <p>AutoHotkeyはスクリプトをロードし、実行せずに終了します。</p>
+      <p>デフォルトでは、ロードタイムエラーと警告は通常通り表示される。<a href="#ErrorStdOut">ErrorStdOut</a>スイッチを使用すると、エラーメッセージを抑止またはキャプチャすることができる。</p>
+      <p>プロセスの終了コードは、スクリプトのロードに成功した場合は0、エラーが発生した場合は0以外となる。</p>
     </td>
     <td>No</td>
   </tr>
@@ -346,72 +346,72 @@ Line 2 of the text. デフォルトでは、行と行の間に改行 (`n) が入
     <td>/iLib <em>"OutFile"</em></td>
     <td>
       <p><strong>Deprecated:</strong> Use <a href="#validate">/validate</a> instead.</p>
-      <p>AutoHotkey loads the script but does not run it. In previous versions of AutoHotkey, filenames of auto-included files were written to the file specified by <em>OutFile</em>, formatted as #Include directives.</p>
-      <p>If the output file exists, it is overwritten. <em>OutFile</em> can be <code>*</code> to write the output to stdout.</p>
-      <p>If the script contains syntax errors, the output file may be empty. The process exit code can be used to detect this condition; if there is a syntax error, the exit code is 2. The /ErrorStdOut switch can be used to suppress or capture the error message.</p>
+      <p>AutoHotkeyはスクリプトをロードしますが、実行しません。以前のバージョンのAutoHotkeyでは、自動インクルードされたファイルのファイル名は、#Includeディレクティブとしてフォーマットされ、<em>OutFile</em>で指定されたファイルに書き込まれました。</p>
+      <p>出力ファイルが存在する場合は上書きされる。<em>OutFile</em>は <code>*</code>標準出力に出力を書き出す。</p>
+      <p>スクリプトに構文エラーが含まれている場合、出力ファイルは空になることがあります。シンタックス・エラーの場合、終了コードは2である。/ErrorStdOutスイッチを使用すると、エラーメッセージを表示しないことも、表示することもできる。</p>
     </td>
     <td>No</td>
   </tr>
   <tr id="SlashInclude">
     <td>/include <em>"IncFile"</em></td>
     <td>
-      <p><a href="lib/_Include.htm">Includes</a> a file prior to the main script. Only a single file can be included by this method. When the script is <a href="lib/Reload.htm">reloaded</a>, this switch is automatically passed to the new instance.</p>
+      <p>メインスクリプトの前にファイルを<a href="lib/_Include.htm">含む</a>。このメソッドでインクルードできるファイルは1つだけです。スクリプトが<a href="lib/Reload.htm">リロード</a>されると、このスイッチは自動的に新しいインスタンスに渡される。</p>
     </td>
     <td>No</td>
   </tr>
   <tr id="SlashScript">
     <td>/script</td>
     <td>
-      <p>When used with a compiled script based on an .exe file, this switch causes the program to ignore the main embedded script. This allows a compiled script .exe to execute external script files or embedded scripts other than the main one. Other switches not normally supported by compiled scripts can be used but must be listed to the right of this switch. 事例：</p>
+      <p>.exeファイルに基づいてコンパイルされたスクリプトで使用する場合、このスイッチは、プログラムがメインの埋め込みスクリプトを無視するようにします。これにより、コンパイルされたスクリプト.exeは、メインスクリプト以外の外部スクリプトファイルや埋め込みスクリプトを実行できるようになる。コンパイル済みスクリプトでは通常サポートされていないその他のスイッチも使用できるが、このスイッチの右側に記載する必要がある。事例：</p>
       <pre class="no-highlight">CompiledScript.exe /script /ErrorStdOut MyScript.ahk "Script's arg 1"</pre>
-      <p>If the current executable file does not have an embedded script, this switch is permitted but has no effect.</p>
-      <p>This switch is not supported by compiled scripts which are based on a .bin file.</p>
+      <p>現在の実行ファイルにスクリプトが埋め込まれていない場合、このスイッチは許可されるが、何の効果もない。</p>
+      <p>このスイッチは、.binファイルに基づいてコンパイルされたスクリプトではサポートされていません。</p>
       <p>こちらもご覧ください：<a href="#ahk2exe-base">Base Executable File (Ahk2Exe)</a></p>
     </td>
     <td>N/A</td>
   </tr>
 </table>
 
-<p id="defaultfile"><strong>Script Filename:</strong> This can be omitted if there are no <em>Script Parameters</em>. If omitted, it defaults to the path and name of the <a href="Variables.htm#AhkPath">AutoHotkey executable</a>, replacing ".exe" with ".ahk". For example, if you rename AutoHotkey.exe to MyScript.exe, it will attempt to load MyScript.ahk. If you run AutoHotkey32.exe without parameters, it will attempt to load AutoHotkey32.ahk.</p>
-<p id="stdin">Specify an asterisk (*) for the filename to read the script text from standard input (stdin). This also puts the following into effect:</p>
+<p id="defaultfile"><strong>スクリプトファイル名：</strong> <em>スクリプトパラメータ</em>がない場合は省略可能。省略した場合は、<a href="Variables.htm#AhkPath">AutoHotkey実行ファイル</a>のパスと名前がデフォルトになり、".exe"は".ahk"に置き換えられます。たとえば、AutoHotkey.exeの名前をMyScript.exeに変更すると、MyScript.ahkをロードしようとします。パラメータなしでAutoHotkey32.exeを実行すると、AutoHotkey32.ahkをロードしようとします。</p>
+<p id="stdin">ファイル名にアスタリスク（*）を指定すると、スクリプトのテキストを標準入力（stdin）から読み込む。これによって、以下のことも有効になる：</p>
 <ul>
-  <li>The <a href="Variables.htm#InitialWorkingDir">initial working directory</a> is used as <a href="Variables.htm#ScriptDir">A_ScriptDir</a> and to locate the <a href="Scripts.htm#lib">local Lib folder</a>.</li>
-  <li><a href="Variables.htm#ScriptName">A_ScriptName</a> and <a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a> both contain "*".</li>
-  <li><a href="lib/_SingleInstance.htm">#SingleInstance</a> is off by default.</li>
+  <li><a href="Variables.htm#InitialWorkingDir">初期作業ディレクトリ</a>は、<a href="Variables.htm#ScriptDir">A_ScriptDir</a>として使用され、<a href="Scripts.htm#lib">ローカルのLibフォルダ</a>を見つけるために使用される。</li>
+  <li><a href="Variables.htm#ScriptName">A_ScriptName</a>と<a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a>の両方に "*" が含まれている。</li>
+  <li><a href="lib/_SingleInstance.htm">#SingleInstance</a>はデフォルトでオフになっている。</li>
 </ul>
-<p>For an example, see <a href="lib/Run.htm#ExecScript">ExecScript()</a>.</p>
-<p>If the current executable file has <a href="Program.htm#embedded-scripts">embedded scripts</a>, this parameter can be an asterisk followed by the resource name or ID of an embedded script. For compiled scripts (i.e. if an embedded script with the ID #1 exists), this parameter must be preceded by the <code>/script</code> switch.</p>
-<p><strong>Script Parameters:</strong> The string(s) you want to pass into the script, with each separated from the next by one or more spaces. Any parameter that contains spaces should be enclosed in quotation marks. If you want to pass an empty string as a parameter, specify two consecutive quotation marks. A literal quotation mark may be passed in by preceding it with a backslash (\"). Consequently, any trailing slash in a quoted parameter (such as "C:\My Documents<span class="red">\"</span>) is treated as a literal quotation mark (that is, the script would receive the string C:\My Documents<span class="red">"</span>). To remove such quotes, use <code>A_Args[1] := <a href="lib/StrReplace.htm">StrReplace</a>(A_Args[1], '"')</code></p>
-<p id="cmd_args">Incoming parameters, if present, are stored as an array in the built-in variable <strong>A_Args</strong>, and can be accessed using <a href="Objects.htm#Usage_Simple_Arrays">array syntax</a>. <code>A_Args[1]</code> contains the first parameter. The following example exits the script when too few parameters are passed to it:</p>
+<p>例については<a href="lib/Run.htm#ExecScript">ExecScript()</a>を参照。</p>
+<p>現在の実行ファイルに<a href="Program.htm#embedded-scripts">スクリプトが埋め込まれて</a>いる場合、このパラメータには、アスタリスクの後に埋め込みスクリプトのリソース名またはIDを付けることができる。コンパイル済みスクリプトの場合（つまり、ID #1の埋め込みスクリプトが存在する場合）、このパラメータの前に<code>/script</code>スイッチを付ける必要があります。</p>
+<p><strong>スクリプトのパラメータ：</strong>スクリプトに渡す文字列を、空白で区切って指定します。スペースを含むパラメータは引用符で囲む。空文字列をパラメータとして渡したい場合は、連続する2つの引用符を指定する。リテラル引用符は、その前にバックスラッシュ（ \")を付けることで渡すことができる。その結果、引用符で囲まれたパラメータ（"C:\My Documents<span class="red">\"</span>など）の末尾のスラッシュは、リテラル引用符として扱われます（つまり、スクリプトは "C:\My Documents<span class="red">"</span>という文字列を受け取ります）。このような引用符を削除するには、<code>A_Args[1] :=<a href="lib/StrReplace.htm">StrReplace</a>(A_Args[1], '"')</code>を使用する。</p>
+<p id="cmd_args">入力パラメータがある場合は、組み込み変数<strong>A_Args</strong>に配列として格納され、<a href="Objects.htm#Usage_Simple_Arrays">配列構文</a>を使ってアクセスできる。<code>A_Args[1]</code>は最初のパラメーターを含む。以下の例では、渡されるパラメーターが少なすぎる場合にスクリプトを終了している：</p>
 <pre>if A_Args.Length &lt; 3
 {
     MsgBox "This script requires at least 3 parameters but it only received " A_Args.Length "."
     ExitApp
 }</pre>
-<p>If the number of parameters passed into a script varies (perhaps due to the user dragging and dropping a set of files onto a script), the following example can be used to extract them one by one:</p>
+<p>スクリプトに渡されるパラメータの数がさまざまな場合（おそらく、ユーザーが一連のファイルをスクリプトにドラッグ＆ドロップしたため）、次の例を使用して、パラメータを1つずつ抽出することができます：</p>
 <pre>for n, param in A_Args  <em>; For each parameter:</em>
 {
     MsgBox "Parameter number " n " is " param "."
 }
 </pre>
-<p>If the parameters are file names, the following example can be used to convert them to their case-corrected long names (as stored in the file system), including complete/absolute path:</p>
-<pre>for n, GivenPath in A_Args  <em>; For each parameter (or file dropped onto a script):</em>
+<p>パラメータがファイル名の場合、以下の例を使用すると、完全/絶対パスを含め、（ファイルシステムに保存されている）大文字/小文字を補正した長い名前に変換することができる：</p>
+<pre>for n, GivenPath in A_Args<em>; 各パラメータ（またはスクリプトにドロップされたファイル）：</em>
 {
     Loop Files, GivenPath, "FD"  <em>;ファイルやディレクトリをインクルードします。</em>
         LongPath := A_LoopFileFullPath
     MsgBox "The case-corrected long path name of file`n" GivenPath "`nis:`n" LongPath
 }</pre>
 
-<h2 id="cp">Script File Codepage</h2>
-<p>In order for non-ASCII characters to be read correctly from file, the encoding used when the file was saved (typically by the text editor) must match what AutoHotkey uses when it reads the file. If it does not match, characters will be decoded incorrectly. AutoHotkey uses the following rules to decide which encoding to use:</p>
+<h2 id="cp">スクリプトファイルのコードページ</h2>
+<p>ASCII以外の文字をファイルから正しく読み取るには、ファイルが保存されたときに使用されたエンコーディング（通常はテキストエディタ）と、AutoHotkeyがファイルを読み取るときに使用するエンコーディングが一致している必要があります。一致しない場合、文字は正しくデコードされない。AutoHotkeyは以下のルールを使用して、使用するエンコーディングを決定します：</p>
 <ul>
-  <li>If the file begins with a UTF-8 or UTF-16 (LE) byte order mark, the appropriate codepage is used and the <a href="#CPn">/CP<i>n</i></a> switch is ignored.</li>
-  <li>If the <a href="#CPn">/CP<i>n</i></a> switch is passed on the command-line, codepage <i>n</i> is used. For a list of possible values, see <a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">Code Page Identifiers</a>.</li>
-  <li>In all other cases, UTF-8 is used (this default differs from AutoHotkey v1).</li>
+  <li>ファイルがUTF-8またはUTF-16（LE）のバイトオーダーマークで始まる場合、適切なコードページが使用され、<a href="#CPn">/CP<i>n</i></a>スイッチは無視される。</li>
+  <li>コマンドラインで<a href="#CPn">/CP<i>n</i></a>スイッチが渡されると、コードページ<i>n</i>が使われる。取り得る値のリストについては、<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">コードページ識別子</a>を参照のこと。</li>
+  <li>その他の場合はすべてUTF-8が使用されます（このデフォルトはAutoHotkey v1とは異なります）。</li>
 </ul>
-<p>Note that this applies only to script files loaded by AutoHotkey, not to file I/O within the script itself. <a href="lib/FileEncoding.htm">FileEncoding</a> controls the default encoding of files read or written by the script, while <a href="lib/IniRead.htm">IniRead</a> and <a href="lib/IniWrite.htm">IniWrite</a> always deal in UTF-16 or ANSI.</p>
-<p>As all text is converted (where necessary) to the <a href="Compat.htm#Format">native string format</a>, characters which are invalid or don't exist in the native codepage are replaced with a placeholder: '�'. This should only occur if there are encoding errors in the script file or the codepages used to save and load the file don't match.</p>
-<p><a href="lib/RegWrite.htm">RegWrite</a> may be used to set the default for scripts launched from Explorer (e.g. by double-clicking a file):</p>
+<p>これは、AutoHotkeyによってロードされたスクリプトファイルにのみ適用され、スクリプト自体のファイルI/Oには適用されないことに注意してください。<a href="lib/FileEncoding.htm">FileEncoding</a>は、スクリプトが読み書きするファイルのデフォルトエンコーディングを制御し、<a href="lib/IniRead.htm">IniRead</a>と <a href="lib/IniWrite.htm">IniWrite</a>は常にUTF-16またはANSIで処理する。</p>
+<p>すべてのテキストは（必要に応じて）<a href="Compat.htm#Format">ネイティブの文字列形式</a>に変換されるため、無効な文字やネイティブのコードページに存在しない文字はプレースホルダーに置き換えられます：'�'. これは、スクリプトファイルにエンコーディングエラーがあるか、ファイルの保存と読み込みに使用されたコードページが一致しない場合にのみ発生するはずです。</p>
+<p><a href="lib/RegWrite.htm">RegWrite</a>は、エクスプローラーから起動したスクリプトのデフォルトを設定するために使用することができる（ファイルをダブルクリックするなど）：</p>
 <pre><em>; Uncomment the appropriate line below or leave them all commented to
 ;   reset to the default of the current build.  Modify as necessary:
 ; codepage := 0        ; System default ANSI codepage
@@ -426,31 +426,31 @@ if A_IsAdmin    <em>; Set for all users.</em>
     RegWrite cmd, "REG_SZ", "HKCR\" key
 else            <em>; Set for current user only.</em>
     RegWrite cmd, "REG_SZ", "HKCU\Software\Classes\" key</pre>
-<p>This assumes AutoHotkey has already been installed. Results may be less than ideal if it has not.</p>
+<p>これは、AutoHotkeyがすでにインストールされていることを前提としています。そうでない場合、結果は理想的とは言えないかもしれない。</p>
 
-<h2 id="debug">Debugging a Script</h2>
-<p>Built-in functions such as <a href="lib/ListVars.htm">ListVars</a> and <a href="lib/Pause.htm">Pause</a> can help you debug a script. For example, the following two lines, when temporarily inserted at carefully chosen positions, create "break points" in the script:</p>
+<h2 id="debug">スクリプトのデバッグ</h2>
+<p><a href="lib/ListVars.htm">ListVars</a>や <a href="lib/Pause.htm">Pause</a>などの組み込み関数は、スクリプトのデバッグに役立ちます。たとえば、次の2行を注意深く選んだ位置に一時的に挿入すると、スクリプトに「ブレークポイント」ができる：</p>
 <pre>ListVars
 Pause</pre>
-<p>When the script encounters these two lines, it will display the current contents of all variables for your inspection. When you're ready to resume, un-pause the script via the File or Tray menu. The script will then continue until reaching the next "break point" (if any).</p>
-<p>It is generally best to insert these "break points" at positions where the active window does not matter to the script, such as immediately before a WinActivate function. This allows the script to properly resume operation when you un-pause it.</p>
-<p>The following functions are also useful for debugging: <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/KeyHistory.htm">KeyHistory</a>, and <a href="lib/OutputDebug.htm">OutputDebug</a>.</p>
-<p>Some common errors, such as typos and missing "global" declarations, can be detected by <a href="lib/_Warn.htm">enabling warnings</a>.</p>
-<h3 id="idebug">Interactive Debugging</h3>
-<p>Interactive debugging is possible with a supported <a href="AHKL_DBGPClients.htm">DBGp client</a>. Typically the following actions are possible:</p>
+<p>スクリプトがこの2行に出会うと、すべての変数の現在の内容が表示され、閲覧できるようになる。再開の準備ができたら、ファイルメニューまたはトレイメニューからスクリプトの一時停止を解除する。スクリプトは、次の「ブレークポイント」に達するまで続けられる（もしあれば）。</p>
+<p>一般的に、これらの「ブレークポイント」は、WinActivate関数の直前など、スクリプトにとってアクティブウィンドウが重要でない位置に挿入するのがベストである。これにより、一時停止を解除したときにスクリプトが適切に動作を再開する。</p>
+<p>以下の関数もデバッグに役立つ：<a href="lib/ListLines.htm">ListLines</a>, <a href="lib/KeyHistory.htm">KeyHistory</a>, および <a href="lib/OutputDebug.htm">OutputDebug</a>.</p>
+<p>タイプミスや「グローバル」宣言の欠落など、よくあるエラーのいくつかは、<a href="lib/_Warn.htm">警告を有効</a>にすることで検出できる。</p>
+<h3 id="idebug">インタラクティブ・デバッグ</h3>
+<p>サポートされている<a href="AHKL_DBGPClients.htm">DBGpクライアント</a>があれば、インタラクティブなデバッグが可能です。通常、以下のようなアクションが可能である：</p>
 <ul>
-  <li>Set and remove breakpoints on lines - pause execution when a <a href="https://en.wikipedia.org/wiki/Breakpoint">breakpoint</a> is reached.</li>
-  <li>Step through code line by line - step into, over or out of functions.</li>
-  <li>Inspect all variables or a specific variable.</li>
-  <li>View the stack of running threads and functions.</li>
+  <li>行のブレークポイントの設定と削除 -<a href="https://en.wikipedia.org/wiki/Breakpoint">ブレークポイント</a>に達すると実行を一時停止。</li>
+  <li>コードを一行ずつステップスルー - 関数の中に入ったり、関数の上や外に出たり。</li>
+  <li>すべての変数または特定の変数を検査する。</li>
+  <li>実行中のスレッドと関数のスタックを表示する。</li>
 </ul>
-<p>Note that this functionality is disabled for compiled scripts which are <a href="#ahk2exe-base">based on a BIN file</a>. For compiled scripts based on an EXE file, /debug must be specified after <a href="#SlashScript">/script</a>.</p>
-<p>To enable interactive debugging, first launch a supported debugger client then launch the script with the <b>/Debug</b> command-line switch.</p>
+<p>この機能は、<a href="#ahk2exe-base">BINファイルに基づいて</a>コンパイルされたスクリプトには無効であることに注意してください。EXEファイルに基づいてコンパイルされたスクリプトの場合、<a href="#SlashScript">/script</a>の後に/debugを指定する必要があります。</p>
+<p>対話型デバッグを有効にするには、まずサポートされているデバッガークライアントを起動し、<b>/Debug</b>コマンドラインスイッチを使用してスクリプトを起動します。</p>
 <pre class="Syntax">AutoHotkey.exe /Debug[=<i>SERVER</i>:<i>PORT</i>] ...</pre>
-<p><i>SERVER</i> and <i>PORT</i> may be omitted.  For example, the following are equivalent:</p>
+<p><i>SERVER</i>と <i>PORT</i>は省略できる。例えば、以下は同等である：</p>
 <pre class="no-highlight">AutoHotkey /Debug "myscript.ahk"
 AutoHotkey /Debug=localhost:9000 "myscript.ahk"</pre>
-<p id="debug_attach">To attach the debugger to a script which is already running, send it a message as shown below:</p>
+<p id="debug_attach">すでに実行中のスクリプトにデバッガーをアタッチするには、以下のようにメッセージを送る：</p>
 <pre>ScriptPath := "" <em>; SET THIS TO THE FULL PATH OF THE SCRIPT</em>
 A_DetectHiddenWindows := true
 if WinExist(ScriptPath " ahk_class AutoHotkey")
@@ -459,9 +459,9 @@ if WinExist(ScriptPath " ahk_class AutoHotkey")
 ;   lParam  = the port which the debugger client is listening on.</em>
     PostMessage DllCall("RegisterWindowMessage",  "Str", "AHK_ATTACH_DEBUGGER")
 </pre>
-<p>Once the debugger client is connected, it may detach without terminating the script by sending the "detach" DBGp command.</p>
+<p>デバッガークライアントが接続されたら、"detach" DBGp コマンドを送信することで、スクリプトを終了せずにデタッチすることができる。</p>
 
-<h2 id="Script_Showcase">Script Showcase</h2>
-<p>See <a href="scripts/">this page</a> for some useful scripts.</p>
+<h2 id="Script_Showcase">スクリプト・ショーケース</h2>
+<p>便利なスクリプトは<a href="scripts/">こちらのページ</a>を参照。</p>
 </body>
 </html>
