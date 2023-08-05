@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Variables and Expressions - Definition &amp; Usage | AutoHotkey v2</title>
-<meta name="description" content="Learn details about variables, expressions, operators, built-in variables and capacity and memory of variables." />
+<title>変数と式 - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="変数、式、演算子、組み込み変数、変数の容量とメモリについて詳しく説明します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,43 +10,43 @@
 </head>
 
 <body>
-<h1>Variables and Expressions</h1>
+<h1>変数と式</h1>
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#Intro">変数</a></li>
   <li><a href="#Expressions">式</a></li>
-  <li><a href="#Operators">Operators in Expressions</a></li>
+  <li><a href="#Operators">式の演算子</a></li>
   <li><a href="#BuiltIn">組み込みの変数</a></li>
-  <li><a href="#cap">Variable Capacity and Memory</a></li>
+  <li><a href="#cap">可変容量とメモリー</a></li>
 </ul>
 <span id="Variables"></span><h2 id="Intro">変数</h2>
-<p>See <a href="Concepts.htm#variables">Variables</a> for general explanation and details about how variables work.</p>
-<p id="assigning"><strong>Storing values in variables:</strong> To store a string or number in a variable, use the <a href="#AssignOp">colon-equal operator (:=)</a> followed by a number, quoted string or any other type of <a href="Language.htm#expressions">expression</a>. 事例：</p>
+<p>変数がどのように機能するかについての一般的な説明と詳細については、<a href="Concepts.htm#variables">変数</a>を参照してください。</p>
+<p id="assigning"><strong>変数への値の格納</strong>文字列や数値を変数に格納するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>の後に数値や引用符で囲まれた文字列、その他の型の<a href="Language.htm#expressions">式を</a>続けます。事例：</p>
 <pre>MyNumber := 123
 MyString := "This is a literal string."
 CopyOfVar := Var</pre>
-<p>A variable cannot be explicitly deleted, but its previous value can be released by assigning a new value, such as an empty string:</p>
+<p>変数を明示的に削除することはできないが、空文字列などの新しい値を代入することで、以前の値を解放することができる：</p>
 <pre>MyVar := ""</pre>
-<p>A variable can also be assigned a value indirectly, by <a href="#ref">taking its reference</a> and using a <a href="#deref">double-deref</a> or passing it to a function. 事例：</p>
+<p>変数に値を割り当てるには、<a href="#ref">その参照</a>を取り、<a href="#deref">double-deref</a>を使ったり、関数に渡したりして間接的に行うこともできる。事例：</p>
 <pre><a href="lib/MouseGetPos.htm">MouseGetPos</a> &amp;x, &amp;y</pre>
-<p>Reading the value of a variable which has not been assigned a value is considered an error. <a href="lib/IsSet.htm">IsSet</a> can be used to detect this condition.</p>
-<p id="retrieving"><strong>Retrieving the contents of variables:</strong> To include the contents of a variable in a string, use <a href="#concat">concatenation</a> or <a href="lib/Format.htm">Format</a>. 事例：</p>
+<p>値が割り当てられていない変数の値を読むことはエラーとみなされる。<a href="lib/IsSet.htm">IsSet</a>はこの状態を検出するために使われる。</p>
+<p id="retrieving"><strong>変数の内容の取得</strong>変数の内容を文字列に含めるには、<a href="#concat">連結か</a> <a href="lib/Format.htm">書式</a>を使う。事例：</p>
 <pre><a href="lib/MsgBox.htm">MsgBox</a> "The value of Var is " . Var . "."
 MsgBox "The value in the variable named Var is " Var "."
 MsgBox Format("Var has the value {1}.", Var)
 </pre>
-<p>Sub-expressions can be combined with strings in the same way. 事例：</p>
+<p>部分式も同じように文字列と組み合わせることができる。事例：</p>
 <pre>MsgBox("The sum of X and Y is " . (X + Y))
 </pre>
-<p><strong>Comparing variables:</strong> Please read the expressions section below for important notes about the different kinds of comparisons.</p>
+<p><strong>変数の比較:</strong>さまざまな種類の比較に関する重要な注意事項については、以下の式のセクションをお読みください。</p>
 <h2 id="Expressions">式</h2>
-<p class="note">See <a href="Language.htm#expressions">Expressions</a> for a structured overview and further explanation.</p>
-<p>Expressions are used to perform one or more operations upon a series of variables, literal strings, and/or literal numbers.</p>
-<p>Plain words in expressions are interpreted as variable names. Consequently, literal strings must be enclosed in double quotes to distinguish them from variables. 事例：</p>
+<p class="note">構造化された概要と詳細な説明については、<a href="Language.htm#expressions">エクスプレッション</a>を参照のこと。</p>
+<p>式は、一連の変数、リテラル文字列、リテラル数値に対して、1つまたは複数の演算を実行するために使用されます。</p>
+<p>式中のプレーン・ワードは変数名として解釈される。したがって、リテラル文字列は変数と区別するために二重引用符で囲む必要がある。事例：</p>
 <pre>if (CurrentSetting &gt; 100 or FoundColor != "Blue")
     MsgBox "The setting is too high or the wrong color is present."</pre>
-<p>In the example above, "Blue" appears in quotes because it is a literal string. シングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能する。Therefore, to include an <em>actual</em> quote mark inside a literal string, <a href="misc/EscapeChar.htm">escape</a> the quote mark or enclose the string in the opposite type of quote mark. 事例：</p>
+<p>上の例では、"Blue"はリテラル文字列なので引用符で囲まれている。シングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能する。Therefore, to include an <em>actual</em> quote mark inside a literal string, <a href="misc/EscapeChar.htm">escape</a> the quote mark or enclose the string in the opposite type of quote mark. 事例：</p>
 <pre>MsgBox "She said, <span class="red">`"</span>An apple a day.<span class="red">`"</span>"
 MsgBox <span class="red">'</span>She said, "An apple a day."<span class="red">'</span></pre>
 <p><strong>Empty strings:</strong> To specify an empty string in an expression, use an empty pair of quotes. For example, the statement <code>if (MyVar != "")</code> would be true if <em>MyVar</em> is not blank.</p>
@@ -65,7 +65,7 @@ ContinueSearch := true</pre>
 <pre>MsgBox(0x7F)  <em>; Shows 128</em>
 MsgBox(1.00)  <em>; Shows 1.0</em></pre>
 
-<h2 id="Operators">Operators in Expressions</h2>
+<h2 id="Operators">式の演算子</h2>
 <p class="note">See <a href="Language.htm#operators">Operators</a> for general information about operators.</p>
 <p>Except where noted below, any blank value (empty string) or non-numeric value involved in a math operation is <strong>not</strong> assumed to be zero. Instead, a <a href="lib/Error.htm#TypeError">TypeError</a> is thrown. If <a href="lib/Try.htm">Try</a> is not used, the unhandled exception causes an error dialog by default.</p>
 
@@ -981,7 +981,7 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
   </tr>
 </table>
 
-<h2 id="cap">Variable Capacity and Memory</h2>
+<h2 id="cap">可変容量とメモリー</h2>
 <ul>
   <li>When a variable is given a new string longer than its current contents, additional system memory is allocated automatically.</li>
   <li>The memory occupied by a large variable can be freed by setting it equal to nothing, e.g. <code>var := ""</code>.</li>
