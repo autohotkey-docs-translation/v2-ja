@@ -14,7 +14,7 @@ tocData = [
     ["関数","Functions.htm"],
     ["ラベル","misc/Labels.htm"],
     ["スレッド","misc/Threads.htm"],
-    ["AHKサポートの編集者","misc/Editors.htm"],
+    ["AHKサポートエディタ","misc/Editors.htm"],
     ["クライアントのデバッグ","AHKL_DBGPClients.htm"],
     ["コンパイラ指令","misc/Ahk2ExeDirectives.htm"],
     ["オブジェクト","Objects.htm"]
@@ -28,12 +28,12 @@ tocData = [
     ["ホットキーの書き方","howto/WriteHotkeys.htm"],
     ["キーストロークの送信方法","howto/SendKeys.htm"],
     ["ウインドウを管理する方法","howto/ManageWindows.htm"],
-    ["ちょとしたチュートリアル","Tutorial.htm"]
+    ["ちょっとしたチュートリアル","Tutorial.htm"]
   ]],
   ["直近の変更","ChangeLog.htm"],
   ["v1.1 から v2.0 への変更","v2-changes.htm"],
   ["v1.0 から v1.1 への変更","v1-changes.htm"],
-  ["スクリプトの展示","scripts/index.htm"],
+  ["スクリプトショーケース","scripts/index.htm"],
   ["関数インデックス","lib/index.htm"],
   ["ドライブ", "lib/Drive.htm",
   [

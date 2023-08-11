@@ -1001,7 +1001,7 @@ indexData = [
   ["RunWait","lib/Run.htm",2],
   ["scan code","lib/Send.htm#vk"],
   ["scientific notation","lib/Format.htm"],
-  ["スクリプトの展示","scripts/index.htm"],
+  ["スクリプトショーケース","scripts/index.htm"],
   ["Scripts","Scripts.htm"],
   ["Seek method (File)","lib/File.htm#Seek",7],
   ["select file","lib/FileSelect.htm"],
