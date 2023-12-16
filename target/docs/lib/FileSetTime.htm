@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>FileSetTime - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="FileSetTime 関数は、1つまたは複数のファイルまたはフォルダの日付スタンプを変更します。ワイルドカードに対応しています。" />
+<meta name="description" content="FileSetTime 関数は、1つまたは複数のファイルまたはフォルダのタイムスタンプを変更します。ワイルドカードに対応しています。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileSetTime</h1>
 
-<p>1つまたは複数のファイルまたはフォルダーの日時スタンプを変更します。ワイルドカードに対応しています。</p>
+<p>1つまたは複数のファイルまたはフォルダーのタイムスタンプを変更します。ワイルドカードに対応しています。</p>
 
 <pre class="Syntax"><span class="func">ファイルセットタイム</span> <span class="optional">YYYYMMDDHH24MISS、FilePattern、WhichTime、Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,14 +21,13 @@
   <dt>YYYYMMDDHH24MISS</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>空白または省略された場合、現在の時刻がデフォルトとなる。それ以外の場合は、操作に使用する時間を指定します（形式は「備考」を参照）。1601年以前の年号はサポート対象外です。</p>
+    <p>空白か省略された場合、現在のローカルタイムがデフォルトとなります。それ以外の場合は、操作に使用する時間を指定します（形式は「備考」を参照）。1601年以前はサポート対象外です。</p>
   </dd>
 
   <dt>FilePattern</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-    <p>If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">file loop</a> will be used instead.</p>
+    <p>省略された場合、最も内側の<a href="LoopFiles.htm">file loop</a>中の現在のファイルが設定されます。それ以外の場合は、単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
   </dd>
 
   <dt>WhichTime</dt>
@@ -45,7 +44,7 @@
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>空白または省略された場合、ファイルのみが操作され、サブディレクトリは再帰されない。それ以外の場合は、次の文字のうち0個以上を指定します：</p>
+    <p>空白または省略された場合、ファイルのみが操作され、サブディレクトリは再帰されません。それ以外の場合は、次の文字のうち0個以上を指定します：</p>
     <ul>
       <li>D = インクルードディレクトリ（フォルダ）。</li>
       <li>F = インクルードファイル。FとDの両方が省略された場合、ファイルは含まれるがフォルダーは含まれません。</li>
@@ -58,7 +57,7 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ファイルの変更に失敗した場合、<a href="Error.htm">Error</a>が投げられ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。</p>
-<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含む。</p>
+<p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含みます。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>FAT16およびFAT32ボリュームでは、ファイルの最終アクセス時刻はNTFSボリュームほど正確ではないかもしれません。</p>
@@ -70,7 +69,7 @@
   </tr>
   <tr>
     <td>YYYY</td>
-    <td>4桁の年号</td>
+    <td>4桁の西暦</td>
   </tr>
   <tr>
     <td>MM</td>
@@ -78,7 +77,7 @@
   </tr>
   <tr>
     <td>DD</td>
-    <td>月の2桁の曜日（01～31）です。</td>
+    <td>月の2桁の日付（01～31）です。</td>
   </tr>
   <tr>
     <td>HH24</td>
@@ -86,14 +85,14 @@
   </tr>
   <tr>
     <td>MI</td>
-    <td>2桁の分数（00～59）です。</td>
+    <td>2桁の分（00～59）です。</td>
   </tr>
   <tr>
     <td>SS</td>
     <td>2桁の秒（00～59）を表示します。</td>
   </tr>
 </table>
-<p>YYYYMMDDHH24MISSに部分文字列（例：200403）のみが与えられた場合、省略された残りの要素には、以下のデフォルト値が与えられる：</p>
+<p>YYYYMMDDHH24MISSに部分文字列（例：200403）のみが与えられた場合、省略された残りの要素には、以下のデフォルト値が与えられます：</p>
 <ul>
   <li>MM = Month 01</li>
   <li>DD = Day 01</li>
