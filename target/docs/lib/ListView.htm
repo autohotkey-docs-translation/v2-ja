@@ -24,7 +24,7 @@
   <li><a href="#Examples">例</a></li>
 </ul>
 <h2 id="Intro">導入と簡単な例</h2>
-<p>リストビューは、オペレーティングシステムが提供する最も精巧なコントロールの1つです。最も分かりやすい形としては、行と列の表形式で表示され、最も一般的な例としては、エクスプローラーのファイルやフォルダのリスト（詳細表示）があります。</p>
+<p>A ListView is one of the most elaborate controls provided by the operating system. 最も分かりやすい形としては、行と列の表形式で表示され、最も一般的な例としては、エクスプローラーのファイルやフォルダのリスト（詳細表示）があります。</p>
 <p>ListViewは通常このような形をしています：</p>
 <img src="../static/ctrl_listview.png" alt="ListView" />
 <p>凝った作りになっていますが、ListViewの基本的な機能は簡単に使うことができます。ListViewを作成するための構文です：</p>
@@ -85,131 +85,147 @@ LV_DoubleClick(LV, RowNumber)
 <h2 id="BuiltIn">ListViewの組み込みメソッド</h2>
 <p><a href="GuiControl.htm">GUIコントロールのデフォルトのメソッド/プロパティに加えて</a>、ListViewコントロールは以下のメソッドを持ちます（Gui.ListViewクラスで定義）。</p>
 <p id="RowNumber">本ページで「行番号」と表記しているのは、ListView内の行の現在位置のことです。一番上の列が1、2番目の列が2、といった具合です。行が追加された後、他の行のソート、削除、挿入により、その行番号は変化する傾向があります。そのため、特定の行を内容から探すには、通常、ループ内で<a href="#GetText">GetTextメソッド</a>を使用するのが最適です。</p>
-<p><strong>列の方法：</strong></p>
+<p>列の方法：</p>
 <ul>
   <li><a href="#Add">Add</a>:リストの一番下に新しい行を追加します。</li>
   <li><a href="#Insert">Insert</a>:指定された行番号に新しい行を挿入する。</li>
   <li><a href="#Modify">Modify</a>:行の属性やテキストを変更する。</li>
   <li><a href="#Delete">Delete</a>:指定された行またはすべての行を削除する。</li>
 </ul>
-<p><strong>Column methods:</strong></p>
+<p>Column methods:</p>
 <ul>
   <li><a href="#ModifyCol">ModifyCol</a>:指定されたカラムとそのヘッダーの属性とテキストを変更します。</li>
   <li><a href="#InsertCol">InsertCol</a>:指定されたカラム番号に新しいカラムを挿入します。</li>
   <li><a href="#DeleteCol">DeleteCol</a>:指定された列とその下にあるすべてのコンテンツを削除する。</li>
 </ul>
-<p><strong>検索方法：</strong></p>
+<p>検索方法：</p>
 <ul>
-  <li><a href="#GetCount">GetCount</a>:行または列の合計数を返します。</li>
+  <li><a href="#GetCount">GetCount</a>:コントロールの行数または列数を返します。</li>
   <li><a href="#GetNext">GetNext</a>:次に選択、チェック、またはフォーカスされた行の行番号を返します。</li>
-  <li><a href="#GetText">GetText</a>:指定された行と列のテキストを取得する。</li>
+  <li><a href="#GetText">GetText</a>:指定された行番号と列番号のテキストを取得する。</li>
 </ul>
-<p><strong>その他の方法</strong></p>
+<p>その他の方法</p>
 <ul>
   <li><a href="#SetImageList">SetImageList</a>:アイコンを表示するための ImageList を設定または置き換える。</li>
 </ul>
 
-  <div class="methodShort" id="Add">
-    <h3>Add</h3>
-    <p>リストの一番下に新しい行を追加し、新しい<a href="#RowNumber">行番号</a>を返します。この行番号は、ListViewが<a href="#Sort">Sort</a>または<a href="#SortDesc">SortDesc</a>スタイルを持つ場合、必ずしも最後の行とは限りません。</p>
-    <pre class="Syntax">NewRowNumber := LV.<span class="func">Add</span>(<span class="optional">Options, Col1, Col2, ...</span>)</pre>
-    <dl>
-      <dt id="RowOptions">Options</dt>
-      <dd>
-<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>A string containing zero or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
-<p id="Check"><strong>Check:</strong> Shows a checkmark in the row (if the ListView has <a href="#Checked">checkboxes</a>). 後でチェックを外すには、<code>LV.Modify(RowNumber, "-Check")</code>を使用します。</p>
-<p id="ColN"><strong>Col:</strong> Specify the word <em>Col</em> followed immediately by the column number at which to begin applying the parameters <em>Col1</em> and beyond. This is most commonly used with the <a href="#Modify">Modify method</a> to alter individual fields in a row without affecting those that lie to their left.</p>
-<p id="Focus"><strong>Focus:</strong> Sets keyboard focus to the row (often used in conjunction with the <a href="#Select">Select</a> option below). To later de-focus it, use <code>LV.Modify(RowNumber, "-Focus")</code>.</p>
-<p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this row's icon, which is displayed in the left side of the first column. このオプションがない場合、<a href="#IL">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示する場合は、-1またはImageListのアイコンの数より大きい数を指定する。If the control lacks a small-icon ImageList, no icon is displayed nor is any space reserved for one in <a href="#View">report view</a>.</p>
-<p>このオプションは1ベースのアイコン番号を受け付けるが、これは内部的に0ベースのインデックスに変換される。したがって、<code>アイコン0</code>は定数<a href="https://learn.microsoft.com/windows/win32/controls/list-view-controls-overview#callback-items-and-the-callback-mask">I_IMAGECALLBACK</a>（通常は-1として定義される）に対応し、<code class="no-highlight">アイコン-1</code>はI_IMAGENONEに対応する。その他の範囲外の値でも、アイコンがあるはずの場所に空白ができることがあります。</p>
-<p id="Select"><strong>Select:</strong> Selects the row. 後で選択を解除するには、<code>LV.Modify(RowNumber, "-Select")</code>を使用します。行を選択する場合、少なくとも1つの行が常に<a href="#Focus">フォーカス</a>を持つようにしておくと、Appsキーがフォーカスを持つ行の近くに<a href="GuiOnEvent.htm#ContextMenu">コンテキストメニュー</a>を表示できるようになるからです。<em>Select</em>の後に、オプションとして、開始状態を示す0または1が続く場合がある。つまり、<code>"Select"</code>も<code>"Select"<strong>.</strong>VarContainingOne</code>は同じです（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>です）。This technique also works with the <a href="#Focus">Focus</a> and <a href="#Check">Check</a> options above.</p>
-<p id="Vis"><strong>Vis:</strong> Ensures that the specified row is completely visible by scrolling the ListView, if necessary. これはLV.Modifyにのみ効果があり、例えば以下のようなものがあります：<code>LV.Modify(RowNumber, "Vis")</code>.</p>
-      </dd>
-      <dt>Col1, Col2, ...</dt>
-      <dd>
+<div class="methodShort" id="Add">
+<h3>Add</h3>
+<p>リストの一番下に新しい行を追加します。</p>
+<pre class="Syntax">RowNumber := LV.<span class="func">Add</span>(<span class="optional">Options, Col1, Col2, ...</span>)</pre>
+<h4 id="Add_Parameters">パラメータ</h4>
+<dl>
+  <dt id="RowOptions">Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+    <p id="Check"><strong>Check:</strong> Shows a checkmark in the row (if the ListView has <a href="#Checked">checkboxes</a>). 後でチェックを外すには、<code>LV.Modify(RowNumber, "-Check")</code>を使用します。</p>
+    <p id="ColN"><strong>Col:</strong> Specify the word <em>Col</em> followed immediately by the column number at which to begin applying the parameters <em>Col1</em> and beyond. This is most commonly used with the <a href="#Modify">Modify method</a> to alter individual fields in a row without affecting those that lie to their left.</p>
+    <p id="Focus"><strong>Focus:</strong> Sets keyboard focus to the row (often used in conjunction with the <a href="#Select">Select</a> option below). To later de-focus it, use <code>LV.Modify(RowNumber, "-Focus")</code>.</p>
+    <p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this row's icon, which is displayed in the left side of the first column. このオプションがない場合、<a href="#IL">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示する場合は、-1またはImageListのアイコンの数より大きい数を指定する。If the control lacks a small-icon ImageList, no icon is displayed nor is any space reserved for one in <a href="#View">report view</a>.</p>
+    <p>The <em>Icon</em> option accepts a one-based icon number, but this is internally translated to a zero-based index; therefore, <code>Icon0</code> corresponds to the constant <a href="https://learn.microsoft.com/windows/win32/controls/list-view-controls-overview#callback-items-and-the-callback-mask">I_IMAGECALLBACK</a>, which is normally defined as -1, and <code class="no-highlight">Icon-1</code> corresponds to I_IMAGENONE. その他の範囲外の値でも、アイコンがあるはずの場所に空白ができることがあります。</p>
+    <p id="Select"><strong>Select:</strong> Selects the row. 後で選択を解除するには、<code>LV.Modify(RowNumber, "-Select")</code>を使用します。行を選択する場合、少なくとも1つの行が常に<a href="#Focus">フォーカス</a>を持つようにしておくと、Appsキーがフォーカスを持つ行の近くに<a href="GuiOnEvent.htm#ContextMenu">コンテキストメニュー</a>を表示できるようになるからです。<em>Select</em>の後に、オプションとして、開始状態を示す0または1が続く場合がある。つまり、<code>"Select"</code>も<code>"Select"<strong>.</strong>VarContainingOne</code>は同じです（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>です）。This technique also works with the <a href="#Focus">Focus</a> and <a href="#Check">Check</a> options above.</p>
+    <p id="Vis"><strong>Vis:</strong> Ensures that the specified row is completely visible by scrolling the ListView, if necessary. This has an effect only for <a href="#Modify">LV.Modify</a>; for example: <code>LV.Modify(RowNumber, "Vis")</code>.</p>
+  </dd>
+  <dt>Col1, Col2, ...</dt>
+  <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>新しい行の列で、テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）を指定することができます。To make any field blank, specify <code>""</code> or the equivalent. フィールドが少なすぎてすべての列を埋めることができない場合、末尾の列は空白になります。フィールドが多すぎる場合、末尾のフィールドは完全に無視されます。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="Insert">
-    <h3>Insert</h3>
-    <p>指定された行番号に新しい行を挿入し、その新しい<a href="#RowNumber">行</a>番号を返す。</p>
-    <pre class="Syntax">NewRowNumber := LV.<span class="func">Insert</span>(RowNumber <span class="optional">, Options, Col1, Col2, ...</span>)</pre>
-    <dl>
-      <dt>RowNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>新たに挿入された行の行番号。<em>RowNumber</em>以下の行は、新しい行のためのスペースを確保するために下方にシフトされます。<em>RowNumberが</em>リストの行数より大きい場合（2147483647でも）、新しい行はリストの末尾に追加されます。</p>
-      </dd>
-      <dt>Options</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>See <a href="#RowOptions">row options</a>.</p>
-      </dd>
-      <dt>Col1, Col2, ...</dt>
-      <dd>
+  </dd>
+</dl>
+<h4 id="Add_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the new <a href="#RowNumber">row number</a>, which is not necessarily the last row if the ListView has the <a href="#Sort">Sort</a> or <a href="#SortDesc">SortDesc</a> style.</p>
+</div>
+
+<div class="methodShort" id="Insert">
+<h3>Insert</h3>
+<p>指定された行番号に新しい行を挿入する。</p>
+<pre class="Syntax">RowNumber := LV.<span class="func">Insert</span>(RowNumber <span class="optional">, Options, Col1, Col2, ...</span>)</pre>
+<h4 id="Insert_Parameters">パラメータ</h4>
+<dl>
+  <dt>RowNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The row number of the newly inserted row. <em>RowNumber</em>以下の行は、新しい行のためのスペースを確保するために下方にシフトされます。<em>RowNumberが</em>リストの行数より大きい場合（2147483647でも）、新しい行はリストの末尾に追加されます。</p>
+  </dd>
+  <dt>Options</dt>
+  <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>新しい行の列で、テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）を指定することができます。任意のフィールドを空白にする場合は、""または同等のものを指定します。フィールドが少なすぎてすべての列を埋めることができない場合、末尾の列は空白になります。フィールドが多すぎる場合、末尾のフィールドは完全に無視されます。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="Modify">
-    <h3>Modify</h3>
-    <p>行の属性やテキストを変更する。</p>
-    <pre class="Syntax">LV.<span class="func">Modify</span>(RowNumber <span class="optional">, Options, NewCol1, NewCol2, ...</span>)</pre>
-    <p>注：最初の2つのパラメータのみが存在する場合、行の属性のみが変更され、テキストは変更されない。</p>
-    <dl>
-      <dt>RowNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>修正する行を指定します。<em>RowNumber</em>が 0 の場合、コントロール内の<u>すべて</u>の行が変更される（この場合、戻り値は完全な成功で 1、操作の一部が失敗した場合は 0 となる）。</p>
-      </dd>
-      <dt>Options</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p><a href="#ColN">ColNオプション</a>は、他の列に影響を与えずに特定の列を更新するために使用することができます。その他のオプションについては、「<a href="#RowOptions">行のオプション</a>」を参照してください。</p>
-      </dd>
-      <dt>NewCol1, NewCol2, ...</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>指定された行の新しい列。テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）を指定することができる。任意のフィールドを空白にする場合は、""または同等のものを指定します。パラメータが少なすぎてすべての列をカバーできない場合、末尾の列は変更されません。フィールドが多すぎる場合、末尾のフィールドは完全に無視されます。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="Delete">
-    <h3>Delete</h3>
-    <p>指定された行またはすべての行を削除する。</p>
-    <pre class="Syntax">LV.<span class="func">Delete</span>(<span class="optional">RowNumber</span>)</pre>
-    <dl>
-      <dt>RowNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>削除する行を指定します。If this parameter is omitted, <u>all</u> rows in the ListView are deleted.</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="ModifyCol">
-    <h3>ModifyCol</h3>
-    <p>指定されたカラムとそのヘッダーの属性とテキストを変更します。</p>
-    <pre class="Syntax">LV.<span class="func">ModifyCol</span>(<span class="optional">ColumnNumber, Options, ColumnTitle</span>)</pre>
-    <p>注：すべてのパラメータが省略された場合、各列の幅は行の内容に合うように調整されます。第1パラメータのみが存在する場合、指定されたカラムのみがオートサイズ化されます。Auto-sizing has no effect when not in <a href="#View">Report (Details) view</a>.</p>
-    <dl>
-      <dt>ColumnNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>修正する列です。1列目は1（0ではない）です。</p>
-      </dd>
-      <dt id="ColOptions">Options</dt>
-      <dd>
+    <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the <a href="#RowOptions">list above</a>.</p>
+  </dd>
+  <dt>Col1, Col2, ...</dt>
+  <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>A string containing zero or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+    <p>新しい行の列で、テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）を指定することができます。To make any field blank, specify <code>""</code> or the equivalent. フィールドが少なすぎてすべての列を埋めることができない場合、末尾の列は空白になります。フィールドが多すぎる場合、末尾のフィールドは完全に無視されます。</p>
+  </dd>
+</dl>
+<h4 id="Insert_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the specified row number.</p>
+</div>
+
+<div class="methodShort" id="Modify">
+<h3>Modify</h3>
+<p>行の属性やテキストを変更する。</p>
+<pre class="Syntax">LV.<span class="func">Modify</span>(RowNumber <span class="optional">, Options, NewCol1, NewCol2, ...</span>)</pre>
+<h4 id="Modify_Parameters">パラメータ</h4>
+<dl>
+  <dt>RowNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The number of the row to modify. If 0, <u>all</u> rows in the control are modified.</p>
+  </dd>
+  <dt>Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the <a href="#RowOptions">list above</a>. The <a href="#ColN">Col option</a> may be used to update specific columns without affecting the others.</p>
+  </dd>
+  <dt>NewCol1, NewCol2, ...</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>指定された行の新しい列。テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）を指定することができる。To make any field blank, specify <code>""</code> or the equivalent. パラメータが少なすぎてすべての列をカバーできない場合、末尾の列は変更されません。フィールドが多すぎる場合、末尾のフィールドは完全に無視されます。</p>
+  </dd>
+</dl>
+<h4 id="Modify_Remarks">備考</h4>
+<p>最初の2つのパラメータのみが存在する場合、行の属性のみが変更され、テキストは変更されない。</p>
+</div>
+
+<div class="methodShort" id="Delete">
+<h3>Delete</h3>
+<p>指定された行またはすべての行を削除する。</p>
+<pre class="Syntax">LV.<span class="func">Delete</span>(<span class="optional">RowNumber</span>)</pre>
+<h4 id="Delete_Parameters">パラメータ</h4>
+<dl>
+  <dt>RowNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, <u>all</u> rows in the ListView are deleted. Otherwise, specify the number of the row to delete.</p>
+  </dd>
+</dl>
+</div>
+
+<div class="methodShort" id="ModifyCol">
+<h3>ModifyCol</h3>
+<p>指定されたカラムとそのヘッダーの属性とテキストを変更します。</p>
+<pre class="Syntax">LV.<span class="func">ModifyCol</span>(<span class="optional">ColumnNumber, Options, ColumnTitle</span>)</pre>
+<h4 id="ModifyCol_Parameters">パラメータ</h4>
+<dl>
+  <dt>ColumnNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If this and the other parameters are all omitted, the width of every column is adjusted to fit the contents of the rows. This has no effect when not in <a href="#View">Report (Details) view</a>.</p>
+    <p>Otherwise, specify the number of the column to modify. 1列目は1（0ではない）です。</p>
+  </dd>
+  <dt id="ColOptions">Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If omitted, it defaults to Auto (adjusts the column's width to fit its contents). Otherwise, specify one or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
     <hr>
     <p><strong><em>一般的なオプションです：</em></strong></p>
     <p><strong>N:</strong> Specify for <em>N</em> the new width of the column, in pixels. この数字は、唯一の選択肢であるならば、引用されないことも可能です。例えば、以下はどちらも有効です：<code>LV.ModifyCol(1, 50)</code> and <code>LV.ModifyCol(1, "50 Integer")</code>.</p>
     <p><strong>Auto:</strong> Adjusts the column's width to fit its contents. This has no effect when not in <a href="#View">Report (Details) view</a>.</p>
-    <p><strong>AutoHdr:</strong> Adjusts the column's width to fit its contents and the column's header text, whichever is wider. 最後のカラムに適用すると、ListViewの残りのスペースと同じ幅になるようにします。この設定は、行が追加された後に適用するのが一般的です。そうすることで、新たに到着した垂直スクロールバーを考慮して、最後の列のサイズを設定することができるからです。This option has no effect when not in <a href="#View">Report (Details) view</a>.</p>
+    <p><strong>AutoHdr:</strong> Adjusts the column's width to fit its contents and the column's header text, whichever is wider. 最後のカラムに適用すると、ListViewの残りのスペースと同じ幅になるようにします。この設定は、行が追加された後に適用するのが一般的です。そうすることで、新たに到着した垂直スクロールバーを考慮して、最後の列のサイズを設定することができるからです。This has no effect when not in <a href="#View">Report (Details) view</a>.</p>
     <p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of the <a href="#IL">ImageList</a>'s icon to display next to the column header's text. Specify <code>-Icon</code> (minus icon) to remove any existing icon.</p>
     <p><strong>IconRight:</strong> Puts the icon on the right side of the column rather than the left.</p>
     <hr>
@@ -232,92 +248,117 @@ LV_DoubleClick(LV, RowNumber)
     <p><strong>Sort:</strong> Immediately sorts the column in ascending order (even if it has the <a href="#Desc">Desc</a> option).</p>
     <p><strong>SortDesc:</strong> Immediately sorts the column in descending order.</p>
     <p><strong>Uni:</strong> Unidirectional sort. これにより、同じ列を2回目にクリックしても、ソートの方向が逆になることを防ぐことができます。</p>
-      </dd>
-      <dt>ColumnTitle</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>新しいカラムヘッダーです。このパラメータを省略すると、変更されないままとなります。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="InsertCol">
-    <h3>InsertCol</h3>
-    <p>指定された列番号に新しい列を挿入し、新しい列の位置番号を返す。</p>
-    <pre class="Syntax">NewColumnNumber := LV.<span class="func">InsertCol</span>(ColumnNumber <span class="optional">, Options, ColumnTitle</span>)</pre>
-    <dl>
-      <dt>ColumnNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>新しく挿入された列の列番号。<em>ColumnNumber</em>の右側にある列は、新しい列のために右側にシフトされます。1列目は1（0ではない）です。ListViewの最大列数は200列です。<em>ColumnNumber</em>が現在コントロール内にある列の数より大きい場合、新しい列は右側の最後の列の隣に追加されます。新しく挿入された列は、それが最初の列でない限り、その下に何もない状態で始まり、その場合、古い最初の列の内容を引き継ぎ、古い最初の列は空白の内容を獲得する。</p>
-      </dd>
-      <dt>Options</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>新しいカラムの属性 (<a href="#Integer">integer sorting</a> を使用するかどうかなど) は、<em><a href="#ColOptions">Options</a></em>で変更しない限り、常にデフォルト値で始まります。</p>
-      </dd>
-      <dt>ColumnTitle</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>新しいカラムヘッダーです。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="DeleteCol">
-    <h3>DeleteCol</h3>
-    <p>指定された列とその下にあるすべてのコンテンツを削除する。</p>
-    <pre class="Syntax">LV.<span class="func">DeleteCol</span>(ColumnNumber)</pre>
-    <dl>
-      <dt>ColumnNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>削除する列を指定します。列が削除されると、その右側にある列の列番号は1つ減らされます。その結果、<code>LV.DeleteCol(2)</code>を2回呼び出すと、2列目と3列目が削除されます。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="GetCount">
-    <h3>GetCount</h3>
-    <p>コントロールの行数または列数を返します。</p>
-    <pre class="Syntax">CountNumber := LV.<span class="func">GetCount</span>(<span class="optional">Mode</span>)</pre>
-    <dl>
-      <dt>Mode</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>本パラメータが省略された場合は、コントロールの総行数を返します。When this parameter is <code>"S"</code> or <code>"Selected"</code>, the count includes only the selected/highlighted rows. When this parameter is <code>"Col"</code> or <code>"Column"</code>, it returns the number of columns in the control. コントロールがこれらのカウントを記録しているため、戻り値は即座に取得されます。</p>
-      </dd>
-    </dl>
-    <p>This method is often used in the top line of a <a href="Loop.htm">Loop</a>, in which case the method would get called only once (prior to the first iteration). 事例：</p>
-    <pre>Loop LV.GetCount()
+  </dd>
+  <dt>ColumnTitle</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If omitted, the current header is left unchanged. Otherwise, specify the new header of the column.</p>
+  </dd>
+</dl>
+</div>
+
+<div class="methodShort" id="InsertCol">
+<h3>InsertCol</h3>
+<p>指定されたカラム番号に新しいカラムを挿入します。</p>
+<pre class="Syntax">ColumnNumber := LV.<span class="func">InsertCol</span>(ColumnNumber <span class="optional">, Options, ColumnTitle</span>)</pre>
+<h4 id="InsertCol_Parameters">パラメータ</h4>
+<dl>
+  <dt>ColumnNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>新しく挿入された列の列番号。<em>ColumnNumber</em>の右側にある列は、新しい列のために右側にシフトされます。1列目は1（0ではない）です。<em>ColumnNumber</em>が現在コントロール内にある列の数より大きい場合、新しい列は右側の最後の列の隣に追加されます。</p>
+  </dd>
+  <dt>Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If omitted, the column always starts off at its defaults, such as whether or not it uses <a href="#Integer">integer sorting</a>. Otherwise, specify one or more options from the <a href="#ColOptions">list above</a>.</p>
+  </dd>
+  <dt>ColumnTitle</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, it defaults to an empty header. Otherwise, specify the header of the column.</p>
+  </dd>
+</dl>
+<h4 id="InsertCol_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the new column's position number.</p>
+<h4 id="InsertCol_Remarks">備考</h4>
+<p>新しく挿入された列は、それが最初の列でない限り、その下に何もない状態で始まり、その場合、古い最初の列の内容を引き継ぎ、古い最初の列は空白の内容を獲得する。</p>
+<p>ListViewの最大列数は200列です。</p>
+</div>
+
+<div class="methodShort" id="DeleteCol">
+<h3>DeleteCol</h3>
+<p>指定された列とその下にあるすべてのコンテンツを削除する。</p>
+<pre class="Syntax">LV.<span class="func">DeleteCol</span>(ColumnNumber)</pre>
+<h4 id="DeleteCol_Parameters">パラメータ</h4>
+<dl>
+  <dt>ColumnNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The number of the column to delete. 列が削除されると、その右側にある列の列番号は1つ減らされます。その結果、<code>LV.DeleteCol(2)</code>を2回呼び出すと、2列目と3列目が削除されます。</p>
+  </dd>
+</dl>
+</div>
+
+<div class="methodShort" id="GetCount">
+<h3>GetCount</h3>
+<p>コントロールの行数または列数を返します。</p>
+<pre class="Syntax">Count := LV.<span class="func">GetCount</span>(<span class="optional">Mode</span>)</pre>
+<h4 id="GetCount_Parameters">パラメータ</h4>
+<dl>
+  <dt>Mode</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, the method returns the total number of rows in the control. Otherwise, specify one of the following strings:</p>
+    <p><strong>S</strong> or <strong>Selected</strong>: The count includes only the selected/highlighted rows.</p>
+    <p><strong>Col</strong> or <strong>Column</strong>: The method returns the number of columns in the control.</p>
+  </dd>
+</dl>
+<h4 id="GetCount_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of rows or columns in the control. The value is always returned immediately because the control keeps track of these counts.</p>
+<h4 id="GetCount_Remarks">備考</h4>
+<p>This method is often used in the top line of a <a href="Loop.htm">Loop</a>, in which case the method would get called only once (prior to the first iteration). 事例：</p>
+<pre>Loop LV.GetCount()
 {
     RetrievedText := LV.GetText(A_Index)
     if InStr(RetrievedText, "some filter text")
         LV.Modify(A_Index, "Select")  <em>; 最初のフィールドがフィルターテキストを含む各行を選択します。</em>
 }</pre>
-    <p>ListViewのカラムの幅を取得し、INIファイルに保存してセッション間で記憶させるなどの使い方をする場合は、次のようにします：</p>
-    <pre>
-Loop LV.GetCount("Column")
+<p>ListViewのカラムの幅を取得し、INIファイルに保存してセッション間で記憶させるなどの使い方をする場合は、次のようにします：</p>
+<pre>Loop LV.GetCount("Column")
 {
     ColWidth := SendMessage(0x101D, A_Index - 1, 0, LV)  <em>; 0x101D is LVM_GETCOLUMNWIDTH.</em>
     MsgBox("Column " A_Index "'s width is " ColWidth ".")
 }</pre>
-  </div>
-  <div class="methodShort" id="GetNext">
-    <h3>GetNext</h3>
-    <p>次に選択、チェック、フォーカスされた行の行番号を返し、それ以外の場合は0を返します。</p>
-    <pre class="Syntax">RowNumber := LV.<span class="func">GetNext</span>(<span class="optional">StartingRowNumber, RowType</span>)</pre>
-    <dl>
-      <dt>StartingRowNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>省略された場合、または1未満の場合は、リストの先頭から検索を開始します。そうでない場合は、<em>StartingRowNumber</em>の後の行から検索を開始します。</p>
-      </dd>
-      <dt>RowType</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-        <p>省略された場合は、次に選択／強調表示された行を検索します。Otherwise, specify <code>"C"</code> or <code>"Checked"</code> to find the next checked row; or <code>"F"</code> or <code>"Focused"</code> to find the focused row (there is never more than one focused row in the entire list, and sometimes there is none at all).</p>
-      </dd>
-    </dl>
-    <p>次の例では、ListViewで選択されたすべての行をレポートします：</p>
-    <pre>RowNumber := 0  <em>; This causes the first loop iteration to start the search at the top of the list.</em>
+</div>
+
+<div class="methodShort" id="GetNext">
+<h3>GetNext</h3>
+<p>次に選択、チェック、またはフォーカスされた行の行番号を返します。</p>
+<pre class="Syntax">RowNumber := LV.<span class="func">GetNext</span>(<span class="optional">StartingRowNumber, RowType</span>)</pre>
+<h4 id="GetNext_Parameters">パラメータ</h4>
+<dl>
+  <dt>StartingRowNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>省略された場合、または1未満の場合は、リストの先頭から検索を開始します。Otherwise, specify the number of the row after which to begin the search.</p>
+  </dd>
+  <dt>RowType</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, the method searches for the next selected/highlighted row (see the example below). Otherwise, specify one of the following strings:</p>
+    <p><strong>C</strong> or <strong>Checked</strong>: Find the next checked row.</p>
+    <p><strong>F</strong> or <strong>Focused</strong>: Find the focused row. There is never more than one focused row in the entire list, and sometimes there is none at all.</p>
+  </dd>
+</dl>
+<h4 id="GetNext_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the row number of the next selected, checked, or focused row. If none is found, it returns 0.</p>
+<h4 id="GetNext_Remarks">備考</h4>
+<p>次の例では、ListViewで選択されたすべての行をレポートします：</p>
+<pre>RowNumber := 0  <em>; This causes the first loop iteration to start the search at the top of the list.</em>
 Loop
 {
     RowNumber := LV.GetNext(RowNumber)  <em>; 前の反復で見つかった行の次の行から検索を再開する。</em>
@@ -326,50 +367,59 @@ Loop
     Text := LV.GetText(RowNumber)
     MsgBox('The next selected row is #' RowNumber ', whose first field is "' Text '".')
 }</pre>
-    <p>特定の行番号にチェックが入っているかどうかを調べる別の方法として、次のようなものがあります：</p>
-    <pre>
-ItemState := SendMessage(0x102C, RowNumber - 1, 0xF000, LV)  <em>; 0x102C は LVM_GETITEMSTATE です。0xF000はLVIS_STATEIMAGEMASKです。</em>
+<p>特定の行番号にチェックが入っているかどうかを調べる別の方法として、次のようなものがあります：</p>
+<pre>ItemState := SendMessage(0x102C, RowNumber - 1, 0xF000, LV)  <em>; 0x102C は LVM_GETITEMSTATE です。0xF000はLVIS_STATEIMAGEMASKです。</em>
 IsChecked := (ItemState &gt;&gt; 12) - 1　　<em>;<i>RowNumber</i>がチェックされていればIsCheckedをtrueに、そうでなければfalseに設定します。</em></pre>
-  </div>
-  <div class="methodShort" id="GetText">
-    <h3>GetText</h3>
-    <p>指定された行番号と列番号のテキストを取得する。</p>
-    <pre class="Syntax">RetrievedText := LV.<span class="func">GetText</span>(RowNumber <span class="optional">, ColumnNumber</span>)</pre>
-    <dl>
-      <dt>RowNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>テキストを取得する行の番号。このパラメータが 0 の場合、カラムヘッダーテキストが取得されます。<em>RetrievedText</em>の長さは最大8191です。</p>
-      </dd>
-      <dt>ColumnNumber</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>指定された行が位置する列の番号。省略された場合、デフォルトは1（1列目のテキスト）です。スクリプトが見る列番号は、ユーザーが行った列のドラッグ＆ドロップによって変更されることはありません。例えば、ユーザーが他の列の右側にドラッグしても、元の1列目は1番のままです。</p>
-      </dd>
-    </dl>
-  </div>
-  <div class="methodShort" id="SetImageList">
-    <h3>SetImageList</h3>
-    <p>アイコンを表示するための<a href="#IL">ImageList</a>を設定または置換し、このコントロールに以前関連付けられていた ImageListID を返します（ない場合は 0）。</p>
-    <pre class="Syntax">PrevImageListID := LV.<span class="func">SetImageList</span>(ImageListID <span class="optional">, IconType</span>)</pre>
-    <dl>
-      <dt>ImageListID</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>以前に<a href="ListView.htm#IL_Create">IL_Create</a>を呼び出した際に返された番号。</p>
-      </dd>
-      <dt>IconType</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>第2パラメータを省略した場合、ImageListに含まれるアイコンの種類を自動的に大小判別します。それ以外の場合は、大きいアイコンは0、小さいアイコンは1、状態アイコンは2を指定します（状態アイコンはまだ直接サポートされていませんが、<a href="SendMessage.htm">SendMessage</a>を介して使用することができます）。</p>
-      </dd>
-    </dl>
-<p>このメソッドは通常、ListViewに行を追加する前に呼び出されます。</p>
-    <p>ListViewは、最大2つのImageListを持つことができます：small-iconおよびlarge-iconのいずれか、または両方を使用します。スクリプトでラージアイコン表示との切り替えが可能な場合に有効です。ListViewに複数のImageListを追加するには、2つ目のリストのImageListIDを指定して、SetImageListメソッドを2回呼び出します。大アイコンと小アイコンのImageListを持つListViewは、両方のリストに同じ順序でアイコンを含むことを保証する必要があります。これは、あるアイコンの大きいバージョンと小さいバージョンの両方を参照するために、同じID番号が使用されるためです。</p>
+
+</div>
+<div class="methodShort" id="GetText">
+<h3>GetText</h3>
+<p>指定された行番号と列番号のテキストを取得する。</p>
+<pre class="Syntax">Text := LV.<span class="func">GetText</span>(RowNumber <span class="optional">, ColumnNumber</span>)</pre>
+<dl>
+  <dt>RowNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The number of the row whose text to be retrieved. If 0, the column header text is retrieved.</p>
+  </dd>
+  <dt>ColumnNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>省略された場合、デフォルトは1（1列目のテキスト）です。Otherwise, specify the number of the column where <em>RowNumber</em> is located.</p>
+  </dd>
+</dl>
+<h4 id="GetText_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>The method returns the retrieved text. Only up to 8191 characters are retrieved.</p>
+<h4 id="GetText_Remarks">備考</h4>
+<p>スクリプトが見る列番号は、ユーザーが行った列のドラッグ＆ドロップによって変更されることはありません。例えば、ユーザーが他の列の右側にドラッグしても、元の1列目は1番のままです。</p>
+
+</div>
+<div class="methodShort" id="SetImageList">
+<h3>SetImageList</h3>
+<p>Sets or replaces an <a href="#IL">ImageList</a> for displaying icons.</p>
+<pre class="Syntax">PrevImageListID := LV.<span class="func">SetImageList</span>(ImageListID <span class="optional">, IconType</span>)</pre>
+<h4 id="SetImageList_Parameters">パラメータ</h4>
+<dl>
+  <dt>ImageListID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number returned from a previous call to <a href="#IL_Create">IL_Create</a>.</p>
+  </dd>
+  <dt>IconType</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, the type of icons in the ImageList is detected automatically as large or small. Otherwise, specify 0 for large icons, 1 for small icons, or 2 for state icons (which are not yet directly supported, but could be used via <a href="SendMessage.htm">SendMessage</a>).</p>
+  </dd>
+</dl>
+<h4 id="SetImageList_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the ImageList ID that was previously associated with the ListView. On failure, it returns 0. このような切り離されたImageListは、通常<a href="#IL_Destroy">IL_Destroy</a>で破棄する必要があります。</p>
+<h4 id="SetImageList_Remarks">備考</h4>
+<p>このメソッドは通常、ListViewに行を追加する前に呼び出されます。It sets the <a href="#IL">ImageList</a> whose icons will be displayed by the ListView's rows (and optionally, its columns).</p>
+<p>ListViewは、最大2つのImageListを持つことができます：small-iconおよびlarge-iconのいずれか、または両方を使用します。スクリプトでラージアイコン表示との切り替えが可能な場合に有効です。To add more than one ImageList to a ListView, call the SetImageList method a second time, specifying the ImageList ID of the second list. 大アイコンと小アイコンのImageListを持つListViewは、両方のリストに同じ順序でアイコンを含むことを保証する必要があります。これは、あるアイコンの大きいバージョンと小さいバージョンの両方を参照するために、同じID番号が使用されるためです。</p>
 <p>アイコンとタイルを除くすべての<a href="#View">表示モード</a>では、小さなアイコンを表示するのが伝統的ですが、SetImageListメソッドに大きなアイコンリストを渡し、第2パラメータに1（小さなアイコン）を指定することでこれをオーバーライドすることができます。また、ListViewの各行の高さを大きくして、大きなアイコンに合わせます。</p>
-    <p>
-      このような切り離されたImageListは、通常<a href="ListView.htm#IL_Destroy">IL_Destroy</a>で破棄する必要があります。</p>
-  </div>
+</div>
 
 <h2 id="Events">イベント情報</h2>
 <p><a href="GuiOnEvent.htm">OnEvent</a>を呼び出してコールバック関数やメソッドを登録することで、以下のイベントを検出することができます：</p>
@@ -398,66 +448,95 @@ Loop 10  <em>;DLLから一連のアイコンをImageListに読み込ませる。
     <a href="#IL_Add">IL_Add</a>(ImageListID, "shell32.dll", A_Index)
 Loop 10  <em>; ListViewに行を追加する（デモのため、各アイコンに1つずつ）。</em>
     LV.Add("Icon" . A_Index, A_Index, "n/a")
-LV.ModifyCol("Hdr")  <em>; 列幅を自動調整する。</em>
 MyGui.Show</pre>
+
 <h3 id="IL_Create">IL_Create</h3>
-  <p>新しい ImageList を作成し、最初は空で、ImageList の固有 ID を返します（失敗した場合は 0）。</p>
-  <pre class="Syntax">ImageListID := <span class="func">IL_Create</span>(<span class="optional">InitialCount, GrowCount, LargeIcons</span>)</pre>
-  <dl>
-    <dt>InitialCount</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>すぐにリストに入れることを想定したアイコンの数（省略された場合、デフォルトは2です）。</p>
-    </dd>
-    <dt>GrowCount</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>リストが現在のリスト容量を超えるたびに増加するアイコンの数（省略された場合、デフォルトは5）。</p>
-    </dd>
-    <dt>LargeIcons</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-      <p>このパラメータが1（true）の場合、ImageListには大きなアイコンが含まれるようになります。0（false）を指定すると、小さなアイコンを含むようになります（省略時のデフォルトはこれ）。リストに追加されたアイコンは、大小のアイコンについてシステムの寸法に合わせて自動的に拡大縮小されます。</p>
-    </dd>
-  </dl>
+<p>Creates a new ImageList that is initially empty.</p>
+<pre class="Syntax">ImageListID := <span class="func">IL_Create</span>(<span class="optional">InitialCount, GrowCount, LargeIcons</span>)</pre>
+<h4 class="func_section" id="IL_Create_Parameters">パラメータ</h4>
+<dl>
+  <dt>InitialCount</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, it defaults to 2. Otherwise, specify the number of icons you expect to put into the list immediately.</p>
+  </dd>
+  <dt>GrowCount</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, it defaults to 5. Otherwise, specify the number of icons by which the list will grow each time it exceeds the current list capacity.</p>
+  </dd>
+  <dt>LargeIcons</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
+    <p>If omitted, it defaults to false.</p>
+    <p>If <strong>false</strong>, the ImageList will contain small icons.</p>
+    <p>If <strong>true</strong>, the ImageList will contain large icons.</p>
+    <p>リストに追加されたアイコンは、大小のアイコンについてシステムの寸法に合わせて自動的に拡大縮小されます。</p>
+  </dd>
+</dl>
+<h4 class="func_section" id="IL_Create_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>On success, this function returns the unique ID of the newly created ImageList. On failure, it returns 0.</p>
+
 <h3 id="IL_Add">IL_Add</h3>
-  <p>指定された ImageList にアイコンまたは画像を追加し、新しいアイコンのインデックスを返します（1 は最初のアイコン、2 は 2 番目のアイコン、といった具合に）。</p>
-  <pre class="Syntax">IconIndex := <span class="func">IL_Add</span>(ImageListID, Filename <span class="optional">, IconNumber, ResizeNonIcon</span>)</pre>
-  <dl>
-    <dt>ImageListID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p><a href="#IL_Create">IL_Create</a>で作成された ImageList の ID。</p>
-    </dd>
-    <dt>Filename</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>アイコン（.ICO）、カーソル（.CUR）、アニメーションカーソル（.ANI）ファイル（アニメーションカーソルはリストビューに表示しても実際にはアニメーションしません）、または<code>"HBITMAP: "ハンドル</code>などの<a href="../misc/ImageHandles.htm">ビットマップまたはアイコンハンドル</a>の名前です。その他、アイコンのソースとして、以下のような種類のファイルがあります：EXE、DLL、CPL、SCRなど、アイコンリソースを含むタイプ。</p>
-    </dd>
-    <dt>IconNumber</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>ファイルの先頭以外のアイコングループを使用する場合は、<em>IconNumber</em>にその番号を指定します。<em>IconNumber</em>が負の場合、その絶対値は実行ファイル内のアイコンのリソース ID とみなされます。次の例では、2番目のアイコングループのデフォルトアイコンが使用されることになります：<code>IL_Add(ImageListID, "C:\My Application.exe", 2)</code>.</p>
-    </dd>
-    <dt>ResizeNonIcon</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-      <p>BMP、GIF、JPGなどの非アイコン画像も読み込むことができます。ただし、この場合、正しい動作を保証するために、最後の2つのパラメータを指定する必要があります：<em>IconNumber</em>には、マスク/透明度の色番号（0xFFFFFF [白]がほとんどの画像に最適かもしれません）を指定し、<em>ResizeNonIcon</em>には、画像を1つのアイコンになるように拡大縮小する場合は0以外、画像を実際の幅に収まる数のアイコンに分割する場合は0を指定します。</p>
-      <p>対応する画像形式は、ANI、BMP、CUR、EMF、Exif、GIF、ICO、JPG、PNG、TIF、WMFです。</p>
-    </dd>
-  </dl>
+<p>Adds an icon or picture to the specified ImageList.</p>
+<pre class="Syntax">IconIndex := <span class="func">IL_Add</span>(ImageListID, IconFileName <span class="optional">, IconNumber</span>)
+IconIndex := <span class="func">IL_Add</span>(ImageListID, PicFileName, MaskColor, Resize)</pre>
+<h4 class="func_section" id="IL_Add_Parameters">パラメータ</h4>
+<dl>
+  <dt>ImageListID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number returned from a previous call to <a href="#IL_Create">IL_Create</a>.</p>
+  </dd>
+  <dt>IconFileName</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>The name of an icon (.ICO), cursor (.CUR), or animated cursor (.ANI) file (animated cursors will not actually be animated when displayed in a ListView), or an <a href="../misc/ImageHandles.htm">icon handle</a> such as <code>"HICON:" handle</code>. その他、アイコンのソースとして、以下のような種類のファイルがあります：EXE、DLL、CPL、SCRなど、アイコンリソースを含むタイプ。</p>
+  </dd>
+  <dt>IconNumber</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, it defaults to 1 (the first icon group). Otherwise, specify the number of the icon group to be used in the file. If the number is negative, its absolute value is assumed to be the resource ID of an icon within an executable file. 次の例では、2番目のアイコングループのデフォルトアイコンが使用されることになります：<code>IL_Add(ImageListID, "C:\My Application.exe", 2)</code>.</p>
+  </dd>
+  <dt>PicFileName</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>The name of a non-icon image such as BMP, GIF, JPG, PNG, TIF, Exif, WMF, and EMF, or a <a href="../misc/ImageHandles.htm">bitmap handle</a> such as <code>"HBITMAP:" handle</code>.</p>
+  </dd>
+  <dt>MaskColor</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The mask/transparency color number. 0xFFFFFF (the color white) might be best for most pictures.</p>
+  </dd>
+  <dt>Resize</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
+    <p>If <strong>true</strong>, the picture is scaled to become a single icon.</p>
+    <p>If <strong>false</strong>, the picture is divided up into however many icons can fit into its actual width.</p>
+  </dd>
+</dl>
+<h4 class="func_section" id="IL_Add_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>On success, this function returns the new icon's index (1 is the first icon, 2 is the second, and so on). On failure, it returns 0.</p>
+
 <h3 id="IL_Destroy">IL_Destroy</h3>
-  <p>指定された ImageList を削除します。</p>
-  <pre class="Syntax">Success := <span class="func">IL_Destroy</span>(ImageListID)</pre>
-  <dl>
-    <dt>ImageListID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p><a href="#IL_Create">IL_Create</a>で作成された ImageList の ID。</p>
-    </dd>
-  </dl>
-  <p>
-    注：ImageListはListViewに装着されると、ListViewまたはその親ウィンドウが破壊されたときに自動的に破壊されるため、通常は破壊する必要はない。However, if the ListView shares ImageLists with other ListViews (by having 0x40 in its options), the script should explicitly destroy the ImageList after destroying all the ListViews that use it. 同様に、スクリプトがListViewの古いImageListの1つを新しいものに置き換える場合、古いものを明示的に破棄する必要があります。</p>
+<p>指定された ImageList を削除します。</p>
+<pre class="Syntax">IsDestroyed := <span class="func">IL_Destroy</span>(ImageListID)</pre>
+<h4 class="func_section" id="IL_Destroy_Parameters">パラメータ</h4>
+<dl>
+  <dt>ImageListID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number returned from a previous call to <a href="#IL_Create">IL_Create</a>.</p>
+  </dd>
+</dl>
+<h4 class="func_section" id="IL_Destroy_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>On success, this function returns 1 (true). On failure, it returns 0 (false).</p>
+<h4 class="func_section" id="IL_Destroy_Remarks">備考</h4>
+<p>ImageListはListViewに装着されると、ListViewまたはその親ウィンドウが破壊されたときに自動的に破壊されるため、通常は破壊する必要はない。However, if the ListView shares ImageLists with other ListViews (by having 0x40 in its options), the script should explicitly destroy the ImageList after destroying all the ListViews that use it. 同様に、スクリプトがListViewの古いImageListの1つを新しいものに置き換える場合、古いものを明示的に破棄する必要があります。</p>
+
 <h2 id="Remarks">備考</h2>
 <p><a href="Gui.htm#Submit">Gui.Submit</a>は、ListViewコントロールには効果がありません。</p>
 <p>カラムがソートされた後（ユーザーがヘッダーをクリックするか、スクリプトが<code>LV.<a href="#ModifyCol">ModifyCol</a>(1, "Sort") </code>を呼び出す）、その後に追加された行は、ソート順序に従わずにリストの一番下に表示されます。ただし、<a href="#Sort">Sort</a>と <a href="#SortDesc">SortDesc</a>は例外で、新しく追加された行を正しい位置に移動させるスタイルです。</p>
@@ -484,10 +563,9 @@ LV_Enter(*) {
 
 <div class="ex" id="ExAllRows">
 <p><a class="ex_number" href="#ExAllRows"></a> 行番号に0を指定して、すべての行を選択または非選択にします。</p>
-<pre><em>; 行番号に0を指定して、すべての行を選択または非選択する：</em>
-LV<a href="#Modify">.Modify</a>(0, "Select")  <em>; すべてを選択する。</em>
-LV.Modify(0, "-Select")  <em>; 全選択を解除する。</em>。
-LV.Modify(0, "-Check")  <em>; すべての<a href="#Checked">チェックボックス</a>のチェックをはずす。</em></pre>
+<pre>LV.<a href="#Modify">Modify</a>(0, "Select")   <em>; Select all.</em>
+LV.Modify(0, "-Select")  <em>; De-select all.</em>
+LV.Modify(0, "-Check")  <em>; Uncheck all the <a href="#Checked">checkboxes</a>.</em></pre>
 </div>
 
 <div class="ex" id="ExAutoSize">
@@ -527,7 +605,7 @@ B3.OnEvent("Click", SwitchView)
 <em>; ウィンドウイベントを適用する：</em>
 MyGui.OnEvent("Size", Gui_Size)
 
-<em>; Create the popup menu to be used as the context menu:</em>
+<em>; Create a popup menu to be used as the context menu:</em>
 ContextMenu := Menu()
 ContextMenu.Add("Open", ContextOpenOrProperties)
 ContextMenu.Add("Properties", ContextOpenOrProperties)

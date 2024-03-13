@@ -20,8 +20,10 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
 </dl>
@@ -30,11 +32,11 @@
 <p><a href="#group">グループ</a>モードが使用されている場合を除き、ウィンドウが見つからなかった場合は<a href="Error.htm#TargetError">TargetError</a>がスローされる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>ウィンドウの最大化を解除するには<a href="WinRestore.htm">WinRestore</a>を使用し、最小化するには<a href="WinMinimize.htm">WinMinimize</a>を使用する。</p>
+<p>Use <a href="WinRestore.htm">WinRestore</a> to unmaximize a window or <a href="WinMinimize.htm">WinMinimize</a> to minimize it.</p>
 <p>特定のタイプのウィンドウがWinMaximizeに正しく反応しない場合は、代わりに以下を使用してみてください：</p>
 <pre><a href="PostMessage.htm">PostMessage</a> 0x0112, 0xF030,,, WinTitle, WinText  <em>; 0x0112 = WM_SYSCOMMAND, 0xF030 = SC_MAXIMIZE</em></pre>
 <p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となります。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
+
 <h2 id="Related">関連</h2>
 <p><a href="WinRestore.htm">WinRestore</a>, <a href="WinMinimize.htm">WinMinimize</a></p>
 <h2 id="Examples">例</h2>

@@ -14,7 +14,7 @@
 
 <p>キーボード入力の収集や傍受に使用できるオブジェクトを作成します。</p>
 
-<pre class="Syntax">InputHook := <span class="func">InputHook</span>(<span class="optional">Options, EndKeys, MatchList</span>)</pre>
+<pre class="Syntax">InputHookObj := <span class="func">InputHook</span>(<span class="optional">Options, EndKeys, MatchList</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
@@ -22,11 +22,11 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>A string of zero or more of the following options (in any order, with optional spaces in between):</p>
-    <p id="option-b"><strong>B:</strong> Sets <a href="#BackspaceIsUndo">BackspaceIsUndo</a> to false, which causes <kbd>Backspace</kbd> to be ignored.</p>
-    <p id="option-c"><strong>C:</strong> Sets <a href="#CaseSensitive">CaseSensitive</a> to true, making <em>MatchList</em> case-sensitive.</p>
+    <p id="option-b"><strong>B:</strong> Sets <a href="#BackspaceIsUndo">BackspaceIsUndo</a> to 0 (false), which causes <kbd>Backspace</kbd> to be ignored.</p>
+    <p id="option-c"><strong>C:</strong> Sets <a href="#CaseSensitive">CaseSensitive</a> to 1 (true), making <em>MatchList</em> case-sensitive.</p>
     <p id="option-i"><strong>I:</strong> Sets <a href="#MinSendLevel">MinSendLevel</a> to 1 or a given value, causing any input with <a href="SendLevel.htm">send level</a> below this value to be ignored. 例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
-    <p id="option-l"><strong>L:</strong> Length limit (e.g. <code>L5</code>). 入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、EndReasonにはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、EndReasonにはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
-    <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。<a href="#OnChar">OnChar</a>、<a href="#OnKeyDown">OnKeyDown</a>、<a href="#KeyOpt">KeyOptと組み合わせて</a>使用すると便利です。 <em><a href="#EndKeys">EndKeys</a></em>.</p>
+    <p id="option-l"><strong>L:</strong> Length limit (e.g. <code>L5</code>). 入力の最大許容長を示します。When the text reaches this length, the Input is terminated and <a href="#EndReason">EndReason</a> is set to the word Max (unless the text matches one of the <em>MatchList</em> phrases, in which case <a href="#EndReason">EndReason</a> is set to the word Match). 未指定の場合、長さの上限は1023となります。</p>
+    <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。This can be useful in combination with <a href="#OnChar">OnChar</a>, <a href="#OnKeyDown">OnKeyDown</a>, <a href="#KeyOpt">KeyOpt</a> or the <em>EndKeys</em> parameter.</p>
     <p id="option-m"><strong>M:</strong> Modified keystrokes such as <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are recognized and transcribed if they correspond to real ASCII characters. <kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
     <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納</em>します。
 ih := InputHook("L1 M")
@@ -36,25 +36,25 @@ if (ih.Input = CtrlC)
     MsgBox "You pressed Control-C."</pre>
     <p class="note"><strong>Note:</strong> The characters <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> correspond to <a href="Chr.htm">Chr(1)</a> through <a href="Chr.htm">Chr(26)</a>. Also, the M option might cause some keyboard shortcuts such as <kbd>Ctrl</kbd>+<kbd>←</kbd> to misbehave while an Input is in progress.</p>
     <p id="option-t"><strong>T:</strong> Sets <a href="#Timeout">Timeout</a> (e.g. <code>T3</code> or <code class="no-highlight">T2.5</code>).</p>
-    <p id="vis"><strong>V:</strong> Sets <a href="#VisibleText">VisibleText</a> and <a href="#VisibleNonText">VisibleNonText</a> to true. 通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
-    <p id="asterisk"><strong>*:</strong> Wildcard. <a href="#FindAnywhere">FindAnywhere</a>をtrueに設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
-    <p id="E"><strong>E:</strong> Handle single-character end keys by character code instead of by keycode. これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。It also prevents key combinations which don't actually produce the given end characters from ending input; for example, if @ is an end key, on the US layout <kbd>Shift</kbd>+<kbd>2</kbd> will trigger it but <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd> will not (if the E option is used). If the C option is also used, the end character is case-sensitive.</p>
+    <p id="vis"><strong>V:</strong> Sets <a href="#VisibleText">VisibleText</a> and <a href="#VisibleNonText">VisibleNonText</a> to 1 (true). 通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
+    <p id="asterisk"><strong>*:</strong> Wildcard. Sets <a href="#FindAnywhere">FindAnywhere</a> to 1 (true), allowing matches to be found anywhere within what the user types.</p>
+    <p id="E"><strong>E:</strong> Handle single-character end keys by character code instead of by keycode. これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。It also prevents key combinations which don't actually produce the given end characters from ending input; for example, if @ is an end key, on the US layout <kbd>Shift</kbd>+<kbd>2</kbd> will trigger it but <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd> will not (if the <a href="#E">E option</a> is used). If the <a href="#option-c">C option</a> is also used, the end character is case-sensitive.</p>
   </dd>
 
   <dt id="EndKeys">EndKeys</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>0個以上のキーのリストで、どれかが押されると入力が終了します（終了キー自体は入力バッファに書き込まれません）。この方法でInputを終了させると、EndReasonにEndKeyという単語が設定され、<a href="#EndKey">EndKey</a>プロパティにキーの名前が設定されます。</p>
+    <p>0個以上のキーのリストで、どれかが押されると入力が終了します（終了キー自体は入力バッファに書き込まれません）。When an Input is terminated this way, <a href="#EndReason">EndReason</a> is set to the word EndKey and <a href="#EndKey">EndKey</a> is set to the name of the key.</p>
     <p><em>EndKeys</em> uses a format similar to the <a href="Send.htm">Send</a> function. 例えば、<code>{Enter}.{Esc}</code>と指定すると、<kbd>Enter</kbd>、<kbd>.</kbd>、<kbd>Esc</kbd>のいずれかが入力を終了させることになる。中括弧そのものを終了キーとして使用する場合は、<code>{{}</code>と <code>{}}</code>を指定します。</p>
     <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end keys, specify the left and/or right version of the key, not the neutral version. 例えば、<code>{Control}</code>ではなく、<code>{LControl}{RControl}</code>を指定します。</p>
-    <p>Although modified keys such as <kbd>Alt</kbd>+<kbd>C</kbd> (!c) are not supported, non-alphanumeric characters such as <code>?!:@&amp;{}</code> by default require <kbd>Shift</kbd> or <kbd>AltGr</kbd> to be pressed or not pressed depending on how the character is normally typed. If the E option is present, single character key names are interpreted as characters instead, and in those cases the modifier keys must be in the correct state to produce that character. When the E and M options are both used, <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are supported by including the corresponding ASCII control characters in <em>EndKeys</em>.</p>
+    <p>Although modified keys such as <kbd>Alt</kbd>+<kbd>C</kbd> (!c) are not supported, non-alphanumeric characters such as <code>?!:@&amp;{}</code> by default require <kbd>Shift</kbd> or <kbd>AltGr</kbd> to be pressed or not pressed depending on how the character is normally typed. If the <a href="#E">E option</a> is present, single character key names are interpreted as characters instead, and in those cases the modifier keys must be in the correct state to produce that character. When both the <a href="#E">E option</a> and <a href="#option-m">M option</a> are used, <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are supported by including the corresponding ASCII control characters in <em>EndKeys</em>.</p>
     <p><code>vkFF}や</code> <code>{sc001}の</code>ような明示的なキーコードを指定することも可能です。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。Its key code can be determined by following the steps at the bottom of the <a href="../KeyList.htm#SpecialKeys">key list page</a>.</p>
   </dd>
 
   <dt id="MatchList">MatchList</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>カンマで区切られたキーフレーズのリストで、どれか一つでもあれば入力は終了します（この場合、EndReasonにはMatchという単語が設定されます）。マッチングを行うには、ユーザーが入力した内容全体がフレーズの1つと正確に一致する必要があります（<a href="#asterisk">* option</a>が存在する場合を除きます）。また、<strong>区切りであるカンマの周りにあるスペースやタブ</strong>は、マッチ文字列の一部であることを意味し、<strong>重要な</strong>意味を持ちます。例えば、<em>MatchList</em>が <code>ABC , XYZ</code>の場合、ユーザーはABCの後かXYZの前にスペースを入力しなければ、マッチングが発生しません。</p>
+    <p>A comma-separated list of key phrases, any of which will cause the Input to be terminated (in which case <a href="#EndReason">EndReason</a> will be set to the word Match). The entirety of what the user types must exactly match one of the phrases for a match to occur (unless the <a href="#asterisk">* option</a> is present). In addition, <strong>any spaces or tabs around the delimiting commas are significant</strong>, meaning that they are part of the match string. For example, if <em>MatchList</em> is <code>ABC , XYZ</code>, the user must type a space after ABC or before XYZ to cause a match.</p>
     <p>カンマが2つ続くと、文字通りのカンマ1つとなります。例えば、次のようにすると、文字列の末尾にリテラルコンマが1つ入ることになります：<code>string1,,,string2</code>. 同様に、次のリストには、その中にリテラルなカンマを持つ項目が1つだけ含まれています：<code>single,,item</code>.</p>
     <p><em>MatchList</em>の項目は個々のパラメータとして扱われないため、リストをすべて変数に格納することができます。例えば、<em>MatchList</em>は <code>List1 "," List2 "," List3</code>からなり、それぞれの変数にマッチフレーズの大きなサブリストが含まれていることがあります。</p>
   </dd>
@@ -69,6 +69,7 @@ if (ih.Input = CtrlC)
 
 <h2 id="object">InputHook Object</h2>
 <p>InputHook関数は、以下のメソッドとプロパティを持つInputHookオブジェクトを返します。</p>
+"InputHookObj" is used below as a placeholder for any InputHook object, as "InputHook" is the class itself.
 <ul class="indent">
   <li><a href="#Methods">Methods</a>:
     <ul>
@@ -109,35 +110,44 @@ if (ih.Input = CtrlC)
 <h3 id="Methods">メソッド</h3>
 <div class="methodShort" id="KeyOpt"><h3>KeyOpt</h3>
 <p>キーまたはキーのリストに対するオプションを設定します。</p>
-<pre class="Syntax">InputHook<span class="func">.KeyOpt</span>(Keys, KeyOptions)</pre>
+<pre class="Syntax">InputHookObj.<span class="func">KeyOpt</span>(Keys, KeyOptions)</pre>
+<h4 id="KeyOpt_Parameters">パラメータ</h4>
 <dl>
   <dt>Keys</dt>
   <dd>
   <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>キーの一覧です。中括弧は、<a href="Send.htm">送信</a>機能と同様に、キー名、仮想キーコード、スキャンコードを囲むために使用されます。例えば、<code>{Enter}.{{}</code>は、<kbd>Enter</kbd>, <kbd>.</kbd> および <kbd>{</kbd>に適用されます。キーを名前、<code>{vkNN}</code>、または<code>{scNNN}</code>で指定すると、3つの異なる結果が得られます；詳細は以下を参照してください。</p>
-  <p id="all-keys">文字列<code>{All}</code>（大文字・小文字を区別しない）を単独で指定すると、すべてのVKとすべてのSCに<em>KeyOptions</em>が適用されます。その後、KeyOptを2回目に呼び出すと、特定のキーからオプションを削除することができます。</p></dd>
+  <p id="all-keys">Specify the string <code>{All}</code> (case-insensitive) on its own to apply <em>KeyOptions</em> to all VK and all SC, including <code>{vkE7}</code> and <code>{sc000}</code> as described below. その後、KeyOptを2回目に呼び出すと、特定のキーからオプションを削除することができます。</p>
+  <p id="sc000">Specify <code>{sc000}</code> to apply <em>KeyOptions</em> to all events which lack a scan code.</p>
+  <p id="vke7">Specify <code>{vkE7}</code> to apply <em>KeyOptions</em> to Unicode events, such as those sent by <code>SendEvent "{U+221e}"</code> or <code>SendEvent "{Text}∞"</code>.</p>
+  </dd>
   <dt>KeyOptions</dt>
   <dd>
   <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>以下の1文字オプションのうち1つ以上（スペースとタブは無視されます）。</p>
   <p id="KeyOpt-minus"><strong>-</strong> (minus):<code>-</code>に続くオプションのうち、次の<code>+</code>まで削除します。</p>
   <p id="KeyOpt-plus"><strong>+</strong> (plus):それ以外の場合は、何の効果もなく、以前の<code>-</code>をキャンセルします。</p>
-  <p id="KeyOpt-e"><strong>E:</strong> End key. 有効な場合、キーを押すとInputが終了し、<a href="#EndReason">EndReason</a>にEndKeyという単語が、<a href="#EndKey">EndKey</a>プロパティにキーの正規化された名前が設定されます。Unlike the <em>EndKeys</em> parameter, the state of <kbd>Shift</kbd> or <kbd>AltGr</kbd> is ignored. For example, <code>@</code> and <code class="no-highlight">2</code> are both equivalent to <code>{vk32}</code> on the US keyboard layout.</p>
+  <p id="KeyOpt-e"><strong>E:</strong> End key. If enabled, pressing the key terminates Input, sets <a href="#EndReason">EndReason</a> to the word EndKey and <a href="#EndKey">EndKey</a> to the key's normalized name. Unlike the <em>EndKeys</em> parameter, the state of <kbd>Shift</kbd> or <kbd>AltGr</kbd> is ignored. For example, <code>@</code> and <code class="no-highlight">2</code> are both equivalent to <code>{vk32}</code> on the US keyboard layout.</p>
   <p id="KeyOpt-i"><strong>I:</strong> Ignore text. このキーによって通常生成されるテキストはすべて無視され、キーは非テキストキーとして扱われる（<a href="#VisibleNonText">VisibleNonText</a>参照）。そのキーが通常テキストを生成しない場合、効果はありません。</p>
   <p id="KeyOpt-n"><strong>N:</strong> Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにします。</p>
   <p id="KeyOpt-s"><strong>S:</strong> Suppresses (blocks) the key after processing it. <code>S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味します。</p>
   <p id="KeyOpt-v"><strong>V:</strong> Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味します。</p>
   </dd>
 </dl>
-<p id="KeyOpt-remarks">オプションは、仮想キーコードとスキャンコードの両方で設定でき、累積されます。</p>
+<h4 id="KeyOpt_Remarks">備考</h4>
+<p>Options can be set by both virtual key code (VK) and scan code (SC), and are accumulative.</p>
 <p>キーが名前で指定されている場合、オプションはVKまたはSCで設定されます。2つの物理キーが同じVKを共有し、SCによって異なる場合（<kbd>Up</kbd>と <kbd>NumpadUp</kbd>など）、SCによって扱われます。一方、VK番号を使用する場合は、そのVKを生成するすべての物理キーに適用されます（これは、アクティブなキーボードレイアウトに依存するため、時間と共に変化する可能性があります）。</p>
 <p>VK番号でオプションを削除しても、SCで設定されていたオプションには影響しませんし、その逆も同様です。ただし、キー名でオプションが削除され、そのキー名がVKで扱われる場合、対応するSCについてもオプションが削除されます（スクリプトのキーボードレイアウトに準じます）。これにより、<a href="#all-keys">すべてのキー</a>にオプションを適用した後に、キー名を指定して除外することができます。</p>
-<p>VKで<code>+V</code>を設定し、SCで<code>+S</code>を設定した場合（またはその逆）、<code>+V</code>が優先されます。</p>
+<p>If an option is applied to <code>{All}</code> or to both the VK and the SC corresponding to an event, </p>
+<p>To prevent an option from affecting a key, the option must be removed from both the VK and the SC of that key, or sc000 if the key has no SC. This also applies to Unicode packets To prevent an option from affecting Unicode packets, the option must be removed from both vkE7 and sc000.</p>
+<p id="U">Unicode events, such as those sent by <code>SendEvent "{U+221e}"</code> or <code>SendEvent "{Text}∞"</code>, are affected by options which have been set for either <a href="#vke7">vkE7</a> or <a href="#sc000">sc000</a>. Any option applied to <a href="#all-keys">{All}</a> is applied to both vkE7 and sc000, so to exclude Unicode events, remove the option from both. 事例：</p>
+<pre>InputHookObj.KeyOpt("{All}", "+I")  <em>; Ignore text produced by any event</em>
+InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></pre>
 </div>
 
 <div class="methodShort" id="Start"><h3>Start</h3>
 <p>入力の収集を開始します。</p>
-<pre class="Syntax">InputHook<span class="func">.Start</span>()</pre>
+<pre class="Syntax">InputHookObj.<span class="func">Start</span>()</pre>
 <p>入力がすでに進行している場合は、効果がありません。</p>
 <p>新しく開始された入力は、<a href="#stack">InputHookスタック</a>の最上位に置かれ、以前に開始された入力を上書きすることができます。</p>
 <p>このメソッドは、<a href="InstallKeybdHook.htm">キーボードフック</a>をインストールします（まだインストールされていない場合）。</p>
@@ -145,35 +155,38 @@ if (ih.Input = CtrlC)
 
 <div class="methodShort" id="Stop"><h3>ストップ</h3>
 <p>入力を終了し、<a href="#EndReason">EndReason</a>に Stopped という単語を設定します。</p>
-<pre class="Syntax">InputHook.<span class="func">Stop</span>()</pre>
+<pre class="Syntax">InputHookObj.<span class="func">Stop</span>()</pre>
 <p>入力中でない場合は、効果がありません。</p>
 </div>
 
 <div class="methodShort" id="Wait"><h3>Wait</h3>
 <p>Inputが終了するまで待機する（<a href="#InProgress">InProgress</a>がfalse）。</p>
-<pre class="Syntax">InputHook.<span class="func">Wait</span>(<span class="optional">MaxTime</span>)</pre>
+<pre class="Syntax">EndReason := InputHookObj.<span class="func">Wait</span>(<span class="optional">MaxTime</span>)</pre>
+<h4 id="Wait_Parameters">パラメータ</h4>
 <dl>
   <dt>MaxTime</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>待機する最大秒数です。<em>MaxTime</em>秒後に Input がまだ進行している場合、このメソッドは戻り、Input は終了しません。</p>
+    <p>If omitted, the wait is indefinitely. Otherwise, specify the maximum number of seconds to wait. <em>MaxTime</em>秒後に Input がまだ進行している場合、このメソッドは戻り、Input は終了しません。</p>
   </dd>
 </dl>
-<p>Returns <a href="#EndReason">EndReason</a>.</p>
+<h4 id="Wait_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>This method returns <a href="#EndReason">EndReason</a>.</p>
 </div>
 
 <h3 id="General_Properties">一般特性</h3>
 <div class="methodShort" id="EndKey"><h3>EndKey</h3>
 <p>Input を終了させるために押された<a href="#EndKeys">終了キー</a>の名前を返します。</p>
-<pre class="Syntax">KeyName := InputHook.EndKey</pre>
-<p>EndKeyは、<em>EndKeys</em>でどのように書かれていたかにかかわらず、キーの「正規化」された名前を返すことに注意してください。例えば、<code>{Esc}</code>と <code>{vk1B}</code>はどちらも<code>Escape</code>を生成します。<a href="GetKeyName.htm">GetKeyName</a>を使用すると、正規化された名前を取得することができます。</p>
+<pre class="Syntax">KeyName := InputHookObj.<span class="func">EndKey</span></pre>
+<p>Note that EndKey returns the "normalized" name of the key regardless of how it was written in the <em>EndKeys</em> parameter. 例えば、<code>{Esc}</code>と <code>{vk1B}</code>はどちらも<code>Escape</code>を生成します。<a href="GetKeyName.htm">GetKeyName</a>を使用すると、正規化された名前を取得することができます。</p>
 <p><a href="#E">E オプション</a>が使用された場合、EndKey は入力された実際の文字を返します（該当する場合）。それ以外の場合は、スクリプトのアクティブなキーボードレイアウトに従って、キー名が決定されます。</p>
 <p>EndKey は、<a href="#EndReason">EndReason</a>が "EndKey" でない場合、空文字列を返す。</p>
 </div>
 
 <div class="methodShort" id="EndMods"><h3>EndMods</h3>
 <p>Input終了時に論理的にダウンしていたモディファイアの文字列を返します。</p>
-<pre class="Syntax">Mods := InputHook.EndMods</pre>
+<pre class="Syntax">Mods := InputHookObj.<span class="func">EndMods</span></pre>
 <p>すべてのモディファイアが論理的にダウン（押された）した場合、完全な文字列は次のようになります：</p>
 <pre>&lt;^&gt;^&lt;!&gt;!&lt;+&gt;+&lt;#&gt;#</pre>
 <p>これらの修飾語は、<a href="../Hotkeys.htm">ホットキー</a>の場合と同じ意味を持ちます。各モディファイアは必ず &lt; (左) または &gt; （右）で修飾されます。対応するキー名は以下の通りです：LCtrl, RCtrl, LAlt, RAlt, LShift, RShift, LWin, RWin.</p>
@@ -184,135 +197,166 @@ if (ih.Input = CtrlC)
 
 <div class="methodShort" id="EndReason"><h3>EndReason</h3>
 <p>Input がどのように終了したかを示す<a href="#EndReasons">EndReason の文字列</a>を返す。</p>
-<pre class="Syntax">Reason := InputHook.EndReason</pre>
-<p>入力がまだ進行中の場合は空文字列を返します。</p>
+<pre class="Syntax">Reason := InputHookObj.<span class="func">EndReason</span></pre>
+<p>If the Input is still in progress, an empty string is returned.</p>
 </div>
 
 <div class="methodShort" id="InProgress"><h3>InProgress</h3>
 <p>Returns 1 (true) if the Input is in progress, otherwise 0 (false).</p>
-<pre class="Syntax">Boolean := InputHook.InProgress</pre>
+<pre class="Syntax">Boolean := InputHookObj.<span class="func">InProgress</span></pre>
 </div>
 
 <div class="methodShort" id="Input"><h3>Input</h3>
 <p>前回Inputを起動してから収集したテキストを返します。</p>
-<pre class="Syntax">String := InputHook.Input</pre>
+<pre class="Syntax">String := InputHookObj.<span class="func">Input</span></pre>
 <p>このプロパティは、Inputの実行中、または終了後に使用することができます。</p>
 </div>
 
 <div class="methodShort" id="Match"><h3>Match</h3>
 <p><em><a href="#MatchList">マッチリスト</a></em>入力終了の原因となった項目を返します。 </p>
-<pre class="Syntax">String := InputHook.Match</pre>
-<p>Returns the matched item with its original case, which may differ from what the user typed if the C option was omitted. Returns an empty string if <a href="#EndReason">EndReason</a> is not "Match".</p>
+<pre class="Syntax">String := InputHookObj.<span class="func">Match</span></pre>
+<p>This property returns the matched item with its original case, which may differ from what the user typed if the <a href="#option-c">C option</a> was omitted, or an empty string if <a href="#EndReason">EndReason</a> is not "Match".</p>
 </div>
 
 <div class="methodShort" id="OnEnd"><h3>OnEnd</h3>
 <p>Input終了時に呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</p>
-<pre class="Syntax">MyFunc := InputHook.OnEnd</pre>
-<pre class="Syntax">InputHook.OnEnd := MyFunc</pre>
-<p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
-<p>この関数には1つのパラメータが渡されます：InputHookオブジェクトへの参照。</p>
+<pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnEnd</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">OnEnd</span> := MyCallback</pre>
+<p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
+<p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+<pre class="NoIndent">MyCallback(InputHookObj) { ...</pre>
+<p>Although the name you give the parameter does not matter, it is assigned a reference to the InputHook object.</p>
+<p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 </div>
 
 <div class="methodShort" id="OnChar"><h3>OnChar</h3>
 <p>入力バッファに文字が追加された後に呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</p>
-<pre class="Syntax">MyFunc := InputHook.OnChar</pre>
-<pre class="Syntax">InputHook.OnChar := MyFunc</pre>
-<p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
-<p>この関数には、以下のパラメータが渡されます：<code>InputHook, Char</code>. <em>Char</em>は、文字または文字を含む文字列です。</p>
+<pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnChar</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">OnChar</span> := MyCallback</pre>
+<p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
+<p>The callback accepts two parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+<pre class="NoIndent">MyCallback(InputHookObj, Char) { ...</pre>
+<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<ol>
+  <li>A reference to the InputHook object.</li>
+  <li>A string containing the character (or multiple characters, see below for details).</li>
+</ol>
+<p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
 <p>複数の文字が存在することは、最後のキー押下の前にデッドキーが使用されていたことを示しますが、2つのキーは1つの文字に変換することができませんでした。例えば、あるキーボードレイアウトでは、<kbd>`</kbd><kbd>e</kbd>は <code>è</code>を、<kbd>`</kbd><kbd>z</kbd>は <code>`z</code>を出力します。</p>
 <p>終了キーが押されても、この関数が呼び出されることはありません。</p>
 </div>
 
 <div class="methodShort" id="OnKeyDown"><h3>OnKeyDown</h3>
 <p>通知可能なキーが押されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</p>
-<pre class="Syntax">MyFunc := InputHook.OnKeyDown</pre>
-<pre class="Syntax">InputHook.OnKeyDown := MyFunc</pre>
-<p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
+<pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnKeyDown</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">OnKeyDown</span> := MyCallback</pre>
 <p>キーダウンの通知は、まず<a href="#KeyOpt">KeyOpt</a>または<a href="#NotifyNonText">NotifyNonText</a>で有効化する必要があります。</p>
-<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することです。</p>
+<p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
+<p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
+<pre class="NoIndent">MyCallback(InputHookObj, VK, SC) { ...</pre>
+<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<ol>
+  <li>A reference to the InputHook object.</li>
+  <li>An integer representing the virtual key code of the key.</li>
+  <li>An integer representing the scan code of the key.</li>
+</ol>
+<p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
+<p>To retrieve the key name (if any), use <code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>.</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 <p>終了キーが押されても、この関数が呼び出されることはありません。</p>
 </div>
 
 <div class="methodShort" id="OnKeyUp"><h3>OnKeyUp</h3>
 <p>通知可能なキーがリリースされたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>を取得または設定します。</p>
-<pre class="Syntax">MyFunc := InputHook.OnKeyUp</pre>
-<pre class="Syntax">InputHook.OnKeyUp := MyFunc</pre>
-<p>型：<a href="../misc/Functor.htm">関数オブジェクト</a>または<a href="../Concepts.htm#nothing">空文字列</a>を指定します。既定値：空の文字列</p>
+<pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnKeyUp</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">OnKeyUp</span> := MyCallback</pre>
 <p>キーアップ通知は、まず<a href="#KeyOpt">KeyOpt</a>または<a href="#NotifyNonText">NotifyNonText</a>で有効化する必要があります。キーが押されたときに、テキストとみなされるか非テキストとみなされるかは、キーが押されたときに判断されます。InputHookがキーダウンを検出せずにキーアップを検出した場合、非テキストとみなされます。</p>
-<p>この関数には、以下のパラメータが渡されます：<code>InputHook, VK, SC</code>. <em>VK</em>と <em>SC</em>は整数です。キー名を取得する場合は、<code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>を使用することです。</p>
+<p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
+<p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
+<pre class="NoIndent">MyCallback(InputHookObj, VK, SC) { ...</pre>
+<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<ol>
+  <li>A reference to the InputHook object.</li>
+  <li>An integer representing the virtual key code of the key.</li>
+  <li>An integer representing the scan code of the key.</li>
+</ol>
+<p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
+<p>To retrieve the key name (if any), use <code>GetKeyName(Format("vk{:x}sc{:x}", VK, SC))</code>.</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 </div>
 
 <h3 id="Option_Properties">オプションプロパティ</h3>
 <div class="methodShort" id="BackspaceIsUndo"><h3>BackspaceIsUndo</h3>
 <p><kbd>Backspace</kbd>が、最近押された文字をInputバッファの最後から削除するかどうかを制御します。</p>
-<pre class="Syntax">Boolean := InputHook.BackspaceIsUndo</pre>
-<pre class="Syntax">InputHook.BackspaceIsUndo := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. Option B sets the value to false.</p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">BackspaceIsUndo</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">BackspaceIsUndo</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 1 (true) by default unless overwritten by the <a href="#option-b">B option</a>.</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting.</p>
 <p><kbd>Backspace</kbd>がアンドゥとして機能する場合、テキスト入力キーとして扱われます。具体的には、キーが抑制されるかどうかは、<a href="#VisibleNonText">VisibleNonText</a>ではなく、<a href="#VisibleText">VisibleText</a>に依存します。</p>
 <p><kbd>Backspace</kbd>は、<kbd>Ctrl</kbd>などの修飾キーと組み合わせて押された場合、常に無視されます（物理的な状態ではなく、論理的な修飾の状態がチェックされます）。</p>
 <p class="warning"><strong>注：</strong>入力テキストが表示されていて（エディターなど）、その中を矢印キーなどで移動する場合、<kbd>Backspace</kbd>はキャレット（挿入点）の後ろの文字ではなく、やはり最後の文字を削除します。</p>
 </div>
 
 <div class="methodShort" id="CaseSensitive"><h3>CaseSensitive</h3>
-<p>Controls whether <em>MatchList</em> is case-sensitive.</p>
-<pre class="Syntax">Boolean := InputHook.CaseSensitive</pre>
-<pre class="Syntax">InputHook.CaseSensitive := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option C sets the value to true.</p>
+<p>Controls whether <a href="#MatchList"><em>MatchList</em></a> is case-sensitive.</p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">CaseSensitive</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">CaseSensitive</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 0 (false) by default unless overwritten by the <a href="#option-c">C option</a>.</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting.</p>
 </div>
 
 <div class="methodShort" id="FindAnywhere"><h3>FindAnywhere</h3>
 <p>各マッチが入力テキストの部分文字列となり得るかどうかを制御します。</p>
-<pre class="Syntax">Boolean := InputHook.FindAnywhere</pre>
-<pre class="Syntax">InputHook.FindAnywhere := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option * sets the value to true.</p>
-<p>trueの場合、ユーザーが入力した文字列の範囲内であればどこでもマッチします（マッチするのは入力テキストの部分文字列でもかまいません）。Falseの場合、ユーザーが入力した内容全体が、<em>MatchList</em>のフレーズのいずれかに一致しなければならない。いずれの場合も、<em>MatchList</em>のフレーズのうち1つは全文入力する必要があります。</p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">FindAnywhere</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">FindAnywhere</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 0 (false) by default unless overwritten by the <a href="#asterisk">* option</a>.</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting. trueの場合、ユーザーが入力した文字列の範囲内であればどこでもマッチします（マッチするのは入力テキストの部分文字列でもかまいません）。If false, the entirety of what the user types must match one of the <em>MatchList</em> phrases. In both cases, one of the <em>MatchList</em> phrases must be typed in full.</p>
 </div>
 
 <div class="methodShort" id="MinSendLevel"><h3>MinSendLevel</h3>
 <p>収集する入力の最小<a href="SendLevel.htm">送信</a>レベルを取得または設定します。</p>
-<pre class="Syntax">Level := InputHook.MinSendLevel</pre>
-<pre class="Syntax">InputHook.MinSendLevel := Level</pre>
-<p>型：<a href="../Concepts.htm#numbers">整数</a>既定値：0. Option I sets the value to 1 (or a given value).</p>
-<p><em>Level</em>は 0～101 の整数を指定します。この値より<em>低い</em>送信レベルを持つイベントは無視されます。例えば、101を指定すると<a href="Send.htm">SendEvent</a>で生成されたすべての入力が無視され、1を指定するとデフォルトの送信レベル（0）の入力のみが無視されます。</p>
+<pre class="Syntax">CurrentLevel := InputHookObj.<span class="func">MinSendLevel</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">MinSendLevel</span> := NewLevel</pre>
+<p><em>CurrentLevel</em> is <em>NewLevel</em> if assigned, otherwise 0 by default unless overwritten by the <a href="#option-i">I option</a>.</p>
+<p><em>NewLevel</em> should be an <a href="../Concepts.htm#numbers">integer</a> between 0 and 101. Events which have a send level <u>lower</u> than this value are ignored. For example, a value of 101 causes all input generated by <a href="Send.htm">SendEvent</a> to be ignored, while a value of 1 only ignores input at the default send level (zero).</p>
 <p><a href="Send.htm#SendInput">SendInput</a>および<a href="Send.htm#SendPlay">SendPlay</a>メソッドは、この設定にかかわらず、常に無視されます。AutoHotkey以外のソースで生成された入力は、この設定の結果、決して無視されることはありません。</p>
 </div>
 
 <div class="methodShort" id="NotifyNonText"><h3>NotifyNonText</h3>
 <p>テキスト以外のキーが押されたときに、<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックを呼び出すかどうかを制御します。</p>
-<pre class="Syntax">Boolean := InputHook.NotifyNonText</pre>
-<pre class="Syntax">InputHook.NotifyNonText := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false.</p>
-<p>Trueに設定すると <kbd>Left</kbd> または <kbd>Alt</kbd>+<kbd>F</kbd>を押したときなど、テキストを生成しないすべてのキー入力に対して通知を行うことができます。このプロパティを設定しても、キーの<a href="#KeyOpt">オプション</a>には影響しません。なぜなら、テキストの生成は、キーが押された時点のアクティブウィンドウのキーボードレイアウトに依存するからです。 </p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">NotifyNonText</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">NotifyNonText</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 0 (false) by default.</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting. If true, notifications are enabled for all keypresses which do not produce text, such as when pressing <kbd>←</kbd> or <kbd>Alt</kbd>+<kbd>F</kbd>. Setting this property does not affect a key's <a href="#KeyOpt">options</a>, since the production of text depends on the active window's keyboard layout at the time the key is pressed.</p>
 <p>NotifyNonText は、VK コードが一致する前のキーダウンがテキストと非テキストのどちらに分類されるかを考慮して、キーアップイベントに適用されます。例えば、NotifyNonTextがtrueの場合、<kbd>Ctrl</kbd>+<kbd>A</kbd>を押すと、<kbd>Ctrl</kbd>と <kbd>A</kbd>の両方で<a href="#OnKeyDown">OnKeyDown</a>と <a href="#OnKeyUp">OnKeyUp</a>が呼び出されますが、<a href="#KeyOpt">KeyOpt</a>でそのキーに対する通知を有効にしていなければ、<kbd>A</kbd>単独で押してもOnKeyDownやOnKeyUpは呼ばれません。</p>
 <p>どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="Timeout"><h3>タイムアウト</h3>
 <p>タイムアウト値を秒単位で取得または設定します。</p>
-<pre class="Syntax">Seconds := InputHook.Timeout</pre>
-<pre class="Syntax">InputHook.Timeout := Seconds</pre>
-<p>型：<a href="../Concepts.htm#numbers">浮動小数点数</a>既定値：0.0 (none). Option T also sets the timeout value.</p>
+<pre class="Syntax">CurrentSeconds := InputHookObj.<span class="func">Timeout</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">Timeout</span> := NewSeconds</pre>
+<p><em>CurrentSeconds</em> is <em>NewSeconds</em> if assigned, otherwise 0 by default unless overwritten by the <a href="#option-t">T option</a>.</p>
+<p><em>NewSeconds</em> is a <a href="../Concepts.htm#numbers">floating-point number</a> representing the timeout. 0 means no timeout.</p>
 <p>通常、タイムアウトは<a href="#Start">Start</a>が呼ばれた時点で開始されるが、Inputの実行中に本プロパティに値が代入された場合は、再開されます。タイムアウト時間が経過しても入力が継続している場合は、入力は終了し、<a href="#EndReason">EndReason</a>に Timeout という単語が設定されます。</p>
 </div>
 
 <div class="methodShort" id="VisibleNonText"><h3>VisibleNonText</h3>
 <p>テキストを生成しないキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</p>
-<pre class="Syntax">Boolean := InputHook.VisibleNonText</pre>
-<pre class="Syntax">InputHook.VisibleNonText := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：true. Option V sets the value to true.</p>
-<p>trueの場合、テキストを生成しないキーやキーの組み合わせは、ホットキーのトリガーになったり、アクティブウィンドウに渡されたりすることがあります。false の場合、ブロックされます。</p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">VisibleNonText</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">VisibleNonText</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 1 (true) by default. The <a href="#vis">V option</a> sets this to 1 (true).</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting. trueの場合、テキストを生成しないキーやキーの組み合わせは、ホットキーのトリガーになったり、アクティブウィンドウに渡されたりすることがあります。false の場合、ブロックされます。</p>
 <p>どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</p>
 </div>
 
 <div class="methodShort" id="VisibleText"><h3>VisibleText</h3>
 <p>テキストを生成するキーまたはキーの組み合わせを表示するかどうかを制御します（ブロックされません）。</p>
-<pre class="Syntax">Boolean := InputHook.VisibleText</pre>
-<pre class="Syntax">InputHook.VisibleText := Boolean</pre>
-<p>型：<a href="../Concepts.htm#boolean">Integer（boolean）</a>。既定値：false. Option V sets the value to true.</p>
-<p>trueの場合、テキストを生成するキーとキーの組み合わせは、ホットキーをトリガーしたり、アクティブウィンドウに渡されることがあります。false の場合、ブロックされます。</p>
+<pre class="Syntax">CurrentSetting := InputHookObj.<span class="func">VisibleText</span></pre>
+<pre class="Syntax">InputHookObj.<span class="func">VisibleText</span> := NewSetting</pre>
+<p><em>CurrentSetting</em> is <em>NewSetting</em> if assigned, otherwise 0 (false) by default unless overwritten by the <a href="#vis">V option</a>.</p>
+<p><em>NewSetting</em> is a <a href="../Concepts.htm#boolean">boolean value</a> that enables or disables this setting. trueの場合、テキストを生成するキーとキーの組み合わせは、ホットキーをトリガーしたり、アクティブウィンドウに渡されることがあります。false の場合、ブロックされます。</p>
 <p>入力バッファにテキストが追加されるようなキー操作は、他のアプリケーションでは通常そうでなくても、テキストを生成したものとしてカウントされます。For instance, <kbd>Ctrl</kbd>+<kbd>A</kbd> produces text if the <a href="#option-m">M option</a> is used, and <kbd>Esc</kbd> produces the control character <code>Chr(27)</code>.</p>
 <p>デッドキーは、通常、即効性はありませんが、テキストを生成するものとしてカウントされます。デッドキーを押すと、次のキーでも文字が出るかもしれません（デッドキーの文字だけなら）。</p>
 <p><kbd>Backspace</kbd>、<a href="#BackspaceIsUndo">アンドゥとして機能</a>する場合のみ、テキストを生成するものとしてカウントされます。</p>
@@ -320,7 +364,7 @@ if (ih.Input = CtrlC)
 </div>
 
 <h2 id="EndReasons">EndReason</h2>
-<p>EndReason プロパティは、以下の文字列のいずれかを返します：</p>
+<p>The <a href="#EndReason">EndReason</a> property returns one of the following strings:</p>
 <table class="info">
   <tr>
     <th>String</th>
@@ -328,11 +372,11 @@ if (ih.Input = CtrlC)
   </tr>
   <tr>
     <td>Stopped</td>
-    <td>Stopメソッドが呼び出されたか、Startがまだ呼び出されていない状態で、初めて呼び出されます。</td>
+    <td>The <a href="#Stop">Stop</a> method was called or the <a href="#Start">Start</a> method has not yet been called for the first time.</td>
   </tr>
   <tr>
     <td>Max</td>
-    <td>Inputが最大許容長に達し、<em>MatchList</em>の、どの項目とも一致しない。</td>
+    <td>The Input reached the maximum allowed length and it does not match any of the items in <a href="#MatchList"><em>MatchList</em></a>.</td>
   </tr>
   <tr>
     <td>タイムアウト</td>
@@ -340,7 +384,7 @@ if (ih.Input = CtrlC)
   </tr>
   <tr>
     <td>Match</td>
-    <td>Inputが<em>MatchList</em>の項目の1つに一致します。<a href="#Match">Match</a>プロパティには、一致した項目が含まれます。</td>
+    <td>The Input matches one of the items in <a href="#MatchList"><em>MatchList</em></a>. The <a href="#Match">Match</a> property contains the matched item.</td>
   </tr>
   <tr>
     <td>EndKey</td>
@@ -363,7 +407,7 @@ if (ih.Input = CtrlC)
   <li>このVKまたはSCに対して<a href="#KeyOpt-v">Vオプション</a>が有効な場合、抑制されません。</li>
   <li>このVKまたはSCに対して<a href="#KeyOpt-s">Sオプション</a>が有効である場合は、抑制されます。</li>
   <li>If the key is a <a href="../KeyList.htm#modifier">standard modifier key</a> or <kbd>CapsLock</kbd>, <kbd>NumLock</kbd> or <kbd>ScrollLock</kbd>, it is not suppressed.</li>
-  <li>キーがテキストを生成するかどうかに応じて、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>が参照されます。プロパティが false の場合、キーは抑制されます。どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</li>
+  <li>キーがテキストを生成するかどうかに応じて、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>が参照されます。If the property is 0 (false), the key is suppressed. どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</li>
 </ul>
 <p><a href="InstallKeybdHook.htm">キーボードフック</a>は、入力中は必要ですが、入力終了時に不要になれば自動的にアンインストールされます。</p>
 <p>このスクリプトは、入力が進行している間は<a href="../Scripts.htm#persistent">自動的に永続化</a>されるため、実行中の<a href="../misc/Threads.htm">スレッド</a>がない場合でも入力の監視を継続します。入力が終了すると、スクリプトは自動的に終了することがあります（実行中のスレッドがなく、他の理由でスクリプトが永続的でない場合）。</p>

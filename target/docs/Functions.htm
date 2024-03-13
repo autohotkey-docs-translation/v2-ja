@@ -16,14 +16,36 @@
 <ul>
   <li><a href="#intro">導入と簡単な例</a></li>
   <li><a href="#param">パラメータ</a></li>
-  <li><a href="#optional">オプションのパラメータ</a></li>
+  <li><a href="#ByRef">ByRef Parameters</a></li>
+  <li><a href="#optional">オプションのパラメータ</a>
+    <ul>
+      <li><a href="#unset">アンセットパラメータ</a></li>
+    </ul>
+  </li>
   <li><a href="#return">呼び出し元への値の返送</a></li>
-  <li><a href="#Variadic">可変型関数</a></li>
+  <li><a href="#Variadic">可変型関数</a>
+    <ul>
+      <li><a href="#VariadicCall">可変型関数の呼び出し</a></li>
+    </ul>
+  </li>
+  <li><a href="#Locals">ローカル変数とグローバル変数</a>
+    <ul>
   <li><a href="#Local">ローカル変数</a></li>
+      <li><a href="#Global">Global Variables</a></li>
+      <li><a href="#static">Static Variables</a></li>
+      <li><a href="#More_about_locals_and_globals">More About Locals and Globals</a></li>
+    </ul>
+  </li>
   <li><a href="#DynCall">関数を動的に呼び出す</a></li>
   <li><a href="#ShortCircuit">短絡的なブーリアン評価</a></li>
-  <li><a href="#nested">ネストされた関数</a></li>
+  <li><a href="#nested">ネストされた関数</a>
+    <ul>
+      <li><a href="#static-functions">Static Functions</a></li>
+      <li><a href="#closures">クロージャ</a></li>
+    </ul>
+  </li>
   <li><a href="#remarks">復帰・退出・総評</a></li>
+  <li><a href="#Style_and_Naming_Conventions">スタイルと命名規則</a></li>
   <li><a href="#include">複数のスクリプト間で関数を共有するための#Includeの使い方</a></li>
   <li><a href="#BuiltIn">搭載されている機能</a></li>
 </ul>
@@ -45,7 +67,13 @@ Add 2, 3  <em>; 行頭で使用する場合は、括弧を省略することが�
 
 <h2 id="param">パラメータ</h2>
 <p>関数を定義すると、そのパラメータが名前の横の括弧に記載されます（名前と括弧の間に空白があってはいけません）。関数がパラメータを受け付けない場合は、括弧の中を空にしてください（例）。<code>GetCurrentTimestamp()</code>.</p>
-<p id="ByRef"><strong>ByRef Parameters:</strong> From the function's point of view, parameters are essentially the same as <a href="#Local">local variables</a> unless they are marked as <em>ByRef</em> as in this example:</p>
+<p>既知の制限：</p>
+<ul>
+  <li>関数呼び出しのパラメータが変数に解決する場合（例：<code>Var</code>、<code>++Var</code>、<code>Var*=2</code>）、その左または右の他のパラメータは、関数に渡される前にその変数を変更できます。例えば、<code>MyFunc(Var, Var++)</code>は、<em>Var</em>が最初に0である場合、予期せず1や0を渡してしまいますが、これは最初の<em>Var</em>が関数呼び出しが実行されるまで再参照されないからです。この動作は直感に反しているため、将来のリリースで変更される可能性があります。</li>
+</ul>
+
+<h2 id="ByRef">ByRef Parameters</h2>
+<p>From the function's point of view, parameters are essentially the same as <a href="#Local">local variables</a> unless they are marked as <em>ByRef</em> as in this example:</p>
 <pre>a := 1, b := 2
 Swap(&amp;a, &amp;b)
 MsgBox a ',' b
@@ -69,8 +97,9 @@ Swap(&amp;Left, &amp;Right)
 <p>既知の制限事項：</p>
 <ul>
   <li>オブジェクトのプロパティ（<code>foo.bar</code>など）や<a href="lib/A_Clipboard.htm">A_Clipboard</a>などの <a href="Variables.htm#BuiltIn">組み込み変数</a>に対してVarRefを構成することはできないので、これらを<em>ByRef</em>で渡すことはできない。</li>
-  <li>関数呼び出しのパラメータが変数に解決する場合（例：<code>Var</code>、<code>++Var</code>、<code>Var*=2</code>）、その左または右の他のパラメータは、関数に渡される前にその変数を変更できます。例えば、<code>MyFunc(Var, Var++)</code>は、<em>Var</em>が最初に0である場合、予期せず1や0を渡してしまいますが、これは最初の<em>Var</em>が関数呼び出しが実行されるまで再参照されないからです。この動作は直感に反しているため、将来のリリースで変更される可能性があります。</li>
+  <li id="NoIsByRef">If the parameter is optional, it is not possible to determine whether the variable referenced by the parameter is a newly created local variable or one supplied by the caller. One alternative is to use a non-ByRef parameter, but pass it a <a href="Concepts.htm#variable-references">VarRef</a> anyway, and have the function <a href="Variables.htm#deref">explicitly dereference it</a> or pass it to another function's ByRef parameter (without using the <code>&amp;</code> operator).</li>
 </ul>
+
 <h2 id="optional">オプションのパラメータ</h2>
 <p>関数を定義する際、1つまたは複数のパラメータをオプションとしてマークすることができます。</p>
 <p><code>:=</code>の後に、リテラル数値、"fox"や""などの引用/リテラル文字列、またはパラメータをデフォルト値で初期化する必要がある場合に毎回評価されるべき式を追加します。例えば、<code>X:=[]</code>とすると、毎回新しいArrayが作成されます。</p>
@@ -199,7 +228,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 </ul>
 <p>また、<code>ローカル</code>キーワードで変数を宣言したり、関数のモードを変更することで、デフォルトをオーバーライドすることもできます（下図）。</p>
 
-<h3 id="Global">グローバル変数</h3>
+<h3 id="Global">Global Variables</h3>
 <p id="AssignLocal"><a href="#AssumeLocal">想定ローカル</a>関数内の変数参照は、それが読み込まれるだけであれば、グローバル変数に解決される可能性があります。ただし、変数が代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用された場合、デフォルトで自動的にローカルになります。これにより、関数は関数内で宣言することなく、グローバル変数の読み込みや、グローバル関数や組み込み関数の呼び出しを行うことができます。また、代入されるローカル変数の名前がグローバル変数と一致する場合に、意図しない副作用からスクリプトを保護します。事例：</p>
 <pre>LogToFile(TextToLog)
 {
@@ -223,7 +252,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     local x, y:=0, z  <em>; ローカル変数はこのモードで宣言する必要があります。そうしないとグローバル変数とみなされます。</em>
 }</pre>
 
-<h3 id="static">静的変数</h3>
+<h3 id="static">Static Variables</h3>
 <p>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。事例：</p>
 <pre>LogToFile(TextToLog)
 {
@@ -250,7 +279,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 }</pre>
 <p>assume-staticモードでは、staticであってはならない変数は、ローカルまたはグローバルとして宣言しなければならない（<a href="#AssumeLocal">assume-localモード</a>と同じ例外あり）。</p>
 
-<h3 id="More_about_locals_and_globals">ローカルとグローバルの詳細</h3>
+<h3 id="More_about_locals_and_globals">More About Locals and Globals</h3>
 <p>以下の例のように、カンマで区切ることで複数の変数を同じ行で宣言することができます。</p>
 <pre>global LogFileName, MaxRetries := 5
 static TotalAttempts := 0, PrevResult</pre>
@@ -264,8 +293,8 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>関数呼び出しのターゲットとして、<a href="Variables.htm#deref">ダブルデフ</a>を含む他の式を使用することができます。例えば、<code>MyArray[1]()</code>はMyArrayの最初の要素に含まれる関数を呼び出し、<code>%MyVar%()</code>はMyVarに含まれる<em>名前</em>の <em>変数に</em>含まれる関数を呼び出します。つまり、パラメータリストの前にある式をまず評価して<a href="misc/Functor.htm">関数オブジェクト</a>を取得し、そのオブジェクトを呼び出すのです。</p>
 <p>以下の理由により、目標値を呼び出すことができない場合は、<a href="lib/Error.htm">Error</a>が発生します。</p>
 <ul>
-  <li>ターゲット値が呼び出し可能な型でない場合、<a href="lib/Error.htm#MethodError">MethodError</a>が投げられる。Callメソッドを持つ値はすべて呼び出せるので、<code>HasMethod(value, "Call")</code>を使うことでこのエラーを回避できる。</li>
-  <li>関数の<a href="lib/Func.htm#MinParams">MinParams</a>、<a href="lib/Func.htm#MaxParams">MaxParams</a>、<a href="lib/Func.htm#IsVariadic">IsVariadic</a>プロパティを確認することで回避できることが多い。</li>
+  <li>ターゲット値が呼び出し可能な型でない場合、<a href="lib/Error.htm#MethodError">MethodError</a>が投げられる。Any value with a Call method can be called, so <code>HasMethod(value, "Call")</code> or <code>HasMethod(value)</code> can be used to avoid this error.</li>
+  <li>Passing too few or too many parameters, which can often be avoided by checking the function's <a href="lib/Func.htm#MinParams">MinParams</a>, <a href="lib/Func.htm#MaxParams">MaxParams</a> and <a href="lib/Func.htm#IsVariadic">IsVariadic</a> properties, either directly or by calling <code>HasMethod(value,, N)</code>, where <em>N</em> is the number of parameters that will be passed to the function.</li>
   <li><a href="lib/Func.htm#IsByRef">ByRef</a>またはOutputVarパラメータに<a href="Concepts.htm#variable-references">変数参照（VarRef</a>）以外のものを渡すこと。</li>
 </ul>
 <p>関数の呼び出し側は、一般に、関数を呼び出す前に各パラメータの意味と個数を知っておく必要があります。しかし、動的呼び出しの場合、関数呼び出しに合わせて関数を書くことが多く、その場合、パラメータ値の誤りではなく、関数定義の誤りが原因で失敗することがあります。</p>
@@ -313,7 +342,7 @@ outer("title")
 <p>関数はデフォルトで<a href="#AssumeLocal">assume-local</a>であり、これはネストされた関数、<a href="#AssumeStatic">assume-static</a>関数の内部であっても同様です。ただし、外側の関数が<a href="#AssumeGlobal">assume-global</a>の場合、入れ子になった関数は、外側の関数のローカル変数やスタティック変数を参照できる以外は、デフォルトでassume-globalと同じように動作します。</p>
 <p>各関数定義は、関数そのものを含む読み取り専用の変数、つまり<a href="lib/Func.htm">Func</a>または<a href="#closures">Closure</a>オブジェクトを作成します。使用例については、以下をご参照ください。</p>
 
-<h3 id="static-functions">静的機能</h3>
+<h3 id="static-functions">Static Functions</h3>
 <p>つまり、外側の関数を呼び出すたびに、同じ<a href="lib/Func.htm">Func</a>を参照することになります。キーワード<code>static</code>は、入れ子になった関数を明示的にstaticと宣言するために使用します。この場合、外側の関数のstaticでないローカル変数は無視されます。事例：</p>
 <pre>outer() {
     x := "outer value"

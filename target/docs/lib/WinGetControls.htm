@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>WinGetControls - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="WinGetControls関数は、指定されたウィンドウ内のすべてのコントロールのコントロール名を返します。" />
+<meta name="description" content="The WinGetControls function returns an array of names (ClassNNs) for all controls in the specified window." />
 <meta name="ahk:equiv-v1" content="lib/WinGet.htm#ControlList" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,23 +13,25 @@
 
 <h1>WinGetControls</h1>
 
-<p>指定されたウィンドウ内のすべてのコントロールのコントロール名を返します。</p>
+<p>Returns an array of names (ClassNNs) for all controls in the specified window.</p>
 
-<pre class="Syntax">Controls := <span class="func">WinGetControls</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
+<pre class="Syntax">ClassNNs := <span class="func">WinGetControls</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#strings">文字列</a>の<a href="../Concepts.htm#objects">配列</a></p>
-<p>この関数は、指定されたウィンドウ内のすべてのコントロールのコントロール名を含む配列を返す。コントロールの各名称は、Window Spyで示されているように、そのクラス名の直後にシーケンス番号（ClassNN）が付いたものです。</p>
-<p>例えば、戻り値が<code>Controls</code>という変数に代入され、2つのコントロールが存在する場合、<code>Controls[1]</code>には1つ目のコントロールの名前、<code>Controls[2]</code>には2つ目のコントロールの名前が格納され、<code>Controls.<a href="Array.htm#Length">Length</a></code>は、数値2を返す。</p>
+<p>型：<a href="Array.htm">Array</a></p>
+<p>This function returns an array of names for all controls in the specified window. Each name consists of the control's class name followed immediately by its sequence number (ClassNN), as shown by Window Spy.</p>
+<p>For example, if the return value is assigned to a variable named <code>ClassNNs</code> and two controls are present, <code>ClassNNs[1]</code> contains the name of the first control, <code>ClassNNs[2]</code> contains the name of the second control, and <code>ClassNNs.<a href="Array.htm#Length">Length</a></code> returns the number 2.</p>
 <p>コントロールはZオーダーに従ってソートされ、ウィンドウがタブ機能をサポートしている場合は、通常、<kbd>tab</kbd>によるナビゲーションの順番と同じ順番になる。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -37,7 +39,6 @@
 
 <h2 id="Remarks">備考</h2>
 <p>マウスカーソルの下にあるウィンドウまたはコントロールのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinGetControlsHwnd.htm">WinGetControlsHwnd</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>

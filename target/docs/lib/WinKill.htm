@@ -20,14 +20,16 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
   <dt>SecondsToWait</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>省略または空白の場合、関数はまったく待機しない。0なら500ミリ秒待つ。そうでない場合は、ウィンドウが閉じるまで、指定された秒数（小数点を含むか、<a href="../Variables.htm#Expressions">式</a>にすることができる）を待つ。その期間内にウィンドウが閉じなければ、スクリプトは続行される。</p>
+    <p>If omitted, the function will not wait at all. Otherwise, specify the number of seconds (can contain a decimal point) to wait for the window to close. その期間内にウィンドウが閉じなければ、スクリプトは続行される。</p>
   </dd>
 
 </dl>
@@ -37,10 +39,10 @@
 <p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用する。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>この関数はまず、ウィンドウを普通に閉じようとする短い試みを行う。これが失敗すると、プロセスを終了させてウィンドウを強制的に閉じようとする。</p>
+<p>この関数はまず、ウィンドウを普通に閉じようとする短い試みを行う。If that fails, the function will attempt to force the window closed by terminating its process.</p>
 <p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられる。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられる。</p>
 <p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
+<p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="ProcessClose.htm">ProcessClose</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="GroupActivate.htm">GroupActivate</a></p>

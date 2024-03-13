@@ -15,29 +15,26 @@
 
 <p>指定されたモニターが存在するかどうかを調べ、オプションでその作業領域の境界座標を取得します。</p>
 
-<pre class="Syntax">IsExisting := <span class="func">MonitorGetWorkArea</span>(<span class="optional">N, &amp;Left, &amp;Top, &amp;Right, &amp;Bottom</span>)</pre>
+<pre class="Syntax">ActualN := <span class="func">MonitorGetWorkArea</span>(<span class="optional">N, &amp;Left, &amp;Top, &amp;Right, &amp;Bottom</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
     <dt>N</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>モニター番号。1から<a href="MonitorGetCount.htm">MonitorGetCount</a>によって返される番号の間。省略された場合は、プライマリモニタが使用されます。</p>
+        <p>If omitted, the primary monitor will be used. Otherwise, specify the monitor number, between 1 and the number returned by <a href="MonitorGetCount.htm">MonitorGetCount</a>.</p>
     </dd>
     
-    <dt>&amp;Left</dt>
-    <dt>&amp;Top</dt>
-    <dt>&amp;Right</dt>
-    <dt>&amp;Bottom</dt>
+    <dt>&amp;Left, &amp;Top, &amp;Right, &amp;Bottom</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-        <p>作業領域の境界座標をピクセル単位で格納する出力変数へのリファレンス。</p>
+        <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the bounding coordinates of the working area, in pixels.</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>モニター番号（Nが省略された場合を除き、Nと同じ）を返します。</p>
+<p>This function returns the monitor number (the same as <em>N</em> unless <em>N</em> was omitted).</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>失敗した場合は、例外が発生し、出力変数は変更されません。</p>

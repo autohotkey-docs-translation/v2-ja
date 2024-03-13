@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>TrayTip - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="TrayTip関数は、トレイアイコンの近くにバルーンメッセージウィンドウを作成します。Windows 10の場合、代わりにトースト通知が表示されることがあります。" />
+<meta name="description" content="The TrayTip function shows a balloon message window or, on Windows 10 and later, a toast notification near the tray icon." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -20,7 +20,7 @@
 
 <h1>TrayTip</h1>
 
-<p><a href="../Program.htm#tray-icon">トレイアイコン</a>の近くにバルーンメッセージウィンドウを作成する。Windows 10の場合、代わりにトースト通知が表示されることがあります。</p>
+<p>Shows a balloon message window or, on Windows 10 and later, a toast notification near the <a href="../Program.htm#tray-icon">tray icon</a>.</p>
 
 <pre class="Syntax"><span class="func">TrayTip</span> <span class="optional">Text, Title, Options</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -29,29 +29,33 @@
   <dt>Text</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>表示するメッセージ。最初の265文字だけが表示されます。</p>
+    <p>If blank or omitted, the text will be entirely omitted from the traytip, making it vertically shorter. Otherwise, specify the message to display. 最初の265文字だけが表示されます。</p>
     <p>キャリッジリターン(`r)またはラインフィード(`n)を使って複数行のテキストを作成することができる。事例：<code>Line1`nLine2</code>.</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
-    <p><em>Text</em>を空白にすることで、タイトルだけのウィンドウを表示することができる。</p>
   </dd>
 
   <dt>タイトル</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>ウィンドウのタイトル。最初の73文字のみが表示されます。</p>
-    <p><em>Title</em>が空白の場合、タイトル行はウィンドウから完全に省略され、縦に短くなる。</p>
+    <p>If blank or omitted, the title line will be entirely omitted from the traytip, making it vertically shorter. Otherwise, specify the title of the traytip. 最初の73文字のみが表示されます。</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>整数値（加算またはビット単位のORによる組み合わせ）または、少なくとも1つのスペースまたはタブで区切られた、0個以上の大文字小文字を区別しないオプションの文字列。また、1つ以上の数値オプションを文字列に含めることができます。</p>
+    <p>空白または省略された場合、デフォルトは 0 です。Otherwise, specify either an integer value (a combination by addition or bitwise-OR) or a string of zero or more case-insensitive options separated by at least one space or tab. また、1つ以上の数値オプションを文字列に含めることができます。</p>
     <table class="info">
       <tr>
         <th class="sized1">機能</th>
         <th class="sized2 right">Dec</th>
         <th class="sized2 right">Hex</th>
         <th>String</th>
+      </tr>
+      <tr>
+        <td>No icon</td>
+        <td class="right">0</td>
+        <td class="right">0x0</td>
+        <td>N/A</td>
       </tr>
       <tr>
         <td>Info icon</td>
@@ -90,16 +94,16 @@
         <td>N/A</td>
       </tr>
     </table>
-    <p>省略された場合、デフォルトは0となり、アイコンは表示されない。また、バルーンウィンドウに<em>タイトル</em>がない場合、アイコンは表示されません（Windows 10のトースト通知には適用されません）。</p>
-    <p>Windows10では、「トレイアイコン」オプション(4)を省略しても、通常は小さなトレイアイコンが表示され、このオプションを指定すると、通知にプログラム名が表示される場合があります。</p>
+    <p>The icon is also not shown by the traytip if it lacks a title (this does not apply to the toast notifications on Windows 10 and later).</p>
+    <p>On Windows 10 and later, the small tray icon is generally displayed even if the "tray icon" option (4) is omitted, and specifying this option may cause the program's name to be shown in the notification.</p>
     </dd>
 
 </dl>
 
-<h2 id="To_Hide_the_Window">ウィンドウを隠すには</h2>
-<p>TrayTipバルーンウィンドウを隠すには、<em>Text</em>と <em>Title</em>の両方を省略します。事例：</p>
+<h2 id="Hiding_the_Traytip">Hiding the Traytip</h2>
+<p>To hide the traytip, omit all parameters (or at least the <em>Text</em> and <em>Title</em> parameters). 事例：</p>
 <pre>TrayTip</pre>
-<p>Windows 10のトースト通知を非表示にするには、<a href="../Program.htm#tray-icon">トレイアイコン</a>を一時的に削除します。事例：</p>
+<p>To hide the traytip on Windows 10, temporarily remove the <a href="../Program.htm#tray-icon">tray icon</a> (which not always work, according to at least one report). 事例：</p>
 <pre>TrayTip "#1", "This is TrayTip #1"
 Sleep 3000   <em>; Let it display for 3 seconds.</em>
 HideTrayTip
@@ -116,12 +120,11 @@ HideTrayTip() {
     }
 }
 </pre>
-<p>少なくともある報告書によれば、これは必ずしもうまくいくとは限らない。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>Windows10では、TrayTipウィンドウは通常このように表示される：</p>
+<p>On Windows 10, a traytip window usually looks like this:</p>
 <img src="../static/dlg_traytip.png" alt="TrayTip" />
-<p id="Windows10"><strong>Windows 10</strong>では、デフォルトですべてのバルーンウィンドウがトースト通知に置き換えられる（グループポリシーで上書き可能）。TrayTipを複数回呼び出すと、通常、各通知が最後の通知を置き換えるのではなく、複数の通知が「キュー」に入れられます。</p>
+<p id="Windows10"><strong>Windows 10 and later</strong> replace all balloon windows with toast notifications by default (this can be overridden via group policy). TrayTipを複数回呼び出すと、通常、各通知が最後の通知を置き換えるのではなく、複数の通知が「キュー」に入れられます。</p>
 <p>TrayTipは、スクリプトに<a href="../Program.htm#tray-icon">トレイアイコン</a>がない場合（<a href="_NoTrayIcon.htm">#NoTrayIcon</a>または<code><a href="../Variables.htm#IconHidden">A_IconHidden</a>:=trueを</code>使用）には効果がありません。また、以下のREG_DWORD値が存在し、0に設定されている場合、TrayTipは効果を発揮しません：</p>
 <pre>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced &gt;&gt; EnableBalloonTips</pre>
 <p>関連して、ユーザーがスクリプトの<a href="../Program.htm#tray-icon">トレイアイコン</a>にマウスを置くと、ツールチップが表示される。このツールチップの内容は、以下の方法で変更できる：<code><a href="../Variables.htm#IconTip">A_IconTip</a> := "My New Text"</code>.</p>
@@ -136,8 +139,11 @@ HideTrayTip() {
 </div>
 
 <div class="ex" id="ExDisplayTime">
-<p><a class="ex_number" href="#ExDisplayTime"></a> スリープ（現在のスレッドを停止させる）を使うことなく、表示時間をより正確にコントロールできる。Windows 10の場合は、HideTrayTip関数の定義を<a href="#Hide">上記</a>で定義したものに置き換えてください。</p>
-<pre>TrayTip "This will be displayed for 5 seconds.", "Timed TrayTip"
+<p><a class="ex_number" href="#ExDisplayTime"></a> スリープ（現在のスレッドを停止させる）を使うことなく、表示時間をより正確にコントロールできる。</p>
+<pre>TrayTip "This will be displayed for 5 seconds.", "Timed traytip"
+SetTimer () =&gt; TrayTip(), -5000</pre>
+<p>The following does the same, but allows you to replace the HideTrayTip function definition with the one defined <a href="#Hide">above</a> for Windows 10.</p>
+<pre>TrayTip "This will be displayed for 5 seconds.", "Timed traytip"
 SetTimer HideTrayTip, -5000
 
 HideTrayTip() {
@@ -147,13 +153,13 @@ HideTrayTip() {
 </div>
 
 <div class="ex" id="ExPermanent">
-<p><a class="ex_number" href="#ExPermanent"></a> タイマーで定期的に更新することにより、TrayTipを永続的に表示します。なお、<a href="#Windows10">上記</a>の理由により、ウィンドウズ10ではおそらくうまくいかないだろう。</p>
+<p><a class="ex_number" href="#ExPermanent"></a> Permanently displays a traytip by refreshing it periodically via timer. Note that this probably won't work well on Windows 10 and later for <a href="#Windows10">reasons described above</a>.</p>
 <pre>SetTimer RefreshTrayTip, 1000
 RefreshTrayTip  <em>; Call it once to get it started right away.</em>
 
 RefreshTrayTip()
 {
-    TrayTip "This is a more permanent TrayTip.", "Refreshed TrayTip", "Mute"
+    TrayTip "This is a more permanent traytip.", "Refreshed traytip", "Mute"
 }</pre>
 </div>
 

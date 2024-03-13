@@ -40,25 +40,26 @@ ReqBufSize   := <span class="func">StrPut</span>(String <span class="optional">,
   <dt>Length</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><em>Target</em>がプレーン・メモリ・アドレスでなく、バッファ・サイズが十分であることが分かっている場合（同じ<em>String</em>と <em>Encoding</em>を持つStrPutの以前の呼び出しに基づいてバッファが割り当てられた場合など）、これは設定されないか省略される。そうでない場合は、<a href="../Concepts.htm#null-termination">ヌル・ターミネーター</a>が必要ならそれも含めて、書き込む最大<a href="../Concepts.htm#character">文字数</a>を指定する。</p>
+    <p>The maximum number of <a href="../Concepts.htm#character">characters</a> to write, including the <a href="../Concepts.htm#null-termination">null-terminator</a> if required.</p>
     <p><em>Length</em>がゼロか、変換後の投影長（変換が不要な場合はソース文字列の長さ）より小さい場合、例外がスローされる。</p>
+    <p><em>Length</em> must not be omitted when <em>Target</em> is a plain memory address, unless the buffer size is known to be sufficient, such as if the buffer was allocated based on a previous call to StrPut with the same <em>String</em> and <em>Encoding</em>.</p>
     <p><em>Target</em>がオブジェクトの場合、<code><i>Target</i>.Size</code>から計算されるバッファサイズを超える<em>Length</em>を指定すると、変換後の文字列がバッファ内に収まる場合でもエラーとみなされます。</p>
-    <p class="warning"><strong>注意：</strong> <em>Encoding</em>が指定されている場合、<em>Length</em>はバッファのサイズ（文字数）であるべきで、<em>String</em>や部分文字列の長さでは<strong>ない</strong>はずです。</p>
+    <p class="warning"><strong>Note:</strong> When <em>Encoding</em> is specified, <em>Length</em> should be the size of the buffer (in characters), <u>not</u> the length of <em>String</em> or a substring, as conversion may increase its length.</p>
     <p class="warning"><strong>注：</strong> <em>長さ</em>は文字単位で測定されるが、バッファ・サイズは通常バイト単位で測定される。バッファサイズをバイト単位で指定するには、<em>Target</em>パラメータに<a href="Buffer.htm">Buffer</a>ライクなオブジェクトを使用します。</p>
   </dd>
 
   <dt>エンコード</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>未設定または省略された場合、文字列は変換されずに単にコピーまたは測定される。Otherwise, specify the target encoding; for example, <code>"UTF-8"</code>, <code>"UTF-16"</code> or <code>"CP936"</code>. 数値識別子では、<em>Length</em>が指定されている場合のみ、接頭辞 "CP"を省略することができる。システム・デフォルトのANSIコード・ページを使用する場合は、空文字列または<code>"CP0"</code>を指定する。</p>
+    <p>If omitted, the string is simply copied or measured without any conversion taking place. Otherwise, specify the target encoding; for example, <code>"UTF-8"</code>, <code>"UTF-16"</code> or <code>"CP936"</code>. For numeric identifiers, the prefix "CP" can be omitted only in 4-parameter mode. Specify an empty string or <code>"CP0"</code> to use the system default ANSI code page.</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p><em>Target</em>が省略された場合、この関数はヌル・ターミネータ用のスペースを含む、必要なバッファ・サイズをバイト単位で返す。</p>
-<p><em>Target</em>が指定された場合、この関数は書き込まれたバイト数を返す。つまり、<em>Length</em>または<code><i>Target</i>.Size</code>（文字の大きさを乗じたもの）が変換後の文字列の長さにちょうど等しい場合は省略されます。</p>
+<p>In 4- or 3-parameter mode, this function returns the number of bytes written. A null-terminator is written and included in the return value only when there is sufficient space; that is, it is omitted when <em>Length</em> or <code><i>Target</i>.Size</code> (multiplied by the size of a character) exactly equals the length of the converted string.</p>
+<p>In 2-parameter mode, this function returns the required buffer size in bytes, including space for the null-terminator.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>変換後の文字列が<em>Length</em>や <code><i>Target</i>.Size</code>で許容される長さよりも長い場合など、無効なパラメータが検出された場合は<a href="Error.htm#ValueError">ValueError</a>がスローされます。</p>

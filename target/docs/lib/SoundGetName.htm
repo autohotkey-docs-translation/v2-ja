@@ -22,16 +22,14 @@
   <dt>コンポーネント</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>コンポーネントの表示名とインデックス。例えば、<code>1</code>、<code>"Line in"</code>または<code>"Line in:2"</code>。</p>
-    <p>省略または空白の場合、デバイス自体の名前が取得される。</p>
+    <p>If blank or omitted, the name of the device itself will be retrieved. Otherwise, specify the component's display name and/or index, e.g. <code>1</code>, <code>"Line in"</code> or <code>"Line in:2"</code>.</p>
     <p>詳しくは「<a href="Sound.htm#component">コンポーネント（サウンド機能）</a>」をご覧ください。</p>
   </dd>
 
   <dt>Device</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>デバイスの表示名とインデックス。例えば、<code>1</code>、<code>"Speakers"</code>、<code>"Speakers:2"</code>、<code>"Speakers (Example HD Audio)</code>"などです。</p>
-    <p>このパラメーターが省略された場合、デフォルトはシステムのデフォルト再生デバイス（デバイス1とは限らない）となる。</p>
+    <p>If blank or omitted, it defaults to the system's default device for playback (which is not necessarily device 1). Otherwise, specify the device's display name and/or index, e.g. <code>1</code>, <code>"Speakers"</code>, <code>"Speakers:2"</code> or <code>"Speakers (Example HD Audio)"</code>.</p>
     <p>詳しくは<a href="Sound.htm#device">デバイス（サウンド機能）</a>をご覧ください。</p>
   </dd>
 
@@ -39,16 +37,10 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>デバイスまたはコンポーネントの名前。</p>
+<p>This function returns the name of the device or component, which can be empty.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>失敗すると以下の例外のいずれかがスローされる：</p>
-<table class="info">
-  <tr><th abbr="Class">エラークラス</th><th>メッセージ</th></tr>
-  <tr><td rowspan="2"><a href="Error.htm#TargetError">TargetError</a></td><td>デバイスが見つかりません</td></tr>
-  <tr> <td>コンポーネントが見つかりません</td></tr>
-  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>システムが生成する。</em></td></tr>
-</table>
+<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the device or component could not be found. Otherwise, an <a href="Error.htm#OSError">OSError</a> is thrown on failure.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Sound.htm">サウンド機能</a></p>
@@ -57,19 +49,19 @@
 <div class="ex" id="ExNoParams">
 <p><a class="ex_number" href="#ExNoParams"></a> デフォルトの再生デバイス名を取得し、報告する。</p>
 <pre>default_device := SoundGetName()
-MsgBox 'The default playback device is "' default_device '".'</pre>
+MsgBox "The default playback device is " default_device</pre>
 </div>
 
 <div class="ex" id="ExDevice">
 <p><a class="ex_number" href="#ExDevice"></a> 最初のデバイスの名前を取得し、報告する。</p>
 <pre>device1 := SoundGetName( , 1)
-MsgBox 'Device 1 is "' device1 '".'</pre>
+MsgBox "Device 1 is " device1</pre>
 </div>
 
 <div class="ex" id="ExComponent">
 <p><a class="ex_number" href="#ExComponent"></a> 最初のコンポーネントの名前を取得して報告する。</p>
 <pre>component1 := SoundGetName(1)
-MsgBox 'Component 1 is "' component1 '".'</pre>
+MsgBox "Component 1 is " component1</pre>
 </div>
 
 <p>より複雑な例については、<a href="Sound.htm#ExSoundcard">サウンドカード解析スクリプト</a>を参照のこと。</p>

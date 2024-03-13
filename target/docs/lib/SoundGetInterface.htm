@@ -28,16 +28,14 @@
   <dt>コンポーネント</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>コンポーネントの表示名とインデックス。例えば、<code>1</code>、<code>"Line in"</code>または<code>"Line in:2"</code>。</p>
-    <p>省略または空白の場合、デバイス自身が実装しているインターフェイスが検索される。</p>
+    <p>If blank or omitted, an interface implemented by the device itself will be retrieved. Otherwise, specify the component's display name and/or index, e.g. <code>1</code>, <code>"Line in"</code> or <code>"Line in:2"</code>.</p>
     <p>詳しくは「<a href="Sound.htm#component">コンポーネント（サウンド機能）</a>」をご覧ください。</p>
   </dd>
 
   <dt>Device</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>デバイスの表示名とインデックス。例えば、<code>1</code>、<code>"Speakers"</code>、<code>"Speakers:2"</code>、<code>"Speakers (Example HD Audio)</code>"などです。</p>
-    <p>このパラメーターが省略された場合、デフォルトはシステムのデフォルト再生デバイス（デバイス1とは限らない）となる。</p>
+    <p>If blank or omitted, it defaults to the system's default device for playback (which is not necessarily device 1). Otherwise, specify the device's display name and/or index, e.g. <code>1</code>, <code>"Speakers"</code>, <code>"Speakers:2"</code> or <code>"Speakers (Example HD Audio)"</code>.</p>
     <p>詳しくは<a href="Sound.htm#device">デバイス（サウンド機能）</a>をご覧ください。</p>
   </dd>
 
@@ -49,13 +47,7 @@
 <p>インターフェイスがサポートされていない場合、戻り値は0である。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>失敗すると以下の例外のいずれかがスローされる：</p>
-<table class="info">
-  <tr><th abbr="Class">エラークラス</th><th>メッセージ</th></tr>
-  <tr><td rowspan="2"><a href="Error.htm#TargetError">TargetError</a></td><td>デバイスが見つかりません</td></tr>
-  <tr> <td>コンポーネントが見つかりません</td></tr>
-  <tr><td><a href="Error.htm#OSError">OSError</a></td><td><em>システムが生成する。</em></td></tr>
-</table>
+<p>A <a href="Error.htm#TargetError">TargetError</a> is thrown if the device or component could not be found. Otherwise, an <a href="Error.htm#OSError">OSError</a> is thrown on failure.</p>
 
 <h2 id="Remarks">備考</h2>
 <p>インターフェイスは以下のいずれかのソースから取得される：</p>

@@ -28,14 +28,14 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
     <p>イベントが発生したときに呼び出す関数、メソッド、またはオブジェクトを指定します。</p>
-    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。</p>
-    <p>それ以外の場合は、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければならない。</p>
+    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。Otherwise, this parameter must be a <a href="../misc/Functor.htm">function object</a>.</p>
+    <p>For details about the parameters, return value, naming, and more, see the following sections.</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>省略された場合、デフォルトは1（以前に登録されたコールバックの後にコールバックを呼び出す）です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p>If omitted, it defaults to 1. それ以外の場合は、次のいずれかの番号を指定してください：</p>
     <ul>
       <li>1 = 以前に登録されたコールバックの後にコールバックを呼び出します。</li>
       <li>-1 = 以前に登録されたコールバックより先にコールバックを呼び出します。</li>
@@ -49,7 +49,7 @@
 <p><em>Callback</em>はオブジェクトにできるので、パラメータリストの先頭に追加のパラメータを挿入して、別の関数を呼び出す<a href="../misc/Functor.htm#BoundFunc">BoundFuncオブジェクト</a>にすることができます。これはOnEventに特化したものではなく、一般的なテクニックなので、このドキュメントの他の部分では通常無視されます。</p>
 <p>コールバックの最初の明示的なパラメータは、イベントを発生させた<a href="Gui.htm">Gui</a>または<a href="GuiControl.htm">GuiControl</a>オブジェクトです。唯一の例外は、Guiが<a href="Gui.htm#EventObj">それ自身のイベントを処理する</a>とき、このパラメータは省略されることです。なぜなら、<code>このパラメータ</code>はすでにGuiへの参照を含んでいるからです。</p>
 <p>多くのイベントは、各イベントで説明されているように、イベントに関する追加のパラメータを渡します。</p>
-<p>動的に呼び出されるすべてのメソッドや関数と同様に、コールバック自身が必要としないパラメータを宣言する必要はありませんが、この場合、最終パラメータとしてアスタリスクを指定する必要があります。イベントにコールバックが宣言した以上のパラメータがある場合、それらは単に無視されます（コールバックが<a href="../Functions.htm#Variadic">variadic</a>でない限り）。</p>
+<p>As with all methods or functions called dynamically, the callback is not required to declare parameters which the callback itself does not need, but in this case an asterisk must be specified as the final parameter, e.g. <code>MyCallback(Param1, *)</code>. If an event has more parameters than are declared by the callback, they will simply be ignored (unless the callback is <a href="../Functions.htm#Variadic">variadic</a>).</p>
 <p>コールバックは、追加のパラメータがオプションとして宣言されている場合（そしてその場合のみ）、イベントが提供するよりも多くのパラメータを宣言することができます。しかし、オプションのパラメータを使用することは推奨されません。プログラムの将来のバージョンでは、追加のパラメータでイベントを拡張する可能性があり、その場合、オプションのパラメータはデフォルト値を受け取らなくなります。</p>
 
 <h2 id="Callback_Return_Value">コールバックの戻り値</h2>
@@ -99,32 +99,35 @@
 <h3 id="Close">Close</h3>
 <p>ユーザーまたは他のプログラムが、タイトルバーのXボタンを押す、システムメニューから「閉じる」を選択する、または<a href="WinClose.htm">WinClose</a>を呼び出すなどして、ウィンドウを閉じようとしたときに起動されるものです。</p>
 <pre class="Syntax">Gui_<span class="func">Close</span>(GuiObj)</pre>
-<p>デフォルトでは、コールバックが戻った後、またはコールバックが登録されていない場合、ウィンドウは自動的に非表示になります。コールバックは1（または<code>true</code>）を返すことでこれを防ぐことができ、残りのコールバックが呼ばれるのを防ぐこともできます。コールバックは、<a href="Gui.htm#Hide">Gui.Hide</a>を呼び出すことでウィンドウをすぐに隠すことができ、<a href="Gui.htm#Destroy">Gui.Destroy</a>を呼び出すことでウィンドウを破壊することができます。</p>
+<p>デフォルトでは、コールバックが戻った後、またはコールバックが登録されていない場合、ウィンドウは自動的に非表示になります。コールバックは1（または<code>true</code>）を返すことでこれを防ぐことができ、残りのコールバックが呼ばれるのを防ぐこともできます。The callback can hide the window immediately by calling <a href="Gui.htm#Hide">GuiObj.Hide</a>, or destroy the window by calling <a href="Gui.htm#Destroy">GuiObj.Destroy</a>.</p>
 <p>例えば、このGUIでは、閉じる前に確認のプロンプトが表示されます：</p>
-<pre>myGui := Gui()
-myGui.AddText("", "Press Alt+F4 or the X button in the title bar.")
-myGui.OnEvent("Close", myGui_Close)
-myGui_Close(thisGui) {  <em>; このパラメータの宣言は任意</em>です。
+<pre>MyGui := Gui()
+MyGui.AddText("", "Press Alt+F4 or the X button in the title bar.")
+MyGui.OnEvent("Close", MyGui_Close)
+MyGui_Close(thisGui) {  <em>; Declaring this parameter is optional.</em>
     if MsgBox("Are you sure you want to close the GUI?",, "y/n") = "No"
         return true  <em>; true = 1</em>
 }
-myGui.Show</pre>
+MyGui.Show</pre>
 
 <h3 id="ContextMenu">ContextMenu</h3>
 <p>タイトルバーとメニューバーを除くウィンドウ内の任意の場所を右クリックしたときに起動します。また、<kbd>Menu</kbd>や <kbd>Shift</kbd><kbd>+</kbd><kbd>F10</kbd>を押したときにも反応し、起動します。</p>
 <pre class="Syntax">Gui_<span class="func">ContextMenu</span>(GuiObj, GuiCtrlObj, Item, IsRightClick, X, Y)</pre>
 <dl><dt>GuiCtrlObj</dt><dd>
-    <p>型：<a href="GuiControl.htm">GuiControl</a>または<a href="../Concepts.htm#nothing">String(空)</a></p>
-    <p>イベントを受信したコントロールのオブジェクト（ない場合は空白）。</p></dd>
+    <p>型：<a href="../Concepts.htm#objects">Object</a> or <a href="../Concepts.htm#nothing">String (empty)</a></p>
+    <p>The <a href="GuiControl.htm">GuiControl object</a> of the control that received the event (blank if none).</p></dd>
   <dt>Item</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>ListBox、ListView、TreeViewがコンテキストメニューのターゲットである場合（<em>GuiCtrlObj</em>で決定）、<em>Item</em>はコントロールのどのアイテムをターゲットとするかを指定します。</p>
-    <p><a href="GuiControls.htm#ListBox">ListBox</a>:現在フォーカスされている行の番号。標準的なリストボックスでは、右クリックされたときに項目にフォーカスが当たらないので、クリックされた項目でない可能性があることに注意してください。</p>
-    <p><a href="ListView.htm">ListView</a> および <a href="TreeView.htm">TreeView</a>:右クリックの場合、<em>Item</em>にはクリックされた項目のIDまたは行番号（項目以外の場所をクリックした場合は0）が入ります。AppsKeyとShift-F10の場合、<em>Item</em>には選択された項目のIDまたは行番号が入ります。</p></dd>
+    <p><a href="GuiControls.htm#ListBox">ListBox</a>:The position number of the currently focused item. 標準的なリストボックスでは、右クリックされたときに項目にフォーカスが当たらないので、クリックされた項目でない可能性があることに注意してください。</p>
+    <p><a href="ListView.htm">ListView</a> および <a href="TreeView.htm">TreeView</a>:For right-clicks, <em>Item</em> contains the clicked item's row number or ID (or 0 if the user clicked somewhere other than an item). For <kbd>Menu</kbd> and <kbd>Shift</kbd>+<kbd>F10</kbd>, <em>Item</em> contains the selected item's row number or ID.</p></dd>
   <dt>IsRightClick</dt><dd>
     <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-    <p>ユーザーがマウスの右ボタンをクリックした場合、<code>真</code>になります。<br>
-    ユーザーが<kbd>Menu</kbd>または<kbd>Shift</kbd><kbd>+</kbd><kbd>F10</kbd>を押した場合、<code>False</code>になります。</p></dd>
+    <p>以下のいずれかの値：</p>
+    <ul>
+      <li>1 (true) = The user clicked the right mouse button.</li>
+      <li>0 (false) = The user pressed <kbd>Menu</kbd> or <kbd>Shift</kbd>+<kbd>F10</kbd>.</li>
+    </ul></dd>
   <dt>X, Y</dt><dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>スクリプトがメニューを表示する位置のX、Y座標（例：<code>MyContextMenu.<a href="Menu.htm#Show">Show</a>X, Y</code>）です。座標は、ウィンドウのクライアント領域の左上隅からの相対座標です。</p></dd>
@@ -139,12 +142,12 @@ myGui.Show</pre>
 <dl>
   <dt>GuiCtrlObj</dt>
   <dd>
-    <p>型：<a href="GuiControl.htm">GuiControl</a>または<a href="../Concepts.htm#nothing">String(空)</a></p>
-    <p>ファイルがドロップされたコントロールのオブジェクト（ない場合は空白）。</p></dd>
+    <p>型：<a href="../Concepts.htm#objects">Object</a> or <a href="../Concepts.htm#nothing">String (empty)</a></p>
+    <p>The <a href="GuiControl.htm">GuiControl object</a> of the control upon which the files were dropped (blank if none).</p></dd>
 
   <dt>FileArray</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>の<a href="Array.htm">配列</a></p>
+    <p>型：<a href="Array.htm">Array</a></p>
     <p>ファイル名の配列。<code>FileArray[1]</code>は最初のファイル、<code>FileArray.Length</code>はファイル数を返す。<a href="For.htm">for-loop</a>を使用して、ファイルを繰り返し処理することができます：</p>
 <pre>Gui_DropFiles(GuiObj, GuiCtrlObj, FileArray, X, Y) {
     for i, DroppedFile in FileArray
@@ -195,7 +198,7 @@ myGui.Show</pre>
   <dt>Info</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p><a href="GuiControls.htm#Slider">スライダー</a>コントロールの場合、<em>Info</em>はスライダーの動き方を示す数値です。詳しくは、「<a href="GuiControls.htm#slider-change">変化の検出（スライダー）</a>」をご覧ください。</p>
+    <p><a href="GuiControls.htm#Slider">Slider</a>: A numeric value indicating how the slider moved. For details, see <a href="GuiControls.htm#slider-change">Detecting Changes</a>.</p>
     <p>それ以外のコントロールについては、現在、<em>Info</em>は意味を持ちません。</p>
   </dd>
 </dl>
@@ -210,19 +213,19 @@ Link_<span class="func">Click</span>(GuiCtrlObj, Info, Href)</pre>
   <dt>Info</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ListView:クリックされた項目の行番号、またはマウスが項目上にない場合は0を指定します。</p>
-    <p>TreeView:クリックされた項目のID、またはマウスが項目上にない場合は0を指定します。</p>
-    <p>Link:リンクにID属性がある場合は文字列、ない場合はリンクのインデックス（整数値）です。</p>
-    <p>StatusBar:クリックした部分の品番（ただし、バー右側のサイズグリップ付近をクリックした場合、品番は非常に大きな整数になる可能性があります）。</p>
+    <p><a href="GuiControls.htm#ListView">ListView</a>:クリックされた項目の行番号、またはマウスが項目上にない場合は0を指定します。</p>
+    <p><a href="GuiControls.htm#TreeView">TreeView</a>:クリックされた項目のID、またはマウスが項目上にない場合は0を指定します。</p>
+    <p><a href="GuiControls.htm#Link">Link</a>:リンクにID属性がある場合は文字列、ない場合はリンクのインデックス（整数値）です。</p>
+    <p><a href="GuiControls.htm#StatusBar">StatusBar</a>:クリックした部分の品番（ただし、バー右側のサイズグリップ付近をクリックした場合、品番は非常に大きな整数になる可能性があります）。</p>
     <p>それ以外のコントロールについては、現在、<em>Info</em>は意味を持ちません。</p>
   </dd>
   <dt>Href</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Link:リンクのHREF属性です。なお、クリックイベントコールバックが登録されている場合、HREF属性は自動的に実行されません。</p>
+    <p><a href="GuiControls.htm#Link">Link</a>:リンクのHREF属性です。なお、クリックイベントコールバックが登録されている場合、HREF属性は自動的に実行されません。</p>
   </dd>
 </dl>
-<p>適用：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
+<p>適用：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#CheckBox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Link">Link</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
 
 <h3 id="DoubleClick">DoubleClick</h3>
 <p>コントロールがダブルクリックされたときに発生します。</p>
@@ -231,11 +234,11 @@ Link_<span class="func">Click</span>(GuiCtrlObj, Info, Href)</pre>
   <dt>Info</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ListView, TreeView および StatusBar:<a href="GuiOnEvent.htm#Click">クリック</a>イベントと同じです。</p>
-    <p>ListBox:フォーカスされたアイテムの位置。最後の項目の下の空白をダブルクリックすると、通常、最後の項目がフォーカスされ、選択範囲がそのままになります。</p>
+    <p><a href="GuiControls.htm#ListView">ListView</a>, <a href="GuiControls.htm#TreeView">TreeView</a> and <a href="GuiControls.htm#StatusBar">StatusBar</a>: Same as for the <a href="#Click">Click</a> event.</p>
+    <p><a href="GuiControls.htm#ListBox">ListBox</a>:The position number of the currently focused item. 最後の項目の下の空白をダブルクリックすると、通常、最後の項目がフォーカスされ、選択範囲がそのままになります。</p>
   </dd>
 </dl>
-<p>適用：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
+<p>適用：<a href="GuiControls.htm#Text">Text</a>, <a href="GuiControls.htm#Pic">Pic</a>, <a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#CheckBox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#StatusBar">StatusBar</a>.</p>
 
 <h3 id="ColClick">ColClick</h3>
 <p>ListViewのカラムヘッダーの1つがクリックされたときに発生します。</p>
@@ -253,7 +256,7 @@ Link_<span class="func">Click</span>(GuiCtrlObj, Info, Href)</pre>
 <p>コントロールにキーボードフォーカスがある状態で、ユーザーがコントロールを右クリックするか、<kbd>メニュー</kbd>または<kbd>Shift</kbd><kbd>+</kbd> <kbd>F10</kbd>を押したときに発生します。</p>
 <pre class="Syntax">Ctrl_<span class="func">ContextMenu</span>(GuiCtrlObj, Item, IsRightClick, X, Y)</pre>
 <p>詳しくは、「<a href="#ContextMenu">ContextMenu</a>」をご覧ください。</p>
-<p>適用：EditとMonthCal（およびComboBox内のEditコントロール）以外のすべてのコントロールは、独自の標準コンテキストメニューを持っています。</p>
+<p>適用：All controls except <a href="GuiControls.htm#Edit">Edit</a> and <a href="GuiControls.htm#MonthCal">MonthCal</a> (and the Edit control within a <a href="GuiControls.htm#ComboBox">ComboBox</a>), which have their own standard context menu.</p>
 
 <span id="LoseFocus"></span><h3 id="Focus">Focus / LoseFocus</h3>
 <p>コントロールがキーボードフォーカスを獲得したとき、または失ったときに発生します。</p>
@@ -263,7 +266,7 @@ Ctrl_<span class="func">LoseFocus</span>(GuiCtrlObj, Info)</pre>
   <dt>Info</dt>
   <dd><p>Reserved.</p></dd>
 </dl>
-<p>適用：<a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#Checkbox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#DDL">DDL</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#DateTime">DateTime</a>.</p>
+<p>適用：<a href="GuiControls.htm#Button">Button</a>, <a href="GuiControls.htm#CheckBox">CheckBox</a>, <a href="GuiControls.htm#Radio">Radio</a>, <a href="GuiControls.htm#DDL">DDL</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a>, <a href="ListView.htm">ListView</a>, <a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm#Edit">Edit</a>, <a href="GuiControls.htm#DateTime">DateTime</a>.</p>
 <p>非対応：<a href="GuiControls.htm#Hotkey">Hotkey</a>, <a href="GuiControls.htm#Slider">Slider</a>, <a href="GuiControls.htm#Tab">Tab</a> および <a href="GuiControls.htm#Link">Link</a>. なお、<a href="GuiControls.htm#Text">Text</a>、<a href="GuiControls.htm#Pic">Pic</a>、<a href="GuiControls.htm#MonthCal">MonthCal</a>、<a href="GuiControls.htm#UpDown">UpDown</a>、<a href="GuiControls.htm#StatusBar">StatusBar</a>コントロールは、キーボードフォーカスを受け付けません。</p>
 
 <h3 id="ItemCheck">ItemCheck</h3>

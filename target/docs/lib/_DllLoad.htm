@@ -22,9 +22,9 @@
   <dt>FileOrDirName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>以下に説明する、ファイルまたはディレクトリのパス。二重引用符、ワイルドカード、セミコロン（<strong>`;</strong>）以外の<a href="../misc/EscapeChar.htm">エスケープ</a>シーケンスを含んでは<strong>ならない</strong>。</p>
-    <p>組込変数は、パーセント記号で囲んで使用することができます（例えば、<code>#DllLoad %A_ScriptDir%</code>）。有効な変数参照の一部でないパーセント記号は、文字通りに解釈されます。<a href="../Variables.htm#Args">A_Args</a>と、組み込みクラスを除く、すべての組込変数が有効です。</p>
-    <p>既知の制限：スクリプトをコンパイルする際、変数はコンパイラによって評価され、最終的に実行されたときにスクリプトが返す値とは異なる場合があります。以下の変数に対応：A_AhkPath, A_AppData, A_AppDataCommon, A_ComputerName, A_ComSpec, A_Desktop, A_DesktopCommon, A_IsCompiled, A_LineFile, A_MyDocuments, A_ProgramFiles, A_Programs, A_ProgramsCommon, A_ScriptDir, A_ScriptFullPath, A_ScriptName, A_Space, A_StartMenu, A_StartMenuCommon, A_Startup, A_StartupCommon, A_Tab, A_Temp, A_UserName, A_WinDir.</p>
+    <p>以下に説明する、ファイルまたはディレクトリのパス。This must <u>not</u> contain double quotes (except for an optional pair of double quotes surrounding the parameter), wildcards or <a href="../misc/EscapeChar.htm">escape sequences</a> other than semicolon (<strong>`;</strong>).</p>
+    <p>Built-in variables may be used by enclosing them in percent signs (for example, <code>#DllLoad "%A_ScriptDir%"</code>). 有効な変数参照の一部でないパーセント記号は、文字通りに解釈されます。<a href="../Variables.htm#Args">A_Args</a>と、組み込みクラスを除く、すべての組込変数が有効です。</p>
+    <p>既知の制限：スクリプトをコンパイルする際、変数はコンパイラによって評価され、最終的に実行されたときにスクリプトが返す値とは異なる場合があります。以下の変数に対応：<a href="../Variables.htm#AhkPath">A_AhkPath</a>, <a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#AppDataCommon">A_AppDataCommon</a>, <a href="../Variables.htm#ComputerName">A_ComputerName</a>, <a href="../Variables.htm#ComSpec">A_ComSpec</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#DesktopCommon">A_DesktopCommon</a>, <a href="../Variables.htm#IsCompiled">A_IsCompiled</a>, <a href="../Variables.htm#LineFile">A_LineFile</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#ProgramsCommon">A_ProgramsCommon</a>, <a href="../Variables.htm#ScriptDir">A_ScriptDir</a>, <a href="../Variables.htm#ScriptFullPath">A_ScriptFullPath</a>, <a href="../Variables.htm#ScriptName">A_ScriptName</a>, <a href="../Variables.htm#Space">A_Space</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#StartMenuCommon">A_StartMenuCommon</a>, <a href="../Variables.htm#Startup">A_Startup</a>, <a href="../Variables.htm#StartupCommon">A_StartupCommon</a>, <a href="../Variables.htm#Tab">A_Tab</a>, <a href="../Variables.htm#Temp">A_Temp</a>, <a href="../Variables.htm#UserName">A_UserName</a>, <a href="../Variables.htm#WinDir">A_WinDir</a>.</p>
     <p><strong>ファイル：</strong>ロードする DLL または EXE ファイルの絶対パスまたは相対パスを指定します。相対パスが指定された場合、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw">LoadLibraryW</a>と同じ検索方法でファイルを検索します。注：<a href="SetWorkingDir.htm">SetWorkingDir</a>は、スクリプトの実行を開始する前に#DllLoadが処理されるため、#DllLoadには影響しません。</p>
     <p><strong>ディレクトリ：</strong>DLLまたはEXEへの絶対パスを指定しない#DllLoadを実行した場合、ファイルではなくディレクトリを指定することで検索方法を変更します。新しい検索戦略は、<em>Directory</em>が、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdlldirectoryw">SetDllDirectoryW</a>に渡された場合と同じです。このパラメータが省略された場合、デフォルトの検索ストラテジーが復元されます。</p>
     <p class="note"><strong>注：</strong>このパラメータは式ではなく、引用符（「シングル」または「ダブル」のいずれか）で囲むことができます。</p>
@@ -32,11 +32,11 @@
 </dl>
 <h2 id="Remarks">備考</h2>
 <p>このディレクティブによって一度ロードされたDLLやEXEは、システムの関数<a href="https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary">FreeLibrary</a>を呼び出すことによってアンロードすることができません。スクリプトの終了時には、ロードされたすべてのファイルが自動的にアンロードされます。</p>
-<p><em>FileName</em>パラメータは、オプションで<code>*i</code>と1つのスペースで始まることができ、これによりプログラムはファイルの読み込みに失敗しても無視することができます。このオプションは、DLLやEXEが必須でないなど、障害があってもスクリプトが実行できる場合、またはスクリプトが障害を検出するように設計されている場合にのみ使用する必要があります。事例：</p>
+<p>The file path may optionally be preceded by <code>*i</code> and a single space, which causes the program to ignore any failure to load the file. このオプションは、DLLやEXEが必須でないなど、障害があってもスクリプトが実行できる場合、またはスクリプトが障害を検出するように設計されている場合にのみ使用する必要があります。事例：</p>
 <pre>#DllLoad "*i MyDLL"
 if !DllCall("GetModuleHandle", "str", "MyDLL")
     MsgBox "Failed to load MyDLL!"</pre>
-<p><em>FileName</em>パラメータにパスのないDLL名を指定し、ファイル名の拡張子を省略した場合、ファイル名に<em>.dll</em>が付加されます。これを防ぐには、ファイル名に末尾のポイント文字(.)を入れてください。</p>
+<p>If the <em>FileOrDirName</em> parameter specifies a DLL name without a path and the file name extension is omitted, <em>.dll</em> is appended to the file name. To prevent this, include a trailing period (.) in the file name.</p>
 <p>他のディレクティブと同様に、#DllLoadは条件付きで実行することはできません。</p>
 <h2 id="Related">関連</h2>
 <p><a href="DllCall.htm">DllCall</a></p>

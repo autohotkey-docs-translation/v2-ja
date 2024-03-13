@@ -61,7 +61,7 @@
 <td>
   <p><code>Blue"</code>などの文字列や<code>MyVar</code>、あるいは<code>&amp;MyVar</code>などの<a href="../Concepts.htm#variable-references">VarRef</a>を指定します。呼び出された関数が文字列を変更し、引数が裸の変数または VarRef である場合、その内容が更新されます。例えば、次のように呼び出すと、<em>MyVar</em>の中身を大文字に変換します：<code>DllCall("CharUpper", "Str", <i>MyVar</i>)</code>.</p>
   <p>関数がパラメータの入力値よりも長い文字列を保存するように設計されている場合（またはパラメータが出力のみの場合）、推奨される方法は、<a href="#ExWsprintf">wsprintfの例</a>のように、<a href="Buffer.htm">Buffer</a>を作成し、<a href="#ptr">Ptr</a>型を使ってそれを渡し、関数が戻った後に<a href="StrGet.htm">StrGet</a>を使って文字列を取得する方法です。</p>
-  <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。ここで、123は<em>MyVar</em>が保持しなければならない16ビット単位（緩やかに文字と呼ばれる）の数である、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(MyVar, 123)</code>を呼び出すことで実現できる。戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
+  <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。This can be achieved by calling <code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, 123)</code>, where 123 is the number of 16-bit units (loosely referred to as characters) that <em>MyVar</em> must be able to hold. 戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
   <p><em>Str</em>引数は、数値（<code>i+1</code>など）に評価される<a href="../Variables.htm#Expressions">式</a>であってはならない。もしそうであれば、関数は呼び出されず、<a href="Error.htm#TypeError">TypeError</a>が投げられる。</p>
   <p id="strp">めったに使われない<a href="#asterisk">Str*</a>arg型は、文字列のアドレスを含む一時変数のアドレスを渡します。関数が一時変数に新しいアドレスを書き込むと、<a href="../Concepts.htm#variable-references">VarRef</a>が渡された場合、新しい文字列はスクリプトの変数にコピーされます。これは、"TCHAR **"や "LPTSTR *"のようなものを期待する関数で使用することができます。しかし、関数がメモリを確保し、呼び出し側がそれを解放することを期待する場合（<a href="https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>を呼び出すなど）、代わりに<code>Ptr*</code>arg型を使用する必要があります。</p>
   <p class="note"><strong>Note:</strong> When passing a string to a function, be aware what <a href="../Compat.htm#DllCall"><i>type</i> of string</a> the function expects.</p></td>
@@ -183,7 +183,7 @@ Loop 500
 <p>実際の使用方法については、「<a href="#ExStruct">構造例</a>」を参照してください。</p>
 
 <h2 id="limits">既知の制限事項</h2>
-<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1)<em>MyVar</em>をPtr/アドレスとしてではなく、<a href="#str">"Str"</a>引数として渡す。2) DllCallを呼び出した後、<code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(MyVar, -1)</code>を呼んで変数の内部に保存された長さを更新します。</p>
+<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1) Pass <em>MyVar</em> as a <a href="#str">"Str"</a> argument rather than as a Ptr/address; 2) Call <code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(&amp;MyVar, -1)</code> to update the variable's internally-stored length after calling DllCall.</p>
 <p>関数によって変数に格納された2進数のゼロは、ターミネーターとして機能し、ほとんどの組み込み関数によってゼロの右側のすべてのデータがアクセスまたは変更されるのを防ぐことができます。しかし、このようなデータは、<a href="StrPtr.htm">StrPtr</a>で文字列のアドレスを取得し、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a>、<a href="StrGet.htm">StrGet</a>、<a href="StrPut.htm">StrPut</a>、DllCall自身など他の関数に渡すことで操作することができます。</p>
 <p>渡された文字列のアドレスを返す関数が、期待とは異なるメモリーアドレスに同一の文字列を返すことがあります。例えば、プログラミング言語で<code>CharLower(CharUpper(MyVar))</code>を呼び出すと、<em>MyVar</em>の内容が小文字に変換されます。しかし、DllCallで同じことをすると、CharLowerが<em>MyVar</em>と同じ内容の別の/一時的な文字列を操作したため、次の呼び出しの後、<em>MyVar</em>は大文字になります：</p>
 <pre>MyVar := "ABC"
@@ -256,7 +256,7 @@ switch ThisHotkey
     {
     case "F1":
         <em>; 現在の速度を取得し、後で復元できるようにする：</em>
-        DllCall("SystemParametersInfo", "UInt", SPI_GETMOUSESPEED, "UInt", 0, "Ptr*", OrigMouseSpeed, "UInt", 0)
+        DllCall("SystemParametersInfo", "UInt", SPI_GETMOUSESPEED, "UInt", 0, "Ptr*", &amp;OrigMouseSpeed, "UInt", 0)
         <em>; ここで、マウスの速度を、最後から2番目のパラメータで指定された遅い速度に設定します（範囲は1～20、10がデフォルト）：</em>
         DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", 3, "UInt", 0)
         KeyWait "F1"  <em>; キーボードのオートリピートがDllCallを繰り返し実行するのを防ぐことができます。</em>
@@ -418,7 +418,7 @@ return DllCall("SetSystemTime", "Ptr", SystemTime)
 <p>その他の構造例</p>
 <ul>
   <li>DllCallを使用してTCP/IPサーバーにネットワーク接続し、そこからデータを受信する方法のデモについては、<a href="../scripts/index.htm#WinLIRC">WinLIRCクライアントスクリプト</a>を参照してください。</li>
-  <li>オペレーティングシステムには、フォントや色、アイコンを選択するダイアログボックスが標準装備されています。これらのダイアログは構造体を使用しており、<a href="https://github.com/majkinetor/mm-autohotkey/tree/master/Dlg">GitHub</a>でデモが行われています。</li>
+  <li>The operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. These dialogs use structures and can be displayed via DllCall in combination with <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">comdlg32\ChooseFont</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646912(v=vs.85)">comdlg32\ChooseColor</a>, or <a href="https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg">shell32\PickIconDlg</a>. Search the forums for examples.</li>
 </ul>
 </div>
 

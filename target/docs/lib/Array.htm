@@ -41,7 +41,7 @@ MsgBox users[1]</pre>
       <li><a href="#Clone">Clone</a>:配列のシャローコピーを返します。</li>
       <li><a href="#Delete">Delete</a>:配列の要素の値を削除し、インデックスに値を残さないようにします。</li>
       <li><a href="#Get">Get</a>:指定されたインデックスにある値、またはデフォルト値を返します。</li>
-      <li><a href="#Has">Has</a>:指定されたインデックスが有効で、その位置に値がある場合に真を返します。</li>
+      <li><a href="#Has">Has</a>: Returns a non-zero number if the index is valid and there is a value at that position.</li>
       <li><a href="#InsertAt">InsertAt</a>:指定された位置に1つまたは複数の値を挿入します。</li>
       <li><a href="#Pop">Pop</a>:配列の最後の要素を削除して返します。</li>
       <li><a href="#Push">Push</a>:配列の末尾に値を追加します。</li>
@@ -64,7 +64,8 @@ MsgBox users[1]</pre>
 
 <div class="methodShort" id="Call"><h3>Call</h3>
 <p>指定された値を含む新しい配列を作成します。</p>
-<pre class="Syntax">ArrayObj := <span class="func">Array</span>(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)</pre>
+<pre class="Syntax">ArrayObj := Array(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)
+ArrayObj := Array.<span class="func">Call</span>(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)</pre>
 <p>パラメータは<a href="#__New">__New</a>で定義します。</p>
 </div>
 
@@ -79,7 +80,8 @@ MsgBox users[1]</pre>
 
 <div class="methodShort" id="Delete"><h3>Delete</h3>
 <p>配列の要素の値を削除し、インデックスに値を残さないようにします。</p>
-<pre class="Syntax">ArrayObj.<span class="func">Delete</span>(Index)</pre>
+<pre class="Syntax">RemovedValue := ArrayObj.<span class="func">Delete</span>(Index)</pre>
+<h4 id="Delete_Parameters">パラメータ</h4>
 <dl>
   <dt>Index</dt>
   <dd>
@@ -87,8 +89,11 @@ MsgBox users[1]</pre>
     <p>有効な配列のインデックス。</p>
   </dd>
 </dl>
-<p>削除された値を返します（ない場合は空白）。</p>
-<p>削除は配列の<a href="#Length">長さ</a>には影響しません。</p>
+<h4 id="Delete_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#values">任意</a></p>
+<p>This method returns the removed value (blank if none).</p>
+<h4 id="Delete_Remarks">備考</h4>
+<p>This method does not affect the <a href="#Length">Length</a> of the array.</p>
 <p><em>Index</em>が範囲外の場合、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
 </div>
 
@@ -107,13 +112,14 @@ MsgBox users[1]</pre>
 </div>
 
 <div class="methodShort" id="Has"><h3>Has</h3>
-<p>指定されたインデックスが有効で、その位置に値がある場合は真を、そうでない場合は偽を返します。</p>
-<pre class="Syntax">ArrayObj.<span class="func">Has</span>(Index)</pre>
+<p>Returns a non-zero number if the index is valid and there is a value at that position.</p>
+<pre class="Syntax">HasIndex := ArrayObj.<span class="func">Has</span>(Index)</pre>
 </div>
 
 <div class="methodShort" id="InsertAt"><h3>InsertAt</h3>
 <p>指定された位置に1つまたは複数の値を挿入します。</p>
 <pre class="Syntax">ArrayObj.<span class="func">InsertAt</span>(Index, Value1 <span class="optional">, Value2, ... Value<i>N</i></span>)</pre>
+<h4 id="InsertAt_Parameters">パラメータ</h4>
 <dl>
   <dt>Index</dt>
   <dd>
@@ -122,9 +128,11 @@ MsgBox users[1]</pre>
   </dd>
   <dt>Value1 ...</dt>
   <dd>
+    <p>型：<a href="../Concepts.htm#values">任意</a></p>
     <p>挿入する1つまたは複数の値。値の配列を挿入するには、次のように渡します。 <code><a href="../Functions.htm#VariadicCall">theArray*</a></code>を最後のパラメータとして指定します。</p>
   </dd>
 </dl>
+<h4 id="InsertAt_Remarks">備考</h4>
 <p>InsertAtは、<a href="#RemoveAt">RemoveAt</a>と対になるものです。</p>
 <p>これまで<em>Index</em>の右側にあったアイテムは、右側に移動します。欠落したパラメータも挿入されるが、値はない。事例：</p>
 <pre>x := []
@@ -142,26 +150,32 @@ x.InsertAt(1, , "B")    <em>; =&gt;  [   , "B", "C"]</em></pre>
 
 <div class="methodShort" id="Pop"><h3>Pop</h3>
 <p>配列の最後の要素を削除して返します。</p>
-<pre class="Syntax">Value := ArrayObj.<span class="func">Pop</span>()</pre>
+<pre class="Syntax">RemovedValue := ArrayObj.<span class="func">Pop</span>()</pre>
 <p>以下はすべて同等です。</p>
-<pre>Value := ArrayObj.Pop()
-Value := ArrayObj.RemoveAt(ArrayObj.Length)
-Value := ArrayObj.RemoveAt(-1)</pre>
+<pre>RemovedValue := ArrayObj.Pop()
+RemovedValue := ArrayObj.RemoveAt(ArrayObj.Length)
+RemovedValue := ArrayObj.RemoveAt(-1)</pre>
 <p>配列が空の場合（<a href="#Length">Length</a>が0）、<a href="Error.htm">エラー</a>となる。</p>
 </div>
 
 <div class="methodShort" id="Push"><h3>Push</h3>
 <p>配列の末尾に値を追加します。</p>
 <pre class="Syntax">ArrayObj.<span class="func">Push</span>(<span class="optional">Value, Value2, ..., Value<i>N</i></span>)</pre>
+<h4 id="Push_Parameters">パラメータ</h4>
 <dl>
   <dt>Value ...</dt>
-  <dd><p>挿入する1つまたは複数の値。値の配列を挿入するには、次のように渡します。 <code><a href="../Functions.htm#VariadicCall">theArray*</a></code>を最後のパラメータとして指定します。</p></dd>
+  <dd>
+    <p>型：<a href="../Concepts.htm#values">任意</a></p>
+    <p>挿入する1つまたは複数の値。値の配列を挿入するには、次のように渡します。 <code><a href="../Functions.htm#VariadicCall">theArray*</a></code>を最後のパラメータとして指定します。</p>
+  </dd>
 </dl>
 </div>
 
 <div class="methodShort" id="RemoveAt"><h3>RemoveAt</h3>
 <p>配列から項目を削除します。</p>
-<pre class="Syntax">ArrayObj.<span class="func">RemoveAt</span>(Index <span class="optional">, Length</span>)</pre>
+<pre class="Syntax">RemovedValue := ArrayObj.<span class="func">RemoveAt</span>(Index)
+ArrayObj.<span class="func">RemoveAt</span>(Index, Length)</pre>
+<h4 id="RemoveAt_Parameters">パラメータ</h4>
 <dl>
   <dt>Index</dt>
   <dd>
@@ -172,10 +186,13 @@ Value := ArrayObj.RemoveAt(-1)</pre>
   <dt>Length</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>削除する値の範囲の長さを指定します。省略された場合は、1つの項目が削除されます。</p>
+    <p>省略された場合は、1つの項目が削除されます。Otherwise, specify the length of the range of values to remove.</p>
   </dd>
 </dl>
+<h4 id="RemoveAt_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#values">任意</a></p>
 <p><em>Length</em>が省略された場合は、削除された値が返される（ない場合は空白）。そうでない場合は、戻り値はありません。</p>
+<h4 id="RemoveAt_Remarks">備考</h4>
 <p>RemoveAtは<a href="#InsertAt">InsertAt</a>の対になるものです。</p>
 <p><em>Index</em>と <em>Length</em>で示される範囲が、配列の現在の範囲に完全に収まっていない場合、<a href="Error.htm#ValueError">ValueError</a>がスローされます。</p>
 <p><em>Pos</em>の右にある残りの項目は、<em>Length</em>（省略時は1）だけ左にシフトされます。事例：</p>
@@ -207,6 +224,7 @@ MsgBox x[1]              <em>; C</em></pre>
   </dd>
   <dt>値</dt>
   <dd>
+    <p>型：<a href="../Concepts.htm#values">任意</a></p>
     <p>値（値がない場合、<em>Value</em>は <a href="../Concepts.htm#uninitialized-variables">未初期化</a>される）。</p>
   </dd>
 </dl>
@@ -227,37 +245,25 @@ MsgBox ["A",    , "C"].Length  <em>;  3</em>
 
 <div class="methodShort" id="Capacity"><h3>Capacity</h3>
 <p>配列の現在の容量を取得または設定します。</p>
-<pre class="Syntax">ArrayObj.<span class="func">Capacity</span> := MaxItems</pre>
 <pre class="Syntax">MaxItems := ArrayObj.<span class="func">Capacity</span></pre>
-<dl>
-	<dt>MaxItems</dt>
-	<dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>配列が自動的に拡張されるまでの最大要素数を指定します。<a href="#Length">Length</a>より小さい値を設定すると、要素が削除されます。</p>
-  </dd>
-</dl>
+<pre class="Syntax">ArrayObj.<span class="func">Capacity</span> := MaxItems</pre>
+<p><em>MaxItems</em> is an <a href="../Concepts.htm#numbers">integer</a> representing the maximum number of elements the array should be able to contain before it must be automatically expanded.  If setting a value less than <a href="#Length">Length</a>, elements are removed.</p>
 </div>
 
 <div class="methodShort" id="Default"><h3>デフォルト</h3>
 <p>値のない要素が要求されたときに返されるデフォルト値を定義します。</p>
 <pre class="Syntax">ArrayObj.<span class="func">Default</span> := Value</pre>
-<p>このプロパティは、実はデフォルトでは存在せず、スクリプトで定義することができます。スクリプトが値のない要素を要求したとき、配列は<a href="Error.htm#UnsetError">UnsetItemError</a>を投げる前にこのプロパティをチェックします。<a href="Object.htm#DefineProp">動的プロパティ</a>や <a href="../Objects.htm#Meta_Functions">メタファンクション</a>など、通常の方法で実装できますが、どのキーが照会されたかを判断するには、代わりに<a href="#__Item">__Item</a>や<a href="#Get">Get</a>をオーバーライドする必要があります。</p>
+<p>このプロパティは、実はデフォルトでは存在せず、スクリプトで定義することができます。If defined, its value is returned by <a href="#__Item">__Item</a> or <a href="#Get">Get</a> if the requested element has no value, instead of throwing an <a href="Error.htm#UnsetError">UnsetItemError</a>. It can be implemented by any of the normal means, including a <a href="Object.htm#DefineProp">dynamic property</a> or <a href="../Objects.htm#Meta_Functions">meta-function</a>, but determining which key was queried would require overriding <a href="#__Item">__Item</a> or <a href="#Get">Get</a> instead.</p>
 <p>デフォルト値を設定しても、インデックスが範囲外である場合にエラーが発生することは防げません。</p>
 </div>
 
 <div class="methodShort" id="__Item"><h3>__Item</h3>
 <p>配列の要素の値を取得または設定します。</p>
-<pre class="Syntax">Value := ArrayObj[Index]</pre>
-<pre class="Syntax">ArrayObj[Index] := Value</pre>
-<dl>
-  <dt>Index</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>有効な配列インデックス。つまり、絶対値が 1 から<a href="#Length">Length</a>までの整数。</p>
-    <p>負のインデックスは、-1が最後の要素、-2が2番目の最後の要素というように、要素を逆にアドレスするために使用することができます。</p>
-    <p>範囲外のインデックス（ゼロや絶対値が配列の<a href="#Length">長さ</a>より大きい場合など）を使用しようとすると、エラーとみなされ、<a href="Error.htm#IndexError">IndexError</a>がスローされます。</p>
-  </dd>
-</dl>
+<pre class="Syntax">Value := ArrayObj[Index]
+Value := ArrayObj.<span class="func">__Item</span>[Index]</pre>
+<pre class="Syntax">ArrayObj[Index] := Value
+ArrayObj.<span class="func">__Item</span>[Index] := Value</pre>
+<p><em>Index</em> is an <a href="../Concepts.htm#numbers">integer</a> representing a valid array index; that is, an integer with absolute value between 1 and <a href="#Length">Length</a> (inclusive). 負のインデックスは、-1が最後の要素、-2が2番目の最後の要素というように、要素を逆にアドレスするために使用することができます。Attempting to use an index which is out of bounds (such as zero, or if its absolute value is greater than the <a href="#Length">Length</a> of the array) is considered an error and will cause an <a href="Error.htm#IndexError">IndexError</a> to be thrown.</p>
 <p>プロパティ名 __Item は、上記のように通常は省略されますが、プロパティをオーバーライドする際に使用されます。</p>
 </div>
 

@@ -30,7 +30,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
   <dt>Text</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>メッセージボックスの中に表示するテキストです。If unset or omitted, the default text is "Press OK to continue." if "OK" is the only button present, or blank otherwise.</p>
+    <p>If omitted and "OK" is the only button present, it defaults to the string "Press OK to continue.". If omitted in any other case, it defaults to an empty string. Otherwise, specify the text to display inside the message box.</p>
     <p><a href="../misc/EscapeChar.htm">エスケープシーケンス</a>は、特殊文字を表すために使用することができます。例えば、`nは改行文字を示し、現在の行を終了して新しい行を開始します。Thus, using <code>text1`n`ntext2</code> would create a blank line between text1 and text2.</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
   </dd>
@@ -38,13 +38,13 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
   <dt>タイトル</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, it defaults to the current value of <a href="../Variables.htm#ScriptName">A_ScriptName</a>. Otherwise, specify the title of the message box.</p>
+    <p>省略された場合、<a href="../Variables.htm#ScriptName">A_ScriptName</a>の現在の値がデフォルトとなります。Otherwise, specify the title of the message box.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, it defaults to 0 (only an OK button is displayed). Otherwise, specify a combination (sum) of values or a string of one or more options from the tables below to indicate the type of message box and the possible button combinations.</p>
+    <p>If blank or omitted, it defaults to 0 (only an OK button is displayed). Otherwise, specify a combination (sum) of values or a string of one or more options from the tables below to indicate the type of message box and the possible button combinations.</p>
     <p>さらに、以下のオプションを0個以上指定することができます：</p>
     <p id="OwnerOption"><strong>Owner:</strong> To specify an <a href="#Owner">owner window</a> for the message box, use the word Owner followed immediately by a HWND (window ID).</p>
     <p id="Timeout"><strong>T:</strong> Timeout. 指定した時間内にユーザーがメッセージボックスを閉じなかった場合、自動的に閉じるようにするには、文字Tの後にタイムアウトを秒単位で指定します（小数点以下も可）。この値が2147483（24.8日）を超えた場合、2147483に設定されます。メッセージボックスがタイムアウトした場合、<a href="#Result">戻り値</a>はTimeoutという文字になります。</p>
@@ -56,7 +56,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 <p><em>Options</em>パラメータには、以下のグループからの数値の組み合わせ（合計）をオペレーティングシステムのMessageBox関数に直接渡すか、0個以上の大文字小文字を区別しないオプションを少なくとも1つのスペースまたはタブで区切った文字列を指定することができます。また、1つ以上の数値オプションを文字列に含めることができます。</p>
 
 <h3 id="Group_1_Buttons">Group #1: Buttons</h3>
-<p>メッセージボックスに表示されるボタンを指示するために、以下の値の<strong>いずれか</strong>を追加します：</p>
+<p>To indicate the buttons displayed in the message box, add <u>one</u> of the following values:</p>
 <table class="info">
   <tr>
     <th class="sized1">機能</th>
@@ -109,7 +109,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 </table>
 
 <h3 id="Group_2_Icon">Group #2: Icon</h3>
-<p>メッセージボックスにアイコンを表示するには、次の値の<strong>いずれか</strong>を追加します：</p>
+<p>To display an icon in the message box, add <u>one</u> of the following values:</p>
 <table class="info">
   <tr>
     <th class="sized1">機能</th>
@@ -144,7 +144,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 </table>
 
 <h3 id="Group_3_Default_Button">Group #3: Default Button</h3>
-<p>デフォルトのボタンを示すには、以下の値の<strong>いずれか</strong>を追加します：</p>
+<p>To indicate the default button, add <u>one</u> of the following values:</p>
 <table class="info">
   <tr>
     <th class="sized1">機能</th>
@@ -173,7 +173,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 </table>
 
 <h3 id="Group_4_Modality">Group #4: Modality</h3>
-<p>ダイアログボックスのモダリティを示すために、以下の値の<strong>いずれか</strong>を追加します：</p>
+<p>To indicate the modality of the dialog box, add <u>one</u> of the following values:</p>
 <table class="info">
   <tr>
     <th class="sized1">機能</th>
@@ -202,7 +202,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 </table>
 
 <h3 id="Group_5_Other_Options">Group #5:その他のオプション</h3>
-<p>その他のオプションを指定する場合は、以下の値を<strong>1つ以上</strong>追加してください：</p>
+<p>To specify other options, add <u>one or more</u> of the following values:</p>
 <table class="info">
   <tr>
     <th class="sized1">機能</th>

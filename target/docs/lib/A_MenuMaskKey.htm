@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>A_MenuMaskKey - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="A_MenuMaskKey変数は、WINまたはALTキーアップイベントをマスクするためにどのキーを使用するかを制御します。" />
+<meta name="description" content="A_MenuMaskKey is a built-in variable that controls which key is used to mask Win or Alt keyup events." />
 <meta name="ahk:equiv-v1" content="lib/_MenuMaskKey.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,22 +13,15 @@
 
 <h1>A_MenuMaskKey</h1>
 
-<p>WinまたはAltキーアップイベントのマスクに使用されるキーを制御します。</p>
-
-<dl>
-  <dt>値</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>仮想キーコード（NN）とスキャンコード（NNN）を16進数で識別するvkNNscNNNシーケンス、またはマスキングが無効の場合は空文字列を指定します。</p>
-    <p>スクリプトは、<a href="../KeyList.htm">キー名</a>、<a href="../KeyList.htm#vk">vkNN</a>シーケンス、<a href="../KeyList.htm#sc">scNNN</a>シーケンスを割り当てることもでき、この場合、一般にキーが送信されるまでVKまたはSCコードのどちらかがゼロのままとされ、その後自動的に決定されます。vk00sc000 "を割り当てると、マスキングが無効になり、""を割り当てたのと同じになります。</p>
-    <p>返される文字列は、どのように割り当てられたかに関わらず、有効な場合は常にvkNNscNNNシーケンス、無効な場合は""となる。すべてのvkNNscNNN配列と、ゼロでないすべてのvkNNまたはscNNN配列が許容されるが、組み合わせによっては、メニューの抑制に失敗することがある。それ以外の無効なキーは、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
-  </dd>
-</dl>
+<p><em>A_MenuMaskKey</em> is a <a href="../Concepts.htm#built-in-variables">built-in variable</a> that controls which key is used to mask Win or Alt keyup events.</p>
+<p><em>A_MenuMaskKey</em> can be used to get or set a <a href="../Concepts.htm#strings">string</a> representing a vkNNscNNN sequence identifying the virtual key code (NN) and scan code (NNN), in hexadecimal. If blank, masking is disabled.</p>
+<p>スクリプトは、<a href="../KeyList.htm">キー名</a>、<a href="../KeyList.htm#vk">vkNN</a>シーケンス、<a href="../KeyList.htm#sc">scNNN</a>シーケンスを割り当てることもでき、この場合、一般にキーが送信されるまでVKまたはSCコードのどちらかがゼロのままとされ、その後自動的に決定されます。Assigning <code>"vk00sc000"</code> disables masking and is equivalent to assigning <code>""</code>.</p>
+<p>The returned string is always a vkNNscNNN sequence if enabled or blank if disabled, regardless of how it was assigned. すべてのvkNNscNNN配列と、ゼロでないすべてのvkNNまたはscNNN配列が許容されるが、組み合わせによっては、メニューの抑制に失敗することがある。それ以外の無効なキーは、<a href="Error.htm#ValueError">ValueError</a>が投げられる。</p>
+<p>The default setting is vk11sc01D (the left Ctrl key).</p>
 
 <h2 id="Remarks">備考</h2>
 <p>スタートメニューやアクティブウィンドウのメニューバーが予期せぬタイミングで起動しないように、マスクキーが自動送信されます。</p>
-<p>デフォルトのマスクキーは<kbd>Ctrl</kbd>です。この変数を使用すると、マスクキーを副作用の少ないキーに変更することができます。</p>
-<p>例えば、マイクロソフト社が「unassigned」と表記するvkE8や、「no mapping」（何の機能も持たないキー）という意味で予約されているvkFFなど、一般的に何の効果もない仮想キーコードが良い候補となります。VKがゼロでSCがゼロでないなど、一部の値ではスタートメニューの抑制に失敗することがあります。キーコードは、既存のキーと合わせる必要はありません。</p>
+<p>この変数を使用すると、マスクキーを副作用の少ないキーに変更することができます。例えば、マイクロソフト社が「unassigned」と表記するvkE8や、「no mapping」（何の機能も持たないキー）という意味で予約されているvkFFなど、一般的に何の効果もない仮想キーコードが良い候補となります。VKがゼロでSCがゼロでないなど、一部の値ではスタートメニューの抑制に失敗することがあります。キーコードは、既存のキーと合わせる必要はありません。</p>
 <p class="note"><strong>Note:</strong> Microsoft can assign an effect to an unassigned key code at any time. 例えば、vk07はかつては未定義で使っても問題ありませんでしたが、Windows 10 1909以降、ゲームバーを開くために予約されるようになりました。</p>
 <p>この設定はグローバルであり、スクリプト全体の動作に影響を与えるために一度だけ指定する必要があることを意味します。</p>
 <p><strong>ホットキー</strong>についてキーボードフックやマウスフックを使ってホットキーを実装した場合、最終的なキー入力はアクティブウィンドウやシステムから見えない場合があります。もし、WinやAltのキーダウンとキーアップ<em>だけを</em>検出し、その間にキー入力がなければ、通常はメニューを起動します。これを防ぐために、キーボードやマウスのフックが自動的にマスクキーを送信する場合があります。</p>

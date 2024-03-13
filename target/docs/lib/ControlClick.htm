@@ -20,8 +20,8 @@
 
   <dt>Control-or-Pos</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-      <p>If unset or omitted, the target window itself will be clicked. Otherwise, use one of the following modes.</p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+      <p>If omitted, the target window itself will be clicked. Otherwise, use one of the following modes.</p>
       <p><strong>Mode 1 (Position):</strong> Specify the X and Y coordinates relative to the upper left corner of the target window's <a href="CoordMode.htm#Client">client area</a>. X座標はY座標の前にあり、その間に少なくとも1つのスペースまたはタブが必要です。事例：<code>"X55 Y33"</code>. 指定された座標にコントロールがある場合、その正確な座標でクリックイベントを送信します。コントロールがない場合は、対象のウィンドウ自体にイベントが送られます（ウィンドウの性質によっては、何の効果もない場合もあります）。</p>
     <p class="note"><strong>Note:</strong> In mode 1, the X and Y option letters of the <em>Options</em> parameter are ignored.</p>
       <p><strong>Mode 2 (Control):</strong> Specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. For details, see <a href="Control.htm#Parameter">The Control Parameter</a>.</p>
@@ -30,14 +30,16 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
   <dt>WhichButton</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If unset or omitted, it defaults to Left (the left mouse button). Otherwise, specify the button to click or the rotate/push direction of the mouse wheel.</p>
+    <p>If blank or omitted, it defaults to Left (the left mouse button). Otherwise, specify the button to click or the rotate/push direction of the mouse wheel.</p>
     <p><strong>Button:</strong> Left, Right, Middle (or just the first letter of each of these); or X1 (fourth button) or X2 (fifth button).</p>
     <p><strong>Mouse wheel:</strong> Specify WheelUp or WU to turn the wheel upward (away from you); specify WheelDown or WD to turn the wheel downward (toward you). ホイールを左に押す場合はWheelLeft（またはWL）、右に押す場合はWheelRight（またはWR）をそれぞれ指定します。<em>ClickCount</em>は、ホイールを回すノッチの数です。</p>
     </dd>
@@ -45,13 +47,13 @@
   <dt>ClickCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 1. Otherwise, specify the number of times to click the mouse button or turn the mouse wheel.</p>
+    <p>If omitted, it defaults to 1. Otherwise, specify the number of times to click the mouse button or turn the mouse wheel.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If unset or omitted, each click consists of a down-event followed by an up-event, and occurs at the center of the control when mode 2 is in effect. Otherwise, specify a series of one or more of the following options. 事例：<code>"d x50 y25"</code>.</p>
+      <p>If blank or omitted, each click consists of a down-event followed by an up-event, and occurs at the center of the control when mode 2 is in effect. Otherwise, specify a series of one or more of the following options. 事例：<code>"d x50 y25"</code>.</p>
       <p><strong>NA:</strong> May improve reliability. 以下の<a href="#Reliability">信頼性</a>をご参照ください。</p>
       <p><strong>D：</strong>マウスボタンを押しながら離さない（ダウンイベントを発生させます）。If both the D and U options are absent, a complete click (down and up) will be sent.</p>
       <p><strong>U:</strong>マウスボタンを離す（つまりアップイベントを発生させます）。This option should not be present if the D option is already present (and vice versa).</p>
@@ -80,10 +82,9 @@
 ControlClick "Toolbar321", WinTitle,,,, "NA"</pre>
 <p>The NA option avoids marking the target window as active and avoids merging its input processing with that of the script, which may prevent physical movement of the mouse from interfering (but usually only when the target window is not active). ただし、この方法は、すべての種類のウィンドウやコントロールに有効とは限りません。</p>
 <h2 id="Remarks">備考</h2>
-<p>すべてのアプリケーションが、マウスホイールの回転に対して1以上の<em>ClickCount</em>を指定するわけではありません。そのような場合は、この例のようにLoopを使ってホイールを1ノッチ以上回し、5ノッチ分回してください。</p>
+<p>すべてのアプリケーションが、マウスホイールの回転に対して1以上の<em>ClickCount</em>を指定するわけではありません。For those applications, use a loop to turn the wheel more than one notch as in this example, which turns it 5 notches:</p>
 <pre>Loop 5
     ControlClick <i>Control</i>, <i>WinTitle</i>, <i>WinText</i>, "WheelUp"</pre>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="SetControlDelay.htm">SetControlDelay</a>, <a href="Control.htm">Control functions</a>, <a href="Click.htm">Click</a></p>

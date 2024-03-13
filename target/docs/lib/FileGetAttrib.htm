@@ -15,13 +15,14 @@
 <p>ファイルやフォルダーが読み取り専用かどうか、非表示かどうかなどを報告します。</p>
 
 <pre class="Syntax">AttributeString := <span class="func">FileGetAttrib</span>(<span class="optional">Filename</span>)</pre>
+
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されるターゲットファイル名。If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">file loop</a> will be used instead. <a href="FileExist.htm">FileExist</a>や <a href="DirExist.htm">DirExist</a>とは異なり、パターンではなく、本当のファイル名でなければなりません。</p>
+    <p>If omitted, the current file of the innermost enclosing <a href="LoopFiles.htm">file loop</a> will be used. Otherwise, specify the name of the target file, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. <a href="FileExist.htm">FileExist</a>や <a href="DirExist.htm">DirExist</a>とは異なり、パターンではなく、本当のファイル名でなければなりません。</p>
   </dd>
 
 </dl>
@@ -47,10 +48,12 @@
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Remarks">備考</h2>
+<p>To check if a particular attribute is present in the retrieved string, see <a href="#ExIf">example #2</a> below.</p>
 <p>これに関連して、ファイルの8.3ショートネームを取得する場合は、次の例に従います：</p>
 <pre><a href="LoopFiles.htm">Loop Files</a>, "C:\My Documents\Address List.txt"
     ShortPathName := A_LoopFileShortPath  <em>; C:¥MYDOCU~1ADDRES~1.txt のような結果になります。</em></pre>
 <p>同様の方法で、8.3ショートネームのロングネームを取得することができます。</p>
+
 <h2 id="Related">関連</h2>
 <p><a href="FileExist.htm">FileExist</a>, <a href="DirExist.htm">DirExist</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileGetTime.htm">FileGetTime</a>, <a href="FileSetTime.htm">FileSetTime</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="LoopFiles.htm">file loop</a></p>
 
@@ -60,7 +63,7 @@
 <pre>OutputVar := FileGetAttrib("C:\New Folder")</pre>
 </div>
 <div class="ex" id="ExIf">
-<p><a class="ex_number" href="#ExIf"></a> 取得した文字列の中に特定の属性（Hidden属性）があるかどうかを確認します。</p>
+<p><a class="ex_number" href="#ExIf"></a> Checks if the Hidden attribute is present in the retrieved string.</p>
 <pre>if InStr(FileGetAttrib("C:\My File.txt"), "H")
     MsgBox "The file is hidden."</pre>
 </div>

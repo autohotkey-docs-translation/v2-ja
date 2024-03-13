@@ -7,48 +7,39 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="../static/theme.css" rel="stylesheet" type="text/css" />
 <script src="../static/content.js" type="text/javascript"></script>
-<style type="text/css">
-#QuickRef {
-  border: 1px solid #ccc;
-  margin: 1em;
-  border-spacing: 0;
-}
-#QuickRef a {
-  padding-left: 1em;
-}
-#QuickRef td {
-  padding: .2em .5em;
-}
-#QuickRef tr:nth-child(even) {
-  background: rgba(150, 150, 150, 0.1);
-}
-</style>
 </head>
 <body>
-<h1><var>WinTitle</var>パラメータと最後に見つかったウィンドウ</h1>
 
+<h1><var>WinTitle</var>パラメータと最後に見つかったウィンドウ</h1>
 <p>様々な組み込み関数には<var>WinTitle</var>パラメータがあり、どのウィンドウ（または複数のウィンドウ）を操作するかを識別するために使用されます。このパラメータには、ウィンドウのタイトルまたは部分的なタイトル、および/またはこのページで説明されているその他の基準を指定することができます。</p>
 
-<strong>クイック・リファレンス</strong>
-<table id="QuickRef">
-  <tr><td><em>タイトル</em></td><td><a href="#Matching">マッチング行動</a></td></tr>
-  <tr><td><em>Integer</em></td><td><a href="#ahk_id">HWND</a></td></tr>
-  <tr><td><em>Object</em></td><td><a href="#ahk_id">HWNDを持つオブジェクト</a></td></tr>
-  <tr><td>A</td><td><a href="#ActiveWindow">アクティブ・ウィンドウ</a></td></tr>
-  <tr><td>ahk_class</td><td><a href="#ahk_class">ウィンドウズクラス</a></td></tr>
-  <tr><td>ahk_id</td><td><a href="#ahk_id">ユニークID/HWND</a></td></tr>
-  <tr><td>ahk_pid</td><td><a href="#ahk_pid">プロセスID</a></td></tr>
-  <tr><td>ahk_exe</td><td><a href="#ahk_exe">Process Name/Path</a></td></tr>
-  <tr><td>ahk_group</td><td><a href="#ahk_group">窓グループ</a></td></tr>
-  <tr><td>&nbsp;</td><td><a href="#multi">複数の基準</a></td></tr>
-  <tr><td>(All empty)</td><td><a href="#LastFoundWindow">ラストファウンドウィンドウ</a></td></tr>
-</table>
+<h2 id="toc">目次</h2>
+<ul>
+  <li><a href="#WinTitle">Window Title &amp; Matching Behaviour</a></li>
+  <li><a href="#ActiveWindow">A（アクティブウィンドウ）</a></li>
+  <li><a href="#ahk_">ahk_ Criteria</a>
+    <ul>
+      <li><a href="#ahk_class">ahk_class (ウィンドウクラス)</a></li>
+      <li><a href="#ahk_id">ahk_id (Unique ID / HWND)</a></li>
+      <li><a href="#ahk_pid">ahk_pid (Process ID)</a></li>
+      <li><a href="#ahk_exe">ahk_exe (Process Name/Path)</a></li>
+      <li><a href="#ahk_group">ahk_group (Window Group)</a></li>
+    </ul>
+  </li>
+  <li><a href="#multi">複数の基準</a></li>
+  <li><a href="#LastFoundWindow">ラストファウンドウィンドウ</a></li>
+</ul>
 
-<h2 id="Matching">マッチング行動</h2>
+<a id="Matching"></a>
+<h2 id="WinTitle">Window Title &amp; Matching Behaviour</h2>
+<p>Specify any string for <var>WinTitle</var> to identify a window by its title. The title of a window is often visible as text in a title bar at the top of the window. If invisible or only partially visible, the full window title can be revealed via <a href="../lib/WinGetTitle.htm">WinGetTitle</a> or Window Spy.</p>
+<p>The following example activates the calculator:</p>
+<pre>WinActivate "Calculator"</pre>
 <p><a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>は、部分的または完全なタイトルを各ウィンドウのタイトルと比較する方法を制御します。設定によって、<var>WinTitle</var>は正確なタイトルになるか、接頭辞、タイトル内の任意の場所に出現する部分文字列、または<a href="RegEx-QuickRef.htm">RegExパターン</a>を含むことができる。この設定は、<a href="#ahk_class">ahk_class</a>と<a href="#ahk_exe">ahk_exe</a>基準を RegEx パターンとして解釈するかどうかも制御する。</p>
 <p>RegExパターンで<a href="RegEx-QuickRef.htm#opt_i">i)修飾子</a>を使用する場合を除き、ウィンドウタイトルは大文字と小文字を区別する。</p>
 <p>隠しウィンドウは<a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっている場合のみ検出されるが、<a href="../lib/WinShow.htm">WinShow</a>では常に検出される。</p>
 <p>複数のウィンドウが<var>WinTitle</var>とその他の条件に一致する場合、一番上のウィンドウが使用される。アクティブなウィンドウが条件に一致する場合、通常は他のすべてのウィンドウより上にあるため、そのウィンドウが優先される。ただし、<a href="../lib/WinSetAlwaysOnTop.htm">常時オン</a>のウィンドウも一致する場合（そしてアクティブなウィンドウが常時オンでない場合）には、そのウィンドウが代わりに使われることもある。</p>
+<p id="CharLimit">In <span class="ver">[v2.0.6+]</span>, it is no longer the case that only the first 1023 characters of the specified window title, <a href="#ahk_class">ahk_class</a> criterion value, and <a href="#ahk_exe">ahk_exe</a> criterion value are considered for matching purposes. Exceeding the length no longer leads to unexpected results, which rarely occurs, but may be encountered more often if a very long RegEx pattern is used.</p>
 
 <h2 id="ActiveWindow">A（アクティブウィンドウ）</h2>
 <p><var>WinTitle</var>にはアルファベット<code>A</code>を使用し、他の3つのウィンドウ・パラメーター（<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>）を省略すると、アクティブなウィンドウに対して動作する。</p>
@@ -58,7 +49,7 @@
 <pre>#Up::WinMaximize "A"  <em>; Win+Up</em></pre>
 
 <h2 id="ahk_">ahk_ Criteria</h2>
-<p>次の ahk_ 基準を1つ以上 (オプションでウィンドウのタイトルに加えて) 指定し、それぞれを <u>1</u> スペースかタブで区切る (それ以外のスペースかタブは、前の基準のリテラル部分として扱われる)。ahk_基準は常に、ahk_キーワードとその基準値から成り、0個以上の空白またはタブで区切られる。例えば、<code>ahk_class Notepad</code>はメモ帳ウィンドウを表します。</p>
+<p>次の ahk_ 基準を1つ以上 (オプションでウィンドウのタイトルに加えて) 指定し、それぞれを <u>1</u> スペースかタブで区切る (それ以外のスペースかタブは、前の基準のリテラル部分として扱われる)。ahk_基準は常に、ahk_キーワードとその基準値から成り、0個以上の空白またはタブで区切られる。For example, <code>ahk_class Notepad</code> identifies a Notepad window.</p>
 <p>ahk_キーワードとその基準値は、スペースやタブで区切る必要はない。これは主に、変数と組み合わせてahk_基準を指定するときに便利です。例えば、<code>"ahk_pid " PID</code>の代わりに<code>"ahk_pid" PIDを</code>指定することができる。しかし、それ以外の場合は、読みやすさを向上させるために、少なくとも1つのスペースかタブを区切りとして使用することが推奨される。</p>
 
 <h3 id="ahk_class">ahk_class (ウィンドウクラス)</h3>
@@ -70,7 +61,7 @@
 <pre>WinActivate "ahk_class i)^ConsoleWindowClass$"</pre>
 
 <h3 id="ahk_id">ahk_id (Unique ID / HWND)</h3>
-<p>各ウィンドウやコントロールには固有のIDがあり、HWND（ウィンドウへのハンドルの略）としても知られている。このIDは、ウィンドウやコントロールのタイトルが変わっても識別できる。</p>
+<p>各ウィンドウやコントロールには固有のIDがあり、HWND（ウィンドウへのハンドルの略）としても知られている。This ID can be used to identify the window or control even if its title or text changes.</p>
 <p><code>ahk_id<var>HWND</var></code>を使用する、 <code><var>HWND</var></code>(つまり、ahk_id キーワードのない<a href="../Concepts.htm#numbers">整数</a>)、または<var>WinTitle</var>の HWND プロパティを持つ<a href="../Objects.htm">オブジェクト</a>を使用して、一意の ID でウィンドウやコントロールを識別する。</p>
 <p><a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>は、ahk_id基準が非表示のトップレベルウィンドウを検出するかどうかに影響するが、非表示のコントロールは常に検出される。また、（オブジェクト・プロパティまたは整数として）HWNDによって識別される隠しウィンドウが検出されるかどうかにも影響しますが、これは<a href="../lib/WinWait.htm">WinWait</a>または<a href="../lib/WinWaitClose.htm">WinWaitClose</a>と共に使用される場合のみです。</p>
 <p>ahk_id基準は、与えられたウィンドウがマッチしなければならない他の基準と組み合わせることもできる。例えば、<code>WinExist("ahk_id " ahwnd " ahk_class " aclass)</code>は、ウィンドウが（DetectHiddenWindowsに従って）"検出"され、そのウィンドウクラスが<var>aclass</var>に含まれる文字列と一致する場合、<var>ahwnd</var>を返す。</p>
@@ -105,7 +96,7 @@ WinActivate "ahk_id " VarContainingID
 
 <h3 id="ahk_group">ahk_group (Window Group)</h3>
 <p><var>WinTitle</var>の <code>ahk_group<var>GroupName</var></code>を使用して、以前に定義された<a href="../lib/GroupAdd.htm">ウィンドウグループ</a>に含まれるルールに一致するウィンドウを特定する。</p>
-<p><a href="../lib/WinMinimize.htm">WinMinimize</a>、<a href="../lib/WinMaximize.htm">WinMaximize</a>、<a href="../lib/WinRestore.htm">WinRestore</a>、<a href="../lib/WinHide.htm">WinHide</a>、<a href="../lib/WinShow.htm">WinShow</a>、<a href="../lib/WinClose.htm">WinClose</a>、<a href="../lib/WinKill.htm">WinKill</a>はグループの<strong>すべての</strong>ウィンドウに作用する。対照的に、<a href="../lib/WinActivate.htm">WinActivate</a>や <a href="../lib/WinExist.htm">WinExist</a>などの他のウィンドウ関数は、グループの一番上のウィンドウに対してのみ動作する。</p>
+<p><a href="../lib/WinMinimize.htm">WinMinimize</a>, <a href="../lib/WinMaximize.htm">WinMaximize</a>, <a href="../lib/WinRestore.htm">WinRestore</a>, <a href="../lib/WinHide.htm">WinHide</a>, <a href="../lib/WinShow.htm">WinShow</a>, <a href="../lib/WinClose.htm">WinClose</a>, and <a href="../lib/WinKill.htm">WinKill</a> will operate upon <u>all</u> the group's windows. By contrast, the other windowing functions such as <a href="../lib/WinActivate.htm">WinActivate</a> and <a href="../lib/WinExist.htm">WinExist</a> will operate only upon the topmost window of the group.</p>
 <p>次の例は、ウィンドウ・グループで定義された条件に一致するウィンドウをアクティブにします：</p>
 <pre><em>; Define the group: Windows Explorer windows</em>
 GroupAdd "Explorer", "ahk_class ExploreWClass" <em>; Unused on Vista and later</em>
@@ -115,7 +106,7 @@ GroupAdd "Explorer", "ahk_class CabinetWClass"
 WinActivate "ahk_group Explorer"</pre>
 
 <h2 id="multi">複数の基準</h2>
-<p><a href="#ahk_group">ahk_group基準</a>（検索範囲を広げる）とは対照的に、<var>WinTitle</var>パラメータに複数の基準を指定することで、検索範囲を狭めることができる。次の例では、スクリプトは、タイトルが<em>My File.txt</em> <strong>、</strong>クラスが<em>Notepad</em>のウィンドウを待つ：</p>
+<p><a href="#ahk_group">ahk_group基準</a>（検索範囲を広げる）とは対照的に、<var>WinTitle</var>パラメータに複数の基準を指定することで、検索範囲を狭めることができる。In the following example, the script waits for a window whose title contains <em>My File.txt</em> <u>and</u> whose class is <em>Notepad</em>:</p>
 <pre>WinWait "<strong>My File.txt</strong> ahk_class <strong>Notepad</strong>"
 WinActivate  <em>; Activate the window it found.</em></pre>
 <p>この方法を使用する場合、タイトルのテキスト（必要な場合）を最初に記載し、その後に1つ以上の追加基準を記載する。1つ目以降の基準は、正確に<u>1つの</u>スペースまたはタブで区切らなければならない（それ以外のスペースまたはタブは、前の基準のリテラル部分として扱われる）。</p>

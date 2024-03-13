@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>Func Object - メソッドとプロパティ｜AutoHotkey v2</title>
-<meta name="description" content="Func オブジェクトは、関数がパラメータの数などの値を取得したり、呼び出しなどのアクションを実行するためのインターフェイスを提供します。" />
+<meta name="description" content="The Func object represents a user-defined or built-in function and provides an interface to call it, bind parameters to it, and retrieve information about it or its parameters." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 <h1>Func Object</h1>
 <pre class="NoIndent">class Func extends Object</pre>
 
-<p>ユーザー定義関数または組込み関数を表します。</p>
+<p>Represents a user-defined or built-in function and provides an interface to call it, bind parameters to it, and retrieve information about it or its parameters.</p>
 <p>関数のように呼び出すことができる他のオブジェクトについては、<a href="../misc/Functor.htm">関数オブジェクト</a>を参照してください。</p>
 <p><code>Closure</code>クラスは<code>Funcを</code>拡張していますが、新しいプロパティは定義していません。</p>
 
@@ -35,7 +35,7 @@ InspectFn(fn)
   <li><a href="#Methods">Methods</a>:
     <ul>
       <li><a href="#Call">Call</a>:関数を呼び出します。</li>
-      <li><a href="#Bind">Bind</a>: Binds parameters to the function and returns a BoundFunc object.</li>
+      <li><a href="#Bind">Bind</a>: Binds parameters to the function.</li>
       <li><a href="#IsByRef">IsByRef</a>:パラメータがByRefであるかどうかを判定します。</li>
       <li><a href="#IsOptional">IsOptional</a>:パラメータがオプションであるかどうかを判定します。</li>
     </ul>
@@ -57,74 +57,90 @@ InspectFn(fn)
 <p>関数を呼び出します。</p>
 <pre class="Syntax">FuncObj(Param1, Param2, ...)
 FuncObj.<span class="func">Call</span>(Param1, Param2, ...)</pre>
+<h4 id="Call_Parameters">パラメータ</h4>
 <dl>
   <dt>Param1, Param2, ...</dt>
-  <dd>パラメータと戻り値は、関数で定義されます。</dd>
+  <dd>
+    <p>パラメータと戻り値は、関数で定義されます。</p>
+  </dd>
 </dl>
+<h4 id="Call_Remarks">備考</h4>
 <p>Call」メソッドは、値を呼び出す際に暗黙の了解となっているため、明示的に指定する必要はない。</p>
 </div>
 
 <div class="methodShort" id="Bind"><h3>Bind</h3>
-<p>パラメータを関数にバインドし、<a href="../misc/Functor.htm#BoundFunc">BoundFuncオブジェクト</a>を返す。</p>
+<p>Binds parameters to the function.</p>
 <pre class="Syntax">BoundFunc := FuncObj.<span class="func">Bind</span>(Param1, Param2, ...)</pre>
+<h4 id="Bind_Parameters">パラメータ</h4>
 <dl>
   <dt>Param1, Param2, ...</dt>
-  <dd>パラメータの数は問いません。</dd>
+  <dd>
+    <p>パラメータの数は問いません。</p>
+  </dd>
 </dl>
-<p>詳細および例については、<a href="../misc/Functor.htm#BoundFunc">BoundFunc オブジェクト</a>を参照してください。</p>
+<h4 id="Bind_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>This method returns a <a href="../misc/Functor.htm#BoundFunc">BoundFunc object</a>.</p>
 </div>
 
 <div class="methodShort" id="IsByRef"><h3>IsByRef</h3>
 <p>パラメータがByRefであるかどうかを判定します。</p>
 <pre class="Syntax">Boolean := FuncObj.<span class="func">IsByRef</span>(<span class="optional">ParamIndex</span>)</pre>
+<h4 id="IsByRef_Parameters">パラメータ</h4>
 <dl>
   <dt>ParamIndex</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>オプショナル：パラメータの1ベースインデックス。省略された場合、<em>Boolean</em>は、関数が ByRef パラメータを持つかどうかを示します。</p>
+    <p>省略された場合、<em>Boolean</em>は、関数が ByRef パラメータを持つかどうかを示します。Otherwise, specify the one-based index of a parameter.</p>
   </dd>
 </dl>
-<p>パラメータが ByRef であるかどうかを示す boolean 値を返す。<em>ParamIndex</em>が無効な場合は、例外が発生します。</p>
+<h4 id="IsByRef_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>This method returns 1 (true) if the parameter is ByRef, otherwise 0 (false). <em>ParamIndex</em>が無効な場合は、例外が発生します。</p>
 </div>
 
 <div class="methodShort" id="IsOptional"><h3>IsOptional</h3>
 <p>パラメータがオプションであるかどうかを判定します。</p>
 <pre class="Syntax">Boolean := FuncObj.<span class="func">IsOptional</span>(<span class="optional">ParamIndex</span>)</pre>
+<h4 id="IsOptional_Parameters">パラメータ</h4>
 <dl>
   <dt>ParamIndex</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>オプショナル：パラメータの1ベースインデックス。省略された場合、<em>Boolean</em>は、関数が任意のパラメータを持つかどうかを示します。</p>
+    <p>省略された場合、<em>Boolean</em>は、関数が任意のパラメータを持つかどうかを示します。Otherwise, specify the one-based index of a parameter.</p>
   </dd>
 </dl>
-<p>パラメータがオプションであるか否かを示すブール値を返します。<em>ParamIndex</em>が無効な場合は、例外が発生します。</p>
+<h4 id="IsOptional_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>This method returns 1 (true) if the parameter is optional, otherwise 0 (false). <em>ParamIndex</em>が無効な場合は、例外が発生します。</p>
+<h4 id="IsOptional_Remarks">備考</h4>
 <p>関数が変種である場合、パラメータを正式に宣言する必要はありません。組込機能に対応しています。</p></div>
 
 <h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Name"><h3>名前</h3>
 <p>関数の名前を返します。</p>
-<pre class="Syntax">FunctionName := FuncObj.Name</pre>
+<pre class="Syntax">FunctionName := FuncObj.<span class="func">Name</span></pre>
 </div>
 
 <div class="methodShort" id="IsBuiltIn"><h3>IsBuiltIn</h3>
 <p>Returns 1 (true) if the function is <a href="../Functions.htm#BuiltIn">built-in</a>, otherwise 0 (false).</p>
-<pre class="Syntax">Boolean := FuncObj.IsBuiltIn</pre>
+<pre class="Syntax">Boolean := FuncObj.<span class="func">IsBuiltIn</span></pre>
 </div>
 
 <div class="methodShort" id="IsVariadic"><h3>IsVariadic</h3>
 <p>Returns 1 (true) if the function is <a href="../Functions.htm#Variadic">variadic</a>, otherwise 0 (false).</p>
-<pre class="Syntax">Boolean := FuncObj.IsVariadic</pre>
+<pre class="Syntax">Boolean := FuncObj.<span class="func">IsVariadic</span></pre>
 </div>
 
 <div class="methodShort" id="MinParams"><h3>MinParams</h3>
 <p>必要なパラメータの数を返します。</p>
-<pre class="Syntax">ParamCount := FuncObj.MinParams</pre>
+<pre class="Syntax">ParamCount := FuncObj.<span class="func">MinParams</span></pre>
 </div>
 
 <div class="methodShort" id="MaxParams"><h3>MaxParams</h3>
 <p>ユーザー定義関数の場合は正式に宣言されたパラメータの数、組み込み関数の場合は最大パラメータ数を返します。</p>
-<pre class="Syntax">ParamCount := FuncObj.MaxParams</pre>
+<pre class="Syntax">ParamCount := FuncObj.<span class="func">MaxParams</span></pre>
 <p>関数が<a href="../Functions.htm#Variadic">variadic</a>の場合、<em>ParamCount</em>は"variadic*"パラメータに溢れることなく関数が受け入れることができるパラメータの最大数を示します。</p></div>
 
 </body>

@@ -17,27 +17,25 @@
 <pre class="Syntax"><span class="func">WinMove</span> <span class="optional">X, Y, Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
-
   <dt>X, Y</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ターゲットウィンドウの新しい位置の左上隅のX座標とY座標（ピクセル単位）。画面左上のピクセルは0, 0にある。</p>
-    <p>これらのパラメータだけが関数で与えられた場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>がターゲットウィンドウとして使用されます。</p>
-    <p>それ以外の場合、XとYは省略可能で、その場合は現在位置が使われる。</p>
+    <p>If either is omitted, the position in that dimension will not be changed. Otherwise, specify the X and Y coordinates (in pixels) of the upper left corner of the target window's new location. 画面左上のピクセルは0, 0にある。</p>
   </dd>
 
   <dt>幅、高さ</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ウィンドウの新しい幅と高さ（ピクセル単位）。どちらかが省略されるか空白の場合、その寸法のサイズは変更されない。</p>
+    <p>If either is omitted, the size in that dimension will not be changed. Otherwise, specify the new width and height of the window (in pixels).</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
-
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -45,16 +43,16 @@
 <p>内部関数呼び出しが失敗を報告した場合、<a href="Error.htm#OSError">OSError</a>がスローされる。しかし、ウィンドウが自身の動きを制限している場合など、ウィンドウが動いていなくても成功が報告されることがある。</p>
 
 <h2 id="Remarks">備考</h2>
-<p><em>Width</em>と <em>Height</em>が小さい（または負）場合、タイトルバーを持つほとんどのウィンドウは通常112 x 27ピクセル以下になります（ただし、ウィンドウの種類によっては最小サイズが異なる場合があります）。<em>Width</em>と <em>Height</em>が大きい場合、ほとんどのウィンドウはデスクトップの寸法から約12ピクセル以上大きくなりません。</p>
-<p>マルチモニターシステムをサポートし、ウィンドウを完全に画面外に移動できるようにするため、x座標とy座標には負の値が許される。</p>
+<p>If <em>Width</em> or <em>Height</em> is small (or negative), most windows with a title bar will generally go no smaller than 112 x 27 pixels (however, some types of windows may have a different minimum size). If <em>Width</em> or <em>Height</em> is large, most windows will go no larger than approximately 12 pixels beyond the dimensions of the desktop.</p>
+<p>Negative X and Y coordinates are allowed to support multi-monitor systems and to move a window entirely off-screen.</p>
 <p>WinMoveは最小化されたウィンドウを移動することはできませんが、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンの場合、隠されたウィンドウを移動することができます。</p>
 <p>WinMoveの速度は<a href="SetWinDelay.htm">SetWinDelay</a>の影響を受ける。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <p>異なるDPI設定を持つ複数のスクリーンを持つシステムでは、<a href="../misc/DPIScaling.htm">OSのDPIスケーリング</a>により、ウィンドウの最終的な位置とサイズが要求された値と異なる場合があります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlMove.htm">ControlMove</a>, <a href="WinGetPos.htm">WinGetPos</a>, <a href="WinHide.htm">WinHide</a>, <a href="WinMinimize.htm">WinMinimize</a>, <a href="WinMaximize.htm">WinMaximize</a>, <a href="Win.htm">Win functions</a></p>
+
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLastFound">
 <p><a class="ex_number" href="#ExLastFound"></a> 電卓を開き、電卓が存在するまで待ち、画面の左上隅に移動する。</p>
@@ -68,9 +66,9 @@ WinMove 0, 0 <em>; Use the window found by WinWait.</em></pre>
 <pre>MyGui := Gui("ToolWindow -Sysmenu Disabled", "The clipboard contains:")
 MyGui.Add("Text",, A_Clipboard)
 MyGui.Show("w400 h300")
-WinMove 0, 0,,, MyGui.Title <em>; Move the splash window to the top left corner.</em>
-MsgBox "Press OK to dismiss the MyGui window"
-MyGui.Destroy</pre>
+WinMove 0, 0,,, MyGui
+MsgBox "Press OK to dismiss the popup window"
+MyGui.Destroy()</pre>
 </div>
 
 <div class="ex" id="ExCenter">

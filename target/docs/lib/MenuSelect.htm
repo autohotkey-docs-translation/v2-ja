@@ -21,39 +21,31 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
   <dt>Menu</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>最上位メニューの名称（または名称の接頭語）、例：ファイル、編集、表示。また、<code>1&amp;</code>で1つ目のメニュー、<code>2&amp;</code>で2つ目のメニューを表すなど、目的のメニューの位置を表すことも可能です。</p>
-    <p>検索は、現在のユーザーのロケールの規則に従って大文字と小文字を区別せず、最初に一致した項目で停止します。メニュー項目の下線文字を示すアンパサンド（&amp;）の使用は<em>通常</em>必要ありません（例：&amp;FileはFileと同じです）。</p>
-    <p class="warning"><strong>既知の制限事項：</strong>パラメータにアンパサンドが含まれる場合、リテラル以外のアンパサンド（非表示または下線表示）も含めて、アイテム名と正確に一致する必要があります。パラメータにアンパサンドが含まれていない場合、リテラルも含めてすべてのアンパサンドが無視されます。For example, an item displayed as "a &amp; b" may match a parameter value of <code>a &amp;&amp; b</code> or <code>a b</code>.</p>
-    <p>ウィンドウの<a href="#sys">システムメニュー</a>を使用する場合は、<code>0&amp;</code>を指定します。</p>
+    <p>The name (or a prefix of the name) of the top-level menu item, e.g. <code>"File"</code>, <code>"Edit"</code>, <code>"View"</code>. It can also be the position of the desired menu item by using <code>"1&amp;"</code> to represent the first menu, <code>"2&amp;"</code> the second, and so on.</p>
+    <p>検索は、現在のユーザーのロケールの規則に従って大文字と小文字を区別せず、最初に一致した項目で停止します。The use of ampersand (&amp;) to indicate the underlined letter in a menu item is <em>usually</em> not necessary (i.e. <code>"&amp;File"</code> is the same as <code>"File"</code>).</p>
+    <p><strong>既知の制限事項：</strong>パラメータにアンパサンドが含まれる場合、リテラル以外のアンパサンド（非表示または下線表示）も含めて、アイテム名と正確に一致する必要があります。パラメータにアンパサンドが含まれていない場合、リテラルも含めてすべてのアンパサンドが無視されます。For example, an item displayed as "a &amp; b" may match a parameter value of <code>a &amp;&amp; b</code> or <code>a b</code>.</p>
+    <p>Specify <code>"0&amp;"</code> to use the window's <a href="#sys">system menu</a>.</p>
   </dd>
 
   <dt>SubMenu1</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>選択するメニュー項目の名前またはその位置（上記参照）。</p>
-    <p>最上位のアイテムにメニューがない場合（稀）には省略可能です。</p>
+    <p>The name of the menu item to select or its position. 最上位のアイテムにメニューがない場合（稀）には省略可能です。</p>
   </dd>
 
-  <dt>SubMenu2</dt>
+  <dt>SubMenu2, SubMenu3, SubMenu4, SubMenu5, SubMenu6</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><em>SubMenu1</em>自身にメニューがある場合は、その中のメニューの名前、またはその位置を示します。</p>
-  </dd>
-
-  <dt>SubMenu3</dt>
-  <dt>SubMenu4</dt>
-  <dt>SubMenu5</dt>
-  <dt>SubMenu6</dt>
-  <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Same as above.</p>
+    <p>If the previous submenu itself contains a menu, this is the name of the menu item inside, or its position.</p>
   </dd>
 
 </dl>
@@ -66,10 +58,9 @@
 <p>この機能を使用するためには、ターゲットウィンドウがアクティブである必要はありません。ただし、一部のウィンドウは<a href="WinRestore.htm">最小化しない</a>状態が必要な場合があります。</p>
 <p>この機能は、標準以外のメニューバーを使用するアプリケーションでは<strong>動作しません</strong>。例えば、Microsoft OutlookやOutlook Expressは、メニューバーに偽装されたツールバーを使用しています。このような場合は、<a href="ControlSend.htm">ControlSend</a>や <a href="PostMessage.htm">PostMessage</a>を使用することを検討してみてください。</p>
 <p>メニュー名のパラメーターは、位置を指定することも可能です。この方法は、テキストを含まないメニューをサポートするために存在します（おそらく、実際のテキストではなく、テキストの画像を含むため）。ポジション1&amp;は1番目のメニュー項目（例：ファイルメニュー）、ポジション2&amp;は2番目のメニュー項目（例：編集メニュー）、といった具合に。メニューの区切り線は、メニューの位置を決定するためのメニュー項目としてカウントされます。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="sys">System Menu</h2>
-<p><em>メニュー</em>は、 <kbd>Alt</kbd>+<kbd>Space</kbd>を押すか、ウィンドウのタイトルバーのアイコンをクリックすると表示されるウィンドウのシステムメニューの中の項目を選択するために<code>0&amp;</code>を使用することができます。事例：</p>
+<p><em>Menu</em> can be <code>"0&amp;"</code> to select an item within the window's system menu, which typically appears when the user presses <kbd>Alt</kbd>+<kbd>Space</kbd> or clicks on the icon in the window's title bar. 事例：</p>
 <pre><em>ウィンドウをアクティブにせずに、cmd.exeにコマンドを貼り付ける。</em>
 A_Clipboard := "echo Hello, world!`r"
 MenuSelect "ahk_exe cmd.exe",, "0&amp;", "Edit", "Paste"</pre>

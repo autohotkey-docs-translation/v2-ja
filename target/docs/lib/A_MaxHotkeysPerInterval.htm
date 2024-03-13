@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>A_MaxHotkeysPerInterval - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="A_MaxHotkeysPerIntervalおよびA_HotkeyInterval変数は、警告ダイアログが表示される以上のホットキー起動率を制御します。" />
+<title>A_MaxHotkeysPerInterval / A_HotkeyInterval - Syntax &amp; Usage | AutoHotkey v2</title>
+<meta name="description" content="A_MaxHotkeysPerInterval and A_HotkeyInterval are built-in variables that control the rate of hotkey activations beyond which a warning dialog will be displayed." />
 <meta name="ahk:equiv-v1" content="lib/_MaxHotkeysPerInterval.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,36 +11,23 @@
 </head>
 <body>
 
-<h1>A_MaxHotkeysPerInterval</h1>
+<h1>A_MaxHotkeysPerInterval / A_HotkeyInterval</h1>
 
-<p>A_MaxHotkeysPerIntervalおよびA_HotkeyInterval変数は、警告ダイアログが表示される以上のホットキー起動率を制御します。</p>
-
-<table class="info">
-  <tr><th>変数</th><th>意味</th><th>デフォルトの値</th><th>Type</th></tr>
-  <tr>
-    <td>A_MaxHotkeysPerInterval</td>
-    <td>警告ダイアログをトリガーすることなく、間隔内に押せるホットキーの最大数。</td>
-    <td>70</td>
-    <td><a href="../Concepts.htm#numbers">Integer</a></td>
-  </tr>
-  <tr>
-    <td>A_HotkeyInterval</td>
-    <td>インターバルの長さをミリ秒単位で指定します。</td>
-    <td>2000</td>
-    <td><a href="../Concepts.htm#numbers">Integer</a></td>
-  </tr>
-</table>
+<p><em>A_MaxHotkeysPerInterval</em> and <em>A_HotkeyInterval</em> are <a href="../Concepts.htm#built-in-variables">built-in variables</a> that control the rate of <a href="../Hotkeys.htm">hotkey</a> activations beyond which a warning dialog will be displayed.</p>
+<p><em>A_MaxHotkeysPerInterval</em> can be used to get or set an <a href="../Concepts.htm#numbers">integer</a> representing the maximum number of hotkeys that can be pressed within the interval without triggering a warning dialog.</p>
+<p><em>A_HotkeyInterval</em> can be used to get or set an <a href="../Concepts.htm#numbers">integer</a> representing the length of the interval in milliseconds.</p>
+<p>The default settings are 70 (ms) for <em>A_MaxHotkeysPerInterval</em> and 2000 (ms) for <em>A_HotkeyInterval</em>.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>これらの組み込み変数は、通常スクリプトの開始時に値を割り当てる必要がありますが（デフォルト値が適切でない場合）、スクリプトはいつでもその値を取得または設定することができます。</p>
-<p>もし、不注意でキー入力の無限ループ（<a href="Send.htm">Send</a>関数が他のホットキーを誤ってトリガーする）を導入した場合、キーボードイベントの急激な洪水によりコンピュータが応答しなくなる可能性があるため、上記が甘くならないように注意する必要があります。</p>
+<p>These built-in variables should usually be assigned values when the script starts (if the default settings are not suitable), but the script can get or set their values at any time.</p>
+<p>Care should be taken not to make the setting too lenient because if you ever inadvertently introduce an infinite loop of keystrokes (via a <a href="Send.htm">Send</a> function that accidentally triggers other hotkeys), your computer could become unresponsive due to the rapid flood of keyboard events.</p>
 <p>単純化しすぎた例として、ホットキー<code>^c::Send "^c"</code>はキーストロークの無限ループを生成することになります。これを避けるには、ホットキーの定義に<a href="../Hotkeys.htm#prefixdollar">$ prefix</a>を付け（例えば、<code>$^c::</code>）、送信機能でホットキーをトリガーできないようにします。</p>
 <p>など、無限ループ以外の手段で限界に達する可能性があります。</p>
 <ul>
   <li>キーリピート率に対してリミットが低すぎる場合、またはシステムが高負荷の場合にキーリピートします。</li>
   <li>キーボードやマウスのハードウェアで、一般的なキーリピート速度よりも高速に入力イベントを送信します。例えば、一部のマウスでホイールを左右に傾けると、<code>WheelLeft::</code>や<code>WheelRight::</code>などのホットキーの限界に達するようなイベントが大量に送信されることがあります。</li>
 </ul>
-<p>警告ダイアログを完全に無効にするには、<code>A_HotkeyInterval := 0</code>を指定します。</p>
+<p>To disable the warning dialog entirely, use <code>A_HotkeyInterval := 0</code>.</p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

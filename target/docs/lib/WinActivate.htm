@@ -20,8 +20,10 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
 </dl>
@@ -32,14 +34,13 @@
 <h2 id="Remarks">備考</h2>
 <p>非アクティブなウィンドウがアクティブになると、オペレーティング・システムはそのウィンドウも最前面にする（スタックの一番上に持ってくる）。ウィンドウがすでにアクティブになっている場合は発生しない。</p>
 <p>ウィンドウが最小化されて非アクティブになると、アクティブになる前に自動的に復元される。<em>WinTitle</em>が文字 "A"で、他のパラメータが省略された場合、アクティブなウィンドウが復元される。ウィンドウがすでにアクティブであったとしても、復元される。</p>
-<p>60ミリ秒の間に6回、ターゲットウィンドウの活性化を試みる。6回の試行がすべて失敗した場合、WinActivateは自動的に<code>{Alt 2}</code>を送信し、オペレーティングシステムによる制限を回避します。したがって、通常WinActivateの後に<a href="WinWaitActive.htm">WinWaitActive</a>や <code><a href="WinActive.htm">WinActive</a>(...)</code>でなければWinActivateを続ける必要はない。</p>
+<p>60ミリ秒の間に6回、ターゲットウィンドウの活性化を試みる。6回の試行がすべて失敗した場合、WinActivateは自動的に<code class="no-highlight">{Alt 2}</code>を送信し、オペレーティングシステムによる制限を回避します。したがって、通常WinActivateの後に<a href="WinWaitActive.htm">WinWaitActive</a>や <code><a href="WinActive.htm">WinActive</a>(...)</code>でなければWinActivateを続ける必要はない。</p>
 <p>WinActivateの最初の試みが失敗すると、自動的に<code>{Alt up}</code>が送信される。テストによると、最初の試行が失敗してタスクバーボタンが点滅するケースが減り、その後のすべての試行の信頼性が向上する可能性がある。このために送信される<code>{Alt up}</code>は、各スクリプトの有効期間中1回までである。このスクリプトまたは他の（AutoHotkey v1.1.27+）スクリプトにキーボードフックがインストールされている場合、<code>{Alt up}</code>はアクティブウィンドウからブロックされ、副作用のリスクを最小限に抑えます。</p>
 <p>一般的に、複数のウィンドウがマッチした場合、一番上のマッチしたウィンドウ（通常、最も最近使用されたウィンドウ）がアクティブになる。ウィンドウがすでにアクティブになっている場合、その下にある他のマッチするウィンドウをアクティブにするのではなく、アクティブな状態を維持する。しかし、<a href="WinMoveBottom.htm">WinMoveBottom</a>でアクティブ・ウィンドウをスタックの一番下に移動させると、アクティブ・ウィンドウが一致しても、他のウィンドウがアクティブになることがある。</p>
 <p><a href="WinActivateBottom.htm">WinActivateBottom</a>は、一番下のマッチするウィンドウをアクティブにする（通常、一番最近使われたウィンドウ）。</p>
 <p><a href="GroupActivate.htm">GroupActivate</a>は、ウィンドウグループで指定された条件に一致する次のウィンドウをアクティブにする。</p>
 <p>アクティブ・ウィンドウが非表示で、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオフになっている場合、マッチするとはみなされない。その代わり、マッチング・ウインドウがあれば、それが表示される。</p>
 <p>他のウィンドウをアクティブにした直後にウィンドウをアクティブにすると、システムによってはタスクバーのボタンが点滅し始めることがあります（OSや設定によって異なります）。これを防ぐために、<a href="_WinActivateForce.htm">#WinActivateForce</a>を使ってください。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 <p><strong>既知の問題：</strong>スクリプトがリモートデスクトップ経由でアクセスされているコンピュータまたはサーバー上で実行されている場合、リモートデスクトップクライアントが最小化されていると、WinActivateがハングすることがあります。回避策のひとつは、<a href="ControlSend.htm">ControlSend</a>や <a href="ControlClick.htm">ControlClick</a>のような、ウィンドウのアクティブ化を必要としない組み込み関数を使うことです。もう1つの可能な回避策は、ローカル/クライアントコンピュータで以下のレジストリ設定を適用することです：</p>
 <pre><em>HKCUをHKLMに変更し、このシステムのすべてのユーザーに影響を与える。</em>
 RegWrite "REG_DWORD", "HKCU\Software\Microsoft\Terminal Server Client"

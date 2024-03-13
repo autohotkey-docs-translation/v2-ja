@@ -24,45 +24,47 @@
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
         <p>正の整数を渡すと、ウィンドウのスタイルを完全に上書きする、つまり、<em>Value</em>に設定します。</p>
-        <p>スタイルの追加、削除、切り替えを簡単に行うには、プラス記号（+）、マイナス記号（-）、キャレット（^）をそれぞれ先頭に持つ数値列を渡します。新しいスタイル値は以下のように計算されます（<em>CurrentStyle</em>は <a href="ControlGetStyle.htm">ControlGetStyle/ControlGetExStyle</a>または<a href="WinGetStyle.htm">WinGetStyle/WinGetExStyle</a>で取得することができます）。</p>
+        <p>スタイルの追加、削除、切り替えを簡単に行うには、プラス記号（+）、マイナス記号（-）、キャレット（^）をそれぞれ先頭に持つ数値列を渡します。The new style value is calculated as shown below (where <em>CurrentStyle</em> could be retrieved with <a href="ControlGetStyle.htm">ControlGetStyle</a>, <a href="ControlGetStyle.htm">ControlGetExStyle</a>, <a href="WinGetStyle.htm">WinGetStyle</a> or <a href="WinGetStyle.htm">WinGetExStyle</a>):</p>
         <table class="info">
             <tr>
                 <th>Operation</th>
                 <th>Prefix</th>
-                <th abbr="例">Example String</th>
+                <th>例</th>
                 <th>Formula</th>
             </tr>
             <tr>
                 <td>Add</td>
                 <td>+</td>
-                <td>+0x80</td>
+                <td><code>"+0x80"</code></td>
                 <td><code>NewStyle := CurrentStyle | Value</code></td>
             </tr>
             <tr>
                 <td>Remove</td>
                 <td>-</td>
-                <td>-0x80</td>
+                <td><code>"-0x80"</code></td>
                 <td><code>NewStyle := CurrentStyle &amp; ~Value</code></td>
             </tr>
             <tr>
                 <td>Toggle</td>
                 <td>^</td>
-                <td>^0x80</td>
+                <td><code>"^0x80"</code></td>
                 <td><code>NewStyle := CurrentStyle ^ Value</code></td>
             </tr>
         </table>
         <p><em>Value</em>が負の整数の場合、対応する数値文字列と同じように扱われます。</p>
-        <p>+　または - プレフィックスを文字どおり式で使用するには、プレフィックスまたは値を引用符で囲む必要があります。事例：<code>WinSetStyle("+0x80")</code> or <code>WinSetStyle("^" StylesToToggle)</code>. という<a href="../Variables.htm#Expressions">表現が</a>あるからです。 <code><a href="../Variables.htm#unary">+123</a></code>は123（接頭辞なし）を生成し、<code>^123</code>はシンタックスエラーとなります。</p>
+        <p>+　または - プレフィックスを文字どおり式で使用するには、プレフィックスまたは値を引用符で囲む必要があります。事例：<code>ControlSetStyle("+0x80")</code> or <code>ControlSetStyle("^" StylesToToggle)</code>. という<a href="../Variables.htm#Expressions">表現が</a>あるからです。 <code><a href="../Variables.htm#unary">+123</a></code>は123（接頭辞なし）を生成し、<code>^123</code>はシンタックスエラーとなります。</p>
     </dd>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
         <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
@@ -73,7 +75,6 @@
 <h2 id="Remarks">備考</h2>
 <p>スタイルの一部については、<a href="../misc/Styles.htm">スタイル表</a>をご覧ください。</p>
 <p>特定のスタイル変更には、<a href="WinRedraw.htm">WinRedraw</a>を使用してウィンドウ全体を再描画する必要があります。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlGetStyle.htm">ControlGetStyle / ControlGetExStyle</a>, <a href="WinSetStyle.htm">WinSetStyle / WinSetExStyle</a>, <a href="../misc/Styles.htm">styles table</a>, <a href="Control.htm">Control functions</a></p>

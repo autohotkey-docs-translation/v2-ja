@@ -24,13 +24,13 @@ String := <span class="func">StrGet</span>(Source <span class="optional">, Encod
     <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>または<a href="../Concepts.htm#numbers">整数</a></p>
     <p>文字列を含む<a href="Buffer.htm">Buffer</a>のようなオブジェクト、または文字列のメモリアドレス。</p>
     <p><a href="Buffer.htm#Ptr">Ptr</a>プロパティと<a href="Buffer.htm#Size">Size</a>プロパティを実装したオブジェクトであれば何でも使用できますが、この関数はネイティブの<a href="Buffer.htm">Buffer</a>オブジェクトに最適化されています。これらのプロパティを持つオブジェクトを渡すことで、関数が不正な場所からメモリを読み込むことがないようにします。そうすると、クラッシュやその他の予測不可能な動作が起こる可能性があります。</p>
-    <p>Bufferライクなオブジェクトが提供される場合、または<em>Length</em>パラメータが指定される場合、文字列は<a href="../Concepts.htm#null-termination">ヌル終端</a>である必要はない。</p>
+    <p>The string is not required to be <a href="../Concepts.htm#null-termination">null-terminated</a> if a Buffer-like object is provided, or if <em>Length</em> is specified.</p>
   </dd>
 
   <dt>Length</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>文字列が<a href="../Concepts.htm#null-termination">ヌル終端</a>である場合、これは設定しないか省略することができる。それ以外の場合は、読み込む最大<a href="../Concepts.htm#character">文字数</a>を指定する。</p>
+    <p>If omitted (or when using 2-parameter mode), it defaults to the current length of the string, provided the string is <a href="../Concepts.htm#null-termination">null-terminated</a>. それ以外の場合は、読み込む最大<a href="../Concepts.htm#character">文字数</a>を指定する。</p>
     <p>デフォルトでは、StrGetは最初のバイナリ・ゼロまでしかコピーしない。<em>Length</em>が負の場合、その絶対値は、文字列に含まれる可能性のある2進数のゼロを含め、変換する文字数を正確に示します。</p>
     <p class="warning"><strong>注意：</strong>文字列がヌル終端でない場合に<em>Length</em>を省略すると、アクセス違反が発生し、プロ グラムが終了するなどの望ましくない結果を引き起こす可能性がある。正しくない長さを指定すると、予期せぬ動作をすることがある。</p>
   </dd>
@@ -38,14 +38,14 @@ String := <span class="func">StrGet</span>(Source <span class="optional">, Encod
   <dt>エンコード</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>未設定または省略された場合、文字列は変換されずに単にコピーされる。それ以外の場合は、ソース・エンコーディングを指定する。例えば、<code>"UTF-8"</code>、<code>"UTF-16"</code>、<code>"CP936"</code>などである。数値識別子では、<em>Length</em>が指定されている場合のみ、接頭辞 "CP"を省略することができる。システム・デフォルトのANSIコード・ページを使用する場合は、空文字列または<code>"CP0"</code>を指定する。</p>
+    <p>If omitted, the string is simply copied without any conversion taking place. それ以外の場合は、ソース・エンコーディングを指定する。例えば、<code>"UTF-8"</code>、<code>"UTF-16"</code>、<code>"CP936"</code>などである。For numeric identifiers, the prefix "CP" can be omitted only in 3-parameter mode. Specify an empty string or <code>"CP0"</code> to use the system default ANSI code page.</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>この関数は、コピーまたは変換された文字列を返す。ソース・エンコーディングが正しく指定されていれば、返り値は常に<a href="../Concepts.htm#string-encoding">ネイティブ・エンコーディング</a>を使用する。これは常に<a href="../Concepts.htm#null-termination">ヌル終端</a>であるが、上述のように<em>Length</em>が負の場合を除き、ヌル終端は返り値の<a href="StrLen.htm">長さ</a>に含まれない。</p>
+<p>この関数は、コピーまたは変換された文字列を返す。ソース・エンコーディングが正しく指定されていれば、返り値は常に<a href="../Concepts.htm#string-encoding">ネイティブ・エンコーディング</a>を使用する。The value is always <a href="../Concepts.htm#null-termination">null-terminated</a>, but the null-terminator is not included in its <a href="StrLen.htm">length</a> except when <em>Length</em> is negative, as described above.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>無効なパラメータが検出された場合は<a href="Error.htm#ValueError">ValueError</a>がスローされる。</p>

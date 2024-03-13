@@ -23,7 +23,7 @@
   <dt>式</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>任意の有効な<a href="../Variables.htm#Expressions">式</a>。これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
+    <p>If omitted, subsequently-created hotkeys and hotstrings are not context-sensitive. Otherwise, specify any valid <a href="../Variables.htm#Expressions">expression</a>. これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
   </dd>
 
 </dl>
@@ -45,14 +45,14 @@ Enter::Send "!o"  <em>; Enterキーを押すと、選択したリマインダー
 #HotIf</pre>
 
 <h2 id="variant">バリアント（複製）ホットキー</h2>
-<p>特定の<a href="../Hotkeys.htm">ホットキー</a>や <a href="../Hotstrings.htm">ホットストリング</a>は、それぞれの定義が異なる#HotIf基準であれば、スクリプト内で複数回定義することができます。これらは、<em>ホットキーバリアント</em>と呼ばれるものです。事例：</p>
+<p>A particular <a href="../Hotkeys.htm">hotkey</a> or <a href="../Hotstrings.htm">hotstring</a> can be defined more than once in the script if each definition has different HotIf criteria. これらは、<em>ホットキーバリアント</em>と呼ばれるものです。事例：</p>
 <pre>#HotIf <a href="WinActive.htm">WinActive</a>("ahk_class Notepad")
 ^!c::MsgBox "You pressed Control+Alt+C in Notepad."
 #HotIf WinActive("ahk_class WordPadClass")
 ^!c::MsgBox "You pressed Control+Alt+C in WordPad."
 #HotIf
 ^!c::MsgBox "You pressed Control+Alt+C in a window other than Notepad/WordPad."</pre>
-<p>複数のバリアントが発射対象となる場合、スクリプトの先頭に最も近いものだけが発射されます。ただし、グローバルバリアント（#HotIfの基準がないもの）については例外です。常に最も低い優先順位を持つので、他の variant が適格でない場合にのみ発火します（この例外は<a href="../Hotstrings.htm">ホットストリング</a>には適用されません）。</p>
+<p>複数のバリアントが発射対象となる場合、スクリプトの先頭に最も近いものだけが発射されます。The exception to this is the global variant (the one with no HotIf criteria):常に最も低い優先順位を持つので、他の variant が適格でない場合にのみ発火します（この例外は<a href="../Hotstrings.htm">ホットストリング</a>には適用されません）。</p>
 <p>When creating duplicate hotkeys, the order of <a href="../Hotkeys.htm#Symbols">modifier symbols</a> such as <code>^!+#</code> does not matter. For example, <code>^!c</code> is the same as <code>!^c</code>. ただし、キーは一貫したスペルで表記する必要があります。For example, <em>Esc</em> is not the same as <em>Escape</em> for this purpose (though the case does not matter). Also, any hotkey with a <a href="../Hotkeys.htm#wildcard">wildcard prefix (*)</a> is entirely separate from a non-wildcard one; for example, <code>*F1</code> and <code>F1</code> would each have their own set of variants.</p>
 
 <p><a href="GroupAdd.htm">ウィンドウグループ</a>を使用すると、ウィンドウのグループに対してホットキーを実行させることができます。事例：

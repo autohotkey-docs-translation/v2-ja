@@ -15,26 +15,28 @@
 
 <p>指定されたウィンドウのクライアント領域の位置と大きさを取得します。</p>
 
-<pre class="Syntax"><span class="func">WinGetClientPos</span> <span class="optional">&amp;X, &amp;Y, &amp;Width, &amp;Height, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
+<pre class="Syntax"><span class="func">WinGetClientPos</span> <span class="optional">&amp;OutX, &amp;OutY, &amp;OutWidth, &amp;OutHeight, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>&amp;X, &amp;Y</dt>
+  <dt>&amp;OutX, &amp;OutY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>クライアント領域の左上隅のX座標とY座標を格納する出力変数への参照。省略した場合は、対応する値は保存されません。</p>
+    <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the X and Y coordinates of the client area's upper left corner.</p>
   </dd>
 
-  <dt>&amp;Width, &amp;Height</dt>
+  <dt>&amp;OutWidth, &amp;OutHeight</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>クライアント領域の幅と高さを格納する出力変数への参照。省略した場合は、対応する値は保存されません。</p>
+    <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the width and height of the client area.</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
 </dl>
@@ -44,7 +46,10 @@
 
 <h2 id="Remarks">備考</h2>
 <p>クライアント・エリアはウィンドウの一部で、コントロールを含むことができる。ウィンドウのタイトルバー、メニュー（標準のものがある場合）、ボーダーは除外されます。クライアントエリアの位置とサイズは、<a href="WinGetPos.htm">WinGetPos</a>が返す値よりもOSのバージョンやテーマに依存しない。</p>
-<p>最小化されたウィンドウに対して返される値は、OSや設定によって異なるかもしれないが、通常、XとY座標は-32000、幅と高さは0である。</p>
+<p>If <em>WinTitle</em> is <code>"Program Manager"</code>, the function will retrieve the size of the desktop, which is usually the same as the current screen resolution.</p>
+<p>最小化されたウィンドウには、位置とサイズが残ります。The values returned in this case may vary depending on OS and configuration, but are usually -32000 for the X and Y coordinates and zero for the width and height.</p>
+<p>マウスが現在カーソルを置いているウィンドウとコントロールの名前を知るには、<a href="MouseGetPos.htm">MouseGetPos</a>を使う。</p>
+<p>DPI設定が異なる複数のスクリーンを持つシステムでは、<a href="../misc/DPIScaling.htm">OSのDPIスケーリング</a>により、返される位置やサイズが予想と異なる場合があります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinGetPos.htm">WinGetPos</a>, <a href="WinMove.htm">WinMove</a>, <a href="ControlGetPos.htm">ControlGetPos</a>, <a href="WinGetTitle.htm">WinGetTitle</a>, <a href="WinGetText.htm">WinGetText</a>, <a href="ControlGetText.htm">ControlGetText</a></p>

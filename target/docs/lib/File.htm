@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>File Object - メソッドとプロパティ｜AutoHotkey v2</title>
-<meta name="description" content="ファイルオブジェクトは、データの読み出しや書き込みなどの動作や、長さなどの値の取得や設定を行うためのインターフェイスを提供します。" />
+<meta name="description" content="The file object provides an interface for file input/output, such as reading or writing text or retrieving its length." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 <h1>File Object</h1>
 <pre class="NoIndent">class File extends Object</pre>
 
-<p>ファイル入出力のためのインタフェースを提供します。<a href="FileOpen.htm">FileOpen</a>は、このタイプのオブジェクトを返します。</p>
+<p>Provides an interface for file input/output, such as reading or writing text or retrieving its length. <a href="FileOpen.htm">FileOpen</a>は、このタイプのオブジェクトを返します。</p>
 
 <p>"File"はクラスそのものなので、以下ではあらゆるFileオブジェクトのプレースホルダとして "FileObj"を使用します。</p>
 <p><a href="Object.htm">Object</a>から継承されたメソッドとプロパティに加えて、Fileオブジェクトは以下の定義済みのメソッドとプロパティを持ちます。</p>
@@ -25,12 +25,12 @@
       <li><a href="#Read">Read</a>:ファイルから文字列を読み出し、ファイルポインタを進める。</li>
       <li><a href="#Write">Write</a>:文字列をファイルに書き込み、ファイルポインタを進める。</li>
       <li><a href="#ReadLine">ReadLine</a>:ファイルからテキストを1行読み出し、ファイルポインタを進める。</li>
-      <li><a href="#WriteLine">WriteLine</a>:文字列の後に、ファイルを開くときに使用したフラグに応じて<code>`n</code>または<code>`r`n</code>が続くように書き込みます。ファイルポインタを前進させる。</li>
+      <li><a href="#WriteLine">WriteLine</a>: Writes a line of text to the file and advances the file pointer.</li>
       <li><a href="#ReadNum">Read<em>NumType</em></a>:ファイルから数値を読み出し、ファイルポインタを進める。</li>
       <li><a href="#WriteNum">Write<em>NumType</em></a>:ファイルに数値を書き込み、ファイルポインタを進める。</li>
       <li><a href="#RawRead">RawRead</a>:ファイルから生のバイナリデータをメモリに読み込んで、ファイルポインタを進める。</li>
       <li><a href="#RawWrite">RawWrite</a>:ファイルに生のバイナリデータを書き込み、ファイルポインタを進める。</li>
-      <li><a href="#Seek">Seek</a>:ファイルポインタを移動します。第2パラメータが省略された場合は、<code>FileObj.Pos := Distance</code>と等価となる。</li>
+      <li><a href="#Seek">Seek</a>:ファイルポインタを移動します。</li>
       <li><a href="#Close">Close</a>:ファイルを閉じ、キャッシュ内のデータをディスクにフラッシュし、共有ロックを解除します。</li>
     </ul>
   </li>
@@ -38,7 +38,7 @@
     <ul>
       <li><a href="#Pos">Pos</a>:ファイルポインタの位置を取得または設定します。</li>
       <li><a href="#Length">Length</a>:ファイルサイズを取得または設定します。</li>
-      <li><a href="#AtEOF">AtEOF</a>:ファイルポインタがファイルの末尾に達した場合、非ゼロ値を取得します。</li>
+      <li><a href="#AtEOF">AtEOF</a>: Retrieves a non-zero number if the file pointer has reached the end of the file.</li>
       <li><a href="#Encoding">Encoding</a>:このファイルオブジェクトが使用するテキストエンコーディングを取得または設定します。</li>
       <li><a href="#Handle">Handle</a>:DllCallで使用することを目的としたシステムファイルハンドルを取得することができます。</li>
     </ul>
@@ -50,72 +50,91 @@
 <div class="methodShort" id="Read"><h3>Read</h3>
 <p>ファイルから文字列を読み出し、ファイルポインタを進める。</p>
 <pre class="Syntax">String := FileObj.<span class="func">Read</span>(<span class="optional">Characters</span>)</pre>
+<h4 id="Read_Parameters">パラメータ</h4>
 <dl>
   <dt>Characters</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>読み込む最大文字数を指定します。省略された場合、ファイルの残りの部分が読み込まれ、1つの文字列として返されます。Fileオブジェクトがコンソールバッファやパイプなどの非シーキングデバイスへのハンドルから作成された場合、このパラメータを省略すると、メソッドが失敗するか、現在利用可能なデータのみを返すことがあります。</p>
+    <p>省略された場合、ファイルの残りの部分が読み込まれ、1つの文字列として返されます。Otherwise, specify the maximum number of characters to read. Fileオブジェクトがコンソールバッファやパイプなどの非シーキングデバイスへのハンドルから作成された場合、このパラメータを省略すると、メソッドが失敗するか、現在利用可能なデータのみを返すことがあります。</p>
   </dd>
 </dl>
-<p>文字列を返します。</p>
+<h4 id="Read_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>This method returns the string of characters that were read.</p>
 </div>
 
 <div class="methodShort" id="Write"><h3>Write</h3>
 <p>文字列をファイルに書き込み、ファイルポインタを進める。</p>
-<pre class="Syntax">FileObj.<span class="func">Write</span>(String)</pre>
+<pre class="Syntax">BytesWritten := FileObj.<span class="func">Write</span>(String)</pre>
+<h4 id="Write_Parameters">パラメータ</h4>
 <dl>
   <dt>String</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>書きこみの数。</p>
+    <p>The string to write.</p>
   </dd>
 </dl>
-<p>書き込まれたバイト数（文字数ではない）を返します。</p>
+<h4 id="Write_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of bytes (not characters) that were written.</p>
 </div>
 
 <div class="methodShort" id="ReadLine"><h3>ReadLine</h3>
 <p>ファイルからテキストを1行読み出し、ファイルポインタを進める。</p>
 <pre class="Syntax">TextLine := FileObj.<span class="func">ReadLine</span>()</pre>
-<p>行末を除いたテキストを返します。</p>
+<h4 id="ReadLine_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>This method returns a line of text, excluding the line ending.</p>
+<h4 id="ReadLine_Remarks">備考</h4>
 <p>最大65,534文字までの行を読み取ることができます。行の長さがこれを超える場合、それ以降このメソッドを呼び出すと、行の残りが返されます。</p></div>
 
 <div class="methodShort" id="WriteLine"><h3>WriteLine</h3>
-<p>文字列の後に、ファイルを開くときに使用したフラグに応じて<code>`n</code>または<code>`r`n</code>が続くように書き込みます。ファイルポインタを前進させる。</p>
-<pre class="Syntax">FileObj.<span class="func">WriteLine</span>(<span class="optional">String</span>)</pre>
+<p>Writes a line of text to the file and advances the file pointer.</p>
+<pre class="Syntax">BytesWritten := FileObj.<span class="func">WriteLine</span>(<span class="optional">String</span>)</pre>
+<h4 id="WriteLine_Parameters">パラメータ</h4>
 <dl>
   <dt>String</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>書き込む文字列（オプション）。</p>
+    <p>If blank or omitted, an empty line will be written. Otherwise, specify the string to write, which is always followed by <code>`n</code> or <code>`r`n</code>, depending on the EOL flags used to open the file.</p>
   </dd>
 </dl>
-<p>書き込まれたバイト数（文字数ではない）を返します。</p>
+<h4 id="WriteLine_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of bytes (not characters) that were written.</p>
 </div>
 
 <div class="methodShort" id="ReadNum"><h3>Read<i>NumType</i></h3>
 <p>ファイルから数値を読み出し、ファイルポインタを進める。</p>
 <pre class="Syntax">Num := FileObj.<span class="func">Read<i>NumType</i></span>()</pre>
 <p><em>NumType</em>は、UInt, Int, Int64, Short, UShort, Char, UChar, Double, Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
-<p>読み込みに成功した場合は数値を、そうでない場合は空の文字列を返します。読み込んだバイト数が0でなく、<em>NumType</em>のサイズより小さい場合、不足するバイトは0とみなされます。</p>
+<h4 id="ReadNum_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Concepts.htm#numbers">Float</a> or <a href="../Concepts.htm#nothing">String (empty)</a></p>
+<p>On success, this method returns a number. On failure, it returns an empty string.</p>
+<h4 id="ReadNum_Remarks">備考</h4>
+<p>読み込んだバイト数が0でなく、<em>NumType</em>のサイズより小さい場合、不足するバイトは0とみなされます。</p>
 </div>
 
 <div class="methodShort" id="WriteNum"><h3>Write<i>NumType</i></h3>
 <p>ファイルに数値を書き込み、ファイルポインタを進める。</p>
-<pre class="Syntax">FileObj.<span class="func">Write<i>NumType</i></span>(Num)</pre>
-<dl>
+<pre class="Syntax">BytesWritten := FileObj.<span class="func">Write<i>NumType</i></span>(Num)</pre>
+<p><em>NumType</em>は、UInt, Int, Int64, Short, UShort, Char, UChar, Double, Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
+<h4 id="WriteNum_Parameters">パラメータ</h4><dl>
   <dt>Num</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>書きこみの数。</p>
+    <p>The number to write.</p>
   </dd>
 </dl>
-<p><em>NumType</em>は、UInt, Int, Int64, Short, UShort, Char, UChar, Double, Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
-<p>書き込まれたバイト数を返します。例えば、WriteUIntは成功すれば4を返す。</p>
+<h4 id="WriteNum_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of bytes that were written. For example, <code>FileObj.WriteUInt(42)</code> returns 4 if successful.</p>
 </div>
 
 <div class="methodShort" id="RawRead"><h3>RawRead</h3>
 <p>ファイルから生のバイナリデータをメモリに読み込んで、ファイルポインタを進める。</p>
-<pre class="Syntax">FileObj.<span class="func">RawRead</span>(Buffer <span class="optional">, Bytes</span>)</pre>
+<pre class="Syntax">BytesRead := FileObj.<span class="func">RawRead</span>(Buffer <span class="optional">, Bytes</span>)</pre>
+<h4 id="RawRead_Parameters">パラメータ</h4>
 <dl>
   <dt>Buffer</dt>
   <dd>
@@ -130,12 +149,15 @@
     <p>読み出す最大バイト数を指定します。<em>Buffer</em>がオブジェクトの場合はオプション、それ以外の場合は必須とします。</p>
   </dd>
 </dl>
-<p>読み込んだバイト数を返します。</p>
+<h4 id="RawRead_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of bytes that were read.</p>
 </div>
 
 <div class="methodShort" id="RawWrite"><h3>RawWrite</h3>
 <p>ファイルに生のバイナリデータを書き込み、ファイルポインタを進める。</p>
-<pre class="Syntax">FileObj.<span class="func">RawWrite</span>(Data <span class="optional">, Bytes</span>)</pre>
+<pre class="Syntax">BytesWritten := FileObj.<span class="func">RawWrite</span>(Data <span class="optional">, Bytes</span>)</pre>
+<h4 id="RawWrite_Parameters">パラメータ</h4>
 <dl>
   <dt>Data</dt>
   <dd>
@@ -148,13 +170,15 @@
     <p>書き込むバイト数を指定します。<em>Data</em>がオブジェクトまたは文字列の場合はオプション、それ以外の場合は必須とします。</p>
   </dd>
 </dl>
-<p>書き込まれたバイト数を返します。</p>
+<h4 id="RawWrite_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the number of bytes that were written.</p>
 </div>
 
 <div class="methodShort" id="Seek"><h3>Seek</h3>
 <p>ファイルポインタを移動します。</p>
-<pre class="Syntax">FileObj.<span class="func">Seek</span>(Distance <span class="optional">, Origin</span>)
-</pre>
+<pre class="Syntax">IsMoved := FileObj.<span class="func">Seek</span>(Distance <span class="optional">, Origin</span>)</pre>
+<h4 id="Seek_Parameters">パラメータ</h4>
 <dl>
   <dt>Distance</dt>
   <dd>
@@ -164,15 +188,19 @@
   <dt>Origin</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>ファイルポインタの移動の開始点。次のいずれかに該当すること：</p>
+    <p>If omitted, it defaults to 2 when <em>Distance</em> is negative and 0 otherwise. Otherwise, specify one of the following numbers to indicate the starting point for the file pointer move:</p>
     <ul>
       <li>0 (SEEK_SET):ファイルの先頭です。<i>距離</i>は、0以上でなければならない。</li>
       <li>1 (SEEK_CUR):ファイルポインタの現在位置。</li>
       <li>2 (SEEK_END):ファイル終了。<i>距離</i>は、通常、マイナスになるはずです。</li>
     </ul>
-    <p>省略された場合、<i>Origin</i>のデフォルトは、<em>Distance</em>が負の場合はSEEK_END、それ以外はSEEK_SETとなります。</p></dd>
+  </dd>
 </dl>
-<p>成功した場合は0以外の値を、そうでない場合は0を返します。</p>
+<h4 id="Seek_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>On success, this method returns 1 (true). On failure, it returns 0 (false).</p>
+<h4 id="Seek_Remarks">備考</h4>
+<p>This method is equivalent to <code>FileObj.Pos := Distance</code>, if <em>Distance</em> is not negative and <em>Origin</em> is omitted or 0 (SEEK_SET).</p>
 </div>
 
 <div class="methodShort" id="Close"><h3>Close</h3>
@@ -183,44 +211,44 @@
 <h2 id="Properties">属性</h2>
 
 <div class="methodShort" id="Pos"><h3>Pos</h3>
-<p>ファイルポインタの現在位置を取得または設定します。</p>
-<pre class="Syntax">Pos := FileObj.Pos</pre>
-<pre class="Syntax">FileObj.Pos := NewPos</pre>
-<p>Equivalent to <code>FileObj.Seek(NewPos)</code>.</p>
-<p>位置は、ファイルの先頭からのバイトオフセットで、0が最初のバイトとなります。ファイルにデータが書き込まれたり、ファイルから読み出されたりすると、ファイルポインタは自動的にそのデータの次のバイトに移動します。</p>
+<p>ファイルポインタの位置を取得または設定します。</p>
+<pre class="Syntax">CurrentPos := FileObj.<span class="func">Pos</span></pre>
+<pre class="Syntax">FileObj.<span class="func">Pos</span> := NewPos</pre>
+<p><em>CurrentPos</em> and <em>NewPos</em> are a byte offset from the beginning of the file, where 0 is the first byte. ファイルにデータが書き込まれたり、ファイルから読み出されたりすると、ファイルポインタは自動的にそのデータの次のバイトに移動します。</p>
+<p>This property is equivalent to <code>FileObj.Seek(NewPos)</code>.</p>
 </div>
 
 <div class="methodShort" id="Length"><h3>Length</h3>
 <p>ファイルサイズを取得または設定します。</p>
-<pre class="Syntax">FileSize := FileObj.Length</pre>
-<pre class="Syntax">FileObj.Length := NewSize</pre>
-<p><em>FileSize</em>と <em>NewSize</em>は、ファイルのサイズをバイト単位で表します。</p>
+<pre class="Syntax">CurrentSize := FileObj.<span class="func">Length</span></pre>
+<pre class="Syntax">FileObj.<span class="func">Length</span> := NewSize</pre>
+<p><em>CurrentSize</em> and <em>NewSize</em> are the size of the file, in bytes.</p>
 <p>このプロパティは、実際のファイルに対してのみ使用する必要があります。Fileオブジェクトがパイプへのハンドルから生成された場合、パイプの内部バッファで現在利用可能なデータ量を返すかもしれませんが、この動作は保証されていません。</p></div>
 
 <div class="methodShort" id="AtEOF"><h3>AtEOF</h3>
-  <p>ファイルポインタがファイルの末尾に到達している場合は0以外の値を、そうでない場合は0を取得します。</p>
-<pre class="Syntax">IsAtEOF := FileObj.AtEOF</pre>
+  <p>Retrieves a non-zero number if the file pointer has reached the end of the file, otherwise zero.</p>
+<pre class="Syntax">IsAtEOF := FileObj.<span class="func">AtEOF</span></pre>
   <p>このプロパティは、実際のファイルに対してのみ使用する必要があります。Fileオブジェクトがコンソールバッファやパイプなどの非シーキングデバイスへのハンドルから作成された場合、そのようなデバイスは論理的に「ファイルの終わり」を持たないため、戻り値は意味をなさないかもしれません。</p></div>
 
 <div class="methodShort" id="Encoding"><h3>エンコード</h3>
 <p>このファイルオブジェクトが使用するテキストエンコーディングを取得または設定します。</p>
-<pre class="Syntax">RetrievedEncoding := FileObj.Encoding</pre>
-<pre class="Syntax">FileObj.Encoding := NewEncoding</pre>
+<pre class="Syntax">CurrentEncoding := FileObj.<span class="func">Encoding</span></pre>
+<pre class="Syntax">FileObj.<span class="func">Encoding</span> := NewEncoding</pre>
   <p><em>NewEncoding</em>には、数値のコードページ識別子（<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">Microsoft Docs</a>を参照）または以下の文字列のいずれかを指定します。</p>
-  <p><em>RetrievedEncoding</em>は、以下の文字列のいずれかである：</p>
+  <p><em>CurrentEncoding</em> is one of the following strings:</p>
   <ul>
 	<li><code class="no-highlight">UTF-8</code>:Unicode UTF-8、CP65001 と同等です。</li>
 	<li><code class="no-highlight">UTF-16</code>:CP1200 に相当するリトルエンディアンバイトオーダーの Unicode UTF-16 です。</li>
 	<li><code>CP<i>nnn</i></code>:数値識別子<i>nnn</i>を持つコードページです。</li>
   </ul>
-  <p><em>RetrievedEncoding</em>は、ファイルの開き方やバイトオーダーマーク（BOM）の有無にかかわらず、接尾辞<code>-RAW</code>を持つ値ではありません。<em>NewEncoding</em>を設定しても、BOMが追加されたり削除されたりすることはありません。通常、BOMは最初にファイルを作成するときに書き込まれるためです。</p>
+  <p><em>CurrentEncoding</em> is never a value with the <code>-RAW</code> suffix, regardless of how the file was opened or whether it contains a byte order mark (BOM). <em>NewEncoding</em>を設定しても、BOMが追加されたり削除されたりすることはありません。通常、BOMは最初にファイルを作成するときに書き込まれるためです。</p>
   <p><em>NewEncoding</em>に<code class="no-highlight">UTF-8-RAW</code>または<code class="no-highlight">UTF-16-RAW</code>を指定することは有効ですが、<code>-RAW</code> という接尾辞は無視されます。これは<code>FileObj.Encoding</code>にのみ適用され、<a href="FileOpen.htm">FileOpen</a>には適用されません。</p>
 </div>
 
 <div class="methodShort" id="Handle"><h3>Handle</h3>
-  <p>DllCallで使用することを目的としたシステムファイルハンドルを返します。<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilea">CreateFile</a>を参照してください。</p>
-<pre class="Syntax">FileObj.Handle</pre>
-<p>ファイルオブジェクトは、内部的に読み書きをバッファリングします。データがオブジェクトの内部バッファに書き込まれている場合、ハンドルが返される前にディスクにコミットされます。バッファにファイルから読み込んだデータが含まれている場合は破棄され、実際のファイルポインタは<code>FileObj.Pos</code>で示される論理位置にリセットされます。</p></div>
+  <p>Returns a system file handle, intended for use with <a href="DllCall.htm">DllCall</a>. See <a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.</p>
+<pre class="Syntax">Handle := FileObj.<span class="func">Handle</span></pre>
+<p>ファイルオブジェクトは、内部的に読み書きをバッファリングします。データがオブジェクトの内部バッファに書き込まれている場合、ハンドルが返される前にディスクにコミットされます。If the buffer contains data read from file, it is discarded and the actual file pointer is reset to the logical position indicated by the <a href="#Pos">Pos</a> property.</p></div>
 
 </body>
 </html>

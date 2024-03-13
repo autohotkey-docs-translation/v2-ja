@@ -15,37 +15,44 @@
 
 <p>指定されたウィンドウの透明度を返します。</p>
 
-<pre class="Syntax">Transparent := <span class="func">WinGetTransparent</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
+<pre class="Syntax">TransDegree := <span class="func">WinGetTransparent</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#nothing">文字列（空）</a></p>
-<p>ウィンドウに透明レベルがない場合、またはウィンドウが透明になってから最小化、復元、サイズ変更されたなどの他の条件下（OSの動作によって引き起こされる）では、戻り値は空の文字列です。</p>
-<p>そうでなければ、戻り値は指定されたウィンドウの透明度を表す0から255の整数で、0は不可視ウィンドウ、255は不透明ウィンドウを表す（透明度の設定方法については<a href="WinSetTransparent.htm">WinSetTransparent</a>を参照）。</p>
+<p>This function returns a number between 0 and 255 representing the degree of transparency of the specified window, where 0 indicates an invisible window and 255 indicates an opaque window.</p>
+<p>The return value is an empty string in the following cases:</p>
+<ul>
+    <li>There are no matching windows.</li>
+    <li>The window has no transparency level.</li>
+    <li>Under other conditions (caused by OS behavior) such as the window having been minimized, restored, and/or resized since it was made transparent.</li>
+</ul>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウが見つからない場合は、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
+<p>To set transparency, use <a href="WinSetTransparent.htm">WinSetTransparent</a>.</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinSetTransparent.htm">WinSetTransparent</a>, <a href="WinGetTransColor.htm">WinGetTransColor</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> マウスカーソルの下にあるウィンドウの透明度を取得します。</p>
+<p><a class="ex_number" href="#ExBasic"></a> Retrieves the degree of transparency of the window under the mouse cursor.</p>
 <pre>MouseGetPos ,, &amp;MouseWin
-Transparent := WinGetTransparent(MouseWin)</pre>
+TransDegree := WinGetTransparent(MouseWin)</pre>
 </div>
 
 </body>

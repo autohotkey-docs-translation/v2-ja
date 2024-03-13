@@ -46,7 +46,7 @@
   <dt id="MaxThreads">MaxThreads</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 1, meaning the callback is limited to one <a href="../misc/Threads.htm">thread</a> at a time. This is usually best because otherwise, the script would process messages out of chronological order whenever the callback interrupts itself. そのため、<em>MaxThreads</em>の代替として、<a href="#Critical">以下</a>のように<em>Critical</em>を使用することを検討します。</p>
+    <p>If omitted, it defaults to 1, meaning the callback is limited to one <a href="../misc/Threads.htm">thread</a> at a time. This is usually best because otherwise, the script would process messages out of chronological order whenever the callback interrupts itself. そのため、<em>MaxThreads</em>の代替として、<a href="#Critical">以下</a>のように<em>Critical</em>を使用することを検討します。</p>
     <p>If the callback directly or indirectly causes the message to be sent again while the callback is still running, it is necessary to specify a <em>MaxThreads</em> value greater than 1 or less than -1 to allow the callback to be called for the new message (if desired). スクリプトの自プロセスが自分自身に送信する（投稿しない）メッセージは、遅延やバッファリングができません。</p>
     <p>Specify 0 to unregister the previously registered callback identified by <em>Callback</em>.</p>
     <p>By default, when multiple callbacks are registered for a single <em>MsgNumber</em>, they are called in the order that they were registered. To register a callback to be called before any previously registered callbacks, specify a negative value for <em>MaxThreads</em>. For example, <code>OnMessage Msg, Fn, -2</code> registers <code>Fn</code> to be called before any other callbacks previously registered for <em>Msg</em>, and allows <em>Fn</em> a maximum of 2 threads. However, if the callback is already registered, the order will not change unless it is unregistered and then re-registered.</p>
@@ -93,7 +93,7 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p>スクリプトが<a href="MsgBox.htm">MsgBox</a>などのシステムダイアログを表示している場合、コントロールに投稿されたメッセージは監視されません。For example, if the script is displaying a message box and the user clicks a button in a GUI window, the WM_LBUTTONDOWN message is sent directly to the button without calling the callback.</p>
 <p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。Instead, it is usually best to post or send the messages to the <a href="../Program.htm#main-window">script's main window</a> or one of its GUI windows.</p>
 <h2 id="Related">関連</h2>
-<p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">List of Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
+<p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLButtonDown">
 <p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a>イベント</p>
@@ -184,7 +184,7 @@ MsgMonitor(wParam, lParam, msg, *)
 SetTitleMatchMode 2
 DetectHiddenWindows True
 if WinExist("Name of Receiving Script.ahk ahk_class AutoHotkey")
-    PostMessage 0x5555, 11, 22  <em>; The message is sent  to the "<a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a>" due to WinExist above.</em>
+    PostMessage 0x5555, 11, 22  <em>; The message is sent to the "<a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a>" due to WinExist above.</em>
 DetectHiddenWindows False  <em>; Must not be turned off until after PostMessage.</em></pre>
 </div>
 
@@ -241,7 +241,7 @@ Send_WM_COPYDATA(StringToSend, TargetScriptTitle)
 }</pre>
 </div>
 
-<p>ネットワーク接続でデータが到着したときに通知を受け取るOnMessageの使い方のデモは、<a href="../scripts/index.htm#WinLIRC">WinLIRCクライアントスクリプト</a>をご覧ください。</p>
+<p>See the <a href="../scripts/index.htm#WinLIRC">WinLIRC client script</a> for a demonstration of how to use OnMessage to receive notification when data has arrived on a network connection.</p>
 
 </body>
 </html>

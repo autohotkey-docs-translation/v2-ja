@@ -47,8 +47,8 @@ MsgBox Format("Var has the value {1}.", Var)
 <pre>if (CurrentSetting &gt; 100 or FoundColor != "Blue")
     MsgBox "The setting is too high or the wrong color is present."</pre>
 <p>上の例では、"Blue"はリテラル文字列なので引用符で囲まれている。シングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能する。従って、リテラル文字列の中に<em>実際</em>の引用符を含めるには、引用符を<a href="misc/EscapeChar.htm">エスケープ</a>するか、文字列を反対のタイプの引用符で囲む。事例：</p>
-<pre>MsgBox "She said, <span class="red">`"</span>An apple a day.<span class="red">`"</span>"
-MsgBox <span class="red">'</span>She said, "An apple a day."<span class="red">'</span></pre>
+<pre>MsgBox "She said, `"An apple a day.`""
+MsgBox 'She said, "An apple a day."'</pre>
 <p><strong>空の文字列：</strong>式の中で空の文字列を指定するには、空の引用符のペアを使用します。例えば、<code>if (MyVar != "")</code>というステートメントは、<em>MyVar</em>が空白でなければ真となる。</p>
 <p><strong>式の結果を格納する：</strong>結果を変数に代入するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>を使う。事例：</p>
 <pre>NetPrice := Price * (1 - Discount/100)</pre>
@@ -112,9 +112,9 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   <tr id="pow">
     <td class="center bold">**</td>
     <td>
-      <p><strong>Power</strong>. 使用例：<code>base**exponent</code>. <em>基数</em>も <em>指数</em>も小数点を含むことができる。<em>指数</em>が負の場合、<em>基数</em>と <em>指数</em>がともに整数であっても、結果は浮動小数点数としてフォーマットされる。**は単項マイナスより優先順位が高いので、<code>-2**2</code>は<code>-(2**2)</code>のように評価され、-4となる。したがって、リテラルで負の数を累乗するには、<code>(-2)**2</code>のように括弧で囲む。</p>
+      <p><strong>Power</strong>. 使用例：<code>Base**Exponent</code>. Both <em>Base</em> and <em>Exponent</em> may contain a decimal point. If <em>Exponent</em> is negative, the result will be formatted as a floating point number even if <em>Base</em> and <em>Exponent</em> are both integers. **は単項マイナスより優先順位が高いので、<code>-2**2</code>は<code>-(2**2)</code>のように評価され、-4となる。したがって、リテラルで負の数を累乗するには、<code>(-2)**2</code>のように括弧で囲む。</p>
       <p>パワー演算子は右結合である。例えば、<code>x ** y ** z</code>は<code>x ** (y ** z)</code>と評価される。</p>
-      <p class="note"><strong>注意：</strong> <code>(-2)**0.5</code>のような負の<em>底</em>と小数の<em>指数</em>を組み合わせたものはサポートされていません。しかし、<code>(-2)**2</code>と<code>(-2)**2.0</code>の両方がサポートされている。<em>基数</em>と <em>指数</em>の両方が0の場合、結果は未定義となり例外がスローされる。</p>
+      <p class="note"><strong>Note:</strong> A negative <em>Base</em> combined with a fractional <em>Exponent</em> such as <code>(-2)**0.5</code> is not supported; attempting it will cause an exception to be thrown. しかし、<code>(-2)**2</code>と<code>(-2)**2.0</code>の両方がサポートされている。If both <em>Base</em> and <em>Exponent</em> are 0, the result is undefined and an exception is thrown.</p>
     </td>
   </tr>
   <tr id="unary">
@@ -214,7 +214,7 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
   <tr>
     <td class="center bold">IS<br>IN<br>CONTAINS</td>
     <td id="is">
-      <p><code><i>Value</i> <strong>is</strong> <i>Class</i></code> は、<em>Value</em>が<em>Class</em>のインスタンスであれば真(1)を、そうでなければ偽(0)を返す。<em>Class</em>は、<a href="lib/Class.htm#Prototype">プロトタイプ</a>自身のプロパティを持つ<a href="lib/Object.htm">オブジェクト</a>でなければなりませんが、通常、プロパティはクラス定義によって暗黙的に定義されます。この操作は一般的に<code>HasBase(<i>Value</i>, <i>Class</i>.Prototype)</code>と等価です。</p>
+      <p><code><i>Value</i> <strong>is</strong> <i>Class</i></code> yields 1 (true) if <em>Value</em> is an instance of <em>Class</em>, otherwise 0 (false). <em>Class</em> must be an <a href="lib/Object.htm">Object</a> with an own <a href="lib/Class.htm#Prototype">Prototype</a> property, but typically the property is defined implicitly by a class definition. この操作は一般的に<code>HasBase(<i>Value</i>, <i>Class</i>.Prototype)</code>と等価です。</p>
       <p><code id="in"><strong>in</strong></code>と<code id="contains"><strong>contains</strong></code>は将来の使用のために予約されている。</p>
     </td>
   </tr>
@@ -226,22 +226,26 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
       <td class="center bold">AND<br>
       &amp;&amp;</td>
       <td><p>どちらも<strong>論理積</strong>だ。事例：<code>x &gt; 3 and x &lt; 10</code>.</p>
-        <p><strong>すべての</strong>オペランドが<em>True</em>に解決される式では、<em>True</em>に解決された<strong>最後</strong>のオペランドが返されます。そうでなければ、<em>偽</em>に解決される<strong>最初</strong>のオペランドが返される。事実上、すべてのオペランドが真のときのみ、結果は真となる。パフォーマンスを向上させるため、論理式は<a href="Functions.htm#ShortCircuit">短絡評価</a>（左から右へ）の対象となる。</p>
-        <pre>A := 1, B := {}, C := 20, D := True, E := "String" <em>; <strong>All</strong> operands are truthy and will be evaluated</em>
-MsgBox(A &amp;&amp; B &amp;&amp; C &amp;&amp; D &amp;&amp; E) <em>; The <strong>last</strong> truthy operand is returned ("String")</em></pre>
-        <pre>A := 1, B := "", C := 0, D := False, E := "String" <em>; B is falsey, C and D are false</em>
-MsgBox(A &amp;&amp; B &amp;&amp; ++C &amp;&amp; D &amp;&amp; E) <em>; The <strong>first</strong> falsey operand is returned (""). C, D and E are not evaluated and C is never incremented</em></pre>
+        <p>In an expression where all operands are true, the <u>last</u> operand is returned. Otherwise, the <u>first</u> operand that is false is returned. In other words, the result is true only if all operands are true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (from left to right) to improve performance.</p>
+        <p>In the following example, all operands are true and will be evaluated:</p>
+        <pre>A := 1, B := {}, C := 20, D := true, E := "str"
+MsgBox(A &amp;&amp; B &amp;&amp; C &amp;&amp; D &amp;&amp; E) <em>; Shows "str" (E).</em></pre>
+        <p>In the following example, only the first two operands will be evaluated because B is false. The rest is ignored, i.e. C is not incremented either:</p>
+        <pre>A := 1, B := "", C := 0, D := false, E := "str"
+MsgBox(A &amp;&amp; B &amp;&amp; ++C &amp;&amp; D &amp;&amp; E) <em>; Shows "" (B).</em></pre>
         <p><code>AND</code>または<code>&amp;&amp;（</code>あるいはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。</p></td>
     </tr>
     <tr id="or">
       <td class="center bold">OR<br>
       ||</td>
       <td><p>どちらも<strong>論理和</strong>である。事例：<code>x &lt;= 3 or x &gt;= 10</code>.</p>
-        <p><strong>少なくとも</strong>1 つのオペランドが<em>True</em>に解決される式では、<em>True</em>に解決された<strong>最初の</strong>オペランドが返されます。そうでなければ、<em>偽</em>に解決される<strong>最後</strong>のオペランドが返される。事実上、少なくとも1つのオペランドが真であれば、結果は真になる。パフォーマンスを向上させるため、論理式は<a href="Functions.htm#ShortCircuit">短絡評価</a>（左から右へ）の対象となる。</p>
-        <pre>A := "", B := False, C := 0, D := "String", E := 20 <em>; <strong>At least</strong> one operand is truthy. All operands up until D (including) will be evaluated</em>
-MsgBox(A || B || C || D || ++E) <em>; The <strong>first</strong> truthy operand is returned ("String"). E is not evaluated and is never incremented</em></pre>
-        <pre>A := "", B := False, C := 0 <em>; <strong>All</strong> operands are falsey and will be evaluated</em>
-MsgBox(A || B || C) <em>; The <strong>last</strong> falsey operand is returned (0)</em></pre>
+        <p>In an expression where at least one operand is true, the <u>first</u> operand that is true is returned. Otherwise, the <u>last</u> operand that is false is returned. In other words, if at least one operand is true, the result is true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (from left to right) to improve performance.</p>
+        <p>In the following example, at least one operand is true. All operands up to D will be evaluated. E is ignored and will never be incremented:</p>
+        <pre>A := "", B := false, C := 0, D := "str", E := 20
+MsgBox(A || B || C || D || ++E) <em>; Shows "str" (D).</em></pre>
+        <p>In the following example, all operands are false and will be evaluated:</p>
+        <pre>A := "", B := false, C := 0
+MsgBox(A || B || C) <em>; Shows "0" (C).</em></pre>
         <p><code>OR</code>または<code>||</code>（あるいはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。</p></td>
     </tr>
   <tr id="or-maybe">
@@ -298,7 +302,7 @@ sumfn := Sum</pre>
       <p>関数名が省略され、パラメータリストが単一のパラメータ名のみで構成されている場合は、括弧を省略することができます。以下の例では、パラメータ<code>a</code>を1つ持つ無名関数を定義し、その参照を変数<code>double</code>に格納している：</p>
       <pre>double := a =&gt; a * 2</pre>
       <p><em>expr</em>の変数参照は、同等の完全な関数定義と同じ方法で解決される。例えば、<em>expr</em>は（<a href="Functions.htm#nested">入れ子になった関数</a>のように）外側の関数のローカル変数を参照することがあり、その場合、ファット・アロー式が評価されるたびに新しい<a href="Functions.htm#closures">クロージャ</a>が作成され、返されます。宣言は使えないので、この関数は常に<a href="Functions.htm#AssumeLocal">assume-local</a>である。</p>
-      <p>関数の名前を指定することで、<a href="Functions.htm#closures">クロージャ</a>への参照を自分自身の中に保存することなく（それによって問題のある<a href="Objects.htm#Circular_References">循環参照</a>を作成する）、再帰的または他のネストされた関数から呼び出すことができます。また、<a href="lib/Func.htm#Name">Func.Name</a>やデバッガのコールスタックに表示されるなど、デバッグに役立つこともある。</p>
+      <p>関数の名前を指定することで、<a href="Functions.htm#closures">クロージャ</a>への参照を自分自身の中に保存することなく（それによって問題のある<a href="Objects.htm#Circular_References">循環参照</a>を作成する）、再帰的または他のネストされた関数から呼び出すことができます。It can also be helpful for debugging, such as with <a href="lib/Func.htm#Name">Func.Name</a> or when displayed on the debugger's call stack.</p>
       <p>ファット・アロー構文は、省略記法の<a href="Objects.htm#Custom_Classes_property_short">プロパティ</a>や <a href="Objects.htm#Custom_Classes_method">メソッド</a>を定義するためにも使用できます。</p>
     </td>
 
@@ -308,6 +312,7 @@ sumfn := Sum</pre>
     <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。事例：<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. このようなステートメントは、左から右の順に実行される。</p>
       <p class="note"><strong>注：</strong>カンマ（またはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。こちらもご覧ください：<a href="#CommaPerf">コンマのパフォーマンス</a>。</p>
       <p>カンマは、関数呼び出しや制御フロー文のパラメータを区切るためにも使われる。複数ステートメント式をパラメータ・リストに含めるには、括弧で囲む。例えば、<code>MyFn((x, y))</code>はxとyの両方を評価するが、MyFnの最初の唯一のパラメーターとしてyを渡す。</p>
+      <p id="CommaPerf">The comma operator usually performs better than writing separate expressions, especially when assigning one variable to another (e.g. <code>x:=y, a:=b</code>). たとえば、5つまたは10個の単純な式を1つの式にまとめると、35%速くなることがあります。</p>
     </td>
   </tr>
 </table>
@@ -355,8 +360,6 @@ sumfn := Sum</pre>
     </td>
   </tr>
 </table>
-<br>
-<p id="CommaPerf"><strong>パフォーマンス：</strong>カンマ演算子は、特にある変数を別の変数に代入する場合（例：<code>x:=y、a:=b</code>）、通常、別々の式を書くよりも速い。たとえば、5つまたは10個の単純な式を1つの式にまとめると、35%速くなることがあります。</p>
 
 <h2 id="BuiltIn">組み込みの変数</h2>
 <p>以下の変数はプログラムに組み込まれており、どのスクリプトからも参照できる。</p>
@@ -400,9 +403,9 @@ sumfn := Sum</pre>
   </tr>
   <tr id="WorkingDir">
     <td>A_WorkingDir</td>
-    <td><p>スクリプトのカレント作業ディレクトリを取得または設定するために使用する。ルート・ディレクトリでない限り、最後のバックスラッシュは含まれない。例を2つ挙げる：<code>C:\</code> および <code>C:\My Documents</code>.</p>
-    <p>作業ディレクトリを変更するには、<a href="lib/SetWorkingDir.htm">SetWorkingDir</a>を使用するか、A_WorkingDirにパスを割り当てる。</p>
-    <p>スクリプトの作業ディレクトリは、スクリプトの起動方法に関係なく、 A_ScriptDirがデフォルトとなる。</p></td>
+    <td><p>スクリプトのカレント作業ディレクトリを取得または設定するために使用する。ルート・ディレクトリでない限り、最後のバックスラッシュは含まれない。例を2つ挙げる：C:\ and C:\My Documents.</p>
+    <p><a href="lib/SetWorkingDir.htm">SetWorkingDir</a> can also be used to change the working directory.</p>
+    <p>スクリプトの作業ディレクトリは、スクリプトの起動方法に関係なく、<a href="#ScriptDir">A_ScriptDir</a>がデフォルトとなる。</p></td>
   </tr>
   <tr id="InitialWorkingDir">
     <td>A_InitialWorkingDir</td>
@@ -417,8 +420,8 @@ sumfn := Sum</pre>
   <tr id="ScriptName">
     <td>A_ScriptName</td>
     <td>
-      <p>MsgBox、InputBox、FileSelect、DirSelect、Guiのデフォルトタイトルを取得または設定するために使用できます。スクリプトによって設定されていない場合、デフォルトは現在のスクリプトのファイル名で、パスは省略される。</p>
-      <p>スクリプトテキストがファイルからではなく<a href="Scripts.htm#stdin">標準入力から読み込まれる</a>場合、デフォルト値は "*"である。</p>
+      <p>Can be used to get or set the default title for <a href="lib/MsgBox.htm">MsgBox</a>, <a href="lib/InputBox.htm">InputBox</a>, <a href="lib/FileSelect.htm">FileSelect</a>, <a href="lib/DirSelect.htm">DirSelect</a> and <a href="lib/Gui.htm">Gui</a>. スクリプトによって設定されていない場合、デフォルトは現在のスクリプトのファイル名で、パスは省略される。</p>
+      <p>If the script text is <a href="Scripts.htm#stdin">read from stdin</a> rather than from file, this variable contains an asterisk (*).</p>
       <p>スクリプトが<a href="Scripts.htm#ahk2exe">コンパイル</a>または<a href="Program.htm#embedded-scripts">埋め込まれている</a>場合、これは現在の実行可能ファイルの名前です。</p>
     </td>
   </tr>
@@ -426,7 +429,7 @@ sumfn := Sum</pre>
     <td>A_ScriptFullPath</td>
     <td>
       <p>現在のスクリプトのフルパス、例：C:\Scripts\My Script.ahk</p>
-      <p>スクリプトのテキストがファイルからではなく<a href="Scripts.htm#stdin">標準入力から読み込まれる</a>場合、値は "*"となる。</p>
+      <p>If the script text is <a href="Scripts.htm#stdin">read from stdin</a> rather than from file, this variable contains an asterisk (*).</p>
       <p>スクリプトが<a href="Scripts.htm#ahk2exe">コンパイル</a>または<a href="Program.htm#embedded-scripts">埋め込まれている</a>場合、これは現在の実行可能ファイルのフルパスです。</p>
     </td>
   </tr>
@@ -467,7 +470,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
   </tr>
   <tr id="IsCompiled">
     <td>A_IsCompiled</td>
-    <td>スクリプトが<a href="Scripts.htm#ahk2exe">コンパイルされたEXE</a>として実行されている場合は1が、そうでない場合は空文字列(<a href="#Boolean">false</a>とみなされる)が格納される。</td>
+    <td>Contains 1 if the script is running as a <a href="Scripts.htm#ahk2exe">compiled EXE</a> and 0 (which is considered <a href="#Boolean">false</a>) if it is not.</td>
   </tr>
 </table>
 <h3 id="date">Date and Time</h3>
@@ -565,15 +568,15 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="IsSuspended">
     <td>A_IsSuspended</td>
-    <td>スクリプトが<a href="lib/Suspend.htm">中断</a>されている場合は1を、そうでない場合は0を含む。</td>
+    <td>Contains 1 if the script is <a href="lib/Suspend.htm">suspended</a>, otherwise 0.</td>
   </tr>
   <tr id="IsPaused">
     <td>A_IsPaused</td>
-    <td>現在のスレッドの直下の<a href="misc/Threads.htm">スレッド</a>が <a href="lib/Pause.htm">一時停止して</a>いる場合は1が格納される。そうでない場合は0を含む。</td>
+    <td>Contains 1 if the <a href="misc/Threads.htm">thread</a> immediately underneath the current thread is <a href="lib/Pause.htm">paused</a>, otherwise 0.</td>
   </tr>
   <tr id="IsCritical">
     <td>A_IsCritical</td>
-    <td><a href="misc/Threads.htm">現在のスレッド</a>で<a href="lib/Critical.htm">クリティカル</a>がオフの場合は0が格納される。そうでない場合は、0より大きい整数、つまりCriticalが使用している<a href="lib/Critical.htm#Interval">メッセージチェックの頻度</a>が格納される。現在のクリティカル状態は、<code>Old_IsCritical := A_IsCritical</code>の後に<code>A_IsCritical := Old_IsCritical</code>で保存・復元できる。</td>
+    <td><a href="misc/Threads.htm">現在のスレッド</a>で<a href="lib/Critical.htm">クリティカル</a>がオフの場合は0が格納される。Otherwise it contains an integer greater than zero, namely the <a href="lib/Critical.htm#Interval">message-check interval</a> being used by Critical. The current state of Critical can be saved and restored via <code>Old_IsCritical := A_IsCritical</code> followed later by <code>Critical Old_IsCritical</code>.</td>
   </tr>
   <tr id="ListLines">
     <td>A_ListLines</td>
@@ -581,7 +584,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="TitleMatchMode">
     <td>A_TitleMatchMode</td>
-    <td>タイトルマッチモードの取得または設定に使用できる。設定可能な値は1、2、3、RegEx。詳細は<a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>を参照。</td>
+    <td>タイトルマッチモードの取得または設定に使用できる。Possible values are 1, 2, 3, and RegEx. 詳細は<a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>を参照。</td>
   </tr>
   <tr id="TitleMatchModeSpeed">
     <td>A_TitleMatchModeSpeed</td>
@@ -601,7 +604,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="SendMode">
     <td>A_SendMode</td>
-    <td>送信モードの取得または設定に使用できる。取り得る値は、Event、Input、Play、InputThenPlay。詳細は<a href="lib/SendMode.htm">SendMode</a>を参照。</td>
+    <td>送信モードの取得または設定に使用できる。Possible values are Event, Input, Play, and InputThenPlay. 詳細は<a href="lib/SendMode.htm">SendMode</a>を参照。</td>
   </tr>
   <tr id="SendLevel">
     <td>A_SendLevel</td>
@@ -648,7 +651,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     A_CoordModeMouse<br>
     A_CoordModeCaret<br>
     A_CoordModeMenu</td>
-    <td>座標の相対的な領域を取得または設定するために使用できます。設定可能な値は Screen、Window、Client です。詳細は<a href="lib/CoordMode.htm">CoordMode</a>を参照。</td>
+    <td>座標の相対的な領域を取得または設定するために使用できます。Possible values are Screen, Window, and Client. 詳細は<a href="lib/CoordMode.htm">CoordMode</a>を参照。</td>
   </tr>
   <tr id="RegView">
     <td>A_RegView</td>
@@ -692,9 +695,11 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="TimeIdle">
     <td>A_TimeIdle</td>
-    <td>システムが最後にキーボードやマウスなどの入力を受け取ってから経過したミリ秒数。これは、ユーザーが不在かどうかを判断するのに便利である。ユーザーからの物理的な入力や、<strong>何等か</strong>のプログラムやスクリプト（<a href="lib/Send.htm">Send</a>関数や<a href="lib/MouseMove.htm">MouseMove</a>関数など）によって生成された人工的な入力は、この値をゼロに戻す。この値は10刻みで増加する傾向があるため、他の値と等しいかどうかはチェックしない。その代わりに、別の値より大きいか小さいかをチェックする。事例：
-<pre>if A_TimeIdle &gt; 600000
-    MsgBox "The last keyboard or mouse activity was at least 10 minutes ago."</pre></td>
+    <td>
+      <p>システムが最後にキーボードやマウスなどの入力を受け取ってから経過したミリ秒数。これは、ユーザーが不在かどうかを判断するのに便利である。ユーザーからの物理的な入力や、<strong>何等か</strong>のプログラムやスクリプト（<a href="lib/Send.htm">Send</a>関数や<a href="lib/MouseMove.htm">MouseMove</a>関数など）によって生成された人工的な入力は、この値をゼロに戻す。この値は10刻みで増加する傾向があるため、他の値と等しいかどうかはチェックしない。その代わりに、別の値より大きいか小さいかをチェックする。事例：</p>
+      <pre>if A_TimeIdle &gt; 600000
+    MsgBox "Last activity was 10 minutes ago"</pre>
+    </td>
   </tr>
   <tr id="TimeIdlePhysical">
     <td>A_TimeIdlePhysical</td>
@@ -744,15 +749,15 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="MaxHotkeysPerInterval">
     <td>A_MaxHotkeysPerInterval</td>
-    <td>A_HotkeyIntervalで定義された間隔内に、警告ダイアログを表示せずに押せるホットキーの最大数。詳細は<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を参照。</td>
+    <td>Can be used to get or set the maximum number of hotkeys that can be pressed within the interval defined by A_HotkeyInterval without triggering a warning dialog. 詳細は<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を参照。</td>
   </tr>
   <tr id="HotkeyInterval">
     <td>A_HotkeyInterval</td>
-    <td><a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>が使用するインターバルの長さ（ミリ秒単位）。</td>
+    <td>Can be used to get or set the length of the interval used by <a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>, in milliseconds.</td>
   </tr>
   <tr id="HotkeyModifierTimeout">
     <td>A_HotkeyModifierTimeout</td>
-    <td><a href="Hotkeys.htm">ホットキー</a>修飾子を持つ<a href="lib/Send.htm">Send</a>の動作に影響します。<kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Win</kbd>, および <kbd>Shift</kbd>. 詳細は<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を参照。</td>
+    <td>Can be used to get or set the timeout affecting the behavior of <a href="lib/Send.htm">Send</a> with <a href="Hotkeys.htm">hotkey</a> modifiers <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Win</kbd>, and <kbd>Shift</kbd>. 詳細は<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を参照。</td>
   </tr>
 </table>
 <h3 id="os">オペレーティング・システムとユーザー情報</h3>
@@ -763,7 +768,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="ComSpec">
     <td>A_ComSpec</td>
-    <td><p>環境のComSpec変数と同じ文字列。<a href="lib/Run.htm">Run/RunWait</a>と一緒に使われることが多い。事例：</p>
+    <td><p>Contains the same string as the ComSpec environment variable, which is usually the full path to the command prompt executable (cmd.exe). <a href="lib/Run.htm">Run/RunWait</a>と一緒に使われることが多い。事例：</p>
       <pre class="NoIndent no-highlight">C:\Windows\system32\cmd.exe</pre>
     </td>
   </tr>
@@ -895,7 +900,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="IsAdmin">
     <td>A_IsAdmin</td>
-    <td><p>現在のユーザーに管理者権限がある場合、この変数には1が格納される。そうでない場合は0を含む。</p>
+    <td><p>Contains 1 if the current user has admin rights, otherwise 0.</p>
     <p id="RequireAdmin">スクリプト自身を管理者として再起動させるには（または管理者を要求するユーザーにプロンプトを表示するには）、<a href="lib/Run.htm#RunAs">Run *RunAs</a>を使用します。ただし、スクリプトを管理者として実行すると、スクリプトによって起動されるすべてのプログラムも管理者として実行されることに注意してください。代替案については<a href="FAQ.htm#uac">FAQ</a>を参照。</p>
     </td>
   </tr>
@@ -943,7 +948,7 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
   </tr>
   <tr id="LastError">
     <td>A_LastError</td>
-    <td><p>これは通常、スクリプトが<a href="lib/DllCall.htm">DllCall</a>、<a href="lib/Run.htm">Run/RunWait</a>、File/Ini/Reg関数（文書化されている場合）、その他を含む特定の関数を呼び出した後に、OSのGetLastError()関数から生じる結果である。A_LastErrorは0から4294967295までの数値（16進数ではなく常に10進数でフォーマットされる）。ゼロ（0）は成功を意味し、それ以外の数字は通話が失敗したことを意味する。各番号は特定のエラー状態に対応している（リストを入手するには、<a href="http://www.microsoft.com">www.microsoft.com</a>「システムエラーコード」で検索）。A_LastErrorはスレッドごとの設定であり、他の<a href="misc/Threads.htm">スレッド</a>による割り込みによって変更されることはない。</p>
+    <td><p>これは通常、スクリプトが<a href="lib/DllCall.htm">DllCall</a>、<a href="lib/Run.htm">Run/RunWait</a>、File/Ini/Reg関数（文書化されている場合）、その他を含む特定の関数を呼び出した後に、OSのGetLastError()関数から生じる結果である。A_LastErrorは0から4294967295までの数値（16進数ではなく常に10進数でフォーマットされる）。ゼロ（0）は成功を意味し、それ以外の数字は通話が失敗したことを意味する。Each number corresponds to a specific error condition. See <a href="lib/Error.htm#OSError">OSError</a> for how to get the localized error description text, or search <a href="http://www.microsoft.com">www.microsoft.com</a> for "system error codes" to get a list. A_LastError is a per-thread setting; that is, interruptions by other <a href="misc/Threads.htm">threads</a> cannot change it.</p>
     <p>A_LastErrorに値を代入すると、OSのSetLastError()関数も呼び出される。</p></td>
   </tr>
   <tr id="TrueFalse">

@@ -23,12 +23,14 @@
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
         <p>透明度を有効にするには、0から255の間で透明度を示す数値を指定する：0はウィンドウを不可視にし、255は不透明にする。</p>
-        <p><code>"Off"</code>（大文字と小文字を区別しない）を指定すると、ウィンドウの透明度を完全にオフにすることができる。これは<code><a href="WinSetTransColor.htm">WinSetTransColor</a> "Off"、<i>WinTitle</i></code>と機能的に同じです。<code>Off</code>を指定すると、パフォーマンスが向上し、システムリソースの使用量が減る可能性があるため、255を指定するのとは異なる（ただし、おそらくデスクトップ合成が無効になっている場合のみ）。</p>
+        <p><code>"Off"</code> (case-insensitive) or an empty string may be specified to completely turn off transparency for a window. This is functionally identical to <code><a href="WinSetTransColor.htm">WinSetTransColor</a> "Off"</code>. Specifying Off is different than specifying 255 because it may improve performance and reduce usage of system resources (but probably only when desktop composition is disabled).</p>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
@@ -38,9 +40,8 @@
 
 <h2 id="Remarks">備考</h2>
 <p>例えば、タスクバーを透明にするには、<code>WinSetTransparent 150, "ahk_class Shell_TrayWnd"</code>を使います。同様に、古典的なスタートメニューを透明にするには、<a href="#ExTransStartMenu">例2</a>を参照してください。スタートメニューのサブメニューを透明にするには、<a href="#ExTransMenu">例3</a>のスクリプトも含めてください。</p>
-<p><code>"Off"</code>を使用する前に透明度を255に設定すると、背景が黒くなるなどのウィンドウ再描画の問題を回避できるかもしれない。それでもウィンドウが正しく再描画されない場合は、<a href="WinRedraw.htm">WinRedraw</a>を参照してください。</p>
+<p>Setting the transparency level to 255 before using Off might avoid window redrawing problems such as a black background. If the window still fails to be redrawn correctly, see <a href="WinRedraw.htm">WinRedraw</a> for a possible workaround.</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinSetTransColor.htm">WinSetTransColor</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>
@@ -89,9 +90,9 @@ WatchForMenu()
 #g::  <em>; Press Win+G to show the current settings of the window under the mouse.</em>
 {
     MouseGetPos ,, &amp;MouseWin
-    Transparent := WinGetTransparent(MouseWin)
+    TransDegree := WinGetTransparent(MouseWin)
     TransColor := WinGetTransColor(MouseWin)
-    ToolTip "Translucency:`t" Transparent "`nTransColor:`t" TransColor
+    ToolTip "Translucency:`t" TransDegree "`nTransColor:`t" TransColor
 }</pre>
 </div>
 

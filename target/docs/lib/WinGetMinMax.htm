@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>WinGetMinMax - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="WinGetMinMax関数は、指定されたウィンドウが最大化されているか最小化されているかの状態を返します。" />
+<meta name="description" content="The WinGetMinMax function returns a non-zero number if the specified window is maximized or minimized." />
 <meta name="ahk:equiv-v1" content="lib/WinGet.htm#MinMax" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>WinGetMinMax</h1>
 
-<p>指定されたウィンドウが最大化されているか最小化されているかの状態を返します。</p>
+<p>Returns a non-zero number if the specified window is maximized or minimized.</p>
 
 <pre class="Syntax">MinMax := <span class="func">WinGetMinMax</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
@@ -21,14 +21,16 @@
 <dl>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>この関数は、指定されたウィンドウの現在の状態を返します：</p>
+<p>This function returns a number indicating the current state of the specified window:</p>
 <ul>
     <li>-1:ウィンドウが最小化されています（<a href="WinRestore.htm">WinRestore</a>は最小化を解除できます）。</li>
     <li>1:ウィンドウが最大化されています（<a href="WinRestore.htm">WinRestoreは</a>最大化を解除できます）。</li>
@@ -40,7 +42,6 @@
 
 <h2 id="Remarks">備考</h2>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinMaximize.htm">WinMaximize</a>, <a href="WinMinimize.htm">WinMinimize</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>

@@ -15,24 +15,26 @@
 
 <p>指定したウィンドウを有効または無効にします。</p>
 
-<pre class="Syntax"><span class="func">WinSetEnabled</span> Value <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
+<pre class="Syntax"><span class="func">WinSetEnabled</span> NewSetting <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
-    <dt>値</dt>
+    <dt>NewSetting</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
         <p>以下のいずれかの値：</p>
         <ul>
             <li><code>1</code>または<code>True</code>は設定をオンにする</li>
             <li><code>0</code>または<code>False</code>は設定をオフにする</li>
-            <li><code>-1</code>では、現在の状態とは逆の状態に設定されます</li>
+            <li><code>-1</code> toggles the setting (sets it to the opposite of its current state)</li>
         </ul>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
@@ -42,9 +44,8 @@
 
 <h2 id="Remarks">備考</h2>
 <p>ウィンドウが無効になると、ユーザーはウィンドウを動かしたり、ウィンドウのコントロールを操作したりできなくなる。さらに、無効化されたウィンドウはalt-tabリストから除外される。</p>
-<p><a href="WinGetStyle.htm">WinGetStyle</a>ページの<a href="WinGetStyle.htm#ExStyle">例1</a>は、ウィンドウが無効かどうかを判断するために使用できます。</p>
+<p><a href="WinGetStyle.htm#ExStyle">WinGetStyle example #1</a> can be used to determine whether a window is disabled.</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlSetEnabled.htm">ControlSetEnabled</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>

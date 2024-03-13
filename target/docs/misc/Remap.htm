@@ -33,7 +33,7 @@
 b::a</pre>
 <p>上記の例では小文字を使用しているが、これは対応する大文字もリマップするため、ほとんどの目的には小文字が推奨される（つまり、<kbd>CapsLockが</kbd>「オン」または<kbd>Shift</kbd>が押されたままだと大文字が送信される）。対照的に、右側に大文字を指定すると、強制的に大文字になる。例えば、次の行では、"a"または "A"を入力すると、大文字の "B"が表示される（<kbd>CapsLock</kbd>がオフの場合）：</p>
 <pre>a::B</pre>
-<p>逆に、左サイドに含まれていて右サイドに含まれていないモディファイアは、キーが送信されると自動的に解除される。例えば、次の2行は、Shift+AまたはCtrl+Aを押すと小文字の "b"が表示される：</p>
+<p>逆に、左サイドに含まれていて右サイドに含まれていないモディファイアは、キーが送信されると自動的に解除される。For example, the following two lines would produce a lowercase "b" when you press either <kbd>Shift</kbd>+<kbd>A</kbd> or <kbd>Ctrl</kbd>+<kbd>A</kbd>:</p>
 <pre>A::b
 ^a::b</pre>
 
@@ -122,20 +122,20 @@ a::b
 <p id="SendPlay"><a href="../Scripts.htm#auto">スクリプト起動</a>時に<a href="../lib/SendMode.htm">SendMode</a>が使用されると、すべてのリマッピングに影響する。しかし、リマッピングは<a href="../lib/Send.htm#blind">Send "{Blind}"</a>を使用し、<a href="../lib/SendMode.htm">SendPlayモードは</a>{Blind}を完全にはサポートしていないため、一部のリマッピングはSendPlayモードでは正しく機能しない可能性があります（特に<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>）。これを回避するには、リマッピングがある場合は、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に<a href="../lib/Send.htm#SendPlay">SendMode</a> <code>"Play"</code>を使用しないようにします。あるいは、リマッピングをホットキーに変換し（後述）、SendEvent対Sendを明示的に呼び出すこともできる。</p>
 <p id="EscapeBrace"><em>DestinationKey</em>が <code>{</code>の場合は、<code>x::`{</code>のように<a href="EscapeChar.htm">エスケープ</a>しなければならない。そうでない場合は、<a href="../Hotkeys.htm">ホットキー</a>の機能の開始ブレースとして解釈される。</p>
 <p id="actually">スクリプトが起動すると、各リマッピングは<a href="../Hotkeys.htm">ホットキー</a>のペアに変換されます。例えば、<code>a::b</code>を含むスクリプトは、実際には代わりに以下の2つのホットキーを含む：</p>
-<pre>*<strong>a</strong>::
+<pre>*a::
 {
     SetKeyDelay -1   <em>; If the destination key is a mouse button, SetMouseDelay is used instead.</em>
-    Send "<a href="../lib/Send.htm#blind">{Blind}</a>{<strong>b</strong> DownR}"  <em>; <a href="../lib/Send.htm#DownR">DownR</a> is like Down except that other Send functions in the script won't assume "b" should stay down during their Send.</em>
+    Send "<a href="../lib/Send.htm#blind">{Blind}</a>{b DownR}"  <em>; <a href="../lib/Send.htm#DownR">DownR</a> is like Down except that other Send functions in the script won't assume "b" should stay down during their Send.</em>
 }
 
-*<strong>a up</strong>::
+*a up::
 {
     SetKeyDelay -1  <em>; See note below for why press-duration is not specified with either of these SetKeyDelays.</em>
-    Send "{Blind}{<strong>b</strong> Up}"
+    Send "{Blind}{b Up}"
 }</pre>
 <p>ただし、上記のホットキーは以下の状況で変化する：</p>
 <ol>
-  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。</li>
+  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>:The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
   <li>キーボードのキーがマウスボタンにリマップされる場合（例：<code>RCtrl::RButton</code>）、上記のホットキーはSetKeyDelayの代わりにSetMouseDelayを使用します。さらに、上記の最初のホットキーは以下のように置き換えられ、キーボードのオートリピート機能によるマウスクリックの繰り返しを防ぎます：
     <pre>*RCtrl::
 {
@@ -145,13 +145,14 @@ a::b
 }</pre>
   </li>
   <li>ソースが<a href="../Hotkeys.htm#combo">カスタムの組み合わせ</a>である場合、ワイルドカード修飾子（*）はホットキーが機能するように省略されます。</li>
+  <li>If any of the modifier symbols in <code>!#^+</code> are applied to the source key and not the destination key, they are inserted after the word "Blind" to allow those modifiers to be released by Send. For example, <code>^a::b</code> would use <code>{Blind^}</code>. <code>&lt;^a::b</code> would also use <code>{Blind^}</code>, which may produce unexpected results if used in combination with RCtrl. For details, see <a href="../lib/Send.htm#blind">Blind mode</a>.</li>
 </ol>
 <p>上記のホットキーでは、SetKeyDelayの2番目のパラメータ（<a href="../lib/SetKeyDelay.htm#dur">押す時間</a>）が省略されていることに注意してください。これは、<code>{b down}</code>や <code>{b up}</code>のような下方向のみ、上方向のみのイベントには、プレス・デュレーションが適用されないからである。ただし、修飾キー（Shift、Ctrl、Alt、Win）の状態の変化には適用され、<code>a::B</code>や <code>a::^b</code>のようなリマッピングに影響する。その結果、<a href="../Scripts.htm#auto">スクリプトの起動</a>時にスクリプトが有効にするプレスデュレーションは、そのような再マッピングすべてに適用される。</p>
 <p>リマッピングは前述のようにホットキーに変換されるため、<a href="../lib/Suspend.htm">サスペンド</a>機能はそれらに影響する。同様に、<a href="../lib/Hotkey.htm">ホットキー</a>機能はリマッピングを無効にしたり変更したりすることができる。例えば、以下の2つの関数は<code>a::b</code>のリマッピングを無効にする。</p>
 <pre>Hotkey "*a", "Off"
 Hotkey "*a up", "Off"</pre>
 <p id="AltTab">Alt-tabの問題：キーやマウスボタンを<kbd>Alt</kbd>にリマップした場合、そのキーはおそらくAltタブがうまくできないだろう。可能な回避策は、<code>*Tab::Send "{Blind}{Tab}"</code>というホットキーを追加することです。しかし、これは本物の <kbd>Alt</kbd> を使って alt-tab するのを邪魔する可能性が高いので注意してください。したがって、リマップキーや<a href="../Hotkeys.htm#alttab">alt-tabホットキー</a>のみでalt-tabを行う場合にのみ使用すべきである。</p>
-<p><a href="../KeyList.htm">キーリストページ</a>のキーとマウスボタンに加えて、ソースキーは、<a href="../KeyList.htm#SpecialKeys">スペシャルキーページ</a>で説明されているように、バーチャルキー(VKnn)またはスキャンコード(SCnnn)にすることもできる。デスティネーション・キーについても同様であるが、バーチャル・キーの後にスキャン・コードを指定することもできる。例えば、<code>sc01e::vk42sc030</code>は、ほとんどのキーボードレイアウトでは<code>a::b</code>と等価である。</p>
+<p>In addition to the keys and mouse buttons on the <a href="../KeyList.htm">Key List</a> page, the source key may also be a virtual key (VKnn) or scan code (SCnnn) as described in the <a href="../KeyList.htm#SpecialKeys">Special Keys</a> section. デスティネーション・キーについても同様であるが、バーチャル・キーの後にスキャン・コードを指定することもできる。例えば、<code>sc01e::vk42sc030</code>は、ほとんどのキーボードレイアウトでは<code>a::b</code>と等価である。</p>
 <p>キーをリマップするのではなく、無効にするには、単に<a href="../lib/Return.htm">returns</a>ホットキーにします。例えば、<code>F1::return</code>は <kbd>F1</kbd>を無効にする。</p>
 <p>以下のキーは、内蔵リマッピング方式ではサポートされていない：</p>
 <ul>

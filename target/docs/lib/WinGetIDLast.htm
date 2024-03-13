@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>WinGetIDLast - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="WinGetIDLast関数は、一致するウィンドウが複数ある場合、最後/一番下のウィンドウの一意のID番号を返す。" />
+<meta name="description" content="The WinGetIDLast function returns the unique ID number (HWND) of the last/bottommost window if there is more than one match." />
 <meta name="ahk:equiv-v1" content="lib/WinGet.htm#IDLast" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,16 +13,18 @@
 
 <h1>WinGetIDLast</h1>
 
-<p>一致するウィンドウが複数ある場合、最後/最下段のウィンドウの固有ID番号を返します。</p>
+<p>Returns the unique ID number (HWND) of the last/bottommost window if there is more than one match.</p>
 
-<pre class="Syntax">IDLast := <span class="func">WinGetIDLast</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
+<pre class="Syntax">HWND := <span class="func">WinGetIDLast</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
 
 <h2 id="Parameters">パラメータ</h2>
 <dl>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-        <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+        <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
     </dd>
 </dl>
 
@@ -37,7 +39,6 @@
 <p>一致するものが1つしかない場合は、<a href="WinGetID.htm">WinGetID</a>と同じように実行される。</p>
 <p>ウィンドウのID番号は、そのウィンドウが生きている間だけ有効である。言い換えれば、アプリケーションが再起動すれば、そのウィンドウはすべて新しいID番号を持つことになる。</p>
 <p>マウスカーソルの下にあるウィンドウのIDは、<a href="MouseGetPos.htm">MouseGetPos</a>で取得できる。コントロールのHWNDを検出するには（<a href="PostMessage.htm">PostMessage</a>、<a href="SendMessage.htm">SendMessage</a>、または<a href="DllCall.htm">DllCall</a>で使用するため）、<a href="ControlGetHwnd.htm">ControlGetHwnd</a>または<a href="MouseGetPos.htm">MouseGetPos</a>を使用します。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinGetID.htm">WinGetID</a>, <a href="ControlGetHwnd.htm">ControlGetHwnd</a>, <a href="Gui.htm#Hwnd">Hwnd property (Gui object)</a>, <a href="Win.htm">Win functions</a>, <a href="Control.htm">Control functions</a></p>

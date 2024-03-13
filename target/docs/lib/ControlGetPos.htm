@@ -21,26 +21,27 @@
   <dt>&amp;OutX, &amp;OutY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p><em>コントロール</em>の左上隅のX座標とY座標（ピクセル）を格納する出力変数への参照。これらの座標は、ターゲットウィンドウの<a href="CoordMode.htm#Client">クライアント領域</a>の左上隅からの相対座標であるため、<a href="ControlMove.htm">ControlMove</a>で使用する座標と同じです。</p>
-    <p>いずれかのパラメータが未設定または省略された場合、対応する値は保存されない。</p>
+    <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the X and Y coordinates (in pixels) of the control's upper left corner. These coordinates are relative to the upper-left corner of the target window's <a href="CoordMode.htm#Client">client area</a> and thus are the same as those used by <a href="ControlMove.htm">ControlMove</a>.</p>
   </dd>
 
   <dt>&amp;OutWidth, &amp;OutHeight</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p><em>Control</em>の幅と高さ（ピクセル）を格納する出力変数へのリファレンス。いずれかのパラメータが未設定または省略された場合、対応する値は保存されない。</p>
+    <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the control's width and height (in pixels).</p>
   </dd>
 
   <dt>Control</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは、「<a href="Control.htm#Parameter">制御パラメータ</a>」をご覧ください。</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
 </dl>
@@ -50,7 +51,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p>コントロールを変更する関数とは異なり、ControlGetPosには自動遅延はありません<a href="SetControlDelay.htm">（SetControlDelay</a>は影響しません）。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
+
 <h2 id="Related">関連</h2>
 <p><a href="ControlMove.htm">ControlMove</a>, <a href="WinGetPos.htm">WinGetPos</a>, <a href="Control.htm">Control functions</a></p>
 <h2 id="Examples">例</h2>

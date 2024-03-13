@@ -27,7 +27,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dt>Target</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>起動する文書、URL、実行ファイル（.exe、.com、.batなど）、ショートカット（.lnk）、<a href="#verbs">システム動詞</a>のこと（備考参照）。<em>Target</em>がローカルファイルでパスが指定されていない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>が最初に検索されます。そこに一致するファイルが見つからない場合、PATHフォルダの1つに含まれているなど、統合されている（「既知」）場合は、そのファイルを検索して起動します。</p>
+      <p>A document, URL, executable file (.exe, .com, .bat, etc.), shortcut (.lnk), <a href="#CLSID">CLSID</a>, or <a href="#verbs">system verb</a> to launch (see remarks). If <em>Target</em> is a local file and no path was specified with it, how the file is located typically depends on the type of file and other conditions. See <a href="#Interpretation_of_Target">Interpretation of Target</a> for details.</p>
       <p>To pass parameters, add them immediately after the program or document name as follows:</p>
       <pre>Run 'MyProgram.exe Param1 Param2'</pre>
       <p>If the program/document name or a parameter contains spaces, it is safest to enclose it in double quotes as follows (even though it may work without them in some cases):</p>
@@ -37,13 +37,13 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dt>WorkingDir</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If unset or omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used. Otherwise, specify the working directory for <em>Target</em>.</p>
+      <p>If blank or omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used. Otherwise, specify the initial working directory to be used by the new process. This typically also affects relative paths in <em>Target</em>, but interpretation of command-line parameters depends on the target program.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If unset or omitted, <em>Target</em> will be launched normally. Otherwise, specify one or more of the following options:</p>
+      <p>If blank or omitted, <em>Target</em> will be launched normally. Otherwise, specify one or more of the following options:</p>
       <p><strong>Max:</strong> launch maximized</p>
       <p><strong>Min:</strong> launch minimized</p>
       <p><strong>Hide:</strong> launch hidden (cannot be used in combination with either of the above)</p>
@@ -53,7 +53,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dt>&amp;OutputVarPID</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-      <p>未設定または省略された場合、出力変数は使用されない。Otherwise, specify a reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
+      <p>If omitted, the corresponding value will not be stored. Otherwise, specify a reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
       <p>Run関数がPIDを取得した後、プロセスによって作成されるウィンドウは、まだ存在しないかもしれません。少なくとも1つのウィンドウが作成されるのを待つには、<code><a href="WinWait.htm">WinWait</a>"ahk_pid " OutputVarPID</code>を使用します。</p>
   </dd>
 
@@ -71,13 +71,28 @@ catch
     MsgBox "File does not exist."
 </pre>
 <p>組込変数<a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
+<h2 id="Interpretation_of_Target">Interpretation of Target</h2>
+<p>Run/RunWait itself does not interpret command-line parameters or search for the target file. Instead, it attempts to execute the target as follows:</p>
+<ul>
+  <li>If no verb is specified, <em>Target</em> is passed as-is to the <em>lpCommandLine</em> parameter of <a href="https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessw">CreateProcess</a>.</li>
+  <li>If a verb is specified or CreateProcess fails, and <a href="RunAs.htm">RunAs</a> is not in effect, <a href="https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecuteexw">ShellExecuteEx</a> is attempted.</li>
+</ul>
+<p>If <em>Target</em> specifies a name but not a directory, the system will search for and launch the file if it is integrated ("known"), e.g. by being contained in one of the PATH folders. The exact search order depends on whether CreateProcess and/or ShellExecuteEx is called. If CreateProcess is called, the application directory (which contains the AutoHotkey interpreter or compiled script) takes precedence over the working directory specified by <em>WorkingDir</em>. To avoid this, specify the directory; e.g. <code>.\program.exe</code>.</p>
+<p>When ShellExecuteEx is being attempted, <em>Target</em> is interpreted as follows:</p>
+<ul>
+  <li>The substring of <em>Target</em> ending at the first space or tab may be either a <a href="#verbs">predefined verb name</a> or an asterisk followed by a verb name. If present, the optional asterisk, verb name and a single delimiting space or tab are excluded from further consideration. Verb names containing spaces or tabs are not supported, but symbols such as hyphen are permitted.</li>
+  <li>If a leading double-quote mark is present, the substring between that and the next double-quote mark is considered to be the target file or action.</li>
+  <li>Otherwise, the first substring which ends at a space and is either an existing file (specified by absolute path or relative to <em>WorkingDir</em>) or ends in .exe, .bat, .com, .cmd or .hta is considered the action. This allows file types such as .ahk, .vbs or .lnk to accept parameters while still allowing "known" executables such as wordpad.exe to be launched without an absolute path.</li>
+  <li>A single delimiting space is ignored, if present, and the remainder of <em>Target</em> is passed as-is to CreateProcess or ShellExecuteEx as command-line parameters.</li>
+</ul>
 <h2 id="Remarks">備考</h2>
 <p><a href="../Variables.htm#ComSpec">ComSpec</a>（cmd.exe）を使ってプログラムを実行する場合（プログラムの入力や出力をリダイレクトする必要があるため）、実行ファイルのパスや名前にスペースが含まれている場合は、その文字列全体を外側の引用符で囲む必要があります。以下の例では、外側の引用符が黄色で強調表示されています：</p>
 <pre>Run A_ComSpec ' /c <span class="style3">"</span>"C:\My Utility.exe" "param 1" "second param" &gt;"C:\My File.txt"<span class="style3">"</span>'</pre>
 <p>Run<code>"C:゙My DocumentsTest.txt "</code>よりも<code>Run 'C:゙WindowsNotepad.exe "C:゙My DocumentsTest.txt"</code>のように<em>Target</em>が完全パスであればパフォーマンスは若干向上するかもしれません。</p>
-<p>特殊な<a href="../misc/CLSID-List.htm">CLSIDフォルダ</a>は、「ファイル名を指定して実行」で開くことができます。事例：</p>
-<pre>Run "::{20d04fe0-3aea-1069-a2d8-08002b30309d}"  <em>; Opens the "My Computer" folder.</em>
-Run "::{645ff040-5081-101b-9f08-00aa002f954e}"  <em>; Opens the Recycle Bin.</em></pre>
+<p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell:prefix. Some can be opened without it. 事例：</p>
+<pre>Run "shell:::{D20EA4E1-3957-11D2-A40B-0C5020524153}"  <em>; Windows Tools.</em>
+Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; This PC (formerly My Computer or Computer).</em>
+Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; Recycle Bin.</em></pre>
 <p id="verbs">システム動詞は、エクスプローラーのファイルの右クリックメニューで利用できるアクションに対応しています。動詞を指定せずにファイルを起動した場合、そのファイルタイプのデフォルトの動詞（通常は「open」）が使用されます。指定された場合、動詞の後にターゲットファイル名が続くようにする。現在、以下の動詞に対応しています：</p>
 <table class="info">
   <tr>
@@ -182,10 +197,10 @@ Persistent  <em>; Keep the script from exiting, otherwise the properties dialog 
 
 <div class="ex" id="ExCLSID">
 <p><a class="ex_number" href="#ExCLSID"></a> Runは<a href="../misc/CLSID-List.htm">CLSID</a>を起動することができます：</p>
-<p>以下は、ごみ箱を開くものです。</p>
-<pre>Run "::{645ff040-5081-101b-9f08-00aa002f954e}"</pre>
-<p>以下は、「マイコンピュータ」ディレクトリを開きます。</p>
-<pre>Run "::{20d04fe0-3aea-1069-a2d8-08002b30309d}"</pre>
+<p>The following opens the Recycle Bin.</p>
+<pre>Run "::{645FF040-5081-101B-9F08-00AA002F954E}"</pre>
+<p>The following opens This PC (formerly My Computer or Computer).</p>
+<pre>Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"</pre>
 </div>
 
 <div class="ex" id="ExMultipleCmds">
@@ -230,7 +245,7 @@ RunWaitMany(commands) {
 {
     shell := ComObject("WScript.Shell")
     exec := shell.Exec("AutoHotkey.exe /ErrorStdOut *")
-    exec.StdIn.Write(script)
+    exec.StdIn.Write(Script)
     exec.StdIn.Close()
     if Wait
         return exec.StdOut.ReadAll()

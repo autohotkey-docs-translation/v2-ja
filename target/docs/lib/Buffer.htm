@@ -28,7 +28,7 @@
   <li><a href="#like">バッファ的オブジェクト</a></li>
   <li><a href="#StaticMethods">静的メソッドです。</a>
     <ul>
-      <li><a href="#Call">Call</a>:Bufferを作成します。</li>
+      <li><a href="#Call">Call</a>: Creates a new Buffer object.</li>
     </ul>
   </li>
   <li><a href="#Methods">Methods</a>:
@@ -52,13 +52,15 @@
 
 <h2 id="StaticMethods">静的メソッド</h2>
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Bufferを作成します。</p>
-<pre class="Syntax">BufferObj := <span class="func">Buffer</span>(<span class="optional">ByteCount, FillByte</span>)</pre>
+<p>Creates a new Buffer object.</p>
+<pre class="Syntax">BufferObj := Buffer(<span class="optional">ByteCount, FillByte</span>)
+BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCount, FillByte</span>)</pre>
+<h4 id="Call_Parameters">パラメータ</h4>
 <dl>
   <dt>ByteCount</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>割り当てるバイト数を指定します。<a href="Buffer.htm#Size">Buffer.Size</a>に対応します。</p>
+    <p>割り当てるバイト数を指定します。<a href="#Size">Buffer.Size</a>に対応します。</p>
     <p>省略された場合、Buffer は NULL（ゼロ）<a href="#Ptr">Ptr</a>とゼロ<a href="#Size">Size</a>で作成されます。</p>
   </dd>
   <dt>FillByte</dt>
@@ -68,6 +70,10 @@
     <p>バイト数に比例した時間的コストがかかるため、バッファを読み込まずに書き込むような場合には、一般に省略されるべきです。省略した場合、バッファのメモリは初期化されず、各バイトの値は任意です。</p>
   </dd>
 </dl>
+<h4 id="Call_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>This method or function returns a Buffer object.</p>
+<h4 id="Call_Remarks">備考</h4>
 <p><em>ByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされます。</p>
 <p>パラメータは<a href="#__New">__New</a>で定義します。</p>
 </div>
@@ -85,19 +91,17 @@
 <h2 id="Properties">属性</h2>
 <div class="methodShort" id="Ptr"><h3>Ptr</h3>
 <p>バッファの現在のメモリアドレスを取得します。</p>
-<pre class="Syntax">Ptr := BufferObj.Ptr</pre>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>このプロパティが返すアドレスは、バッファが解放または再割り当てされたときに無効となる。無効なアドレスは使用しないでください。バッファはBufferオブジェクトの<a href="../Objects.htm#Reference_Counting">参照カウント</a>が0になるまで解放されませんが、<a href="#Size">Size</a>が変更されると再割り当てされます。</p>
+<pre class="Syntax">CurrentPtr := BufferObj.<span class="func">Ptr</span></pre>
+<p><em>CurrentPtr</em> is an <a href="../Concepts.htm#numbers">integer</a> representing the buffer's current memory address. This address becomes invalid when the buffer is freed or reallocated. 無効なアドレスは使用しないでください。The buffer is not freed until the Buffer object's <a href="../Objects.htm#Reference_Counting">reference count</a> reaches zero, but it is reallocated when its <a href="#Size">Size</a> is changed.</p>
 </div>
 
 <div class="methodShort" id="Size"><h3>Size</h3>
 <p>バッファのサイズをバイト単位で取得または設定します。</p>
-<pre class="Syntax">ByteCount := BufferObj.Size</pre>
-<pre class="Syntax">BufferObj.Size := ByteCount</pre>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>バッファのアドレスは通常、そのサイズが変更されるたびに変更されます。サイズが小さくなった場合、バッファ内のデータは切り捨てられますが、残りのバイトは保存されます。サイズが大きくなっても、すべてのデータは保存され、新しいバイトの値は任意です（パフォーマンス上の理由から、初期化されません）。</p>
-<p><em>ByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされます。</p>
-<p>このプロパティは常に、<a href="#__New">__New</a>または以前の割り当てによって与えられた正確な値を返します。</p>
+<pre class="Syntax">CurrentByteCount := BufferObj.<span class="func">Size</span></pre>
+<pre class="Syntax">BufferObj.<span class="func">Size</span> := NewByteCount</pre>
+<p><em>CurrentByteCount</em> and <em>NewByteCount</em> are an <a href="../Concepts.htm#numbers">integer</a> representing the buffer's size, in bytes. バッファのアドレスは通常、そのサイズが変更されるたびに変更されます。サイズが小さくなった場合、バッファ内のデータは切り捨てられますが、残りのバイトは保存されます。サイズが大きくなっても、すべてのデータは保存され、新しいバイトの値は任意です（パフォーマンス上の理由から、初期化されません）。</p>
+<p>A <a href="Error.htm#MemoryError">MemoryError</a> is thrown if the memory could not be allocated, such as if <em>NewByteCount</em> is unexpectedly large or the system is low on virtual memory.</p>
+<p><em>CurrentByteCount</em> is always the exact value it was given either by <a href="#__New">__New</a> or by a previous assignment.</p>
 </div>
 
 <h2 id="Related">関連</h2>
@@ -105,7 +109,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExString">
-<p><a class="ex_number" href="#ExString"></a> Bufferを使って、<a href="DllCall.htm">DllCall</a>で外部関数から文字列を受け取ります。</p>
+<p><a class="ex_number" href="#ExString"></a> Uses a Buffer to receive a string from an external function via <a href="DllCall.htm">DllCall</a>.</p>
 <pre>
 max_chars := 11
 

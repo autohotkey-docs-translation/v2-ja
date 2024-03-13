@@ -28,7 +28,7 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>この関数は、最初にマッチしたファイルまたはフォルダの属性を返します。この文字列は<code>RASHNDOCT</code>の部分集合で、各文字は次のような意味を持っています：</p>
+<p>この関数は、最初にマッチしたファイルまたはフォルダの属性を返します。この文字列は<code>RASHNDOCTL</code>の部分集合で、各文字は次のような意味を持っています：</p>
 <ul>
     <li>R = READONLY</li>
     <li>A = ARCHIVE</li>
@@ -44,7 +44,7 @@
 <p>ファイルに属性がない場合（稀）には、"X"が返されます。ファイルやフォルダが見つからない場合は、空の文字列が返されます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p><code>InStr(FileExist("FolderWithFilesAndSubfolders*"), "D")</code>のようなワイルドカードチェックでは、<em>最初</em>にマッチしたファイルがフォルダであるかどうかがわかるだけで、フォルダが存在するかどうかはわからないことに注意してください。後者を確認するには、<a href="DirExist.htm">DirExist</a>を使用します。事例：<code>DirExist("FolderWithFilesAndSubfolders\*")</code></p>
+<p>Note that a wildcard check like <code>InStr(FileExist("MyFolder\*"), "D")</code> with <em>MyFolder</em> containing files and subfolders will only tell you whether the <u>first</u> matching file is a folder, not whether a folder exists. To check for the latter, use <a href="DirExist.htm">DirExist</a>, e.g. <code>DirExist("MyFolder\*")</code>.</p>
 <p><a href="FileGetAttrib.htm">FileGetAttrib</a>とは異なり、FileExistはワイルドカードパターンをサポートし、一致するファイルが存在する場合は常に空でない値を返します。</p>
 <p>空文字列は "false"とみなされるため、この関数の戻り値は常に準ブール値として使用することができる。例えば、<code>if FileExist("C:¥MyFile.txt")</code>という文は、ファイルが存在すれば真、そうでなければ偽となります。</p>
 <p><em>FilePattern</em>はワイルドカードを含むことができるので、FileExistは他の関数やプログラムで使用するファイルパスの検証には適さないかもしれません。例えば、<code>FileExist("*.txt")</code>は、"*.txt "が有効なファイル名でないにもかかわらず、属性を返す場合があります。このような場合は、<a href="FileGetAttrib.htm">FileGetAttrib</a>を使用することが望ましい。</p>
@@ -66,7 +66,7 @@
 </div>
 
 <div class="ex" id="ExNot">
-<p><a class="ex_number" href="#ExNot"></a> ファイルが存在<strong>しない</strong>場合、メッセージボックスを表示します。</p>
+<p><a class="ex_number" href="#ExNot"></a> Shows a message box if a file does <u>not</u> exist.</p>
 <pre>if not FileExist("C:\Temp\FlagFile.txt")
     MsgBox "The target file does not exist."</pre>
 </div>

@@ -22,7 +22,7 @@
   <li><a href="#Examples">例</a></li>
 </ul>
 <h2 id="Intro">導入と簡単な例</h2>
-<p>ツリービューは、親アイテムの下に子アイテムをインデントすることで、アイテムの階層を表示します。最も一般的な例は、エクスプローラーのドライブとフォルダーのツリーである。</p>
+<p>A TreeView displays a hierarchy of items by indenting child items beneath their parents. 最も一般的な例は、エクスプローラーのドライブとフォルダーのツリーである。</p>
 <p>TreeViewは通常このような形をしている：</p>
 <img src="../static/ctrl_treeview.png" alt="TreeView" />
 <p>TreeViewを作成する構文は以下の通り：</p>
@@ -57,9 +57,9 @@ MyGui.Show</pre>
 <p><strong>Lines：</strong>親アイテムと子アイテムを結ぶ線のネットワークを表示しないようにするには、<code>-Lines</code>（マイナスLines）を指定します。しかし、これらの行を削除すると、トップレベルのアイテムにプラス/マイナスボタンが表示されなくなる。</p>
 <p id="ReadOnly"><strong>ReadOnly：</strong> <code>-ReadOnly</code>（読み取り専用）を指定すると、各項目のテキストや名前の編集を許可する。項目を編集するには、項目を選択してから<kbd>F2</kbd>キーを押します（下記の<a href="#WantF2">WantF2</a>オプションを参照）。あるいは、項目を一度クリックして選択し、少なくとも半秒待ってから同じ項目をもう一度クリックして編集することもできる。編集後の項目は、次の例に従って、その兄弟の中でアルファベット順に再配置することができます：</p>
 <pre>TV := MyGui.Add("TreeView", "-ReadOnly")
-TV.OnEvent("ItemEdit", MyTree_Edit)  <em>; Call MyTree_Edit whenever a user has finished editing an item.</em>
+TV.OnEvent("ItemEdit", TV_Edit)  <em>; Call TV_Edit whenever a user has finished editing an item.</em>
 <em>; ...</em>
-MyTree_Edit(TV, Item)
+TV_Edit(TV, Item)
 {
     TV.Modify(TV.GetParent(Item), "Sort")  <em>; This works even if the item has no parent.</em>
 }</pre>
@@ -68,158 +68,200 @@ MyTree_Edit(TV, Item)
 <p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。一覧は<a href="../misc/Styles.htm#TreeView">TreeViewスタイルの表</a>を参照。</p>
 <h2 id="BuiltIn">TreeViewの組み込みメソッド</h2>
 <p><a href="GuiControl.htm">GUIコントロールのデフォルトのメソッド/プロパティ</a>に加えて、TreeViewコントロールは以下のメソッドを持ちます（Gui.TreeViewクラスで定義）。</p>
-<p><strong>Item methods:</strong></p>
+<p>Item methods:</p>
 <ul>
   <li><a href="#Add">Add</a>:TreeViewに新しいアイテムを追加します。</li>
   <li><a href="#Modify">Modify</a>:アイテムの属性や名前を変更する。</li>
   <li><a href="#Delete">Delete</a>:指定された項目またはすべての項目を削除します。</li>
 </ul>
-<p><strong>検索方法：</strong></p>
+<p>検索方法：</p>
 <ul>
   <li><a href="#GetSelection">GetSelection</a>:選択された項目の ID 番号を返します。</li>
   <li><a href="#GetCount">GetCount</a>:コントロール内の項目の総数を返します。</li>
-  <li><a href="#GetParent">GetParent</a>:指定された項目の親を項目 ID で返します。</li>
+  <li><a href="#GetParent">GetParent</a>: Returns the ID number of the specified item's parent.</li>
   <li><a href="#GetChild">GetChild</a>:指定された項目の先頭/末尾の子の ID 番号を返します。</li>
   <li><a href="#GetPrev">GetPrev</a>:指定された項目の上にある兄弟の ID 番号を返します。</li>
   <li><a href="#GetNext">GetNext</a>:指定された項目の次の項目の ID 番号を返します。</li>
   <li><a href="#GetText">GetText</a>:指定された項目のテキスト/名前を取得します。</li>
-  <li><a href="#Get">Get</a>:指定されたアイテムが指定された属性を持つ場合、0 以外の値（アイテム ID）を返します。</li>
+  <li><a href="#Get">Get</a>: Returns the ID number of the specified item if it has the specified attribute.</li>
 </ul>
-<p><strong>その他の方法</strong></p>
+<p>その他の方法</p>
 <ul>
   <li><a href="#SetImageList">SetImageList</a>:アイコンを表示するための ImageList を設定または置き換える。</li>
 </ul>
+
 <div class="methodShort" id="Add">
-  <h3>Add</h3>
-  <p>TreeViewに新しいアイテムを追加し、そのユニークなアイテムID番号（失敗した場合は0）を返します。</p>
-  <pre class="Syntax">UniqueID := TV.<span class="func">Add</span>(Name, <span class="optional">ParentItemID, Options</span>)</pre>
-  <dl>
-    <dt>名前</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）。</p>
-    </dd>
-    <dt>ParentItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>新しいアイテムの親のID番号（省略するか、アイテムをトップレベルに追加する場合は0を指定する）。</p>
-    </dd>
-    <dt>Options</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>以下のリストから0個以上のオプションを含む（大文字小文字は区別しない）。各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
-      <p id="Bold"><strong>太字：</strong>項目名を太字で表示します。後でアイテムのボールドを解除するには、<code>TV.Modify(ItemID, "-Bold")</code>を使用します。<em>Boldの</em>直後に、開始状態を示す0または1を続けることもできる。</p>
-      <p id="Check"><strong>チェック</strong>TreeViewに<a href="#Checked">チェックボックス</a>がある場合）アイテムの左にチェックマークを表示します。後でチェックを外すには、<code>TV.Modify(ItemID, "-Check")</code>を使用します。<em>Check</em>の直後に、開始状態を示す0または1を続けることもできる。つまり、<code>"Check"</code>も<code>"Check"<strong>.</strong>VarContainingOne</code>は同じである（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>である）。</p>
-      <p id="Expand"><strong>展開する：</strong>アイテムを展開し、その子アイテムを表示します。後でアイテムを折りたたむには、<code>TV.Modify(ItemID, "-Expand")</code>を使用します。子供がいない場合、<a href="#Modify">Modify メソッド</a>はアイテムの ID ではなく 0 を返します。対照的に、<a href="#Add">Addメソッド</a>は、後でそのアイテムに子供が追加された場合に備えて、そのアイテムを拡張されたものとしてマークする。下の<a href="#Select">「選択」</a>オプションとは異なり、項目を展開してもその親項目は自動的に展開されません。最後に、<em>Expand</em>の直後に、開始状態を示す0または1を続けることもできる。言い換えれば、<code>"Expand"</code>も<code>"Expand"<strong>.</strong>VarContainingOneは</code>同じである。</p>
-      <p><strong>First | Sort | N:</strong>これらのオプションは<a href="#Add">Addメソッド</a>にのみ適用されます。新しいアイテムの位置は、その兄弟アイテム（<em>兄弟アイテム</em>とは、同じレベルにある他のアイテムのことです）との相対的な位置関係で指定されます。これらのオプションがない場合、新しい項目は最後/最下部の兄弟として追加されます。そうでない場合は、<em>First</em>という単語を指定して、その項目を最初の兄弟／一番上の兄弟として追加するか、<em>Sort</em>という単語を指定して、その項目をアルファベット順に兄弟の中に挿入する。プレーンな整数<em>N</em>が指定された場合、それは新しい項目を挿入する兄弟のID番号とみなされる（<em>N</em>が唯一のオプションの場合、引用符で囲む必要はない）。</p>
-      <p><strong>Icon（アイコン）：</strong> <em>Icon（アイコン</em>）という単語と、アイテム名の左に表示されるこのアイテムのアイコンの番号を指定します。このオプションがない場合、<a href="#ImageList">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示するには、ImageList のアイコンの数より大きい数を指定します。コントロールにイメージリストがない場合、アイコンは表示されず、アイコンのためのスペースも確保されません。</p>
-      <p id="Select"><strong>選択：</strong>項目を選択します。一度に1つの項目しか選択できないため、以前に選択されていた項目は自動的に選択解除される。さらに、このオプションは、必要に応じて、その親を展開することによって、新しく選択された項目を明らかにする。現在の選択範囲を知るには、<a href="#GetSelection">GetSelectionメソッド</a>を呼び出します。</p>
-      <p><strong>並べ替え：</strong> <a href="#Modify">Modify メソッド</a>の場合、このオプションは、指定された項目の子をアルファベット順に並べ替えます。代わりにすべてのトップレベル項目をソートするには、<code>TV.Modify(0, "Sort")</code>を使用します。子供がいない場合は、変更された項目のIDの代わりに0が返される。</p>
-      <p><strong>Vis：</strong>必要に応じて、TreeViewをスクロールしたり、親を展開したりして、アイテムが完全に表示されるようにします。</p>
-      <p><strong>VisFirst:</strong>上記と同じですが、TreeViewもスクロールされ、可能であればアイテムが一番上に表示されます。このオプションは通常、<a href="#Add">Addメソッド</a>よりも<a href="#Modify">Modifyメソッド</a>で使用した方が効果的です。</p>
-    </dd>
-  </dl>
-  <p>注：多数のアイテムを追加する場合、アイテムを追加する前に<code>TV.Opt("-Redraw")</code>を使用し、その後に<code>TV.Opt("+Redraw")</code>を使用することでパフォーマンスを向上させることができる。詳細は「<a href="GuiControl.htm#redraw-remarks">再描画</a>」を参照。</p>
+<h3>Add</h3>
+<p>TreeViewに新しいアイテムを追加します。</p>
+<pre class="Syntax">ItemID := TV.<span class="func">Add</span>(Name, <span class="optional">ParentItemID, Options</span>)</pre>
+<h4 id="Add_Parameters">パラメータ</h4>
+<dl>
+  <dt>名前</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>テキストまたは数値（数値<a href="../Variables.htm#Expressions">式</a>の結果を含む）。</p>
+  </dd>
+  <dt>ParentItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, it defaults to 0, meaning the item will be added at the top level. Otherwise, specify the ID number of the new item's parent.</p>
+  </dd>
+  <dt id="Options_for_Add_and_Modify">Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
+    <p id="Bold"><strong>太字：</strong>項目名を太字で表示します。後でアイテムのボールドを解除するには、<code>TV.Modify(ItemID, "-Bold")</code>を使用します。<em>Boldの</em>直後に、開始状態を示す0または1を続けることもできる。</p>
+    <p id="Check"><strong>チェック</strong>TreeViewに<a href="#Checked">チェックボックス</a>がある場合）アイテムの左にチェックマークを表示します。後でチェックを外すには、<code>TV.Modify(ItemID, "-Check")</code>を使用します。<em>Check</em>の直後に、開始状態を示す0または1を続けることもできる。つまり、<code>"Check"</code>も<code>"Check"<strong>.</strong>VarContainingOne</code>は同じである（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>である）。</p>
+    <p id="Expand"><strong>展開する：</strong>アイテムを展開し、その子アイテムを表示します。後でアイテムを折りたたむには、<code>TV.Modify(ItemID, "-Expand")</code>を使用します。子供がいない場合、<a href="#Modify">Modify メソッド</a>はアイテムの ID ではなく 0 を返します。対照的に、<a href="#Add">Addメソッド</a>は、後でそのアイテムに子供が追加された場合に備えて、そのアイテムを拡張されたものとしてマークする。下の<a href="#Select">「選択」</a>オプションとは異なり、項目を展開してもその親項目は自動的に展開されません。最後に、<em>Expand</em>の直後に、開始状態を示す0または1を続けることもできる。言い換えれば、<code>"Expand"</code>も<code>"Expand"<strong>.</strong>VarContainingOneは</code>同じである。</p>
+    <p><strong>First | Sort | N:</strong>これらのオプションは<a href="#Add">Addメソッド</a>にのみ適用されます。新しいアイテムの位置は、その兄弟アイテム（<em>兄弟アイテム</em>とは、同じレベルにある他のアイテムのことです）との相対的な位置関係で指定されます。これらのオプションがない場合、新しい項目は最後/最下部の兄弟として追加されます。そうでない場合は、<em>First</em>という単語を指定して、その項目を最初の兄弟／一番上の兄弟として追加するか、<em>Sort</em>という単語を指定して、その項目をアルファベット順に兄弟の中に挿入する。プレーンな整数<em>N</em>が指定された場合、それは新しい項目を挿入する兄弟のID番号とみなされる（<em>N</em>が唯一のオプションの場合、引用符で囲む必要はない）。</p>
+    <p><strong>Icon（アイコン）：</strong> <em>Icon（アイコン</em>）という単語と、アイテム名の左に表示されるこのアイテムのアイコンの番号を指定します。このオプションがない場合、<a href="#ImageList">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示するには、ImageList のアイコンの数より大きい数を指定します。コントロールにイメージリストがない場合、アイコンは表示されず、アイコンのためのスペースも確保されません。</p>
+    <p id="Select"><strong>選択：</strong>項目を選択します。一度に1つの項目しか選択できないため、以前に選択されていた項目は自動的に選択解除される。さらに、このオプションは、必要に応じて、その親を展開することによって、新しく選択された項目を明らかにする。現在の選択範囲を知るには、<a href="#GetSelection">GetSelectionメソッド</a>を呼び出します。</p>
+    <p><strong>並べ替え：</strong> <a href="#Modify">Modify メソッド</a>の場合、このオプションは、指定された項目の子をアルファベット順に並べ替えます。代わりにすべてのトップレベル項目をソートするには、<code>TV.Modify(0, "Sort")</code>を使用します。子供がいない場合は、変更された項目のIDの代わりに0が返される。</p>
+    <p><strong>Vis：</strong>必要に応じて、TreeViewをスクロールしたり、親を展開したりして、アイテムが完全に表示されるようにします。</p>
+    <p><strong>VisFirst:</strong>上記と同じですが、TreeViewもスクロールされ、可能であればアイテムが一番上に表示されます。このオプションは通常、<a href="#Add">Addメソッド</a>よりも<a href="#Modify">Modifyメソッド</a>で使用した方が効果的です。</p>
+  </dd>
+</dl>
+<h4 id="Add_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>On success, this method returns the unique ID number of the newly added item. On failure, it returns 0.</p>
+<h4 id="Add_Remarks">備考</h4>
+<p>多数のアイテムを追加する場合、アイテムを追加する前に<code>TV.Opt("-Redraw")</code>を使用し、その後に<code>TV.Opt("+Redraw")</code>を使用することでパフォーマンスを向上させることができる。詳細は「<a href="GuiControl.htm#redraw-remarks">再描画</a>」を参照。</p>
 </div>
+
 <div class="methodShort" id="Modify">
-  <h3>Modify</h3>
-  <p>アイテムの属性や名前を変更し、そのアイテム自身の ID を返す。</p>
-  <pre class="Syntax">CurrentItemID := TV.<span class="func">Modify</span>(ItemID <span class="optional">, Options, NewName</span>)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>修正する項目。このパラメータだけが存在する場合、指定された項目が<a href="#Select">選択</a>される。</p>
-    </dd>
-    <dt>Options</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>上記のリストを参照。</p>
-    </dd>
-    <dt>NewName</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>アイテムの新しい名前。省略された場合、現在の名前は変更されない。</p>
-    </dd>
-  </dl>
+<h3>Modify</h3>
+<p>アイテムの属性や名前を変更する。</p>
+<pre class="Syntax">ItemID := TV.<span class="func">Modify</span>(ItemID <span class="optional">, Options, NewName</span>)</pre>
+<h4 id="Modify_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item to modify.</p>
+  </dd>
+  <dt>Options</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>If this and the <em>NewName</em> parameter is omitted, the item will be selected. Otherwise, specify one or more options from the <a href="#Options_for_Add_and_Modify">list above</a>.</p>
+  </dd>
+  <dt>NewName</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>省略された場合、現在の名前は変更されない。Otherwise, specify the new name of the item.</p>
+  </dd>
+</dl>
+<h4 id="Modify_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the item's own ID.</p>
 </div>
+
 <div class="methodShort" id="Delete">
-  <h3>Delete</h3>
-  <p>指定された項目またはすべての項目を削除します。</p>
-  <pre class="Syntax">TV.<span class="func">Delete</span>(<span class="optional">ItemID</span>)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>削除する項目。省略された場合、TreeViewの<u>すべて</u>のアイテムが削除されます。</p>
-    </dd>
-  </dl>
+<h3>Delete</h3>
+<p>指定された項目またはすべての項目を削除します。</p>
+<pre class="Syntax">TV.<span class="func">Delete</span>(<span class="optional">ItemID</span>)</pre>
+<h4 id="Delete_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>省略された場合、TreeViewの<u>すべて</u>のアイテムが削除されます。Otherwise, specify the ID number of the item to delete.</p>
+  </dd>
+</dl>
 </div>
+
 <div class="methodShort" id="GetSelection">
-  <h3>GetSelection</h3>
-  <p>選択された項目の ID 番号を返します。</p>
-  <pre class="Syntax">SelectedItemID := TV.<span class="func">GetSelection</span>()</pre>
+<h3>GetSelection</h3>
+<p>選択された項目の ID 番号を返します。</p>
+<pre class="Syntax">ItemID := TV.<span class="func">GetSelection</span>()</pre>
+<h4 id="GetSelection_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the selected item's ID number.</p>
 </div>
+
 <div class="methodShort" id="GetCount">
-  <h3>GetCount</h3>
-  <p>コントロール内の項目の総数を返します。</p>
-  <pre class="Syntax">CountNumber := TV.<span class="func">GetCount</span>()</pre>
-  <p>注：コントロールがカウントを記録しているため、戻り値は即座に取得される。</p>
+<h3>GetCount</h3>
+<p>コントロール内の項目の総数を返します。</p>
+<pre class="Syntax">Count := TV.<span class="func">GetCount</span>()</pre>
+<h4 id="GetCount_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the total number of items in the control. The value is always returned immediately because the control keeps track of the count.</p>
 </div>
+
 <div class="methodShort" id="GetParent">
-  <h3>GetParent</h3>
-  <p>指定された項目の親を項目 ID で返します。</p>
-  <pre class="Syntax">ParentItemID := TV.<span class="func">GetParent</span>(ItemID)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>チェックする項目。トップレベルのアイテムは親を持たないため、0を返す。</p>
-    </dd>
-  </dl>
+<h3>GetParent</h3>
+<p>Returns the ID number of the specified item's parent.</p>
+<pre class="Syntax">ParentItemID := TV.<span class="func">GetParent</span>(ItemID)</pre>
+<h4 id="GetParent_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item to check.</p>
+  </dd>
+</dl>
+<h4 id="GetParent_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the ID number of the specified item's parent. If the item has no parent, it returns 0, which applies to all top-level items.</p>
 </div>
+
 <div class="methodShort" id="GetChild">
-  <h3>GetChild</h3>
-  <p>指定された項目の先頭/末尾の子の ID 番号を返します（ない場合は 0）。</p>
-  <pre class="Syntax">TopChildID := TV.<span class="func">GetChild</span>(ParentItemID)</pre>
-  <dl>
-    <dt>ParentItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>チェックする親アイテム。このパラメータが0である場合、TreeViewの先頭/トップアイテムのID番号が返される。</p>
-    </dd>
-  </dl>
+<h3>GetChild</h3>
+<p>指定された項目の先頭/末尾の子の ID 番号を返します。</p>
+<pre class="Syntax">ChildItemID := TV.<span class="func">GetChild</span>(ItemID)</pre>
+<h4 id="GetChild_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item to check. If 0, the ID number of the first/top item in the TreeView is returned.</p>
+  </dd>
+</dl>
+<h4 id="GetChild_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the ID number of the specified item's first/top child. If there is no child, it returns 0.</p>
 </div>
+
 <div class="methodShort" id="GetPrev">
-  <h3>GetPrev</h3>
-  <p>指定された項目の上にある兄弟の ID 番号を返します（ない場合は 0）。</p>
-  <pre class="Syntax">PrevItemID := TV.<span class="func">GetPrev</span>(ItemID)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>チェックする項目。</p>
-    </dd>
-  </dl>
+<h3>GetPrev</h3>
+<p>指定された項目の上にある兄弟の ID 番号を返します。</p>
+<pre class="Syntax">PrevItemID := TV.<span class="func">GetPrev</span>(ItemID)</pre>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item to check.</p>
+  </dd>
+</dl>
+<h4 id="GetPrev_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the ID number of the sibling above the specified item. If there is no sibling, it returns 0.</p>
 </div>
+
 <div class="methodShort" id="GetNext">
-  <h3>GetNext</h3>
-  <p>指定された項目の次の項目の ID 番号を返します（何もない場合は 0）。</p>
-  <pre class="Syntax">NextItemID := TV.<span class="func">GetNext</span>(<span class="optional">ItemID, ItemType</span>)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>チェックする項目。このパラメータが0または省略された場合、TreeViewの先頭/トップアイテムのID番号が返される。</p>
-    </dd>
-    <dt>ItemType</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>省略した場合は、指定した項目より下の兄弟のID番号を取得する。それ以外の場合は、指定された項目との関係に関係なく次の項目を取得するために、<code>"Full"</code>または<code>"F"</code>を指定する。<code>"Check"</code>、<code>"Checked"</code>、または<code>"C"</code>を指定すると、チェックマークが付いた次の項目のみを取得する。</p>
-    </dd>
-  </dl>
-  <p>次の例は、ツリー全体を項目ごとに走査するものである：</p>
-  <pre>ItemID := 0  <em>; Causes the loop's first iteration to start the search at the top of the tree.</em>
+<h3>GetNext</h3>
+<p>指定された項目の次の項目の ID 番号を返します。</p>
+<pre class="Syntax">NextItemID := TV.<span class="func">GetNext</span>(<span class="optional">ItemID, ItemType</span>)</pre>
+<h4 id="GetNext_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>If omitted, it defaults to 0, meaning the ID number of the first/top item in the TreeView is returned. Otherwise, specify the ID number of the item to check.</p>
+  </dd>
+  <dt>ItemType</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>省略した場合は、指定した項目より下の兄弟のID番号を取得する。Otherwise, specify one of the following strings:</p>
+    <p><strong>Full</strong> or <strong>F</strong>: Retrieves the next item regardless of its relationship to the specified item. This allows the script to easily traverse the entire tree, item by item. See the example below.</p>
+    <p><strong>Check</strong>, <strong>Checked</strong> or <strong>C</strong>: Gets only the next item with a checkmark.</p>
+  </dd>
+</dl>
+<h4 id="GetNext_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>This method returns the ID number of the next item below the specified item. If there is no next item, it returns 0.</p>
+<h4 id="GetNext_Remarks">備考</h4>
+<p>The following example traverses the entire tree, item by item:</p>
+<pre>ItemID := 0  <em>; Causes the loop's first iteration to start the search at the top of the tree.</em>
 Loop
 {
     ItemID := TV.GetNext(ItemID, "Full")  <em>; Replace "Full" with "Checked" to find all checkmarked items.</em>
@@ -229,55 +271,73 @@ Loop
     MsgBox('The next Item is ' ItemID ', whose text is "' ItemText '".')
 }</pre>
 </div>
+
 <div class="methodShort" id="GetText">
-  <h3>GetText</h3>
-  <p>指定された項目のテキスト/名前を取得します。</p>
-  <pre class="Syntax">RetrievedText := TV.<span class="func">GetText</span>(ItemID)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>テキストを取得する項目のID番号。<em>RetrievedText</em>の長さは最大8191です。</p>
-    </dd>
-  </dl>
+<h3>GetText</h3>
+<p>指定された項目のテキスト/名前を取得します。</p>
+<pre class="Syntax">Text := TV.<span class="func">GetText</span>(ItemID)</pre>
+<h4 id="GetText_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item whose text to be retrieved.</p>
+  </dd>
+</dl>
+<h4 id="GetText_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>This method returns the retrieved text. Only up to 8191 characters are retrieved.</p>
 </div>
+
 <div class="methodShort" id="Get">
-  <h3>Get</h3>
-  <p>指定されたアイテムが指定された属性を持つ場合、0 以外の値（アイテム ID）を返します。</p>
-  <pre class="Syntax">CurrentItemID := TV.<span class="func">Get</span>(ItemID, Attribute)</pre>
-  <dl>
-    <dt>ItemID</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-      <p>チェックする項目。</p>
-    </dd>
-    <dt>Attribute</dt>
-    <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p><code>E"</code>、<code>"Expand"</code>、または<code>"Expanded"</code>を指定すると、その項目が現在<a href="#Expand">展開されて</a>いるかどうか（つまり、その子項目が表示されているかどうか）を判断する。<code>"C"</code>、<code>"Check"</code>、または "<code>Checked"</code>を指定すると、その項目に<a href="#Check">チェックマーク</a>が付いているかどうかを判断する。<code>"B"</code>、または<code>"Bold"</code>を指定すると、その項目が現在<a href="#Bold">太字</a>になっているかどうかを判断する。</p>
-    </dd>
-  </dl>
-  <p><strong>ヒント：</strong>IFステートメントは、ゼロでない値を "true"とみなすので、<code>TV.Get(ItemID, "Checked") = ItemIDと</code> <code>TV.Get(ItemID, "Checked"</code>)は機能的に同じである。</p>
+<h3>Get</h3>
+<p>Returns the ID number of the specified item if it has the specified attribute.</p>
+<pre class="Syntax">ItemID := TV.<span class="func">Get</span>(ItemID, Attribute)</pre>
+<h4 id="Get_Parameters">パラメータ</h4>
+<dl>
+  <dt>ItemID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number of the item to check.</p>
+  </dd>
+  <dt>Attribute</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Specify one of the following strings:</p>
+    <p><strong>E</strong>, <strong>Expand</strong> or <strong>Expanded</strong>: The item is currently <a href="#Expand">expanded</a> (i.e. its children are being displayed).</p>
+    <p><strong>C</strong>, <strong>Check</strong> or <strong>Checked</strong>: The item has a <a href="#Check">checkmark</a>.</p>
+    <p><strong>B</strong> or <strong>Bold</strong>: The item is currently <a href="#Bold">bold</a> in font.</p>
+  </dd>
+</dl>
+<h4 id="Get_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>If the specified item has the specified attribute, its own ID is returned. Otherwise, 0 is returned.</p>
+<h4 id="Get_Remarks">備考</h4>
+<p>Since an IF-statement sees any non-zero value as "true", the following two lines are functionally identical: <code>if TV.Get(ItemID, "Checked") = ItemID</code> and <code>if TV.Get(ItemID, "Checked")</code>.</p>
 </div>
+
 <div class="methodShort" id="SetImageList">
-  <h3>SetImageList</h3>
-  <p>アイコンを表示するための<a href="ListView.htm#IL">ImageList</a>を設定または置換し、このコントロールに以前関連付けられていた ImageListID を返します（ない場合は 0）。</p>
-  <pre class="Syntax">PrevImageListID := TV.<span class="func">SetImageList</span>(ImageListID <span class="optional">, IconType</span>)</pre>
-    <dl>
-      <dt>ImageListID</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>以前に<a href="ListView.htm#IL_Create">IL_Create</a>を呼び出した際に返された番号。</p>
-      </dd>
-      <dt>IconType</dt>
-      <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>省略された場合、デフォルトは 0 です。そうでない場合は、ステート・アイコンに2を指定する（ステート・アイコンはまだ直接サポートされていないが、<a href="SendMessage.htm">SendMessage</a>を介して使用することができる）。</p>
-      </dd>
-    </dl>
-    <p>
-      このような切り離されたImageListは、通常<a href="ListView.htm#IL_Destroy">IL_Destroy</a>で破棄する必要があります。</p>
+<h3>SetImageList</h3>
+<p>Sets or replaces an <a href="ListView.htm#IL">ImageList</a> for displaying icons.</p>
+<pre class="Syntax">PrevImageListID := TV.<span class="func">SetImageList</span>(ImageListID <span class="optional">, IconType</span>)</pre>
+<h4 id="SetImageList_Parameters">パラメータ</h4>
+<dl>
+  <dt>ImageListID</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>The ID number returned from a previous call to <a href="ListView.htm#IL_Create">IL_Create</a>.</p>
+  </dd>
+  <dt>IconType</dt>
+  <dd>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>省略された場合、デフォルトは 0 です。Otherwise, specify 2 for state icons (which are not yet directly supported, but could be used via <a href="SendMessage.htm">SendMessage</a>).</p>
+  </dd>
+</dl>
+<h4 id="SetImageList_Return_Value">戻り値</h4>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>On success, this method returns the ImageList ID that was previously associated with the TreeView. On failure, it returns 0. このような切り離されたImageListは、通常<a href="ListView.htm#IL_Destroy">IL_Destroy</a>で破棄する必要があります。</p>
 </div>
+
 <h2 id="Events">イベント情報</h2>
 <p><a href="GuiOnEvent.htm">OnEvent</a>を呼び出してコールバック関数やメソッドを登録することで、以下のイベントを検出することができます：</p>
 <table class="info">

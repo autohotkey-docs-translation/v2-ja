@@ -26,11 +26,11 @@
 
 <h3 id="NoTimers">NoTimers</h3>
 <p>あらゆるタイマーからの割り込みを防ぐ。</p>
-<pre class="Syntax"><span class="func">Thread</span> "NoTimers" <span class="optional">, TrueOrFalse</span></pre>
+<pre class="Syntax"><span class="func">Thread</span> "NoTimers" <span class="optional">, False</span></pre>
 <p>このサブファンクションは、<a href="../misc/Threads.htm">現在のスレッド</a>が終了するか、<code>スレッド "NoTimers"</code>を実行するか、<code>false</code>を実行するか、タイマーを許可する他のスレッドによって割り込まれるまで（この場合、タイマーは割り込まれたスレッドが終了するまで割り込むことができる）、いかなる<a href="SetTimer.htm">タイマー</a>からの割り込みも防ぐ。</p>
-<p>この設定が<a href="../Scripts.htm#auto">自動実行スレッド</a>によって変更されない場合、すべてのスレッドはタイマーによる割り込みが可能な状態からスタートする（ただし、<a href="#Interrupt">割り込み</a>サブファンクション[下記]の設定はそのまま適用される）。対照的に、自動実行スレッドがこの設定をオンにし、決してオフにしない場合、新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">タイマー</a>など）はすべて、タイマーによる中断を受けずに起動する。</p>
+<p>If this setting is not changed by <a href="../Scripts.htm#auto">the auto-execute thread</a>, all threads start off as interruptible by timers (though the settings of the <a href="#Interrupt">Interrupt</a> sub-function described below will still apply). 対照的に、自動実行スレッドがこの設定をオンにし、決してオフにしない場合、新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">タイマー</a>など）はすべて、タイマーによる中断を受けずに起動する。</p>
 <p>デフォルトの設定にかかわらず、スクリプトにスレッドがない場合、タイマーは常に動作する（<a href="Pause.htm">一時停止</a>がオンになっている場合を除く）。</p>
-<p><code>スレッド "NoTimers"</code>は<code>スレッド "NoTimers"</code>と等価である。さらに、<em>TrueOrFalse</em>は <a href="../Variables.htm#Expressions">式</a>なので、trueは1に、falseは0に解決される。</p>
+<p><code>スレッド "NoTimers"</code>は<code>スレッド "NoTimers"</code>と等価である。In addition, since the <em>False</em> parameter is an <a href="../Variables.htm#Expressions">expression</a>, true resolves to 1, and false to 0. See <a href="../Concepts.htm#boolean">Boolean Values</a> for details.</p>
 
 <h3 id="Priority">Priority</h3>
 <p>現在のスレッドの優先度を変更する。</p>

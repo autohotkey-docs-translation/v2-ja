@@ -20,12 +20,13 @@
 <dl>
   <dt>エンコード</dt>
   <dd>
-    <p>出力のエンコード方法を指定する<a href="FileEncoding.htm">エンコード文字列</a>。例えば、<code>#ErrorStdOut "UTF-8"</code>は、エラーメッセージをUTF-8にエンコードしてからstderrに送ります。出力をキャプチャするプログラムは、UTF-8をサポートしている必要があり、場合によってはUTF-8を期待するように設定する必要があることもあります。省略した場合は、CP0がデフォルトとなります。</p>
+    <p>If omitted, it defaults to CP0 (the system default ANSI code page). Otherwise, specify an <a href="FileEncoding.htm">encoding string</a> indicating how to encode the output. 例えば、<code>#ErrorStdOut "UTF-8"</code>は、エラーメッセージをUTF-8にエンコードしてからstderrに送ります。出力をキャプチャするプログラムは、UTF-8をサポートしている必要があり、場合によってはUTF-8を期待するように設定する必要があることもあります。</p>
     <p class="note"><strong>注：</strong>このパラメータは式ではなく、引用符（「シングル」または「ダブル」のいずれか）で囲むことができます。</p>
   </dd>
 </dl>
 
 <h2 id="Remarks">備考</h2>
+<p>If this directive is unspecified in the script, any syntax error is displayed in a dialog.</p>
 <p>エラーは標準出力ではなく、標準エラーに書き込まれます。コマンドプロンプトやファンシーエディターでは、通常両方表示されます。</p>
 <p>これにより、TextPad、SciTE、Crimson、EditPlusなどの高級エディタは、シンタックスエラーが発生したときに問題のある行にジャンプすることができます。#ErrorStdOutディレクティブはすべてのスクリプトに追加する必要があるため、通常はAutoHotkeyスクリプトを起動する際に<a href="../Scripts.htm#cmd">コマンドラインスイッチ</a> <strong>/ErrorStdOut</strong>を使用するようにエディタを設定する方がよいでしょう（設定方法は以下を参照ください）。</p>
 <p>AutoHotkeyはコンソールプログラムではないので、コマンドプロンプトに直接エラーが表示されることはありません。これは、1）<a href="../misc/Ahk2ExeDirectives.htm#ConsoleApp">Ahk2Exe ConsoleAppディレクティブ</a>でスクリプトをコンパイルするか、2）パイプやリダイレクトでスクリプトの出力をキャプチャすることで回避することができます。事例：</p>

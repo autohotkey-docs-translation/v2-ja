@@ -20,8 +20,10 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらの各項目が未設定または省略された場合、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用される。そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>If each of these is blank or omitted, the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> will be used. そうでない場合は、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（同梱のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
 </dl>
@@ -32,9 +34,7 @@
 <h2 id="Remarks">備考</h2>
 <p><a href="WinShow.htm">WinShow</a>を使用して隠しウィンドウを解除する<a href="DetectHiddenWindows.htm">（DetectHiddenWindows</a>は、OnまたはOffで実行可能）。</p>
 <p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となります。</p>
-<p>エクスプローラー・タスクバーは、以下のように表示／非表示を切り替えることができる：</p>
-<pre>WinHide "ahk_class Shell_TrayWnd"
-WinShow "ahk_class Shell_TrayWnd"</pre>
+
 <h2 id="Related">関連</h2>
 <p><a href="WinShow.htm">WinShow</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="Win.htm">Win functions</a></p>
 <h2 id="Examples">例</h2>
@@ -46,6 +46,12 @@ Sleep 500
 WinHide <em>; Use the window found by WinWait.</em>
 Sleep 1000
 WinShow <em>; Use the window found by WinWait.</em></pre>
+</div>
+<div class="ex" id="ExTaskbar">
+<p><a class="ex_number" href="#ExTaskbar"></a> Temporarily hides the taskbar.</p>
+<pre>WinHide "ahk_class Shell_TrayWnd"
+Sleep 1000
+WinShow "ahk_class Shell_TrayWnd"</pre>
 </div>
 
 </body>

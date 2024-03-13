@@ -22,7 +22,7 @@
   <dt>FilePattern</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>単一のファイルまたはフォルダーの名前、または "C:\Temp\*.tmp "のようなワイルドカードパターンを指定します。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
+      <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
       <p>ワイルドカードとして、アスタリスクとクエスチョンマークの両方がサポートされています。ファイルのロング/ノーマル名または<a href="#LoopFileShortName">8.3ショート名の</a>いずれかにパターンがある場合、一致することになります。</p>
       <p>このパラメータが単一のファイルまたはフォルダ（すなわちワイルドカードなし）で、<em>Mode</em>にRが含まれる場合、指定されたファイル名が検索対象の複数のフォルダに現れると、複数の一致が検出されます。</p>
       <p>259文字以上のパターンは、<a href="../misc/LongPaths.htm">システムの制限（MAX_PATH）</a>により、ファイルの検索に失敗する場合があります。この制限は、いくつかの条件を満たした上で、<code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィクスを</a>使用することで回避することができます。</p>
@@ -115,7 +115,7 @@
 <p>隠しファイルを含め、一致するすべてのファイルを取得します。これに対し、DIRコマンドなどのOSの機能は、デフォルトで隠しファイルを省略します。隠しファイル、システムファイル、読み取り専用ファイルの処理を避けるために、ループ内で以下のように使用します：</p>
 <pre>if A_LoopFileAttrib ~= "[HRS]"  <em>; H (Hidden), R (Read-only), S (System) のいずれかに該当するファイルをスキップします。<a href="../Variables.htm#regex">~= operator</a>を参照。</em>
     continue  <em>; このファイルをスキップして、次のファイルに移る。</em></pre>
-<p>再帰検索で絶対パスではなく相対パスを取得するには、<a href="SetWorkingDir.htm">SetWorkingDir</a>でループ前のベースフォルダに変更し、Loopでパスを省略します（例：<code>Loop Files, "*.*", "R"</code>)。これにより、<a href="#LoopFilePath">A_LoopFilePath</a>には、ベースフォルダからの相対的なファイルのパスが含まれることになります。</p>
+<p>To retrieve files' relative paths instead of absolute paths during a recursive search, use <a href="SetWorkingDir.htm">SetWorkingDir</a> to change to the base folder prior to the loop, and then omit the path from the loop (e.g. <code>Loop Files, "*.*", "R"</code>). これにより、<a href="#LoopFilePath">A_LoopFilePath</a>には、ベースフォルダからの相対的なファイルのパスが含まれることになります。</p>
 <p>A file loop can disrupt itself if it creates or renames files or folders within its own purview. 例えば、<a href="FileMove.htm">FileMove</a>などでファイル名を変更した場合、そのようなファイルが2回見つかる可能性があります：旧名称ならば、新名称とします。これを回避するには、ファイルのリストを作成した後にのみファイル名を変更します。事例：</p>
 <pre>FileList := ""
 Loop Files, "*.jpg"

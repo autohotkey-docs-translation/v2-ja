@@ -292,7 +292,7 @@
   </tr>
   <tr id="asc">
     <td>{ASC nnnnn}</td>
-    <td><p><kbd>Alt</kbd>+nnnnのキーパッドの組み合わせを送信します。キーボードに存在しない特殊文字を生成するために使用することができます。ASCII文字を生成する場合は、1～255の数字を指定します。ANSI文字（ほとんどの言語で標準）を生成するには、128から255までの数字を指定しますが、その前に先頭の0を付けます（例：{Asc 0133}）。</p>
+    <td><p><kbd>Alt</kbd>+nnnnのキーパッドの組み合わせを送信します。キーボードに存在しない特殊文字を生成するために使用することができます。To generate printable ASCII characters or other characters from <a href="https://en.wikipedia.org/wiki/Code_page_437">code page 437</a>, specify a number between 1 and 255. ANSI文字（ほとんどの言語で標準）を生成するには、128から255までの数字を指定しますが、その前に先頭の0を付けます（例：{Asc 0133}）。</p>
     <p>256から65535までの数字（先頭のゼロを含まない）を指定することで、ユニコード文字を生成することができます。ただし、すべてのアプリケーションで対応しているわけではありません。代替案については、以下のセクションを参照してください。</p></td>
   </tr>
   <tr id="Unicode">
@@ -547,8 +547,8 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p>SendPlayはSendInputよりかなり遅いですが、通常は従来の<a href="#SendEvent">SendEvent</a>モードより速いです（<a href="SetKeyDelay.htm">KeyDelay</a>が-1でも）。</p>
 <p><a href="InstallKeybdHook.htm">キーボードフック</a>がインストールされている場合、SendPlay時に<kbd>両Win</kbd>（LWin、RWin）は自動的にブロックされます。これにより、ユーザーが送信中に誤って<kbd>Win</kbd>を押してしまっても、スタートメニューが表示されないようにしました。一方、LWinとRWin以外のキーは、OSが自動的にSendPlayの後まで延期するため（バッファリングにより）、ブロックする必要はありません。</p>
 <p>SendPlayは、標準設定の<a href="SetKeyDelay.htm">SetKeyDelay</a>と <a href="SetMouseDelay.htm">SetMouseDelay</a>を使用しません。その代わり、デフォルトでは全く遅延しないようになっていますが、以下の例のように変更することが可能です：</p>
-<pre><a href="SetKeyDelay.htm">SetKeyDelay</a> 0, 10, <strong>"Play"</strong>  <em>; Note that both 0 and -1 are the same in SendPlay mode.</em>
-<a href="SetMouseDelay.htm">SetMouseDelay</a> 10, <strong>"Play"</strong></pre>
+<pre><a href="SetKeyDelay.htm">SetKeyDelay</a> 0, 10, "Play"  <em>; Note that both 0 and -1 are the same in SendPlay mode.</em>
+<a href="SetMouseDelay.htm">SetMouseDelay</a> 10, "Play"</pre>
 <p>SendPlayは、<kbd>CapsLock</kbd>、<kbd>NumLock</kbd>、<kbd>ScrollLock</kbd>のオン/オフを切り替えることができません。同様に、キーストロークがスクリプト自身のウィンドウに送信されない限り、<a href="GetKeyState.htm">GetKeyState</a>によって見られるキーの状態を変更することはできません。その場合でも、左右の修飾キー（例：RControl）の変更は、中立の対応するキー（例：Control）を介してのみ検出することができます。また、SendPlayには<a href="SendMode.htm#Play">SendModeのページ</a>で説明されている他の制限があります。</p>
 <p><a href="#SendInputDetail">SendInput</a>や<a href="#SendEvent">SendEvent</a>とは異なり、ユーザーは<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>または<kbd>Ctrl</kbd>+<kbd>Esc</kbd>を押してSendPlayを中断できます。この場合、残りのキー入力は送信されませんが、SendPlayが正常に完了したかのようにスクリプトの実行は継続されます。</p>
 <p>SendPlayはLWinとRWinイベントを送ることができますが、それらはオペレーティングシステム本来の機能を果たすのではなく、アクティブウィンドウに直接送られます。これを回避するためには、<a href="#SendEvent">SendEvent</a>を使用します。例えば、<code>SendEvent "#r"</code>は、スタートメニューの実行ダイアログを表示します。</p>

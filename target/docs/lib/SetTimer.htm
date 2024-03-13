@@ -23,14 +23,14 @@
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>呼び出す関数オブジェクト。</p>
     <p>関数オブジェクトへの<a href="../Concepts.htm#references-to-objects">参照</a>は、スクリプトのタイマーリストに保持され、タイマーが削除されない限り解放されない。これは<a href="#once">ランワンスタイマー</a>では自動的に行われますが、SetTimerを<em>Period</em>を0にして呼び出すことによっても行うことができます。</p>
-    <p id="OmitCallback">If <em>Function</em> is unset or omitted, SetTimer will operate on the timer which launched the current thread, if any. 例えば、<code>SetTimer , 0</code>をタイマー関数内で使用すると、タイマーを削除するためにマークすることができ、<code>SetTimer , 1000</code>は現在のタイマーの<em>周期</em>を更新します。</p>
+    <p id="OmitCallback"><em>Function</em>が省略された場合、SetTimerは現在のスレッドを起動したタイマーを操作します（もしあれば）。例えば、<code>SetTimer , 0</code>をタイマー関数内で使用すると、タイマーを削除するためにマークすることができ、<code>SetTimer , 1000</code>は現在のタイマーの<em>周期</em>を更新します。</p>
     <p class="warning"><strong>注：</strong>空の変数や空の値をもたらす式を渡すとエラーとみなされます。このパラメータには、空でない値を与えるか、完全に省略する必要があります。</p>
   </dd>
 
   <dt>Period</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted and the timer does not exist, it will be created with a period of 250. If unset or omitted and the timer already exists, it will be <a href="#reset">reset</a> at its former period unless <em>Priority</em> is specified. Otherwise, the absolute value of this parameter is used as the <a href="#Precision">approximate</a> number of milliseconds that must pass before the timer is executed. The timer will be automatically <a href="#reset">reset</a>. 自動で繰り返す設定や、1回だけ実行する設定も可能です：</p>
+    <p>If omitted and the timer does not exist, it will be created with a period of 250. If omitted and the timer already exists, it will be <a href="#reset">reset</a> at its former period unless <em>Priority</em> is specified. Otherwise, the absolute value of this parameter is used as the <a href="#Precision">approximate</a> number of milliseconds that must pass before the timer is executed. The timer will be automatically <a href="#reset">reset</a>. 自動で繰り返す設定や、1回だけ実行する設定も可能です：</p>
     <ul>
       <li><em>Period</em>が0より大きい場合、スクリプトによって明示的に無効にされるまで、タイマーは自動的に繰り返されます。</li>
       <li id="once"><em>Period</em>が0より小さい場合、タイマーは1回だけ実行されます。For example, specifying -100 would call <em>Function</em> 100&nbsp;ms from now then delete the timer as though <code>SetTimer <i>Function</i>, 0</code> had been used.</li>
@@ -42,7 +42,7 @@
   <dt>Priority</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If unset or omitted, it defaults to 0. Otherwise, specify an integer between -2147483648 and 2147483647 (or an <a href="../Variables.htm#Expressions">expression</a>) to indicate this timer's thread priority. 詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
+    <p>省略された場合、デフォルトは 0 です。Otherwise, specify an integer between -2147483648 and 2147483647 (or an <a href="../Variables.htm#Expressions">expression</a>) to indicate this timer's thread priority. 詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
     <p>既存のタイマーの優先順位を変更する場合、他の方法で影響を与えることなく、<em>Period</em>を省略します。</p>
   </dd>
 

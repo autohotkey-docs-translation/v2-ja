@@ -22,15 +22,18 @@
   <dt>Install</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>このパラメータを省略するか、true（0以外の空白でない値）を渡すと、フックのインストールを要求します。この関数によって以前に設定された要件を削除し、フックをアンインストールする可能性がある場合は false を渡します。</p>
+    <p>If omitted, it defaults to true.</p>
+    <p>If <strong>true</strong>, the hook is required to be installed.</p>
+    <p>If <strong>false</strong>, any requirement previously set by this function is removed, potentially uninstalling the hook.</p>
   </dd>
 
   <dt>Force</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p><em>Force</em>がtrueで<em>Install</em>が省略またはtrueの場合、フックのアンインストールと再インストールが行われる。これは、他のプロセスによって以前にインストールされたフックよりも優先される効果があります。プログラムが反応しないためにシステムがフックを呼び出さなくなった場合、フックを再インストールすることで再び動作するようになる場合があります。</p>
-    <p><em>Force</em>がtrueで<em>Install</em>がfalseの場合、フックは他の用途で必要であってもアンインストールされます。<a href="../Hotkeys.htm">ホットキー</a>、<a href="../Hotstrings.htm">ホットストリング</a>、<a href="InputHook.htm">InputHook</a>がフックを必要とする場合、フックが再インストールされるまで動作が停止します。フックの再インストールは、この関数を呼び出すことで明示的に行うことも、ホットキーの有効・無効やフックを必要とする他の関数の呼び出しの副作用として自動的に行うこともできる。</p>
-    <p><em>Force</em>がfalseの場合、フックがスクリプトで必要とされているかどうかを示す内部変数が更新されますが、フックが他の目的で必要とされている場合は、すぐに変化がない場合があります。</p>
+    <p>If omitted, it defaults to false.</p>
+    <p>If <strong>false</strong>, an internal variable is updated to indicate whether the hook is required by the script, but there might be no immediate change if the hook is required for some other purpose.</p>
+    <p>If <strong>true</strong> and <em>Install</em> is true, the hook is uninstalled and reinstalled. これは、他のプロセスによって以前にインストールされたフックよりも優先される効果があります。プログラムが反応しないためにシステムがフックを呼び出さなくなった場合、フックを再インストールすることで再び動作するようになる場合があります。</p>
+    <p>If <strong>true</strong> and <em>Install</em> is false, the hook is uninstalled even if needed for some other purpose. <a href="../Hotkeys.htm">ホットキー</a>、<a href="../Hotstrings.htm">ホットストリング</a>、<a href="InputHook.htm">InputHook</a>がフックを必要とする場合、フックが再インストールされるまで動作が停止します。フックの再インストールは、この関数を呼び出すことで明示的に行うことも、ホットキーの有効・無効やフックを必要とする他の関数の呼び出しの副作用として自動的に行うこともできる。</p>
   </dd>
 
 </dl>

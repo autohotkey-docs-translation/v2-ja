@@ -20,14 +20,16 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Objects.htm">オブジェクト</a></p>
-    <p>これらのうち少なくとも1つは必須である。<em>WinTitle</em>には <a href="../misc/WinTitle.htm">ウィンドウのタイトル</a>、またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、<em>WinText</em>にはターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティによって明らかにされる）を指定します。隠しテキスト要素は、<a href="DetectHiddenText.htm">DetectHiddenText</a>がオンになっている場合に検出されます。タイトルまたはテキストに<em>ExcludeTitle</em>または<em>ExcludeText</em>が含まれているウィンドウは考慮されません。</p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>、または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+    <p>これらのうち少なくとも1つは必須である。<em>WinTitle</em>には <a href="../misc/WinTitle.htm">ウィンドウのタイトル</a>、またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、<em>WinText</em>にはターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティによって明らかにされる）を指定します。</p>
+    <p><em>ExcludeTitle</em> and <em>ExcludeText</em> can be used to exclude one or more windows by their title or text. Their specification is similar to <em>WinTitle</em> and <em>WinText</em>, except that <em>ExcludeTitle</em> does not recognize any criteria other than the window title.</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。By default, hidden windows are not detected and hidden text elements are detected, unless changed with <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> and <a href="DetectHiddenText.htm">DetectHiddenText</a>. By default, a window title can contain <em>WinTitle</em> or <em>ExcludeTitle</em> anywhere inside it to be a match, unless changed with <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>.</p>
   </dd>
 
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点</a></p>
-    <p>タイムアウトして0を返すまでの待ち時間。無期限に待機させる場合は空白のままにする。</p>
+    <p>省略した場合は、無期限で待機します。Otherwise, it will wait no longer than this many seconds. To wait for a fraction of a second, specify a floating-point number, for example, 0.25 to wait for a maximum of 250 milliseconds.</p>
   </dd>
 
 </dl>
@@ -42,7 +44,7 @@
 <p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
 <p><a href="WinWaitActive.htm">WinWaitActive</a>とは異なり、<a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>は使用できない。したがって、ウィンドウ・パラメータ（<em>WinTitle</em>、<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>）の少なくとも1つは空白であってはならない。</p>
-<p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<em>WinTitle</em>がHWNDまたはオブジェクトであっても、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオンになっていない限り、隠しウィンドウは検出されません。</p>
+<p><a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> also affects whether hidden windows identified by HWND are detected, but only when used with WinWait or <a href="WinWaitClose.htm">WinWaitClose</a>.</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWait.htm">ProcessWait</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>

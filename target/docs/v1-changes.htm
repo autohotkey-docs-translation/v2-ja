@@ -31,13 +31,13 @@
   <li><a href="#SetFormat">SetFormat、Integer、<strong>H</strong>は大文字小文字を区別します。</a></li>
   <li><a href="#LastError">A_LastErrorは、より多くのコマンドによって変更されます。</a></li>
   <li><a href="#MsgBox">MsgBoxの方がカンマの扱いが安定している</a></li>
-  <li><a href="#GuiOwner">GUIのOwnerオプションが追加スタイルを上書きする</a></li>
+  <li><a href="#GuiOwner">Gui +Owner overrides additional styles</a></li>
   <li><a href="#Tilde">~Tildeは、カスタムモディファイアキーの動作に影響を与えます。</a></li>
   <li><a href="#ComboUpDown"><code>xとy::</code>でxを離すと<code>x::</code>と<code>x up::</code>の両方が発射されます。</a></li>
 </ul>
 <p>影響が少ない：</p>
 <ul>
-  <li><a href="#IfIs"><em>var</em>が<em>type</em>の場合、デフォルトでシステムロケールを無視します。</a></li>
+  <li><a href="#IfIs"><em>If Var is [not] Type</em> ignores the system locale by default</a></li>
   <li><a href="#Window_Groups">GroupActivateでErrorLevelが設定され、GroupAddの<em>Label</em>が動作するのは異なる</a></li>
   <li><a href="#Run">RunとRunWaitで<em>Target</em>の解釈は異なる</a></li>
   <li><a href="#ControlZ">Control-Zはファイル終了として解釈されない</a></li>
@@ -62,17 +62,17 @@
 <h2 id="Transform">Transform</h2>
 <p><i>Transform</i>のサブコマンドの一部が変更されたり、使用できなくなったりします：</p>
 <ul>
-  <li><code>Transform, Unicode</code>はAutoHotkeyのANSIバージョンでのみ利用可能です。Unicodeのテキストをクリップボードに割り当てるには、通常の割り当てを使用します。こちらもご覧ください：<a href="lib/StrPut.htm">StrPut</a>/<a href="lib/StrGet.htm">StrGet</a>.</li>
-  <li><code>トランスフォーム、HTML</code>はAutoHotkey_LのUnicodeバージョンで追加機能をサポートしています。</li>
+  <li><em>Transform Unicode</em> is available only in ANSI versions of AutoHotkey. Unicodeのテキストをクリップボードに割り当てるには、通常の割り当てを使用します。こちらもご覧ください：<a href="lib/StrPut.htm">StrPut</a>/<a href="lib/StrGet.htm">StrGet</a>.</li>
+  <li><em>Transform HTML</em> supports additional features in Unicode versions of AutoHotkey_L.</li>
 </ul>
-<p><code>Transform</code>自体はv2.0で削除されました。</p>
+<p><em>Transform</em> itself was removed in v2.0.</p>
 
 <h2 id="Default_Script">デフォルトのスクリプト</h2>
 <p>スクリプトを指定せずにAutoHotkey_Lを起動した場合、.iniファイルではなく、.ahkファイルがデフォルトで読み込まれる。このファイルの名前は、現在の実行ファイルのファイル名に依存します。詳しくは、「<a href="Scripts.htm#defaultfile">スクリプトのファイル名</a>」を参照してください。</p>
 
 <h2 id="SetFormat">SetFormat、Integer[Fast]、H</h2>
 <p>大文字のHを使用した場合、16進数のA～Fも大文字になります。AutoHotkey Basicでは、常に小文字の数字が出力されます。</p>
-<p>SetFormat自体はv2.0で削除されました。<code>Format("0x{:x}", n)</code>では小文字のa-fが、<code>Format("0x{:X}", n)</code>では大文字のA-Fが生成されます。</p>
+<p><em>SetFormat</em> itself was removed in v2.0. <code>Format("0x{:x}", n)</code> produces lowercase a-f while <code>Format("0x{:X}", n)</code> produces uppercase A-F.</p>
 
 <h2 id="LastError">A_LastError</h2>
 <p>以下のコマンドでは、デバッグを支援するために<a href="Variables.htm#LastError">A_LastError</a>を設定するようにしました：FileAppend, FileRead, FileReadLine, FileDelete, FileCopy, FileMove, FileGetAttrib/Time/Size/Version, FileSetAttrib/Time, FileCreateDir, RegRead, RegWrite, RegDelete. これらのコマンドを使用すると、A_LastErrorの以前の値は上書きされます。</p>
@@ -81,7 +81,7 @@
 <h2 id="MsgBox">MsgBox</h2>
 <p>v1.0とv1.1のMsgBoxは、引用符のないテキストでカンマをエスケープする必要がないように、「スマートカンマ処理」を採用していました。この処理は2つのバージョンで若干異なっており、v1.0のコードを読む際に非常に稀なケースで考慮する必要があるかもしれません。詳細はv1.1のドキュメントを参照してください。v2.0は式構文のみを使用するため、カンマを特別に扱う必要がありません。</p>
 
-<h2 id="GuiOwner">GUIのOwnerオプション</h2>
+<h2 id="GuiOwner">Gui +Owner</h2>
 <p>また、Guiに<a href="lib/Gui.htm#Owner">+Owner</a>オプションを適用すると、WS_CHILDスタイルが削除され、WS_POPUPスタイルが設定されます。このため、スタイルを設定した<em>後</em>に <code>+Owner</code>でGuiの親ウィンドウを設定していたスクリプトが壊れる可能性があります。</p>
 
 <h2 id="Tilde">~ティルデとカスタムコンビネーションホットキー</h2>
@@ -90,8 +90,8 @@
 <h2 id="ComboUpDown">カスタムコンビネーションとダウン/アップホットキー</h2>
 <p>チルダ接頭辞が使われている場合を除き、カスタム修飾キーにキーダウンホットキーとキーアップホットキーの両方が定義されている場合、キーが離されたときに両方が発火することになります。例えば、<code>x &amp; y::</code>では、これまで<code>x::</code>が発射されることはなかったが、xを離すと<code>x::</code>と<code>x up::</code>の両方が発射されるようにします。</p>
 
-<h2 id="IfIs"><em>varが</em> <em>型</em>である場合</h2>
-<p><code>If <i>var</i> is <i>type</i></code> は v1.0 では特定の（おそらくロケール固有の）非 ASCII 文字をデフォルトでアルファベット/アッパーケース/小文字として識別しましたが、 v1.1 では <code>StringCaseSense, Locale</code> が使われている場合にのみそうしていました。同様に、v2.0の<a href="lib/Is.htm">Is<em>Type</em></a>関数は、第2パラメータが<code>"Locale"</code>の場合にのみ非ASCII文字をアルファベットとして識別します。</p>
+<h2 id="IfIs">If Var is [not] Type</h2>
+<p><em>If Var is [not] Type</em> identified certain (possibly locale-specific) non-ASCII characters as alphabetic/uppercase/lowercase by default in v1.0, whereas it did so in v1.1 only if <em>StringCaseSense Locale</em> was used. Similarly, the <a href="lib/Is.htm">Is<em>Type</em></a> functions in v2.0 only identify non-ASCII characters as alphabetic if the second parameter is <code>"Locale"</code>.</p>
 
 <h2 id="Window_Groups">ウィンドウズ・グループ</h2>
 <p><a href="lib/GroupActivate.htm">GroupActivate</a>でErrorLevelを設定するのはv1.1のみで、v1.0やv2.0では設定しない。</p>
