@@ -20,7 +20,7 @@
 
   <dt>Options</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a></p>
     <p>A string of zero or more of the following options (in any order, with optional spaces in between):</p>
     <p id="option-b"><strong>B:</strong> Sets <a href="#BackspaceIsUndo">BackspaceIsUndo</a> to 0 (false), which causes <kbd>Backspace</kbd> to be ignored.</p>
     <p id="option-c"><strong>C:</strong> Sets <a href="#CaseSensitive">CaseSensitive</a> to 1 (true), making <em>MatchList</em> case-sensitive.</p>
@@ -43,7 +43,7 @@ if (ih.Input = CtrlC)
 
   <dt id="EndKeys">EndKeys</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a></p>
     <p>0個以上のキーのリストで、どれかが押されると入力が終了します（終了キー自体は入力バッファに書き込まれません）。When an Input is terminated this way, <a href="#EndReason">EndReason</a> is set to the word EndKey and <a href="#EndKey">EndKey</a> is set to the name of the key.</p>
     <p><em>EndKeys</em> uses a format similar to the <a href="Send.htm">Send</a> function. 例えば、<code>{Enter}.{Esc}</code>と指定すると、<kbd>Enter</kbd>、<kbd>.</kbd>、<kbd>Esc</kbd>のいずれかが入力を終了させることになる。中括弧そのものを終了キーとして使用する場合は、<code>{{}</code>と <code>{}}</code>を指定します。</p>
     <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end keys, specify the left and/or right version of the key, not the neutral version. 例えば、<code>{Control}</code>ではなく、<code>{LControl}{RControl}</code>を指定します。</p>
@@ -53,7 +53,7 @@ if (ih.Input = CtrlC)
 
   <dt id="MatchList">MatchList</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a></p>
     <p>A comma-separated list of key phrases, any of which will cause the Input to be terminated (in which case <a href="#EndReason">EndReason</a> will be set to the word Match). The entirety of what the user types must exactly match one of the phrases for a match to occur (unless the <a href="#asterisk">* option</a> is present). In addition, <strong>any spaces or tabs around the delimiting commas are significant</strong>, meaning that they are part of the match string. For example, if <em>MatchList</em> is <code>ABC , XYZ</code>, the user must type a space after ABC or before XYZ to cause a match.</p>
     <p>カンマが2つ続くと、文字通りのカンマ1つとなります。例えば、次のようにすると、文字列の末尾にリテラルコンマが1つ入ることになります：<code>string1,,,string2</code>. 同様に、次のリストには、その中にリテラルなカンマを持つ項目が1つだけ含まれています：<code>single,,item</code>.</p>
     <p><em>MatchList</em>の項目は個々のパラメータとして扱われないため、リストをすべて変数に格納することができます。例えば、<em>MatchList</em>は <code>List1 "," List2 "," List3</code>からなり、それぞれの変数にマッチフレーズの大きなサブリストが含まれていることがあります。</p>
@@ -115,7 +115,7 @@ if (ih.Input = CtrlC)
 <dl>
   <dt>Keys</dt>
   <dd>
-  <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+  <p>型：<a href="../Concepts.htm#strings">String</a></p>
   <p>キーの一覧です。中括弧は、<a href="Send.htm">送信</a>機能と同様に、キー名、仮想キーコード、スキャンコードを囲むために使用されます。例えば、<code>{Enter}.{{}</code>は、<kbd>Enter</kbd>, <kbd>.</kbd> および <kbd>{</kbd>に適用されます。キーを名前、<code>{vkNN}</code>、または<code>{scNNN}</code>で指定すると、3つの異なる結果が得られます；詳細は以下を参照してください。</p>
   <p id="all-keys">Specify the string <code>{All}</code> (case-insensitive) on its own to apply <em>KeyOptions</em> to all VK and all SC, including <code>{vkE7}</code> and <code>{sc000}</code> as described below. その後、KeyOptを2回目に呼び出すと、特定のキーからオプションを削除することができます。</p>
   <p id="sc000">Specify <code>{sc000}</code> to apply <em>KeyOptions</em> to all events which lack a scan code.</p>
@@ -123,7 +123,7 @@ if (ih.Input = CtrlC)
   </dd>
   <dt>KeyOptions</dt>
   <dd>
-  <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+  <p>型：<a href="../Concepts.htm#strings">String</a></p>
   <p>以下の1文字オプションのうち1つ以上（スペースとタブは無視されます）。</p>
   <p id="KeyOpt-minus"><strong>-</strong> (minus):<code>-</code>に続くオプションのうち、次の<code>+</code>まで削除します。</p>
   <p id="KeyOpt-plus"><strong>+</strong> (plus):それ以外の場合は、何の効果もなく、以前の<code>-</code>をキャンセルします。</p>
@@ -171,7 +171,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
   </dd>
 </dl>
 <h4 id="Wait_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>型：<a href="../Concepts.htm#strings">String</a></p>
 <p>This method returns <a href="#EndReason">EndReason</a>.</p>
 </div>
 
