@@ -21,16 +21,16 @@
 <h2 id="Remarks">備考</h2>
 <p>Every use of <em>Else</em> must belong to (be associated with) an <a href="If.htm">If</a>, <a href="Catch.htm">Catch</a>, <a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> or <a href="While.htm">While</a> statement above it. <em>Else</em>は、<a href="Block.htm">ブロック</a>を使ってその動作を変更しない限り、常にその上にある最も近い適用可能なunclaimedステートメントに属す。<em>Else</em>文の実行条件は、関連する文に依存します：</p>
 <ul>
-  <li><a href="If.htm">If expression</a>:式がfalseに評価された。</li>
-  <li><a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> (any kind), <a href="While.htm">While</a>:ループの反復回数は0回でした。</li>
-  <li><a href="LoopRead.htm">Loop Read</a>:上記と同様ですが、<em>Else</em>の存在により、ファイルやパスが見つからない場合にエラーが発生するのを防ぐこともできます。したがって、<em>Else</em>はファイルが空であるか存在しない場合に実行されます。</li>
+  <li><a href="If.htm">If expression</a>: The expression evaluated to false.</li>
+  <li><a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> (any kind), <a href="While.htm">While</a>: The loop had zero iterations.</li>
+  <li><a href="LoopRead.htm">Loop Read</a>: As above, but the presence of <em>Else</em> also prevents an error from being thrown if the file or path is not found. したがって、<em>Else</em>はファイルが空であるか存在しない場合に実行されます。</li>
   <li><a href="Try.htm">Try</a>...<a href="Catch.htm">Catch</a>: No exception was thrown within the <em>Try</em> block.</li>
 </ul>
 <p><em>Else</em>の後には、同じ行にある他の単一の<a href="../Concepts.htm#statement">ステートメント</a>をすぐに続けることができます。これは、「else if」ラダーに最もよく使われます（下部の例を参照）。</p>
 <p><em>Else</em>が複数の行を所有する場合、それらの行を中括弧で囲む（<a href="Block.htm">ブロック</a>を作る）必要があります。ただし、1行だけが<em>Else</em>に属する場合は、中括弧は省略可能です。事例：</p>
 <pre>if (count &gt; 0)  <em>; 次の行は1行なので、中括弧は不要です。</em>
     MsgBox "Press OK to begin the process."
-else  <em>; 以下の部分は1行以上からなるため、中括弧を使用する必要があります。</em>
+else  <em>; Braces must be used around the section below because it consists of more than one line.</em>
 {
     WinClose "Untitled - Notepad"
     MsgBox "There are no items present."
@@ -87,15 +87,15 @@ else if x = 3
     thirdFunction()
     Sleep 1
 }
-else defaultFunction()  <em>; すなわち、任意の1つの文がElseと同じ行に存在することができます。</em></pre>
+else defaultFunction()  <em>; i.e. Any single statement can be on the same line with an Else.</em></pre>
 </div>
 
 <div class="ex" id="ExLoop">
 <p><a class="ex_number" href="#ExLoop"></a> ループの繰り返し回数が0回だった場合に、何らかのコードを実行します。</p>
 <pre>
-<em>; ファイル/Internet Explorerのウィンドウ/タブを表示します。</em>
+<em>; Show File/Internet Explorer windows/tabs.</em>
 for window in ComObject("Shell.Application").Windows
-    MsgBox "Window #" A_Index ":" window.LocationName
+    MsgBox "Window #" A_Index ": " window.LocationName
 else
     MsgBox "No shell windows found."
 </pre>
