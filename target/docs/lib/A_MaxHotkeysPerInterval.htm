@@ -14,13 +14,13 @@
 <h1>A_MaxHotkeysPerInterval / A_HotkeyInterval</h1>
 
 <p><em>A_MaxHotkeysPerInterval</em> と <em>A_HotkeyInterval</em> は、<a href="../Hotkeys.htm">ホットキー</a> の一定時間の起動回数を制御する <a href="../Concepts.htm#built-in-variables">組み込み変数</a>です。 このレートを超えると警告ダイアログが表示されます。</p>
-<p><em>A_MaxHotkeysPerInterval</em> can be used to get or set an <a href="../Concepts.htm#numbers">integer</a> representing the maximum number of hotkeys that can be pressed within the interval without triggering a warning dialog.</p>
-<p><em>A_HotkeyInterval</em> can be used to get or set an <a href="../Concepts.htm#numbers">integer</a> representing the length of the interval in milliseconds.</p>
+<p><em>A_MaxHotkeysPerInterval</em> は <a href="../Concepts.htm#numbers">整数</a> です。ホットキーがインターバルの間に警告ダイアログの表示なしに起動できるホットキーの最大数を指定します。</p>
+<p><em>A_HotkeyInterval</em> は、 <a href="../Concepts.htm#numbers">整数</a>です。 ホットキーのインターバルをミリ秒単位で指定します。</p>
 <p>初期設定では、<em>A_MaxHotkeysPerInterval</em> が70 (ms) で、<em>A_HotkeyInterval</em>が2000 (ms)です。.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>These built-in variables should usually be assigned values when the script starts (if the default settings are not suitable), but the script can get or set their values at any time.</p>
-<p>Care should be taken not to make the setting too lenient because if you ever inadvertently introduce an infinite loop of keystrokes (via a <a href="Send.htm">Send</a> function that accidentally triggers other hotkeys), your computer could become unresponsive due to the rapid flood of keyboard events.</p>
+<p>これらの組み込み変数は、（デフォルト値が適切でない場合）通常スクリプトの開始時に値を割り当てる必要がありますが、スクリプトはいつでもその値を取得または設定することができます。</p>
+<p>この設定が甘くならないように注意してください。）そうでないと、不注意でキー入力の無限ループ（<a href="Send.htm">Send</a>関数が他のホットキーを誤って起動する）に陥ってしまった場合、キー入力の連続でコンピュータが応答しなくなるでしょう。</p>
 <p>単純化しすぎた例として、ホットキー<code>^c::Send "^c"</code>はキーストロークの無限ループを生成することになります。これを避けるには、ホットキーの定義に<a href="../Hotkeys.htm#prefixdollar">$ prefix</a>を付け（例えば、<code>$^c::</code>）、送信機能でホットキーをトリガーできないようにします。</p>
 <p>など、無限ループ以外の手段で限界に達する可能性があります。</p>
 <ul>
