@@ -12,7 +12,7 @@
 
 <h1>正規表現の吹き出し</h1>
 
-<p>RegExコールアウトは、正規表現パターンマッチングの途中でスクリプトに一時的に制御を渡す手段を提供する。PCRE標準のコールアウト機能の詳細については、<a href="http://www.pcre.org/pcre.txt">pcre.txt</a>を参照してください。</p>
+<p>RegExコールアウトは、正規表現パターンマッチングの途中でスクリプトに一時的に制御を渡す手段を提供する。PCRE標準のコールアウト機能の詳細については、<a href="http://www.pcre.org/pcre.txt">pcre.txt</a>をご覧ください。</p>
 
 <p>RegExコールアウトは現在、<a href="../lib/RegExMatch.htm">RegExMatch</a>と <a href="../lib/RegExReplace.htm">RegExReplace</a>でのみサポートされている。</p>
 
@@ -100,21 +100,21 @@ pcre_callout(Match, CalloutNumber, FoundPos, Haystack, NeedleRegEx)
     <em>; See pcre.txt for descriptions of these fields.</em>
     start_match       := NumGet(A_EventInfo, 12 + A_PtrSize*2, "Int")
     current_position  := NumGet(A_EventInfo, 16 + A_PtrSize*2, "Int")
-    pad := A_PtrSize=8 ?4 : 0
+    pad := A_PtrSize=8 ? 4 : 0
     pattern_position  := NumGet(A_EventInfo, 28 + pad + A_PtrSize*3, "Int")
     next_item_length  := NumGet(A_EventInfo, 32 + pad + A_PtrSize*3, "Int")
 
-    <em>; Point out &gt;&gt;current match&lt;&lt;.</em>
+<em>; Point out &gt;&gt;current match&lt;&lt;.</em>
     _HAYSTACK:=SubStr(Haystack, 1, start_match)
         . "&gt;&gt;" SubStr(Haystack, start_match + 1, current_position - start_match)
         . "&lt;&lt;" SubStr(Haystack, current_position + 1)
     
-    <em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
+<em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
     _NEEDLE:=  SubStr(NeedleRegEx, 1, pattern_position)
         . "&gt;&gt;" SubStr(NeedleRegEx, pattern_position + 1, next_item_length)
         . "&lt;&lt;" SubStr(NeedleRegEx, pattern_position + 1 + next_item_length)
     
-    ListVars
+ListVars
     <em>; Press Pause to continue.</em>
     Pause
 }</pre>

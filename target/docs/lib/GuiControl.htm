@@ -27,15 +27,15 @@
       <li><a href="#Add">Add</a>: Appends items to a multi-item control.</li>
       <li><a href="#Choose">Choose</a>: Selects an item in a multi-item control.</li>
       <li><a href="#Delete">Delete</a>: Deletes one or all items from a multi-item control.</li>
-      <li><a href="#Focus">Focus</a>: Sets keyboard focus to the control.</li>
-      <li><a href="#GetPos">GetPos</a>: Retrieves the position and size of the control.</li>
-      <li><a href="#Move">Move</a>: Moves and/or resizes the control.</li>
+      <li><a href="#Focus">Focus</a>:コントロールにキーボードフォーカスを設定します。</li>
+      <li><a href="#GetPos">GetPos</a>:コントロールの位置と大きさを取得します。</li>
+      <li><a href="#Move">Move</a>:コントロールの移動およびサイズ変更を行います。</li>
       <li><a href="#OnCommand">OnCommand</a>: Registers a function or method to be called on WM_COMMAND.</li>
-      <li><a href="#OnEvent">OnEvent</a>: Registers a function or method to be called when the given event is raised.</li>
+      <li><a href="#OnEvent">OnEvent</a>:与えられたイベントが発生したときに呼び出される関数またはメソッドを登録します。</li>
       <li><a href="#OnNotify">OnNotify</a>: Registers a function or method to be called on WM_NOTIFY.</li>
-      <li><a href="#Opt">Opt</a>: Sets various options and styles for the appearance and behavior of the control.</li>
-      <li><a href="#Redraw">Redraw</a>: Redraws the region of the GUI window occupied by the control.</li>
-      <li><a href="#SetFont">SetFont</a>: Sets the font typeface, size, style, and/or color for the control.</li>
+      <li><a href="#Opt">Opt</a>:コントロールの外観や動作に関するさまざまなオプションやスタイルを設定します。</li>
+      <li><a href="#Redraw">Redraw</a>:コントロールが占有するGUIウィンドウの領域を再描画します。</li>
+      <li><a href="#SetFont">SetFont</a>:コントロールのフォントの書体、サイズ、スタイル、色などを設定します。</li>
     </ul>
   </li>
   <li><a href="#Properties">Properties</a>:
@@ -44,17 +44,17 @@
       <li><a href="#Enabled">Enabled</a>: Retrieves or sets the interaction state of the control.</li>
       <li><a href="#Focused">Focused</a>: Retrieves the focus state of the control.</li>
       <li><a href="#Gui">Gui</a>: Retrieves the <a href="Gui.htm">Gui object</a> of the control's parent window.</li>
-      <li><a href="#Hwnd">Hwnd</a>: Retrieves the window handle (HWND) of the control.</li>
-      <li><a href="#Name">Name</a>: Retrieves or sets the explicit name of the control.</li>
-      <li><a href="#Text">Text</a>: Retrieves or sets the text/caption of the control.</li>
-      <li><a href="#Type">Type</a>: Retrieves the type of the control.</li>
+      <li><a href="#Hwnd">Hwnd</a>:コントロールのウィンドウハンドル(HWND)を取得します。</li>
+      <li><a href="#Name">Name</a>:コントロールの明示的な名前を取得または設定します。</li>
+      <li><a href="#Text">Text</a>:コントロールのテキスト/キャプションを取得または設定します。</li>
+      <li><a href="#Type">Type</a>:コントロールの種類を取得します。</li>
       <li><a href="#Value">Value</a>: Retrieves or sets the contents of a value-capable control.</li>
       <li><a href="#Visible">Visible</a>: Retrieves or sets the visibility state of the control.</li>
     </ul>
   </li>
   <li><a href="#GenRemarks">一般的な備考</a>：
     <ul>
-      <li><a href="#redraw-remarks">Redraw</a>: Performance-related remarks about redraw behaviour of controls.</li>
+      <li><a href="#redraw-remarks">Redraw</a>:コントロールの再描画動作に関するパフォーマンスに関する注意事項。</li>
     </ul>
   </li>
 </ul>
@@ -67,7 +67,7 @@
 <h4 id="Add_Parameters">パラメータ</h4>
 <dl>
   <dt>Items</dt><dd>
-    <p>Type: <a href="Array.htm">Array</a></p>
+    <p>型：<a href="Array.htm">Array</a></p>
     <p>An array of strings to be inserted as items at the end of the control's list, e.g. <code>["Red", "Green", "Blue"]</code>.</p>
   </dd>
 </dl>
@@ -84,16 +84,16 @@
 <h4 id="Choose_Parameters">パラメータ</h4>
 <dl>
   <dt>値</dt><dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
     <p>Specify 1 for the first item, 2 for the second, etc.</p>
     <p>If <em>Value</em> is a string (even a numeric string), the item whose leading name part matches <em>Value</em> will be selected. The search is not case-sensitive. 例えば、コントロールに「UNIXテキスト」という項目がある場合、unix（小文字）という単語を指定すれば、それだけで選択できます。<a href="GuiControls.htm#ListBoxMulti">複数選択リストボックス</a>の場合、一致するすべての項目が選択されます。</p>
     <p><em>Value</em>が0または空の場合、現在の選択項目は削除されます。</p></dd>
 </dl>
 <h4 id="Choose_Remarks">備考</h4>
 <p><a href="GuiControls.htm#ListBoxMulti">多項目選択リストボックス</a>の<u>全項目</u>を選択または選択解除するには、次のようにします：</p>
-<pre>PostMessage 0x0185, 1, -1, ListBox  <em>; Select all items. 0x0185 is LB_SETSEL.</em>
-PostMessage 0x0185, 0, -1, ListBox  <em>; Deselect all items.</em>
-ListBox.Choose(0)  <em>; Deselect all items.</em></pre>
+<pre>PostMessage 0x0185, 1, -1, ListBox  <em>; 全項目を選択。0x0185はLB_SETSELです。</em>
+PostMessage 0x0185, 0, -1, ListBox  <em>;すべてのアイテムの選択を解除します。</em>
+ListBox.Choose(0)  <em>; すべての項目の選択を解除します。</em></pre>
 <p><a href="ControlChooseIndex.htm">ControlChooseIndex</a>とは異なり、このメソッドは<a href="GuiOnEvent.htm#Change">Change</a>または<a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>イベントを発生させません。</p>
 </div>
 
@@ -104,7 +104,7 @@ ListBox.Choose(0)  <em>; Deselect all items.</em></pre>
 <h4 id="Delete_Parameters">パラメータ</h4>
 <dl>
   <dt>値</dt><dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted, all items will be deleted. Otherwise, specify 1 for the first item, 2 for the second, etc.</p>
   </dd>
 </dl>
@@ -130,12 +130,12 @@ ListBox.Choose(0)  <em>; Deselect all items.</em></pre>
 <dl>
   <dt>&amp;X, &amp;Y</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the X and Y coordinates (in pixels) of the control's upper left corner. These coordinates are relative to the upper-left corner of the window's client area, which is the area not including title bar, menu bar, and borders.</p>
   </dd>
   <dt>&amp;Width, &amp;Height</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>If omitted, the corresponding value will not be stored. Otherwise, specify references to the output variables in which to store the control's width and height (in pixels).</p>
   </dd>
 </dl>
@@ -155,12 +155,12 @@ MsgBox "The X coordinate is " x ". Y座標は" y "です。幅は" w "です。�
 <dl>
   <dt>X, Y</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If either is omitted, the control's position in that dimension will not be changed. Otherwise, specify the X and Y coordinates (in pixels) of the upper left corner of the control's new location. The coordinates are relative to the upper-left corner of the window's client area, which is the area not including title bar, menu bar, and borders.</p>
   </dd>
   <dt>幅、高さ</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If either is omitted, the control's size in that dimension will not be changed. Otherwise, specify the new width and height of the control (in pixels).</p>
   </dd>
 </dl>
@@ -199,7 +199,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <h4 id="Opt_Parameters">パラメータ</h4>
 <dl>
   <dt>Options</dt><dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">String</a></p>
     <p>Specify one or more <a href="GuiControls.htm">control-specific</a> or <a href="Gui.htm#OtherOptions">general</a> options and styles, each separated from the next with one or more spaces or tabs.</p>
   </dd>
 </dl>
@@ -232,7 +232,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <p>Retrieves the class name and sequence number (ClassNN) of the control.</p>
 <pre class="Syntax">ClassNN := GuiCtrl.<span class="func">ClassNN</span></pre>
 <p>コントロールのClassNNは、コントロールのウィンドウクラスの名前と、それを含むトップレベルウィンドウ内のシーケンス番号で構成されます。例えば、"Edit1"はウィンドウ上の最初のEditコントロール、"Button12"は2番目のボタンです。</p>
-<p>Related: <a href="ControlGetClassNN.htm">ControlGetClassNN</a></p>
+<p>関連:<a href="ControlGetClassNN.htm">ControlGetClassNN</a></p>
 </div>
 
 <div class="methodShort" id="Enabled">
@@ -281,7 +281,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <p>コントロールのテキスト/キャプションを取得または設定します。</p>
 <pre class="Syntax">CurrentText := GuiCtrl.<span class="func">Text</span></pre>
 <pre class="Syntax">GuiCtrl.<span class="func">Text</span> := NewText</pre>
-<p>Note: If the control has no visible caption text and no (single) text value, this property corresponds to the control's hidden caption text (like <a href="ControlGetText.htm">ControlGetText</a>/<a href="ControlSetText.htm">ControlSetText</a>).</p>
+<p>注：コントロールに可視キャプションテキストがなく、（単一の）テキスト値もない場合、このプロパティはコントロールの非表示キャプションテキストに対応します（<a href="ControlSetText.htm">ControlGetText</a>/<a href="ControlGetText.htm">ControlSetText</a>のように）。</p>
 <p><em>CurrentText</em> and <em>NewText</em> depend on the <a href="GuiControls.htm">control type</a>:</p>
 
 <p><strong>Button / CheckBox / Edit / GroupBox / Link / Radio / Text</strong></p>
@@ -316,7 +316,7 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <p>Retrieves or sets the contents of a value-capable control.</p>
 <pre class="Syntax">CurrentValue := GuiCtrl.<span class="func">Value</span></pre>
 <pre class="Syntax">GuiCtrl.<span class="func">Value</span> := NewValue</pre>
-<p>Note: If the control is not value-capable, <em>CurrentValue</em> will be blank and assigning <em>NewValue</em> will raise an error. 無効な値では例外が発生します。</p>
+<p>注：If the control is not value-capable, <em>CurrentValue</em> will be blank and assigning <em>NewValue</em> will raise an error. 無効な値では例外が発生します。</p>
 <p><em>CurrentValue</em> and <em>NewValue</em> depend on the <a href="GuiControls.htm">control type</a>:</p>
 
 <p><strong>ActiveX</strong></p>
@@ -343,12 +343,12 @@ MyEdit.Move(VarX+10, VarY+5, VarW*2, VarH*1.5)</pre>
 <p>To retrieve or set the text without translating `n to or from `r`n, use the <a href="#Text">Text property</a>.</p>
 
 <p><strong>Hotkey</strong></p>
-<p><em>CurrentValue</em> is the modifiers and key name if there is a hotkey in the <a href="GuiControls.htm#Hotkey">Hotkey</a> control; otherwise blank. Examples: <code>^!C</code>, <code>^Home</code>, <code>+^NumpadHome</code>.</p>
-<p><em>NewValue</em>には、キー名を持つ修飾語のセット、またはコントロールをクリアするためのブランクを指定することができます。Examples: <code>^!c</code>, <code>^Numpad1</code>, <code>+Home</code>. The only modifiers supported are ^ (Control), !(Alt), and + (Shift). 使用可能なキー名については、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
+<p><em>CurrentValue</em> is the modifiers and key name if there is a hotkey in the <a href="GuiControls.htm#Hotkey">Hotkey</a> control; otherwise blank. 例：<code>^!C</code>, <code>^Home</code>, <code>+^NumpadHome</code>.</p>
+<p><em>NewValue</em>には、キー名を持つ修飾語のセット、またはコントロールをクリアするためのブランクを指定することができます。例：<code>^!c</code>, <code>^Numpad1</code>, <code>+Home</code>. The only modifiers supported are ^ (Control), ! (Alt), and + (Shift). 使用可能なキー名については、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
 
 <p><strong>画像</strong></p>
 <p><em>CurrentValue</em> is the picture's file name as it was originally specified when the <a href="GuiControls.htm#Picture">Picture</a> control was created. この名前は、新しい画像ファイル名が指定されても変わりません。</p>
-<p><em>NewValue</em>は、読み込む新しい画像のファイル名（または<a href="../misc/ImageHandles.htm">ハンドル</a>）です（サポートされているファイルタイプは<a href="GuiControls.htm#Picture">Picture</a>を参照してください）。Zero or more of the following options may be specified immediately in front of the filename: <code>*wN</code> (width N), <code>*hN</code> (height N), and <code>*IconN</code> (icon group number N in a DLL or EXE file). In the following example, the default icon from the second icon group is loaded with a width of 100 and an automatic height via "keep aspect ratio": <code>MyPic.Value := "*icon2 *w100 *h-1 C:\My Application.exe"</code>. 画像の実際の幅と高さを使用する場合は、<code>*w0 *h0</code>を指定します。<code>w</code>と<code>h</code>が省略された場合、画像はコントロールの現在のサイズに合うように拡大縮小されます。マルチアイコンの.ICOファイルから読み込む場合、幅と高さを指定することで、どのアイコンを読み込むかも決まります。Note: Use only one space or tab between the final option and the filename itself; any other spaces and tabs are treated as part of the filename.</p>
+<p><em>NewValue</em>は、読み込む新しい画像のファイル名（または<a href="../misc/ImageHandles.htm">ハンドル</a>）です（サポートされているファイルタイプは<a href="GuiControls.htm#Picture">Picture</a>を参照してください）。ファイル名の直前に、以下のオプションを0個以上指定することができます：*<code>wN</code>（幅N）、<code>*hN</code>（高さN）、<code>*IconN</code>（DLLまたはEXEファイル内のアイコン群番号N）です。次の例では、2番目のアイコングループのデフォルトアイコンが、幅100、「縦横比を保つ」による自動高さで読み込まれます：<code>MyPic.Value := "*icon2 *w100 *h-1 C:\My Application.exe"</code>. 画像の実際の幅と高さを使用する場合は、<code>*w0 *h0</code>を指定します。<code>w</code>と<code>h</code>が省略された場合、画像はコントロールの現在のサイズに合うように拡大縮小されます。マルチアイコンの.ICOファイルから読み込む場合、幅と高さを指定することで、どのアイコンを読み込むかも決まります。注：最後のオプションとファイル名の間には、スペースまたはタブを1つだけ使用します。その他のスペースやタブは、ファイル名の一部として扱われます。</p>
 
 <p><strong>Progress / Slider / UpDown</strong></p>
 <p><em>CurrentValue</em> is the current position of the <a href="GuiControls.htm#Progress">Progress</a>, <a href="GuiControls.htm#Slider">Slider</a> or <a href="GuiControls.htm#UpDown">UpDown</a> control.</p>
