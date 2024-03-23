@@ -1,21 +1,21 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>概念と規約｜AutoHotkey v2</title>
-<meta name="description" content="AutoHotkeyで使用される一般的な概念や規約について、コードよりも説明に重点を置いて詳しく説明します。" />
+<title>概念と慣習｜AutoHotkey v2</title>
+<meta name="description" content="AutoHotkeyで使用される一般的な概念や慣習について、コードよりも説明に重点を置いて詳しく説明します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="static/theme.css" rel="stylesheet" type="text/css" />
 <script src="static/content.js" type="text/javascript"></script>
 </head>
 <body>
-<h1>概念と規約</h1>
-<p>この文書では、AutoHotkeyで使用される一般的な概念と規約を、コードよりも説明に重点を置いて説明しています。読者は、スクリプトやプログラミングの予備知識を持つことは想定していませんが、新しい用語を学ぶ準備はしておいてください。</p>
+<h1>概念と慣習</h1>
+<p>この文書では、AutoHotkeyで使用される一般的な概念と慣習を、コードよりも説明に重点を置いて説明しています。読者に対してはスクリプトやプログラミングの予備知識を持つことは想定していませんが、新しい用語を学ぶ準備はしておいてください。</p>
 <p>構文の具体的な内容については、「<a href="Language.htm">スクリプト言語</a>」をご覧ください。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#values">価値観</a>
+  <li><a href="#values">値</a>
   <ul>
     <li><a href="#strings">文字列</a></li>
     <li><a href="#numbers">数字</a></li>
@@ -32,7 +32,7 @@
     <li><a href="#variable-references">変数参照（VarRef）</a></li>
     <li><a href="#caching">キャッシング</a></li>
   </ul></li>
-  <li><a href="#functions">機能紹介</a>
+  <li><a href="#functions">関数</a>
   <ul>
     <li><a href="#methods">メソッド</a></li>
   </ul></li>
@@ -42,7 +42,7 @@
     <li><a href="#string-encoding">文字列のエンコード</a></li>
     <li><a href="#pure-numbers">純粋数</a></li>
     <li><a href="#names">名称</a></li>
-    <li><a href="#references-to-objects">オブジェクトへの言及</a></li>
+    <li><a href="#references-to-objects">オブジェクトへの参照</a></li>
   </ul></li>
 </ul>
 <!-- TODO:
@@ -52,7 +52,7 @@ Classes
 Exception handling
 -->
 
-<h2 id="values">価値観</h2>
+<h2 id="values">値</h2>
 <p><em>値</em>とは、簡単に言えば、プログラム内の情報のことです。例えば、送信するキーや実行するプログラムの名前、ホットキーが押された回数、起動するウィンドウのタイトルなど、プログラムやスクリプトの中で何らかの意味を持つものを指定します。</p>
 <p>AutoHotkeyは、このようなタイプの値をサポートしています。</p>
 <ul>
@@ -61,14 +61,14 @@ Exception handling
   <li><a href="#objects">オブジェクト</a></li>
 </ul>
 <p><a href="lib/Type.htm">Type</a>関数は、値の型を決定するために使用することができます。</p>
-<p>その他、関連するコンセプトもあります。</p>
+<p>その他、関連する概念もあります。</p>
 <ul>
   <li><a href="#boolean">ブーリアン</a></li>
   <li><a href="#nothing">Nothing</a></li>
 </ul>
 
 <h3 id="strings">文字列</h3>
-<p><em>文字列</em>は単なるテキストです。各文字列は、実際には文字の配列または<em>文字列</em>ですが、1つの実体として扱うことができます。文字列の<em>長さ</em>は、その文字列の文字数であり、文字列中のある文字の<em>位置</em>は、その文字の連番でしかありません。AutoHotkeyの慣例では、最初の文字はポジション1になります。</p>
+<p><em>文字列</em>は単なるテキストです。各文字列は、実際には文字の配列または<em>文字列</em>ですが、1つの実体として扱うことができます。文字列の<em>長さ</em>は、その文字列の文字数であり、文字列中のある文字の<em>位置</em>は、その文字の連番でしかありません。AutoHotkeyの慣習では、最初の文字はポジション1になります。</p>
 <p id="numeric-strings"><strong>数値の文字列：</strong>数値文字列：数字（またはその他のサポートされている<a href="#numbers">数値フォーマット</a>）の文字列は、数学演算や比較で必要とされる場合、自動的に数値として解釈されます。</p>
 <p>スクリプトの中でどのようにリテラルテキストを書くべきかは、文脈によって異なります。例えば、式の中では、<a href="Language.htm#strings">文字列</a>は引用符で囲む必要があります。ディレクティブ（#HotIfを除く）および自動置換ホットストリングでは、引用符は必要ありません。</p>
 <p>文字列の仕組みについてのより詳しい説明は、「<a href="#string-encoding">文字列のエンコード</a>」をご覧ください。</p>
@@ -155,7 +155,7 @@ myObj[arg1, arg2, ..., argN] := value
   <li>変数そのものです。</li>
   <li>変数の<em>値</em>です。</li>
 </ul>
-<p>変数名には一定の制約があります。詳細は「<a href="#names">名前</a>」を参照してください。In short, it is safest to stick to names consisting of ASCII letters (which are case-insensitive), digits and underscore, and to avoid using names that start with a digit.</p>
+<p>変数名には一定の制約があります。詳細は「<a href="#names">名前</a>」を参照してください。要するに、ASCII文字（大文字小文字を区別しない）、数字、アンダースコアからなる名前にして、数字から始まる名前にしないようにするのが無難です。</p>
 <p id="scope">変数名には <strong><em>範囲</em></strong>これは、コード内のどこでその名前を使用してその変数を参照できるかを定義するもので、言い換えれば、その変数が<em>見える</em>場所です。ある変数が与えられたスコープ内で見えない場合、同じ名前で別の変数を参照することができます。両方の変数が同時に存在することもありますが、スクリプトの各部分で見えるのは1つだけです。<a href="Functions.htm#Global">グローバル変数</a>は、「グローバルスコープ」（つまり関数の外側）で見ることができ、デフォルトでは関数から読み込むことができますが、関数内で値を代入する場合は<a href="Functions.htm#Global">宣言する</a>必要があります。<a href="Functions.htm#Local">ローカル変数</a>は、それを作成した関数の内部でのみ見ることができます。</p>
 <p>変数は、値の入れ物や保管場所と考えることができるので、ドキュメントでは、変数の値を<em>変数の中身</em>と呼ぶことが多いようです。変数<code>x :=42</code>の場合、「変数xは42という数字を値として持っている」「xの値は42である」という言い方もできる。</p>
 <p>注意すべきは、変数とその値は同じではないことです。例えば、「<code>myArray</code>は配列である」と言いますが、本当の意味は「myArrayは配列への参照を含む変数である」ということです。しかし、"myArray "は単なる変数名であり、配列オブジェクトは自分が名前を持っていることを知らないので、多くの異なる変数（したがって多くの名前）で参照される可能性があるのです。</p>
@@ -196,7 +196,7 @@ myObj[arg1, arg2, ..., argN] := value
   <li><a href="Variables.htm#cap">可変容量・メモリ</a>。制限事項の詳細はこちら</li>
 </ul>
 
-<h2 id="functions">機能紹介</h2>
+<h2 id="functions">関数</h2>
 <p><em>関数</em>とは、スクリプトが<em>何かを行う</em>ための基本的な手段です。</p>
 <p>機能にはさまざまな目的があります。単純な計算を行うだけの関数もあれば、ウィンドウを移動させるなど、すぐに目に見える効果を持つ関数もあります。AutoHotkeyの強みの一つは、スクリプトがいくつかの関数を呼び出すだけで、他のプログラムを自動化したり、その他多くの一般的なタスクを実行したりすることができる手軽さです。例として、<a href="lib/index.htm">機能一覧</a>をご覧ください。</p>
 <p>この文書では、一般的な単語が、経験のない人にはわからないように使われていることがあります。以下に、機能に関して頻繁に使用される単語やフレーズを紹介します。</p>
@@ -233,10 +233,10 @@ ControlSend "^{Home}",, "A"          <em>; 正しいです。制御が省略さ�
   <dd><p><em>文</em>とは、簡単に言えば、実行されるべき何らかのアクションを表現する言語の最小の独立した要素です。AutoHotkeyでは、ステートメントには、代入、関数呼び出し、その他の式が含まれます。ただし、ディレクティブ、ダブルコロンのホットキーやホットストリングタグ、割り当てのない宣言はステートメントではなく、プログラムが最初に起動したとき、スクリプトが<em>実行される</em>前に処理されます。</p></dd>
   <dt id="execute">実行</dt>
   <dd><p>実行する、実行する、評価する、実行に移す、など。<em>Execute</em>は、基本的にノンプログラミングの言葉と同じ意味です。</p></dd>
-  <dt id="cf-body">Body</dt>
+  <dt id="cf-body">本体</dt>
   <dd><p>制御フロー文の<em>本体</em>は、それが適用される文または文のグループです。例えば、<a href="lib/If.htm">if文</a>の本文は、特定の条件を満たした場合にのみ実行されます。</p></dd>
 </dl>
-<p>例えば、こんな簡単な説明書を考えてみましょう。</p>
+<p>例えば、こんな簡単な命令を考えてみましょう。</p>
 <ol>
   <li>メモ帳を開く</li>
   <li>メモ帳が画面に表示されるのを待つ</li>
@@ -335,7 +335,7 @@ MsgBox 0.1 + 0.2 = 0.3   <em>; 0 (not equal)</em>
 <p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>, <code>Case</code>, <code>Catch</code>, <code>Continue</code>, <code>Else</code>, <code>Finally</code>, <code>For</code>, <code>Global</code>, <code>Goto</code>, <code>If</code>, <code>Local</code>, <code>Loop</code>, <code>Return</code>, <code>Static</code>, <code>Switch</code>, <code>Throw</code>, <code>Try</code>, <code>Until</code>, <code>While</code></p>
 <p>プロパティ名、メソッド名、ウィンドウグループ名には予約語を使用することができる。</p>
 
-<h3 id="references-to-objects">オブジェクトへの言及</h3>
+<h3 id="references-to-objects">オブジェクトへの参照</h3>
 <p>スクリプトは、オブジェクトへの<em>参照</em>を通じて、間接的にのみオブジェクトと対話します。オブジェクトを作成するとき、オブジェクトはあなたがコントロールできない場所に作成され、リファレンスが与えられます。この参照を関数に渡したり、変数や別のオブジェクトに格納したりすると、<em>同じ</em>オブジェクトへの新しい参照が作成されます。</p>
 <p>例えば、<em>myObj</em>にオブジェクトへの参照が含まれている場合、<code>yourObj := myObj</code>は同じオブジェクトへの新しい参照を作成します。<code>myObj.ans := 42</code>のような変更は、同じオブジェクトを参照しているため、<code>myObj.ans</code>と<code>yourObj.ans</code>の両方に反映されます。しかし、<code>myObj := Object()</code>は変数<em>myObj</em>にのみ影響し、変数<em>yourObj</em>はまだ元のオブジェクトを参照しているわけではありません。</p>
 <p>参照は、代入を使用して他の任意の値に置き換えるだけで解放されます。オブジェクトは、すべての参照が解放された後にのみ削除されます。オブジェクトを明示的に削除することはできませんので、試さないでください。(ただし、<a href="lib/Array.htm">Array</a>の要素、<a href="lib/Gui.htm">Gui</a>に関連するウィンドウ、<a href="lib/Menu.htm">Menu</a>オブジェクトのメニューなど、オブジェクトのプロパティ、コンテンツ、関連リソースを削除することは可能です)。</p>

@@ -24,7 +24,7 @@
       <li><a href="#variables">変数</a></li>
       <li><a href="#expressions">式</a></li>
       <li><a href="#objects-misc">Objects (Misc)</a></li>
-      <li><a href="#functions">機能紹介</a></li>
+      <li><a href="#functions">関数</a></li>
       <li><a href="#nested-functions">ネストされた関数</a></li>
       <li><a href="#uncategorized">未分類（Uncategorized）</a></li>
       <li><a href="#continuation-sections">継続の部</a></li>
@@ -73,7 +73,7 @@
       <li><a href="#continuable-errors">継続可能なエラー</a></li>
       <li><a href="#errorlevel">ErrorLevel</a></li>
       <li><a href="#expressions-1">式</a></li>
-      <li><a href="#functions-1">機能紹介</a></li>
+      <li><a href="#functions-1">関数</a></li>
       <li><a href="#catch">Catch</a></li>
     </ul>
   </li>
@@ -233,7 +233,7 @@
 <p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property) are two different operations, although they may be equivalent if <em>x</em> is a COM object (due to limitations of the COM interface).</p>
 <p>Concatenating an object with another value or passing it to <a href="lib/Loop.htm">Loop</a> is currently treated as an error, whereas previously the object was treated as an empty string. This may be changed to implicitly call <code>.ToString()</code>. Use <code>String(x)</code> to convert a value to a string; this calls <code>.ToString()</code> if <em>x</em> is an object.</p>
 <p>IDispatch（COMインターフェース）を介してオブジェクトが呼び出された場合、呼び出し元に引き渡せない捕捉できない例外は、エラーダイアログを発生させます。(呼び出し側は、具体的な詳細を伴わない追加のエラーダイアログを表示することも、しないこともあります)。これは、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の使用により呼び出されるイベントハンドラにも適用されます。</p>
-<h3 id="functions">機能紹介</h3>
+<h3 id="functions">関数</h3>
 <p>関数が正式に受け付ける以上のパラメータで動的に呼び出すことができなくなりました。</p>
 <p><a href="Functions.htm#Variadic">Variadic functions</a> are not affected by the above restriction, but normally will create an array each time they are called to hold the surplus parameters. この配列が不要な場合は、パラメータ名を省略できるようになり、作成されないようになりました：</p>
 <pre>AcceptsOneOrMoreArgs(first, *) {
@@ -1079,7 +1079,7 @@ Gui GuiName:デフォルト</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>StatusBar</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>Tab</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。Textは選択されたタブのテキストを返し、ControlGetTextは非表示のテキストを返します。</td></tr>
+<tr><td>タブ</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。Textは選択されたタブのテキストを返し、ControlGetTextは非表示のテキストを返します。</td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">.Text</td><td>テキストは非表示です。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td></td></tr>
@@ -1116,7 +1116,7 @@ Gui GuiName:デフォルト</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
 <tr><td>StatusBar</td><td colspan="2">.TextまたはSB.SetText()</td><td></td></tr>
-<tr><td>Tab</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
+<tr><td>タブ</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">N/A</td><td>コマンドは何の効果もありませんでした。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
@@ -1187,7 +1187,7 @@ Gui GuiName:デフォルト</p>
 </ul>
 <p>上記の条件の中には、v1では検出されるが、表現の途中では検出されないものがある。例えば、<code>A_AhkPath := x</code>は、v1で検出されるが、<code>y := x, A_AhkPath := x</code>は、v2でのみ検出されます。</p>
 <p>演算子<code>+=</code>,<code>-=</code>,<code>--</code>,<code>++</code>を単独で使用しても、空の変数を 0 として扱わなくなりました。これは、v1とは異なり、空の変数を単独で使用した場合は0として扱い、式の途中や複数文のカンマを使用した場合は0として扱わないというものです。</p>
-<h3 id="functions-1">機能紹介</h3>
+<h3 id="functions-1">関数</h3>
 <p>関数は一般に、失敗すると例外を投げます。特に：</p>
 <ul>
 <li>

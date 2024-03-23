@@ -15,7 +15,7 @@
 
 <h2 id="toc">目次</h2>
 <ul>
-  <li><a href="#general-conventions">一般的な規約</a></li>
+  <li><a href="#general-conventions">一般的な慣習</a></li>
   <li><a href="#comments">コメント</a></li>
   <li><a href="#expressions">式</a>
   <ul>
@@ -40,14 +40,14 @@
   <li><a href="#structure-of-a-script">スクリプトの構成</a>
   <ul>
     <li><a href="#global-code">グローバルコード</a></li>
-    <li><a href="#functions">機能紹介</a></li>
-    <li><a href="#-include">#Include</a></li>
+    <li><a href="#functions">関数</a></li>
+    <li><a href="#-include">#Includeディレクティブ</a></li>
   </ul></li>
   <li><a href="#misc">その他</a>
   <ul>
     <li><a href="#dynamic-variables">ダイナミックな変数</a>
     <ul>
-      <li><a href="#pseudo-arrays">疑似アレイ（Pseudo-array）</a></li>
+      <li><a href="#pseudo-arrays">疑似配列</a></li>
     </ul></li>
     <li><a href="#labels">ラベル</a></li>
   </ul></li>
@@ -59,18 +59,18 @@ Class definitions
 Methods?
 -->
 
-<h2 id="general-conventions">一般的な規約</h2>
+<h2 id="general-conventions">一般的な慣習</h2>
 <p><strong>名前：</strong>変数名と関数名は大文字と小文字を区別しません（例えば、<code>CurrentDate</code>は<code>currentdate</code>と同じです）。最大文字数や使用可能文字数などの詳細は、<a href="Concepts.htm#names">名前</a>を参照してください。</p>
-<p><strong>型付き変数無し：</strong>変数には明示的に定義された型がなく、任意の型の値を任意の変数に格納することができる（定数および組み込み変数を除く）。数値は、状況に応じて自動的に文字列（テキスト）に変換されたり、その逆も可能です。</p>
+<p><strong>型なし変数：</strong>変数には明示的に定義された型がなく、任意の型の値を任意の変数に格納することができます（定数および組み込み変数を除く）。数値は、状況に応じて自動的に文字列（テキスト）に変換されたり、その逆も可能です。</p>
 <p><strong>宣言は任意：</strong> <a href="Functions.htm">関数のページ</a>に記載がある場合を除き、変数は宣言する必要はありません。ただし、値が与えられる前に変数を読み取ろうとするとエラーとみなされます。</p>
-<p><strong>スペースの殆どは無視：</strong>インデント（先頭の空白）は、読みやすいコードを書くために重要ですが、プログラムでは必要とされないので、一般的には無視されます。スペースとタブは、行末と式内では<em>通常</em>無視されます（引用符の間を除く）。しかし、スペースが大きいのは、以下のようなケースもあります。</p>
+<p><strong>スペースの殆どは無視：</strong>インデント（先頭の空白）は、読みやすいコードを書くために重要ですが、プログラムでは必要とされないので、一般的には無視されます。スペースとタブは、行末と式内では<em>通常</em>無視されます（引用符の間を除く）。しかし、スペースは次のようなケースでは意味を持ちます。</p>
 <ul>
-  <li><a href="#function-calls">関数</a>とメソッド呼び出しでは、関数・メソッド名と<code>(</code>の間にスペースを入れないことが必要です。</li>
+  <li><a href="#function-calls">関数</a>とメソッド呼び出しでは、関数・メソッド名と<code>(</code>の間にスペースを入てはいけません。</li>
   <li>連結を行う場合は、空白が必要です。</li>
-  <li>曖昧さをなくすため、2つの演算子の間に空白が必要な場合がある。</li>
+  <li>曖昧さをなくすため、2つの演算子の間に空白が必要な場合があります。</li>
   <li>1行の<a href="#comments">コメント</a>は、行頭でない場合、先頭のスペースが必要です。</li>
 </ul>
-<p><strong>改行の意味：</strong>改行は一般的にステートメントの区切りとして機能し、前の関数呼び出しやその他のステートメントを終了させる。(<em>ステートメント</em>とは、単に実行されるべき何らかの動作を表現する、言語の最小の独立した要素である)。ただし、行の継続は例外です(下記参照)。</p>
+<p><strong>改行の意味：</strong>改行は一般的にステートメントの区切りとして機能し、前の関数呼び出しやその他のステートメントを終了させます。(<em>ステートメント</em>とは、単に実行されるべき何らかの動作を表現する、言語の最小の独立した要素です。)。ただし、行の継続は例外です(下記参照)。</p>
 <p><strong>行の継続：</strong>長い行を小さな行の集まりに分割して、読みやすさや保守性を向上させることができます。これは前処理によって実現されるものであり、言語の一部ではありません。3つの方式：</p>
 <ul>
   <li><a href="Scripts.htm#continuation-line">継続の接頭辞</a><a href="Variables.htm#operators">式演算子</a>で始まる行（++と--を除く）は、前の行と統合されます。行が実際に式を含んでいるかどうかに関係なく、行はマージされます。</li>
@@ -288,7 +288,7 @@ Loop Parse t, "`n"
 <h3 id="subroutines">サブルーチン</h3>
 <p><em>サブルーチン</em>（<em>sub</em>または<em>procedure</em>）は、要求に応じて実行できる再利用可能なコードブロックです。サブルーチンは、<em>関数</em>（後述）を定義することで作成されます。これらの用語は、関数がサブルーチンの唯一のタイプであるAutoHotkey v2では一般的に互換性があります。</p>
 
-<h3 id="functions">機能紹介</h3>
+<h3 id="functions">関数</h3>
 <p><strong>関連：</strong> <a href="Functions.htm">関数</a>（関数の定義についてのすべて）</p>
 <p>便利な<a href="lib/index.htm">定義済み関数</a>を呼び出すだけでなく、スクリプトは独自の関数を定義することができます。これらの機能は、一般的に2通りの使い方があります。</p>
 <ol>
@@ -340,7 +340,7 @@ SayHello  <em>; SayHello関数を呼び出す。</em></pre>
 <p>関数定義は、その関数への呼び出しの前にある必要はありません。</p>
 <p class="note">詳しくは<a href="Functions.htm">機能</a>をご覧ください。</p>
 
-<h3 id="-include">#Include</h3>
+<h3 id="-include">#Includeディレクティブ</h3>
 <p><a href="lib/_Include.htm">#Include</a>指令は、指定されたファイルの内容がこの正確な位置に存在するかのようにスクリプトを動作させるものです。これは、コードを別のファイルに整理したり、他のユーザーが書いたスクリプトライブラリを利用するためによく使われます。</p>
 <p>インクルードファイルには、<a href="Scripts.htm#auto">スクリプト起動</a>時に実行される<a href="#global-code">グローバルコード</a>を含めることができますが、メインスクリプトファイルのコードと同様に、そのようなコードは、#Include指令の前に自動実行スレッドが終了（無条件で<code>Return</code>など）されない場合にのみ実行されます。先行<code>リターン</code>により実行できないコードがある場合、デフォルトで<a href="lib/_Warn.htm#Unreachable">警告</a>が表示されます。</p>
 <p>C/C++とは異なり、#Includeは、そのファイルが既に以前の指令によってインクルードされていた場合、何もしません。同じファイルの内容を複数回インクルードする場合は、<a href="lib/_Include.htm">#IncludeAgain</a>を使用します。</p>
@@ -365,7 +365,7 @@ for n, component in ["red", "green", "blue"]
     clr.%component% := Random(0, 255)
 MsgBox clr.red "," clr.green "," clr.blue</pre>
 
-<h4 id="pseudo-arrays">疑似アレイ（Pseudo-array）</h4>
+<h4 id="pseudo-arrays">疑似配列</h4>
 <p><em>擬似配列</em>は、実際には単なる離散変数の束ですが、配列の要素のように使用できるような命名パターンを持っています。事例：</p>
 <pre>
 MyArray1 := "A"
@@ -387,6 +387,6 @@ Loop 3
 <h3 id="labels">ラベル</h3>
 <p>ラベルはコード行を識別するもので、<a href="lib/Goto.htm">Goto</a>ターゲットとして使用したり、<a href="#named-loops">ループ</a>から抜け出したり継続する<a href="#named-loops">ループを指定</a>したりすることができます。ラベルは、<a href="Concepts.htm#names">名前</a>とコロンで構成されています。</p>
 <pre>this_is_a_label:</pre>
-<p>空白とコメントを除き、ラベルと同じ行に他のコードを記述することはできません。詳しくは、<a href="misc/Labels.htm">ラベル</a>をご覧ください。</p>
+<p>空白とコメントを除き、ラベルと同じ行に他のコードを記述することはできません。詳細は <a href="misc/Labels.htm">ラベル</a>をご覧ください。）.</p>
 </body>
 </html>

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<h1>機能紹介</h1>
+<h1>関数</h1>
 
 <h2 id="toc">目次</h2>
 <ul>
@@ -31,16 +31,16 @@
   <li><a href="#Locals">ローカル変数とグローバル変数</a>
     <ul>
   <li><a href="#Local">ローカル変数</a></li>
-      <li><a href="#Global">Global Variables</a></li>
-      <li><a href="#static">Static Variables</a></li>
+      <li><a href="#Global">グローバル変数</a></li>
+      <li><a href="#static">スタティック変数</a></li>
       <li><a href="#More_about_locals_and_globals">More About Locals and Globals</a></li>
     </ul>
   </li>
   <li><a href="#DynCall">関数を動的に呼び出す</a></li>
-  <li><a href="#ShortCircuit">短絡的なブーリアン評価</a></li>
+  <li><a href="#ShortCircuit">簡略化されたブーリアン評価</a></li>
   <li><a href="#nested">ネストされた関数</a>
     <ul>
-      <li><a href="#static-functions">Static Functions</a></li>
+      <li><a href="#static-functions">スタティック関数</a></li>
       <li><a href="#closures">クロージャ</a></li>
     </ul>
   </li>
@@ -51,7 +51,7 @@
 </ul>
 <h2 id="intro">導入と簡単な例</h2>
 <p id="define">関数は、<em>呼び出す</em>ことで実行可能な再利用可能なコードブロックです。関数は、オプションでパラメータ（入力）を受け取り、値（出力）を返すことができます。2つの数値を受け取り、その和を返す次のような単純な関数を考えてみましょう。</p>
-<pre>Add(x, y)
+<pre>[参考] Add(x, y) {
 {
     <a href="lib/Return.htm">return</a> x + y
 }</pre>
@@ -228,7 +228,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 </ul>
 <p>また、<code>ローカル</code>キーワードで変数を宣言したり、関数のモードを変更することで、デフォルトをオーバーライドすることもできます（下図）。</p>
 
-<h3 id="Global">Global Variables</h3>
+<h3 id="Global">グローバル変数</h3>
 <p id="AssignLocal"><a href="#AssumeLocal">想定ローカル</a>関数内の変数参照は、それが読み込まれるだけであれば、グローバル変数に解決される可能性があります。ただし、変数が代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用された場合、デフォルトで自動的にローカルになります。これにより、関数は関数内で宣言することなく、グローバル変数の読み込みや、グローバル関数や組み込み関数の呼び出しを行うことができます。また、代入されるローカル変数の名前がグローバル変数と一致する場合に、意図しない副作用からスクリプトを保護します。事例：</p>
 <pre>LogToFile(TextToLog)
 {
@@ -252,7 +252,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     local x, y:=0, z  <em>; ローカル変数はこのモードで宣言する必要があります。そうしないとグローバル変数とみなされます。</em>
 }</pre>
 
-<h3 id="static">Static Variables</h3>
+<h3 id="static">スタティック変数</h3>
 <p>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。事例：</p>
 <pre>LogToFile(TextToLog)
 {
@@ -299,7 +299,7 @@ static TotalAttempts := 0, PrevResult</pre>
 </ul>
 <p>関数の呼び出し側は、一般に、関数を呼び出す前に各パラメータの意味と個数を知っておく必要があります。しかし、動的呼び出しの場合、関数呼び出しに合わせて関数を書くことが多く、その場合、パラメータ値の誤りではなく、関数定義の誤りが原因で失敗することがあります。</p>
 
-<h2 id="ShortCircuit">短絡的なブーリアン評価</h2>
+<h2 id="ShortCircuit">簡略化されたブーリアン評価</h2>
 <p><em>AND、OR</em>、<a href="Variables.htm#ternary">三項演算子</a>を<a href="Variables.htm#Expressions">式</a>中で使用すると、（関数呼び出しの有無にかかわらず）性能を向上させるために短絡させることができます。ショートサーキットは、式の最終結果に影響を与える可能性のない部分の評価を拒否することで動作します。この概念を説明するために、この例を考えてみましょう。</p>
 <pre>if (ColorName != "" AND not FindColor(ColorName))
     MsgBox ColorName " could not be found."</pre>
@@ -342,7 +342,7 @@ outer("title")
 <p>関数はデフォルトで<a href="#AssumeLocal">assume-local</a>であり、これはネストされた関数、<a href="#AssumeStatic">assume-static</a>関数の内部であっても同様です。ただし、外側の関数が<a href="#AssumeGlobal">assume-global</a>の場合、入れ子になった関数は、外側の関数のローカル変数やスタティック変数を参照できる以外は、デフォルトでassume-globalと同じように動作します。</p>
 <p>各関数定義は、関数そのものを含む読み取り専用の変数、つまり<a href="lib/Func.htm">Func</a>または<a href="#closures">Closure</a>オブジェクトを作成します。使用例については、以下をご覧ください。</p>
 
-<h3 id="static-functions">Static Functions</h3>
+<h3 id="static-functions">スタティック関数</h3>
 <p>つまり、外側の関数を呼び出すたびに、同じ<a href="lib/Func.htm">Func</a>を参照することになります。キーワード<code>static</code>は、入れ子になった関数を明示的にstaticと宣言するために使用します。この場合、外側の関数のstaticでないローカル変数は無視されます。事例：</p>
 <pre>outer() {
     x := "outer value"
