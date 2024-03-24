@@ -29,26 +29,26 @@
   <dt>SecondsToWait</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>If omitted, the function will not wait at all. Otherwise, specify the number of seconds (can contain a decimal point) to wait for the window to close. その期間内にウィンドウが閉じなければ、スクリプトは続行される。</p>
+    <p>省略されたときは、すぐにウィンドウを閉じます。そうでないときは、ウィンドウを閉じるまでの秒数（小数点を含む）を指定します。その期間内にウィンドウが閉じなければ、スクリプトは続行されます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p><a href="#group">グループ</a>モードが使用されている場合を除き、ウィンドウが見つからなかった場合は<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
-<p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用する。</p>
+<p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用してください。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>この関数はまず、ウィンドウを普通に閉じようとする短い試みを行う。If that fails, the function will attempt to force the window closed by terminating its process.</p>
-<p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられる。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられる。</p>
-<p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となる。</p>
-<p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
+<p>この関数はまず、ウィンドウを普通に閉じようとします。それが失敗したときは、ウィンドウのプロセスを終了して閉じようとします。</p>
+<p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられます。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられます。</p>
+<p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>の場合は、グループ内のすべてのウィンドウが対象となります。</p>
+<p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="ProcessClose.htm">ProcessClose</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="GroupActivate.htm">GroupActivate</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> メモ帳が存在する場合はそれを強制的に閉じ、そうでない場合は電卓を強制的に閉じる。</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳が起動しているときはそれを強制的に閉じ、そうでない場合は電卓を強制的に閉じます。</p>
 <pre>if WinExist("Untitled - Notepad")
     WinKill <em>; Use the window found by WinExist.</em>
 else

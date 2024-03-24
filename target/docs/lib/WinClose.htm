@@ -29,20 +29,20 @@
   <dt>SecondsToWait</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>If omitted, the function will not wait at all. Otherwise, specify the number of seconds (can contain a decimal point) to wait for the window to close. その期間内にウィンドウが閉じなければ、スクリプトは続行される。</p>
+    <p>省略されたときは、すぐにウィンドウを閉じます。そうでないときは、ウィンドウを閉じるまでの秒数（小数点を含む）を指定します。その期間内にウィンドウが閉じなければ、スクリプトは続行されます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p><a href="#group">グループ</a>モードが使用されている場合を除き、ウィンドウが見つからなかった場合は<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
-<p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用する。</p>
+<p>ウィンドウが見つかっても閉じられない場合は例外がスローされないので、ウィンドウが閉じたかどうかを確実に判断する必要がある場合は、<a href="WinExist.htm">WinExist</a>または<a href="WinWaitClose.htm">WinWaitClose</a>を使用してください。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>この関数はウィンドウを閉じるメッセージを送信する。結果はウィンドウに依存する（データの保存を求められるなど）。</p>
-<p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられる。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられる。</p>
+<p>一致するウィンドウがアクティブな場合、そのウィンドウは他の一致するウィンドウよりも優先して閉じられます。一般に、複数のウィンドウがマッチした場合、一番上の（最近使われた）ウィンドウが閉じられます。</p>
 <p id="group">ただし、<em>WinTitle</em>が<a href="GroupAdd.htm">ahk_group GroupName</a>(他の条件が指定されていない) の場合は、グループ内のすべてのウィンドウが対象となる。</p>
-<p>機能が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
+<p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>WinCloseはターゲット・ウィンドウにWM_CLOSEメッセージを送る。別の方法として、次のようなメッセージを送ることもできる。<kbd>Alt</kbd>+<kbd>F4</kbd>を押したり、タイトルバーにあるウィンドウの閉じるボタンをクリックしたりするのと同じような効果があるため、異なる動作をするかもしれない：</p>
 <pre>PostMessage 0x0112, 0xF060,,, WinTitle, WinText  <em>; 0x0112 = WM_SYSCOMMAND, 0xF060 = SC_CLOSE</em></pre>
 <p>WinCloseで閉じないウィンドウは、<a href="WinKill.htm">WinKill</a>で強制的に閉じることができる。</p>
