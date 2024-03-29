@@ -24,7 +24,7 @@
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>仮想関数テーブル内のメソッドのゼロベースインデックス。</p>
       <p><em>インデックス</em>は、元のインターフェース定義内でのメソッドの位置に対応します。マイクロソフトのドキュメントでは、通常、メソッドをアルファベット順に記載していますが、これは関係ありません。正しいインデックスを決定するために、元のインターフェイスの定義を見つけてください。これは、ヘッダーファイルやタイプライブラリの中にあるかもしれません。</p>
-      <p>親インターフェースから継承されるメソッドを考慮することが重要です。すべてのCOMインタフェースは最終的に<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown">IUnknown</a>から派生するため、最初の3つのメソッドは常にQueryInterface（0）、AddRef（1）、Release（2）です。例えば、<em>IShellItem2</em>は <em>IShellItem</em>の拡張で、インデックス3から始まり、5つのメソッドを含むので、<em>IShellItem2</em>の最初のメソッド（GetPropertyStore）はインデックス8にある。</p>
+      <p>親インターフェースから継承されるメソッドを考慮することが重要です。すべてのCOMインタフェースは最終的に<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown">IUnknown</a>から派生するため、最初の3つのメソッドは常にQueryInterface（0）、AddRef（1）、Release（2）です。例えば、<em>IShellItem2</em>は <em>IShellItem</em>の拡張で、インデックス3から始まり、5つのメソッドを含むので、<em>IShellItem2</em>の最初のメソッド（GetPropertyStore）はインデックス8にあります。</p>
       <p class="note"><strong>ヒント：</strong>Microsoftによって定義されたCOMインターフェースについては、インターネットまたはWindows SDKで<em>「</em><b>IInterfaceNameVtbl</b>」-例えば「IUnknownVtbl」を検索してみてください。Microsoft独自のインターフェース定義には、インターフェースの仮想関数テーブルのこのプレーンC定義が付属しており、すべてのメソッドを正しい順序で明示的にリストアップしています。</p>
       <p>無効なインデックスを渡すと、プログラムの終了を含む未定義の動作が発生する可能性があります（ただし、これに限定されるものではありません）。</p>
   </dd>
@@ -132,7 +132,7 @@ class TaskbarList {
         <em>; TaskbarList のすべてのインスタンスのベースオブジェクトを取得します。</em>
         proto := this.Prototype
         
-<em>; バウンド関数を使用して、パラメータを事前に定義することができます。
+<em>; Bound関数でパラメータを事前に定義することができます。
         ; ラッパー関数を必要とせず、より使いやすいメソッドを提供します。
 ; HrInit自身はパラメータを持たないので、インデックスだけをバインドします。
         ; であり、呼び出し側は暗黙のうちに 'this' を提供することになる。</em>
@@ -155,7 +155,7 @@ class TaskbarList {
     __new() {
         this.comobj := ComObject(TaskbarList.CLSID, TaskbarList.IID)
         this.ptr := this.comobj.ptr
-        <em>; ITaskbarList を介したリクエスト初期化。</em>
+        <em>; ITaskbarList を介してリクエストを初期化します。</em>
         this.HrInit()
     }
 }

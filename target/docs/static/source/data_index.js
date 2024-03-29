@@ -333,6 +333,7 @@ indexData = [
   ["class ... extends","Objects.htm#Custom_Classes",5],
   ["class name of a window","misc/WinTitle.htm#ahk_class"],
   ["Class object","lib/Class.htm"],
+  ["classes, built-in","ObjList.htm"],
   ["ClassNN (of a control)","lib/ControlGetClassNN.htm"],
   ["ClassNN property (Gui.Control)","lib/GuiControl.htm#ClassNN",7],
   ["Clear method (Map)","lib/Map.htm#Clear",7],
@@ -634,6 +635,7 @@ indexData = [
   ["GroupDeactivate","lib/GroupDeactivate.htm",2],
   ["Gui","lib/Gui.htm",6],
   ["Gui","lib/Gui.htm#Call",2],
+  ["Gui control options","lib/Gui.htm#Add"],
   ["Gui control types","lib/GuiControls.htm"],
   ["Gui events","lib/GuiOnEvent.htm"],
   ["Gui property (Gui.Control)","lib/GuiControl.htm#Gui",7],
@@ -1275,5 +1277,6 @@ indexData = [
   ["WS_* (GUI styles)","misc/Styles.htm"],
   ["XButton","KeyList.htm#mouse-advanced"],
   ["YYYYMMDDHH24MISS","lib/FileSetTime.htm#YYYYMMDD"],
-  ["ZeroDivisionError","lib/Error.htm#ZeroDivisionError",6]
+  ["ZeroDivisionError","lib/Error.htm#ZeroDivisionError",6],
+  ["ZIP files (copying their contents)","lib/FileCopyDir.htm"]
 ];

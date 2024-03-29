@@ -312,7 +312,7 @@ sumfn := Sum</pre>
     <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。事例：<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. このようなステートメントは、左から右の順に実行される。</p>
       <p class="note"><strong>注：</strong>カンマ（またはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。こちらもご覧ください：<a href="#CommaPerf">コンマのパフォーマンス</a>。</p>
       <p>カンマは、関数呼び出しや制御フロー文のパラメータを区切るためにも使われる。複数ステートメント式をパラメータ・リストに含めるには、括弧で囲む。例えば、<code>MyFn((x, y))</code>はxとyの両方を評価するが、MyFnの最初の唯一のパラメーターとしてyを渡す。</p>
-      <p id="CommaPerf">The comma operator usually performs better than writing separate expressions, especially when assigning one variable to another (e.g. <code>x:=y, a:=b</code>). たとえば、5つまたは10個の単純な式を1つの式にまとめると、35%速くなることがあります。</p>
+      <p id="CommaPerf">In contrast to AutoHotkey v1, the comma operator usually performs worse than writing separate expressions. Performance continues to decrease as more and more expressions are combined into a single expression; for example, it can be 35&nbsp;% slower to combine five or ten simple expressions into a single expression. The exception to this may be when combining function calls.</p>
     </td>
   </tr>
 </table>

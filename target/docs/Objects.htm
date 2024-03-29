@@ -304,7 +304,7 @@ ShorterProperty =&gt; <i>Expression which calculates property value</i>
 <p><code>static x.y := z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>static x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code><i>ClassName</i>.x.y</code>も初期化します。<a href="lib/Class.htm#Prototype">Prototype</a>は各クラスで暗黙的に定義されているため、<code>static Prototype.sharedValue := 1</code>を使用すると、クラスのすべてのインスタンスに動的に継承される値を設定できます（インスタンス自体のプロパティによってシャドウされるまで）。</p>
 
 <h4 id="Custom_Classes_class">入れ子のクラス</h4>
-<p>入れ子になったクラス定義では、クラス・オブジェクトを別のグローバル変数ではなく、外側のクラスの静的/クラス変数に関連付けることができます。上記の例では、<code>NestedClassクラス</code>が <a href="lib/Class.htm">Class</a>オブジェクトを構築し、<code>ClassName.NestedClass</code>に格納しています。サブクラスは、<em>NestedClass</em>を継承するか、独自のネスト・クラスでオーバーライドすることができます（この場合、<code>(<i>WhichClass</i>.NestedClass)()</code>を使用して、適切なクラスをインスタンス化できます）。</p>
+<p>入れ子になったクラス定義では、クラス・オブジェクトを別のグローバル変数ではなく、外側のクラスの静的/クラス変数に関連付けることができます。上記の例では、<code>NestedClassクラス</code>が <a href="lib/Class.htm">Class</a>オブジェクトを構築し、<code>ClassName.NestedClass</code>に格納しています。Subclasses could inherit <em>NestedClass</em> or override it with their own nested class (in which case <code><i>WhichClass</i>.NestedClass()</code> could be used to instantiate whichever class is appropriate).</p>
 <pre>
 class NestedClass
 {
@@ -312,7 +312,12 @@ class NestedClass
 }
 </pre>
 <p>クラスを入れ子にすることは、外側のクラスとの特定の関係を意味するものではない。ネストされたクラスは自動的にインスタンス化されないし、ネストされたクラスのインスタンスは、スクリプトが明示的にその接続を行わない限り、アウター・クラスのインスタンスとの接続を持たない。</p>
-<p>しかし、<a href="lib/Object.htm">オブジェクト</a>に対するメソッドの動作方法のため、<code><i>WhichClass</i>.NestedClass()</code>は、<em>WhichClass</em>を最初のパラメータとして暗黙的に渡しており、<code><i>WhichClass</i>.NestedClass.Call(<i>WhichClass</i>)</code>と同等です。<code>static Call()</code>がオーバーライドされない限り、このパラメータは自動的に<a href="#Custom_NewDelete">__New</a>に渡される。</p>
+<p>Each nested class definition produces a dynamic property with <em>get</em> and <em>call</em> accessor functions instead of a simple value property. This is to support the following behaviour (where class X contains the nested class Y):</p>
+<ul>
+<li><code>X.Y()</code> does not pass X to <code>X.Y.Call</code> and ultimately <code>__New</code>, which would otherwise happen because this is the normal behaviour for function objects called as methods (which is how the nested class is being used here).</li>
+<li><code>X.Y := 1</code> is an error by default (the property is read-only).</li>
+<li>初めて参照または呼び出すと、クラスが初期化されます。</li>
+</ul>
 
 <h4 id="Custom_Classes_method">メソッド</h4>
 <p>メソッド定義は関数定義と同じように見える。各メソッド定義は、<code>this</code>という名前の隠された第1パラメータを持つ<a href="lib/Func.htm">Func</a>を作成し、メソッドの呼び出しやその関数オブジェクトの取得に使用されるプロパティを定義する。</p>
