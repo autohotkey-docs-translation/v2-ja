@@ -172,7 +172,7 @@
 <p>Auto-concatでは、すべてのケースで少なくとも1つのスペースまたはタブが必要になりました（v1のドキュメントでは、スペースが「あるべき」とされています）。</p>
 <p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価されます。</p>
 <p>カンマの後のEqualsは、割り当てられなくなりました：<code>x:=y,y=z</code>の<code>y=zは</code>、代入ではなく非効率的な比較です。</p>
-<p><code>:=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>++</code> and <code>--</code> have consistent behaviour regardless of whether they are used on their own or combined with other operators, such as with <code>x := y, y += 2</code>. 従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
+<p>[参考] <code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をします。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
 <p><code>!=</code>は <code>=</code>と同様に常に大文字と小文字を区別するようになり、<code>!==は</code> <code>==</code>と対になるものとして追加された。</p>
 <p><code>&lt;&gt;</code>は、廃止されました。</p>
 <p><code>//</code> は、浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
@@ -225,9 +225,9 @@
 <p><code><i>Classname</i>()</code> (formerly <code>new <i>Classname</i>()</code>) now fails to create the object if the <em>__New</em> method is defined and it could not be called (e.g. because the parameter count is incorrect), or if parameters were passed and <em>__New</em> is not defined.</p>
 <p>式内で生成されたオブジェクトや関数から返されたオブジェクトは、式の評価が完了するまで保持され、その後解放されるようになりました。これにより、パフォーマンスが若干向上し、オブジェクトが早期に解放される心配がなく、式内のメモリ管理に一時的なオブジェクトを使用することができます。</p>
 <p>オブジェクトには、2進数の0を含む文字列値（キーは不可）を含めることができます。オブジェクトのクローンは、文字列のバイナリデータを、保存された文字列の長さまで保存します（容量ではありません）。Historically, data was written beyond the value's length when dealing with binary data or structs; now, a <a href="lib/Buffer.htm">Buffer object</a> should be used instead.</p>
-<p>Assignment expressions such as <code>x.y := z</code> now always yield the value of <em>z</em>, regardless of how <em>x.y</em> is implemented. プロパティセッターの戻り値は無視されるようになりました。以前：</p>
+<p>[参考] <code>x.y := z</code>のような代入式は、&lt;c2&gt;x.y&lt;/c2&gt; の実装方法に関係なく、常に&lt;c1&gt;z&lt;/c1&gt; の値を返すようになりました。プロパティセッターの戻り値は無視されるようになりました。以前：</p>
 <ul>
-<li>Some built-in objects returned <em>z</em>, some returned <em>x.y</em> (such as <code>c := GuiObj.BackColor := "red"</code> setting <em>c</em> to 0xFF0000), and some returned an incorrect value.</li>
+<li>[参考] 組み込みオブジェクトの中には&lt;c0&gt;z&lt;/c0&gt;を返すもの、&lt;c1&gt;x.y&lt;/c1&gt;を返すもの（<code>c := GuiObj.BackColor := "red"</code>で&lt;c3&gt;c&lt;/c3&gt;を &lt;c4&gt;0xFF0000&lt;/c4&gt;に設定するなど）、不正確な値を返すものがありました。</li>
 <li>ユーザー定義のプロパティセッターが予期せぬ値を返したり、何も返せなかったりした可能性があります。</li>
 </ul>
 <p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property) are two different operations, although they may be equivalent if <em>x</em> is a COM object (due to limitations of the COM interface).</p>
@@ -401,7 +401,7 @@ this.__set(name, args, value)</pre>
 <ul>
 <li>NewEnum()を__Enum(n)に置き換えました。</li>
 <li>必須パラメータnには、for-loopの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
-<li>Replaced Next() with Call(), with the same usage except that ByRef works differently now; for instance, a method defined as <code>Call(&amp;a)</code> should assign <code>a := next_value</code> while <code>Call(a)</code> would receive a <a href="Concepts.htm#variable-references">VarRef</a>, so should assign <code>%a% := next_value</code>.</li>
+<li>[参考] Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は&lt;c3&gt;VarRef&lt;/c3&gt;を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
 <li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされます。This allows function objects (such as <a href="Functions.htm#closures">closures</a>) to be used directly.</li>
 </ul>
 <p>配列要素とプロパティが分離されたため、プロパティの列挙には<a href="lib/Object.htm#OwnProps">OwnProps</a>を呼び出して明示的に列挙者を作成する必要があります。</p>
@@ -839,7 +839,7 @@ Str   := DriveGetStatusCD(Drive)
 Int   := DriveGetCapacity(Path)
 Int   := DriveGetSpaceFree(Path)
 
-<em>; Where ... means optional WinTitle, etc.</em>
+[参考] ; Where ...は、オプションのWinTitleなどを意味する。
 
 Int   := WinGetID(...)
 Int   := WinGetIDLast(...)
@@ -865,7 +865,7 @@ WinSetTransparent(N [, ...])
          WinSetRegion(Value [, ...])
 
 WinRedraw(...)
-         WinMoveBottom(...)
+         [参考] WinMoveBottom
          WinMoveTop(...)
 
 PID   := ProcessExist([PID_or_Name])
