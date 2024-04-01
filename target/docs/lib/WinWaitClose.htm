@@ -29,7 +29,7 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>省略した場合は、無期限で待機します。Otherwise, it will wait no longer than this many seconds. To wait for a fraction of a second, specify a floating-point number, for example, 0.25 to wait for a maximum of 250 milliseconds.</p>
+    <p>省略した場合は、無期限に待機します。そうでなければ、指定された秒数以上待機することはありません。1 秒未満の時間で待機するには、浮動小数点数を指定します。たとえば最大 250 ミリ秒待機するときは、 0.25 と指定します。</p>
   </dd>
 
 </dl>
@@ -48,12 +48,12 @@ Gui("", "Test window " Random()).Show("w300 h50")  <em>; Show a test window.</em
 if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 {
     MsgBox "Window not yet closed:" WinGetTitle()
-    WinClose  <em>; Close the window found by WinWaitClose.</em>
+    WinClose  <em>; WinWaitClose関数で見つかったウィンドウを閉じます。</em>
 }
 </pre>
 <p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
-<p><a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> also affects whether hidden windows identified by HWND are detected, but only when used with <a href="WinWait.htm">WinWait</a> or WinWaitClose.</p>
+<p><a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数もHWNDで識別される非表示ウィンドウが検出されるかどうかに影響しますが、<a href="WinWait.htm">WinWait</a>関数またはWinWaitClose関数と併用したときに限られます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWaitClose.htm">ProcessWaitClose</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>
@@ -62,7 +62,7 @@ if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 <p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、それが存在するまで待ち、閉じるまで待つ。</p>
 <pre>Run "notepad.exe"
 WinWait "Untitled - Notepad"
-WinWaitClose <em>; Use the window found by WinWait.</em>
+WinWaitClose <em>; WinWait関数で見つかったウィンドウを使います。</em>
 MsgBox "Notepad is now closed."</pre>
 </div>
 
