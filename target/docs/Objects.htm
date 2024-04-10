@@ -96,7 +96,7 @@ For value in MyArray
 <p>文字どおり<em>Property</em>という名前のプロパティを取得または設定します：</p>
 <pre>Value := MyObject.Property</pre>
 <pre>MyObject.Property := Value</pre>
-<p><a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>の評価によって名前が決定されるプロパティを取得または設定する：</p>
+<p><a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>の評価によって名前が決定されるプロパティを取得または設定します：</p>
 <pre>Value := MyObject.%Expression%</pre>
 <pre>MyObject.%Expression% := Value</pre>
 <p>文字通り<em>Method</em>という名前のプロパティ/メソッドを呼び出す：</p>
@@ -110,7 +110,7 @@ MyObject.Property[Parameters] := Value</pre>
 
 <h3 id="object-literal">オブジェクト・リテラル</h3>
 <p>オブジェクト・リテラルを<a href="Language.htm#expressions">式</a>の中で使うと、即席のオブジェクトを作ることができる。オブジェクト・リテラルは、カンマで区切られた名前と値のペアのリストを中括弧（<code>{}</code>）で囲んだものである。各ペアは、コロン（<code>:</code>）で区切られたリテラル（引用符で囲まれていない）<a href="Concepts.htm#names">プロパティ名</a>と値（サブ式）で構成されます。事例：</p>
-<pre>Coord := {X: 13, Y: 240}</pre>
+<pre>Coord := {X:13, Y:240}</pre>
 <p>これは等価だ：</p>
 <pre>Coord := Object()
 Coord.X := 13
@@ -118,7 +118,7 @@ Coord.Y := 240</pre>
 <p>各名前と値のペアは、値のプロパティを定義させるが、例外として<a href="lib/Object.htm#Base">Base</a>を設定することができる（通常の代入と同じ制限がある）。</p>
 <p><a href="Variables.htm#deref">名前の置換</a>は、<a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>を評価することによってプロパティ名を決定することができます。事例：</p>
 <pre>parts := StrSplit("key = value", "=", " ")
-pair := {%parts[1]%: parts[2]}
+pair := {%parts[1]%:parts[2]}
 MsgBox pair.key</pre>
 
 <h3 id="Usage_Freeing_Objects">オブジェクトの解放</h3>
@@ -126,7 +126,7 @@ MsgBox pair.key</pre>
 <pre>obj := {}  <em>; Creates an object.</em>
 obj := ""  <em>; Releases the last reference, and therefore frees the object.</em></pre>
 <p>同様に、プロパティや配列要素に格納された参照は、そのプロパティや配列要素に他の値が割り当てられたり、オブジェクトから削除されたりすると解放される。</p>
-<pre>arr := [{}]  <em>; Creates an array containing an object.</em>
+<pre>arr := [{}]  <em>; オブジェクトを含んだ配列を作ります。</em>
 arr[1] := {}  <em>; Creates a second object, implicitly freeing the first object.</em>
 arr.RemoveAt(1)  <em>; Removes and frees the second object.</em></pre>
 <p id="Circular_References">オブジェクトを解放する前に、オブジェクトへの参照をすべて解放しなければならないので、循環参照を含むオブジェクトは自動的に解放されない。例えば、<code>x.child</code>が <code>y</code>を参照し、<code>y.parent</code>が <code>x</code>を参照している場合、<code>x</code>と <code>y</code>をクリアするだけでは不十分である。この状況を解決するには、循環参照を削除する。</p>
@@ -269,7 +269,7 @@ Property[<i>Parameters</i>]  <em>; Use brackets only when parameters are present
             return <i>value of property</i>
         }
         <span class="dec">set</span> {
-            <i>Store or otherwise handle</i> <span class="biv">value</span>
+            [参考] &lt;i4&gt;Store or otherwise handle&lt;/i4&gt; &lt;s5&gt;value&lt;/s5&gt;
         }
     }
     
