@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>ControlChooseIndex - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="The ControlChooseIndex function sets the selection in a ListBox, ComboBox or Tab control to be the Nth item." />
+<meta name="description" content="ControlChooseIndex関数は、ListBox、ComboBox、またはTabコントロールの選択範囲をN番目の項目に設定します。" />
 <meta name="ahk:equiv-v1" content="lib/Control.htm#Choose" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
 
 <h1>ControlChooseIndex</h1>
 
-<p>Sets the selection in a ListBox, ComboBox or Tab control to be the Nth item.</p>
+<p>ListBox、ComboBox、またはTabコントロールの選択範囲をN番目の項目に設定します。</p>
 
 <pre class="Syntax"><span class="func">ControlChooseIndex</span> N, Control <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 
@@ -22,7 +22,7 @@
     <dt>N</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-        <p>The index of the item, where 1 is the first item, 2 is the second, etc. ListBoxやComboBoxの全項目を非選択にする場合は、0を指定します。</p>
+        <p>項目のインデックスです。1は最初の項目、2は2番目の項目、のようになります。ListBoxやComboBoxの全項目を非選択にする場合は、0を指定します。</p>
     </dd>
     <dt>Control</dt>
     <dd>
@@ -32,20 +32,20 @@
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
-        <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトル</a>またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
+        <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
         <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
-        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows関数</a> と <a href="DetectHiddenText.htm">DetectHiddenText関数</a>.で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode関数</a>で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
+        <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows関数</a> と <a href="DetectHiddenText.htm">DetectHiddenText関数</a>で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode関数</a>で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
     </dd>
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウまたはコントロールが見つからない場合、またはコントロールのクラス名に "Combo"、"List"、"Tab "が含まれない場合、<a href="Error.htm#TargetError">TargetError</a>が発生します。</p>
-<p>変更を適用できなかった場合、<a href="Error.htm">Error</a>または<a href="Error.htm#OSError">OSError</a>が投げられる。</p>
+<p>変更を適用できなかった場合、<a href="Error.htm">Error</a>または<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
 <p><em>マルチセレクトリストボックス</em>のすべての項目を選択する場合は、次のようにします。</p>
 <pre class="NoIndent"><a href="PostMessage.htm">PostMessage</a>(0x0185, 1, -1, "ListBox1", WinTitle)  <em>; リストボックスの全項目を選択します。0x0185はLB_SETSELです。</em></pre>
-<p>Unlike <a href="GuiControl.htm#Choose">GuiControl.Choose()</a>, this function raises a <a href="GuiOnEvent.htm#Change">Change</a> or <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a> event.</p>
+<p><a href="GuiControl.htm#Choose">GuiControl.Choose()</a>とは異なり、この関数は<a href="GuiOnEvent.htm#Change">Change</a>イベントまたは<a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>イベントを発生させます。</p>
 <p>信頼性向上のため、この関数を実行するたびに自動的に遅延が発生します。この遅延は、<a href="SetControlDelay.htm">SetControlDelay</a>または<a href="../Variables.htm#ControlDelay">A_ControlDelay</a>に値を割り当てることで変更可能です。詳しくは、<a href="SetControlDelay.htm#Remarks">SetControlDelayの備考</a>をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
