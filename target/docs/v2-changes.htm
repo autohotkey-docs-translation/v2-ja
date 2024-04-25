@@ -172,7 +172,7 @@
 <p>Auto-concatでは、すべてのケースで少なくとも1つのスペースまたはタブが必要になりました（v1のドキュメントでは、スペースが「あるべき」とされています）。</p>
 <p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価されます。</p>
 <p>カンマの後のEqualsは、割り当てられなくなりました：<code>x:=y,y=z</code>の<code>y=zは</code>、代入ではなく非効率的な比較です。</p>
-<p>[参考] <code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をします。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
+<p><code>:= += -= *= /= ++ --</code> <code>x := y, y += 2</code>のように、単独で使うか、他の演算子と組み合わせて使うかにかかわらず、一貫した動作をします。従来は、式内でエラーが発生した場合や、数学演算で空白の値が使用された場合に、動作に違いがありました。</p>
 <p><code>!=</code>は <code>=</code>と同様に常に大文字と小文字を区別するようになり、<code>!==は</code> <code>==</code>と対になるものとして追加された。</p>
 <p><code>&lt;&gt;</code>は、廃止されました。</p>
 <p><code>//</code> は、浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
@@ -225,9 +225,9 @@
 <p><code><i>Classname</i>()</code> (formerly <code>new <i>Classname</i>()</code>) now fails to create the object if the <em>__New</em> method is defined and it could not be called (e.g. because the parameter count is incorrect), or if parameters were passed and <em>__New</em> is not defined.</p>
 <p>式内で生成されたオブジェクトや関数から返されたオブジェクトは、式の評価が完了するまで保持され、その後解放されるようになりました。これにより、パフォーマンスが若干向上し、オブジェクトが早期に解放される心配がなく、式内のメモリ管理に一時的なオブジェクトを使用することができます。</p>
 <p>オブジェクトには、2進数の0を含む文字列値（キーは不可）を含めることができます。オブジェクトのクローンは、文字列のバイナリデータを、保存された文字列の長さまで保存します（容量ではありません）。Historically, data was written beyond the value's length when dealing with binary data or structs; now, a <a href="lib/Buffer.htm">Buffer object</a> should be used instead.</p>
-<p>[参考] <code>x.y := z</code>のような代入式は、&lt;c2&gt;x.y&lt;/c2&gt; の実装方法に関係なく、常に&lt;c1&gt;z&lt;/c1&gt; の値を返すようになりました。プロパティセッターの戻り値は無視されるようになりました。以前：</p>
+<p><code>x.y := z</code>のような代入式は、&lt;c2&gt;x.y&lt;/c2&gt; の実装方法に関係なく、常に&lt;c1&gt;z&lt;/c1&gt; の値を返すようになりました。プロパティセッターの戻り値は無視されるようになりました。以前：</p>
 <ul>
-<li>[参考] 組み込みオブジェクトの中には&lt;c0&gt;z&lt;/c0&gt;を返すもの、&lt;c1&gt;x.y&lt;/c1&gt;を返すもの（<code>c := GuiObj.BackColor := "red"</code>で&lt;c3&gt;c&lt;/c3&gt;を &lt;c4&gt;0xFF0000&lt;/c4&gt;に設定するなど）、不正確な値を返すものがありました。</li>
+<li>組み込みオブジェクトの中には&lt;c0&gt;z&lt;/c0&gt;を返すもの、&lt;c1&gt;x.y&lt;/c1&gt;を返すもの（<code>c := GuiObj.BackColor := "red"</code>で&lt;c3&gt;c&lt;/c3&gt;を &lt;c4&gt;0xFF0000&lt;/c4&gt;に設定するなど）、不正確な値を返すものがありました。</li>
 <li>ユーザー定義のプロパティセッターが予期せぬ値を返したり、何も返せなかったりした可能性があります。</li>
 </ul>
 <p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property) are two different operations, although they may be equivalent if <em>x</em> is a COM object (due to limitations of the COM interface).</p>
@@ -401,7 +401,7 @@ this.__set(name, args, value)</pre>
 <ul>
 <li>NewEnum()を__Enum(n)に置き換えました。</li>
 <li>必須パラメータnには、for-loopの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
-<li>[参考] Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は&lt;c3&gt;VarRef&lt;/c3&gt;を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
+<li>Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は&lt;c3&gt;VarRef&lt;/c3&gt;を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
 <li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされます。This allows function objects (such as <a href="Functions.htm#closures">closures</a>) to be used directly.</li>
 </ul>
 <p>配列要素とプロパティが分離されたため、プロパティの列挙には<a href="lib/Object.htm#OwnProps">OwnProps</a>を呼び出して明示的に列挙者を作成する必要があります。</p>
@@ -569,7 +569,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/Edit.htm">Edit</a>は、シェル動詞 "edit "が登録されていない場合、<code>.ini</code>ファイルタイプに対してフォールバック動作をしていました。スクリプトファイルには<code>.ini</code>という拡張子は期待できないため、これを削除しました。<code>AutoHotkey.ini</code>は、AutoHotkeyの古いバージョンではデフォルトのスクリプト名でした。</p>
 <p><a href="lib/Edit.htm">Edit</a>は、スクリプトがstdinから読み込まれた場合、<code>*</code>のためのエディタを開こうとするのではなく、何もしないようになりました。</p>
 <p><a href="lib/EnvSet.htm">EnvSet</a> now deletes the environment variable if the <em>Value</em> parameter is completely omitted.</p>
-<p><a href="lib/Exit.htm">Exit</a>は、これまで、スクリプトが永続的でない場合、Exitを呼び出したスレッドによって中断された他のスレッドがあったとしても、<a href="lib/ExitApp.htm">ExitApp</a>として動作していました。もはや、これ以上ないほどです。その代わり、常に現在のスレッドを適切に終了させ、（非永続的な場合）最後のスレッドが終了した後にのみスクリプトを終了させます。This ensures <a href="lib/Finally.htm">Finally</a> statements are executed and local variables are freed, which may allow <code>__delete</code> to be called for any objects contained by local variables.</p>
+<p><a href="lib/Exit.htm">Exit</a>は、これまで、スクリプトが永続的でない場合、Exitを呼び出したスレッドによって中断された他のスレッドがあったとしても、<a href="lib/ExitApp.htm">ExitApp</a>として動作していました。もはや、これ以上ないほどです。その代わり、常に現在のスレッドを適切に終了させ、（非永続的な場合）最後のスレッドが終了した後にのみスクリプトを終了させます。これにより&lt;c2&gt;finally&lt;/c2&gt;文が実行されてローカル変数が解放され、ローカル変数に含まれるオブジェクトに対して<code>__delete</code>が呼び出される可能性があります。</p>
 <p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppend and FileRead support an option <code>"RAW"</code> to disable codepage conversion (read/write binary data); FileRead returns a <a href="lib/Buffer.htm">Buffer object</a> in this case. This replaces <code>*c</code> (see <a href="lib/ClipboardAll.htm">ClipboardAll</a>). FileAppend may accept a Buffer-like object, in which case no conversions are performed.</p>
 <p><a href="lib/FileCopy.htm">FileCopy</a>と<a href="lib/FileMove.htm">FileMove</a>で、コピー元のパスに<code>*</code>または<code>?</code>がなく、ファイルが見つからなかった場合に例外が発生するようになりました。ただし、ソースパスにワイルドカードが含まれている場合、0個のファイルをコピーまたは移動することは、依然としてエラーとはみなされません。</p>
 <p><a href="lib/FileOpen.htm">FileOpen</a>がファイルを開くのに失敗した場合、例外を投げるようになりました。そうでなければ、実際の障害発生箇所ではなく、オブジェクトに最初にアクセスしようとしたときに例外が発生します（スクリプトが障害をチェックしない場合）。</p>
@@ -839,7 +839,7 @@ Str   := DriveGetStatusCD(Drive)
 Int   := DriveGetCapacity(Path)
 Int   := DriveGetSpaceFree(Path)
 
-[参考] ; Where ...は、オプションのWinTitleなどを意味する。
+; Where ...は、オプションのWinTitleなどを意味します。
 
 Int   := WinGetID(...)
 Int   := WinGetIDLast(...)
@@ -865,7 +865,7 @@ WinSetTransparent(N [, ...])
          WinSetRegion(Value [, ...])
 
 WinRedraw(...)
-         [参考] WinMoveBottom
+         WinMoveBottom(...)
          WinMoveTop(...)
 
 PID   := ProcessExist([PID_or_Name])

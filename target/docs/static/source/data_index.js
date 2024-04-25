@@ -91,7 +91,7 @@ indexData = [
   [">>=","Variables.htm#AssignOp",4],
   [">>>","Variables.htm#bitshift",4],
   [">>>=","Variables.htm#AssignOp",4],
-  [参考] ["^","Variables.htm#bitwise",4],
+  ["|","Variables.htm#bitwise",4],
   ["|=","Variables.htm#AssignOp",4],
   ["||","Variables.htm#or",4],
   ["~","Variables.htm#unary",4],
