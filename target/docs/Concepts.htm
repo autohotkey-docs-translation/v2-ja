@@ -303,6 +303,7 @@ Send "Hello, world{!}"
   <li>64ビット符号付き整数<em>（int64</em>）。</li>
   <li>64ビット2進数浮動小数点数（国際標準規格IEEE754の<em>double</em>または<em>binary64</em>形式）。</li>
 </ul>
+<p>These data types affect the range and precision of pure numeric values for variables, properties, array/map elements and indices, function parameters and return values, and temporary results of operators in an expression. Mathematical operators and functions perform 64-bit integer or floating-point operations. Bitwise operators perform 64-bit integer operations.</p>
 <p>つまり、スクリプトは以下のような制約の影響を受けます。</p>
 <ul>
   <li>
@@ -338,7 +339,7 @@ MsgBox 0.1 + 0.2 = 0.3   <em>; 0 (not equal)</em>
 <h3 id="references-to-objects">オブジェクトへの参照</h3>
 <p>スクリプトは、オブジェクトへの<em>参照</em>を通じて、間接的にのみオブジェクトと対話します。オブジェクトを作成するとき、オブジェクトはあなたがコントロールできない場所に作成され、リファレンスが与えられます。この参照を関数に渡したり、変数や別のオブジェクトに格納したりすると、<em>同じ</em>オブジェクトへの新しい参照が作成されます。</p>
 <p>例えば、<em>myObj</em>にオブジェクトへの参照が含まれている場合、<code>yourObj := myObj</code>は同じオブジェクトへの新しい参照を作成します。<code>myObj.ans := 42</code>のような変更は、同じオブジェクトを参照しているため、<code>myObj.ans</code>と<code>yourObj.ans</code>の両方に反映されます。しかし、<code>myObj := Object()</code>は変数<em>myObj</em>にのみ影響し、変数<em>yourObj</em>はまだ元のオブジェクトを参照しているわけではありません。</p>
-<p>参照は、代入を使用して他の任意の値に置き換えるだけで解放されます。オブジェクトは、すべての参照が解放された後にのみ削除されます。オブジェクトを明示的に削除することはできませんので、試さないでください。(ただし、<a href="lib/Array.htm">Array</a>の要素、<a href="lib/Gui.htm">Gui</a>に関連するウィンドウ、<a href="lib/Menu.htm">Menu</a>オブジェクトのメニューなど、オブジェクトのプロパティ、コンテンツ、関連リソースを削除することは可能です)。</p>
+<p>参照は、代入を使用して他の任意の値に置き換えるだけで解放されます。オブジェクトは、すべての参照が解放された後にのみ削除されます。オブジェクトを明示的に削除することはできませんので、試さないでください。(However, you can delete an object's properties, content or associated resources, such as an <a href="lib/Array.htm">Array</a>'s elements, the window associated with a <a href="lib/Gui.htm">Gui</a>, the items of a <a href="lib/Menu.htm">Menu</a> object, and so on.)</p>
 <pre>ref1 := Object()  <em>; オブジェクトを作成し、最初のリファレンスを格納します。</em>
 ref2 := ref1      <em>; 同じオブジェクトへの新しい参照を作成します</em>
 ref1 := ""        <em>; 最初のリファレンスを公開します。</em>
