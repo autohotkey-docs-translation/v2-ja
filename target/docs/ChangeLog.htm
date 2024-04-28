@@ -15,11 +15,11 @@
 <p>変更点の技術的な詳細については、<a href="https://github.com/AutoHotkey/AutoHotkey/tree/alpha">GitHub</a>を参照してください。</p>
 
 <h2 id="v2.0.13">2.0.13 - 2024年4月20日</h2>
-<p>関数に無効なオプションが含まれているときにValueErrorをスローするように変更しました。</p>
-<p>Fixed InputHook to respect the +S option for Backspace when acting as undo.</p>
-<p>Fixed debugger to safely handle property deletion during enumeration.</p>
-<p>Fixed OLE clipboard content (e.g. error dialog text) being lost on exit.</p>
-<p>Fixed detection of invalid suffix on a hotkey, such as <code>Hotkey "a pu"</code>.</p>
+<p>Hotkey関数に無効なオプションが含まれているときにValueErrorをスローするように変更しました。</p>
+<p>バックスペースがやり直しに割り当てられているときに+Sオプションを参照するようにInputHook関数を修正しました。</p>
+<p>列挙中のプロパティを安全に削除できるようにデバッガを修正しました。</p>
+<p>エラーダイアログのテキストなど、OLEクリップボードの内容が終了時に失われる問題を修正しました。</p>
+<p> <code>ホットキー "a pu"</code>のような、無効な接尾辞の検出を修正しました。</p>
 <p>Fixed DllCall <code>AStr*</code> arg type to copy back only if address changes.</p>
 <p>Fixed #Include to correctly "close" any built-in variable it reads (no known impact on real-world scripts).</p>
 <p>Fixed WinTitles with two different ahk_id values to yield no match.</p>
@@ -28,12 +28,12 @@
 <p>Guiにオーナーウィンドウまたは+DPIScaleがある場合のGui GetPos/GetClientPosを修正しました。</p>
 <p>ファイルループでのサブフォルダーの再帰を防止するようにUntil文を修正しました。</p>
 <p>Fixed DllCall to throw when arg type is UStr.</p>
-<p>RegEx calloutのたびにメモリリークが起きるのを修正しました。</p>
+<p>regEx calloutのたびにメモリリークが起きるのを修正しました。</p>
 <p>Fixed Send erroneously releasing a modifier due to a race condition. For example, <code>~LAlt::Send "{Blind}x"</code> intermittently released LAlt if some other keyboard hook was installed more recently than the script's own hook.</p>
 <p>Fixed icon loader to prefer higher bit-depth when multiple bitmaps of the same size are present.</p>
 <p>Fixed SendInput failing to release LCtrl if it had already released RAlt and the layout does not have AltGr.</p>
 <p>Fixed key-up hotkeys not firing if the key repeats after modifiers change. For example, <code>F1::Send "{Ctrl down}"</code> should allow <code>F1 up::</code> to execute when the key is released even though Ctrl is down, but was not allowing it after key-repeat occurs.</p>
-<p>Fixed an error message to refer to #HotIf rather than #IfWin. [PR #327]</p>
+<p>#IfWinではなく#HotIfを参照するようにエラーメッセージを修正しました。[PR #327]</p>
 <p>Fixed OwnProps erroneously skipping properties with optional parameters.</p>
 <p>Fixed inconsistent behaviour of cloned dynamic properties.</p>
 <ul>
@@ -49,7 +49,7 @@
 <p>Fixed a reference counting error with multi-level function nesting.</p>
 <p>Fixed <code>#include &lt;x&gt;</code> causing a load-time crash if used inside a function.</p>
 <p>Fixed <code>ListView.Opt("NoSort")</code>.</p>
-<p>Fixed a memory leak occurring when an object with no own properties is cloned.</p>
+<p>プロパティを持たないオブジェクトが複製されたときに発生するメモリリークを修正しました。</p>
 <p>Fixed #include and FileInstall (non-compiled) to compare file names <a href="https://learn.microsoft.com/en-us/windows/win32/intl/handling-sorting-in-your-applications#sort-strings-ordinally">ordinally</a>, not linguistically.</p>
 
 <h2 id="v2.0.10">2.0.10 - 2023年9月24日</h2>
@@ -96,7 +96,7 @@
 <p>Changed font to Segoe UI size 9, consistent with Dash.</p>
 
 <h2 id="v2.0.6">2.0.6 - 2023年8月30日</h2>
-<p>Fixed some ambiguity with COM calls, such as <code>x.y</code> acting as <code>x.y()</code>.</p>
+<p>x.yがx.y()として振る舞ってしまうなどのCOM呼び出しの曖昧さを修正しました。</p>
 <p>Fixed breakpoint on control flow statement being "hit" when a fat arrow function on the line below it returns.</p>
 <p>Fixed <code>Default :</code> to not merge with the line below it. This prevented <code>Default :</code> from being used at the end of a Switch block, and caused any subsequent line to take the line number of the Default.</p>
 <p>Optimized ProcessGetPath, ProcessSetPriority and ProcessClose to not scan through all processes when given a valid PID, even if access to the process is denied.</p>
@@ -189,7 +189,7 @@
 
 <h2 id="v2.0.2">2.0.2 - 2023年1月2日</h2>
 <p>Short DllCall の arg タイプと、無効なタイプに対する未定義の挙動を修正しました。</p>
-<p>AutoHotkeyバイナリのファイルバージョン番号を修正しました（非文字列）。</p>
+<p>AutoHotkeyバイナリの非文字列のファイルバージョン番号を修正しました。</p>
 <p>パラメータタイプのエラーで、正しいパラメータ番号が表示されるように修正しました。</p>
 
 <h2 id="v2.0.1">2.0.1 - 2023年1月1日</h2>
@@ -208,7 +208,7 @@
 <ul>
   <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=24&t=110696">v2.0リリース候補</a></li>
   <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=24&t=95688">v2.0ベータ版リリース</a></li>
-  <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=37&t=2120">　v2.0アルファ版リリース</a></li>
+  <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=37&t=2120">v2.0アルファ版リリース</a></li>
 </ul>
 </body>
 </html>
