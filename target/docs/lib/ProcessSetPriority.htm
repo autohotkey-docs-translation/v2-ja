@@ -21,7 +21,7 @@
 <dl>
     <dt>Level</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+        <p>Type: <a href="../Concepts.htm#strings">String</a></p>
         <p>次の単語または文字のいずれかを指定します：</p>
         <ul>
             <li>Low (or L)</li>
@@ -35,7 +35,7 @@
     </dd>
     <dt>PIDOrName</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
+        <p>Type: <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#strings">String</a></p>
         <p>空白または省略された場合、スクリプト自身のプロセスが使用されます。それ以外の場合は、数字（PID）またはプロセス名のいずれかを指定します：</p>
         <p><strong>PID：</strong>プロセスID。これは、ある特定のプロセスを一意に識別するための番号です。（この番号は、そのプロセスが生きている間だけ有効です）。新しく立ち上げたプロセスのPIDは、<a href="Run.htm">Run</a>関数で決定することができます。同様に、<a href="WinGetPID.htm">WinGetPID</a>でウィンドウのPIDを知ることができます。<a href="ProcessExist.htm">ProcessExist</a>は、PIDを発見するために使用することもできます。</p>
         <p><strong>名前：</strong>プロセスの名前は通常、notepad.exeやwinword.exeなどの実行ファイルと同じです（パスなし）。一つの名前が複数の実行中のプロセスに一致する可能性があるため、最初のプロセスのみが操作されることになります。名前の大文字と小文字は区別されません。</p>
@@ -43,7 +43,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>説明： 指定されたプロセスの<a href="../misc/WinTitle.htm#ahk_pid">プロセスID（PID</a>）を返します。一致するプロセスが見つからなかったり、操作できなかったりした場合は、0を返します。</p>
 
 <h2 id="Remarks">備考</h2>
@@ -63,7 +63,7 @@ MsgBox "The newly launched Notepad's PID is " NewPID</pre>
 
 <div class="ex" id="ExHotkey">
 <p><a class="ex_number" href="#ExHotkey"></a> ホットキーを押して、アクティブウィンドウのプロセスの優先順位を変更することができます。</p>
-<pre>#z:: <em>; Win+Z </em>
+<pre>#z:: <em>; Win+Z hotkey</em>
 {
     active_pid := WinGetPID("A")
     active_title := WinGetTitle("A")
@@ -72,7 +72,7 @@ MsgBox "The newly launched Notepad's PID is " NewPID</pre>
     (
         ESCAPEキーを押してキャンセルするか、ダブルクリックで新しい
         優先順位は、次のウィンドウで設定します：
-)")
+    )")
     MyGui.Add("Text", "wp", active_title)
     LB := MyGui.Add("ListBox", "r5 Choose1", ["Normal","High","Low","BelowNormal","AboveNormal"])
     LB.OnEvent("DoubleClick", SetPriority)
@@ -81,14 +81,14 @@ MsgBox "The newly launched Notepad's PID is " NewPID</pre>
     MyGui.OnEvent("Close", (*) =&gt; MyGui.Destroy())
     MyGui.Show()
 
-SetPriority(*)
+    SetPriority(*)
     {
         new_prio := LB.Text
         MyGui.Destroy()
         if ProcessSetPriority(new_prio, active_pid)
-            MsgBox "Success:Its priority was changed to " new_prio
+            MsgBox "Success: Its priority was changed to " new_prio
         else
-            MsgBox "Error:Its priority could not be changed to " new_prio
+            MsgBox "Error: Its priority could not be changed to " new_prio
     }
 }</pre>
 </div>

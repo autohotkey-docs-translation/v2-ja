@@ -21,7 +21,7 @@
 
   <dt>機能</dt>
   <dd>
-    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
+    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
     <p><em>Address</em>が呼び出されるたびに自動的に呼び出される関数オブジェクトです。また、この関数は<em>Address</em>に渡されたパラメータを受け取ります。</p>
     <p><a href="../Functions.htm#closures">クロージャ</a>または<a href="../misc/Functor.htm#BoundFunc">バウンド関数</a>は、同じスクリプト関数をすべて呼び出す複数のコールバックを区別するために使用することができます。</p>
     <p>コールバックは関数オブジェクトへの参照を保持し、スクリプトが<a href="#CallbackFree">CallbackFree</a>を呼び出すとその参照を解放します。</p>
@@ -29,23 +29,23 @@
 
   <dt>Options</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If blank or omitted, a new <a href="../misc/Threads.htm">thread</a> will be started each time <em>Function</em> is called, the standard calling convention will be used, and the parameters will be passed individually to <em>Function</em>. Otherwise, specify one or more of the following options. Separate each option from the next with a space (e.g. <code>"C Fast"</code>).</p>
-    <p id="Fast"><strong>Fast</strong> または <strong>F</strong>:<em>Function</em>が呼び出されるたびに新しい<a href="../misc/Threads.htm">スレッド</a>を開始するのを避けることができます。この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
-    <p><strong>CDecl</strong> または <strong>C</strong>:<em>Addressを</em>"C "呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略されます。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
+    <p id="Fast"><strong>Fast</strong> or <strong>F</strong>: Avoids starting a new <a href="../misc/Threads.htm">thread</a> each time <em>Function</em> is called. この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
+    <p><strong>CDecl</strong> or <strong>C</strong>: Makes <em>Address</em> conform to the "C" calling convention. コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略されます。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
     <p><strong>&amp;:</strong> Causes the address of the parameter list (a single integer) to be passed to <em>Function</em> instead of the individual parameters. パラメータ値は、<a href="NumGet.htm">NumGet</a>を用いて取得することができる。標準の32ビット呼び出し規約を使用する場合、<em>ParamCount</em>はパラメータリストのサイズをDWORD（バイト数を4で割った値）で指定する必要があります。</p>
   </dd>
 
   <dt>ParamCount</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, it defaults to <a href="Func.htm#MinParams"><i>Function</i>.MinParams</a>, which is usually the number of mandatory parameters in the <a href="../Functions.htm#define">definition</a> of <em>Function</em>. Otherwise, specify the number of parameters that <em>Address</em>'s caller will pass to it. いずれの場合も、呼び出し元が正確にこの数のパラメータを渡すことを確認します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>CallbackCreate は、マシンコード・アドレスを返す。このアドレスは通常、<a href="DllCall.htm">DllCall</a>で外部関数に渡されるか、<a href="NumPut.htm">NumPut</a>で構造体に入れられるが、DllCallで直接呼び出すことも可能です。<a href="#CallbackFree">CallbackFree</a>にアドレスを渡すと、コールバックが削除されます。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -54,7 +54,7 @@
   <li><em>Function</em>がオブジェクトでない、または<code>MinParams</code>プロパティも<code>Call</code>メソッドも持っていない。</li>
   <li><em>関数</em>には <code>MinParams</code>プロパティがあり、コールバックが供給するパラメータの数を超えています。</li>
   <li><em>ParamCount</em>は否定的です。</li>
-  <li><em>ParamCountは</em>省略され、更に1)<em>Function</em>に <code>MinParams</code>プロパティがない、または2)<code>&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
+  <li><em>ParamCount</em> is omitted and: 1) <em>Function</em> has no <code>MinParams</code> property; or 2) the <code>&amp;</code> option is used with the standard 32-bit calling convention.</li>
 </ul>
 
 <a id="The_Callback_Functions_Parameters"></a>
@@ -64,11 +64,11 @@
 
 <p><strong>AutoHotkey 32ビット：</strong>入力されるパラメータはすべて符号なし32ビット整数です。小さな型は32ビットにパディングされ、大きな型は32ビットの一連のパラメータに分割されます。</p>
 <p>If an incoming parameter is intended to be a signed integer, any negative numbers can be revealed by following either of the following methods:</p>
-<pre><em>; 方法 #1</em>
+<pre><em>; Method #1</em>
 if (wParam &gt; 0x7FFFFFFF)
     wParam := -(~wParam) - 1
 
-<em>; 方法 #2：AutoHotkeyがネイティブに符号付き64ビット整数を使用することに依存します。</em>
+<em>; Method #2: Relies on the fact that AutoHotkey natively uses signed 64-bit integers.</em>
 wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 
 <p><strong>AutoHotkey 64ビット：</strong>入力されるパラメータはすべて符号付き64ビット整数です。AutoHotkeyは、符号なし64ビット整数をネイティブでサポートしていません。小さい型は64ビットにパディングされ、大きい型は常にアドレスで渡されます。</p>
@@ -86,7 +86,7 @@ wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 
 <p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code>&amp;</code> option is used, <em>Function</em> receives the <i>address</i> of the first callback parameter. 事例：</p>
 <pre>
-callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; パラメータリストのサイズは32ビットで指定する必要があります。</em>
+callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; Parameter list size must be specified for 32-bit.</em>
 DllCall(callback, "float", 10.5, "int64", 42)
 TheFunc(params) {
     MsgBox <a href="NumGet.htm">NumGet</a>(params, 0, "float") ", " NumGet(params, A_PtrSize, "int64")
@@ -114,13 +114,13 @@ TheFunc(params) {
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExWinList">
 <p><a class="ex_number" href="#ExWinList"></a> すべてのトップレベルウィンドウのサマリーを表示します。</p>
-<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")  <em>; Fast-modeはこのスレッドからしか呼ばれないので大丈夫です。</em>
+<pre>EnumAddress := CallbackCreate(EnumWindowsProc, "Fast")  <em>; Fast-mode is okay because it will be called only from this thread.</em>
 
-DetectHiddenWindows True  <em>; 高速モードのため、この設定はコールバックにも有効になります。</em>
+DetectHiddenWindows True  <em>; Due to fast-mode, this setting will go into effect for the callback too.</em>
 
-<em>; コールバックを繰り返し呼び出すEnumWindows()に制御を渡す。</em>
+<em>; Pass control to EnumWindows(), which calls the callback repeatedly:</em>
 DllCall("EnumWindows", "Ptr", EnumAddress, "Ptr", 0)
-MsgBox Output  <em>; コールバックで蓄積された情報を表示します。</em>
+MsgBox Output  <em>; Display the information accumulated by the callback.</em>
     
 EnumWindowsProc(hwnd, lParam)
 {
@@ -128,25 +128,25 @@ EnumWindowsProc(hwnd, lParam)
     win_title := WinGetTitle(hwnd)
     win_class := WinGetClass(hwnd)
     if win_title
-        Output .= "HWND:" hwnd "`tTitle:" win_title "`tClass:" win_class "`n"
-    return true  <em>; EnumWindows() に、すべてのウィンドウが列挙されるまで続けるように指示します。</em>
+        Output .= "HWND: " hwnd "`tTitle: " win_title "`tClass: " win_class "`n"
+    return true  <em>; Tell EnumWindows() to continue until all windows have been enumerated.</em>
 }</pre>
 </div>
 
 <div class="ex" id="ExSubclassGUI">
 <p><a class="ex_number" href="#ExSubclassGUI"></a> GUIウィンドウのWindowProcをスクリプト内の新しいWindowProcにリダイレクトして、サブクラス化する方法を示すものです。この場合、テキストコントロールの背景色はカスタムカラーに変更されます。</p>
-<pre>TextBackgroundColor := 0xFFBBBB  <em>; BGR 形式のカスタムカラー。</em>
+<pre>TextBackgroundColor := 0xFFBBBB  <em>; A custom color in BGR format.</em>
 TextBackgroundBrush := DllCall("CreateSolidBrush", "UInt", TextBackgroundColor)
 
 MyGui := Gui()
 Text := MyGui.Add("Text",, "Here is some text that is given`na custom background color.")
 
-<em>; 64ビットスクリプトでは、SetWindowLongの代わりにSetWindowLongPtrを呼び出す必要があります。</em>
-SetWindowLong := A_PtrSize=8 ? "SetWindowLongPtr" : "SetWindowLong"
+<em>; 64-bit scripts must call SetWindowLongPtr instead of SetWindowLong:</em>
+SetWindowLong := A_PtrSize=8 ?"SetWindowLongPtr" : "SetWindowLong"
 
-WindowProcNew := CallbackCreate(WindowProc)  <em>; サブクラス作成時のfast-modeは避けてください。</em>
-WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4  <em>; -4 は GWL_WNDPROC</em>
-    , "Ptr", WindowProcNew, "Ptr") <em>; 戻り値は "Ptr "または "UPtr "対 "Int "に設定する必要があります。</em>
+WindowProcNew := CallbackCreate(WindowProc)  <em>; Avoid fast-mode for subclassing.</em>
+WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4  <em>; -4 is GWL_WNDPROC</em>
+    , "Ptr", WindowProcNew, "Ptr") <em>; Return value must be set to "Ptr" or "UPtr" vs. "Int".</em>
 
 MyGui.Show
 

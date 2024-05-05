@@ -21,13 +21,13 @@
 
   <dt>InputFile</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。ファイルの行末は、キャリッジリターンとラインフィード（`r`n）、ラインフィード（`n）だけ、またはキャリッジリターン（`r）だけであることができます。</p>
   </dd>
 
   <dt id="OutputFile">OutputFile</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>(Optional) The name of the file to be kept open for the duration of the loop, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
       <p>ループのボディ内で、<a href="FileAppend.htm">FileAppend</a>関数を<em>Filename</em>パラメータなしで（つまり省略）使用し、この特別なファイルに追記します。この方法は、2パラメータモードの<a href="FileAppend.htm">FileAppend</a>を使用するよりも、操作のたびにファイルを閉じて開き直す必要がないため、より優れたパフォーマンスを発揮します。必要であれば、テキストの後にラインフィード（`n）またはキャリッジリターンとラインフィード（`r`n）を含めることを忘れないようにしてください。</p>
       <p>何も書き込まれない場合は、ファイルは開かれません。This happens if the loop performs zero iterations or if it never calls <a href="FileAppend.htm">FileAppend</a>.</p>
@@ -51,7 +51,7 @@
 }</pre>
 <p>ファイル全体を変数に読み込むには、ループよりもはるかに性能が良い（特に大きなファイルの場合）ので、<a href="FileRead.htm">FileRead</a>を使用します。</p>
 <p>複数のファイルを同時に開くには、<a href="FileOpen.htm">FileOpen</a>を使用します。</p>
-<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Read InputFile, OutputFile {</code>.</p>
+<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。For example: <code>Loop Read InputFile, OutputFile {</code>.</p>
 <p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」をご覧ください。</p>
 <p>バイトオーダーマークが存在しない場合のファイルのデコード方法を制御するには、<a href="FileEncoding.htm">FileEncoding</a>を使用します。</p>
 <p>ループの後には、入力ファイルが空であったり、見つからなかったりした場合に実行される<a href="Else.htm">Else</a>文がオプションで付いていることがあります。<em>OutputFile</em>が指定された場合、<em>Else</em>文の本体内では、<a href="#OutputFile">上記</a>の <a href="FileAppend.htm">FileAppend</a>の特殊モードも使用することができます。<em>Else</em>がない場合、ファイルが見つからなかった場合は<a href="Error.htm#OSError">OSError</a>が投げられる。</p>
@@ -84,14 +84,14 @@ else
 <pre>
 SourceFile := FileSelect(3,, "Pick a text or HTML file to analyze.")
 if SourceFile = ""
-    return  <em>; この場合、終了します。</em>
+    return  <em>; This will exit in this case.</em>
 
 SplitPath SourceFile,, &amp;SourceFilePath,, &amp;SourceFileNoExt
 DestFile := SourceFilePath "\" SourceFileNoExt " Extracted Links.txt"
 
 if FileExist(DestFile)
 {
-    Result := MsgBox("Overwrite the existing links file?Press No to append to it.`n`nFILE:" DestFile,, 4)
+    Result := MsgBox("Overwrite the existing links file?Press No to append to it.`n`nFILE: " DestFile,, 4)
     if Result = "Yes"
         FileDelete DestFile
 }
@@ -108,7 +108,7 @@ return
 URLSearch(URLSearchString)
 {
     <em>; URLの中には、他のURLが埋め込まれているものがあるため、このような特殊な方法になっています：
-; 一番左のスタートポジションを探す：</em>
+    ; 一番左のスタートポジションを探す：</em>
     URLStart := 0  <em>; 開始時のデフォルトを設定する。</em>
     for URLPrefix in ["https://", "http://", "ftp://", "www."]
     {
@@ -124,10 +124,10 @@ URLSearch(URLSearchString)
         }
     }
 
-if !URLStart  <em>; No URLs exist in URLSearchString.</em>
+    if !URLStart  <em>; No URLs exist in URLSearchString.</em>
         return
 
-<em>; そうでない場合は、このURLを抽出します：</em>
+    <em>; そうでない場合は、このURLを抽出します：</em>
     URL := SubStr(URLSearchString, URLStart)  <em>;先頭/関係ない部分を省略します。</em>
     Loop parse, URL, " `t&lt;&gt;"  <em>; 最初のスペース、タブ、角括弧（もしあれば）を見つける</em>。
     {
@@ -137,19 +137,19 @@ if !URLStart  <em>; No URLs exist in URLSearchString.</em>
     <em>; もし、上記のループが、終了文字が見つからなかったために、繰り返し回数が0回だった場合、
     ; URL varの中身はそのままにしておく。
 
-; URLの末尾がダブルクォートで終わっている場合は、それを削除する。今のところ、StrReplaceが使用されていますが
+    ; URLの末尾がダブルクォートで終わっている場合は、それを削除する。今のところ、StrReplaceが使用されていますが
     ; 二重引用符はURLの中に合法的に存在できるようなので、この
     ; 破損する可能性があります：</em>
     URLCleansed := StrReplace(URL, '"')
     FileAppend URLCleansed "`n"
     global LinkCount += 1
 
-<em>; この行の中に他のURLがあるかどうかを確認する：</em>
+    <em>; この行の中に他のURLがあるかどうかを確認する：</em>
     CharactersToOmit := StrLen(URL)
     CharactersToOmit += URLStart
     URLSearchString := SubStr(URLSearchString, CharactersToOmit)
     
-<em>; selfを再帰的に呼び出す：</em>
+    <em>; selfを再帰的に呼び出す：</em>
     URLSearch(URLSearchString)
 }
 </pre>

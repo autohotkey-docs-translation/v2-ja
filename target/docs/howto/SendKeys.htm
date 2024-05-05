@@ -26,7 +26,7 @@
 <p>例題を試す方法がわからない場合は、「<a href="RunExamples.htm">例題コードを実行する方法</a>」をご覧ください。</p>
 
 <h2 id="How_to_write_the_code">コードの書き方</h2>
-<p>キーを送信する場合、一般的には、キーまたはキーの組み合わせを送信してその効果を得るか（クリップボードにコピーする<kbd>Ctrl</kbd>+<kbd>C</kbd>のような）、何らかのテキストを入力することになります。:文字入力の方が簡単なので、まずはそこから。<a href="../lib/Send.htm">SendText</a>関数を呼び出し、送信したいテキストを正確に<a href="../Concepts.htm#pass-parameters">渡すだけ</a>です。</p>
+<p>キーを送信する場合、一般的には、キーまたはキーの組み合わせを送信してその効果を得るか（クリップボードにコピーする<kbd>Ctrl</kbd>+<kbd>C</kbd>のような）、何らかのテキストを入力することになります。:Typing text is simpler, so we'll start there: just call the <a href="../lib/Send.htm">SendText</a> function, <a href="../Concepts.htm#pass-parameters">passing</a> it the exact text you want to send.</p>
 <pre>^1::SendText "To Whom It May Concern"</pre>
 <p>技術的には、SendTextは実際にはキーストロークではなく、Unicodeの文字パケットを送信するため、<kbd>Shift</kbd>+<kbd>2</kbd> or <kbd>AltGr</kbd>+<kbd>a</kbd>のようなキーコンビネーションで通常入力される文字に対してより信頼性が高くなります。</p>
 
@@ -44,7 +44,7 @@
 <p>上で見たように、エスケープ文字<code>`（</code> <em>backquote</em>、<em>backtick</em>、<em>grave accent</em>などの名前で知られている）には特別な意味があるので、その文字を文字通り送りたい（または対応するキーを送りたい）場合は、 <code>Send "``"</code> ように二重にする必要があります。その他によく使われるエスケープシーケンスとして、改行（Enter）を表す<code>`n</code>、タブを表す<code>`t</code>があります。詳しくは「<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>」をご覧ください。</p>
 
 <h3 id="Sending_keys_and_key_combinations">キーとキーの組み合わせの送信</h3>
-<p><a href="../lib/Send.htm">SendTextは</a>テキストをそのまま送信するのに適していますが、<kbd>Left</kbd>や <kbd>Home</kbd>のようなテキストを生成しないキーは送信できません。<a href="../lib/Send.htm">Send</a>、<a href="../lib/Send.htm">SendInput</a>、<a href="../lib/Send.htm">SendPlay</a>、<a href="../lib/Send.htm">SendEvent</a>、<a href="../lib/ControlSend.htm">ControlSend</a>は、テキストとキーの組み合わせ、またはテキストを生成しないキーの両方を送信できます。そのために、次のようなシンボルに特別な意味を持たせている。<code>^!+#{}</code></p>
+<p><a href="../lib/Send.htm">SendTextは</a>テキストをそのまま送信するのに適していますが、<kbd>Left</kbd>や <kbd>Home</kbd>のようなテキストを生成しないキーは送信できません。<a href="../lib/Send.htm">Send</a>、<a href="../lib/Send.htm">SendInput</a>、<a href="../lib/Send.htm">SendPlay</a>、<a href="../lib/Send.htm">SendEvent</a>、<a href="../lib/ControlSend.htm">ControlSend</a>は、テキストとキーの組み合わせ、またはテキストを生成しないキーの両方を送信できます。To do all of this, they add special meaning to the following symbols: <code>^!+#{}</code></p>
 <p>最初の4つの記号は、標準的な修飾キーであるCtrl (<code>^</code>), Alt (<code>!</code>), Shift (<code>+</code>) and Win (<code>#</code>)に対応していますこれらは組み合わせて使うことができますが、それ以外は次のキーにしか影響しません。</p>
 <p>キーを名前で送る場合、または上記の記号のいずれかを文字どおり送る場合は、中括弧で囲んでください。事例：</p>
 <ul>
@@ -119,7 +119,7 @@
 (
     先頭のインデントが取り除かれます。
     を1行目としています。
-改行が保持されます
+    改行が保持されます
     "Join"オプションを使用しない限り。
 )"</pre>
 <p>一般的にかなり高速ですが、SendTextはまだ各文字を一度に送信する必要があり、Sendは一般的に少なくとも2倍のメッセージ（<em>キーダウン・キーアップ</em>）を送信する必要があります。そのため、大量のテキストを送信する際には、顕著な遅延が発生します。また、遅延が長くなると、ユーザーの入力と衝突したり、キーボードのフォーカスがずれたり、その他の条件が変化するリスクが高くなるため、信頼性が低くなる可能性があります。</p>
@@ -130,10 +130,10 @@
     (Join`s
         このテキストは、クリップボードに置かれます。
         で、Ctrl+Vを送ると下に貼り付けられます。
-)"
+    )"
     Send "^v"
     Sleep 500  <em>; Ctrl+V が処理されるまで少し待つ。</em>
-    A_Clipboard := old_clip  <em>; 以前のクリップボードの内容を復元する</em>
+    A_Clipboard := old_clip  <em>; Restore previous clipboard content</em>
 }</pre>
 
 </body>

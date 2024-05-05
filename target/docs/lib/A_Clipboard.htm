@@ -15,7 +15,7 @@
 
 <p><em>A_Clipboard</em>は、Windowsのクリップボードの内容がテキストとして表現できる場合に、その内容を反映する<a href="../Concepts.htm#built-in-variables">組み込み変数</a>です。</p>
 
-<p id="CopiedFiles"><em>A_Clipboard</em>の各行のテキストは通常、キャリッジリターンとラインフィード（CR+LF）で終わり、スクリプトでは<code>`r`n</code>と表現することができます。ファイル（<kbd>Ctrl</kbd><kbd>+</kbd><kbd>C</kbd>で開いたエクスプローラーウィンドウからコピーしたものなど）はテキストとみなされます。スクリプト内で<em>A_Clipboard</em>が参照されるたびに、それらは自動的にファイル名（フルパス付き）に変換されます。ファイルを1つずつ取り出す場合は、この例に従ってください。</p>
+<p id="CopiedFiles"><em>A_Clipboard</em>の各行のテキストは通常、キャリッジリターンとラインフィード（CR+LF）で終わり、スクリプトでは<code>`r`n</code>と表現することができます。Files (such as those copied from an open Explorer window via <kbd>Ctrl</kbd>+<kbd>C</kbd>) are considered to be text: They are automatically converted to their filenames (with full path) whenever <em>A_Clipboard</em> is referenced in the script. ファイルを1つずつ取り出す場合は、この例に従ってください。</p>
 <pre><a href="LoopParse.htm">Loop Parse</a> A_Clipboard, "`n", "`r"
 {
     Result := MsgBox("File number " A_Index " is " A_LoopField ".`n`nContinue?",, 4)
@@ -25,16 +25,16 @@
 <p>ファイル名をアルファベット順に並べるには、「<a href="Sort.htm">ソート</a>」機能を使います。クリップボード上のファイル名をファイルに書き込むには、<code><a href="FileAppend.htm">FileAppend</a>A_Clipboard "`r`n", "C:¥My File.txt"</code>とします。クリップボードが他のアプリケーションで使用されている場合など、スクリプトがクリップボードを開こうとする時間を変更するには、<a href="_ClipboardTimeout.htm">#ClipboardTimeout</a>を使用します。</p>
 
 <p><a href="ClipWait.htm">ClipWait</a>は、クリップボードにデータ（オプションで非テキストデータも含む）が含まれていることを検出するために使用することができる。</p>
-<pre>A_Clipboard := ""  <em>; テキストが到着したことをClipWaitが検出できるように、空でスタートします。</em>
+<pre>A_Clipboard := ""  <em>; Start off empty to allow ClipWait to detect when the text has arrived.</em>
 Send "^c"
-<a href="ClipWait.htm">ClipWait</a>  <em>; クリップボードにテキストが入るのを待ちます。</em>
+<a href="ClipWait.htm">ClipWait</a>  <em>; Wait for the clipboard to contain text.</em>
 MsgBox "Control-C copied the following contents to the clipboard:`n`n" A_Clipboard</pre>
 
 
 <h2 id="Related">関連</h2>
 <ul>
-  <li><a href="ClipboardAll.htm">ClipboardAll</a>:クリップボード上のすべてのもの（画像や書式など）を操作するためのものです。</li>
-  <li><a href="OnClipboardChange.htm">OnClipboardChange</a>:クリップボードの変化を検知して対応するため。</li>
+  <li><a href="ClipboardAll.htm">ClipboardAll</a>: For operating upon everything on the clipboard (such as pictures and formatting).</li>
+  <li><a href="OnClipboardChange.htm">OnClipboardChange</a>: For detecting and responding to clipboard changes.</li>
 </ul>
 
 <h2 id="Examples">例</h2>
@@ -65,8 +65,8 @@ MsgBox "Control-C copied the following contents to the clipboard:`n`n" A_Clipboa
 
 <p><strong>AutoHotkey v1 で書かれたクリップボードユーティリティです。</strong></p>
 <ul>
-  <li><a href="https://www.autohotkey.com/forum/topic2665.html">Deluxe Clipboard</a>:選択したテキストをコピー、カット、ペースト、アペンド、カットアペンドするためのプライベートな名前付きクリップボードを無制限に提供することができます。</li>
-  <li><a href="https://www.autohotkey.com/forum/topic4836.html">ClipStep</a>:キーボードの<kbd>Ctrl</kbd>-<kbd>X</kbd>-<kbd>C</kbd>-<kbd>V</kbd>だけで複数のクリップボードを操作できます。 </li>
+  <li><a href="https://www.autohotkey.com/forum/topic2665.html">Deluxe Clipboard</a>: Provides unlimited number of private, named clipboards to Copy, Cut, Paste, Append or CutAppend of selected text.</li>
+  <li><a href="https://www.autohotkey.com/forum/topic4836.html">ClipStep</a>: Control multiple clipboards using only the keyboard's <kbd>Ctrl</kbd>-<kbd>X</kbd>-<kbd>C</kbd>-<kbd>V</kbd>. </li>
 </ul>
 
 </body>

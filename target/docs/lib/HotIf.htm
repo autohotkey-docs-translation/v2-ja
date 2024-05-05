@@ -26,7 +26,7 @@
 
   <dt>"Expression"</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If omitted, blank criteria will be set (turns off context-sensitivity). Otherwise, the criteria will be set to an existing <a href="_HotIf.htm">#HotIf</a> expression. The expression is usually written as a <a href="../Language.htm#strings">quoted string</a>, but can also be a variable or expression which returns text matching a #HotIf expression.</p>
     <p class="note"><strong>Note:</strong> The HotIf function uses the string that you pass to it, not the original source code. <a href="../misc/EscapeChar.htm">エスケープシーケンス</a>はスクリプトのロード時に解決されるため、結果の文字のみが考慮されます。例えば、<code>HotIf 'x = "`t"'</code>と<code>HotIf 'x = "' A_Tab '"</code>はどちらも<code>#HotIf x = "`t"</code>に相当します。</p>
     <p>For an example, see <a href="_HotIf.htm#ExDynamic">#HotIf example #5</a>.</p>
@@ -34,7 +34,7 @@
   
   <dt>Callback</dt>
   <dd>
-    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
+    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
     <p>If omitted, blank criteria will be set (turns off context-sensitivity). Otherwise, the criteria will be set to a given function object. Subsequently-created hotkeys and hotstrings will only execute if the callback returns a non-zero number. This is like <code>HotIf "Expression"</code>, except that each hotkey and hotstring can have many <a href="Hotkey.htm#variant">hotkey variants</a> or <a href="Hotstring.htm#variant">hotstring variants</a> (one per object).</p>
     <p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
     <pre class="NoIndent">MyCallback(HotkeyName) { ...</pre>
@@ -59,7 +59,7 @@
 
   <dt>WinTitle, WinText</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If both are omitted, blank criteria will be set (turns off context-sensitivity). そうでないときは、&lt;e1&gt;WinTitle&lt;/e1&gt;に &lt;a2&gt;ウィンドウタイトル&lt;/a2&gt;またはターゲットウィンドウを識別するための&lt;a2&gt;他の基準&lt;/a2&gt;、および/または&lt;e3&gt;WinText&lt;/e3&gt;にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。Depending on which function is called, affected hotkeys and hotstrings are in effect only while the target window is active, exists, is not active, or does not exist.</p>
     <p>パラメータは関数が呼び出される前に評価されるため、変数への参照はその時点で永続的なものとなります。In other words, subsequent changes to the contents of the variable are not seen by existing hotkeys and hotstrings.</p>
     <p><em>WinTitle</em>、<em>WinText</em>は、<a href="WinActive.htm">WinActive</a>、<a href="WinExist.htm">WinExist</a>と同じ意味ですが、文字列のみ使用でき、<a href="../Scripts.htm#auto">自動実行スレッド</a>が設定した<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>のデフォルト設定に従って評価されます。</p>
@@ -75,9 +75,9 @@
 <h2 id="remarks">総論</h2>
 <p>The HotIf and HotIfWin functions allow context-sensitive <a href="../Hotkeys.htm">hotkeys</a> and <a href="../Hotstrings.htm">hotstrings</a> to be created and modified while the script is running (by contrast, the <a href="_HotIf.htm">#HotIf</a> directive is positional and takes effect before the script begins executing). 事例：</p>
 <pre>HotIfWinActive "ahk_class Notepad"
-Hotkey "^!e", MyFuncForNotepad  <em>; メモ帳でのみ動作するホットキーを作成します。</em></pre>
+Hotkey "^!e", MyFuncForNotepad  <em>; Creates a hotkey that works only in Notepad.</em></pre>
 <p>Using HotIf or one of the HotIfWin functions puts context sensitivity into effect for all subsequently created <a href="../Hotkeys.htm">hotkeys</a> and <a href="../Hotstrings.htm">hotstrings</a> in the current <a href="../misc/Threads.htm">thread</a>, and affects which hotkey variants the <a href="Hotkey.htm">Hotkey</a> function modifies and which hotstring variants the <a href="Hotstring.htm">Hotstring</a> function modifies. Only the most recent call to the HotIf or HotIfWin function in the current thread will be in effect.</p>
-<p>To turn off context sensitivity (such as to make subsequently-created hotkeys and hotstrings work in all windows), call HotIf or one of the HotIfWin functions but omit the parameters. 事例：<code>HotIf</code> または <code>HotIfWinActive</code>.</p>
+<p>To turn off context sensitivity (such as to make subsequently-created hotkeys and hotstrings work in all windows), call HotIf or one of the HotIfWin functions but omit the parameters. For example: <code>HotIf</code> or <code>HotIfWinActive</code>.</p>
 <p>Before HotIf or one of the HotIfWin functions is used in a hotkey or hotstring <a href="../misc/Threads.htm">thread</a>, the <a href="Hotkey.htm">Hotkey</a> and <a href="Hotstring.htm">Hotstring</a> functions default to the same context as the hotkey or hotstring that launched the thread. In other words, <code>Hotkey A_ThisHotkey, "Off"</code> turns off the current hotkey even if it is context-sensitive. All other threads default to creating or modifying global hotkeys and hotstrings, unless that default is overridden by using HotIf or one of the HotIfWin functions during <a href="../Scripts.htm#auto">script startup</a>.</p>
 <p>When a mouse or keyboard hotkey is disabled via HotIf, one of the HotIfWin functions, or the <a href="_HotIf.htm">#HotIf</a> directive, it performs its native function; that is, it passes through to the active window as though there is no such hotkey. However, controller hotkeys always pass through, whether they are disabled or not.</p>
 

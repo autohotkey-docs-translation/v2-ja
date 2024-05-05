@@ -22,7 +22,7 @@
 
   <dt>KeyName</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p><a href="../Hotkeys.htm#Symbols">修飾記号</a>を含む、ホットキーの起動キーの名前。例えば、<kbd>Win</kbd>+<kbd>C</kbd>のホットキーには<code>#c</code>を指定します。</p>
     <p>If <em>KeyName</em> already exists as a hotkey -- either by the Hotkey function or a <a href="../Hotkeys.htm">double-colon label</a> in the script -- that hotkey will be updated with the values of the function's other parameters.</p>
     <p>When specifying an <em>existing</em> hotkey, <em>KeyName</em> is not case-sensitive. ただし、キーの名前は既存のホットキーと同じスペルでなければなりません（例：この目的ではEscはEscapeと同じではありません）。Also, the order of <a href="../Hotkeys.htm#Symbols">modifier symbols</a> such as <code>^!+#</code> does not matter. <a href="GetKeyName.htm">GetKeyName</a> can be used to retrieve the standard spelling of a key name.</p>
@@ -33,7 +33,7 @@
 
   <dt>アクション</dt>
   <dd>
-      <p>型：<a href="../misc/Functor.htm">Function Object</a> or <a href="../Concepts.htm#strings">String</a></p>
+      <p>Type: <a href="../misc/Functor.htm">Function Object</a> or <a href="../Concepts.htm#strings">String</a></p>
       <p>If omitted and <em>KeyName</em> already exists as a hotkey, its action will not be changed. ホットキーの<em>Options</em>のみを変更したい場合に便利です。Otherwise, specify a callback, a <a href="../Hotkeys.htm">hotkey</a> name without trailing colons, or one of the special values listed below.</p>
       <hr>
       <p>Specify the function to call (as a new <a href="../misc/Threads.htm">thread</a>) when the hotkey is pressed.</p>
@@ -50,20 +50,20 @@
       <p><strong>On:</strong> The hotkey becomes enabled. ホットキーがすでにOnになっている場合は、何もしません。</p>
       <p><strong>Off:</strong> The hotkey becomes disabled. ホットキーがすでにOffになっている場合は、何もしません。</p>
       <p><strong>Toggle:</strong> The hotkey is set to the opposite state (enabled or disabled).</p>
-      <p><strong>AltTab</strong>（その他）：これらは、<a href="../Hotkeys.htm#alttab">ここ</a>で説明するAlt-Tabの特殊なホットキーアクションです。</p>
+      <p><strong>AltTab</strong> (and others): These are special Alt-Tab hotkey actions that are described <a href="../Hotkeys.htm#alttab">here</a>.</p>
       </dd>
 
   <dt id="Options">Options</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>A string of zero or more of the following options with optional spaces in between. 事例：<code>"On B0"</code>.</p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>A string of zero or more of the following options with optional spaces in between. For example: <code>"On B0"</code>.</p>
       <p><strong>On:</strong> Enables the hotkey if it is currently disabled.</p>
       <p><strong>Off:</strong> Disables the hotkey if it is currently enabled. これは、通常、初期状態では無効な状態のホットキーを作成するために使用されます。</p>
-      <p><strong>B</strong> または <strong>B0</strong>:Bを指定すると、<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>で説明したように、ホットキーをバッファリングします。Specify <code>B0</code> (B with the number 0) to disable this type of buffering.</p>
-      <p><strong>P</strong><em>n</em>:Specify the letter P followed by the hotkey's <a href="../misc/Threads.htm">thread priority</a>. ホットキー作成時にPオプションが省略された場合は、0が使用されます。</p>
-      <p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>:Sを指定すると、ホットキーが<a href="Suspend.htm">サスペンド</a>を<a href="_SuspendExempt.htm">免除</a>するようになり、サスペンドをオフにするためにホットキーを使用できるようになります。S0（Sに数字の0）を指定すると、免除が解除され、ホットキーが中断できるようになります。</p>
-      <p><strong>T</strong><em>n</em>:Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. 事例：<code>T5</code>.</p>
-      <p><strong>I</strong><em>n</em> (InputLevel):Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. 事例：<code>I1</code>.</p>
+      <p><strong>B</strong> or <strong>B0</strong>: Specify the letter B to buffer the hotkey as described in <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>. Specify <code>B0</code> (B with the number 0) to disable this type of buffering.</p>
+      <p><strong>P</strong><em>n</em>: Specify the letter P followed by the hotkey's <a href="../misc/Threads.htm">thread priority</a>. ホットキー作成時にPオプションが省略された場合は、0が使用されます。</p>
+      <p id="SuspendExempt"><strong>S</strong> or <strong>S0</strong>: Specify the letter S to make the hotkey <a href="_SuspendExempt.htm">exempt</a> from <a href="Suspend.htm">Suspend</a>, which allows the hotkey to be used to turn Suspend off. S0（Sに数字の0）を指定すると、免除が解除され、ホットキーが中断できるようになります。</p>
+      <p><strong>T</strong><em>n</em>: Specify the letter T followed by a the number of threads to allow for this hotkey as described in <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>. For example: <code>T5</code>.</p>
+      <p><strong>I</strong><em>n</em> (InputLevel): Specify the letter I (or i) followed by the hotkey's <a href="_InputLevel.htm">input level</a>. For example: <code>I1</code>.</p>
       <p>オプション文字が省略され、ホットキーがすでに存在する場合、それらのオプションは変更されません。しかし、ホットキーがまだ存在しない場合、つまりこの機能によって作成されようとしている場合、オプションは直近で有効だったものがデフォルトとなります。例えば、スクリプトの一番下にある<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>のインスタンスが使用されます。<a href="_MaxThreadsBuffer.htm">MaxThreadsBuffer</a>がスクリプトに表示されていない場合は、そのデフォルト設定（この場合はOFF）が使用されます。</p>
       </dd>
 
@@ -89,7 +89,7 @@
   </tr>
   <tr>
     <td>This AltTab hotkey must have exactly one modifier/prefix.</td>
-    <td rowspan="2"><em>KeyName</em>パラメータは、<a href="../Hotkeys.htm#alttab">AltTabまたはShiftAltTab</a>アクションでの使用には適していません。（最大で）2つのキーの組み合わせが必要です。事例：<code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
+    <td rowspan="2"><em>KeyName</em>パラメータは、<a href="../Hotkeys.htm#alttab">AltTabまたはShiftAltTab</a>アクションでの使用には適していません。（最大で）2つのキーの組み合わせが必要です。For example: <code>RControl &amp; RShift::AltTab</code>. <a href="Error.htm#Extra">Exception.Extra</a> contains <em>KeyName</em>.</td>
   </tr>
   <tr>
     <td>このAltTabホットキーは、どのキー（LまたはR）を指定する必要があります。</td>
@@ -109,7 +109,7 @@
     <td>このホットキーを作成すると、スクリプトごとに32762個のホットキーという制限を超えてしまいます（ただし、各ホットキーには無制限の<a href="#variant">バリエーション</a>があり、<a href="../Hotstrings.htm">ホットストリング</a>の数には制限がありません）。</td>
   </tr>
 </table>
-<p>Tip:<a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> は、ホットキーのバリアントが存在するかどうかをテストするために使用することができます。事例：</p>
+<p>Tip: <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> can be used to test for the existence of a hotkey variant. 事例：</p>
 <pre>
 try
     Hotkey "^!p"
@@ -123,7 +123,7 @@ catch TargetError
 <p><a href="../Hotkeys.htm">ダブルコロン構文</a>でホットキーを作成すると、スクリプトの起動時に一括してホットキーを有効にできるため、ホットキー機能を使用するよりもパフォーマンスが向上します（1つずつ有効にするのではありません）。したがって、この機能は、スクリプトの実行が開始されるまでキー名がわからないホットキーだけを作成するために使用するとよいでしょう。例えば、スクリプトのホットキーで様々なアクションを行う場合、<a href="IniRead.htm">INI</a>ファイルで設定することが可能です。</p>
 <p>スクリプトが<a href="Suspend.htm">サスペンド</a>されている場合、新しく追加/有効になったホットキーも、サスペンドがオフになるまでサスペンドされます（<a href="Suspend.htm">サスペンド</a>セクションで説明したように免除される場合を除く）。</p>
 <p><a href="InstallKeybdHook.htm">キーボード</a>や <a href="InstallMouseHook.htm">マウス</a>のフックは、本機能による変更で正当化される場合、取り付けまたは取り外しが可能です。</p>
-<p>ホットキー機能は、自分以外のスクリプトのホットキーを直接有効にしたり無効にしたりすることはできませんが、ほとんどの場合、同じホットキーを作成したり有効にしたりすることで、それらを<a href="../misc/Override.htm">オーバーライド</a>できます。これがうまくいくかどうかは、さまざまな要因が重なって決まります：1) オーバーライドするホットキーが他のスクリプトの<a href="ListHotkeys.htm">フックホットキー</a>であるかどうか（フックでないホットキーは常にオーバーライド可能）、2) 最も最近起動したスクリプトのホットキーが他のスクリプトのそれよりも一般的に優先されるという事実（したがって、オーバーライドしようとするスクリプトが最も最近起動した場合、そのオーバーライドは常に成功します）、 3) このホットキーを有効または作成することによって<a href="InstallKeybdHook.htm">キーボード</a>または<a href="InstallMouseHook.htm">マウス</a>フックを新たにアクティブ化するかどうか（その場合、オーバーライドは必ず成功します）。</p>
+<p>ホットキー機能は、自分以外のスクリプトのホットキーを直接有効にしたり無効にしたりすることはできませんが、ほとんどの場合、同じホットキーを作成したり有効にしたりすることで、それらを<a href="../misc/Override.htm">オーバーライド</a>できます。Whether this works depends on a combination of factors: 1) Whether the hotkey to be overridden is a <a href="ListHotkeys.htm">hook hotkey</a> in the other script (non-hook hotkeys can always be overridden); 2) The fact that the most recently started script's hotkeys generally take precedence over those in other scripts (therefore, if the script intending to override was started most recently, its override should always succeed); 3) Whether the enabling or creating of this hotkey will newly activate the <a href="InstallKeybdHook.htm">keyboard</a> or <a href="InstallMouseHook.htm">mouse</a> hook (if so, the override will always succeed).</p>
 <p>Once a script has at least one hotkey, it becomes <a href="../Scripts.htm#persistent">persistent</a>, meaning that <a href="ExitApp.htm">ExitApp</a> rather than <a href="Exit.htm">Exit</a> should be used to terminate it.</p>
 
 <h2 id="variant">バリアント（複製）ホットキー</h2>
@@ -134,7 +134,7 @@ HotIfWinActive "ahk_class WordPadClass"
 Hotkey "^!c", MyFuncForWordPad
 HotIfWinActive
 Hotkey "^!c", MyFuncForAllOtherWindows</pre>
-<p>ホットキーの複数のバリエーションが発火の対象となる場合、最も早く作成されたものだけが発火します。The exception to this is the global variant (the one with no HotIf criteria):常に最も低い優先順位を持つので、他のバリアントが適格でない場合にのみ発火します。</p>
+<p>ホットキーの複数のバリエーションが発火の対象となる場合、最も早く作成されたものだけが発火します。The exception to this is the global variant (the one with no HotIf criteria): It always has the lowest precedence, and thus will fire only if no other variant is eligible.</p>
 <p>When creating duplicate hotkeys, the order of <a href="../Hotkeys.htm#Symbols">modifier symbols</a> such as <code>^!+#</code> does not matter. For example, <code>"^!c"</code> is the same as <code>"!^c"</code>. ただし、キーは一貫したスペルで表記する必要があります。For example, <em>Esc</em> is not the same as <em>Escape</em> for this purpose (though the case does not matter). Finally, any hotkey with a <a href="../Hotkeys.htm#wildcard">wildcard prefix (*)</a> is entirely separate from a non-wildcard one; for example, <code>"*F1"</code> and <code>"F1"</code> would each have their own set of variants.</p>
 <p>For more information, see <a href="HotIf.htm">HotIf</a> and <a href="_HotIf.htm#general-remarks">#HotIf's General Remarks</a>.</p>
 
