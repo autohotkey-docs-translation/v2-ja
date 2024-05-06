@@ -26,7 +26,7 @@
 </ul>
 
 <h2 id="Format">ユニコードとANSIの比較</h2>
-<p class="note"><strong>Note:</strong> This section builds on topics covered in other parts of the documentation: <a href="Concepts.htm#strings">Strings</a>, <a href="Concepts.htm#string-encoding">String Encoding</a>.</p>
+<p class="note"><strong>注：</strong>このセクションは、ドキュメントの他の部分でカバーされているトピックを構築しています。<a href="Concepts.htm#strings">文字列</a>、<a href="Concepts.htm#string-encoding">文字列のエンコード</a>。</p>
 <p>文字列（テキスト値）の中で、各文字の数値文字コードとサイズ（バイト数）は、文字列の<a href="Concepts.htm#string-encoding">エンコーディング</a>に依存します。これらの詳細は、通常、次のいずれかを実行するスクリプトで重要です。</p>
 <ul>
   <li><a href="#DllCall">DllCall</a>で外部関数に文字列を渡します。</li>
@@ -41,7 +41,7 @@
 
 <h3 id="Buffer">Buffer</h3>
 <p><a href="lib/Buffer.htm">バッファ</a>を割り当てる際には、必要なエンコーディングに応じた正しい<em>バイト</em>数を計算するように注意してください。事例：</p>
-<pre>ansi_buf  := Buffer(capacity_in_chars)
+<pre>ansi_buf := Buffer(capacity_in_chars)
 utf16_buf := Buffer(capacity_in_chars * 2)</pre>
 <p><a href="lib/StrPut.htm">StrPut</a>でANSIまたはUTF-8の文字列をバッファに書き込む場合、ANSIまたはUTF-8の長さがネイティブ（UTF-16）の長さと異なる場合があるので、バッファのサイズを決めるのに<a href="lib/StrLen.htm">StrLen</a>を使用しないでください。代わりに、<a href="lib/StrPut.htm#ExEncoding">StrPut</a>を使用して必要なバッファサイズを計算します。事例：</p>
 <pre>required_bytes := StrPut(source_string, "cp0")
@@ -98,7 +98,7 @@ NumPut(type_of_char, <i>n</i>th_char, buffer_or_address, (<i>n</i>-1)*size_of_ch
 */</em>
 pi := Buffer(A_PtrSize*2 + 8) <em>; Ptr + Ptr + UInt + UInt</em>
 DllCall("<a href="https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>", <span class="dull">&lt;omitted for brevity&gt;</span>, "Ptr", &amp;pi, <span class="dull">&lt;omitted&gt;</span>)
-hProcess    := NumGet(pi, 0)         <em>; Defaults to "Ptr".</em>
+hProcess    := NumGet(pi, 0)         <em>; デフォルトは "Ptr "です。</em>
 hThread     := NumGet(pi, A_PtrSize) <em>;</em>
 dwProcessId := NumGet(pi, A_PtrSize*2,     "UInt")
 dwProcessId := NumGet(pi, A_PtrSize*2 + 4, "UInt")

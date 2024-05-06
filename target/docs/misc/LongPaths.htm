@@ -31,7 +31,7 @@
   <li><code>dir\file.ext</code>, <code>\file.ext</code>, <code>C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
   <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。  </li>
   <li>コンポーネント/ディレクトリのセパレータを正規化し、<code>/</code>を <code>\</code>に置き換え、冗長なセパレータを削除します。</li>
-  <li>Trims certain characters, such as a single period at the end of a component (<code>dir.\file</code>) or trailing spaces and periods (<code>dir\filename . .</code>).</li>
+  <li>コンポーネント（<code>dir. \file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
 </ul>
 <p>パスは、プレフィックスを適用する前に、以下に定義する関数で<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>に渡すことで、明示的に正規化することができます。事例：</p>
 <pre>MsgBox "\\?\" NormalizePath("..\file.ext")</pre>
@@ -56,7 +56,7 @@
   <li><a href="../lib/FileRecycle.htm">FileRecycle</a></li>
   <li><a href="../lib/SoundPlay.htm">SoundPlay</a>（この場合は127文字まで）</li>
   <li><a href="../lib/DriveSetLabel.htm">DriveSetLabel</a>および<a href="../lib/Drive.htm">DriveGet のバリエーション</a>(<a href="../lib/DriveGetType.htm">DriveGetType</a>を除く)</li>
-  <li>Built-in variables which return special folder paths (for which long paths might be impossible anyway): <a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
+  <li>特殊なフォルダー・パス（長いパスはどのみち不可能かもしれない）を返す組み込み変数：<a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
 </ul>
 <p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a>と <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>は、Windows 10のロング・パス認識が有効な場合にのみロング・パスに対応します。作業ディレクトリがMAX_PATHを超えると、<a href="../lib/Run.htm">Run</a>でプログラムを起動できなくなる。これらの制限はOSによって課される。</p>
 <p>MAX_PATHを超えるフルパスで実行ファイルを実行することはできないようです。そうなると、より長い実行可能パスをサポートすることを目的とした変更を完全にテストすることはできない。そのため、MAX_PATHの制限は以下のように残されている：</p>

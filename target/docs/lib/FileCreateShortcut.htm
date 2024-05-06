@@ -20,55 +20,55 @@
 
   <dt>Target</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>ショートカットが参照するファイルの名前。そのファイルがシステムと統合されていない限り、絶対パスを含める必要があります（例：Notepad.exe）。ショートカットの作成時にファイルが存在する必要はありませんが、存在しない場合、システムによっては<a href="https://devblogs.microsoft.com/oldnewthing/20180509-00/?p=98715">予期せぬ方法でパス</a>が変更される可能性があります。</p>
   </dd>
 
   <dt>LinkFile</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>作成するショートカットファイルの名前。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。必ず拡張子<strong>.lnk</strong>を付けてください。保存先ディレクトリはすでに存在している必要があります。ファイルがすでに存在する場合は、上書きされます。</p>
   </dd>
 
   <dt>WorkingDir</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>LinkFile</em> will have a blank "Start in" field and the system will provide a default working directory when the shortcut is launched. Otherwise, specify the directory that will become <em>Target</em>'s current working directory when the shortcut is launched.</p>
   </dd>
 
   <dt>Args</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>Target</em> will be launched without parameters. Otherwise, specify the parameters that will be passed to <em>Target</em> when it is launched. パラメータはスペースで区切ってください。パラメータにスペースが含まれる場合は、二重引用符で囲んでください。</p>
   </dd>
 
   <dt>説明</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>LinkFile</em> will have no description. Otherwise, specify comments that describe the shortcut (used by the OS to display a tooltip, etc.)</p>
   </dd>
 
   <dt>IconFile</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>LinkFile</em> will have <em>Target</em>'s icon. Otherwise, specify the full path and name of the icon to be displayed for <em>LinkFile</em>. It must either be an .ICO file or the very first icon of an EXE or DLL file.</p>
   </dd>
 
   <dt>ShortcutKey</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>LinkFile</em> will have no shortcut key. Otherwise, specify a single letter, number, or the name of a single key from the <a href="../KeyList.htm">key list</a> (mouse buttons and other non-standard keys might not be supported). Do <u>not</u> include modifier symbols. Currently, all shortcut keys are created as <kbd>Ctrl</kbd>+<kbd>Alt</kbd> shortcuts. For example, if the letter B is specified for this parameter, the shortcut key will be <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>.</p>
   </dd>
 
   <dt>IconNumber</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>省略されたときは、初期値は 1 です。Otherwise, specify the number of the icon to be used in <em>IconFile</em>. 例えば、2は2番目のアイコンです。</p>
   </dd>
 
   <dt>RunState</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>省略されたときは、初期値は 1 です。Otherwise, specify one of the following digits to launch <em>Target</em> minimized or maximized:</p>
     <ul>
       <li>1 = Normal</li>
@@ -89,7 +89,7 @@
 <p>上記に対して、アイコンを付与するために、以下を任意に追加することができる：</p>
 <pre><a href="IniWrite.htm">IniWrite</a> &lt;IconFile&gt;, "C:\My Shortcut.url", "InternetShortcut", "IconFile"
 <a href="IniWrite.htm">IniWrite</a> 0, "C:\My Shortcut.url", "InternetShortcut", "IconIndex"</pre>
-<p>上記で、<code>0</code>をアイコンのインデックスに置き換え（最初のアイコンには0が使われる）、その代わりに <code>&lt;IconFile&gt;</code>を、URL、EXE、DLL、ICO ファイルと一緒に送信します。Examples: <code>"C:\Icons.dll"</code>, <code>"C:\App.exe"</code>, <code>"https://www.somedomain.com/ShortcutIcon.ico"</code></p>
+<p>上記で、<code>0</code>をアイコンのインデックスに置き換え（最初のアイコンには0が使われる）、その代わりに <code>&lt;IconFile&gt;</code>を、URL、EXE、DLL、ICO ファイルと一緒に送信します。例：<code>"C:\Icons.dll"</code>, <code>"C:\App.exe"</code>, <code>"https://www.somedomain.com/ShortcutIcon.ico"</code></p>
 <p>OSは、.LNKファイルではなくプレーンテキストファイルであっても、上記によって作成された.URLファイルを本物のショートカットとして扱います。</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileGetShortcut.htm">FileGetShortcut</a>, <a href="FileAppend.htm">FileAppend</a></p>

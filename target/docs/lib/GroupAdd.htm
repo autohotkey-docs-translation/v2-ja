@@ -20,13 +20,13 @@
 
   <dt>GroupName</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>このウィンドウ仕様を追加するグループの名前。グループが存在しない場合は、作成されます。Group names are not case-sensitive.</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p><em>WinTitle</em>には <a href="../misc/WinTitle.htm">ウィンドウのタイトル</a>、またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、<em>WinText</em>にはターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります。）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
     <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。Although <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="DetectHiddenText.htm">DetectHiddenText</a> and <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a> do not directly affect the behavior of this function, they do affect the other group functions such as <a href="GroupActivate.htm">GroupActivate</a> and <a href="GroupClose.htm">GroupClose</a>. They also affect the use of ahk_group in any other function's <a href="../misc/WinTitle.htm">WinTitle</a>.</p>
@@ -48,28 +48,28 @@
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExIE">
 <p><a class="ex_number" href="#ExIE"></a> ホットキーを押すと、開いているすべてのMSIEウィンドウを縦断することができます。</p>
-<pre><em>; In global code, to be evaluated at startup:</em>
-GroupAdd "MSIE", "ahk_class IEFrame" <em>; Add only Internet Explorer windows to this group.</em>
+<pre><em>; グローバルコードで、起動時に評価される：</em>
+GroupAdd "MSIE", "ahk_class IEFrame"<em>; Internet Explorerのウィンドウだけをこのグループに追加</em>します。
 
-<em>; Assign a hotkey to activate this group, which traverses
-; through all open MSIE windows, one at a time (i.e. each
-; press of the hotkey).</em>
+<em>;このグループを起動するためのホットキーを割り当てます。
+; 開いているすべてのMSIEウィンドウを一度に1つずつ（つまり、それぞれのウィンドウに
+; ホットキーの押下）。</em>
 Numpad1::GroupActivate "MSIE", "r"</pre>
 </div>
 
 <div class="ex" id="ExOutlook">
   <p><a class="ex_number" href="#ExOutlook"></a> ホットキーを押して、MS Outlook 2002の各ウィンドウを1つずつ訪問します。</p>
-  <pre><em>; In global code, to be evaluated at startup:</em>
-SetTitleMatchMode 2 
-GroupAdd "mail", "Message - Microsoft Word" <em>; This is for mails currently being composed</em>
-GroupAdd "mail", "- Message (" <em>; This is for already opened items 
-; Need extra text to avoid activation of a phantom window:</em>
+  <pre><em>; グローバルコードで、起動時に評価される：</em>
+SetTitleMatchMode 2
+GroupAdd "mail", "Message - Microsoft Word"<em>;これは現在作成中のメールのための</em>ものです。
+Groupadd "mail", "- Message ("<em>;これは既に開封されたものが対象です。
+; ファントムウィンドウの起動を避けるため、テキストを追加する必要がある：</em>
 GroupAdd "mail", "Advanced Find", "Sear&amp;ch for the word(s)"
 GroupAdd "mail", , "Recurrence:"
 GroupAdd "mail", "Reminder"
 GroupAdd "mail", "- Microsoft Outlook"
 
-<em>; Assign a hotkey to visit each Outlook window, one at a time.</em>
+<em>; Outlookの各ウィンドウを一度に訪問するためのホットキーを割り当てます。</em>
 Numpad5::GroupActivate "mail"</pre>
 </div>
 

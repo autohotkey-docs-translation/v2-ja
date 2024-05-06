@@ -20,27 +20,27 @@
 
   <dt>Haystack</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>内容を検索する文字列。バイナリーゼロを含む場合があります。</p>
   </dd>
 
   <dt>NeedleRegEx</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>検索するパターンで、Perl互換正規表現（PCRE）です。パターンの<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>がある場合は、文字列の先頭に含める必要があり、その後に閉じ括弧が続きます。例えば、<span class="regex"><span class="red">i)</span>abc.*123</span>というパターンは、大文字小文字を区別しないオプションをオンにし、"abc "の後に任意の文字が0回以上出現し、その後に "123 "が続くものを検索対象とします。オプションがない場合、")"はオプションです。例えば、<span class="regex">)abcは</span> <span class="regex">abcと</span>同等です。</p>
     <p><em>NeedleRegEx</em>はバイナリーゼロを含むことができませんが、<em>Haystack</em>内のバイナリーゼロに一致させるために、パターン<code>\x00</code>を使用することができます。</p>
   </dd>
 
   <dt>&amp;OutputVar</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>If omitted, no output variable will be used. Otherwise, specify a reference to the output variable in which to store a <a href="#MatchObject">match object</a>, which can be used to retrieve the position, length and value of the overall match and of each <a href="../misc/RegEx-QuickRef.htm#subpat">captured subpattern</a>, if any are present.</p>
     <p>パターンが見つからない場合（つまり、関数が0を返す場合）、この変数は空白にされる。</p>
   </dd>
 
   <dt>StartingPos</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted, it defaults to 1 (the beginning of <em>Haystack</em>). それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。If <em>StartingPos</em> is beyond the length of <em>Haystack</em>, the search starts at the empty string that lies at the end of <em>Haystack</em> (which typically results in no match).</p>
     <p>負の<em>StartingPos</em>を指定すると、その位置で右からスタートする。例えば、-1は最後の文字から、-2はその次の文字から始まります。<em>StartingPos</em>が <em>Haystack</em>の左端を越えようとした場合、<em>Haystack</em>の全てが検索される。</p>
     <p>0を指定すると、<em>Haystack</em>の末尾、つまり最後の文字の右側の位置から開始します。これは、<code>(?&lt;=a)</code>のようなゼロ幅のアサーションで使用することができます。</p>
@@ -50,11 +50,11 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>この関数は、文字列<em>Haystack</em>の中で<em>NeedleRegEx</em>が最も左側に出現する位置を返します。ポジション1が最初の文字です。パターンが見つからない場合は0が返される。</p>
 
 <h2 id="Errors">エラー</h2>
-<p><strong>Syntax errors:</strong> If the pattern contains a syntax error, an <a href="Error.htm">Error</a> is thrown with a message in the following form: <em>Compile error N at offset M: description</em>. その文字列の中で、<em>Nは</em>PCREのエラー番号、<em>Mは</em>正規表現内の問題のある文字の位置、<em>descriptionは</em>エラーを説明するテキストである。</p>
+<p><strong>シンタックスエラー</strong>パターンに構文エラーが含まれる場合、以下のようなメッセージとともに<a href="Error.htm">Error</a>が投げられる：<em>オフセットMでコンパイルエラーN：description</em>. その文字列の中で、<em>Nは</em>PCREのエラー番号、<em>Mは</em>正規表現内の問題のある文字の位置、<em>descriptionは</em>エラーを説明するテキストである。</p>
 <p><strong>実行エラー：</strong>正規表現の<em>実行</em>中にエラーが発生した場合、<a href="Error.htm">Error</a>が投げられます。エラーオブジェクトの<em>Extra</em>プロパティには、PCREのエラー番号が記載されています。このようなエラーは稀ですが、発生しやすいのは「空文字列の可能性が多すぎる」（-22）、「再帰が深すぎる」（-21）、「マッチの限界に達した」（-8）です。このような場合は、可能な限り * を ?、+、{0,3} のような制限に置き換えるなど、より制限の多いパターンに設計し直すようにしてください。</p>
 
 <h2 id="Options">Options</h2>
@@ -62,12 +62,12 @@
 
 <h2 id="MatchObject">マッチオブジェクト(RegExMatchInfo)</h2>
 <p>一致した場合、一致した情報を含むオブジェクトが<em>OutputVar</em>に格納される。このオブジェクトは、以下のメソッドとプロパティを持ちます：</p>
-<p><strong>Match.Pos</strong>, <strong>Match.Pos[N]</strong> or <strong>Match.Pos(N)</strong>: Returns the position of the overall match or a captured subpattern.</p>
-<p><strong>Match.Len</strong>, <strong>Match.Len[N]</strong> or <strong>Match.Len(N)</strong>: Returns the length of the overall match or a captured subpattern.</p>
-<p><strong>Match.Name[N]</strong> or <strong>Match.Name(N)</strong>: Returns the name of the given subpattern, if it has one.</p>
+<p><strong>Match.Pos</strong>, <strong>Match.Pos[N]</strong> または <strong>Match.Pos(N)</strong>:全体一致の位置、または取り込んだサブパターンの位置を返します。</p>
+<p><strong>Match.Len</strong>, <strong>Match.Len[N]</strong> または <strong>Match.Len(N)</strong>:全体的なマッチの長さ、またはキャプチャしたサブパターンの長さを返します。</p>
+<p><strong>Match.Name[N]</strong> または <strong>Match.Name(N)</strong>:与えられたサブパターンがある場合、その名前を返します。</p>
 <p><strong>Match.Count:</strong> Returns the overall number of subpatterns (capturing groups), which is also the maximum value for <em>N</em>.</p>
 <p><strong>Match.Mark:</strong> Returns the <em>NAME</em> of the last encountered <span class="regex">(*MARK:NAME)</span>, when applicable.</p>
-<p><strong>Match[]</strong> or <strong>Match[N]</strong>: Returns the overall match or a captured subpattern.</p>
+<p><strong>Match[]</strong> または <strong>Match[N]</strong>:全体的なマッチ、またはキャプチャしたサブパターンを返します。</p>
 <p>以上のことから、<em>N</em>は以下のいずれかになることができます：</p>
 <ul>
   <li>全体の試合では0。</li>
@@ -84,14 +84,14 @@
 
 <h2 id="Remarks">備考</h2>
 <p id="NamedSubPat">サブパターンには、パターン<span class="regex">(?P&lt;Year&gt;d{4})</span>における<em>Year</em>という単語のような名前を付けることができる。このような名前は、最大32文字の英数字とアンダースコアで構成されます。名前付きサブパターンにも番号が振られるため、「Year」の後に<a href="../misc/RegEx-QuickRef.htm#subpat">名前なしサブパターン</a>が発生した場合、<code>OutputVar[1]</code>ではなく<code>OutputVar[2]<code>に格納されることに注意しましょう。</p>
-<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。However, any of the characters in the set <code>\.*?+[{|()^$</code> must be preceded by a backslash to be seen as literal. 例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
+<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。However, any of the characters in the set <code>\.*?+[{|()^$</code> must be preceded by a backslash to be seen as literal. 例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
 <p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。For example, <span class="regex">`t</span> is the same as <span class="regex">\t</span> except when the <a href="../misc/RegEx-QuickRef.htm#opt_x">x option</a> is used.</p>
 <p>正規表現の基本を学ぶ（またはパターン構文の記憶を取り戻す）には、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <p>AutoHotkeyの正規表現は、<a href="http://www.pcre.org/">www.pcre.org</a>のPerl-compatible Regular Expressions (PCRE)を使用して実装されています。</p>
 <p>Within an <a href="../Variables.htm#Expressions">expression</a>, <code>a ~= b</code> can be used as shorthand for <code>RegExMatch(a, b)</code>.</p>
 <h2 id="Related">関連</h2>
 <p><a href="RegExReplace.htm">RegExReplace</a>, <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>, <a href="../misc/RegExCallout.htm">Regular Expression Callouts</a>, <a href="InStr.htm">InStr</a>, <a href="SubStr.htm">SubStr</a>, <a href="SetTitleMatchMode.htm#RegEx">SetTitleMatchMode RegEx</a>, <a href="https://www.autohotkey.com/forum/topic16164.html">Global matching and Grep (forum link)</a></p>
-<p>Common sources of text data: <a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
+<p>テキストデータの一般的なソース：<a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
 
 <h2 id="Examples">例</h2>
 <p>一般的なRegExの例については、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
@@ -124,7 +124,7 @@
 <div class="ex" id="ExObject">
 <p><a class="ex_number" href="#ExObject"></a> Matchオブジェクトの使い方を説明します。</p>
 <pre>FoundPos := RegExMatch("Michiganroad 72", "(.*) (?&lt;nr&gt;\d+)", &amp;SubPat)
-MsgBox SubPat.Count ": " SubPat[1] " " SubPat.Name[2] "=" SubPat.nr  <em>; Displays "2: Michiganroad nr=72"</em></pre>
+MsgBox SubPat.Count ":" SubPat[1] " " SubPat.Name[2] "=" SubPat.nr  <em>; Displays "2: Michiganroad nr=72"</em></pre>
 </div>
 
 <div class="ex" id="ExExtension">
@@ -152,14 +152,14 @@ Deref(Str)
             out .= %m[2]%
         else switch (m[3])
         {
-            case "a": out .= "`a"
-            case "b": out .= "`b"
-            case "f": out .= "`f"
-            case "n": out .= "`n"
-            case "r": out .= "`r"
-            case "t": out .= "`t"
-            case "v": out .= "`v"
-            default: out .= m[3]
+            case "a":out .= "`a"
+            case "b":out .= "`b"
+            case "f":out .= "`f"
+            case "n":out .= "`n"
+            case "r":out .= "`r"
+            case "t":out .= "`t"
+            case "v":out .= "`v"
+            default:out .= m[3]
         }
     }
     return out SubStr(Str, spo)
