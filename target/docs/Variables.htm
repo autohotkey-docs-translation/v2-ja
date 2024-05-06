@@ -56,10 +56,10 @@ MsgBox 'She said, "An apple a day."'</pre>
 <p>NOT/&gt;/=/&lt;などの演算子は、自動的に真か偽の値を生成する：真なら1、偽なら0となる。しかし、AND/OR演算子は常に入力値のいずれかを生成する。例えば以下の式では、A_Indexが5より大きい場合は変数<em>Done</em>に1が代入され、それ以外の場合は<em>FoundIt</em>の値が代入される：</p>
 <pre>Done := A_Index &gt; 5 or FoundIt</pre>
 <p>上で示唆したように、変数を空白にするか0を代入するだけで、偽の値を保持することができる。これを利用するために、<code>if Done</code>という省略記法を使えば、変数Doneが真か偽かをチェックすることができる。</p>
-<p><span id="True"></span><span id="False"></span>式では、キーワード<em>true</em>と <em>false</em>は1と0に解決される。これらの例は、スクリプトをより読みやすくするために使われる：</p>
+<p><span id="True"></span><span id="False"></span>式では、キーワード<em>true</em>と <em>false</em>は1と0に解決される。これらの例は、スクリプトをより読みやすくするために使われます：</p>
 <pre>CaseSensitive := false
 ContinueSearch := true</pre>
-<p id="numbers"><strong>整数と浮動小数点：</strong>整数と浮動小数点：式の中で、小数点または科学的記数法を含む数値は浮動小数点とみなされ、そうでない場合は整数となる。加算や乗算など、ほとんどの演算子では、入力のどちらかが浮動小数点数であれば、結果も浮動小数点数になる。</p>
+<p id="numbers"><strong>整数と浮動小数点：</strong>整数と浮動小数点：式の中で、小数点または科りま数法を含む数値は浮動小数点とみなされ、そうでない場合は整数となります。加算や乗算など、ほとんどの演算子では、入力のどちらかが浮動小数点数であれば、結果も浮動小数点数になります。</p>
 <p>式内でも非式内でも、整数は16進数か10進数のどちらかの形式で書くことができる。16進数はすべて接頭辞0xで始まる。例えば、<code>Sleep 0xFF</code>は <code>Sleep 255</code>に相当する。浮動小数点数は、小数点の有無にかかわらず、科学表記で書くこともできる（例：<code>1e4</code>や <code>-2.1E-4</code>）。</p>
 <p>式内では、<code>128</code>、<code>0x7F</code>、<code>1.0</code>などの引用符で囲まれていないリテラル数値は、スクリプトの実行を開始する前に純粋な数値に変換されるため、数値を文字列に変換すると元のリテラル値とは異なる値が生成される可能性があります。事例：</p>
 <pre>MsgBox(0x7F)  <em>; 128と表示します。</em>
@@ -67,7 +67,7 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
 
 <h2 id="Operators">式の演算子</h2>
 <p class="note">演算子に関する一般的な情報については、「<a href="Language.htm#operators">演算子</a>」を参照のこと。</p>
-<p>以下に記す場合を除き、空白の値（空文字列）または数値以外の値が算術演算に含まれる場合、ゼロとはみなさ<strong>れない</strong>。代わりに<a href="lib/Error.htm#TypeError">TypeError</a>が投げられる。<a href="lib/Try.htm">Try</a>を使用しない場合、処理されなかった例外はデフォルトでエラーダイアログを表示します。</p>
+<p>以下に記す場合を除き、空白の値（空文字列）または数値以外の値が算術演算に含まれる場合、ゼロとはみなされ<strong>ません</strong>。代わりに<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。<a href="lib/Try.htm">Try</a>を使用しない場合、処理されなかった例外はデフォルトでエラーダイアログを表示します。</p>
 
 <h3 id="operators">式演算子（優先順位の降順）</h3>
 <table class="info">
@@ -158,10 +158,10 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
       <p><strong>ビットシフト・レフト（&lt;&lt;）。</strong>使用例：<code>Value1 &lt;&lt; Value2</code>. これは、<em>Value1</em>に「2の<em>Value2</em>乗」を掛けることと同じである。</p>
       <p><strong>算術ビットの右シフト（&gt;&gt;）。</strong>使用例：<code>Value1 &gt;&gt; Value2</code>. これは、<em>Value1</em>を「2の<em>Value2</em>乗」で除算し、その結果を数直線上で左方向に最も近い整数に四捨五入することと同じである。</p>
       <p><strong>論理ビットの右シフト（&gt;&gt;）</strong>。使用例：<code>Value1 &gt;&gt;&gt; Value2</code>. 算術ビットシフト右とは異なり、これは数値の符号を保持しない。例えば、-1は符号なし64ビット整数0xffffffffffffと同じビット表現を持つので、<code>-1 &gt;&gt; 1</code>は0x7fffffffffffffとなる。</p>
-      <p>以下は、3つのオペレーターすべてに適用される：</p>
+      <p>以下は、3つの演算子すべてに適用されます：</p>
       <ul>
-        <li>入力のどちらかが浮動小数点数の場合、<a href="lib/Error.htm#TypeError">TypeError</a>が投げられる。</li>
-        <li>A 64-bit operation is performed and the result is a 64-bit signed integer.</li>
+        <li>入力のどちらかが浮動小数点数のときは、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</li>
+        <li>64 ビット演算が実行され、結果は64ビット符号付き整数になります。</li>
         <li><em>Value2</em>が0より小さいか63より大きい場合、例外がスローされる。</li>
       </ul>
     </td>
@@ -173,10 +173,10 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
     </td>
     <td>
       <p><strong>ビットワイズ・アンド (&amp;)、</strong><strong>ビットワイズ・エクスクルーシブ・オア (^)、</strong><strong>ビットワイズ・オア(|)</strong>。この3つのうち、<strong>&amp;</strong>が最も優先順位が高く、<strong>|</strong>が最も低い。</p>
-      <p>以下は、3つのオペレーターすべてに適用される：</p>
+      <p>以下は、3つの演算子すべてに適用されます：</p>
       <ul>
-        <li>入力のどちらかが浮動小数点数の場合、<a href="lib/Error.htm#TypeError">TypeError</a>が投げられる。</li>
-        <li>A 64-bit operation is performed and the result is a 64-bit signed integer.</li>
+        <li>入力のどちらかが浮動小数点数のときは、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</li>
+        <li>64 ビット演算が実行され、結果は64ビット符号付き整数になります。</li>
       </ul>
       <p>関連:<a href="#unary">ビットワイズ・ノット (~)</a></p>
     </td>
@@ -974,11 +974,11 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
     <td>現在のループの繰り返し回数（64ビット整数）を取得または設定するために使用できる。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先されます。A_Indexは<a href="Language.htm#loop-statement">すべてのループ</a>の内部で機能するが、ループの外部では0を含む。<a href="lib/Loop.htm">Loop</a>のようなカウントループの場合、A_Indexを変更すると、実行される反復回数に影響する。</td>
   </tr>
   <tr>
-    <td>A_LoopFileName, etc.</td>
+    <td>A_LoopFileName, 他</td>
     <td>この変数とその他の関連変数は、<a href="lib/LoopFiles.htm">ファイル・ループ</a>内でのみ有効である。</td>
   </tr>
   <tr>
-    <td>A_LoopRegName, etc.</td>
+    <td>A_LoopRegName, 他</td>
     <td>この変数とその他の関連変数は、<a href="lib/LoopReg.htm">レジストリのループ</a>内でのみ有効である。</td>
   </tr>
   <tr>
