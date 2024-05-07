@@ -23,7 +23,7 @@
   <li>ホットキーは、<a href="Send.htm#SendInput">SendInput</a>または<a href="Send.htm#SendPlay">SendPlay</a>メソッドでキーストロークを送信します。これは、ユーザーがキーを押したり離したりする操作を、送信完了後まで延期するためです。</li>
   <li>The script has the keyboard hook installed (you can see if your script uses the hook via the "View-&gt;Key history" menu item in the <a href="../Program.htm#main-window">main window</a>, or via the <a href="KeyHistory.htm">KeyHistory</a> function). This is because the hook can keep track of which modifier keys (<kbd>Alt</kbd>/<kbd>Ctrl</kbd>/<kbd>Win</kbd>/<kbd>Shift</kbd>) the user is physically holding down and doesn't need to use the timeout.</li>
 </ul>
-<p>この変数の効果を説明するために、この例を考えてみましょう。<code>^!a::Send "abc"</code>.</p>
+<p>To illustrate the effect of this variable, consider this example: <code>^!a::Send "abc"</code>.</p>
 <p><a href="Send.htm">Send</a>関数が実行されると、まず<kbd>Ctrl</kbd>と <kbd>Alt</kbd>を解除して、文字が正しく送信されるようにします。すべてのキーを送信した後、関数は<kbd>Ctrl</kbd>と <kbd>Alt</kbd>を安全に押し戻せるかどうか（ユーザーがまだ押し続けているかどうかを確認するため）わからない。しかし、指定されたミリ秒未満しか経過していない場合は、ユーザーがまだキーを離す機会がなかったと判断し、物理的な状態に合わせてキーを押し戻します。そうしないと、修飾キーが押し戻されず、同じキーや別のキーを修飾させるために、ユーザーは一旦キーを離して再度押す必要があります。</p>
 <p>タイムアウトは、ユーザーが通常ホットキーの修飾子を押したまま離す時間よりも短い値に設定する必要があります。そうでないと、ユーザーが物理的に押さえていなくても、モディファイアがダウンポジションに復元される（ダウンで動かなくなる）可能性があります。</p>
 <p>以下のいずれかで、この変数の必要性を低減または排除することができます。</p>

@@ -21,19 +21,19 @@
 <dl>
     <dt>Options</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+        <p>Type: <a href="../Concepts.htm#strings">String</a></p>
         <p>空白または省略された場合、ウィンドウは元の/デフォルトの表示領域に戻される。Otherwise, specify one or more of the following options, each separated from the others with space(s):</p>
-        <p><strong>W</strong><em>n</em>:Width of rectangle or ellipse. 事例：<code>w200</code>.</p>
-        <p><strong>H</strong><em>n</em>:Height of rectangle or ellipse. 事例：<code>h200</code>.</p>
+        <p><strong>W</strong><em>n</em>: Width of rectangle or ellipse. For example: <code>w200</code>.</p>
+        <p><strong>H</strong><em>n</em>: Height of rectangle or ellipse. For example: <code>h200</code>.</p>
         <p><strong>X-Y：</strong>それぞれX/Y座標のペア。例えば、<code class="no-highlight">200-0</code>は、X座標に200、Y座標に0を使う。</p>
         <p><strong>E:</strong>領域を矩形ではなく楕円にする。This option is valid only when W and H are present.</p>
         <p><strong>R</strong><em>w-h</em>: Makes the region a rectangle with rounded corners. For example, <code class="no-highlight">r30-30</code> would use a 30x30 ellipse for each corner. If <em>w-h</em> is omitted, 30-30 is used. R is valid only when W and H are present.</p>
-        <p><strong>Rectangle or ellipse:</strong> If the W and H options are present, the new display area will be a rectangle whose upper left corner is specified by the first (and only) pair of X-Y coordinates. However, if the E option is also present, the new display area will be an ellipse rather than a rectangle. 事例：<code>WinSetRegion "50-0 w200 h250 E"</code>.</p>
+        <p><strong>Rectangle or ellipse:</strong> If the W and H options are present, the new display area will be a rectangle whose upper left corner is specified by the first (and only) pair of X-Y coordinates. However, if the E option is also present, the new display area will be an ellipse rather than a rectangle. For example: <code>WinSetRegion "50-0 w200 h250 E"</code>.</p>
         <p><strong>Polygon:</strong> When the W and H options are absent, the new display area will be a polygon determined by multiple pairs of X-Y coordinates (each pair of coordinates is a point inside the window relative to its upper left corner). 例えば、3組の座標が指定された場合、ほとんどの場合、新しい表示領域は三角形になる。互いに対する座標ペアの順番が重要な場合もある。In addition, the word <strong>Wind</strong> maybe be present in <em>Options</em> to use the winding method instead of the alternating method to determine the polygon's region.</p>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
         <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
         <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
         <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
@@ -94,7 +94,7 @@ DllCall("dwmapi\DwmSetWindowAttribute", "ptr", WinExist("Window Title")
 </div>
 
 <div class="ex" id="ExAdvanced">
-<p><a class="ex_number" href="#ExAdvanced"></a> メモ帳（または他のウィンドウ）の内側にシースルーの長方形の穴を作成します。以下の2つの長方形がある：外側と内側。各矩形は5組のX/Y座標で構成されるが、これは最初の組が各矩形を "閉じる"ために最後に繰り返されるからである。この例は、Windows11以降の新しいメモ帳ではうまく動作しないかもしれません。</p>
+<p><a class="ex_number" href="#ExAdvanced"></a> メモ帳（または他のウィンドウ）の内側にシースルーの長方形の穴を作成します。There are two rectangles specified below: an outer and an inner. 各矩形は5組のX/Y座標で構成されるが、これは最初の組が各矩形を "閉じる"ために最後に繰り返されるからである。この例は、Windows11以降の新しいメモ帳ではうまく動作しないかもしれません。</p>
 <pre>WinSetRegion "0-0 300-0 300-300 0-300 0-0   100-100 200-100 200-200 100-200 100-100", "ahk_class Notepad"</pre>
 </div>
 

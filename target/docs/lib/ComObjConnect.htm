@@ -19,7 +19,7 @@
 
   <dt>ComObj</dt>
   <dd>
-    <p>型：<a href="ComObject.htm">ComObject</a></p>
+    <p>Type: <a href="ComObject.htm">ComObject</a></p>
     <p>イベントを発生させるオブジェクトです。</p>
     <p>オブジェクトが IConnectionPointContainer インターフェースをサポートしていない場合、またはオブジェクトのクラスに関する型情報を取得できない場合は、エラーメッセージを表示します。これを抑制したり、<a href="Try.htm">try</a><a href="Catch.htm">/</a><a href="Try.htm">catch</a>で処理することができる。</p>
     <p>IProvideClassInfo インターフェースは、オブジェクトがクラスをサポートしている場合、そのクラスに関する型情報を取得するために使用されます。そうでない場合、ComObjConnectはオブジェクトのIDispatchインターフェースを介して型情報を取得しようとしますが、これは信頼性に欠ける可能性があります。</p>
@@ -27,7 +27,7 @@
 
   <dt>PrefixOrSink</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
       <p>省略された場合、オブジェクトは「切断」されます。つまり、スクリプトはそのイベントの通知を受けなくなります。Otherwise, specify a string to prefix to the event name to determine which global function to call when an event occurs, or an <a href="#event-sink">event sink object</a> defining a static method for each event to be handled.</p>
       <p class="warning"><strong>注：</strong>ネストされた関数は、現在の関数が戻った後に名前が解決される可能性があるため、このモードではサポートされていません。ネストされた関数やクロージャを使用するには、以下のようにオブジェクトにアタッチしてオブジェクトを渡します。</p>
     </dd>
@@ -67,10 +67,10 @@
 <p><a class="ex_number" href="#ExIE"></a> Internet Explorerのインスタンスを起動し、接頭辞 "IE_"を持つ対応するスクリプト関数にイベントを接続します。以下で使用するCOMオブジェクトとDocumentCompleteイベントの詳細は、<a href="https://learn.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa752084(v=vs.85)">InternetExplorerオブジェクト（Microsoft Docs）</a>をご覧ください。</p>
 <pre>ie := ComObject("InternetExplorer.Application")
 
-<em>; イベントと対応するスクリプト関数を "IE_"という接頭辞で接続します。</em>
+<em>; Connects events to corresponding script functions with the prefix "IE_".</em>
 ComObjConnect(ie, "IE_")
 
-ie.Visible := true  <em>; IE7では正しく動作しないことが確認されています。</em>
+ie.Visible := true  <em>; This is known to work incorrectly on IE7.</em>
 ie.Navigate("https://www.autohotkey.com/")
 Persistent
 

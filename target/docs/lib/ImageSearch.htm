@@ -20,38 +20,38 @@
 
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>画面上で画像が見つかった場所の左上ピクセルのX、Y座標を格納する出力変数への参照（一致しない場合は空白とする）。座標は、<a href="CoordMode.htm">CoordMode</a>関数を使用して変更した場合を除いて、アクティブウィンドウのクライアント領域を基準にしています。</p>
   </dd>
 
   <dt>X1, Y1</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>検索する矩形の左上隅のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>関数を使用して変更した場合を除いて、アクティブウィンドウのクライアント領域を基準にしています。</p>
   </dd>
 
   <dt>X2, Y2</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>検索する矩形の右下隅のX、Y座標。座標は、<a href="CoordMode.htm">CoordMode</a>関数を使用して変更した場合を除いて、アクティブウィンドウのクライアント領域を基準にしています。</p>
   </dd>
 
   <dt>ImageFile</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>画像のファイル名。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。対応する画像形式は、ANI、BMP、CUR、EMF、Exif、GIF、ICO、JPG、PNG、TIF、WMF（BMP画像は16ビット以上）です。その他、アイコンのソースとして、以下のような種類のファイルがあります：EXE、DLL、CPL、SCRなど、アイコンリソースを含むタイプ。</p>
-      <p><strong>Options:</strong> Zero or more of the following options may be also be present immediately before the name of the file. 各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"*2 *w100 *h-1 C:\Main Logo.bmp"</code>.</p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>画像のファイル名。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。対応する画像形式は、ANI、BMP、CUR、EMF、Exif、GIF、ICO、JPG、PNG、TIF、WMF（BMP画像は16ビット以上）です。Other sources of icons include the following types of files: EXE, DLL, CPL, SCR, and other types that contain icon resources.</p>
+      <p><strong>Options:</strong> Zero or more of the following options may be also be present immediately before the name of the file. 各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。For example: <code>"*2 *w100 *h-1 C:\Main Logo.bmp"</code>.</p>
       <p><strong>*Icon</strong><em>N</em>: To use an icon group other than the first one in the file, specify <code>*Icon</code> followed immediately by the number of the group. For example, <code>*Icon2</code> would load the default icon from the second icon group.</p>
-    <p><strong>*<em>n</em></strong> (variation):Specify for <em>n</em> a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of each pixel's color. For example, if <code class="no-highlight">*2</code> is specified and the color of a pixel is 0x444444, any color from 0x424242 to 0x464646 will be considered a match. This parameter is helpful if the coloring of the image varies slightly or if <em>ImageFile</em> uses a format such as GIF or JPG that does not accurately represent an image on the screen. 255色のバリエーションを指定した場合、すべての色が一致します。デフォルトは0階調です。</p>
-    <p><strong>*Trans</strong><em>N</em>:このオプションは、画面上のどの色とも一致するような色を画像内で1つ指定することで、一致する色を見つけやすくするものです。透明な部分があるPNG、GIF、TIFファイルを探すのに最もよく使われます（ただし、アイコンは自動的に透明化されるため、このオプションは必要ありません）。For GIF files, <code>*TransWhite</code> might be most likely to work. For PNG and TIF files, <code>*TransBlack</code> might be best. Otherwise, specify for <em>N</em> some other color name or RGB value (see the <a href="../misc/Colors.htm">color chart</a> for guidance, or use <a href="PixelGetColor.htm">PixelGetColor</a> in its RGB mode). 例：<code>*TransBlack</code>, <code>*TransFFFFAA</code>, <code>*Trans0xFFFFAA</code>.</p>
-    <p><strong>*w</strong><em>n</em> and <strong>*h</strong><em>n</em>:画像を拡大縮小する幅と高さ（この幅と高さは、マルチアイコン.ICOファイルからどのアイコンを読み込むかも決定）。If both these options are omitted, icons loaded from ICO, DLL, or EXE files are scaled to the system's default small-icon size, which is usually 16 by 16 (you can force the actual/internal size to be used by specifying <code>*w0 *h0</code>). アイコンでない画像は、実際のサイズで読み込まれます。画像のアスペクト比を保ったまま縮小・拡大する場合は、一方の寸法に-1、他方の寸法に正の数を指定します。For example, specifying <code class="no-highlight">*w200 *h-1</code> would make the image 200 pixels wide and cause its height to be set automatically.</p>
+    <p><strong>*<em>n</em></strong> (variation): Specify for <em>n</em> a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of each pixel's color. For example, if <code class="no-highlight">*2</code> is specified and the color of a pixel is 0x444444, any color from 0x424242 to 0x464646 will be considered a match. This parameter is helpful if the coloring of the image varies slightly or if <em>ImageFile</em> uses a format such as GIF or JPG that does not accurately represent an image on the screen. 255色のバリエーションを指定した場合、すべての色が一致します。デフォルトは0階調です。</p>
+    <p><strong>*Trans</strong><em>N</em>: This option makes it easier to find a match by specifying one color within the image that will match any color on the screen. 透明な部分があるPNG、GIF、TIFファイルを探すのに最もよく使われます（ただし、アイコンは自動的に透明化されるため、このオプションは必要ありません）。For GIF files, <code>*TransWhite</code> might be most likely to work. For PNG and TIF files, <code>*TransBlack</code> might be best. Otherwise, specify for <em>N</em> some other color name or RGB value (see the <a href="../misc/Colors.htm">color chart</a> for guidance, or use <a href="PixelGetColor.htm">PixelGetColor</a> in its RGB mode). Examples: <code>*TransBlack</code>, <code>*TransFFFFAA</code>, <code>*Trans0xFFFFAA</code>.</p>
+    <p><strong>*w</strong><em>n</em> and <strong>*h</strong><em>n</em>: Width and height to which to scale the image (this width and height also determines which icon to load from a multi-icon .ICO file). If both these options are omitted, icons loaded from ICO, DLL, or EXE files are scaled to the system's default small-icon size, which is usually 16 by 16 (you can force the actual/internal size to be used by specifying <code>*w0 *h0</code>). アイコンでない画像は、実際のサイズで読み込まれます。画像のアスペクト比を保ったまま縮小・拡大する場合は、一方の寸法に-1、他方の寸法に正の数を指定します。For example, specifying <code class="no-highlight">*w200 *h-1</code> would make the image 200 pixels wide and cause its height to be set automatically.</p>
     <p>ファイル名の代わりに<a href="../misc/ImageHandles.htm">ビットマップやアイコンハンドル</a>を使うこともできる。例えば、<code>"HBITMAP:*"ハンドル</code>です。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
 <p>この関数は、指定された領域で画像が見つかった場合は 1（真）を、見つからなかった場合は 0（偽）を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>

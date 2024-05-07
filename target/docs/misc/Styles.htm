@@ -243,7 +243,7 @@
 
 <h2 id="Edit">コントロールスタイルの編集</h2>
 <p>これらのスタイルは<a href="../lib/GuiControls.htm#Edit">Edit</a>コントロールに影響する。デフォルトでは、<a href="#WS_TABSTOP">WS_TABSTOPと</a>WS_EX_CLIENTEDGE（拡張スタイルE0x200）を使用します。強制的なスタイルはない。</p>
-<p>編集コントロールが、その開始コンテンツが複数行を含むか、その高さが1行より高いか、その行数が明示的に1より大きく指定されているために複数行として自動検出された場合、デフォルトで以下のスタイルが適用されます：<a href="#WS_VSCROLL">WS_VSCROLL</a>, <a href="#ES_WANTRETURN">ES_WANTRETURN</a>, and <a href="#ES_AUTOVSCROLL">ES_AUTOVSCROLL</a>.</p>
+<p>If an Edit control is auto-detected as multi-line due to its starting contents containing multiple lines, its height being taller than 1 row, or its row-count having been explicitly specified as greater than 1, the following styles will be applied by default: <a href="#WS_VSCROLL">WS_VSCROLL</a>, <a href="#ES_WANTRETURN">ES_WANTRETURN</a>, and <a href="#ES_AUTOVSCROLL">ES_AUTOVSCROLL</a>.</p>
 <p>編集コントロールが1行として自動検出された場合、デフォルトで<a href="#ES_AUTOHSCROLL">ES_AUTOHSCROLL</a>が設定されます。</p>
 <table class="info">
 <tr>
@@ -718,7 +718,7 @@
   <td>+/-SortDesc. 上記と同じだが、降順。</td>
 </tr>
 </table>
-<p id="LVS_EX" class="note"><strong>拡張 ListView スタイル</strong>は、Gui メソッド/プロパティで使用する場合、<a href="../lib/ListView.htm#LVS_EX">LV 接頭辞</a>を必要とします。Windows XPまたはそれ以降のバージョンで導入された一部の拡張スタイルは、ここに記載されていません。全リストは、<a href="https://learn.microsoft.com/windows/win32/controls/extended-list-view-styles">Microsoft Docsを参照：拡張リストビュースタイル</a>.</p>
+<p id="LVS_EX" class="note"><strong>拡張 ListView スタイル</strong>は、Gui メソッド/プロパティで使用する場合、<a href="../lib/ListView.htm#LVS_EX">LV 接頭辞</a>を必要とします。Windows XPまたはそれ以降のバージョンで導入された一部の拡張スタイルは、ここに記載されていません。For a full list, see <a href="https://learn.microsoft.com/windows/win32/controls/extended-list-view-styles">Microsoft Docs: Extended List-View Styles</a>.</p>
 <table class="info">
 <tr>
   <th abbr="ExStyle">エクステンド・スタイル</th>
@@ -773,7 +773,7 @@
 <tr id="LVS_EX_LABELTIP">
   <td>LVS_EX_LABELTIP</td>
   <td>LV0x4000</td>
-  <td>どのリストビューモードでも、部分的に隠されたラベルにToolTipテキストがない場合、リストビューコントロールはラベルを展開します。このスタイルが設定されていない場合、リストビューコントロールはラージアイコンモードでのみラベルの一部が非表示になる。注：Windowsのバージョンによっては、GUIウィンドウが常に上に表示されるように設定されている場合、このスタイルが正しく動作しないことがあります。</td>
+  <td>どのリストビューモードでも、部分的に隠されたラベルにToolTipテキストがない場合、リストビューコントロールはラベルを展開します。このスタイルが設定されていない場合、リストビューコントロールはラージアイコンモードでのみラベルの一部が非表示になる。Note: On some versions of Windows, this style might not work properly if the GUI window is set to be always-on-top.</td>
 </tr>
 <tr id="LVS_EX_MULTIWORKAREAS">
   <td>LVS_EX_MULTIWORKAREAS</td>
@@ -1229,10 +1229,10 @@
   <td>SBARS_TOOLTIPS</td>
   <td>0x800</td>
   <td>
-    <p>ステータスバーの上にマウスを置くと、ツールチップを表示する：1) テキストが多すぎて表示しきれない、または 2) アイコンはあるがテキストがない。</p>
+    <p>Displays a tooltip when the mouse hovers over a part of the status bar that: 1) has too much text to be fully displayed; or 2) has an icon but no text.</p>
     <p>ツールチップのテキストは、以下の方法で設定できる：</p>
     <pre><a href="../lib/SendMessage.htm">SendMessage</a> 0x0411, <strong>0</strong>, StrPtr("Text to display"), "msctls_statusbar321", MyGui <em>; 0x0411 is SB_SETTIPTEXTW.</em></pre>
-    <p>上記の太字の<strong>0</strong>は、ゼロベースの部品番号である。1番以外のパートを使用する場合は、2番には1、3番には2などを指定する。注：OSのバージョンによってはツールチップが表示されない場合があります。</p>
+    <p>上記の太字の<strong>0</strong>は、ゼロベースの部品番号である。1番以外のパートを使用する場合は、2番には1、3番には2などを指定する。NOTE: The tooltip might never appear on certain OS versions.</p>
   </td>
 </tr>
 <tr id="SBARS_SIZEGRIP">

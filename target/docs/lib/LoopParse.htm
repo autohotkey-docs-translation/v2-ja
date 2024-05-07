@@ -20,22 +20,22 @@
 
   <dt>String</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>解析する文字列です。</p>
   </dd>
 
   <dt>DelimiterChars</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>If blank or omitted, each character of the input string will be treated as a separate substring.</p>
       <p id="CSV">このパラメータが<code>"CSV"</code>の場合、文字列は標準的なカンマ区切り値形式で解析されます。ここでは、MS Excelで作成したCSVの行の例を示します：</p>
 <pre class="no-highlight">"first field",SecondField,"the word ""special"" is quoted literally",,"last field, has literal comma"</pre>
       <p>Otherwise, specify one or more characters (case-sensitive), each of which is used to determine where the boundaries between substrings occur.</p>
       <p>デリミタ文字は、部分文字列自体の一部とはみなされません。In addition, if there is nothing between a pair of delimiter characters within the input string, the corresponding substring will be empty.</p>
-      <p>事例：<code>','</code>（カンマ）は、カンマが出現するたびに文字列を分割することになります。Similarly, <code>A_Space A_Tab</code> would start a new substring every time a space or tab is encountered in the input string.</p>
-      <p>文字列を文字ではなく区切り文字として使用するには、まず<a href="StrReplace.htm">StrReplace</a>を使用して、文字列のすべての出現箇所を、テキスト内で文字通り使用されることのない単一の文字（例えば、これらの特殊文字のいずれか）に置き換えます：<code>¢¤¥¦§©ª«®µ¶</code>. 文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
+      <p>For example: <code>','</code> (a comma) would divide the string based on every occurrence of a comma. Similarly, <code>A_Space A_Tab</code> would start a new substring every time a space or tab is encountered in the input string.</p>
+      <p>To use a string as a delimiter rather than a character, first use <a href="StrReplace.htm">StrReplace</a> to replace all occurrences of the string with a single character that is never used literally in the text, e.g. one of these special characters: <code>¢¤¥¦§©ª«®µ¶</code>. 文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
       <pre>NewHTML := StrReplace(HTMLString, "&lt;br&gt;", "¢")
-Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析します。</em>
+Loop Parse, NewHTML, "¢" <em>; Parse the string based on the cent symbol.</em>
 {
     <em>; ...</em>
 }</pre>
@@ -43,7 +43,7 @@ Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析しま
 
   <dt>OmitChars</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If blank or omitted, no characters will be excluded. Otherwise, specify a list of characters (case-sensitive) to exclude from the beginning and end of each substring. 例えば、<em>OmitChars</em>が <code>A_Space A_Tab</code>の場合、検索されたすべての部分文字列の先頭と末尾からスペースとタブが削除されます（中央は削除されない）。</p>
     <p>If <em>DelimiterChars</em> is blank, <em>OmitChars</em> indicates which characters should be excluded from consideration (the loop will not see them).</p>
   </dd>
@@ -74,7 +74,7 @@ Loop parse, Colors, ","
 
 <div class="ex" id="ExFileRead">
 <p><a class="ex_number" href="#ExFileRead"></a> Reads the lines inside a variable, one by one (similar to a <a href="LoopRead.htm">file-reading loop</a>). <a href="FileRead.htm">FileRead</a>により、ファイルを変数に読み込むことができます。</p>
-<pre>Loop parse, FileContents, "`n", "`r"  <em>; `r の前に `n を指定すると、Windows と Unix の両方のファイルをパースすることができます。</em>
+<pre>Loop parse, FileContents, "`n", "`r"  <em>; Specifying `n prior to `r allows both Windows and Unix files to be parsed.</em>
 {
     Result := MsgBox("Line number " A_Index " is " A_LoopField ".`n`nContinue?",, "y/n")
 }
@@ -106,9 +106,9 @@ until Result = "No"</pre>
 
 <div class="ex" id="ExDelimiter">
 <p><a class="ex_number" href="#ExDelimiter"></a> Determines which delimiter character was encountered.</p>
-<pre><em>; 検索する文字列を初期化します。</em>
+<pre><em>; Initialize string to search.</em>
 Colors := "red,green|blue;yellow|cyan,magenta"
-<em>; 文字列中の位置を記録するためのカウンターを初期化します。</em>
+<em>; Initialize counter to keep track of our position in the string.</em>
 Position := 0
 
 Loop Parse, Colors, ",|;"
@@ -118,7 +118,7 @@ Loop Parse, Colors, ",|;"
     <em>; Retrieve the delimiter character found by the parsing loop.</em>
     DelimiterChar := SubStr(Colors, Position, 1)
 
-MsgBox "Field:" A_LoopField "`nDelimiter character:" DelimiterChar
+    MsgBox "Field: " A_LoopField "`nDelimiter character: " DelimiterChar
 }</pre>
 </div>
 

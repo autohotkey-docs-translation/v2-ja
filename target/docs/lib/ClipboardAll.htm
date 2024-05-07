@@ -22,22 +22,22 @@
 <dl>
   <dt>Data</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#objects">Object</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p><a href="Buffer.htm">Buffer</a>のようなオブジェクト、またはバイナリデータのアドレスである純粋な整数。データは特定のフォーマットでなければならないので、一般的には、以前にClipboardAllを呼び出したときに発生したものです。以下の<a href="#ExFile">例2</a>参照。</p>
   </dd>
   <dt>Size</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>使用するデータのバイト数を指定します。<em>Dataが</em>オブジェクトの場合は省略可能です。</p>
   </dd>
 </dl>
 
 <h2 id="clipboardall-object">戻り値</h2>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
 <p>この関数は、2つのプロパティ（<a href="Buffer.htm">Buffer</a>から継承）を持つClipboardAllオブジェクトを返す。</p>
 <ul>
-  <li><a href="Buffer.htm#Ptr">Ptr</a>:オブジェクトが含むデータのアドレス。このアドレスは、オブジェクトが解放されるまで有効です。</li>
-  <li><a href="Buffer.htm#Size">Size</a>:未加工のバイナリデータのサイズ（バイト単位）です。</li>
+  <li><a href="Buffer.htm#Ptr">Ptr</a>: The address of the data contained by the object. このアドレスは、オブジェクトが解放されるまで有効です。</li>
+  <li><a href="Buffer.htm#Size">Size</a>: The size, in bytes, of the raw binary data.</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
@@ -55,23 +55,23 @@
 <div class="ex" id="ExVar">
 <p><a class="ex_number" href="#ExVar"></a> 変数を使ってクリップボードのすべてを保存・復元します。</p>
 <pre>ClipSaved := ClipboardAll()   <em>; クリップボード全体を任意の変数に保存します。
-; ... ここで、大量のテキストを素早く貼り付けるなど、クリップボードを一時的に使用する ...</em>
-A_Clipboard := ClipSaved   <em>; 元のクリップボードを復元します。<i>ClipboardAll</i>ではなく、<i>A_Clipboard</i>を使用していることに注意してください。</em>
-ClipSaved := ""  <em>; クリップボードが非常に大きい場合に備えて、メモリを解放しています。</em></pre>
+; ... here make temporary use of the clipboard, such as for quickly pasting large amounts of text ...</em>
+A_Clipboard := ClipSaved   <em>; Restore the original clipboard. Note the use of <i>A_Clipboard</i> (not <i>ClipboardAll</i>).</em>
+ClipSaved := ""  <em>; Free the memory in case the clipboard was very large.</em></pre>
 </div>
 
 <div class="ex" id="ExFile">
 <p><a class="ex_number" href="#ExFile"></a> クリップボードにあるすべてのものを、ファイルを使って保存・復元します。</p>
-<pre><em>; オプション1：既存のファイルを削除し、FileAppendを使用します。</em>
+<pre><em>; Option 1: Delete any existing file and then use FileAppend.</em>
 <a href="FileDelete.htm">FileDelete</a> "Company Logo.clip"
-<a href="FileAppend.htm">FileAppend</a> ClipboardAll(), "Company Logo.clip" <em>; ファイル拡張子は問いません。</em>
+<a href="FileAppend.htm">FileAppend</a> ClipboardAll(), "Company Logo.clip" <em>; The file extension does not matter.</em>
 
-<em>; オプション2：FileOpenを上書きモードで使用し、File.RawWriteを使用します。</em>
+<em>; Option 2: Use FileOpen in overwrite mode and File.RawWrite.</em>
 ClipData := ClipboardAll()
 <a href="FileOpen.htm">FileOpen</a>("Company Logo.clip", "w").<a href="File.htm#RawWrite">RawWrite</a>(ClipData)</pre>
 <p>後でファイルをクリップボードに（または変数に）読み戻すには、次の例に従います。</p>
-<pre>ClipData := FileRead("Company Logo.clip", "RAW")  <em>; この場合、FileReadはBufferを返します。</em>
-A_Clipboard := ClipboardAll(ClipData)  <em>; BufferをClipboardAllに変換してアサインします。</em></pre>
+<pre>ClipData := FileRead("Company Logo.clip", "RAW")  <em>; In this case, FileRead returns a Buffer.</em>
+A_Clipboard := ClipboardAll(ClipData)  <em>; Convert the Buffer to a ClipboardAll and assign it.</em></pre>
 </div>
 
 </body>

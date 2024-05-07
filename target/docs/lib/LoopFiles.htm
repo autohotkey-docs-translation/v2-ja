@@ -21,7 +21,7 @@
 
   <dt>FilePattern</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
       <p>ワイルドカードとして、アスタリスクとクエスチョンマークの両方がサポートされています。ファイルのロング/ノーマル名または<a href="#LoopFileShortName">8.3ショート名の</a>いずれかにパターンがある場合、一致することになります。</p>
       <p>このパラメータが単一のファイルまたはフォルダ（すなわちワイルドカードなし）で、<em>Mode</em>にRが含まれる場合、指定されたファイル名が検索対象の複数のフォルダに現れると、複数の一致が検出されます。</p>
@@ -30,7 +30,7 @@
 
   <dt>Mode</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>空白または省略された場合、ファイルのみが含まれ、サブディレクトリは再帰されません。それ以外の場合は、以下の文字を1つ以上指定してください：</p>
     <ul>
       <li>D = インクルードディレクトリ（フォルダ）。</li>
@@ -62,11 +62,11 @@
   </tr>
   <tr id="LoopFileFullPath">
     <td>A_LoopFileFullPath</td>
-    <td>A_LoopFilePathとは、以下の点で異なります：1)<em>FilePattern</em>に相対パスが含まれていても、常にファイルの絶対パス/完全パスを含む。 2)<em>FilePattern</em>自体に含まれる短い（8.3）フォルダ名は、その長い名前に変換される。 3)<em>FilePattern</em>内の文字は、ファイルシステムに保存されているケースに合わせて大文字または小文字に変換される。コマンドラインパラメーターとしてスクリプトに渡されたファイル名などを、エクスプローラで表示される正確なパス名に変換するのに便利です。</td>
+    <td>This is different than A_LoopFilePath in the following ways: 1) It always contains the absolute/complete path of the file even if <em>FilePattern</em> contains a relative path; 2) Any short (8.3) folder names in <em>FilePattern</em> itself are converted to their long names; 3) Characters in <em>FilePattern</em> are converted to uppercase or lowercase to match the case stored in the file system. コマンドラインパラメーターとしてスクリプトに渡されたファイル名などを、エクスプローラで表示される正確なパス名に変換するのに便利です。</td>
   </tr>
   <tr id="LoopFileShortPath">
     <td>A_LoopFileShortPath</td>
-    <td><p>現在検索しているファイル／フォルダの 8.3 ショートパスと名前。事例：C:\MYDOCU~1\ADDRES~1.txt. <em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。</p>
+    <td><p>現在検索しているファイル／フォルダの 8.3 ショートパスと名前。For example: C:\MYDOCU~1\ADDRES~1.txt. <em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。</p>
       <p>To retrieve the complete 8.3 path and name for a single file or folder, follow this example:</p>
 <pre>Loop Files, "C:\My Documents\Address List.txt"
     ShortPathName := A_LoopFileShortPath</pre>
@@ -78,7 +78,7 @@
   </tr>
   <tr id="LoopFileDir">
     <td>A_LoopFileDir</td>
-    <td><em>A_LoopFileName</em>が存在するディレクトリのパス。<em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。ルートディレクトリには、末尾のバックスラッシュは含まれません。事例：C:</td>
+    <td><em>A_LoopFileName</em>が存在するディレクトリのパス。<em>FilePattern</em>に絶対パスではなく相対パスが含まれている場合、ここでのパスも相対パスとなります。ルートディレクトリには、末尾のバックスラッシュは含まれません。For example: C:</td>
   </tr>
   <tr id="LoopFileTimeModified">
     <td>A_LoopFileTimeModified</td>
@@ -113,10 +113,10 @@
 <h2 id="Remarks">備考</h2>
 <p>A file loop is useful when you want to operate on a collection of files and/or folders, one at a time.</p>
 <p>隠しファイルを含め、一致するすべてのファイルを取得します。これに対し、DIRコマンドなどのOSの機能は、デフォルトで隠しファイルを省略します。隠しファイル、システムファイル、読み取り専用ファイルの処理を避けるために、ループ内で以下のように使用します：</p>
-<pre>if A_LoopFileAttrib ~= "[HRS]"  <em>; H (Hidden), R (Read-only), S (System) のいずれかに該当するファイルをスキップします。<a href="../Variables.htm#regex">~= operator</a>を参照。</em>
+<pre>if A_LoopFileAttrib ~= "[HRS]"  <em>; Skip any file that is either H (Hidden), R (Read-only), or S (System). See <a href="../Variables.htm#regex">~= operator</a>.</em>
     continue  <em>; このファイルをスキップして、次のファイルに移る。</em></pre>
 <p>To retrieve files' relative paths instead of absolute paths during a recursive search, use <a href="SetWorkingDir.htm">SetWorkingDir</a> to change to the base folder prior to the loop, and then omit the path from the loop (e.g. <code>Loop Files, "*.*", "R"</code>). これにより、<a href="#LoopFilePath">A_LoopFilePath</a>には、ベースフォルダからの相対的なファイルのパスが含まれることになります。</p>
-<p>A file loop can disrupt itself if it creates or renames files or folders within its own purview. 例えば、<a href="FileMove.htm">FileMove</a>などでファイル名を変更した場合、そのようなファイルが2回見つかる可能性があります：旧名称ならば、新名称とします。これを回避するには、ファイルのリストを作成した後にのみファイル名を変更します。事例：</p>
+<p>A file loop can disrupt itself if it creates or renames files or folders within its own purview. For example, if it renames files via <a href="FileMove.htm">FileMove</a> or other means, each such file might be found twice: once as its old name and again as its new name. これを回避するには、ファイルのリストを作成した後にのみファイル名を変更します。事例：</p>
 <pre>FileList := ""
 Loop Files, "*.jpg"
     FileList .= A_LoopFileName "`n"
@@ -129,7 +129,7 @@ Loop Parse, FileList, "`n"
   <li><code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィックス</a>を使用します（注意事項あり）。</li>
 </ul>
 <p>それ以外の場合、259文字より長いファイルパターンは、ファイルやフォルダーを見つけることができません。この制限は、<em>FilePattern</em>と、サブフォルダへの再帰中に使用される一時的なパターンの両方に適用されます。</p>
-<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Files "*.txt", "R" {</code>.</p>
+<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。For example: <code>Loop Files "*.txt", "R" {</code>.</p>
 <p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」をご覧ください。</p>
 <p>ループの後に<a href="Else.htm">Else</a>文が続くことがありますが、これは一致するファイルやディレクトリが見つからなかった場合に実行されます（つまり、ループの反復回数がゼロの場合）。</p>
 <p>The functions <a href="FileGetAttrib.htm">FileGetAttrib</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileGetTime.htm">FileGetTime</a>, <a href="FileGetVersion.htm">FileGetVersion</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, and <a href="FileSetTime.htm">FileSetTime</a> can be used in a file loop without their Filename/FilePattern parameter.</p>
@@ -140,7 +140,7 @@ Loop Parse, FileList, "`n"
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> ディレクトリとそのサブディレクトリにある各テキストファイルのフルパスを表示します。</p>
-<pre>Loop Files, A_ProgramFiles "\*.txt", "R"  <em>; サブフォルダへの再検索。</em>
+<pre>Loop Files, A_ProgramFiles "\*.txt", "R"  <em>; Recurse into subfolders.</em>
 {
     Result := MsgBox("Filename = " A_LoopFilePath "`n`nContinue?",, "y/n")
     if Result = "No"
@@ -151,7 +151,7 @@ Loop Parse, FileList, "`n"
 <div class="ex" id="ExSize">
 <p><a class="ex_number" href="#ExSize"></a> フォルダーのサイズを、そのすべてのサブフォルダー内のファイルを含めて計算します。</p>
 <pre>FolderSizeKB := 0
-WhichFolder := DirSelect()  <em>; フォルダーを選んでもらいます。</em>
+WhichFolder := DirSelect()  <em>; Ask the user to pick a folder.</em>
 Loop Files, WhichFolder "\*.*", "R"
     FolderSizeKB += A_LoopFileSizeKB
 MsgBox "Size of " WhichFolder " is " FolderSizeKB " KB."</pre>
@@ -159,10 +159,10 @@ MsgBox "Size of " WhichFolder " is " FolderSizeKB " KB."</pre>
 
 <div class="ex" id="ExSortName">
 <p><a class="ex_number" href="#ExSortName"></a> ファイル名を名前でソートして取得します（日付でソートする場合は次の例を参照してください）。</p>
-<pre>FileList := ""  <em>;空白になるように初期化します。</em>
+<pre>FileList := ""  <em>; Initialize to be blank.</em>
 Loop Files, "C:\*.*"
     FileList .= A_LoopFileName "`n"
-FileList := Sort(FileList, "R")  <em>; Rオプションは逆順にソートします。他のオプションは<a href="Sort.htm">Sort</a>を参照。</em>
+FileList := Sort(FileList, "R")  <em>; The R option sorts in reverse order. See <a href="Sort.htm">Sort</a> for other options.</em>
 Loop Parse, FileList, "`n"
 {
     if A_LoopField = ""  <em>;リスト末尾の空白項目は無視します。</em>。
@@ -219,7 +219,7 @@ Loop Parse, FileList, "`n"
 
 <div class="ex" id="ExLongPath">
 <p><a class="ex_number" href="#ExLongPath"></a> コマンドラインパラメーターで渡されたファイル名を、ファイルシステムに格納されているような長い名前、完全なパス、正しい大文字/小文字に変換します。</p>
-<pre>for GivenPath in A_Args  <em>; 各パラメータ（またはスクリプトにドロップしたファイル）に対して：</em>
+<pre>for GivenPath in A_Args  <em>; For each parameter (or file dropped onto a script):</em>
 {
     Loop Files, GivenPath, "FD"  <em>;ファイルやディレクトリをインクルードします。</em>
         LongPath := A_LoopFilePath

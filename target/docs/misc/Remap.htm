@@ -135,7 +135,7 @@ a::b
 }</pre>
 <p>ただし、上記のホットキーは以下の状況で変化する：</p>
 <ol>
-  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>:The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
+  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>: The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
   <li>キーボードのキーがマウスボタンにリマップされる場合（例：<code>RCtrl::RButton</code>）、上記のホットキーはSetKeyDelayの代わりにSetMouseDelayを使用します。さらに、上記の最初のホットキーは以下のように置き換えられ、キーボードのオートリピート機能によるマウスクリックの繰り返しを防ぎます：
     <pre>*RCtrl::
 {
@@ -151,7 +151,7 @@ a::b
 <p>リマッピングは前述のようにホットキーに変換されるため、<a href="../lib/Suspend.htm">サスペンド</a>機能はそれらに影響する。同様に、<a href="../lib/Hotkey.htm">ホットキー</a>機能はリマッピングを無効にしたり変更したりすることができる。例えば、以下の2つの関数は<code>a::b</code>のリマッピングを無効にする。</p>
 <pre>Hotkey "*a", "Off"
 Hotkey "*a up", "Off"</pre>
-<p id="AltTab">Alt-tabの問題：キーやマウスボタンを<kbd>Alt</kbd>にリマップした場合、そのキーはおそらくAltタブがうまくできないだろう。可能な回避策は、<code>*Tab::Send "{Blind}{Tab}"</code>というホットキーを追加することです。しかし、これは本物の <kbd>Alt</kbd> を使って alt-tab するのを邪魔する可能性が高いので注意してください。したがって、リマップキーや<a href="../Hotkeys.htm#alttab">alt-tabホットキー</a>のみでalt-tabを行う場合にのみ使用すべきである。</p>
+<p id="AltTab">Alt-tab issues: If you remap a key or mouse button to become <kbd>Alt</kbd>, that key will probably not be able to alt-tab properly. 可能な回避策は、<code>*Tab::Send "{Blind}{Tab}"</code>というホットキーを追加することです。しかし、これは本物の <kbd>Alt</kbd> を使って alt-tab するのを邪魔する可能性が高いので注意してください。したがって、リマップキーや<a href="../Hotkeys.htm#alttab">alt-tabホットキー</a>のみでalt-tabを行う場合にのみ使用すべきである。</p>
 <p>In addition to the keys and mouse buttons on the <a href="../KeyList.htm">Key List</a> page, the source key may also be a virtual key (VKnn) or scan code (SCnnn) as described in the <a href="../KeyList.htm#SpecialKeys">Special Keys</a> section. デスティネーション・キーについても同様であるが、バーチャル・キーの後にスキャン・コードを指定することもできる。例えば、<code>sc01e::vk42sc030</code>は、ほとんどのキーボードレイアウトでは<code>a::b</code>と等価である。</p>
 <p>キーをリマップするのではなく、無効にするには、単に<a href="../lib/Return.htm">returns</a>ホットキーにします。例えば、<code>F1::return</code>は <kbd>F1</kbd>を無効にする。</p>
 <p>以下のキーは、内蔵リマッピング方式ではサポートされていない：</p>
@@ -188,8 +188,8 @@ Hotkey "*a up", "Off"</pre>
 </ul>
 <p><strong>デメリット</strong></p>
 <ul>
-  <li>レジストリの再マッピングは比較的永続的である：変更を元に戻したり、新しい変更を有効にするには再起動が必要です。</li>
-  <li>その効果は世界的だ：特定のユーザー、アプリケーション、ロケールに特化したリマッピングを作成することはできません。</li>
+  <li>Registry remapping is relatively permanent: a reboot is required to undo the changes or put new ones into effect.</li>
+  <li>Its effect is global: it cannot create remappings specific to a particular user, application, or locale.</li>
   <li><kbd>Shift</kbd>、<kbd>Ctrl</kbd>、<kbd>Alt</kbd>、<kbd>AltGr</kbd>で変更されたキーストロークは送信できない。たとえば、小文字を大文字にリマップすることはできない。</li>
   <li>キーボードのみをサポートしています（AutoHotkeyには<a href="#RemapMouse">マウスリマッピング</a>といくつかの<a href="RemapController.htm">限定的なコントローラリマッピング</a>があります）。</li>
 </ul>

@@ -20,28 +20,28 @@
 
   <dt>Haystack</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>内容を検索する文字列。</p>
   </dd>
   
   <dt>Needle</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>検索する文字列です。</p>
   </dd>
   
   <dt>CaseSense</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
     <p>If omitted, it defaults to <em>Off</em>. それ以外のときは、次のいずれかの値を指定します：</p>
-    <p><strong>On</strong> または <strong>1</strong> (true):検索では大文字と小文字が区別される。</p>
-    <p><strong>Off</strong> または <strong>0</strong> (false):The search is not case-sensitive, i.e. the letters A-Z are considered identical to their lowercase counterparts.</p>
+    <p><strong>On</strong> or <strong>1</strong> (true): The search is case-sensitive.</p>
+    <p><strong>Off</strong> or <strong>0</strong> (false): The search is not case-sensitive, i.e. the letters A-Z are considered identical to their lowercase counterparts.</p>
     <p><strong>Locale:</strong> The search is not case-sensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
   </dd>
 
   <dt>StartingPos</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, the entire string is searched. それ以外の場合は、検索を開始する位置を指定します。1が最初の文字、2が2番目の文字、といった具合に指定します。Negative values count from the end of <em>Haystack</em>, so -1 is the last character, -2 is the second-last, and so on.</p>
     <p><em>Occurrence</em>が省略された場合、<em>StartingPos</em>が負であれば、右から左へ検索が行われる。ただし、<em>Occurrence</em>を指定した場合、<em>StartingPos</em>は検索の方向には影響しません。</p>
     <p>For a right-to-left search, <em>StartingPos</em> specifies the position of the <u>last</u> character of the first potential occurence of <em>Needle</em>. 例えば、<code>InStr("abc", "bc",, 2, +1)</code>はマッチを見つけるが、<code>InStr("abc", "bc",, 2, -1)</code>はそうではありません。</p>
@@ -50,7 +50,7 @@
 
   <dt>Occurrence</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, it defaults to the first match in <em>Haystack</em>. The search is conducted from right to left if <em>StartingPos</em> is negative; otherwise it is conducted from left to right.</p>
     <p><em>Occurrence</em>が正の場合、検索は常に左から右へ行われる。<em>Occurrence</em>に2を指定すると、2番目にマッチした位置を、3を指定すると3番目にマッチした位置を返します。</p>
     <p><em>Occurrence</em>が負の場合、検索は常に右から左へ行われます。例えば、-2は右から2番目に出現するものを検索します。</p>
@@ -59,7 +59,7 @@
   </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>この関数は、文字列<em>Haystack</em>の中で文字列<em>Needle</em>が出現する位置を返します。これは、0が「偽」と同義であり、直感的に「見つからない」ことを示すからである。</p>
 <p><em>StartingPos</em>や<em>Occurrence</em>の値に関係なく、戻り値は常に<em>Haystack</em>の最初の文字に対する相対値です。例えば、"123abc789"の "abc"の位置は、常に4です。</p>
 <p>従来、空文字列（<code>""</code>）は、どの位置でも出現することができました。However, as a blank <em>Needle</em> would typically only be passed by mistake, it is treated as an error (an exception is thrown).</p>
