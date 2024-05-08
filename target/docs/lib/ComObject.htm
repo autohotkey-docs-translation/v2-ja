@@ -21,20 +21,20 @@
 
   <dt>CLSID</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>作成する COM オブジェクトの CLSID または人間が読める Prog ID。</p>
   </dd>
 
   <dt>IID</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If omitted, it defaults to <code>"{00020400-0000-0000-C000-000000000046}"</code> (IID_IDispatch). Otherwise, specify the identifier of the interface to return. In most cases this is omitted.</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
 <p>この関数は、IIDパラメータに依存するタイプのCOMラッパーオブジェクトを返します。</p>
 <table class="info">
   <tr><th>IID</th><th>Class</th><th abbr="Type">Variant Type</th><th abbr="説明">説明</th></tr>
@@ -59,11 +59,11 @@
 <p><a href="ComValue.htm">ComValue</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjConnect.htm">ComObjConnect</a>, <a href="ComObjArray.htm">ComObjArray</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="ComCall.htm">ComCall</a>, <a href="https://learn.microsoft.com/previous-versions/dcw63t7z(v=vs.85)">CreateObject (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
-<p>For a long list of examples, see the following forum topic: <a href="https://www.autohotkey.com/forum/topic61509.html">https://www.autohotkey.com/forum/topic61509.html</a>.</p>
+<p>長い例のリストは、次のフォーラムのトピックを参照してください。<a href="https://www.autohotkey.com/forum/topic61509.html">https://www.autohotkey.com/forum/topic61509.html</a>.</p>
 <div class="ex" id="ExIE">
 <p><a class="ex_number" href="#ExIE"></a> Internet Explorerのインスタンスを起動し、表示させ、Webサイトへ移動することができます。</p>
 <pre>ie := ComObject("InternetExplorer.Application")
-ie.Visible := true  <em>; This is known to work incorrectly on IE7.</em>
+ie.Visible := true  <em>; IE7では正しく動作しないことが確認されています。</em>
 ie.Navigate("https://www.autohotkey.com/")
 </pre>
 </div>
@@ -81,7 +81,7 @@ AD := ComObject(CLSID_ActiveDesktop, IID_IActiveDesktop)
 wszWallpaper := Buffer(cchWallpaper * 2)
 ComCall(GetWallpaper, AD, "ptr", wszWallpaper, "uint", cchWallpaper, "uint", AD_GETWP_LAST_APPLIED)
 Wallpaper := StrGet(wszWallpaper, "UTF-16")
-MsgBox "Wallpaper: " Wallpaper
+MsgBox "Wallpaper:" Wallpaper
 </pre>
 </div>
 

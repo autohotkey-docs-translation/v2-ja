@@ -18,11 +18,11 @@
 <p>この機能は、頻繁に変更されるスクリプトに有効です。この機能にホットキーを割り当てることで、エディターで変更内容を保存した後、簡単にスクリプトを再起動することができます。</p>
 <p>デフォルトでは、スクリプトは<a href="../Program.htm#tray-icon">トレイアイコン</a>または<a href="../Program.htm#main-window">メインウィンドウ</a>から再読み込みすることも可能です。</p>
 <p>スクリプトの現在のインスタンスに<a href="../Scripts.htm#SlashInclude">/include</a>スイッチが渡された場合、新しいインスタンスにも自動的に渡されます。</p>
-<p>スクリプトの現在のインスタンスに渡された他の<a href="../Scripts.htm#cmd">コマンドラインパラメータ</a>は、新しいインスタンスに渡されません。このようなパラメータを渡すには、Reloadを使用しないでください。代わりに、<a href="../Variables.htm#AhkPath">A_AhkPath</a>と <a href="../Variables.htm#ScriptFullPath">A_ScriptFullPath</a>（およびスクリプトがコンパイルされた状態で使用される場合は<a href="../Variables.htm#IsCompiled">A_IsCompiled</a>）と組み合わせて<a href="Run.htm">実行</a>を使用します。また、最初のパラメータとして（つまり実行ファイル名の後に）文字列<code>/restart</code>を含めることで、Reloadと同じ動作をするようプログラムに指示します。See also: <a href="../Scripts.htm#cmd">command line switches and syntax</a>.</p>
+<p>スクリプトの現在のインスタンスに渡された他の<a href="../Scripts.htm#cmd">コマンドラインパラメータ</a>は、新しいインスタンスに渡されません。このようなパラメータを渡すには、Reloadを使用しないでください。代わりに、<a href="../Variables.htm#AhkPath">A_AhkPath</a>と <a href="../Variables.htm#ScriptFullPath">A_ScriptFullPath</a>（およびスクリプトがコンパイルされた状態で使用される場合は<a href="../Variables.htm#IsCompiled">A_IsCompiled</a>）と組み合わせて<a href="Run.htm">実行</a>を使用します。また、最初のパラメータとして（つまり実行ファイル名の後に）文字列<code>/restart</code>を含めることで、Reloadと同じ動作をするようプログラムに指示します。こちらもご覧ください：<a href="../Scripts.htm#cmd">コマンドラインスイッチとシンタックス</a></p>
 <p>スクリプトが再起動すると、元の作業ディレクトリ（最初に起動したときに有効だったもの）で起動します。言い換えれば、<a href="SetWorkingDir.htm">SetWorkingDir</a>は、新しいインスタンスに使用される作業ディレクトリを変更しません。</p>
 <p>スクリプトを再読み込みできない場合（構文エラーなど）、スクリプトの元のインスタンスが実行され続けます。したがって、リロード関数の後には、失敗した場合に実行したい動作（現在のサブルーチンを終了するための<a href="Return.htm">return</a>）などを記述する必要があります。元のインスタンスに障害を検出させるには、この例に従います：</p>
 <pre>Reload
-Sleep 1000 <em>; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.</em>
+Sleep 1000 <em>; 成功したときは、reload関数はこのインスタンスをSleep関数の実行中に閉じ、以下の行は実行されません。</em>
 Result := MsgBox("The script could not be reloaded. Would you like to open it for editing?",, 4)
 if Result = "Yes"
     Edit

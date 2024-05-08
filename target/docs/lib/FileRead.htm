@@ -20,25 +20,25 @@
 
   <dt>Filename</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。</p>
   </dd>
   
   <dt>Options</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。For example: <code>"`n m5000 UTF-8"</code></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"`n m5000 UTF-8"</code></p>
     <p><strong>Encoding:</strong> Specify any of the encoding names accepted by <a href="FileEncoding.htm">FileEncoding</a> (excluding the empty string) to use that encoding if the file lacks a UTF-8 or UTF-16 byte order mark. 省略された場合、デフォルトは<a href="../Variables.htm#FileEncoding">A_FileEncoding</a>となる。</p>
     <p><strong>RAW:</strong> Specify the word RAW (case-insensitive) to read the file's content as <a href="#Binary">raw binary data</a> and return a <a href="Buffer.htm">Buffer</a> object instead of a string. このオプションは、以前に指定されたエンコーディングを上書きし、その逆もまた然りです。</p>
     <p><strong>m1024:</strong> If this option is omitted, the entire file is loaded unless there is insufficient memory, in which case an error message is shown and the thread exits (but <a href="Try.htm">Try</a> can be used to avoid this). それ以外の場合は、1024を10進数または16進数のバイト数に置き換えてください。これより大きなファイルの場合は、その先頭部分のみを読み込みます。</p>
     <p class="note"><strong>Note:</strong> This might result in the last line ending in a naked carriage return (`r) rather than `r`n.</p>
-    <p><strong>`n</strong> (a linefeed character): Replaces any/all occurrences of carriage return &amp; linefeed (`r`n) with linefeed (`n). しかし、この翻訳はパフォーマンスを低下させるので、通常は必要ありません。例えば、`r`nを含むテキストは、<a href="StrReplace.htm">Gui Editコントロール</a>に追加するのに適したフォーマットになっています。The following <a href="LoopParse.htm">parsing loop</a> will work correctly regardless of whether each line ends in `r`n or just `n: <code>Loop Parse, MyFileContents, "`n", "`r"</code>.</p>
+    <p><strong>`n</strong>(改行文字)：キャリッジリターンとラインフィード(`r`n)をラインフィード(`n)に置き換える。しかし、この翻訳はパフォーマンスを低下させるので、通常は必要ありません。例えば、`r`nを含むテキストは、<a href="StrReplace.htm">Gui Editコントロール</a>に追加するのに適したフォーマットになっています。以下の<a href="LoopParse.htm">解析ループ</a>は、各行の末尾が `r`n であろうと `n だけであろうと、正しく動作します：<code>Loop Parse, MyFileContents, "`n", "`r"</code>.</p>
   </dd>
   
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>説明： 指定されたファイルの内容を返します。The return value is a <a href="Buffer.htm">Buffer object</a> if the RAW option is in effect and the file can be opened; otherwise, it is a string. ファイルが存在しないか、その他の理由でオープンできない場合は、空文字列が返されます。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -49,11 +49,11 @@
 <h2 id="Binary">バイナリデータの読み取り</h2>
 <p><code>RAW</code>オプションを使用した場合、戻り値は、ファイルの未修正の内容を含む<a href="Buffer.htm">Buffer</a>オブジェクトとなる。オブジェクトの<a href="Buffer.htm#Size">Size</a>プロパティは、読み込んだバイト数を返します。<a href="NumGet.htm">NumGet</a>または<a href="StrGet.htm">StrGet</a>を使用して、バッファからデータを取得することができます。事例：</p>
 <pre>buf := FileRead(A_AhkPath, "RAW")
-if StrGet(buf, 2, "cp0") == "MZ"  <em>; Looks like an executable file...</em>
+if StrGet(buf, 2, "cp0") == "MZ"  <em>; 実行ファイルのように見えるが...。</em>
 {
     <em>; COFF ファイルのヘッダーからマシンタイプを読み込みます。</em>
     machine := NumGet(buf, NumGet(buf, 0x3C, "uint") + 4, "ushort")
-    machine := machine=0x8664 ?"x64" : machine=0x014C ?"x86" : "unknown"
+    machine := machine=0x8664 ? "x64" : machine=0x014C ? "x86" : "unknown"
     <em>; マシンの種類とファイルサイズを表示します。</em>
     MsgBox "This " machine " executable is " buf.Size " bytes."
 }
@@ -83,7 +83,7 @@ Contents := FileRead("C:\Address List.txt")
 Contents := Sort(Contents)
 FileDelete "C:\Address List (alphabetical).txt"
 FileAppend Contents, "C:\Address List (alphabetical).txt"
-Contents := "" <em>; Free the memory.</em>
+Contents := "" <em>; メモリを解放します。</em>
 </pre>
 </div>
 

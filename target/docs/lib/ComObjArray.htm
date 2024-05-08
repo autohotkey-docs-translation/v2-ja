@@ -22,46 +22,46 @@
 
   <dt>VarType</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     配列の基本型（配列の各要素のVARTYPE）。VARTYPEは、バリアントタイプのサブセットに限定されます。VT_ARRAYフラグ、VT_BYREFフラグのいずれも設定できない。VT_EMPTY と VT_NULL は、配列のベースタイプとして有効ではありません。それ以外のタイプはすべて合法です。
     <p>取り得る値の一覧は、<a href="ComObjType.htm">ComObjType</a>をご覧ください。</p>
   </dd>
 
   <dt>Count<i>N</i></dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>各寸法の大きさです。最大8次元までの配列に対応しています。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: ComObjArray</p>
+<p>型：ComObjArray</p>
 <p>この関数は、新しい SafeArray を含むラッパーオブジェクトを返します。</p>
 
 <h2 id="Methods">メソッド</h2>
 <p>ComObjArray オブジェクトは、以下のメソッドをサポートしています。</p>
 <ul>
-    <li><code>.MaxIndex(n)</code>: Returns the upper bound of the <i>n</i>th dimension. <i>n</i>が省略された場合、デフォルトは 1 です。</li>
-    <li><code>.MinIndex(n)</code>: Returns the lower bound of the <i>n</i>th dimension. <i>n</i>が省略された場合、デフォルトは 1 です。</li>
-    <li><code>.Clone()</code>: Returns a copy of the array.</li>
-    <li><code>.__Enum()</code>: Not typically called by script; allows <a href="For.htm">for-loops</a> to be used with SafeArrays.</li>
+    <li><code>.MaxIndex(n)</code>:<i>n</i>次元の上限値を返す。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.MinIndex(n)</code>:<i>n</i>次元目の下界を返します。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.Clone()</code>:配列のコピーを返します。</li>
+    <li><code>.__Enum()</code>:SafeArraysで<a href="For.htm">for-loop</a>を使用することができます。</li>
 </ul>
 <p>これらは現在ハードコードされており、プロパティとして存在せず、<code>ComObjArray.Prototype</code>の修正によって影響を受けることはありません。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>ComObjArrayオブジェクトは、COMメソッドや<a href="ComValue.htm">ComValue</a>によって返されることもある。スクリプトは、以下のように値がComObjArrayであるかどうかを判断することができる。</p>
-<pre><em>; Check class</em>
+<pre><em>; チェッククラス</em>
 if obj is ComObjArray
     MsgBox "Array subtype: " . ComObjType(obj) &amp; 0xfff
 else
     MsgBox "Not an array."
 
-<em>; Check for VT_ARRAY</em>
+<em>; VT_ARRAYのチェック</em>
 if ComObjType(obj) &amp; 0x2000
     MsgBox "obj is a ComObjArray"
 
-<em>; Check specific array type</em>
+<em>; 特定の配列の種類をチェックする</em>
 if ComObjType(obj) = 0x2008
     MsgBox "obj is a ComObjArray of strings"</pre>
 <p>最大8次元までの配列に対応しています。</p>
@@ -89,16 +89,16 @@ MsgBox t
 <p><a class="ex_number" href="#ExMultiDims"></a> 多次元です。</p>
 <pre>arr := ComObjArray(VT_VARIANT:=12, 3, 4)
 
-<em>; Get the number of dimensions:</em>
+<em>; 次元数を取得します。</em>
 dim := DllCall("oleaut32\SafeArrayGetDim", "ptr", ComObjValue(arr))
 
-<em>; Get the bounds of each dimension:</em>
+<em>; 各次元の境界を取得します。</em>
 dims := ""
 Loop dim
     dims .= arr.MinIndex(A_Index) " .. " arr.MaxIndex(A_Index) "`n"
 MsgBox dims
 
-<em>; Simple usage:</em>
+<em>; シンプルな使い方です。</em>
 Loop 3 {
     x := A_Index-1
     Loop 4 {
