@@ -34,12 +34,12 @@
 
 <p>Improved property_get to support property getters with one parameter (previously only the implicit __Item property supported this).</p>
 <p>Improved property_get to support properties of primitive values. The value must still be contained by a variable or returned from a property.</p>
-<p>Improved property_get to allow calling functions with &lt;=1 parameter.</p>
+<p>パラメータを&lt;=1にすることで関数を呼び出せるようにproperty_getを改善しました。</p>
 <p>Improved property_get to support float keys/parameters.</p>
 
 <p>プロパティの評価中に例外を抑制するように変更しました。</p>
-<p>Changed debugger to ignore errors thrown by __Enum (treat as no items).</p>
-<p>Changed the &lt;enum&gt; pseudo-property to require __Enum. This prevents the object itself from being called as an enumerator.</p>
+<p>__Enumがスローしたエラーを項目なしとみなして無視するようにデバッガを変更しました。</p>
+<p>Changed the &lt;enum&gt; pseudo-property to require __Enum. これにより、オブジェクト自体がEnumratorとして呼び出されなくなりました。</p>
 <p>Small code size optimizations in the debugger.</p>
 
 <h2 id="v2.0.13">2.0.13 - 2024年4月20日</h2>
@@ -82,7 +82,7 @@
 
 <h2 id="v2.0.10">2.0.10 - 2023年9月24日</h2>
 <p>Fixed crashing when a named function hotkey is used after #HotIf.</p>
-<p>Fixed numeric literals ending with a dot to not cause line continuation.</p>
+<p>数値リテラルがドットで終わるときに行の継続を発生させないように修正しました。</p>
 <p>Fixed pre-increment/decrement to work with chained array indexing.</p>
 <p>Fixed OnNotify/OnCommand applying styles only applicable to OnEvent.</p>
 <p>Fixed FileExist/DirExist leaking handles when <code>emptydir\*</code> is used.</p>
@@ -135,13 +135,13 @@
 <p>Fixed optional parameter default expressions (other than simple literal values) preventing the use of assume-global/assume-static.</p>
 
 <h2 id="v2.0.5">2.0.5 - 2023年8月12日</h2>
-<p>Fixed a memory leak caused by incorrect reference counting when an object is enumerated via COM. [PR# 325]</p>
-<p>Fixed internal calls to __Enum to not call __Call.</p>
-<p>Fixed error messages referring to parameter #65535.</p>
+<p>オブジェクトがCOM経由で列挙されたときに、誤った参照カウントがメモリリークを引き起こす問題を修正しました。[PR# 325]</p>
+<p>__Enumへの内部呼び出しが__Callを呼び出していたのを修正しました。</p>
+<p>パラメータ#65535を参照するエラーメッセージを修正しました。</p>
 <p>Fixed incorrect IEnumVARIANT return count.</p>
-<p>Fixed Download throwing OSError(0) when error should be non-zero.</p>
-<p>Fixed LV.Add/Insert/Modify crashing when passed the minimum number of parameters.</p>
-<p>Fixed stack traces to exclude calls to __new for Error subclasses.</p>
+<p>Download関数がOSErrorのエラーコードが0以外にもかかわらず、OSError(0)をスローするのを修正しました。</p>
+<p>ListViewコントロールのAdd/Insert/Modifyメソッドに最小数のパラメータが渡されたときにクラッシュする問題を修正しました。</p>
+<p>スタックトレースがErrorサブクラスの__newへの呼び出しを除外するように修正しました。</p>
 
 <h2 id="v2.0.4">2.0.4 - 2023年7月3日</h2>
 <p>エラー/警告ダイアログのリロードボタンを、現在のスクリプトインスタンスが終了していなくても、明示的にダイアログを閉じるように変更。</p>
@@ -158,7 +158,7 @@
 <p>ComObjectラッパーがオブジェクト/COM経由で呼び出された場合にスローされるエラーが正しく伝搬されない問題を修正。</p>
 <p>ホットキーGUIコントロールを修正し、記号 <code>^</code>, <code>!</code>と<code>+</code>をホットキーとして設定できるようにした。</p>
 <p>ホットキーコントロールの値がシンボルに設定されている場合、修飾子が含まれるように修正。</p>
-<p>InputHook.KeyOpt()が単一文字で誤動作する可能性があったのを修正。</p>
+<p>InputHook.KeyOpt()が単一の文字で誤動作する可能性があったのを修正しました。</p>
 <ul>
 <li>オプションの削除は、対応するSCに影響を与えない可能性がある。</li>
 <li>オプションはsc000にも適用される可能性がある。</li>
@@ -197,7 +197,7 @@
 <p>メニュー追加で、メニュー挿入で追加された項目が上書きされるのを修正しました。</p>
 <strong>ランチャー</strong>
 <p>パラメータなしで実行した場合、ドキュメントの古いウェルカムページを表示する代わりにDashを実行します。</p>
-<p>バージョン選択GUIで、バージョンを選択せずにEnterキーを押すとエラーが発生する問題を修正。[PR UX/#4]</p>
+<p>バージョン選択GUIで、バージョンを選択せずにEnterキーを押すとエラーが発生する問題を修正しました。[PR UX/#4]</p>
 <p>不在のバージョンがダウンロード可能かどうかをチェックする際のエラーを抑制する。</p>
 <p>UACが無効になっている場合、UACシールドを表示しないよう、不在バージョンのダウンロードプロンプトを修正。</p>
 <p>#Requiresディレクティブの解釈に関する問題を修正しました。</p>
