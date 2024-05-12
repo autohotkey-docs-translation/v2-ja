@@ -30,21 +30,21 @@
   <dt>タイムアウト</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>省略した場合は、無期限に待機します。そうでなければ、指定された秒数以上待機することはありません。1 秒未満の時間で待機するには、浮動小数点数を指定します。たとえば最大 250 ミリ秒待機するときは、 0.25 と指定します。</p>
+    <p>省略した場合は、無期限に待機します。そうでなければ、指定された秒数以上待機することはありません。1秒未満の時間を待機するには、浮動小数点数を指定します。たとえば最大250ミリ秒待機するときは、0.25と指定します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>WinWaitActiveは、条件にマッチすればアクティブなウィンドウの<a href="../misc/WinTitle.htm#ahk_id">HWND（ユニークID）</a>を返し、関数がタイムアウトした場合は0を返す。</p>
-<p>WinWaitNotActiveは、アクティブなウィンドウが条件に一致しない場合は1を返し、関数がタイムアウトした場合は0を返す。</p>
+<p>WinWaitActiveは、条件にマッチすればアクティブなウィンドウの<a href="../misc/WinTitle.htm#ahk_id">HWND（ユニークID）</a>を返し、関数がタイムアウトしたときは0を返します。</p>
+<p>WinWaitNotActiveは、アクティブなウィンドウが条件に一致しないときは1を返し、関数がタイムアウトしたときは0を返します。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>アクティブウィンドウが関数の期待値を満たしている場合、関数は<em>タイムアウト</em>を待ちません。その代わり、スクリプトを再開できるように、即座にリターンする。</p>
-<p><code>"A"</code>はその時点でアクティブなウィンドウにマッチするので、<code>WinWaitNotActive "A"</code>は通常無期限に待つ。代わりに別のウィンドウがアクティブになるのを待つには、次の例のように一意のIDを指定する：</p>
+<p>アクティブウィンドウが関数の期待値を満たしている場合、関数は<em>タイムアウト</em>まで待ちません。その代わり、スクリプトを再開できるように、即座にリターンします。</p>
+<p><code>"A"</code>はその時点でアクティブなウィンドウにマッチするので、<code>WinWaitNotActive "A"</code>は通常無期限に待ちます。代わりに別のウィンドウがアクティブになるのを待つには、次の例のように一意のIDを指定します：</p>
 <pre>WinWaitNotActive WinExist("A")</pre>
-<p>Both WinWaitActive and WinWaitNotActive will update the <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a> if a matching window is active when the function begins or becomes active while the function is waiting.</p>
+<p>WinWaitActive関数とWinWaitNotActive関数は、どちらも関数の開始時に一致するウィンドウがアクティブである場合、または関数が待機している間にアクティブになった場合に、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>を更新します。</p>
 <p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
 
@@ -52,7 +52,7 @@
 <p><a href="WinWait.htm">WinWait</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、アクティブになるまで最大2秒待つ。WinWaitがタイムアウトした場合はエラーメッセージが表示され、そうでない場合はメモ帳が最小化される。</p>
+<p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、アクティブになるまで最大2秒待ちます。WinWait関数がタイムアウトしたときはエラーメッセージが表示され、そうでないときはメモ帳が最小化されます。</p>
 <pre>Run "notepad.exe"
 if WinWaitActive("Untitled - Notepad", , 2)
     WinMinimize <em>; Use the window found by WinWaitActive.</em>
