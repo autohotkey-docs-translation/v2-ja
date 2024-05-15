@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>PostMessage - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="PostMessage関数は、ウィンドウまたはコントロールのメッセージキューにメッセージを配置します。" />
@@ -27,7 +27,7 @@
   <dt>wParam, lParam</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If either is omitted, 0 will be sent. Otherwise, specify the first and second component of the message.</p>
+    <p>どちらかを省略したときは、0を送信します。そうでなければ、メッセージの1番目と2番目のコンポーネントを指定します。</p>
     <p>各パラメータは<a href="../Concepts.htm#numbers">整数</a>値でなければなりません。</p>
     <p>AutoHotkeyまたはターゲットウィンドウが32ビットの場合、パラメータの下位32ビットのみが使用されます。つまり、符号付き値の場合は-2147483648～2147483647（-0x80000000～0x7FFFFFFF）、符号なし値の場合は0～4294967295（0xFFFFFF）範囲外の場合は値が切り捨てられます。AutoHotkeyとターゲットウィンドウの両方が64ビットである場合、<a href="../Concepts.htm#pure-numbers">AutoHotkeyがサポートする</a>任意の整数値を使用することができます。</p>
   </dd>
@@ -35,7 +35,7 @@
   <dt>Control</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
-    <p>If omitted, the message will be posted directly to the target window rather than one of its controls. Otherwise, specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. 詳しくは<a href="Control.htm#Parameter">制御パラメータ</a>をご覧ください。</p>
+    <p>省略すると、メッセージはターゲットウィンドウの中のコントロールではなく、ウィンドウに直接ポストされます。そうでなければ、コントロールのClassNN、テキストまたはHWNDか、<code>Hwnd</code>プロパティを持つオブジェクトを指定します。詳しくは<a href="Control.htm#Parameter">制御パラメータ</a>をご覧ください。</p>
     <p>本パラメータでHWND（整数またはオブジェクト）を指定する場合、コントロール（子ウィンドウ）のHWNDであることは必須ではありません。つまり、トップレベルウィンドウのHWNDにもなり得るのです。</p>
   </dd>
 
@@ -55,18 +55,18 @@
 
 <h2 id="Remarks">備考</h2>
 <p>誤ったウィンドウにメッセージを送信したり、無効なメッセージを送信したりすると、予期せぬ動作が発生したり、ターゲットアプリケーションがクラッシュしたりする可能性があるため、この関数は慎重に使用しなければなりません。これは、ほとんどのアプリケーションが、外部ソースからのある種のメッセージを期待するように設計されていないためです。</p>
-<p>PostMessage places the message in the message queue associated with the target window and does not wait for acknowledgement or reply. 一方、<a href="SendMessage.htm">SendMessage</a>は、タイムアウト時間が経過するまで、ターゲットウィンドウがメッセージを処理するのを待ちます。</p>
+<p>PostMessageは、ターゲットウィンドウに関連付けられたメッセージキューにメッセージを配置し、受信確認または応答することをを待ちません。一方、<a href="SendMessage.htm">SendMessage</a>は、タイムアウト時間が経過するまで、ターゲットウィンドウがメッセージを処理するのを待ちます。</p>
 <p><a href="SendMessage.htm">SendMessage</a>とは異なり、PostMessageは通常、基本的な数値のみを送信し、構造体や文字列へのポインタは送信しません。</p>
 <p>非表示や無効になっているものも含め、システム内のすべてのウィンドウにメッセージを送るには、<em>WinTitleに</em> <code>0xFFFF</code>を指定します（0xFFFFはHWND_BROADCAST）。このテクニックは、放送を目的としたメッセージにのみ使用されるべきです。</p>
 <p>スクリプトにメッセージを受信させるには、<a href="OnMessage.htm">OnMessage</a>を使用します。</p>
-<p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」を参照してください。</p>
+<p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="SendMessage.htm">SendMessage</a>, <a href="../misc/SendMessageList.htm">Message List</a>, <a href="../misc/SendMessage.htm">Message Tutorial</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="../misc/Winamp.htm">Automating Winamp</a>, <a href="DllCall.htm">DllCall</a>, <a href="ControlSend.htm">ControlSend</a>, <a href="MenuSelect.htm">MenuSelect</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExSwitchKeybLang">
 <p><a class="ex_number" href="#ExSwitchKeybLang"></a> アクティブウィンドウのキーボードレイアウト/言語を英語（US）に切り替えます。</p>
-<pre>PostMessage 0x0050, 0, 0x4090409,, "A"  <em>; 0x0050 is WM_INPUTLANGCHANGEREQUEST.</em></pre>
+<pre>PostMessage 0x0050, 0, 0x4090409,, "A"  <em>; 0x0050はWM_INPUTLANGCHANGEREQUESTです。</em></pre>
 </div>
 
 </body>

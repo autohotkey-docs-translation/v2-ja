@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="en">
 <head>
 <title>SendMessage - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="SendMessage関数は、ウィンドウまたはコントロールにメッセージを送信し、確認応答を待ちます。" />
@@ -28,7 +28,7 @@
   <dt>wParam, lParam</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
-    <p>If either is omitted, 0 will be sent. Otherwise, specify the first and second component of the message.</p>
+    <p>どちらかを省略したときは、0を送信します。そうでなければ、メッセージの1番目と2番目のコンポーネントを指定します。</p>
     <p>各パラメータは、<a href="../Concepts.htm#numbers">整数</a>または<a href="Buffer.htm">Buffer</a>などの<a href="Buffer.htm#Ptr">Ptr</a>プロパティを持つオブジェクトでなければなりません。文字列へのポインタが必要なメッセージには、Bufferまたは<a href="StrPtr.htm">StrPtr</a>関数を使用します。SendMessageに変数のアドレスを渡して変数が含む文字列を変更した場合、その後<a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity(&amp;MyVar, -1)</a>を呼び出して変数の長さを更新する必要があります。</p>
     <p>AutoHotkeyまたはターゲットウィンドウが32ビットの場合、パラメータの下位32ビットのみが使用されます。つまり、符号付き値の場合は-2147483648～2147483647（-0x80000000～0x7FFFFFFF）、符号なし値の場合は0～4294967295（0xFFFFFF）範囲外の場合は値が切り捨てられます。AutoHotkeyとターゲットウィンドウの両方が64ビットである場合、<a href="../Concepts.htm#pure-numbers">AutoHotkeyがサポートする</a>任意の整数値を使用することができます。</p>
   </dd>
@@ -36,7 +36,7 @@
   <dt>Control</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
-    <p>If omitted, the message will be sent directly to the target window rather than one of its controls. Otherwise, specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. 詳しくは<a href="Control.htm#Parameter">制御パラメータ</a>をご覧ください。</p>
+    <p>If omitted, the message will be sent directly to the target window rather than one of its controls. そうでなければ、コントロールのClassNN、テキストまたはHWNDか、<code>Hwnd</code>プロパティを持つオブジェクトを指定します。詳しくは<a href="Control.htm#Parameter">制御パラメータ</a>をご覧ください。</p>
     <p>本パラメータでHWND（整数またはオブジェクト）を指定する場合、コントロール（子ウィンドウ）のHWNDであることは必須ではありません。つまり、トップレベルウィンドウのHWNDにもなり得るのです。</p>
   </dd>
 
@@ -79,7 +79,7 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 <p>非表示や無効になっているものも含め、システム内のすべてのウィンドウにメッセージを送るには、<em>WinTitleに</em> <code>0xFFFF</code>を指定します（0xFFFFはHWND_BROADCAST）。この手法は、次の例のように、放送を目的としたメッセージにのみ使用する必要があります：</p>
 <pre>SendMessage 0x001A,,,, 0xFFFF  <em>; 0x001A is WM_SETTINGCHANGE</em></pre>
 <p>スクリプトにメッセージを受信させるには、<a href="OnMessage.htm">OnMessage</a>を使用します。</p>
-<p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」を参照してください。</p>
+<p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="PostMessage.htm">PostMessage</a>, <a href="../misc/SendMessageList.htm">Message List</a>, <a href="../misc/SendMessage.htm">Message Tutorial</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="../misc/Winamp.htm">Automating Winamp</a>, <a href="DllCall.htm">DllCall</a>, <a href="ControlSend.htm">ControlSend</a>, <a href="MenuSelect.htm">MenuSelect</a></p>
