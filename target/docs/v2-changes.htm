@@ -1263,7 +1263,7 @@ catch Any
 <p>RegEx の改行マッチングのデフォルトは (*ANYCRLF) と (*BSR_ANYCRLF) で、`r`n に加えて `r と `n が認識されます。`a オプションは暗黙のうちに(*BSR_UNICODE)を有効にします。</p>
 <p>RegExのコールアウト関数が可変になりました。<code>pcre_callout</code>変数を介して指定されたコールアウトは、任意の呼び出し可能なオブジェクトであることができ、または<code>pcre_callout</code>自体は、関数（おそらく入れ子関数）として直接定義することができます。関数と変数の<a href="#scope">名前空間が統合</a>されたため、<code>(?C:fn)</code>のような呼び出しパターンは、ユーザー定義関数だけでなく、関数オブジェクトを含むローカル変数やグローバル変数も参照することができます。</p>
 <p>標準入力から読み込まれるスクリプト（例：<code>AutoHotkey.exe *</code>）は、<a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a>やメインウィンドウのタイトルに初期作業ディレクトリを含めなくなりましたが、<a href="Variables.htm#ScriptDir">A_ScriptDir</a>として、またローカルLibフォルダを探すために使用されます。</p>
-<p>Settings changed by the <a href="Scripts.htm#auto">auto-execute thread</a> now become the default settings immediately (for threads launched after that point), rather than after 100&nbsp;ms and then again when the auto-execute thread finishes.</p>
+<p><a href="Scripts.htm#auto">自動実行スレッド</a>によって変更された設定は、100ミリ秒後に自動実行スレッドが終了したときに再び開始されるのではなく、その時点以降に起動されたスレッドの場合、すぐに既定の設定になります。</p>
 <p>ダイナミックアロケーションを活用することで、以下の制限を解除しました：</p>
 <ul>
 <li>行または継続部分の最大長は16,383文字です。</li>
@@ -1303,7 +1303,7 @@ MAX_TOKENSに基づいてサイズ設定されていた式評価器内部の配�
 <li>#Persistent を使用しました。</li>
 </ul>
 <h3 id="threads">スレッド</h3>
-<p><a href="misc/Threads.htm">Threads</a> start out with an uninterruptible timeout of 17&nbsp;ms instead of 15&nbsp;ms. システムのティックカウントは最小15または16のステップで更新されるため、15は低すぎます。つまり、ティックカウントが正確に間違ったタイミングで更新されると、実質的に時間が経過していないにもかかわらず、スレッドが中断される可能性があります。</p>
+<p><a href="misc/Threads.htm">スレッド</a>は、15ミリ秒ではなく17ミリ秒の中断不能タイムアウトで始まります。システムのティックカウントは最小15または16のステップで更新されるため、15は低すぎます。つまり、ティックカウントが正確に間違ったタイミングで更新されると、実質的に時間が経過していないにもかかわらず、スレッドが中断される可能性があります。</p>
 <p>スレッドが中断されずにスタートした場合、中断されないタイムアウトが先に切れても、少なくとも1行が実行されるまで中断されないようになりました（例えば、スレッドがスタートした直後に、他のプロセスにCPU時間を与えるために、システムがプロセスを中断した場合）。</p>
 <p><a href="lib/_MaxThreads.htm">#MaxThreads</a>と <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>は、最初の行が以下の関数のいずれかであるサブルーチンの例外を作らないようになりました：<a href="lib/ExitApp.htm">ExitApp</a>, <a href="lib/Pause.htm">Pause</a>, <a href="lib/Edit.htm">Edit</a>, <a href="lib/Reload.htm">Reload</a>, <a href="lib/KeyHistory.htm">KeyHistory</a>, <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/ListVars.htm">ListVars</a>, または <a href="lib/ListHotkeys.htm">ListHotkeys</a>.</p>
 <h3 id="default-settings">デフォルトの設定</h3>
@@ -1319,17 +1319,17 @@ MAX_TOKENSに基づいてサイズ設定されていた式評価器内部の配�
 <li id="MaxMem">#MaxMem が削除され、可変容量に人為的な制限がかからなくなりました。</li>
 </ul>
 <h3 id="default-script">デフォルトのスクリプト</h3>
-<p>When an AutoHotkey program file (such as AutoHotkey32.exe or AutoHotkey64.exe) is launched without specifying a script file, it no longer searches the user's Documents folder for a <a href="Scripts.htm#defaultfile">default script file</a>.</p>
-<p>AutoHotkey is not intended to be used by directly launching the program file, except when using a <a href="Program.htm#portability">portable copy</a>. Instead of running the program file, you should generally <a href="Program.htm#run">run an .ahk file</a>.</p>
-<p>If you are creating a shortcut to a specific program file, you can append a space and the path of a script (generally enclosed by quote marks) to the shortcut's target.</p>
+<p>スクリプトファイルを指定せずにAutoHotkey32.exeやAutoHotkey64.exeなどの実行ファイルを起動しても、ユーザーのドキュメントフォルダーで<a href="Scripts.htm#defaultfile">既定のスクリプトファイル</a>を検索することがなくなりました。</p>
+<p><a href="Program.htm#portability">ポータブルコピー</a>を使用する場合を除いて、AutoHotkeyは実行ファイルを直接起動して使用することを意図していません。通常、実行ファイルを起動する代わりに、拡張子が<a href="Program.htm#run">.ahk</a>のファイルを実行します。</p>
+<p>特定の実行ファイルへのショートカットを作成するときは、ショートカットのターゲットにスペースとスクリプトのパス（通常は引用符で囲まれています）を追加できます。</p>
 <h3 id="command-line">コマンドライン</h3>
 <p>コマンドラインの引数は、番号付きグローバル変数の擬似配列に格納されなくなりました。代わりにグローバル変数<a href="Variables.htm#Args">A_Args</a>（v1.1.27で追加）を使用する必要があります。</p>
 <p>Rと/Fのスイッチは削除されました。代わりに/restartと/forceを使用してください。</p>
 <p>関数ライブラリの自動インクルード機構が削除されたため、AutoHotkey.exeを使用してスクリプトの構文エラーをチェックする場合、/iLibの代わりに/validateを使用する必要があります。</p>
 <p>以下のいずれかの場合、/ErrorStdOut は組み込みではなく、スクリプトのパラメータの1つとして扱われるようになりました：</p>
 <ul>
-<li>スクリプトがコンパイルされるとき、/script が使用されていない限り。</li>
-<li>接尾辞が<code>=</code>で始まらない場合（従来は無視されていました）。</li>
+<li>/scriptが使われていない場合に限り、スクリプトをコンパイルするとき。</li>
+<li>接尾辞が<code>=</code>で始まらないとき。従来は接尾辞は無視されていました。</li>
 </ul>
 
 </body>
