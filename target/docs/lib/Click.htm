@@ -19,8 +19,8 @@
 <dl>
   <dt>Options</dt>
   <dd>
-    <p>Specify one or more of the following components: <var>Coords</var>, <var>WhichButton</var>, <var>ClickCount</var>, <var>DownOrUp</var> and/or <var>Relative</var>. If all components are omitted, a single left click is performed at the mouse cursor's current position.</p>
-    <p>The components may be spread across multiple parameters or combined into one or more strings. Each parameter may be either a single numeric component or a string containing zero or more components, where each component is separated from the next with at least one space, tab and/or comma (all within the string). For example, <code>Click 100, 200, "R D"</code> is equivalent to <code>Click "100 200 R D"</code> and both are valid. Parameters that are blank or omitted are ignored, as are extra commas.</p>
+    <p>次の要素のうち、1つ以上を指定してください。<var>Coords</var>, <var>WhichButton</var>, <var>ClickCount</var>, <var>DownOrUp</var> and/or <var>Relative</var>. 全ての要素を省略すると、カーソルの現在地で左クリックします。</p>
+    <p>The components may be spread across multiple parameters or combined into one or more strings. Each parameter may be either a single numeric component or a string containing zero or more components, where each component is separated from the next with at least one space, tab and/or comma (all within the string). 例えば、<code>Click 100, 200, "R D"</code>は、<code>Click "100 200 R D"</code>と同義で、いずれも動作します。Parameters that are blank or omitted are ignored, as are extra commas.</p>
     <p class="warning"><strong>Warning:</strong> <code>Click 100 200</code> would be equivalent to <code>Click "100200"</code>, as the two numbers would be <a href="../Variables.htm#concat">concatenated</a> before the function is called.</p>
     <p>The components can appear in any order except <var>ClickCount</var>, which must occur somewhere to the right of <var>Coords</var>, if present.</p>
     <p><strong>Coords:</strong> If omitted, the cursor's current position is used. Otherwise, specify the X and Y coordinates to which the mouse cursor is moved prior to clicking. 例えば、<code>Click "100 200"</code>は、マウスの左ボタンを特定の位置でクリックすることができます。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
@@ -37,7 +37,7 @@
 <p>Shift-ClickやControl-Clickを行うには、一般的に<a href="Send.htm#Click">Send経由のクリック</a>が最も簡単です。事例：</p>
 <pre>Send "+{Click 100 200}"  <em>; Shift+LeftClick</em>
 Send "^{Click 100 200 Right}"  <em>; Control+RightClick</em></pre>
-<p>クリック機能は、<a href="Send.htm">送信</a>とは異なり、修飾キー（Ctrl、Alt、Shift、Win）を自動的に解除することはありません。例えば、現在<kbd>Ctrl</kbd>が押されている場合、<code>Click</code>はコントロールクリックになりますが、<code>Send "{Click}"</code>は通常のクリックになります。</p>
+<p><a href="Send.htm">Send</a>関数と違って、Click関数は修飾キー（Ctrl、Alt、Shift、Win）を自動的に解除することはありません。例えば、現在<kbd>Ctrl</kbd>が押されている場合、<code>Click</code>はコントロールクリックになりますが、<code>Send "{Click}"</code>は通常のクリックになります。</p>
 <p><a href="SendMode.htm">SendPlayモード</a>は、他のモードに比べ、より幅広いゲームにおいてマウスイベントを正常に発生させることができます。また、アプリケーションやゲームによっては、マウスの動きが速すぎると追従できない場合があります。その場合は、<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>を使用して速度を下げることができます（ただし、<a href="SendMode.htm">SendEventモード</a>時のみ）。</p>
 <p><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーによる物理的なマウス操作が、マウス関数によって生成されるシミュレーションマウスイベントを妨害することを防ぐことができます。ただし、<a href="SendMode.htm">SendInput</a>と <a href="SendMode.htm">SendPlay</a>モードでは、ユーザーの物理的なマウス操作を自動的に後回しにするため、一般にこの操作は必要ありません。</p>
 <p>マウスのクリックダウンとクリックアップのたびに、自動的に遅延が発生します（<a href="SendMode.htm">SendInputモード</a>とマウスホイールを回す場合を除く）。ディレイの長さを変更する場合は、<a href="SetMouseDelay.htm">SetMouseDelay</a>を使用します。</p>
