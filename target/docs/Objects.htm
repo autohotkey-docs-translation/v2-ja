@@ -76,7 +76,7 @@ For value in MyArray
     MsgBox "Item " A_Index " is '" value "'"
 </pre>
 
-<h3 id="Usage_Associative_Arrays">Maps (Associative Arrays)</h3>
+<h3 id="Usage_Associative_Arrays">Maps（連想配列）</h3>
 <p><a href="lib/Map.htm">Map</a>または連想配列は、一意のキーと値のコレクションを含むオブジェクトで、各キーは1つの値と関連付けられています。キーは文字列、整数、オブジェクトのいずれでもよく、値はどのような型でもよい。連想配列は次のようにして作ることができる：</p>
 <pre>MyMap := Map("KeyA", ValueA, "KeyB", ValueB, ..., "KeyZ", ValueZ)</pre>
 <p>項目を取得する。<code>キー</code>は <a href="Concepts.htm#variables">変数</a>または<a href="Language.htm#expressions">式</a>：</p>
@@ -123,12 +123,12 @@ MsgBox pair.key</pre>
 
 <h3 id="Usage_Freeing_Objects">オブジェクトの解放</h3>
 <p>スクリプトは明示的にオブジェクトを解放しない。オブジェクトへの最後の参照が解放されると、オブジェクトは自動的に解放される。変数に格納された参照は、その変数に他の値が代入されると自動的に解放される。事例：</p>
-<pre>obj := {}  <em>; Creates an object.</em>
-obj := ""  <em>; Releases the last reference, and therefore frees the object.</em></pre>
+<pre>obj := {}  <em>;  オブジェクトを生成します。</em>
+obj := ""  <em>;  最後の参照を解放します。つまり、オブジェクトを破棄します。</em></pre>
 <p>同様に、プロパティや配列要素に格納された参照は、そのプロパティや配列要素に他の値が割り当てられたり、オブジェクトから削除されたりすると解放される。</p>
 <pre>arr := [{}]  <em>; オブジェクトを含んだ配列を作ります。</em>
-arr[1] := {}  <em>; Creates a second object, implicitly freeing the first object.</em>
-arr.RemoveAt(1)  <em>; Removes and frees the second object.</em></pre>
+arr[1] := {}  <em>; 2番目のオブジェクトを生成します。黙示的に最初のオブジェクトを破棄します。</em>
+arr.RemoveAt(1)  <em>; 2番目のオブジェクトを破棄します。</em></pre>
 <p id="Circular_References">オブジェクトを解放する前に、オブジェクトへの参照をすべて解放しなければならないので、循環参照を含むオブジェクトは自動的に解放されない。例えば、<code>x.child</code>が <code>y</code>を参照し、<code>y.parent</code>が <code>x</code>を参照している場合、<code>x</code>と <code>y</code>をクリアするだけでは不十分である。この状況を解決するには、循環参照を削除する。</p>
 <pre>
 x := {}, y := {}             <em>; Create two objects.</em>

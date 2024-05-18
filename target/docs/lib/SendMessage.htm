@@ -67,7 +67,7 @@
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ウィンドウまたはコントロールが見つからないときは、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
 <p>メッセージがタイムアウトした場合、<a href="Error.htm#TimeoutError">TimeoutError</a>が投げられます。</p>
-<p>An <a href="Error.htm#OSError">OSError</a> is thrown if the message could not be sent. 例えば、ターゲットウィンドウがスクリプトよりも高い整合性レベルで実行されている場合（スクリプトは管理者として実行されているが、スクリプトはそうではない）、メッセージがブロックされることがあります。</p>
+<p>メッセージが送信できなかったときは、<a href="Error.htm#OSError">OSError</a>がスローされます。例えば、ターゲットウィンドウがスクリプトよりも高い整合性レベルで実行されている場合（スクリプトは管理者として実行されているが、スクリプトはそうではない）、メッセージがブロックされることがあります。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>誤ったウィンドウにメッセージを送信したり、無効なメッセージを送信したりすると、予期せぬ動作が発生したり、ターゲットアプリケーションがクラッシュしたりする可能性があるため、この関数は慎重に使用しなければなりません。これは、ほとんどのアプリケーションが、外部ソースからのある種のメッセージを期待するように設計されていないためです。</p>
@@ -75,9 +75,9 @@
 <p>文字列パラメータは、<a href="StrPtr.htm">アドレス</a>で渡す必要があります。事例：</p>
 <pre>ListVars
 WinWaitActive "ahk_class AutoHotkey"
-SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre>
+SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000CはWM_SETTEXTです。</em></pre>
 <p>非表示や無効になっているものも含め、システム内のすべてのウィンドウにメッセージを送るには、<em>WinTitleに</em> <code>0xFFFF</code>を指定します（0xFFFFはHWND_BROADCAST）。この手法は、次の例のように、放送を目的としたメッセージにのみ使用する必要があります：</p>
-<pre>SendMessage 0x001A,,,, 0xFFFF  <em>; 0x001A is WM_SETTINGCHANGE</em></pre>
+<pre>SendMessage 0x001A,,,, 0xFFFF  <em>; 0x001AはWM_SETTINGCHANGEです。</em></pre>
 <p>スクリプトにメッセージを受信させるには、<a href="OnMessage.htm">OnMessage</a>を使用します。</p>
 <p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」をご覧ください。</p>
 
@@ -88,7 +88,7 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000C is WM_SETTEXT</em></pre
 
 <div class="ex" id="ExMonitorPower">
 <p><a class="ex_number" href="#ExMonitorPower"></a> ホットキーでモニターをオフにします。In the SendMessage line, replace the number 2 with -1 to turn on the monitor, or replace it with 1 to activate the monitor's low-power mode.</p>
-<pre>#o::  <em>; Win+O hotkey</em>
+<pre>#o::  <em>; Win+O</em>
 {
     Sleep 1000  <em>; Give user a chance to release keys (in case their release would wake up the monitor again).
 ; Turn Monitor Off:</em>

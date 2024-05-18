@@ -22,13 +22,13 @@
   <dt>&amp;OutX, &amp;OutY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>省略したときは、対応する値は保存されません。Otherwise, specify references to the output variables in which to store the X and Y coordinates of the client area's upper left corner.</p>
+    <p>省略したときは、対応する値は保存されません。そうでないときは、クライアント領域の左上隅のX座標とY座標を格納する出力変数への参照を指定します。</p>
   </dd>
 
   <dt>&amp;OutWidth, &amp;OutHeight</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>省略したときは、対応する値は保存されません。Otherwise, specify references to the output variables in which to store the width and height of the client area.</p>
+    <p>省略したときは、対応する値は保存されません。そうでないときは、クライアント領域の幅と高さを格納する出力変数への参照を指定します。</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
@@ -45,9 +45,9 @@
 <p>ウィンドウが見つからないときは、<a href="Error.htm#TargetError">TargetError</a>がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>クライアント・エリアはウィンドウの一部で、コントロールを含むことができる。ウィンドウのタイトルバー、メニュー（標準のものがある場合）、ボーダーは除外されます。クライアントエリアの位置とサイズは、<a href="WinGetPos.htm">WinGetPos</a>が返す値よりもOSのバージョンやテーマに依存しない。</p>
-<p>If <em>WinTitle</em> is <code>"Program Manager"</code>, the function will retrieve the size of the desktop, which is usually the same as the current screen resolution.</p>
-<p>最小化されたウィンドウには、位置とサイズが残ります。The values returned in this case may vary depending on OS and configuration, but are usually -32000 for the X and Y coordinates and zero for the width and height.</p>
+<p>クライアント領域はウィンドウの一部で、コントロールを含むことができます。ウィンドウのタイトルバー、メニュー（標準のものがある場合）、ボーダーは除外されます。クライアント領域の位置とサイズは、<a href="WinGetPos.htm">WinGetPos</a>が返す値よりもOSのバージョンやテーマに依存しません。</p>
+<p><em>WinTitle</em>が<code>"Program Manager"</code> のときは、この関数はデスクトップのサイズを取得します。通常、これは現在の画面解像度と同じです。</p>
+<p>最小化されたウィンドウは、位置とサイズを保持しています。この場合に返す値はOSや設定によりますが、通常はXとY座標が-32000、幅と高さが0です。</p>
 <p>マウスが現在カーソルを置いているウィンドウとコントロールの名前を知るには、<a href="MouseGetPos.htm">MouseGetPos</a>を使います。</p>
 <p>DPI設定が異なる複数のスクリーンを持つシステムでは、<a href="../misc/DPIScaling.htm">OSのDPIスケーリング</a>により、返される位置やサイズが予想と異なる場合があります。</p>
 
@@ -56,19 +56,19 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> 電卓のクライアント領域の位置とサイズを取得して報告する。</p>
+<p><a class="ex_number" href="#ExBasic"></a> 電卓のクライアント領域の位置とサイズを取得して報告します。</p>
 <pre>WinGetClientPos &amp;X, &amp;Y, &amp;W, &amp;H, "Calculator"
 MsgBox "Calculator's client area is at " X "," Y " and its size is " W "x" H</pre>
 </div>
 
 <div class="ex" id="ExA">
-<p><a class="ex_number" href="#ExA"></a> アクティブウィンドウのクライアント領域の位置を取得し、報告する。</p>
+<p><a class="ex_number" href="#ExA"></a> アクティブウィンドウのクライアント領域の位置を取得して報告します。</p>
 <pre>WinGetClientPos &amp;X, &amp;Y,,, "A"
 MsgBox "The active window's client area is at " X "," Y</pre>
 </div>
 
 <div class="ex" id="ExLastFound">
-<p><a class="ex_number" href="#ExLastFound"></a> メモ帳が存在する場合は、そのクライアント領域の位置を取得して報告する。</p>
+<p><a class="ex_number" href="#ExLastFound"></a> メモ帳が存在するときは、そのクライアント領域の位置を取得して報告します。</p>
 <pre>if WinExist("Untitled - Notepad")
 {
     WinGetClientPos &amp;Xpos, &amp;Ypos <em>;  WinExist関数で見つかったウィンドウを使用します。</em>
