@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Shutdown - Syntax &amp; Usage | AutoHotkey v2</title>
+<meta name="description" content="The Shutdown function shuts down, restarts, or logs off the system." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>Shutdown</h1>
+
+<p>Shuts down, restarts, or logs off the system.</p>
+
+<pre class="Syntax"><span class="func">Shutdown</span> Flag</pre>
+<h2 id="Parameters">Parameters</h2>
+<dl>
+
+  <dt>Flag</dt>
+  <dd>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>A combination (sum) of the following numbers:</p>
+    <ul>
+      <li>0 = Logoff</li>
+      <li>1 = Shutdown</li>
+      <li>2 = Reboot</li>
+      <li>4 = Force</li>
+      <li>8 = Power down</li>
+    </ul>
+    <p>Add the required values together. For example, to shutdown and power down the flag would be 9 (shutdown + power down = 1 + 8 = 9).</p>
+    <p>The "Force" value (4) forces all open applications to close. It should only be used in an emergency because it may cause any open applications to lose data.</p>
+    <p>The "Power down" value (8) shuts down the system and turns off the power.</p>
+  </dd>
+
+</dl>
+
+<h2 id="Remarks">Remarks</h2>
+<p>To have the system suspend or hibernate, see <a href="#ExSuspend">example #2</a> at the bottom of this page.</p>
+<p>To turn off the monitor, see <a href="SendMessage.htm#ExMonitorPower">SendMessage example #1</a>.</p>
+<p>On a related note, a script can detect when the system is shutting down or the user is logging off via <a href="OnExit.htm">OnExit</a>.</p>
+<h2 id="Related">Related</h2>
+<p><a href="Run.htm">Run</a>, <a href="ExitApp.htm">ExitApp</a>, <a href="OnExit.htm">OnExit</a></p>
+<h2 id="Examples">Examples</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> Forces a reboot (reboot + force = 2 + 4 = 6).</p>
+<pre>Shutdown 6</pre>
+</div>
+
+<div class="ex" id="ExSuspend">
+<p><a class="ex_number" href="#ExSuspend"></a> Calls the Windows API function "SetSuspendState" to have the system suspend or hibernate. Note that the second parameter may have no effect at all on newer systems.</p>
+<pre><em>; Parameter #1: Pass 1 instead of 0 to hibernate rather than suspend.
+; Parameter #2: Pass 1 instead of 0 to suspend immediately rather than asking each application for permission.
+; Parameter #3: Pass 1 instead of 0 to disable all wake events.</em>
+DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)</pre>
+</div>
+
+</body>
+</html>
