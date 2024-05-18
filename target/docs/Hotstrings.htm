@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <title>ホットストリング - 定義と使用法｜AutoHotkey v2</title>
-<meta name="description" content="ホットストリング全般、末尾文字、オプション、長い置換、文脈依存型ホットストリング、関数ホットストリングなどについての詳細を説明します。" />
+<meta name="description" content="ホットストリング全般、エンディングキャラクター、オプション、ロングリプレイスメント、文脈依存型ホットストリング、関数ホットストリングなどについての詳細を説明します。" />
 <meta name="keywords" content="自動置換、自動テキスト、自動修正、自動テキスト、自動修正、略語展開、略語、自動置換、自動置換、テキスト、エキスパンダー、無料、タイプ、タイピング、単語、言葉">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,8 +19,8 @@
   <li><a href="#EndChars">エンディングキャラクター</a></li>
   <li><a href="#Options">Options</a></li>
   <li><a href="#continuation">ロングリプレイスメント</a></li>
-  <li><a href="#variant">コンテキストに応じたホットストリング</a></li>
-  <li><a href="#AutoCorrect">オートコレクト</a></li>
+  <li><a href="#variant">文脈依存型ホットストリング</a></li>
+  <li><a href="#AutoCorrect">自動修正</a></li>
   <li><a href="#remarks">備考</a></li>
   <li><a href="#Function">名前付き関数ホットストリング</a></li>
   <li><a href="#Helper">ホットストリングヘルパー</a></li>
@@ -30,41 +30,41 @@
 <p>ホットストリングは、主に略語を入力しながら展開する（自動置換）ために使用されますが、任意のスクリプトアクションを起動するためにも使用することができます。この点では、一般的に複数の文字（つまり文字列）で構成されていることを除けば、<a href="Hotkeys.htm">ホットキー</a>と似ています。</p>
 <p>ホットストリングを定義するには、次の例のように、トリガーとなる略語をコロンのペアで囲みます。</p>
 <pre>::btw::by the way</pre>
-<p>上記の例では、btwという略語を入力すると、自動的に「by the way」に置き換えられます（ただし、デフォルトではbtwを入力した後に、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などの<a href="#EndChars">終了文字</a>を入力する必要があります）。</p>
-<p id="auto">上記の「by way」の例は、入力されたテキストが自動的に消去され、2つ目のコロンの後に指定された文字列に置き換えられるため、自動置き換えホットストリングとして知られています。これに対して、ホットストリングは、以下の例のように、任意のカスタムアクションを実行するように定義することもできる。Note that the <a href="Concepts.htm#statement">statements</a> must appear <u>beneath</u> the abbreviation within the hotstring's <a href="Functions.htm">function body</a>:</p>
+<p>上記の例では、btwという略語を入力すると、自動的に「by the way」に置き換えられます（ただし、デフォルトではbtwを入力した後に、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などの<a href="#EndChars">エンディングキャラクター</a>を入力する必要があります）。</p>
+<p id="auto">上記の「by way」の例は、入力されたテキストが自動的に消去されて2つ目のコロンの後に指定された文字列に置き換えられるため、自動置き換えホットストリングとして知られています。これに対して、ホットストリングは以下の例のように任意のカスタムアクションを実行するように定義することもできます。<a href="Concepts.htm#statement">ステートメント</a>は、ホットストリングの<a href="Functions.htm">関数本体</a>の略語の<u>下に</u>記述する必要があることに注意してください。</p>
 <pre>::btw::
 {
     MsgBox 'You typed "btw".'
 }
 
-:*:]d::  <em>; This hotstring replaces "]d" with the current date and time via the statement below.</em>
+:*:]d::  <em>; このホットストリングは、以下のステートメントで”]d"を現在の日付と時刻に置き換えます。</em>
 {
-    Send <a href="lib/FormatTime.htm">FormatTime</a>(, "M/d/yyyy h:mm tt")  <em>; It will look like 9/1/2005 3:53 PM</em>
+    Send <a href="lib/FormatTime.htm">FormatTime</a>(, "M/d/yyyy h:mm tt")  <em>; "9/1/2005 3:53 PM"のように表示されます。</em>
 }</pre>
-<p>In the above, the braces serve to define a function body for each hotstring. The opening brace may also be specified on the same line as the double-colon to support the <a href="lib/Block.htm#otb">OTB (One True Brace) style</a>.</p>
+<p>上記では、中括弧は各ホットストリングの関数本体を定義する役割を果たします。左中括弧は、<a href="lib/Block.htm#otb">OTB (One True Brace) スタイル</a>をサポートするために、二重コロンと同じ行に指定することもできます。</p>
 <p>上の2つの例は自動置換ホットストリングでないにもかかわらず、入力した略語はデフォルトで消去されます。これは自動バックスペースによって行われますが、<a href="#b0">b0オプション</a>によって無効にすることができます。</p>
 <p id="ThisHotkey">ホットストリングがトリガーされると、ホットストリングの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンを除いたものです）。事例：</p>
-<pre>:X:btw::MsgBox ThisHotkey  <em>; レポート :X:btw</em></pre>
+<pre>:X:btw::MsgBox ThisHotkey  <em>; メッセージボックスに":X:btw"と表示されます。</em></pre>
 <p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
 
 <h2 id="EndChars">エンディングキャラクター</h2>
-<p><a href="#Asterisk">アスタリスクオプション</a>が有効でない限り、ホットストリングの略語の後に<em>終了文字</em>を入力しないと発動しません。エンディングキャラクターは、当初は以下のような構成になっています。<strong>-()[]{}':;"/\,.?!`n`s`t</strong> (note that `n is <kbd>Enter</kbd>, `s is <kbd>Space</kbd>, and `t is <kbd>Tab</kbd>). This set of characters can be changed by editing the following example, which sets the new ending characters for <u>all</u> hotstrings, not just the ones beneath it:</p>
+<p><a href="#Asterisk">アスタリスクオプション</a>が有効でない限り、ホットストリングの後に<em>エンディングキャラクター</em>を入力しないと発動しません。エンディングキャラクターは、当初は以下のような構成になっています。<strong>-()[]{}':;"/\,.?!`n`s`t</strong>（`nは<kbd>Enter</kbd>、`sは<kbd>Space</kbd>、`tは<kbd>Tab</kbd>です。この文字セットは、次の例を編集して変更することができます。新しいエンディングキャラクターは、設定した行以降だけでなく<u>すべての</u>ホットストリングに適用されます。</p>
 <pre>#Hotstring EndChars -()[]{}:;'"/\,.?!`n`s`t</pre>
-<p>スクリプトの実行中に、以下のように<a href="lib/Hotstring.htm">Hotstring</a>関数を呼び出して、終了文字を変更することができます。</p>
+<p>以下のように<a href="lib/Hotstring.htm">ホットストリング&lt;/a&gt;関数を呼び出して、スクリプトの実行中にエンディングキャラクターを変更することができます。</p>
 <pre>Hotstring("EndChars", "-()[]{}:;")</pre>
 
 <h2 id="Options">Options</h2>
 <p>ホットストリングのデフォルトの動作は、2つの方法で変更することが可能です。</p>
 <ol>
   <li>スクリプトのそのポイントより物理的に下のすべてのホットストリングに影響を与える<a href="lib/_Hotstring.htm">#Hotstring</a>ディレクティブです。次の例では、CとRのオプションを有効にしています。<code>#Hotstring <strong>c r</strong></code>.</li>
-  <li>ホットストリングの最初のコロンのペアの中にオプションを入れる。The following example puts the C and * options (case-sensitive and "ending character not required") into effect for a single hotstring:<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
+  <li>ホットストリングの最初のコロンのペアの間にオプションを挟みます。次の例では、Cと*オプション（大文字と小文字が区別され、"エンディングキャラクターは不要"）をこのホットストリングのみに対して有効にします。<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
 </ol>
-<p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定する場合、オプションの間にスペースを任意に含めることができる。</p>
-<p id="Asterisk"><strong>*</strong> (asterisk):ホットストリングのトリガーには、終了文字（<kbd>スペース</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>など）は必要ありません。事例：</p>
+<p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定するときは、オプションの間にスペースを任意に含めることができます。</p>
+<p id="Asterisk"><strong>*</strong>（アスタリスク）:ホットストリングのトリガーには、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などのエンディングキャラクターは必要ありません。事例：</p>
 <pre>:*:j@::jsmith@somedomain.com</pre>
-<p>上の例では、@を入力した瞬間にその置換を送信することになります。<a href="lib/_Hotstring.htm">#Hotstring directive</a>を使用する場合、このオプションをオフに戻すには<strong>*0</strong>を使用します。</p>
-<p id="Question"><strong>?</strong> (question mark):ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
-<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。プレーン<strong>B</strong>を使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>バックスペース</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできる。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
+<p>上の例では、@を入力した瞬間に置換する文字列（jsmith@somedomain.com）を送信します。<a href="lib/_Hotstring.htm">#Hotstringディレクティブ</a>を使用するときは、このオプションをオフに戻すには<strong>*0</strong>を使用します。</p>
+<p id="Question"><strong>?</strong>（クエスチョンマーク）:ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
+<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。単に<strong>B</strong>だけをオプションに使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>バックスペース</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできます。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
 <pre>:*b0:&lt;em&gt;::&lt;/em&gt;{left 5}</pre>
 <p id="C"><strong>C:</strong> Case-sensitive:略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
 <p id="C1"><strong>C1:</strong> Do not conform to typed case. Use this option to make <a href="#auto">auto-replace hotstrings</a> case-insensitive and prevent them from conforming to the case of the characters you actually type. 大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
@@ -104,14 +104,14 @@
 デフォルトでは、この行の左側のインデント（タブ）が保持されます。
 )</pre>
 <p>これらのデフォルトの動作を変更する方法については、<a href="Scripts.htm#continuation">続きのセクション</a>を参照してください。また、継続セクションがあると、ホットストリングのデフォルトが<a href="#T">テキスト</a>モードになります。この特別なデフォルトを上書きする唯一の方法は、継続セクションを持つ各ホットストリングで反対側のオプションを指定することです（例えば、<code>:t0:text1::</code> or <code>:r:text2::</code>など）。</p>
-<h2 id="variant">コンテキストに応じたホットストリング</h2>
+<h2 id="variant">文脈依存型ホットストリング</h2>
 <p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用することで、選択したホットストリングをコンテキストセンシティブにすることができます。このようなホットストリングは、アクティブなウィンドウの種類などの条件によって、異なる置換を送信したり、異なるアクションを実行したり、まったく何もしなかったりします。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 ::btw::This replacement text will appear only in Notepad.
 #HotIf
 ::btw::This replacement text appears in windows other than Notepad.</pre>
 
-<h2 id="AutoCorrect">オートコレクト</h2>
+<h2 id="AutoCorrect">自動修正</h2>
 <p>以下のスクリプトは、ホットストリングを使用して、一般的な英語のスペルミス約4700個をその場で修正します。また、<kbd>Win</kbd>+<kbd>H</kbd>のホットキーを搭載しているので、より多くの誤字脱字を簡単に追加することができます。</p>
 <p>ダウンロード:<a href="https://www.autohotkey.com/download/AutoCorrect.ahk">AutoCorrect.ahk</a> (127 KB)</p>
 <p>著者:<a href="http://www.biancolo.com/blog/autocorrect/">Jim Biancolo</a>と <a href="https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings">ウィキペディアのよくある誤字脱字リスト</a></p>
