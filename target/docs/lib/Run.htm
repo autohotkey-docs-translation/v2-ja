@@ -91,8 +91,8 @@ catch
 <p>Run<code>"C:゙My DocumentsTest.txt "</code>よりも<code>Run 'C:゙WindowsNotepad.exe "C:゙My DocumentsTest.txt"</code>のように<em>Target</em>が完全パスであればパフォーマンスは若干向上するかもしれません。</p>
 <p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell:prefix. Some can be opened without it. 事例：</p>
 <pre>Run "shell:::{D20EA4E1-3957-11D2-A40B-0C5020524153}"  <em>; Windows Tools.</em>
-Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; This PC (formerly My Computer or Computer).</em>
-Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; Recycle Bin.</em></pre>
+Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; PC（従来のマイコンピュータまたはコンピュータ）</em>
+Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
 <p id="verbs">システム動詞は、エクスプローラーのファイルの右クリックメニューで利用できるアクションに対応しています。動詞を指定せずにファイルを起動した場合、そのファイルタイプのデフォルトの動詞（通常は「open」）が使用されます。指定された場合、動詞の後にターゲットファイル名が続くようにする。現在、以下の動詞に対応しています：</p>
 <table class="info">
   <tr>
@@ -107,7 +107,7 @@ Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; Recycle Bin.</em></pre>
     <td>properties</td>
     <td>
       <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。事例：<code>Run 'properties "C:\My File.txt"'</code></p>
-      <p class="note"><strong>Note:</strong> The properties window will automatically close when the script terminates. これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
+      <p class="note"><strong>注：</strong> プロパティウィンドウはスクリプトが終了すると自動的に閉じます。これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
     </td>
   </tr>
   <tr>
@@ -133,7 +133,7 @@ Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; Recycle Bin.</em></pre>
 </table>
 <p>RunWaitが待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>を使って新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 
-<h2 id="RunAs">Run as Administrator</h2>
+<h2 id="RunAs">管理者として実行</h2>
 <p>実行ファイルの場合、<em>*RunAs</em>動詞は、そのファイルの右クリックメニューから「<em>管理者として実行</em>」を選択することと同じです。例えば、次のコードは、現在のスクリプトをadminとして再起動しようとするものです：</p>
 <pre>full_command_line := DllCall("GetCommandLine", "str")
 
@@ -150,7 +150,7 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 }
 
 MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
-<p>If the user cancels the <a href="https://en.wikipedia.org/wiki/User_Account_Control">User Account Control (UAC)</a> dialog or Run fails for some other reason, the script will simply exit.</p>
+<p>ユーザーが<a href="https://en.wikipedia.org/wiki/User_Account_Control">ユーザーアカウント制御（UAC）</a>ダイアログをキャンセルしたとき、またはその他の理由で実行に失敗したときは、スクリプトは終了します。</p>
 <p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
 <p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
 <p>この例は、スクリプトの必要性に応じて変更することができます：</p>
@@ -197,9 +197,9 @@ Persistent  <em>; Keep the script from exiting, otherwise the properties dialog 
 
 <div class="ex" id="ExCLSID">
 <p><a class="ex_number" href="#ExCLSID"></a> Runは<a href="../misc/CLSID-List.htm">CLSID</a>を起動することができます：</p>
-<p>The following opens the Recycle Bin.</p>
+<p>次はごみ箱を開きます。</p>
 <pre>Run "::{645FF040-5081-101B-9F08-00AA002F954E}"</pre>
-<p>The following opens This PC (formerly My Computer or Computer).</p>
+<p>次はPC（従来のマイコンピュータまたはコンピュータ）を開きます。</p>
 <pre>Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"</pre>
 </div>
 
