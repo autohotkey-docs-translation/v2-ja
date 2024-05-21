@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>#Hotstring - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="#Hotstring指令は、Hotstringのオプションや終了文字を変更します。" />
+<meta name="description" content="#Hotstringディレクティブは、Hotstringのオプションやエンディングキャラクターを変更します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -23,17 +23,17 @@
   <dt>NoMouse</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>マウスクリックによるホットストリング認識機能のリセットを<a href="../Hotstrings.htm#NoMouse">ここ</a>で防止します。副次的な効果として、これは<a href="InstallMouseHook.htm">マウスフック</a>がホットストリングによって要求されるのを防ぎます（ただし、スクリプトがマウスのホットキーなど他の目的でそれを必要とする場合は、まだインストールされます）。スクリプトのどこかに<code>#Hotstring NoMouse</code>があると、物理的にその下にあるものだけでなく、すべてのホットストリングに影響します。</p>
+    <p>マウスクリックによるホットストリング認識機能のリセットを<a href="../Hotstrings.htm#NoMouse">ここ</a>で防止します。副次的な効果として、これは<a href="InstallMouseHook.htm">マウスフック</a>がホットストリングによって要求されるのを防ぎます。ただし、スクリプトがマウスのホットキーなど他の目的でそれを必要とする場合は、まだインストールされます。スクリプトのどこかに<code>#Hotstring NoMouse</code>があると、物理的にその下にあるものだけでなく、すべてのホットストリングに影響します。</p>
   </dd>
 
   <dt>EndChars NewChars</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>Specify the word EndChars followed by a single space and then the new ending characters. 事例：</p>
+    <p>EndCharsの後に半角スペースを挟んで新しいエンディングキャラクターを指定します。事例：</p>
     <pre>#Hotstring EndChars -()[]{}':;"/\,.?!`n`s`t</pre>
-    <p>新しいエンディング文字は、EndCharsディレクティブの出現場所に関係なく、スクリプト全体に対してグローバルに有効であるため、EndCharsを2回以上指定する必要はない。</p>
-    <p>エンディングの最大文字数は100文字です。この長さを超える文字は無視されます。</p>
-    <p>To make tab or space an ending character, include `t or `s in the list.</p>
+    <p>新しいエンディングキャラクターは、EndCharsディレクティブの出現場所に関係なく、スクリプト全体に対してグローバルに有効であるため、EndCharsを2回以上指定する必要はありません。</p>
+    <p>エンディングキャラクターの最大文字数は100文字です。この長さを超える文字は無視されます。</p>
+    <p>タブまたはスペースをエンディングキャラクターにするには、それぞれ`t または `s をリストに含めてください。</p>
   </dd>
 
   <dt>NewOptions</dt>
@@ -43,11 +43,11 @@
     <p>上記の<em>EndChars</em>とは異なり、#Hotstringディレクティブをこのように使用した場合は位置指定になります。つまり、この例のように、ホットストリングのセクション全体が異なるデフォルトオプションを持つことができます。</p>
     <pre>::btw::by the way
 
-#Hotstring r c  <em>; All the below hotstrings will use "send raw" and will be case-sensitive by default.</em>
+#Hotstring r c  <em>; これ以下のホットストリングは、"send raw"を使い、大文字と小文字を区別するようになります。</em>
 ::al::airline
 ::CEO::Chief Executive Officer
 
-#Hotstring c0  <em>; Make all hotstrings below this point case-insensitive.</em></pre>
+#Hotstring c0  <em>; これ以下のホットストリングは、大文字と小文字を区別しなくなります。</em></pre>
   </dd>
 
 </dl>
