@@ -564,9 +564,9 @@ LV_Enter(*) {
 
 <div class="ex" id="ExAllRows">
 <p><a class="ex_number" href="#ExAllRows"></a> 行番号に0を指定して、すべての行を選択または非選択にします。</p>
-<pre>LV.<a href="#Modify">Modify</a>(0, "Select")   <em>; Select all.</em>
-LV.Modify(0, "-Select")  <em>; De-select all.</em>
-LV.Modify(0, "-Check")  <em>; Uncheck all the <a href="#Checked">checkboxes</a>.</em></pre>
+<pre>LV.<a href="#Modify">Modify</a>(0, "Select")   <em>; 全て選択</em>
+LV.Modify(0, "-Select")  <em>; 全てを選択から外します。</em>
+LV.Modify(0, "-Check")  <em>; 全ての<a href="#Checked">checkboxes</a>を外します。</em></pre>
 </div>
 
 <div class="ex" id="ExAutoSize">
@@ -642,7 +642,7 @@ LoadFolder(*)
 <em>; Build a unique extension ID to avoid characters that are illegal in variable names,
         ; ダッシュのようなまた、このユニークID方式は、アイテムを探す際に
         ; in the array does not require search-loop.</em>
-        SplitPath(FileName,,, &amp;FileExt)  <em>; Get the file's extension.</em>
+        SplitPath(FileName,,, &amp;FileExt)  <em>; ファイルの拡張子を取得します。</em>
         if FileExt ~= "i)\A(EXE|ICO|ANI|CUR)\z"
         {
             ExtID := FileExt  <em>; Special ID as a placeholder.</em>
@@ -668,7 +668,7 @@ LoadFolder(*)
         {
             <em>; Get the high-quality small-icon associated with this file extension:</em>
             if not DllCall("Shell32\SHGetFileInfoW", "Str", FileName
-            , "Uint", 0, "Ptr", sfi, "UInt", sfi_size, "UInt", 0x101)  <em>; 0x101 is SHGFI_ICON+SHGFI_SMALLICON</em>
+            , "Uint", 0, "Ptr", sfi, "UInt", sfi_size, "UInt", 0x101)  <em>; 0x101はSHGFI_ICON+SHGFI_SMALLICON</em>です。
                 IconNumber := 9999999  <em>; Set it out of bounds to display a blank icon.</em>
             else <em>; Icon successfully loaded.</em>
             {
