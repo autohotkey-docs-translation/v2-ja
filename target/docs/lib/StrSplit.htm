@@ -19,39 +19,39 @@
 
   <dt>String</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>分割する文字列。</p>
   </dd>
 
   <dt>Delimiters</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="Array.htm">配列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="Array.htm">Array</a></p>
     <p>If blank or omitted, each character of the input string will be treated as a separate substring.</p>
     <p>そうでない場合は、単一の文字列か文字列の配列（大文字と小文字を区別する）を指定し、それぞれの文字列が部分文字列間の境界を決定するのに使われる。区切り文字は部分文字列の一部とはみなされないので、返される配列に含まれることはない。また、入力文字列内の区切り文字の間に何もない場合、対応する配列要素は空白になる。</p>
-    <p>事例：<code>", "</code>は、カンマが出現するたびに文字列を分割する。同様に、<code>[A_Space, A_Tab]</code>は、入力文字列中にスペースやタブが出現するたびに新しい配列要素を作成する。</p>
+    <p>For example: <code>","</code> would divide the string based on every occurrence of a comma. 同様に、<code>[A_Space, A_Tab]</code>は、入力文字列中にスペースやタブが出現するたびに新しい配列要素を作成する。</p>
   </dd>
 
   <dt>OmitChars</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If blank or omitted, no characters will be excluded. それ以外の場合は、各配列要素の先頭と末尾から除外する文字のリスト（大文字と小文字を区別）を指定する。例えば、<em>OmitChars</em>が <code>" `t"</code>の場合、すべての要素の最初と最後（途中は除く）からスペースとタブが取り除かれる。</p>
     <p><em>Delimiters</em>が空白の場合、<em>OmitCharsは</em>配列から除外すべき文字を示す。</p>
   </dd>
   
   <dt>MaxParts</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, it defaults to -1, which means "no limit". そうでない場合は、返す部分文字列の最大数を指定する。0でない場合、文字列は最大<em>MaxParts</em>-1回分割され、文字列の残りが最後の部分文字列として返される(先頭または末尾の<em>OmitChars</em>を除く)。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="Array.htm">配列</a></p>
+<p>Type: <a href="Array.htm">Array</a></p>
 <p>This function returns an array containing the substrings of the specified string.</p>
 
 <h2 id="Remarks">備考</h2>
-<p>スペースやタブなどの空白文字は、<em>Delimiters</em>または<em>OmitChars</em>パラメータにそれらの文字が含まれていない限り保持されます。スペースやタブは、<a href="Trim.htm">Trim</a>を使うことで変数の両端から切り取ることができる。事例：<code>Var := Trim(Var)</code></p>
+<p>スペースやタブなどの空白文字は、<em>Delimiters</em>または<em>OmitChars</em>パラメータにそれらの文字が含まれていない限り保持されます。スペースやタブは、<a href="Trim.htm">Trim</a>を使うことで変数の両端から切り取ることができる。For example: <code>Var := Trim(Var)</code></p>
 <p>標準的なCSV（カンマ区切り値）形式の文字列を分割するには、CSV処理が組み込まれている<a href="LoopParse.htm">構文解析ループ</a>を使用する。</p>
 <p>フィールドを分割する前に別の順序で並べるには、<a href="Sort.htm">ソート</a>機能を使用します。</p>
 <p>部分文字列を永久にメモリに保存する必要がない場合は、<a href="LoopParse.htm">構文解析ループ</a>を使用することを検討する。事例：</p>

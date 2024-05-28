@@ -17,11 +17,11 @@
 <pre class="Syntax"><span class="func">Switch</span> <span class="optional">SwitchValue, CaseSense</span>
 {
 <span class="func">Case</span> CaseValue1:
-<i>Statements1</i>
+    <i>Statements1</i>
 <span class="func">Case</span> CaseValue2a, CaseValue2b:
-<i>Statements2</i>
+    <i>Statements2</i>
 <span class="func">Default</span>:
-<i>Statements3</i>
+    <i>Statements3</i>
 }</pre>
 
 <h2 id="Parameters">パラメータ</h2>
@@ -35,10 +35,10 @@
 
   <dt>CaseSense</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a> or <a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
     <p>省略したときの初期値は<em>On</em>です。Otherwise, specify one of the following values, which forces all values to be compared as strings:</p>
-    <p><strong>On</strong> または <strong>1</strong> (true):各比較は大文字と小文字を区別する。</p>
-    <p><strong>Off</strong> または <strong>0</strong> (false):Each comparison is not case-sensitive, i.e. the letters A-Z are considered identical to their lowercase counterparts.</p>
+    <p><strong>On</strong> or <strong>1</strong> (true): Each comparison is case-sensitive.</p>
+    <p><strong>Off</strong> or <strong>0</strong> (false): Each comparison is not case-sensitive, i.e. the letters A-Z are considered identical to their lowercase counterparts.</p>
     <p id="Locale"><strong>Locale:</strong> Each comparison is not case-sensitive according to the rules of the current user's locale. 例えば、英語や西欧のロケールでは、A～Zの小文字だけでなく、ÄやÜなどの非ASCII文字も小文字と同じように扱われることがほとんどです。<em>Locale</em>は、比較する文字列の性質によって、<em>Off</em>の1～8倍遅くなります。</p>
   </dd>
   <dt>CaseValueN</dt>
@@ -65,9 +65,9 @@
 <p><a class="ex_number" href="#ExBasic"></a> Compares a number with multiple cases and shows the message box of the first match.</p>
 <pre>switch 2
 {
-case 1:MsgBox "no match"
-case 2:MsgBox "match"
-case 3:MsgBox "no match"
+case 1: MsgBox "no match"
+case 2: MsgBox "match"
+case 3: MsgBox "no match"
 }</pre>
 </div>
 
@@ -76,9 +76,9 @@ case 3:MsgBox "no match"
 <pre>str := "The quick brown fox jumps over the lazy dog"
 switch
 {
-case InStr(str, "blue"):MsgBox "false"
-case InStr(str, "brown"):MsgBox "true"
-case InStr(str, "green"):MsgBox "false"
+case InStr(str, "blue"): MsgBox "false"
+case InStr(str, "brown"): MsgBox "true"
+case InStr(str, "green"): MsgBox "false"
 }</pre>
 </div>
 
@@ -92,20 +92,20 @@ case InStr(str, "green"):MsgBox "false"
     switch ih.EndReason
     {
     case "Max":
-MsgBox 'You entered "' ih.Input '", which is the maximum length of text'
+        MsgBox 'You entered "' ih.Input '", which is the maximum length of text'
     case "Timeout":
-MsgBox 'You entered "' ih.Input '" at which time the input timed out'
+        MsgBox 'You entered "' ih.Input '" at which time the input timed out'
     case "EndKey":
-MsgBox 'You entered "' ih.Input '" and terminated it with ' ih.EndKey
+        MsgBox 'You entered "' ih.Input '" and terminated it with ' ih.EndKey
     default:  <em>; Match</em>
         switch ih.Input
         {
-        case "btw":Send "{backspace 3}by the way"
-        case "otoh":Send "{backspace 4}on the other hand"
-        case "fl":Send "{backspace 2}Florida"
-        case "ca":Send "{backspace 2}California"
+        case "btw":   Send "{backspace 3}by the way"
+        case "otoh":  Send "{backspace 4}on the other hand"
+        case "fl":    Send "{backspace 2}Florida"
+        case "ca":    Send "{backspace 2}California"
         case "ahk":
-Send "{backspace 3}"
+            Send "{backspace 3}"
             Run "https://www.autohotkey.com"
         }
     }

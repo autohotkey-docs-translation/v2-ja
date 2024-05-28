@@ -93,7 +93,7 @@ Exception handling
 
 <h3 id="nothing">Nothing</h3>
 <p>AutoHotkeyには、他の言語で見られるような、<em>無、</em><em>null</em>、<em>nil</em>、<em>undefined</em>を一意に表す値がありません。</p>
-<p>null "または "undefined "値を生成する代わりに、値を持たない変数、プロパティ、配列要素、マップアイテムを読み込もうとすると、<a href="lib/Error.htm#UnsetError">UnsetError</a>がスローされる。これにより、NULL値を暗黙のうちにコード内に伝播させる場合よりも、より簡単にエラーを特定することができます。こちらもご覧ください：<a href="#uninitialized-variables">未初期化変数</a>。</p>
+<p>null "または "undefined "値を生成する代わりに、値を持たない変数、プロパティ、配列要素、マップアイテムを読み込もうとすると、<a href="lib/Error.htm#UnsetError">UnsetError</a>がスローされる。これにより、NULL値を暗黙のうちにコード内に伝播させる場合よりも、より簡単にエラーを特定することができます。See also: <a href="#uninitialized-variables">Uninitialized Variables</a>.</p>
 <p>関数の<a href="Language.htm#optional-parameters">オプションパラメータ</a>は、関数が呼び出されたときに<em>省略</em>することができます。その場合、関数は動作を変更するか、デフォルト値を使用します。パラメータは通常、コードから文字通り省略することで省略されますが、<code>unset</code>キーワードを使用することで明示的または条件付きで省略することも可能です。この特別なシグナルは、<a href="Variables.htm#maybe">maybe演算子</a>を用いて明示的にしか伝搬できなません。<a href="Variables.htm#maybe">（<em>var</em><strong>?）</strong></a>未設定のパラメータは、関数が実行される前に自動的にそのデフォルト値（もしあれば）を受け取ります。</p>
 <p>主に歴史的な理由から、戻り値が明示されていない関数など、他の言語でnullやundefinedの値が使用される場合に、空文字列が使用されることがあります。</p>
 <p><a href="#variables">変数</a>や <a href="#parameters">パラメータ</a>が「空」または「ブランク」と言われる場合、それは通常、空文字列（長さがゼロの文字列）を意味します。これは、場合によっては同じ効果をもたらすかもしれませんが、パラメータを省略することとは異なります。</p>
@@ -104,7 +104,7 @@ Exception handling
 <ul>
   <li>オブジェクトは含まれるものではなく、<a href="#references-to-objects">参照</a>されるものです。例えば、<code>alpha := []</code>は、新しい<a href="lib/Array.htm">Array</a>を作成し、<em>alpha</em>に参照を格納します。<code>bravo := alpha</code>は、オブジェクトではなく参照を<code>bravo</code>にコピーするので、両者は同じオブジェクトを参照します。配列や変数がオブジェクトを含んでいると言われるとき、実際に含んでいるのはオブジェクトへの参照します。</li>
   <li>2つのオブジェクトの参照は、同じオブジェクトを参照している場合のみ、等しく比較されます。</li>
-  <li>オブジェクトは、<code>if obj</code>,<code>!obj</code>,<code>obj ? x : y</code>のように、ブール値が要求される場合は常に<i>true</i>とみなされます。</li>
+  <li>Objects are always considered <i>true</i> when a boolean value is required, such as in <code>if obj</code>, <code>!obj</code> or <code>obj ? x : y</code>.</li>
   <li>各オブジェクトは固有のアドレス（メモリ上の位置）を持っており、<a href="Objects.htm#ObjPtr">ObjPtr</a>関数で取得することができますが、通常、直接使用することはありません。このアドレスは、オブジェクトを一意に識別しますが、オブジェクトが解放されるまでの間だけです。</li>
   <li>オブジェクトが想定外の文脈で使用された場合、空文字列として扱われることがあります。例えば、<code>MsgBox(myObject)</code>は、空のMsgBoxを表示します。それ以外の場合は、<a href="lib/Error.htm#TypeError">TypeError</a>が投げられることがあります（将来的には、これが標準になるはずです）。</li>
 </ul>
@@ -112,14 +112,14 @@ Exception handling
 <p>オブジェクトの使われ方としては、以下のようなものがあります。</p>
 <ul>
   <li>アイテムや<em>要素</em>のコレクションを含むこと。例えば、<a href="lib/Array.htm">Array</a>は項目の列を含み、<a href="lib/Map.htm">Map</a>はキーと値を関連付ける。オブジェクトは、複数の値を1つの値として扱ったり、1つの変数に代入したり、関数に渡したり、関数から戻したりすることができます。</li>
-  <li>現実的なもの、概念的なものを表現すること。事例：XとYのプロパティを持つ画面上の位置、Name、PhoneNumber、EmailAddressなどのプロパティを持つアドレス帳の連絡先です。オブジェクトは、他のオブジェクトと組み合わせることで、より複雑な情報の集合を表現することができます。</li>
+  <li>現実的なもの、概念的なものを表現すること。For example: a position on the screen, with X and Y properties; a contact in an address book, with Name, PhoneNumber, EmailAddress and so on. オブジェクトは、他のオブジェクトと組み合わせることで、より複雑な情報の集合を表現することができます。</li>
   <li>サービスやサービスの集合をカプセル化し、スクリプトの他の部分が、そのタスクの実行方法ではなく、タスクに集中できるようにします。例えば、<a href="lib/File.htm">File</a>オブジェクトは、ファイルからデータを読み込んだり、ファイルにデータを書き込むためのメソッドを提供します。ファイルに情報を書き込むスクリプト関数が、Fileオブジェクトをパラメータとして受け取る場合、そのファイルがどのように開かれたかを知る必要はない。同じ関数を再利用して、TCP/IPソケットやWebSocketなどの他のターゲットに情報を書き込むことができます（ユーザー定義オブジェクト経由）。</li>
   <li>上記の組み合わせ。例えば、<a href="lib/Gui.htm">Gui</a>はGUIウィンドウを表し、スクリプトにGUIを作成・表示する手段を提供し、コントロールのコレクションを含み、TitleやFocusedCtrlなどのプロパティによってウィンドウに関する情報を提供します。</li>
 </ul>
 <p>オブジェクト（特に<a href="Objects.htm#Custom_Classes">クラス</a>）を適切に使用することで、<em>モジュール化</em>された <em>再利用可能</em>なコードを作成することができます。モジュール化されたコードは、通常、テスト、理解、保守が容易です。例えば、他のセクションの詳細を知ることなく、またそのセクションに対応する変更を加えることなく、コードのあるセクションを改良または修正することができます。再利用可能なコードは、同じまたは類似のタスクのコードを何度も書いたりテストしたりする必要がないため、時間を節約することができます。</p>
 
 <h3 id="object-protocol">オブジェクトプロトコル</h3>
-<p class="note">このセクションでは、後のセクションでカバーされるこれらの概念に基づいています。<a href="#variables">変数</a>、<a href="#functions">関数</a></p>
+<p class="note">This section builds on these concepts which are covered in later sections: <a href="#variables">variables</a>, <a href="#functions">functions</a></p>
 <p>オブジェクトは、<em>メッセージパッシング</em>の原理で動作します。オブジェクトのコードや変数が実際にどこにあるのかわからないので、「<em>foo</em>を要求」「<em>bar</em>の実行に遷移」といったメッセージをオブジェクトに渡し、オブジェクトがそのメッセージに応答するのを待つしかない。AutoHotkeyのオブジェクトは、以下の基本的なメッセージに対応しています。</p>
 <ul>
   <li>プロパティを<strong>取得</strong>します。</li>
@@ -148,7 +148,7 @@ myObj[arg1, arg2, ..., argN] := value
 
 <h2 id="variables">変数</h2>
 <p>変数は、名前を値のプレースホルダーとして使用することができます。どの値かは、スクリプトの実行中に繰り返し変更される可能性があります。例えば、ホットキーは変数<code>press_count</code>を使って押された回数をカウントし、<code>press_count</code>が3の倍数のとき（3回押すごとに）別のキーを送信することができます。一度しか値が代入されない変数でも、役に立つことがあります。例えば、<code>WebBrowserTitle</code>という変数を使えば、好みのウェブブラウザを変更したり、ソフトウェアのアップデートで<a href="misc/WinTitle.htm">タイトル</a>や <a href="misc/WinTitle.htm#ahk_class">ウィンドウクラス</a>が変わったりしたときに、コードを簡単に更新することができるようにすることができます。</p>
-<p>AutoHotkeyでは、変数を使用するだけで変数が作成されます。各変数は永久に単一の<a href="#values">データ型</a>に制限される<em>こと</em>はなく、代わりに任意の型の値を保持することができます。文字列、数値、オブジェクトのいずれかを指定します。値が割り当てられていない変数を読み込もうとするとエラーとなるため、<a href="#uninitialized-variables">変数の初期化</a>は重要です。</p>
+<p>AutoHotkeyでは、変数を使用するだけで変数が作成されます。Each variable is <em>not</em> permanently restricted to a single <a href="#values">data type</a>, but can instead hold a value of any type: string, number or object. 値が割り当てられていない変数を読み込もうとするとエラーとなるため、<a href="#uninitialized-variables">変数の初期化</a>は重要です。</p>
 <p>変数には主に3つの側面があります。</p>
 <ul>
   <li>変数の<em>名前</em>です。</li>
@@ -163,14 +163,14 @@ myObj[arg1, arg2, ..., argN] := value
 <h3 id="uninitialized-variables"><span id="uninitialised-variables"></span>未初期化の変数</h3>
 <p>変数を<em>初期化</em>するとは、その変数に開始値を割り当てることです。まだ値が割り当てられていない変数は、<em>uninitialized</em>（略して<em>unset</em>）です。初期化されていない変数を読み込もうとすると、エラーとみなされます。これにより、名前の間違いや課題の忘れ物などのミスを発見することができます。</p>
 <p><a href="lib/IsSet.htm">IsSet</a>は、グローバル変数やスタティック変数の初回使用時の初期化など、変数が初期化されているかどうかを判断するために使用することができます。</p>
-<p>変数の<em>設定を解除</em>するには、直接代入（<code>:=</code>）と<code>unset</code>キーワードまたは<a href="Variables.htm#maybe">maybe（<em>var</em>?）演算子</a>事例：<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
-<p>変数に値がない場合、<a href="Variables.htm#or-maybe">or-maybe演算子(??)</a>を使ってデフォルト値を提供することができる。例えば、<code>MyVar ?? "Default"</code> は、<code>IsSet(MyVar) ? MyVar : "Default"</code>と同等です。</p>
+<p>変数の<em>設定を解除</em>するには、直接代入（<code>:=</code>）と<code>unset</code>キーワードまたは<a href="Variables.htm#maybe">maybe（<em>var</em>?）演算子</a>For example: <code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
+<p>変数に値がない場合、<a href="Variables.htm#or-maybe">or-maybe演算子(??)</a>を使ってデフォルト値を提供することができる。例えば、<code>MyVar ?"Default"</code> is equivalent to <code>IsSet(MyVar) ?MyVar : "Default"</code>.</p>
 
 <h3 id="built-in-variables">組み込みの変数</h3>
 <p>プログラムには便利な変数が多数組み込まれており、どのスクリプトからも参照することができます。注意書きがある場合を除き、これらの変数は読み取り専用です。つまり、スクリプトでその内容を直接変更することはできません。慣習上、これらの変数のほとんどは接頭辞<code>A_</code>で始まります。</p>
 <p><a href="Variables.htm#KeyDelay">A_KeyDelay</a>や <a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a>などの一部の変数は、スクリプトの動作を制御する設定を表し、<a href="misc/Threads.htm">各スレッド</a>で別々の値を保持します。これにより、新しいスレッドで起動したサブルーチン（ホットキー、メニュー、タイマーなど）が、他のスレッドに影響を与えずに設定を変更することができます。</p>
 <p>特殊な変数の中には、定期的に更新されるのではなく、スクリプトがその変数を参照するたびに、その値が取得または計算されるものがあります。例えば、<a href="lib/A_Clipboard.htm">A_Clipboard</a>はクリップボードの現在の内容をテキストとして取得し、<a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkey</a>はホットキーが押されてから経過したミリ秒数を計算します。</p>
-<p>関連:<a href="Variables.htm#BuiltIn">組み込み変数のリスト</a></p>
+<p>Related: <a href="Variables.htm#BuiltIn">list of built-in variables</a>.</p>
 
 <h3 id="environment-variables">環境変数</h3>
 <p>環境変数は、オペレーティングシステムによって管理されます。コマンドプロンプトで「SET」と入力してEnterを押すと、その一覧を見ることができます。</p>
@@ -180,7 +180,7 @@ myObj[arg1, arg2, ..., argN] := value
 
 <h3 id="variable-references">変数参照（VarRef）</h3>
 <p>式中では、<a href="Variables.htm#AssignOp">代入</a>や <a href="Variables.htm#ref">参照演算子（&amp;）</a>の対象でない限り、各変数参照はその内容に自動的に解決されます。つまり、<code>myFunction(myVar)</code>を呼び出すと、<em>myVar</em>の値が<em>myFunction</em>に渡され、変数そのものは渡されません。この場合、関数は<em>myVar</em>と同じ値を持つ独自のローカル変数（パラメータ）を持つことになりますが、<em>myVar</em>に新しい値を代入することはできません。要するに、パラメータは<em>値</em>で渡されるのです。</p>
-<p><a href="Variables.htm#ref">参照演算子（&amp;）</a>により、変数を値のように扱うことができます。<code>&amp;myVar</code>は VarRef を生成し、他の値と同様に使用することができます。他の変数やプロパティに代入する、配列に挿入する、関数に渡す、関数から返す、など。VarRef は、元のターゲット変数への代入や、<a href="Variables.htm#deref">参照解除</a>による値の取得に使用することができます。</p>
+<p><a href="Variables.htm#ref">参照演算子（&amp;）</a>により、変数を値のように扱うことができます。<code>&amp;myVar</code> produces a VarRef, which can be used like any other value: assigned to another variable or property, inserted into an array, passed to or returned from a function, etc. VarRef は、元のターゲット変数への代入や、<a href="Variables.htm#deref">参照解除</a>による値の取得に使用することができます。</p>
 <p>関数パラメータは，パラメータ名の前にアンパサンド（&amp;）を付けることで，便宜上<a href="Functions.htm#ByRef">ByRef</a>とすることができます．これは、呼び出し側がVarRefを渡す必要があり、関数自身がパラメータを参照するだけで（パーセント記号なしで）VarRefを「参照解除」できるようにします。</p>
 <pre>class VarRef extends Any</pre>
 <p>VarRefクラスには現在、定義済みのメソッドやプロパティはありませんが、<code>value is VarRef</code>を使用して、値がVarRefであるかどうかをテストすることが可能です。</p>
@@ -192,8 +192,8 @@ myObj[arg1, arg2, ..., argN] := value
 
 <h3 id="Related">関連</h3>
 <ul>
-  <li><a href="Variables.htm#Intro">変数</a>:基本的な使い方と例</li>
-  <li><a href="Variables.htm#cap">可変容量・メモリ</a>。制限事項の詳細はこちら</li>
+  <li><a href="Variables.htm#Intro">Variables</a>: basic usage and examples.</li>
+  <li><a href="Variables.htm#cap">Variable Capacity and Memory</a>: details about limitations.</li>
 </ul>
 
 <h2 id="functions">関数</h2>
@@ -218,9 +218,9 @@ myObj[arg1, arg2, ..., argN] := value
 </pre>
 <p>角括弧は、囲んだパラメータがオプションであることを示します（括弧自体は実際のコードに表示されるべきではありません）。ただし、通常はターゲットウィンドウも指定する必要があります。事例：</p>
 <pre>
-ControlSend "^{Home}", "Edit1", "A"  <em>; 正しい。制御が指定されている。</em>
-ControlSend "^{Home}", "A"           <em>; 不正解です。パラメータが不一致です。</em>
-ControlSend "^{Home}",, "A"          <em>; 正しいです。制御が省略されている。</em>
+ControlSend "^{Home}", "Edit1", "A"  <em>; Correct. Control is specified.</em>
+ControlSend "^{Home}", "A"           <em>; Incorrect: Parameters are mismatched.</em>
+ControlSend "^{Home}",, "A"          <em>; Correct. Control is omitted.</em>
 </pre>
 
 <h3 id="methods">メソッド</h3>
@@ -257,7 +257,7 @@ ControlSend "^{Home}",, "A"          <em>; 正しいです。制御が省略さ�
 </li>
   <li>"Hello, world!"と入力する</li>
 </ol>
-<p>そこで、メモ帳を開くか、メモ帳を起動するかは、すでに起動しているかどうかで判断しています。#1 は<em>条件文</em>であり、<em>if文</em>とも呼ばれる。つまり、ある条件を満たした場合にのみ、その<em>本体</em>（#1.1～#1.2）を実行するのです。#2は<em>else文</em>であり、前の<em>if文</em>（#1）の条件が満たされない場合にのみ、その本体（#2.1）を実行します。条件によって、制御は2通りの<em>流れ</em>になります。#1 （trueのとき） → #1.1 → #1.2 → #3; or #1 （falseのとき） → #2 (else) → #2.1 → #3.</p>
+<p>そこで、メモ帳を開くか、メモ帳を起動するかは、すでに起動しているかどうかで判断しています。#1 は<em>条件文</em>であり、<em>if文</em>とも呼ばれる。つまり、ある条件を満たした場合にのみ、その<em>本体</em>（#1.1～#1.2）を実行するのです。#2は<em>else文</em>であり、前の<em>if文</em>（#1）の条件が満たされない場合にのみ、その本体（#2.1）を実行します。Depending on the condition, control <em>flows</em> one of two ways: #1 (if true) → #1.1 → #1.2 → #3; or #1 (if false) → #2 (else) → #2.1 → #3.</p>
 <p>上記の指示は、以下のコードに変換することができます。</p>
 <pre>if (not WinExist("ahk_class Notepad"))
 {
@@ -333,17 +333,17 @@ MsgBox 0.1 + 0.2 = 0.3   <em>; 0 (not equal)</em>
 <p><strong>最大文字数：</strong>253文字</p>
 <p><strong>使用できる文字:</strong>文字、数字、アンダースコア、非ASCII文字。ただし、数字で始めることができるのはプロパティ名のみです。</p>
 <p id="reserved-words"><strong>予約語：</strong> <code>as</code>,<code>and</code>,<code>contains</code>,<code>false</code>,<code>in</code>,<code>is</code>,<code>IsSet</code>,<code>not</code>,<code>or</code>,<code>super</code>,<code>true</code>,<code>unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
-<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>, <code>Case</code>, <code>Catch</code>, <code>Continue</code>, <code>Else</code>, <code>Finally</code>, <code>For</code>, <code>Global</code>, <code>Goto</code>, <code>If</code>, <code>Local</code>, <code>Loop</code>, <code>Return</code>, <code>Static</code>, <code>Switch</code>, <code>Throw</code>, <code>Try</code>, <code>Until</code>, <code>While</code></p>
+<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。This includes: <code>Break</code>, <code>Case</code>, <code>Catch</code>, <code>Continue</code>, <code>Else</code>, <code>Finally</code>, <code>For</code>, <code>Global</code>, <code>Goto</code>, <code>If</code>, <code>Local</code>, <code>Loop</code>, <code>Return</code>, <code>Static</code>, <code>Switch</code>, <code>Throw</code>, <code>Try</code>, <code>Until</code>, <code>While</code></p>
 <p>プロパティ名、メソッド名、ウィンドウグループ名には予約語を使用することができる。</p>
 
 <h3 id="references-to-objects">オブジェクトへの参照</h3>
 <p>スクリプトは、オブジェクトへの<em>参照</em>を通じて、間接的にのみオブジェクトと対話します。オブジェクトを作成するとき、オブジェクトはあなたがコントロールできない場所に作成され、リファレンスが与えられます。この参照を関数に渡したり、変数や別のオブジェクトに格納したりすると、<em>同じ</em>オブジェクトへの新しい参照が作成されます。</p>
 <p>例えば、<em>myObj</em>にオブジェクトへの参照が含まれている場合、<code>yourObj := myObj</code>は同じオブジェクトへの新しい参照を作成します。<code>myObj.ans := 42</code>のような変更は、同じオブジェクトを参照しているため、<code>myObj.ans</code>と<code>yourObj.ans</code>の両方に反映されます。しかし、<code>myObj := Object()</code>は変数<em>myObj</em>にのみ影響し、変数<em>yourObj</em>はまだ元のオブジェクトを参照しているわけではありません。</p>
 <p>参照は、代入を使用して他の任意の値に置き換えるだけで解放されます。オブジェクトは、すべての参照が解放された後にのみ削除されます。オブジェクトを明示的に削除することはできませんので、試さないでください。ただし、<a href="lib/Array.htm">配列</a>の要素、<a href="lib/Gui.htm">GUI</a>に関連付けられたウィンドウ、<a href="lib/Menu.htm">Menu</a>オブジェクトの項目など、オブジェクトのプロパティ、コンテンツ、または関連リソースは削除できます。</p>
-<pre>ref1 := Object()  <em>; オブジェクトを作成し、最初のリファレンスを格納します。</em>
-ref2 := ref1      <em>; 同じオブジェクトへの新しい参照を作成します</em>
-ref1 := ""        <em>; 最初のリファレンスを公開します。</em>
-ref2 := ""        <em>; 2番目の参照を解除し、オブジェクトを削除します。</em>
+<pre>ref1 := Object()  <em>; Create an object and store first reference</em>
+ref2 := ref1      <em>; Create a new reference to the same object</em>
+ref1 := ""        <em>; Release the first reference</em>
+ref2 := ""        <em>; Release the second reference; object is deleted</em>
 </pre>
 <p>わかりにくかったら、モノをレンタルしているようなイメージで考えてみてください。ユニットを借りる際に、ユニットにアクセスするために使用するキーをお渡ししています。鍵の数を増やして、同じユニットにアクセスするために使用することができますが、ユニットを使い終わったら、すべての鍵をレンタルエージェントに返さなければなりません。通常、ユニットは<em>削除</em>されませんが、もしかしたらエージェントは、あなたが残したガラクタを削除させるかもしれません。オブジェクトに保存した値が、オブジェクトを削除するときに解放されるのと同じです。</p>
 

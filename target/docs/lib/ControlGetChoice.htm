@@ -21,12 +21,12 @@
 <dl>
     <dt>Control</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
         <p>コントロールのClassNN、text、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは<a href="Control.htm#Parameter">Controlパラメータ</a>をご覧ください。</p>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
+        <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
         <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
         <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
         <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
@@ -34,7 +34,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>Type: <a href="../Concepts.htm#strings">String</a></p>
 <p>説明： ListBoxまたはComboBoxで現在選択されている項目の名前を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -43,9 +43,9 @@
 
 <h2 id="Remarks">備考</h2>
 <p>選択された項目の位置を取得する代わりに、次の例に従います（最初の2行のうち1行だけを使用します）。</p>
-<pre>ChoicePos := <a href="SendMessage.htm">SendMessage</a>(0x0188, 0, 0, "ListBox1", WinTitle)  <em>; 0x0188 は、LB_GETCURSEL（リストボックスの場合）です。</em>
-ChoicePos := <a href="SendMessage.htm">SendMessage</a>(0x0147, 0, 0, "ComboBox1", WinTitle)  <em>; 0x0147 は、CB_GETCURSEL（DropDownList または ComboBox の場合）です。</em>
-ChoicePos += 1  <em>; 0ベースから1ベースへ、つまり最初の項目が0ではなく1とわかるように変換します。
+<pre>ChoicePos := <a href="SendMessage.htm">SendMessage</a>(0x0188, 0, 0, "ListBox1", WinTitle)  <em>; 0x0188 is LB_GETCURSEL (for a ListBox).</em>
+ChoicePos := <a href="SendMessage.htm">SendMessage</a>(0x0147, 0, 0, "ComboBox1", WinTitle)  <em>; 0x0147 is CB_GETCURSEL (for a DropDownList or ComboBox).</em>
+ChoicePos += 1  <em>; Convert from 0-based to 1-based, i.e. so that the first item is known as 1, not 0.
 ; 選択されている項目がない場合、ChoicePosは0になるようにしました。</em></pre>
 
 <h2 id="Related">関連</h2>

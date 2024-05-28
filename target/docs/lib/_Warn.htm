@@ -21,7 +21,7 @@
 
   <dt>WarningType</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
 
     <p>If omitted, it defaults to <em>All</em>. Otherwise, specify the type of warning to enable or disable.</p>
     <p id="VarUnset"><strong>VarUnset:</strong> Before the script starts to run, display a warning for the first reference to each variable which is never used in any of the following ways:</p>
@@ -34,12 +34,12 @@
     <p>この警告は、デフォルトでは無効になっています。</p>
     <pre>#Warn
 g := 1
-ShowG() {       <em>; 関数が一度も呼び出されない場合でも警告は表示されます。</em>
+ShowG() {       <em>; The warning is displayed even if the function is never called.</em>
     <em>; global g ; &lt;-- グローバル変数に代入するために必要です。</em>
     g := 2
 }
 ShowG
-MsgBox g        <em>; 宣言がない場合、上記はローカルな "g "に割り当てられる。</em></pre>
+MsgBox g        <em>; Without the declaration, the above assigned to a local "g".</em></pre>
     <p id="Unreachable"><strong>Unreachable:</strong> Before the script starts to run, show a warning for each line that immediately follows a <code>Return</code>, <code>Break</code>, <code>Continue</code>, <code>Throw</code> or <code>Goto</code> at the same nesting level, unless that line is the target of a label. そんなセリフがあっても実行されることはない。</p>
     <p>コードが到達できないことを意図している場合（例えば、<code>リターン</code>によってコードのブロックを一時的に無効にした場合、またはホットキーやホットストリングをコメントアウトすることによって一時的に無効にした場合）、到達できないコードもコメントアウトすることを検討してください。また、最初の到達不可能な行の上に<a href="../misc/Labels.htm">ラベル</a>を定義することで、警告を抑制することも可能です。</p>
     <p><strong>All:</strong> Apply the given <em>WarningMode</em> to all supported warning types.</p>
@@ -47,7 +47,7 @@ MsgBox g        <em>; 宣言がない場合、上記はローカルな "g "に�
 
   <dt>WarningMode</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
 
     <p>省略された場合は、<em>MsgBox</em>がデフォルトとなる。Otherwise, specify a value indicating how warnings should be delivered.</p>
     <p><strong>MsgBox:</strong> Show a message box describing the warning. なお、メッセージボックスが解除されると、スクリプトは通常通り実行されます。</p>
@@ -60,7 +60,7 @@ MsgBox g        <em>; 宣言がない場合、上記はローカルな "g "に�
 <h2 id="Remarks">備考</h2>
 	<p>If this directive is unspecified in the script, all warnings are enabled and use the MsgBox mode, except for LocalSameAsGlobal, which is disabled.</p>
 <p>VarUnset、LocalSameAsGlobal、Unreachableの警告を出すチェックは、すべてのディレクティブがパースされた後、スクリプトが実行される前に行われます。したがって、スクリプト内の位置は重要ではありません（また、他のディレクティブと同様、#Warnは条件付きで実行することはできません）。</p>
-<p>ただし、複数の#Warnディレクティブの並び順は重要です。ある予告を設定した最後の発生で、その予告のモードが決定されます。したがって、例えば、以下の2つのステートメントは、LocalSameAsGlobal以外のすべての警告を有効にする効果を合わせ持っています。</p>
+<p>However, the ordering of multiple #Warn directives is significant: the last occurrence that sets a given warning determines the mode for that warning. したがって、例えば、以下の2つのステートメントは、LocalSameAsGlobal以外のすべての警告を有効にする効果を合わせ持っています。</p>
 <pre>#Warn All
 #Warn LocalSameAsGlobal, Off
 </pre>

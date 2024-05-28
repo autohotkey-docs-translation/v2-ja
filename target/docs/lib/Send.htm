@@ -25,7 +25,7 @@
 
   <dt>Keys</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>送信するキーのシーケンス。</p>
     <p>デフォルトでは（つまり、SendTextも<a href="#Raw">Rawモード</a>も <a href="#Text">Textモード</a>も使用しない場合）、文字<code>^+!#{}</code>は特別な意味を持つ。文字<code>^+!#</code>は、修飾キー<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>を表します。次のキーにしか影響しません。対応する修飾キーを単独で送信する場合は、キー名を中括弧で囲んでください。キーを押したり離したりするだけなら、以下のようにキー名の後に "down"や "up"をつけてください。</p>
     <style>
@@ -54,8 +54,8 @@
         <td>{Shift}</td>
         <td>{Shift down}</td>
         <td>{Shift up}</td>
-        <td><code>Send "+abC"</code>は、テキスト "AbC" を送信します。<br>
-          <code>Send "!+a"</code> は、<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>を押します。</td>
+        <td><code>Send "+abC"</code> sends the text "AbC"<br>
+          <code>Send "!+a"</code> presses <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd></td>
       </tr>
       <tr>
         <td>!</td>
@@ -82,7 +82,7 @@
 <h2 id="Send_variants">Send variants</h2>
 <p><strong>Send：</strong>デフォルトでは、SendはSendInputと同義ですが、<a href="SendMode.htm">SendMode</a>によってSendEventやSendPlayと同義にすることができます。</p>
 <p><strong>SendText：</strong>Sendと似ていますが、<em>Keys</em>のすべての文字が解釈され、文字通り送信されます。詳しくは、「<a href="#Text">テキストモード</a>」をご覧ください。</p>
-<p><strong id="SendInput">SendInput</strong> および <strong id="SendPlay">SendPlay</strong>:SendInputとSendPlayはSendEventと同じ構文を使用しますが、一般的により高速で信頼性が高いです。また、送信中にキーボードやマウスを操作した場合、バッファリングが行われるため、ユーザーのキー入力と送信中のキー入力が混在することを防ぐことができます。<a href="SendMode.htm">SendMode</a>を使用することで、SendをSendInputやSendPlayと同義にすることができます。各モードの詳細については、後述の<a href="#SendInputDetail">SendInput</a>および<a href="#SendPlayDetail">SendPlay</a>を参照してください。</p>
+<p><strong id="SendInput">SendInput</strong> and <strong id="SendPlay">SendPlay</strong>: SendInput and SendPlay use the same syntax as SendEvent but are generally faster and more reliable. また、送信中にキーボードやマウスを操作した場合、バッファリングが行われるため、ユーザーのキー入力と送信中のキー入力が混在することを防ぐことができます。<a href="SendMode.htm">SendMode</a>を使用することで、SendをSendInputやSendPlayと同義にすることができます。各モードの詳細については、後述の<a href="#SendInputDetail">SendInput</a>および<a href="#SendPlayDetail">SendPlay</a>を参照してください。</p>
 <p id="SendEvent"><strong>SendEvent:</strong> SendEvent sends keystrokes using the Windows keybd_event function (search Microsoft Docs for details). キー入力の送信速度は、<a href="SetKeyDelay.htm">SetKeyDelay</a>で決定されます。<a href="SendMode.htm">SendMode</a>を使用することで、SendをSendEventまたはSendPlayと同義にすることができます。</p>
 
 <h2 id="Special_modes">Special modes</h2>
@@ -93,7 +93,7 @@
 <p>Rawモードは、<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>や <a href="../Variables.htm#Expressions">式</a>の解釈には影響しません。例えば、<code>Send "{Raw}``100`%"</code>は、文字列<code class="no-highlight">`100%</code>を送信します。</p>
 
 <h3 id="Text">テキストモード</h3>
-<p id="SendText">テキストモードは<code>{Text}</code>、SendText、<a href="ControlSend.htm">ControlSendText</a>のいずれかで有効にすることができ、Rawモードと似ていますが、文字（<code>`r</code>、<code>`n</code>、<code>`t</code>、<code>`b</code>以外）をキーコードに変換しようとしないことを除いて、残りのすべての文字に対して<a href="#fallback">フォールバックメソッド</a>が使用されます。SendEvent、SendInput、<a href="ControlSend.htm">ControlSend</a>については、文字が正しい修飾子の状態に依存することが少なくなるため、信頼性が向上する。このモードは、ブラインドモードと組み合わせることで、修飾キーを離さないようにすることができます：<code>Send "{Blind}{Text}your text"</code>. ただし、アプリケーションによっては、修飾キーが解放されている必要があります。</p>
+<p id="SendText">テキストモードは<code>{Text}</code>、SendText、<a href="ControlSend.htm">ControlSendText</a>のいずれかで有効にすることができ、Rawモードと似ていますが、文字（<code>`r</code>、<code>`n</code>、<code>`t</code>、<code>`b</code>以外）をキーコードに変換しようとしないことを除いて、残りのすべての文字に対して<a href="#fallback">フォールバックメソッド</a>が使用されます。SendEvent、SendInput、<a href="ControlSend.htm">ControlSend</a>については、文字が正しい修飾子の状態に依存することが少なくなるため、信頼性が向上する。This mode can be combined with the Blind mode to avoid releasing any modifier keys: <code>Send "{Blind}{Text}your text"</code>. ただし、アプリケーションによっては、修飾キーが解放されている必要があります。</p>
 <p><code>n</code>、<code>`r</code>、<code>`r`n</code>は、デフォルトの動作やRawモードが<code>`r`n</code>を2つの<kbd>Enter</kbd>に変換するのとは異なり、すべて1つの<kbd>Enter</kbd>に変換されます。<code>`t</code>は <kbd>Tab</kbd>に、<code>`b</code>は <kbd>Backspace</kbd>に変換されますが、それ以外の文字は変換されずに送信されます。</p>
 <p>ブラインドモードと同様に、テキストモードは<a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>を無視し（つまり、<kbd>CapsLock</kbd>の状態は変化しない）、<a href="../Hotkeys.htm#win-l"><kbd>Win</kbd>が解除されるのを待つ</a>ことはありません。これは、テキストモードが通常<kbd>CapsLock</kbd>の状態に依存せず、システムの<kbd>Win</kbd>+<kbd>L</kbd>ホットキーをトリガーすることができないためです。ただし、<em>Keys</em>が <code>{Text}</code>または<code>{Blind}{Text}</code>で始まる場合のみ適用されます。</p>
 
@@ -103,11 +103,11 @@
   <li>ブラインドモードは、修飾キー（Alt、Ctrl、Shift、Win）がダウンポジションでスタートした場合、修飾キーが<a href="#blind-exclude">除外されて</a>いない限り、解放を回避する。例えば、ホットキー<code>+s::Send "{Blind}abc"</code>は、ユーザーが<kbd>Shift</kbd>を押しているため、abc ではなく ABC を送信します。</li>
   <li>修飾キーは、ユーザーが物理的に押したままでも、センドがホットキーの修飾をオフにできるように、別の方法で復元されます。例えば、<code>^space::Send "{Ctrl up}"</code>は、ユーザーが物理的に<kbd>Ctrl</kbd>を押したままであれば、自動的に<kbd>Ctrl</kbd>を押し下げますが、<code>^space::Send "{Blind}{Ctrl up}"</code>では、物理的には下がっていても、論理的には<kbd>Ctrl</kbd>が上がっていることがあります。</li>
   <li><a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>は無視され、すなわち<kbd>CapsLock</kbd>の状態は変更されない。</li>
-  <li><a href="A_MenuMaskKey.htm">Menu masking</a>は無効です。つまり、Sendは、予防のために送信されるはずの余分なキーストロークを省略します：1）Winキー操作時のスタートメニュー表示（LWin/RWin）、2）Altキー操作時のメニューバー起動。ただし、ブラインドモードでは、フックホットキー起動後のキーボードフックによるマスキングは防げません。</li>
+  <li><a href="A_MenuMaskKey.htm">Menu masking</a>は無効です。That is, Send omits the extra keystrokes that would otherwise be sent in order to prevent: 1) Start Menu appearance during Win keystrokes (LWin/RWin); 2) menu bar activation during Alt keystrokes. ただし、ブラインドモードでは、フックホットキー起動後のキーボードフックによるマスキングは防げません。</li>
   <li>送信は、テキストに<kbd>L</kbd>キーが含まれていても、<kbd>Win</kbd>の解除を待たずに送信します。これは通常、Sendがシステムの「ワークステーションをロック」ホットキー (<kbd>Win</kbd>+<kbd>L</kbd>)をトリガーするのを防ぐために行われるものです。See <a href="../Hotkeys.htm#win-l">Hotkeys</a> for details.</li>
 </ul>
 <p id="blind-exclude">"Blind"の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind！#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
-<p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。例えば、<code>a::b</code>の再マッピングでは、次のようになります：1）「a」と入力したときに「b」、2）大文字の「A」と入力したときに「B」、3）「<kbd>Ctrl</kbd>+<kbd>B</kbd>」と入力したときに「<kbd>Ctrl</kbd>+<kbd>A</kbd>」。。ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
+<p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。For example, the remapping <code>a::b</code> would produce: 1) "b" when you type "a"; 2) uppercase "B" when you type uppercase "A"; and 3) <kbd>Ctrl</kbd>+<kbd>B</kbd> when you type <kbd>Ctrl</kbd>+<kbd>A</kbd>. ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
 <p><code>{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code>{Blind}{Text}</code>を使用してください。</p>
 <p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail">SendPlay</a>で完全にサポートされているわけではありません。</p>
 
@@ -120,7 +120,7 @@
   </tr>
   <tr>
     <td>{F1} - {F24}</td>
-    <td>Function keys. 事例：{F12} は <kbd>F12</kbd>.</td>
+    <td>Function keys. For example: {F12} is <kbd>F12</kbd>.</td>
   </tr>
   <tr>
     <td>{!}</td>
@@ -160,19 +160,19 @@
   </tr>
   <tr>
     <td>{Tab}</td>
-    <td><kbd>Tab</kbd></td>
+    <td><kbd>タブ</kbd></td>
   </tr>
   <tr>
     <td>{Backspace} or {BS}</td>
-    <td><kbd>Backspace</kbd></td>
+    <td><kbd>バックスペース</kbd></td>
   </tr>
   <tr>
     <td>{Delete} or {Del}</td>
-    <td><kbd>Del</kbd></td>
+    <td><kbd>削除</kbd></td>
   </tr>
   <tr>
     <td>{Insert} or {Ins}</td>
-    <td><kbd>Ins</kbd></td>
+    <td><kbd>挿入</kbd></td>
   </tr>
   <tr>
     <td>{Up}</td>
@@ -212,19 +212,19 @@
   </tr>
   <tr>
     <td>{ScrollLock}</td>
-    <td><kbd>ScrollLock</kbd>（参照：<a href="SetNumScrollCapsLockState.htm">SetScrollLockState</a>)</td>
+    <td><kbd>ScrollLock</kbd> (see also: <a href="SetNumScrollCapsLockState.htm">SetScrollLockState</a>)</td>
   </tr>
   <tr class="sep_below">
     <td>{NumLock}</td>
-    <td><kbd>NumLock</kbd>（参照：<a href="SetNumScrollCapsLockState.htm">SetNumLockState</a>)</td>
+    <td><kbd>NumLock</kbd> (see also: <a href="SetNumScrollCapsLockState.htm">SetNumLockState</a>)</td>
   </tr>
   <tr>
     <td>{Control} or {Ctrl}</td>
-    <td><kbd>Ctrl</kbd>（技術情報：はニュートラルバーチャルキーを送信しますが、左のスキャンコード)</td>
+    <td><kbd>Ctrl</kbd> (technical info: sends the neutral virtual key but the left scan code)</td>
   </tr>
   <tr>
     <td>{LControl} or {LCtrl}</td>
-    <td>Left <kbd>Ctrl</kbd>（技術情報：中立キーではなく、左の仮想キーを送信します。）</td>
+    <td>Left <kbd>Ctrl</kbd> (technical info: sends the left virtual key rather than the neutral one)</td>
   </tr>
   <tr>
     <td>{RControl} or {RCtrl}</td>
@@ -236,11 +236,11 @@
   </tr>
   <tr>
     <td>{Alt}</td>
-    <td><kbd>Alt</kbd>（技術情報：はニュートラルバーチャルキーを送信しますが、左のスキャンコード)</td>
+    <td><kbd>Alt</kbd> (technical info: sends the neutral virtual key but the left scan code)</td>
   </tr>
   <tr>
     <td>{LAlt}</td>
-    <td>Left <kbd>Alt</kbd>（技術情報：中立キーではなく、左の仮想キーを送信します。）</td>
+    <td>Left <kbd>Alt</kbd> (technical info: sends the left virtual key rather than the neutral one)</td>
   </tr>
   <tr>
     <td>{RAlt}</td>
@@ -252,11 +252,11 @@
   </tr>
   <tr>
     <td>{Shift}</td>
-    <td><kbd>Shift</kbd>（技術情報：はニュートラルバーチャルキーを送信しますが、左のスキャンコード)</td>
+    <td><kbd>Shift</kbd> (technical info: sends the neutral virtual key but the left scan code)</td>
   </tr>
   <tr>
     <td>{LShift}</td>
-    <td>Left <kbd>Shift</kbd>（技術情報：中立キーではなく、左の仮想キーを送信します。）</td>
+    <td>Left <kbd>Shift</kbd> (technical info: sends the left virtual key rather than the neutral one)</td>
   </tr>
   <tr>
     <td>{RShift}</td>
@@ -304,13 +304,13 @@
     <td><p>{vkXX}<br>
       {scYYY}<br>
     {vkXXscYYY}</p></td>
-    <td><p>仮想キーXXとスキャンコードYYYを持つキーストロークを送信します。事例：<code>Send "{vkFFsc159}"</code>. sc または vk の部分が省略された場合、最も適切な値が代わりに送信されます。</p>
-      <p>The values for XX and YYY are hexadecimal and can usually be determined from the <a href="../Program.htm#main-window">main window</a>'s View-&gt;<a href="KeyHistory.htm">Key history</a> menu item. こちらもご覧ください：<a href="../KeyList.htm#SpecialKeys">Special Keys</a></p>
+    <td><p>仮想キーXXとスキャンコードYYYを持つキーストロークを送信します。For example: <code>Send "{vkFFsc159}"</code>. sc または vk の部分が省略された場合、最も適切な値が代わりに送信されます。</p>
+      <p>The values for XX and YYY are hexadecimal and can usually be determined from the <a href="../Program.htm#main-window">main window</a>'s View-&gt;<a href="KeyHistory.htm">Key history</a> menu item. See also: <a href="../KeyList.htm#SpecialKeys">Special Keys</a></p>
       <p class="warning"><strong>警告：</strong>この方法でvkとscを組み合わせることは、Sendの場合のみ有効です。</p></td>
   </tr>
   <tr>
     <td>{Numpad0} - {Numpad9}</td>
-    <td>Numpadの数字キー（<kbd>NumLock</kbd>がONの時の状態です。）事例：{Numpad5} is <kbd>5</kbd>.</td>
+    <td>Numpadの数字キー（<kbd>NumLock</kbd>がONの時の状態です。）For example: {Numpad5} is <kbd>5</kbd>.</td>
   </tr>
   <tr>
     <td>{NumpadDot}</td>
@@ -466,7 +466,7 @@
   </tr>
   <tr id="Click">
     <td>{Click [Options]}</td>
-    <td><a href="Click.htm">クリック</a>機能と同じオプションを使って、マウスクリックを送信します。例えば、<code>Send "{Click}"</code>はマウスカーソルの現在位置でマウスの左ボタンを1回クリックし、<code>Send "{Click 100 200}"</code>は座標100、200（<a href="CoordMode.htm">CoordModeに</a>基づく）でクリックします。クリックせずにマウスを移動させる場合は、座標の後に0を指定します（例）：<code>Send "{Click 100 200 0}"</code>. マウスクリックの遅延時間は<a href="SetMouseDelay.htm">SetMouseDelay</a>で決定されます（<a href="SetKeyDelay.htm">SetKeyDelay</a>ではありません）。</td>
+    <td><a href="Click.htm">クリック</a>機能と同じオプションを使って、マウスクリックを送信します。例えば、<code>Send "{Click}"</code>はマウスカーソルの現在位置でマウスの左ボタンを1回クリックし、<code>Send "{Click 100 200}"</code>は座標100、200（<a href="CoordMode.htm">CoordModeに</a>基づく）でクリックします。To move the mouse without clicking, specify 0 after the coordinates; for example: <code>Send "{Click 100 200 0}"</code>. マウスクリックの遅延時間は<a href="SetMouseDelay.htm">SetMouseDelay</a>で決定されます（<a href="SetKeyDelay.htm">SetKeyDelay</a>ではありません）。</td>
   </tr>
   <tr id="mouse-buttons">
     <td>{WheelDown}, {WheelUp}, {WheelLeft}, {WheelRight}, {LButton}, {RButton}, {MButton}, {XButton1}, {XButton2}</td>
@@ -481,11 +481,11 @@
   </tr>
   <tr>
     <td>{Raw}</td>
-    <td>以下の文字が文字通りに解釈される<a href="#SendRaw">Rawモード</a>を有効にします：<code>^+!#{}</code>. Although <code>{Raw}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
+    <td>Enables the <a href="#SendRaw">Raw mode</a>, which causes the following characters to be interpreted literally: <code>^+!#{}</code>. Although <code>{Raw}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
   </tr>
   <tr>
     <td>{Text}</td>
-    <td>キーストロークではなく、文字のストリームを送信する<a href="#SendText">テキストモード</a>を有効にします。Rawモードと同様に、Textモードでは、以下の文字が文字通りに解釈されます：<code>^+!#{}</code>. Although <code>{Text}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
+    <td>キーストロークではなく、文字のストリームを送信する<a href="#SendText">テキストモード</a>を有効にします。Like the Raw mode, the Text mode causes the following characters to be interpreted literally: <code>^+!#{}</code>. Although <code>{Text}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
   </tr>
 </table>
 

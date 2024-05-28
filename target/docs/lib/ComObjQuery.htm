@@ -20,26 +20,26 @@ InterfaceComObj := <span class="func">ComObjQuery</span>(ComObj, IID)</pre>
 
   <dt>ComObj</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#objects">Object</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>COM ラッパーオブジェクト、インターフェースポインタ、またはインターフェースポインタを返す<code>Ptr</code>プロパティを持つオブジェクト。See <a href="ComValue.htm">ComValue</a> for details.</p>
   </dd>
 
   <dt>IID</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>インターフェース識別子（GUID）。"{xxxxxxx-xxxx-xxxx-xxxx-xxxx}"の形式をとる。</p>
   </dd>
 
   <dt>SID</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>IIDと同形式のサービス識別子。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
 <p>この関数は、IIDパラメータに依存するタイプのCOMラッパーオブジェクトを返します。</p>
 <table class="info">
   <tr><th>IID</th><th>Class</th><th abbr="Type">Variant Type</th><th abbr="説明">説明</th></tr>
@@ -73,11 +73,11 @@ InterfaceComObj := <span class="func">ComObjQuery</span>(ComObj, IID)</pre>
 <pre>
 obj := ComObject("Scripting.Dictionary")
 
-MsgBox "Interface name:" ComObjType(obj, "name")
+MsgBox "Interface name: " ComObjType(obj, "name")
 
 IID_IProvideClassInfo := "{B196B283-BAB4-101A-B69C-00AA00341D07}"
 
-<em>;オブジェクトの IProvideClassInfo インタフェースを要求します。</em>
+<em>; Request the object's IProvideClassInfo interface.</em>
 try
     pci := ComObjQuery(obj, IID_IProvideClassInfo)
 catch
@@ -86,24 +86,24 @@ catch
     return
 }
 
-<em>;GetClassInfo を呼び出し、ITypeInfo インターフェースへのポインタを取得します。</em>
+<em>; Call GetClassInfo to retrieve a pointer to the ITypeInfo interface.</em>
 ComCall(3, pci, "ptr*", &amp;ti := 0)
 
-<em>; 自動洗浄を確実にするために、Wrap tiを使用します。</em>
+<em>; Wrap ti to ensure automatic cleanup.</em>
 ti := ComValue(13, ti)
 
-<em>;オブジェクトの完全な型名を得るためにGetDocumentationを呼び出す。</em>
+<em>; Call GetDocumentation to get the object's full type name.</em>
 ComCall(12, ti, "int", -1, "ptr*", &amp;pname := 0, "ptr", 0, "ptr", 0, "ptr", 0)
 
-<em>; BSTRポインタを使用可能な文字列に変換します。</em>
+<em>; Convert the BSTR pointer to a usable string.</em>
 name := StrGet(pname, "UTF-16")
 
-<em>;クリーンアップ</em>
+<em>; Clean up.</em>
 DllCall("oleaut32\SysFreeString", "ptr", pname)
 pci := ti := ""
 
-<em>; 型名を表示する!</em>
-MsgBox "Class name:" name
+<em>; Display the type name!</em>
+MsgBox "Class name: " name
 </pre>
 </div>
 
@@ -127,21 +127,21 @@ GetWebBrowser()
         , "Ptr", IID_IHTMLDocument2, "Ptr", 0
         , "Ptr*", pdoc := ComValue(VT_UNKNOWN, 0))
     
-<em>; WebBrowserApp サービスの ;クエリです。この特殊なケースで
+    <em>; Query for the WebBrowserApp service. In this particular case,
     ; SIDとIIDは同じですが、いつもこうとは限りません。</em>
     static IID_IWebBrowserApp := "{0002DF05-0000-0000-C000-000000000046}"
     static SID_SWebBrowserApp := IID_IWebBrowserApp
     pweb := ComObjQuery(pdoc, SID_SWebBrowserApp, IID_IWebBrowserApp)
     
-<em>; WebBrowserオブジェクトをIDispatchとして返し、使い勝手を良くします。
-; これは、IWebBrowserAppがIDispatchから派生したものであるためです。
-; pwebは自動的にptrを解放するので、それに対抗するためにAddRefします。</em>
+    <em>; WebBrowserオブジェクトをIDispatchとして返し、使い勝手を良くします。
+    ; これは、IWebBrowserAppがIDispatchから派生したものであるためです。
+    ; pwebは自動的にptrを解放するので、それに対抗するためにAddRefします。</em>
     ObjAddRef(pweb.ptr)
     static VT_DISPATCH := 9
     return ComValue(VT_DISPATCH, pweb.ptr)
 }
 
-GUID(sGUID) <em>; 文字列をバイナリGUIDに変換し、Bufferで返す。</em>
+GUID(sGUID) <em>; Converts a string to a binary GUID and returns it in a Buffer.</em>
 {
     GUID := Buffer(16, 0)
     if DllCall("ole32\CLSIDFromString", "WStr", sGUID, "Ptr", GUID) &lt; 0

@@ -25,24 +25,24 @@
 
   <dt>Filename</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>開くファイルのパス。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。</p>
     <p>以下のようにアスタリスク（または2つ）を指定すると、標準入力／出力／エラーストリームを開くことができます：</p>
     <pre>
-FileOpen("*", "r")   <em>; 標準入力用</em>
-FileOpen("*", "w")   <em>; 標準出力用</em>
-FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
+FileOpen("*", "r")   <em>; for stdin</em>
+FileOpen("*", "w")   <em>; for stdout</em>
+FileOpen("**", "w")  <em>; for stderr</em></pre>
   </dd>
 
   <dt>Flags</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>希望するアクセスモードを示す文字列の後に他のオプション（オプションで空白またはタブを挟む）が続くか、または数値フラグの組み合わせ（合計）です。サポートされる値は、以下の表のとおりです。</p>
   </dd>
 
   <dt>エンコード</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, the default encoding (as set by <a href="FileEncoding.htm">FileEncoding</a> or CP0 otherwise) will be used. If blank, it defaults to CP0 (the system default ANSI code page). Otherwise, specify the encoding or code page to use for text I/O, e.g. <code>"UTF-8"</code>, <code>"UTF-16"</code>, <code>"CP936"</code> or <code>936</code>.</p>
     <p>If the file contains a UTF-8 or UTF-16 byte order mark (BOM), or if the <code>h</code> (handle) flag is used, this parameter and the default encoding will be ignored, unless the file is being opened with write-only access (i.e. the previous contents of the file are being discarded).</p>
   </dd>
@@ -154,7 +154,7 @@ FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
 </table>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
 <p>戻り値は、ファイルへのオープンハンドルをカプセル化した新しい<a href="File.htm">Fileオブジェクト</a>です。このオブジェクトのメソッドとプロパティを使用して、ファイルのコンテンツにアクセスします。</p>
 
 <h2 id="Errors">エラー</h2>
@@ -180,26 +180,26 @@ try
 catch as Err
 {
     MsgBox "Can't open '" FileName "' for writing."
-        . "`n`n" Type(Err) ":" Err.Message
+        . "`n`n" Type(Err) ": " Err.Message
     return
 }
-TestString := "This is a test string.`r`n"  <em>; この方法でファイルを書く場合、改行には `n ではなく `r`n を使用します。</em>
+TestString := "This is a test string.`r`n"  <em>; When writing a file this way, use `r`n rather than `n to start a new line.</em>
 FileObj.Write(TestString)
 FileObj.Close()
 
-<em>; ファイルが書き込まれたので、その内容をメモリに読み返してください。</em>
+<em>; Now that the file was written, read its contents back into memory.</em>
 try
-    FileObj := FileOpen(FileName, "r-d") <em>; read the file ("r")は、削除（"-d"）を除くすべてのアクセスを共有します。</em>
+    FileObj := FileOpen(FileName, "r-d") <em>; read the file ("r"), share all access except for delete ("-d")</em>
 catch as Err
 {
     MsgBox "Can't open '" FileName "' for reading."
-        . "`n`n" Type(Err) ":" Err.Message
+        . "`n`n" Type(Err) ": " Err.Message
     return
 }
 CharsToRead := StrLen(TestString)
 TestString := FileObj.Read(CharsToRead)
 FileObj.Close()
-MsgBox "The following string was read from the file:" TestString</pre>
+MsgBox "The following string was read from the file: " TestString</pre>
 </div>
 
 <div class="ex" id="ExReadLine">
@@ -210,16 +210,16 @@ MsgBox Script.ReadLine()</pre>
 
 <div class="ex" id="ExStreams">
 <p><a class="ex_number" href="#ExStreams"></a> 標準入出力ストリームの使い方を説明します。</p>
-<pre><em>; このデモのためにコンソールウィンドウを開いてください：</em>
+<pre><em>; Open a console window for this demonstration:</em>
 DllCall("AllocConsole")
-<em>; アプリケーションのstdin/stdoutストリームをオープンします。</em>
+<em>; Open the application's stdin/stdout streams.</em>
 stdin  := FileOpen("*", "r")
 stdout := FileOpen("*", "w")
 stdout.Write("Enter your query.`n\&gt; ")
-stdout.Read(0) <em>; 書き込みバッファをフラッシュします。</em>
+stdout.Read(0) <em>; Flush the write buffer.</em>
 query := RTrim(stdin.ReadLine(), "`n")
 stdout.WriteLine("Your query was '" query "'. Have a nice day.")
-stdout.Read(0) <em>; 書き込みバッファをフラッシュします。</em>
+stdout.Read(0) <em>; Flush the write buffer.</em>
 Sleep 5000
 </pre>
 </div>

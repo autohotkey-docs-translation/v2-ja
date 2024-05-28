@@ -38,7 +38,7 @@
   <li>歴史的な理由から、以下のボタンとコントロールの名前は<code>ジョイスティック</code>の略である<code>Joy</code>で始まる。しかし、通常はゲームパッドやステアリングホイールなど、他のゲームコントローラーにも使用できます。</li>
   <li>コントローラのボタンや軸をキーやマウスのボタンにリマップすることはできますが、他のコントローラのボタンや軸にリマップすることはできません。それは、<a href="https://sourceforge.net/projects/vjoystick/">vJoy</a>のようなコントローラー・エミュレーターがあればこそ可能なことだ。</li>
   <li>AutoHotkeyは、コントローラの各ボタンを1～32のユニークな番号で識別します。これらの数値を決定するには、<a href="../scripts/index.htm#ControllerTest">コントローラのテストスクリプト</a>を使用します。</li>
-  <li>Xbox コントローラ 2013 以降（Xbox 360 コントローラより新しいもの）の場合、Joy1～Joy32 のホットキーは、<a href="../lib/MsgBox.htm">メッセージ ボックス</a>、<a href="../lib/Gui.htm">GUI</a>、<a href="../Program.htm#main-window">スクリプトのメイン ウィンドウ</a>など、スクリプトが所有するウィンドウがアクティブな場合にのみ機能します。この制限は、Joy1～Joy32、JoyX、JoyY、JoyZ、JoyR、JoyU、JoyPOV（および場合によってはJoyV）の<a href="../lib/GetKeyState.htm">GetKeyState</a>にも適用されるが、JoyName、JoyButtons、JoyAxes、JoyInfoには適用されない。他のアクティブウィンドウのコントローラ入力を検出するには、<a href="https://www.autohotkey.com/boards/viewtopic.php?f=83&t=106254">XInput.ahkライブラリ</a>を使用する。</li>
+  <li>Xbox コントローラ 2013 以降（Xbox 360 コントローラより新しいもの）の場合、Joy1～Joy32 のホットキーは、<a href="../lib/MsgBox.htm">メッセージ ボックス</a>、<a href="../lib/Gui.htm">GUI</a>、<a href="../Program.htm#main-window">スクリプトのメイン ウィンドウ</a>など、スクリプトが所有するウィンドウがアクティブな場合にのみ機能します。この制限は、Joy1～Joy32、JoyX、JoyY、JoyZ、JoyR、JoyU、JoyPOV（および場合によってはJoyV）の<a href="../lib/GetKeyState.htm">GetKeyState</a>にも適用されるが、JoyName、JoyButtons、JoyAxes、JoyInfoには適用されない。他のアクティブウィンドウのコントローラ入力を検出するには、<a href="https://www.autohotkey.com/boards/viewtopic.php?f=83&amp;t=106254">XInput.ahkライブラリ</a>を使用する。</li>
 </ul>
 
 <h2 id="button">コントローラボタンがキーストロークやマウスクリックを送るようにする</h2>
@@ -67,7 +67,7 @@ Joy4::Send "Sincerely,{Enter}John Smith"  <em>; Have button #4 send a two-line s
 <p>この方法は、コントローラーのボタンを押している間ずっと、キーやマウスのボタンを押し続けなければならない場合に必要です。次の例では、コントローラーの第2ボタンを左矢印キーにします：</p>
 <pre>Joy2::
 {
-    Send "{Left down}"  <em>; Hold down the left-arrow key.</em>
+    Send "{Left down}"  <em>; 左矢印キーを押し続けます。</em>
     <a href="../lib/KeyWait.htm">KeyWait</a> "Joy2"  <em>; Wait for the user to release the controller button.</em>
     Send "{Left up}"  <em>; Release the left-arrow key.</em>
 }</pre>
@@ -130,7 +130,7 @@ WatchAxis()
     JoyY := GetKeyState("JoyY")  <em>; Get position of Y axis.</em>
     KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
 
-if JoyX &gt; 70
+    if JoyX &gt; 70
         KeyToHoldDown := "Right"
     else if JoyX &lt; 30
         KeyToHoldDown := "Left"
@@ -141,10 +141,10 @@ if JoyX &gt; 70
     else
         KeyToHoldDown := ""
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
+    if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
         return  <em>; Do nothing.</em>
 
-<em>; Otherwise, release the previous key and press down the new key:</em>
+    <em>; Otherwise, release the previous key and press down the new key:</em>
     SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
     if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
         Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>
@@ -164,7 +164,7 @@ WatchPOV()
     KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
 
 <em>; Some controllers might have a smooth/continous POV rather than one in fixed increments.
-; To support them all, use a range:</em>
+    ; To support them all, use a range:</em>
     if POV &lt; 0   <em>; No angle to report</em>
         KeyToHoldDown := ""
     else if POV &gt; 31500                <em>; 315 to 360 degrees: Forward</em>
@@ -178,10 +178,10 @@ WatchPOV()
     else                                  <em>; 225 to 315 degrees: Left</em>
         KeyToHoldDown := "Left"
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
+    if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
         return  <em>; Do nothing.</em>
 
-<em>; Otherwise, release the previous key and press down the new key:</em>
+    <em>; Otherwise, release the previous key and press down the new key:</em>
     SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
     if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
         Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>

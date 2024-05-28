@@ -19,9 +19,9 @@ ul.list_of_p li { margin: 1em 0; }
 <p><i>オブジェクト</i>は、いくつかの<em>プロパティと</em>メソッドを組み合わせたものである。 <a href="Concepts.htm#methods"><em>メソッド</em></a>.</p>
 <p>関連トピック</p>
 <ul>
-  <li><a href="Concepts.htm#objects">オブジェクト</a>：オブジェクトの一般的な説明。</li>
-  <li><a href="Concepts.htm#object-protocol">オブジェクトプロトコル</a>：スクリプトがオブジェクトとどのように相互作用するかについての詳細。</li>
-  <li><a href="misc/Functor.htm">機能オブジェクト</a>：<em>呼び出す</em>ことができるオブジェクト。</li>
+  <li><a href="Concepts.htm#objects">Objects</a>: General explanation of objects.</li>
+  <li><a href="Concepts.htm#object-protocol">Object Protocol</a>: Specifics about how a script interacts with an object.</li>
+  <li><a href="misc/Functor.htm">Function objects</a>: Objects which can be <em>called</em>.</li>
 </ul>
 
 <p><b>IsObject</b>は、値がオブジェクトであるかどうかを判定するために使用できます：</p>
@@ -106,11 +106,11 @@ For value in MyArray
 <p>プロパティの取得や割り当ての際にパラメータを受け付けることがある：</p>
 <pre>Value := MyObject.Property[Parameters]
 MyObject.Property[Parameters] := Value</pre>
-<p>オブジェクトはインデックスをサポートすることもある：<code>MyArray[Index]</code>は、実際には<code>MyArray</code>の<a href="#__Item">__Item</a>プロパティを呼び出し、<code>Index</code>をパラメータとして渡す。</p>
+<p>An object may also support indexing: <code>MyArray[Index]</code> actually invokes the <a href="#__Item">__Item</a> property of <code>MyArray</code>, passing <code>Index</code> as a parameter.</p>
 
 <h3 id="object-literal">オブジェクト・リテラル</h3>
 <p>オブジェクト・リテラルを<a href="Language.htm#expressions">式</a>の中で使うと、即席のオブジェクトを作ることができる。オブジェクト・リテラルは、カンマで区切られた名前と値のペアのリストを中括弧（<code>{}</code>）で囲んだものである。各ペアは、コロン（<code>:</code>）で区切られたリテラル（引用符で囲まれていない）<a href="Concepts.htm#names">プロパティ名</a>と値（サブ式）で構成されます。事例：</p>
-<pre>Coord := {X:13, Y:240}</pre>
+<pre>Coord := {X: 13, Y: 240}</pre>
 <p>これは等価だ：</p>
 <pre>Coord := Object()
 Coord.X := 13
@@ -118,17 +118,17 @@ Coord.Y := 240</pre>
 <p>各名前と値のペアは、値のプロパティを定義させるが、例外として<a href="lib/Object.htm#Base">Base</a>を設定することができる（通常の代入と同じ制限がある）。</p>
 <p><a href="Variables.htm#deref">名前の置換</a>は、<a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>を評価することによってプロパティ名を決定することができます。事例：</p>
 <pre>parts := StrSplit("key = value", "=", " ")
-pair := {%parts[1]%:parts[2]}
+pair := {%parts[1]%: parts[2]}
 MsgBox pair.key</pre>
 
 <h3 id="Usage_Freeing_Objects">オブジェクトの解放</h3>
 <p>スクリプトは明示的にオブジェクトを解放しない。オブジェクトへの最後の参照が解放されると、オブジェクトは自動的に解放される。変数に格納された参照は、その変数に他の値が代入されると自動的に解放される。事例：</p>
-<pre>obj := {}  <em>;  オブジェクトを生成します。</em>
-obj := ""  <em>;  最後の参照を解放します。つまり、オブジェクトを破棄します。</em></pre>
+<pre>obj := {}  <em>; Creates an object.</em>
+obj := ""  <em>; Releases the last reference, and therefore frees the object.</em></pre>
 <p>同様に、プロパティや配列要素に格納された参照は、そのプロパティや配列要素に他の値が割り当てられたり、オブジェクトから削除されたりすると解放される。</p>
-<pre>arr := [{}]  <em>; オブジェクトを含んだ配列を作ります。</em>
-arr[1] := {}  <em>; 2番目のオブジェクトを生成します。黙示的に最初のオブジェクトを破棄します。</em>
-arr.RemoveAt(1)  <em>; 2番目のオブジェクトを破棄します。</em></pre>
+<pre>arr := [{}]  <em>; Creates an array containing an object.</em>
+arr[1] := {}  <em>; Creates a second object, implicitly freeing the first object.</em>
+arr.RemoveAt(1)  <em>; Removes and frees the second object.</em></pre>
 <p id="Circular_References">オブジェクトを解放する前に、オブジェクトへの参照をすべて解放しなければならないので、循環参照を含むオブジェクトは自動的に解放されない。例えば、<code>x.child</code>が <code>y</code>を参照し、<code>y.parent</code>が <code>x</code>を参照している場合、<code>x</code>と <code>y</code>をクリアするだけでは不十分である。この状況を解決するには、循環参照を削除する。</p>
 <pre>
 x := {}, y := {}             <em>; Create two objects.</em>
@@ -159,7 +159,7 @@ class Array2D extends Array {
         this.Height := y
     }
     __Item[x, y] {
-        get =&gt; super.Has(this.i[x, y]) ? super[this.i[x, y]] : false
+        get =&gt; super.Has(this.i[x, y]) ?super[this.i[x, y]] : false
         set =&gt; super[this.i[x, y]] := value
     }
     i[x, y] =&gt; this.Width * (y-1) + x
@@ -186,8 +186,8 @@ MsgBox gridtext
 <h2 id="Custom_Objects">カスタムオブジェクト</h2>
 <p>カスタム・オブジェクトを作成するには、一般的に2つの方法がある：</p>
 <ul>
-  <li><em>アドホック</em>：オブジェクトを作成し、プロパティを追加する。</li>
-  <li><em>代表</em>共有<em>ベース・オブジェクト</em>またはクラスのプロパティを定義する。</li>
+  <li><em>Ad hoc</em>: create an object and add properties.</li>
+  <li><em>Delegation</em>: define properties in a shared <em>base object</em> or class.</li>
 </ul>
 <p><a href="#Meta_Functions">メタファンクション</a>は、オブジェクトの振る舞いをさらにコントロールするために使うことができる。</p>
 <p class="note"><strong>注：</strong>このセクションでは、<em>オブジェクト</em>とは <a href="lib/Object.htm">Object</a>クラスのインスタンスを指します。このセクションはCOMオブジェクトには適用されない。</p>
@@ -206,11 +206,11 @@ thing.test()
 thing_test(this) {
     MsgBox this.foo
 }</pre>
-<p>同様に、<code>thing := {foo："bar"}</code>. {property:value}表記を使う場合、プロパティに引用符を使ってはならない。</p>
+<p>You could similarly create the above object with <code>thing := {foo: "bar"}</code>. {property:value}表記を使う場合、プロパティに引用符を使ってはならない。</p>
 <p><code>thing.test()</code>が呼ばれると、<i>thing</i>は自動的にパラメータ・リストの先頭に挿入される。慣習上、関数はオブジェクトの「タイプ」とメソッド名を組み合わせて命名されるが、これは必須条件ではない。</p>
 <p>上記の例では、<em>test</em>が定義された後に他の関数や値が割り当てられる可能性があり、その場合、元の関数は失われ、このプロパティを通じて呼び出すことはできない。別の方法として、以下のように読み取り専用のメソッドを定義することもできる：</p>
-<pre>thing.DefineProp 'test', {call:thing_test}</pre>
-<p>こちらもご覧ください：<a href="lib/Object.htm#DefineProp">DefineProp</a></p>
+<pre>thing.DefineProp 'test', {call: thing_test}</pre>
+<p>See also: <a href="lib/Object.htm#DefineProp">DefineProp</a></p>
 
 <h3 id="delegation">代表</h3>
 <p>オブジェクトは<em>プロトタイプベース</em>。つまり、オブジェクト自体で定義されていないプロパティは、代わりにオブジェクトの<a href="lib/Object.htm#Base">ベース</a>で定義することができる。これは、<em>委譲による継承</em>または<em>差分継承</em>と呼ばれるもので、オブジェクトは、そのオブジェクトを異なるものにする部分のみを実装し、残りをベースに委譲することができるからである。</p>
@@ -246,24 +246,24 @@ other.test()</pre>
 {
     InstanceVar := <i>Expression</i>
     
-static ClassVar := <i>Expression</i>
+    static ClassVar := <i>Expression</i>
 
-class NestedClass
+    class NestedClass
     {
         ...
     }
 
-Method()
+    Method()
     {
         ...
     }
     
-static Method()
+    static Method()
     {
         ...
     }
 
-Property[<i>Parameters</i>]  <em>; Use brackets only when parameters are present.</em>
+    Property[<i>Parameters</i>]  <em>; Use brackets only when parameters are present.</em>
     {
         <span class="dec">get</span> {
             return <i>value of property</i>
@@ -273,13 +273,13 @@ Property[<i>Parameters</i>]  <em>; Use brackets only when parameters are present
         }
     }
     
-ShortProperty
+    ShortProperty
     {
         <span class="dec">get</span> =&gt; <i>Expression which calculates property value</i>
         <span class="dec">set</span> =&gt; <i>Expression which stores or otherwise handles</i> <span class="biv">value</span>
     }
     
-ShorterProperty =&gt; <i>Expression which calculates property value</i>
+    ShorterProperty =&gt; <i>Expression which calculates property value</i>
 }
 </pre>
 <p>スクリプトがロードされると、<a href="lib/Class.htm">Class</a>オブジェクトが構築され、<i>ClassName</i>という名前の<a href="Functions.htm#Global">グローバル</a>定数（読み取り専用変数）に格納されます。<code>extends BaseClassName</code>がある場合、<i>BaseClassName</i>は他のクラスの完全な名前でなければならない。各クラスの完全な名前は<code><i>ClassName</i>.Prototype.__Class</code>に格納されます。</p>
@@ -326,7 +326,7 @@ class NestedClass
   <li>インスタンス・メソッドは以下のように定義され、クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>にアタッチされます。メソッドが呼ばれると、<code>これ</code>はクラスのインスタンスを参照する。</li>
   <li>静的メソッドは、メソッド名の前に個別のキーワード<code>static</code>を付けて定義します。これらはクラス・オブジェクト自体に付属していますが、サブクラスにも継承されます。</li>
 </ul>
-<p>以下のメソッド定義では、<code><i>target</i>.DefineProp('Method', {call：<i>funcObj</i>})</code>. デフォルトでは、<code><i>target</i>.Method</code>は <em>funcObj</em>を返し、<code><i>target</i>.Method</code>に代入しようとするとエラーがスローされます。これらのデフォルトは、<a href="#Custom_Classes_property">プロパティを定義</a>するか<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すことでオーバーライドできます。</p>
+<p>The method definition below creates a property of the same type as <code><i>target</i>.DefineProp('Method', {call: <i>funcObj</i>})</code>. デフォルトでは、<code><i>target</i>.Method</code>は <em>funcObj</em>を返し、<code><i>target</i>.Method</code>に代入しようとするとエラーがスローされます。これらのデフォルトは、<a href="#Custom_Classes_property">プロパティを定義</a>するか<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すことでオーバーライドできます。</p>
 <pre>
 Method()
 {
@@ -345,7 +345,7 @@ Method()
   <li><em>ClassName</em>がベース・オブジェクトの連鎖のどこに存在するか（あるいは存在するかどうか）は不明なので、<em>ClassName</em>自体が開始点として使用される。したがって、<code>super.Method()</code>は、<code>(<i>ClassName</i>.Prototype.base.Method)(this)</code>とほぼ等価である（ただし、<em>Method</em>がstaticの場合は<em>Prototype</em>を含まない）。しかし、<code><i>ClassName</i>.Prototype</code>はロード時に解決される。</li>
   <li>そのプロパティがスーパークラスで定義されていないか、呼び出すことができない場合はエラーがスローされる。</li>
 </ul>
-<p>キーワード<code>super</code>の後には、以下の記号のいずれかをつけなければならない：<code>.[(</code></p>
+<p>The keyword <code>super</code> must be followed by one of the following symbols: <code>.[(</code></p>
 <p><code>super()</code>は<code>super.call()</code>と等価である。</p>
 
 <h4 id="Custom_Classes_property">属性</h4>
@@ -409,12 +409,12 @@ obj["base"] := 10
 MsgBox obj.base = Object.prototype  <em>; True</em>
 MsgBox obj["base"]                  <em>; 10</em>
 </pre>
-<p class="note"><strong>注：</strong> <code>obj.prop[]</code>のように明示的なプロパティ名が空括弧と組み合わされているときは、それは2つの別々の操作として扱われます：まず<code>obj.prop</code>を取得し、次に結果のデフォルト・プロパティを呼び出します。これは言語構文の一部であり、オブジェクトに依存するものではない。</p>
+<p class="note"><strong>Note:</strong> When an explicit property name is combined with empty brackets, as in <code>obj.prop[]</code>, it is handled as two separate operations: first retrieve <code>obj.prop</code>, then invoke the default property of the result. これは言語構文の一部であり、オブジェクトに依存するものではない。</p>
 
 <h3 id="Custom_NewDelete">コンストラクタとデストラクタ</h3>
 <p><a href="lib/Class.htm#Call"><em>ClassName</em>()</a>のデフォルト実装によってオブジェクトが生成されるたびに、新しいオブジェクトの<code>__New</code>メソッドが呼び出されます。<code><i>ClassName</i>()</code>に渡されたパラメータはすべて<code>__New</code>に転送されるため、オブジェクトの初期内容や構築方法に影響を与える可能性があります。オブジェクトが破棄されると、<code>__Delete</code>が呼ばれる。事例：</p>
 <pre>m1 := GMem(0, 10)
-m2 := {base:GMem.Prototype}, m2.__New(0, 30)
+m2 := {base: GMem.Prototype}, m2.__New(0, 30)
 
 <em>; Note: For general memory allocations, use <a href="lib/Buffer.htm">Buffer</a>() instead.</em>
 class GMem<span id="GMem"></span>
@@ -427,7 +427,7 @@ class GMem<span id="GMem"></span>
         MsgBox "New GMem of " aSize " bytes at address " this.ptr "."
     }
 
-__Delete()
+    __Delete()
     {
         MsgBox "Delete GMem at address " this.ptr "."
         DllCall("GlobalFree", "Ptr", this.ptr)
@@ -439,7 +439,7 @@ __Delete()
 <p>スクリプトが終了すると、グローバル変数と静的変数に含まれるオブジェクトは、実装で定義された任意の順序で自動的に解放されます。この処理中に__Deleteが呼ばれた場合、グローバル変数やスタティック変数はすでに解放されている可能性があるが、オブジェクト自身が含む参照はまだ有効である。したがって、__Deleteは完全に自己完結型とし、グローバル変数や静的変数に依存しないのがベストである。</p>
 
 <h4 id="static__New">クラスの初期化</h4>
-<p>各クラスは、そのクラスへの参照が初めて評価されるときに自動的に初期化される。例えば、<em>MyClass</em>がまだ初期化されていない場合、<code>MyClass.MyProp</code>はプロパティが取得される前にクラスを初期化します。初期化は、2つの静的メソッドを呼び出すことからなる：__Init and __New.</p>
+<p>各クラスは、そのクラスへの参照が初めて評価されるときに自動的に初期化される。例えば、<em>MyClass</em>がまだ初期化されていない場合、<code>MyClass.MyProp</code>はプロパティが取得される前にクラスを初期化します。Initialization consists of calling two static methods: __Init and __New.</p>
 <p><code>static __Init</code>は、すべてのクラスに対して自動的に定義され、ベース・クラスが指定されていれば常にそのクラスへの参照から始まり、確実に初期化されます。<a href="#Custom_Classes_staticvar">静的/クラス変数</a>と <a href="#Custom_Classes_class">ネストされたクラス</a>は、定義された順番に初期化されます。ただし、ネストされたクラスが前の変数やクラスの初期化中に参照された場合は除きます。</p>
 <p>クラスが<code>static __New</code>メソッドを定義または継承している場合、 __Init の直後に呼び出されます。__Newは、それが定義されているクラスに対して一度だけ呼び出されることに注意することが重要であり<em>そして</em>、定義されていないサブクラス（または<code>super.__New()</code>を呼び出すサブクラス）ではそれぞれ1回呼び出されるということです。これは、各サブクラスに対して共通の初期化タスクを実行したり、サブクラスを使用する前に何らかの方法で修正したりするために使用できます。</p>
 <p><code>static __New</code>が派生クラスに対して作用することを意図していない場合は、<code>this</code>の値をチェックすることで回避できる。場合によっては、<code>this.DeleteProp('__New')</code>のように、メソッド自体を削除すれば十分かもしれません。しかし、__Newの最初の実行は、サブクラスが基本クラスに入れ子になっている場合や、静的/クラス変数の初期化中に参照される場合があります。</p>
@@ -478,16 +478,16 @@ class <i>ClassName</i> {
 <p>プロパティとメソッドは、オブジェクト自身またはその<a href="#delegation">ベース・オブジェクト</a>のいずれかに定義することができます。一般的に、すべてのプロパティに対してメタファンクションを呼び出すには、プロパティを定義しないようにしなければなりません。<a href="lib/Object.htm#Base">Base</a>のような組み込みプロパティは、<a href="#Custom_Classes_property">プロパティ定義</a>または<a href="lib/Object.htm#DefineProp">DefineProp</a>でオーバーライドできます。</p>
 <p>メタファンクションが定義されているときは、そのメタファンクションは必要なデフォルトアクションを全て実行しなければなりません。例えば、次のようなことが予想される：</p>
 <ul>
-  <li><i>Call</i>:<a href="lib/Error.htm#MethodError">MethodError</a>をスローします。</li>
+  <li><i>Call</i>: Throw a <a href="lib/Error.htm#MethodError">MethodError</a>.</li>
   <li>パラメータが与えられたときは、例外をスローします（パラメータを転送するオブジェクトがありません）。</li>
-  <li><i>Get</i>:<a href="lib/Error.htm#PropertyError">PropertyError</a>をスローします。</li>
-  <li><i>Set</i>:<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すなどして、指定された値を持つ新しいプロパティを定義する。 </li>
+  <li><i>Get</i>: Throw a <a href="lib/Error.htm#PropertyError">PropertyError</a>.</li>
+  <li><i>Set</i>: Define a new property with the given value, such as by calling <a href="lib/Object.htm#DefineProp">DefineProp</a>. </li>
 </ul>
 <p><a href="misc/Functor.htm">呼び出し可能なオブジェクト</a>は、関連するプロパティに代入することで、メタファンクションとして使用することができる。</p>
 <p>メタファンクションは以下の場合には呼び出されない：</p>
 <ul>
-  <li><code>x[y]</code>:プロパティ名なしで角括弧を使用すると、<a href="#__Item">__Item</a>プロパティのみが呼び出されます。</li>
-  <li><code>x()</code>:オブジェクト自体を呼び出すと、<code>Call</code>メソッドが呼び出されるだけである。これには、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組込関数による内部呼び出しも含まれる。</li>
+  <li><code>x[y]</code>: Using square brackets without a property name only invokes the <a href="#__Item">__Item</a> property.</li>
+  <li><code>x()</code>: Calling the object itself only invokes the <code>Call</code> method. これには、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組込関数による内部呼び出しも含まれる。</li>
   <li>他のメタファンクションやダブルアンダースコアメソッドへの内部呼び出しは<code>__Call</code>をトリガーしない。</li>
 </ul>
 
@@ -514,13 +514,13 @@ class <i>ClassName</i> {
 <p>プロパティとメソッドは、その型のプロトタイプ・オブジェクトを修正することによって、与えられた型のすべての値に対して追加することができる。しかし、プリミティブ値はObjectではなく、独自のプロパティやメソッドを持つことができないため、プリミティブプロトタイプオブジェクトは<code>Object.Prototype</code>から派生しません。つまり、<a href="lib/Object.htm#DefineProp">DefineProp</a>や <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>といったメソッドは、デフォルトではアクセスできない。間接的に呼ばれることもある。事例：</p>
 <pre>
 DefProp := {}.DefineProp
-DefProp( "".base, "Length", { get:StrLen } )
+DefProp( "".base, "Length", { get: StrLen } )
 MsgBox A_AhkPath.length " == " StrLen(A_AhkPath)
 </pre>
 <p>プリミティブ値はそのプロトタイプから値プロパティを継承できますが、スクリプトがプリミティブ値に値プロパティを設定しようとすると例外がスローされます。事例：</p>
 <pre>"".base.test := 1  <em>; Don't try this at home.</em>
 MsgBox "".test  <em>; 1</em>
-"".test := 2  <em>; エラー: プロパティは読み取り専用です。</em></pre>
+"".test := 2  <em>; Error: Property is read-only.</em></pre>
 <p>Setやプロパティ・セッターを使うこともできるが、プリミティブ値は不変であると考えるべきであるので、これらは有用ではない。</p>
 
 <h2 id="Implementation">実施</h2>
@@ -569,7 +569,7 @@ Sleep 3500  <em>; Prevent exit temporarily to show that the timer has stopped.</
 class SomeClass {
     __New() {
         <em>; The closure must be stored so that the timer can be deleted later.
-; Synthesize a counted reference each time the method needs to be called.</em>
+        ; Synthesize a counted reference each time the method needs to be called.</em>
         this.Timer := (p =&gt; ObjFromPtrAddRef(p).Update()).Bind(ObjPtr(this))
         SetTimer this.Timer, 1000
     }
@@ -577,11 +577,11 @@ class SomeClass {
         SetTimer this.Timer, 0
         <em>; If this object is truly deleted, all properties will be
         ; deleted and the following __Delete method will be called.
-; This is just for confirmation and wouldn't normally be used.</em>
-        this.Test := {__Delete:test =&gt; ToolTip("object deleted")}
+        ; This is just for confirmation and wouldn't normally be used.</em>
+        this.Test := {__Delete: test =&gt; ToolTip("object deleted")}
     }
     <em>; This is just to demonstrate that the timer is running.
-; Hypothetically, this class has some other purpose.</em>
+    ; Hypothetically, this class has some other purpose.</em>
     count := 0
     Update() =&gt; ToolTip(++this.count)
 }</pre>
@@ -609,8 +609,8 @@ class SomeClass {
         this.Timer := unset
         <em>; If this object is truly deleted, all properties will be
         ; deleted and the following __Delete method will be called.
-; This is just for confirmation and wouldn't normally be used.</em>
-        this.Test := {__Delete:test =&gt; ToolTip("object deleted")}
+        ; This is just for confirmation and wouldn't normally be used.</em>
+        this.Test := {__Delete: test =&gt; ToolTip("object deleted")}
     }</pre>
 <p>This can generally be applied regardless of where the uncounted reference is stored and what it is used for. The key points are:</p>
 <ul>

@@ -1,41 +1,41 @@
 tocData = [
-  ["クイックリファレンス","index.htm"],
-  ["使い方と文法","",
+  ["Quick Reference","index.htm"],
+  ["Usage and Syntax","",
   [
-    ["プログラムの使用","Program.htm"],
-    ["概念と規約","Concepts.htm"],
-    ["スクリプト言語","Language.htm"],
-    ["ホットキー","Hotkeys.htm"],
-    ["ホットストリング","Hotstrings.htm"],
-    ["キーのリマップ","misc/Remap.htm"],
-    ["キーリスト","KeyList.htm"],
-    ["スクリプト (全般)","Scripts.htm"],
-    ["変数と式","Variables.htm"],
-    ["関数","Functions.htm"],
-    ["ラベル","misc/Labels.htm"],
-    ["スレッド","misc/Threads.htm"],
-    ["AHKサポートエディタ","misc/Editors.htm"],
-    ["クライアントのデバッグ","AHKL_DBGPClients.htm"],
-    ["コンパイラ指令","misc/Ahk2ExeDirectives.htm"],
-    ["オブジェクト","Objects.htm"]
+    ["Using the Program","Program.htm"],
+    ["Concepts and Conventions","Concepts.htm"],
+    ["Scripting Language","Language.htm"],
+    ["Hotkeys","Hotkeys.htm"],
+    ["Hotstrings","Hotstrings.htm"],
+    ["Remapping Keys","misc/Remap.htm"],
+    ["List of Keys","KeyList.htm"],
+    ["Scripts (misc)","Scripts.htm"],
+    ["Variables and Expressions","Variables.htm"],
+    ["Functions","Functions.htm"],
+    ["Labels","misc/Labels.htm"],
+    ["Threads","misc/Threads.htm"],
+    ["Editors with AHK Support","misc/Editors.htm"],
+    ["Debugging Clients","AHKL_DBGPClients.htm"],
+    ["Compiler Directives","misc/Ahk2ExeDirectives.htm"],
+    ["Objects","Objects.htm"]
   ]],
-  ["よくある質問","FAQ.htm"],
-  ["チュートリアル","",
+  ["Frequently Asked Questions","FAQ.htm"],
+  ["Tutorials","",
   [
-    ["AutoHotkeyのインストール方法","howto/Install.htm"],
-    ["サンプルコードの実行方法","howto/RunExamples.htm"],
-    ["プログラムの実行方法","howto/RunPrograms.htm"],
-    ["ホットキーの書き方","howto/WriteHotkeys.htm"],
-    ["キーストロークの送信方法","howto/SendKeys.htm"],
-    ["ウインドウを管理する方法","howto/ManageWindows.htm"],
-    ["ちょっとしたチュートリアル","Tutorial.htm"]
+    ["Install AutoHotkey","howto/Install.htm"],
+    ["Run Example Code","howto/RunExamples.htm"],
+    ["Run Programs","howto/RunPrograms.htm"],
+    ["Write Hotkeys","howto/WriteHotkeys.htm"],
+    ["Send Keystrokes","howto/SendKeys.htm"],
+    ["Manage Windows","howto/ManageWindows.htm"],
+    ["Tutorial by tidbit","Tutorial.htm"]
   ]],
-  ["直近の変更","ChangeLog.htm"],
-  ["v1.1 から v2.0 への変更","v2-changes.htm"],
-  ["v1.0 から v1.1 への変更","v1-changes.htm"],
-  ["スクリプトショーケース","scripts/index.htm"],
-  ["関数インデックス","lib/index.htm"],
-  ["ドライブ", "lib/Drive.htm",
+  ["Recent Changes","ChangeLog.htm"],
+  ["Changes from v1.1 to v2.0","v2-changes.htm"],
+  ["Changes from v1.0 to v1.1","v1-changes.htm"],
+  ["Script Showcase","scripts/index.htm"],
+  ["Function Index","lib/index.htm"],
+  ["Drive", "lib/Drive.htm",
   [
     ["DriveEject/Retract", "lib/DriveEject.htm"],
     ["DriveGetCapacity", "lib/DriveGetCapacity.htm"],
@@ -51,7 +51,7 @@ tocData = [
     ["DriveUnlock", "lib/DriveUnlock.htm"],
     ["DriveGetType", "lib/DriveGetType.htm"]
   ]],
-  ["環境","",
+  ["Environment","",
   [
     ["A_Clipboard","lib/A_Clipboard.htm"],
     ["ClipboardAll","lib/ClipboardAll.htm"],
@@ -63,7 +63,7 @@ tocData = [
     ["SysGet","lib/SysGet.htm"],
     ["SysGetIPAddresses","lib/SysGetIPAddresses.htm"]
   ]],
-  ["外部ライブラリ","",
+  ["External Libraries","",
   [
     ["Binary Compatibility","Compat.htm"],
     ["Buffer Object","lib/Buffer.htm"],
@@ -92,7 +92,7 @@ tocData = [
       ["ObjAddRef / ObjRelease","lib/ObjAddRef.htm"]
     ]]
   ]],
-  ["ファイルとディレクトリ","",
+  ["File and Directory","",
   [
     ["DirCopy","lib/DirCopy.htm"],
     ["DirCreate","lib/DirCreate.htm"],
@@ -129,7 +129,7 @@ tocData = [
     ["SetWorkingDir","lib/SetWorkingDir.htm"],
     ["SplitPath","lib/SplitPath.htm"]
   ]],
-  ["フロー制御","",
+  ["Flow of Control","",
   [
     ["#Include[Again]","lib/_Include.htm"],
     ["{ ... } (block)","lib/Block.htm"],
@@ -167,7 +167,7 @@ tocData = [
     ["Throw","lib/Throw.htm"],
     ["Try","lib/Try.htm"]
   ]],
-  ["グラフィカル・ユーザ・インタフェース","",
+  ["Graphical User Interfaces","",
   [
     ["DirSelect","lib/DirSelect.htm"],
     ["FileSelect","lib/FileSelect.htm"],
@@ -194,7 +194,7 @@ tocData = [
     ["TraySetIcon","lib/TraySetIcon.htm"],
     ["TrayTip","lib/TrayTip.htm"]
   ]],
-  ["算術演算","lib/Math.htm",
+  ["Maths","lib/Math.htm",
   [
     ["Abs","lib/Math.htm#Abs"],
     ["Ceil","lib/Math.htm#Ceil"],
@@ -216,7 +216,7 @@ tocData = [
     ["Sin/Cos/Tan","lib/Math.htm#Sin"],
     ["ASin/ACos/ATan","lib/Math.htm#ASin"]
   ]],
-  ["モニター","lib/Monitor.htm",
+  ["Monitor","lib/Monitor.htm",
   [
     ["MonitorGet","lib/MonitorGet.htm"],
     ["MonitorGetCount","lib/MonitorGetCount.htm"],
@@ -224,9 +224,9 @@ tocData = [
     ["MonitorGetPrimary","lib/MonitorGetPrimary.htm"],
     ["MonitorGetWorkArea","lib/MonitorGetWorkArea.htm"]
   ]],
-  ["マウスとキーボード","",
+  ["Mouse and Keyboard","",
   [
-    ["ホットキーとホットストリング","Hotkeys.htm",
+    ["Hotkeys and Hotstrings","Hotkeys.htm",
     [
       ["#HotIf","lib/_HotIf.htm"],
       ["#HotIfTimeout","lib/_HotIfTimeout.htm"],
@@ -257,7 +257,7 @@ tocData = [
     ["GetKeySC","lib/GetKeySC.htm"],
     ["GetKeyState","lib/GetKeyState.htm"],
     ["GetKeyVK","lib/GetKeyVK.htm"],
-    ["キーリスト","KeyList.htm"],
+    ["List of Keys","KeyList.htm"],
     ["KeyHistory","lib/KeyHistory.htm"],
     ["KeyWait","lib/KeyWait.htm"],
     ["InputHook","lib/InputHook.htm"],
@@ -278,7 +278,7 @@ tocData = [
     ["SetScrollLockState","lib/SetNumScrollCapsLockState.htm"],
     ["SetStoreCapsLockMode","lib/SetStoreCapsLockMode.htm"]
   ]],
-  ["その他","",
+  ["Misc.","",
   [
     ["Download","lib/Download.htm"],
     ["Edit","lib/Edit.htm"],
@@ -295,7 +295,7 @@ tocData = [
     ["OutputDebug","lib/OutputDebug.htm"],
     ["Persistent","lib/Persistent.htm"]
   ]],
-  ["オブジェクト型","ObjList.htm",
+  ["Object Types","ObjList.htm",
   [
     ["Object","lib/Object.htm"],
     ["Array Object","lib/Array.htm"],
@@ -314,7 +314,7 @@ tocData = [
     ["RegExMatch Object","lib/RegExMatch.htm#MatchObject"],
     ["Any Prototype","lib/Any.htm"]
   ]],
-  ["プロセス","lib/Process.htm",
+  ["Process","lib/Process.htm",
   [
     ["ProcessClose","lib/ProcessClose.htm"],
     ["ProcessExist","lib/ProcessExist.htm"],
@@ -327,7 +327,7 @@ tocData = [
     ["RunAs","lib/RunAs.htm"],
     ["Shutdown","lib/Shutdown.htm"]
   ]],
-  ["レジストリ","",
+  ["Registry","",
   [
     ["Loop Reg","lib/LoopReg.htm"],
     ["RegCreateKey","lib/RegCreateKey.htm"],
@@ -337,13 +337,13 @@ tocData = [
     ["RegWrite","lib/RegWrite.htm"],
     ["SetRegView","lib/SetRegView.htm"]
   ]],
-  ["スクリーン","",
+  ["Screen","",
   [
     ["ImageSearch","lib/ImageSearch.htm"],
     ["PixelGetColor","lib/PixelGetColor.htm"],
     ["PixelSearch","lib/PixelSearch.htm"]
   ]],
-  ["サウンド","",
+  ["Sound","",
   [
     ["Sound Functions","lib/Sound.htm"],
     ["SoundBeep","lib/SoundBeep.htm"],
@@ -355,7 +355,7 @@ tocData = [
     ["SoundSetMute","lib/SoundSetMute.htm"],
     ["SoundSetVolume","lib/SoundSetVolume.htm"]
   ]],
-  ["文字列","",
+  ["String","",
   [
     ["Chr","lib/Chr.htm"],
     ["Format","lib/Format.htm"],
@@ -380,7 +380,7 @@ tocData = [
     ["VarSetStrCapacity","lib/VarSetStrCapacity.htm"],
     ["VerCompare","lib/VerCompare.htm"]
   ]],
-  ["ウインドウ","lib/Win.htm",
+  ["Window","lib/Win.htm",
   [
     ["Controls","lib/Control.htm",
     [
@@ -425,7 +425,7 @@ tocData = [
       ["SendMessage","lib/SendMessage.htm"],
       ["SetControlDelay","lib/SetControlDelay.htm"]
     ]],
-    ["ウインドウ・グループ","",
+    ["Window Groups","",
     [
       ["GroupActivate","lib/GroupActivate.htm"],
       ["GroupAdd","lib/GroupAdd.htm"],
@@ -485,7 +485,7 @@ tocData = [
     ["WinWait[Not]Active","lib/WinWaitActive.htm"],
     ["WinWaitClose","lib/WinWaitClose.htm"]
   ]],
-  ["#指示","",
+  ["#Directives","",
   [
     ["#ClipboardTimeout","lib/_ClipboardTimeout.htm"],
     ["#DllLoad","lib/_DllLoad.htm"],

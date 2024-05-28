@@ -20,27 +20,27 @@
 
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>省略したときは、対応する値は保存されません。そうでないときは、X座標とY座標を格納する出力変数への参照を指定します。The retrieved coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change to screen coordinates.</p>
   </dd>
 
   <dt>&amp;OutputVarWin</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>省略したときは、対応する値は保存されません。Otherwise, specify a reference to the output variable in which to store the <a href="../misc/WinTitle.htm#ahk_id">unique ID number</a> of the window under the mouse cursor. ウィンドウを決定できない場合、この変数は空白になります。</p>
     <p>ウィンドウがアクティブでなくても検出されます。隠しウィンドウは検出できません。</p>
   </dd>
 
   <dt>&amp;OutputVarControl</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>省略したときは、対応する値は保存されません。Otherwise, specify a reference to the output variable in which to store the name (ClassNN) of the control under the mouse cursor. 制御が決定できない場合は、この変数を空白とします。</p>
     <p>コントロールの名前は、常にWindow Spyが表示する名前と一致する必要があります。マウスカーソルの下にあるウィンドウがアクティブでなくても、コントロールは検出されます。</p>
   </dd>
 
   <dt>Flag</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If omitted, it defaults to 0, meaning the function uses the default method to determine <em>OutputVarControl</em> and stores the control's ClassNN. Otherwise, specify a combination (sum) of the following numbers:</p>
     <p><strong>1:</strong> Uses a simpler method to determine <em>OutputVarControl</em>. SysEditやTextPadなどのMDI（Multiple Document Interface）アプリケーションのアクティブ／最上位の子ウィンドウを正しく取得することができるようになりました。ただし、GroupBoxコントロール内のコントロールの検出など、他の目的では精度が落ちます。</p>
     <p><strong>2:</strong> Stores the <a href="ControlGetHwnd.htm">control's HWND</a> in <em>OutputVarControl</em> rather than the <a href="ControlGetClassNN.htm">control's ClassNN</a>.</p>
@@ -59,7 +59,7 @@
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> マウスカーソルの位置を報告します。</p>
-<pre>MouseGetPos &amp;xpos, &amp;ypos
+<pre>MouseGetPos &amp;xpos, &amp;ypos 
 MsgBox "The cursor is at X" xpos " Y" ypos</pre>
 </div>
 
@@ -75,7 +75,7 @@ WatchCursor()
         "ahk_id " id "
         ahk_class " WinGetClass(id) "
         " WinGetTitle(id) "
-        Control:" control
+        Control: " control
     )
 }</pre>
 </div>

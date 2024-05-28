@@ -14,7 +14,7 @@
 
 <p>言語のリストです。。各言語は、A_Language変数に格納できる言語コードと関連付けられています。言語コードはロケール識別子、LCIDとしても知られています言語コードは、最初のコンマの左側の最後の4桁です。例えば、A_Languageに0436が格納されているときは、システムのデフォルト言語はアフリカーンス語（南アフリカ）です。</p>
   <p class="note"><strong>注：</strong>文字を含むコードは大文字でも小文字でもよい。</p>
-<p>A_Languageは、4桁コードと直接比較することができます。例えば：<code>if (A_Language = "0436")</code>. あるいは、リスト全体をスクリプトに貼り付けて、リストの一番下に表示されている現在の言語名にアクセスすることもできる。</p>
+<p>You can compare A_Language directly to one or more of the 4-digit codes below; for example: <code>if (A_Language = "0436")</code>. あるいは、リスト全体をスクリプトに貼り付けて、リストの一番下に表示されている現在の言語名にアクセスすることもできる。</p>
 <pre class="NoIndent">LCID := Map(
   "0036", "アフリカーンス語",  <em>; af</em>
   "0436", "アフリカーンス語（南アフリカ）",  <em>; af-ZA</em>
@@ -451,11 +451,11 @@
   "003D", "イディッシュ語",  <em>; yi</em>
   "043D", "Yiddish (World)",  <em>; yi-001</em>
   "006A", "ヨルバ語",  <em>; yo</em>
-  "046A", "ヨルバ語（ナイジェリア）"  <em>; yo-NG</em>
+  "046A", "Yoruba (Nigeria)"  <em>; yo-NG</em>
 )
 
-the_language := LCID[A_Language]  <em>; システムの既定の言語を取得します。</em>
-MsgBox the_language  <em>; 取得した言語名を表示します。</em></pre>
+the_language := LCID[A_Language]  <em>; Get the name of the system's default language.</em>
+MsgBox the_language  <em>; Display the language name.</em></pre>
 <p>次のスクリプトは上のリストを作ります。</p>
 <pre class="NoIndent">G := Gui()
 LV := G.Add("ListView", "w500 r20", ["LCID","Display Name","Locale Name"])
@@ -477,7 +477,7 @@ loop 0xFFFF
     LV.Add(, LCID, DisplayName, LocaleName)
     <em>; A_Clipboard .= LCID "`t" DisplayName "`t" LocaleName "`n"</em>
 }
-LV.ModifyCol()  <em>;  列幅の自動調整</em>
+LV.ModifyCol()  <em>; Auto-size each column to fit its contents.</em>
 
 LCIDToLocaleName(LCID, Flags := 0)
 {

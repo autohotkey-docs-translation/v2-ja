@@ -21,7 +21,7 @@
 <dl>
   <dt>OnOffNumeric</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
     <p>If blank or omitted, it defaults to <em>On</em>. それ以外の場合は、以下のいずれかを指定します。</p>
     <p><strong>On:</strong> The <a href="../misc/Threads.htm">current thread</a> is made critical, meaning that it cannot be interrupted by another thread.</p>
     <p><strong>Off:</strong> The current thread immediately becomes interruptible, regardless of the settings of <a href="Thread.htm#Interrupt">Thread Interrupt</a>. 詳しくは<a href="#Off">クリティカルオフ</a>をご覧ください。</p>
@@ -30,7 +30,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>This function returns the previous setting (the value <a href="../Variables.htm#IsCritical">A_IsCritical</a> would return prior to calling the function); 0 if Critical is off, otherwise an integer greater than zero.</p>
 
 <h2 id="Behave">クリティカルスレッドの挙動</h2>
@@ -64,13 +64,13 @@
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> ホットキーを押すと、ツールチップを3秒間表示します。Criticalのため、この間に起動した新しいスレッド（例：ホットキーをもう一度押す）は、ツールチップが消えるまで延期されます。</p>
-<pre>#space::  <em>; Win+Space ホットキー。</em>
+<pre>#space::  <em>; Win+Space hotkey.</em>
 {
     Critical
     ToolTip "No new threads will launch until after this ToolTip disappears."
     Sleep 3000
     ToolTip  <em>;チップを切る。</em>
-    return <em>; ホットキー機能から戻ると、そのスレッドが終了します。再開される基礎となるスレッドは、定義上、非クリティカルなものです。</em>
+    return <em>; Returning from a hotkey function ends the thread. Any underlying thread to be resumed is noncritical by definition.</em>
 }</pre>
 </div>
 

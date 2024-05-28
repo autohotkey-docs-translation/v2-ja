@@ -21,7 +21,7 @@
 
   <dt>インデックス</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
       <p>仮想関数テーブル内のメソッドのゼロベースインデックス。</p>
       <p><em>インデックス</em>は、元のインターフェース定義内でのメソッドの位置に対応します。マイクロソフトのドキュメントでは、通常、メソッドをアルファベット順に記載していますが、これは関係ありません。正しいインデックスを決定するために、元のインターフェイスの定義を見つけてください。これは、ヘッダーファイルやタイプライブラリの中にあるかもしれません。</p>
       <p>親インターフェースから継承されるメソッドを考慮することが重要です。すべてのCOMインタフェースは最終的に<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown">IUnknown</a>から派生するため、最初の3つのメソッドは常にQueryInterface（0）、AddRef（1）、Release（2）です。例えば、<em>IShellItem2</em>は <em>IShellItem</em>の拡張で、インデックス3から始まり、5つのメソッドを含むので、<em>IShellItem2</em>の最初のメソッド（GetPropertyStore）はインデックス8にあります。</p>
@@ -31,7 +31,7 @@
   
   <dt>ComObj</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+      <p>Type: <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
       <p>対象となる COM オブジェクト、すなわち COM インタフェースポインタ。ポインタ値は直接渡すか、バリアントタイプVT_UNKNOWNを持つ<a href="ComValue.htm">ComValue</a>など、<code>Ptr</code>プロパティを持つオブジェクト内にカプセル化することができます。</p>
       <p>インターフェースポインタは、インターフェースメソッドを実装する仮想関数のアドレスを特定するために使用され、パラメータとしても渡されます。このパラメータは、一般にインターフェースをネイティブにサポートする言語では明示的に存在しないが、Cスタイルの「Vtbl」定義では表示されます。</p>
       <p>無効なポインタを渡すと、プログラムの終了を含む未定義の動作を引き起こす可能性があります（ただし、これに限定されるものではありません）。</p>
@@ -39,13 +39,13 @@
 
   <dt>Type1, Arg1</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>これらのペアはそれぞれ、メソッドに渡される1つのパラメータを表しています。組数は無制限です。<em>タイプについては</em>、<a href="DllCall.htm#types">DllCallタイプ</a>表をご覧ください。<em>引数</em>の場合、メソッドに渡す値を指定します。</p>
   </dd>
 
   <dt>ReturnType</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>省略された場合、戻り値の型はデフォルトで<a href="DllCall.htm#HRESULT">HRESULT</a>となり、これはCOMインターフェイスのメソッドの最も一般的な戻り値の型です。失敗を示す結果は、<a href="Error.htm#OSError">OSError</a>が投げられる。したがって、実際の戻り値の型が HRESULT である場合を除き、戻り値の型を省略してはならない。</p>
       <p>メソッドが値を返さない型（Cでは<code>void</code>戻り値型）の場合、"Int "または接尾辞のない他の数値型（HRESULTを除く）を指定し、戻り値を無視します。このような場合、戻り値レジスタの内容は任意であるため、<em>ReturnType</em>を省略した場合は例外が発生する可能性がある。</p>
       <p>それ以外の場合は、<a href="DllCall.htm#types">DllCall タイプテーブル</a>から引数タイプのいずれかを指定します。<a href="DllCall.htm#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
@@ -55,7 +55,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
 <p><em>ReturnType</em>が<a href="DllCall.htm#HRESULT">HRESULT</a>（または省略）で、メソッドがエラー値を返した場合（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
 <p>そうでない場合、ComCallは、メソッドによって返された実際の値を返します。メソッドが値を返さない型（Cで定義された戻り値の型が<code>void</code>）の場合、結果は未定義であり、無視されるべきです。</p>
 
@@ -79,12 +79,12 @@
 <p><a class="ex_number" href="#ExTaskbar"></a> アクティブなウィンドウを3秒間、タスクバーから削除します。<a href="DllCall.htm#ExTaskbar">同等のDllCallの例</a>と比較してみてください。</p>
 <pre><em>/*
   <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarListの</a>VTableにあるメソッドです：
-IUnknown:
-0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
+    IUnknown:
+      0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
       1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a> の代わりに使用
       2 Release         -- <a href="ObjAddRef.htm">ObjRelease</a>の代わりに使用
     ITaskbarList:
-3 HrInit
+      3 HrInit
       4 AddTab
       5 DeleteTab
       6 ActivateTab
@@ -93,7 +93,7 @@ IUnknown:
 IID_ITaskbarList  := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
 CLSID_TaskbarList := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
 
-<em>; TaskbarListオブジェクトを作成します。</em>
+<em>; Create the TaskbarList object.</em>
 tbl := ComObject(CLSID_TaskbarList, IID_ITaskbarList)
 
 activeHwnd := WinExist("A")
@@ -103,7 +103,7 @@ ComCall(5, tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.c
 Sleep 3000
 ComCall(4, tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
 
-<em>; オブジェクトを使い終わったら、すべての参照を
+<em>; When finished with the object, simply replace any references with
 ; some other value (or if its a local variable, just return):</em>
 tbl := ""
 </pre>
@@ -127,22 +127,22 @@ class TaskbarList {
     static IID := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
     static CLSID := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
     
-<em>; クラスを初期化するために起動時に呼び出されます。</em>
+    <em>; クラスを初期化するために起動時に呼び出されます。</em>
     static __new() {
         <em>; TaskbarList のすべてのインスタンスのベースオブジェクトを取得します。</em>
         proto := this.Prototype
         
-<em>; Bound関数でパラメータを事前に定義することができます。
+        <em>; Bound関数でパラメータを事前に定義することができます。
         ; ラッパー関数を必要とせず、より使いやすいメソッドを提供します。
-; HrInit自身はパラメータを持たないので、インデックスだけをバインドします。
+        ; HrInit自身はパラメータを持たないので、インデックスだけをバインドします。
         ; であり、呼び出し側は暗黙のうちに 'this' を提供することになる。</em>
         proto.HrInit := ComCall.Bind(3)
         
-<em>; パラメータを空白にすることで、呼び出し側が値を指定できるようにします。
-; この場合、空白のパラメータは'this'（通常は非表示）です。</em>
+        <em>; パラメータを空白にすることで、呼び出し側が値を指定できるようにします。
+        ; この場合、空白のパラメータは'this'（通常は非表示）です。</em>
         proto.AddTab := ComCall.Bind(4,, "ptr")
         
-<em>; オブジェクトやMapを使用することで、繰り返しを減らすことができます。</em>
+        <em>; オブジェクトやMapを使用することで、繰り返しを減らすことができます。</em>
         for name, args in Map(
             "DeleteTab", [5,,"ptr"],
             "ActivateTab", [6,,"ptr"],
@@ -151,7 +151,7 @@ class TaskbarList {
         }
     }
     
-<em>; 新しいインスタンスに対して TaskbarList() によって呼び出されます。</em>
+    <em>; 新しいインスタンスに対して TaskbarList() によって呼び出されます。</em>
     __new() {
         this.comobj := ComObject(TaskbarList.CLSID, TaskbarList.IID)
         this.ptr := this.comobj.ptr

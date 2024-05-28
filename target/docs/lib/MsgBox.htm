@@ -29,7 +29,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 
   <dt>Text</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If omitted and "OK" is the only button present, it defaults to the string "Press OK to continue.". If omitted in any other case, it defaults to an empty string. Otherwise, specify the text to display inside the message box.</p>
     <p><a href="../misc/EscapeChar.htm">エスケープシーケンス</a>は、特殊文字を表すために使用することができます。例えば、`nは改行文字を示し、現在の行を終了して新しい行を開始します。Thus, using <code>text1`n`ntext2</code> would create a blank line between text1 and text2.</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
@@ -37,13 +37,13 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 
   <dt>タイトル</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>省略したときは、<a href="../Variables.htm#ScriptName">A_ScriptName</a>の現在の値がデフォルトとなります。Otherwise, specify the title of the message box.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>If blank or omitted, it defaults to 0 (only an OK button is displayed). Otherwise, specify a combination (sum) of values or a string of one or more options from the tables below to indicate the type of message box and the possible button combinations.</p>
     <p>さらに、以下のオプションを0個以上指定することができます：</p>
     <p id="OwnerOption"><strong>Owner:</strong> To specify an <a href="#Owner">owner window</a> for the message box, use the word Owner followed immediately by a HWND (window ID).</p>
@@ -165,7 +165,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
     <td><code>Default3</code></td>
   </tr>
   <tr>
-    <td>第4ボタンをデフォルトにする<br>(<a href="#Help">ヘルプボタン</a>があることが必要です)</td>
+    <td>Makes the 4th button the default<br>(requires the <a href="#Help">Help button</a> to be present)</td>
     <td class="right">768</td>
     <td class="right">0x300</td>
     <td><code>Default4</code></td>
@@ -194,14 +194,14 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
     <td>N/A</td>
   </tr>
   <tr>
-    <td>常時トップ（スタイル WS_EX_TOPMOST）<br>(システムモーダル同様、タイトルバーアイコンが省略されています)</td>
+    <td>Always-on-top (style WS_EX_TOPMOST)<br>(システムモーダル同様、タイトルバーアイコンが省略されています)</td>
     <td class="right">262144</td>
     <td class="right">0x40000</td>
     <td>N/A</td>
   </tr>
 </table>
 
-<h3 id="Group_5_Other_Options">Group #5:その他のオプション</h3>
+<h3 id="Group_5_Other_Options">Group #5: Other Options</h3>
 <p>To specify other options, add <u>one or more</u> of the following values:</p>
 <table class="info">
   <tr>
@@ -232,7 +232,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 </table>
 
 <h2 id="Result">戻り値</h2>
-<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+<p>Type: <a href="../Concepts.htm#strings">String</a></p>
 <p>この関数は、ユーザーがどのボタンを押したかを表すために、以下の文字列のいずれかを返します：</p>
 <ul>
   <li>OK</li>
@@ -271,7 +271,7 @@ if MsgBox("Retry or cancel?",, "R/C") = "Retry"
 <p><strong>The Help button:</strong> When the Help button option (16384) is present in <em>Options</em>, pressing the Help button will have no effect unless both of the following are true:</p>
 <ol>
   <li>メッセージボックスは、<a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>により、GUIウィンドウに所有されます。</li>
-  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。事例：<code><a href="OnMessage.htm">OnMessage</a>(0x0053, WM_HELP)</code>. WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
+  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。For example: <code><a href="OnMessage.htm">OnMessage</a>(0x0053, WM_HELP)</code>. WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
 </ol>
 <p><strong>The Close button (in the message box's title bar):</strong> Since the message box is a built-in feature of the operating system, its X button is enabled only when certain buttons are present. If there is only an OK button, clicking the X button is the same as pressing OK. Otherwise, the X button is disabled unless there is a Cancel button, in which case clicking the X is the same as pressing Cancel.</p>
 <p id="max"><strong>Maximum 7 ongoing calls:</strong> The <a href="../misc/Threads.htm">thread</a> displaying a message box can typically be interrupted, allowing the new thread to display its own message box before the previous call returns. MsgBoxの呼び出しは最大7回まで可能ですが、7回目を超えると<a href="Error.htm">Error</a>が投げられます。中断されたスレッドでMsgBoxを呼び出すと、スレッドが再開されるまで戻ることができないことに注意してください。</p>
@@ -300,9 +300,9 @@ if MsgBox("Retry or cancel?",, "R/C") = "Retry"
 MsgBox "
   (
     The first parameter is displayed as the message.
-The second parameter becomes the window title.
-The third parameter determines the type of message box.
-)", "Window Title", "iconi"
+    The second parameter becomes the window title.
+    The third parameter determines the type of message box.
+  )", "Window Title", "iconi"
 </pre>
 </div>
 
@@ -323,7 +323,7 @@ else if (result = "No")
 </div>
 
 <div class="ex" id="ExExpr">
-<p><a class="ex_number" href="#ExExpr"></a> メッセージに変数や部分式を含める。こちらもご覧ください：<a href="../Variables.htm#concat">Concatenation</a></p>
+<p><a class="ex_number" href="#ExExpr"></a> メッセージに変数や部分式を含める。See also: <a href="../Variables.htm#concat">Concatenation</a></p>
 <pre>
 var := 10
 MsgBox "The initial value is: " var

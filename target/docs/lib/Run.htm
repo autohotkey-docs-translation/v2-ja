@@ -26,7 +26,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>Target</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>A document, URL, executable file (.exe, .com, .bat, etc.), shortcut (.lnk), <a href="#CLSID">CLSID</a>, or <a href="#verbs">system verb</a> to launch (see remarks). If <em>Target</em> is a local file and no path was specified with it, how the file is located typically depends on the type of file and other conditions. See <a href="#Interpretation_of_Target">Interpretation of Target</a> for details.</p>
       <p>To pass parameters, add them immediately after the program or document name as follows:</p>
       <pre>Run 'MyProgram.exe Param1 Param2'</pre>
@@ -36,13 +36,13 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>WorkingDir</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>If blank or omitted, the script's own working directory (<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>) will be used. Otherwise, specify the initial working directory to be used by the new process. This typically also affects relative paths in <em>Target</em>, but interpretation of command-line parameters depends on the target program.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>If blank or omitted, <em>Target</em> will be launched normally. Otherwise, specify one or more of the following options:</p>
       <p><strong>Max:</strong> launch maximized</p>
       <p><strong>Min:</strong> launch minimized</p>
@@ -52,7 +52,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 
   <dt>&amp;OutputVarPID</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+      <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
       <p>省略したときは、対応する値は保存されません。Otherwise, specify a reference to the output variable in which to store the newly launched program's unique <a href="../misc/WinTitle.htm#ahk_pid">Process ID (PID)</a>. PIDを決定できなかった場合、この変数は空白になります。これは通常、直接の実行ファイルではなく、システムの動詞、文書、ショートカットが起動された場合に起こります。RunWaitもこのパラメータをサポートしていますが、その<em>OutputVarPID</em>は <a href="../misc/Threads.htm">別のスレッド</a>でチェックする必要があります（そうしないと、RunWaitに続く行が実行されるまでにプロセスが終了してしまうため、PIDは無効となります）。</p>
       <p>Run関数がPIDを取得した後、プロセスによって作成されるウィンドウは、まだ存在しないかもしれません。少なくとも1つのウィンドウが作成されるのを待つには、<code><a href="WinWait.htm">WinWait</a>"ahk_pid " OutputVarPID</code>を使用します。</p>
   </dd>
@@ -60,7 +60,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
 <p>RunWaitはRunと異なり、<em>Target</em>がクローズされるか終了するまで待機し、その時の戻り値はプログラムの終了コード（符号付き32ビット整数）となります。プログラムによっては、まだ実行中であるにもかかわらず、すぐに戻ってくるように見えるものがありますが、これは別のプロセスを生成するものです。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -89,10 +89,10 @@ catch
 <p><a href="../Variables.htm#ComSpec">ComSpec</a>（cmd.exe）を使ってプログラムを実行する場合（プログラムの入力や出力をリダイレクトする必要があるため）、実行ファイルのパスや名前にスペースが含まれている場合は、その文字列全体を外側の引用符で囲む必要があります。以下の例では、外側の引用符が黄色で強調表示されています：</p>
 <pre>Run A_ComSpec ' /c <span class="style3">"</span>"C:\My Utility.exe" "param 1" "second param" &gt;"C:\My File.txt"<span class="style3">"</span>'</pre>
 <p>Run<code>"C:゙My DocumentsTest.txt "</code>よりも<code>Run 'C:゙WindowsNotepad.exe "C:゙My DocumentsTest.txt"</code>のように<em>Target</em>が完全パスであればパフォーマンスは若干向上するかもしれません。</p>
-<p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell:prefix. Some can be opened without it. 事例：</p>
+<p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell: prefix. Some can be opened without it. 事例：</p>
 <pre>Run "shell:::{D20EA4E1-3957-11D2-A40B-0C5020524153}"  <em>; Windows Tools.</em>
-Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; PC（従来のマイコンピュータまたはコンピュータ）</em>
-Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
+Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; This PC (formerly My Computer or Computer).</em>
+Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; Recycle Bin.</em></pre>
 <p id="verbs">システム動詞は、エクスプローラーのファイルの右クリックメニューで利用できるアクションに対応しています。動詞を指定せずにファイルを起動した場合、そのファイルタイプのデフォルトの動詞（通常は「open」）が使用されます。指定された場合、動詞の後にターゲットファイル名が続くようにする。現在、以下の動詞に対応しています：</p>
 <table class="info">
   <tr>
@@ -101,34 +101,34 @@ Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
   </tr>
   <tr>
     <td>*<i>verb</i></td>
-    <td>システムで定義された、またはカスタムされた任意の動詞。事例：<code>Run "*Compile " A_ScriptFullPath</code>. <i>管理者として実行</i>右クリックメニューの代わりに<a href="#RunAs">*RunAs</a>動詞を使用することができます。</td>
+    <td>システムで定義された、またはカスタムされた任意の動詞。For example: <code>Run "*Compile " A_ScriptFullPath</code>. <i>管理者として実行</i>右クリックメニューの代わりに<a href="#RunAs">*RunAs</a>動詞を使用することができます。</td>
   </tr>
   <tr>
     <td>properties</td>
     <td>
-      <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。事例：<code>Run 'properties "C:\My File.txt"'</code></p>
+      <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。For example: <code>Run 'properties "C:\My File.txt"'</code></p>
       <p class="note"><strong>注：</strong> プロパティウィンドウはスクリプトが終了すると自動的に閉じます。これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
     </td>
   </tr>
   <tr>
     <td>find</td>
-    <td>エクスプローラの「検索仲間」または「ファイル検索」ウィンドウのインスタンスを、指定されたフォルダーで開くことができます。事例：<code>Run "find D:\"</code></td>
+    <td>エクスプローラの「検索仲間」または「ファイル検索」ウィンドウのインスタンスを、指定されたフォルダーで開くことができます。For example: <code>Run "find D:\"</code></td>
   </tr>
   <tr>
     <td>explore</td>
-    <td>指定されたフォルダーにエクスプローラーのインスタンスを開きます。事例：<code>Run "explore " A_ProgramFiles</code>.</td>
+    <td>指定されたフォルダーにエクスプローラーのインスタンスを開きます。For example: <code>Run "explore " A_ProgramFiles</code>.</td>
   </tr>
   <tr>
     <td>edit</td>
-    <td>指示されたファイルを編集用に開きます。表示されたファイルの種類に「編集」アクションが関連付けられていない場合は、動作しないことがあります。事例：<code>Run 'edit "C:\My File.txt"'</code></td>
+    <td>指示されたファイルを編集用に開きます。表示されたファイルの種類に「編集」アクションが関連付けられていない場合は、動作しないことがあります。For example: <code>Run 'edit "C:\My File.txt"'</code></td>
   </tr>
   <tr>
     <td>open</td>
-    <td>指定されたファイルを開く（ほとんどのファイルタイプでデフォルトの動作であるため、通常は必要ありません）。事例：<code>Run 'open "My File.txt"'</code>.</td>
+    <td>指定されたファイルを開く（ほとんどのファイルタイプでデフォルトの動作であるため、通常は必要ありません）。For example: <code>Run 'open "My File.txt"'</code>.</td>
   </tr>
   <tr>
     <td>print</td>
-    <td>指定されたファイルを、もしあれば、関連するアプリケーションとともに印刷します。事例：<code>Run 'print "My File.txt"'</code></td>
+    <td>指定されたファイルを、もしあれば、関連するアプリケーションとともに印刷します。For example: <code>Run 'print "My File.txt"'</code></td>
   </tr>
 </table>
 <p>RunWaitが待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>を使って新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
@@ -149,7 +149,7 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     ExitApp
 }
 
-MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
+MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " full_command_line</pre>
 <p>ユーザーが<a href="https://en.wikipedia.org/wiki/User_Account_Control">ユーザーアカウント制御（UAC）</a>ダイアログをキャンセルしたとき、またはその他の理由で実行に失敗したときは、スクリプトは終了します。</p>
 <p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
 <p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
@@ -251,12 +251,12 @@ RunWaitMany(commands) {
         return exec.StdOut.ReadAll()
 }
 
-<em>; 例：</em>
+<em>; Example:</em>
 ib := InputBox("Enter an expression to evaluate as a new script.",,, 'Ord("*")')
 if ib.result = "Cancel"
     return
 result := ExecScript('FileAppend ' ib.value ', "*"')
-MsgBox "Result:" result
+MsgBox "Result: " result
 </pre>
 </div>
 

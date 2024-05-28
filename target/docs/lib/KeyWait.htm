@@ -20,13 +20,13 @@
 
   <dt>KeyName</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>This can be just about any single character from the keyboard or one of the key names from the <a href="../KeyList.htm">key list</a>, such as a mouse/controller button. Controller attributes other than buttons are not supported.</p>
       <p>また、<code>vkFF</code>のような明示的な仮想鍵コードを指定することもできる。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。その仮想キーコードは、<a href="../KeyList.htm#SpecialKeys">キー一覧ページ</a>の下部にある手順で決定することができます。</p></dd>
 
   <dt>Options</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
       <p>If blank or omitted, the function will wait indefinitely for the specified key or mouse/controller button to be physically released by the user. ただし、<a href="InstallKeybdHook.htm">キーボードフック</a>が装着されておらず、<em>KeyName</em>が <a href="Send.htm">Send</a>関数などで人為的に解放されたキーボードキーである場合は、物理的に解放されたとみなされます。<a href="InstallMouseHook.htm">マウスフック</a>未装着時のマウスボタンも同様です。</p>
       <p>Otherwise, specify a string of one or more of the following options (in any order, with optional spaces in between):</p>
       <p><strong>D:</strong> Wait for the key to be pushed down.</p>
@@ -37,14 +37,14 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
+<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
 <p>この関数は、タイムアウトした場合は 0（偽）を、そうでない場合は 1（真）を返します。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>キーボードやマウスのボタンの物理的な状態は、キーボードやマウスのフックが設置されていない限り、通常は論理的な状態と同じであり、その場合、ユーザーが物理的にキーを押しているかどうかが正確に反映されます。スクリプトがフックを使用しているかどうかは、<a href="KeyHistory.htm">KeyHistory</a>関数またはメニュー項目で確認できます。スクリプトに<a href="InstallKeybdHook.htm">InstallKeybdHook</a>関数と<a href="InstallMouseHook.htm">InstallMouseHook</a>関数を追加することで、どちらかまたは両方のフックを強制的にインストールさせることができます。</p>
 <p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>2つ以上のキーが離されるのを待つには、KeyWaitを連続して使用します。事例：</p>
-<pre>KeyWait "Control"  <em>; ControlとAltの両方が解除</em>されるのを待つ。
+<pre>KeyWait "Control"  <em>; Wait for both Control and Alt to be released.</em>
 KeyWait "Alt"</pre>
 <p>To wait for any one key among a set of keys to be pressed down, see <a href="InputHook.htm#ExAnyKey">InputHook example #4</a>.</p>
 <h2 id="Related">関連</h2>

@@ -20,7 +20,7 @@
 
   <dt>Value1, Value2</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#variables">変数</a></p>
+    <p>Type: <a href="../Concepts.htm#variables">Variable</a></p>
     <p>各反復の最初に列挙者が返す値を格納するための変数です。これらの値の性質は、<em>Expression</em>によって決定される列挙子によって定義されます。これらの変数は<a href="../Language.htm#dynamic-variables">動的</a>にはありえない。</p>
     <p>ループが切れたり終了したりすると、これらの変数は元の値に戻されます。ループ変数が<a href="../Functions.htm#ByRef">ByRef パラメータ</a>である場合、対象変数はループの影響を受けません。また、その変数を参照する<a href="../Functions.htm#closures">クロージャ</a>（ローカルな場合）も影響を受けず、ループの外でその変数が持っていた値だけを見ることができます。</p>
     <p class="warning"><strong>注：</strong>ループ本体内で定義されていても、ループ変数を参照するネストされた関数は、現在の反復の値を見たり変更したりすることはできません。代わりに、変数を明示的に渡すか、その値をパラメータに<a href="Func.htm#Bind">バインド</a>してください。</p>
@@ -30,14 +30,14 @@
 
   <dt>式</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
+    <p>Type: <a href="../Concepts.htm#objects">Object</a></p>
     <p>列挙可能なオブジェクトをもたらす<a href="../Variables.htm#Expressions">式</a>、または列挙可能なオブジェクトを含む変数。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>パラメータリストは、オプションで括弧で囲むことができます。事例：<code>for (val in myarray)</code></p>
+<p>パラメータリストは、オプションで括弧で囲むことができます。For example: <code>for (val in myarray)</code></p>
 <p>列挙の流れは以下の通りです：</p>
 <ul>
   <li>ループが始まる前に、<i>Expression</i>が評価され、ターゲットオブジェクトが決定されます。</li>
@@ -54,7 +54,7 @@ while _enum(&amp;Value1, &amp;Value2)
 </pre>
 <p>上記のコードと同様に、<em>Expression</em>または__Enumが呼び出すことのできない値を生成した場合、例外がスローされます。</p>
 <p>プロパティ、メソッド、配列の要素を列挙している間、そのタイプの項目を挿入したり削除したりすることは一般的に安全ではありません。そのため、一部の項目がスキップされたり、複数回列挙されたりすることがあります。回避策として、削除するアイテムのリストを作成し、最初のループが完了した後に2番目のループでアイテムを削除する方法があります。</p>
-<p>forループの後には、通常、ループの<em>本体</em>を形成するステートメントの集合体である<a href="Block.htm">ブロック</a>が続きます。ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>for x, y in z {</code>.</p>
+<p>forループの後には、通常、ループの<em>本体</em>を形成するステートメントの集合体である<a href="Block.htm">ブロック</a>が続きます。ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。For example: <code>for x, y in z {</code>.</p>
 <p>すべてのループと同様に、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、<a href="../Variables.htm#Index">A_Index</a>を使用することができます。</p>
 <p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。</p>
 
@@ -68,8 +68,8 @@ while _enum(&amp;Value1, &amp;Value2)
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> オブジェクトが所有するプロパティを一覧表示します。</p>
-<pre>colours := {red:0xFF0000, blue:0x0000FF, green:0x00FF00}
-<em>; 上記の表現は、以下の「colors」の代わりに直接使用することができます：</em>
+<pre>colours := {red: 0xFF0000, blue: 0x0000FF, green: 0x00FF00}
+<em>; The above expression could be used directly in place of "colours" below:</em>
 s := ""
 for k, v in colours.OwnProps()
     s .= k "=" v "`n"

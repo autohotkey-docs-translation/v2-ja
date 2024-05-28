@@ -31,7 +31,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>このコードを実行し、その結果から何を学ぶことができるかを確認します。</p>
 <p>なるほど、新しいコードは動かないんですね。エラーダイアログは、コーディングの過程では当たり前のことであり、非常に有用な情報が含まれていることが多いからです。この一枚で、いくつかのことがわかるはずだ。</p>
 <ul>
-  <li>まず、当たり前のことですが。と表示され、プログラムが起動できませんでした。</li>
+  <li>Firstly, the obvious: the program couldn't be launched.</li>
   <li>ダイアログには「Action」と「Params」が表示されていますが、「Action」の横には私たちのコマンドライン全体が表示され、「Params」は空になっています。つまり、Run関数は、プログラム名の終わりとパラメータの始まりを知らないのです。</li>
   <li>"システムは指定されたファイルを見つけることができません"（英語版システムにおいて）。おそらく、システムは「wordpad」を見つけられなかったのでしょうが、本当に言っているのは、「wordpad C:・・・」というようなファイルが存在しない、ということなのでしょう。</li>
 </ul>
@@ -44,7 +44,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 </ul>
 <p>とりあえず、一番簡単な選択肢を選んでください。</p>
 <pre>Run "wordpad.exe C:\Program Files\AutoHotkey\license.txt"</pre>
-<p>これでWordPadは起動するのですが、エラーが表示されます。"C:\Program" は見つかりませんでした。</p>
+<p>Now WordPad launches, but it shows an error: "C:\Program" wasn't found.</p>
 
 <h2 id="Quote_Marks_and_Spaces">引用符とスペース</h2>
 <p>コマンドラインパラメーターをプログラムに渡す際、パラメーターにスペースが含まれている場合、各パラメーターを引用符で囲む必要があることがよくあります。これはメモ帳では必要なかったのですが、メモ帳は一般的な例外です。単純に引用符を増やせばいいという安直な発想で解決できるかもしれません。</p>
@@ -61,8 +61,8 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 
 <h2 id="Including_Variables">変数を含む</h2>
 <p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、"Program Files" ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
-<pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
-Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
+<pre>Run A_ComSpec  <em>; Start a command prompt (almost always cmd.exe).</em>
+Run A_MyDocuments  <em>; Open the user's Documents folder.</em></pre>
 <p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結します。事例：</p>
 <pre>Run 'notepad.exe "' A_MyDocuments '\AutoHotkey.ahk"'</pre>
 <p><a href="../lib/Format.htm">Format</a>関数で置換することもできます。事例：</p>
@@ -77,7 +77,7 @@ Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></
 <p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われます。事例：</p>
 <pre>Run "mspaint",,, &amp;pid
 WinWaitActive "ahk_pid " pid
-Send "^e"  <em>; Ctrl+Eはイメージのプロパティダイアログを開きます。</em></pre>
+Send "^e"  <em>; Ctrl+E opens the Image Properties dialog.</em></pre>
 
 <h2 id="System_Verbs">システム動詞</h2>
 <p><a href="../lib/Run.htm#verbs">システム動詞</a>とは、システムやアプリケーションが特定のファイルタイプに対して登録するアクションのことです。これらは通常、エクスプローラーのファイルの右クリックメニューで利用できますが、実際の名前はメニューに表示されるテキストと必ずしも一致しません。例えば、AutoHotkeyスクリプトには、スクリプトをエディタで開く「edit」動詞と、（Ahk2Exeがインストールされていれば）スクリプトを<a href="../Scripts.htm#ahk2exe">コンパイル</a>する「compile」動詞があります。</p>

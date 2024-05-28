@@ -20,7 +20,7 @@
 
   <dt>Filename</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
     <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされる。</p>
     <p>標準的なシステムサウンドを出すには、以下のようにアスタリスクの後に数字を指定する（このモードでは<em>Wait</em>パラメータは効果がないことに注意）：</p>
     <ul>
@@ -34,11 +34,11 @@
 
   <dt>Wait</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#boolean">Integer (boolean)</a> or <a href="../Concepts.htm#strings">String</a></p>
+    <p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a> or <a href="../Concepts.htm#strings">String</a></p>
     <p>If blank or omitted, it defaults to 0 (false). そうでないときは、次のいずれかの値を指定します：</p>
     <p><strong>0</strong> (false): The <a href="../misc/Threads.htm">current thread</a> will move on to the next statement(s) while the file is playing.</p>
     <p><strong>1</strong> (true) or <strong>Wait</strong>: The current thread waits until the file is finished playing before continuing. Even while waiting, new threads can be launched via <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timer</a>.</p>
-    <p>既知の制限：<em>Wait</em>パラメータを使用しない場合、スクリプトが終了するまで、または別のファイル（存在しないファイルでも可）が再生されるまで、システムは再生中のファイルを「使用中」とみなす可能性がある。</p>
+    <p>Known limitation: If the <em>Wait</em> parameter is not used, the system might consider the playing file to be "in use" until the script closes or until another file is played (even a nonexistent file).</p>
   </dd>
 
 </dl>
@@ -50,7 +50,7 @@
 <p>すべてのWindowsシステムは.wavファイルを再生できるはずだ。ただし、適切なコーデックや機能がシステムにインストールされていない場合、その他のファイルタイプ（.mp3、.aviなど）は再生できない可能性があります。</p>
 <p>Windowsの癖により、パスが127文字以上の.wavファイルは再生されません。これを回避するには、.mp3（パスの長さは255文字まで）などの他のファイルタイプを使用するか、8.3のショートパスを使用します（そのようなパスを取得する方法については、<a href="LoopFiles.htm#LoopFileShortPath">A_LoopFileShortPathを</a>参照してください）。</p>
 <p>あるファイルが再生中で、現在のスクリプトが2つ目のファイルを再生する場合、2つ目のファイルが再生できるように、1つ目のファイルは停止される。システムによっては、まったく別のスクリプトが新しいファイルを再生しても、特定のファイルタイプの再生が停止することがあります。</p>
-<p>再生中のファイルを停止するには、この例のように、存在しないファイル名でSoundPlayを使う：<code>try SoundPlay "Nonexistent.avi"</code>.</p>
+<p>To stop a file that is currently playing, use SoundPlay on a nonexistent filename as in this example: <code>try SoundPlay "Nonexistent.avi"</code>.</p>
 <p>スクリプトが終了すると、スクリプトが開始した再生中のファイルはすべて停止する。</p>
 <h2 id="Related">関連</h2>
 <p><a href="SoundBeep.htm">SoundBeep</a>, <a href="Sound.htm">Sound Functions</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="../misc/Threads.htm">Threads</a></p>
