@@ -20,19 +20,19 @@
 
   <dt>String</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The string to sort.</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, <em>String</em> will be sorted in ascending alphabetical order (case-insensitive), using a linefeed (`n) as separator. それ以外の場合は、以下の<a href="#Options">「オプション」セクション</a>から1つ以上のオプション文字列を指定する（任意の順序で、間に任意のスペースを入れる）。</p>
   </dd>
   
   <dt id="callback">Callback</dt>
   <dd>
-    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>If omitted, no custom sorting will be performed. そうでない場合は、リスト内の任意の2つの項目を比較する関数を呼び出すように指定する。</p>
     <p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
     <pre class="NoIndent">MyCallback(First, Second, Offset) { ...</pre>
@@ -51,17 +51,17 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#strings">String</a></p>
+<p>型：<a href="../Concepts.htm#strings">文字列</a></p>
 <p>この関数は、指定された文字列をソートして返します。</p>
 
 <h2 id="Options">Options</h2>
-<p><strong>C</strong>, <strong>C1</strong> or <strong>COn</strong>: Case-sensitive sort (ignored if the N option is also present).</p>
-<p><strong>C0</strong> or <strong>COff</strong>: Case-insensitive sort. 大文字のA-Zは、小文字のA-Zと同じとみなされます。これは、他の大文字小文字の区別オプションが使われていない場合のデフォルト・モードです。</p>
-<p><strong>CL</strong> or <strong>CLocale</strong>: Case-insensitive sort based on the current user's locale. 例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。ソートされる項目の内容にもよるが、デフォルトの不感症の方法よりも1倍から8倍パフォーマンスが悪くなります。</p>
+<p><strong>C</strong>, <strong>C1</strong> or <strong>COn</strong>:大文字小文字を区別してソートします（Nオプションがある場合は無視されます）。</p>
+<p><strong>C0</strong> or <strong>COff</strong>:大文字小文字を区別しないソート。大文字のA-Zは、小文字のA-Zと同じとみなされます。これは、他の大文字小文字の区別オプションが使われていない場合のデフォルト・モードです。</p>
+<p><strong>CL</strong> or <strong>CLocale</strong>:現在のユーザーのロケールに基づき、大文字小文字を区別せずにソートします。例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。ソートされる項目の内容にもよるが、デフォルトの不感症の方法よりも1倍から8倍パフォーマンスが悪くなります。</p>
 <p><strong>CLogical：</strong> <em>CLocaleと似て</em>いるが、文字列中の数字はテキストではなく数値の内容とみなされます。例えば、"A2 "は "A10 "よりも小さいとみなされる。しかし、2つの数値が先頭のゼロの有無によってのみ異なる場合、先頭のゼロがある文字列は、もう一方の文字列よりも<em>小さい</em>とみなされることがある。正確な動作はOSのバージョンによって異なる場合があります。</p>
-<p><strong>D</strong><em>x</em>: Specifies <em>x</em> as the delimiter character, which determines where each item begins and ends. 区切り文字は常に大文字と小文字を区別します。このオプションがない場合、<em>x</em>のデフォルトは改行（`n）です。ほとんどの場合、行末がCR+LF（`r`n）であっても機能するが、キャリッジリターン（`r）は比較に含まれるため、ソートの順番に影響します。例えば、<code>"B`r`nA "</code>は期待通りにソートされるが、<code>"A`r`nA`t`r`nB "</code>は<code>A`t`r</code>を <code>A`r</code>の前に置く。</p>
+<p><strong>D</strong><em>x</em>:区切り文字として<em>x</em>を指定し、各項目の始まりと終わりを決定する。区切り文字は常に大文字と小文字を区別します。このオプションがない場合、<em>x</em>のデフォルトは改行（`n）です。ほとんどの場合、行末がCR+LF（`r`n）であっても機能するが、キャリッジリターン（`r）は比較に含まれるため、ソートの順番に影響します。例えば、<code>"B`r`nA "</code>は期待通りにソートされるが、<code>"A`r`nA`t`r`nB "</code>は<code>A`t`r</code>を <code>A`r</code>の前に置く。</p>
 <p><strong>N:</strong>数値ソート。各項目は文字列ではなく数値であるとみなされます（たとえば、このオプションがない場合、アルファベット順のため、文字列233は文字列40より小さいとみなされます）。10進数および16進数の文字列（例えば0xF1）はいずれも数値とみなされます。数字で始まらない文字列は、ソートの目的上ゼロとみなされます。数値は64ビットの浮動小数点値として扱われ、各数値の10進数部分（もしあれば）が考慮されます。</p>
-<p><strong>P</strong><em>n</em>: Sorts items based on character position <em>n</em> (do not use hexadecimal for <em>n</em>). このオプションがない場合、<em>n</em>のデフォルトは1で、これは最初の文字の位置である。ソートは各文字列を<em>n</em>文字目から他の文字列と比較する。<em>n</em>が文字列の長さより大きい場合、その文字列はソートの目的のために空白であるとみなされる。オプションN（数値ソート）と併用する場合、文字列の文字位置が使われるが、これは必ずしも数値の桁位置と同じではない。</p>
+<p><strong>P</strong><em>n</em>:文字位置<em>n</em>に基づいて項目をソートする（<em>n</em>には 16 進数を使用しない）。このオプションがない場合、<em>n</em>のデフォルトは1で、これは最初の文字の位置である。ソートは各文字列を<em>n</em>文字目から他の文字列と比較する。<em>n</em>が文字列の長さより大きい場合、その文字列はソートの目的のために空白であるとみなされる。オプションN（数値ソート）と併用する場合、文字列の文字位置が使われるが、これは必ずしも数値の桁位置と同じではない。</p>
 <p><strong>R:</strong>逆順に並べ替える（アルファベット順か数字順かは他のオプションによる）。</p>
 <p><strong>Random:</strong>ランダムな順序でソートする。このオプションは、D、Z、U以外のすべてのオプションを無視する（ただし、N、C、CLは重複の検出方法に影響を与える）。例：</p>
 <pre>MyVar := Sort(MyVar, "Random")
@@ -93,7 +93,7 @@ MsgBox MyVar   <em>; The result is -4,1,3,5,7,9,13,999</em></pre>
 <pre>Contents := <a href="FileRead.htm">FileRead</a>("C:\Address List.txt")
 FileDelete "C:\Address List (alphabetical).txt"
 FileAppend Sort(Contents), "C:\Address List (alphabetical).txt"
-Contents := ""  <em>; Free the memory.</em></pre>
+Contents := "" <em>; メモリを解放します。</em></pre>
 </div>
 
 <div class="ex" id="ExFilenames">
@@ -115,7 +115,7 @@ MsgBox Sort(MyVar,, LengthSort)
 LengthSort(a1, a2, *)
 {
     a1 := StrLen(a1), a2 := StrLen(a2)
-    return a1 &gt; a2 ?1 : a1 &lt; a2 ?-1 : 0  <em>; Sorts according to the lengths determined above.</em>
+    return a1 &gt; a2 ? 1 : a1 &lt; a2 ? -1 : 0  <em>; Sorts according to the lengths determined above.</em>
 }
 
 MyVar := "5,3,7,9,1,13,999,-4"

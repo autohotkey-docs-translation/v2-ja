@@ -20,41 +20,41 @@
 
   <dt>Prompt</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>空白または省略したときの初期値はテキストなしになります。そうでないときは、テキストを指定します。通常、そのテキストはどのようなことを入力すればいいかを示すユーザーへのメッセージです。<em>Prompt</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさや保守性を向上させることができます。</p>
   </dd>
 
   <dt>タイトル</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>省略したときは、<a href="../Variables.htm#ScriptName">A_ScriptName</a>の現在の値がデフォルトとなります。そうでないときは、インプットボックスのタイトルを指定します。</p>
   </dd>
 
   <dt>Options</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>空白または省略したときは、インプットボックスは画面の水平方向と垂直方向の中央に配置され、OSのバージョンとテーマによって異なりますが、デフォルトのサイズは約380x200ピクセルです。そうでないときは、次のオプションの1つ以上を、それぞれスペースまたはタブで区切って文字列として指定します：</p>
-      <p><strong>X</strong><em>n</em> and <strong>Y</strong><em>n</em>: The X and Y coordinates of the dialog. 例えば、<code>x0 y0</code>はウィンドウをデスクトップの左上隅に置きます。どちらかの座標が省略された場合、ダイアログはその次元で中央に配置されます。どちらかの座標をマイナスにすると、ダイアログをデスクトップの一部または全部に配置することができます（マルチモニター環境ではセカンダリーモニターに配置）。</p>
-      <p><strong>W</strong><em>n</em> and <strong>H</strong><em>n</em>: The width and height of the dialog's client area, which excludes the title bar and borders. For example, <code>w200 h100</code>.</p>
-      <p><strong>T</strong><em>n</em>: Specifies the timeout in seconds. 例えば、<code class="no-highlight">T10.0</code>は10秒です。この値が2147483（24.8日）を超えた場合、2147483に設定されます。タイムアウトになるとインプットボックスは自動的に閉じられ、<a href="#return">InputBoxObj.Result</a>にはTimeoutという文字が設定されます。
+      <p><strong>X</strong><em>n</em> and <strong>Y</strong><em>n</em>:ダイアログのX座標とY座標例えば、<code>x0 y0</code>はウィンドウをデスクトップの左上隅に置きます。どちらかの座標が省略された場合、ダイアログはその次元で中央に配置されます。どちらかの座標をマイナスにすると、ダイアログをデスクトップの一部または全部に配置することができます（マルチモニター環境ではセカンダリーモニターに配置）。</p>
+      <p><strong>W</strong><em>n</em> and <strong>H</strong><em>n</em>:タイトルバーと境界線を除いたダイアログのクライアント領域の幅と高さです。For example, <code>w200 h100</code>.</p>
+      <p><strong>T</strong><em>n</em>:タイムアウトまでの時間を秒で指定します。例えば、<code class="no-highlight">T10.0</code>は10秒です。この値が2147483（24.8日）を超えた場合、2147483に設定されます。タイムアウトになるとインプットボックスは自動的に閉じられ、<a href="#return">InputBoxObj.Result</a>にはTimeoutという文字が設定されます。
 <a href="#return">InputBoxObj.Value</a>には、ユーザが入力した値がそのまま格納されます。</p>
       <p><strong>パスワード:</strong>ユーザーが入力した文字にマスキング文字を代入することで、パスワードを入力するときのようにユーザーの入力を隠します。デフォルト以外のマスキング文字にしたいときは、Passwordの直後に含めてください。例えば、<code>Password*</code>はマスキング文字を黒丸ではなくアスタリスクにします。</p>
   </dd>
 
   <dt>デフォルト</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>空白または省略したときの初期値は文字列なしになります。そうでないときは、ダイアログが最初に表示されたときにインプットボックスの編集フィールドに表示される文字列を指定します。ユーザーがバックスペースなどで変更することが可能です。</p>
   </dd>
 
 </dl>
 
 <h2 id="return">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
 <p>この関数は、以下のプロパティを持つオブジェクトを返します：</p>
 <ul>
-  <li><code>Value</code> (<a href="../Concepts.htm#strings">String</a>): The text entered by the user.</li>
-  <li><code>Result</code> (<a href="../Concepts.htm#strings">String</a>): One of the following words indicating how the input box was closed: OK, Cancel, or Timeout.</li>
+  <li><code>値</code><a href="../Concepts.htm#strings">（String</a>）：ユーザーによって入力されたテキスト。</li>
+  <li><code>結果</code><a href="../Concepts.htm#strings">（String</a>）：入力ボックスがどのように閉じられたかを示す次のいずれかの単語：OK, Cancel, or Timeout.</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>

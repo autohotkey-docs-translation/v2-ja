@@ -20,26 +20,26 @@
 
   <dt>ComObj</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
     <p>COM ラッパーオブジェクト。詳しくは<a href="ComValue.htm">ComValue</a>をご覧ください。</p>
   </dd>
 
   <dt>NewFlags</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p><i>Mask</i>で識別されるフラグの新しい値、または追加または削除するフラグ。</p>
   </dd>
 
   <dt>Mask</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>変更するフラグのビットマスクです。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>この関数は、指定された COM オブジェクトの現在のフラグ（指定された場合、<i>NewFlags</i>を適用した後）を返します。</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
@@ -83,16 +83,16 @@ else
 <pre>arr1 := ComObjArray(0xC, 3)
 arr2 := ComObjArray(0xC, 1)
 arr2[0] := "original value"
-arr1[0] := arr2         <em>; Assign implicit copy.</em>
-ComObjFlags(arr2, -1)   <em>; Remove F_OWNVALUE.</em>
-arr1[1] := arr2         <em>; Assign original array.</em>
-arr1[2] := arr2.Clone() <em>; Assign explicit copy.</em>
+arr1[0] := arr2         <em>; 暗黙のコピーを割り当てる。</em>
+ComObjFlags(arr2, -1)   <em>; F_OWNVALUEを削除します。</em>
+arr1[1] := arr2         <em>; 元の配列を割り当てる。</em>
+arr1[2] := arr2.Clone() <em>; 明示的なコピーを割り当てる。</em>
 arr2[0] := "new value"
 for arr in arr1
     MsgBox arr[0]
 
 arr1 := ""
-<em>; Not valid since arr2 == arr1[1], which has been destroyed: 
+<em>; arr2 == arr1[1]が破壊されたので無効です。
 ;  arr2[0] := "foo"</em>
 </pre>
 </div>

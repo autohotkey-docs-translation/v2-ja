@@ -28,18 +28,18 @@
   <li><a href="#like">バッファ的オブジェクト</a></li>
   <li><a href="#StaticMethods">静的メソッドです。</a>
     <ul>
-      <li><a href="#Call">Call</a>: Creates a new Buffer object.</li>
+      <li>コールCreates a new Buffer object.</li>
     </ul>
   </li>
   <li><a href="#Methods">メソッド</a>:
     <ul>
-      <li><a href="#__New">__New</a>: Allocates or reallocates the buffer and optionally fills it.</li>
+      <li><a href="#__New">__New</a>:バッファの割り当てまたは再割り当てを行い、オプションでバッファを埋めます。</li>
     </ul>
   </li>
   <li><a href="#Properties">プロパティ</a>:
     <ul>
-      <li><a href="#Ptr">Ptr</a>: Retrieves the buffer's current memory address.</li>
-      <li><a href="#Size">Size</a>: Retrieves or sets the buffer's size, in bytes.</li>
+      <li><a href="#Ptr">Ptr</a>:バッファの現在のメモリアドレスを取得します。</li>
+      <li><a href="#Size">Size</a>:バッファのサイズをバイト単位で取得または設定します。</li>
     </ul>
   </li>
   <li><a href="#Related">関連</a></li>
@@ -59,19 +59,19 @@ BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCo
 <dl>
   <dt>ByteCount</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>割り当てるバイト数を指定します。<a href="#Size">Buffer.Size</a>に対応します。</p>
     <p>省略された場合、Buffer は NULL（ゼロ）<a href="#Ptr">Ptr</a>とゼロ<a href="#Size">Size</a>で作成されます。</p>
   </dd>
   <dt>FillByte</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>0～255の数値を指定すると、バッファ内の各バイトにその数値が設定されます。</p>
     <p>バイト数に比例した時間的コストがかかるため、バッファを読み込まずに書き込むような場合には、一般に省略されるべきです。省略した場合、バッファのメモリは初期化されず、各バイトの値は任意です。</p>
   </dd>
 </dl>
 <h4 id="Call_Return_Value">戻り値</h4>
-<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
 <p>This method or function returns a Buffer object.</p>
 <h4 id="Call_Remarks">備考</h4>
 <p><em>ByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされます。</p>
@@ -113,22 +113,22 @@ BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCo
 <pre>
 max_chars := 11
 
-<em>; Allocate a buffer for use with the Unicode version of wsprintf.</em>
+<em>; Unicode 版 wsprintf で使用するためのバッファを確保します。</em>
 bufW := Buffer(max_chars*2)
 
-<em>; Print a UTF-16 string into the buffer with wsprintfW().</em>
+<em>; wsprintfW()でUTF-16文字列をバッファに出力します。</em>
 DllCall("wsprintfW", "Ptr", bufW, "Str", "0x%08x", "UInt", 4919, "CDecl")
 
-<em>; Retrieve the string from bufW and show it.</em>
-MsgBox StrGet(bufW, "UTF-16")  <em>; Or just StrGet(bufW).</em>
+<em>; bufW から文字列を取り出し、表示します。</em>
+MsgBox StrGet(bufW, "UTF-16")  <em>; あるいは、StrGet(bufW)だけです。</em>
 
-<em>; Allocate a buffer for use with the ANSI version of wsprintf.</em>
+<em>; ANSI 版 wsprintf で使用するためのバッファを確保します。</em>
 bufA := Buffer(max_chars)
 
-<em>; Print an ANSI string into the buffer with wsprintfA().</em>
+<em>; wsprintfA()でANSI文字列をバッファに出力します。</em>
 DllCall("wsprintfA", "Ptr", bufA, "AStr", "0x%08x", "UInt", 4919, "CDecl")
 
-<em>; Retrieve the string from bufA (converted to the native format), and show it.</em>
+<em>; bufA から文字列を取得し(ネイティブ形式に変換)、表示します。</em>
 MsgBox StrGet(bufA, "CP0")
 </pre>
 </div>

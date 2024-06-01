@@ -20,7 +20,7 @@
 
   <dt id="Function">機能</dt>
   <dd>
-    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>呼び出す関数オブジェクト。</p>
     <p>関数オブジェクトへの<a href="../Concepts.htm#references-to-objects">参照</a>は、スクリプトのタイマーリストに保持され、タイマーが削除されない限り解放されない。これは<a href="#once">ランワンスタイマー</a>では自動的に行われますが、SetTimerを<em>Period</em>を0にして呼び出すことによっても行うことができます。</p>
     <p id="OmitCallback"><em>Function</em>が省略された場合、SetTimerは現在のスレッドを起動したタイマーを操作します（もしあれば）。例えば、<code>SetTimer , 0</code>をタイマー関数内で使用すると、タイマーを削除するためにマークすることができ、<code>SetTimer , 1000</code>は現在のタイマーの<em>周期</em>を更新します。</p>
@@ -29,7 +29,7 @@
 
   <dt>Period</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted and the timer does not exist, it will be created with a period of 250. If omitted and the timer already exists, it will be <a href="#reset">reset</a> at its former period unless <em>Priority</em> is specified. Otherwise, the absolute value of this parameter is used as the <a href="#Precision">approximate</a> number of milliseconds that must pass before the timer is executed. The timer will be automatically <a href="#reset">reset</a>. 自動で繰り返す設定や、1回だけ実行する設定も可能です：</p>
     <ul>
       <li><em>Period</em>が0より大きい場合、スクリプトによって明示的に無効にされるまで、タイマーは自動的に繰り返されます。</li>
@@ -41,7 +41,7 @@
 
   <dt>Priority</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>省略したときの初期値は0です。Otherwise, specify an integer between -2147483648 and 2147483647 (or an <a href="../Variables.htm#Expressions">expression</a>) to indicate this timer's thread priority. 詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
     <p>既存のタイマーの優先順位を変更する場合、他の方法で影響を与えることなく、<em>Period</em>を省略します。</p>
   </dd>
@@ -50,7 +50,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p>タイマーは非同期で実行されるため、スクリプトがウィンドウを待っていたり、ダイアログを表示していたり、他のタスクで忙しかったりしても、指定した頻度（間隔）で実行されるため便利です。例えば、ユーザーがアイドル状態になったときに何らかのアクションを起こす（<a href="../Variables.htm#TimeIdle">A_TimeIdle</a>で反映される）、不要なウィンドウが表示されたらすぐに閉じるなど、さまざまな使い方があります。</p>
-<p>タイマーは、スクリプトが同時に複数のタスクを実行しているように錯覚させるかもしれませんが、そうではありません。Instead, timed functions are treated just like other threads: they can interrupt or be interrupted by another thread, such as a <a href="../Hotkeys.htm">hotkey subroutine</a>. 詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
+<p>タイマーは、スクリプトが同時に複数のタスクを実行しているように錯覚させるかもしれませんが、そうではありません。その代わり、タイムドファンクションは他のスレッドと同じように扱われます：<a href="../Hotkeys.htm">ホットキーのサブルーチン</a>など、他のスレッドに割り込んだり、割り込まれたりする可能性があります。詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
 <p>Whenever a timer is created or updated with a new period, its function will not be called right away; its time period must expire first. If you wish the timer's first execution to be immediate, call the timer's function directly (however, this will not start a new thread like the timer itself does; so settings such as <a href="SendMode.htm">SendMode</a> will not start off at their defaults).</p>
 <p id="reset"><strong>Reset:</strong> If SetTimer is used on an existing timer, the timer is reset (unless <em>Priority</em> is specified and <em>Period</em> is omitted); in other words, the entirety of its period must elapse before its function will be called again.</p>
 <p id="Precision"><strong>Timer precision:</strong> Due to the granularity of the OS's time-keeping system, <em>Period</em> is typically rounded up to the nearest multiple of 10 or 15.6 milliseconds (depending on the type of hardware and drivers installed). <a href="Sleep.htm#ExShorterSleep">DllCall+timeBeginPeriod+Sleep</a>のように、Loop+Sleepでより短い遅延を達成することもできる。</p>
@@ -116,7 +116,7 @@ KeyWinC(ThisHotkey)  <em>; This is a <a href="../Hotkeys.htm#Function">named fun
     winc_presses := 1
     SetTimer After400, -400 <em>; Wait for more presses within a 400 millisecond window.</em>
 
-    After400()  <em>; This is a <a href="../Functions.htm#nested">nested function</a>.</em>
+After400()  <em>; This is a <a href="../Functions.htm#nested">nested function</a>.</em>
     {
         if winc_presses = 1 <em>; The key was pressed once.</em>
         {

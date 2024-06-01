@@ -21,20 +21,20 @@ Boolean := <span class="func">IsSetRef</span>(&amp;Ref)</pre>
 
   <dt>Var</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variables">Variable</a></p>
-    <p>直接の変数参照です。For example: <code>IsSet(MyVar)</code>.</p>
+    <p>型：<a href="../Concepts.htm#variables">変数</a></p>
+    <p>直接の変数参照です。事例：<code>IsSet(MyVar)</code>.</p>
   </dd>
 
   <dt>&amp;Ref</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
     <p>変数への間接的な参照。これは通常、<code>IsSetRef(&amp;MyVar)</code>のように直接渡されるのではなく、VarRefを<em>含む</em>パラメータを<a href="../Variables.htm#deref">再参照する</a>前にチェックするような間接的なものである。 </p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
 <p>この関数は <em>Var</em>または<em>Ref</em> で表される変数に値が割り当てられていれば1（true）を返し、そうでなければ0 （false）を返します。</p>
 
 <h2 id="Remarks">備考</h2>
@@ -53,11 +53,11 @@ Boolean := <span class="func">IsSetRef</span>(&amp;Ref)</pre>
 <pre>
 Loop 2
     if !IsSet(MyVar)  <em>; MyVarの最初の「使用」か？</em>
-        MyVar := A_Index  <em>; Initialize on first "use".</em>
+        MyVar := A_Index  <em>; 初期化</em>
 MsgBox Function1(&amp;MyVar)
 MsgBox Function2(&amp;MyVar)
 
-Function1(&amp;Param)  <em>; ByRef parameter.</em>
+Function1(&amp;Param)  <em>; ByRefパラメータ</em>
 {
     if IsSet(Param)  <em>; MyVarのエイリアスであるParamそのものを渡します</em>。
         return Param  <em>; ByRefパラメータは自動的に再参照さ</em>れる。

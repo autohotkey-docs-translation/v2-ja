@@ -20,14 +20,14 @@
 
   <dt>Text</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>If blank or omitted, <em>Filename</em> will be created as an empty file (but if the file already exists, its modification time will be updated). Otherwise, specify the text or raw binary data to append to the file. テキストには改行文字(`n)を含めることができる。In addition, a single long line can be broken up into several shorter ones by means of a <a href="../Scripts.htm#continuation">continuation section</a>.</p>
     <p><a href="Buffer.htm">Buffer</a>のようなオブジェクトを渡して、生のバイナリデータを付加することができる。ファイルを作成する場合、<em>オプション</em>で"UTF-8"または "UTF-16"を指定した場合のみ、BOM（Byte Order Mark）が書き込まれます。<a href="../Variables.htm#FileEncoding">デフォルトのエンコーディング</a>は無視され、<em>Options</em>に関係なく、オブジェクトが含むデータはそのまま書き込まれます。<a href="Buffer.htm#Ptr">Ptr</a>プロパティと<a href="Buffer.htm#Size">Size</a>プロパティを実装しているオブジェクトであれば、どのようなものでも使用可能です。</p>
   </dd>
 
   <dt>Filename</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If omitted, the output file of the innermost enclosing <a href="LoopRead.htm">file-reading loop</a> will be used (if available). Otherwise, specify the name of the file to be appended, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. 保存先ディレクトリはすでに存在している必要があります。</p>
     <p id="stdout"><strong>Standard Output (stdout):</strong> Specifying an asterisk (*) for <em>Filename</em> causes <em>Text</em> to be sent to standard output (stdout). このようなテキストは、ファイルにリダイレクトしたり、別のEXEにパイプしたり、<a href="_ErrorStdOut.htm">おしゃれなテキストエディター</a>でキャプチャしたりすることができます。例えば、以下のようにコマンドプロンプトで入力した場合は有効です：</p>
       <pre class="no-highlight">"%ProgramFiles%\AutoHotkey\AutoHotkey.exe" "My Script.ahk" &gt;"Error Log.txt"</pre>
@@ -39,11 +39,11 @@
 
   <dt>Options</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。For example: <code>"`n UTF-8"</code></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+    <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"`n UTF-8"</code></p>
     <p><strong>Encoding:</strong> Specify any of the encoding names accepted by <a href="FileEncoding.htm">FileEncoding</a> (excluding the empty string) to use that encoding if the file lacks a UTF-8 or UTF-16 byte order mark. 省略された場合、デフォルトは<a href="../Variables.htm#FileEncoding">A_FileEncoding</a>です（ただし、<em>Text</em>がオブジェクトの場合はバイトオーダーマークを書きません）。</p>
     <p><strong>RAW:</strong> Specify the word RAW (case-insensitive) to write the exact bytes contained by <em>Text</em> to the file as-is, without any conversion. このオプションは、以前に指定されたエンコーディングを上書きし、その逆もまた然りです。<em>Text</em>がオブジェクトでない場合、UTF-16文字列を使用するため、データサイズは常に2バイトの倍数となる。</p>
-    <p><strong>`n</strong> (a linefeed character): Inserts a carriage return (`r) before each linefeed (`n) if one is not already present. つまり、`nから`r`nに変換するのです。この翻訳は、通常、パフォーマンスに影響を与えません。このオプションを使用しない場合、<em>Text</em>内の行末は変更されません。</p>
+    <p><strong>`n</strong>(改行文字)：キャリッジリターン(`r)がまだ存在しない場合、各ラインフィード(`n)の前に挿入されます。つまり、`nから`r`nに変換するのです。この翻訳は、通常、パフォーマンスに影響を与えません。このオプションを使用しない場合、<em>Text</em>内の行末は変更されません。</p>
   </dd>
 
 </dl>
@@ -78,7 +78,7 @@ A line of text.
 <p><a class="ex_number" href="#ExFTP"></a> オペレーティングシステム内蔵のFTPコマンドを使用して、FTPアップロードを自動化する方法について説明します。</p>
 <pre>FTPCommandFile := A_ScriptDir "\FTPCommands.txt"
 FTPLogFile := A_ScriptDir "\FTPLog.txt"
-try FileDelete FTPCommandFile  <em>; In case previous run was terminated prematurely.</em>
+try FileDelete FTPCommandFile  <em>; 前回実行したプログラムが途中で終了してしまった場合。</em>
 
 FileAppend
 (
@@ -95,8 +95,8 @@ quit"
 ), FTPCommandFile
 
 RunWait Format('{1} /c ftp.exe -s:"{2}" &gt;"{3}"', A_ComSpec, FTPCommandFile, FTPLogFile)
-FileDelete FTPCommandFile  <em>; Delete for security reasons.</em>
-Run FTPLogFile  <em>; Display the log for review.</em></pre>
+FileDelete FTPCommandFile  <em>; セキュリティ上、削除してください。</em>
+Run FTPLogFile  <em>; ログを表示させて確認します。</em></pre>
 </div>
 
 </body>

@@ -73,9 +73,9 @@ Methods?
 <p><strong>改行の意味：</strong>改行は一般的にステートメントの区切りとして機能し、前の関数呼び出しやその他のステートメントを終了させます。(<em>ステートメント</em>とは、単に実行されるべき何らかの動作を表現する、言語の最小の独立した要素です。)。ただし、行の継続は例外です(下記参照)。</p>
 <p><strong>行の継続：</strong>長い行を小さな行の集まりに分割して、読みやすさや保守性を向上させることができます。これは前処理によって実現されるものであり、言語の一部ではありません。3つの方式：</p>
 <ul>
-  <li><a href="Scripts.htm#continuation-line">Continuation prefix</a>: Lines that begin with an <a href="Variables.htm#operators">expression operator</a> (except ++ and --) are merged with the previous line. 行が実際に式を含んでいるかどうかに関係なく、行はマージされます。</li>
-  <li><a href="Scripts.htm#continuation-expr">Continuation by enclosure</a>: A sub-expression enclosed in (), [] or {} can automatically span multiple lines in most cases.</li>
-  <li><a href="Scripts.htm#continuation-section">Continuation section</a>: Multiple lines are merged with the line above the section, which starts with <code>(</code> and ends with <code>)</code> (both symbols must appear at the beginning of a line, excluding whitespace).</li>
+  <li><a href="Scripts.htm#continuation-line">継続の接頭辞</a><a href="Variables.htm#operators">式演算子</a>で始まる行（++と--を除く）は、前の行と統合されます。行が実際に式を含んでいるかどうかに関係なく、行はマージされます。</li>
+  <li><a href="Scripts.htm#continuation-expr">囲い込みによる継続</a>：()、[]、{}で囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができます。</li>
+  <li><a href="Scripts.htm#continuation-section">継続の部</a>：複数の行は、セクションの上にある、<code>(</code>で始まり、<code>)</code>で終わる行にマージされます（両方の記号は、空白を除いて行頭に現れる必要があります）。</li>
 </ul>
  
 
@@ -92,7 +92,7 @@ MsgBox "Common mistake:" */ " this does not end the comment."
 MsgBox "This line is commented out."
 */</em>
 MsgBox "This line is not commented out."
-<em>/* This is also valid, but no other code can share the line. */</em>
+<em>/* これも有効ですが、他のコードがその行を共有することはできません。*/</em>
 MsgBox "This line is not commented out."
 </pre>
 <p>タブ、スペースは除く。<code><em>/*</em></code> は行頭に表示する必要があります。 <code><em>*/</em></code>は、行頭または行末にのみ表示することができます。<code><em>*/</em></code>を省略することも有効です。 この場合、ファイルの残りはコメントアウトされます。</p>
@@ -106,15 +106,15 @@ MsgBox "This line is not commented out."
 <h3 id="strings">文字列 / テキスト</h3>
 <p class="note">文字列の一般的な説明については、<a href="Concepts.htm#strings">文字列</a>を参照してください。</p>
 <p><em>ストリング</em>または<em>文字列</em>とは、単なるテキスト値のことです。式中、リテラルテキストは、変数名や他の式と区別するために、シングルクォーテーションまたはダブルクォーテーションで囲む必要があります。これはしばしば<em>引用リテラル文字列</em>、あるいは単に<em>引用文字列</em>と呼ばれる。例えば、<code>"これは引用符で囲まれた文字列です"</code>そして<code>"これはそうです"</code>という具合です。</p>
-<p>引用符で囲まれた文字列の中に<em>実際</em>の引用符を含めるには、<code>`"</code>または<code>`'</code> <a href="misc/EscapeChar.htm#quote">エスケープシーケンスを</a>使用するか、反対のタイプの引用符でその文字を囲みます。For example: <code>'She said, "An apple a day."'</code>.</p>
+<p>引用符で囲まれた文字列の中に<em>実際</em>の引用符を含めるには、<code>`"</code>または<code>`'</code> <a href="misc/EscapeChar.htm#quote">エスケープシーケンスを</a>使用するか、反対のタイプの引用符でその文字を囲みます。事例：<code>'She said, "An apple a day."'</code>.</p>
 <p>引用符で囲まれた文字列には、<code>`t</code>（タブ）、<code>`n</code>（ラインフィード）、<code>`r</code>（キャリッジリターン）といった他の<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を含めることができます。</p>
 
 <h3 id="variables">変数</h3>
 <p class="note">変数の基本的な説明と一般的な詳細については、<a href="Concepts.htm#variables">変数</a>を参照してください。</p>
 <p><em>変数</em>は、変数名を書くだけで式の中で使用することができます。例えば、<code>A_ScreenWidth/2</code>です。ただし、引用符で囲まれた文字列の中では、変数を使用することができない。その代わりに、変数やその他の値をテキストと結合させるための処理として <a href="Variables.htm#concat"><em>連結</em></a>. 式中の値を<em>連結</em>する方法は2つあります。</p>
 <ul>
-  <li>Implicit concatenation: <code>"The value is " MyVar</code></li>
-  <li>Explicit concatenation: <code>"The value is " . MyVar</code></li>
+  <li>暗黙の連結：<code>"The value is " MyVar</code></li>
+  <li>明示的な連結：<code>"The value is " . MyVar</code></li>
 </ul>
 <p>暗黙の連結は、<em>自動連結</em>とも呼ばれる。いずれの場合も、変数とドットの前にあるスペースは必須です。</p>
 <p>また、<a href="lib/Format.htm">フォーマット</a>機能もこの目的に使用できます。事例：</p>
@@ -136,10 +136,10 @@ MsgBox "This line is not commented out."
 <ul>
   <li><em>単項</em>演算子は、演算子によって、1つのオペランドの前か後に書かれます。例えば、<code>-x</code>または、<code>keyIsDown</code></li>
   <li><em>二項</em>演算子は、2つのオペランドの間に記述されます。例えば, <code>1+1</code> または <code>2 * 5</code>.</li>
-  <li>AutoHotkey has only one <em>ternary</em> operator, which takes the form <a href="Variables.htm#ternary"><code>condition ? valueIfTrue : valueIfFalse</code></a>.</li>
+  <li>AutoHotkeyには<em>三項</em>演算子が1つだけあり、次のような形をしています。 <a href="Variables.htm#ternary"><code>条件 ? valueIfTrue : valueIfFalse</code></a></li>
 </ul>
 <p>単項演算子と二項演算子には同じ記号を持つものがあり、その場合、演算子の意味は2つの値の前、後、間のいずれに書かれるかに依存します。例えば、<code>x-y</code>は引き算を行い、<code>-x</code>は <code>x</code>の符号を反転させる（負の値から正の値を生成し、その逆も同様）ことを意味します。</p>
-<p>乗算（<code>*</code>）や除算（<code>/</code>）などの優先順位が等しい演算子は、<a href="Variables.htm#operators">演算子テーブル</a>で特に指定がない限り、左から右の順番で評価されます。一方、加算（<code>+</code>）のような優先順位の低い演算子は、乗算（<code>*</code>）のような優先順位の高い演算子の後に評価されます。例えば、<code>3 + 2 * 2</code>は、<code>3 + (2 * 2)</code>と評価されます。Parentheses may be used to override precedence as in this example: <code>(3 + 2) * 2</code></p>
+<p>乗算（<code>*</code>）や除算（<code>/</code>）などの優先順位が等しい演算子は、<a href="Variables.htm#operators">演算子テーブル</a>で特に指定がない限り、左から右の順番で評価されます。一方、加算（<code>+</code>）のような優先順位の低い演算子は、乗算（<code>*</code>）のような優先順位の高い演算子の後に評価されます。例えば、<code>3 + 2 * 2</code>は、<code>3 + (2 * 2)</code>と評価されます。この例のように、括弧を使用して優先順位を上書きすることができます。<code>(3 + 2) * 2</code></p>
 
 <h3 id="function-calls">関数呼び出し</h3>
 <p class="note">機能の一般的な説明と関連する用語については、<a href="Concepts.htm#functions">機能</a>を参照してください。</p>
@@ -175,10 +175,10 @@ Run("notepad.exe", , , &amp;notepadPID)
   <li>ユーザー定義機能の場合、パラメータの<a href="Functions.htm#optional">デフォルト</a>値が使用されます。</li>
   <li>組込み関数の場合は、パラメータが省略されたものとみなされます。</li>
   <li><code>[var?]の</code>ような<a href="Variables.htm#square-brackets">配列リテラル</a>では、その要素は配列の長さに含まれるが、値は与えられない。</li>
-  <li>For an <a href="Variables.htm#curly-braces">object literal</a> such as <code>{x: y?}</code>, the property is not assigned.</li>
+  <li>{x:<code>のような<a href="Variables.htm#curly-braces">オブジェクトリテラルの</a>場合。y?}</code>, プロパティは付与されない。</li>
 </ul>
 <p><code>unset</code>キーワードは、<a href="Functions.htm#unset">関数定義</a>において、パラメータがオプションであり、デフォルト値がないことを示すために使用することもできます。関数が実行されるとき、パラメータが省略された場合、そのパラメータに対応するローカル変数には<a href="Concepts.htm#nothing">値</a>がありません。</p>
-<p><a href="Variables.htm#maybe">maybe演算子(<em>var</em><strong>?</strong>)</a>は、変数が値を持つかどうかによって、その変数を渡したり省略したりするのに使われます。For example, <code>Array(MyVar?)</code> is equivalent to <code>Array(IsSet(MyVar) ?MyVar : unset)</code>.</p>
+<p><a href="Variables.htm#maybe">maybe演算子(<em>var</em><strong>?</strong>)</a>は、変数が値を持つかどうかによって、その変数を渡したり省略したりするのに使われます。例えば、<code>Array(MyVar?)</code>は<code>Array(IsSet(MyVar) ? MyVar : unset)</code>と等価です。</p>
 
 <h3 id="operators-for-objects">オブジェクトの演算子</h3>
 <p>このほかにも、以下に示すように、上記の分類に当てはまらない、あるいは表現の他の部分の意味に影響を与えるような記号が表現に使用されています。これらはすべて、何らかの形で<em>オブジェクト</em>に関係するものです。各コンストラクトがどのような働きをするのか、詳しく説明するためには、さらに多くの概念を導入する必要があり、このセクションの範囲外です。</p>
@@ -188,7 +188,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><code>Alpha.%vBeta%、</code><code>Alpha.%vBeta%[Param]</code>、および<code>Alpha.%vBeta%()</code>もメンバーアクセスですが、<em>vBeta</em>は変数または副式です。これにより、スクリプトの実行中にプロパティやメソッドの名前を決定することができます。この方法でメソッドを呼び出す場合は、括弧を付ける必要があります。</p>
 <p><code>Alpha[Index]</code>は、<code>Index</code>をパラメータとして、<code>Alpha</code>の<em>デフォルトのプロパティ</em>にアクセスします。この場合、<em>Alpha</em>と <em>Index</em>はいずれも変数であり、事実上あらゆる部分式に置き換えることができる。この構文は、通常、<a href="lib/Array.htm">Array</a>や <a href="lib/Map.htm">Map</a>の要素を取得するために使用されます。</p>
 <p id="array-literal"><code>[A、B、C]</code>は、初期内容A、B、C（この場合はすべて変数）を持つ<a href="lib/Array.htm">配列</a>を作成し、Aは要素1です。</p>
-<p id="object-literal"><code>{Prop1: Value1, Prop2: Value2}</code> creates an <a href="lib/Object.htm">Object</a> with properties literally named <em>Prop1</em> and <em>Prop2</em>. 値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。For example: <code>{%NameVar%: ValueVar}</code>.</p>
+<p id="object-literal"><code>{Prop1:Value1, Prop2:Value2}</code> 文字通り<em>Prop1</em>と<em>Prop2</em>という名前のプロパティを持つ<a href="lib/Object.htm">Object</a>を作成します。値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。事例：<code>{%NameVar%:ValueVar}</code>.</p>
 <p><code>MyFunc(Params*)</code>は、<a href="Functions.htm#VariadicCall">可変長引数関数呼び出し</a>です。アスタリスクは、関数のパラメータリストの最後にある閉じ括弧の直前でなければなりません。<em>Params</em>は、<a href="lib/Array.htm">Array</a>または他の列挙可能なオブジェクトを返す変数または部分式でなければなりません。<code>Params*</code>はどこでも使えるわけではありませんが、配列リテラル（<code>[A, B, C, ArrayToAppend*]</code>）やプロパティのパラメータリスト（<code>Alpha.Beta[Params*]</code>や<code>Alpha[Params*]</code>）で使用することが可能です。</p>
 
 <h3 id="expression-statements">表現文</h3>
@@ -199,8 +199,8 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><code>MyFunc(Params)</code>のような関数呼び出しただし、単独の関数呼び出しには、関数宣言と混同されるため、（行末や次の行で）開波括弧<code>{</code>を付けることはできません。</p>
 <p><code>MyObj.MyMethod()</code>のようなメソッド呼び出しです。</p>
 <p><code>MyObj[Index]</code>のように角括弧を使ったメンバーアクセスは、関数呼び出しのような副作用がある場合があります。</p>
-<p>Ternary expressions such as <code>x ?CallIfTrue() : CallIfFalse()</code>. ただし、式（または条件）を常に括弧で囲むという、以下のルールを利用するのが無難です。</p>
-<p class="warning"><strong>既知の制限事項：</strong> <a href="#function-call-statements">関数呼び出し文</a>があいまいなため、変数名とスペースで始まる条件（他の演算子も含む）は、括弧で囲む必要があります。For example, <code>(x + 1) ?y : z</code> and <code>x+1 ?y : z </code> are expression statements but <code>x + 1 ?y : z</code> is a function call statement.</p>
+<p>3項式、<code>x ?CallIfTrue() :CallIfFalse()</code>。ただし、式（または条件）を常に括弧で囲むという、以下のルールを利用するのが無難です。</p>
+<p class="warning"><strong>既知の制限事項：</strong> <a href="#function-call-statements">関数呼び出し文</a>があいまいなため、変数名とスペースで始まる条件（他の演算子も含む）は、括弧で囲む必要があります。例えば、<code>(x + 1) ? y : z</code>や<code>x+1 ? y : z </code>は、式ですが、<code>x + 1 ? y : z</code>は、関数呼び出し文です。</p>
 <p class="warning"><strong>注：</strong>条件は、<a href="Scripts.htm#continuation-line">継続行</a>と解釈されるため、<code>!</code>やその他の式演算子で始めることはできません。</p>
 <p>始まる表現<code>（</code>。しかし、通常、同じ行に一致する<code>)</code>がなければ、その行は<a href="Scripts.htm#continuation">継続セクション</a>の開始と解釈されます。</p>
 <p><code>varname% := 1</code>のように、ダブルデフで始まる式。これは主に、実装の複雑さによるものです。</p>
@@ -210,8 +210,8 @@ Run("notepad.exe", , , &amp;notepadPID)
 <h2 id="control-flow">制御フロー文</h2>
 <p class="note">制御フローの一般的な説明については、<a href="Concepts.htm#control-flow">制御フロー</a>を参照してください。</p>
 <p><a href="Concepts.htm#statement">ステートメント</a>は、グループ化され <a href="lib/Block.htm"><em>ブロック</em></a>は、C言語やJavaScriptなどのように中括弧<code>{}</code>で囲むことで実現できますが、通常、中括弧は行頭に表示する必要があります。制御フロー文は、ブロック全体に適用することも、1つの文だけに適用することも可能です。</p>
-<p>制御フロー文の<a href="Concepts.htm#cf-body">本体</a>は、常に1つの文の<em>グループ</em>です。ブロックは、制御フロー文とその本体と同様に、1つの文のグループとしてカウントされます。The following related statements are also grouped with each other, along with their bodies: <code>If</code> with <code>Else</code>; <code>Loop</code>/<code>For</code> with <code>Until</code> or <code>Else</code>; <code>Try</code> with <code>Catch</code> and/or <code>Else</code> and/or <code>Finally</code>. つまり、これらの文のグループを全体として使用する場合、必ずしも中括弧で囲む必要はありません（ただし、コーディングスタイルによっては、わかりやすくするために中括弧を必ず入れるものもあります）。</p>
-<p>Control flow statements which have a body and therefore must always be followed by a related statement or group of statements: <code>If</code>, <code>Else</code>, <code>Loop</code>, <code>While</code>, <code>For</code>, <code>Try</code>, <code>Catch</code> and <code>Finally</code>.</p>
+<p>制御フロー文の<a href="Concepts.htm#cf-body">本体</a>は、常に1つの文の<em>グループ</em>です。ブロックは、制御フロー文とその本体と同様に、1つの文のグループとしてカウントされます。また、以下の関連する文は、その本体とともに互いにグループ化されている。<code>If</code> <code>Else</code>、<code>Loop</code><code>/</code> <code>For</code><code>Until</code>または<code>Else</code>、<code>Try</code>と <code>Catch</code>または／および<code>Else</code>または／および<code>Finally</code>。つまり、これらの文のグループを全体として使用する場合、必ずしも中括弧で囲む必要はありません（ただし、コーディングスタイルによっては、わかりやすくするために中括弧を必ず入れるものもあります）。</p>
+<p>制御フロー文は、本文を持つため、必ず関連する文または文のグループが続く必要があります。<code>If</code>、<code>Else</code>、<code>Loop</code>、<code>While</code>、<code>For</code>、<code>Try</code>、<code>Catch</code>、および、<code>Finally</code></p>
 <p id="control-flow-list">以下のような制御フロー文が存在：</p>
 <ul>
   <li><a href="lib/Block.htm">ブロック</a>（中括弧のペア）は、0個以上のステートメントをグループ化して、1つのステートメントとして動作させるものです。</li>
@@ -247,7 +247,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 <h3 id="loop-statement">ループ文</h3>
 <p>ループ文にはいくつかの種類があります。</p>
 <ul>
-  <li><a href="lib/Loop.htm">Loop <em>Count</em></a> executes a statement repeatedly: either the specified number of times or until Break is encountered.</li>
+  <li><a href="lib/Loop.htm">Loop <em>Count</em></a> あるステートメントを繰り返し実行することです。either the specified number of times or until Break is encountered.</li>
   <li><a href="lib/LoopReg.htm">Loop Reg</a>は、指定されたレジストリのサブキーの内容を1項目ずつ取得します。</li>
   <li><a href="lib/LoopFiles.htm">Loop Files</a>は、指定したファイルやフォルダを1つずつ取得します。</li>
   <li><a href="lib/LoopParse.htm">Loop Parse</a>は、文字列から部分文字列（フィールド）を1つずつ取り出します。</li>
@@ -298,16 +298,16 @@ Loop Parse t, "`n"
 <p>関数を定義する方法は複数あります。</p>
 <ul>
   <li>名前、括弧、コードの<a href="lib/Block.htm">ブロック</a>を組み合わせた<a href="Functions.htm">関数定義</a>です。これは、<a href="#function-calls">関数コール</a>または<a href="#function-call-statements">関数コールステートメント</a>で名前を指定して実行できる関数を定義します。事例：
-<pre>SayHello()  <em>; Define the SayHello function.</em>
+<pre>SayHello()  <em>; SayHello関数を定義します。</em>
 {
     MsgBox "Hello!"
 }
 
-SayHello  <em>; Call the SayHello function.</em></pre>
+SayHello  <em>; SayHello関数を呼び出す。</em></pre>
   </li>
   <li><a href="Hotkeys.htm">ホットキー</a>または<a href="Hotstrings.htm">ホットストリング</a>の定義で、ホットキーまたはホットストリングを1つの<a href="Concepts.htm#statement">ステートメント</a>またはコードの<a href="lib/Block.htm">ブロック</a>と組み合わせたものです。このタイプの関数は直接呼び出すことはできませんが、ホットキーまたはホットストリングがアクティブになるたびに実行されます。事例：
-<pre>#w::Run "wordpad"  <em>; Press Win-W to run Wordpad.</em>
-#n::  <em>; Press Win-N to run Notepad.</em>
+<pre>#w::Run "wordpad"  <em>; Win-Wを押してWordpadを実行します。</em>
+#n::  <em>; Win-Nを押してメモ帳を起動します。</em>
 {
     Run "notepad"
 }</pre>
@@ -354,8 +354,8 @@ SayHello  <em>; Call the SayHello function.</em></pre>
 <p>動的変数参照の最も一般的な形式は、<em>二重参照</em>または<em>double-deref</em>と呼ばれます。二重参照を行う前に、対象となる変数名を第二の変数に格納します。そして、この第2変数を用いて、二重参照を用いて間接的に対象変数に値を代入することができる。事例：</p>
 <pre>target := 42
 second := "target"
-MsgBox  second   <em>; Normal (single) variable reference =&gt; target</em>
-MsgBox %second%  <em>; Double-deref =&gt; 42</em>
+MsgBox  second   <em>; 通常の（単一の）変数の参照⇒ターゲット</em>
+MsgBox %second%  <em>; ダブルデフ⇒42</em>
 </pre>
 <p>現在、<code>second</code>の場合は必ず変数名を含む必要があり、任意の式はサポートされていません。</p>
 <p>動的変数参照は、1つまたは複数のリテラルテキストと1つまたは複数の変数の内容を取り、それらを結合して1つの変数名を形成することもできます。これは、名前とパーセントで囲まれた変数の断片を、空白を入れずに順番に書いていくだけです。例えば、<code>MyArray%A_Index%</code>や、または <code>MyGrid%X%_%Y%</code>後述する<em>擬似配列</em>にアクセスするために使用します。</p>

@@ -20,7 +20,7 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
     <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
@@ -28,14 +28,14 @@
 
   <dt>タイムアウト</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#numbers">Float</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
     <p>省略した場合は、無期限に待機します。そうでなければ、指定された秒数以上待機することはありません。1秒未満の時間を待機するには、浮動小数点数を指定します。たとえば最大250ミリ秒待機するときは、0.25と指定します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
+<p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
 <p>この関数は、タイムアウトした場合は 0（偽）を、そうでない場合は 1（真）を返します。</p>
 
 <h2 id="Remarks">備考</h2>
@@ -47,8 +47,8 @@
 Gui("", "Test window " Random()).Show("w300 h50")  <em>; Show a test window.</em>
 if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 {
-    MsgBox "Window not yet closed: " WinGetTitle()
-    WinClose  <em>; Close the window found by WinWaitClose.</em>
+    MsgBox "Window not yet closed:" WinGetTitle()
+    WinClose  <em>; WinWaitClose関数で見つかったウィンドウを閉じます。</em>
 }
 </pre>
 <p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
@@ -62,7 +62,7 @@ if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 <p><a class="ex_number" href="#ExBasic"></a> メモ帳を開き、それが存在するまで待ち、閉じるまで待つ。</p>
 <pre>Run "notepad.exe"
 WinWait "Untitled - Notepad"
-WinWaitClose <em>; Use the window found by WinWait.</em>
+WinWaitClose <em>; WinWait関数で見つかったウィンドウを使います。</em>
 MsgBox "Notepad is now closed."</pre>
 </div>
 

@@ -79,7 +79,7 @@ start_match       := NumGet(A_EventInfo, 12 + A_PtrSize*2, "Int")
 current_position  := NumGet(A_EventInfo, 16 + A_PtrSize*2, "Int")
 capture_top       := NumGet(A_EventInfo, 20 + A_PtrSize*2, "Int")
 capture_last      := NumGet(A_EventInfo, 24 + A_PtrSize*2, "Int")
-pad := A_PtrSize=8 ?4 : 0  <em>; Compensate for 64-bit data alignment.</em>
+pad := A_PtrSize=8 ? 4 : 0  <em>; Compensate for 64-bit data alignment.</em>
 callout_data      := NumGet(A_EventInfo, 28 + pad + A_PtrSize*2, "Ptr")
 pattern_position  := NumGet(A_EventInfo, 28 + pad + A_PtrSize*3, "Int")
 next_item_length  := NumGet(A_EventInfo, 32 + pad + A_PtrSize*3, "Int")
@@ -100,21 +100,21 @@ pcre_callout(Match, CalloutNumber, FoundPos, Haystack, NeedleRegEx)
     <em>; See pcre.txt for descriptions of these fields.</em>
     start_match       := NumGet(A_EventInfo, 12 + A_PtrSize*2, "Int")
     current_position  := NumGet(A_EventInfo, 16 + A_PtrSize*2, "Int")
-    pad := A_PtrSize=8 ?4 : 0
+    pad := A_PtrSize=8 ? 4 : 0
     pattern_position  := NumGet(A_EventInfo, 28 + pad + A_PtrSize*3, "Int")
     next_item_length  := NumGet(A_EventInfo, 32 + pad + A_PtrSize*3, "Int")
 
-    <em>; Point out &gt;&gt;current match&lt;&lt;.</em>
+<em>; Point out &gt;&gt;current match&lt;&lt;.</em>
     _HAYSTACK:=SubStr(Haystack, 1, start_match)
         . "&gt;&gt;" SubStr(Haystack, start_match + 1, current_position - start_match)
         . "&lt;&lt;" SubStr(Haystack, current_position + 1)
     
-    <em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
+<em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
     _NEEDLE:=  SubStr(NeedleRegEx, 1, pattern_position)
         . "&gt;&gt;" SubStr(NeedleRegEx, pattern_position + 1, next_item_length)
         . "&lt;&lt;" SubStr(NeedleRegEx, pattern_position + 1 + next_item_length)
     
-    ListVars
+ListVars
     <em>; 続けるにはPauseボタンを押してください。</em>
     Pause
 }</pre>

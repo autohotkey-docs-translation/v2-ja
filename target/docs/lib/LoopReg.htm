@@ -20,7 +20,7 @@
 
   <dt>KeyName</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>レジストリキーのフルネームです。例：<code>"HKLM\Software\SomeApplication"</code>.</p>
     <p>キーは、HKEY_LOCAL_MACHINE (または HKLM), HKEY_USERS (または HKU), HKEY_CURRENT_USER (または HKCU), HKEY_CLASSES_ROOT (または HKCR), or HKEY_CURRENT_CONFIG (または HKCC)で始まらなければなりません。</p>
     <p><a href="#remote">リモートレジストリ</a>にアクセスするには、<code>"\\workstation01\HKLM"</code>のようにコンピューター名とバックスラッシュを前に追加してください。.</p>
@@ -28,7 +28,7 @@
   
   <dt>Mode</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>空白または省略された場合、値のみが含まれ、サブキーは再帰されません。それ以外の場合は、以下の文字を1つ以上指定してください：</p>
     <ul>
       <li>K = Include keys.</li>
@@ -54,7 +54,7 @@
   </tr>
   <tr>
     <td>A_LoopRegType</td>
-    <td>The type of the currently retrieved item, which is one of the following words: KEY (i.e. the currently retrieved item is a subkey not a value), REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ, REG_DWORD, REG_QWORD, REG_BINARY, REG_LINK, REG_RESOURCE_LIST, REG_FULL_RESOURCE_DESCRIPTOR, REG_RESOURCE_REQUIREMENTS_LIST, REG_DWORD_BIG_ENDIAN (probably rare on most Windows hardware). 現在検索されている項目が不明なタイプの場合、空となります。</td>
+    <td>現在検索されているアイテムのタイプで、以下の単語のいずれかです：KEY（つまり、現在検索されている項目は値ではなくサブキー）、REG_SZ、REG_EXPAND_SZ、REG_MULTI_SZ、REG_DWORD、REG_QWORD、REG_BINARY、REG_LINK、REG_RESOURCE_LIST、REG_FULL_RESOURCE_DESCRIPTOR、 REG_RESOURCE_REQUIREMENTS_LIST、 REG_DWORD_BIG_ENDIAN （ほとんどのWindowsハードでは稀でしょうね。）現在検索されている項目が不明なタイプの場合、空となります。</td>
   </tr>
   <tr>
     <td>A_LoopRegKey</td>
@@ -99,7 +99,7 @@
   <li>ユーザー名のドメイン、ワークグループ、権限によっては、レジストリへのリモートアクセスに先立ち、ドライブのマッピングなど、共有デバイスへの接続が必要な場合があります。レジストリへのアクセスや編集を許可されたリモートユーザー名とパスワードを使用して、このような接続を行うと、副次的にリモートレジストリアクセスが可能になる場合があります。</li>
   <li>すでに別のユーザーとしてターゲットコンピュータに接続している場合（たとえば、ユーザーGuestでマップされたドライブ）、リモートレジストリ機能で再接続して現在ログオンしているユーザー名で再認証するために、その接続を終了する必要がある場合があります。</li>
 </ul>
-<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。For example: <code>Loop Reg "HKLM\Software\AutoHotkey", "V" {</code>.</p>
+<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Reg "HKLM\Software\AutoHotkey", "V" {</code>.</p>
 <p><a href="Block.htm">Blocks</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」をご覧ください。</p>
 <p>このループには、オプションで<a href="Else.htm">Else</a>文が続くことがあり、指定されたタイプのレジストリ項目が見つからなかった場合（つまり、ループがゼロ回繰り返された場合）に実行されます。</p>
 
@@ -121,7 +121,7 @@
 
 <div class="ex" id="ExTest">
 <p><a class="ex_number" href="#ExTest"></a> 動作するテストスクリプトです。</p>
-<pre>Loop Reg, "HKCU\Software\Microsoft\Windows", "R KV"  <em>; Recursively retrieve keys and values.</em>
+<pre>Loop Reg, "HKCUSoftware", "Microsoft", "R KV"  <em>;キーと値を再帰的に取得します。</em>
 {
     if A_LoopRegType = "key"
         value := ""
@@ -164,7 +164,7 @@ RegSearch(Target)
     ; combined view of keys from HKEY_LOCAL_MACHINE and HKEY_CURRENT_USER, so
     ; searching all three isn't necessary.</em>
 
-    CheckThisRegItem()
+CheckThisRegItem()
     {
         if A_LoopRegType = "KEY"  <em>; 鍵の名前もチェックしたい場合は、この2行を削除してください。</em>
             return true
@@ -177,10 +177,10 @@ RegSearch(Target)
             Result := MsgBox(
             (
             "The following match was found:
-            " A_LoopRegKey "\" A_LoopRegName "
+" A_LoopRegKey "\" A_LoopRegName "
             Value = " RegValue "
             
-            Continue?"
+Continue?"
             ),, "y/n")
             if Result = "No"
                 return false  <em>; 発信者に検索をやめるように伝える。</em>

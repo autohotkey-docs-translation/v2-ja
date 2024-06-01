@@ -22,13 +22,13 @@
 
   <dt>VarType</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>値の種類を示す整数。タイプの一覧は<a href="ComObjType.htm#vt">ComObjType</a>をご覧ください。</p>
   </dd>
 
   <dt>値</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#values">Any</a></p>
+    <p>型：<a href="../Concepts.htm#values">任意</a></p>
     <p>ラップする値。</p>
     <p>これが純粋な整数で、<em>VarType</em>が VT_R4, VT_R8, VT_DATE, VT_CY でない場合、その値が直接使われます。特に VT_BSTR, VT_DISPATCH, VT_UNKNOWN はポインタ値で初期化できる。</p>
     <p>それ以外の場合は、通常のCOMメソッド呼び出しと同じルールで、一時的なVARIANTに値がコピーされます。ソースバリアントタイプが<em>VarType</em>と等しくない場合、<em>wFlags</em>の値0を持つ<a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a>を呼び出すことで変換が試みられます。変換に失敗した場合は、例外が発生します。</p>
@@ -36,14 +36,14 @@
 
   <dt>Flags</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>ラッパーオブジェクトの動作に影響を与えるフラグ。詳細は<a href="ComObjFlags.htm">ComObjFlags</a>を参照してください。</p>
   </dd>
 
 </dl>
 
 <h2 id="Returns">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">Object</a></p>
 <p>This function returns a wrapper object containing a <a href="ComObjType.htm#vt">variant type</a> and value or pointer, specifically ComValue, ComValueRef, <a href="ComObjArray.htm">ComObjArray</a> or <a href="ComObject.htm">ComObject</a>.</p>
 <p>このオブジェクトは複数の用途：</p>
 <ol>
@@ -61,12 +61,12 @@
 <p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>はVT_BYREF(0x4000)フラグを含むので、空カッコ<code>[]</code>で参照値の読み書きが可能です。</p>
 <p>参照を作成する場合、<em>Value</em>には、指定された型の値を格納するのに十分な容量を持つ変数またはバッファのメモリアドレスが必要です。例えば、以下のようにすれば、VBScriptの関数が書き込むことができる変数を作成することができます。</p>
 <pre>vbuf := Buffer(24, 0)
-vref := ComValue(0x400C, vbuf.ptr)  <em>; 0x400C is a combination of VT_BYREF and VT_VARIANT.</em>
+vref := ComValue(0x400C, vbuf.ptr)  <em>; 0x400C は、VT_BYREF と VT_VARIANT の組み合わせです。</em>
 
 vref[] := "in value"
-sc.Run("Example", vref)  <em>; sc should be initialized as in the <a href="#ExByRef">example below</a>.</em>
+sc.Run("Example", vref)  <em>; scは、<a href="#ExByRef">以下の例</a>のように初期化する必要があります。</em>
 MsgBox vref[]</pre>
-<p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。Because it is VT_VARIANT in this case, it can be freed by calling <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a> with <a href="DllCall.htm">DllCall</a> or by using a simpler method: assign an integer, such as <code>vref[] := 0</code>.</p>
+<p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。この場合VT_VARIANTなので、<a href="DllCall.htm">DllCall</a>で <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a>を呼び出すか、もっと簡単な方法で解放することができます。<code>vref[] := 0</code>のように整数を代入します。</p>
 <p>上記のようにメソッドがVT_BYREFとVT_VARIANTの組み合わせを受け付ける場合、<a href="../Concepts.htm#variable-references">VarRef</a>を代わりに使用することができます。事例：</p>
 <pre>some_var := "in value"
 sc.Run("Example", &amp;some_var)
@@ -87,7 +87,7 @@ MsgBox some_var</pre>
 <div class="ex" id="ExByRef">
 <p><a class="ex_number" href="#ExByRef"></a> COM関数にVARIANT ByRefを渡します。</p>
 <pre>
-<em>; Preamble - ScriptControl requires a 32-bit version of AutoHotkey.</em>
+<em>; 前文 - ScriptControlはAutoHotkeyの32ビット版を必要とします。</em>
 code := "
 (
 Sub Example(Var)
@@ -98,39 +98,39 @@ End Sub
 sc := ComObject("ScriptControl"), sc.Language := "VBScript", sc.AddCode(code)
 
 
-<em>; Example: Pass a VARIANT ByRef to a COM method.</em>
+<em>; 例：COMメソッドにVARIANT ByRefを渡す。</em>
 var := ComVar()
 var[] := "in value"
 sc.Run("Example", var.ref)
 MsgBox var[]
 
-<em>; The same thing again, but more direct:</em>
-variant_buf := Buffer(24, 0)  <em>; Make a buffer big enough for a VARIANT.</em>
-var := ComValue(0x400C, variant_buf.ptr)  <em>; Make a reference to a VARIANT.</em>
+<em>; 同じことをもう一度、よりダイレクトに。</em>
+variant_buf := Buffer(24, 0)  <em>; VARIANTのために十分な大きさのバッファを作成します。</em>
+var := ComValue(0x400C, variant_buf.ptr)  <em>; VARIANTへの参照を行う。</em>
 var[] := "in value"
-sc.Run("Example", var)  <em>; Pass the VT_BYREF ComValue itself, no [] or .ref.</em>
+sc.Run("Example", var)  <em>; VT_BYREF ComValueそのものを渡す。[] や .ref は使わない。</em>
 MsgBox var[]
-<em>; If a VARIANT contains a string or object, it must be explicitly freed
-; by calling VariantClear or assigning a pure numeric value:</em>
+<em>; VARIANTが文字列やオブジェクトを含む場合は、明示的に解放する必要があります。
+; VariantClearを呼び出すか、純粋な数値を代入することで対応します。</em>
 var[] := 0
 
-<em>; The simplest way when the method accepts VT_BYREF|VT_VARIANT:</em>
-var := "in value"
+<em>; メソッドがVT_BYREF|VT_VARIANTを受け入れる場合、最も簡単な方法です。</em>
+ var[] := "in value"
 sc.Run("Example", &amp;var)
 MsgBox var
 
 
-<em>; ComVar: An object which can be used to pass a value ByRef.
+<em>; ComVar:ByRef: 値を渡すために使用できるオブジェクト。
 ; this[]は値を取得します。
 ; this[] := Val が値を設定します。
-;   this.ref retrieves a ByRef object for passing to a COM method.</em>
+; this.ref は COM メソッドに渡すための ByRef オブジェクトを取得します。</em>
 class ComVar {
     __new(vType := 0xC) {
-        <em>; Allocate memory for a VARIANT to hold our value. VARIANT is used even
+        <em>; VARIANTのメモリを確保し、値を保持します。VARIANTは、次のような場合でも使用されます。
         ; VariantClearを__deleteで使用できるように、vType != VT_VARIANTのとき ;。</em>
         this.var := Buffer(24, 0)
         <em>; 変数 ByRef の受け渡しに使用できるオブジェクトを作成します。</em>
-        this.ref := ComValue(0x4000|vType, this.var.ptr + (vType=0xC ?0 : 8))
+        this.ref := ComValue(0x4000|vType, this.var.ptr + (vType=0xC ? 0 : 8))
         <em>; VariantClear のバリアントタイプを格納します（VT_VARIANT でない場合）。</em>
         if Type != 0xC
             NumPut "ushort", vType, this.var

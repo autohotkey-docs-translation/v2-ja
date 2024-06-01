@@ -19,7 +19,7 @@
 
   <dt>Level</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>省略したときの初期値は0です。Otherwise, specify an integer between 0 and 100.</p>
   </dd>
 
@@ -28,8 +28,8 @@
 <h2 id="General_Remarks">総論</h2>
 <p>If this directive is unspecified in the script, it will behave as though set to 0.</p>
 <p>SendLevel、#InputLevelの使用方法については、<a href="SendLevel.htm">SendLevel</a>をご覧ください。</p>
-<p>This directive is positional: it affects all hotkeys and hotstrings between it and the next #InputLevel directive. #InputLevelディレクティブで指定されていない場合、ホットキーとホットストリングのデフォルトはレベル0になります。</p>
-<p>ホットキーの入力レベルは、ホットキー機能を使って設定することもできます。For example: <code>Hotkey "#z", my_hotkey_sub, "<strong>I1</strong>"</code></p>
+<p>この指令は位置指定：は、次の#InputLevel指令との間のすべてのホットキーとホットストリングに影響します。#InputLevelディレクティブで指定されていない場合、ホットキーとホットストリングのデフォルトはレベル0になります。</p>
+<p>ホットキーの入力レベルは、ホットキー機能を使って設定することもできます。事例：<code>Hotkey "#z", my_hotkey_sub, "<strong>I1</strong>"</code></p>
 <p>ホットキーまたは自動置換でないホットストリングの入力レベルは、そのホットキーまたはホットストリングによって生成されるすべてのキーストロークまたはボタンクリックのデフォルト<a href="SendLevel.htm">送信レベル</a>としても使用されます。キーボードやマウスの<a href="../misc/Remap.htm">リマッピング</a>は実際には一対のホットキーであるため、#InputLevelを使用してリマッピングが他のホットキーをトリガーできるようにすることができます。</p>
 <p>v1.1.06より古いバージョンのAutoHotkeyは、<code>#InputLevel 0</code>と <code>SendLevel 0</code>が有効であるかのように動作します。</p>
 <p>他のディレクティブと同様に、#InputLevelは条件付きで実行することはできません。</p>
@@ -42,11 +42,11 @@
 <p><a class="ex_number" href="#ExBasic"></a> 最初のホットキー<code>*Numpad0::</code>が2番目のホットキー<code>~LButton::</code>をトリガーするようにします。これは、#InputLevelディレクティブが省略されたり、コメントアウトされたりしている場合には当てはまらないでしょう。</p>
 <pre>
 #InputLevel 1
-<em>; Use SendEvent so that the script's own hotkeys can be triggered.</em>
+<em>; スクリプト独自のホットキーがトリガーできるように、SendEventを使用します。</em>
 *Numpad0::SendEvent "{Blind}{Click Down}"
 *Numpad0 up::SendEvent "{Blind}{Click Up}"
 #InputLevel 0
-<em>; This hotkey can be triggered by both Numpad0 and LButton:</em>
+<em>; このホットキーは、Numpad0とLButtonの両方でトリガーすることができます。</em>
 ~LButton::MsgBox "Clicked"
 </pre>
 </div>

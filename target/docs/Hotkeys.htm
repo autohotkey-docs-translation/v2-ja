@@ -41,7 +41,7 @@
 <p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を示すために<code>^!s</code>を使用しています。</p>
 <pre>^!s::
 {
-    <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"  <em>; This line sends keystrokes to the active (foremost) window.</em>
+    <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"  <em>; この行は、アクティブ（最前面）ウィンドウにキーストロークを送信します。</em>
 }</pre>
 <h2 id="Symbols">ホットキーモディファイアの記号</h2>
 <p>以下の修飾記号を使用して、ホットキーを定義：</p>
@@ -95,9 +95,9 @@
   </tr>
   <tr id="wildcard">
     <td class="center bold">*</td>
-    <td><p>Wildcard: Fire the hotkey even if extra modifiers are being held down. キーやボタンの<a href="misc/Remap.htm">リマッピング</a>とセットで使われることが多いです。事例：</p>
-      <pre>*#c::Run "calc.exe"  <em>; Win+C, Shift+Win+C, Ctrl+Win+C, etc. will all trigger this hotkey.</em>
-*ScrollLock::Run "notepad"  <em>; Pressing ScrollLock will trigger this hotkey even when modifier key(s) are down.</em></pre>
+    <td><p>ワイルドカード:余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピング</a>とセットで使われることが多いです。事例：</p>
+      <pre>*#c::Run "calc.exe"  <em>; Win+C、Shift+Win+C、Ctrl+Win+Cなど、すべてこのホットキーがトリガーされます。</em>
+*ScrollLock::Run "notepad"  <em>; 修飾キーが押されていても、ScrollLockを押すとこのホットキーが起動します。</em></pre>
       <p>ワイルドカードホットキーは、ワイルドカードホットキーに取って代わられたホットキーと同様に、常にキーボードフックを使用します。例えば、<code>*a::</code>があると、<code>^a::</code>は常にフックを使用するようになります。</p></td>
   </tr>
   <tr id="Tilde">
@@ -130,11 +130,11 @@ AppsKey Up::ToolTip
       <pre>*LWin::Send "{LControl down}"
 *LWin Up::Send "{LControl up}"
 </pre>
-      <p>"Up" can also be used with normal hotkeys as in this example: <code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. <a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します。</p>
-      <p>Limitations: 1) "Up" does not work with <a href="KeyList.htm#Controller">controller buttons</a>; and 2) An "Up" hotkey without a normal/down counterpart hotkey will completely take over that key to prevent it from getting stuck down. これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
+      <p>"Up "は、この例のように通常のホットキーでも使用することができます。<code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>. <a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します。</p>
+      <p>制限:1) "Up"は<a href="KeyList.htm#Controller">コントローラーのボタン</a>では動作しない。2) "Up"ホットキーに対応する通常のホットキー/ダウンホットキーがない場合、そのキーが完全に引き継がれ、押したままになるのを防ぐ。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>：~LControl up::</code>)</p>
       <p>"Up"ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
       <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例：</p>
-      <pre>LControl &amp; F1::return  <em>; Make left-control a prefix by using it in front of "&amp;" at least once.</em>
+      <pre>LControl &amp; F1::return  <em>; 少なくとも1回は"&amp;"の前に使うことで、left-controlを接頭辞とします。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
@@ -158,8 +158,8 @@ LControl::MsgBox "You released LControl without having used it to modify any oth
 #HotIf
 #c::MsgBox "You pressed Win-C while any window except Notepad is active."
 
-#HotIf MouseIsOver("ahk_class Shell_TrayWnd") <em>; For MouseIsOver, see <a href="lib/_HotIf.htm#ExVolume">#HotIf example 1</a>.</em>
-WheelUp::Send "{Volume_Up}"     <em>; Wheel over taskbar: increase/decrease volume.</em>
+#HotIf MouseIsOver("ahk_class Shell_TrayWnd") <em>; MouseIsOver については、<a href="lib/_HotIf.htm#ExVolume">#HotIf の例 1</a>を参照してください。</em>
+WheelUp::Send "{Volume_Up}"     <em>; タスクバー上のホイール：音量の増加/減少。</em>
 WheelDown::Send "{Volume_Down}" <em>;</em>
 </pre>
 
@@ -175,16 +175,16 @@ WheelDown::Send "{Volume_Down}" <em>;</em>
 <pre id="prefix">Numpad0 &amp; Numpad1::MsgBox "You pressed Numpad1 while holding down Numpad0."
 Numpad0 &amp; Numpad2::Run "Notepad"</pre>
 <p><strong>プレフィックスキーが本来の機能を失う。</strong>上記の例では、Numpad0が<em>プレフィックスキー</em>になりますが、Numpad0が単独で押された場合、本来の機能を失うことになります。これを避けるために、スクリプトでNumpad0に次のような新しいアクションを実行させるように設定することができる。</p>
-<pre>Numpad0::WinMaximize "A"   <em>; Maximize the active/foreground window.</em>
-Numpad0::Send "{Numpad0}"  <em>; Make the <i>release</i> of Numpad0 produce a Numpad0 keystroke. See comment below.</em></pre>
+<pre>Numpad0::WinMaximize "A"   <em>; アクティブ／フォアグラウンドウィンドウを最大化します。</em>
+Numpad0::Send "{Numpad0}"  <em>; Numpad0 の<i>リリース</i>でNumpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
 <p><strong>リリース時に発射：</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離す</em>と指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞</a>を付けることで回避できます。</p>
 <p id="combo_mods"><strong>モディファイア：</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl</kbd>+<kbd>1</kbd>で起動し、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>では起動しないでしょう。</p>
 <p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIf</a>と <a href="lib/GetKeyState.htm">GetKeyState</a>を使用して検出することができますが、結果は一貫していない場合があります。事例：</p>
-<pre><em>; Press AppsKey and Alt in any order, then slash (/).</em>
+<pre><em>; AppsKey と Alt を任意の順番で押して、スラッシュ（/）を押します。</em>
 #HotIf GetKeyState("AppsKey", "P")
 Alt &amp; /::MsgBox "Hotkey activated."
 
-<em>; If the keys are swapped, Alt must be pressed first (use one at a time):</em>
+<em>; キーが入れ替わっている場合は、Altを先に押す必要があります（一度に1つずつ使用します）。</em>
 #HotIf GetKeyState("Alt", "P")
 AppsKey &amp; /::MsgBox "Hotkey activated."
 
@@ -194,11 +194,11 @@ AppsKey &amp; /::MsgBox "Hotkey activated."
 <p><strong>キーボードフック：</strong>キーボードキーを使ったカスタムコンビネーションは常にキーボードフックを使用し、接尾辞としてプリフィックスキーを使用するホットキーも同様です。例えば、<code>a &amp; b::</code>では、<code>^a::</code>は常にフックを使用するようになります。</p>
 
 <h2 id="Features">その他の機能</h2>
-<p><strong>NumLock、CapsLock、およびScrollLock：</strong>これらのキーは、強制的に「AlwaysOn」または「AlwaysOff」にすることができます。For example: <code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
+<p><strong>NumLock、CapsLock、およびScrollLock：</strong>これらのキーは、強制的に「AlwaysOn」または「AlwaysOff」にすることができます。事例：<code><a href="lib/SetNumScrollCapsLockState.htm">SetNumLockState</a> "AlwaysOn"</code>.</p>
 <p><strong>エクスプローラーのホットキーのオーバーライド：</strong> <kbd>Win</kbd>+<kbd>E</kbd>（#e）、<kbd>Win</kbd>+<kbd>R</kbd>（#r）などのWindowsの内蔵ホットキーは、スクリプト内のアクションに割り当てるだけで、個別にオーバーライドすることができます。詳しくは<a href="misc/Override.htm">オーバーライドページ</a>をご覧ください。</p>
 <p><strong>Alt-Tabの代替：</strong>ホットキーは、Alt-Tabの代替手段を提供することができます。例えば、以下の2つのホットキーで、右手でalt-tabすることができます：</p>
-<pre>RControl &amp; RShift::AltTab  <em>; Hold down right-control then press right-shift repeatedly to move forward.</em>
-RControl &amp; Enter::ShiftAltTab  <em>; Without even having to release right-control, press Enter to reverse direction.</em></pre>
+<pre>RControl &amp; RShift::AltTab  <em>; 右コンを押しながら、右シフトを繰り返し押して前進します。</em>
+RControl &amp; Enter::ShiftAltTab  <em>; 右クリックを離すことなく、Enterキーを押すと方向が反転します。</em></pre>
 <p>詳しくは、「<a href="#alttab">Alt-Tab</a>」をご覧ください。</p>
 
 <h2 id="Wheel">マウスホイールホットキー</h2>
@@ -209,19 +209,19 @@ RControl &amp; Enter::ShiftAltTab  <em>; Without even having to release right-co
 <p>組込変数<strong>A_EventInfo</strong>には、ホイールが回転した量（通常120）が格納されます。ただし、以下の場合はA_EventInfoが120より大きくなったり小さくなったりすることがある。</p>
 <ul>
   <li>マウスのハードウェアが1ノッチ未満の距離を報告する場合、A_EventInfoは120未満である可能性があります。</li>
-  <li>マウスの種類によっては）ホイールを素早く回している場合、A_EventInfoが120より大きくなる場合があります。A hotkey like the following can help analyze your mouse: <code>~WheelDown::ToolTip A_EventInfo</code></li>
+  <li>マウスの種類によっては）ホイールを素早く回している場合、A_EventInfoが120より大きくなる場合があります。以下のようなホットキーは、マウスの解析に役立ちます。<code>~WheelDown::ToolTip A_EventInfo</code></li>
 </ul>
 <p>マウスホイールを使った便利なホットキーの中には、ウィンドウのテキストをスクロールさせる別のモードがあります。例えば、以下のホットキーのペアは、左<kbd>Ctrl</kbd>を押しながらホイールを回すと、垂直方向ではなく水平方向にスクロールします。</p>
-<pre>~LControl &amp; WheelUp::  <em>; Scroll left.</em>
+<pre>~LControl &amp; WheelUp::  <em>; 左にスクロールします。</em>
 {
     Loop 2  <em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
-        SendMessage 0x0114, 0, 0, ControlGetFocus("A")  <em>; 0x0114 is WM_HSCROLL and the 0 after it is SB_LINELEFT.</em>
+        SendMessage 0x0114, 0, 0, ControlGetFocus("A")  <em>; 0x0114 は WM_HSCROLL、その次の 0 は SB_LINELEFT です。</em>
 }
 
-~LControl &amp; WheelDown::  <em>; Scroll right.</em>
+~LControl &amp; WheelDown::  <em>; 右にスクロールします。</em>
 {
     Loop 2  <em>; &lt;-- この値を大きくするとスクロールが速くなります。</em>
-        SendMessage 0x0114, 1, 0, ControlGetFocus("A")  <em>; 0x0114 is WM_HSCROLL and the 1 after it is SB_LINERIGHT.</em>
+        SendMessage 0x0114, 1, 0, ControlGetFocus("A")  <em>; 0x0114 は WM_HSCROLL、その次の 1 は SB_LINERIGHT です。</em>
 }</pre>
 <p>最後に、マウスホイールのホットキーはダウンイベントのみを生成するため（アップイベントは生成しない）、<a href="#keyup">キーアップホットキー</a>として使用することはできません。</p>
 
@@ -277,8 +277,8 @@ WheelDown::AltTab
 WheelUp::ShiftAltTab</pre>
 <p>選択したウィンドウをアクティブにせずにAlt-Tabメニューをキャンセルするには、<kbd>Esc</kbd>を押すか送信してください。次の例では、左<kbd>Ctrl</kbd>を押しながら<kbd>CapsLock</kbd>を押すと、メニューが表示され、その中で先に進むことができます。そして、左<kbd>Ctrl</kbd>を離すと選択したウィンドウがアクティブになり、マウスホイールを押すとキャンセルされます。この例を実行する前に、<a href="#AltTabWindow">AltTabWindow</a>ウィンドウグループを以下のように定義してください。</p>
 <pre>LCtrl &amp; CapsLock::AltTab
-#HotIf WinExist("ahk_group AltTabWindow")  <em>; Indicates that the alt-tab menu is present on the screen.</em>
-*MButton::Send "{Blind}{Escape}"  <em>; The * prefix allows it to fire whether or not Alt is held down.</em>
+#HotIf WinExist("ahk_group AltTabWindow")  <em>; alt-tab メニューが画面上に存在することを示します。</em>
+*MButton::Send "{Blind}{Escape}"  <em>; Altが押されていても押されていなくても発射されるように、*の接頭辞を付けています。</em>
 #HotIf</pre>
 <p>スクリプトで<code>{Alt Down}</code>を送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}</code>も送信する必要がある場合があります。</p>
 
@@ -288,23 +288,23 @@ WheelUp::ShiftAltTab</pre>
 <p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code>ahk_group AltTabWindow</code>を使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code>ahk_group AltTabWindow</code>は、お使いのシステムに適した<code>ahk_class</code>に置き換えることができます。</p>
 <pre>GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"  <em>; Windows 10</em>
 GroupAdd "AltTabWindow", "ahk_class TaskSwitcherWnd"  <em>; Windows Vista, 7, 8.1</em>
-GroupAdd "AltTabWindow", "ahk_class #32771"  <em>; Older, or with classic alt-tab enabled</em></pre>
+GroupAdd "AltTabWindow", "ahk_class #32771"  <em>; オールド、またはクラシックなalt-tabを有効にした場合。</em></pre>
 <p>次の例では、<kbd>F1</kbd>キーを押してメニューを表示し、その中で先に進むことになります。そして、選択したウィンドウをアクティブにするには<kbd>F2</kbd>キーを、キャンセルするには<kbd>Esc</kbd>キーを押します。</p>
-<pre>*F1::Send "{Alt down}{tab}" <em>; Asterisk is required in this case.</em>
-!F2::Send "{Alt up}"  <em>; Release the Alt key, which activates the selected window.</em>
+<pre>*F1::Send "{Alt down}{tab}" <em>; この場合、アスタリスクが必要です。</em>
+!F2::Send "{Alt up}"  <em>; Altキーを離すと、選択したウィンドウがアクティブになります。</em>
 #HotIf WinExist("ahk_group AltTabWindow")
-~*Esc::Send "{Alt up}"  <em>; When the menu is cancelled, release the Alt key automatically.
-;*Esc::Send "{Esc}{Alt up}"  ; Without tilde (~), Escape would need to be sent.</em>
+~*Esc::Send "{Alt up}"  <em>; メニューがキャンセルされたときは、自動的にAltキーを離します。
+;*Esc::Send "{Esc}{Alt up}"  ; チルダ（~）がなければ、エスケープを送信する必要があります。</em>
 #HotIf</pre>
 
 <h2 id="Function">名前付き機能ホットキー</h2>
 <p>ホットキーの機能を、ホットキー自体をトリガーすることなく呼び出す必要がある場合、この例のように、ホットキーのダブルコロンの直後に定義するだけで、1つまたは複数のホットキーに名前付き<a href="Functions.htm">機能</a>を割り当てることができます。</p>
 <pre><em>; Ctrl+Shift+Oで、エクスプローラーに含まれるフォルダを開くことができます。
 ; Ctrl+Shift+E で現在のファイルが選択されているフォルダを開きます。
-; Supports SciTE and Notepad++.</em>
+; SciTEとNotepad++をサポートします。</em>
 ^+o::
 ^+e::
-    editor_open_folder(hk)
+editor_open_folder(hk)
     {
         path := WinGetTitle("A")
         if RegExMatch(path, "\*?\K(.*)\\[^\\]+(?= [-*] )", &amp;path)

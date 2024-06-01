@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>WinSetTransColor - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="WinSetTransColor関数は、指定されたウィンドウ内で、選択された色のすべてのピクセルを見えなくします。" />
+<meta name="description" content="WinSetTransColor関数は、選択した色のすべてのピクセルを、指定したウィンドウ内で非表示にします。" />
 <meta name="ahk:equiv-v1" content="lib/WinSet.htm#TransColor" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,14 +21,14 @@
 <dl>
     <dt>Color</dt>
     <dd>
-        <p>Type: <a href="../Concepts.htm#strings">String</a> or <a href="../Concepts.htm#numbers">Integer</a></p>
-        <p>色名またはRGB値を指定する（ガイダンスとして<a href="../misc/Colors.htm">カラー</a>チャートを参照するか、RGBモードの<a href="PixelGetColor.htm">PixelGetColor</a>を使用する）。さらにウィンドウの可視部分を部分的に透明にするには、スペース（カンマではない）の後に透明度（0～255）を追加する。For example: <code>WinSetTransColor "EEAA99 150"</code>.</p>
-        <p>値が文字列の場合、色の数値は16進数でなければならない。例えば、<code>WinSetTransColor " 150"</code>（先頭スペースあり）は、<code>WinSetTransparent 150</code>と同じです。</p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
+        <p>色名またはRGB値を指定してください。<a href="../misc/Colors.htm">カラーチャート</a>またはRGBモードの<a href="PixelGetColor.htm">PixelGetColor</a>を参考にしてください。さらにウィンドウの可視部分を部分的に透明にするには、スペース（カンマではない）の後に透明度（0～255）を追加してください。事例：<code>WinSetTransColor "EEAA99 150"</code>.</p>
+        <p>値が文字列の場合、色の数値は16進数です。例えば、<code>WinSetTransColor " 150"</code>（先頭スペースあり）は、<code>WinSetTransparent 150</code>と同じです。</p>
         <p><code>"Off"</code> (case-insensitive) or an empty string may be specified to completely turn off transparency for a window. This is functionally identical to <code><a href="WinSetTransparent.htm">WinSetTransparent</a> "Off"</code>. Specifying Off is different than specifying 255 because it may improve performance and reduce usage of system resources (but probably only when desktop composition is disabled).</p>
     </dd>
     <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
     <dd>
-        <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+        <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
         <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
         <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
         <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>

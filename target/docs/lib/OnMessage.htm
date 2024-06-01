@@ -20,13 +20,13 @@
 
   <dt>MsgNumber</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>監視または問い合わせるメッセージの番号で、0から4294967295（0xFFFFFFF）の間でなければなりません。<a href="../misc/SendMessageList.htm">システムメッセージ</a>（つまり0x0400以下のもの）を監視したくない場合は、選択の余地がある範囲で4096（0x1000）より大きい数字を選ぶとよいでしょう。これにより、AutoHotkeyの現在および将来のバージョンで内部的に使用されるメッセージに干渉する可能性を低減することができます。</p>
   </dd>
 
   <dt id="The_Functions_Parameters">Callback</dt>
   <dd>
-    <p>Type: <a href="../misc/Functor.htm">Function Object</a></p>
+    <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>The function to call.</p>
     <p>The callback accepts four parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
     <pre class="NoIndent">MyCallback(wParam, lParam, msg, hwnd) { ...</pre>
@@ -45,7 +45,7 @@
 
   <dt id="MaxThreads">MaxThreads</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted, it defaults to 1, meaning the callback is limited to one <a href="../misc/Threads.htm">thread</a> at a time. This is usually best because otherwise, the script would process messages out of chronological order whenever the callback interrupts itself. そのため、<em>MaxThreads</em>の代替として、<a href="#Critical">以下</a>のように<em>Critical</em>を使用することを検討します。</p>
     <p>If the callback directly or indirectly causes the message to be sent again while the callback is still running, it is necessary to specify a <em>MaxThreads</em> value greater than 1 or less than -1 to allow the callback to be called for the new message (if desired). スクリプトの自プロセスが自分自身に送信する（投稿しない）メッセージは、遅延やバッファリングができません。</p>
     <p>Specify 0 to unregister the previously registered callback identified by <em>Callback</em>.</p>
@@ -96,7 +96,7 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLButtonDown">
-<p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。Related topic: <a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
+<p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a>イベント</p>
 <pre>MyGui := Gui(, "Example Window")
 MyGui.Add("Text",, "Click anywhere in this window.")
 MyGui.Add("Edit", "w200")
@@ -120,7 +120,7 @@ WM_LBUTTONDOWN(wParam, lParam, msg, hwnd)
 </div>
 
 <div class="ex" id="ExShutdown">
-<p><a class="ex_number" href="#ExShutdown"></a> システムのシャットダウン/ログオフを検出し、ユーザーがそれを中止できるようにします。Windows Vista以降では、シャットダウン/ログオフをブロックしているプログラムを示すユーザーインターフェイスを表示し、ユーザーが強制的にシャットダウン/ログオフできるようにします。古いOSの場合、スクリプトは確認プロンプトを表示します。Related topic: <a href="OnExit.htm">OnExit</a></p>
+<p><a class="ex_number" href="#ExShutdown"></a> システムのシャットダウン/ログオフを検出し、ユーザーがそれを中止できるようにします。Windows Vista以降では、シャットダウン/ログオフをブロックしているプログラムを示すユーザーインターフェイスを表示し、ユーザーが強制的にシャットダウン/ログオフできるようにします。古いOSの場合、スクリプトは確認プロンプトを表示します。関連トピック<a href="OnExit.htm">OnExit</a></p>
 <pre><em>; The following DllCall is optional: it tells the OS to shut down this script first (prior to all other applications).</em>
 DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
 OnMessage(0x0011, On_WM_QUERYENDSESSION)
@@ -177,7 +177,7 @@ MsgMonitor(wParam, lParam, msg, *)
 {
     <em>; Since returning quickly is often important, it is better to use ToolTip than</em>
     <em>; something like MsgBox that would prevent the callback from finishing:</em>
-    ToolTip "Message " msg " arrived:`nWPARAM: " wParam "`nLPARAM: " lParam
+    ToolTip "Message " msg " arrived:`nWPARAM:" wParam "`nLPARAM:" lParam
 }
 
 <em>; The following could be used inside some other script to run the callback inside the above script:</em>

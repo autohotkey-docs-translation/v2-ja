@@ -53,7 +53,7 @@ MsgBox 'She said, "An apple a day."'</pre>
 <p><strong>式の結果を格納する：</strong>結果を変数に代入するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>を使う。事例：</p>
 <pre>NetPrice := Price * (1 - Discount/100)</pre>
 <p id="Boolean"><strong>ブール値：</strong>式がtrueまたはfalseに評価される必要がある場合（IF文など）、空白またはゼロの結果はfalseとみなされ、それ以外の結果はtrueとみなされる。例えば、ItemCountが空白か0の場合のみ、<code>if ItemCount</code>式が偽になる。同様に、<code>if not ItemCount</code>式は逆の結果をもたらす。</p>
-<p>Operators such as NOT/&gt;/=/&lt; automatically produce a true or false value: they yield 1 for true and 0 for false. しかし、AND/OR演算子は常に入力値のいずれかを生成する。例えば以下の式では、A_Indexが5より大きい場合は変数<em>Done</em>に1が代入され、それ以外の場合は<em>FoundIt</em>の値が代入される：</p>
+<p>NOT/&gt;/=/&lt;などの演算子は、自動的に真か偽の値を生成する：真なら1、偽なら0となる。しかし、AND/OR演算子は常に入力値のいずれかを生成する。例えば以下の式では、A_Indexが5より大きい場合は変数<em>Done</em>に1が代入され、それ以外の場合は<em>FoundIt</em>の値が代入される：</p>
 <pre>Done := A_Index &gt; 5 or FoundIt</pre>
 <p>上で示唆したように、変数を空白にするか0を代入するだけで、偽の値を保持することができる。これを利用するために、<code>if Done</code>という省略記法を使えば、変数Doneが真か偽かをチェックすることができる。</p>
 <p><span id="True"></span><span id="False"></span>式では、キーワード<em>true</em>と <em>false</em>は1と0に解決される。これらの例は、スクリプトをより読みやすくするために使われます：</p>
@@ -62,8 +62,8 @@ ContinueSearch := true</pre>
 <p id="numbers"><strong>整数と浮動小数点：</strong>整数と浮動小数点：式の中で、小数点または科りま数法を含む数値は浮動小数点とみなされ、そうでない場合は整数となります。加算や乗算など、ほとんどの演算子では、入力のどちらかが浮動小数点数であれば、結果も浮動小数点数になります。</p>
 <p>式内でも非式内でも、整数は16進数か10進数のどちらかの形式で書くことができる。16進数はすべて接頭辞0xで始まる。例えば、<code>Sleep 0xFF</code>は <code>Sleep 255</code>に相当する。浮動小数点数は、小数点の有無にかかわらず、科学表記で書くこともできる（例：<code>1e4</code>や <code>-2.1E-4</code>）。</p>
 <p>式内では、<code>128</code>、<code>0x7F</code>、<code>1.0</code>などの引用符で囲まれていないリテラル数値は、スクリプトの実行を開始する前に純粋な数値に変換されるため、数値を文字列に変換すると元のリテラル値とは異なる値が生成される可能性があります。事例：</p>
-<pre>MsgBox(0x7F)  <em>; Shows 128</em>
-MsgBox(1.00)  <em>; Shows 1.0</em></pre>
+<pre>MsgBox(0x7F)  <em>; 128と表示します。</em>
+MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
 
 <h2 id="Operators">式の演算子</h2>
 <p class="note">演算子に関する一般的な情報については、「<a href="Language.htm#operators">演算子</a>」を参照のこと。</p>
@@ -84,7 +84,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
       <p class="note"><strong>注：</strong>部分式<em>Expr</em>の <u>結果</u>は、アクセスする変数またはプロパティの名前または部分名でなければならない。</p>
       <p>パーセント記号は、曖昧さのために<em>Expr</em>内で直接使用することはできないが、括弧内に入れ子にすることはできる。そうでなければ、<em>Expr</em>はどんな式でもよい。</p>
       <p><em>Expr%</em>シーケンスと部分<a href="Concepts.htm#names">名</a>（間にスペースや他の文字を含まない）が隣接している場合、それらは結合されて1つの名前になります。</p>
-      <p><a href="lib/Error.htm">エラー</a>がスローされるのは、その変数がまだ存在していない場合、あるいは初期化されておらず、その値を読み込もうとしている場合である。<a href="#or-maybe">or-maybe演算子 (??)</a>は、デフォルト値を提供することで、そのようなケースを避けるために使うことができる。. For example: <code>%'novar'% ??42</code>.</p>
+      <p><a href="lib/Error.htm">エラー</a>がスローされるのは、その変数がまだ存在していない場合、あるいは初期化されておらず、その値を読み込もうとしている場合である。<a href="#or-maybe">or-maybe演算子 (??)</a>は、デフォルト値を提供することで、そのようなケースを避けるために使うことができる。. 事例：<code>%'novar'% ?? 42</code>.</p>
       <p>これは歴史的に "double-deref"として知られているが、<em>Expr</em>が変数を含まない場合（1番目のderef）、また、結果の変数が代入のターゲットであり、参照解除されない場合（2番目のderef）、この用語は不正確である。</p>
     </td>
   </tr>
@@ -95,14 +95,15 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   <tr id="maybe">
     <td class="center"><em>var</em><strong>?</strong></td>
     <td>
-      <p><strong>Maybe</strong>. 変数のアンセットを許可する。これは、変数をオプショナル・パラメーター、配列要素、オブジェクト・リテラルに渡す場合、または直接代入の右辺に渡す場合にのみ有効である。The question mark must be followed by one of the following symbols (ignoring whitespace): <code class="no-highlight">)]},:</code>. 変数は、<a href="#ternary">三項演算子</a>や <a href="#and">AND/</a><a href="#or">OR</a>の右辺で条件付きで渡すことができる。</p>
+      <p><strong>Maybe</strong>. 変数のアンセットを許可する。これは、変数をオプショナル・パラメーター、配列要素、オブジェクト・リテラルに渡す場合、または直接代入の右辺に渡す場合にのみ有効である。クエスチョンマークの後には、以下の記号のいずれかを続けなければならない（空白は無視する）：<code class="no-highlight">)]},:</code>. 変数は、<a href="#ternary">三項演算子</a>や <a href="#and">AND/</a><a href="#or">OR</a>の右辺で条件付きで渡すことができる。</p>
       <p>変数は通常オプションのパラメータだが、どんな変数でも構わない。関数のパラメータではない変数の場合、変数への参照はあるが代入がない場合、ロード時に<a href="lib/_Warn.htm#VarUnset">VarUnset 警告</a>が表示されることがあります。</p>
       <p>この演算子は現在、変数に対してのみサポートされている。より一般的なケースで明示的または条件付きでパラメータを省略するには、<code>unset</code>キーワードを使用します。</p>
-      <p>See also: <a href="Language.htm#unset">unset (Optional Parameters)</a></p>
+      <p>こちらもご覧ください：<a href="Language.htm#unset">unset（オプション・パラメータ）</a></p>
     </td>
   </tr>
   <tr id="IncDec">
-    <td class="center bold">++<br>--</td>
+    <td class="center bold">++<br>
+    --</td>
     <td>
       <p><strong>増減の前後</strong>。変数に 1 を加算または減算する。演算子は変数名の前でも後でもよい。名前の<em>前</em>に現れた場合、その操作は実行され、その結果は次の操作で使用される（この場合、結果は変数参照）。例えば、<code>Var := ++X</code>はXをインクリメントし、その値を<em>Var</em>に代入する。逆に、演算子が変数名の<em>後</em>にある場合、結果は演算を実行する前のXの値になる。例えば、<code>Var := X++</code>はXをインクリメントするが、<em>Var</em>はXがインクリメントされる前の値を受け取る。</p>
       <p>これらの演算子は、<code>myArray.Length++</code>や <code>-myArray[i]</code>のように、オブジェクトのプロパティと組み合わせて使うこともできる。このような場合、部分式の結果は常に数値であり、変数参照ではない。</p>
@@ -111,24 +112,29 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
   <tr id="pow">
     <td class="center bold">**</td>
     <td>
-      <p><strong>Power</strong>. Example usage: <code>Base**Exponent</code>. Both <em>Base</em> and <em>Exponent</em> may contain a decimal point. If <em>Exponent</em> is negative, the result will be formatted as a floating point number even if <em>Base</em> and <em>Exponent</em> are both integers. **は単項マイナスより優先順位が高いので、<code>-2**2</code>は<code>-(2**2)</code>のように評価され、-4となる。したがって、リテラルで負の数を累乗するには、<code>(-2)**2</code>のように括弧で囲む。</p>
+      <p><strong>Power</strong>. 使用例：<code>Base**Exponent</code>. Both <em>Base</em> and <em>Exponent</em> may contain a decimal point. If <em>Exponent</em> is negative, the result will be formatted as a floating point number even if <em>Base</em> and <em>Exponent</em> are both integers. **は単項マイナスより優先順位が高いので、<code>-2**2</code>は<code>-(2**2)</code>のように評価され、-4となる。したがって、リテラルで負の数を累乗するには、<code>(-2)**2</code>のように括弧で囲む。</p>
       <p>パワー演算子は右結合である。例えば、<code>x ** y ** z</code>は<code>x ** (y ** z)</code>と評価される。</p>
       <p class="note"><strong>Note:</strong> A negative <em>Base</em> combined with a fractional <em>Exponent</em> such as <code>(-2)**0.5</code> is not supported; attempting it will cause an exception to be thrown. しかし、<code>(-2)**2</code>と<code>(-2)**2.0</code>の両方がサポートされている。If both <em>Base</em> and <em>Exponent</em> are 0, the result is undefined and an exception is thrown.</p>
     </td>
   </tr>
   <tr id="unary">
-    <td class="center bold">-<br>!<br>~<br>&amp;</td>
+    <td class="center bold">-<br>
+    !<br>
+    ~<br>
+    &amp;</td>
     <td>
       <p><strong>単項マイナス (-)：</strong>オペランドの符号を反転します。</p>
       <p><strong>単項プラス (+)：</strong> <code>+N</code>は <code>-(-N)</code>と等価。これは純粋な数値に適用しても何の効果もないが、数値文字列を純粋な数値に変換するために使うことができる。</p>
-      <p><strong>論理否定 (!)：</strong>オペランドが空白または0の場合、論理否定を適用した結果は1、つまり「真」を意味する。そうでなければ、結果は0（偽）である。For example: <code>!x or !(y and z)</code>. Note: The word NOT is synonymous with <strong>!</strong> except that <strong>!</strong> has a higher precedence. <code>Var</code>のような連続する単項演算子は、右から左の順番で評価されるため許される。</p>
+      <p><strong>論理否定 (!)：</strong>オペランドが空白または0の場合、論理否定を適用した結果は1、つまり「真」を意味する。そうでなければ、結果は0（偽）である。事例：<code>!x or !(y and z)</code>. 注："NOT"は<strong>!</strong>と同義だが、<strong>!</strong>の方が優先順位が高い。<code>Var</code>のような連続する単項演算子は、右から左の順番で評価されるため許される。</p>
       <p><strong>Bitwise-not (~)：</strong>オペランドの各ビットを反転する。64ビットの符号付き整数を使用するため、正の入力値は常に負の結果を与え、その逆も同様である。例えば、<code>~0xf0f</code>は-0xf10 (-3856)と評価され、これは2進数で0xfffffffffffff0f0と等価である。符号なし32ビット値が意図されている場合、<code><i>result</i>&amp; 0xffffff</code>で結果を切り捨てることができる。オペランドが浮動小数点値の場合、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</p>
-      <p id="ref"><strong>参照 (&amp;)：</strong>変数への参照を表す値である VarRef を作成します。VarRefを使えば、ターゲット変数に間接的にアクセスできる。例えば、<code>ref := &amp;target</code>の後に<code>%ref% := 1</code>を続けると、<em>target</em>に値1が割り当てられる。VarRefは通常関数に渡されるが、配列やプロパティに格納することもできる。See also: <a href="#deref">Dereference</a>, <a href="Functions.htm#ByRef">ByRef</a>.</p>
+      <p id="ref"><strong>参照 (&amp;)：</strong>変数への参照を表す値である VarRef を作成します。VarRefを使えば、ターゲット変数に間接的にアクセスできる。例えば、<code>ref := &amp;target</code>の後に<code>%ref% := 1</code>を続けると、<em>target</em>に値1が割り当てられる。VarRefは通常関数に渡されるが、配列やプロパティに格納することもできる。こちらもご覧ください：<a href="#deref">Dereference</a>, <a href="Functions.htm#ByRef">ByRef</a>.</p>
       <p><a href="lib/A_Clipboard.htm">A_Clipboard</a>のような組み込み変数への参照は、組み込み関数の<em>OutputVar</em>パラメータに直接渡される場合を除き、現在サポートされていません。</p>
     </td>
   </tr>
   <tr id="MulDiv">
-    <td class="center bold">*<br>/<br>//
+    <td class="center bold">*<br>
+    /<br>
+    //
     </td>
     <td><p><strong>乗算 (*)：</strong>それ以外の場合は浮動小数点数。</p>
       <p><strong>その他の使用法：</strong>アスタリスク(*)記号は<a href="Functions.htm#VariadicCall">変種関数呼び出し</a>にも使われる。</p>
@@ -138,17 +144,20 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
     <p>ゼロによる除算は<a href="lib/Error.htm#ZeroDivisionError">ZeroDivisionError</a>をスローする。</p></td>
   </tr>
   <tr id="AddSub">
-    <td class="center bold">+<br>-</td>
+    <td class="center bold">+<br>
+    -</td>
     <td><p><strong>足し算 (+)</strong>と<strong>引き算 (-)</strong>。これに関連して、<a href="#AssignOp">+=演算子や-=演算子</a>は、変数をインクリメントしたりデクリメントしたりする省略記法である。例えば、<code>Var+=2</code>は<code>Var:=Var+2</code>と同じ結果になる（ただし、前者の方が性能は良い）。同様に、<a href="#IncDec">Var++、Var--、++Var、--Var</a>を使えば、変数を1つ増やしたり減らしたりできる。</p>
       <p><strong>その他の使用法：</strong>記号の前に値（または値を返す部分式）がない場合、代わりに<a href="#unary">単項演算子</a>として解釈されます。</p>
     </td>
   </tr>
   <tr id="bitshift">
-    <td class="center bold">&lt;&lt;<br>&gt;&gt;<br>&gt;&gt;&gt;</td>
+    <td class="center bold">&lt;&lt;<br>
+    &gt;&gt;<br>
+    &gt;&gt;&gt;</td>
     <td>
-      <p><strong>ビットシフト・レフト（&lt;&lt;）。</strong>Example usage: <code>Value1 &lt;&lt; Value2</code>. これは、<em>Value1</em>に「2の<em>Value2</em>乗」を掛けることと同じである。</p>
-      <p><strong>算術ビットの右シフト（&gt;&gt;）。</strong>Example usage: <code>Value1 &gt;&gt; Value2</code>. これは、<em>Value1</em>を「2の<em>Value2</em>乗」で除算し、その結果を数直線上で左方向に最も近い整数に四捨五入することと同じである。</p>
-      <p><strong>論理ビットの右シフト（&gt;&gt;）</strong>。Example usage: <code>Value1 &gt;&gt;&gt; Value2</code>. 算術ビットシフト右とは異なり、これは数値の符号を保持しない。例えば、-1は符号なし64ビット整数0xffffffffffffと同じビット表現を持つので、<code>-1 &gt;&gt; 1</code>は0x7fffffffffffffとなる。</p>
+      <p><strong>ビットシフト・レフト（&lt;&lt;）。</strong>使用例：<code>Value1 &lt;&lt; Value2</code>. これは、<em>Value1</em>に「2の<em>Value2</em>乗」を掛けることと同じである。</p>
+      <p><strong>算術ビットの右シフト（&gt;&gt;）。</strong>使用例：<code>Value1 &gt;&gt; Value2</code>. これは、<em>Value1</em>を「2の<em>Value2</em>乗」で除算し、その結果を数直線上で左方向に最も近い整数に四捨五入することと同じである。</p>
+      <p><strong>論理ビットの右シフト（&gt;&gt;）</strong>。使用例：<code>Value1 &gt;&gt;&gt; Value2</code>. 算術ビットシフト右とは異なり、これは数値の符号を保持しない。例えば、-1は符号なし64ビット整数0xffffffffffffと同じビット表現を持つので、<code>-1 &gt;&gt; 1</code>は0x7fffffffffffffとなる。</p>
       <p>以下は、3つの演算子すべてに適用されます：</p>
       <ul>
         <li>入力のどちらかが浮動小数点数のときは、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</li>
@@ -158,7 +167,9 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
     </td>
   </tr>
   <tr id="bitwise">
-    <td class="center bold">&amp;<br>^<br>|
+    <td class="center bold">&amp;<br>
+    ^<br>
+    |
     </td>
     <td>
       <p><strong>ビットワイズ・アンド (&amp;)、</strong><strong>ビットワイズ・エクスクルーシブ・オア (^)、</strong><strong>ビットワイズ・オア(|)</strong>。この3つのうち、<strong>&amp;</strong>が最も優先順位が高く、<strong>|</strong>が最も低い。</p>
@@ -167,7 +178,7 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
         <li>入力のどちらかが浮動小数点数のときは、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</li>
         <li>64 ビット演算が実行され、結果は64ビット符号付き整数になります。</li>
       </ul>
-      <p>Related: <a href="#unary">Bitwise-not (~)</a></p>
+      <p>関連:<a href="#unary">ビットワイズ・ノット (~)</a></p>
     </td>
   </tr>
   <tr id="concat">
@@ -177,9 +188,9 @@ MsgBox(1.00)  <em>; Shows 1.0</em></pre>
       <pre>Var := "The color is " <strong>.</strong> FoundColor  <em>; Explicit concat</em>
 Var := "The color is " FoundColor    <em>; Auto-concat</em>
 </pre>
-      <p>部分式は連結することもできる。For example: <code>Var := "The net price is " <strong>.</strong> Price * (1 - Discount/100)</code>.</p>
+      <p>部分式は連結することもできる。事例：<code>Var := "The net price is " <strong>.</strong> Price * (1 - Discount/100)</code>.</p>
       <p>ピリオド（またはその他の演算子）で始まる行は、自動的にその上の行<a href="Scripts.htm#continuation">に追加</a>される。</p>
-      <p>各入力の<a href="lib/StrLen.htm">全長</a>は、たとえ2進数のゼロが含まれていても使用される。For example, <code>Chr(0x2010) Chr(0x0000) Chr(0x4030)</code> produces the following string of bytes (due to UTF-16-LE encoding): 0x10, 0x20, 0, 0, 0x30, 0x40. 結果には、長さに含まれないヌル・ターミネーター（2進数のゼロ）が追加される。</p>
+      <p>各入力の<a href="lib/StrLen.htm">全長</a>は、たとえ2進数のゼロが含まれていても使用される。例えば、<code>Chr(0x2010) Chr(0x0000) Chr(0x4030)</code>は以下のバイト列を生成する（UTF-16-LEエンコーディングによる）：0x10, 0x20, 0, 0, 0x30, 0x40. 結果には、長さに含まれないヌル・ターミネーター（2進数のゼロ）が追加される。</p>
       <p><strong>その他の使い方：</strong>ピリオド（ドット）の右にスペースまたはタブがない場合、リテラル<a href="#numbers">浮動小数点数</a>または<a href="#objdot">メンバアクセス</a>として解釈される。例えば、<code>1.1</code>と<code>(.5)</code>は数値、<code>A_Args.Has(3)</code>はメソッド呼び出し、<code>A_Args.Length</code>はプロパティアクセスである。</p>
     </td>
   </tr>
@@ -188,13 +199,17 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
     <td><a href="lib/RegExMatch.htm">RegExMatch</a>の省略形。例えば、<code>"abc123" ~= "\d"</code>の結果は4（最初の数字の位置）です。</td>
   </tr>
   <tr id="compare">
-    <td class="center bold">&gt;&nbsp;&nbsp;&nbsp;&lt;<br>&gt;= &lt;=</td>
+    <td class="center bold">&gt;&nbsp;&nbsp;&nbsp;&lt;<br>
+    &gt;= &lt;=</td>
     <td>
       <p><strong>大きい (&gt;)、</strong><strong>小さい (&lt;)</strong>、<strong>大小(&gt;=)</strong>、<strong>より小さい (&lt;=)。</strong>入力は数値で比較される。入力のどちらかが数値または数値文字列でない場合、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされる。</p>
     </td>
   </tr>
   <tr id="equal">
-    <td class="center bold">=<br>==<br>!=<br>!==</td>
+    <td class="center bold">=<br>
+      ==<br>
+      !=<br>
+      !==</td>
     <td>
       <p><strong>大文字小文字を区別しないイコール（=）/ノットイコール（=）、</strong> <strong>大文字小文字を区別するイコール（==）/ノットイコール（!==）。</strong><strong>==</strong>演算子は、<strong>=</strong>演算子と同じ動作をするが、入力のどちらかが数値でない（あるいは両方が文字列である）場合は、<strong>==</strong>は常に大文字と小文字を区別し、<strong>=</strong>は常に大文字と小文字を区別しない。<strong>!=</strong>と<strong>!==</strong>は、結果が反転することを除けば、<strong>!</strong>を使わない場合と同じ動作をする。</p>
       <p><strong>==</strong>と<strong>!==</strong>演算子は、2進数の0を含む文字列を比較するのに使うことができる。<strong>~=</strong>以外の比較演算子は、最初の2進数の0までしか比較しない。</p>
@@ -213,8 +228,9 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
     <td><strong>論理否定</strong>。優先順位が低いことを除けば、これは<strong>!</strong>演算子と同様である。例えば、<code>not (x = 3 or y = 3)</code>は<code><strong>!</strong>(x = 3 or y = 3)</code>と同じである。</td>
   </tr>
     <tr id="and">
-      <td class="center bold">AND<br>&amp;&amp;</td>
-      <td><p>どちらも<strong>論理積</strong>だ。For example: <code>x &gt; 3 and x &lt; 10</code>.</p>
+      <td class="center bold">AND<br>
+      &amp;&amp;</td>
+      <td><p>どちらも<strong>論理積</strong>だ。事例：<code>x &gt; 3 and x &lt; 10</code>.</p>
         <p>In an expression where all operands are true, the <u>last</u> operand is returned. Otherwise, the <u>first</u> operand that is false is returned. In other words, the result is true only if all operands are true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (from left to right) to improve performance.</p>
         <p>In the following example, all operands are true and will be evaluated:</p>
         <pre>A := 1, B := {}, C := 20, D := true, E := "str"
@@ -225,8 +241,9 @@ MsgBox(A &amp;&amp; B &amp;&amp; ++C &amp;&amp; D &amp;&amp; E) <em>; Shows "" (
         <p><code>AND</code>または<code>&amp;&amp;（</code>あるいはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。</p></td>
     </tr>
     <tr id="or">
-      <td class="center bold">OR<br>||</td>
-      <td><p>どちらも<strong>論理和</strong>である。For example: <code>x &lt;= 3 or x &gt;= 10</code>.</p>
+      <td class="center bold">OR<br>
+      ||</td>
+      <td><p>どちらも<strong>論理和</strong>である。事例：<code>x &lt;= 3 or x &gt;= 10</code>.</p>
         <p>In an expression where at least one operand is true, the <u>first</u> operand that is true is returned. Otherwise, the <u>last</u> operand that is false is returned. In other words, if at least one operand is true, the result is true. Boolean expressions are subject to <a href="Functions.htm#ShortCircuit">short-circuit evaluation</a> (from left to right) to improve performance.</p>
         <p>In the following example, at least one operand is true. All operands up to D will be evaluated. E is ignored and will never be incremented:</p>
         <pre>A := "", B := false, C := 0, D := "str", E := 20
@@ -239,28 +256,40 @@ MsgBox(A || B || C) <em>; Shows "0" (C).</em></pre>
   <tr id="or-maybe">
     <td class="center bold">??</td>
     <td>
-      <p><strong>あるいは</strong>、合体演算子と呼ばれるものかもしれない。左オペランド（変数でなければならない）に値があれば、それが結果となり、右分岐はスキップされる。そうでない場合は、右オペランドが結果になる。In other words, <code>A ??B</code> behaves like <code>A || B</code> (<a href="#or">logical-OR</a>) except that the condition is <code>IsSet(A)</code>.</p>
+      <p><strong>あるいは</strong>、合体演算子と呼ばれるものかもしれない。左オペランド（変数でなければならない）に値があれば、それが結果となり、右分岐はスキップされる。そうでない場合は、右オペランドが結果になる。言い換えれば、<code>A ?? B</code>は、条件が<code>IsSet(A)</code>であることを除けば、<code>A || B</code>（<a href="#or">論理和</a>）のように振る舞う。</p>
       <p>これは通常、変数やオプショナル・パラメータにまだ値がないことが分かっている場合に、デフォルト値を提供するために使われる。事例：</p>
       <pre>MsgBox MyVar ?? "Default value"</pre>
-      <p>変数が<a href="Concepts.htm#uninitialized-variables">初期化されていない</a>ことも想定されるので、そのような場合でもエラーは発生しない。Unlike <code>IsSet(A) ?A : B</code>, a <a href="lib/_Warn.htm#VarUnset">VarUnset warning</a> may still be shown at load-time if there are other references to the variable but no assignments.</p>
+      <p>変数が<a href="Concepts.htm#uninitialized-variables">初期化されていない</a>ことも想定されるので、そのような場合でもエラーは発生しない。<code>IsSet(A) ?A : B</code>と異なり、変数への他の参照があるが代入がない場合、ロード時に<a href="lib/_Warn.htm#VarUnset">VarUnset 警告</a>が表示されることがあります。</p>
     </td>
   </tr>
   <tr id="ternary">
     <td class="center bold">?:</td>
     <td>
-      <p><strong>三項演算子</strong>。この演算子は、<a href="lib/If.htm">if-else文</a>に代わる省略記法である。左辺の条件を評価し、2つの分岐のどちらが最終的な結果になるかを決定する。For example, <code>var := x&gt;y ?2 : 3</code> stores 2 in <em>Var</em> if x is greater than y; otherwise it stores 3. パフォーマンスを向上させるため、勝利した分岐のみが評価される（<a href="Functions.htm#ShortCircuit">短絡評価</a>を参照）。</p>
-      <p>See also: <a href="#maybe">maybe (<em>var</em>?)</a>, <a href="#or-maybe">or-maybe (??)</a></p>
+      <p><strong>三項演算子</strong>。この演算子は、<a href="lib/If.htm">if-else文</a>に代わる省略記法である。左辺の条件を評価し、2つの分岐のどちらが最終的な結果になるかを決定する。たとえば、<code>var := x&gt;y ?2 : 3</code>は、xがyより大きければ<em>Var</em>に2を格納し、そうでなければ3を格納する。パフォーマンスを向上させるため、勝利した分岐のみが評価される（<a href="Functions.htm#ShortCircuit">短絡評価</a>を参照）。</p>
+      <p>こちらもご覧ください：<a href="#maybe">maybe (<em>var</em>?)</a>, <a href="#or-maybe">or-maybe (??)</a></p>
       <p class="warning"><strong>注：</strong>行頭で使用する場合、他の文との曖昧さを避けるため、3項条件は通常括弧で囲む。詳しくは<a href="Language.htm#expression-statements">表現ステートメント</a>を参照。</p>
     </td>
   </tr>
   <tr id="AssignOp">
-    <td class="center bold">:=<br>+=<br>-=<br>*=<br>/=<br>//=<br>.=<br>|=<br>&amp;=<br>^=<br>&gt;&gt;=<br>&lt;&lt;=<br>&gt;&gt;&gt;=
+    <td class="center bold">:=<br>
+        +=<br>
+        -=<br>
+        *=<br>
+        /=<br>
+        //=<br>
+        .=<br>
+        |=<br>
+        &amp;=<br>
+        ^=<br>
+        &gt;&gt;=<br>
+        &lt;&lt;=<br>
+        &gt;&gt;&gt;=
     </td>
     <td><p><strong>アサイン</strong>。変数の内容に演算を行い、結果を同じ変数に戻す。最も単純な代入演算子はコロン等号（:=）で、式の結果を変数に格納する。他の演算子の動作については、この表の関連項目を参照のこと。例えば、<code>Var //= 2</code>は、<em>Var</em>を2で割る<a href="#IntegerDivide">整数除算</a>を実行し、結果を<em>Var</em>に戻す。同様に、<code>Var<strong>.=</strong>"abc"</code>は、<code>Var := Var<strong>.</strong></code>"<code>abc "</code>である。</p>
       <p>他のほとんどの演算子とは異なり、代入は右から左に評価される。その結果、<code>Var1 := Var2 := 0</code>のような行は、まず<em>Var2</em>に0を代入し、次に<em>Var2</em>を<em>Var1</em>に代入する。</p>
     <p>代入が他の演算子の入力として使われる場合、その値は変数そのものとなる。例えば、<code>(Var+=2) &gt; 50</code>という式は、<em>Var</em>の新しく増加した値が50より大きい場合に真となる。また、<code>&amp;(Var := "初期値")</code>のように、代入と<a href="#ref">参照演算子</a>を組み合わせることも有効である。</p>
-    <p>代入演算子の優先順位は、構文エラーを回避したり、より直感的な動作を提供したりする場合に、自動的に引き上げられる。For example: <code>not x:=y</code> is evaluated as <code>not (x:=y)</code>. また、<code class="no-highlight">x==y &amp;&amp; z:=</code>1は、<code class="no-highlight">x==y &amp;&amp; (z:=1)</code>と評価され、xがyと等しくない場合に<a href="Functions.htm#ShortCircuit">短絡する</a>。Similarly, <code>++Var := X</code> is evaluated as <code>++(Var := X)</code>; and <code>Z&gt;0 ?X:=2 : Y:=2</code> is evaluated as <code>Z&gt;0 ?(X:=2) : (Y:=2)</code>.</p>
-    <p>直接代入(<code>:=</code>)と<code>unset</code>キーワード、または<a href="#maybe">maybe (<em>var</em>?)</a> 演算子を組み合わせることで、ターゲット変数を<em>設定解除</em>することができる。For example: <code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
+    <p>代入演算子の優先順位は、構文エラーを回避したり、より直感的な動作を提供したりする場合に、自動的に引き上げられる。事例：<code>not x:=y</code>は <code>not (x:=y)</code>と評価される。また、<code class="no-highlight">x==y &amp;&amp; z:=</code>1は、<code class="no-highlight">x==y &amp;&amp; (z:=1)</code>と評価され、xがyと等しくない場合に<a href="Functions.htm#ShortCircuit">短絡する</a>。同様に、<code>++Var := X</code>は <code>++(Var := X)</code>と評価され、<code>Z&gt;0 ?X:=2 : Y:=2</code>は<code>Z&gt;0 ? (X:=2) : (Y:=2)</code>と評価される。</p>
+    <p>直接代入(<code>:=</code>)と<code>unset</code>キーワード、または<a href="#maybe">maybe (<em>var</em>?)</a> 演算子を組み合わせることで、ターゲット変数を<em>設定解除</em>することができる。事例：<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
     <p>代入は、<code>myArray.Length += n</code>や <code>myArray[i] .= t</code>のように、オブジェクトのプロパティを対象とすることもできる。プロパティに代入する場合、部分式の結果は代入される値であり、変数参照ではありません。</p>
     </td>
   </tr>
@@ -285,7 +314,7 @@ sumfn := Sum</pre>
   </tr>
   <tr id="comma">
     <td class="center bold">,</td>
-    <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。For example: <code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. このようなステートメントは、左から右の順に実行される。</p>
+    <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。事例：<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>. このようなステートメントは、左から右の順に実行される。</p>
       <p class="note"><strong>注：</strong>カンマ（またはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。</p>
       <p>カンマは、関数呼び出しや制御フロー文のパラメータを区切るためにも使われる。複数ステートメント式をパラメータ・リストに含めるには、括弧で囲む。例えば、<code>MyFn((x, y))</code>はxとyの両方を評価するが、MyFnの最初の唯一のパラメーターとしてyを渡す。</p>
     </td>
@@ -328,10 +357,10 @@ sumfn := Sum</pre>
     </td>
   </tr>
   <tr id="curly-braces">
-    <td class="center"><strong>{a: b, c: d}</strong></td>
+    <td class="center"><strong>{a:b, c:d}</strong></td>
     <td>
-      <p><strong>オブジェクト・リテラル</strong>。<a href="lib/Object.htm">オブジェクトを</a>作成する。各ペアは、リテラル・プロパティ名<code>a</code>とプロパティ値式<code>b</code>で構成される。For example, <code>x := {a: b}</code> is equivalent to <code>x := Object(), x.a := b</code>. <a href="lib/Object.htm#Base">ベース</a>はオブジェクト・リテラル内で設定することができるが、他のすべてのプロパティは<em>独自の値プロパティ</em>として設定され、ベース・オブジェクトから継承されたプロパティをオーバーライドする可能性がある。</p>
-      <p>ダイナミック・プロパティ名を使うには、部分式をパーセント記号で囲む。For example: <code>{%nameVar%: valueVar}</code>.</p>
+      <p><strong>オブジェクト・リテラル</strong>。<a href="lib/Object.htm">オブジェクトを</a>作成する。各ペアは、リテラル・プロパティ名<code>a</code>とプロパティ値式<code>b</code>で構成される。例えば、<code>x := {a:b}</code> は<code>x := Object(), x.a := b</code>と等価である。<a href="lib/Object.htm#Base">ベース</a>はオブジェクト・リテラル内で設定することができるが、他のすべてのプロパティは<em>独自の値プロパティ</em>として設定され、ベース・オブジェクトから継承されたプロパティをオーバーライドする可能性がある。</p>
+      <p>ダイナミック・プロパティ名を使うには、部分式をパーセント記号で囲む。事例：<code>{%nameVar%:valueVar}</code>.</p>
     </td>
   </tr>
 </table>
@@ -341,15 +370,15 @@ sumfn := Sum</pre>
 <p class="note">一般的な情報については、<a href="Concepts.htm#built-in-variables">組み込み変数</a>を参照してください。</p>
 <h3 id="BuiltIn_TOC">目次</h3>
 <ul>
-  <li>Special Characters: <a href="#Space">A_Space</a>, <a href="#Tab">A_Tab</a></li>
-  <li>Script Properties: <a href="#Args">command line parameters</a>, <a href="#WorkingDir">A_WorkingDir</a>, <a href="#ScriptDir">A_ScriptDir</a>, <a href="#ScriptName">A_ScriptName</a>, <a href="#prop">(...more...)</a></li>
-  <li>Date and Time: <a href="#YYYY">A_YYYY</a>, <a href="#MM">A_MM</a>, <a href="#DD">A_DD</a>, <a href="#Hour">A_Hour</a>, <a href="#Min">A_Min</a>, <a href="#Sec">A_Sec</a>, <a href="#date">(...more...)</a></li>
-  <li>Script Settings: <a href="#IsSuspended">A_IsSuspended</a>, <a href="#ListLines">A_ListLines</a>, <a href="#TitleMatchMode">A_TitleMatchMode</a>, <a href="#settings">(...more...)</a></li>
-  <li>User Idle Time: <a href="#TimeIdle">A_TimeIdle</a>, <a href="#TimeIdlePhysical">A_TimeIdlePhysical</a>, <a href="#TimeIdleKeyboard">A_TimeIdleKeyboard</a>, <a href="#TimeIdleMouse">A_TimeIdleMouse</a></li>
-  <li>Hotkeys, Hotstrings, and Custom Menu Items: <a href="#ThisHotkey">A_ThisHotkey</a>, <a href="#EndChar">A_EndChar</a>, <a href="#h">(...more...)</a></li>
-  <li>Operating System and User Info: <a href="#OSVersion">A_OSVersion</a>, <a href="#Screen">A_ScreenWidth</a>, <a href="#Screen">A_ScreenHeight</a>, <a href="#os">(...more...)</a></li>
-  <li>Misc: <a href="#Clipboard">A_Clipboard</a>, <a href="#Cursor">A_Cursor</a>, <a href="#EventInfo">A_EventInfo</a>, <a href="#misc">(...more...)</a></li>
-  <li>Loop: <a href="#Index">A_Index</a>, <a href="#loop">(...more...)</a></li>
+  <li>特殊文字：<a href="#Space">A_Space</a>, <a href="#Tab">A_Tab</a></li>
+  <li>スクリプトのプロパティ：<a href="#Args">コマンドラインパラメータ</a>、<a href="#WorkingDir">A_WorkingDir</a>、<a href="#ScriptDir">A_ScriptDir</a>、<a href="#ScriptName">A_ScriptName</a>、<a href="#prop">(...more...)</a></li>
+  <li>日時<a href="#YYYY">A_YYYY</a>, <a href="#MM">A_MM</a>, <a href="#DD">A_DD</a>, <a href="#Hour">A_Hour</a>, <a href="#Min">A_Min</a>, <a href="#Sec">A_Sec</a>, <a href="#date">(...more...)</a></li>
+  <li>スクリプトの設定：<a href="#IsSuspended">A_IsSuspended</a>, <a href="#ListLines">A_ListLines</a>, <a href="#TitleMatchMode">A_TitleMatchMode</a>, <a href="#settings">(...more...)</a></li>
+  <li>ユーザーアイドル時間：<a href="#TimeIdle">A_TimeIdle</a>, <a href="#TimeIdlePhysical">A_TimeIdlePhysical</a>, <a href="#TimeIdleKeyboard">A_TimeIdleKeyboard</a>, <a href="#TimeIdleMouse">A_TimeIdleMouse</a></li>
+  <li>ホットキー、ホットストリング、カスタムメニュー項目：<a href="#ThisHotkey">A_ThisHotkey</a>, <a href="#EndChar">A_EndChar</a>, <a href="#h">(...more...)</a></li>
+  <li>オペレーティングシステムとユーザー情報：<a href="#OSVersion">A_OSVersion</a>, <a href="#Screen">A_ScreenWidth</a>, <a href="#Screen">A_ScreenHeight</a>, <a href="#os">(...more...)</a></li>
+  <li>その他<a href="#Clipboard">A_Clipboard</a>, <a href="#Cursor">A_Cursor</a>, <a href="#EventInfo">A_EventInfo</a>, <a href="#misc">(...more...)</a></li>
+  <li>ループ：<a href="#Index">A_Index</a>, <a href="#loop">(...more...)</a></li>
 </ul>
 <h3 id="Special_Characters">特殊文字</h3>
 <table class="info">
@@ -378,7 +407,7 @@ sumfn := Sum</pre>
   </tr>
   <tr id="WorkingDir">
     <td>A_WorkingDir</td>
-    <td><p>スクリプトのカレント作業ディレクトリを取得または設定するために使用する。ルート・ディレクトリでない限り、最後のバックスラッシュは含まれない。Two examples: C:\ and C:\My Documents.</p>
+    <td><p>スクリプトのカレント作業ディレクトリを取得または設定するために使用する。ルート・ディレクトリでない限り、最後のバックスラッシュは含まれない。例を2つ挙げる：C:\ and C:\My Documents.</p>
     <p><a href="lib/SetWorkingDir.htm">SetWorkingDir</a> can also be used to change the working directory.</p>
     <p>スクリプトの起動方法に関係なく、スクリプトの作業ディレクトリの初期値は<a href="#ScriptDir">A_ScriptDir</a>です。</p></td>
   </tr>
@@ -414,7 +443,7 @@ sumfn := Sum</pre>
   </tr>
   <tr id="LineNumber">
     <td>A_LineNumber</td>
-    <td><p>スクリプト(またはその<a href="lib/_Include.htm">#Include files</a>)内で現在実行中の行の番号。This line number will match the one shown by <a href="lib/ListLines.htm">ListLines</a>; it can be useful for error reporting such as this example: <code>MsgBox "Could not write to log file (line number " A_LineNumber ")"</code>.</p>
+    <td><p>スクリプト(またはその<a href="lib/_Include.htm">#Include files</a>)内で現在実行中の行の番号。この行番号は、<a href="lib/ListLines.htm">ListLines</a>が表示する行番号と一致する。この例のようなエラー報告に役立つ：<code>MsgBox "Could not write to log file (line number " A_LineNumber ")"</code>.</p>
     <p><a href="Scripts.htm#ahk2exe">コンパイルされたスクリプト</a>は、すべての<a href="lib/_Include.htm">#Include files</a>が1つの大きなスクリプトにマージされるため、行番号が非コンパイルモードで実行したときと異なる場合があります。</p></td>
   </tr>
   <tr id="LineFile">
@@ -427,16 +456,16 @@ sumfn := Sum</pre>
   </tr>
   <tr id="ThisFunc">
     <td>A_ThisFunc</td>
-    <td>The name of the <a href="Functions.htm">user-defined function</a> that is currently executing (blank if none); for example: MyFunction. See also: <a href="lib/Func.htm#Name">Name property (Func)</a></td>
+    <td>現在実行中の<a href="Functions.htm">ユーザー定義関数</a>の名前（ない場合は空白）：MyFunction. こちらもご覧ください：<a href="lib/Func.htm#Name">名前プロパティ (Func)</a></td>
   </tr>
   <tr id="AhkVersion">
     <td>A_AhkVersion</td>
-    <td>1.0.22のように、スクリプトを実行しているAutoHotkeyのバージョンが含まれています。<a href="Scripts.htm#ahk2exe">コンパイルされたスクリプト</a>の場合、そのスクリプトをコンパイルするために最初に使用されたバージョンが報告される。The formatting of the version number allows a script to check whether A_AhkVersion is greater than some minimum version number with &gt; or &gt;= as in this example: <code>if (A_AhkVersion &gt;= "1.0.25.07")</code>. See also: <a href="lib/_Requires.htm">#Requires</a> and <a href="lib/VerCompare.htm">VerCompare</a></td>
+    <td>1.0.22のように、スクリプトを実行しているAutoHotkeyのバージョンが含まれています。<a href="Scripts.htm#ahk2exe">コンパイルされたスクリプト</a>の場合、そのスクリプトをコンパイルするために最初に使用されたバージョンが報告される。バージョン番号の書式設定により、スクリプトはA_AhkVersionがこの例のように&gt;または&gt;=で指定された最小バージョン番号より大きいかどうかをチェックすることができる：<code>if (A_AhkVersion &gt;= "1.0.25.07")</code>. こちらもご覧ください：<a href="lib/_Requires.htm">#Requires</a> および <a href="lib/VerCompare.htm">VerCompare</a></td>
   </tr>
   <tr id="AhkPath">
     <td>A_AhkPath</td>
     <td>
-      <p>For non-compiled or <a href="Program.htm#embedded-scripts">embedded</a> scripts: The full path and name of the EXE file that is actually running the current script. For example: C:\Program Files\AutoHotkey\AutoHotkey.exe</p>
+      <p>非コンパイルまたは<a href="Program.htm#embedded-scripts">埋め込み</a>スクリプトの場合：現在のスクリプトを実際に実行しているEXEファイルのフルパスと名前。事例：C:\Program Files\AutoHotkey\AutoHotkey.exe</p>
       <p><a href="Scripts.htm#ahk2exe-base">.binファイル</a>に基づいて<a href="Scripts.htm#ahk2exe">コンパイルされたスクリプト</a>の場合は、レジストリからインストールディレクトリを読み取り、"\AutoHotkey.exe"を追加して値を決定します。AutoHotkeyがインストールされていない場合、値は空白になります。以下の例はこれに相当する：</p>
       <pre>InstallDir := RegRead("HKLM\SOFTWARE\AutoHotkey", "InstallDir", "")
 AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
@@ -491,15 +520,15 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
   </tr>
   <tr id="YDay">
     <td>A_YDay</td>
-    <td>現在の曜日（1～366）。例えば、009ではなく9が取り出される。To retrieve a zero-padded value, use the following: <code><a href="lib/FormatTime.htm">FormatTime</a>(, "YDay0")</code>.</td>
+    <td>現在の曜日（1～366）。例えば、009ではなく9が取り出される。ゼロパディングされた値を取り出すには、以下のようにする：<code><a href="lib/FormatTime.htm">FormatTime</a>(, "YDay0")</code>.</td>
   </tr>
   <tr id="YWeek">
     <td>A_YWeek</td>
-    <td>ISO 8601に従った現在の年号と週番号（例：200453）。年と週を分けるには、<code>Year :=<a href="lib/SubStr.htm">SubStr</a>(A_YWeek, 1, 4)</code>、<code>Week :=<a href="lib/SubStr.htm">SubStr</a>(A_YWeek, -2)</code>を使う。Precise definition of A_YWeek: If the week containing January 1st has four or more days in the new year, it is considered week 1. それ以外は前年の最終週となり、次週は第1週となります。</td>
+    <td>ISO 8601に従った現在の年号と週番号（例：200453）。年と週を分けるには、<code>Year :=<a href="lib/SubStr.htm">SubStr</a>(A_YWeek, 1, 4)</code>、<code>Week :=<a href="lib/SubStr.htm">SubStr</a>(A_YWeek, -2)</code>を使う。A_YWeekの正確な定義：新年1月1日を含む週が4日以上ある場合は、第1週とします。それ以外は前年の最終週となり、次週は第1週となります。</td>
   </tr>
   <tr id="Hour">
     <td>A_Hour</td>
-    <td>24時間制の現在の2桁の時（00～23）（例：17は午後5時）。To retrieve 12-hour time as well as an AM/PM indicator, follow this example: <code><a href="lib/FormatTime.htm">FormatTime</a>(, "h:mm:ss tt")</code></td>
+    <td>24時間制の現在の2桁の時（00～23）（例：17は午後5時）。12時間表示とAM/PM表示を同時に取得するには、次のようにします：<code><a href="lib/FormatTime.htm">FormatTime</a>(, "h:mm:ss tt")</code></td>
   </tr>
   <tr id="Min">
     <td>A_Min</td>
@@ -511,7 +540,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
   </tr>
   <tr id="MSec">
     <td>A_MSec</td>
-    <td>現在の3桁のミリ秒（000-999）。To remove the leading zeros, follow this example: <code>Milliseconds := A_MSec + 0</code>.</td>
+    <td>現在の3桁のミリ秒（000-999）。先頭のゼロを取り除くには、次の例に従ってください：<code>Milliseconds := A_MSec + 0</code>.</td>
   </tr>
   <tr id="Now">
     <td>A_Now</td>
@@ -590,11 +619,13 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     <td><a href="lib/Send.htm">送信</a>後に<kbd>CapsLock</kbd>の状態を復元するかどうかを取得または設定するために使用できます。設定可能な値は0（無効）または1（有効）。詳細は<a href="lib/SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>を参照。</td>
   </tr>
   <tr id="KeyDelay">
-    <td>A_KeyDelay<br>A_KeyDuration</td>
+    <td>A_KeyDelay<br>
+    A_KeyDuration</td>
     <td>キー入力の遅延時間または継続時間をミリ秒単位で取得または設定する。詳細は<a href="lib/SetKeyDelay.htm">SetKeyDelay</a>を参照。</td>
   </tr>
   <tr id="KeyDelayPlay">
-    <td>A_KeyDelayPlay<br>A_KeyDurationPlay</td>
+    <td>A_KeyDelayPlay<br>
+    A_KeyDurationPlay</td>
     <td><a href="lib/Send.htm#SendPlayDetail">SendPlay</a>モードで送信されるキー入力の遅延時間または持続時間をミリ秒単位で取得または設定するために使用できます。詳細は<a href="lib/SetKeyDelay.htm">SetKeyDelay</a>を参照。</td>
   </tr>
   <tr id="WinDelay">
@@ -610,7 +641,8 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     <td>WinまたはAltキーアップイベントのマスクに使用されるキーを制御します。詳細は<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照。</td>
   </tr>
   <tr id="MouseDelay">
-    <td>A_MouseDelay<br>A_MouseDelayPlay</td>
+    <td>A_MouseDelay<br>
+    A_MouseDelayPlay</td>
     <td>マウスディレイをミリ秒単位で取得または設定する。A_MouseDelayは従来のSendEventモード用で、A_MouseDelayPlayは<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>用です。詳細は<a href="lib/SetMouseDelay.htm">SetMouseDelay</a>を参照。</td>
   </tr>
   <tr id="DefaultMouseSpeed">
@@ -618,7 +650,11 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     <td>デフォルトのマウス速度を取得または設定するために使用します。0 (最も速い) から 100 (最も遅い) までの整数です。詳細は<a href="lib/SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>を参照。</td>
   </tr>
   <tr id="CoordMode">
-    <td>A_CoordModeToolTip<br>A_CoordModePixel<br>A_CoordModeMouse<br>A_CoordModeCaret<br>A_CoordModeMenu</td>
+    <td>A_CoordModeToolTip<br>
+    A_CoordModePixel<br>
+    A_CoordModeMouse<br>
+    A_CoordModeCaret<br>
+    A_CoordModeMenu</td>
     <td>座標の相対的な領域を取得または設定するために使用できます。Possible values are Screen, Window, and Client. 詳細は<a href="lib/CoordMode.htm">CoordMode</a>を参照。</td>
   </tr>
   <tr id="RegView">
@@ -633,7 +669,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     <td>A_AllowMainWindow</td>
     <td><p>スクリプトの<a href="Program.htm#main-window">メインウィンドウ</a>を <a href="Program.htm#tray-icon">トレイアイコン</a>から開くことを許可するかどうかを取得または設定するために使用できます。設定可能な値は0（禁止）と1（許可）。</p>
     <p>スクリプトが<a href="Scripts.htm#ahk2exe">コンパイル</a>も <a href="Program.htm#embedded-scripts">埋め込み</a>もされていない場合、この変数のデフォルトは1です。そうでない場合、この変数のデフォルトは0ですが、値を代入することでオーバーライドできます。1に設定すると、トレイメニューに「開く」メニュー項目が復活し、メインウィンドウの「表示」メニューにある「最近実行した行」などの項目が有効になり、スクリプトのソースコードやその他の情報を見ることができるようになる。</p>
-    <p>The following functions are always able to show the main window and select the corresponding View options when they are encountered in the script at runtime: <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/ListVars.htm">ListVars</a>, <a href="lib/ListHotkeys.htm">ListHotkeys</a>, and <a href="lib/KeyHistory.htm">KeyHistory</a>.</p>
+    <p>以下の関数は、スクリプトの実行時にメインウィンドウを表示し、対応するビューオプションを選択することができます：<a href="lib/ListLines.htm">ListLines</a>, <a href="lib/ListVars.htm">ListVars</a>, <a href="lib/ListHotkeys.htm">ListHotkeys</a>, and <a href="lib/KeyHistory.htm">KeyHistory</a>.</p>
     <p>1に設定しても、<a href="lib/WinShow.htm">WinShow</a>でメイン・ウィンドウが表示されたり、<a href="lib/ControlGetText.htm">ControlGetTextや</a>同様のメソッドで検査されたりするのを防ぐことはできませんが、スクリプトのソース・コードやその他の情報がメイン・ウィンドウ経由で公開されるのを防ぐことができます。</p></td>
   </tr>
   <tr id="IconHidden">
@@ -742,7 +778,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="Temp">
     <td>A_Temp</td>
-    <td><p>一時ファイルを保存するフォルダのフルパスと名前。It is retrieved from one of the following locations (in order): 1) the <a href="Concepts.htm#environment-variables">environment variables</a> TMP, TEMP, or USERPROFILE; 2) the Windows directory. 事例：</p>
+    <td><p>一時ファイルを保存するフォルダのフルパスと名前。これは、以下のいずれかの場所から取得される（順番に）：1)<a href="Concepts.htm#environment-variables">環境変数</a>TMP、TEMP、またはUSERPROFILE、2) Windowsディレクトリ。事例：</p>
     <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Local\Temp</pre>
   </td>
   </tr>
@@ -775,7 +811,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="WinDir">
     <td>A_WinDir</td>
-    <td>Windowsのディレクトリ。For example: <code>C:\Windows</code></td>
+    <td>Windowsのディレクトリ。事例：<code>C:\Windows</code></td>
   </tr>
   <tr id="ProgramFiles">
     <td>A_ProgramFiles</td>
@@ -873,7 +909,8 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
     </td>
   </tr>
   <tr id="Screen">
-    <td><p>A_ScreenWidth<br>A_ScreenHeight</p></td>
+    <td><p>A_ScreenWidth<br>
+    A_ScreenHeight</p></td>
     <td><p>プライマリ・モニターの幅と高さをピクセル単位で指定する（例：1024と768）。</p>
       <p>マルチモニターシステムの他のモニターの寸法を調べるには、<a href="lib/SysGet.htm">SysGet</a>を使用する。</p>
       <p>デスクトップ全体の幅と高さを知るには（複数のモニターにまたがっていても）、次の例を使う：</p>
@@ -900,7 +937,7 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
   </tr>
   <tr id="Cursor">
     <td>A_Cursor</td>
-    <td><p>現在表示されているマウスカーソルの種類。It will be one of the following words: AppStarting, Arrow, Cross, Help, IBeam, Icon, No, Size, SizeAll, SizeNESW, SizeNS, SizeNWSE, SizeWE, UpArrow, Wait, Unknown. サイズタイプのカーソルで使われる頭字語はコンパスの方向である。例えば、NESW = NorthEast+SouthWestである。手の形をしたカーソル（ポインティングとグラブ）はアンノウンに分類される。</p></td>
+    <td><p>現在表示されているマウスカーソルの種類。それは以下の言葉のいずれかとなる：AppStarting、Arrow、Cross、Help、IBeam、Icon、No、Size、SizeAll、SizeNESW、SizeNS、SizeNWSE、SizeWE、UpArrow、Wait、Unknown。サイズタイプのカーソルで使われる頭字語はコンパスの方向である。例えば、NESW = NorthEast+SouthWestである。手の形をしたカーソル（ポインティングとグラブ）はアンノウンに分類される。</p></td>
   </tr>
   <tr id="EventInfo">
     <td>A_EventInfo</td>
@@ -910,7 +947,7 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
         <li><a href="lib/OnMessage.htm">OnMessage</a></li>
         <li><a href="misc/RegExCallout.htm">正規表現の吹き出し</a></li>
       </ul>
-      <p>Note: Unlike variables such as A_ThisHotkey, each <a href="misc/Threads.htm">thread</a> retains its own value for A_EventInfo. したがって、スレッドが他のスレッドによって中断されても、再開されたときには、これらの変数に元の値や正しい値が表示される。</p>
+      <p>注：A_ThisHotkeyなどの変数とは異なり、各<a href="misc/Threads.htm">スレッド</a>は、A_EventInfoの値を保持します。したがって、スレッドが他のスレッドによって中断されても、再開されたときには、これらの変数に元の値や正しい値が表示される。</p>
       <p>A_EventInfoもスクリプトで設定できますが、ポインタで使用可能な範囲（AutoHotkeyのバージョンによって32ビットまたは64ビット）の符号なし整数しか使えません。</p></td>
   </tr>
   <tr id="LastError">

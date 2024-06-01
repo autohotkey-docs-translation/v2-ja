@@ -14,27 +14,27 @@
 
 <p>キーストロークやテキストをシミュレーションして、ウィンドウやコントロールに送信します。</p>
 
-<pre class="Syntax"><span class="func">ControlSend</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span>
+<pre class="Syntax"><span class="func">ControlSend</span>Keys<span class="optional">, Control , WinTitle , WinText , ExcludeTitle , ExcludeText</span>
 <span class="func">ControlSendText</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
   <dt>Keys</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>送信するキー（詳しくは<a href="Send.htm">Send</a>関数をご覧ください）文字の送信速度は<a href="SetKeyDelay.htm">SetKeyDelay</a>関数で定めます。</p>
     <p><a href="Send.htm">Send</a>関数とは異なり、ControlSendではマウスクリックを送信することはできません。その際は<a href="ControlClick.htm">ControlClick</a>を使用してください。</p>
   </dd>
 
   <dt>Control</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>省略したときは、ターゲットウィンドウのコントロールではなく、ウィンドウそのものにキーストロークを送信します。その例は<a href="../misc/Winamp.htm">Automating Winamp</a>をご覧ください。そうでなければ、コントロールのClassNN、テキストまたはHWNDか、&lt;c0&gt;Hwnd&lt;/c0&gt;プロパティを持つオブジェクトを指定します。詳しくは<a href="Control.htm#Parameter">Controlパラメータ</a>をご覧ください。</p>
   </dd>
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
     <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
@@ -68,22 +68,22 @@ SetKeyDelay -1, 0</pre>
 <div class="ex" id="ExNotepad">
 <p><a class="ex_number" href="#ExNotepad"></a> メモ帳を最小化して開き、テキストを送信します。この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>
 <pre>Run "Notepad",, "Min", &amp;PID  <em>; Run Notepad minimized.</em>
-WinWait "ahk_pid " PID  <em>; Wait for it to appear.</em>
-<em>; Send the text to the inactive Notepad edit control.
-; The third parameter is omitted so the last found window is used.</em>
+WinWait "ahk_pid " PID  <em>; 表示されるのを待ちます。</em>
+<em>; 非アクティブなメモ帳エディットコントロールにテキストを送信します。
+; 第3パラメータが省略されているため、最後に見つかったウィンドウが使用されます。</em>
 ControlSend "This is a line of text in the notepad window.{Enter}", "Edit1"
 ControlSendText "Notice that {Enter} is not sent as an Enter keystroke with ControlSendText.", "Edit1"
 
 Msgbox "Press OK to activate the window to see the result."
-WinActivate "ahk_pid " PID  <em>; Show the result.</em></pre>
+WinActivate "ahk_pid " PID  <em>; 結果を表示します。</em></pre>
 </div>
 
 <div class="ex" id="ExCmd">
 <p><a class="ex_number" href="#ExCmd"></a> コマンドプロンプトを開き、テキストを送信します。この例は、Windows 11以降では、コマンドプロンプトのクラシックバージョンを必要とするため、失敗する可能性があります。</p>
 <pre>SetTitleMatchMode 2
-Run A_ComSpec,,, &amp;PID  <em>; Run command prompt.</em>
-WinWait "ahk_pid " PID  <em>; Wait for it to appear.</em>
-ControlSend "ipconfig{Enter}",, "cmd.exe"  <em>; Send directly to the command prompt window.</em></pre>
+Run A_ComSpec,,, &amp;PID  <em>; コマンドプロンプトを実行します。</em>
+WinWait "ahk_pid " PID  <em>; 表示されるのを待ちます。</em>
+ControlSend "ipconfig{Enter}",, "cmd.exe"  <em>; コマンドプロンプトのウィンドウに直接送信します。</em></pre>
 </div>
 <div class="ex" id="ExGUI">
 <p><a class="ex_number" href="#ExGUI"></a> エディットコントロールを持つ<a href="Gui.htm">GUIを</a>作成し、テキストを送信します。</p>

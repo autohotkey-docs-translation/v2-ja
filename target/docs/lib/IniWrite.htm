@@ -21,32 +21,32 @@
 
   <dt>値</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p><em>Key</em>の等号（=）の右側に書き込まれる文字列または数値です。</p>
     <p>文章が長い場合は、<a href="../Scripts.htm#continuation">続きの部分</a>によっていくつかの短い行に分割することで、読みやすさや保守性を向上させることができるかもしれません。</p>
   </dd>
   
   <dt>Pairs</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>.iniファイルに書き込むセクションの完全な内容（[SectionName]ヘッダを除く）です。<em>キー</em>は省略する必要があります。<em>ペア</em>は空白行を含んではならない。セクションが既に存在する場合は、最後のkey=valueペアまでが上書きされます。<em>ペア</em>には、等号（=）を含まない行を含めることができますが、この場合、結果に矛盾が生じることがあります。コメントはファイルに書き込むことができますが、<a href="IniRead.htm">IniRead</a>で読み返す際には取り除かれます。</p>
   </dd>
 
   <dt>Filename</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>.iniファイルの名前。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。</p>
   </dd>
 
   <dt>Section</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>.iniファイル内のセクション名で、角括弧内に表示される見出し語です（このパラメータに括弧は含めないでください）。</p>
   </dd>
 
   <dt>Key</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>.iniファイル内のキー名です。</p>
   </dd>
 
@@ -62,10 +62,10 @@
 Key=Value</pre>
 <p>新しいファイルは、ユニコード文字の全範囲を使用できるように、UTF-16のバイト順マークで作成されます。もしこれが望ましくない場合は、IniWriteを呼び出す前にファイルが存在することを確認してください。事例：</p>
 <pre>
-<em>; Create a file with ANSI encoding.</em>
+<em>; ANSIエンコーディングでファイルを作成します。</em>
 FileAppend "", "NonUnicode.ini", "CP0"
 
-<em>; Create a UTF-16 file without byte order mark.</em>
+<em>; バイトオーダーマークのない UTF-16 ファイルを作成します。</em>
 FileAppend "[SectionName]`n", "Unicode.ini", "UTF-16-RAW"
 </pre>
 <p><b>ユニコード：</b>IniReadとIniWriteは、値の読み書きに外部関数<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileStringと</a> <a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a>に依存しています。これらの関数は、UTF-16ファイルでのみUnicodeをサポートし、それ以外のファイルではシステムのデフォルトのANSIコードページを使用するものとします。</p>

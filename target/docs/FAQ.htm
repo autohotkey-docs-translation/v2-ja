@@ -121,7 +121,7 @@
 <p>起動しようとしているプログラムが<code>A_WinDir "\System32"</code>にあり、64ビットシステムでAutoHotkey 32ビットを使用している場合、<a href="https://learn.microsoft.com/windows/win32/winprog64/file-system-redirector">ファイルシステムリダイレクト</a>が干渉している可能性があります。これは、<code>A_WinDir "\SysNative"</code>を代わりに使用; 64ビットシステム上で動作する32ビットプログラムにのみ表示される仮想ディレクトリです。</p>
 
 <h3 id="nonascii">スクリプトの非ASCII文字が正しく表示されない、または送信できないのはなぜですか？</h3>
-<p>Short answer: Save the script as UTF-8, preferably with BOM.</p>
+<p>回答:スクリプトの文字コードをUTF-8、できればBOM付きで保存してください。</p>
 <p>非ASCII文字は、選択したエンコーディングによって異なる2値で表現されます。このような文字を正しく解釈するためには、テキストエディタとAutoHotkeyが、いわば<em>同じコードページ</em>にある必要があります。AutoHotkey v2は、すべてのスクリプトファイルのデフォルトをUTF-8に設定していますが、これは<a href="Scripts.htm#cp">/CPコマンドラインスイッチ</a>で上書きすることができます。</p>
 <p>It is recommended to save the script as UTF-8 with BOM (byte order mark) to ensure that editors (and maybe other applications) can determine with certainty that the file is indeed UTF-8. Without BOM, the editor has to guess the encoding of the file, which can sometimes be wrong.</p>
 <p>メモ帳でUTF-8として保存するには、「名前を付けて保存」ダイアログの「<em>エンコード</em>」ドロップダウンから、<em>UTF-8</em>または<em>UTF-8 with BOM</em>を選択します。Note that Notepad in Windows 10 v1903 and later defaults to <em>UTF-8</em> (without BOM).</p>
@@ -139,7 +139,7 @@
 Send "abc"</pre>
   <pre>:SP:btw::by the way
 
-<em>; or</em>
+<em>; または</em>
 
 #Hotstring SP
 ::btw::by the way</pre>
@@ -161,7 +161,7 @@ SetKeyDelay 0, 50, "Play"</pre>
   <li>
   <p><a href="lib/Sleep.htm">スリープ</a>を挟んだキーのダウンとアップのイベントを試してみてください。</p>
   <pre>Send "{<i>KEY</i> down}"
-Sleep 10 <em>; Try various milliseconds.</em>
+Sleep 10 <em>; 様々なミリ秒を試してみてください。</em>
 Send "{<i>KEY</i> up}"</pre>
   </li>
 </ul>
@@ -186,19 +186,19 @@ FileDelete "C:\My Temp File.txt"</pre>
 <p>一時ファイルの使用を避けるには（特に出力が大きい場合）、<a href="lib/Run.htm">Run</a>関数の例にあるように、<a href="lib/Run.htm#ExStdOut">Shell.Exec()</a>メソッドの使用を検討します。</p>
 <h3 id="close">他のスクリプトを閉じたり、一時停止したり、中断したり、再読み込みしたりするにはどうしたらよいですか？</h3>
 <p>まず、別のスクリプトを閉じる例を紹介します。</p>
-<pre>DetectHiddenWindows True  <em>; Allows a script's hidden main window to be detected.</em>
-SetTitleMatchMode 2  <em>; Avoids the need to specify the full path of the file below.</em>
-WinClose "ScriptFileName.ahk - AutoHotkey"  <em>; Update this to reflect the script's name (case-sensitive).</em></pre>
+<pre>DetectHiddenWindows True  <em>; スクリプトの隠されたメインウィンドウを検出できるようにします。</em>
+SetTitleMatchMode 2  <em>; 以下、ファイルのフルパスを指定する必要を回避することができます。</em>
+WinClose "ScriptFileName.ahk - AutoHotkey"  <em>; スクリプト名の大文字小文字問題を回避するためアップデート</em></pre>
 <p>他のスクリプトを<a href="lib/Suspend.htm">中断</a>、<a href="lib/Pause.htm">一時停止</a>、<a href="lib/Reload.htm">再読み込み</a>するには、上記の最後の行を次のいずれかに置き換えてください。</p>
-<pre>PostMessage 0x0111, 65305,,, "ScriptFileName.ahk - AutoHotkey"  <em>; Suspend.</em>
-PostMessage 0x0111, 65306,,, "ScriptFileName.ahk - AutoHotkey"  <em>; Pause.</em>
-PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; Reload.</em></pre>
+<pre>PostMessage 0x0111, 65305,,, "ScriptFileName.ahk - AutoHotkey"  <em>; サスペンド</em>
+PostMessage 0x0111, 65306,,, "ScriptFileName.ahk - AutoHotkey"  <em>; ボーズ</em>
+PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; リロード</em></pre>
 <h3 id="repeat">スクリプトを終了させることなく、繰り返し動作を停止させるにはどうすればよいですか？</h3>
 <p>キーを押すだけでスクリプト全体を一時停止または再開するには、この例のようにホットキーを「<a href="lib/Pause.htm">一時停止</a>」機能に割り当てます。</p>
-<pre>^!p::Pause  <em>; Press Ctrl+Alt+P to pause. Press it again to resume.</em></pre>
+<pre>^!p::Pause  <em>; Ctrl+Alt+P を押すと一時停止します。もう一度押すと再開します。</em></pre>
 <p><a href="lib/Loop.htm">ループ</a>内で繰り返されるアクションを停止するには、次のような動作例を考えてみましょう。このホットキーは、それ自体が繰り返されるアクションの開始と停止の両方を行います。In other words, pressing the hotkey once will start the loop. 同じホットキーをもう一度押すと停止します。</p>
 <pre>#MaxThreadsPerHotkey 3
-#z::  <em><strong>; Win+Z hotkey (change this hotkey to suit your preferences).</strong></em>
+#z::<em><strong>; Win+Zのホットキー（このホットキーはお好みで変更してください）。</strong></em>
 {
     static KeepWinZRunning := false
     if KeepWinZRunning  <em>; これは、下層の<a href="misc/Threads.htm">スレッドが</a>すでに下のループを実行していることを意味します。</em>
@@ -219,7 +219,7 @@ PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; Reload.</e
         if not KeepWinZRunning  <em>; 再びWin-Zを押すことでループを止める合図をした。</em>
             break  <em>; このループから抜け出そう。</em>
     }
-    KeepWinZRunning := false  <em>; Reset in preparation for the next press of this hotkey.</em>
+    KeepWinZRunning := false  <em>; 次にこのホットキーを押すときに備えて、リセットを行います。</em>
 }
 #MaxThreadsPerHotkey 1</pre>
 <h3 id="help">AutoHotkeyの関数のコンテキスト依存ヘルプを、どのエディターでも使えるようにするにはどうしたらよいですか？</h3>
@@ -228,7 +228,7 @@ PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; Reload.</e
 <p>Internet Explorerの場合、おそらく最も確実な方法は、<a href="https://www.autohotkey.com/forum/topic19256.html">www.autohotkey.com/forum/topic19256.html</a>で示したように、DllCallとCOMを使用することです。これに関連して、アドレスバーやステータスバーの内容は、<a href="https://www.autohotkey.com/forum/topic19255.html">www.autohotkey.com/forum/topic19255.html</a>のデモのように取得することができます。</p>
 <p><strong>古く、信頼性の低い方法：</strong>以下の例の手法は、ほとんどのページでMS Internet Explorerで動作します。他のブラウザでも同様の手法が使えるかもしれません。</p>
 <pre>Run "www.yahoo.com"
-MouseMove 0, 0  <em>; Prevents the status bar from showing a mouse-hover link instead of "Done".</em>
+MouseMove 0, 0  <em>; ステータスバーに "Done "の代わりにマウスホバーリンクが表示されないようにします。</em>
 WinWait "Yahoo!- "
 WinActivate
 if StatusBarWait("Done", 30)
@@ -261,13 +261,13 @@ MyGui.Show
 Submit(*)
 {
     Saved := MyGui.Submit(false)
-    MsgBox "Content of the edit control: " Saved.MyEdit
+    MsgBox "Content of the edit control:" Saved.MyEdit
 }</pre>
 <h3 id="GDIPlus">AHKで何か描けますか？</h3>
 <p><a href="https://www.autohotkey.com/forum/topic32238.html">GDI+標準ライブラリ</a>by ticをご覧ください。Guiを使った初歩的な方法でも可能ですが、限定的な方法です。</p>
 <h3 id="WinWaitAction">ウィンドウが表示されたり、閉じたり、[in]アクティブになったときに、アクションを開始するにはどうしたらよいですか？</h3>
 <p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWait[Not]Active</a>を使用してください。</p>
-<p>また、<a href="https://www.autohotkey.com/boards/viewtopic.php?f=6&amp;t=6463">OnWin.ahk</a>や <a href="https://www.autohotkey.com/board/topic/80644-how-to-hook-on-to-shell-to-receive-its-messages/">[How to] Hook on to Shell</a>などのユーザーが作成したソリューションがあり<a href="https://www.autohotkey.com/board/topic/80644-how-to-hook-on-to-shell-to-receive-its-messages/">、そのメッセージを受信</a>することができます。</p>
+<p>また、<a href="https://www.autohotkey.com/boards/viewtopic.php?f=6&t=6463">OnWin.ahk</a>や <a href="https://www.autohotkey.com/board/topic/80644-how-to-hook-on-to-shell-to-receive-its-messages/">[How to] Hook on to Shell</a>などのユーザーが作成したソリューションがあり<a href="https://www.autohotkey.com/board/topic/80644-how-to-hook-on-to-shell-to-receive-its-messages/">、そのメッセージを受信</a>することができます。</p>
 <h2 id="hotkeys-hotstrings-and-remapping">ホットキー、ホットストリング、リマッピング</h2>
 <h3 id="Startup">PCを起動するたびに、ホットキーやホットストリングを自動的に有効にするにはどうすればよいですか？</h3>
 <p>PCを起動するたびにスクリプト（または任意のプログラム）が自動的に起動するようにするには、いくつかの方法があります。最も簡単なのは、スタートアップフォルダにスクリプトのショートカットを配置することです。</p>

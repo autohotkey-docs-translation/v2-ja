@@ -21,7 +21,7 @@
 
   <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a>, <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
     <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
@@ -29,7 +29,7 @@
 
   <dt>Menu</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The name (or a prefix of the name) of the top-level menu item, e.g. <code>"File"</code>, <code>"Edit"</code>, <code>"View"</code>. It can also be the position of the desired menu item by using <code>"1&amp;"</code> to represent the first menu, <code>"2&amp;"</code> the second, and so on.</p>
     <p>検索は、現在のユーザーのロケールの規則に従って大文字と小文字を区別せず、最初に一致した項目で停止します。The use of ampersand (&amp;) to indicate the underlined letter in a menu item is <em>usually</em> not necessary (i.e. <code>"&amp;File"</code> is the same as <code>"File"</code>).</p>
     <p><strong>既知の制限事項：</strong>パラメータにアンパサンドが含まれる場合、リテラル以外のアンパサンド（非表示または下線表示）も含めて、アイテム名と正確に一致する必要があります。パラメータにアンパサンドが含まれていない場合、リテラルも含めてすべてのアンパサンドが無視されます。For example, an item displayed as "a &amp; b" may match a parameter value of <code>a &amp;&amp; b</code> or <code>a b</code>.</p>
@@ -38,13 +38,13 @@
 
   <dt>SubMenu1</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>The name of the menu item to select or its position. 最上位のアイテムにメニューがない場合（稀）には省略可能です。</p>
   </dd>
 
   <dt>SubMenu2, SubMenu3, SubMenu4, SubMenu5, SubMenu6</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#strings">String</a></p>
+    <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If the previous submenu itself contains a menu, this is the name of the menu item inside, or its position.</p>
   </dd>
 
@@ -61,12 +61,12 @@
 
 <h2 id="sys">System Menu</h2>
 <p><em>Menu</em> can be <code>"0&amp;"</code> to select an item within the window's system menu, which typically appears when the user presses <kbd>Alt</kbd>+<kbd>Space</kbd> or clicks on the icon in the window's title bar. 事例：</p>
-<pre><em>; Paste a command into cmd.exe without activating the window.</em>
+<pre><em>ウィンドウをアクティブにせずに、cmd.exeにコマンドを貼り付ける。</em>
 A_Clipboard := "echo Hello, world!`r"
 MenuSelect "ahk_exe cmd.exe",, "0&amp;", "Edit", "Paste"</pre>
 <p class="warning"><strong>注意：</strong>システムメニューにカスタム項目があるウィンドウズでのみ使用します。</p>
 <p>ウィンドウにカスタムシステムメニューがまだない場合、標準システムメニューのコピーが作成され、副作用としてターゲットウィンドウに割り当てられます。このコピーは、スクリプトが終了するときにシステムによって破棄され、他のスクリプトはアクセスできない状態になります。したがって、すべてのウィンドウに表示される標準的な項目には、0&amp;を使用しないようにしてください。代わりに、<a href="https://learn.microsoft.com/windows/win32/menurc/wm-syscommand">WM_SYSCOMMAND</a>メッセージを直接投稿してください。事例：</p>
-<pre><em>; Like [<a href="WinMinimize.htm">WinMinimize</a> "A"], but also play the system sound for minimizing.</em>
+<pre><em>; [<a href="WinMinimize.htm">WinMinimize</a>"A"]のように、最小化のためのシステム音も再生します。</em>
 WM_SYSCOMMAND := 0x0112
 SC_MINIMIZE := 0xF020
 PostMessage WM_SYSCOMMAND, SC_MINIMIZE, 0,, "A"</pre>

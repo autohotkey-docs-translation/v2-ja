@@ -21,20 +21,20 @@
 
   <dt>Source</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-      <p>ソースディレクトリの名前（末尾にバックスラッシュを付けない）。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。For example: C:\My Folder</p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>ソースディレクトリの名前（末尾にバックスラッシュを付けない）。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定されます。事例：C:\My Folder</p>
       <p>If supported by the OS, <em>Source</em> can also be the path of an archive file, in which case its contents will be copied to the destination directory. ZIP files are always supported. TAR files require at least Windows 10 (1803) build 17063. RAR, 7z, gz and others require at least Windows 11 23H2 (which uses <a href="https://github.com/libarchive/libarchive">libarchive</a>, where all supported formats are listed).</p>
   </dd>
 
   <dt>Dest</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#strings">String</a></p>
-      <p>絶対パスが指定されていない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される宛先ディレクトリ名（末尾にバスクラッシュを付けない）。For example: C:\Copy of My Folder</p>
+      <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
+      <p>絶対パスが指定されていない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される宛先ディレクトリ名（末尾にバスクラッシュを付けない）。事例：C:\Copy of My Folder</p>
   </dd>
 
   <dt>Overwrite</dt>
   <dd>
-      <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>省略したときの初期値は0です。Otherwise, specify one of the following numbers to indicate whether to overwrite files if they already exist:</p>
       <p><strong>0:</strong> 既存ファイルを上書きしません。<em>Dest</em>がすでにファイルまたはディレクトリとして存在する場合、操作は失敗し、何の効果もありません。</p>
       <p><strong>1:</strong> 既存ファイルを上書きします。ただし、<em>Dest</em>内のファイルやサブフォルダで、<em>Source</em>に対応するものがないものは削除されません。</p>
@@ -64,15 +64,15 @@
 <pre>SourceFolder := DirSelect(, 3, "Select the folder to copy")
 if SourceFolder = ""
     return
-<em>; Otherwise, continue.</em>
+<em>; それ以外の場合は、続行します。</em>
 TargetFolder := DirSelect(, 3, "Select the folder IN WHICH to create the duplicate folder.")
 if TargetFolder = ""
     return
-<em>; Otherwise, continue.</em>
+<em>; それ以外の場合は、続行します。</em>
 Result := MsgBox("A copy of the folder '" SourceFolder "' will be put into '" TargetFolder "'. Continue?",, 4)
 if Result = "No"
     return
-SplitPath SourceFolder, &amp;SourceFolderName  <em>; Extract only the folder name from its full path.</em>
+SplitPath SourceFolder, &amp;SourceFolderName  <em>; フルパスからフォルダ名のみを抽出します。</em>
 try
     DirCopy SourceFolder, TargetFolder "\" SourceFolderName
 catch

@@ -21,15 +21,15 @@
 
   <dt>&amp;TargetVar</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>変数への参照。For example: <code>VarSetStrCapacity(&amp;MyVar, 1000)</code>. これは、<code>Array%i%</code>などの動的変数や<a href="../Functions.htm#ByRef">関数の ByRef パラメータ</a>にすることもできます。</p>
+    <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
+    <p>変数への参照。事例：<code>VarSetStrCapacity(&amp;MyVar, 1000)</code>. これは、<code>Array%i%</code>などの動的変数や<a href="../Functions.htm#ByRef">関数の ByRef パラメータ</a>にすることもできます。</p>
   </dd>
 
   <dt>RequestedCapacity</dt>
   <dd>
-    <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>省略されたときは、変数の現在の容量が返され、その内容は変更されません。そうでなければ、現在変数に入っているものはすべて失われます（変数は空白になります。）。</p>
-    <p><em>RequestedCapacity</em>には、調整後に変数が保持できる文字数を指定する。<em>RequestedCapacity</em>には内部ゼロターミネータは含まれない。例えば、1を指定すると、内部ターミネーターに加えて1文字まで保持することができる。Note: the variable will auto-expand if the script assigns it a larger value later.</p>
+    <p><em>RequestedCapacity</em>には、調整後に変数が保持できる文字数を指定する。<em>RequestedCapacity</em>には内部ゼロターミネータは含まれない。例えば、1を指定すると、内部ターミネーターに加えて1文字まで保持することができる。注：この変数は、スクリプトが後で大きな値を代入した場合に自動的に拡張されます。</p>
     <p>この関数は、単に変数の最小容量を確保するために呼ばれることが多いので、パフォーマンス上の理由から、<em>RequestedCapacity</em>が0のときだけ変数を縮小する。言い換えれば、変数の容量がすでに<em>RequestedCapacity</em>より大きい場合、それは減少しない（しかし、一貫性のために変数はまだ空白にされる）。</p>
     <p>したがって、変数を明示的に縮小するには、まず<code>VarSetStrCapacity(&amp;Var, 0</code>)でメモリを解放し、次に<code>VarSetStrCapacity(&amp;Var, NewCapacity)</code>を使う。</p>
     <p>性能上の理由から、以前の容量が64文字未満の変数を解放しても、そのメモリは永久型であるため、何の効果もないかもしれない。この場合、0ではなく現在の容量が返される。</p>
@@ -40,7 +40,7 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
+<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
 <p>This function returns the number of characters that <em>TargetVar</em> can now hold, which will be greater than or equal to <em>RequestedCapacity</em>.</p>
 
 <h2 id="Failure">Failure</h2>
@@ -53,7 +53,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p><a href="Buffer.htm">Buffer</a>オブジェクトは、バイナリ・データ、構造体、DllCallなどを扱う際に、優れた明快さと柔軟性を提供する。例えば、Bufferオブジェクトはその内容をコピーすることなく、プロパティや配列要素に代入したり、関数に渡したり関数から返したりすることができる。</p>
-<p>この関数は、漸進的な連結によって文字列を構築する際のパフォーマンスを向上させるために使用できる。これは、文字列の最終的な長さがある程度わかっていれば、何度も自動的にリサイズすることを避けられるからである。In such a case, <em>RequestedCapacity</em> need not be accurate: if the capacity is too small, performance is still improved and the variable will begin auto-expanding when the capacity has been exhausted. 容量が大きすぎる場合、メモリの一部が無駄になるが、<code>VarSetStrCapacity(&amp;Var, 0)</code>または<code>Var := ""</code>によって操作後にすべてのメモリを解放できるため、一時的なものに過ぎない。</p>
+<p>この関数は、漸進的な連結によって文字列を構築する際のパフォーマンスを向上させるために使用できる。これは、文字列の最終的な長さがある程度わかっていれば、何度も自動的にリサイズすることを避けられるからである。その場合、<em>RequestedCapacity</em>は正確である必要はない：容量が小さすぎる場合でも、パフォーマンスは改善され、容量がなくなると変数は自動拡張を開始する。容量が大きすぎる場合、メモリの一部が無駄になるが、<code>VarSetStrCapacity(&amp;Var, 0)</code>または<code>Var := ""</code>によって操作後にすべてのメモリを解放できるため、一時的なものに過ぎない。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="Buffer.htm">Buffer object</a>, <a href="DllCall.htm">DllCall</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a></p>
@@ -78,32 +78,32 @@ Loop 2
     <em>; Allocate space for use with DllCall.</em>
     VarSetStrCapacity(&amp;buf, max_chars)
 
-    if (A_Index = 1)
+if (A_Index = 1)
         <em>; Alter the variable indirectly via DllCall.</em>
         DllCall("wsprintf", <span class="red">"Ptr", StrPtr(buf)</span>, "Str", "0x%08x", "UInt", 4919, "CDecl")
     else
         <em>; Use "str" to update the length automatically:</em>
         DllCall("wsprintf", <span class="blue">"Str", buf</span>, "Str", "0x%08x", "UInt", 4919, "CDecl")
 
-    <em>; Concatenate a string to demonstrate why the length needs to be updated:</em>
+<em>; Concatenate a string to demonstrate why the length needs to be updated:</em>
     wrong_str := buf . "&lt;end&gt;"
     wrong_len := StrLen(buf)
 
-    <em>; Update the variable's length.</em>
+<em>; Update the variable's length.</em>
     VarSetStrCapacity(&amp;buf, -1)
 
-    right_str := buf . "&lt;end&gt;"
+right_str := buf . "&lt;end&gt;"
     right_len := StrLen(buf)
 
-    MsgBox
+MsgBox
     (
     "Before updating
-      String: " wrong_str "
-      Length: " wrong_len "
+      String:" wrong_str "
+      Length:" wrong_len "
 
-    After updating
-      String: " right_str "
-      Length: " right_len
+After updating
+      String:" right_str "
+      Length:" right_len
     )
 }
 </pre>
