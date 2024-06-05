@@ -40,6 +40,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p>マッチするウィンドウが存在しない場合、この関数は<em>タイムアウト</em>が切れるのを待たない。その代わり、即座に1が返され、スクリプトの実行が継続される。逆に、マッチするウィンドウが閉じた後でも、マッチするウィンドウが見つからなくなるまで、関数は待ち続けることができる。</p>
+<p>If <em>WinTitle</em> specifies a <a href="../misc/WinTitle.htm#ahk_id">pure HWND</a> (as an <a href="../Concepts.htm#numbers">Integer</a> or an <a href="../Objects.htm">Object</a> with a HWND property), hidden windows are detected only when using <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>. This only applies to <a href="WinWait.htm">WinWait</a> and WinWaitClose; for other windowing functions, specifying a pure HWND causes hidden windows to be detected regardless of DetectHiddenWindows.</p>
 <p><code>WinWaitClose "A"</code>は、その時点でアクティブなウィンドウにマッチするため、通常は無期限に待機する。現在のアクティブ・ウィンドウが閉じるのを待つには、次の例のようにタイトルかユニークIDを指定する：</p>
 <pre>WinWaitClose WinExist("A")</pre>
 <p>WinWaitCloseは、一致するウィンドウが見つかるたびに、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>を更新します。この用途のひとつは、ファンクションがタイムアウトした後にウィンドウを特定したり操作したりすることである。事例：</p>
@@ -53,7 +54,6 @@ if !WinWaitClose("Test",, 5)  <em>; Wait 5 seconds for someone to close it.</em>
 </pre>
 <p>関数が待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>によって新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
 <p>他の<a href="../misc/Threads.htm">スレッド</a>が、この関数のパラメータに使われていた変数の内容を変更しても、この関数にはその変更は反映されない。</p>
-<p><a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数もHWNDで識別される非表示ウィンドウが検出されるかどうかに影響しますが、<a href="WinWait.htm">WinWait</a>関数またはWinWaitClose関数と併用したときに限られます。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="WinClose.htm">WinClose</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="ProcessWaitClose.htm">ProcessWaitClose</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></p>

@@ -715,7 +715,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/WinActivate.htm">WinActivate</a>は、ウィンドウのアクティブ化に初めて失敗した後、<code>{Alt up}</code>を送信するようになりました。これにより、タスクバーのボタンが点滅する現象が軽減されることがテストで確認されています。詳しくはドキュメントをご覧ください。</p>
 <p><a href="lib/WinClose.htm">WinClose</a> and <a href="lib/WinKill.htm">WinKill</a>: For <em>SecondsToWait</em>, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
 <p><a href="lib/WinSetTitle.htm">WinSetTitle</a>と <a href="lib/WinMove.htm">WinMove</a>は、他のWin関数と同じパラメータ順序を使用します。つまり、<em>WinTitle、WinText、ExcludeTitle、ExcludeText</em>は、常に一緒に（パラメータリストの最後に）まとめられ、記憶に残りやすくなっています。</p>
-<p>The <em>WinTitle</em> parameter of various functions can now accept a HWND (must be a pure integer) or an object with a <em>Hwnd</em> property, such as a <a href="lib/Gui.htm">Gui object</a>. <a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> is ignored in such cases.</p>
+<p>The <em>WinTitle</em> parameter of various functions can now accept a HWND (must be a pure integer) or an object with a <em>Hwnd</em> property, such as a <a href="lib/Gui.htm">Gui object</a>. <a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> is ignored in such cases, except when used with <a href="lib/WinWait.htm">WinWait</a> or <a href="lib/WinWaitClose.htm">WinWaitClose</a>.</p>
 <p><a href="lib/WinMove.htm">WinMove</a>では、<code class="no-highlight">DEFAULT</code>というリテラルワードに対する特別な処理を行わなくなりました。パラメータを省略するか、代わりに空文字列を指定します（v1、v2ともに有効です）。</p>
 <p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitClose now sets the <a href="misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, so if WinWaitClose times out, it returns 0 (false) and <code>WinExist()</code> returns the last window it found. For <em>Timeout</em>, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
 <p><strong>アンソートです：</strong></p>
@@ -1079,7 +1079,7 @@ Gui GuiName:デフォルト</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>StatusBar</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>タブ</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。Textは選択されたタブのテキストを返し、ControlGetTextは非表示のテキストを返します。</td></tr>
+<tr><td>Tab</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。Textは選択されたタブのテキストを返し、ControlGetTextは非表示のテキストを返します。</td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">.Text</td><td>テキストは非表示です。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td></td></tr>
@@ -1116,7 +1116,7 @@ Gui GuiName:デフォルト</p>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
 <tr><td>StatusBar</td><td colspan="2">.TextまたはSB.SetText()</td><td></td></tr>
-<tr><td>タブ</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
+<tr><td>Tab</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>TreeView</td><td colspan="2">N/A</td><td>コマンドは何の効果もありませんでした。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
