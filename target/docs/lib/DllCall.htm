@@ -121,7 +121,7 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
   <td>* or P<br>
     (suffix)</td>
   <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
-    <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタです。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用します。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Bufferの</a>どれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
+    <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタです。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用します。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Buffer</a>のどれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
     <p class="note"><strong>Note:</strong> "Char*" is not the same as <a href="#str">"Str"</a> because "Char*" passes the address of an 8-bit number, whereas <a href="#str">"Str"</a> passes the address of a series of characters, which may be either 16-bit (Unicode) or 8-bit (for "AStr"), depending on the version of AutoHotkey. 同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
     <p>AutoHotkeyの変数には固定型がないため、関数に渡されるアドレスは、呼び出し元の変数ではなく、一時メモリを指しています。</p>
     </td>
@@ -145,7 +145,7 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 <h2 id="error">エラー</h2>
 <p>DllCallは、以下のいずれかの条件下で<a href="Error.htm">Error</a>を投げる：</p>
 <ul>
-  <li><a href="Error.htm#OSError">OSError</a>:<a href="#HRESULT">HRESULT</a>戻り値が使用され、関数がエラー値（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）を返しました。<code>Exception.Extraには</code>、16進数のエラーコードが含まれます。</li>
+  <li><a href="Error.htm#OSError">OSError</a>:<a href="#HRESULT">HRESULT</a>戻り値が使用され、関数がエラー値（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）を返しました。<code>Exception.Extra</code>には、16進数のエラーコードが含まれます。</li>
   <li><a href="Error.htm#TypeError">TypeError</a>:<em>[DllFile\]Function</em>パラメータは、浮動小数点数です。文字列または正の整数が必要です。</li>
   <li><a href="Error.htm#ValueError">ValueError</a>:<a href="#types">戻り値の型</a>、または指定された<a href="#types">argの型</a>のいずれかが無効です。</li>
   <li><a href="Error.htm#TypeError">TypeError</a>:引数に予期せぬ型の値が渡された。例えば、文字列（<a href="#str">str</a>）引数に数値として評価される<a href="../Variables.htm#Expressions">式</a>が渡された、数値引数に数値以外の文字列が渡された、<a href="#ptr">Ptr</a>型で<em>ない</em>引数にオブジェクトが渡された、などです。</li>
@@ -171,7 +171,7 @@ DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約�
 Loop 500
     DllCall(<strong>MulDivProc</strong>, "Int", 3, "Int", 4, "Int", 3)</pre>
 <p>DllCallの第1パラメータが<code>"MulDiv"</code>などのリテラル文字列で、その関数を含むDLLがスクリプトの開始前に通常ロードされているか、<a href="_DllLoad.htm">#DllLoad</a>で正常にロードされていれば、文字列は自動的に関数アドレスに解決されます。このビルトイン最適化は、上に示した例よりも効果的です。</p>
-<p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を"<a href="#str">str</a>"としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr（MyVar）</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>.</p>
+<p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を"<a href="#str">str</a>"としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr(MyVar)</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>.</p>
 
 <h2 id="struct">構造体・配列</h2>
 <p>構造体とは、メモリ上に隣接して格納された<em>メンバー</em>（フィールド）の集合体です。ほとんどのメンバーが整数になる傾向があります。</p>

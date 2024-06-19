@@ -215,7 +215,7 @@ thing_test(this) {
 <h3 id="delegation">代表</h3>
 <p>オブジェクトは<em>プロトタイプベース</em>。つまり、オブジェクト自体で定義されていないプロパティは、代わりにオブジェクトの<a href="lib/Object.htm#Base">ベース</a>で定義することができる。これは、<em>委譲による継承</em>または<em>差分継承</em>と呼ばれるもので、オブジェクトは、そのオブジェクトを異なるものにする部分のみを実装し、残りをベースに委譲することができるからである。</p>
 <p>ベース・オブジェクトは一般にプロトタイプとも呼ばれるが、「クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>」はクラスのすべてのインスタンスがベースとするオブジェクトを意味し、「ベース」はインスタンスがベースとするオブジェクトを意味する。</p>
-<p class="note">AutoHotkeyのオブジェクトデザインは、主にJavaScriptとLuaの影響を受けており、C#も少し含まれています。JavaScriptの<code><i>obj</i>.__proto__</code>の代わりに<code><i>obj</i>.base&lt;//c0&gt;を使い、JavaScriptの<code><i>func</i>.prototype&lt;//c6&gt;の代わりに<code><i>cls</i>.Prototype&lt;//c4&gt;を使います。(クラス・オブジェクトはコンストラクタ関数の代わりに使われる）。</p>
+<p class="note">AutoHotkeyのオブジェクトデザインは、主にJavaScriptとLuaの影響を受けており、C#も少し含まれています。JavaScriptの<code><i>obj</i>.__proto__</code>の代わりに<code><i>obj</i>.base</code>を使い、JavaScriptの<code><i>func</i>.prototype</code>の代わりに<code><i>cls</i>.Prototype</code>を使います。(クラス・オブジェクトはコンストラクタ関数の代わりに使われる）。</p>
 
 <p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>xがArray</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が "Array"を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
 <p>Objectのインスタンスや派生クラスはすべてベース・オブジェクトになることができるが、オブジェクトは同じネイティブ・タイプを持つオブジェクトの<a href="lib/Object.htm#Base">ベースとしてのみ割り当てる</a>ことができる。これは、組み込みメソッドが常にオブジェクトのネイティブ・タイプを識別し、正しいバイナリ構造を持つオブジェクトに対してのみ操作できるようにするためである。</p>
@@ -348,7 +348,7 @@ Method()
 <p>キーワード<code>super</code>の後には、以下の記号のいずれかをつけなければならない：<code>.[(</code></p>
 <p><code>super()</code>は<code>super.call()</code>と等価である。</p>
 
-<h4 id="Custom_Classes_property">属性</h4>
+<h4 id="Custom_Classes_property">プロパティ</h4>
 <p>プロパティ定義は、単に値を格納したり返したりするのではなく、メソッドを呼び出す<a href="lib/Object.htm#DefineProp">動的プロパティ</a>を作成します。</p>
 <pre>Property[<i>Parameters</i>]
 {

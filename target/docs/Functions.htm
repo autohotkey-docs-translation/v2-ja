@@ -214,19 +214,19 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <ul>
   <li>この方法で拡張できるのは、一番右のパラメータだけです。例えば、<code>MyFunc(x, y*)</code>はサポートされていますが、<code>MyFunc(x*, y)</code>はサポートされていません。</li>
   <li>アスタリスク<code>(*)</code>とパラメータリストを終了する記号の間には、空白文字以外の文字を含んではならない。</li>
-  <li>つまり、パラメータリストは括弧（プロパティの場合は括弧）で囲む必要があります。</li>
+  <li><a href="Language.htm#function-call-statements">関数呼び出し文</a>は可変型にはできません。つまり、パラメータリストは括弧（プロパティの場合は括弧）で囲む必要があります。</li>
 </ul>
 <h2 id="Locals">ローカル変数とグローバル変数</h2>
 <h3 id="Local">ローカル変数</h3>
 <p>ローカル変数は、1つの関数に固有のもので、その関数の内部でのみ見ることができます。その結果、ローカル変数はグローバル変数と同じ名前を持ちながら、別々の内容を持つことがあります。また、別々の関数が同じ変数名を安全に使用することができます。</p>
-<p>ただし、<a href="#closures">クロージャ</a>や <a href="Concepts.htm#variable-references">VarRef</a>にバインドされている変数は例外です（クロージャやVarRefと同時に解放される）。</p>
+<p>All local variables which are not <a href="#static">static</a> are automatically freed (made empty) when the function returns, with the exception of variables which are bound to a <a href="#closures">closure</a> or <a href="Concepts.htm#variable-references">VarRef</a> (such variables are freed at the same time as the closure or VarRef).</p>
 <p><a href="lib/A_Clipboard.htm">A_Clipboard</a>や <a href="Variables.htm#TimeIdle">A_TimeIdle</a>などの組み込み変数は、決してローカルではなく（どこからでもアクセス可能）、再宣言することはできません。(<a href="lib/Object.htm">Object</a>などの組み込みクラスは<a href="#Global">グローバル</a>変数としてあらかじめ定義されているので、この限りではありません)。</p>
 <p id="AssumeLocal">ファンクションはデフォルトで<strong>assume-local</strong>です。assume-local関数の内部でアクセスまたは作成された変数は、以下の例外を除き、デフォルトでローカルとなります。</p>
 <ul>
   <li><a href="#Global">グローバル</a>変数で、関数が読み込むだけで、代入したり、<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用したりはしない。</li>
   <li><a href="#nested">ネストされた関数</a>は、包含する関数が作成したローカル変数や静的変数を参照することができます。</li>
 </ul>
-<p>また、<code>ローカル</code>キーワードで変数を宣言したり、関数のモードを変更することで、デフォルトをオーバーライドすることもできます（下図）。</p>
+<p>また、<code>local</code>キーワードで変数を宣言したり、関数のモードを変更することで、デフォルトをオーバーライドすることもできます（下図）。</p>
 
 <h3 id="Global">グローバル変数</h3>
 <p id="AssignLocal"><a href="#AssumeLocal">想定ローカル</a>関数内の変数参照は、それが読み込まれるだけであれば、グローバル変数に解決される可能性があります。ただし、変数が代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用された場合、デフォルトで自動的にローカルになります。これにより、関数は関数内で宣言することなく、グローバル変数の読み込みや、グローバル関数や組み込み関数の呼び出しを行うことができます。また、代入されるローカル変数の名前がグローバル変数と一致する場合に、意図しない副作用からスクリプトを保護します。事例：</p>
@@ -261,7 +261,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     global LogFileName
     FileAppend LoggedLines ":" TextToLog "`n", LogFileName
 }</pre>
-<p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>. ただし、静的初期化子（または結合初期化子のグループ）が正常に評価された後は、制御の流れから事実上除外され、2度目は実行されない。</p>
+<p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>. Static declarations are evaluated the same as <a href="#Local">local</a> declarations, except that after a static initializer (or group of combined initializers) is successfully evaluated, it is effectively removed from the flow of control and will not execute a second time.</p>
 <p>ネストした関数は、外側の関数の非静的なローカル変数を取り込まないように、<a href="#static-functions">静的に宣言</a>することができます。</p>
 <p id="AssumeStatic"><strong>Assume-static mode:</strong> A function may be defined to assume that all its undeclared local variables are static (except its parameters) by making its first line the word "static". 事例：</p>
 <pre>GetFromStaticArray(WhichItemNumber)
@@ -295,7 +295,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <ul>
   <li>ターゲット値が呼び出し可能な型でない場合、<a href="lib/Error.htm#MethodError">MethodError</a>が投げられる。Any value with a Call method can be called, so <code>HasMethod(value, "Call")</code> or <code>HasMethod(value)</code> can be used to avoid this error.</li>
   <li>Passing too few or too many parameters, which can often be avoided by checking the function's <a href="lib/Func.htm#MinParams">MinParams</a>, <a href="lib/Func.htm#MaxParams">MaxParams</a> and <a href="lib/Func.htm#IsVariadic">IsVariadic</a> properties, either directly or by calling <code>HasMethod(value,, N)</code>, where <em>N</em> is the number of parameters that will be passed to the function.</li>
-  <li><a href="lib/Func.htm#IsByRef">ByRef</a>またはOutputVarパラメータに<a href="Concepts.htm#variable-references">変数参照（VarRef</a>）以外のものを渡すこと。</li>
+  <li>Passing something other than a <a href="Concepts.htm#variable-references">variable reference (VarRef)</a> to a <a href="#ByRef">ByRef</a> or OutputVar parameter, which could be avoided through the use of the <a href="lib/Func.htm#IsByRef">IsByRef method</a>.</li>
 </ul>
 <p>関数の呼び出し側は、一般に、関数を呼び出す前に各パラメータの意味と個数を知っておく必要があります。しかし、動的呼び出しの場合、関数呼び出しに合わせて関数を書くことが多く、その場合、パラメータ値の誤りではなく、関数定義の誤りが原因で失敗することがあります。</p>
 
@@ -329,7 +329,7 @@ outer("title")
 <ol>
   <li>外側の関数は、次のうち少なくとも1つの方法で変数を参照する必要があります。
     <ol type="a">
-      <li><code>ローカル</code>で宣言したり、パラメータやネストされた関数として宣言することで、その効果を発揮します。</li>
+      <li><code>local</code>で宣言したり、パラメータやネストされた関数として宣言することで、その効果を発揮します。</li>
       <li>代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>の非動的な対象として。</li>
     </ol>
   </li>
@@ -415,7 +415,7 @@ timertest()
 <p>関数が<a href="lib/Exit.htm">Exit</a>を使用して<a href="misc/Threads.htm">現在のスレッド</a>を終了させる場合、その呼び出し元は戻り値をまったく受け取りません。例えば、<code>Var := Add(2, 3)</code>という文は、<code>Add()</code>が終了しても<code>Var</code>は変更されないままです。<a href="lib/Throw.htm">Throw</a>やランタイムエラー（存在しないファイルを<a href="lib/Run.htm">実行</a>したなど）により、関数が終了した場合も同様です。</p>
 <p>1つ以上の空白の値（空文字列）を持つ関数を呼び出すには、この例のように空の引用符の組を使用します。<code>FindColor(ColorName, "")</code>.</p>
 <p>関数を呼び出しても新しい<a href="misc/Threads.htm">スレッド</a>は始まらないので、関数で<a href="lib/SendMode.htm">SendMode</a>や <a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>などの設定を変更すると、その呼び出し元にも反映されます。</p>
-<p>関数内で使用すると、関数の<a href="#Local">ローカル変数</a>をその内容とともに表示します。This can help <a href="Scripts.htm#debug">debug a script</a>.</p>
+<p>関数内で使用すると、<a href="lib/ListVars.htm">ListVars</a>は関数の<a href="#Local">ローカル変数</a>をその内容とともに表示します。This can help <a href="Scripts.htm#debug">debug a script</a>.</p>
 <h2 id="Style_and_Naming_Conventions">スタイルと命名規則</h2>
 <p>複雑な関数は、特殊な変数に明確な接頭辞をつけると読みやすく、保守しやすくなります。例えば、関数のパラメータリストの各パラメータに "p"や "p_"という先頭の名前を付けると、特に数十個の<a href="#Local">ローカル変数</a>が競合している関数では、その特殊性が一目瞭然になる。同様に、<a href="#ByRef">ByRefパラメータ</a>には接頭辞 "r"または "r_"を、<a href="#static">静的変数には</a>"s"または "s_"を使用することができる。</p>
 <p>機能定義に<a href="lib/Block.htm#otb">One True Brace（OTB）スタイル</a>をオプションで使用することができる。事例：</p>
