@@ -31,7 +31,7 @@
     <p>省略されたときは、変数の現在の容量が返され、その内容は変更されません。そうでなければ、現在変数に入っているものはすべて失われます（変数は空白になります。）。</p>
     <p><em>RequestedCapacity</em>には、調整後に変数が保持できる文字数を指定する。<em>RequestedCapacity</em>には内部ゼロターミネータは含まれない。例えば、1を指定すると、内部ターミネーターに加えて1文字まで保持することができる。注：この変数は、スクリプトが後で大きな値を代入した場合に自動的に拡張されます。</p>
     <p>この関数は、単に変数の最小容量を確保するために呼ばれることが多いので、パフォーマンス上の理由から、<em>RequestedCapacity</em>が0のときだけ変数を縮小する。言い換えれば、変数の容量がすでに<em>RequestedCapacity</em>より大きい場合、それは減少しない（しかし、一貫性のために変数はまだ空白にされる）。</p>
-    <p>したがって、変数を明示的に縮小するには、まず<code>VarSetStrCapacity(&amp;Var, 0</code>)でメモリを解放し、次に<code>VarSetStrCapacity(&amp;Var, NewCapacity)</code>を使う。</p>
+    <p>したがって、変数を明示的に縮小するには、まず<code>VarSetStrCapacity(&amp;Var, 0)</code>でメモリを解放し、次に<code>VarSetStrCapacity(&amp;Var, NewCapacity)</code>を使う。</p>
     <p>性能上の理由から、以前の容量が64文字未満の変数を解放しても、そのメモリは永久型であるため、何の効果もないかもしれない。この場合、0ではなく現在の容量が返される。</p>
     <p>パフォーマンス上の理由から、容量が4096バイト未満の変数に空文字列を格納してもメモリは解放されない（例：<code>Var := ""</code>）。しかし、<code>VarSetStrCapacity(&amp;Var, 0)</code>はそれを解放する。</p>
     <p id="neg1"><em>RequestedCapacity</em>に-1を指定すると、変数の内部に格納されている文字列の長さが、現在の内容の長さに更新される。これは、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>で<a href="StrPtr.htm">アドレス</a>を渡すなど、文字列が間接的に変更された場合に便利である。このモードでは、VarSetStrCapacityは容量ではなく長さを返す。</p>

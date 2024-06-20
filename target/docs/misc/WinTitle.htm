@@ -50,10 +50,10 @@
 
 <h2 id="ahk_">ahk_ Criteria</h2>
 <p>次の ahk_ 基準を1つ以上 (オプションでウィンドウのタイトルに加えて) 指定し、それぞれを <u>1</u> スペースかタブで区切る (それ以外のスペースかタブは、前の基準のリテラル部分として扱われる)。ahk_基準は常に、ahk_キーワードとその基準値から成り、0個以上の空白またはタブで区切られる。For example, <code>ahk_class Notepad</code> identifies a Notepad window.</p>
-<p>ahk_キーワードとその基準値は、スペースやタブで区切る必要はない。これは主に、変数と組み合わせてahk_基準を指定するときに便利です。例えば、<code>"ahk_pid " PID</code>の代わりに<code>"ahk_pid" PIDを</code>指定することができる。しかし、それ以外の場合は、読みやすさを向上させるために、少なくとも1つのスペースかタブを区切りとして使用することが推奨される。</p>
+<p>ahk_キーワードとその基準値は、スペースやタブで区切る必要はない。これは主に、変数と組み合わせてahk_基準を指定するときに便利です。例えば、<code>"ahk_pid " PID</code>の代わりに<code>"ahk_pid" PID</code>を指定することができる。しかし、それ以外の場合は、読みやすさを向上させるために、少なくとも1つのスペースかタブを区切りとして使用することが推奨される。</p>
 
 <h3 id="ahk_class">ahk_class (ウィンドウクラス)</h3>
-<p>ウィンドウクラスでウィンドウを識別するには<var>WinTitle</var>の<code>ahk_class<var>ClassName</var></code>を使う。</p>
+<p>ウィンドウクラスでウィンドウを識別するには<var>WinTitle</var>の<code>ahk_class <var>ClassName</var></code>を使う。</p>
 <p>ウィンドウ・クラスは、システムがウィンドウを作成するためのテンプレートとして使用する属性のセットです。言い換えれば、ウィンドウのクラス名は、それがどの<em>タイプ</em>のウィンドウであるかを識別する。ウィンドウクラスはWindow Spyで公開したり、<a href="../lib/WinGetClass.htm">WinGetClassで</a>取得することができます。RegEx<a href="../lib/SetTitleMatchMode.htm">タイトル・マッチ・モード</a>が有効な場合、<var>ClassName</var>は<a href="RegEx-QuickRef.htm">正規表現</a>を受け付けます。</p>
 <p>Window classes are case-sensitive, except when using the <a href="RegEx-QuickRef.htm#opt_i">i) modifier</a> in a RegEx pattern.</p>
 <p>次の例は、コンソール・ウィンドウ（cmd.exeなど）をアクティブにします：</p>
@@ -83,12 +83,12 @@ WinActivate "ahk_id " VarContainingID
 <p>オブジェクトにHWNDプロパティがないか、プロパティの値が整数でない場合、<a href="../lib/Error.htm#PropertyError">PropertyError</a>または<a href="../lib/Error.htm#TypeError">TypeError</a>がスローされます。</p>
 
 <h3 id="ahk_pid">ahk_pid (Process ID)</h3>
-<p><var>WinTitle</var>で<code>ahk_pid<var>PID</var></code>を使用して、特定のプロセスに属するウィンドウを識別する。プロセス識別子（PID）は通常、<a href="../lib/WinGetPID.htm">WinGetPID</a>、<a href="../lib/Run.htm">Run</a>または<a href="../lib/Process.htm">Process関数</a>で取得される。ウィンドウのプロセスIDは、ウィンドウ・スパイで知ることができる。</p>
+<p><var>WinTitle</var>で<code>ahk_pid <var>PID</var></code>を使用して、特定のプロセスに属するウィンドウを識別する。プロセス識別子（PID）は通常、<a href="../lib/WinGetPID.htm">WinGetPID</a>、<a href="../lib/Run.htm">Run</a>または<a href="../lib/Process.htm">Process関数</a>で取得される。ウィンドウのプロセスIDは、ウィンドウ・スパイで知ることができる。</p>
 <p>次の例は、<var>VarContainingPID</var>に格納されたプロセスIDによってウィンドウをアクティブにする：</p>
 <pre>WinActivate "ahk_pid " VarContainingPID</pre>
 
 <h3 id="ahk_exe">ahk_exe (Process Name/Path)</h3>
-<p><var>WinTitle</var>の<code>ahk_exe<var>ProcessNameOrPath</var></code>を使って、与えられた名前やパスを持つプロセスに属するウィンドウを特定する。</p>
+<p><var>WinTitle</var>の<code>ahk_exe <var>ProcessNameOrPath</var></code>を使って、与えられた名前やパスを持つプロセスに属するウィンドウを特定する。</p>
 <p><a href="#ahk_pid">ahk_pid 基準</a>が特定のプロセスに限定されるのに対して、 ahk_exe 基準は、与えられた文字列と一致する名前またはフルパスを持つ すべてのプロセスを考慮する。RegEx<a href="../lib/SetTitleMatchMode.htm">タイトル・マッチング・モード</a>が有効な場合、<var>ProcessNameOrPath</var>は、プロセスのフル・パスにマッチしなければならない<a href="RegEx-QuickRef.htm">正規表現</a>を受け付ける。それ以外の場合は、大文字と小文字を区別しない名前またはフルパスを受け付ける。例えば、<code>ahk_exe notepad.exe</code>は、<code>ahk_exe C:\Windows\Notepad.exe</code>、<code>ahk_exe C:\Windows\System32\Notepad.exe</code>などのバリエーションをカバーする。ウィンドウのプロセス名は、ウィンドウ・スパイ（Window Spy）を通じて知ることができる。</p>
 <p>次の例は、プロセス名でメモ帳ウィンドウをアクティブにする：</p>
 <pre>WinActivate "ahk_exe notepad.exe"</pre>
@@ -96,7 +96,7 @@ WinActivate "ahk_id " VarContainingID
 <pre>WinActivate "ahk_exe i)\\notepad\.exe$"  <em>; Match the name part of the full path.</em></pre>
 
 <h3 id="ahk_group">ahk_group (Window Group)</h3>
-<p><var>WinTitle</var>の <code>ahk_group<var>GroupName</var></code>を使用して、以前に定義された<a href="../lib/GroupAdd.htm">ウィンドウグループ</a>に含まれるルールに一致するウィンドウを特定する。</p>
+<p><var>WinTitle</var>の <code>ahk_group <var>GroupName</var></code>を使用して、以前に定義された<a href="../lib/GroupAdd.htm">ウィンドウグループ</a>に含まれるルールに一致するウィンドウを特定する。</p>
 <p><a href="../lib/WinMinimize.htm">WinMinimize</a>, <a href="../lib/WinMaximize.htm">WinMaximize</a>, <a href="../lib/WinRestore.htm">WinRestore</a>, <a href="../lib/WinHide.htm">WinHide</a>, <a href="../lib/WinShow.htm">WinShow</a>, <a href="../lib/WinClose.htm">WinClose</a>, and <a href="../lib/WinKill.htm">WinKill</a> will operate upon <u>all</u> the group's windows. By contrast, the other windowing functions such as <a href="../lib/WinActivate.htm">WinActivate</a> and <a href="../lib/WinExist.htm">WinExist</a> will operate only upon the topmost window of the group.</p>
 <p>次の例は、ウィンドウ・グループで定義された条件に一致するウィンドウをアクティブにします：</p>
 <pre><em>; Define the group: Windows Explorer windows</em>
@@ -123,7 +123,7 @@ if WinExist("ahk_class Notepad ahk_id " id)
 
 <p>これは、<a href="../lib/WinExist.htm">WinExist</a>、<a href="../lib/WinActive.htm">WinActive</a>、<a href="../lib/WinWaitActive.htm">WinWait[Not]Active</a>、<a href="../lib/WinWait.htm">WinWait</a>、または<a href="../lib/WinWaitClose.htm">WinWaitClose</a>によって最近見つかったウィンドウである。ウィンドウ関数のたびにターゲットウィンドウの<var>WinTitle</var>と <var>WinText</var>を繰り返す必要がないので、スクリプトの作成と保守が簡単になる。さらに、スクリプトは、最初にターゲット・ウィンドウが見つかった後、再度検索する必要がないため、パフォーマンスが向上する。</p>
 <p>最後に見つかったウィンドウは、<a href="../lib/WinWait.htm">WinWait</a>、<a href="../lib/WinActivateBottom.htm">WinActivateBottom</a>、<a href="../lib/GroupAdd.htm">GroupAdd</a>、<a href="../lib/WinGetCount.htm">WinGetCount</a>、<a href="../lib/WinGetList.htm">WinGetList</a>を除くすべてのウィンドウ関数で使用できる。これを使うには、4つのウィンドウ・パラメーター（<var>WinTitle</var>、<var>WinText</var>、<var>ExcludeTitle</var>、<var>ExcludeText</var>）をすべて省略すればよい。</p>
-<p>つまり、<a href="Threads.htm">現在のスレッドが</a>他のスレッドによって中断された場合、元のスレッドが再開されると、中断されたスレッドの値ではなく、最後に見つかったウィンドウの元の値が保持される。</p>
+<p>各<a href="Threads.htm">スレッド</a>は、最後に見つかったウィンドウの値を保持する。つまり、<a href="Threads.htm">現在のスレッドが</a>他のスレッドによって中断された場合、元のスレッドが再開されると、中断されたスレッドの値ではなく、最後に見つかったウィンドウの元の値が保持される。</p>
 <p>最後に見つかったウィンドウが非表示の<a href="../lib/Gui.htm">GUIウィンドウ</a>の場合、<a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a>がオフになっていても使用できる。これはGUIの<a href="../lib/Gui.htm#LastFound">+LastFound</a>オプションと併用されることが多い。</p>
 <p>次の例では、メモ帳を開き、それが存在するまで待ち、それを起動する：</p>
 <pre>Run "Notepad"

@@ -47,12 +47,12 @@
   <li>メモ帳（またはお好みの<a href="misc/Editors.htm">テキストエディタ</a>）で、拡張子<code>.ahk</code>のファイルを保存します。システムによっては、エディタが別の拡張子（.txtなど）を追加しないように、名前を引用符で囲む必要があるかもしれません。
   <p class="note">ASCII以外の文字が含まれる場合は、必ずBOM付きのUTF-8として保存してください。詳細は<a href="FAQ.htm#nonascii">FAQ</a>を参照。</p></li>
   <li>エクスプローラで、スクリプトを保存するフォルダの何もない場所で右クリックし、[<strong>新規</strong>作成]から[<strong>AutoHotkeyスクリプト</strong>]を選択します。次に、スクリプトの名前を入力します（拡張子<code>.ahk</code>が表示されている場合は、消さないように注意してください）。</li>
-  <li><a href="#dash">ダッシュ</a>で［<a href="#newscript">新規スクリプト</a>］を選択し、スクリプトの名前（拡張子<code>.ahk</code>を除く）を入力して、［<em>作成</em>］または［<em>編集</em>］をクリックします。スクリプトの作成に使用するテンプレートと保存場所は、このウィンドウで設定でき、必要に応じてデフォルトに設定することもできます。</li>
+  <li><a href="#dash">Dash</a>で［<a href="#newscript">新規スクリプト</a>］を選択し、スクリプトの名前（拡張子<code>.ahk</code>を除く）を入力して、［<em>作成</em>］または［<em>編集</em>］をクリックします。スクリプトの作成に使用するテンプレートと保存場所は、このウィンドウで設定でき、必要に応じてデフォルトに設定することもできます。</li>
 </ul>
 <p class="note">スクリプトの書き方については<a href="Language.htm">スクリプト言語</a>を参照してください。</p>
 
 <h2 id="edit">スクリプトの編集</h2>
-<p>スクリプトを開いて編集するには、スクリプト ファイルを右クリックし、［<strong>スクリプトの編集</strong>］を選択します。スクリプトがすでに実行されている場合は、［<a href="lib/Edit.htm">編集</a>］機能を使用するか、スクリプトの<a href="#tray-icon">トレイ アイコン</a>を右クリックして［<strong>スクリプトの編集</strong>］を選択します。まだデフォルトのエディタを選択していない場合は、エディタを選択するプロンプトが表示されます。そうでない場合は、<a href="#dash">ダッシュ</a>の<em>エディター</em>設定でデフォルトのエディターを変更できます。もちろん、最初にテキストエディタを開き、他のテキストファイルと同じようにスクリプトを開くこともできます。</p>
+<p>スクリプトを開いて編集するには、スクリプト ファイルを右クリックし、［<strong>スクリプトの編集</strong>］を選択します。スクリプトがすでに実行されている場合は、［<a href="lib/Edit.htm">編集</a>］機能を使用するか、スクリプトの<a href="#tray-icon">トレイ アイコン</a>を右クリックして［<strong>スクリプトの編集</strong>］を選択します。まだデフォルトのエディタを選択していない場合は、エディタを選択するプロンプトが表示されます。そうでない場合は、<a href="#dash">Dash</a>の<em>エディター</em>設定でデフォルトのエディターを変更できます。もちろん、最初にテキストエディタを開き、他のテキストファイルと同じようにスクリプトを開くこともできます。</p>
 <p>スクリプトを編集した後、変更を有効にするには、スクリプトを実行するか<a href="lib/Reload.htm">再読み込み</a>する必要があります。実行中のスクリプトは通常、<a href="#tray-icon">トレイメニュー</a>からリロードできます。</p>
 
 <h2 id="run">スクリプトの実行</h2>
@@ -177,7 +177,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
     <td>このスクリプトがある場合、プログラムがロードするスクリプトの前、および<a href="Scripts.htm#SlashInclude">/include</a>で指定されたファイルの前に、このスクリプトが自動的に「インクルード」される。</td>
   </tr>
 </table>
-<p>メイン・スクリプトのソースが埋め込みリソースである場合、プログラムは「コンパイル済みスクリプト」モードで動作するが、例外として<a href="Variables.htm#AhkPath">A_AhkPath</a>には常に現在の実行可能ファイルのパスが含まれる（<a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a>と同じ）。1以外のリソースについては、<a href="lib/_SingleInstance.htm">#SingleInstance</a>と <a href="lib/Reload.htm">Reload</a>をサポートするために、リソース指定子が<a href="#title">メインウィンドウのタイトル</a>に含まれる。</p>
+<p>メイン・スクリプトのソースが埋め込みリソースである場合、プログラムは「コンパイル済みスクリプト」モードで動作するが、例外として<a href="Variables.htm#AhkPath">A_AhkPath</a>には常に現在の実行可能ファイルのパスが含まれる（<a href="Variables.htm#ScriptFullPath">A_ScriptFullPath</a>と同じ）。*#1以外のリソースについては、<a href="lib/_SingleInstance.htm">#SingleInstance</a>と <a href="lib/Reload.htm">Reload</a>をサポートするために、リソース指定子が<a href="#title">メインウィンドウのタイトル</a>に含まれる。</p>
 <p>埋め込まれたリソースから来たコードから参照される場合、<a href="Variables.htm#LineFile">A_LineFile</a>にはアスタリスク（*）の後にリソース名が付きます。</p>
 
 <h2 id="cmd">コマンドラインの使用法</h2>
@@ -195,7 +195,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
   <li>v1:中括弧や関数定義のない複数行のホットキー。</li>
   <li>NoEnvや#If (v1)、<a href="lib/_HotIf.htm">#HotIf</a>(v2)などの一般的なディレクティブ。</li>
   <li>v2:<a href="Scripts.htm#continuation-expr">囲み</a>または<a href="Scripts.htm#continuation-line">行末の継続演算子</a>による<a href="Scripts.htm#continuation-expr">継続</a>の明確な使用。</li>
-  <li>v2:式の中で<code>「一重引用符」</code>または<a href="Variables.htm#fat-arrow">太い矢印<code>=&gt;</code></a>を明確に使用する。</li>
+  <li>v2:式の中で<code>'一重引用符'</code>または<a href="Variables.htm#fat-arrow">太い矢印<code>=&gt;</code></a>を明確に使用する。</li>
 </ul>
 <p>検出は保守的であり、曖昧なケースは通常無視されるべきである。</p>
 <p>検出に失敗した場合、デフォルトでは、ユーザーがバージョンを選択するためのメニューが表示されます。このデフォルトは、v1またはv2のいずれかを起動するように変更できる。</p>
@@ -203,13 +203,13 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <ul>
   <li>チェックされるのはメインファイルのみ。</li>
   <li>v1では<code>/****/</code>のような行を含めることは合法だが、v2では行末の<code>*/</code>はコメントを閉じるだけなので、このような行があるとスクリプトの大部分が（ランチャーとv1インタープリターの両方によって）無視される可能性がある。</li>
-  <li>チェックされるのはシンタックスだけで、セマンティクスはチェックされない。例えば、<code>xyz</code>はv2では無効なので、v1では有効なコマンドとみなされる。<code>xyz 1</code>は、v2ではファンクション・ステートメントになり得るが、v1でも有効なコマンドであると見なされるため、無視される。</li>
+  <li>チェックされるのはシンタックスだけで、セマンティクスはチェックされない。例えば、<code>xyz,</code>はv2では無効なので、v1では有効なコマンドとみなされる。<code>xyz 1</code>は、v2ではファンクション・ステートメントになり得るが、v1でも有効なコマンドであると見なされるため、無視される。</li>
   <li>検出されるパターンは、実質的に1つのバージョンにおける構文エラーであるため、実際の構文エラーや正しくない構文が混在するスクリプトは、誤認識される可能性がある。</li>
 </ul>
 <p class="note"><strong>注：</strong>メインファイルの先頭に<a href="lib/_Requires.htm">#Requires</a>を付けて必須バージョンを宣言することで、曖昧さをなくすことができる。</p>
 
 <h3 id="launcher-config">起動設定</h3>
-<p>ランチャーは、<a href="#dash">ダッシュボード</a>からアクセスできるLaunch Settings GUIで有効化、無効化、設定することができます。</p>
+<p>ランチャーは、<a href="#dash">Dashボード</a>からアクセスできるLaunch Settings GUIで有効化、無効化、設定することができます。</p>
 <p><em>すべてのスクリプトを特定のインタープリターで実行</em>する ランチャーを無効にし、従来の方法で、すべてのスクリプトを実行するために使用するexeを選択できるようにします。v1 exeを選択すると、スタートメニューの "AutoHotkey"ショートカットを使用する以外、サポートスクリプトを実行することが難しくなりますのでご注意ください。</p>
 <p><em>スクリプト起動時にバージョンを自動検出</em>することで、ランチャーが有効になります。追加の設定は、ランチャーがどのインタープリターを使用するかを選択する方法を制御します。</p>
 
@@ -263,7 +263,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 </table>
 
 <h2 id="dash">Dash</h2>
-<p>ダッシュは、サポートスクリプトとドキュメントへのアクセスを提供します。インストール後、スタートメニューの「AutoHotkey」ショートカットから開くか、インストールディレクトリからUXui-dash.ahkを直接実行して開くことができます。現在は、以下の項目を含むメニューに過ぎないが、アクティブなスクリプトのコントロールや、その他の便利な機能を提供するために拡張されるかもしれない。</p>
+<p>Dashは、サポートスクリプトとドキュメントへのアクセスを提供します。インストール後、スタートメニューの「AutoHotkey」ショートカットから開くか、インストールディレクトリからUXui-dash.ahkを直接実行して開くことができます。現在は、以下の項目を含むメニューに過ぎないが、アクティブなスクリプトのコントロールや、その他の便利な機能を提供するために拡張されるかもしれない。</p>
 <ul>
   <li>新しい脚本：テンプレートから新しいスクリプトを作成する。</li>
   <li>Compile:Ahk2Exeを開くか、自動的にダウンロードしてインストールします。</li>
@@ -272,10 +272,10 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
   <li>Launch settings:ランチャーを設定する。</li>
   <li>Editor settings:.ahkファイルのデフォルトエディタを設定します。</li>
 </ul>
-<p>スタート]メニューのショートカットはダッシュを起動しますが、タスクバー（またはWindows 7や10では[スタート]メニュー）に固定されている場合、ジャンプリストには[<em>開く]</em>、[<em>runas</em>]、[<em>UIAccess</em>]シェル動詞で起動された最近のスクリプトが含まれることに注意してください（通常、エクスプローラーのコンテキストメニューまたはファイルをダブルクリックしてアクセスします）。スクリプトは簡単にアクセスできるようにピン留めできます。</p>
+<p>スタート]メニューのショートカットはDashを起動しますが、タスクバー（またはWindows 7や10では[スタート]メニュー）に固定されている場合、ジャンプリストには[<em>開く]</em>、[<em>runas</em>]、[<em>UIAccess</em>]シェル動詞で起動された最近のスクリプトが含まれることに注意してください（通常、エクスプローラーのコンテキストメニューまたはファイルをダブルクリックしてアクセスします）。スクリプトは簡単にアクセスできるようにピン留めできます。</p>
 
 <h2 id="newscript">新しいスクリプト</h2>
-<p>新規スクリプトGUIは、ダッシュボタンからアクセスするか、エクスプローラでフォルダ内を右クリックし、新規作成 → AutoHotkeyスクリプトを選択することで表示されます。プリインストールされたテンプレートまたはユーザー定義のテンプレートから新しいスクリプトファイルを作成し、オプションでそれを開いて編集するために使用することができます。</p>
+<p>新規スクリプトGUIは、Dashボタンからアクセスするか、エクスプローラでフォルダ内を右クリックし、新規作成 → AutoHotkeyスクリプトを選択することで表示されます。プリインストールされたテンプレートまたはユーザー定義のテンプレートから新しいスクリプトファイルを作成し、オプションでそれを開いて編集するために使用することができます。</p>
 <p>リスト内のテンプレートを右クリックすると、以下のオプションが表示されます：</p>
 <ul>
   <li>テンプレートを編集する：デフォルトのエディタでテンプレートを開く。プリインストールされているテンプレートの場合、オリジナルを開く代わりに編集可能なコピーが作成されます。</li>
@@ -288,7 +288,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
   <li>デフォルトは作成：Enterを押すとCreateボタンがアクティブになり、スクリプトが作成されてエクスプローラで選択されます。</li>
   <li>デフォルトはEdit：Enterを押すとEditボタンが有効になり、スクリプトが作成されてデフォルトのスクリプトエディタで開きます。</li>
   <li>オープンなままで：有効にすると、スクリプト作成後にウィンドウが自動的に閉じなくなる。</li>
-  <li>フォルダをデフォルトに設定する：スクリプトを保存するデフォルトの場所として、現在のフォルダを設定します。デフォルトの場所は、新しいスクリプト ウィンドウを直接開くか、ダッシュを使用して開く場合に使用されます。エクスプローラのコンテキスト メニューから新しいスクリプトを起動した場合は使用されません。</li>
+  <li>フォルダをデフォルトに設定する：スクリプトを保存するデフォルトの場所として、現在のフォルダを設定します。デフォルトの場所は、新しいスクリプト ウィンドウを直接開くか、Dashを使用して開く場合に使用されます。エクスプローラのコンテキスト メニューから新しいスクリプトを起動した場合は使用されません。</li>
   <li>テンプレートフォルダを開きます：ユーザー定義<a href="#templates">テンプレート</a>を保存できるフォルダを開きます。</li>
 </ul>
 
@@ -330,7 +330,7 @@ Execute = true|false|1|0
 <pre>AutoHotkey32.exe UX\install.ahk /to "%DESTINATION%"</pre>
 <p><em>SOURCE</em>（AutoHotkey*.exeファイルを含むディレクトリ）から追加バージョンをインストールするには、現在のインストールディレクトリ内で以下を実行します（必要に応じてAutoHotkey32.exeのパスを調整します）：</p>
 <pre>AutoHotkey32.exe UX\install.ahk /install "%SOURCE%"</pre>
-<p>上記の完全なコマンド文字列は、<code class="no-highlight">%1</code>をソースディレクトリの代用として、<code>HKLMSoftware\AutoHotkey</code>または<code>HKCU\Software\AutoHotkey</code>の下で<em>InstallCommand</em>として登録される。このレジストリ値を使用する方が、将来的により安全かもしれない。</p>
+<p>上記の完全なコマンド文字列は、<code class="no-highlight">%1</code>をソースディレクトリの代用として、<code>HKLM\Software\AutoHotkey</code>または<code>HKCU\Software\AutoHotkey</code>の下で<em>InstallCommand</em>として登録される。このレジストリ値を使用する方が、将来的により安全かもしれない。</p>
 <p>現在のインストールを再登録する：</p>
 <pre>AutoHotkey32.exe UX\install.ahk</pre>
 <p>アンインストールする：</p>
@@ -338,14 +338,14 @@ Execute = true|false|1|0
 <p>または、以下のレジストリキーのいずれかから<em>QuietUninstallString</em>の値を読み取り、実行する：</p>
 <pre>HKLM\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey
 HKCU\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey</pre>
-<p><code>silent</code>スイッチを使用すると、警告ダイアログや確認ダイアログが表示されず、インストール完了時に<a href="#dash">ダッシュ</a>が表示されなくなります。以下のアクションは、警告なしに自動的に実行されることがあります：</p>
+<p><code>/silent</code>スイッチを使用すると、警告ダイアログや確認ダイアログが表示されず、インストール完了時に<a href="#dash">Dash</a>が表示されなくなります。以下のアクションは、警告なしに自動的に実行されることがあります：</p>
 <ul>
   <li>AutoHotkey*.exeが上書きされるようにスクリプトを終了します。</li>
   <li>インストーラによって以前に登録されていないか、登録後に変更されたファイルを上書きする。</li>
 </ul>
 
 <h3 id="Installer_IsHostApp">タスクバーボタン</h3>
-<p>v2インストーラーには、タスクバーボタンを分離するオプションがありません。これまでは、各AutoHotkey実行ファイルを<a href="https://learn.microsoft.com/windows/win32/shell/app-registration">ホストアプリ</a>として登録<a href="https://learn.microsoft.com/windows/win32/shell/app-registration">（IsHostApp）</a>することで実現していましたが、この方法には限界があり、複数のバージョンをインストールできるようになると管理しにくくなります。代わりに、各スクリプトは、グループ化を制御するために、そのプロセスまたはウィンドウの<a href="https://learn.microsoft.com/windows/win32/shell/appids">AppUserModelID</a>を設定する必要があります。</p>
+<p>v2インストーラーには、タスクバーボタンを分離するオプションがありません。これまでは、各AutoHotkey実行ファイルを<a href="https://learn.microsoft.com/windows/win32/shell/app-registration">ホストアプリ（IsHostApp）</a>として登録することで実現していましたが、この方法には限界があり、複数のバージョンをインストールできるようになると管理しにくくなります。代わりに、各スクリプトは、グループ化を制御するために、そのプロセスまたはウィンドウの<a href="https://learn.microsoft.com/windows/win32/shell/appids">AppUserModelID</a>を設定する必要があります。</p>
 
 <h3 id="Installer_uiAccess">UIアクセスで実行</h3>
 <p>Program Filesの下にインストールする場合、インストーラは、いくつかの<a href="FAQ.htm#uac">一般的なUAC関連の問題</a>を回避するために使用できるAutoHotkey exeファイルの追加セットを作成します。これらのファイルには"_UIA.exe "という接尾辞が付けられます。これらのUIA.exeファイルの1つを管理者が使用してスクリプトを実行すると、スクリプト自体が管理者として実行されることなく、スクリプトは管理者として実行されるプログラムのウィンドウと対話することができます。</p>
@@ -366,7 +366,7 @@ HKCU\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey</pre>
   <li>ファイルのデジタル署名が無効になるため、UIA.exeファイルを変更することはできません。</li>
   <li>UIAプログラムは他のプログラムとは異なる「完全性レベル」で実行されるため、他のUIAプログラムによって登録されたオブジェクトにしかアクセスできない。例えば、<code><a href="lib/ComObjActive.htm">ComObjActive</a>("Word.Application")</code>は、WordがUIアクセス用にマークされていないため、失敗します。</li>
   <li>スクリプト自身のウィンドウは、セキュリティ上の理由から、UIA以外のプログラム/スクリプトによって自動化することはできません。</li>
-  <li>マウスフックを使用する非UIAスクリプトを実行すると（<code>InstallMouseHookの</code>ような単純なものであっても）、マウスがUIAスクリプトが所有するウィンドウを指しているときに、すべてのマウスホットキーが動作しなくなることがあります。回避策は、UIAスクリプトが最後にロードされるようにすることです。</li>
+  <li>マウスフックを使用する非UIAスクリプトを実行すると（<code>InstallMouseHook</code>のような単純なものであっても）、マウスがUIAスクリプトが所有するウィンドウを指しているときに、すべてのマウスホットキーが動作しなくなることがあります。回避策は、UIAスクリプトが最後にロードされるようにすることです。</li>
   <li>新しい親ウィンドウが常に上にあり、子ウィンドウが常に上にない場合、UIAはGui<a href="lib/Gui.htm#Parent">+Parent</a>オプションが既存のウィンドウ上で機能するのを防ぎます。</li>
 </ul>
 <p>For more details, see <a href="https://www.autohotkey.com/board/topic/70449-enable-interaction-with-administrative-programs/">Enable interaction with administrative programs</a> on the archived forum.</p>

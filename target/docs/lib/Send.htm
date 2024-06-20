@@ -73,8 +73,8 @@
       </tr>
     </table>
     <p class="note"><strong>Note:</strong> As capital letters are produced by sending <kbd>Shift</kbd>, <code>A</code> produces a different effect in some programs than <code>a</code>. 例えば、<code>!A</code>は <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>、および、<code>!a</code>は、<kbd>Alt</kbd>+<kbd>A</kbd>を押します。迷ったときは小文字を使います。</p>
-    <p>文字<code>{}</code>は、<a href="#keynames">キー名やその他のオプション</a>を囲んだり、特殊文字を文字通りに送信するために使用します。例えば、<code>{Tab}は</code> <kbd>Tab</kbd>、<code>{!}は</code>文字通りのエクスクラメーションマークです。</p>
-    <p>ASCII文字（a-zまたはA-Z）を中括弧で囲むと、その文字が現在のキーボードレイアウトに存在しない場合でも、対応する仮想キーコードとして送信されます。つまり、<code>Send "a"</code>は"a"が出るが、<code>"{a}"を送ると</code>"a"が出るかどうかは、キーボードの配列によって異なります。詳しくは、<a href="#AZ">下記の備考</a>をご覧ください。</p>
+    <p>文字<code>{}</code>は、<a href="#keynames">キー名やその他のオプション</a>を囲んだり、特殊文字を文字通りに送信するために使用します。例えば、<code>{Tab}</code> は <kbd>Tab</kbd>、<code>{!}</code>は文字通りのエクスクラメーションマークです。</p>
+    <p>ASCII文字（a-zまたはA-Z）を中括弧で囲むと、その文字が現在のキーボードレイアウトに存在しない場合でも、対応する仮想キーコードとして送信されます。つまり、<code>Send "a"</code>は"a"が出るが、<code>Send "{a}"</code>をと"a"が出るかどうかは、キーボードの配列によって異なります。詳しくは、<a href="#AZ">下記の備考</a>をご覧ください。</p>
   </dd>
 
 </dl>
@@ -94,7 +94,7 @@
 
 <h3 id="Text">テキストモード</h3>
 <p id="SendText">テキストモードは<code>{Text}</code>、SendText、<a href="ControlSend.htm">ControlSendText</a>のいずれかで有効にすることができ、Rawモードと似ていますが、文字（<code>`r</code>、<code>`n</code>、<code>`t</code>、<code>`b</code>以外）をキーコードに変換しようとしないことを除いて、残りのすべての文字に対して<a href="#fallback">フォールバックメソッド</a>が使用されます。SendEvent、SendInput、<a href="ControlSend.htm">ControlSend</a>については、文字が正しい修飾子の状態に依存することが少なくなるため、信頼性が向上する。このモードは、ブラインドモードと組み合わせることで、修飾キーを離さないようにすることができます：<code>Send "{Blind}{Text}your text"</code>. ただし、アプリケーションによっては、修飾キーが解放されている必要があります。</p>
-<p><code>n</code>、<code>`r</code>、<code>`r`n</code>は、デフォルトの動作やRawモードが<code>`r`n</code>を2つの<kbd>Enter</kbd>に変換するのとは異なり、すべて1つの<kbd>Enter</kbd>に変換されます。<code>`t</code>は <kbd>Tab</kbd>に、<code>`b</code>は <kbd>Backspace</kbd>に変換されますが、それ以外の文字は変換されずに送信されます。</p>
+<p><code>`n</code>、<code>`r</code>、<code>`r`n</code>は、デフォルトの動作やRawモードが<code>`r`n</code>を2つの<kbd>Enter</kbd>に変換するのとは異なり、すべて1つの<kbd>Enter</kbd>に変換されます。<code>`t</code>は <kbd>Tab</kbd>に、<code>`b</code>は <kbd>Backspace</kbd>に変換されますが、それ以外の文字は変換されずに送信されます。</p>
 <p>ブラインドモードと同様に、テキストモードは<a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>を無視し（つまり、<kbd>CapsLock</kbd>の状態は変化しない）、<a href="../Hotkeys.htm#win-l"><kbd>Win</kbd>が解除されるのを待つ</a>ことはありません。これは、テキストモードが通常<kbd>CapsLock</kbd>の状態に依存せず、システムの<kbd>Win</kbd>+<kbd>L</kbd>ホットキーをトリガーすることができないためです。ただし、<em>Keys</em>が <code>{Text}</code>または<code>{Blind}{Text}</code>で始まる場合のみ適用されます。</p>
 
 <h3 id="Blind">ブラインドモード</h3>
@@ -106,7 +106,7 @@
   <li><a href="A_MenuMaskKey.htm">Menu masking</a>は無効です。つまり、Sendは、予防のために送信されるはずの余分なキーストロークを省略します：1）Winキー操作時のスタートメニュー表示（LWin/RWin）、2）Altキー操作時のメニューバー起動。ただし、ブラインドモードでは、フックホットキー起動後のキーボードフックによるマスキングは防げません。</li>
   <li>送信は、テキストに<kbd>L</kbd>キーが含まれていても、<kbd>Win</kbd>の解除を待たずに送信します。これは通常、Sendがシステムの「ワークステーションをロック」ホットキー (<kbd>Win</kbd>+<kbd>L</kbd>)をトリガーするのを防ぐために行われるものです。See <a href="../Hotkeys.htm#win-l">Hotkeys</a> for details.</li>
 </ul>
-<p id="blind-exclude">"Blind"の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind！#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
+<p id="blind-exclude">"Blind"の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
 <p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。例えば、<code>a::b</code>の再マッピングでは、次のようになります：1）「a」と入力したときに「b」、2）大文字の「A」と入力したときに「B」、3）「<kbd>Ctrl</kbd>+<kbd>B</kbd>」と入力したときに「<kbd>Ctrl</kbd>+<kbd>A</kbd>」。。ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
 <p><code>{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code>{Blind}{Text}</code>を使用してください。</p>
 <p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail">SendPlay</a>で完全にサポートされているわけではありません。</p>
@@ -156,7 +156,7 @@
   </tr>
   <tr>
     <td>{Space}</td>
-    <td><kbd>スペース</kbd>（送信する文字列の先頭または末尾に現れるスペースにのみ必要で、途中にあるものはリテラルスペースでもよい）</td>
+    <td><kbd>Space</kbd>（送信する文字列の先頭または末尾に現れるスペースにのみ必要で、途中にあるものはリテラルスペースでもよい）</td>
   </tr>
   <tr>
     <td>{Tab}</td>
@@ -318,7 +318,7 @@
   </tr>
   <tr>
     <td>{NumpadEnter}</td>
-    <td>キーパッドの<kbd>入力</kbd></td>
+    <td>キーパッドの<kbd>Enter</kbd></td>
   </tr>
   <tr>
     <td>{NumpadMult}</td>
@@ -410,15 +410,15 @@
   </tr>
   <tr>
     <td>{Volume_Mute}</td>
-    <td>マスターボリュームをミュート／アンミュートする。通常、<code><a href="SoundSetMute.htm">SoundSetMute</a>-1</code>と同等です。</td>
+    <td>マスターボリュームをミュート／アンミュートする。通常、<code><a href="SoundSetMute.htm">SoundSetMute</a> -1</code>と同等です。</td>
   </tr>
   <tr>
     <td>{Volume_Down}</td>
-    <td>マスターボリュームを小さくする。通常、<code><a href="SoundSetVolume.htm">SoundSetVolume</a>-5</code>と同等です。</td>
+    <td>マスターボリュームを小さくする。通常、<code><a href="SoundSetVolume.htm">SoundSetVolume</a> -5</code>と同等です。</td>
   </tr>
   <tr>
     <td>{Volume_Up}</td>
-    <td>マスターボリュームを大きくする。通常、<code><a href="SoundSetVolume.htm">SoundSetVolume</a>"+5</code>"と同等です。</td>
+    <td>マスターボリュームを大きくする。通常、<code><a href="SoundSetVolume.htm">SoundSetVolume</a> "+5"</code>"と同等です。</td>
   </tr>
   <tr>
     <td>{Media_Next}</td>
@@ -507,9 +507,9 @@ Send "{Up up}"  <em>; Releases the up-arrow key.</em></pre>
     Sleep 30  <em>; The number of milliseconds between keystrokes (or use <a href="SetKeyDelay.htm">SetKeyDelay</a>).</em>
 }
 Send "{Tab up}"  <em>; Release the key.</em></pre>
-<p>デフォルトでは、送信によって修飾キー（Control、Shift、Alt、Win）が「押下」された場合、送信は自動的に修飾キーを解除しません。例えば、<code>Send "a"</code> は、ユーザーが物理的に<kbd>Ctrl</kbd>を持っている場合、<code>Send "<a href="#blind">{Blind}</a>{Ctrl up}a{Ctrl down}"</code> と同様の動作をすることがあります、 が、<code>"{Ctrl Down}"</code>の後に<code>"a"</code>を送ると<kbd>Ctrl</kbd>+<kbd>A</kbd>となる。<em>DownTemp</em>と <em>DownR</em>を使用すると、この動作をオーバーライドすることができます。<em>DownTemp</em>と <em>DownR</em>は、修飾キー（Control、Shift、Alt、Win）以外は<em>Down</em>と同じ効果になります。</p>
+<p>デフォルトでは、送信によって修飾キー（Control、Shift、Alt、Win）が「押下」された場合、送信は自動的に修飾キーを解除しません。例えば、<code>Send "a"</code> は、ユーザーが物理的に<kbd>Ctrl</kbd>を持っている場合、<code>Send "<a href="#blind">{Blind}</a>{Ctrl up}a{Ctrl down}"</code> と同様の動作をすることがあります、 が、<code>Send "{Ctrl Down}"</code>の後に<code>Send "a"</code>を送ると<kbd>Ctrl</kbd>+<kbd>A</kbd>となる。<em>DownTemp</em>と <em>DownR</em>を使用すると、この動作をオーバーライドすることができます。<em>DownTemp</em>と <em>DownR</em>は、修飾キー（Control、Shift、Alt、Win）以外は<em>Down</em>と同じ効果になります。</p>
 <p id="DownTemp"><strong>DownTemp</strong>は、キーが永久にダウンしているわけではなく、キーストロークが必要とするときはいつでもリリースできることを後続の送信機に伝えます。例えば、<code>Send "{Control DownTemp}"</code>した後に<code>Send "a"</code>すると、 <kbd>Ctrl</kbd>+<kbd>A</kbd>ではなく、<kbd>A</kbd>が出力されます。Sendを使用すると、モディファイアを永久に解放する可能性があるため、<em>DownTemp</em>はモディファイアキー<a href="../misc/Remap.htm">の再マッピングに適して</a>いません。</p>
-<p id="DownR"><strong>DownR</strong>（Rは<a href="../misc/Remap.htm">リマッピング</a>を意味し、主な用途はこれです）は、キーが自動的に離された場合、送信終了時に再び押されるように後続の送信機に指示します。例えば、<code>Send "{Control DownR}"</code>した後に<code>Send "a"</code>すると、<kbd>Ctrl</kbd>+<kbd>A</kbd>ではなく</kbd><kbd>A</kbd>を生成しますが、キーボードショートカットを使用するために<kbd>Ctrl</kbd>を押したままの状態にします。つまり、<em>DownR</em>は物理的にキーを押すのと同じような効果があるのです。</p>
+<p id="DownR"><strong>DownR</strong>（Rは<a href="../misc/Remap.htm">リマッピング</a>を意味し、主な用途はこれです）は、キーが自動的に離された場合、送信終了時に再び押されるように後続の送信機に指示します。例えば、<code>Send "{Control DownR}"</code>した後に<code>Send "a"</code>すると、<kbd>Ctrl</kbd>+<kbd>A</kbd>ではなく<kbd>A</kbd>を生成しますが、キーボードショートカットを使用するために<kbd>Ctrl</kbd>を押したままの状態にします。つまり、<em>DownR</em>は物理的にキーを押すのと同じような効果があるのです。</p>
 <p>文字が現在のキーボードレイアウト上の仮想キーに対応していない場合、「押す」「離す」ことができません。例えば、<code>Send "{µ up}"</code>は、ほとんどのレイアウトで効果がなく、<code>Send "{µ down}"</code>は<code>Send "µ"</code>と同等であることを示しています。</p>
 
 <h2 id="Remarks">総論</h2>
@@ -537,8 +537,8 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p>他の送信モードと異なり、オペレーティングシステムではSendInputは約5000文字に制限されています（オペレーティングシステムのバージョンや性能設定により異なる場合があります）。この制限を超えた文字や事象は送信されません。</p>
 <p class="note"><strong>注：</strong>SendInputは、オペレーティングシステムがこのモードでの遅延をサポートしないため、SetKeyDelayを無視します。ただし、後述の条件でSendInputが<a href="#SendEvent">SendEvent</a>に戻る場合は、<code><a href="SetKeyDelay.htm">SetKeyDelay</a> -1, 0</code> を使用します（SendEventのKeyDelayが <code>-1,-1</code> の場合は <code>-1,-1</code> を使用します）。SendInputが<a href="#SendPlayDetail">SendPlay</a>に戻ると、SendPlayのKeyDelayを使用します。</p>
 <p id="SendInputHook">If the script has a <a href="InstallKeybdHook.htm">low-level keyboard hook</a> installed, SendInput automatically uninstalls it prior to executing and reinstalls it afterward. As a consequence, SendInput generally cannot trigger the script's own hook hotkeys or <a href="InputHook.htm">InputHooks</a>. The hook is temporarily uninstalled because its presence would otherwise disable all of SendInput's advantages, making it inferior to both SendPlay and SendEvent. However, this can only be done for the script's own hook, and is not done if an external hook is detected as described below.</p>
-<p id="SendInputUnavail">SendInputを実行しているスクリプト<em>以外</em>のスクリプトに<a href="InstallKeybdHook.htm">低レベルのキーボードフック</a>がインストールされている場合、SendInputは自動的に<a href="#SendEvent">SendEvent</a>（<code><a href="SendMode.htm">SendMode</a>"InputThenPlay"</code>が有効な場合は<a href="#SendPlayDetail">SendPlay</a>）に戻されます。これは、外部フックの存在によってSendInputの利点がすべて無効になり、SendPlayとSendEventの両方に劣ることになるためである。ただし、SendInputはAutoHotkey v1.0.43+以外のプログラムでは低レベルフックを検出できないため、これらの場合は復帰せず、SendPlay/Eventより信頼性が低くなります。</p>
-<p>SendInputが<a href="#Click">{Click}</a>などの手段でマウスクリックを送信し、<code><a href="CoordMode.htm">CoordMode</a>"Mouse", "Window"</code>または<code>CoordMode "Mouse", "Client"</code>が有効な場合、すべてのクリックは、送信開始時にアクティブだったウィンドウに対する相対移動となります。そのため、SendInputが意図的に別のウィンドウをアクティブにした場合（alt-tabなどの手段）、同じ関数内でのその後のクリックの座標が、古いウィンドウではなく新しいウィンドウに対するものであった場合、間違った座標になります。</p>
+<p id="SendInputUnavail">SendInputを実行しているスクリプト<em>以外</em>のスクリプトに<a href="InstallKeybdHook.htm">低レベルのキーボードフック</a>がインストールされている場合、SendInputは自動的に<a href="#SendEvent">SendEvent</a>（<code><a href="SendMode.htm">SendMode</a> "InputThenPlay"</code>が有効な場合は<a href="#SendPlayDetail">SendPlay</a>）に戻されます。これは、外部フックの存在によってSendInputの利点がすべて無効になり、SendPlayとSendEventの両方に劣ることになるためである。ただし、SendInputはAutoHotkey v1.0.43+以外のプログラムでは低レベルフックを検出できないため、これらの場合は復帰せず、SendPlay/Eventより信頼性が低くなります。</p>
+<p>SendInputが<a href="#Click">{Click}</a>などの手段でマウスクリックを送信し、<code><a href="CoordMode.htm">CoordMode</a> "Mouse", "Window"</code>または<code>CoordMode "Mouse", "Client"</code>が有効な場合、すべてのクリックは、送信開始時にアクティブだったウィンドウに対する相対移動となります。そのため、SendInputが意図的に別のウィンドウをアクティブにした場合（alt-tabなどの手段）、同じ関数内でのその後のクリックの座標が、古いウィンドウではなく新しいウィンドウに対するものであった場合、間違った座標になります。</p>
 
 <h2 id="SendPlayDetail">SendPlay</h2>
 <p class="warning"><strong>警告</strong>SendPlayは、UACが有効な場合、スクリプトが管理者として実行されていても、全く効果がない場合があります。詳しくは、<a href="../FAQ.htm#uac">FAQ</a>をご覧ください。</p>
@@ -546,7 +546,7 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p>3つの送信モードのうち、SendPlayはキー操作やマウスクリックそのものをシミュレートしていないため、最も珍しいものです。その代わりに、アクティブなウィンドウに直接流れる一連のイベント（メッセージ）を作成します（<a href="ControlSend.htm">ControlSend</a>と似ていますが、より低いレベルです）。その結果、SendPlayはホットキーやホットストリングをトリガーしません。</p>
 <p><a href="#SendInputDetail">SendInput</a>と同様に、SendPlayのキー入力は、ユーザーが入力したキー入力が挟まれることはありません。そのため、SendPlay中にユーザーが何かを入力することがあっても、そのキー入力はその後まで延期されます。</p>
 <p>SendPlayはSendInputよりかなり遅いですが、通常は従来の<a href="#SendEvent">SendEvent</a>モードより速いです（<a href="SetKeyDelay.htm">KeyDelay</a>が-1でも）。</p>
-<p><a href="InstallKeybdHook.htm">キーボードフック</a>がインストールされている場合、SendPlay時に<kbd>両Win</kbd>（LWin、RWin）は自動的にブロックされます。これにより、ユーザーが送信中に誤って<kbd>Win</kbd>を押してしまっても、スタートメニューが表示されないようにしました。一方、LWinとRWin以外のキーは、OSが自動的にSendPlayの後まで延期するため（バッファリングにより）、ブロックする必要はありません。</p>
+<p><a href="InstallKeybdHook.htm">キーボードフック</a>がインストールされている場合、SendPlay時に両<kbd>Win</kbd>（LWin、RWin）は自動的にブロックされます。これにより、ユーザーが送信中に誤って<kbd>Win</kbd>を押してしまっても、スタートメニューが表示されないようにしました。一方、LWinとRWin以外のキーは、OSが自動的にSendPlayの後まで延期するため（バッファリングにより）、ブロックする必要はありません。</p>
 <p>SendPlayは、標準設定の<a href="SetKeyDelay.htm">SetKeyDelay</a>と <a href="SetMouseDelay.htm">SetMouseDelay</a>を使用しません。その代わり、デフォルトでは全く遅延しないようになっていますが、以下の例のように変更することが可能です：</p>
 <pre><a href="SetKeyDelay.htm">SetKeyDelay</a> 0, 10, "Play"  <em>; Note that both 0 and -1 are the same in SendPlay mode.</em>
 <a href="SetMouseDelay.htm">SetMouseDelay</a> 10, "Play"</pre>

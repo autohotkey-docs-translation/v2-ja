@@ -86,7 +86,7 @@ MsgBox(
     )
 </pre>
 <p>継続表現は両方のタイプの<a href="Language.htm#comments">コメント</a>を含むことができる。</p>
-<p>継続表現は通常の<a href="#continuation-section">継続セクション</a>を含むことができる。したがって、式を含むすべての行と同様に、エスケープされていない開括弧（<code>(</code>）で始まる行は、同じ行に閉括弧（<code>）</code>）がない限り、継続セクションの開始とみなされる。</p>
+<p>継続表現は通常の<a href="#continuation-section">継続セクション</a>を含むことができる。したがって、式を含むすべての行と同様に、エスケープされていない開括弧（<code>(</code>）で始まる行は、同じ行に閉括弧（<code>)</code>）がない限り、継続セクションの開始とみなされる。</p>
 <p>引用符で囲まれた文字列は、この方法だけでは複数行にまたがることはできない。ただし、上記を参照のこと。</p>
 <p>囲みによる継続は、継続演算子と組み合わせることができる。事例：</p>
 <pre>myarray :=  <em>; The assignment operator causes continuation.</em>
@@ -98,7 +98,7 @@ MsgBox(
 <ul>
   <li>中括弧の前に閉じない<code>(</code>/<code>[</code>/<code>{</code>がある場合、中括弧はブロックの開始と解釈されることはない。例えば、<code>If ({</code>のブレースはオブジェクト・リテラルの開始である。</li>
   <li>オブジェクト・リテラルは法律上、<code>)</code>または<code>]</code>に続くことはできないので、中括弧がこれらの記号のどちらかに続く場合（空白を除く）、（関数やプロパティ定義のような）ブロックの開始として解釈される。</li>
-  <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code>for x<strong>in</strong>{</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code>Loop {</code>の中括弧は常にブロック開始であり、<code>If {</code>と <code>While {</code>は常にエラーである。</li>
+  <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code>for x <strong>in</strong> {</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code>Loop {</code>の中括弧は常にブロック開始であり、<code>If {</code>と <code>While {</code>は常にエラーである。</li>
 </ul>
 <p>中括弧は、本文を必要としない関数呼び出し、式、制御フロー文であれば、行の継続のために安全に使うことができる。事例：</p>
 <pre>myfn() {
@@ -132,9 +132,9 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p id="LTrim"><strong>LTrim：</strong>各行の先頭のスペースとタブをすべて削除する。<a href="#continuation_defaults">デフォルトの "スマート"な振る舞い</a>のため、これは通常不要である。</p>
 <p id="LTrim0"><strong>LTrim0</strong>（LTrimの後に0が続く）：行頭のスペースとタブの省略をオフにする。</p>
 <p id="RTrim0"><strong>RTrim0</strong>（RTrimの後に0が続く）：行末のスペースとタブの省略をオフにする。</p>
-<p id="CommentOption"><strong>Comments</strong> (または <strong>Comment</strong> または <strong>Com</strong> または <strong>C</strong>):継続セクション内での<a href="Language.htm#comments">セミコロン・コメント</a>を許可する（ただし<code>/*..*/は</code>不可）。そのようなコメントは（その左にあるスペースやタブとともに）、リテラルテキストとして扱われるのではなく、結合結果から完全に省略される。各コメントは、行の右側に表示することも、それ自体で改行することもできる。</p>
+<p id="CommentOption"><strong>Comments</strong> (または <strong>Comment</strong> または <strong>Com</strong> または <strong>C</strong>):継続セクション内での<a href="Language.htm#comments">セミコロン・コメント</a>を許可する（ただし<code>/*..*/</code>は不可）。そのようなコメントは（その左にあるスペースやタブとともに）、リテラルテキストとして扱われるのではなく、結合結果から完全に省略される。各コメントは、行の右側に表示することも、それ自体で改行することもできる。</p>
 <p id="accent"><strong>`</strong> (accent):各バックティック文字を<a href="misc/EscapeChar.htm">エスケープ文字</a>としてではなく、文字通りに扱う。また、<code>`r</code>や<code>`t</code>のような明示的に指定されたエスケープシーケンスも変換されなくなる。</p>
-<p id="non-continuation"><strong>(</strong> または <strong>)</strong>:最初の開始括弧の右側に開始括弧または閉じ括弧がある場合（<a href="#Join">Join</a>オプションのパラメータを除く）、その行は継続セクションの開始ではなく、式として再解釈される。これにより、<code>(x.y)[z]()の</code>ような式を行頭で使用できるようになり、また、<a href="#continuation-expr">複数行の式</a>を <code>((</code>や<code>(MyFunc(</code>のように行で始めることもできる。</p>
+<p id="non-continuation"><strong>(</strong> または <strong>)</strong>:最初の開始括弧の右側に開始括弧または閉じ括弧がある場合（<a href="#Join">Join</a>オプションのパラメータを除く）、その行は継続セクションの開始ではなく、式として再解釈される。これにより、<code>(x.y)[z]()</code>のような式を行頭で使用できるようになり、また、<a href="#continuation-expr">複数行の式</a>を <code>((</code>や<code>(MyFunc(</code>のように行で始めることもできる。</p>
 
 <h3 id="continuation-remarks">備考</h3>
 <p>`n (改行) や `t (タブ) などの<a href="misc/EscapeChar.htm">エスケープシーケンス</a>は、<a href="#accent">アクセント (`) オプション</a>が指定されている場合を除き、継続セクションの内部でサポートされています。</p>
@@ -155,7 +155,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <a href="Variables.htm#MyDocuments">A_MyDocuments</a> "\AutoHotkey\Lib\"  <em>; User library.</em>
 "directory-of-the-currently-running-AutoHotkey.exe\Lib\"  <em>; Standard library.</em></pre>
 <p>ライブラリフォルダは上記の順序で検索されます。</p>
-<p>例えば、スクリプトに<code>#Include&lt;MyLib&gt;</code>という行が含まれていると、プログラムはローカル・ ライブラリから「MyLib.ahk」という名前のファイルを探す。そこで見つからなければ、ユーザー・ライブラリーを探し、次に標準ライブラリーを探す。それでも一致するものが見つからず、ライブラリ名にアンダースコア（例：<code>MyPrefix_MyFunc</code>）が含まれている場合、プログラムは接頭辞（例：<code>MyPrefix.ahk</code>）だけで再度検索を行います。</p>
+<p>例えば、スクリプトに<code>#Include &lt;MyLib&gt;</code>という行が含まれていると、プログラムはローカル・ ライブラリから「MyLib.ahk」という名前のファイルを探す。そこで見つからなければ、ユーザー・ライブラリーを探し、次に標準ライブラリーを探す。それでも一致するものが見つからず、ライブラリ名にアンダースコア（例：<code>MyPrefix_MyFunc</code>）が含まれている場合、プログラムは接頭辞（例：<code>MyPrefix.ahk</code>）だけで再度検索を行います。</p>
 <p>通常、ライブラリ・ファイルには、ファイル名と同じ名前の関数やクラスが1つだけ含まれるのが通例だが、そのファイルによってのみ呼び出されるプライベート関数が含まれることもある。しかし、このような関数は、グローバル名前空間に存在するため、かなり明確な名前を持つ必要がある。</p>
 
 <h2 id="ahk2exe">スクリプトをEXEに変換 (Ahk2Exe)</h2>
@@ -382,7 +382,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 </ul>
 <p>例については<a href="lib/Run.htm#ExecScript">ExecScript()</a>を参照。</p>
 <p>現在の実行ファイルに<a href="Program.htm#embedded-scripts">スクリプトが埋め込まれて</a>いる場合、このパラメータには、アスタリスクの後に埋め込みスクリプトのリソース名またはIDを付けることができる。コンパイル済みスクリプトの場合（つまり、ID #1の埋め込みスクリプトが存在する場合）、このパラメータの前に<code>/script</code>スイッチを付ける必要があります。</p>
-<p><strong>スクリプトのパラメータ：</strong>スクリプトに渡す文字列を、空白で区切って指定します。スペースを含むパラメータは引用符で囲む。空文字列をパラメータとして渡したい場合は、連続する2つの引用符を指定する。リテラル引用符は、その前にバックスラッシュ（ \")を付けることで渡すことができる。その結果、引用符で囲まれたパラメータ（"C:\My Documents<span class="red">\"</span>など）の末尾のスラッシュは、リテラル引用符として扱われます（つまり、スクリプトは "C:\My Documents<span class="red">"</span>という文字列を受け取ります）。このような引用符を削除するには、<code>A_Args[1] :=<a href="lib/StrReplace.htm">StrReplace</a>(A_Args[1], '"')</code>を使用する。</p>
+<p><strong>スクリプトのパラメータ：</strong>スクリプトに渡す文字列を、空白で区切って指定します。スペースを含むパラメータは引用符で囲む。空文字列をパラメータとして渡したい場合は、連続する2つの引用符を指定する。リテラル引用符は、その前にバックスラッシュ（ \")を付けることで渡すことができる。その結果、引用符で囲まれたパラメータ（"C:\My Documents<span class="red">\"</span>など）の末尾のスラッシュは、リテラル引用符として扱われます（つまり、スクリプトは "C:\My Documents<span class="red">"</span>という文字列を受け取ります）。このような引用符を削除するには、<code>A_Args[1] := <a href="lib/StrReplace.htm">StrReplace</a>(A_Args[1], '"')</code>を使用する。</p>
 <p id="cmd_args">入力パラメータがある場合は、組み込み変数<strong>A_Args</strong>に配列として格納され、<a href="Objects.htm#Usage_Simple_Arrays">配列構文</a>を使ってアクセスできる。<code>A_Args[1]</code>は最初のパラメーターを含む。以下の例では、渡されるパラメーターが少なすぎる場合にスクリプトを終了している：</p>
 <pre>if A_Args.Length &lt; 3
 {

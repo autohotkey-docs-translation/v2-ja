@@ -57,7 +57,7 @@
 <h2 id="Remarks">備考</h2>
 <p><em>KeyName</em>が存在しないサブキーを指定した場合、RegWriteはそれを作成しようとします（必要であれば、その祖先も一緒に）。RegWriteはルートキーに直接書き込むことができますが、OSによってはHKEY_CURRENT_USERの最上位に書き込むことを拒否する場合があります。</p>
 <p>値を書き込まずにキーを作成するには、<a href="RegCreateKey.htm">RegCreateKey</a>を使用します。</p>
-<p><em>ValueType</em>がREG_DWORDの場合、<em>Value</em>は-2147483648から4294967295（0xFFFFFFF）の間とする。レジストリでは、REG_DWORDの値は常に正の10進数で表現されます。<a href="RegRead.htm">RegRead</a>などで負の数として読み込む場合は、<code>OutputVar := OutputVar &lt;&lt; 32 &gt;&gt;32</code>などで符号付き32ビット整数に変換してください。</p>
+<p><em>ValueType</em>がREG_DWORDの場合、<em>Value</em>は-2147483648から4294967295（0xFFFFFFF）の間とする。レジストリでは、REG_DWORDの値は常に正の10進数で表現されます。<a href="RegRead.htm">RegRead</a>などで負の数として読み込む場合は、<code>OutputVar := OutputVar &lt;&lt; 32 &gt;&gt; 32</code>などで符号付き32ビット整数に変換してください。</p>
 <p>REG_BINARYキーを書くときは、16進数の文字列を使用します。例えば、REG_BINARY値01,a9,ff,77は、01A9FF77という文字列で書くことができます。</p>
 <p>REG_MULTI_SZキーを書くときは、各コンポーネントと次のコンポーネントをラインフィード文字（`n）で区切る必要があります。最後のコンポーネントは、オプションとして、ラインフィードで終了することもできる。ブランク部品は不可です。つまり、2つ並んだ改行（`n`n）を指定すると、予想以上に短い値がレジストリに書き込まれることになるので、指定しないようにしましょう。</p>
 <p>複数のレジストリキーや値を取得し、操作するためには<a href="LoopReg.htm">レジストリループ</a>の利用を検討してください。</p>

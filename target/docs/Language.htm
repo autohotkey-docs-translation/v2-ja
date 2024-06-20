@@ -134,8 +134,8 @@ MsgBox "This line is not commented out."
 <h3 id="operators">演算子</h3>
 <p><em>演算子</em>は、<code>+</code>や <code>:=</code>などの記号や記号群、または<code>and</code>、<code>or</code>、<code>not</code>、<code>is</code>、<code>in</code>、<code>contains</code>のいずれかの単語の形をとる。1つ、2つ、3つの値を入力として受け取り、結果として値を返します。演算子の入力として使用される値または部分式を<em>オペランド</em>と呼ぶ。</p>
 <ul>
-  <li><em>単項</em>演算子は、演算子によって、1つのオペランドの前か後に書かれます。例えば、<code>-x</code>または、<code>keyIsDown</code></li>
-  <li><em>二項</em>演算子は、2つのオペランドの間に記述されます。例えば, <code>1+1</code> または <code>2 * 5</code>.</li>
+  <li><em>単項</em>演算子は、演算子によって、1つのオペランドの前か後に書かれます。例えば、<code>-x</code>または、<code>not keyIsDown</code>。</li>
+  <li><em>二項</em>演算子は、2つのオペランドの間に記述されます。例えば, <code>1+1</code> または <code>2 * 5</code>。</li>
   <li>AutoHotkeyには<em>三項</em>演算子が1つだけあり、次のような形をしています<a href="Variables.htm#ternary"><code>条件 ? valueIfTrue : valueIfFalse</code></a>。</li>
 </ul>
 <p>単項演算子と二項演算子には同じ記号を持つものがあり、その場合、演算子の意味は2つの値の前、後、間のいずれに書かれるかに依存します。例えば、<code>x-y</code>は引き算を行い、<code>-x</code>は <code>x</code>の符号を反転させる（負の値から正の値を生成し、その逆も同様）ことを意味します。</p>
@@ -188,7 +188,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><code>Alpha.%vBeta%</code>、<code>Alpha.%vBeta%[Param]</code>、および<code>Alpha.%vBeta%()</code>もメンバーアクセスですが、<em>vBeta</em>は変数または副式です。これにより、スクリプトの実行中にプロパティやメソッドの名前を決定することができます。この方法でメソッドを呼び出す場合は、括弧を付ける必要があります。</p>
 <p><code>Alpha[Index]</code>は、<code>Index</code>をパラメータとして、<code>Alpha</code>の<em>デフォルトのプロパティ</em>にアクセスします。この場合、<em>Alpha</em>と <em>Index</em>はいずれも変数であり、事実上あらゆる部分式に置き換えることができる。この構文は、通常、<a href="lib/Array.htm">Array</a>や <a href="lib/Map.htm">Map</a>の要素を取得するために使用されます。</p>
 <p id="array-literal"><code>[A, B, C]</code>は、初期内容A、B、C（この場合はすべて変数）を持つ<a href="lib/Array.htm">配列</a>を作成し、Aは要素1です。</p>
-<p id="object-literal"><code>{Prop1: Value1, Prop2: Value2}</code> 文字通り<em>Prop1</em>と<em>Prop2</em>という名前のプロパティを持つ<a href="lib/Object.htm">Object</a>を作成します。値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。事例：<code>{%NameVar%:ValueVar}</code>.</p>
+<p id="object-literal"><code>{Prop1: Value1, Prop2: Value2}</code> 文字通り<em>Prop1</em>と<em>Prop2</em>という名前のプロパティを持つ<a href="lib/Object.htm">Object</a>を作成します。値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。事例：<code>{%NameVar%: ValueVar}</code>.</p>
 <p><code>MyFunc(Params*)</code>は、<a href="Functions.htm#VariadicCall">可変長引数関数呼び出し</a>です。アスタリスクは、関数のパラメータリストの最後にある閉じ括弧の直前でなければなりません。<em>Params</em>は、<a href="lib/Array.htm">Array</a>または他の列挙可能なオブジェクトを返す変数または部分式でなければなりません。<code>Params*</code>はどこでも使えるわけではありませんが、配列リテラル（<code>[A, B, C, ArrayToAppend*]</code>）やプロパティのパラメータリスト（<code>Alpha.Beta[Params*]</code>や<code>Alpha[Params*]</code>）で使用することが可能です。</p>
 
 <h3 id="expression-statements">表現文</h3>
@@ -199,11 +199,11 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><code>MyFunc(Params)</code>のような関数呼び出しただし、単独の関数呼び出しには、関数宣言と混同されるため、（行末や次の行で）開波括弧<code>{</code>を付けることはできません。</p>
 <p><code>MyObj.MyMethod()</code>のようなメソッド呼び出しです。</p>
 <p><code>MyObj[Index]</code>のように角括弧を使ったメンバーアクセスは、関数呼び出しのような副作用がある場合があります。</p>
-<p>3項式、<code>x ?CallIfTrue() :CallIfFalse()</code>。ただし、式（または条件）を常に括弧で囲むという、以下のルールを利用するのが無難です。</p>
+<p>3項式、<code>x ? CallIfTrue() : CallIfFalse()</code>。ただし、式（または条件）を常に括弧で囲むという、以下のルールを利用するのが無難です。</p>
 <p class="warning"><strong>既知の制限事項：</strong> <a href="#function-call-statements">関数呼び出し文</a>があいまいなため、変数名とスペースで始まる条件（他の演算子も含む）は、括弧で囲む必要があります。例えば、<code>(x + 1) ? y : z</code>や<code>x+1 ? y : z </code>は、式ですが、<code>x + 1 ? y : z</code>は、関数呼び出し文です。</p>
 <p class="warning"><strong>注：</strong>条件は、<a href="Scripts.htm#continuation-line">継続行</a>と解釈されるため、<code>!</code>やその他の式演算子で始めることはできません。</p>
 <p>始まる表現<code>(</code>。しかし、通常、同じ行に一致する<code>)</code>がなければ、その行は<a href="Scripts.htm#continuation">継続セクション</a>の開始と解釈されます。</p>
-<p><code>varname% := 1</code>のように、ダブルデフで始まる式。これは主に、実装の複雑さによるものです。</p>
+<p><code>%varname% := 1</code>のように、ダブルデフで始まる式。これは主に、実装の複雑さによるものです。</p>
 <p>簡略化のため、上記のいずれかで始まる表現（後述のものは除く）も可とします。例えば、<code>MyFunc()+1</code>は現在許可されていますが、<code>+1</code>は何の効果もなく、その結果は破棄されます。将来、エラーチェックの強化により、このような表現が無効となる可能性があります。</p>
 <p><a href="#function-call-statements">関数呼び出し文は</a>式文と似ていますが、技術的には純粋な式ではありません。例えば、<code>MsgBox "Hello, world!"</code>,<code>myGui.Show</code>または<code>x.y.z "my parameter"</code>などです。</p>
 

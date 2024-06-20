@@ -27,10 +27,10 @@
 <h3 id="NoTimers">NoTimers</h3>
 <p>あらゆるタイマーからの割り込みを防ぐ。</p>
 <pre class="Syntax"><span class="func">Thread</span> "NoTimers" <span class="optional">, False</span></pre>
-<p>このサブファンクションは、<a href="../misc/Threads.htm">現在のスレッド</a>が終了するか、<code>スレッド "NoTimers"</code>を実行するか、<code>false</code>を実行するか、タイマーを許可する他のスレッドによって割り込まれるまで（この場合、タイマーは割り込まれたスレッドが終了するまで割り込むことができる）、いかなる<a href="SetTimer.htm">タイマー</a>からの割り込みも防ぐ。</p>
+<p>このサブファンクションは、<a href="../misc/Threads.htm">現在のスレッド</a>が終了するか、<code>Thread "NoTimers", false</code>を実行するか、タイマーを許可する他のスレッドによって割り込まれるまで（この場合、タイマーは割り込まれたスレッドが終了するまで割り込むことができる）、いかなる<a href="SetTimer.htm">タイマー</a>からの割り込みも防ぐ。</p>
 <p>If this setting is not changed by <a href="../Scripts.htm#auto">the auto-execute thread</a>, all threads start off as interruptible by timers (though the settings of the <a href="#Interrupt">Interrupt</a> sub-function described below will still apply). 対照的に、自動実行スレッドがこの設定をオンにし、決してオフにしない場合、新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">タイマー</a>など）はすべて、タイマーによる中断を受けずに起動する。</p>
 <p>デフォルトの設定にかかわらず、スクリプトにスレッドがない場合、タイマーは常に動作する（<a href="Pause.htm">一時停止</a>がオンになっている場合を除く）。</p>
-<p><code>スレッド "NoTimers"</code>は<code>スレッド "NoTimers"</code>と等価である。In addition, since the <em>False</em> parameter is an <a href="../Variables.htm#Expressions">expression</a>, true resolves to 1, and false to 0. See <a href="../Concepts.htm#boolean">Boolean Values</a> for details.</p>
+<p><code>Thread "NoTimers"</code>は<code>Thread "NoTimers", true</code>と等価である。In addition, since the <em>False</em> parameter is an <a href="../Variables.htm#Expressions">expression</a>, true resolves to 1, and false to 0. See <a href="../Concepts.htm#boolean">Boolean Values</a> for details.</p>
 
 <h3 id="Priority">Priority</h3>
 <p>現在のスレッドの優先度を変更する。</p>
@@ -47,13 +47,13 @@
 <p>デフォルトでは、新しく起動されたスレッドは、<em>継続時間</em>15ミリ秒または<em>LineCount</em>が1000スクリプト行のどちらか早い方の間、中断されない。これにより、起動待ちの他のスレッド（バッファリングされた<a href="../Hotkeys.htm">ホットキー</a>や、すべての実行が予定されている一連の<a href="SetTimer.htm">定時サブルーチン</a>など）に即座に割り込まれることなく、スレッドを終了させることができる。</p>
 <p class="note"><strong>注：</strong>システムのティックカウントの最小分解能は10～16ミリ秒であるため、<em>Duration</em>が17未満の場合、実際の持続時間が短くなったり、即座に中断したりする可能性がある。しかし、スレッドが割り込み可能になる前に少なくとも1行は実行されるので、スクリプトは必要に応じて<a href="Critical.htm">クリティカル</a>を有効にすることができる。</p>
 <p>いずれかのパラメーターが0であれば、新しく起動されたスレッドは即座に割り込み可能となる。いずれかのパラメータが-1の場合、そのパラメータの結果としてスレッドが中断されることはない。両パラメーターの最大値は2147483647である。</p>
-<p>この設定はグローバルであり、<a href="../Scripts.htm#auto">自動実行スレッド</a>からこの関数が呼び出されなかったとしても、後続のすべてのスレッドに影響する。しかし、<a href="../misc/Threads.htm">中断されたスレッド</a>は、中断されない期間がすでに終了しているため、影響を受けない。同様に、<a href="../misc/Threads.htm">現在のスレッド</a>は、<em>LineCount</em>パラメータが変更された時点で中断不可能な場合を除き、影響を受けない。</p>
+<p>この設定はグローバルであり、<a href="../Scripts.htm#auto">自動実行スレッド</a>からこの関数が呼び出されなかったとしても、後続のすべてのスレッドに影響する。しかし、<a href="../misc/Threads.htm">中断されたスレッド</a>は、中断されない期間がすでに終了しているため、影響を受けない。同様に、<a href="../misc/Threads.htm">現在のスレッド</a>は、<em>LineCount</em>パラメータが変更された時点で中断不可能な場合を除き、影響を受けない。その場合、新しい<em>LineCount</em>が有効になります。</p>
 <p><a href="../misc/Threads.htm">現在のスレッド</a>が中断されていない間に<a href="../Hotkeys.htm">ホットキー</a>が押されたり、<a href="Menu.htm">カスタムメニュー項目が</a>選択されたりすると、そのイベントはバッファリングされる。つまり、現在のスレッドが終了するか、割り込み可能になるかのどちらか先になったときに起動する。この例外は、現在のスレッドが終了する前に割り込み可能になり、バッファリングされたイベントよりも<a href="#Priority">優先順位</a>が高い場合である。</p>
 <p>このサブ関数に関係なく、スレッドは<a href="MsgBox.htm">MsgBox</a>、<a href="InputBox.htm">InputBox</a>、<a href="FileSelect.htm">FileSelect</a>、<a href="DirSelect.htm">DirSelect</a>ダイアログを表示した瞬間に割り込み可能になる。</p>
 <p>どちらかのパラメータを変更しないように空白のままにすることもできる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>柔軟性が高く、イベントをバッファリングできるため、<a href="Critical.htm">Critical</a>関数は<code>スレッド「割り込み」</code>や<code>スレッド「優先順位」</code>よりも一般的に有用である。</p>
+<p>柔軟性が高く、イベントをバッファリングできるため、<a href="Critical.htm">Critical</a>関数は<code>Thread "Interrupt"</code>や<code>Thread "Priority"</code>よりも一般的に有用である。</p>
 <h2 id="Related">関連</h2>
 <p><a href="Critical.htm">Critical</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Hotkey.htm">Hotkey</a>, <a href="Menu.htm">Menu object</a>, <a href="SetTimer.htm">SetTimer</a>, <a href="Process.htm">Process functions</a></p>
 <h2 id="Examples">例</h2>

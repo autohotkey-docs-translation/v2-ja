@@ -20,7 +20,7 @@
 
 <h2 id="fundamentals">基礎</h2>
 <p><strong>どこでもマッチする：</strong>デフォルトでは、正規表現は検索される文字列内の<em>任意</em>の部分文字列にマッチします。例えば、正規表現<span class="regex">abc</span>は、<span class="subj">abc</span>123、123<span class="subj">abc</span>、123<span class="subj">abc</span>xyzのどれにもマッチします。最初か最後だけにマッチさせるは、<a href="#anchor">アンカー</a>を使います。</p>
-<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
 <p><strong>大文字と小文字を区別する：</strong>デフォルトでは、正規表現は大文字と小文字を区別します。これは "i"オプションで変更できる。たとえば、<span class="regex">i)abc</span>というパターンは、大文字小文字を区別せずに "abc"を検索する。その他の修飾語については以下を参照のこと。</p>
 
 <h2 id="Options">オプション（大文字と小文字を区別）</h2>
@@ -37,7 +37,7 @@
   <tr id="Multiline">
     <td class="center bold">m</td>
     <td><p>Multiline. <em>ヘイスタック</em>を連続した1行としてではなく、（改行が含まれている場合は）個々の行の集まりとして表示する。具体的には以下のような変更である：</p>
-      <p>1)サーカムフレックス (^) は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>ヘイスタック</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
+      <p>1)サーカムフレックス (^) は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>Haystack</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
       <p>2)ドル記号 ($) は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
       <p>例えば、パターン<span class="regex"><span class="red">m)</span>^abc$</span>はxyz`r`n<span class="subj">abc</span>にマッチする。しかし、"m"オプションがなければマッチしない。</p>
       <p>"D"オプションは "m"があると無視される。</p></td>
@@ -109,7 +109,7 @@
 	<tr>
 		<td class="center bold">*</td>
 		<td><p>アスタリスクは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個以上にマッチする。例えば、<span class="regex">a*</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。また、"a "をまったく含まない文字列の先頭にもマッチする。</p>
-	      <p><strong>ワイルドカード：</strong>ドットスターパターン<span class="regex">.*</span>は、0個以上の<em>任意</em>の文字（改行を除く）にマッチするため、最も寛容なパターンの1つである：`r and `n). 例えば、<span class="regex">abc.*123</span>は <span class="subj">abc</span> <span class="subj">123</span>だけでなく、<span class="subj">abcAnything123</span>にもマッチする。</p>		  </td>
+	      <p><strong>ワイルドカード：</strong>ドットスターパターン<span class="regex">.*</span>は、0個以上の<em>任意</em>の文字（改行 `r と `n を除く）にマッチするため、最も寛容なパターンの1つである。例えば、<span class="regex">abc.*123</span>は<span class="subj">abcAnything123</span>にも<span class="subj">abc123</span>にもマッチする。</p>		  </td>
 	</tr>
 	<tr>
 	  <td class="center bold">?</td>
@@ -133,11 +133,11 @@
   </tr>
 	<tr>
 	  <td class="center bold">[^...]</td>
-	  <td>クラスに<strong>ない</strong>任意の1文字にマッチする。例えば、<span class="regex">[^/]*は</span>、<span class="subj">http://</span>のような、フォワード・スラッシュで<em>ない</em>文字が0個以上出現した場合にマッチする。同様に、<span class="regex">[^0-9xyz]</span>は、数字でなく、文字x、y、zでない一文字にマッチする。</td>
+	  <td>クラスに<strong>ない</strong>任意の1文字にマッチする。例えば、<span class="regex">[^/]*</span>は、<span class="subj">http:</span>// のような、フォワード・スラッシュで<em>ない</em>文字が0個以上出現した場合にマッチする。同様に、<span class="regex">[^0-9xyz]</span>は、数字でなく、文字x、y、zでない一文字にマッチする。</td>
   </tr>
 	<tr>
 	  <td class="center bold">\d</td>
-	  <td>任意の1桁の数字にマッチする（<span class="regex">[0-9]</span>クラスに相当）。逆に、<strong>大文字</strong>は、「数字<em>以外</em>のもの」を意味する。例えば、<span class="regex">[\d.-]</span>は「一桁の数字、ピリオド、マイナス記号」を意味する。</td>
+	  <td>任意の1桁の数字にマッチする（<span class="regex">[0-9]</span>クラスに相当）。逆に、<strong>大文字</strong>は、「数字<em>以外</em>のもの」を意味する。これと以下の2つは<a href="#class">クラス</a>内部でも使える。例えば、<span class="regex">[\d.-]</span>は「一桁の数字、ピリオド、マイナス記号」を意味する。</td>
   </tr>
 	<tr>
 	  <td class="center bold">\s</td>

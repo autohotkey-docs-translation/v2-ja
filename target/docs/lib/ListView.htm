@@ -124,7 +124,7 @@ LV_DoubleClick(LV, RowNumber)
     <p id="Focus"><strong>Focus:</strong> Sets keyboard focus to the row (often used in conjunction with the <a href="#Select">Select</a> option below). To later de-focus it, use <code>LV.Modify(RowNumber, "-Focus")</code>.</p>
     <p><strong>Icon:</strong> Specify the word <em>Icon</em> followed immediately by the number of this row's icon, which is displayed in the left side of the first column. このオプションがない場合、<a href="#IL">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示する場合は、-1またはImageListのアイコンの数より大きい数を指定する。If the control lacks a small-icon ImageList, no icon is displayed nor is any space reserved for one in <a href="#View">report view</a>.</p>
     <p>The <em>Icon</em> option accepts a one-based icon number, but this is internally translated to a zero-based index; therefore, <code>Icon0</code> corresponds to the constant <a href="https://learn.microsoft.com/windows/win32/controls/list-view-controls-overview#callback-items-and-the-callback-mask">I_IMAGECALLBACK</a>, which is normally defined as -1, and <code class="no-highlight">Icon-1</code> corresponds to I_IMAGENONE. その他の範囲外の値でも、アイコンがあるはずの場所に空白ができることがあります。</p>
-    <p id="Select"><strong>Select:</strong> Selects the row. 後で選択を解除するには、<code>LV.Modify(RowNumber, "-Select")</code>を使用します。行を選択する場合、少なくとも1つの行が常に<a href="#Focus">フォーカス</a>を持つようにしておくと、Appsキーがフォーカスを持つ行の近くに<a href="GuiOnEvent.htm#ContextMenu">コンテキストメニュー</a>を表示できるようになるからです。<em>Select</em>の後に、オプションとして、開始状態を示す0または1が続く場合がある。つまり、<code>"Select"</code>も<code>"Select"<strong>.</strong>VarContainingOne</code>は同じです（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>です）。This technique also works with the <a href="#Focus">Focus</a> and <a href="#Check">Check</a> options above.</p>
+    <p id="Select"><strong>Select:</strong> Selects the row. 後で選択を解除するには、<code>LV.Modify(RowNumber, "-Select")</code>を使用します。行を選択する場合、少なくとも1つの行が常に<a href="#Focus">フォーカス</a>を持つようにしておくと、Appsキーがフォーカスを持つ行の近くに<a href="GuiOnEvent.htm#ContextMenu">コンテキストメニュー</a>を表示できるようになるからです。<em>Select</em>の後に、オプションとして、開始状態を示す0または1が続く場合がある。つまり、<code>"Select"</code>も<code>"Select" <strong>.</strong> VarContainingOne</code>は同じです（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>です）。This technique also works with the <a href="#Focus">Focus</a> and <a href="#Check">Check</a> options above.</p>
     <p id="Vis"><strong>Vis:</strong> Ensures that the specified row is completely visible by scrolling the ListView, if necessary. This has an effect only for <a href="#Modify">LV.Modify</a>; for example: <code>LV.Modify(RowNumber, "Vis")</code>.</p>
   </dd>
   <dt>Col1, Col2, ...</dt>
@@ -429,7 +429,7 @@ IsChecked := (ItemState &gt;&gt; 12) - 1　　<em>;<i>RowNumber</i>がチェッ�
   <tr><td><a href="GuiOnEvent.htm#Click">Click</a></td><td>コントロールがクリックされます。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a></td><td>コントロールがダブルクリックされます。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ColClick">ColClick</a></td><td>カラムヘッダがクリックされます。</td></tr>
-  <tr><td><a href="GuiOnEvent.htm#Ctrl-ContextMenu">ContextMenu</a></td><td>コントロールにキーボードフォーカスがある状態で、ユーザーがコントロールを右クリックするか、<kbd>メニュー</kbd>または<kbd>Shift</kbd>+<kbd>F10</kbd>を押した場合。</td></tr>
+  <tr><td><a href="GuiOnEvent.htm#Ctrl-ContextMenu">ContextMenu</a></td><td>コントロールにキーボードフォーカスがある状態で、ユーザーがコントロールを右クリックするか、<kbd>Menu</kbd>または<kbd>Shift</kbd>+<kbd>F10</kbd>を押した場合。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#Focus">Focus</a></td><td>コントロールがキーボードフォーカスを獲得します。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a></td><td>コントロールはキーボードフォーカスを失います。</td></tr>
   <tr><td><a href="GuiOnEvent.htm#ItemCheck">ItemCheck</a></td><td>項目がチェックされているか、チェックされていないかの状態です。</td></tr>
@@ -540,7 +540,7 @@ IconIndex := <span class="func">IL_Add</span>(ImageListID, PicFileName, MaskColo
 
 <h2 id="Remarks">備考</h2>
 <p><a href="Gui.htm#Submit">Gui.Submit</a>は、ListViewコントロールには効果がありません。</p>
-<p>カラムがソートされた後（ユーザーがヘッダーをクリックするか、スクリプトが<code>LV.<a href="#ModifyCol">ModifyCol</a>(1, "Sort") </code>を呼び出す）、その後に追加された行は、ソート順序に従わずにリストの一番下に表示されます。ただし、<a href="#Sort">Sort</a>と <a href="#SortDesc">SortDesc</a>は例外で、新しく追加された行を正しい位置に移動させるスタイルです。</p>
+<p>カラムがソートされた後（ユーザーがヘッダーをクリックするか、スクリプトが<code>LV.<a href="#ModifyCol">ModifyCol</a>(1, "Sort")</code>を呼び出す）、その後に追加された行は、ソート順序に従わずにリストの一番下に表示されます。ただし、<a href="#Sort">Sort</a>と <a href="#SortDesc">SortDesc</a>は例外で、新しく追加された行を正しい位置に移動させるスタイルです。</p>
 <p id="Enter">ListViewにフォーカスがある状態でユーザーが<kbd>Enter</kbd>を押したことを検出するには、<a href="GuiControls.htm#DefaultButton">デフォルトのボタン</a>を使用します（必要に応じて非表示にすることができます）。事例：</p>
 <pre>MyGui.Add("Button", "Hidden Default", "OK").OnEvent("Click", LV_Enter)
 ...

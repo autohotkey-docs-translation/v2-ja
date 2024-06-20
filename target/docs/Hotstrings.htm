@@ -37,7 +37,7 @@
     MsgBox 'You typed "btw".'
 }
 
-:*:]d::  <em>; このホットストリングは、以下のステートメントで”]d"を現在の日付と時刻に置き換えます。</em>
+:*:]d::  <em>; このホットストリングは、以下のステートメントで"]d"を現在の日付と時刻に置き換えます。</em>
 {
     Send <a href="lib/FormatTime.htm">FormatTime</a>(, "M/d/yyyy h:mm tt")  <em>; "9/1/2005 3:53 PM"のように表示されます。</em>
 }</pre>
@@ -64,7 +64,7 @@
 <pre>:*:j@::jsmith@somedomain.com</pre>
 <p>上の例では、@を入力した瞬間に置換する文字列（jsmith@somedomain.com）を送信します。<a href="lib/_Hotstring.htm">#Hotstringディレクティブ</a>を使用するときは、このオプションをオフに戻すには<strong>*0</strong>を使用します。</p>
 <p id="Question"><strong>?</strong>（クエスチョンマーク）:ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
-<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。単に<strong>B</strong>だけをオプションに使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>バックスペース</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできます。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
+<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。単に<strong>B</strong>だけをオプションに使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>Backspace</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできます。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
 <pre>:*b0:&lt;em&gt;::&lt;/em&gt;{left 5}</pre>
 <p id="C"><strong>C:</strong> Case-sensitive:略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
 <p id="C1"><strong>C1:</strong> Do not conform to typed case. Use this option to make <a href="#auto">auto-replace hotstrings</a> case-insensitive and prevent them from conforming to the case of the characters you actually type. 大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
@@ -74,7 +74,7 @@
   <li>SP (SendPlay):長さ0のディレイがデフォルトで、SendPlayの場合は-1（ディレイなし）と同じです。このモードでは、遅延はキーストローク間の遅延ではなく、実際には<a href="lib/SetKeyDelay.htm#dur">PressDuration</a>となります。</li>
   <li>SE (SendEvent):長さゼロのディレイがデフォルトです。Zeroは高速でありながら、他のプロセスとの協調性が高いため（内部的に<a href="lib/Sleep.htm">Sleep 0</a>を行うため）、ほとんどの用途で推奨されます。k-1を指定すると、全く遅延しないので、CPUに負荷がかかることが多い場合、自動置換を高速化するのに有効です。1 に設定すると、スクリプトのプロセス優先度がキー入力の送信速度の重要な要素となります。スクリプトの優先度を上げるには、<code><a href="lib/ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>を使用します。</li>
 </ul>
-<p id="O"><strong>O:</strong> Omit the ending character of <a href="#auto">auto-replace hotstrings</a> when the replacement is produced. これは、ホットストリングに終端文字を必要とすることで曖昧さをなくしたいけれども、実際には終端文字を画面に表示させたくない場合に有効です。例えば、<code>:o:ar::aristocrat</code>がホットストリングである場合、arと入力した後にスペースキーを押すと、末尾にスペースがないaristocratとなり、<kbd>バックスペース</kbd>を押すことなく複数形や所有格にすることが可能です。このオプションをオフに戻すには、<strong>O0</strong>（アルファベットのOの後にゼロが続く）を使用します。</p>
+<p id="O"><strong>O:</strong> Omit the ending character of <a href="#auto">auto-replace hotstrings</a> when the replacement is produced. これは、ホットストリングに終端文字を必要とすることで曖昧さをなくしたいけれども、実際には終端文字を画面に表示させたくない場合に有効です。例えば、<code>:o:ar::aristocrat</code>がホットストリングである場合、arと入力した後にスペースキーを押すと、末尾にスペースがないaristocratとなり、<kbd>Backspace</kbd>を押すことなく複数形や所有格にすることが可能です。このオプションをオフに戻すには、<strong>O0</strong>（アルファベットのOの後にゼロが続く）を使用します。</p>
 <p id="Pn"><strong>Pn:</strong> The <a href="misc/Threads.htm">priority</a> of the hotstring (e.g. P1). このめったに使われないオプションは、<a href="#auto">自動置換ホットストリング</a>には影響しません。</p>
 <p id="raw"><strong>R:</strong> Send the replacement text <a href="lib/Send.htm#SendRaw">raw</a>; that is, without translating {Enter} to <kbd>Enter</kbd>, ^c to <kbd>Ctrl</kbd>+<kbd>C</kbd>, etc. <strong>R0</strong>でこのオプションをオフに戻すか、<strong>T</strong>で上書きしてください。</p>
 <p class="note"><strong>注：</strong> <a href="#T">テキストモード</a>の方が信頼性が高い場合があります。RとTのオプションは相互に排他的です。</p>
@@ -119,13 +119,13 @@
 <h2 id="remarks">備考</h2>
 <p>現在、置換テキスト内の<a href="Variables.htm#Expressions">式</a>はサポートされていません。これを回避するためには、このようなホットストリングを<a href="#auto">自動置換</a>しないようにします。Instead, use the <a href="lib/Send.htm">Send</a> function in the body of the hotstring or in combination with the <a href="#X">X (execute) option</a>.</p>
 <p>To send an extra space or tab after a replacement, include the <a href="misc/EscapeChar.htm">escape sequence</a> <code>`s</code> or <code>`t</code> at the end of the replacement, e.g. <code>:*:btw::by the way`s</code>.</p>
-<p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{</code>だけ、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace::{{}</code>. それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
+<p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{</code>だけ、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace:: {{}</code>. それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
 <p id="NoMouse">デフォルトでは、マウスの左ボタンまたは右ボタンをクリックすると、ホットストリング認識機能がリセットされます。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります（これが望ましくない場合は、スクリプトのどこかに<code><a href="lib/_Hotstring.htm">#Hotstring</a> NoMouse</code>という行を指定してください）。クリックするたびにテキスト挿入点（キャレット）が移動したり、キーボードフォーカスが新しいコントロール/フィールドに設定されるのが普通なので、この「マウスクリックでリセット」動作がデフォルトになっています。このような場合、通常は、以下のようにすることが望ましい。1) ホットストリングが<a href="#Question">クエスチョンマークオプション</a>を欠いていても発射します。2) マウスをクリックした後に入力したものが、誤って前に入力したものと有効な略語を形成した場合に発射されるのを防止します。</p>
 <p id="focus-reset">ホットストリングレコグナイザーは、文字が入力されるたびにアクティブなウィンドウをチェックし、以前とは異なるウィンドウがアクティブな場合はリセットされます。アクティブウィンドウが変更され、文字が入力される前に元に戻った場合、変更は検出されません（ただし、他の理由でホットストリング認識装置がリセットされる場合があります）。ホットストリングレコグナイザーをリセットするには、次のようにします。 <code><a href="lib/Hotstring.htm#Reset">Hotstring "Reset"</a></code>.</p>
 <p>内蔵変数<strong>A_EndChar</strong>には、直近の自動置換でないホットストリングを起動するために入力した終了文字が格納されます。終端文字が必要ない場合（<a href="#Asterisk">*オプション</a>のため）、空白となります。A_EndCharは、Send関数を使用するホットストリングや、入力した終端文字によって動作が変化するホットストリングを作成する場合に便利です。終了文字そのものを送信する場合は、<code>SendText A_EndChar</code>を使用します（<a href="lib/Send.htm">SendTextを</a>使用するのは、!{}などの文字が通常のSend関数では正しく送信されないためです）。</p>
 <p>ホットストリング定義内のシングルコロンは、ダブルコロンデリミタの前でなければ<a href="misc/EscapeChar.htm">エスケープ</a>する必要はありませんが、バックスティックおよびその左にスペースまたはタブを持つセミコロンは常にエスケープする必要があります。全リストは「<a href="misc/EscapeChar.htm">エスケープシーケンス</a>」を参照してください。</p>
 <p><a href="lib/Send.htm">送信機能</a>の特殊文字である{Enter}などは<a href="#auto">自動置換テキスト</a>でサポートされていますが（<a href="#raw">rawオプション</a>が使用されていない場合）、ホットストリングの略語そのものはこれを使用しません。代わりに、<kbd>Enter</kbd>には`n、<kbd>Tab</kbd>には`t（またはリテラルタブ）を指定します（完全なリストは<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を参照してください）。例えば、ホットストリング<code>:*:ab`t::</code>は、"ab" の後にタブを入力したときにトリガーされるでしょう。</p>
-<p>スペースとタブは、ホットストリング定義内で文字通り扱われます。たとえば、次のようにすると、2つの異なる結果が得られます。<code>::btw::by the way</code> および <code>::btw::ところで、</code>。</p>
+<p>スペースとタブは、ホットストリング定義内で文字通り扱われます。たとえば、次のようにすると、2つの異なる結果が得られます。<code>::btw::by the way</code> および <code>::btw:: by the way</code>。</p>
 <p>各ホットストリングの略号の長さは40文字以内とします。この長さを超えると、プログラムは警告を発します。一方、<a href="#SendMode">送信モード</a>がデフォルトのSendInputの場合、hotstringの置換テキストの長さは約5000文字に制限されています。この制限は、他の<a href="#SendMode">送信モード</a>に切り替えるか、ホットストリングの本文で<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>または<a href="lib/Send.htm#SendEvent">SendEvent</a>を使用するか、<a href="#X">X（実行）オプション</a>と組み合わせることで解除できます。</p>
 <p>ホットストリングの定義順は、互いの優先順位を決定します。つまり、入力した内容に複数のホットストリングがマッチした場合、スクリプトで最初にリストされたものだけが有効になります。関連トピック<a href="#variant">コンテキストに応じたホットストリング</a></p>
 <p>ホットストリングスを検出する目的で、あなたが行ったバックスペースは考慮されます。ただし、エディター内での移動に<kbd>↑</kbd>、<kbd>→</kbd>、<kbd>↓</kbd>、<kbd>←</kbd>、<kbd>PgUp</kbd>、<kbd>PgDn</kbd>、<kbd>Home</kbd>、<kbd>End</kbd>を使用すると、ホットストリングの認識処理がリセットされます。つまり、まったく新しいホットストリングを待つようになるのです。</p>

@@ -81,7 +81,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 
 <p id="PriorLine">また、特殊変数<strong>A_PriorLine</strong>には、現在のコンパイラ指令の直前のソース行が格納される。空白やコメントだけの行は無視され、コンパイラ指令の行も無視される。この変数は、スクリプトのソースから定数情報を「抜き取り」、後のコンパイラのディレクティブで使用するために使うことができる。例えば、頻繁に変更される可能性のあるスクリプトのバージョン番号にアクセスするような場合である。この方法でバージョン番号にアクセスするということは、バージョン番号をソースコードの中で一度だけ変更すればよく、その変更は必要なディレクティブにコピーされるということです。(詳細は以下のRegExの例を参照)。</p>
 
-<p>また、以下に説明する<a href="#Let">Let</a>ディレクティブと<a href="#Obey">Obey</a>ディレクティブを使用して、特別なユーザー変数を<code><i>U_Name</i></code>形式で作成することもできます。</p>
+<p>また、以下に説明する<a href="#Let">Let</a>ディレクティブと<a href="#Obey">Obey</a>ディレクティブを使用して、特別なユーザー変数を<code>U_<i>Name</i></code>形式で作成することもできます。</p>
 
 <p>すべての変数は、<a href="#AddResource">AddResource</a>ディレクティブのパラメータとして利用できるだけでなく、以下の<a href="#AddResource">AddResource</a>ディレクティブに与えられたRT_MENU、RT_DIALOG、RT_STRING、RT_ACCELERATORS、RT_HTML、RT_MANIFESTファイルからアクセスすることができます。</p>
 
@@ -93,7 +93,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <ul>
   <li>
     <pre class="NoIndent">%A_ScriptName~\.[^\.]+$~.exe%</pre>
-    <p>これは、実際のスクリプト名では、拡張子とその前の完全停止を<code>.exe</code>に置き換えます。<br><code>(\.[^.]+$~.exe</code>は、<code>.</code>の後に<code>.</code>以外の文字が1文字以上続くか、文字列の末尾が.<code>exe</code>であるかをスキャンし、<code>.exe</code>に置き換えることを意味する)</p>
+    <p>これは、実際のスクリプト名では、拡張子とその前の完全停止を<code>.exe</code>に置き換えます。<br>(<code>\.[^\.]+$~.exe</code>は、<code>.</code>の後に<code>.</code>以外の文字が1文字以上続くか、文字列の末尾が<code>.exe</code>であるかをスキャンし、<code>.exe</code>に置き換えることを意味する)</p>
   </li>
   <li>
     <p>ソース行に続いて、次のような2つのコンパイラ指令があるとする：</p>
@@ -147,7 +147,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <span class="func">;@Ahk2Exe-Base</span> [Path\]Name <span class="optional">, [Exe_path\][Name], Codepage</span></pre>
 <dl>
   <dt>[Path\]Name</dt>
-  <dd>使用する*.binまたは*.exeファイル。拡張子が与えられない場合は、<code>.bin</code>とみなされる。絶対パスが指定されていない場合、ファイルはコンパイラー自身のディレクトリにある（または相対的な）ものとみなされる。DOSマスクは、例えば<code>ANSI*</code>、<code>Unicode 32*</code>、<code>Unicode 64*</code>、またはこれら3つすべてに<code>*bit</code>を指定することができる。コンパイラーは、マッチした*.binまたは*.exeファイルごとに実行される。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。</dd>
+  <dd>使用する*.binまたは*.exeファイル。拡張子が与えられない場合は、<code>.bin</code>とみなされる。絶対パスが指定されていない場合、ファイルはコンパイラー自身のディレクトリにある（または相対的な）ものとみなされる。DOSマスクは<em>Name</em>に指定することができる。例えば、3 つすべてについては <code>ANSI*</code>、<code>Unicode 32*</code>、<code>Unicode 64*</code>、または<code>*bit</code>です。コンパイラーは、マッチした*.binまたは*.exeファイルごとに実行される。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。</dd>
   <dt>[Exe_path\][Name]</dt>
   <dd><i>(オプション)</i>.exeに付けるファイル名。提供された拡張子はすべて<code>.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。Any use of built-in variable replacements must only be from <a href="#group1">group 1</a> above. (This parameter can be overridden by the <a href="#ExeName">ExeName</a> directive.)</dd>
   <dt>Codepage</dt>
@@ -209,11 +209,11 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 ;@Ahk2Exe-%U_V%        %A_AhkVersion%%A_PriorLine~U)^(.+")(.*)".*$~$2%</em></pre>
 
 <h3 id="Obey">Obey</h3>
-<p>孤立した AutoHotkey コマンドまたは式に従います。</p>
+<p><code>U_<i>Name</i></code> の結果を持つ、孤立した AutoHotkey コマンドまたは式に従います。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Obey</span> Name, CmdOrExp <span class="optional">, Extra</span></pre>
 <dl>
   <dt>名前</dt>
-  <dd>結果を受け取る変数名（先頭の<code>U_はあっても</code>なくてもよい）。</dd>
+  <dd>結果を受け取る変数名（先頭の<code>U_</code>はあってもなくてもよい）。</dd>
   <dt>CmdOrExp</dt>
   <dd>
     <p>従えという命令や表現。</p>
@@ -223,10 +223,10 @@ MsgBox "This message appears in both the compiled and uncompiled script"
     <pre><em>;@Ahk2Exe-Obey U_type, = "%A_IsUnicode%" ? "Unicode" : "ANSI"</em></pre>
     <p>式はコマンド形式で書くことができる。</p>
     <pre><em>;@Ahk2Exe-Obey U_bits, U_bits := %A_PtrSize% * 8</em></pre>
-    <p>必要であれば、複数のコマンドや式を<code>「n</code>」で区切ってください。</p>
+    <p>必要であれば、複数のコマンドや式を<code>`n</code>で区切ってください。</p>
   </dd>
   <dt>Extra</dt>
-  <dd><i>(オプション）</i>返す追加結果の数を指定する数値（1～9）。例えば、extra = 2の場合、結果は<code>U_<i>名</i></code>、<code>U_<i>名</i>1</code>、<code>U_<i>名</i>2</code>で返される。<code><i>名前</i></code>の値は、まず式やコマンドによって設定されなければならない。</dd>
+  <dd><i>(オプション）</i>返す追加結果の数を指定する数値（1～9）。例えば、extra = 2の場合、結果は<code>U_<i>name</i></code>、<code>U_<i>name</i>1</code>、<code>U_<i>name</i>2</code>で返される。<code><i>name</i></code>の値は、まず式やコマンドによって設定されなければならない。</dd>
 </dl>
 
 <h3 id="PostExec">PostExec</h3>
@@ -275,7 +275,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 </dl>
 
 <h3 id="SetMainIcon">メインアイコンの設定</h3>
-<p>コンパイルに使用されるカスタム EXE アイコンを上書きします。(他のアイコンを変更するには、<a href="#AddResource">AddResource</a>の例を参照のこと。) このディレクティブは、GUIまたはCLIで指定されたアイコンファイルによって上書きされることがある。しかし、Ahk2Exe<code>ファイル</code>メニューから<code>Windowsアイコンの更新</code>を選択することで、新しいアイコンを表示することができます。</p>
+<p>コンパイルに使用されるカスタム EXE アイコンを上書きします。(他のアイコンを変更するには、<a href="#AddResource">AddResource</a>の例を参照のこと。) このディレクティブは、GUIまたはCLIで指定されたアイコンファイルによって上書きされることがある。The new icon might not be immediately visible in Windows Explorer if the compiled file existed before with a different icon, however the new icon can be shown by selecting <code>Refresh Windows Icons</code> from the Ahk2Exe <code>File</code> menu.</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-SetMainIcon</span> <span class="optional">IcoFile</span></pre>
 <dl>
   <dt>IcoFile</dt>

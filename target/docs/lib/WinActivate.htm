@@ -18,7 +18,7 @@
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
-  <dt>WinTitle、WinText、ExcludeTitle、ExcludeText</dt>
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
@@ -34,7 +34,7 @@
 <h2 id="Remarks">備考</h2>
 <p>非アクティブなウィンドウがアクティブになると、オペレーティング・システムはそのウィンドウも最前面にする（スタックの一番上に持ってくる）。ウィンドウがすでにアクティブになっている場合は発生しない。</p>
 <p>ウィンドウが最小化されて非アクティブになると、アクティブになる前に自動的に復元される。<em>WinTitle</em>が文字 "A"で、他のパラメータが省略された場合、アクティブなウィンドウが復元される。ウィンドウがすでにアクティブであったとしても、復元される。</p>
-<p>60ミリ秒の間に6回、ターゲットウィンドウの活性化を試みる。6回の試行がすべて失敗した場合、WinActivateは自動的に<code class="no-highlight">{Alt 2}</code>を送信し、オペレーティングシステムによる制限を回避します。したがって、通常WinActivateの後に<a href="WinWaitActive.htm">WinWaitActive</a>や <code><a href="WinActive.htm">WinActive</a>(...)</code>でなければWinActivateを続ける必要はない。</p>
+<p>60ミリ秒の間に6回、ターゲットウィンドウの活性化を試みる。6回の試行がすべて失敗した場合、WinActivateは自動的に<code class="no-highlight">{Alt 2}</code>を送信し、オペレーティングシステムによる制限を回避します。したがって、通常WinActivateの後に<a href="WinWaitActive.htm">WinWaitActive</a>や <code>if not <a href="WinActive.htm">WinActive</a>(...)</code>でなければWinActivateを続ける必要はない。</p>
 <p>WinActivateの最初の試みが失敗すると、自動的に<code>{Alt up}</code>が送信される。テストによると、最初の試行が失敗してタスクバーボタンが点滅するケースが減り、その後のすべての試行の信頼性が向上する可能性がある。このために送信される<code>{Alt up}</code>は、各スクリプトの有効期間中1回までである。このスクリプトまたは他の（AutoHotkey v1.1.27+）スクリプトにキーボードフックがインストールされている場合、<code>{Alt up}</code>はアクティブウィンドウからブロックされ、副作用のリスクを最小限に抑えます。</p>
 <p>一般的に、複数のウィンドウがマッチした場合、一番上のマッチしたウィンドウ（通常、最も最近使用されたウィンドウ）がアクティブになる。ウィンドウがすでにアクティブになっている場合、その下にある他のマッチするウィンドウをアクティブにするのではなく、アクティブな状態を維持する。しかし、<a href="WinMoveBottom.htm">WinMoveBottom</a>でアクティブ・ウィンドウをスタックの一番下に移動させると、アクティブ・ウィンドウが一致しても、他のウィンドウがアクティブになることがある。</p>
 <p><a href="WinActivateBottom.htm">WinActivateBottom</a>は、一番下のマッチするウィンドウをアクティブにする（通常、一番最近使われたウィンドウ）。</p>

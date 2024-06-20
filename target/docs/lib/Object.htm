@@ -81,7 +81,7 @@ Obj := Object.<span class="func">Call</span>()</pre>
   </dd>
   <dt>Descriptor</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>以下のいずれかの自プロパティを持つオブジェクト、または<em>Get</em>と<em>Set</em>の両方を持つオブジェクト：</p>
     <p><strong>Get:</strong> The <a href="../misc/Functor.htm">function object</a> to call when the property's value is retrieved.</p>
     <p><strong>Set:</strong> The <a href="../misc/Functor.htm">function object</a> to call when the property is assigned a value. その第2パラメータは、割り当てられる値である。</p>
@@ -90,13 +90,13 @@ Obj := Object.<span class="func">Call</span>()</pre>
   </dd>
 </dl>
 <h4 id="DefineProp_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>This method returns the target object.</p>
 <h4 id="DefineProp_Remarks">備考</h4>
 <p>この方法は、バリュープロパティをダイナミックプロパティに、またはその逆に変換するために使用することができますが、バリューとアクセッサ関数の両方を指定することはできません。</p>
 <p>アクセサー関数を省略した場合、動作はベースオブジェクトから継承されます。</p>
 <ul>
-  <li>継承された値プロパティは、値を返すか呼び出すか、あるいは<code>これ</code>に新しい値を格納するアクセッサ関数のセットと同等です。新しい値は、<code>これ</code>自体の動的プロパティを上書きし、継承されたアクセッサ関数を上書きすることに注意してください。</li>
+  <li>継承された値プロパティは、値を返すか呼び出すか、あるいは<code>this</code>に新しい値を格納するアクセッサ関数のセットと同等です。新しい値は、<code>this</code>自体の動的プロパティを上書きし、継承されたアクセッサ関数を上書きすることに注意してください。</li>
   <li><em>Set</em>や値が定義されていない、または継承されていない場合、プロパティを設定しようとすると例外が発生します。</li>
   <li><em>Call</em>が定義または継承されていない場合、<em>Get</em>を呼び出して関数オブジェクトを取得し、その関数オブジェクトを呼び出すことができます。</li>
   <li><em>Get</em>が定義または継承されていないが、<em>Call</em>アクセサ関数が存在する場合、その関数自体がプロパティの値となります（読み取り専用）。</li>
@@ -133,11 +133,11 @@ Obj := Object.<span class="func">Call</span>()</pre>
   </dd>
 </dl>
 <h4 id="GetOwnPropDesc_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>動的プロパティの場合、戻り値は、各アクセッサ関数に対応する独自のプロパティを持つ新しいオブジェクトになります：<em>Get</em>, <em>Set</em>, <em>Call</em>. 各プロパティは、対応するアクセサー関数が<em>Obj</em>自身に定義されている場合にのみ存在します。For a value property, the return value is a new object with a property named <em>Value</em>. このような場合、<code>Obj.GetOwnPropDesc(Name).Value == Obj.%Name%</code>.</p>
 <p>返されたオブジェクトを変更しても、<a href="#DefineProp">DefineProp</a>が呼び出されない限り、<em>Obj</em>には何の影響もない。</p>
 <h4 id="GetOwnPropDesc_Error_Handling">エラー処理</h4>
-<p><em>Obj</em>がその名前のプロパティを所有していない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。スクリプトは、<code>not desc.HasProp("Value")</code> をチェックすることによって、プロパティが動的かどうかを判断することができます。</p>
+<p><em>Obj</em>がその名前のプロパティを所有していない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。スクリプトは、<code>not desc.HasProp("Value")</code> をチェックすることによって、プロパティが動的かどうかを判断することができます。<em>desc</em>は、GetOwnPropDescの戻り値です。</p>
 </div>
 
 <div class="methodShort" id="HasOwnProp"><h3>HasOwnProp</h3>

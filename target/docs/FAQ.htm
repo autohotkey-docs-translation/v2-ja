@@ -77,8 +77,8 @@
 <p class="note"><strong>注：</strong>Windows 11では、これらのオプションの一部は通常サブメニューに追いやられ、「その他のオプションを表示」を選択することでアクセスすることができます。</p>
 <p>例えば、<em>Open With</em>を使用して.ahkファイルを開くためのデフォルトプログラムを変更した場合など、これらのオプションは現在のユーザーのプロファイルの設定によって上書きされることがあります。以下のレジストリキーを削除することで、改善されます。</p>
 <pre class="no-highlight">HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ahk\UserChoice</pre>
-<p>この<a href="misc/remove-userchoice.reg" download="remove-userchoice.reg">レジストリパッチ</a>を適用するか、AutoHotkeyのインストールディレクトリから<code>UXreset-assoc.ahk</code>を実行すれば上記のレジストリキーを削除できます。</p>
-<p>また、AutoHotkeyを再インストールするか、AutoHotkeyのインストールディレクトリから<code>UXinstall.ahk</code>を実行して、デフォルトレジストリ値を修復する必要がある場合もあります。</p>
+<p>この<a href="misc/remove-userchoice.reg" download="remove-userchoice.reg">レジストリパッチ</a>を適用するか、AutoHotkeyのインストールディレクトリから<code>UX\reset-assoc.ahk</code>を実行すれば上記のレジストリキーを削除できます。</p>
+<p>また、AutoHotkeyを再インストールするか、AutoHotkeyのインストールディレクトリから<code>UX\install.ahk</code>を実行して、デフォルトレジストリ値を修復する必要がある場合もあります。</p>
 
 <h3 id="vista">以前のバージョンでは動作していたのに、Windows<em>xxx</em>では私のスクリプトが動作しないのはなぜですか？</h3>
 <p>以下のように、この問題には様々なバリエーションがあります。</p>
@@ -228,7 +228,7 @@ PostMessage 0x0111, 65303,,, "ScriptFileName.ahk - AutoHotkey"  <em>; リロー�
 <p>With Internet Explorer, perhaps the most reliable method is to use DllCall and COM as demonstrated at <a href="https://www.autohotkey.com/board/topic/17715-">this archived forum thread</a>. On a related note, the contents of the address bar and status bar can be retrieved as demonstrated at <a href="https://www.autohotkey.com/board/topic/17714-">this archived forum thread</a>.</p>
 <p><strong>古く、信頼性の低い方法：</strong>以下の例の手法は、ほとんどのページでMS Internet Explorerで動作します。他のブラウザでも同様の手法が使えるかもしれません。</p>
 <pre>Run "www.yahoo.com"
-MouseMove 0, 0  <em>; ステータスバーに "Done "の代わりにマウスホバーリンクが表示されないようにします。</em>
+MouseMove 0, 0  <em>; ステータスバーに "Done"の代わりにマウスホバーリンクが表示されないようにします。</em>
 WinWait "Yahoo!- "
 WinActivate
 if StatusBarWait("Done", 30)
@@ -277,7 +277,7 @@ Submit(*)
   <li>ウィンドウ内で右クリックし、「ショートカットの貼り付け」をクリックします。これで、スクリプトへのショートカットがスタートアップフォルダに入るはずです。</li>
 </ol>
 <h3 id="HotMouse">マウスのボタンがホットキーとして機能しないので困っています。質疑応答:</h3>
-<p>マウスの左右のボタンは普通に割り当てられるようにします（例えば、<code>#LButton::</code>は<kbd>Win+LeftButton</kbd>のホットキーです）。同様に、中ボタンと<a href="KeyList.htm">マウスホイール</a>の回転は、ドライバがこれらのボタンを直接制御するマウスを除いて、普通に割り当てることができるはずです。</p>
+<p>マウスの左右のボタンは普通に割り当てられるようにします（例えば、<code>#LButton::</code>は<kbd>Win</kbd>+LeftButtonのホットキーです）。同様に、中ボタンと<a href="KeyList.htm">マウスホイール</a>の回転は、ドライバがこれらのボタンを直接制御するマウスを除いて、普通に割り当てることができるはずです。</p>
 <p> 第4ボタン（XButton1）と第5ボタン（XButton2）は、マウスドライバーによってクリックがシステムから<a href="lib/KeyHistory.htm">見える</a>ようになっていれば、割り当て可能な場合があります。もし見えない場合、あるいはマウスに5つ以上のボタンがある場合、マウスに付属のソフトウェア（コントロールパネルやスタートメニューからアクセスできる場合もあります）を使って、これらのボタンを押すたびにキーストロークを送信するように設定してみてはいかがでしょうか？このようなキーストロークは、スクリプトのホットキーとして定義することができます。例えば、第4ボタンで<kbd>Ctrl</kbd>+<kbd>F1</kbd>を送信するように設定すると、スクリプトで<code>^F1::</code>を使って間接的にそのボタンをホットキーとして設定することができます。</p>
 <p>第4ボタンと第5ボタンが<a href="lib/KeyHistory.htm">見えない</a>5ボタンマウスをお使いの場合は、マウスドライバーをOSに付属のデフォルトドライバーに変更してみてください。これは、あなたの特定のマウスにそのようなドライバがあり、あなたのマウスのカスタムソフトウェアによって提供される機能なしで生きることができることを前提としています。</p>
 <h3 id="HotSymb">TabとSpaceをホットキーとして定義する方法は？</h3>

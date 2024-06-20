@@ -89,12 +89,12 @@ MyGui := Gui.<span class="func">Call</span>(<span class="optional">Options, Titl
     <p>If omitted, it defaults to <a href="../Variables.htm#ScriptName">A_ScriptName</a>. Otherwise, specify the window title.</p>
   </dd>
   <dt id="EventObj">EventObj</dt><dd>
-    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>「イベントシンク」、つまりイベントをバインドするためのオブジェクトです。<em>EventObj</em>を指定した場合、<a href="GuiOnEvent.htm">OnEvent</a>、<a href="GuiOnNotify.htm">OnNotify</a>、<a href="GuiOnCommand.htm">OnCommand</a>を使用して、イベントが発生したときに呼び出される<em>EventObj</em>のメソッドを登録することができる。</p>
   </dd>
 </dl>
 <h4 id="Call_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>This method or function returns a Gui object.</p>
 </div>
 
@@ -184,7 +184,7 @@ MyGui.Show</pre>
   <dt>Text</dt><dd>指定された制御タイプに応じて、文字列、数値、配列のいずれかを指定します。</dd>
 </dl>
 <h4 id="Add_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>This method returns a <a href="GuiControl.htm">GuiControl object</a>.</p>
 </div>
 
@@ -483,7 +483,7 @@ MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
   </dd>
 </dl>
 <h4 id="Submit_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#objects">Object</a></p>
+<p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>This method returns an object that contains one own property per named control, like <code>NamedCtrlValues.%GuiCtrl.<a href="GuiControl.htm#Name">Name</a>% := GuiCtrl.<a href="GuiControl.htm#Value">Value</a></code>, with the exceptions noted below. <a href="GuiControl.htm#Value">GuiCtrl.Value</a>をサポートし、名前が付与された入力可能なコントロールのみが含まれます。Use <code>NamedCtrlValues.NameOfControl</code> to retrieve an individual value or <a href="Object.htm#OwnProps">OwnProps</a> to enumerate them all.</p>
 <p>For <a href="GuiControls.htm#DropDownList">DropDownList</a>, <a href="GuiControls.htm#ComboBox">ComboBox</a>, <a href="GuiControls.htm#ListBox">ListBox</a> and <a href="GuiControls.htm#Tab">Tab</a>, the text of the selected item/tab is stored instead of its position number if the control <u>lacks</u> the <a href="#AltSubmit">AltSubmit</a> option, or if the ComboBox's text does not match a list item. それ以外の場合は、<a href="GuiControl.htm#Value">Value</a>（アイテムの位置番号）が格納されます。</p>
 <p id="submit-radio">ラジオグループの<a href="GuiControls.htm#Radio">ラジオ</a>ボタンに1つだけ名前がある場合、Submitはコントロールの<a href="GuiControl.htm#Value">Value</a>ではなく、現在選択されているボタンの番号を保存します。1は1番目のラジオボタン（オリジナル作成順）、2は2番目のラジオボタン、といった具合に。選択されているボタンがない場合は、0が格納されます。</p>
@@ -505,7 +505,7 @@ MyGui.SetFont(, "Verdana")  <em>; Preferred font.</em></pre></dd>
   </dd>
   <dt>Ctrl</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>The control's <a href="GuiControl.htm">GuiControl object</a>.</p>
   </dd>
 </dl>
@@ -590,7 +590,7 @@ Menus.Add "&amp;Help", HelpMenu
 MyGui := Gui()
 MyGui.MenuBar := Menus
 MyGui.Show "w300 h200"</pre>
-<p>上の1行目では、<code>&amp;Open</code>の後に<code>Ctrl+O</code>（間にタブ文字が入る）が入っていることに注目してください。これは、ユーザーがメニュー項目を選択する代わりに押すことができるキーボードショートカットを示しています。ショートカットが標準的な修飾キー名であるCtrl、Alt、Shiftのみを使用する場合、GUI用の<em>キーボードアクセラレータ</em>として自動的に登録されます。修飾語のない1文字のアクセラレータは大文字と小文字を区別し、IMEや<kbd>Alt+NNNN</kbd>など通常とは異なる手段でトリガーすることができます。</p>
+<p>上の1行目では、<code>&amp;Open</code>の後に<code>Ctrl+O</code>（間にタブ文字が入る）が入っていることに注目してください。これは、ユーザーがメニュー項目を選択する代わりに押すことができるキーボードショートカットを示しています。ショートカットが標準的な修飾キー名であるCtrl、Alt、Shiftのみを使用する場合、GUI用の<em>キーボードアクセラレータ</em>として自動的に登録されます。修飾語のない1文字のアクセラレータは大文字と小文字を区別し、IMEや<kbd>Alt</kbd>+NNNNなど通常とは異なる手段でトリガーすることができます。</p>
 <p>特定のキーの組み合わせが自動的に機能しない場合は、<a href="_HotIf.htm">コンテキスト依存のホットキー</a>の使用が必要になる場合があります。しかし、このようなホットキーは一般的に<a href="Send.htm">Send</a>でトリガーすることができず、標準的なキーボードアクセラレータよりも他のスクリプトに干渉する可能性が高いです。</p>
 <p>ウィンドウの現在のメニューバーを削除するには、<code>MyGui.MenuBar := ""</code>（つまり、空の文字列を代入）を使用します。</p>
 </div>
@@ -632,7 +632,7 @@ MyGui.Show()</pre>
 <p>関連トピック<a href="#MarginX">ウィンドウのマージン</a></p>
 
 <h2 id="GenRemarks">総論</h2>
-<p><a href="GuiControl.htm">GUI</a>ウィンドウの各コントロールを操作するには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を使用します。</p>
+<p>GUIウィンドウの各コントロールを操作するには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を使用します。</p>
 <p>1つのGUIウィンドウには、最大11,000個のコントロールが可能です。ただし、コントロールの種類によってはシステムが不安定になる可能性があるため、5000個以上のコントロールを作成する場合は注意してください。</p>
 <p id="deleted">GUIウィンドウは、Guiオブジェクトが削除されたとき（<a href="../Objects.htm#Reference_Counting">参照カウント</a>がゼロになったとき）に、自動的に<a href="#Destroy">破棄</a>されます。ただし、ウィンドウが表示されている間は、<a href="#Show">Show</a>が自動的に参照カウントを増加させるため、通常は発生しません。ウィンドウが表示されている間、ユーザーはウィンドウと対話し、スクリプトによって処理されるイベントを発生させることができます。ユーザーがウィンドウを閉じたり、<a href="#Hide">Hide</a>、<a href="#Show">Show</a>、<a href="#Submit">Submit</a>でウィンドウが隠されたりすると、この余分な参照は解放されます。</p>
 <p><a href="#Show">Show</a>を呼び出したり、Guiオブジェクトへの参照を保持することなくGUIウィンドウを「生かす」ために、スクリプトは<a href="ObjAddRef.htm">ObjAddRef</a>でオブジェクトの参照カウントを増やすことができます（この場合、ウィンドウが不要になったときに<a href="ObjAddRef.htm">ObjRelease</a>が呼び出される必要があります）。例えば、非表示のGUIウィンドウを使用して<a href="OnMessage.htm">メッセージを受信</a>する場合や、<a href="WinShow.htm">WinShow</a>などの「外部」手段でウィンドウを表示する場合（このスクリプトや他のスクリプトによる）などに行われることがあります。</p>
@@ -813,10 +813,10 @@ LoadNewImage(*)
         Width := 0
         Height := 0
     }
-    else <em>; 2番目のラジオが選択</em>されている：<em>画面に合わせて画像をリサイズします。</em>
+    else <em>; 2番目のラジオが選択されている：画面に合わせて画像をリサイズします。</em>
     {
         Width := A_ScreenWidth - 28  <em>; 内側にボーダーや余白のスペースを確保するため、28をマイナスします。</em>
-        Height := -1  <em>; "アスペクト比を保つ "が一番良さそうです。</em>
+        Height := -1  <em>; "アスペクト比を保つ"が一番良さそうです。</em>
     }
     MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)  <em>; 画像を読み込みます。</em>
     MyGui.Title := Image

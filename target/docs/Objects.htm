@@ -79,7 +79,7 @@ For value in MyArray
 <h3 id="Usage_Associative_Arrays">Maps（連想配列）</h3>
 <p><a href="lib/Map.htm">Map</a>または連想配列は、一意のキーと値のコレクションを含むオブジェクトで、各キーは1つの値と関連付けられています。キーは文字列、整数、オブジェクトのいずれでもよく、値はどのような型でもよい。連想配列は次のようにして作ることができる：</p>
 <pre>MyMap := Map("KeyA", ValueA, "KeyB", ValueB, ..., "KeyZ", ValueZ)</pre>
-<p>項目を取得する。<code>キー</code>は <a href="Concepts.htm#variables">変数</a>または<a href="Language.htm#expressions">式</a>：</p>
+<p>項目を取得する。<code>Key</code>は <a href="Concepts.htm#variables">変数</a>または<a href="Language.htm#expressions">式</a>：</p>
 <pre>Value := MyMap[Key]</pre>
 <p>項目を割り当てます：</p>
 <pre>MyMap[Key] := Value</pre>
@@ -206,7 +206,7 @@ thing.test()
 thing_test(this) {
     MsgBox this.foo
 }</pre>
-<p>同様に、<code>thing := {foo："bar"}</code>. {property:value}表記を使う場合、プロパティに引用符を使ってはならない。</p>
+<p>上記のオブジェクトは<code>thing := {foo: "bar"}</code>でも同様に作成できる。{property:value}表記を使う場合、プロパティに引用符を使ってはならない。</p>
 <p><code>thing.test()</code>が呼ばれると、<i>thing</i>は自動的にパラメータ・リストの先頭に挿入される。慣習上、関数はオブジェクトの「タイプ」とメソッド名を組み合わせて命名されるが、これは必須条件ではない。</p>
 <p>上記の例では、<em>test</em>が定義された後に他の関数や値が割り当てられる可能性があり、その場合、元の関数は失われ、このプロパティを通じて呼び出すことはできない。別の方法として、以下のように読み取り専用のメソッドを定義することもできる：</p>
 <pre>thing.DefineProp 'test', {call:thing_test}</pre>
@@ -217,7 +217,7 @@ thing_test(this) {
 <p>ベース・オブジェクトは一般にプロトタイプとも呼ばれるが、「クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>」はクラスのすべてのインスタンスがベースとするオブジェクトを意味し、「ベース」はインスタンスがベースとするオブジェクトを意味する。</p>
 <p class="note">AutoHotkeyのオブジェクトデザインは、主にJavaScriptとLuaの影響を受けており、C#も少し含まれています。JavaScriptの<code><i>obj</i>.__proto__</code>の代わりに<code><i>obj</i>.base</code>を使い、JavaScriptの<code><i>func</i>.prototype</code>の代わりに<code><i>cls</i>.Prototype</code>を使います。(クラス・オブジェクトはコンストラクタ関数の代わりに使われる）。</p>
 
-<p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>xがArray</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が "Array"を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
+<p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>x is Array</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が "Array"を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
 <p>Objectのインスタンスや派生クラスはすべてベース・オブジェクトになることができるが、オブジェクトは同じネイティブ・タイプを持つオブジェクトの<a href="lib/Object.htm#Base">ベースとしてのみ割り当てる</a>ことができる。これは、組み込みメソッドが常にオブジェクトのネイティブ・タイプを識別し、正しいバイナリ構造を持つオブジェクトに対してのみ操作できるようにするためである。</p>
 <p>ベース・オブジェクトは2つの異なる方法で定義できる：</p>
 <ul>
@@ -235,7 +235,7 @@ other.test()</pre>
 
 <h3 id="Custom_Classes">クラス</h3>
 <blockquote>オブジェクト指向プログラミングでは、クラスはオブジェクトを作成するための拡張可能なプログラム・コード・テンプレートであり、状態の初期値（メンバ変数）や動作の実装（メンバ関数またはメソッド）を提供する。<a href="https://en.wikipedia.org/wiki/Class_(computer_programming)" class="source">ウィキペディア</a></blockquote>
-<p>より一般的な言い方をすれば、<em>クラス</em>とは、何らかの特性や属性を共通に持つ物事の集合やカテゴリーのことである。AutoHotkeyでは、<code>クラス</code>はそのクラスのインスタンスで共有されるプロパティ（および呼び出し可能なプロパティであるメソッド）を定義します。<em>インスタンス</em>とは、クラスからプロパティを継承したオブジェクトのことで、通常はそのクラスに属していることを識別することもできます（<code><i>instance</i>is<i>ClassName</i>という</code>表現など）。インスタンスは通常、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>を呼び出して作成します。</p>
+<p>より一般的な言い方をすれば、<em>クラス</em>とは、何らかの特性や属性を共通に持つ物事の集合やカテゴリーのことである。AutoHotkeyでは、<code>class</code>はそのクラスのインスタンスで共有されるプロパティ（および呼び出し可能なプロパティであるメソッド）を定義します。<em>インスタンス</em>とは、クラスからプロパティを継承したオブジェクトのことで、通常はそのクラスに属していることを識別することもできます（<code><i>instance</i> is <i>ClassName</i></code>という表現など）。インスタンスは通常、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>を呼び出して作成します。</p>
 <p><a href="lib/Object.htm">オブジェクト</a>は <a href="#ad-hoc">動的</a>で<a href="#delegation">プロトタイプベース</a>なので、各クラスは2つの部分で構成される：</p>
 <ul>
   <li>クラスには<a href="lib/Class.htm#Prototype">Prototype</a>オブジェクトがあり、このオブジェクトを基にクラスのすべてのインスタンスが作られる。クラスのインスタンスに適用されるすべてのメソッドとダイナミック・プロパティは、プロトタイプ・オブジェクトに含まれている。これには、<code>static</code>キーワードを持たないすべてのプロパティとメソッドが含まれる。</li>
@@ -290,10 +290,10 @@ ShorterProperty =&gt; <i>Expression which calculates property value</i>
 <h4 id="Custom_Classes_var">インスタンス変数</h4>
 <p><em>インスタンス変数</em>とは、クラスの各インスタンスがそれ自身のコピーを持つ変数である。これらは宣言され、通常の代入と同じように振る舞いますが、<code>this.</code>接頭辞は省略されます（クラス本体内でのみ）：</p>
 <pre>InstanceVar := Expression</pre>
-<p>これらの宣言は、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>でクラスの新しいインスタンスが生成されるたびに評価され、すべての基本クラス宣言が評価された後、<a href="#Custom_NewDelete">__New</a>が呼ばれる前に評価されます。これは、<code>super.__Init(</code>)への呼び出しを含む<em>__Init</em>という名前のメソッドを自動的に作成し、そこに各宣言を挿入することで実現される。したがって、1つのクラス定義に__Initメソッドとインスタンス変数宣言の両方を含めることはできません。</p>
-<p><em>式</em>は <code>これ</code>を介して他のインスタンス変数やメソッドにアクセスできる。グローバル変数は読み込むことはできるが、代入することはできない。式の中で追加の代入（または<a href="Variables.htm#ref">参照演算子</a>の使用）を行うと、一般的に__Initメソッドのローカル変数が作成される。例えば、<code>x := y := 1</code>とすると、<code>this.x</code>とローカル変数<code>y</code>が設定される（初期化子がすべて評価されると解放される）。</p>
+<p>これらの宣言は、<a href="lib/Class.htm#Call"><em>ClassName</em>()</a>でクラスの新しいインスタンスが生成されるたびに評価され、すべての基本クラス宣言が評価された後、<a href="#Custom_NewDelete">__New</a>が呼ばれる前に評価されます。これは、<code>super.__Init()</code>への呼び出しを含む<em>__Init</em>という名前のメソッドを自動的に作成し、そこに各宣言を挿入することで実現される。したがって、1つのクラス定義に__Initメソッドとインスタンス変数宣言の両方を含めることはできません。</p>
+<p><em>Expression</em>は <code>this</code>を介して他のインスタンス変数やメソッドにアクセスできる。グローバル変数は読み込むことはできるが、代入することはできない。式の中で追加の代入（または<a href="Variables.htm#ref">参照演算子</a>の使用）を行うと、一般的に__Initメソッドのローカル変数が作成される。例えば、<code>x := y := 1</code>とすると、<code>this.x</code>とローカル変数<code>y</code>が設定される（初期化子がすべて評価されると解放される）。</p>
 <p>インスタンス変数にアクセスするには（メソッド内であっても）、例えば、<code><b>this</b>.InstanceVar</code>のようにします。</p>
-<p><code>x.y:=z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code>this.x.y</code>も初期化する。</p>
+<p><code>x.y := z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code>this.x.y</code>も初期化する。</p>
 
 <h4 id="Custom_Classes_staticvar">静的クラス変数</h4>
 <p>静的変数/クラス変数はクラスそのものに属しますが、その値はサブクラスに継承させることができます。インスタンス変数と同じように、staticキーワードを使って宣言する：</p>
@@ -304,7 +304,7 @@ ShorterProperty =&gt; <i>Expression which calculates property value</i>
 <p><code>static x.y := z</code>のような宣言も、<code>x</code>が以前にこのクラスで定義されていればサポートされる。例えば、<code>static x := {}, x.y := 42</code>は<code>x</code>を宣言し、<code><i>ClassName</i>.x.y</code>も初期化します。<a href="lib/Class.htm#Prototype">Prototype</a>は各クラスで暗黙的に定義されているため、<code>static Prototype.sharedValue := 1</code>を使用すると、クラスのすべてのインスタンスに動的に継承される値を設定できます（インスタンス自体のプロパティによってシャドウされるまで）。</p>
 
 <h4 id="Custom_Classes_class">入れ子のクラス</h4>
-<p>入れ子になったクラス定義では、クラス・オブジェクトを別のグローバル変数ではなく、外側のクラスの静的/クラス変数に関連付けることができます。上記の例では、<code>NestedClassクラス</code>が <a href="lib/Class.htm">Class</a>オブジェクトを構築し、<code>ClassName.NestedClass</code>に格納しています。Subclasses could inherit <em>NestedClass</em> or override it with their own nested class (in which case <code><i>WhichClass</i>.NestedClass()</code> could be used to instantiate whichever class is appropriate).</p>
+<p>入れ子になったクラス定義では、クラス・オブジェクトを別のグローバル変数ではなく、外側のクラスの静的/クラス変数に関連付けることができます。上記の例では、<code>class NestedClass</code>が <a href="lib/Class.htm">Class</a>オブジェクトを構築し、<code>ClassName.NestedClass</code>に格納しています。Subclasses could inherit <em>NestedClass</em> or override it with their own nested class (in which case <code><i>WhichClass</i>.NestedClass()</code> could be used to instantiate whichever class is appropriate).</p>
 <pre>
 class NestedClass
 {
@@ -323,10 +323,10 @@ class NestedClass
 <p>メソッド定義は関数定義と同じように見える。各メソッド定義は、<code>this</code>という名前の隠された第1パラメータを持つ<a href="lib/Func.htm">Func</a>を作成し、メソッドの呼び出しやその関数オブジェクトの取得に使用されるプロパティを定義する。</p>
 <p>方法には2種類ある：</p>
 <ul>
-  <li>インスタンス・メソッドは以下のように定義され、クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>にアタッチされます。メソッドが呼ばれると、<code>これ</code>はクラスのインスタンスを参照する。</li>
-  <li>静的メソッドは、メソッド名の前に個別のキーワード<code>static</code>を付けて定義します。これらはクラス・オブジェクト自体に付属していますが、サブクラスにも継承されます。</li>
+  <li>インスタンス・メソッドは以下のように定義され、クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>にアタッチされます。メソッドが呼ばれると、<code>this</code>はクラスのインスタンスを参照する。</li>
+  <li>静的メソッドは、メソッド名の前に個別のキーワード<code>static</code>を付けて定義します。これらはクラス・オブジェクト自体に付属していますが、サブクラスにも継承されます。従って、<code>this</code>はクラス自身かサブクラスのどちらかを指します。</li>
 </ul>
-<p>以下のメソッド定義では、<code><i>target</i>.DefineProp('Method', {call：<i>funcObj</i>})</code>. デフォルトでは、<code><i>target</i>.Method</code>は <em>funcObj</em>を返し、<code><i>target</i>.Method</code>に代入しようとするとエラーがスローされます。これらのデフォルトは、<a href="#Custom_Classes_property">プロパティを定義</a>するか<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すことでオーバーライドできます。</p>
+<p>以下のメソッド定義では、<code><i>target</i>.DefineProp('Method', {call: <i>funcObj</i>})</code>と同じ型のプロパティを作成する。デフォルトでは、<code><i>target</i>.Method</code>は <em>funcObj</em>を返し、<code><i>target</i>.Method</code>に代入しようとするとエラーがスローされます。これらのデフォルトは、<a href="#Custom_Classes_property">プロパティを定義</a>するか<a href="lib/Object.htm#DefineProp">DefineProp</a>を呼び出すことでオーバーライドできます。</p>
 <pre>
 Method()
 {
@@ -340,8 +340,8 @@ Method()
 <h4 id="Custom_Classes_super">Super</h4>
 <p>メソッドやプロパティのゲッター/セッターの内部では、派生クラスでオーバーライドされているメソッドやプロパティのスーパークラスのバージョンにアクセスするために、<code>this</code>の代わりに<code>super</code>キーワードを使用することができます。例えば、上で定義したクラスの<code>super.Method()</code>は、通常、<em>BaseClassName</em>の中で定義されたバージョンの<em>Method</em>を呼び出します。注：</p>
 <ul>
-  <li><code>super.Method()</code>は、たとえ<code>それが</code>そのクラスの<em>サブクラスや</em>他のクラスから派生したものであっても、現在のメソッドの元の定義に関連付けられたクラスやプロトタイプオブジェクトのベースを常に呼び出します。</li>
-  <li><code>super.Method()</code>は、暗黙のうちに<code>これ</code>を最初の（隠し）パラメータとして渡す。</li>
+  <li><code>super.Method()</code>は、たとえ<code>this</code>がそのクラスの<em>サブクラスや</em>他のクラスから派生したものであっても、現在のメソッドの元の定義に関連付けられたクラスやプロトタイプオブジェクトのベースを常に呼び出します。</li>
+  <li><code>super.Method()</code>は、暗黙のうちに<code>this</code>を最初の（隠し）パラメータとして渡す。</li>
   <li><em>ClassName</em>がベース・オブジェクトの連鎖のどこに存在するか（あるいは存在するかどうか）は不明なので、<em>ClassName</em>自体が開始点として使用される。したがって、<code>super.Method()</code>は、<code>(<i>ClassName</i>.Prototype.base.Method)(this)</code>とほぼ等価である（ただし、<em>Method</em>がstaticの場合は<em>Prototype</em>を含まない）。しかし、<code><i>ClassName</i>.Prototype</code>はロード時に解決される。</li>
   <li>そのプロパティがスーパークラスで定義されていないか、呼び出すことができない場合はエラーがスローされる。</li>
 </ul>
@@ -360,7 +360,7 @@ Method()
     }
 }
 </pre>
-<p><em>Property</em>は単にプロパティの名前であり、このプロパティを呼び出すために使用される。例えば、<code>obj.Property</code>は <em>get</em>を呼び、<code>obj.Property :=value</code>は <em>set</em>を呼びます。<em>get</em>または<em>set</em>の中では、<code>これ</code>は呼び出されるオブジェクトを指す。<em>セット</em>内では、<code>value</code>に代入される値が含まれる。</p>
+<p><em>Property</em>は単にプロパティの名前であり、このプロパティを呼び出すために使用される。例えば、<code>obj.Property</code>は <em>get</em>を呼び、<code>obj.Property := value</code>は <em>set</em>を呼びます。<em>get</em>または<em>set</em>の中では、<code>this</code>は呼び出されるオブジェクトを指す。<em>セット</em>内では、<code>value</code>に代入される値が含まれる。</p>
 <p>パラメータは、プロパティ名の右側に角括弧で囲んで定義することができ、同じように渡されます - ただし、パラメータが存在しない場合は省略する必要があります（下記参照）。角括弧を使用することを除けば、プロパティのパラメータはメソッドのパラメータと同じように定義され、オプショナル、ByRef、バリアディックパラメータに対応しています。</p>
 <p>プロパティがパラメータ付きで呼び出され、何も定義されていない場合、パラメータは自動的に<em>get</em>によって返されるオブジェクトの<a href="#__Item">__Item</a>プロパティに転送される。例えば、<code>this.Property[x]</code>は、<code>(this.Property)[x]</code>または<code>y := this.Property, y[x]</code>と同じ効果を持つ。空括弧（<code>this.Property[]</code>）は、常に<em>Propertyの値</em>の__Itemプロパティを呼び出しますが、<code>this.Property[args*]</code>のようなバリアディック呼び出しは、パラメータの数がゼロでない場合にのみ、この効果を持ちます。</p>
 <p>スタティック・プロパティは、プロパティ名の前に<code>static</code>という個別のキーワードを付けて定義することができます。その場合、<code>this</code>はクラスそのものかサブクラスを指す。</p>
@@ -470,7 +470,7 @@ class <i>ClassName</i> {
   <dt>名前</dt>
   <dd><p>プロパティまたはメソッドの名前です。</p></dd>
   <dt>Params</dt>
-  <dd><p>パラメータの<a href="lib/Array.htm">配列</a>。これは、<code>()</code>または<code>[]</code>の間のパラメータのみを含むので、空でも差し支えありません。メタファンクションは、<code>x.</code> <code>y</code>が未定義の<code>x.y[z]</code>のようなケースを処理することが期待されます。</p></dd>
+  <dd><p>パラメータの<a href="lib/Array.htm">配列</a>。これは、<code>()</code>または<code>[]</code>の間のパラメータのみを含むので、空でも差し支えありません。メタファンクションは、<code>x.y</code>が未定義の<code>x.y[z]</code>のようなケースを処理することが期待されます。</p></dd>
   <dt>値</dt>
   <dd><p>割り当てられている値。</p></dd>
 </dl>

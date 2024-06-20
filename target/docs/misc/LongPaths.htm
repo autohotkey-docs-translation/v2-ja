@@ -17,7 +17,7 @@
   <li>オペレーティング・システムが提供する関数は、いくつかの例外を除き、通常パスを259文字に制限している。</li>
   <li>プログラム内でパスを扱うコードは、コードを単純化するために最初の制限に依存する可能性があり、事実上、別の259文字の制限を置くことになる。</li>
 </ol>
-<p>これらの制限は、値260を持つ定数<code>MAX_PATHに</code>ちなんで、しばしば「MAX_PATH制限」と呼ばれる。一般的に1文字はヌルターミネーターとして予約され、259文字が実際のパスに残される。</p>
+<p>これらの制限は、値260を持つ定数<code>MAX_PATH</code>にちなんで、しばしば「MAX_PATH制限」と呼ばれる。一般的に1文字はヌルターミネーターとして予約され、259文字が実際のパスに残される。</p>
 <p>AutoHotkeyはほとんどの場合、2番目の種類を削除し、スクリプトが1番目の種類を回避できるようにします。これには2つの方法がある：</p>
 <ul>
   <li>Windows 10のAutoHotkeyやその他すべてのロングパス対応プログラムでロングパスを有効にできます。詳細については、<a href="https://learn.microsoft.com/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later">マイクロソフトのドキュメントを</a>参照してください。要するに、これによりほとんどの機能が透過的に長いパスを扱うことができるようになりますが、Windows 10のバージョン1607以降が必要です。</li>
@@ -31,7 +31,7 @@
   <li><code>dir\file.ext</code>, <code>\file.ext</code>, <code>C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
   <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。  </li>
   <li>コンポーネント/ディレクトリのセパレータを正規化し、<code>/</code>を <code>\</code>に置き換え、冗長なセパレータを削除します。</li>
-  <li>コンポーネント（<code>dir. \file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
+  <li>コンポーネント（<code>dir.\file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
 </ul>
 <p>パスは、プレフィックスを適用する前に、以下に定義する関数で<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>に渡すことで、明示的に正規化することができます。事例：</p>
 <pre>MsgBox "\\?\" NormalizePath("..\file.ext")</pre>
@@ -49,7 +49,7 @@
 <ul>
   <li><a href="../lib/DllCall.htm">DllCall</a>（<em>DllFile</em>および<em>Function</em>用）</li>
   <li><a href="../lib/DirCopy.htm">DirCopy</a></li>
-  <li><em>Recurse</em>が false でない限り、<a href="../lib/DirDelete.htm">DirDelete</a>。</li>
+  <li><em>Recurse</em>が false でない限り、<a href="../lib/DirDelete.htm">DirDelete</a></li>
   <li><a href="../lib/DirMove.htm">DirMove</a>、Rオプションが使われていない場合</li>
   <li><a href="../lib/FileCreateShortcut.htm">FileCreateShortcut</a></li>
   <li><a href="../lib/FileGetShortcut.htm">FileGetShortcut</a></li>
@@ -58,7 +58,7 @@
   <li><a href="../lib/DriveSetLabel.htm">DriveSetLabel</a>および<a href="../lib/Drive.htm">DriveGet のバリエーション</a>(<a href="../lib/DriveGetType.htm">DriveGetType</a>を除く)</li>
   <li>特殊なフォルダー・パス（長いパスはどのみち不可能かもしれない）を返す組み込み変数：<a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
 </ul>
-<p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a>と <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>は、Windows 10のロング・パス認識が有効な場合にのみロング・パスに対応します。作業ディレクトリがMAX_PATHを超えると、<a href="../lib/Run.htm">Run</a>でプログラムを起動できなくなる。これらの制限はOSによって課される。</p>
+<p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a>と <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>は、<code>\\?\</code>接頭辞が使用できないため、Windows 10のロング・パス認識が有効な場合にのみロング・パスに対応します。作業ディレクトリがMAX_PATHを超えると、<a href="../lib/Run.htm">Run</a>でプログラムを起動できなくなる。これらの制限はOSによって課される。</p>
 <p>MAX_PATHを超えるフルパスで実行ファイルを実行することはできないようです。そうなると、より長い実行可能パスをサポートすることを目的とした変更を完全にテストすることはできない。そのため、MAX_PATHの制限は以下のように残されている：</p>
 <ul>
   <li><a href="WinTitle.htm#ahk_exe">ahk_exe</a></li>
