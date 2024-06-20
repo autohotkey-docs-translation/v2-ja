@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>配列オブジェクト - メソッドとプロパティ｜AutoHotkey v2</title>
+<title>Array Object - メソッドとプロパティ｜AutoHotkey v2</title>
 <meta name="description" content="配列オブジェクトは、値のリストまたはシーケンスを含んでいます。" />
 <meta name="ahk:equiv-v1" content="lib/Object.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>配列オブジェクト</h1>
+<h1>Array Object</h1>
 <pre class="NoIndent">class Array extends Object</pre>
 
 <p><strong>配列</strong>オブジェクトは、値のリストまたはシーケンスを含んでいます。</p>
@@ -83,7 +83,7 @@ ArrayObj := Array.<span class="func">Call</span>(<span class="optional">Value, V
 <pre class="Syntax">RemovedValue := ArrayObj.<span class="func">Delete</span>(Index)</pre>
 <h4 id="Delete_Parameters">パラメータ</h4>
 <dl>
-  <dt>インデックス</dt>
+  <dt>Index</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>有効な配列のインデックス。</p>
@@ -121,7 +121,7 @@ ArrayObj := Array.<span class="func">Call</span>(<span class="optional">Value, V
 <pre class="Syntax">ArrayObj.<span class="func">InsertAt</span>(Index, Value1 <span class="optional">, Value2, ... Value<i>N</i></span>)</pre>
 <h4 id="InsertAt_Parameters">パラメータ</h4>
 <dl>
-  <dt>インデックス</dt>
+  <dt>Index</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p><em>Value1</em>を挿入する位置を指定します。それ以降の値は、Index+1、Index+2 などに挿入されます。0を指定すると、<a href="#Length">Length</a>+ 1を指定したのと同じになります。N</p>
@@ -177,7 +177,7 @@ RemovedValue := ArrayObj.RemoveAt(-1)</pre>
 ArrayObj.<span class="func">RemoveAt</span>(Index, Length)</pre>
 <h4 id="RemoveAt_Parameters">パラメータ</h4>
 <dl>
-  <dt>インデックス</dt>
+  <dt>Index</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>削除する値（複数可）のインデックス。</p>
@@ -217,12 +217,12 @@ MsgBox x[1]              <em>; C</em></pre>
 <pre class="Syntax">For Index, Value in ArrayObj</pre>
 <p>新しい<a href="Enumerator.htm">列挙者</a>を返します。このメソッドは通常、直接呼び出されることはありません。その代わり、配列オブジェクトは直接<a href="For.htm">forループ</a>に渡され、forループは__Enumを一度呼び出し、ループの各繰り返しで列挙器を一度呼び出します。列挙者を呼び出すたびに、次の配列要素が返されます。forループの変数は、列挙者のパラメータに対応しており、次のようになっています。</p>
 <dl>
-  <dt>インデックス</dt>
+  <dt>Index</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>配列のインデックス。通常は<a href="../Variables.htm#Index">A_Index</a>と同じ。2パラメータモード時のみ存在します。</p>
   </dd>
-  <dt>値</dt>
+  <dt>Value</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#values">任意</a></p>
     <p>値（値がない場合、<em>Value</em>は <a href="../Concepts.htm#uninitialized-variables">未初期化</a>される）。</p>
@@ -250,7 +250,7 @@ MsgBox ["A",    , "C"].Length  <em>;  3</em>
 <p><em>MaxItems</em> is an <a href="../Concepts.htm#numbers">integer</a> representing the maximum number of elements the array should be able to contain before it must be automatically expanded.  If setting a value less than <a href="#Length">Length</a>, elements are removed.</p>
 </div>
 
-<div class="methodShort" id="Default"><h3>デフォルト</h3>
+<div class="methodShort" id="Default"><h3>Default</h3>
 <p>値のない要素が要求されたときに返されるデフォルト値を定義します。</p>
 <pre class="Syntax">ArrayObj.<span class="func">Default</span> := Value</pre>
 <p>このプロパティは、実はデフォルトでは存在せず、スクリプトで定義することができます。If defined, its value is returned by <a href="#__Item">__Item</a> or <a href="#Get">Get</a> if the requested element has no value, instead of throwing an <a href="Error.htm#UnsetError">UnsetItemError</a>. It can be implemented by any of the normal means, including a <a href="Object.htm#DefineProp">dynamic property</a> or <a href="../Objects.htm#Meta_Functions">meta-function</a>, but determining which key was queried would require overriding <a href="#__Item">__Item</a> or <a href="#Get">Get</a> instead.</p>
