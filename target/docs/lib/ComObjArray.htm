@@ -40,16 +40,16 @@
 <p>この関数は、新しい SafeArray を含むラッパーオブジェクトを返します。</p>
 
 <h2 id="Methods">メソッド</h2>
-<p>ComObjArray オブジェクトは、以下のメソッドをサポートしています。</p>
+<p>ComObjArray オブジェクトは、以下のメソッドをサポートしています：</p>
 <ul>
-    <li><code>.MaxIndex(n)</code>:<i>n</i>次元の上限値を返す。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
-    <li><code>.MinIndex(n)</code>:<i>n</i>次元目の下界を返します。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
-    <li><code>.Clone()</code>:配列のコピーを返します。</li>
-    <li><code>.__Enum()</code>:SafeArraysで<a href="For.htm">for-loop</a>を使用することができます。</li>
+    <li><code>.MaxIndex(n)</code>：<i>n</i>次元の上限値を返す。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.MinIndex(n)</code>：<i>n</i>次元目の下界を返します。<i>n</i>が省略された場合、デフォルトは 1 です。</li>
+    <li><code>.Clone()</code>：配列のコピーを返します。</li>
+    <li><code>.__Enum()</code>：SafeArraysで<a href="For.htm">forループ</a>を使用することができます。</li>
 </ul>
 
 <h2 id="Remarks">備考</h2>
-<p>ComObjArrayオブジェクトは、COMメソッドや<a href="ComValue.htm">ComValue</a>によって返されることもある。スクリプトは、以下のように値がComObjArrayであるかどうかを判断することができる。</p>
+<p>ComObjArrayオブジェクトは、COMメソッドや<a href="ComValue.htm">ComValue</a>によって返されることもある。スクリプトは、以下のように値がComObjArrayであるかどうかを判断することができる：</p>
 <pre><em>; チェッククラス</em>
 if obj is ComObjArray
     MsgBox "Array subtype: " . ComObjType(obj) &amp; 0xfff
@@ -68,7 +68,7 @@ if ComObjType(obj) = 0x2008
 <p>COMクライアントから呼び出された関数やメソッドがF_OWNVALUEフラグを持つSafeArrayを返す場合、元のSafeArrayは自動的に破棄されるため、代わりにコピーが作成されて返されます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="ComValue.htm">ComValue</a>, <a href="ComObjType.htm">ComObjType</a>, <a href="ComObjValue.htm">ComObjValue</a>, <a href="ComObjActive.htm">ComObjActive</a>, <a href="ComObjFlags.htm">ComObjFlags</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/automat/array-manipulation-functions">Array Manipulation Functions (Microsoft Docs)</a></p>
+<p><a href="ComValue.htm">ComValue</a>、<a href="ComObjType.htm">ComObjType</a>、<a href="ComObjValue.htm">ComObjValue</a>、<a href="ComObjActive.htm">ComObjActive</a>、<a href="ComObjFlags.htm">ComObjFlags</a>、<a href="https://learn.microsoft.com/previous-versions/windows/desktop/automat/array-manipulation-functions">Array Manipulation Functions (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -88,16 +88,16 @@ MsgBox t
 <p><a class="ex_number" href="#ExMultiDims"></a> 多次元です。</p>
 <pre>arr := ComObjArray(VT_VARIANT:=12, 3, 4)
 
-<em>; 次元数を取得します。</em>
+<em>; 次元数を取得します：</em>
 dim := DllCall("oleaut32\SafeArrayGetDim", "ptr", ComObjValue(arr))
 
-<em>; 各次元の境界を取得します。</em>
+<em>; 各次元の境界を取得します：</em>
 dims := ""
 Loop dim
     dims .= arr.MinIndex(A_Index) " .. " arr.MaxIndex(A_Index) "`n"
 MsgBox dims
 
-<em>; シンプルな使い方です。</em>
+<em>; シンプルな使い方です：</em>
 Loop 3 {
     x := A_Index-1
     Loop 4 {

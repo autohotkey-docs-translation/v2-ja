@@ -22,10 +22,10 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
       <p>If omitted, the target window itself will be clicked. Otherwise, use one of the following modes.</p>
-      <p><strong>Mode 1 (Position):</strong> Specify the X and Y coordinates relative to the upper left corner of the target window's <a href="CoordMode.htm#Client">client area</a>. X座標はY座標の前にあり、その間に少なくとも1つのスペースまたはタブが必要です。事例：<code>"X55 Y33"</code>. 指定された座標にコントロールがある場合、その正確な座標でクリックイベントを送信します。コントロールがない場合は、対象のウィンドウ自体にイベントが送られます（ウィンドウの性質によっては、何の効果もない場合もあります）。</p>
-    <p class="note"><strong>Note:</strong> In mode 1, the X and Y option letters of the <em>Options</em> parameter are ignored.</p>
+      <p><strong>モード1（ポジション）です：</strong>ターゲットウィンドウの<a href="CoordMode.htm#Client">クライアント領域の</a>左上隅を基準としたX、Y座標を指定します。X座標はY座標の前にあり、その間に少なくとも1つのスペースまたはタブが必要です。事例：<code>"X55 Y33"</code>。指定された座標にコントロールがある場合、その正確な座標でクリックイベントを送信します。コントロールがない場合は、対象のウィンドウ自体にイベントが送られます（ウィンドウの性質によっては、何の効果もない場合もあります）。</p>
+    <p class="note"><strong>注意：</strong>モード1では、<em>Options</em>パラメータのXとYのオプション文字は無視されます。</p>
       <p><strong>Mode 2 (Control):</strong> Specify the control's ClassNN, text or HWND, or an object with a <code>Hwnd</code> property. 詳しくは<a href="Control.htm#Parameter">Controlパラメータ</a>をご覧ください。</p>
-      <p>デフォルトでは、モード2がモード1より優先されます。For example, in the unlikely event that there is a control whose text or ClassNN has the format "Xnnn Ynnn", it would be acted upon by mode 2. これを上書きして無条件にモード1を使用するには、次の例のように<em>Options</em>にPosという語を指定します。<code>ControlClick "x255 y152", WinTitle,,,, "Pos"</code>.</p>
+      <p>デフォルトでは、モード2がモード1より優先されます。例えば、万が一、テキストやClassNNが「Xnnn Ynnn」の形式を持つコントロールがあった場合、モード2が作用することになる。これを上書きして無条件にモード1を使用するには、次の例のように<em>Options</em>にPosという語を指定します：<code>ControlClick "x255 y152", WinTitle,,,, "Pos"</code>。</p>
   </dd>
 
   <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
@@ -53,41 +53,41 @@
   <dt>Options</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>If blank or omitted, each click consists of a down-event followed by an up-event, and occurs at the center of the control when mode 2 is in effect. Otherwise, specify a series of one or more of the following options. 事例：<code>"d x50 y25"</code>.</p>
-      <p><strong>NA:</strong> May improve reliability. 以下の<a href="#Reliability">信頼性</a>をご覧ください。</p>
-      <p><strong>D：</strong>マウスボタンを押しながら離さない（ダウンイベントを発生させます）。If both the D and U options are absent, a complete click (down and up) will be sent.</p>
-      <p><strong>U:</strong>マウスボタンを離す（つまりアップイベントを発生させます）。This option should not be present if the D option is already present (and vice versa).</p>
-      <p><strong>Pos:</strong> Specify the word Pos anywhere in <em>Options</em> to unconditionally use the X/Y positioning mode as described in the <em>Control-or-Pos</em> parameter above.</p>
-      <p><strong>X</strong><em>n</em>:Specify for <em>n</em> the X position to click at, relative to the control's upper left corner. 未指定の場合、クリックはコントロールの水平方向の中心で行われます。</p>
-      <p><strong>Y</strong><em>n</em>:Specify for <em>n</em> the Y position to click at, relative to the control's upper left corner. 未指定の場合、クリックはコントロールの垂直方向の中心で行われます。</p>
-      <p>Use decimal (not hexadecimal) numbers for the X and Y options.</p>
+      <p>If blank or omitted, each click consists of a down-event followed by an up-event, and occurs at the center of the control when mode 2 is in effect. Otherwise, specify a series of one or more of the following options. For example: <code>"d x50 y25"</code>.</p>
+      <p><strong>NA：</strong>信頼性を向上させる可能性がある。以下の<a href="#Reliability">信頼性</a>をご覧ください。</p>
+      <p><strong>D：</strong>マウスボタンを押しながら離さない（ダウンイベントを発生させます）。Dと Uの両方のオプションがない場合、完全なクリック（下と上）が送信されます。</p>
+      <p><strong>U：</strong>マウスボタンを離す（つまりアップイベントを発生させます）。Dオプションがすでに存在する場合、このオプションは存在してはならない（その逆も同様）。</p>
+      <p><strong>Pos：</strong>Posという単語を<em>Options</em>のどこかに指定すると、上記の<em>Control-or-Pos</em>パラメータで説明したX/Yポジショニングモードを無条件に使用することができます。</p>
+      <p><strong>X</strong><em>n</em>：コントロールの左上隅を基準として、クリックする X 位置を<em>n</em>に指定します。未指定の場合、クリックはコントロールの水平方向の中心で行われます。</p>
+      <p><strong>Y</strong><em>n</em>：コントロールの左上隅を基準として、クリックするY位置を<em>n</em>に指定します。未指定の場合、クリックはコントロールの垂直方向の中心で行われます。</p>
+      <p>Xと Yのオプションには、10進数（16進数ではない）を使用します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>以下の場合は例外が発生します。</p>
+<p>以下の場合は例外が発生します：</p>
 <ul>
-  <li><a href="Error.htm#TargetError">TargetError</a>:対象のウィンドウが見つかりませんでした。</li>
-  <li><a href="Error.htm#TargetError">TargetError</a>:対象コントロールが見つからず、<em>Control-or-Pos</em>で有効な位置が指定されていない。</li>
-  <li><a href="Error.htm#OSError">OSError</a> (very rare):の場合、X または Y の位置が省略され、コントロールの位置を決定することができなかった。</li>
-  <li><a href="Error.htm#ValueError">ValueError</a> または <a href="Error.htm#TypeError">TypeError</a>:無効なパラメータが検出されました。</li>
+  <li><a href="Error.htm#TargetError">TargetError</a>：対象のウィンドウが見つかりませんでした。</li>
+  <li><a href="Error.htm#TargetError">TargetError</a>：対象コントロールが見つからず、<em>Control-or-Pos</em>で有効な位置が指定されていない。</li>
+  <li><a href="Error.htm#OSError">OSError</a>（非常にまれ）：の場合、X または Y の位置が省略され、コントロールの位置を決定することができなかった。</li>
+  <li><a href="Error.htm#ValueError">ValueError</a> または <a href="Error.htm#TypeError">TypeError</a>：無効なパラメータが検出されました。</li>
 </ul>
 
-<h2 id="Reliability">Reliability</h2>
-<p>信頼性を高めるために、特にControlClick中にユーザーが物理的にマウスを動かしている場合、以下のどちらか、または両方が有効です。</p>
+<h2 id="Reliability">信頼性</h2>
+<p>信頼性を高めるために、特にControlClick中にユーザーが物理的にマウスを動かしている場合、以下のどちらか、または両方が有効です：</p>
 <p>1)ControlClickの前に<code><a href="SetControlDelay.htm">SetControlDelay</a> -1</code>を使ってください。これにより、クリック中にマウスボタンを押し続けることがなくなり、ユーザーのマウスの物理的な動きによる干渉を軽減することができます。</p>
-<p>2)以下のように、第6パラメータ（<em>Options</em>）の任意の場所に文字列NAを指定します。</p>
+<p>2)以下のように、第6パラメータ（<em>Options</em>）の任意の場所に文字列NAを指定します：</p>
 <pre>SetControlDelay -1
 ControlClick "Toolbar321", WinTitle,,,, "NA"</pre>
 <p>The NA option avoids marking the target window as active and avoids merging its input processing with that of the script, which may prevent physical movement of the mouse from interfering (but usually only when the target window is not active). ただし、この方法は、すべての種類のウィンドウやコントロールに有効とは限りません。</p>
 <h2 id="Remarks">備考</h2>
-<p>すべてのアプリケーションが、マウスホイールの回転に対して1以上の<em>ClickCount</em>を指定するわけではありません。For those applications, use a loop to turn the wheel more than one notch as in this example, which turns it 5 notches:</p>
+<p>すべてのアプリケーションが、マウスホイールの回転に対して1以上の<em>ClickCount</em>を指定するわけではありません。そのような場合は、この例のようにLoopを使ってホイールを1ノッチ以上回し、5ノッチ分回してください：</p>
 <pre>Loop 5
     ControlClick <i>Control</i>, <i>WinTitle</i>, <i>WinText</i>, "WheelUp"</pre>
 
 <h2 id="Related">関連</h2>
-<p><a href="SetControlDelay.htm">SetControlDelay</a>, <a href="Control.htm">Control functions</a>, <a href="Click.htm">Click</a></p>
+<p><a href="SetControlDelay.htm">SetControlDelay</a>、<a href="Control.htm">Control関数</a>、<a href="Click.htm">Click</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> OKボタンをクリックします。</p>

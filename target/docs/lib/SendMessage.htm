@@ -27,7 +27,7 @@
 
   <dt>wParam, lParam</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+    <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>どちらかを省略したときは、0を送信します。そうでなければ、メッセージの1番目と2番目のコンポーネントを指定します。</p>
     <p>各パラメータは、<a href="../Concepts.htm#numbers">整数</a>または<a href="Buffer.htm">Buffer</a>などの<a href="Buffer.htm#Ptr">Ptr</a>プロパティを持つオブジェクトでなければなりません。文字列へのポインタが必要なメッセージには、Bufferまたは<a href="StrPtr.htm">StrPtr</a>関数を使用します。SendMessageに変数のアドレスを渡して変数が含む文字列を変更した場合、その後<a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity(&amp;MyVar, -1)</a>を呼び出して変数の長さを更新する必要があります。</p>
     <p>AutoHotkeyまたはターゲットウィンドウが32ビットの場合、パラメータの下位32ビットのみが使用されます。つまり、符号付き値の場合は-2147483648～2147483647（-0x80000000～0x7FFFFFFF）、符号なし値の場合は0～4294967295（0xFFFFFF）範囲外の場合は値が切り捨てられます。AutoHotkeyとターゲットウィンドウの両方が64ビットである場合、<a href="../Concepts.htm#pure-numbers">AutoHotkeyがサポートする</a>任意の整数値を使用することができます。</p>
@@ -82,16 +82,16 @@ SendMessage 0x000C, 0, StrPtr("New Title")  <em>; 0X000CはWM_SETTEXTです。</
 <p>この機能の使い方については、「<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>」をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="PostMessage.htm">PostMessage</a>, <a href="../misc/SendMessageList.htm">Message List</a>, <a href="../misc/SendMessage.htm">Message Tutorial</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="../misc/Winamp.htm">Automating Winamp</a>, <a href="DllCall.htm">DllCall</a>, <a href="ControlSend.htm">ControlSend</a>, <a href="MenuSelect.htm">MenuSelect</a></p>
+<p><a href="PostMessage.htm">PostMessage</a>、<a href="../misc/SendMessageList.htm">メッセージリスト</a>、<a href="../misc/SendMessage.htm">メッセージチュートリアル</a>、<a href="OnMessage.htm">OnMessage</a>、<a href="../misc/Winamp.htm">Winampの自動化</a>、<a href="DllCall.htm">DllCall</a>、<a href="ControlSend.htm">ControlSend</a>、<a href="MenuSelect.htm">MenuSelect</a></p>
 
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExMonitorPower">
-<p><a class="ex_number" href="#ExMonitorPower"></a> ホットキーでモニターをオフにします。In the SendMessage line, replace the number 2 with -1 to turn on the monitor, or replace it with 1 to activate the monitor's low-power mode.</p>
+<p><a class="ex_number" href="#ExMonitorPower"></a> ホットキーでモニターをオフにします。SendMessage行で、モニターの電源をオンにする場合は数字の2を-1に、モニターの低電力モードを有効にする場合は数字を1に置き換えてください。</p>
 <pre>#o::  <em>; Win+O</em>
 {
     Sleep 1000  <em>; Give user a chance to release keys (in case their release would wake up the monitor again).
-; Turn Monitor Off:</em>
+    ; Turn Monitor Off:</em>
     SendMessage 0x0112, 0xF170, 2,, "Program Manager"  <em>; 0x0112 is WM_SYSCOMMAND, 0xF170 is SC_MONITORPOWER.</em>
 }</pre>
 </div>

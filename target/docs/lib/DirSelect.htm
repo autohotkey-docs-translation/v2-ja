@@ -25,7 +25,7 @@
       <p>If blank or omitted, the dialog's initial selection will be the user's My Documents folder or possibly This PC (formerly My Computer or Computer). A <a href="../misc/CLSID-List.htm">CLSID folder</a> such as <code>"::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"</code> (i.e. This PC) may be specified start navigation at a specific special folder.</p>
       <p>それ以外の場合、このパラメータの最も一般的な使用法は、アスタリスクの直後に、最初に選択されるドライブまたはフォルダの絶対パスが続くことです。例えば、<code>"*C:\"</code>とすると、最初はCドライブが選択されます。同様に、<code>"*C:\My Folder"</code>は、その特定のフォルダを初期選択します。</p>
       <p>アスタリスクは、ユーザーが開始フォルダから上へ（ルートに近い方へ）移動することを許可されていることを示します。アスタリスクがない場合、ユーザーは<em>StartingFolder</em>内のフォルダ（または<em>StartingFolder</em>自体）を選択するよう強制されます。アスタリスクを省略した場合の利点として、<em>StartingFolder</em>が最初にツリー状に展開された状態で表示されるため、ユーザーが最初のプラス記号をクリックする手間が省ける場合があります。</p>
-      <p>アスタリスクがある場合、オプションで上方向のナビゲーションがデスクトップ以外のフォルダーに制限されることがあります。アスタリスクの前に、最上位のフォルダの絶対パスを置き、その後にスペースまたはタブを正確に1つ置くことで、これを行うことができます。例えば、<code>"C:\My Folder *C:\My Folder\Projects"</code>とすると、"C:My Folder" より上位には移動できません（ただし、初期選択では "C:\My FolderProjects" になります）。</p>
+      <p>アスタリスクがある場合、オプションで上方向のナビゲーションがデスクトップ以外のフォルダーに制限されることがあります。アスタリスクの前に、最上位のフォルダの絶対パスを置き、その後にスペースまたはタブを正確に1つ置くことで、これを行うことができます。例えば、<code>"C:\My Folder *C:\My Folder\Projects"</code>とすると、「C:\My Folder」より上位には移動できません（ただし、初期選択では「C:\My Folder\Projects」になります）。</p>
     </dd>
 
   <dt>Options</dt>
@@ -33,7 +33,7 @@
       <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
       <p>省略されたときは、初期値は 1 です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
       <p><strong>0:</strong> The options below are all disabled.</p>
-      <p><strong>1:</strong> A button is provided that allows the user to create new folders.</p>
+      <p><strong>1：</strong>新規にフォルダを作成するためのボタンを用意しました。</p>
       <p>上記数値に<strong>2を加え</strong>、フォルダー名を入力できる編集フィールドを設ける。例えば、このパラメータの値を3にすると、編集フィールドと「新しいフォルダを作る」ボタンの両方が表示されます。</p>
       <p id="NewDialog">BIF_NEWDIALOGSTYLEプロパティを省略する場合は、上記数値に<strong>4を加算</strong>してください。4を追加することで、WinPEやBartPEなどのプリインストール環境でも、DirSelectが正常に動作するようになります。ただし、これによって「新しいフォルダを作る」ボタンが表示されなくなります。</p>
       <p>ユーザーが編集フィールドに無効なフォルダ名を入力した場合、<em>SelectedFolder</em>はユーザーが入力したものではなく、ナビゲーションツリーで選択されたフォルダに設定されます。</p>
@@ -59,7 +59,7 @@
 <p>GUIウィンドウは、<a href="Gui.htm#OwnDialogs">+OwnDialogs</a>オプションにより、モーダルフォルダ選択ダイアログを表示することができます。モーダルダイアログは、ダイアログが解除されるまで、ユーザーがGUIウィンドウと対話するのを防ぎます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="FileSelect.htm">FileSelect</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="ToolTip.htm">ToolTip</a>, <a href="Gui.htm">GUI</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="DirCopy.htm">DirCopy</a>, <a href="DirMove.htm">DirMove</a>, <a href="SplitPath.htm">SplitPath</a></p>
+<p><a href="FileSelect.htm">FileSelect</a>、<a href="MsgBox.htm">MsgBox</a>、<a href="InputBox.htm">InputBox</a>、<a href="ToolTip.htm">ToolTip</a>、<a href="Gui.htm">GUI</a>、<a href="../misc/CLSID-List.htm">CLSIDリスト</a>、<a href="DirCopy.htm">DirCopy</a>、<a href="DirMove.htm">DirMove</a>、<a href="SplitPath.htm">SplitPath</a></p>
 <p>また、OSには、フォント、色、アイコンの選択を促すダイアログボックスが標準装備されています。These dialogs can be displayed via <a href="DllCall.htm">DllCall</a> in combination with <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">comdlg32\ChooseFont</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646912(v=vs.85)">comdlg32\ChooseColor</a>, or <a href="https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg">shell32\PickIconDlg</a>. Search the forums for examples.</p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

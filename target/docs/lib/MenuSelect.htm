@@ -30,16 +30,16 @@
   <dt>Menu</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name (or a prefix of the name) of the top-level menu item, e.g. <code>"File"</code>, <code>"Edit"</code>, <code>"View"</code>. It can also be the position of the desired menu item by using <code>"1&amp;"</code> to represent the first menu, <code>"2&amp;"</code> the second, and so on.</p>
-    <p>検索は、現在のユーザーのロケールの規則に従って大文字と小文字を区別せず、最初に一致した項目で停止します。The use of ampersand (&amp;) to indicate the underlined letter in a menu item is <em>usually</em> not necessary (i.e. <code>"&amp;File"</code> is the same as <code>"File"</code>).</p>
-    <p><strong>既知の制限事項：</strong>パラメータにアンパサンドが含まれる場合、リテラル以外のアンパサンド（非表示または下線表示）も含めて、アイテム名と正確に一致する必要があります。パラメータにアンパサンドが含まれていない場合、リテラルも含めてすべてのアンパサンドが無視されます。For example, an item displayed as "a &amp; b" may match a parameter value of <code>a &amp;&amp; b</code> or <code>a b</code>.</p>
-    <p>Specify <code>"0&amp;"</code> to use the window's <a href="#sys">system menu</a>.</p>
+    <p>最上位メニューの名称（または名称の接頭語）、例：<code>"ファイル"</code>、<code>"編集"</code>、<code>"表示"</code>。また、<code>"1&amp;"</code>で1つ目のメニュー、<code>"2&amp;"</code>で2つ目のメニューを表すなど、目的のメニューの位置を表すことも可能です。</p>
+    <p>検索は、現在のユーザーのロケールの規則に従って大文字と小文字を区別せず、最初に一致した項目で停止します。メニュー項目の下線文字を示すアンパサンド（&amp;）の使用は<em>通常</em>必要ありません（例：<code>"&amp;File"</code>は<code>"File"</code>と同じです）。</p>
+    <p><strong>既知の制限事項：</strong>パラメータにアンパサンドが含まれる場合、リテラル以外のアンパサンド（非表示または下線表示）も含めて、アイテム名と正確に一致する必要があります。パラメータにアンパサンドが含まれていない場合、リテラルも含めてすべてのアンパサンドが無視されます。例えば、"a &amp; b "と表示される項目は、<code>a &amp;&amp; b</code>または<code>a b</code>というパラメータ値と一致する場合があります。</p>
+    <p>ウィンドウの<a href="#sys">システムメニュー</a>を使用する場合は、<code>"0&amp;"</code>を指定します。</p>
   </dd>
 
   <dt>SubMenu1</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>The name of the menu item to select or its position. 最上位のアイテムにメニューがない場合（稀）には省略可能です。</p>
+    <p>選択するメニュー項目の名前またはその位置。最上位のアイテムにメニューがない場合（稀）には省略可能です。</p>
   </dd>
 
   <dt>SubMenu2, SubMenu3, SubMenu4, SubMenu5, SubMenu6</dt>
@@ -60,7 +60,7 @@
 <p>メニュー名のパラメーターは、位置を指定することも可能です。この方法は、テキストを含まないメニューをサポートするために存在します（おそらく、実際のテキストではなく、テキストの画像を含むため）。ポジション1&amp;は1番目のメニュー項目（例：ファイルメニュー）、ポジション2&amp;は2番目のメニュー項目（例：編集メニュー）、といった具合に。メニューの区切り線は、メニューの位置を決定するためのメニュー項目としてカウントされます。</p>
 
 <h2 id="sys">System Menu</h2>
-<p><em>Menu</em> can be <code>"0&amp;"</code> to select an item within the window's system menu, which typically appears when the user presses <kbd>Alt</kbd>+<kbd>Space</kbd> or clicks on the icon in the window's title bar. 事例：</p>
+<p><em>メニュー</em>は、 <kbd>Alt</kbd>+<kbd>Space</kbd>を押すか、ウィンドウのタイトルバーのアイコンをクリックすると表示されるウィンドウのシステムメニューの中の項目を選択するために<code>"0&amp;"</code>を使用することができます。事例：</p>
 <pre><em>ウィンドウをアクティブにせずに、cmd.exeにコマンドを貼り付ける。</em>
 A_Clipboard := "echo Hello, world!`r"
 MenuSelect "ahk_exe cmd.exe",, "0&amp;", "Edit", "Paste"</pre>
@@ -72,7 +72,7 @@ SC_MINIMIZE := 0xF020
 PostMessage WM_SYSCOMMAND, SC_MINIMIZE, 0,, "A"</pre>
 
 <h2 id="Related">関連</h2>
-<p><a href="ControlSend.htm">ControlSend</a>, <a href="PostMessage.htm">PostMessage</a></p>
+<p><a href="ControlSend.htm">ControlSend</a>、<a href="PostMessage.htm">PostMessage</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> Selects <code class="no-highlight">File -&gt; Open</code> in Notepad. この例は、Windows 11以降では、クラシック版のメモ帳を必要とするため、失敗する可能性があります。</p>

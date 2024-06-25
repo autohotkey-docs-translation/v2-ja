@@ -20,7 +20,7 @@
 
   <dt>Setting</dt>
   <dd>
-    <p>省略したときの初期設定は<em>True</em>になります。そうでないときは、次のいずれかのリテラル値を指定します。</p>
+    <p>省略したときの初期設定は<em>True</em>になります。そうでないときは、次のいずれかのリテラル値を指定します：</p>
     <p><strong>True</strong>または<strong>1</strong>：ここから次の<code>#MaxThreadsBuffer False</code>指令までのすべてのホットキーサブルーチンは、そのサブルーチンが<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の限界に達したときに、ホットキーの押下を無視するのではなく、バッファリングします。</p>
     <p><strong>False</strong> または <strong>0</strong>：ホットキーがすでに最大スレッド数（通常は1ですが、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>で変更可能）を実行している場合は、ホットキーを押しても無視されます。</p>
   </dd>
@@ -28,13 +28,13 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>If this directive is unspecified in the script, it will behave as though set to <em>False</em>.</p>
-<p>This directive is rarely used because this type of buffering usually does more harm than good. 例えば、誤ってホットキーを2回押してしまった場合、この設定をONにすると、そのホットキーのサブルーチンは、最初の<a href="../misc/Threads.htm">スレッド</a>が1秒未満で終了した場合、自動的に2回目を実行します（このタイプのバッファは、設計上1秒後に終了します）。Note that AutoHotkey buffers hotkeys in several other ways (such as <a href="Thread.htm#Interrupt">Thread Interrupt</a> and <a href="Critical.htm">Critical</a>). ただ、この特殊な方法は有害であるため、デフォルトでオフになっています。</p>
-<p>このディレクティブの主な用途は、キーボードのオートリピート機能の応答性を高めることです。たとえば、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の設定が1（デフォルト）のホットキーを押し続けているとき、そのホットキーサブルーチンがすでに実行されていると、キー入力は無視されます。Thus, when the subroutine finishes, it must wait for the next auto-repeat keypress to come in, which might take 50&nbsp;ms or more due to being caught in between keystrokes of the auto-repeat cycle. This 50&nbsp;ms delay can be avoided by enabling this directive for any hotkey that needs the best possible response time while it is being auto-repeated.</p>
+<p>このディレクティブがスクリプトで指定されていないときは、<em>False</em>に設定されているとみなされます。</p>
+<p>This directive is rarely used because this type of buffering usually does more harm than good. 例えば、誤ってホットキーを2回押してしまった場合、この設定をONにすると、そのホットキーのサブルーチンは、最初の<a href="../misc/Threads.htm">スレッド</a>が1秒未満で終了した場合、自動的に2回目を実行します（このタイプのバッファは、設計上1秒後に終了します）。なお、AutoHotkeyは他にもいくつかの方法でホットキーをバッファリングしています（<a href="Thread.htm#Interrupt">Thread Interrupt</a>や<a href="Critical.htm">Critical</a>など）。ただ、この特殊な方法は有害であるため、デフォルトでオフになっています。</p>
+<p>このディレクティブの主な用途は、キーボードのオートリピート機能の応答性を高めることです。たとえば、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の設定が1（デフォルト）のホットキーを押し続けているとき、そのホットキーサブルーチンがすでに実行されていると、キー入力は無視されます。そのため、サブルーチンが終了すると、次のオートリピートキー入力が来るのを待たなければならず、オートリピートサイクルのキー入力の間に挟まれるため、50&nbsp;ms以上かかる場合があります。この50&nbsp;msの遅延は、自動リピート中に最良の応答時間を必要とするホットキーに対してこのディレクティブを有効にすることで回避することができます。</p>
 <p>他の#ディレクティブと同様に、このディレクティブもスクリプト内で関数であるかのように位置づけるべきではありません（つまり、サブルーチンの中に含ませる必要はありません）。代わりに、その影響を受けさせたい最初のホットキーの直前に配置します。</p>
 <p>他のディレクティブと同様に、#MaxThreadsBufferは条件付きで実行することはできません。</p>
 <h2 id="Related">関連</h2>
-<p><a href="_MaxThreads.htm">#MaxThreads</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="Critical.htm">Critical</a>, <a href="Thread.htm">Thread (function)</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Hotkey.htm">Hotkey</a>, <a href="A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>, <a href="ListHotkeys.htm">ListHotkeys</a></p>
+<p><a href="_MaxThreads.htm">#MaxThreads</a>、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>、<a href="Critical.htm">Critical</a>、<a href="Thread.htm">Thread（関数）</a>、<a href="../misc/Threads.htm">スレッド</a>、<a href="Hotkey.htm">Hotkey</a>、<a href="A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>、<a href="ListHotkeys.htm">ListHotkeys</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> 最初の2つのホットキーが#MaxThreadsPerHotkeyの制限に達した場合、キー入力を無視するのではなく、バッファリングするようにします。</p>

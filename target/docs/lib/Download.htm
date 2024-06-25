@@ -22,13 +22,13 @@
   <dt>URL</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>ダウンロードするファイルのURL。For example, <code>"https://someorg.org"</code> might retrieve the welcome page for that organization.</p>
+    <p>ダウンロードするファイルのURL。例えば、<code>"https://someorg.org"</code>、その組織のウェルカムページを取得することができるかもしれません。</p>
   </dd>
 
   <dt>Filename</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>ローカルに作成するファイル名を指定します。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDirに</a>あると仮定されます。Any existing file will be <u>overwritten</u> by the new file.</p>
+    <p>ローカルに作成するファイル名を指定します。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDirに</a>あると仮定されます。既存のファイルは、新しいファイルによって<u>上書き</u>されます。</p>
     <p>ファイルへダウンロードする機能です。To download to a variable instead, see the <a href="#ExWHR">example</a> below.</p>
   </dd>
 
@@ -40,15 +40,15 @@
 <h2 id="Remarks">備考</h2>
 <p>リモートファイルが存在しないのに、ダウンロードが成功したように見えることがあります。これは、多くのウェブサーバーが、見つからないファイルの代わりにエラーページを送信するためです。このエラーページは、<em>Filenameの</em>代わりに保存されるものです。</p>
 <p>ファイアウォールや複数のネットワークアダプターが存在する場合、この機能に失敗することがあります。また、ウェブサイトによっては、そのようなダウンロードをブロックしている場合があります。</p>
-<p><strong>Caching:</strong> By default, the URL is retrieved directly from the remote server (that is, never from Internet Explorer's cache). キャッシュを許可する場合は、URLの前に*0とスペースを入れてください：<code>"*0 https://someorg.org"</code>. アスタリスクに続くゼロは、有効なdwFlags番号で置き換えることができます。詳細は、<a href="https://www.microsoft.com">www.microsoft.com</a>「InternetOpenUrl」を検索してください。</p>
-<p><strong>Proxies:</strong> If a proxy server has been configured in Microsoft Internet Explorer's settings, it will be used.</p>
+<p><strong>キャッシング：</strong>デフォルトでは、URLはリモートサーバーから直接取得されます（つまり、Internet Explorerのキャッシュから取得することはありません）。キャッシュを許可する場合は、URLの前に*0とスペースを入れてください：<code>"*0 https://someorg.org"</code>。アスタリスクに続くゼロは、有効なdwFlags番号で置き換えることができます。詳細は、<a href="https://www.microsoft.com">www.microsoft.com</a>「InternetOpenUrl」を検索してください。</p>
+<p><strong>プロキシ：</strong>Microsoft Internet Explorerの設定でプロキシサーバーが設定されている場合は、そのサーバーを使用します。</p>
 <p><strong>FTPやGopher</strong>のURLもサポートされています。事例：</p>
-<pre>Download "ftp://example.com/home/My File.zip", "C:\My Folder\My File.zip" <em>;匿名でログイン</em>します。
-Download "ftp://user:pass@example.com:21/home/My File.zip", "C:\My Folder\My File.zip" <em>;特定のユーザーでログインして</em>ください。
-Download "ftp://user:pass@example.com/My Directory", "C:\Dir Listing.html" <em>; HTML形式のディレクトリ一覧を取得します</em>。</pre>
+<pre>Download "ftp://example.com/home/My File.zip", "C:\My Folder\My File.zip" <em>; 匿名でログインします。</em>
+Download "ftp://user:pass@example.com:21/home/My File.zip", "C:\My Folder\My File.zip" <em>; 特定のユーザーでログインしてください。</em>
+Download "ftp://user:pass@example.com/My Directory", "C:\Dir Listing.html" <em>; HTML形式のディレクトリ一覧を取得します。</em></pre>
 
 <h2 id="Related">関連</h2>
-<p><a href="FileRead.htm">FileRead</a>, <a href="FileCopy.htm">FileCopy</a></p>
+<p><a href="FileRead.htm">FileRead</a>、<a href="FileCopy.htm">FileCopy</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -96,7 +96,7 @@ Ready() {
     if (req.readyState != 4)  <em>; Not done yet.</em>
         return
     if (req.status == 200) <em>; OK.</em>
-        MsgBox "Latest AutoHotkey version:" req.responseText
+        MsgBox "Latest AutoHotkey version: " req.responseText
     else
         MsgBox "Status " req.status,, 16
     ExitApp

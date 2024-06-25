@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>For Loop - 構文と使用法｜AutoHotkey v2</title>
+<title>Forループ - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="The For loop statement repeats one or more statements once for each key-value pair in an object." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1>For-loop</h1>
+<h1>Forループ</h1>
 
 <p>Repeats one or more <a href="../Concepts.htm#statement">statements</a> once for each key-value pair in an object.</p>
 
@@ -37,14 +37,14 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>パラメータリストは、オプションで括弧で囲むことができます。事例：<code>for (val in myarray)</code></p>
+<p>パラメータリストは、オプションで括弧で囲むことができます。For example: <code>for (val in myarray)</code></p>
 <p>列挙の流れは以下の通りです：</p>
 <ul>
   <li>ループが始まる前に、<i>Expression</i>が評価され、ターゲットオブジェクトが決定されます。</li>
   <li>オブジェクトの<code>__Enum</code>メソッドを呼び出して <a href="Enumerator.htm"><i>列挙者</i></a>オブジェクトになります。そのようなメソッドが存在しない場合、オブジェクト自体が列挙者オブジェクトであるとみなされます。</li>
   <li>各反復の最初に、次の値または値のペアを取得するために列挙者が<a href="Enumerator.htm#Call">呼び出されます</a>。false（0または空文字列）を返すと、ループは終了します。</li>
 </ul>
-<p>for-loopと厳密に同じではありませんが、以下のようにこの処理を実演しています：</p>
+<p>forループと厳密に同じではありませんが、以下のようにこの処理を実演しています：</p>
 <pre>_enum := <i>Expression</i>
 try _enum := _enum.__Enum(2)
 while _enum(&amp;Value1, &amp;Value2)
@@ -54,11 +54,11 @@ while _enum(&amp;Value1, &amp;Value2)
 </pre>
 <p>上記のコードと同様に、<em>Expression</em>または__Enumが呼び出すことのできない値を生成した場合、例外がスローされます。</p>
 <p>プロパティ、メソッド、配列の要素を列挙している間、そのタイプの項目を挿入したり削除したりすることは一般的に安全ではありません。そのため、一部の項目がスキップされたり、複数回列挙されたりすることがあります。回避策として、削除するアイテムのリストを作成し、最初のループが完了した後に2番目のループでアイテムを削除する方法があります。</p>
-<p>forループの後には、通常、ループの<em>本体</em>を形成するステートメントの集合体である<a href="Block.htm">ブロック</a>が続きます。ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>for x, y in z {</code>.</p>
+<p>forループの後には、通常、ループの<em>本体</em>を形成するステートメントの集合体である<a href="Block.htm">ブロック</a>が続きます。ただし、1つの文しかないループにはブロックは必要ありません（"if"とその "else"は、この目的のために1つの文としてカウントされます）。オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>for x, y in z {</code>。</p>
 <p>すべてのループと同様に、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、<a href="../Variables.htm#Index">A_Index</a>を使用することができます。</p>
 <p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。</p>
 
-<h2 id="COM_Objects">COM Objects</h2>
+<h2 id="COM_Objects">COMオブジェクト</h2>
 <p><i>Value1</i>と<i>Value2</i>は列挙者に直接渡されるため、どのような値が割り当てられるかは、列挙されるオブジェクトの種類に依存します。COM オブジェクトの場合、<i>Value1</i>には<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-next">IEnumVARIANT::Next()</a>が返す値が、<i>Value2</i>にはその<a href="https://learn.microsoft.com/openspecs/windows_protocols/ms-oaut/3fe7db9f-5803-4dc4-9d14-5425d3f5461f">バリアントタイプ</a>を表す数値が含まれます。例えば、<a href="https://learn.microsoft.com/previous-versions/x4k5wbx4(v=vs.85)">Scripting.Dictionary</a>オブジェクトで使用する場合、各<i>Value1</i>には辞書のキーが含まれ、<i>Value2</i>は通常、文字列の場合は8、整数の場合は3です。タイプコードの一覧は<a href="ComObjType.htm">ComObjType</a>を参照してください。</p>
 <p><a href="ComObjArray.htm">SafeArray</a>を列挙する場合、<i>Value1</i>には現在の要素が、<i>Value2</i>にはそのバリアントタイプが含まれる。</p>
 
@@ -68,7 +68,7 @@ while _enum(&amp;Value1, &amp;Value2)
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> オブジェクトが所有するプロパティを一覧表示します。</p>
-<pre>colours := {red:0xFF0000, blue:0x0000FF, green:0x00FF00}
+<pre>colours := {red: 0xFF0000, blue: 0x0000FF, green: 0x00FF00}
 <em>; 上記の表現は、以下の「colors」の代わりに直接使用することができます：</em>
 s := ""
 for k, v in colours.OwnProps()
@@ -86,7 +86,7 @@ MsgBox windows</pre>
 </div>
 
 <div class="ex" id="ExFibF">
-<p><a class="ex_number" href="#ExFibF"></a> Defines an enumerator as a <a href="../Variables.htm#fat-arrow">fat arrow function</a>. フィボナッチ数列から、無期限または停止するまで数値を返します。</p>
+<p><a class="ex_number" href="#ExFibF"></a> <a href="../Variables.htm#fat-arrow">ファットアロー関数として</a>列挙子を定義します。フィボナッチ数列から、無期限または停止するまで数値を返します。</p>
 <pre>for n in FibF()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break
@@ -101,7 +101,7 @@ FibF() {
 </div>
 
 <div class="ex" id="ExFibC">
-<p><a class="ex_number" href="#ExFibC"></a> Defines an enumerator as a <a href="../Objects.htm#Custom_Classes">class</a>. <a href="#ExFibF">前例</a>に準ずる。</p>
+<p><a class="ex_number" href="#ExFibC"></a> 列挙者を<a href="../Objects.htm#Custom_Classes">クラス</a>として定義します。<a href="#ExFibF">前例</a>に準ずる。</p>
 <pre>for n in FibC()
     if MsgBox("#" A_Index " = " n "`nContinue?",, "y/n") = "No"
         break

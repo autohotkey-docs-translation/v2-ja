@@ -27,7 +27,7 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dt>Target</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-      <p>A document, URL, executable file (.exe, .com, .bat, etc.), shortcut (.lnk), <a href="#CLSID">CLSID</a>, or <a href="#verbs">system verb</a> to launch (see remarks). If <em>Target</em> is a local file and no path was specified with it, how the file is located typically depends on the type of file and other conditions. See <a href="#Interpretation_of_Target">Interpretation of Target</a> for details.</p>
+      <p>起動する文書、URL、実行ファイル（.exe、.com、.batなど）、ショートカット（.lnk）、<a href="#CLSID">CLSID</a>、<a href="#verbs">システム動詞</a>のこと（備考参照）。If <em>Target</em> is a local file and no path was specified with it, how the file is located typically depends on the type of file and other conditions. See <a href="#Interpretation_of_Target">Interpretation of Target</a> for details.</p>
       <p>To pass parameters, add them immediately after the program or document name as follows:</p>
       <pre>Run 'MyProgram.exe Param1 Param2'</pre>
       <p>If the program/document name or a parameter contains spaces, it is safest to enclose it in double quotes as follows (even though it may work without them in some cases):</p>
@@ -44,10 +44,10 @@ ExitCode := <span class="func">RunWait</span>(Target <span class="optional">, Wo
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>If blank or omitted, <em>Target</em> will be launched normally. Otherwise, specify one or more of the following options:</p>
-      <p><strong>Max:</strong> launch maximized</p>
-      <p><strong>Min:</strong> launch minimized</p>
-      <p><strong>Hide:</strong> launch hidden (cannot be used in combination with either of the above)</p>
-      <p class="note"><strong>Note:</strong> Some applications (e.g. Calc.exe) do not obey the requested startup state and thus Max/Min/Hide will have no effect.</p>
+      <p><strong>Max：</strong>最大化して起動</p>
+      <p><strong>Min：</strong>最小化して起動</p>
+      <p><strong>Hide：</strong>隠して起動（上記2つとの併用は不可）</p>
+      <p class="note"><strong>注意：</strong>一部のアプリケーション（Calc.exeなど）は、要求されたスタートアップ状態に従わないため、Max/Min/Hideは効果を発揮しないことがあります。</p>
   </dd>
 
   <dt>&amp;OutputVarPID</dt>
@@ -89,7 +89,7 @@ catch
 <p><a href="../Variables.htm#ComSpec">ComSpec</a>（cmd.exe）を使ってプログラムを実行する場合（プログラムの入力や出力をリダイレクトする必要があるため）、実行ファイルのパスや名前にスペースが含まれている場合は、その文字列全体を外側の引用符で囲む必要があります。以下の例では、外側の引用符が黄色で強調表示されています：</p>
 <pre>Run A_ComSpec ' /c <span class="style3">"</span>"C:\My Utility.exe" "param 1" "second param" &gt;"C:\My File.txt"<span class="style3">"</span>'</pre>
 <p><code>Run "C:\My Documents\Test.txt"</code>よりも<code>Run 'C:\Windows\Notepad.exe "C:\My Documents\Test.txt"'</code>のように<em>Target</em>が完全パスであればパフォーマンスは若干向上するかもしれません。</p>
-<p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell:prefix. Some can be opened without it. 事例：</p>
+<p id="CLSID">Special <a href="../misc/CLSID-List.htm">CLSIDs</a> may be opened via Run. Most of them can be opened by using the shell: prefix. Some can be opened without it. 事例：</p>
 <pre>Run "shell:::{D20EA4E1-3957-11D2-A40B-0C5020524153}"  <em>; Windows Tools.</em>
 Run "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"  <em>; PC（従来のマイコンピュータまたはコンピュータ）</em>
 Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
@@ -101,12 +101,12 @@ Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
   </tr>
   <tr>
     <td>*<i>verb</i></td>
-    <td>システムで定義された、またはカスタムされた任意の動詞。事例：<code>Run "*Compile " A_ScriptFullPath</code>. <i>管理者として実行</i>右クリックメニューの代わりに<a href="#RunAs">*RunAs</a>動詞を使用することができます。</td>
+    <td>システムで定義された、またはカスタムされた任意の動詞。事例：<code>Run "*Compile " A_ScriptFullPath</code>。<i>管理者として実行</i>右クリックメニューの代わりに<a href="#RunAs">*RunAs</a>動詞を使用することができます。</td>
   </tr>
   <tr>
     <td>properties</td>
     <td>
-      <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。事例：<code>Run 'properties "C:\My File.txt"'</code></p>
+      <p>表示されているファイルのエクスプローラーのプロパティウィンドウを表示します。For example: <code>Run 'properties "C:\My File.txt"'</code></p>
       <p class="note"><strong>注：</strong> プロパティウィンドウはスクリプトが終了すると自動的に閉じます。これを防ぐには、<a href="WinWait.htm">WinWait</a>でウィンドウが表示されるのを待ち、<a href="WinWaitClose.htm">WinWaitClose</a>でユーザーがウィンドウを閉じるのを待ちます。</p>
     </td>
   </tr>
@@ -116,19 +116,19 @@ Run "::{645FF040-5081-101B-9F08-00AA002F954E}"  <em>; ごみ箱</em></pre>
   </tr>
   <tr>
     <td>explore</td>
-    <td>指定されたフォルダーにエクスプローラーのインスタンスを開きます。事例：<code>Run "explore " A_ProgramFiles</code>.</td>
+    <td>指定されたフォルダーにエクスプローラーのインスタンスを開きます。事例：<code>Run "explore " A_ProgramFiles</code>。</td>
   </tr>
   <tr>
     <td>edit</td>
-    <td>指示されたファイルを編集用に開きます。表示されたファイルの種類に「編集」アクションが関連付けられていない場合は、動作しないことがあります。事例：<code>Run 'edit "C:\My File.txt"'</code></td>
+    <td>指示されたファイルを編集用に開きます。表示されたファイルの種類に「編集」アクションが関連付けられていない場合は、動作しないことがあります。For example: <code>Run 'edit "C:\My File.txt"'</code></td>
   </tr>
   <tr>
     <td>open</td>
-    <td>指定されたファイルを開く（ほとんどのファイルタイプでデフォルトの動作であるため、通常は必要ありません）。事例：<code>Run 'open "My File.txt"'</code>.</td>
+    <td>指定されたファイルを開く（ほとんどのファイルタイプでデフォルトの動作であるため、通常は必要ありません）。For example: <code>Run 'open "My File.txt"'</code>.</td>
   </tr>
   <tr>
     <td>print</td>
-    <td>指定されたファイルを、もしあれば、関連するアプリケーションとともに印刷します。事例：<code>Run 'print "My File.txt"'</code></td>
+    <td>指定されたファイルを、もしあれば、関連するアプリケーションとともに印刷します。For example: <code>Run 'print "My File.txt"'</code></td>
   </tr>
 </table>
 <p>RunWaitが待機状態にある間、<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、または<a href="SetTimer.htm">タイマー</a>を使って新しい<a href="../misc/Threads.htm">スレッド</a>を起動することができます。</p>
@@ -149,20 +149,20 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     ExitApp
 }
 
-MsgBox "A_IsAdmin:" A_IsAdmin "`nCommand line:" full_command_line</pre>
+MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " full_command_line</pre>
 <p>ユーザーが<a href="https://en.wikipedia.org/wiki/User_Account_Control">ユーザーアカウント制御（UAC）</a>ダイアログをキャンセルしたとき、またはその他の理由で実行に失敗したときは、スクリプトは終了します。</p>
 <p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
 <p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
 <p>この例は、スクリプトの必要性に応じて変更することができます：</p>
 <ul>
-  <li>If the script absolutely requires admin rights, check <a href="../Variables.htm#IsAdmin">A_IsAdmin</a> a second time in case <em>*RunAs</em> failed to elevate the script (i.e. because UAC is disabled).</li>
-  <li>To keep the script running even if the user cancels the UAC prompt, move <a href="ExitApp.htm">ExitApp</a> into the try block.</li>
+  <li>スクリプトにどうしても管理者権限が必要な場合、<em>*RunAs</em>でスクリプトの昇格に失敗した場合（UACが無効になっている場合など）に備えて、<a href="../Variables.htm#IsAdmin">A_IsAdmin</a>を2回目もチェックします。</li>
+  <li>ユーザーがUACプロンプトをキャンセルしてもスクリプトを実行し続けるために、<a href="ExitApp.htm">ExitApp</a>をtryブロックに移動します。</li>
   <li>再起動に失敗した場合（スクリプトファイルが変更または削除された場合など）でもスクリプトを実行し続けるには、ExitAppを削除して、Runの代わりにRunWaitを使用します。成功すると、<code>/restart</code>によって新しいインスタンスが古いインスタンスを終了させます。失敗すると、新しいインスタンスは終了し、RunWaitが戻ります。</li>
 </ul>
 <p>AutoHotkeyのインストーラは、<em>.ahk</em>ファイルに対して<em>RunAs</em>動詞を登録しており、<code>Run "*RunAs script.ahk"</code>でスクリプトを管理者として起動できます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="RunAs.htm">RunAs</a>, <a href="Process.htm">Process functions</a>, <a href="Exit.htm">Exit</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="DllCall.htm">DllCall</a></p>
+<p><a href="RunAs.htm">RunAs</a>、<a href="Process.htm">Process関数</a>、<a href="Exit.htm">Exit</a>、<a href="../misc/CLSID-List.htm">CLSIDリスト</a>、<a href="DllCall.htm">DllCall</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -256,7 +256,7 @@ ib := InputBox("Enter an expression to evaluate as a new script.",,, 'Ord("*")')
 if ib.result = "Cancel"
     return
 result := ExecScript('FileAppend ' ib.value ', "*"')
-MsgBox "Result:" result
+MsgBox "Result: " result
 </pre>
 </div>
 

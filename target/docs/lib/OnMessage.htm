@@ -28,7 +28,7 @@
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>The function to call.</p>
-    <p>The callback accepts four parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>コールバックは4つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
     <pre class="NoIndent">MyCallback(wParam, lParam, msg, hwnd) { ...</pre>
     <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
     <ol>
@@ -66,13 +66,13 @@ OnMessage MsgNumber, Callback, 1  <em>; Option 2 - specify MaxThreads 1</em></pr
 
 <h2 id="Additional_Information_Available_to_the_Callback">Additional Information Available to the Callback</h2>
 <p>In addition to the received parameters mentioned above, the callback may also consult the built-in variable <strong>A_EventInfo</strong>, which contains 0 if the message was sent via SendMessage. PostMessageで送信された場合、メッセージが投稿された<a href="../Variables.htm#TickCount">tick-count の時間</a>が含まれます。</p>
-<p>A callback's <a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a> starts off as the parent window to which the message was sent (even if it was sent to a control). If the window is hidden but not a GUI window (such as the <a href="../Program.htm#main-window">script's main window</a>), turn on <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> before using it. 事例：</p>
+<p>A callback's <a href="../misc/WinTitle.htm#LastFoundWindow">last found window</a> starts off as the parent window to which the message was sent (even if it was sent to a control). ウィンドウが隠れていてもGUIウィンドウ（<a href="../Program.htm#main-window">スクリプトのメインウィンドウ</a>など）でない場合は、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>をオンにしてから使用します。事例：</p>
 <pre>DetectHiddenWindows True
 MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to which the message was sent.</em></pre>
 
 <h2 id="What_the_Callback_Should_Return">What the Callback Should Return</h2>
 <p>If a callback uses <a href="Return.htm">Return</a> without any parameters, or it specifies a blank value such as "" (or it never uses Return at all), the incoming message goes on to be processed normally when the callback finishes. The same thing happens if the callback <a href="Exit.htm">exits</a> or causes a runtime error such as <a href="Run.htm">running</a> a nonexistent file. これに対して、整数を返すと、返信としてすぐに送信されます。つまり、プログラムはそれ以上メッセージを処理しません。For example, a callback monitoring WM_LBUTTONDOWN (0x0201) may return an integer to prevent the target window from being notified that a mouse click has occurred. 多くの場合（<a href="PostMessage.htm">PostMessage</a>で届いたメッセージなど）、どの整数を返すかは問題ではありませんが、疑わしい場合は通常0が最も安全です。</p>
-<p>有効な戻り値の範囲は、スクリプトを実行するexeが32ビットか64ビットかによって異なります。空でない戻り値は、32ビットスクリプトでは -2<sup>31</sup> から 2<sup>32</sup>-1 (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 4</code>) 、64ビットスクリプトでは -2<sup>63</sup> から 2<sup>63</sup>-1 (<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 8</code>) でなければなりません。</p>
+<p>有効な戻り値の範囲は、スクリプトを実行するexeが32ビットか64ビットかによって異なります。空でない戻り値は、32ビットスクリプトでは -2<sup>31</sup> から 2<sup>32</sup>-1（<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 4</code>）、64ビットスクリプトでは -2<sup>63</sup> から 2<sup>63</sup>-1（<code><a href="../Variables.htm#PtrSize">A_PtrSize</a> = 8</code>）でなければなりません。</p>
 <p>If there are multiple callbacks monitoring a given message number, they are called one by one until one returns a non-empty value.</p>
 
 <h2 id="Remarks">総論</h2>
@@ -91,12 +91,12 @@ MsgParentWindow := WinExist()  <em>; This stores the unique ID of the window to 
 <p>OnMessageスレッドの<a href="../misc/Threads.htm">優先順位</a>は常に0です。その結果、現在のスレッドの優先順位が0より高い場合、メッセージの監視やバッファリングは行われない。</p>
 <p>システムメッセージ（0x0400以下のメッセージ）を監視する場合は、注意が必要です。For example, if a callback does not finish quickly, the response to the message might take longer than the system expects, which might cause side-effects. Unwanted behavior may also occur if a callback returns an integer to suppress further processing of a message, but the system expected different processing or a different response.</p>
 <p>スクリプトが<a href="MsgBox.htm">MsgBox</a>などのシステムダイアログを表示している場合、コントロールに投稿されたメッセージは監視されません。For example, if the script is displaying a message box and the user clicks a button in a GUI window, the WM_LBUTTONDOWN message is sent directly to the button without calling the callback.</p>
-<p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。Instead, it is usually best to post or send the messages to the <a href="../Program.htm#main-window">script's main window</a> or one of its GUI windows.</p>
+<p>外部プログラムがPostThreadMessage()などのAPIコールでスクリプトのスレッドに直接メッセージを投稿することもできますが、スクリプトが<a href="MsgBox.htm">メッセージボックス</a>などのシステムウィンドウを表示している場合、メッセージが失われるためお勧めしません。その代わりに、<a href="../Program.htm#main-window">スクリプトのメインウィンドウ</a>またはGUIウィンドウの1つにメッセージを投稿または送信するのが通常最適です。</p>
 <h2 id="Related">関連</h2>
 <p><a href="CallbackCreate.htm">CallbackCreate</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnClipboardChange.htm">OnClipboardChange</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="../Functions.htm">Functions</a>, <a href="../misc/SendMessageList.htm">Windows Messages</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Critical.htm">Critical</a>, <a href="DllCall.htm">DllCall</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExLButtonDown">
-<p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。関連トピック<a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a>イベント</p>
+<p><a class="ex_number" href="#ExLButtonDown"></a> GUIウィンドウのマウスクリックを監視する。Related topic: <a href="GuiOnEvent.htm#ContextMenu">ContextMenu</a> event</p>
 <pre>MyGui := Gui(, "Example Window")
 MyGui.Add("Text",, "Click anywhere in this window.")
 MyGui.Add("Edit", "w200")
@@ -120,7 +120,7 @@ WM_LBUTTONDOWN(wParam, lParam, msg, hwnd)
 </div>
 
 <div class="ex" id="ExShutdown">
-<p><a class="ex_number" href="#ExShutdown"></a> システムのシャットダウン/ログオフを検出し、ユーザーがそれを中止できるようにします。Windows Vista以降では、シャットダウン/ログオフをブロックしているプログラムを示すユーザーインターフェイスを表示し、ユーザーが強制的にシャットダウン/ログオフできるようにします。古いOSの場合、スクリプトは確認プロンプトを表示します。関連トピック<a href="OnExit.htm">OnExit</a></p>
+<p><a class="ex_number" href="#ExShutdown"></a> システムのシャットダウン/ログオフを検出し、ユーザーがそれを中止できるようにします。Windows Vista以降では、シャットダウン/ログオフをブロックしているプログラムを示すユーザーインターフェイスを表示し、ユーザーが強制的にシャットダウン/ログオフできるようにします。古いOSの場合、スクリプトは確認プロンプトを表示します。関連トピック：<a href="OnExit.htm">OnExit</a></p>
 <pre><em>; The following DllCall is optional: it tells the OS to shut down this script first (prior to all other applications).</em>
 DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
 OnMessage(0x0011, On_WM_QUERYENDSESSION)
@@ -177,7 +177,7 @@ MsgMonitor(wParam, lParam, msg, *)
 {
     <em>; Since returning quickly is often important, it is better to use ToolTip than</em>
     <em>; something like MsgBox that would prevent the callback from finishing:</em>
-    ToolTip "Message " msg " arrived:`nWPARAM:" wParam "`nLPARAM:" lParam
+    ToolTip "Message " msg " arrived:`nWPARAM: " wParam "`nLPARAM: " lParam
 }
 
 <em>; The following could be used inside some other script to run the callback inside the above script:</em>

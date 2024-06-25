@@ -16,7 +16,7 @@
 <ul>
   <li><a href="#intro">導入と簡単な例</a></li>
   <li><a href="#param">パラメータ</a></li>
-  <li><a href="#ByRef">ByRef Parameters</a></li>
+  <li><a href="#ByRef">ByRefパラメータ</a></li>
   <li><a href="#optional">オプションのパラメータ</a>
     <ul>
       <li><a href="#unset">アンセットパラメータ</a></li>
@@ -33,7 +33,7 @@
   <li><a href="#Local">ローカル変数</a></li>
       <li><a href="#Global">グローバル変数</a></li>
       <li><a href="#static">スタティック変数</a></li>
-      <li><a href="#More_about_locals_and_globals">More About Locals and Globals</a></li>
+      <li><a href="#More_about_locals_and_globals">ローカルとグローバルの詳細</a></li>
     </ul>
   </li>
   <li><a href="#DynCall">関数を動的に呼び出す</a></li>
@@ -47,33 +47,33 @@
   <li><a href="#remarks">復帰・退出・総評</a></li>
   <li><a href="#Style_and_Naming_Conventions">スタイルと命名規則</a></li>
   <li><a href="#include">複数のスクリプト間で関数を共有するための#Includeの使い方</a></li>
-  <li><a href="#BuiltIn">搭載されている機能</a></li>
+  <li><a href="#BuiltIn">組み込み関数でも</a></li>
 </ul>
 <h2 id="intro">導入と簡単な例</h2>
-<p id="define">関数は、<em>呼び出す</em>ことで実行可能な再利用可能なコードブロックです。関数は、オプションでパラメータ（入力）を受け取り、値（出力）を返すことができます。2つの数値を受け取り、その和を返す次のような単純な関数を考えてみましょう。</p>
+<p id="define">関数は、<em>呼び出す</em>ことで実行可能な再利用可能なコードブロックです。関数は、オプションでパラメータ（入力）を受け取り、値（出力）を返すことができます。2つの数値を受け取り、その和を返す次のような単純な関数を考えてみましょう：</p>
 <pre>Add(x, y)
 {
     <a href="lib/Return.htm">return</a> x + y
 }</pre>
-<p>The above is known as a function <em>definition</em> because it creates a function named "Add" (not case-sensitive) and establishes that anyone who calls it must provide exactly two parameters (x and y). 関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
+<p>上記は、"Add"という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
 <pre>Var := Add(2, 3)  <em>; Varに数字5が格納されます。</em></pre>
-<p>また、関数は戻り値を保存せずに呼び出すことができます。</p>
+<p>また、関数は戻り値を保存せずに呼び出すことができます：</p>
 <pre>Add(2, 3)
 Add 2, 3  <em>; 行頭で使用する場合は、括弧を省略することができます。</em></pre>
 <p>しかし、この場合、関数が返す値はすべて捨てられるので、関数がその戻り値以外の効果を生み出さない限り、この呼び出しは何の役にも立たない。</p>
-<p>式の中で、関数呼び出しは関数の戻り値に「評価」されます。戻り値は、上記のように変数に代入することもできますし、以下のように直接使用することもできます。</p>
+<p>式の中で、関数呼び出しは関数の戻り値に「評価」されます。戻り値は、上記のように変数に代入することもできますし、以下のように直接使用することもできます：</p>
 <pre>if <a href="lib/InStr.htm">InStr</a>(MyVar, "fox")
     MsgBox "The variable MyVar contains the word fox."</pre>
 
 <h2 id="param">パラメータ</h2>
-<p>関数を定義すると、そのパラメータが名前の横の括弧に記載されます（名前と括弧の間に空白があってはいけません）。関数がパラメータを受け付けない場合は、括弧の中を空にしてください（例）。<code>GetCurrentTimestamp()</code>.</p>
+<p>関数を定義すると、そのパラメータが名前の横の括弧に記載されます（名前と括弧の間に空白があってはいけません）。関数がパラメータを受け付けない場合は、括弧の中を空にしてください（例：<code>GetCurrentTimestamp()</code>）。</p>
 <p>既知の制限：</p>
 <ul>
   <li>関数呼び出しのパラメータが変数に解決する場合（例：<code>Var</code>、<code>++Var</code>、<code>Var*=2</code>）、その左または右の他のパラメータは、関数に渡される前にその変数を変更できます。例えば、<code>MyFunc(Var, Var++)</code>は、<em>Var</em>が最初に0である場合、予期せず1や0を渡してしまいますが、これは最初の<em>Var</em>が関数呼び出しが実行されるまで再参照されないからです。この動作は直感に反しているため、将来のリリースで変更される可能性があります。</li>
 </ul>
 
-<h2 id="ByRef">ByRef Parameters</h2>
-<p>From the function's point of view, parameters are essentially the same as <a href="#Local">local variables</a> unless they are marked as <em>ByRef</em> as in this example:</p>
+<h2 id="ByRef">ByRefパラメータ</h2>
+<p>関数から見ると、パラメータは、この例のように<em>ByRef</em>としてマークされていない限り、基本的に<a href="#Local">ローカル変数</a>と同じです：</p>
 <pre>a := 1, b := 2
 Swap(&amp;a, &amp;b)
 MsgBox a ',' b
@@ -104,20 +104,20 @@ Swap(&amp;Left, &amp;Right)
 <p>関数を定義する際、1つまたは複数のパラメータをオプションとしてマークすることができます。</p>
 <p><code>:=</code>の後に、リテラル数値、"fox"や""などの引用/リテラル文字列、またはパラメータをデフォルト値で初期化する必要がある場合に毎回評価されるべき式を追加します。例えば、<code>X:=[]</code>とすると、毎回新しいArrayが作成されます。</p>
 <p><a href="#unset">デフォルトで設定されていない</a>パラメータを定義する場合は、<code>?</code>または<code>:= unset</code>を付加します。</p>
-<p>次の関数は、そのZパラメータがオプションと表示されています。</p>
+<p>次の関数は、そのZパラメータがオプションと表示されています：</p>
 <pre>Add(X, Y, Z := 0) {
     return X + Y + Z
 }</pre>
 <p>呼び出し元が上記の関数に<strong>3つ</strong>のパラメータを渡すと、Zのデフォルト値は無視されます。しかし、呼び出し側が<strong>2つ</strong>のパラメータだけを渡すと、Zは自動的に値0を受け取ります。</p>
-<p id="missing">オプションのパラメータをパラメータリストの途中で孤立させることはできません。つまり、最初のオプショナルパラメータの右側にあるすべてのパラメータもオプショナルと表示されなければならない。ただし、オプションのパラメータは、以下のように、関数を呼び出す際に、パラメータリストの途中から省略することができます。</p>
+<p id="missing">オプションのパラメータをパラメータリストの途中で孤立させることはできません。つまり、最初のオプショナルパラメータの右側にあるすべてのパラメータもオプショナルと表示されなければならない。ただし、オプションのパラメータは、以下のように、関数を呼び出す際に、パラメータリストの途中から省略することができます：</p>
 <pre>MyFunc(1,, 3)
 MyFunc(X, Y:=2, Z:=0) {  <em>; この場合でも、Zはオプションでなければならないことに注意してください。</em>
     MsgBox X ", " Y ", " Z
 }</pre>
-<p id="OptionalByRef"><a href="#ByRef">ByRefパラメータ</a>は、デフォルト値にも対応しています（例）。<code>MyFunc(&amp;p1 := "")</code>. 呼び出し側がこのようなパラメータを省略した場合、関数はローカル変数を作成し、デフォルト値を格納します。</p>
+<p id="OptionalByRef"><a href="#ByRef">ByRefパラメータ</a>は、デフォルト値にも対応しています（例：<code>MyFunc(&amp;p1 := "")</code>）。呼び出し側がこのようなパラメータを省略した場合、関数はローカル変数を作成し、デフォルト値を格納します。</p>
 
 <h3 id="unset">アンセットパラメータ</h3>
-<p>デフォルト値を与えずにパラメータをオプションとしてマークするには、キーワード<code>unset</code>または接尾辞<code>?</code>を使用します。その場合、パラメータが省略されるたびに、対応する変数は値を持ちません。<a href="lib/IsSet.htm">IsSet</a>を使用して、以下のように、パラメータに値が与えられているかどうかを判断します。</p>
+<p>デフォルト値を与えずにパラメータをオプションとしてマークするには、キーワード<code>unset</code>または接尾辞<code>?</code>を使用します。その場合、パラメータが省略されるたびに、対応する変数は値を持ちません。<a href="lib/IsSet.htm">IsSet</a>を使用して、以下のように、パラメータに値が与えられているかどうかを判断します：</p>
 <pre>
 MyFunc(p?) {  <em>; MyFunc(p := unset) に相当します。</em>
     if IsSet(p)
@@ -129,7 +129,7 @@ MyFunc(p?) {  <em>; MyFunc(p := unset) に相当します。</em>
 MyFunc(42)
 MyFunc
 </pre>
-<p>パラメータに値がないのに読み込もうとすると、<a href="Concepts.htm#uninitialized-variables">初期化されていない変数</a>と同じようにエラーとみなされます。オプションのパラメータに値がない場合でも他の関数に渡すには、<a href="Variables.htm#maybe">maybe演算子（<em>var</em><strong>?</strong>）</a>事例：</p>
+<p>パラメータに値がないのに読み込もうとすると、<a href="Concepts.htm#uninitialized-variables">初期化されていない変数</a>と同じようにエラーとみなされます。オプションのパラメータに値がない場合でも他の関数に渡すには、<a href="Variables.htm#maybe">maybe演算子（<em>var</em><strong>?</strong>）</a>。事例：</p>
 <pre>
 Greet(title?) {
     MsgBox("Hello!", title?)
@@ -148,7 +148,7 @@ returnTest() {
     return 123
 }
 </pre>
-<p>関数から余分な結果を返したい場合は、<a href="#ByRef">ByRef（&amp;）</a>を使用することもできます。</p>
+<p>関数から余分な結果を返したい場合は、<a href="#ByRef">ByRef（&amp;）</a>を使用することもできます：</p>
 <pre>
 returnByRef(&amp;A,&amp;B,&amp;C)
 MsgBox A "," B "," C
@@ -161,7 +161,7 @@ returnByRef(&amp;val1, &amp;val2, val3)
     return
 }
 </pre>
-<p>オブジェクトや配列は、複数の値や名前付きの値も返すことができます。</p>
+<p>オブジェクトや配列は、複数の値や名前付きの値も返すことができます：</p>
 <pre>
 Test1 := returnArray1()
 MsgBox Test1[1] "," Test1[2]
@@ -184,12 +184,12 @@ returnArray2() {
 }
 
 returnObject() {
-    Test := {id:789, val:"HIJ"}
+    Test := {id: 789, val: "HIJ"}
     return Test
 }
 </pre>
 <h2 id="Variadic">可変型関数</h2>
-<p>関数を定義するとき、最後のパラメータの後にアスタリスクを書くと、その関数は可変パラメータとして扱われ、可変数のパラメータを受け取ることができるようになります。</p>
+<p>関数を定義するとき、最後のパラメータの後にアスタリスクを書くと、その関数は可変パラメータとして扱われ、可変数のパラメータを受け取ることができるようになります：</p>
 <pre>Join(sep, <b class="blue">params*</b>) {
     for index,param in params
         str .= param . sep
@@ -201,10 +201,10 @@ MsgBox Join("`n", "one", "two", "three")</pre>
 <p class="warning"><strong>注：</strong>"可変型"パラメータは、フォーマルパラメータリストの最後にのみ出現することができます。</p>
 
 <h3 id="VariadicCall">可変型関数の呼び出し</h3>
-<p>可変型関数は可変数のパラメータを<i>受け取る</i>ことができますが、関数呼び出しに同じ構文を適用することで、パラメータの配列を<i>任意</i>の関数に渡すことができます。</p>
+<p>可変型関数は可変数のパラメータを<i>受け取る</i>ことができますが、関数呼び出しに同じ構文を適用することで、パラメータの配列を<i>任意</i>の関数に渡すことができます：</p>
 <pre>substrings := ["one", "two", "three"]
 MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
-<p>注:</p>
+<p>注：</p>
 <ul>
   <li>オブジェクトは、<a href="lib/Array.htm">Array</a>や他の種類の列挙可能なオブジェクト（<a href="Objects.htm#__Enum">__Enum</a>メソッドを持つ任意のオブジェクト）、または<a href="lib/Enumerator.htm">列挙者</a>であることができます。オブジェクトがArrayでない場合、__Enumは1カウントで呼び出され、列挙者は一度に1つのパラメータのみで呼び出されます。</li>
   <li>値がない<a href="lib/Array.htm">配列</a>要素（<code>[,2]</code>の最初の要素など）は、パラメータを省略したのと同じです。つまり、パラメータがオプションの場合はそのパラメータのデフォルト値が使用され、それ以外の場合は例外が投げられます。</li>
@@ -220,8 +220,8 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <h3 id="Local">ローカル変数</h3>
 <p>ローカル変数は、1つの関数に固有のもので、その関数の内部でのみ見ることができます。その結果、ローカル変数はグローバル変数と同じ名前を持ちながら、別々の内容を持つことがあります。また、別々の関数が同じ変数名を安全に使用することができます。</p>
 <p>All local variables which are not <a href="#static">static</a> are automatically freed (made empty) when the function returns, with the exception of variables which are bound to a <a href="#closures">closure</a> or <a href="Concepts.htm#variable-references">VarRef</a> (such variables are freed at the same time as the closure or VarRef).</p>
-<p><a href="lib/A_Clipboard.htm">A_Clipboard</a>や <a href="Variables.htm#TimeIdle">A_TimeIdle</a>などの組み込み変数は、決してローカルではなく（どこからでもアクセス可能）、再宣言することはできません。(<a href="lib/Object.htm">Object</a>などの組み込みクラスは<a href="#Global">グローバル</a>変数としてあらかじめ定義されているので、この限りではありません)。</p>
-<p id="AssumeLocal">ファンクションはデフォルトで<strong>assume-local</strong>です。assume-local関数の内部でアクセスまたは作成された変数は、以下の例外を除き、デフォルトでローカルとなります。</p>
+<p><a href="lib/A_Clipboard.htm">A_Clipboard</a>や <a href="Variables.htm#TimeIdle">A_TimeIdle</a>などの組み込み変数は、決してローカルではなく（どこからでもアクセス可能）、再宣言することはできません。（<a href="lib/Object.htm">Object</a>などの組み込みクラスは<a href="#Global">グローバル</a>変数としてあらかじめ定義されているので、この限りではありません。）</p>
+<p id="AssumeLocal">ファンクションはデフォルトで<strong>assume-local</strong>です。assume-local関数の内部でアクセスまたは作成された変数は、以下の例外を除き、デフォルトでローカルとなります：</p>
 <ul>
   <li><a href="#Global">グローバル</a>変数で、関数が読み込むだけで、代入したり、<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用したりはしない。</li>
   <li><a href="#nested">ネストされた関数</a>は、包含する関数が作成したローカル変数や静的変数を参照することができます。</li>
@@ -233,7 +233,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>LogToFile(TextToLog)
 {
     <em>; LogFileNameは、以前この関数の外のどこかで値を与えられていました。
-; FileAppend は、組み込み関数を含む事前定義されたグローバル変数です。</em>
+    ; FileAppend は、組み込み関数を含む事前定義されたグローバル変数です。</em>
     FileAppend TextToLog "`n", LogFileName
 }</pre>
 <p>それ以外の場合、関数内で既存のグローバル変数を参照する（または新規に作成する）には、その変数を使用する前にグローバル変数として宣言します。事例：</p>
@@ -244,7 +244,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     <strong>global</strong> DataDir := Dir  <em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
 }
 </pre>
-<p id="AssumeGlobal"><strong>Assume-global mode:</strong> If a function needs to access or create a large number of global variables, it can be defined to assume that all its variables are global (except its parameters) by making its first line the word "global". 事例：</p>
+<p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を "global"とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
 <pre>SetDefaults()
 {
     <strong>global</strong>
@@ -259,11 +259,11 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     <strong>static</strong> LoggedLines := 0
     LoggedLines += 1  <em>; 現地でタリーを維持する（その価値はコール間で記憶される）。</em>
     global LogFileName
-    FileAppend LoggedLines ":" TextToLog "`n", LogFileName
+    FileAppend LoggedLines ": " TextToLog "`n", LogFileName
 }</pre>
-<p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>. Static declarations are evaluated the same as <a href="#Local">local</a> declarations, except that after a static initializer (or group of combined initializers) is successfully evaluated, it is effectively removed from the flow of control and will not execute a second time.</p>
+<p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>。Static declarations are evaluated the same as <a href="#Local">local</a> declarations, except that after a static initializer (or group of combined initializers) is successfully evaluated, it is effectively removed from the flow of control and will not execute a second time.</p>
 <p>ネストした関数は、外側の関数の非静的なローカル変数を取り込まないように、<a href="#static-functions">静的に宣言</a>することができます。</p>
-<p id="AssumeStatic"><strong>Assume-static mode:</strong> A function may be defined to assume that all its undeclared local variables are static (except its parameters) by making its first line the word "static". 事例：</p>
+<p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を "static"とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。事例：</p>
 <pre>GetFromStaticArray(WhichItemNumber)
 {
     <strong>static</strong>
@@ -279,11 +279,11 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 }</pre>
 <p>assume-staticモードでは、staticであってはならない変数は、ローカルまたはグローバルとして宣言しなければならない（<a href="#AssumeLocal">assume-localモード</a>と同じ例外あり）。</p>
 
-<h3 id="More_about_locals_and_globals">More About Locals and Globals</h3>
-<p>以下の例のように、カンマで区切ることで複数の変数を同じ行で宣言することができます。</p>
+<h3 id="More_about_locals_and_globals">ローカルとグローバルの詳細</h3>
+<p>以下の例のように、カンマで区切ることで複数の変数を同じ行で宣言することができます：</p>
 <pre>global LogFileName, MaxRetries := 5
 static TotalAttempts := 0, PrevResult</pre>
-<p id="DeclareInit">変数は、宣言と同じ行で、代入を続けて初期化することができる。<a href="#InitStatic">静的イニシャライザ</a>とは異なり、ローカルとグローバルのイニシャライザは、関数が呼ばれるたびに実行されます。つまり、<code>local x := 0</code>のような行は、2つの行を別々に書いたのと同じ効果がある。<code>local x</code> followed by <code>x := 0</code>. どのような<a href="Variables.htm#AssignOp">代入演算子</a>でも使用できますが、<code>global HitCount += 1</code>のような複合代入では、変数にあらかじめ値が代入されていることが必要です。</p>
+<p id="DeclareInit">変数は、宣言と同じ行で、代入を続けて初期化することができる。<a href="#InitStatic">静的イニシャライザ</a>とは異なり、ローカルとグローバルのイニシャライザは、関数が呼ばれるたびに実行されます。つまり、<code>local x := 0</code>のような行は、2つの行を別々に書いたのと同じ効果がある：<code>local x</code>に続いて<code>x := 0</code>。どのような<a href="Variables.htm#AssignOp">代入演算子</a>でも使用できますが、<code>global HitCount += 1</code>のような複合代入では、変数にあらかじめ値が代入されていることが必要です。</p>
 <p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>static</em>という言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロック</a>やELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。<code>Array1</code>や<code>Array99</code>などの変数への非動的な参照は、すでにアドレスに解決されているため、<code>global Array%i%</code> のような動的な宣言は不可能です。</p>
 
 <h2 id="DynCall">関数を動的に呼び出す</h2>
@@ -291,7 +291,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>関数呼び出しは、スクリプトの開始前ではなく、スクリプトの実行中に呼び出しのターゲットが決定される場合、<em>動的</em>であると言われます。通常の関数呼び出しと同じ構文が使用されます。唯一の明らかな違いは、非動的呼び出しではロード時に特定のエラーチェックが実行されますが、動的呼び出しでは実行時にのみ実行されることです。</p>
 <p>例えば、<code>MyFunc()</code>は、<em>MyFunc</em>に含まれる<a href="misc/Functor.htm">関数オブジェクト</a>を呼び出しますが、これは実際の関数名であったり、関数が割り当てられた変数であったりすることがあります。</p>
 <p>関数呼び出しのターゲットとして、<a href="Variables.htm#deref">ダブルデフ</a>を含む他の式を使用することができます。例えば、<code>MyArray[1]()</code>はMyArrayの最初の要素に含まれる関数を呼び出し、<code>%MyVar%()</code>はMyVarに含まれる<em>名前</em>の <em>変数に</em>含まれる関数を呼び出します。つまり、パラメータリストの前にある式をまず評価して<a href="misc/Functor.htm">関数オブジェクト</a>を取得し、そのオブジェクトを呼び出すのです。</p>
-<p>以下の理由により、目標値を呼び出すことができない場合は、<a href="lib/Error.htm">Error</a>が発生します。</p>
+<p>以下の理由により、目標値を呼び出すことができない場合は、<a href="lib/Error.htm">Error</a>が発生します：</p>
 <ul>
   <li>ターゲット値が呼び出し可能な型でない場合、<a href="lib/Error.htm#MethodError">MethodError</a>が投げられる。Any value with a Call method can be called, so <code>HasMethod(value, "Call")</code> or <code>HasMethod(value)</code> can be used to avoid this error.</li>
   <li>Passing too few or too many parameters, which can often be avoided by checking the function's <a href="lib/Func.htm#MinParams">MinParams</a>, <a href="lib/Func.htm#MaxParams">MaxParams</a> and <a href="lib/Func.htm#IsVariadic">IsVariadic</a> properties, either directly or by calling <code>HasMethod(value,, N)</code>, where <em>N</em> is the number of parameters that will be passed to the function.</li>
@@ -300,16 +300,16 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>関数の呼び出し側は、一般に、関数を呼び出す前に各パラメータの意味と個数を知っておく必要があります。しかし、動的呼び出しの場合、関数呼び出しに合わせて関数を書くことが多く、その場合、パラメータ値の誤りではなく、関数定義の誤りが原因で失敗することがあります。</p>
 
 <h2 id="ShortCircuit">簡略化されたブーリアン評価</h2>
-<p><em>AND、OR</em>、<a href="Variables.htm#ternary">三項演算子</a>を<a href="Variables.htm#Expressions">式</a>中で使用すると、（関数呼び出しの有無にかかわらず）性能を向上させるために短絡させることができます。ショートサーキットは、式の最終結果に影響を与える可能性のない部分の評価を拒否することで動作します。この概念を説明するために、この例を考えてみましょう。</p>
+<p><em>AND、OR</em>、<a href="Variables.htm#ternary">三項演算子</a>を<a href="Variables.htm#Expressions">式</a>中で使用すると、（関数呼び出しの有無にかかわらず）性能を向上させるために短絡させることができます。ショートサーキットは、式の最終結果に影響を与える可能性のない部分の評価を拒否することで動作します。この概念を説明するために、この例を考えてみましょう：</p>
 <pre>if (ColorName != "" AND not FindColor(ColorName))
     MsgBox ColorName " could not be found."</pre>
 <p>上の例では、<em>ColorName</em>変数が空の場合、FindColor()関数が呼ばれることはありません。これは、<em>AND</em>の左辺が<em>false</em>であるため、その右辺は最終的な結果を<em>true</em>にすることができないからです。</p>
 <p>このため、ある関数が<em>AND</em>や <em>OR</em>の右辺で呼び出された場合、その関数が生み出す副作用（グローバル変数の内容の変更など）が発生しない可能性があることを認識しておくことが重要です。</p>
-<p>また、短絡的な評価は、ネストした<em>AND</em>と<em>OR</em>にカスケードすることに注意する必要があります。例えば、以下の式では、<em>ColorName</em>が空白の場合は、左端の比較のみが行われます。そうすると、左辺だけで最終的な答えが確実に決まるからです。</p>
+<p>また、短絡的な評価は、ネストした<em>AND</em>と<em>OR</em>にカスケードすることに注意する必要があります。例えば、以下の式では、<em>ColorName</em>が空白の場合は、左端の比較のみが行われます。そうすると、左辺だけで最終的な答えが確実に決まるからです：</p>
 <pre>if (ColorName = "" <u>OR</u> FindColor(ColorName, Region1) <u>OR</u> FindColor(ColorName, Region2))
     break   <em>; 検索するものがない、または一致するものが見つかった。</em></pre>
 <p>上記の例で示したように、一般的に高価な（時間のかかる）関数は、パフォーマンスを高めるために<em>AND</em>または<em>OR</em>の右辺で呼び出す必要があります。また、関数のパラメータに空文字列などの不適切な値が渡された場合に、その関数が呼び出されないようにすることも可能です。</p>
-<p><a href="Variables.htm#ternary">三項条件演算子(?:)</a>も、ロス分岐を評価しないことで短絡させる。</p>
+<p><a href="Variables.htm#ternary">三項条件演算子（?:）</a>も、ロス分岐を評価しないことで短絡させる。</p>
 
 <h2 id="nested">ネストされた関数</h2>
 <p><em>ネストされた</em>関数は、他の関数の中で定義されたものです。事例：</p>
@@ -325,9 +325,9 @@ outer("title")
 </pre>
 <p>ネストされた関数は、それを直ちに囲む関数の外では名前によってアクセスできませんが、その関数の内部では、他のネストされた関数の内部も含めて、どこでもアクセスできます（例外あり）。</p>
 <p>デフォルトでは、ネストされた関数は、それを囲む関数の<a href="#static">静的</a>変数に、動的にもアクセスすることができます。しかし、入れ子になった関数内の非動的代入は、外側の関数にその変数に対する宣言も非動的代入もない場合、通常ローカル変数に解決されます。</p>
-<p id="capture-var">デフォルトでは、以下の条件を満たす場合、入れ子関数は外側の関数の非静的ローカル変数を自動的に「キャプチャ」します。</p>
+<p id="capture-var">デフォルトでは、以下の条件を満たす場合、入れ子関数は外側の関数の非静的ローカル変数を自動的に「キャプチャ」します：</p>
 <ol>
-  <li>外側の関数は、次のうち少なくとも1つの方法で変数を参照する必要があります。
+  <li>外側の関数は、次のうち少なくとも1つの方法で変数を参照する必要があります：
     <ol type="a">
       <li><code>local</code>で宣言したり、パラメータやネストされた関数として宣言することで、その効果を発揮します。</li>
       <li>代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>の非動的な対象として。</li>
@@ -413,7 +413,7 @@ timertest()
 <h2 id="remarks">復帰・退出・総評</h2>
 <p>関数内の実行の流れが<a href="lib/Return.htm">Return</a>に出会う前に関数の閉じブレースに到達した場合、関数は終了し、呼び出し元に空白の値（空文字列）を返します。また、関数が明示的に<a href="lib/Return.htm">Return</a>のパラメータを省略した場合は、空白の値が返されます。</p>
 <p>関数が<a href="lib/Exit.htm">Exit</a>を使用して<a href="misc/Threads.htm">現在のスレッド</a>を終了させる場合、その呼び出し元は戻り値をまったく受け取りません。例えば、<code>Var := Add(2, 3)</code>という文は、<code>Add()</code>が終了しても<code>Var</code>は変更されないままです。<a href="lib/Throw.htm">Throw</a>やランタイムエラー（存在しないファイルを<a href="lib/Run.htm">実行</a>したなど）により、関数が終了した場合も同様です。</p>
-<p>1つ以上の空白の値（空文字列）を持つ関数を呼び出すには、この例のように空の引用符の組を使用します。<code>FindColor(ColorName, "")</code>.</p>
+<p>1つ以上の空白の値（空文字列）を持つ関数を呼び出すには、この例のように空の引用符の組を使用します：<code>FindColor(ColorName, "")</code>。</p>
 <p>関数を呼び出しても新しい<a href="misc/Threads.htm">スレッド</a>は始まらないので、関数で<a href="lib/SendMode.htm">SendMode</a>や <a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>などの設定を変更すると、その呼び出し元にも反映されます。</p>
 <p>関数内で使用すると、<a href="lib/ListVars.htm">ListVars</a>は関数の<a href="#Local">ローカル変数</a>をその内容とともに表示します。This can help <a href="Scripts.htm#debug">debug a script</a>.</p>
 <h2 id="Style_and_Naming_Conventions">スタイルと命名規則</h2>
@@ -426,7 +426,7 @@ timertest()
 <h2 id="include">複数のスクリプト間で関数を共有するための#Includeの使い方</h2>
 <p><a href="lib/_Include.htm">#Include</a>指令は、外部ファイルから関数をロードするために使用することができます。</p>
 
-<h2 id="BuiltIn">搭載されている機能</h2>
+<h2 id="BuiltIn">組み込み関数でも</h2>
 <p>スクリプトが同名の関数を定義している場合、組み込み関数はオーバーライドされます。例えば、スクリプトに独自のカスタムWinExist関数を持たせて、標準の関数の代わりに呼び出すことができます。しかし、その場合、スクリプトは元の関数を呼び出す方法がなくなります。</p>
 <p>DLLファイルに存在する外部関数は、<a href="lib/DllCall.htm">DllCall</a>で呼び出すことができる。</p>
 <p>すべての内蔵機能の一覧を得るには、「<a href="lib/index.htm">アルファベット順の機能インデックス</a>」を参照してください。</p>

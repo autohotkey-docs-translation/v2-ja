@@ -24,12 +24,12 @@
         <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
         <p>次の単語または文字のいずれかを指定します：</p>
         <ul>
-            <li>Low (or L)</li>
-            <li>BelowNormal (or B)</li>
-            <li>Normal (or N)</li>
-            <li>AboveNormal (or A)</li>
-            <li>High (or H)</li>
-            <li>Realtime (or R)</li>
+            <li>Low（またはL）</li>
+            <li>BelowNormal（またはB）</li>
+            <li>Normal（またはN）</li>
+            <li>AboveNormal（またはA）</li>
+            <li>High（またはH）</li>
+            <li>Realtime（またはR）</li>
         </ul>
         <p>リアルタイム優先で実行するように設計されていないプロセスは、そのレベルに設定するとシステムの安定性を低下させる可能性があることに注意してください。</p>
     </dd>
@@ -50,7 +50,7 @@
 <p>プロセスの現在の優先順位は、Windowsのタスクマネージャーで確認することができます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Run.htm">Run</a>, <a href="Process.htm">Process functions</a>, <a href="Win.htm">Win functions</a></p>
+<p><a href="Run.htm">Run</a>、<a href="Process.htm">Process関数</a>、<a href="Win.htm">Win関数</a></p>
 
 <h2 id="Examples">例</h2>
 
@@ -72,7 +72,7 @@ MsgBox "The newly launched Notepad's PID is " NewPID</pre>
     (
         ESCAPEキーを押してキャンセルするか、ダブルクリックで新しい
         優先順位は、次のウィンドウで設定します：
-)")
+    )")
     MyGui.Add("Text", "wp", active_title)
     LB := MyGui.Add("ListBox", "r5 Choose1", ["Normal","High","Low","BelowNormal","AboveNormal"])
     LB.OnEvent("DoubleClick", SetPriority)
@@ -81,14 +81,14 @@ MsgBox "The newly launched Notepad's PID is " NewPID</pre>
     MyGui.OnEvent("Close", (*) =&gt; MyGui.Destroy())
     MyGui.Show()
 
-SetPriority(*)
+    SetPriority(*)
     {
         new_prio := LB.Text
         MyGui.Destroy()
         if ProcessSetPriority(new_prio, active_pid)
-            MsgBox "Success:Its priority was changed to " new_prio
+            MsgBox "Success: Its priority was changed to " new_prio
         else
-            MsgBox "Error:Its priority could not be changed to " new_prio
+            MsgBox "Error: Its priority could not be changed to " new_prio
     }
 }</pre>
 </div>

@@ -13,20 +13,20 @@
 
 <h1>A_HotkeyModifierTimeout</h1>
 
-<p><em>A_HotkeyModifierTimeout</em> is a <a href="../Concepts.htm#built-in-variables">built-in variable</a> that affects the behavior of <a href="Send.htm">Send</a> with <a href="../Hotkeys.htm">hotkey</a> modifiers <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Win</kbd>, and <kbd>Shift</kbd>. Specifically, it defines how long after a hotkey is pressed that its modifier keys are assumed to still be held down. This is used by <a href="Send.htm">Send</a> to determine whether to push the modifier keys back down after having temporarily released them.</p>
-<p><em>A_HotkeyModifierTimeout</em> can be used to get or set an <a href="../Concepts.htm#numbers">integer</a> representing the length of the interval in milliseconds. If -1, it never times out (modifier keys are always pushed back down after the Send). If 0, it always times out (modifier keys are never pushed back down).</p>
+<p><em>A_HotkeyModifierTimeout</em> is a <a href="../Concepts.htm#built-in-variables">built-in variable</a> that affects the behavior of <a href="Send.htm">Send</a> with <a href="../Hotkeys.htm">hotkey</a> modifiers <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Win</kbd>, and <kbd>Shift</kbd>. Specifically, it defines how long after a hotkey is pressed that its modifier keys are assumed to still be held down. <a href="Send.htm">Send</a>が、修飾キーを一時的に離した後、押し戻すかどうかを判断するために使用されます。</p>
+<p><em>A_HotkeyModifierTimeout</em> は、 <a href="../Concepts.htm#numbers">整数</a>です。 ホットキーのインターバルをミリ秒単位で指定します。If -1, it never times out (modifier keys are always pushed back down after the Send). If 0, it always times out (modifier keys are never pushed back down).</p>
 <p>The default setting is 50 (ms).</p>
 
 <h2 id="Remarks">備考</h2>
-<p>この変数は、以下の場合に効果がありません。</p>
+<p>この変数は、以下の場合に効果がありません：</p>
 <ul>
   <li>ホットキーは、<a href="Send.htm#SendInput">SendInput</a>または<a href="Send.htm#SendPlay">SendPlay</a>メソッドでキーストロークを送信します。これは、ユーザーがキーを押したり離したりする操作を、送信完了後まで延期するためです。</li>
-  <li>The script has the keyboard hook installed (you can see if your script uses the hook via the "View-&gt;Key history" menu item in the <a href="../Program.htm#main-window">main window</a>, or via the <a href="KeyHistory.htm">KeyHistory</a> function). This is because the hook can keep track of which modifier keys (<kbd>Alt</kbd>/<kbd>Ctrl</kbd>/<kbd>Win</kbd>/<kbd>Shift</kbd>) the user is physically holding down and doesn't need to use the timeout.</li>
+  <li>スクリプトにキーボードフックがインストールされている（スクリプトがフックを使用しているかどうかは、<a href="../Program.htm#main-window">メインウィンドウ</a>の「View-&gt;Key history」メニュー項目、または<a href="KeyHistory.htm">KeyHistory</a>関数で確認することができます）。これは、フックがユーザーが物理的に押している修飾キー(<kbd>Alt</kbd>/<kbd>Ctrl</kbd>/<kbd>Win</kbd>/<kbd>Shift</kbd>)を追跡できるため、タイムアウトを使用する必要がないためです。</li>
 </ul>
-<p>この変数の効果を説明するために、この例を考えてみましょう。<code>^!a::Send "abc"</code>.</p>
+<p>この変数の効果を説明するために、この例を考えてみましょう：<code>^!a::Send "abc"</code>。</p>
 <p><a href="Send.htm">Send</a>関数が実行されると、まず<kbd>Ctrl</kbd>と <kbd>Alt</kbd>を解除して、文字が正しく送信されるようにします。すべてのキーを送信した後、関数は<kbd>Ctrl</kbd>と <kbd>Alt</kbd>を安全に押し戻せるかどうか（ユーザーがまだ押し続けているかどうかを確認するため）わからない。しかし、指定されたミリ秒未満しか経過していない場合は、ユーザーがまだキーを離す機会がなかったと判断し、物理的な状態に合わせてキーを押し戻します。そうしないと、修飾キーが押し戻されず、同じキーや別のキーを修飾させるために、ユーザーは一旦キーを離して再度押す必要があります。</p>
 <p>タイムアウトは、ユーザーが通常ホットキーの修飾子を押したまま離す時間よりも短い値に設定する必要があります。そうでないと、ユーザーが物理的に押さえていなくても、モディファイアがダウンポジションに復元される（ダウンで動かなくなる）可能性があります。</p>
-<p>以下のいずれかで、この変数の必要性を低減または排除することができます。</p>
+<p>以下のいずれかで、この変数の必要性を低減または排除することができます：</p>
 <ul>
   <li><a href="InstallKeybdHook.htm">InstallKeybdHook</a>を呼び出して、キーボードフックをインストールします。</li>
   <li>従来の<a href="Send.htm#SendEvent">SendEvent</a>メソッドではなく、<a href="Send.htm#SendInput">SendInput</a>または<a href="Send.htm#SendPlay">SendPlay</a>メソッドを使用します。</li>
@@ -38,7 +38,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Sets the hotkey modifier timeout to 100&nbsp;ms instead of 50&nbsp;ms.</p>
+<p><a class="ex_number" href="#ExBasic"></a> ホットキー修飾のタイムアウトを50&nbsp;msではなく、100&nbsp;msに設定します。</p>
 <pre>A_HotkeyModifierTimeout := 100</pre>
 </div>
 

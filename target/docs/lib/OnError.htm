@@ -22,7 +22,7 @@
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
     <p>The function to call.</p>
-    <p>The callback accepts two parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
     <pre class="NoIndent">MyCallback(Thrown, Mode) { ...</pre>
     <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
     <ol>
@@ -32,9 +32,9 @@
     <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
     <p>The callback can return one of the following values (other values are reserved for future use and should be avoided):</p>
     <ul>
-      <li><code>0</code>, <code>""</code> or no Return:エラー処理を通常通り行うことができるようにします。</li>
-      <li><code>1</code>:デフォルトのエラーダイアログと残りのエラーコールバックを抑制します。</li>
-      <li><code>-1</code>:As above, but if <em>Mode</em> (the second parameter) contains the word Return, execution of the current thread is permitted to continue.</li>
+      <li><code>0</code>, <code>""</code> or no Return: Allow error handling to proceed as normal.</li>
+      <li><code>1</code>：デフォルトのエラーダイアログと残りのエラーコールバックを抑制します。</li>
+      <li><code>-1</code>: As above, but if <em>Mode</em> (the second parameter) contains the word Return, execution of the current thread is permitted to continue.</li>
     </ul>
   </dd>
   
@@ -54,7 +54,7 @@
 <h2 id="Error_Modes">Error Modes</h2>
 <table class="info">
   <tr>
-    <th>Mode</th>
+    <th>モード</th>
     <th abbr="説明">説明</th>
   </tr>
   <tr>
@@ -72,11 +72,11 @@
 </table>
 
 <h2 id="Remarks">備考</h2>
-<p><em>Callback</em> is called only for errors or exceptions which would normally cause an error message to be displayed. OnErrorはスクリプトがロードされた後でないと呼び出せないため、ロードタイムエラーでは呼び出せません。</p>
-<p><em>Callback</em> is called on the current <a href="../misc/Threads.htm">thread</a>, before it exits (that is, before the call stack unwinds).</p>
+<p>通常であればエラーメッセージが表示されるようなエラーや例外が発生した場合にのみ、<em>Callback</em>が呼び出されます。OnErrorはスクリプトがロードされた後でないと呼び出せないため、ロードタイムエラーでは呼び出せません。</p>
+<p><em>Callback</em>は、現在の<a href="../misc/Threads.htm">スレッド</a>が終了する前に（つまり、コールスタックが巻き戻される前に）、呼び出されます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Try.htm">Try</a>, <a href="Catch.htm">Catch</a>, <a href="Throw.htm">Throw</a>, <a href="OnExit.htm">OnExit</a></p>
+<p><a href="Try.htm">Try</a>、<a href="Catch.htm">Catch</a>、<a href="Throw.htm">Throw</a>、<a href="OnExit.htm">OnExit</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -86,14 +86,14 @@ OnError LogError
 i := Integer("cause_error")
 
 LogError(exception, mode) {
-    FileAppend "Error on line " exception.Line ":" exception.Message "`n"
+    FileAppend "Error on line " exception.Line ": " exception.Message "`n"
         , "errorlog.txt"
     return true
 }</pre>
 </div>
 
 <div class="ex" id="ExAccumulator">
-<p><a class="ex_number" href="#ExAccumulator"></a> OnErrorを使用して、代替のエラー処理方法を実装します。Caveat:<a href="Try.htm">Try</a>が有効な間はOnErrorは無効です。</p>
+<p><a class="ex_number" href="#ExAccumulator"></a> OnErrorを使用して、代替のエラー処理方法を実装します。注意事項：<a href="Try.htm">Try</a>が有効な間はOnErrorは無効です。</p>
 <pre>
 AccumulateErrors()
 {
@@ -125,7 +125,7 @@ AccumulateError(errors, e, mode)
         <em>; Try to print the error to stdout.</em>
         FileAppend Format("{1} ({2}) : ({3}) {4}`n", e.File, e.Line, e.What, e.Message), "*"
         if HasProp(e, "extra")
-            FileAppend "     Specifically:" e.Extra "`n", "*"
+            FileAppend "     Specifically: " e.Extra "`n", "*"
     }
     errors.Push(e)
     return -1 <em>; Continue.</em>
@@ -136,22 +136,22 @@ RearrangeWindows()
     <em>; Start accumulating errors in 'err'.</em>
     local err := AccumulateErrors()
 
-<em>; Do some things that might fail...</em>
+    <em>; Do some things that might fail...</em>
     MonitorGetWorkArea , &amp;left, &amp;top, &amp;right, &amp;bottom
     width := (right-left)//2, height := bottom-top
     WinMove left, top, width, height, A_ScriptFullPath
     WinMove left+width, top, width, height, "AutoHotkey v2 Help"
 
-<em>; Check if any errors occurred.</em>
+    <em>; Check if any errors occurred.</em>
     if err.Count
         MsgBox err.Count " error(s); last error at line #" err.Last.Line
     else
         MsgBox "No errors"
 
-<em>; Stop is called automatically when the variable goes out of scope,
+    <em>; Stop is called automatically when the variable goes out of scope,
     ; since only we have a reference to the object.  This causes OnError
     ; to be called to unregister the callback.
-;err.Stop()</em>
+    ;err.Stop()</em>
 }
 
 <em>; Call the test function which suppresses and accumulates errors.</em>

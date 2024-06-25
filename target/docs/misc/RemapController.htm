@@ -46,7 +46,7 @@
 <h3 id="different-approaches">さまざまなアプローチ</h3>
 <p>以下、最も単純なものから最も複雑なものまで、3つのアプローチを紹介する。最も複雑な方法は、（キーやマウスボタンを押し続ける必要があるゲームなど）最も幅広い状況で機能する。</p>
 
-<h4 id="Method_1">Method #1</h4>
+<h4 id="Method_1">方法 #1</h4>
 <p>この方法は、単純なキー入力やマウスクリックを送信する。事例：</p>
 <pre>Joy1::<a href="../lib/Send.htm">Send</a> "{Left}"  <em>; Have button #1 send a left-arrow keystroke.</em>
 Joy2::<a href="../lib/Click.htm">Click</a>  <em>; Have button #2 send a click of left mouse button.</em>
@@ -63,7 +63,7 @@ Joy4::Send "Sincerely,{Enter}John Smith"  <em>; Have button #4 send a two-line s
 <p>For details, see <a href="../howto/WriteHotkeys.htm">How to Write Hotkeys</a>.</p>
 <p>キーとマウス/コントローラボタンの完全なリストは、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
 
-<h4 id="Method_2">Method #2</h4>
+<h4 id="Method_2">方法 #2</h4>
 <p>この方法は、コントローラーのボタンを押している間ずっと、キーやマウスのボタンを押し続けなければならない場合に必要です。次の例では、コントローラーの第2ボタンを左矢印キーにします：</p>
 <pre>Joy2::
 {
@@ -72,7 +72,7 @@ Joy4::Send "Sincerely,{Enter}John Smith"  <em>; Have button #4 send a two-line s
     Send "{Left up}"  <em>; Release the left-arrow key.</em>
 }</pre>
 
-<h4 id="Method_3">Method #3</h4>
+<h4 id="Method_3">方法 #3</h4>
 <p>この方法は、方法#2で説明したタイプのコントローラーホットキーが複数あり、そのようなホットキーを同時に押したり離したりすることがある場合に必要です。次の例では、コントローラの第3ボタンをマウスの左ボタンにします：</p>
 <pre>Joy3::
 {
@@ -130,7 +130,7 @@ WatchAxis()
     JoyY := GetKeyState("JoyY")  <em>; Get position of Y axis.</em>
     KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
 
-if JoyX &gt; 70
+    if JoyX &gt; 70
         KeyToHoldDown := "Right"
     else if JoyX &lt; 30
         KeyToHoldDown := "Left"
@@ -141,10 +141,10 @@ if JoyX &gt; 70
     else
         KeyToHoldDown := ""
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
-        return  <em>; Do nothing.</em>
+    if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
+        return  <em>; 何もしません。</em>
 
-<em>; Otherwise, release the previous key and press down the new key:</em>
+    <em>; Otherwise, release the previous key and press down the new key:</em>
     SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
     if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
         Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>
@@ -164,7 +164,7 @@ WatchPOV()
     KeyToHoldDownPrev := KeyToHoldDown  <em>; Prev now holds the key that was down before (if any).</em>
 
 <em>; Some controllers might have a smooth/continous POV rather than one in fixed increments.
-; To support them all, use a range:</em>
+    ; To support them all, use a range:</em>
     if POV &lt; 0   <em>; No angle to report</em>
         KeyToHoldDown := ""
     else if POV &gt; 31500                <em>; 315 to 360 degrees: Forward</em>
@@ -178,10 +178,10 @@ WatchPOV()
     else                                  <em>; 225 to 315 degrees: Left</em>
         KeyToHoldDown := "Left"
 
-if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
-        return  <em>; Do nothing.</em>
+    if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or no key is needed).</em>
+        return  <em>; 何もしません。</em>
 
-<em>; Otherwise, release the previous key and press down the new key:</em>
+    <em>; Otherwise, release the previous key and press down the new key:</em>
     SetKeyDelay -1  <em>; Avoid delays between keystrokes.</em>
     if KeyToHoldDownPrev   <em>; There is a previous key to release.</em>
         Send "{" KeyToHoldDownPrev " up}"  <em>; Release it.</em>
@@ -191,7 +191,7 @@ if KeyToHoldDown = KeyToHoldDownPrev  <em>; The correct key is already down (or 
 
 <h3 id="auto-repeating-other">キーストロークの自動繰り返し</h3>
 <p>上記のどちらの例も、単にキーを押し続けるのではなく、繰り返しキーを送るように修正することができる（つまり、キーボードのキーを物理的に押し続けることを模倣することができる）。これを行うには、以下の行を置き換える：</p>
-<pre>return  <em>; Do nothing.</em></pre>
+<pre>return  <em>; 何もしません。</em></pre>
 <p>With the following:</p>
 <pre>{
     if KeyToHoldDown

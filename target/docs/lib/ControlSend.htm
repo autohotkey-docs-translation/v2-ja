@@ -14,7 +14,7 @@
 
 <p>キーストロークやテキストをシミュレーションして、ウィンドウやコントロールに送信します。</p>
 
-<pre class="Syntax"><span class="func">ControlSend</span>Keys<span class="optional">, Control , WinTitle , WinText , ExcludeTitle , ExcludeText</span>
+<pre class="Syntax"><span class="func">ControlSend</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span>
 <span class="func">ControlSendText</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
@@ -22,7 +22,7 @@
   <dt>Keys</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>送信するキー（詳しくは<a href="Send.htm">Send</a>関数をご覧ください）文字の送信速度は<a href="SetKeyDelay.htm">SetKeyDelay</a>関数で定めます。</p>
+    <p>送信するキー（詳しくは<a href="Send.htm">Send</a>関数をご覧ください）。文字の送信速度は<a href="SetKeyDelay.htm">SetKeyDelay</a>関数で定めます。</p>
     <p><a href="Send.htm">Send</a>関数とは異なり、ControlSendではマウスクリックを送信することはできません。その際は<a href="ControlClick.htm">ControlClick</a>を使用してください。</p>
   </dd>
 
@@ -49,15 +49,15 @@
 <p>ControlSendTextは、<code>{Enter}</code>を<kbd>Enter</kbd>、<code>^c</code>を<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せずに、<em>Keys</em>パラメータの各文字を送信します。詳しくは、「<a href="Send.htm#SendText">テキストモード</a>」をご覧ください。ControlSendで<a href="Send.htm#Raw">{Raw}や</a> <a href="Send.htm#Text">{Text}を</a>使用することも有効です。</p>
 <p><em>Control</em>パラメータが省略された場合、この関数はターゲットウィンドウの最上位にあるコントロール（正しいコントロールであることが多い）、またはコントロールがない場合はウィンドウ自体に送信することで、直接送信しようとします。これは、ウィンドウにコントロールが全くないように見える場合、またはどのコントロールに送信するかを気にする必要がない便利な機能です。</p>
 <p>デフォルトでは、修飾キー操作（Ctrl、Alt、Shift、Win）は、Send機能によって通常と同じように送信されます。これにより、コマンドプロンプトなどのコンソールウィンドウで、大文字や制御文字などを適切に検出することができます。また、それ以外の方法で信頼性を向上させることもあります。</p>
-<p>特に、ControlSend中にユーザーが積極的にタイピングしている場合や、<kbd>Alt</kbd>が送信されている場合（<kbd>Alt</kbd>はアクティブウィンドウのメニューバーをアクティブにするため）には、これらの修飾子イベントがアクティブウィンドウに干渉する場合があります。これは、この例のように、モディファイアのアップとダウンのイベントを明示的に送信することで回避することができます。</p>
-<pre>ControlSend "{Alt down}f{Alt up}", "Edit1", "Untitled - Notepad".</pre>
+<p>特に、ControlSend中にユーザーが積極的にタイピングしている場合や、<kbd>Alt</kbd>が送信されている場合（<kbd>Alt</kbd>はアクティブウィンドウのメニューバーをアクティブにするため）には、これらの修飾子イベントがアクティブウィンドウに干渉する場合があります。これは、この例のように、モディファイアのアップとダウンのイベントを明示的に送信することで回避することができます：</p>
+<pre>ControlSend "{Alt down}f{Alt up}", "Edit1", "Untitled - Notepad"</pre>
 <p>上記の方法では、ワークステーションがロックされている（ログオンプロンプトで保護されている）状態でも、修飾キーストローク（Ctrl、Alt、Shift、Win）を送信することができます。</p>
 <p>コマンドプロンプトなどのコンソールウィンドウに対してControlSendを使用する場合は、<a href="BlockInput.htm">BlockInput</a>を使用しないようにしてください。大文字や<kbd>Ctrl</kbd>などの修飾キーが正しく機能しなくなる可能性があるためです。</p>
-<p><a href="SetKeyDelay.htm">SetKeyDelay</a>の値によって、キーが送信される速度が決まります。ターゲットウィンドウが確実にキー入力を受け取れない場合は、以下の例のように<a href="SetKeyDelay.htm">SetKeyDelay</a>の第2パラメータで押下時間を長くしてみてください。</p>
+<p><a href="SetKeyDelay.htm">SetKeyDelay</a>の値によって、キーが送信される速度が決まります。ターゲットウィンドウが確実にキー入力を受け取れない場合は、以下の例のように<a href="SetKeyDelay.htm">SetKeyDelay</a>の第2パラメータで押下時間を長くしてみてください：</p>
 <pre>SetKeyDelay 10, 10
 SetKeyDelay 0, 10
 SetKeyDelay -1, 0</pre>
-<p>ターゲットコントロールがEditコントロールまたはそれに類するものであるときは、通常ControlSend関数よりも以下の方が信頼性が高く高速です。</p>
+<p>ターゲットコントロールがEditコントロールまたはそれに類するものであるときは、通常ControlSend関数よりも以下の方が信頼性が高く高速です：</p>
 <pre><a href="EditPaste.htm">EditPaste</a>("This text will be inserted at the caret position.", ControlName, WinTitle)</pre>
 <pre><a href="ControlSetText.htm">ControlSetText</a>("This text will entirely replace any current text.", ControlName, WinTitle)</pre>
 <p>ControlSendは、一般的にウィンドウのメニューバーを操作することはできません。これを回避するためには、<a href="MenuSelect.htm">MenuSelect</a>関数を使用します。メニューバーの性質上、それが不可能な場合は、<a href="../misc/SendMessage.htm">SendMessage Tutorial</a>に従って、目的のメニュー項目に対応するメッセージを発見することを試みることができます。</p>

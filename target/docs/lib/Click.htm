@@ -19,21 +19,21 @@
 <dl>
   <dt>Options</dt>
   <dd>
-    <p>次の要素のうち、1つ以上を指定してください。<var>Coords</var>, <var>WhichButton</var>, <var>ClickCount</var>, <var>DownOrUp</var> and/or <var>Relative</var>. 全ての要素を省略すると、カーソルの現在地で左クリックします。</p>
+    <p>次の要素のうち、1つ以上を指定してください：<var>Coords</var>、<var>WhichButton</var>、<var>ClickCount</var>、<var>DownOrUp</var>、<var>Relative</var>。全ての要素を省略すると、カーソルの現在地で左クリックします。</p>
     <p>構成要素は複数のパラメータにまたがっていてもよいし、文字列にまとめられていてもよい。Each parameter may be either a single numeric component or a string containing zero or more components, where each component is separated from the next with at least one space, tab and/or comma (all within the string). 例えば、<code>Click 100, 200, "R D"</code>は、<code>Click "100 200 R D"</code>と同義で、いずれも動作します。Parameters that are blank or omitted are ignored, as are extra commas.</p>
     <p class="warning"><strong>Warning:</strong> <code>Click 100 200</code> would be equivalent to <code>Click "100200"</code>, as the two numbers would be <a href="../Variables.htm#concat">concatenated</a> before the function is called.</p>
-    <p>The components can appear in any order except <var>ClickCount</var>, which must occur somewhere to the right of <var>Coords</var>, if present.</p>
-    <p><strong>Coords:</strong> If omitted, the cursor's current position is used. Otherwise, specify the X and Y coordinates to which the mouse cursor is moved prior to clicking. 例えば、<code>Click "100 200"</code>は、マウスの左ボタンを特定の位置でクリックすることができます。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p>コンポーネントは、<var>ClickCount</var>を除いてどのような順番で表示されても構わないが、存在する場合は<var>Coords</var>の右側のどこかに表示されなければならない。</p>
+    <p><strong>Coords：</strong>省略された場合は、カーソルの現在位置が使用されます。Otherwise, specify the X and Y coordinates to which the mouse cursor is moved prior to clicking. 例えば、<code>Click "100 200"</code>は、マウスの左ボタンを特定の位置でクリックすることができます。座標は、<a href="CoordMode.htm">CoordMode</a>関数を使用して変更した場合を除いて、アクティブウィンドウのクライアント領域を基準にしています。</p>
     <p><strong>WhichButton:</strong> If omitted, it defaults to Left (the left mouse button). Otherwise, specify Left, Right, Middle (or just the first letter of each of these); or X1 (fourth button) or X2 (fifth button). 例えば、<code>Click "Right"</code>すると、マウスカーソルの現在位置でマウスの右ボタンをクリックすることができます。左はプライマリーボタン、右はセカンダリーボタンに対応します。ユーザーがシステム設定でボタンを入れ替えると、ボタンの物理的な位置は入れ替わりますが、効果は変わりません。</p>
     <p><var>WhichButton</var>には、ホイールを上方向（自分から離れる方向）に向けるWheelUpまたはWU、ホイールを下方向（自分から近づく方向）に向けるWheelDownまたはWDを指定することも可能です。WheelLeft（またはWL）またはWheelRight（またはWR）を指定することもできる。<em>ClickCount</em>は、ホイールを回すノッチの数です。ただし、アプリケーションによっては、マウスホイールの<var>ClickCount</var>の値が1以上であることに従わないものもあります。それらのために、<a href="Loop.htm">Loop</a>などの手段でClick機能を複数回使用します。</p>
-    <p><strong>ClickCount:</strong> If omitted, it defaults to 1. Otherwise, specify the number of times to click the mouse button or turn the mouse wheel. 例えば、<code>Click 2</code>は、マウスカーソルの現在位置でダブルクリックを行います。<var>Coords</var>が指定されている場合は、<var>ClickCount</var>はその後に表示されなければならない。クリックせずにマウスを動かす場合は、ゼロ（0）を指定します（例：<code>Click "100 200 0"</code>）。</p>
+    <p><strong>ClickCount：</strong>省略されたときは、初期値は 1 です。Otherwise, specify the number of times to click the mouse button or turn the mouse wheel. 例えば、<code>Click 2</code>は、マウスカーソルの現在位置でダブルクリックを行います。<var>Coords</var>が指定されている場合は、<var>ClickCount</var>はその後に表示されなければならない。クリックせずにマウスを動かす場合は、ゼロ（0）を指定します（例：<code>Click "100 200 0"</code>）。</p>
     <p><strong>DownOrUp:</strong> If omitted, each click consists of a down-event followed by an up-event. それ以外の場合は、マウスボタンを離さずに押し下げるDown（または文字D）を指定します。その後、Up（またはUの文字）という単語を使ってマウスボタンを離します。例えば、<code>Click "Down"</code>は、マウスの左ボタンを押し下げ、そのまま保持します。</p>
     <p><strong>Relative:</strong> If omitted, the X and Y coordinates will be used for absolute positioning. Otherwise, specify the word Rel or Relative to treat the coordinates as offsets from the current mouse position. つまり、カーソルは現在位置から右にXピクセル（負の場合は左）、下にYピクセル（負の場合は上）だけ移動します。</p>
   </dd>
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>Click関数は、<a href="SendMode.htm">SendMode</a>で設定された送信方式を使用します。特定のクリックに対してこのモードを上書きするには、この例のように<a href="Send.htm#Click">{Click}</a>と組み合わせて特定のSend関数を使用します。<code>SendEvent "{Click 100 200}"</code>.</p>
+<p>Click関数は、<a href="SendMode.htm">SendMode</a>で設定された送信方式を使用します。特定のクリックに対してこのモードを上書きするには、この例のように<a href="Send.htm#Click">{Click}</a>と組み合わせて特定のSend関数を使用します：<code>SendEvent "{Click 100 200}"</code>。</p>
 <p>Shift-ClickやControl-Clickを行うには、一般的に<a href="Send.htm#Click">Send経由のクリック</a>が最も簡単です。事例：</p>
 <pre>Send "+{Click 100 200}"  <em>; Shift+LeftClick</em>
 Send "^{Click 100 200 Right}"  <em>; Control+RightClick</em></pre>
@@ -42,7 +42,7 @@ Send "^{Click 100 200 Right}"  <em>; Control+RightClick</em></pre>
 <p><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーによる物理的なマウス操作が、マウス関数によって生成されるシミュレーションマウスイベントを妨害することを防ぐことができます。ただし、<a href="SendMode.htm">SendInput</a>と <a href="SendMode.htm">SendPlay</a>モードでは、ユーザーの物理的なマウス操作を自動的に後回しにするため、一般にこの操作は必要ありません。</p>
 <p>マウスのクリックダウンとクリックアップのたびに、自動的に遅延が発生します（<a href="SendMode.htm">SendInputモード</a>とマウスホイールを回す場合を除く）。ディレイの長さを変更する場合は、<a href="SetMouseDelay.htm">SetMouseDelay</a>を使用します。</p>
 <h2 id="Related">関連</h2>
-<p><a href="Send.htm#Click">Send "{Click}"</a>, <a href="SendMode.htm">SendMode</a>, <a href="CoordMode.htm">CoordMode</a>, <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseClickDrag.htm">MouseClickDrag</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="ControlClick.htm">ControlClick</a>, <a href="BlockInput.htm">BlockInput</a></p>
+<p><a href="Send.htm#Click">Send "{Click}"</a>、<a href="SendMode.htm">SendMode</a>、<a href="CoordMode.htm">CoordMode</a>、<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>、<a href="SetMouseDelay.htm">SetMouseDelay</a>、<a href="MouseClick.htm">MouseClick</a>、<a href="MouseClickDrag.htm">MouseClickDrag</a>、<a href="MouseMove.htm">MouseMove</a>、<a href="ControlClick.htm">ControlClick</a>、<a href="BlockInput.htm">BlockInput</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> マウスカーソルの現在位置でマウスの左ボタンをクリックします。</p>

@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>ウインドウを管理する方法</h1>
-<p>AutoHotkeyの最も簡単で便利な機能の1つは、ウィンドウを操作するキーボードショートカット（ホットキー）を作成することができることです。スクリプトは、ほとんどすべてのウィンドウをアクティブ化、クローズ、最小化、最大化、復元、非表示、表示、移動することができます。これは、適切な<a href="../lib/Win.htm">Win関数</a>を呼び出して、タイトルやその他の基準でウィンドウを指定することで行われます。</p>
+<p>AutoHotkeyの最も簡単で便利な機能の1つは、ウィンドウを操作するキーボードショートカット（ホットキー）を作成することができることです。スクリプトは、ほとんどすべてのウィンドウをアクティブ化、クローズ、最小化、最大化、復元、非表示、表示、移動することができます。これは、適切な<a href="../lib/Win.htm">Win関数</a>を呼び出して、タイトルやその他の基準でウィンドウを指定することで行われます：</p>
 <pre>Run "notepad.exe"
 WinWait "Untitled - Notepad"
 WinActivate "Untitled - Notepad"
@@ -19,7 +19,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <p>この例では、新しいメモ帳ウィンドウを開き、それを主画面の一部（幅の1/4、高さの1/2）を埋めるように移動させます。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
 
 <p>ウィンドウを操作するための関数の多くは、それほど多くないので詳しく説明しません。例えば、ウィンドウをアクティブにせずに最小化するには、<code>WinActivate</code>を <code>WinMinimize</code>に置き換えます。ウィンドウを操作したり、情報を取得したりできる関数の一覧は、<a href="../lib/Win.htm">Win関数</a>を参照してください。</p>
-<p>このチュートリアルの大部分は、操作するウィンドウを<em>特定</em>する方法に関するものです（これが最も面倒な部分だからです）。例えば、上記の例には様々な問題があります。</p>
+<p>このチュートリアルの大部分は、操作するウィンドウを<em>特定</em>する方法に関するものです（これが最も面倒な部分だからです）。例えば、上記の例には様々な問題があります：</p>
 <ul>
   <li>タイトルが不必要に繰り返されている。</li>
   <li>タイトルは、UI言語が英語に設定されているシステムでのみ正しく表示されます。</li>
@@ -30,7 +30,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <p class="note"><strong>ヒント：</strong>AutoHotkeyには、ウィンドウのタイトル、クラス、プロセス名を確認するために使用できる<em>Window Spy</em>というスクリプトが付属しています。クラス名やプロセス名は、タイトルだけでウィンドウを特定することができない場合によく使われます。Window Spyは、スクリプトの<a href="../Program.htm#tray-icon">トレイメニュー</a>または<a href="../Program.htm#dash">AutoHotkey Dash</a>で見つけることができます。</p>
 
 <h2 id="ttm">タイトルマッチング</h2>
-<p>ウィンドウをタイトルで指定する場合、いくつかの注意点があります。</p>
+<p>ウィンドウをタイトルで指定する場合、いくつかの注意点があります：</p>
 <ul>
   <li>ウィンドウのタイトルは、<a href="../misc/RegEx-QuickRef.htm#opt_i">i)修飾子</a>によるRegExマッチングモードを使用する場合を除き、常に大文字と小文字が区別されます。</li>
   <li>デフォルトでは、関数はウィンドウタイトルの部分文字列を期待します。例えば、"Notepad"は、"Untitled - Notepad"と"C:\A\B.ahk - Notepad++"の両方にマッチする可能性があります。<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>を使用すると、関数の代わりにプレフィックス、完全一致、またはRegExパターンを期待するようにすることができます。</li>
@@ -39,7 +39,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <p>詳しくは「<a href="../misc/WinTitle.htm#Matching">マッチング動作</a>」をご覧ください。</p>
 
 <h2 id="A">アクティブウインドウ</h2>
-<p>アクティブなウィンドウを参照するには、ウィンドウのタイトルの代わりに文字「A」を使用します。例えば、アクティブなウィンドウを最小化することができます。</p>
+<p>アクティブなウィンドウを参照するには、ウィンドウのタイトルの代わりに文字「A」を使用します。例えば、アクティブなウィンドウを最小化することができます：</p>
 <pre>WinMinimize "A"</pre>
 
 <h2 id="lfw">ラストファウンドウィンドウ</h2>
@@ -52,24 +52,24 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 
 <h2 id="class">ウィンドウズクラス</h2>
 <p>ウィンドウクラスは、ウィンドウを作成するためのテンプレートとして使用される属性のセットです。ウィンドウのクラス名は、アプリやウィンドウの目的に関連していることがよくあります。ウィンドウのクラスは、ウィンドウが存在する間は変化しないので、タイトルで識別することが現実的でない場合や不可能な場合に、ウィンドウを識別するためにこのクラスを使用することがよくあります。</p>
-<p>例えば、ウィンドウのタイトル "Untitled - Notepad" の代わりに、ウィンドウのクラス（この場合、システムの言語に<em>関係なく</em>"Notepad"である）を使用することができます。</p>
+<p>例えば、ウィンドウのタイトル "Untitled - Notepad" の代わりに、ウィンドウのクラス（この場合、システムの言語に<em>関係なく</em>"Notepad"である）を使用することができます：</p>
 <pre>Run "notepad.exe"
 WinWait "ahk_class Notepad"
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
-<p>ウィンドウクラスは、上図のように "ahk_class"という単語を使ってタイトルと区別します。複数の条件を組み合わせる場合は、ウィンドウのタイトルを最初に記載します。事例："Untitled ahk_class Notepad".</p>
-<p><strong>Related:</strong> <a href="../misc/WinTitle.htm#ahk_class">ahk_class</a></p>
+<p>ウィンドウクラスは、上図のように "ahk_class"という単語を使ってタイトルと区別します。複数の条件を組み合わせる場合は、ウィンドウのタイトルを最初に記載します。事例："Untitled ahk_class Notepad"。</p>
+<p><strong>関連：</strong><a href="../misc/WinTitle.htm#ahk_class">ahk_class</a></p>
 
-<h2 id="exe">Process Name/Path</h2>
+<h2 id="exe">プロセス名/パス</h2>
 <p>Windowsは、"ahk_exe"という単語の後にプロセスの名前またはパスを付けることで、それを作成したプロセスによって識別することができます。事例：</p>
 <pre>Run "notepad.exe"
 WinWait "ahk_exe notepad.exe"
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
-<p><strong>Related:</strong> <a href="../misc/WinTitle.htm#ahk_exe">ahk_exe</a></p>
+<p><strong>関連：</strong><a href="../misc/WinTitle.htm#ahk_exe">ahk_exe</a></p>
 
 <h2 id="pid">プロセスID(PID)</h2>
-<p>各プロセスにはID番号があり、プロセスが終了するまで一意であります。これを利用して、新しいプロセスによって作成される以外のメモ帳ウィンドウを無視するようにすることで、メモ帳の例をより信頼性の高いものにすることができます。</p>
+<p>各プロセスにはID番号があり、プロセスが終了するまで一意であります。これを利用して、新しいプロセスによって作成される以外のメモ帳ウィンドウを無視するようにすることで、メモ帳の例をより信頼性の高いものにすることができます：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 WinWait "ahk_pid " notepad_pid
 WinActivate
@@ -77,12 +77,12 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 <p>そのうちの2つは、Run関数の未使用の<em>WorkingDir</em>と <em>Options</em>パラメータをスキップするためで、必要なもの（<em>OutputVarPID</em>）は、第4パラメータだからです。</p>
 <p>アンパサンド（&amp;）は<a href="../Variables.htm#ref">参照演算子</a>です。Run関数に<code>notepad_pid</code>変数を<em>参照</em>渡し（つまり、値ではなく変数そのものを渡す）、関数が変数に新しい値を代入できるようにするために使用されます。すると、<code>notepad_pid</code>は実際のプロセスIDのプレースホルダーになります。</p>
 <p><a href="../Concepts.htm#strings">文字列</a>"ahk_pid"は、変数notepad_pidが含むプロセスIDと、空白で区切って順番に書くだけで<a href="../Variables.htm#concat">連結</a>されます。結果は "ahk_pid 1040"のような文字列になりますが、数字は予測できません。</p>
-<p>新しいプロセスで複数のウィンドウを作成する可能性がある場合、ウィンドウのタイトルとその他の条件をスペースで区切ることで組み合わせることができます。ウィンドウのタイトルは必ず最初に表示される必要があります。事例：<code>"Untitled ahk_class Notepad ahk_pid " notepad_pid</code>.</p>
+<p>新しいプロセスで複数のウィンドウを作成する可能性がある場合、ウィンドウのタイトルとその他の条件をスペースで区切ることで組み合わせることができます。ウィンドウのタイトルは必ず最初に表示される必要があります。事例：<code>"Untitled ahk_class Notepad ahk_pid " notepad_pid</code>。</p>
 <p><strong>関連する</strong> <a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a></p>
 
-<h2 id="hwnd">ウインドウID (HWND)</h2>
+<h2 id="hwnd">ウインドウID（HWND）</h2>
 <p>各ウィンドウにはID番号があり、ウィンドウが破壊されるまで一意であることが確認されています。プログラミングの用語では、これを「ウィンドウハンドル」またはHWNDと呼びます。<em>最後に見つかったウィンドウ</em>のように便利ではありませんが、ウィンドウのIDを変数に格納することで、タイトルが変わってもスクリプトが任意の名前で参照することができます。<em>最後に見つけたウィンドウ</em>は一度に1つだけですが、ウィンドウIDは変数名を作れるだけ使えます（<a href="../lib/Array.htm">配列</a>を使うこともできます）。</p>
-<p>ウィンドウIDは、<a href="../lib/WinWait.htm">WinWait</a>、<a href="../lib/WinExist.htm">WinExist</a>、<a href="../lib/WinActive.htm">WinActive</a>によって<a href="../Concepts.htm#return-a-value">返され</a>、他のソースから来ることもあります。メモ帳の例は、これを利用するために書き換えることができます。</p>
+<p>ウィンドウIDは、<a href="../lib/WinWait.htm">WinWait</a>、<a href="../lib/WinExist.htm">WinExist</a>、<a href="../lib/WinActive.htm">WinActive</a>によって<a href="../Concepts.htm#return-a-value">返され</a>、他のソースから来ることもあります。メモ帳の例は、これを利用するために書き換えることができます：</p>
 <pre>Run "notepad.exe"
 notepad_id := WinWait("Untitled - Notepad")
 WinActivate notepad_id
@@ -90,13 +90,13 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, notepad_id</pre>
 <p>これは、WinWaitの戻り値を変数 "notepad_id"に代入しています。つまり、WinWaitがウィンドウを見つけると、その結果としてウィンドウのIDが生成され、スクリプトはこの結果を変数に格納するのです。"notepad_id" is just a name that I've made up for this example; you can use whatever variable names make sense to you (within <a href="../Concepts.htm#names">certain constraints</a>).</p>
 <p>ウィンドウのタイトルを括弧で囲み、関数名の<em>直後</em>に括弧を付けていることに注目してください。<a href="../Language.htm#function-call-statements">関数呼び出し文</a>（つまり行頭の関数呼び出し）では括弧を省略することができますが、その場合、関数の戻り値を得ることはできません。</p>
 <p>また、スクリプトは、ウィンドウを閉じたり、再アクティブ化したり、別の場所に移動させるなど、後で使用するために<a href="../Concepts.htm#variables">変数</a> <code>notepad_id</code>を保持することができます。</p>
-<p><strong>関連:</strong> <a href="../misc/WinTitle.htm#ahk_id">ahk_id</a></p>
+<p><strong>関連：</strong><a href="../misc/WinTitle.htm#ahk_id">ahk_id</a></p>
 
 <h2 id="timeout">タイムアウト</h2>
 <p>デフォルトでは、WinWaitは一致するウィンドウが表示されるまで無期限に待機します。<a href="../Program.htm#tray-icon">トレイアイコン</a>からスクリプトの<a href="../Program.htm#main-window">メインウィンドウ</a>を開くことで、この現象が起きているかどうかを判断できます（ただし、<a href="../lib/_NoTrayIcon.htm">トレイアイコンを無効</a>にしている場合は除く）。デフォルトでは、通常<a href="../lib/ListLines.htm#Remarks">ListLines</a>ビューでウィンドウが開きます。WinWaitがまだ待機している場合は、行のリストの一番下に表示され、その後に待機を始めてからの秒数が表示されます。表示メニューから「更新」を選択しない限り、数値は更新されません。</p>
-<p>この例を実行し、上記のようにメインウィンドウを開いてみてください。</p>
+<p>この例を実行し、上記のようにメインウィンドウを開いてみてください：</p>
 <pre>WinWait "Untitled - Notpad"  <em>; （意図的な誤字）</em></pre>
-<p>スクリプトがウィンドウ待ちでスタックしている場合は、通常、スクリプトを終了するか再読み込みしてスタックを解除する必要があります。このような事態を未然に防ぐ（あるいは再発を防ぐ）には、WinWaitの<em>Timeout</em>パラメータを使用します。例えば、この場合、ウィンドウが表示されるまで最大で5秒待ちます。</p>
+<p>スクリプトがウィンドウ待ちでスタックしている場合は、通常、スクリプトを終了するか再読み込みしてスタックを解除する必要があります。このような事態を未然に防ぐ（あるいは再発を防ぐ）には、WinWaitの<em>Timeout</em>パラメータを使用します。例えば、この場合、ウィンドウが表示されるまで最大で5秒待ちます：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if WinWait("ahk_pid " notepad_pid,, 5)
 {
@@ -112,7 +112,7 @@ if !WinWait("ahk_pid " notepad_pid,, 5)
 WinActivate
 WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 <p>結果は、<a href="../Variables.htm#unary">論理not</a>演算子（<code>!</code>または<code>not</code>）を適用して反転させる。WinWaitがタイムアウトした場合、その結果は0となる。<code>!0</code>の結果は1なので、WinWaitがタイムアウトしたときにif文で<code>return</code>を実行します。</p>
-<p>WinWaitの結果は、実際にはウィンドウのID（上記の通り）か、タイムアウトした場合はゼロになります。また、IDでウィンドウを参照したい場合は、if文の中で直接使用するのではなく、結果を変数に代入することができます。</p>
+<p>WinWaitの結果は、実際にはウィンドウのID（上記の通り）か、タイムアウトした場合はゼロになります。また、IDでウィンドウを参照したい場合は、if文の中で直接使用するのではなく、結果を変数に代入することができます：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 notepad_id := WinWait("ahk_pid " notepad_pid,, 5)
 if notepad_id
@@ -120,7 +120,7 @@ if notepad_id
     WinActivate notepad_id
     WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, notepad_id
 }</pre>
-<p>変数名の繰り返しを避けるために、結果を変数に代入し、それがゼロでないことを確認する両方が可能です(<a href="../Concepts.htm#boolean"><em>真</em></a>)を同時に使用することができます。</p>
+<p>変数名の繰り返しを避けるために、結果を変数に代入し、それがゼロでないことを確認する両方が可能です(<a href="../Concepts.htm#boolean"><em>真</em></a>)を同時に使用することができます：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if notepad_id := WinWait("ahk_pid " notepad_pid,, 2)
 {
@@ -129,12 +129,12 @@ if notepad_id := WinWait("ahk_pid " notepad_pid,, 2)
 }</pre>
 <p>その場合、<code>:=</code>（代入）と<code>=</code>や <code>==</code>（比較）を混同しないように注意してください。例えば、<code>if myvar := 0</code>の場合は新しい値を割り当て、毎回同じ結果（偽）を出すのに対し、<code>if myvar = 0</code>は、以前に割り当てられた値を0と比較します。</p>
 
-<h2 id="math">Expressions (Math etc.)</h2>
-<p>ウィンドウを移動させる場合、<a href="../lib/WinGetPos.htm">WinGetPos</a>関数で取得できる以前の位置やサイズからの相対移動が便利なことが多いです。例えば、<kbd>RCtrl</kbd>を押しながら矢印キーを押すことで、アクティブなウィンドウを各方向に10ピクセルずつ移動させることができるホットキーのセットは次のとおりです。</p>
-<pre>&gt;^Left::MoveActiveWindowBy(-10,   0)
-&gt;^Right::MoveActiveWindowBy(+10,   0)
-&gt;^Up::MoveActiveWindowBy(  0, -10)
-&gt;^Down::MoveActiveWindowBy(  0, +10)
+<h2 id="math">式（数学など）</h2>
+<p>ウィンドウを移動させる場合、<a href="../lib/WinGetPos.htm">WinGetPos</a>関数で取得できる以前の位置やサイズからの相対移動が便利なことが多いです。例えば、<kbd>RCtrl</kbd>を押しながら矢印キーを押すことで、アクティブなウィンドウを各方向に10ピクセルずつ移動させることができるホットキーのセットは次のとおりです：</p>
+<pre>&gt;^Left::    MoveActiveWindowBy(-10,   0)
+&gt;^Right::   MoveActiveWindowBy(+10,   0)
+&gt;^Up::      MoveActiveWindowBy(  0, -10)
+&gt;^Down::    MoveActiveWindowBy(  0, +10)
 
 MoveActiveWindowBy(x, y) {
     WinExist "A"  <em>; アクティブウィンドウをLast Found Windowにします。</em>

@@ -27,13 +27,13 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
     <p>イベントが発生したときに呼び出す関数、メソッド、またはオブジェクトを指定します。</p>
-    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。Otherwise, this parameter must be a <a href="../misc/Functor.htm">function object</a>.</p>
-    <p id="Callback_Parameters">The callback accepts two parameters and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。それ以外の場合は、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければならない。</p>
+    <p id="Callback_Parameters">コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
     <pre class="NoIndent">MyCallback(GuiCtrl, lParam) { ...</pre>
     <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
     <ol>
       <li>The <a href="GuiControl.htm">GuiControl object</a> of the current GUI control.</li>
-      <li>The address of a notification structure derived from <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>. その正確な種類は、制御の種類と通知コードに依存します。If the structure contains additional information about the notification, the callback can retrieve it with <a href="NumGet.htm">NumGet</a> and/or <a href="StrGet.htm">StrGet</a>.</li>
+      <li>The address of a notification structure derived from <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>. その正確な種類は、制御の種類と通知コードに依存します。構造体が通知に関する追加情報を含む場合、コールバックは<a href="NumGet.htm">NumGet</a>および/または<a href="StrGet.htm">StrGet</a>でそれを取得することができます。</li>
     </ol>
     <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
     <p><a href="GuiOnEvent.htm#Callback_Parameters">OnEventの注意事項</a>である、<code>this</code>とバインドされた関数に関する注意事項は、OnNotifyにも適用されました。</p>
@@ -55,11 +55,11 @@
 
 <h2 id="WM_NOTIFY">WM_NOTIFY</h2>
 <p>ある種のコントロールは、興味深いイベントが発生したり、コントロールがプログラムから情報を要求されたりすると、<a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージを送信します。このメッセージの<em>lParam</em>パラメータは、通知に関する情報を含む構造体へのポインタを含みます。構造の種類は、通知コードと通知を行ったコントロールの種類によって異なりますが、常に<a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>をベースにしています。</p>
-<p>どの通知が利用可能か（もしあれば）、どのような構造を提供し、どのように戻り値を解釈するかについては、コントロールのドキュメントを参照してください。<a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">Control Library (Microsoft Docs)</a> contains links to each of the Windows common controls. 通知コード（数字）は、Windows SDK、またはインターネットで検索して確認できます。</p>
-<p>AutoHotkeyは、<em>idFrom</em>と <em>hwndFrom</em>フィールドを使用して、どのコントロールが通知を送信したかを識別し、適切なオブジェクトにディスパッチするために使用します。<em>コード</em>フィールドには、通知コードが入ります。Since these must match up to <em>GuiCtrl</em> and <em>NotifyCode</em> used to register the callback, they are rarely useful to the script.</p>
+<p>どの通知が利用可能か（もしあれば）、どのような構造を提供し、どのように戻り値を解釈するかについては、コントロールのドキュメントを参照してください。<a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">コントロールライブラリ (Microsoft Docs)</a>には、Windows共通の各コントロールへのリンクが含まれています。通知コード（数字）は、Windows SDK、またはインターネットで検索して確認できます。</p>
+<p>AutoHotkeyは、<em>idFrom</em>と <em>hwndFrom</em>フィールドを使用して、どのコントロールが通知を送信したかを識別し、適切なオブジェクトにディスパッチするために使用します。<em>コード</em>フィールドには、通知コードが入ります。これらはコールバックの登録に使用した<em>GuiCtrl</em>と <em>NotifyCode</em>と一致する必要があるため、スクリプトに役立つことはほとんどない。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="GuiOnEvent.htm">OnEvent</a>に関するこれらの注意は、OnNotifyにも適用される：<a href="GuiOnEvent.htm#Threads">スレッド</a>、<a href="GuiOnEvent.htm#Destroying_the_GUI">GUIを破壊</a>します。</p>
+<p><a href="GuiOnEvent.htm">OnEvent</a>に関するこれらの注意は、OnNotifyにも適用されます：<a href="GuiOnEvent.htm#Threads">スレッド</a>、<a href="GuiOnEvent.htm#Destroying_the_GUI">GUIを破壊</a>します。</p>
 <p><a href="GuiOnCommand.htm">OnCommand</a>は、WM_COMMANDメッセージとして送信される通知に対して使用することができる。</p>
 
 </body>

@@ -21,18 +21,18 @@
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>次のいずれかの単語を指定します。</p>
+    <p>次のいずれかの単語を指定します：</p>
     <p><strong>Event:</strong> Switches to the <a href="Send.htm#SendEvent">SendEvent</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>.</p>
     <p><strong>Input:</strong> Uses the <a href="Send.htm#SendInput">SendInput</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>. 既知の制限事項：</p>
     <ul>
       <li>Windows Explorerでは、<kbd>Alt</kbd>+<kbd>←</kbd>などの特定のナビゲーションホットキーのSendInputのシミュレーションが無視されます。これを回避するには、<code>SendEvent "!{Left}"</code>または<code>SendInput "{Backspace}"</code>のいずれかを使用します。</li>
     </ul>
-    <p><strong>InputThenPlay:</strong> Same as above except that rather than falling back to Event mode when SendInput is <a href="Send.htm#SendInputUnavail">unavailable</a>, it reverts to Play mode (below). これにより、SendInputが使用できない場合は、<a href="Send.htm#SendInput">SendInput機能</a>自体がPlayモードに戻るようにもなっています。</p>
+    <p><strong>InputThenPlay：</strong>SendInputが使用<a href="Send.htm#SendInputUnavail">できない</a>場合にEventモードに戻るのではなく、Playモード（下記）に戻る点を除き、上記と同じ。これにより、SendInputが使用できない場合は、<a href="Send.htm#SendInput">SendInput機能</a>自体がPlayモードに戻るようにもなっています。</p>
     <p id="Play"><strong>Play:</strong> Switches to the <a href="Send.htm#SendPlay">SendPlay</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>. 既知の制限事項：</p>
     <ul>
       <li>現在のキーボードレイアウトに存在しない文字（英語のÔなど）は、送信できません。これを回避するためには、<a href="Send.htm#SendEvent">SendEvent</a>を使用します。</li>
-      <li>WordPadやMetapadのようなRichEditコントロールでは、マウスドラッグのシミュレーションが効かない場合があります（他のコントロールの場合もあります）。特定のドラッグにオルタネートモードを使用する場合は、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a> "{Click 6 52 Down}{Click 45 52 Up}"</code>を送信します。</li>
-      <li>マウスのホイールを回転させると、1つの方向（通常は下向きだが、アプリケーションによっては上向き）のみが動くようにシミュレートされる。また、MS Wordやメモ帳などのアプリケーションでは、ホイール回転の効果がない場合があります。特定の回転にオルタネートモードを使用するには、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a> "{WheelDown 5}"</code>.</li>
+      <li>WordPadやMetapadのようなRichEditコントロールでは、マウスドラッグのシミュレーションが効かない場合があります（他のコントロールの場合もあります）。特定のドラッグにオルタネートモードを使用する場合は、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a> "{Click 6 52 Down}{Click 45 52 Up}"</code>。</li>
+      <li>マウスのホイールを回転させると、1つの方向（通常は下向きだが、アプリケーションによっては上向き）のみが動くようにシミュレートされる。また、MS Wordやメモ帳などのアプリケーションでは、ホイール回転の効果がない場合があります。特定の回転にオルタネートモードを使用するには、次の例に従います：<code><a href="Send.htm#SendEvent">SendEvent</a> "{WheelDown 5}"</code>。</li>
       <li><a href="../Scripts.htm#auto">スクリプト起動</a>時に<code>SendMode "Play"</code>が呼び出されると、すべてのリマップキーが影響を受け、機能の一部が失われる可能性があります。詳しくは<a href="../misc/Remap.htm#SendPlay">SendPlayリマッピングの制限</a>をご覧ください。</li>
       <li>SendPlayは、AutoHotkeyのホットキーやホットストリング、他のプログラムやOSが登録したグローバルホットキーをトリガーしません。</li>
     </ul>
@@ -51,7 +51,7 @@
 <p>組込変数<strong>A_SendMode</strong>には、現在の設定が格納されています。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
-<p><a href="Send.htm">Send</a>, <a href="SetKeyDelay.htm">SetKeyDelay</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="Click.htm">Click</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseClickDrag.htm">MouseClickDrag</a>, <a href="MouseMove.htm">MouseMove</a></p>
+<p><a href="Send.htm">Send</a>、<a href="SetKeyDelay.htm">SetKeyDelay</a>、<a href="SetMouseDelay.htm">SetMouseDelay</a>、<a href="Click.htm">Click</a>、<a href="MouseClick.htm">MouseClick</a>、<a href="MouseClickDrag.htm">MouseClickDrag</a>、<a href="MouseMove.htm">MouseMove</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExInputThenPlay">
 <p><a class="ex_number" href="#ExInputThenPlay"></a> SendをSendInputと同義にしますが、SendInputが利用できない場合はSendPlayにフォールバックします。</p>

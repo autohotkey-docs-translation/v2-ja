@@ -19,7 +19,7 @@
   <li>「これはスキナブル・ウィンドウです......毎回機能するコマンドを送るには？」</li>
   <li>「<strong>隠し</strong>窓はどうするんだ？」</li>
 </ul>
-<p>必要条件ウィンスペクター・スパイ（<a href="https://www.softpedia.com/get/Security/Security-Related/Winspector.shtml">ここにある</a>）</p>
+<p>必要条件：Winspector Spy（<a href="https://www.softpedia.com/get/Security/Security-Related/Winspector.shtml">ここにある</a>）</p>
 <p>最初の例として、<a href="../lib/MenuSelect.htm">MenuSelect</a>がOutlook Expressの "New Message "ウィンドウのメニューバーで動作しないことに注意してください。つまり、このコードは機能しない：</p>
 <pre>MenuSelect "New Message",, "&amp;Insert", "&amp;Picture..."</pre>
 <p>しかし、<a href="../lib/PostMessage.htm">PostMessage</a>は仕事をこなすことができる：</p>
@@ -31,17 +31,17 @@
   <li>左側のリストで選択したウィンドウを右クリックし、「メッセージ」を選択します。</li>
   <li>空白のウィンドウを右クリックし、「Edit message filter」を選択する。</li>
   <li>'filter all'ボタンを押して、左のリストにある'wm_command'をダブルクリックする。こうすることで、このメッセージだけを監視することができる。</li>
-  <li>"新規メッセージ"ウィンドウに移動し、メニューバーから選択する：Insert &gt; Picture.</li>
+  <li>「新規メッセージ」ウィンドウに移動し、メニューバーから選択する：Insert &gt; Picture。</li>
   <li>ウィンスペクター・スパイに戻り、信号ボタンを押して監視を一時停止する。</li>
   <li>溜まっているwm_commandメッセージを展開する（もしあれば他のものは忘れる）。</li>
-  <li>探したいのは（通常は）コード0のメッセージだ。時々、wm_commandに'win activated'とか'win destroyed'とかいうメッセージが出る。コントロールIDというメッセージが表示されます：：40239' ...以上！</li>
+  <li>探したいのは（通常は）コード0のメッセージだ。時々、wm_commandに'win activated'とか'win destroyed'とかいうメッセージが出る。You'll find that there's a message saying 'Control ID: 40239' ...that's it!</li>
   <li>これを上記の関数に入れれば完成です！wParamの値です。</li>
 </ol>
 <p>次の例ではペイントを取り上げる。ここで、AutoHotkeyを使ってツールバーからツールを選択するアプリを考えてみよう。</p>
 <p>どうするつもりだ？おそらく、ツールバーのボタンをマウスでクリックしたんだろう？しかし、ツールバーは動かしたり隠したりできる！こちらも移動/非表示が可能。そのため、ターゲット・ユーザーがこのいずれかを行った場合、スクリプトはその時点で失敗する。しかし、次の関数はまだ機能する：</p>
 <pre>ポストメッセージ 0x0111, 639,,, "無題 - ペイント"</pre>
 <p><a href="../lib/PostMessage.htm">PostMessage</a>のもう一つの利点は、ウィンドウをバックグラウンドにできることである。対照的に、マウスクリックを送信するには、ウィンドウをアクティブにする必要がある。</p>
-<p>以下はその例である。注：私はWinXP Pro (SP1)を使っています...もし違うOSを使っているなら、パラメータが変わるかもしれません（ワードパッドやメモ帳のようなウィンドウズ付属のアプリにのみ適用されます：）</p>
+<p>以下はその例である。注：私はWinXP Pro (SP1)を使っています...もし違うOSを使っているなら、パラメータが変わるかもしれません（ワードパッドやメモ帳のようなウィンドウズ付属のアプリにのみ適用されます）：</p>
 <pre><em>;makes writing color teal in Wordpad</em>
 <a href="../lib/PostMessage.htm">PostMessage</a> 0x0111, 32788, 0, , "Document - WordPad"</pre>
 <pre><em>;opens about box in Notepad</em>
@@ -74,7 +74,7 @@ ReloadAllAhkScripts(ThisHotkey)
 <ul>
   <li>OSがXPであること、そしてOSが異なるとmsgの値が変化することに関する上記の注釈は、純粋に注意のためのものである。もし、あなたのシステムで（あるバージョンのソフトで）動作するメッセージを見つけたのなら、同じバージョンのソフトで他のシステムでも動作することは間違いない。さらに、ほとんどのアプリは、バージョンが違ってもこれらのmsg値を同じに保つ（例：Windows Media PlayerとWinamp）。</li>
   <li>Winspector Spyでwm_commandだけを表示するようにフィルタを設定してもメッセージが大量に表示される場合は、そのメッセージを右クリックしてhide (msg name)を選択してください。</li>
-  <li>Winspector Spy の右向きの矢印は msg の値を示し、ぼかした左向きの矢印は返された値を示しています。A 0 (zero) value can by default safely be taken as 'no error'.</li>
+  <li>Winspector Spy の右向きの矢印は msg の値を示し、ぼかした左向きの矢印は返された値を示しています。0（ゼロ）値は、デフォルトでは「エラーなし」と考えて差し支えない。</li>
   <li>非表示のウィンドウに投稿するには、スクリプトに以下を追加する：<code>DetectHiddenWindows True</code></li>
 </ul>
 <p>注：このテクニックが使えないアプリもある。VBとDelphiのアプリには、いろいろな運があった。このテクニックは、CやC++のアプリで使うのが最適だ。VBアプリでは、同じ関数の'LParam'が実行ごとに変わり続ける。Delphiアプリでは...いくつかのアプリのGUIはwm_commandすら使わない。おそらくマウスのポーズとクリックを使っているのだろう。</p>

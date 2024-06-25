@@ -31,7 +31,7 @@
   
   <dt>ComObj</dt>
   <dd>
-      <p>型：<a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#objects">Object</a></p>
+      <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
       <p>対象となる COM オブジェクト、すなわち COM インタフェースポインタ。ポインタ値は直接渡すか、バリアントタイプVT_UNKNOWNを持つ<a href="ComValue.htm">ComValue</a>など、<code>Ptr</code>プロパティを持つオブジェクト内にカプセル化することができます。</p>
       <p>インターフェースポインタは、インターフェースメソッドを実装する仮想関数のアドレスを特定するために使用され、パラメータとしても渡されます。このパラメータは、一般にインターフェースをネイティブにサポートする言語では明示的に存在しないが、Cスタイルの「Vtbl」定義では表示されます。</p>
       <p>無効なポインタを渡すと、プログラムの終了を含む未定義の動作を引き起こす可能性があります（ただし、これに限定されるものではありません）。</p>
@@ -60,7 +60,7 @@
 <p>そうでない場合、ComCallは、メソッドによって返された実際の値を返します。メソッドが値を返さない型（Cで定義された戻り値の型が<code>void</code>）の場合、結果は未定義であり、無視されるべきです。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>以下のDllCallのトピックは、ComCallにも適用されます。</p>
+<p>以下のDllCallのトピックは、ComCallにも適用されます：</p>
 <ul>
   <li><a href="DllCall.htm#types">引数の種類と戻り値</a></li>
   <li><a href="DllCall.htm#error">エラー</a></li>
@@ -71,7 +71,7 @@
 </ul>
 
 <h2 id="Related">関連</h2>
-<p><a href="ComObject.htm">ComObject</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="ComValue.htm">ComValue</a>, <a href="Buffer.htm">Buffer object</a>, <a href="CallbackCreate.htm">CallbackCreate</a></p>
+<p><a href="ComObject.htm">ComObject</a>、<a href="ComObjQuery.htm">ComObjQuery</a>、<a href="ComValue.htm">ComValue</a>、<a href="Buffer.htm">Bufferオブジェクト</a>、<a href="CallbackCreate.htm">CallbackCreate</a></p>
 
 <h2 id="Examples">例</h2>
 
@@ -79,12 +79,12 @@
 <p><a class="ex_number" href="#ExTaskbar"></a> アクティブなウィンドウを3秒間、タスクバーから削除します。<a href="DllCall.htm#ExTaskbar">同等のDllCallの例</a>と比較してみてください。</p>
 <pre><em>/*
   <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarListの</a>VTableにあるメソッドです：
-IUnknown:
-0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
-      1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a> の代わりに使用
+    IUnknown:
+      0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
+      1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a>の代わりに使用
       2 Release         -- <a href="ObjAddRef.htm">ObjRelease</a>の代わりに使用
     ITaskbarList:
-3 HrInit
+      3 HrInit
       4 AddTab
       5 DeleteTab
       6 ActivateTab
@@ -103,14 +103,14 @@ ComCall(5, tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.c
 Sleep 3000
 ComCall(4, tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
 
-<em>; オブジェクトを使い終わったら、すべての参照を
+<em>; When finished with the object, simply replace any references with
 ; some other value (or if its a local variable, just return):</em>
 tbl := ""
 </pre>
 </div>
 
 <div class="ex" id="ExTaskbarClass">
-<p><a class="ex_number" href="#ExTaskbarClass"></a> Demonstrates some techniques for wrapping COM interfaces. 前例に準ずる。</p>
+<p><a class="ex_number" href="#ExTaskbarClass"></a> COMインタフェースをラッピングするいくつかのテクニックを実証します。前例に準ずる。</p>
 <pre>
 tbl := TaskbarList()
 
@@ -127,22 +127,22 @@ class TaskbarList {
     static IID := "{56FDF342-FD6D-11d0-958A-006097C9A090}"
     static CLSID := "{56FDF344-FD6D-11d0-958A-006097C9A090}"
     
-<em>; クラスを初期化するために起動時に呼び出されます。</em>
+    <em>; クラスを初期化するために起動時に呼び出されます。</em>
     static __new() {
         <em>; TaskbarList のすべてのインスタンスのベースオブジェクトを取得します。</em>
         proto := this.Prototype
         
-<em>; Bound関数でパラメータを事前に定義することができます。
+        <em>; Bound関数でパラメータを事前に定義することができます。
         ; ラッパー関数を必要とせず、より使いやすいメソッドを提供します。
-; HrInit自身はパラメータを持たないので、インデックスだけをバインドします。
+        ; HrInit自身はパラメータを持たないので、インデックスだけをバインドします。
         ; であり、呼び出し側は暗黙のうちに 'this' を提供することになる。</em>
         proto.HrInit := ComCall.Bind(3)
         
-<em>; パラメータを空白にすることで、呼び出し側が値を指定できるようにします。
-; この場合、空白のパラメータは'this'（通常は非表示）です。</em>
+        <em>; パラメータを空白にすることで、呼び出し側が値を指定できるようにします。
+        ; この場合、空白のパラメータは'this'（通常は非表示）です。</em>
         proto.AddTab := ComCall.Bind(4,, "ptr")
         
-<em>; オブジェクトやMapを使用することで、繰り返しを減らすことができます。</em>
+        <em>; オブジェクトやMapを使用することで、繰り返しを減らすことができます。</em>
         for name, args in Map(
             "DeleteTab", [5,,"ptr"],
             "ActivateTab", [6,,"ptr"],
@@ -151,7 +151,7 @@ class TaskbarList {
         }
     }
     
-<em>; 新しいインスタンスに対して TaskbarList() によって呼び出されます。</em>
+    <em>; 新しいインスタンスに対して TaskbarList() によって呼び出されます。</em>
     __new() {
         this.comobj := ComObject(TaskbarList.CLSID, TaskbarList.IID)
         this.ptr := this.comobj.ptr

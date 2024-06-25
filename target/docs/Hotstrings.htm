@@ -28,10 +28,10 @@
 
 <h2 id="intro">導入と簡単な例</h2>
 <p>ホットストリングは、主に略語を入力しながら展開する（自動置換）ために使用されますが、任意のスクリプトアクションを起動するためにも使用することができます。この点では、一般的に複数の文字（つまり文字列）で構成されていることを除けば、<a href="Hotkeys.htm">ホットキー</a>と似ています。</p>
-<p>ホットストリングを定義するには、次の例のように、トリガーとなる略語をコロンのペアで囲みます。</p>
+<p>ホットストリングを定義するには、次の例のように、トリガーとなる略語をコロンのペアで囲みます：</p>
 <pre>::btw::by the way</pre>
 <p>上記の例では、btwという略語を入力すると、自動的に「by the way」に置き換えられます（ただし、デフォルトではbtwを入力した後に、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などの<a href="#EndChars">エンディングキャラクター</a>を入力する必要があります）。</p>
-<p id="auto">上記の「by way」の例は、入力されたテキストが自動的に消去されて2つ目のコロンの後に指定された文字列に置き換えられるため、自動置き換えホットストリングとして知られています。これに対して、ホットストリングは以下の例のように任意のカスタムアクションを実行するように定義することもできます。<a href="Concepts.htm#statement">ステートメント</a>は、ホットストリングの<a href="Functions.htm">関数本体</a>の略語の<u>下に</u>記述する必要があることに注意してください。</p>
+<p id="auto">上記の「by way」の例は、入力されたテキストが自動的に消去されて2つ目のコロンの後に指定された文字列に置き換えられるため、自動置き換えホットストリングとして知られています。これに対して、ホットストリングは以下の例のように任意のカスタムアクションを実行するように定義することもできます。<a href="Concepts.htm#statement">ステートメント</a>は、ホットストリングの<a href="Functions.htm">関数本体</a>の略語の<u>下に</u>記述する必要があることに注意してください：</p>
 <pre>::btw::
 {
     MsgBox 'You typed "btw".'
@@ -48,48 +48,48 @@
 <p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
 
 <h2 id="EndChars">エンディングキャラクター</h2>
-<p><a href="#Asterisk">アスタリスクオプション</a>が有効でない限り、ホットストリングの後に<em>エンディングキャラクター</em>を入力しないと発動しません。エンディングキャラクターは、当初は以下のような構成になっています。<strong>-()[]{}':;"/\,.?!`n`s`t</strong>（`nは<kbd>Enter</kbd>、`sは<kbd>Space</kbd>、`tは<kbd>Tab</kbd>です。この文字セットは、次の例を編集して変更することができます。新しいエンディングキャラクターは、設定した行以降だけでなく<u>すべての</u>ホットストリングに適用されます。</p>
+<p><a href="#Asterisk">アスタリスクオプション</a>が有効でない限り、ホットストリングの後に<em>エンディングキャラクター</em>を入力しないと発動しません。エンディングキャラクターは、当初は以下のような構成になっています：<strong>-()[]{}':;"/\,.?!`n`s`t</strong>（`nは<kbd>Enter</kbd>、`sは<kbd>Space</kbd>、`tは<kbd>Tab</kbd>です）。この文字セットは、次の例を編集して変更することができます。新しいエンディングキャラクターは、設定した行以降だけでなく<u>すべての</u>ホットストリングに適用されます：</p>
 <pre>#Hotstring EndChars -()[]{}:;'"/\,.?!`n`s`t</pre>
-<p>以下のように<a href="lib/Hotstring.htm">ホットストリング</a>関数を呼び出して、スクリプトの実行中にエンディングキャラクターを変更することができます。</p>
+<p>以下のように<a href="lib/Hotstring.htm">ホットストリング</a>関数を呼び出して、スクリプトの実行中にエンディングキャラクターを変更することができます：</p>
 <pre>Hotstring("EndChars", "-()[]{}:;")</pre>
 
 <h2 id="Options">Options</h2>
-<p>ホットストリングのデフォルトの動作は、2つの方法で変更することが可能です。</p>
+<p>ホットストリングのデフォルトの動作は、2つの方法で変更することが可能です：</p>
 <ol>
-  <li>スクリプトのそのポイントより物理的に下のすべてのホットストリングに影響を与える<a href="lib/_Hotstring.htm">#Hotstring</a>ディレクティブです。次の例では、CとRのオプションを有効にしています。<code>#Hotstring <strong>c r</strong></code>.</li>
-  <li>ホットストリングの最初のコロンのペアの間にオプションを挟みます。次の例では、Cと*オプション（大文字と小文字が区別され、"エンディングキャラクターは不要"）をこのホットストリングのみに対して有効にします。<code>:<strong>c*</strong>:j@::john@somedomain.com</code>.</li>
+  <li>スクリプトのそのポイントより物理的に下のすべてのホットストリングに影響を与える<a href="lib/_Hotstring.htm">#Hotstring</a>ディレクティブです。次の例では、CとRのオプションを有効にしています：<code>#Hotstring <strong>c r</strong></code>。</li>
+  <li>ホットストリングの最初のコロンのペアの間にオプションを挟みます。次の例では、Cと*オプション（大文字と小文字が区別され、「エンディングキャラクターは不要」）をこのホットストリングのみに対して有効にします：<code>:<strong>c*</strong>:j@::john@somedomain.com</code>。</li>
 </ol>
 <p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定するときは、オプションの間にスペースを任意に含めることができます。</p>
-<p id="Asterisk"><strong>*</strong>（アスタリスク）:ホットストリングのトリガーには、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などのエンディングキャラクターは必要ありません。事例：</p>
+<p id="Asterisk"><strong>*</strong>（アスタリスク）：ホットストリングのトリガーには、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などのエンディングキャラクターは必要ありません。事例：</p>
 <pre>:*:j@::jsmith@somedomain.com</pre>
 <p>上の例では、@を入力した瞬間に置換する文字列（jsmith@somedomain.com）を送信します。<a href="lib/_Hotstring.htm">#Hotstringディレクティブ</a>を使用するときは、このオプションをオフに戻すには<strong>*0</strong>を使用します。</p>
-<p id="Question"><strong>?</strong>（クエスチョンマーク）:ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
-<p id="b0"><strong>B0</strong>（Bの後に0がつく）。自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。単に<strong>B</strong>だけをオプションに使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>Backspace</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできます。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）。</p>
+<p id="Question"><strong>?</strong>（クエスチョンマーク）：ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、"practical "と入力すると、"practicairline "が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
+<p id="b0"><strong>B0</strong>（Bの後に0がつく）：自動バックスペースは、入力した略号を消すために行うものでは<u>ありません</u>。単に<strong>B</strong>だけをオプションに使用すると、一度オフにしたバックスペースを再びオンにすることができます。また、スクリプトは{bs 5}で<kbd>Backspace</kbd>を5回送信することもできます。同様に、{left 5}を介して<kbd>←</kbd>を5回送信することもできます。例えば、次のホットストリングは "&lt;em&gt;&lt;/em&gt;" を生成し、キャレットを5箇所左に移動させます（タグの間に入るようにします）：</p>
 <pre>:*b0:&lt;em&gt;::&lt;/em&gt;{left 5}</pre>
-<p id="C"><strong>C:</strong> Case-sensitive:略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
-<p id="C1"><strong>C1:</strong> Do not conform to typed case. Use this option to make <a href="#auto">auto-replace hotstrings</a> case-insensitive and prevent them from conforming to the case of the characters you actually type. 大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
-<p id="Kn"><strong>Kn:</strong> Key-delay:このオプションはほとんど使用されませんが、オートバックスペースや<a href="#auto">オートリプレースメント</a>によって生じるキーストローク間の遅延を設定します。Specify the new delay for <strong>n</strong>; for example, specify k10 to have a 10&nbsp;ms delay and k-1 to have no delay. このオプションの正確な動作は、どの<a href="#SendMode">送信モード</a>が有効であるかに依存します。</p>
+<p id="C"><strong>C：</strong>大文字小文字を区別します：略語を入力するときは、スクリプトで定義されている大文字と正確に一致する必要があります。<strong>C0</strong>で大文字小文字の区別をオフに戻す。</p>
+<p id="C1"><strong>C1：</strong>型番の大文字と小文字を一致させない。このオプションを使用すると、<a href="#auto">自動置換ホットストリング</a>の大文字と小文字を区別せず、実際に入力する文字の大文字と小文字を一致させないようにすることができます。大文字小文字を区別するホットストリング（デフォルト）は、略語を全角で入力すると、置換テキストを全角で生成します。最初の文字を大文字で入力すると、置換の最初の文字も大文字になります（文字である場合）。それ以外の方法でケースを打ち込むと、定義通りに交換品が送られます。<a href="lib/_Hotstring.htm">Hotstringディレクティブ</a>を使用する場合、<strong>C0</strong>を使用してこのオプションをオフに戻すことができ、これによりホットストリングは再び適合するようになります。</p>
+<p id="Kn"><strong>Kn：</strong>キーディレイです：このオプションはほとんど使用されませんが、オートバックスペースや<a href="#auto">オートリプレースメント</a>によって生じるキーストローク間の遅延を設定します。<strong>n</strong>の新しい遅延を指定します。例えば、10&nbsp;msの遅延がある場合はk10を、遅延がない場合はk-1を指定します。このオプションの正確な動作は、どの<a href="#SendMode">送信モード</a>が有効であるかに依存します：</p>
 <ul>
-  <li>SI (SendInput):このモードではディレイができないため、Key-delayは無視されます。例外として、SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合は、Hotstringsは以下のSendPlayモード（キーディレイに従う）に戻ります。</li>
-  <li>SP (SendPlay):長さ0のディレイがデフォルトで、SendPlayの場合は-1（ディレイなし）と同じです。このモードでは、遅延はキーストローク間の遅延ではなく、実際には<a href="lib/SetKeyDelay.htm#dur">PressDuration</a>となります。</li>
-  <li>SE (SendEvent):長さゼロのディレイがデフォルトです。Zeroは高速でありながら、他のプロセスとの協調性が高いため（内部的に<a href="lib/Sleep.htm">Sleep 0</a>を行うため）、ほとんどの用途で推奨されます。k-1を指定すると、全く遅延しないので、CPUに負荷がかかることが多い場合、自動置換を高速化するのに有効です。1 に設定すると、スクリプトのプロセス優先度がキー入力の送信速度の重要な要素となります。スクリプトの優先度を上げるには、<code><a href="lib/ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>を使用します。</li>
+  <li>SI（SendInput）：このモードではディレイができないため、Key-delayは無視されます。例外として、SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合は、Hotstringsは以下のSendPlayモード（キーディレイに従う）に戻ります。</li>
+  <li>SP（SendPlay）：長さ0のディレイがデフォルトで、SendPlayの場合は-1（ディレイなし）と同じです。このモードでは、遅延はキーストローク間の遅延ではなく、実際には<a href="lib/SetKeyDelay.htm#dur">PressDuration</a>となります。</li>
+  <li>SE（SendEvent）：長さゼロのディレイがデフォルトです。Zeroは高速でありながら、他のプロセスとの協調性が高いため（内部的に<a href="lib/Sleep.htm">Sleep 0</a>を行うため）、ほとんどの用途で推奨されます。k-1を指定すると、全く遅延しないので、CPUに負荷がかかることが多い場合、自動置換を高速化するのに有効です。1 に設定すると、スクリプトのプロセス優先度がキー入力の送信速度の重要な要素となります。スクリプトの優先度を上げるには、<code><a href="lib/ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>を使用します。</li>
 </ul>
-<p id="O"><strong>O:</strong> Omit the ending character of <a href="#auto">auto-replace hotstrings</a> when the replacement is produced. これは、ホットストリングに終端文字を必要とすることで曖昧さをなくしたいけれども、実際には終端文字を画面に表示させたくない場合に有効です。例えば、<code>:o:ar::aristocrat</code>がホットストリングである場合、arと入力した後にスペースキーを押すと、末尾にスペースがないaristocratとなり、<kbd>Backspace</kbd>を押すことなく複数形や所有格にすることが可能です。このオプションをオフに戻すには、<strong>O0</strong>（アルファベットのOの後にゼロが続く）を使用します。</p>
-<p id="Pn"><strong>Pn:</strong> The <a href="misc/Threads.htm">priority</a> of the hotstring (e.g. P1). このめったに使われないオプションは、<a href="#auto">自動置換ホットストリング</a>には影響しません。</p>
-<p id="raw"><strong>R:</strong> Send the replacement text <a href="lib/Send.htm#SendRaw">raw</a>; that is, without translating {Enter} to <kbd>Enter</kbd>, ^c to <kbd>Ctrl</kbd>+<kbd>C</kbd>, etc. <strong>R0</strong>でこのオプションをオフに戻すか、<strong>T</strong>で上書きしてください。</p>
+<p id="O"><strong>O：</strong><a href="#auto">自動置換されたホットストリング</a>の末尾文字を、置換が行われる際に省略します。これは、ホットストリングに終端文字を必要とすることで曖昧さをなくしたいけれども、実際には終端文字を画面に表示させたくない場合に有効です。例えば、<code>:o:ar::aristocrat</code>がホットストリングである場合、arと入力した後にスペースキーを押すと、末尾にスペースがないaristocratとなり、<kbd>Backspace</kbd>を押すことなく複数形や所有格にすることが可能です。このオプションをオフに戻すには、<strong>O0</strong>（アルファベットのOの後にゼロが続く）を使用します。</p>
+<p id="Pn"><strong>Pn：</strong>ホットストリングの<a href="misc/Threads.htm">優先順位</a>（例：P1）。このめったに使われないオプションは、<a href="#auto">自動置換ホットストリング</a>には影響しません。</p>
+<p id="raw"><strong>R：</strong>つまり、{Enter}を<kbd>Enter</kbd>に、^cを<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せずに、<a href="lib/Send.htm#SendRaw">生</a>のまま置換テキストを送信します。<strong>R0</strong>でこのオプションをオフに戻すか、<strong>T</strong>で上書きしてください。</p>
 <p class="note"><strong>注：</strong> <a href="#T">テキストモード</a>の方が信頼性が高い場合があります。RとTのオプションは相互に排他的です。</p>
-<p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>:ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象外</a>にする場合は、Sを指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code>S</code>または<code>#SuspendExempt</code>のいずれかがホットストリングを免除します。つまり、指令を上書きするには、ホットストリング内で<code>S0</code>を明示的に使用する必要がある。</p>
-<p id="SendMode"><strong>SI</strong> または <strong>SP</strong> または <strong>SE</strong>:<a href="#auto">自動置換ホットストリング</a>がキー入力を送信する方法を設定します。これらのオプションは相互に排他的です。同時に1つだけ有効にすることができます。以下、各オプションについて説明します。</p>
+<p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>：ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象外</a>にする場合は、Sを指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code>S</code>または<code>#SuspendExempt</code>のいずれかがホットストリングを免除します。つまり、指令を上書きするには、ホットストリング内で<code>S0</code>を明示的に使用する必要がある。</p>
+<p id="SendMode"><strong>SI</strong> または <strong>SP</strong> または <strong>SE</strong>：<a href="#auto">自動置換ホットストリング</a>がキー入力を送信する方法を設定します。これらのオプションは相互に排他的です：同時に1つだけ有効にすることができます。以下、各オプションについて説明します：</p>
 <ul>
   <li>SIは<a href="lib/Send.htm#SendInputDetail">SendInput</a>の略で、通常、他のモードよりも速度や信頼性に優れています。もう一つの利点は、以下のSendPlayと同様に、SendInputはホットストリングの<a href="#auto">自動置換テキスト</a>中に入力したものを延期することです。これにより、自分のキー入力と交換者のキー入力が混在することを防ぎます。SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合、ホットストリングは自動的にSendPlayを代わりに使用します。</li>
   <li>SPは<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>の略で、より幅広いゲームでホットストリングが使えるようになる可能性があります。</li>
   <li>SEは<a href="lib/Send.htm#SendEvent">SendEvent</a>の略です。</li>
 </ul>
 <p>上記のオプションを使用しない場合、デフォルトのモードはSendInputです。ただし、SIオプションとは異なり、SendInputが利用できない場合はSendPlayの代わりにSendEventが使用されます。</p>
-<p id="T"><strong>T:</strong> Send the replacement text using <a href="lib/Send.htm#SendText">Text mode</a>. つまり、{Enter}を<kbd>Enter</kbd>、^cを<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せず、各文字をキーストロークに変換せずに、文字コードで送信します。このオプションは、<a href="#continuation">継続セクション</a>を持つホットストリングに自動的に適用されます。このオプションをオフに戻すには<strong>T0</strong>または<strong>R0</strong>を使用し、<strong>R</strong>でオーバーライドします。</p>
-<p id="X"><strong>X:</strong> Execute. ホットストリングは、置換テキストの代わりに、実行する関数コールまたは式を受け付けます。例えば、<code>:X:~mb::MsgBox</code>とすると、ユーザーが"~mb"と入力したときに、"MsgBox"という単語に自動置換されるのではなく、メッセージボックスが表示されるようになります。これは、関数を呼び出す多数のホットストリングを定義する場合に最も便利で、そうでなければホットストリングごとに3行必要だからです。</p>
+<p id="T"><strong>T：</strong><a href="lib/Send.htm#SendText">テキストモード</a>を使って、置換テキストを送信します。つまり、{Enter}を<kbd>Enter</kbd>、^cを<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せず、各文字をキーストロークに変換せずに、文字コードで送信します。このオプションは、<a href="#continuation">継続セクション</a>を持つホットストリングに自動的に適用されます。このオプションをオフに戻すには<strong>T0</strong>または<strong>R0</strong>を使用し、<strong>R</strong>でオーバーライドします。</p>
+<p id="X"><strong>X：</strong>実行。ホットストリングは、置換テキストの代わりに、実行する関数コールまたは式を受け付けます。例えば、<code>:X:~mb::MsgBox</code>とすると、ユーザーが"~mb"と入力したときに、"MsgBox"という単語に自動置換されるのではなく、メッセージボックスが表示されるようになります。これは、関数を呼び出す多数のホットストリングを定義する場合に最も便利で、そうでなければホットストリングごとに3行必要だからです。</p>
 <p>このオプションは、<a href="lib/Hotstring.htm">Hotstring</a>関数と一緒に使用しないでください。ホットストリングがトリガーされたときに関数を呼び出すようにするには、関数を参照で渡します。</p>
-<p id="z"><strong>Z:</strong> This rarely-used option resets the hotstring recognizer after each triggering of the hotstring. つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります。これにより、ホットストリングの不要なトリガーを防ぐことができます。説明のために、次のようなホットストリングを考えてみましょう。</p>
+<p id="z"><strong>Z：</strong>このオプションはほとんど使用されませんが、ホットストリングがトリガーされるたびに、ホットストリング認識装置をリセットします。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります。これにより、ホットストリングの不要なトリガーを防ぐことができます。説明のために、次のようなホットストリングを考えてみましょう：</p>
 <pre>:b0*?:11::
 {
     Send "xx"
@@ -101,7 +101,7 @@
 (
 上下の括弧の間のテキストは、文字通りに扱われます。
 デフォルトでは、前の行とこの行の間のハードキャリッジリターン（Enter）も保持されます。
-デフォルトでは、この行の左側のインデント（タブ）が保持されます。
+    デフォルトでは、この行の左側のインデント（タブ）が保持されます。
 )</pre>
 <p>これらのデフォルトの動作を変更する方法については、<a href="Scripts.htm#continuation">続きのセクション</a>を参照してください。また、継続セクションがあると、ホットストリングのデフォルトが<a href="#T">テキスト</a>モードになります。この特別なデフォルトを上書きする唯一の方法は、継続セクションを持つ各ホットストリングで反対側のオプションを指定することです（例えば、<code>:t0:text1::</code> or <code>:r:text2::</code>など）。</p>
 <h2 id="variant">文脈依存型ホットストリング</h2>
@@ -112,22 +112,22 @@
 ::btw::This replacement text appears in windows other than Notepad.</pre>
 
 <h2 id="AutoCorrect">自動修正</h2>
-<p>以下のスクリプトは、ホットストリングを使用して、一般的な英語のスペルミス約4700個をその場で修正します。また、<kbd>Win</kbd>+<kbd>H</kbd>のホットキーを搭載しているので、より多くの誤字脱字を簡単に追加することができます。</p>
-<p>ダウンロード:<a href="https://www.autohotkey.com/download/AutoCorrect.ahk">AutoCorrect.ahk</a> (127 KB)</p>
-<p>著者:<a href="http://www.biancolo.com/blog/autocorrect/">Jim Biancolo</a>と <a href="https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings">ウィキペディアのよくある誤字脱字リスト</a></p>
+<p>以下のスクリプトは、ホットストリングを使用して、一般的な英語のスペルミス約4700個をその場で修正します。また、<kbd>Win</kbd>+<kbd>H</kbd>のホットキーを搭載しているので、より多くの誤字脱字を簡単に追加することができます：</p>
+<p>ダウンロード：<a href="https://www.autohotkey.com/download/AutoCorrect.ahk">AutoCorrect.ahk</a>（127 KB）</p>
+<p>著者：<a href="http://www.biancolo.com/blog/autocorrect/">Jim Biancolo</a>と <a href="https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings">ウィキペディアのよくある誤字脱字リスト</a></p>
 
 <h2 id="remarks">備考</h2>
 <p>現在、置換テキスト内の<a href="Variables.htm#Expressions">式</a>はサポートされていません。これを回避するためには、このようなホットストリングを<a href="#auto">自動置換</a>しないようにします。Instead, use the <a href="lib/Send.htm">Send</a> function in the body of the hotstring or in combination with the <a href="#X">X (execute) option</a>.</p>
 <p>To send an extra space or tab after a replacement, include the <a href="misc/EscapeChar.htm">escape sequence</a> <code>`s</code> or <code>`t</code> at the end of the replacement, e.g. <code>:*:btw::by the way`s</code>.</p>
-<p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{</code>だけ、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace:: {{}</code>. それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
-<p id="NoMouse">デフォルトでは、マウスの左ボタンまたは右ボタンをクリックすると、ホットストリング認識機能がリセットされます。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります（これが望ましくない場合は、スクリプトのどこかに<code><a href="lib/_Hotstring.htm">#Hotstring</a> NoMouse</code>という行を指定してください）。クリックするたびにテキスト挿入点（キャレット）が移動したり、キーボードフォーカスが新しいコントロール/フィールドに設定されるのが普通なので、この「マウスクリックでリセット」動作がデフォルトになっています。このような場合、通常は、以下のようにすることが望ましい。1) ホットストリングが<a href="#Question">クエスチョンマークオプション</a>を欠いていても発射します。2) マウスをクリックした後に入力したものが、誤って前に入力したものと有効な略語を形成した場合に発射されるのを防止します。</p>
-<p id="focus-reset">ホットストリングレコグナイザーは、文字が入力されるたびにアクティブなウィンドウをチェックし、以前とは異なるウィンドウがアクティブな場合はリセットされます。アクティブウィンドウが変更され、文字が入力される前に元に戻った場合、変更は検出されません（ただし、他の理由でホットストリング認識装置がリセットされる場合があります）。ホットストリングレコグナイザーをリセットするには、次のようにします。 <code><a href="lib/Hotstring.htm#Reset">Hotstring "Reset"</a></code>.</p>
+<p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{</code>だけ、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace:: {{}</code>。それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
+<p id="NoMouse">デフォルトでは、マウスの左ボタンまたは右ボタンをクリックすると、ホットストリング認識機能がリセットされます。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります（これが望ましくない場合は、スクリプトのどこかに<code><a href="lib/_Hotstring.htm">#Hotstring</a> NoMouse</code>という行を指定してください）。クリックするたびにテキスト挿入点（キャレット）が移動したり、キーボードフォーカスが新しいコントロール/フィールドに設定されるのが普通なので、この「マウスクリックでリセット」動作がデフォルトになっています。このような場合、通常は、以下のようにすることが望ましい：1)ホットストリングが<a href="#Question">クエスチョンマークオプション</a>を欠いていても発射します。2)マウスをクリックした後に入力したものが、誤って前に入力したものと有効な略語を形成した場合に発射されるのを防止します。</p>
+<p id="focus-reset">ホットストリングレコグナイザーは、文字が入力されるたびにアクティブなウィンドウをチェックし、以前とは異なるウィンドウがアクティブな場合はリセットされます。アクティブウィンドウが変更され、文字が入力される前に元に戻った場合、変更は検出されません（ただし、他の理由でホットストリング認識装置がリセットされる場合があります）。ホットストリングレコグナイザーをリセットするには、次のようにします。 <code><a href="lib/Hotstring.htm#Reset">Hotstring "Reset"</a></code>。</p>
 <p>内蔵変数<strong>A_EndChar</strong>には、直近の自動置換でないホットストリングを起動するために入力した終了文字が格納されます。終端文字が必要ない場合（<a href="#Asterisk">*オプション</a>のため）、空白となります。A_EndCharは、Send関数を使用するホットストリングや、入力した終端文字によって動作が変化するホットストリングを作成する場合に便利です。終了文字そのものを送信する場合は、<code>SendText A_EndChar</code>を使用します（<a href="lib/Send.htm">SendTextを</a>使用するのは、!{}などの文字が通常のSend関数では正しく送信されないためです）。</p>
 <p>ホットストリング定義内のシングルコロンは、ダブルコロンデリミタの前でなければ<a href="misc/EscapeChar.htm">エスケープ</a>する必要はありませんが、バックスティックおよびその左にスペースまたはタブを持つセミコロンは常にエスケープする必要があります。全リストは「<a href="misc/EscapeChar.htm">エスケープシーケンス</a>」を参照してください。</p>
 <p><a href="lib/Send.htm">送信機能</a>の特殊文字である{Enter}などは<a href="#auto">自動置換テキスト</a>でサポートされていますが（<a href="#raw">rawオプション</a>が使用されていない場合）、ホットストリングの略語そのものはこれを使用しません。代わりに、<kbd>Enter</kbd>には`n、<kbd>Tab</kbd>には`t（またはリテラルタブ）を指定します（完全なリストは<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を参照してください）。例えば、ホットストリング<code>:*:ab`t::</code>は、"ab" の後にタブを入力したときにトリガーされるでしょう。</p>
-<p>スペースとタブは、ホットストリング定義内で文字通り扱われます。たとえば、次のようにすると、2つの異なる結果が得られます。<code>::btw::by the way</code> および <code>::btw:: by the way</code>。</p>
+<p>スペースとタブは、ホットストリング定義内で文字通り扱われます。たとえば、次のようにすると、2つの異なる結果が得られます：<code>::btw::by the way</code>、<code>::btw:: by the way</code>。</p>
 <p>各ホットストリングの略号の長さは40文字以内とします。この長さを超えると、プログラムは警告を発します。一方、<a href="#SendMode">送信モード</a>がデフォルトのSendInputの場合、hotstringの置換テキストの長さは約5000文字に制限されています。この制限は、他の<a href="#SendMode">送信モード</a>に切り替えるか、ホットストリングの本文で<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>または<a href="lib/Send.htm#SendEvent">SendEvent</a>を使用するか、<a href="#X">X（実行）オプション</a>と組み合わせることで解除できます。</p>
-<p>ホットストリングの定義順は、互いの優先順位を決定します。つまり、入力した内容に複数のホットストリングがマッチした場合、スクリプトで最初にリストされたものだけが有効になります。関連トピック<a href="#variant">コンテキストに応じたホットストリング</a></p>
+<p>ホットストリングの定義順は、互いの優先順位を決定します。つまり、入力した内容に複数のホットストリングがマッチした場合、スクリプトで最初にリストされたものだけが有効になります。関連トピック：<a href="#variant">コンテキストに応じたホットストリング</a>。</p>
 <p>ホットストリングスを検出する目的で、あなたが行ったバックスペースは考慮されます。ただし、エディター内での移動に<kbd>↑</kbd>、<kbd>→</kbd>、<kbd>↓</kbd>、<kbd>←</kbd>、<kbd>PgUp</kbd>、<kbd>PgDn</kbd>、<kbd>Home</kbd>、<kbd>End</kbd>を使用すると、ホットストリングの認識処理がリセットされます。つまり、まったく新しいホットストリングを待つようになるのです。</p>
 <p>ホットストリングは、アクティブウィンドウがキーストロークを無視しているときでも入力できる場合があります。つまり、トリガーとなる略語が一度も見えていなくても、ホットストリングは発射されるのです。さらに、<kbd>Backspace</kbd>を押して、直近に入力したキー操作を取り消すこともできます（効果は確認できませんが）。</p>
 <p>ホットストリングの関数は、関数に名前が付けられている場合にのみ、スクリプトから明示的に呼び出すことができます。<a href="#Function">名前付き関数ホットストリング</a>を参照してください。</p>
@@ -136,7 +136,7 @@
 <p>ホットストリングは、<a href="lib/Hotstring.htm">Hotstring</a>関数によって動的に作成することができ、スクリプトの既存のホットストリングを個別に変更、無効化、有効化することも可能です。</p>
 <p><a href="lib/InputHook.htm">InputHook</a>関数は、特定の目的のためにホットストリングよりも柔軟性があります。例えば、アクティブなウィンドウ（ゲームなど）において、キー操作を見えなくすることができます。また、<kbd>Esc</kbd>などの非文字の終了キーにも対応しています。</p>
 <p><a href="lib/InstallKeybdHook.htm">キーボードフック</a>は、ホットストリングを含むすべてのスクリプトで自動的に使用されます。</p>
-<p>ホットストリングの動作は、以下の点でホットキーと同じです。</p>
+<p>ホットストリングの動作は、以下の点でホットキーと同じです：</p>
 <ul>
   <li>それらは<a href="lib/Suspend.htm">Suspend</a>機能の影響を受けます。</li>
   <li>これらは<a href="lib/_MaxThreads.htm">#MaxThreads</a>と <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>に従います（<a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>は従いません）。</li>
@@ -146,7 +146,7 @@
 <p>既知の制限：Javaアプリケーションの一部のシステムでは、ホットストリングが、（デッドキーによって）ユーザーがダイアクリティカル文字を入力する能力を妨害する可能性があります。これを回避するために、<a href="lib/Suspend.htm">サスペンド</a>を一時的にオンにすることができます（これはすべてのホットストリングを無効にします）。</p>
 
 <h2 id="Function">名前付き関数ホットストリング</h2>
-<p>ホットストリングの関数を、ホットストリング自体をトリガーせずに呼び出す必要がある場合、この例のように、ホットストリングのダブルコロンの直後に<a href="Functions.htm">関数</a>を定義するだけで、1つまたは複数のホットストリングに名前付き<a href="Functions.htm">関数</a>を割り当てることができます。</p>
+<p>ホットストリングの関数を、ホットストリング自体をトリガーせずに呼び出す必要がある場合、この例のように、ホットストリングのダブルコロンの直後に<a href="Functions.htm">関数</a>を定義するだけで、1つまたは複数のホットストリングに名前付き<a href="Functions.htm">関数</a>を割り当てることができます：</p>
 <pre><em>; この例は、スクリプトで大文字と小文字の一致を実現する方法の1つも示しています。</em>
 :C:BTW::  <em>; オールキャプスで入力。</em>
 :C:Btw::  <em>; 最初の文字だけ大文字で入力した。</em>

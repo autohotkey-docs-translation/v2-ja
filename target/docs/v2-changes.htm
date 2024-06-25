@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>v1.0からv2.1への変更｜AutoHotkey v2</title>
-<meta name="description" content="v1.1とv2.0の間の変更" />
+<meta name="description" content="v1.1とv2.0の間の変更。" />
 <meta name="ahk:equiv-v1" content="AHKL_ChangeLog.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +37,7 @@
       <li><a href="#primitive-values">プリミティブ値</a></li>
       <li><a href="#properties-and-methods">プロパティとメソッド</a></li>
       <li><a href="#staticclass-variables">静的クラス変数</a></li>
-      <li><a href="#meta-functions">Meta-Functions</a></li>
+      <li><a href="#meta-functions">メタファンクション</a></li>
       <li><a href="#array">Array</a></li>
       <li><a href="#map">Map</a></li>
       <li><a href="#enumeration">列挙</a></li>
@@ -60,7 +60,7 @@
   <li><a href="#gui">Gui</a>
     <ul>
       <li><a href="#gui-sub-commands">Guiサブコマンド</a></li>
-      <li><a href="#events">イベント情報</a></li>
+      <li><a href="#events">イベント</a></li>
       <li><a href="#removed">削除</a></li>
       <li><a href="#control-options">Control Options</a></li>
       <li><a href="#guicontrolget">GuiControlGet</a></li>
@@ -74,7 +74,7 @@
       <li><a href="#errorlevel">エラーレベル</a></li>
       <li><a href="#expressions-1">式</a></li>
       <li><a href="#functions-1">関数</a></li>
-      <li><a href="#catch">キャッチ</a></li>
+      <li><a href="#catch">Catch</a></li>
     </ul>
   </li>
   <li><a href="#keyboard-mouse-hotkeys-and-hotstrings">キーボード、マウス、ホットキー、ホットストリング</a></li>
@@ -113,8 +113,8 @@
 </ul>
 <p>以下に記す場合を除き、すべての制御フロー文は式も受け付けます。</p>
 <p>パラメータを取るすべての制御フロー文（現在、2語のLoop文を除く）は、パラメータリストを括弧で囲み、名前と括弧の間にスペースを入れずにサポートします。例えば、<code>return(var)</code>。しかし、これらは関数ではないので、例えば、<code>x := return(y)</code>は無効です。<a href="lib/If.htm">If</a>と <a href="lib/While.htm">While</a>は、すでにサポートしています。</p>
-<p><a href="#loop-sub-commands">Loop</a>(<a href="lib/Loop.htm">Loop <em>Countを</em></a>除く)の後に、"引用"したり変数で囲むことのできない副キーワード(Files, Parse, Read or Reg)が続くようになりました。現在、キーワードの後にカンマを付けることができますが、これはパラメータではないので必須ではありません。<a href="lib/Block.htm#otb">OTB</a> is supported by all modes.</p>
-<p><a href="lib/Goto.htm">Goto</a>, <a href="lib/Break.htm">Break</a> and <a href="lib/Continue.htm">Continue</a> require an unquoted label name, similar to v1 (<code>goto label</code> jumps to <code>label:</code>). ラベルに動的にジャンプするには、名前のすぐ後に括弧を使用します：<code>goto(expression)</code>. ただし、これは関数ではないので、式の途中で使用することはできません。Parentheses can be used with Break or Continue, but in that case the parameter must be a single literal number or quoted string.</p>
+<p><a href="#loop-sub-commands">Loop</a>（<a href="lib/Loop.htm">Loop <em>Countを</em></a>除く）の後に、「引用」したり変数で囲むことのできない副キーワード（Files、Parse、ReadまたはReg）が続くようになりました。現在、キーワードの後にカンマを付けることができますが、これはパラメータではないので必須ではありません。<a href="lib/Block.htm#otb">OTB</a>は全モードで対応しています。</p>
+<p><a href="lib/Goto.htm">Goto</a>、<a href="lib/Break.htm">Break</a>、<a href="lib/Continue.htm">Continue</a>は、v1の（<code>goto label</code>が<code>label:</code>に飛ぶ）と同様、引用符のないラベル名を必要とします。ラベルに動的にジャンプするには、名前のすぐ後に括弧を使用します：<code>goto(expression)</code>。ただし、これは関数ではないので、式の途中で使用することはできません。括弧はBreakやContinueでも使えますが、その場合、パラメータは1つのリテラル数値か引用符で囲まれた文字列でなければなりません。</p>
 <p>Gosubが削除され、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの機能でラベルが使用できなくなりました。</p>
 <ul>
 <li>ローカル変数も戻り値もなく、独立した名前空間にある、基本的に限定的な関数の一種だったのです。関数は、これまでラベルサブルーチンが使われていた場所ならどこでも（<a href="Functions.htm#nested">他の関数</a>の中でも）使うことができます。</li>
@@ -137,11 +137,11 @@
 <li>関数を値で呼び出す場合、<code>%myVar%()</code>の代わりに<code>myVar()</code>を使用します。</li>
 <li>関数名（文字列）しかないときに関数を呼び出すには、まず<a href="Variables.htm#deref">double-deref</a>で名前を変数に解決し、その値（関数オブジェクト）を取得します。<code>%myVar%()</code>は、実際にダブルデフを行い、その結果を呼び出すようになり、<code>f := %myVar%, f()</code>と同等になりました。関数を名前（文字列）で扱うことはできるだけ避け、代わりにリファレンスを使用します。</li>
 </ul>
-<p>氏名は数字で始まることはできず、従来は認められていた以下の文字を含むことはできません：<code>@ # $</code>. 使用できる文字は、英字、数字、アンダースコア、非ASCII文字のみです。</p>
-<p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。これは、<code class="no-highlight">local</code>, <code class="no-highlight">global</code>, <code class="no-highlight">static</code>, <code class="no-highlight">if</code>, <code class="no-highlight">else</code>, <code class="no-highlight">loop</code>, <code class="no-highlight">for</code>, <code class="no-highlight">while</code>, <code class="no-highlight">until</code>, <code class="no-highlight">break</code>, <code class="no-highlight">continue</code>, <code class="no-highlight">goto</code>, <code class="no-highlight">return</code>, <code class="no-highlight">switch</code>, <code class="no-highlight">case</code>, <code class="no-highlight">try</code>, <code class="no-highlight">catch</code>, <code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
-<p><strong>予約語：</strong> <code class="no-highlight">as</code>,<code class="no-highlight">and</code>,<code class="no-highlight">contains</code>,<code class="no-highlight">false</code>,<code class="no-highlight">in</code>,<code class="no-highlight">is</code>,<code class="no-highlight">IsSet</code>,<code class="no-highlight">not</code>,<code class="no-highlight">or</code>,<code class="no-highlight">super</code>,<code class="no-highlight">true</code>,<code class="no-highlight">unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されており、曖昧でない場合でも、変数名や関数名として許可されていません。これは主に一貫性を保つためです：v1では、<code>and := 1</code>は、単独で行えたが、<code>(and := 1)</code>は動作しません。</p>
+<p>氏名は数字で始まることはできず、従来は認められていた以下の文字を含むことはできません：<code>@ # $</code>。使用できる文字は、英字、数字、アンダースコア、非ASCII文字のみです。</p>
+<p><strong>予約語：</strong>宣言キーワードや制御フロー文の名前は、変数名、関数名、クラス名として使用することはできません。これは、<code class="no-highlight">local</code>、<code class="no-highlight">global</code>、<code class="no-highlight">static</code>、<code class="no-highlight">if</code>、<code class="no-highlight">else</code>、<code class="no-highlight">loop</code>、<code class="no-highlight">for</code>、<code class="no-highlight">while</code>、<code class="no-highlight">until</code>、<code class="no-highlight">break</code>、<code class="no-highlight">continue</code>、<code class="no-highlight">goto</code>、<code class="no-highlight">return</code>、<code class="no-highlight">switch</code>、<code class="no-highlight">case</code>、<code class="no-highlight">try</code>、<code class="no-highlight">catch</code>、<code class="no-highlight">finally</code> および <code class="no-highlight">throw</code> を含んでいます。これは主に<code>if (ex) break</code>のようなエラーを検出するためです。</p>
+<p><strong>予約語：</strong> <code class="no-highlight">as</code>、<code class="no-highlight">and</code>、<code class="no-highlight">contains</code>、<code class="no-highlight">false</code>、<code class="no-highlight">in</code>、<code class="no-highlight">is</code>、<code class="no-highlight">IsSet</code>、<code class="no-highlight">not</code>、<code class="no-highlight">or</code>、<code class="no-highlight">super</code>、<code class="no-highlight">true</code>、<code class="no-highlight">unset</code>。これらの単語は、将来の使用やその他の特定の目的のために予約されており、曖昧でない場合でも、変数名や関数名として許可されていません。これは主に一貫性を保つためです：v1では、<code>and := 1</code>は、単独で行えたが、<code>(and := 1)</code>は動作しません。</p>
 <p>上記の単語は、プロパティ名やウィンドウグループ名として許可されています。一般的に使用されるプロパティ名の前には、演算子として解釈されることを防ぐために、<code>.</code>が付いています。一方、キーワードは式中の変数名や関数名として解釈されることはありません。例えば、<code>not(x)</code>は、<code>not (x)</code>または<code>(not x)</code>と同じ意味です。</p>
-<p>多くのクラスが事前に定義されており、ユーザー定義クラスと同じように、グローバル変数名を効果的に予約することができます。(ただし、後述する<a href="#scope">スコープの変更</a>により、このことから生じる問題はほとんど緩和されます)。クラスの一覧は、「<a href="ObjList.htm">組み込みクラス</a>」を参照してください。</p>
+<p>多くのクラスが事前に定義されており、ユーザー定義クラスと同じように、グローバル変数名を効果的に予約することができます。（ただし、後述する<a href="#scope">スコープの変更</a>により、このことから生じる問題はほとんど緩和されます。）　クラスの一覧は、「<a href="ObjList.htm">組み込みクラス</a>」を参照してください。</p>
 <h3 id="scope">スコープ</h3>
 <p><em>スーパーグローバル</em>変数が廃止されました（組み込み変数を除く、再宣言やシャドウができないので同じではありません）。</p>
 <p><a href="Functions.htm#AssumeLocal">想定ローカル</a>関数内で、与えられた名前が宣言や非動的代入、<a href="Variables.htm#ref">参照（&amp;）演算子</a>のターゲットとして使用されていない場合、既存のグローバル変数に解決することがあります。</p>
@@ -160,7 +160,7 @@
 <li>静的イニシャライザが静的変数を持つ他の関数を呼び出す場合、関数定義の順序によりイニシャライザが未実行となる危険性が少ないです。</li>
 <li>Because the function has been called, parameters, <a href="Variables.htm#ThisFunc">A_ThisFunc</a> and <a href="Functions.htm#closures">closures</a> are available (they previously were not).</li>
 <li>静的変数は条件付きで初期化できるため柔軟性があり、しかも<code>if IsSet()</code>を必要とせず1回しか実行しません。</li>
-<li>一つの静的変数に対して複数の初期化子が存在する可能性があるため、<code>static x += 1</code>のような複合代入が許可されます。(この変更は、<code>local</code>と <code>global</code>ですでに許可されていたため、コードサイズをわずかに減らすことができました)。</li>
+<li>一つの静的変数に対して複数の初期化子が存在する可能性があるため、<code>static x += 1</code>のような複合代入が許可されます。（この変更は、<code>local</code>と <code>global</code>ですでに許可されていたため、コードサイズをわずかに減らすことができました。）</li>
 </ul>
 <p class="note"><strong>注：</strong> <code>static init := somefunction()</code>は、<em>somefunction</em>の自動実行には使えなくなりました。しかし、ラベルとリターンに基づくサブルーチンを完全に回避できるようになったため、自動実行セクションはスクリプト全体に及ぶことができるようになりました。</p>
 <p>変数を<code>local</code>で宣言しても、その関数が<a href="Functions.htm#AssumeGlobal">assume-global</a>にならなくなりました。</p>
@@ -168,7 +168,7 @@
 <p>ダブルデフが何らかの理由で失敗した場合、エラーが発生するようになりました。以前は、無効な名前を持つケースは黙って空文字列を生成し、その他のケースは空の変数を生成して返していました。</p>
 <h3 id="expressions">式</h3>
 <p>引用リテラル文字列は、<code>"ダブル"</code>または<code>'シングル'</code>の引用符で書くことができますが、同じ符で始まり、同じ符で終わらなければなりません。直訳の引用符は、マークの前にエスケープ文字 - <code>`"</code>または<code>`'</code> を置くか、反対のタイプの引用符を使用することで記述します：<code>'"42"が答えです'</code>。引用符を二重にしても特別な意味はなく、auto-concatではスペースが必要なのでエラーになる。</p>
-<p>演算子<code>&amp;&amp;</code>,<code>||</code>,<code>and</code> および <code>or</code>は、JavaScript や Lua と同様に、結果を決定したいずれかの値を出力します。For example, <code>"" or "default"</code> yields "default" instead of 1. Scripts which require a pure boolean value (0 or 1) can use something like <code>!!(x or y)</code> or <code>(x or y) ? 1 : 0</code>.</p>
+<p>演算子<code>&amp;&amp;</code>,<code>||</code>,<code>and</code> および <code>or</code>は、JavaScript や Lua と同様に、結果を決定したいずれかの値を出力します。例えば、<code>"" or "default"</code>は、1ではなく、「default」を出力します。純粋なブール値（0または1）を必要とするスクリプトでは、<code>!!(x or y)</code>または<code>(x or y) ? 1 : 0</code>を使うことができます。</p>
 <p>Auto-concatでは、すべてのケースで少なくとも1つのスペースまたはタブが必要になりました（v1のドキュメントでは、スペースが「あるべき」とされています）。</p>
 <p><code>x(), y()</code>のような複数文の式の結果は、最初の（一番左の）部分式ではなく、最後の（一番右の）部分式になります。v1、v2ともに、部分式は左から右の順番で評価されます。</p>
 <p>カンマの後のEqualsは、割り当てられなくなりました：<code>x:=y, y=z</code>の<code>y=z</code>は、代入ではなく非効率的な比較です。</p>
@@ -177,15 +177,15 @@
 <p><code>&lt;&gt;</code>は、廃止されました。</p>
 <p><code>//</code> は、浮動小数点数が与えられた場合、例外を投げるようになりました。以前は、負の浮動小数点と負の整数で結果が矛盾していました。</p>
 <p><code>|</code>,<code>^</code>,<code>&amp;</code>,<code>&lt;&lt;</code>、および、<code>&gt;&gt;</code>は、浮動小数点数が与えられた場合、整数に切り捨てられるのではなく、例外を投げるようになりました。</p>
-<p>科学的記数法は、小数点以下がなくても使用可能です（ただし、いずれにせよ浮動小数点数を生成します）。Scientific notation is also supported when numeric strings are converted to integers (for example, <code>"1e3"</code> is interpreted as 1000 instead of 1).</p>
-<p>関数呼び出しでは、パラメータリストの開括弧の前にスペースやタブがなければ、どの関数を呼び出すかを指定するために、事実上どんな下位式でも使用できるようになりました。For example, <code>MyFunc()</code> would call the value of <em>MyFunc</em> regardless of whether that is the function's actual name or a variable containing a function object, and <code>(a?b:c)()</code> would call either <em>b</em> or <em>c</em> depending on <em>a</em>. なお、<code>x.y()</code>は、まだ<code>(x.y)(x)</code>とほぼ同等のメソッド呼び出しですが、<code>a[i]()</code>は<code>(a[i])()</code>と同等になったことに注意してください。</p>
+<p>科学的記数法は、小数点以下がなくても使用可能です（ただし、いずれにせよ浮動小数点数を生成します）。数値文字列を整数に変換する際、科学的表記もサポートされます（例えば、<code>"1e3"</code>は1ではなく1000と解釈されます）。</p>
+<p>関数呼び出しでは、パラメータリストの開括弧の前にスペースやタブがなければ、どの関数を呼び出すかを指定するために、事実上どんな下位式でも使用できるようになりました。例えば、<code>MyFunc()</code>は、それが関数の実際の名前か関数オブジェクトを含む変数かにかかわらず、値<em>MyFunc</em>を呼び出し、<code>(a?b:c)()</code>は、<em>a</em>に応じて<em>b</em>または<em>cを</em>呼び出します。なお、<code>x.y()</code>は、まだ<code>(x.y)(x)</code>とほぼ同等のメソッド呼び出しですが、<code>a[i]()</code>は<code>(a[i])()</code>と同等になったことに注意してください。</p>
 <p>ダブルデフでは、変数名のソースとして（変数に限らず）ほぼすべての式が使用できるようになりました。例えば、<code>DoNotUseArray%n+1%</code>や <code>%(%triple%)%</code>は有効です。<code>ref := &amp;var, value := %ref%</code>のように、VarRefの再参照にもダブルデリフ構文が使われるようになりました。</p>
 <p><code>funcName[""]()</code>および<code>funcName.()</code>の式は、関数を名前で呼び出さなくなりました。<code>.()</code> のようにメソッド名を省略すると、ロードタイムエラーメッセージが表示されるようになりました。関数は、名前ではなく、参照によって呼び出したり、扱ったりする必要があります。</p>
-<p>右辺値を持たない<code>var :=</code>は、ロード時にエラーとして扱われます。v1で、これは<code>var := ""</code>と等価でしたが、他の式と組み合わせると無言で失敗します：<code>x :=, y :=</code>.</p>
-<p>リテラル文字列の後に曖昧な単項/二項演算子が続く場合、ロード時にエラーが報告されます。For instance, <code>"new counter:" ++Counter</code> is probably supposed to increment and display <em>Counter</em>, but technically it is invalid addition and unary plus.</p>
-<p><code>word ++</code> and <code>word --</code> are no longer expressions, since <code>word</code> can be a user-defined function (and ++/-- may be followed by an expression which produces a variable reference). 単独でポストインクリメント式やポストデクリメント式を書くには、変数と演算子の間のスペースを省くか、変数や式を括弧で囲むかします。</p>
-<p><code>word ? x : y</code>は、まだ3項表現ですが、<code>word1 word2 ? x : y</code>のように単語で始まるより複雑な場合は、常に<em>word1</em>への関数呼び出しと解釈されます（そのような関数が存在しない場合であってもです。）。複雑な条件を持つ単体の3元式を書くには、条件を括弧で囲みます。</p>
-<p>The new <a href="Variables.htm#is"><code>is</code> operator</a> such as in <code>x is y</code> can be used to check whether value <em>x</em> is an instance of class <em>y</em>, where <em>y</em> must be an Object with a <em>Prototype</em> property (i.e. a <a href="lib/Class.htm">Class</a>). This includes primitive values, as in <code>x is Integer</code> (which is strictly a type check, whereas <code>IsInteger(x)</code> checks for potential conversion).</p>
+<p>右辺値を持たない<code>var :=</code>は、ロード時にエラーとして扱われます。v1で、これは<code>var := ""</code>と等価でしたが、他の式と組み合わせると無言で失敗します：<code>x :=, y :=</code>。</p>
+<p>リテラル文字列の後に曖昧な単項/二項演算子が続く場合、ロード時にエラーが報告されます。例えば、<code>"new counter:" ++Counter</code>は、おそらく<em>Counter</em>をインクリメントして表示するものと思われますが、厳密には無効な加算と 単項式プラスになります。</p>
+<p><code>word ++</code>と<code>word --</code>は、<code>word</code>がユーザー定義関数である可能性があるため、もはや式ではありません（また ++/-- の後に変数参照を生成する式が続くことがあります）。単独でポストインクリメント式やポストデクリメント式を書くには、変数と演算子の間のスペースを省くか、変数や式を括弧で囲むかします。</p>
+<p><code>word ? x : y</code>は、まだ3項表現ですが、<code>word1 word2 ? x : y</code>のように単語で始まるより複雑な場合は、常に<em>word1</em>への関数呼び出しと解釈されます（そのような関数が存在しない場合であってもです）。複雑な条件を持つ単体の3元式を書くには、条件を括弧で囲みます。</p>
+<p>The new <a href="Variables.htm#is"><code>is</code> operator</a> such as in <code>x is y</code> can be used to check whether value <em>x</em> is an instance of class <em>y</em>, where <em>y</em> must be an Object with a <em>Prototype</em> property (i.e. a <a href="lib/Class.htm">Class</a>). <code>x is Integer</code>のようなプリミティブな値も含まれます。（<code>IsInteger(x)</code>が変換の可能性をチェックするのに対し、これは厳密には型チェックです）。</p>
 <p>キーワード<code>contains</code>と <code>in</code>は将来の使用のために予約されています。</p>
 <p><code>&amp;var</code>(address-of) が<code>StrPtr(var)</code>と<code>ObjPtr(obj)</code>に置き換えられ、より明確に意図を示し、エラーチェックを強化しました。v1では、address-ofは、<em>var</em>の内部文字列バッファのアドレスを返し、たとえそれが数値（オブジェクトではない）を含んでいたとしても、そのアドレスを返していました。また、オブジェクトのアドレスを取得するために使用され、間違ったタイプのアドレスを取得すると、悲惨な結果になることがあります。</p>
 <p><code>&amp;var</code>は<a href="Variables.htm#ref">参照演算子</a>になり、すべての<a href="#byref">ByRef</a>と OutputVar パラメータで使用され、明快さと柔軟性が向上しました（他の言語の変更も可能になります）。詳しくは、<a href="Concepts.htm#variable-references">変数参照（VarRef）</a>を参照してください。</p>
@@ -197,21 +197,21 @@
 </ul>
 <p>ほとんどの関数はまだヌル終端文字列を想定しているので、最初の2進数のゼロまでしか「見えない」のです。例えば、<a href="lib/MsgBox.htm">MsgBox</a>は、文字列のうち最初の2進数のゼロより前の部分のみを表示します。</p>
 <p><code>*</code>(deref)演算子は削除されました。代わりに<a href="lib/NumGet.htm">NumGet</a>を使用してください。</p>
-<p><code>~</code> (<a href="Variables.htm#unary">bitwise-NOT</a>) 演算子は、常に入力を64ビットの符号付き整数として扱うようになりました。0から4294967295までの値を符号なし32ビットとして扱わなくなりました。</p>
+<p><code>~</code>（<a href="Variables.htm#unary">bitwise-NOT</a>）演算子は、常に入力を64ビットの符号付き整数として扱うようになりました。0から4294967295までの値を符号なし32ビットとして扱わなくなりました。</p>
 <p>論理右ビットシフトに<code>&gt;&gt;&gt;</code>と<code>&gt;&gt;&gt;=</code>が追加されました。</p>
-<p><a href="Variables.htm#fat-arrow">太矢印の関数</a>を追加しました。The expression <code>Fn(Parameters) =&gt; Expression</code> defines a function named <em>Fn</em> (which can be blank) and returns a <a href="lib/Func.htm">Func object</a> or <a href="Functions.htm#closures">Closure object</a>. When called, the function evaluates <em>Expression</em> and returns the result. When used inside another function, <em>Expression</em> can refer to the outer function's variables (this can also be done with a normal function definition).</p>
+<p><a href="Variables.htm#fat-arrow">太矢印の関数</a>を追加しました。The expression <code>Fn(Parameters) =&gt; Expression</code> defines a function named <em>Fn</em> (which can be blank) and returns a <a href="lib/Func.htm">Func object</a> or <a href="Functions.htm#closures">Closure object</a>. 呼び出されると、この関数は<em>Expression</em>を評価し、結果を返します。他の関数の内部で使用する場合、<em>Expression</em>は、外部関数の変数を参照することができます（これは通常の関数定義でも可能です）。</p>
 <p>ファットアロー構文は、メソッドやプロパティのゲッター/セッターの定義にも使用できます（この場合、メソッド/プロパティの定義自体は式ではなく、その本体が式を返すだけです）。</p>
 <p>メンバーアクセス（ドット）の左側で、リテラルナンバーが完全にサポートされるようになりました。例えば、<code>0.1</code>は数値ですが、<code class="no-highlight">0.min</code>と <code class="no-highlight">0.1.min</code>は、ベースオブジェクトが扱える<em>min</em>プロパティにアクセスします（<a href="Objects.htm#primitive">プリミティブ値</a>参照）。<code class="no-highlight">1..2</code>または<code class="no-highlight">1.0.2</code>は、数字 1.0 の後にプロパティ 2 が続くものです。使用例としては、測定単位、リテラルバージョン番号、範囲などを実装することが考えられます。</p>
-<p><code>x**y</code>:Where <em>x</em> and <em>y</em> are integers and <em>y</em> is positive, the power operator now gives correct results for all inputs if in range, where previously some precision was lost due to the internal use of floating-point math. オーバーフロー時の動作は未定義です。</p>
+<p><code>x**y</code>：<em>x</em>と<em>y</em>が整数で<em>y</em>が正の場合、以前は内部で浮動小数点演算を使用していたため精度が落ちていましたが、範囲内であればすべての入力に対して正しい結果を与えるようになりました。オーバーフロー時の動作は未定義です。</p>
 <h3 id="objects-misc">Objects (Misc)</h3>
-<p>こちらもご覧ください：<a href="#objects">オブジェクト</a></p>
+<p>こちらも参照のこと：<a href="#objects">オブジェクト</a></p>
 <p><code>.</code>でアクセスするプロパティと、<code>[]</code>でアクセスするデータ（アイテム、配列、マップ要素）は区別されるようになりました。例えば、<code>dictionary["Count"]</code>は "Count"の定義を返し、<code>dictionary.Count</code>は、その中に含まれる単語の数を返すことができる。ユーザー定義オブジェクトは、<a href="Objects.htm#__Item">__Itemプロパティ</a>を定義することでこれを利用することができます。</p>
 <p>プロパティやメソッドの名前が事前にわからない場合、パーセント記号を使ってアクセスすることができる（しなければならない）。例えば、<code>obj.%varname%()</code>は、v2の<code>obj[varname]()</code>と同等です。<code>[]</code>は、データ（配列要素など）に使用します。</p>
 <p>アドホック・オブジェクトを構築するためのリテラル構文は、やはり基本的に<code>{name: value}</code>です。しかし、プレーンオブジェクトは現在「配列要素」ではなく「プロパティ」しか持たないため、他のコンテキストでプロパティにアクセスする方法との一貫性を保つために、ルールが少し変更されました：</p>
 <ul>
 <li><code>o := {a: b}</code> は、従来通り「a」という名前を使用します。</li>
-<li><code>o := {%a%: b}</code> uses the property name in <em>a</em>, instead of taking that as a variable name, performing a double-deref, and using the contents of the resulting variable. つまり、<code>o := {}, o.%a% := b</code>と同じ効果を発揮するのです。</li>
-<li>それ以外の<code>:</code>の左側の表現は不正です。例えば、<code>{(a): b}</code> または<code>{an error: 1}</code>です.</li>
+<li><code>o := {%a%: b}</code> は、<em>a</em>のプロパティ名を変数名とし、ダブルデフを行い、結果の変数の内容を使用するのではなく、<em>a</em>のプロパティ名を使用します。つまり、<code>o := {}, o.%a% := b</code>と同じ効果を発揮するのです。</li>
+<li>それ以外の<code>:</code>の左側の表現は不正です。例えば、<code>{(a): b}</code>または<code>{an error: 1}</code>。</li>
 </ul>
 <p><code>base.Method()</code>の "base" という言葉の使用は、2つの概念をよりよく区別するために、<a href="Objects.htm#Custom_Classes_super">super</a>（<code>super.Method()</code>）に置き換えられています：</p>
 <ul>
@@ -222,34 +222,34 @@
 </ul>
 <p>Calling a user-defined object without explicitly specifying a method name now results in a call to the "Call" method instead of the "" method. For example, <code>%Fn%()</code> previously resulted in a call to <code>Fn.()</code>, but the v2 expression <code>Fn()</code> results in a call to <code>Fn.Call()</code>. <a href="lib/Func.htm">Func</a> objects no longer implement the nameless method. It is no longer valid to omit the method name in a method call, but <code>Fn.%""%()</code> works in place of <code>Fn.()</code>.</p>
 <p><code>this.Method()</code>は、<code>Fn[this]()</code>の代わりに<code>Fn.Call(this)</code>（<em>Fn</em>はメソッドを実装した関数オブジェクト）を呼び出します（v1では<code>Fn[this]</code>に関数が含まれていない限り<code>Fn.__Call(this)</code>を呼び出すことになります）。関数オブジェクトは、明示的なメソッド呼び出しにのみ使用される<em>__Call</em>の代わりに、<em>Call</em>メソッドを実装する必要があります。</p>
-<p><code><i>Classname</i>()</code> (formerly <code>new <i>Classname</i>()</code>) now fails to create the object if the <em>__New</em> method is defined and it could not be called (e.g. because the parameter count is incorrect), or if parameters were passed and <em>__New</em> is not defined.</p>
+<p><code><i>Classname</i>()</code>（以前の<code>new <i>Classname</i>()</code>）は、<em>__New</em>メソッドが定義されているのに呼び出せなかった場合（例：パラメータ数が不正確なため）、またはパラメータが渡されたのに<em>__New</em>が定義されていない場合、オブジェクトの作成に失敗するようになりました。</p>
 <p>式内で生成されたオブジェクトや関数から返されたオブジェクトは、式の評価が完了するまで保持され、その後解放されるようになりました。これにより、パフォーマンスが若干向上し、オブジェクトが早期に解放される心配がなく、式内のメモリ管理に一時的なオブジェクトを使用することができます。</p>
-<p>オブジェクトには、2進数の0を含む文字列値（キーは不可）を含めることができます。オブジェクトのクローンは、文字列のバイナリデータを、保存された文字列の長さまで保存します（容量ではありません）。Historically, data was written beyond the value's length when dealing with binary data or structs; now, a <a href="lib/Buffer.htm">Buffer object</a> should be used instead.</p>
+<p>オブジェクトには、2進数の0を含む文字列値（キーは不可）を含めることができます。オブジェクトのクローンは、文字列のバイナリデータを、保存された文字列の長さまで保存します（容量ではありません）。歴史的には、バイナリデータや構造体を扱う場合、値の長さを超えてデータを書き込んでいましたが、現在では、代わりに<a href="lib/Buffer.htm">Bufferオブジェクト</a>を使用する必要があります。</p>
 <p><code>x.y := z</code>のような代入式は、<em>x.y</em> の実装方法に関係なく、常に<em>z</em> の値を返すようになりました。プロパティセッターの戻り値は無視されるようになりました。以前：</p>
 <ul>
 <li>組み込みオブジェクトの中には<em>z</em>を返すもの、<em>x.y</em>を返すもの（<code>c := GuiObj.BackColor := "red"</code>で<em>c</em>を 0xFF0000に設定するなど）、不正確な値を返すものがありました。</li>
 <li>ユーザー定義のプロパティセッターが予期せぬ値を返したり、何も返せなかったりした可能性があります。</li>
 </ul>
-<p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。In general, <code>x.y(z)</code> (method call) and <code>x.y[z]</code> (parameterized property) are two different operations, although they may be equivalent if <em>x</em> is a COM object (due to limitations of the COM interface).</p>
-<p>Concatenating an object with another value or passing it to <a href="lib/Loop.htm">Loop</a> is currently treated as an error, whereas previously the object was treated as an empty string. This may be changed to implicitly call <code>.ToString()</code>. Use <code>String(x)</code> to convert a value to a string; this calls <code>.ToString()</code> if <em>x</em> is an object.</p>
-<p>IDispatch（COMインターフェース）を介してオブジェクトが呼び出された場合、呼び出し元に引き渡せない捕捉できない例外は、エラーダイアログを発生させます。(呼び出し側は、具体的な詳細を伴わない追加のエラーダイアログを表示することも、しないこともあります)。これは、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の使用により呼び出されるイベントハンドラにも適用されます。</p>
+<p><code>x.y(z) := v</code>がシンタックスエラーになりました。以前は<code>x.y[z] := v</code>と同等でした。一般に、<code>x.y(z)</code>（メソッドコール）と<code>x.y[z]</code>（パラメータ化されたプロパティ）は異なる操作ですが、<em>x</em>がCOMオブジェクトの場合は（COMインターフェースの制限により）同等である場合があります。</p>
+<p>オブジェクトを他の値と連結したり、<a href="lib/Loop.htm">Loop</a>に渡すと、以前は空文字列として扱われていましたが、現在はエラーとして扱われます。これは、暗黙のうちに<code>.ToString()</code>を呼び出すように変更することができます。値を文字列に変換するには<code>String(x)</code>を使用します。<code>x</code>がオブジェクトの場合、<em>.ToString()</em>を呼び出します。</p>
+<p>IDispatch（COMインターフェース）を介してオブジェクトが呼び出された場合、呼び出し元に引き渡せない捕捉できない例外は、エラーダイアログを発生させます。（呼び出し側は、具体的な詳細を伴わない追加のエラーダイアログを表示することも、しないこともあります。）　これは、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の使用により呼び出されるイベントハンドラにも適用されます。</p>
 <h3 id="functions">関数</h3>
 <p>関数が正式に受け付ける以上のパラメータで動的に呼び出すことができなくなりました。</p>
-<p><a href="Functions.htm#Variadic">Variadic functions</a> are not affected by the above restriction, but normally will create an array each time they are called to hold the surplus parameters. この配列が不要な場合は、パラメータ名を省略できるようになり、作成されないようになりました：</p>
+<p><a href="Functions.htm#Variadic">可変長引数関数</a>は上記の制限の影響を受けませんが、通常、呼び出されるたびに配列を作成し、剰余パラメータを保持します。この配列が不要な場合は、パラメータ名を省略できるようになり、作成されないようになりました：</p>
 <pre>AcceptsOneOrMoreArgs(first, *) {
   ...
 }
 </pre>
 <p>これは、追加パラメータが不要なコールバックに使用することができます。</p>
-<p><a href="Functions.htm#VariadicCall">Variadic function calls</a> now permit any enumerable object, where previously they required a standard Object with sequential numeric keys. 列挙者が1回の反復で複数の値を返す場合、最初の値のみが使用されます。For example, <code>Array(mymap*)</code> creates an array containing the keys of <em>mymap</em>.</p>
+<p>従来は数値キーが連続する標準的なオブジェクトが必要でしたが、<a href="Functions.htm#VariadicCall">可変長引数関数の呼び出し</a>では、列挙可能なオブジェクトが使用できるようになりました。列挙者が1回の反復で複数の値を返す場合、最初の値のみが使用されます。例えば、<code>Array(mymap*)</code>は、<em>mymap</em>のキーを含む配列を作成します。</p>
 <p>変数型関数呼び出しは、以前は名前付きパラメータを中途半端にサポートしていました。これは、名前付きパラメータの適切な実装を妨げる可能性を排除するために、無効化されています。</p>
 <p>ユーザー定義関数は、新しいキーワード<code>unset</code>をパラメータのデフォルト値として使用し、値が提供されていない場合にパラメータを "unset" にすることができます。その後、この関数は IsSet() を使用して、値が提供されたかどうかを判断することができます。<code>unset</code>は現在、他のコンテキストでは許可されていません。</p>
-<p>Scripts are no longer automatically included from the function library (Lib) folders when a function call is present without a definition, due to increased complexity and potential for accidents (now that the <em>MyFunc</em> in <code>MyFunc()</code> can be any variable). <code>#Include &lt;LibName&gt;</code>は従来通り動作します。将来のリリースでは、モジュールのサポートに取って代わられる可能性があります。</p>
-<p>Variadic built-in functions now have a <em>MaxParams</em> value equal to <em>MinParams</em>, rather than an arbitrary number (such as 255 or 10000). Use the <em>IsVariadic</em> property to detect when there is no upper bound.</p>
+<p>スクリプトは、関数呼び出しが定義なしで存在する場合、複雑さと事故の可能性のため、関数ライブラリ（Lib）フォルダから自動的に含まれなくなりました（<em>MyFunc()</em>の<code>MyFunc</code>が任意の変数になることができるようになりました）。<code>#Include &lt;LibName&gt;</code>は従来通り動作します。将来のリリースでは、モジュールのサポートに取って代わられる可能性があります。</p>
+<p>可変長引数組込関数の<em>MaxParams</em>の値が、任意の数値（255 や 10000 など）ではなく、<em>MinParams</em>と同じになるようになりました。Use the <em>IsVariadic</em> property to detect when there is no upper bound.</p>
 <h4 id="byref">ByRef</h4>
 <p><a href="Functions.htm#ByRef">ByRefパラメータ</a>は、<code>ByRef param</code>の代わりに<code>&amp;param</code>を使用して宣言されるようになり、使い方に若干の違いがあります。</p>
 <p>ByRefパラメータが暗黙のうちに呼び出し元の変数への参照を取ることはなくなりました。その代わり、呼び出し側は<a href="Variables.htm#ref">参照演算子</a>（<code>&amp;var</code>）を使って明示的に参照を渡す必要があります。これにより、参照を別の場所に保存し、可変長引数関数で受け入れ、可変長引数コールで渡すなど、より柔軟な対応が可能になります。</p>
-<p>パラメータがByRefとマークされている場合、VarRef以外の値を明示的に渡そうとすると、エラーが発生します。それ以外の場合は，<code>param is VarRef</code>で参照を確認し，<code>IsSetRef(param)</code>で対象の変数に値があるかどうかを確認し，<code>%param%</code>で明示的に参照解除することができます．</p>
+<p>パラメータがByRefとマークされている場合、VarRef以外の値を明示的に渡そうとすると、エラーが発生します。それ以外の場合は，<code>param is VarRef</code>で参照を確認し，<code>IsSetRef(param)</code>で対象の変数に値があるかどうかを確認し，<code>%param%</code>で明示的に参照解除することができます。</p>
 <p>ByRefパラメータは、同じ関数が再帰的に呼び出されたときに、前のインスタンスからローカル変数への参照を受け取ることができるようになりました。</p>
 <h3 id="nested-functions">ネストされた関数</h3>
 <p>ある関数は、別の関数の内部で定義することができます。ネストされた関数は、（適切な条件下で）包含関数から非静的ローカル変数を自動的に「捕捉」し、包含関数が戻った後に使用できるようにすることができます。</p>
@@ -262,7 +262,7 @@
 <p><a href="lib/_ErrorStdOut.htm">#ErrorStdOut</a>のパラメータを引用符で囲むことができるようになりました（オプション）。</p>
 <p>ラベル名は、文字、数字、アンダースコア、非ASCII文字（変数、関数などと同じ）のみで構成することが求められるようになりました。</p>
 <p>関数内で定義されたラベルはローカルスコープを持ち、その関数内でのみ表示され、他の場所で定義されたラベルと衝突することはありません。ローカルラベルを外部から（組み込み関数でも）呼び出すことはできません。代わりにネストされた関数を使用することで、ローカル変数を完全に使用することができます。</p>
-<p><code>for k, v in obj</code>:</p>
+<p><code>for k, v in obj</code>：</p>
 <ul>
 <li>オブジェクトの呼び出し方が変わりました。See <a href="#enumeration">Enumeration</a> further below.</li>
 <li><em>k</em> and <em>v</em> are now restored to the values they had before the loop began, after the loop breaks or completes.</li>
@@ -272,10 +272,10 @@
 </ul>
 <p>コンマのエスケープには、もはや何の意味もありません。Previously if used in an expression within a command's parameter and not within parentheses, <code>`,</code> forced the comma to be interpreted as the multi-statement operator rather than as a delimiter between parameters. このように動作するのはコマンドのみで、関数や変数宣言は対象外でした。</p>
 <p>エスケープシーケンス<code>`s</code>は、<code>`t</code>がサポートされている場所であればどこでも許可されるようになりました。これまでは #IfWin と (Join でしか認められていませんでした。</p>
-<p><code>*/</code> を行末に置いて複数行のコメントを終了できるようになり、他の言語での <code>/* */</code> の動作に関する共通の混乱点を解決しました。(例えば、<code>*/</code>で終わるホットストリングでは)曖昧さが生じる恐れがあるため、<code>*/</code>の前に<code>/*</code>がないものは無視されるようになりました(AHK_L revision 54での変更点を取り消します)。</p>
+<p><code>*/</code> を行末に置いて複数行のコメントを終了できるようになり、他の言語での <code>/* */</code> の動作に関する共通の混乱点を解決しました。曖昧さが生じる恐れがあるため（例えば、<code>*/</code>で終わるホットストリングでは）、<code>*/</code>の前に<code>/*</code>がないものは無視されるようになりました（AHK_L revision 54での変更点を取り消します）。</p>
 <p>64ビット符号付き整数のサポート範囲外の整数定数や数値文字列は、最小/最大値で上限が設定されるのではなく、オーバーフロー/ラップアラウンドするようになりました。これは数学の演算子と一致しているので、<code>9223372036854775807+1 == 9223372036854775808</code>（ただしどちらも-9223372036854775808が出ます）。これにより、64ビット値に対するビット演算が容易になります。</p>
 <p>数値文字列の場合、数字の前にスペースとタブ以外の空白文字が許されるケースは少なくなっています。一般的なルールとして（v1、v2ともに）スペースとタブのみが許可されていますが、Cランタイムライブラリの規約により他の空白文字が許容される場合もあります。</p>
-<p><a href="lib/Else.htm">Else</a> can now be used with <a href="Language.htm#loop-statement">loops of any type</a> and <a href="lib/Catch.htm">Catch</a>. For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <em>Catch</em>, it is executed if no exception is thrown within <em>Try</em> (and is not executed if any error or value is thrown, even if there is no <em>Catch</em> matching the value's class). Consequently, the interpretation of <em>Else</em> may differ from previous versions when used without braces. 事例：</p>
+<p><a href="lib/Else.htm">Else</a> can now be used with <a href="Language.htm#loop-statement">loops of any type</a> and <a href="lib/Catch.htm">Catch</a>. For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <em>Catch</em>、<em>Try</em>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<em>Catch</em>がなくても実行されません）。そのため、<em>Else</em>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。事例：</p>
 <pre>if condition
 {
     while condition
@@ -285,7 +285,7 @@ else
     <em>; 条件が偽の場合に実行されるステートメント</em>
 </pre>
 <h3 id="continuation-sections">継続の部</h3>
-<p>Smart LTrim:デフォルトの動作は、継続セクションオプション以下の最初の行の先頭のスペースまたはタブの数を数え、それ以降の各行からその数のスペースまたはタブを削除することです。最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。</p>
+<p>賢いLTrim：デフォルトの動作は、継続セクションオプション以下の最初の行の先頭のスペースまたはタブの数を数え、それ以降の各行からその数のスペースまたはタブを削除することです。最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。</p>
 <p>引用符は、継続部分が引用符で囲まれた文字列の中で始まる場合、自動的にエスケープされます（すなわち、リテラル文字として解釈されます）。これにより、複数行の文字列で引用符をエスケープする必要がなくなり（開始と終了の引用符が継続部分の外にある場合）、かつ複数行の式に引用符付きの文字列を含めることができます。</p>
 <p>継続セクションの上の行が名前文字で終わり、そのセクションが引用文字列の中で始まらない場合、名前と継続セクションの内容を分離するために、1つのスペースが自動的に挿入されます。これにより、<code>return</code>や関数呼び出し文などに続く複数行の表現に、継続セクションを使用することができます。また、変数名が他のトークン（または名前）と結合して無効な式になることがないようにします。</p>
 <p>式中の改行文字（<code>`n</code>）はスペースとして扱われます。これにより、複数行の式を、デフォルトのオプション（<code>Join</code>の省略など）で継続セクションを使って書くことができます。</p>
@@ -297,13 +297,13 @@ else
 <h3 id="continuation-lines">継続行</h3>
 <p>行の継続は、記号が式演算子とみなされる文脈について、より選択的になりました。一般に、カンマや式演算子は、ホットストリングやディレクティブ（#HotIf以外）、閉じない引用文字列の後など、テキスト文脈での継続に使用できなくなりました。</p>
 <p>行末の式演算子に対して、行の継続が機能するようになりました。</p>
-<p><code>is</code>, <code>in</code>, <code>contains</code> は行の継続に使えますが、<code>in</code>,<code>contains</code> は演算子としてまだ予約/未実装となっています。</p>
+<p><code>is</code>、<code>in</code>、<code>contains</code> は行の継続に使えますが、<code>in</code>、<code>contains</code> は演算子としてまだ予約/未実装となっています。</p>
 <p><code>and</code>、<code>or</code>、<code>is</code>、<code>in</code>、<code>contains</code>は、代入や他の二項演算子が続いても、もはや有効な変数名ではないので、行継続演算子として機能します。一方、v1では、<code>and</code>/<code>or</code>の後にany ofが続く場合は例外としました：<code>&lt;&gt;=/|^:,</code></p>
 <p><code>.VeryLongNestedClassName</code>のように、行頭で<code>.</code>の右側にスペースやタブがなかった場合、継続に<code>.</code>が使われると、2つの行は自動的にスペースで区切られなくなります。なお、<code class="no-highlight">x .123</code>は常にプロパティアクセス（自動連結ではない）、<code class="no-highlight">x+.123</code>はスペースの有無にかかわらず動作します。</p>
 <h3 id="types">種類</h3>
 <p>一般的に、値の型に依存するようなコードでは、v2の方がより一貫した結果を得ることができます。</p>
 <p>v1では、変数に文字列とキャッシュされた2進数の両方を含めることができ、変数が数値として使用されるたびに更新されます。このキャッシュされた2進数が値の型を検出する唯一の手段であるため、<code>var+1</code>や <code>abs(var)</code>などの式で内部的に行われるキャッシュは、副作用として<code>var</code>の「型」を効果的に変更します。v2はこのキャッシュを無効にするため、<code>str := "123"</code>は常に文字列、<code>int := 123</code>は常に整数になります。そのため、<code>str</code>はもともと純粋な数字が割り当てられている場合を除き、数字として使われるたびに（初回だけでなく）変換する必要があります。</p>
-<p>The built-in "variables" <code>true</code>, <code>false</code>, <code>A_PtrSize</code>, <code>A_Index</code> and <code>A_EventInfo</code> always return pure integers, not strings. v1では特定の最適化により文字列を返すことがありましたが、v2ではそのようなことはありません。</p>
+<p>組み込みの「変数」の<code>true</code>、<code>false</code>、<code>A_PtrSize</code>、<code>A_Index</code>、<code>A_EventInfo</code>は常に純粋な整数を返し、文字列は返しません。v1では特定の最適化により文字列を返すことがありましたが、v2ではそのようなことはありません。</p>
 <p>すべてのリテラル数値は、ロード時に純粋な2進数に変換され、その文字列表現は破棄されます。例えば、<code>MsgBox 0x1</code>は<code>MsgBox 1</code>と同等であり、<code>MsgBox 1.0000</code>は<code>MsgBox 1.0</code>と同等です（浮動小数点数のフォーマットが変更されたため）。数値を変数に格納したり、ユーザー定義関数から返したりしても、純粋な数値の状態を維持することができます。</p>
 <p>浮動小数点数のデフォルトのフォーマット指定子が<code>.17g</code>（<code class="no-highlight">0.6f</code>だった）になり、よりコンパクトで多くのケースでより正確になっています。デフォルトは変更できませんが、<code>Format</code>を使用することで異なる書式を得ることができます。</p>
 <p>引用リテラル文字列および引用リテラル文字列を連結した文字列は、無条件に非数値と見なされなくなりました。代わりに、変数に格納された文字列や関数から返された文字列と同じように扱われます。これには次のような意味があります：</p>
@@ -312,10 +312,10 @@ else
 <li><code>("0xA") + 1</code>と <code>("0x" Chr(65)) + 1</code>は失敗ではなく11を生成します。</li>
 <li><code>x[y:="0"]</code>と<code>x["0"]</code>が同じ挙動になりました。</li>
 </ul>
-<p>演算子<code>=</code>と<code>!=</code>は、オペランドが文字列の場合はアルファベット順に比較し、数値文字列の場合はアルファベット順に比較するようになりました。数値比較は、両方のオペランドが数値であり、少なくとも1つのオペランドが純粋な数値（文字列ではない）である場合にも実行されます。So for example, <code>54</code> and <code>"530"</code> are compared numerically, while <code>"54"</code> and <code>"530"</code> are compared alphabetically. また、変数に格納された文字列は、リテラル文字列と同じように扱われます。</p>
+<p>演算子<code>=</code>と<code>!=</code>は、オペランドが文字列の場合はアルファベット順に比較し、数値文字列の場合はアルファベット順に比較するようになりました。数値比較は、両方のオペランドが数値であり、少なくとも1つのオペランドが純粋な数値（文字列ではない）である場合にも実行されます。そのため、例えば<code>54</code>と<code>"530"</code>は数字で比較され、<code>"54"</code>と<code>"530"</code>はアルファベットで比較されます。また、変数に格納された文字列は、リテラル文字列と同じように扱われます。</p>
 <p>関係演算子<code>&lt;</code>,<code>&lt;=</code>,<code>&gt;</code>,<code>&gt;=</code>を数値以外の文字列で使用すると、例外が発生するようになりました。従来は、入力が数値かアルファベットかによって比較されていましたが、リテラル引用文字列は常に非数値とみなされていました。代わりに<code>StrCompare(a, b, CaseSense)</code>を使用してください。</p>
 <p><code>Type(Value)</code>は、以下の文字列のいずれかを返す：String、Integer、Float、またはオブジェクトの特定のクラス。</p>
-<p><code>Float(Value)</code>, <code>Integer(Value)</code> and <code>String(Value)</code> convert <em>Value</em> to the respective type, or throw an exception if the conversion cannot be performed (e.g. <code>Integer("1z")</code>). <code>Number(Value)</code> converts to Integer or Float. <code>String(Value)</code> calls <code>Value.ToString()</code> if <em>Value</em> is an object. (理想的には、オブジェクトから文字列への暗黙の変換でも行われるのですが、現在の実装ではこれが困難です)。</p>
+<p><code>Float(Value)</code>,<code>Integer(Value)</code>,<code>String(Value) は</code>、<em>Value</em>をそれぞれの型に変換し、変換できない場合は例外を投げます（例：<code>Integer("1z")</code>）。<code>Number(Value)</code>は、整数または浮動小数点数に変換します。<code>String(Value)</code>は、<code>Value</code>がオブジェクトである場合、<em>Value.ToString()</em>を呼び出します。（理想的には、オブジェクトから文字列への暗黙の変換でも行われるのですが、現在の実装ではこれが困難です。）</p>
 <h2 id="objects">オブジェクト</h2>
 <p>オブジェクトは、より構造化されたクラス-プロトタイプのアプローチを採用し、クラス/静的メンバとインスタンスメンバを分離しています。多くの組み込みメソッドやObj関数が移動、名称変更、変更、削除されています。</p>
 <ul>
@@ -325,18 +325,18 @@ else
 </ul>
 <p>混在していたObject型は、<code>Object</code>、<code>Array</code>、<code>Map</code>（連想配列）に分割されました。</p>
 <p>Objectは、すべてのユーザー定義<strong>および組み込み</strong>オブジェクトのルートクラスとなりました（VarRefおよびCOMオブジェクトは除きます）。<code>Object.Prototype</code>に追加されたメンバーは、すべてのAutoHotkeyオブジェクトに継承されます。</p>
-<p><code>is</code>オペレーターはクラスを期待するので、<code>x is y</code>は、ベースオブジェクトチェーンで<code>y.Prototype</code>をチェックします。To check for <em>y</em> itself, call <code>x.HasBase(y)</code> or <code>HasBase(x, y)</code>.</p>
+<p><code>is</code>オペレーターはクラスを期待するので、<code>x is y</code>は、ベースオブジェクトチェーンで<code>y.Prototype</code>をチェックします。<em>y</em>そのものを確認するには、<code>x.HasBase(y)</code>または<code>HasBase(x, y)</code>を呼び出します。</p>
 <p>ユーザー定義クラスは、<code>Object</code>、<code>Array</code>、<code>Map</code>などの組み込みクラスを明示的に拡張することも可能です（ただし、拡張することが必ずしも有用とは限りません）。<code>Object</code> は、何も指定されていない場合のデフォルトの基底クラスです。</p>
 <p><code>new</code>オペレーターは削除されました。代わりに、<code>MyClass()</code>のように演算子を省略するだけです。クラスではない別のオブジェクトを<em>元に</em>オブジェクトを構成するには、<code>{}</code>または<code>Object()</code>で（あるいは他の手段で）作成し、その<code>base</code>を設定します。<code>__Init</code>と <code>__New</code>は、必要に応じて明示的に呼び出すことができますが、一般的にはクラスをインスタンス化するときにのみ適切です。</p>
 <p>ネストされたクラス定義は、単純な値プロパティではなく、<em>get</em>および<em>call</em>アクセッサ関数を持つ動的プロパティを生成するようになりました。これは、次のような行動をサポートするためです：</p>
 <ul>
-<li><code>Nested.Class()</code> does not pass <em>Nested</em> to <code>Nested.Class.Call</code> and ultimately <code>__New</code>, which would otherwise happen because this is the normal behaviour for function objects called as methods (which is how the nested class is being used here).</li>
+<li><code>Nested.Class()</code>では、<em>Nested</em>を <code>Nested.Class.Call</code>、ひいては<code>__New</code>に渡しません。これは、メソッドとして呼び出される関数オブジェクトの通常の動作です（ここでは、入れ子のクラスはこのように使用されています）。</li>
 <li><code>Nested.Class := 1</code>はデフォルトでエラーとなります（プロパティは読み取り専用です）。</li>
 <li>初めて参照または呼び出すと、クラスが初期化されます。</li>
 </ul>
 <p>GetCapacityとSetCapacityを削除しました。</p>
 <ul>
-<li><a href="lib/Object.htm#GetCapacity">ObjGetCapacity</a>と <a href="lib/Object.htm#SetCapacity">ObjSetCapacity</a>は、プロパティを含むオブジェクトの容量にのみ影響するようになり、一般的に使用されることはないと予想されます。Setting the capacity of the string buffer of a property, array element or map element is not supported; for binary data, use a <a href="lib/Buffer.htm">Buffer object</a>.</li>
+<li><a href="lib/Object.htm#GetCapacity">ObjGetCapacity</a>と <a href="lib/Object.htm#SetCapacity">ObjSetCapacity</a>は、プロパティを含むオブジェクトの容量にのみ影響するようになり、一般的に使用されることはないと予想されます。プロパティ、配列要素、マップ要素の文字列バッファの容量設定には対応していません。バイナリデータの場合は、<a href="lib/Buffer.htm">Bufferオブジェクト</a>を使用してください。</li>
 <li>ArrayとMapには、オブジェクトの現在の配列またはマップの割り当てに対応するCapacityプロパティがあります。</li>
 </ul>
 <p>その他、冗長なObj関数（Objectの組み込みメソッドをミラーリングしたもの）を削除しました。<a href="lib/Object.htm#HasOwnProp">ObjHasOwnProp</a>（旧ObjHasKey）と<a href="lib/Object.htm#OwnProps">ObjOwnProps</a>（旧ObjNewEnum）は、これらのメソッドを再定義したオブジェクト（およびそれらが定義されていないプリミティブプロトタイプ）を安全に検査するために保持されています。ObjCountは<a href="lib/Object.htm#OwnPropCount">ObjOwnPropCount</a>（機能のみ、すべてのObjectに対して）に置き換えられ、Mapは独自の<a href="lib/Map.htm#Count">Count</a>プロパティを持ちます。</p>
@@ -346,7 +346,7 @@ else
 <p>プリミティブ値は、v1の「デフォルトのベースオブジェクト」の代わりに、メソッドやプロパティの呼び出しをその型に応じたプロトタイプオブジェクトに委ねることで、オブジェクトを模倣します。整数と浮動小数点数はNumberを拡張しています。文字列とNumberはPrimitiveを継承しています。PrimitiveとObjectはAnyを拡張します。これらはすべて、あらかじめ定義されたクラスとして存在します。</p>
 <h3 id="properties-and-methods">プロパティとメソッド</h3>
 <p>メソッドは、v2.0-a104からv2.0-a127までと異なり、プロパティに分離して定義されています。ただし、v1とは異なり、クラスメソッド定義（または組み込みメソッド）で作成されたプロパティは、デフォルトで読み取り専用となります。メソッドは、一般的にv1のように動作する新しい値プロパティを割り当てることによって、まだ作成することができます。</p>
-<p>Objectクラスは、プロパティとメソッドを扱うための新しいメソッドを定義しています：<a href="lib/Object.htm#DefineProp">DefineProp</a>, <a href="lib/Object.htm#DeleteProp">DeleteProp</a>, <a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>, <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>, <a href="lib/Object.htm#OwnProps">OwnProps</a>. すべての値（ComObjectを除く）に対して、追加のメソッドが定義されています：<a href="lib/Any.htm#GetMethod">GetMethod</a>, <a href="lib/Any.htm#HasProp">HasProp</a>, <a href="lib/Any.htm#HasMethod">HasMethod</a>.</p>
+<p>Objectクラスは、プロパティとメソッドを扱うための新しいメソッドを定義しています：<a href="lib/Object.htm#DefineProp">DefineProp</a>、<a href="lib/Object.htm#DeleteProp">DeleteProp</a>、<a href="lib/Object.htm#GetOwnPropDesc">GetOwnPropDesc</a>、<a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>、<a href="lib/Object.htm#OwnProps">OwnProps</a>。すべての値（ComObjectを除く）に対して、追加のメソッドが定義されています：<a href="lib/Any.htm#GetMethod">GetMethod</a>、<a href="lib/Any.htm#HasProp">HasProp</a>、<a href="lib/Any.htm#HasMethod">HasMethod</a>。</p>
 <p>Object、Array、Mapはそれぞれ別の型となり、配列の要素はプロパティとは別になりました。</p>
 <p>すべての組み込みメソッドとプロパティ（<code>base</code>を含む）は、ユーザー定義と同じ方法で定義されます。これにより、一貫した動作が保証され、組み込みとユーザー定義の両方のメンバーを検出、検索、再定義することができます。</p>
 <p>プロパティがパラメータを受け付けない場合、パラメータは自動的にプロパティが返すオブジェクトに渡されます（または、投げられます）。</p>
@@ -357,7 +357,7 @@ else
 <p><code>{}</code> オブジェクトリテラルが、<em>所有プロパティ</em>の値やオブジェクトの <code>base</code> を直接設定するようになりました。つまり、<code>__Set</code>やプロパティセッターはもはや呼び出されない（これは通常、パラメータリスト内で<code>base</code>が設定されている場合にのみ可能である）。</p>
 <h3 id="staticclass-variables">静的クラス変数</h3>
 <p>静的/クラス変数のイニシャライザーは、<code>static __Init</code>メソッドのコンテキスト内で実行されるようになったので、<code>this</code>はクラスを参照し、イニシャライザーはローカル変数を作成することができます。これらは、クラスが初めて参照されたときに評価されます（自動実行部が始まる前に評価されるのではなく、厳密には定義順に評価されます）。クラスがすぐに参照されない場合は、実行中にクラス定義に到達した時点で評価されるため、グローバル変数の初期化は、クラスに入れずに最初に行うことができます。</p>
-<h3 id="meta-functions">Meta-Functions</h3>
+<h3 id="meta-functions">メタファンクション</h3>
 <p>メタファンクションが大幅に簡略化され、通常のメソッドと同じように動作するようになりました：</p>
 <ul>
 <li>階層構造の中でどこに定義されるかは重要ではありません。</li>
@@ -370,7 +370,7 @@ else
 this.__get(name, args)
 this.__set(name, args, value)</pre>
 <p>定義されたプロパティやメソッドは、ベースオブジェクトで定義されたかどうかにかかわらず、メタファンクションよりも優先されます。</p>
-<p>__Call is not called for internal calls to __Enum (formerly _NewEnum) or Call, such as when an object is passed to a <a href="lib/For.htm">for-loop</a> or a function object is being called by <a href="lib/SetTimer.htm">SetTimer</a>.</p>
+<p>オブジェクトが<a href="lib/For.htm">forループ</a>に渡されるときや、<a href="lib/SetTimer.htm">SetTimer</a>で関数オブジェクトが呼び出されるときなど、__Enum（旧 _NewEnum）またはCallの内部呼び出しでは__Callは呼び出されません。</p>
 <p>静的メソッド __New は、そのクラスで定義されているか、スーパークラスから継承されている場合、各クラスの初期化時に呼び出されます。詳しくは、<a href="#staticclass-variables">静的/クラス変数</a>（上）、および、<a href="Objects.htm#static__New">クラスの初期化</a>をご覧ください。</p>
 <h3 id="array">Array</h3>
 <p><code>class Array extends Object</code></p>
@@ -380,7 +380,7 @@ this.__set(name, args, value)</pre>
 <p>負の値を使用すると、逆方向のインデックスを作成することができます。</p>
 <p><a href="lib/Array.htm#Clone">Clone</a>、<a href="lib/Array.htm#Delete">Delete</a>、<a href="lib/Array.htm#InsertAt">InsertAt</a>、<a href="lib/Array.htm#Pop">Pop</a>、<a href="lib/Array.htm#Push">Push</a>、<a href="lib/Array.htm#RemoveAt">RemoveAt</a>の使い方は基本的に変わりません。HasKeyは<a href="lib/Array.htm#Has">Has</a>に名称変更されました。<a href="lib/Array.htm#Length">Length</a>がプロパティになりました。<a href="lib/Array.htm#Capacity">Capacity</a>プロパティを追加しました。</p>
 <p>配列は、<code>Array(values*)</code>または<code>[values*]</code>で構築することができます。変数型関数は、パラメータの配列を受け取ります。また、配列はいくつかの組み込み関数でも作成されます。</p>
-<p>For-Loop の使用法は、<code>for val in arr</code>または<code>for idx, val in arr</code>で、デフォルトでは<code>idx = A_Index</code>です。つまり、値がない要素も列挙され、変数が1つしか渡されない場合はインデックスが返されない。</p>
+<p>Forループの使用法は、<code>for val in arr</code>または<code>for idx, val in arr</code>で、デフォルトでは<code>idx = A_Index</code>です。つまり、値がない要素も列挙され、変数が1つしか渡されない場合はインデックスが返されない。</p>
 <h3 id="map">Map</h3>
 <p>Mapオブジェクトは、v1オブジェクトに似た機能を持つ連想配列ですが、より曖昧さがありません。</p>
 <ul>
@@ -388,8 +388,8 @@ this.__set(name, args, value)</pre>
 <li><a href="lib/Map.htm#Delete">Delete</a>は、一度に1つのキーしか削除できません。</li>
 <li>HasKeyは<a href="lib/Map.htm#Has">Has</a>に名称変更されました。</li>
 <li><a href="lib/Map.htm#Count">Count</a>がプロパティになりました。</li>
-<li>新しいプロパティ：<a href="lib/Map.htm#Capacity">Capacity</a>, <a href="lib/Map.htm#CaseSense">CaseSense</a></li>
-<li>新しい手法：<a href="lib/Map.htm#Get">Get</a>, <a href="lib/Map.htm#Set">Set</a>, <a href="lib/Map.htm#Clear">Clear</a></li>
+<li>新しいプロパティ：<a href="lib/Map.htm#Capacity">Capacity</a>、<a href="lib/Map.htm#CaseSense">CaseSense</a></li>
+<li>新しい手法：<a href="lib/Map.htm#Get">Get</a>、<a href="lib/Map.htm#Set">Set</a>、<a href="lib/Map.htm#Clear">Clear</a></li>
 <li>文字列のキーはデフォルトで大文字と小文字が区別され、Integerに変換されることはありません。</li>
 </ul>
 <p>現在、Floatキーは文字列に変換されたままです。</p>
@@ -400,13 +400,13 @@ this.__set(name, args, value)</pre>
 <p>列挙者モデルの変更：</p>
 <ul>
 <li>NewEnum()を__Enum(n)に置き換えました。</li>
-<li>必須パラメータnには、for-loopの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
+<li>必須パラメータnには、forループの変数数が含まれており、最初の反復呼び出しまで初期化を延期することなく、列挙に影響を与えることができます。</li>
 <li>Next()をCall()に置き換え、ByRefが異なる動作をする以外は同じ使い方をします。例えば、<code>Call(&amp;a)</code>として定義されたメソッドは<code>a := next_value</code>を代入する必要がありますが、<code>Call(a)</code>は<a href="Concepts.htm#variable-references">VarRef</a>を受け取るので<code>%a% := next_value</code>を代入すべきです。</li>
-<li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされます。This allows function objects (such as <a href="Functions.htm#closures">closures</a>) to be used directly.</li>
+<li>__Enumが存在しない場合、オブジェクトは列挙者であるとみなされます。これにより、関数オブジェクト（<a href="Functions.htm#closures">クロージャ</a>など）を直接使用することができます。</li>
 </ul>
 <p>配列要素とプロパティが分離されたため、プロパティの列挙には<a href="lib/Object.htm#OwnProps">OwnProps</a>を呼び出して明示的に列挙者を作成する必要があります。</p>
 <h3 id="bound-functions">バウンド関数</h3>
-<p>When a <a href="misc/Functor.htm#BoundFunc">bound function</a> is called, parameters passed by the caller fill in any positions that were omitted when creating the bound function. For example, <code>F.Bind(,b).Call(a,c)</code> calls <code>F(a,b,c)</code> rather than <code>F(,b,a,c)</code>.</p>
+<p><a href="misc/Functor.htm#BoundFunc">バウンド関数</a>が呼び出されると、呼び出し元から渡されたパラメータが、バウンドファンクションの作成時に省略された位置を埋めます。例えば、<code>F.Bind(,b).Call(a,c)</code>は<code>F(,b,a,c)</code>ではなく<code>F(a,b,c)</code>を呼び出します。</p>
 <h3 id="com-objects-comobject">COMオブジェクト(ComObject)</h3>
 <p>COMラッパーオブジェクトは、バリアントタイプによっていくつかの異なるクラスのインスタンスとして識別されるようになりました（以前のように、どのメソッドとプロパティをサポートするかに影響します）：</p>
 <ul>
@@ -418,46 +418,46 @@ this.__set(name, args, value)</pre>
 <p>これらのクラスは、<code>obj is ComObject</code>などのタイプチェックに使用できます。ComValue型、ComObjArray型、ComValueRef型（ComObjectは除く）のオブジェクトは、それぞれのプロトタイプオブジェクトを変更することにより、プロパティとメソッドを定義することができます。</p>
 <p><code>ComObject(CLSID)</code>は、ComObjectを作成します。つまり、これは新しいComObjCreateです。</p>
 <p>注：古いコードを更新しているときに、ComObjectにIntegerを渡したためにTypeErrorが発生した場合、代わりにComValueを呼び出す必要がある可能性があります。</p>
-<p><code>ComValue(vt, value)</code>は、ラッパーオブジェクトを作成します。上記のいずれかのクラスのインスタンスを返すことができます。これは、<code>ComObjParameter(vt, value)</code>、<code>ComObject(vt, value)</code>、およびパラメータとして<em>バリアント型</em>と <em>値</em>を使用していた他の名前を置き換えます。<em>値</em>は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。特に、以下のものは整数を渡されたときの挙動が以前と異なります：R4, R8, Cy, Date. ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</p>
+<p><code>ComValue(vt, value)</code>は、ラッパーオブジェクトを作成します。上記のいずれかのクラスのインスタンスを返すことができます。これは、<code>ComObjParameter(vt, value)</code>、<code>ComObject(vt, value)</code>、およびパラメータとして<em>バリアント型</em>と <em>値</em>を使用していた他の名前を置き換えます。<em>値</em>は、正しいバイナリ値を持つ整数を必要とするのではなく、（COMの規約に従って）適切な型に変換されます。特に、以下のものは整数を渡されたときの挙動が以前と異なります：R4、R8、Cy、Date。ポインタ型は、従来通り純粋な整数アドレスか、オブジェクト/ComValueのいずれかを許可します。</p>
 <p><code>ComObjFromPtr(pdsp)</code>は<code>ComObjEnwrap(dsp)</code>と同様の関数ですが、ObjFromPtrのようにポインタに対してAddRefを呼び出すことはしません。v1での同等品は<code>ComObject(9, dsp, 1)</code>です。v1で第3パラメータを省略するとAddRefが発生しました。</p>
 <p>ComValueとComObjFromPtrは、AddRefが自動的に呼び出されることはないので、その点ではv1の<code>ComObject(9, value, 1)</code>や<code>ComObject(13, value, 1)</code>と同じ挙動をすることに注意。これは、古いスクリプトを更新する際に、<code>ObjAddRef(value)</code>を追加する必要があるとは限らず、多くのスクリプトが古い関数を間違って使用していたためです。</p>
-<p>COM wrapper objects with variant type VT_BYREF, VT_ARRAY or VT_UNKNOWN now have a <em>Ptr</em> property equivalent to <code>ComObjValue(ComObj)</code>. This allows them to be passed to <a href="lib/DllCall.htm">DllCall</a> or <a href="lib/ComCall.htm">ComCall</a> with the <em>Ptr</em> arg type. It also allows the object to be passed directly to <a href="lib/NumPut.htm">NumPut</a> or <a href="lib/NumGet.htm">NumGet</a>, which may be used with VT_BYREF (access the caller's typed variable), VT_ARRAY (access SAFEARRAY fields) or VT_UNKNOWN (retrieve vtable pointer).</p>
-<p>COM wrapper objects with variant type VT_DISPATCH or VT_UNKNOWN and a null interface pointer now have a <em>Ptr</em> property which can be read or assigned. 非NULLポインタが割り当てられると、このプロパティは読み取り専用になります。This is intended for use with <a href="lib/DllCall.htm">DllCall</a> and <a href="lib/ComCall.htm">ComCall</a>, so the pointer does not need to be manually wrapped after the function returns.</p>
-<p>ComObjArrayの列挙がArrayと一致するようになりました。つまり、<code>for value in arr</code>や<code>for index, value in arr</code>ではなく、<code>for value, vartype in arr</code>です。。The starting value for <em>index</em> is the lower bound of the ComObjArray (<code>arr.MinIndex()</code>), typically 0.</p>
+<p>VT_BYREF、VT_ARRAY、VT_UNKNOWNのバリアントタイプを持つCOMラッパーオブジェクトに、<em>ComObjValue(ComObj)</em>と同等の<code>Ptr</code>プロパティが付くようになりました。これにより、<a href="lib/DllCall.htm">DllCall</a>や<a href="lib/ComCall.htm">ComCall</a>に<em>Ptr</em>のarg型で渡すことができるようになります。また、VT_BYREF（呼び出し元の型付き変数にアクセス）、VT_ARRAY（SAFEARRAYフィールドにアクセス）、VT_UNKNOWN（vtableポインタを取得）で使用できる<a href="lib/NumPut.htm">NumPut</a>や<a href="lib/NumGet.htm">NumGet</a>にオブジェクトを直接渡すことができます。</p>
+<p>VT_DISPATCHまたはVT_UNKNOWNというバリアントタイプとNULLインターフェイスポインターを持つCOMラッパーオブジェクトが、読み取りまたは割り当て可能な<em>Ptr</em>プロパティを持つようになりました。非NULLポインタが割り当てられると、このプロパティは読み取り専用になります。これは<a href="lib/DllCall.htm">DllCall</a>や<a href="lib/ComCall.htm">ComCall</a>での使用を想定しており、関数が戻った後にポインタを手動でラップする必要がありません。</p>
+<p>ComObjArrayの列挙がArrayと一致するようになりました。つまり、<code>for value in arr</code>や<code>for index, value in arr</code>ではなく、<code>for value, vartype in arr</code>です。。<em>index</em>の開始値はComObjArrayの下限値（<code>arr.MinIndex()</code>）であり、通常は0です。</p>
 <p>整数型I1、I8、UI1、UI2、UI4、UI8は、StringではなくIntegerに変換されるようになりました。これらはCOMコールで稀に発生しますが、VT_BYREFラッパーにも適用されます。VT_ERRORはIntegerに変換されなくなり、代わりにComValueが生成されます。</p>
 <p>COMオブジェクトが、プロパティやメソッドの呼び出しに失敗したときに、<a href="Variables.htm#LastError">A_LastError</a>を設定しなくなりました。</p>
 <h3 id="default-property">デフォルトのプロパティ</h3>
 <p>COMオブジェクトは「デフォルト・プロパティ」を持つことができ、これには2つの用途があります：</p>
 <ul>
 <li>オブジェクトの<em>値</em>です。例えば、VBScriptでは、<code>MsgBox obj</code>は、そのデフォルトのメンバーを呼び出すことによって、オブジェクトを評価します。</li>
-<li>The indexed property of a collection, which is usually named <em>Item</em> or <em>item</em>.</li>
+<li>コレクションのインデックス付きプロパティで、通常は<em>Item</em>または<em>item</em>と名付けられます。</li>
 </ul>
-<p>AutoHotkey v1にはデフォルトプロパティの概念がなかったため、COMオブジェクトラッパーはプロパティ名が省略された場合、デフォルトプロパティを呼び出していました（例：<code>obj[]</code>または<code>obj[,x]</code>.</p>
-<p>However, AutoHotkey v2 separates properties from array/map/collection items, and to do this <code>obj[x]</code> is mapped to the object's default property (whether or not <em>x</em> is present). AutoHotkeyオブジェクトの場合、これは<code>__Item</code>です。</p>
+<p>AutoHotkey v1にはデフォルトプロパティの概念がなかったため、COMオブジェクトラッパーはプロパティ名が省略された場合、デフォルトプロパティを呼び出していました（例：<code>obj[]</code>または<code>obj[,x]</code>）。</p>
+<p>しかし、AutoHotkey v2では、プロパティを配列/マップ/コレクションの項目から分離しており、そのために<code>obj[x]</code>はオブジェクトのデフォルトのプロパティ（<em>x</em>が存在するかどうか）にマッピングされています。AutoHotkeyオブジェクトの場合、これは<code>__Item</code>です。</p>
 <p>配列やコレクションを表すCOMオブジェクトの中には、デフォルトのプロパティを公開していないものがあるため、v2では<code>[]</code>でアイテムにアクセスすることができません。例えば、JavaScriptの配列オブジェクトや、JavaScriptで通常使用される他のいくつかのオブジェクトは、配列要素をプロパティとして公開します。このような場合、<code>arr.%i%</code>は配列の要素-プロパティにアクセスするために使用することができます。</p>
-<p>When an AutoHotkey v2 <a href="lib/Array.htm">Array object</a> is passed to JavaScript, its elements cannot be retrieved with JavaScript's <code>arr[i]</code>, because that would attempt to access a property.</p>
+<p>AutoHotkey v2の<a href="lib/Array.htm">Arrayオブジェクト</a>をJavaScriptに渡すと、プロパティにアクセスしようとするため、JavaScriptの<code>arr[i]</code>でその要素を取得することができない。</p>
 <h3 id="com-calls">COM呼び出し</h3>
-<p>Calls to AutoHotkey objects via the IDispatch interface now transparently support VT_BYREF parameters. This would most commonly be used with COM events (<a href="lib/ComObjConnect.htm">ComObjConnect</a>).</p>
-<p>For each VT_BYREF parameter, an unnamed temporary var is created, the value is copied from the caller's variable, and a <a href="Concepts.htm#variable-references">VarRef</a> is passed to the AutoHotkey function/method. リターン時には、一時的な変数から呼び出し元の変数に値がコピーされます。</p>
+<p>IDispatchインターフェースを介したAutoHotkeyオブジェクトの呼び出しが、VT_BYREFパラメータを透過的にサポートするようになりました。これは、COMイベント（<a href="lib/ComObjConnect.htm">ComObjConnect</a>）で最も一般的に使用されるでしょう。</p>
+<p>各VT_BYREFパラメータに対して、無名の一時的なvarが作成され、値が呼び出し元の変数からコピーされ、<a href="Concepts.htm#variable-references">VarRef</a>がAutoHotkey関数/メソッドに渡されます。リターン時には、一時的な変数から呼び出し元の変数に値がコピーされます。</p>
 <p>関数/メソッドは、パラメータをByRef（<code>&amp;</code>付き）で宣言するか、明示的に再参照することで、値を割り当てることができます。</p>
 <p>例えば、<code>VT_BYREF|VT_BOOL</code>型のパラメータは、以前はComObjRefオブジェクトを受け取り、<code>pbCancel[] := true</code>または<code>NumPut(-1, ComObjValue(pbCancel), "short")</code>という値が割り当てられたはずです。これで、パラメータを<code>&amp;bCancel</code>と定義して<code>bCancel := true</code>のように代入することも、<code>pbCancel</code>と定義して<code>%pbCancel% := true</code>のように代入することもできるようになりました。</p>
 <h2 id="library">ライブラリ</h2>
 <p>削除：</p>
 <ul>
-<li>Asc() (<a href="lib/Ord.htm">Ord</a>使用)</li>
+<li>Asc()（<a href="lib/Ord.htm">Ord</a>使用）</li>
 <li>AutoTrim（<a href="lib/Trim.htm">Trim</a>使用）</li>
-<li>ComObjMissing()（代わりに2つの連続したカンマを書きます。）</li>
-<li>ComObjUnwrap() (代わりに<a href="lib/ComObjValue.htm">ComObjValue</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用)</li>
-<li>ComObjEnwrap() (代わりに<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用)</li>
+<li>ComObjMissing()（代わりに2つの連続したカンマを書きます）</li>
+<li>ComObjUnwrap()（代わりに<a href="lib/ComObjValue.htm">ComObjValue</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用）</li>
+<li>ComObjEnwrap()（代わりに<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用）</li>
 <li>ComObjError()</li>
 <li>ComObjXXX() ここで、XXXは明示的に定義されたComObj関数以外のものです（代わりに<a href="lib/ComObjActive.htm">ComObjActive</a>、<a href="lib/ComValue.htm">ComValue</a>、<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用してください）。</li>
-<li>ControlSendRaw （代わりに<code>ControlSend "{Raw}"</code>または<a href="lib/ControlSend.htm">ControlSendTextを</a>使用します。）</li>
+<li>ControlSendRaw （代わりに<code>ControlSend "{Raw}"</code>または<a href="lib/ControlSend.htm">ControlSendTextを</a>使用します）</li>
 <li>EnvDiv</li>
 <li>EnvMult</li>
-<li>EnvUpdate（有用性は非常に低く、単純な<a href="lib/SendMessage.htm">SendMessage</a>に置き換えることができます。）</li>
-<li>Exception (<a href="lib/Error.htm">Error</a>または適切なサブクラスを使用)</li>
-<li>FileReadLine（ファイル<a href="lib/LoopFiles.htm">読み込みループ</a>または<a href="lib/FileOpen.htm">FileOpen</a>を使用します。）</li>
-<li>Func (<code>MyFunc</code>のように直接参照を使用します)</li>
+<li>EnvUpdate（有用性は非常に低く、単純な<a href="lib/SendMessage.htm">SendMessage</a>に置き換えることができます）</li>
+<li>Exception（<a href="lib/Error.htm">Error</a>または適切なサブクラスを使用）</li>
+<li>FileReadLine（ファイル<a href="lib/LoopFiles.htm">読み込みループ</a>または<a href="lib/FileOpen.htm">FileOpen</a>を使用します）</li>
+<li>Func（<code>MyFunc</code>のように直接参照を使用します）</li>
 <li>Gosub</li>
 <li>Gui、GuiControl、GuiControlGet（<a href="#gui">Gui</a>の項参照）</li>
 <li>IfEqual</li>
@@ -467,7 +467,7 @@ this.__set(name, args, value)</pre>
 <li>IfInString</li>
 <li>IfLess</li>
 <li>IfLessOrEqual</li>
-<li>IfMsgBox (<a href="lib/MsgBox.htm">MsgBox</a>はボタン名を返すようになりました)</li>
+<li>IfMsgBox（<a href="lib/MsgBox.htm">MsgBox</a>はボタン名を返すようになりました）</li>
 <li>IfNotEqual</li>
 <li>IfNotExist</li>
 <li>IfNotInString</li>
@@ -475,23 +475,23 @@ this.__set(name, args, value)</pre>
 <li>IfWinExist</li>
 <li>IfWinNotActive</li>
 <li>IfWinNotExist</li>
-<li>If between/is/in/contains (ただし、<a href="#isXXX">isXXX</a>を参照)</li>
+<li>If between/is/in/contains（ただし、<a href="#isXXX">isXXX</a>を参照）</li>
 <li>Input（<a href="lib/InputHook.htm">InputHook</a>を使用）</li>
 <li>IsByRef (see <a href="Functions.htm#NoIsByRef">ByRef limitations</a>)</li>
 <li>IsFunc</li>
-<li>Menu（<a href="lib/Menu.htm">Menu/MenuBarクラス</a>、<a href="lib/TraySetIcon.htm">TraySetIcon</a>、<a href="Variables.htm#IconTip">A_IconTip</a>、<a href="Variables.htm#IconHidden">A_IconHidden</a>、<a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>を使用します）。</li>
-<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handle</a>を使用します。）</li>
+<li>Menu（<a href="lib/Menu.htm">Menu/MenuBarクラス</a>、<a href="lib/TraySetIcon.htm">TraySetIcon</a>、<a href="Variables.htm#IconTip">A_IconTip</a>、<a href="Variables.htm#IconHidden">A_IconHidden</a>、<a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>を使用します）</li>
+<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handle</a>を使用します）</li>
 <li>MenuGetName（メニュー名がないため、<a href="lib/MenuFromHandle.htm">MenuFromHandle</a>が最も近い代替となる）</li>
 <li>Progress （<a href="lib/Gui.htm">Gui</a>を使用）</li>
-<li>SendRaw （代わりに<code>Send "{Raw}"</code>または<a href="lib/Send.htm#SendText">SendText</a>を使用します。）</li>
-<li>SetBatchLines（-1がデフォルトの動作になりました。）</li>
+<li>SendRaw （代わりに<code>Send "{Raw}"</code>または<a href="lib/Send.htm#SendText">SendText</a>を使用します）</li>
+<li>SetBatchLines（-1がデフォルトの動作になりました）</li>
 <li>SetEnv</li>
-<li>SetFormat (<a href="lib/Format.htm">Format</a>は文字列の書式設定に使用できます)</li>
+<li>SetFormat（<a href="lib/Format.htm">Format</a>は文字列の書式設定に使用できます）</li>
 <li>SoundGet/SoundSet（<a href="#Sound">サウンド機能</a>参照）</li>
-<li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）。</li>
+<li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）</li>
 <li>SplashImage（<a href="lib/Gui.htm">Gui</a>を使用）</li>
-<li>SplashTextOn/Off(<a href="lib/Gui.htm">Gui</a>を使用)</li>
-<li>StringCaseSense (各種パラメータを使用)</li>
+<li>SplashTextOn/Off（<a href="lib/Gui.htm">Gui</a>を使用）</li>
+<li>StringCaseSense（各種パラメータを使用）</li>
 <li>StringGetPos（<a href="lib/InStr.htm">InStr</a>を使用）</li>
 <li>StringLeft<br>
 StringLen<br>
@@ -499,32 +499,32 @@ StringMid<br>
 StringRight<br>
 StringTrimLeft<br>
 StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.htm">SubStr</a>を使用します。</li>
-<li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplaceを</a>使用します。）</li>
-<li>StringSplit（代わりに<a href="lib/StrSplit.htm">StrSplitを</a>使用します。）</li>
+<li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplaceを</a>使用します）</li>
+<li>StringSplit（代わりに<a href="lib/StrSplit.htm">StrSplitを</a>使用します）</li>
 <li>Transform</li>
-<li>VarSetCapacity (use a <a href="lib/Buffer.htm">Buffer object</a> for binary data/structs and <a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a> for UTF-16 strings)</li>
+<li>VarSetCapacity （バイナリデータ/構造体には<a href="lib/Buffer.htm">Bufferオブジェクト</a>を、UTF-16文字列には<a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a>を使用します）</li>
 <li>WinGetActiveStats</li>
 <li>WinGetActiveTitle</li>
 <li>#CommentFlag</li>
 <li>#Delimiter</li>
 <li>#DerefChar</li>
 <li>#EscapeChar</li>
-<li>#HotkeyInterval（<a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>を使用）。</li>
-<li>#HotkeyModifierTimeout（<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を使用）。</li>
+<li>#HotkeyInterval（<a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>を使用）</li>
+<li>#HotkeyModifierTimeout（<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を使用）</li>
 <li>#IfWinActive、#IfWinExist、#IfWinNotActive、#IfWinNotExist<a href="lib/_HotIf.htm#optimization">（#HotIf Optimization</a>参照）</li>
-<li>#InstallKeybdHook (<a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a>関数を使用)</li>
-<li>#InstallMouseHook (<a href="lib/InstallMouseHook.htm">InstallMouseHook</a>関数を使用)</li>
-<li>#KeyHistory （<code>KeyHistory N</code>を使用します。）</li>
+<li>#InstallKeybdHook（<a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a>関数を使用）</li>
+<li>#InstallMouseHook（<a href="lib/InstallMouseHook.htm">InstallMouseHook</a>関数を使用）</li>
+<li>#KeyHistory （<code>KeyHistory N</code>を使用します）</li>
 <li>#LTrim</li>
-<li>#MaxHotkeysPerInterval （<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を使用します。）</li>
-<li>#MaxMem (各変数の最大容量が無制限になりました)</li>
-<li>#MenuMaskKey （<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を使用します。）</li>
-<li>#NoEnv (現在のデフォルトの動作)</li>
+<li>#MaxHotkeysPerInterval （<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を使用します）</li>
+<li>#MaxMem（各変数の最大容量が無制限になりました）</li>
+<li>#MenuMaskKey （<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を使用します）</li>
+<li>#NoEnv（現在のデフォルトの動作）</li>
 </ul>
 <p>改名：</p>
 <ul>
-<li>ComObjCreate() →<a href="lib/ComObject.htm">ComObject</a>であり、今はクラスになっています。</li>
-<li>ComObjParameter()→<a href="lib/ComValue.htm">ComValue</a>であり、現在はクラスになっています。</li>
+<li>ComObjCreate() → <a href="lib/ComObject.htm">ComObject</a>であり、今はクラスになっています</li>
+<li>ComObjParameter() → <a href="lib/ComValue.htm">ComValue</a>であり、現在はクラスになっています</li>
 <li>DriveSpaceFree → <a href="lib/DriveGetSpaceFree.htm">DriveGetSpaceFree</a></li>
 <li>EnvAdd → <a href="lib/DateAdd.htm">DateAdd</a></li>
 <li>EnvSub → <a href="lib/DateDiff.htm">DateDiff</a></li>
@@ -552,30 +552,30 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p class="note">セクションタイトルについて：v2にはコマンドはなく、関数だけです。タイトルは両バージョンを指しています。</p>
 <p>SendEventメソッドでAltイベントを送信したときに、<a href="lib/BlockInput.htm">BlockInput</a>が一瞬だけ無効になることがなくなりました。これはもともと、Windows XPの一部のバージョンで、BlockInputが人工的なAltイベントをブロックしてしまうというバグを回避するために行われたものです。</p>
 <p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返します。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>
-<p><a href="lib/ClipWait.htm">ClipWait</a> now returns 0 (false) if the wait period expires, otherwise 1 (true). ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
-<p><code>ComObj()</code>:この機能は、ワイルドカードのような名前で、さまざまな接尾辞をつけることができました。<code>ComObjActive(CLSID)</code>,<code>ComObjParameter(vt, value)</code>,<code>ComObjEnwrap(dsp)</code>のように、特定の種類のパラメータでよく使われる名前もありました。その代わり、関数やクラスが別々になり、ワイルドカードの名前もなくなりました。詳細は「<a href="#com-objects-comobject">COMオブジェクト（ComObject）</a>」を参照してください。</p>
-<p>Control:<a href="lib/Control.htm">Control関数</a>、<a href="lib/SendMessage.htm">SendMessage</a>と<a href="lib/PostMessage.htm">PostMessage</a>で使用される<a href="lib/Control.htm#Parameter"><em>Control</em>パラメータに</a>いくつかの変更が加えられました：</p>
+<p><a href="lib/ClipWait.htm">ClipWait</a>は、待ち時間が終了した場合は0（false）を、そうでない場合は1（true）を返すようになりました。ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
+<p><code>ComObj()</code>：この機能は、ワイルドカードのような名前で、さまざまな接尾辞をつけることができました。<code>ComObjActive(CLSID)</code>,<code>ComObjParameter(vt, value)</code>,<code>ComObjEnwrap(dsp)</code>のように、特定の種類のパラメータでよく使われる名前もありました。その代わり、関数やクラスが別々になり、ワイルドカードの名前もなくなりました。詳細は「<a href="#com-objects-comobject">COMオブジェクト（ComObject）</a>」を参照してください。</p>
+<p>Control：<a href="lib/Control.htm">Control関数</a>、<a href="lib/SendMessage.htm">SendMessage</a>と<a href="lib/PostMessage.htm">PostMessage</a>で使用される<a href="lib/Control.htm#Parameter"><em>Control</em>パラメータに</a>いくつかの変更が加えられました：</p>
 <ul>
-<li>It can now accept a HWND (must be a pure integer) or an object with a <em>Hwnd</em> property, such as a <a href="lib/GuiControl.htm">GuiControl object</a>. HWNDはコントロールやトップレベルのウィンドウを識別することができますが、後者は通常、一部の機能でしか意味を持ちません（下記参照）。</li>
+<li>HWND（純粋な整数でなければならない）または<a href="lib/GuiControl.htm">GuiControlオブジェクト</a>のような<em>Hwnd</em>プロパティを持つオブジェクトを受け取ることができるようになりました。HWNDはコントロールやトップレベルのウィンドウを識別することができますが、後者は通常、一部の機能でしか意味を持ちません（下記参照）。</li>
 <li>ただし、トップレベルウィンドウを操作できる関数<a href="lib/ControlSend.htm">（ControlSend[Text]</a>、<a href="lib/ControlClick.htm">ControlClick</a>、<a href="lib/SendMessage.htm">SendMessage</a>、<a href="lib/PostMessage.htm">PostMessage</a>）、または他のオプションパラメータが先行する場合<a href="lib/ListViewGetContent.htm">（ListViewGetContent</a>、<a href="lib/ControlGetPos.htm">ControlGetPos</a>、<a href="lib/ControlMove.htm">ControlMove</a>）は除きます。</li>
 <li>省略された場合、代わりにターゲットウィンドウが使用されます。これは、以前の<a href="lib/SendMessage.htm">SendMessage</a>/<a href="lib/PostMessage.htm">PostMessage</a>の動作と一致し、<a href="lib/ControlSend.htm">ControlSend</a>で以前使用されていた<code>ahk_parent</code>特殊値を置き換えます。</li>
 <li>空白の値は無効です。関数のデフォルトがターゲットウィンドウの最上位コントロールになることはありません。</li>
 </ul>
 <p><a href="lib/ControlGetFocus.htm">ControlGetFocus</a>は、ClassNNの代わりにコントロールのHWNDを返すようになり、ウィンドウにフォーカスされたコントロールがないことを正常に判断した場合、エラーがあると見なされなくなりました。</p>
-<p><a href="lib/ControlMove.htm">ControlMove</a>、<a href="lib/ControlGetPos.htm">ControlGetPos</a>、<a href="lib/ControlClick.htm">ControlClick</a>で、ウィンドウ座標の代わりにクライアント座標（<a href="lib/GuiControl.htm">GuiControl</a>のような）を使用するようになりました。クライアント座標は、ウィンドウのタイトルバーとボーダーを除いたクライアント領域の左上からの相対値です。(コントロールはクライアントエリア内でのみレンダリングされます)。</p>
+<p><a href="lib/ControlMove.htm">ControlMove</a>、<a href="lib/ControlGetPos.htm">ControlGetPos</a>、<a href="lib/ControlClick.htm">ControlClick</a>で、ウィンドウ座標の代わりにクライアント座標（<a href="lib/GuiControl.htm">GuiControl</a>のような）を使用するようになりました。クライアント座標は、ウィンドウのタイトルバーとボーダーを除いたクライアント領域の左上からの相対値です。（コントロールはクライアントエリア内でのみレンダリングされます。）</p>
 <p><a href="lib/ControlMove.htm">ControlMove</a>、<a href="lib/ControlSend.htm">ControlSend</a>、<a href="lib/ControlSetText.htm">ControlSetText</a>は、他のControl関数と同様にパラメータの順序を使用するようになりました。つまり、<em><strong>Control</strong>、WinTitle、WinText、ExcludeTitle、ExcludeText</em>は、常に一緒に（パラメータリストの最後に）まとめられ、記憶しやすくなっています。</p>
 <p>すべてのモードは何かに対して相対的であるため、<a href="lib/CoordMode.htm">CoordMode</a>はモードとして "Relative"を受け付けなくなりました。"Window"と同義語だったので、代わりにそちらを使ってください。</p>
-<p><a href="lib/DllCall.htm">DllCall</a>:後述の<a href="#dllcall">DllCallの</a>項を参照。</p>
+<p><a href="lib/DllCall.htm">DllCall</a>：後述の<a href="#dllcall">DllCall</a>の項を参照。</p>
 <p><a href="lib/Edit.htm">Edit</a>は、シェル動詞 "edit "が登録されていない場合、<code>.ini</code>ファイルタイプに対してフォールバック動作をしていました。スクリプトファイルには<code>.ini</code>という拡張子は期待できないため、これを削除しました。<code>AutoHotkey.ini</code>は、AutoHotkeyの古いバージョンではデフォルトのスクリプト名でした。</p>
 <p><a href="lib/Edit.htm">Edit</a>は、スクリプトがstdinから読み込まれた場合、<code>*</code>のためのエディタを開こうとするのではなく、何もしないようになりました。</p>
-<p><a href="lib/EnvSet.htm">EnvSet</a> now deletes the environment variable if the <em>Value</em> parameter is completely omitted.</p>
+<p><a href="lib/EnvSet.htm">EnvSet</a>で、<em>Value</em>パラメータが完全に省略された場合、環境変数を削除するようになりました。</p>
 <p><a href="lib/Exit.htm">Exit</a>は、これまで、スクリプトが永続的でない場合、Exitを呼び出したスレッドによって中断された他のスレッドがあったとしても、<a href="lib/ExitApp.htm">ExitApp</a>として動作していました。もはや、これ以上ないほどです。その代わり、常に現在のスレッドを適切に終了させ、（非永続的な場合）最後のスレッドが終了した後にのみスクリプトを終了させます。これにより<a href="lib/Finally.htm">Finally</a>文が実行されてローカル変数が解放され、ローカル変数に含まれるオブジェクトに対して<code>__delete</code>が呼び出される可能性があります。</p>
-<p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppend and FileRead support an option <code>"RAW"</code> to disable codepage conversion (read/write binary data); FileRead returns a <a href="lib/Buffer.htm">Buffer object</a> in this case. This replaces <code>*c</code> (see <a href="lib/ClipboardAll.htm">ClipboardAll</a>). FileAppend may accept a Buffer-like object, in which case no conversions are performed.</p>
+<p><a href="lib/FileAppend.htm">FileAppend</a>は、<a href="lib/FileRead.htm">FileRead</a>および<a href="lib/FileOpen.htm">FileOpen</a>と同様に、行末の変換を行わないことをデフォルトとしています。FileAppendとFileReadは、オプションの接頭辞を置き換える別の<em>Options</em>パラメータを持ち、オプションのエンコーディング名（FileReadの<code>*Pnnn</code>オプションに取って代わる）を含めることができます。FileAppend、FileRead、FileOpenは、行末変換を有効にするために<code>"`n"</code>を使用します。FileAppendとFileReadは、コードページ変換（バイナリデータの読み書き）を無効にするオプション<code>"RAW"</code>をサポートしています。FileReadはこの場合、<a href="lib/Buffer.htm">Bufferオブジェクト</a>を返す。これは<code>*c</code>（<a href="lib/ClipboardAll.htm">ClipboardAll</a>を参照）を置き換えるものです。FileAppend may accept a Buffer-like object, in which case no conversions are performed.</p>
 <p><a href="lib/FileCopy.htm">FileCopy</a>と<a href="lib/FileMove.htm">FileMove</a>で、コピー元のパスに<code>*</code>または<code>?</code>がなく、ファイルが見つからなかった場合に例外が発生するようになりました。ただし、ソースパスにワイルドカードが含まれている場合、0個のファイルをコピーまたは移動することは、依然としてエラーとはみなされません。</p>
 <p><a href="lib/FileOpen.htm">FileOpen</a>がファイルを開くのに失敗した場合、例外を投げるようになりました。そうでなければ、実際の障害発生箇所ではなく、オブジェクトに最初にアクセスしようとしたときに例外が発生します（スクリプトが障害をチェックしない場合）。</p>
-<p><a href="lib/File.htm#RawRead">File.RawRead</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。</p>
-<p>For buffers allocated by the script, the new <a href="lib/Buffer.htm">Buffer object</a> is preferred over a variable; any object can be used, but must have <em>Ptr</em> and <em>Size</em> properties.</p>
-<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>:ただし、文字列（または文字列を含む変数）を受け取ることができ、その場合、<em>Bytes</em>は文字列のサイズ（バイト）をデフォルトとします。文字列には2進数のゼロを含むことができます。</p>
+<p><a href="lib/File.htm#RawRead">File.RawRead</a>：変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。</p>
+<p>スクリプトによって割り当てられたバッファの場合、変数よりも新しい<a href="lib/Buffer.htm">Bufferオブジェクト</a>が優先されます。任意のオブジェクトを使用できますが、<em>Ptr</em>と <em>Size</em>プロパティを持つ必要があります。</p>
+<p><a href="lib/File.htm#RawWrite">File.RawWrite</a>：ただし、文字列（または文字列を含む変数）を受け取ることができ、その場合、<em>Bytes</em>は文字列のサイズ（バイト）をデフォルトとします。文字列には2進数のゼロを含むことができます。</p>
 <p><a href="lib/File.htm#ReadLine">File.ReadLine</a>が常に行末として<code>`r</code>、<code>`n</code>、<code>`r`n</code>をサポートするようになり、行末を戻り値に含めないようになりました。EOL変換が有効でない場合、<a href="lib/File.htm#Read">File.Read</a>によって行末がそのままスクリプトに返されます。</p>
 <p><a href="lib/FileEncoding.htm">FileEncoding</a>で、コードページを<code>CP</code>プレフィックスなしで番号で指定できるようになりました。そのパラメータはもはやオプションではありませんが、まだ明示的に空白にすることができます。</p>
 <p><a href="lib/FileExist.htm">FileExist</a>は、すべてのディレクトリリストに含まれる<code>.</code>と<code>..</code>を無視するようになったので、dirが存在するが空である場合、<code>FileExist("dir\*")</code>は真ではなく偽になりました。</p>
@@ -587,82 +587,82 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p>FileSelectで、<code>pattern with spaces*.ext</code>のようなフィルターパターンからスペースを取り除かなくなりました。テストでは、パターンの両側にあるスペース（<code>*.cpp; *.h</code>のセミコロンの後など）は、すでにOSによって無視されているので、悪影響はないはずです。</p>
 <p><code>D</code>オプション文字による「フォルダ選択」モードでFileSelectを使用できるようになりました。</p>
 <p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a>は、+、-、^ のプレフィックスが存在しない場合、何もしないのではなく、属性を上書きするようになりました。例えば、<code>FileSetAttrib(FileGetAttrib(file2), file1)</code>は、file2の属性をfile1にコピーします（file2が持っているものは追加し、持っていないものは削除します）。</p>
-<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a>と <a href="lib/FileSetTime.htm">FileSetTime</a>です：the <em>OperateOnFolders</em> and <em>Recurse</em> parameters have been replaced with a single <em>Mode</em> parameter identical to that of <a href="lib/LoopFiles.htm">Loop Files</a>. 例えば、<code>FileSetAttrib("+a", "*.zip", "RF")</code>(Fileのみに対して再帰的に操作)。</p>
+<p><a href="lib/FileSetAttrib.htm">FileSetAttrib</a>と<a href="lib/FileSetTime.htm">FileSetTime</a>です：<em>OperateOnFolders</em>と<em>Recurse</em>のパラメータは、<a href="lib/LoopFiles.htm">Loop Files</a>と同じ1つの<em>Mode</em>パラメータに置き換えられました。例えば、<code>FileSetAttrib("+a", "*.zip", "RF")</code>(Fileのみに対して再帰的に操作)。</p>
 <p>NumpadキーとNumpad以外のキーの両方に対応するVKコードのNumpad以外の名前を<a href="lib/GetKeyName.htm">GetKeyName</a>で返すようにしました。例えば、<code>GetKeyName("vk25")</code>は、NumpadLeftの代わりにLeftを返します。</p>
 <p><a href="lib/GetKeyState.htm">GetKeyState</a> now always returns 1 or 0 instead of On or Off.</p>
 <p><a href="lib/GroupActivate.htm">GroupActivate</a>は、ErrorLevelを設定する代わりに、アクティブ化のために選択されたウィンドウのHWND、または（すでにアクティブなウィンドウを除いて）一致しなかった場合は0を返すようになりました。</p>
-<p><a href="lib/GroupAdd.htm">GroupAdd</a>:<em>Label</em>パラメータと関連する機能を削除しました。これは、GroupActivateが一致するウィンドウを見つけられなかった場合に検出するための直感的でない方法でした。GroupActivateの戻り値を代わりに使用する必要があります。</p>
-<p><a href="lib/GroupDeactivate.htm">GroupDeactivate</a>は、<kbd>Alt</kbd>+<kbd>Esc</kbd>および<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>システム ホットキーとタスク バーに近い方法でウィンドウが選択されるようになりました。具体的には以下です。</p>
+<p><a href="lib/GroupAdd.htm">GroupAdd</a>：<em>Label</em>パラメータと関連する機能を削除しました。これは、GroupActivateが一致するウィンドウを見つけられなかった場合に検出するための直感的でない方法でした。GroupActivateの戻り値を代わりに使用する必要があります。</p>
+<p><a href="lib/GroupDeactivate.htm">GroupDeactivate</a>は、<kbd>Alt</kbd>+<kbd>Esc</kbd>および<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>システム ホットキーとタスク バーに近い方法でウィンドウが選択されるようになりました。具体的には以下です：</p>
 <ul>
-<li>所有するウィンドウは評価対象外です。オーナーウィンドウが適格（グループと一致しない）である場合、オーナーウィンドウまたはその所有ウィンドウのいずれか、最後にアクティブだった方をアクティブにします。グループメンバーが所有するウィンドウはアクティブにならなくなりますが、所有するウィンドウ自体をグループに追加しても効果はありません。(以前の動作は、所有するすべてのウィンドウを循環させ、所有者を起動させることはありませんでした)。</li>
+<li>所有するウィンドウは評価対象外です。オーナーウィンドウが適格（グループと一致しない）である場合、オーナーウィンドウまたはその所有ウィンドウのいずれか、最後にアクティブだった方をアクティブにします。グループメンバーが所有するウィンドウはアクティブにならなくなりますが、所有するウィンドウ自体をグループに追加しても効果はありません。（以前の動作は、所有するすべてのウィンドウを循環させ、所有者を起動させることはありませんでした。）</li>
 <li>無効化されたウィンドウは、その所有するウィンドウがそれよりも最近アクティブであった場合を除き、スキップされます。</li>
 <li>WS_EX_NOACTIVATE スタイルを持つウィンドウは、おそらくアクティベートされることを想定していないため、スキップされます。また、<kbd>Alt</kbd>+<kbd>Esc</kbd>と<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーでもスキップされます。</li>
 <li>WS_EX_TOOLWINDOW を持ち、WS_EX_APPWINDOW を持たないウィンドウは、タスクバーと Alt-Tab から省略され、スキップされます。</li>
 </ul>
 <p><a href="lib/Hotkey.htm">ホットキー</a>のデフォルトが、スクリプトの一番下の<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）にならないようになりました。Hotkey/HotstringおよびHotIfスレッドのデフォルトは、ホットキーと同じ基準なので、<code>Hotkey A_ThisHotkey, "Off"</code>は、現在のホットキーがコンテキスト依存であってもオフにします。他のすべてのスレッドは、自動実行セクションで使用される最後の設定がデフォルトで、それ自体は基準なしがデフォルトです（グローバルホットキー）。</p>
-<p><a href="lib/Hotkey.htm">Hotkey</a>'s <em>Action</em> parameter now requires a function object or hotkey name. ラベルや関数名はサポートされなくなりました。ホットキー名が指定されている場合は、そのホットキーの本来の機能が使用されます。また、以前とは異なり、<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）とも連動します。</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>の<em>Action</em>パラメータに、関数オブジェクトまたはホットキー名を指定するようになりました。ラベルや関数名はサポートされなくなりました。ホットキー名が指定されている場合は、そのホットキーの本来の機能が使用されます。また、以前とは異なり、<a href="lib/_HotIf.htm">#HotIf</a>（旧#If）とも連動します。</p>
 <ul>
-<li>これにより、以下の特殊文字列の曖昧さが解消されるなどの利点があります：<code>On</code>, <code>Off</code>, <code>Toggle</code>, <code>AltTab</code>, <code>ShiftAltTab</code>, <code>AltTabAndMenu</code>, <code>AltTabMenuDismiss</code>. 以前の動作は、ラベル/関数が存在する場合、その名前を使用するものでしたが、<em>Label</em>パラメータに変数参照や式が含まれていない場合に限り、その名前を使用します。</li>
+<li>これにより、以下の特殊文字列の曖昧さが解消されるなどの利点があります：<code>On</code>、<code>Off</code>、<code>Toggle</code>、<code>AltTab</code>、<code>ShiftAltTab</code>、<code>AltTabAndMenu</code>、<code>AltTabMenuDismiss</code>。以前の動作は、ラベル/関数が存在する場合、その名前を使用するものでしたが、<em>Label</em>パラメータに変数参照や式が含まれていない場合に限り、その名前を使用します。</li>
 </ul>
 <p><a href="lib/Hotkey.htm">Hotkey</a>と <a href="lib/Hotstring.htm">Hotstring</a>で、<a href="lib/Suspend.htm">Suspend</a>を免除するSオプション（新しい<a href="lib/_SuspendExempt.htm">#SuspendExempt</a>指令と同等）と、免除を無効にするS0オプションが追加されました。</p>
-<p>"Hotkey If"をはじめとするIfサブコマンドを個別機能に置き換えました：<a href="lib/HotIf.htm">HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist</a>.</p>
+<p>「Hotkey If」をはじめとするIfサブコマンドを個別機能に置き換えました：<a href="lib/HotIf.htm">HotIf、HotIfWinActive、HotIfWinExist、HotIfWinNotActive、HotIfWinNotExist</a>。</p>
 <p><a href="lib/HotIf.htm">HotIf</a>（旧Hotkey If）は、<code>and</code>または<code>or</code>演算子を使用した式を認識するようになりました。v1では、これらの演算子はロード時に<code>&amp;&amp;</code>や <code>||</code>に置き換えられるため、これは機能しませんでした。</p>
-<p><a href="lib/Hotkey.htm">Hotkey</a> no longer has a UseErrorLevel option, and never sets ErrorLevel. 失敗した場合は例外がスローされます。Error messages were changed to be constant (and shorter), with the key or hotkey name in <code>Exception.Extra</code>, and the class of the exception indicating the reason for failure.</p>
-<p><a href="lib/_HotIf.htm">#HotIf</a>（旧#If）は、1つのパラメータ（ThisHotkey）を持つ関数を暗黙のうちに作成するようになりました。As is the default for all functions, this function is <a href="Functions.htm#AssumeLocal">assume-local</a>. 式はローカル変数の作成とグローバル変数の読み込みが可能ですが、式に宣言を含めることができないため、グローバル変数に直接代入することはできません。</p>
-<p>#HotIf has been optimized so that simple calls to <a href="lib/WinActive.htm">WinActive</a> or <a href="lib/WinExist.htm">WinExist</a> can be evaluated directly by the hook thread (as #IfWin was in v1, and <a href="lib/HotIf.htm">HotIfWin</a> still is). これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。This optimization applies to expressions which contain a single call to <a href="lib/WinActive.htm">WinActive</a> or <a href="lib/WinExist.htm">WinExist</a> with up to two parameters, where each parameter is a simple quoted string and the result is optionally inverted with <code>!</code> or <code>not</code>. For example, <code>#HotIf WinActive("Chrome")</code> or <code>#HotIf !WinExist("Popup")</code>. これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができます。For example, <code>HotIf '!WinExist("Popup")'</code> and <code>HotIfWinNotExist "Popup"</code> refer to the same hotkey variants.</p>
+<p><a href="lib/Hotkey.htm">Hotkey</a>にUseErrorLevelオプションがなくなり、ErrorLevelを設定しないようになりました。失敗した場合は例外がスローされます。エラーメッセージは、<code>Exception.Extra</code>にキーまたはホットキーの名前を、例外のクラスで失敗の理由を示す、一定の（より短い）メッセージに変更されました。</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>（旧#If）は、1つのパラメータ（ThisHotkey）を持つ関数を暗黙のうちに作成するようになりました。すべての関数のデフォルトとして、この関数は<a href="Functions.htm#AssumeLocal">assume-local</a>です。式はローカル変数の作成とグローバル変数の読み込みが可能ですが、式に宣言を含めることができないため、グローバル変数に直接代入することはできません。</p>
+<p>#HotIfは、<a href="lib/WinActive.htm">WinActive</a>や <a href="lib/WinExist.htm">WinExist</a>への単純な呼び出しをフックスレッドで直接評価できるように最適化されています（v1では#IfWinが、<a href="lib/HotIf.htm">HotIfWin</a>は現在もそうです）。これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。この最適化は、<a href="lib/WinActive.htm">WinActive</a>または<a href="lib/WinExist.htm">WinExist</a>への単一の呼び出しと最大2つのパラメータを含む式に適用され、各パラメータは単純な引用文字列で、結果はオプションで<code>!</code> または <code>not</code>で反転されます。例えば、<code>#HotIf WinActive("Chrome")</code>や<code>#HotIf !WinExist("Popup") </code>のようなものです。これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができます。例えば、<code>HotIf '!WinExist("Popup")'</code>と<code>HotIfWinNotExist "Popup"</code>は同じホットキー変種を参照しています。</p>
 <p><code>KeyHistory N</code>は、キーヒストリーを表示するのではなく、キーヒストリーバッファーのサイズを変更します。これは"#KeyHistory N"に置き換わるものです。</p>
-<p><a href="lib/ImageSearch.htm">ImageSearch</a> returns 1 (true) if the image was found, 0 (false) if it was not found, or throws an exception if the search could not be conducted. ErrorLevelが設定されていない。</p>
+<p><a href="lib/ImageSearch.htm">ImageSearch</a>は、画像が見つかった場合は 1（true）、見つからなかった場合は 0（false）を返し、検索ができなかった場合は例外を投げる。ErrorLevelが設定されていない。</p>
 <p><a href="lib/IniDelete.htm">IniDelete</a>、<a href="lib/IniRead.htm">IniRead</a>、<a href="lib/IniWrite.htm">IniWrite</a>は、<a href="Variables.htm#LastError">A_LastError</a>をオペレーティングシステムのGetLastError()関数の結果に設定します。</p>
 <p>要求されたキー、セクション、ファイルが見つからず、<em>Default</em>パラメータが省略された場合、<a href="lib/IniRead.htm">IniRead</a>は例外を投げる。<em>Default</em>に値が与えられた場合、<code>""</code>でも例外は発生しない。</p>
 <p><a href="lib/InputHook.htm">InputHook</a>が <kbd>Shift</kbd>+<kbd>Backspace</kbd>を <kbd>Backspace</kbd>と同じように扱うようになり、代わりに<code>`b</code>に転写されるようになりました。</p>
 <p><a href="lib/InputBox.htm">InputBox</a>は、より使いやすくなるように構文が見直されました（パラメータが少なくなっています）。使い方は<a href="#inputbox">InputBox</a>を参照してください。</p>
 <p><a href="lib/InStr.htm">InStr</a>の<em>CaseSensitive</em>パラメータが<em>CaseSense</em>に変更され、0、1または "Locale"が指定できるようになりました。</p>
-<p>InStrは、<em>Occurrence</em>が負の場合（以前は結果が0になる）、右から左に検索するようになり、負の<em>StartingPos</em>が正の<em>Occurrence</em>で使用されても右から左に検索しないようになりました。(ただし、<em>StartingPos</em>が負で<em>Occurrence</em>が省略された場合は、右から左に検索されます）。これにより、ループ内での右から左への検索が容易になり、負の<em>StartingPos</em>を使用しても、左から右への検索が可能になります。</p>
+<p>InStrは、<em>Occurrence</em>が負の場合（以前は結果が0になる）、右から左に検索するようになり、負の<em>StartingPos</em>が正の<em>Occurrence</em>で使用されても右から左に検索しないようになりました。（ただし、<em>StartingPos</em>が負で<em>Occurrence</em>が省略された場合は、右から左に検索されます。）　これにより、ループ内での右から左への検索が容易になり、負の<em>StartingPos</em>を使用しても、左から右への検索が可能になります。</p>
 <ul>
 <li>例えば、<code>InStr(a, b,, -1, 2)</code>は左から右へ検索するようになりました。右から左へ検索する場合は、<code>InStr(a, b,, -1, -2)</code>を使用します。</li>
 <li>なお、<em>StartingPos</em>が-1の場合は、v2の最後の文字であり、v1の2番目の最後の文字であることを意味します。上の例がv1（v2.0-a033～v2.0-a136ではなく）のものであれば、新しいコードは<code>InStr(a, b, -2, -2)</code>になるはずです。</li>
 </ul>
-<p><a href="lib/KeyWait.htm">KeyWait</a> now returns 0 (false) if the wait period expires, otherwise 1 (true). ErrorLevelを削除しました。</p>
+<p><a href="lib/KeyWait.htm">KeyWait</a>は、待ち時間が終了した場合は0（false）を、そうでない場合は1（true）を返すようになりました。ErrorLevelを削除しました。</p>
 <p><a href="lib/MouseClick.htm">MouseClick</a>と <a href="lib/MouseClickDrag.htm">MouseClickDrag</a>は、マウスボタンの入れ替えに関するシステム設定の影響を受けなくなりました。"Left"は常にプライマリボタン、"Right"はセカンダリボタンです。</p>
 <p><a href="lib/MsgBox.htm">MsgBox</a>は、最もよく使われるパラメータを優先し、使いやすさを向上させるために構文が変更されました。使い方の概要は、さらに下の<a href="#msgbox">MsgBox</a>を参照してください。</p>
-<p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>:変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。For buffers allocated by the script, the new <a href="lib/Buffer.htm">Buffer object</a> is preferred over a variable; any object can be used, but must have <em>Ptr</em> and <em>Size</em> properties.</p>
-<p>NumPutのパラメータは、値の並びを変更し、各数値の前に（現在は必須の）タイプ文字列を置くことができるようになった。事例：<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>. NumGetでもTypeが必須となりました。(In comparison to <a href="lib/DllCall.htm">DllCall</a>, NumPut's input parameters correspond to the dll function's parameters, while NumGet's return type parameter corresponds to the dll function's return type string.)</p>
-<p><code>Object(obj)</code>と<code>Object(ptr)</code>を使って参照とポインタの変換を行っていましたが、<code>ObjPtrAddRef(obj)</code>と<code>ObjFromPtrAddRef(ptr)</code>という別の関数に移行されました。また、これらの関数には、参照カウントをインクリメントしないバージョンもあります：<code>ObjPtr(obj)</code>と<code>ObjFromPtr(ptr)</code>です。</p>
+<p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>：変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。スクリプトによって割り当てられたバッファの場合、変数よりも新しい<a href="lib/Buffer.htm">Bufferオブジェクト</a>が優先されます。任意のオブジェクトを使用できますが、<em>Ptr</em>と <em>Size</em>プロパティを持つ必要があります。</p>
+<p>NumPutのパラメータは、値の並びを変更し、各数値の前に（現在は必須の）タイプ文字列を置くことができるようになった。事例：<code>NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset)</code>。NumGetでもTypeが必須となりました。（<a href="lib/DllCall.htm">DllCall</a>と比較して、NumPutの入力パラメータはdll関数のパラメータに対応し、NumGetの戻り型パラメータはdll関数の戻り型文字列に対応します。）</p>
+<p><code>Object(obj)</code>と<code>Object(ptr)</code>を使って参照とポインタの変換を行っていましたが、<code>ObjPtrAddRef(obj)</code>と<code>ObjFromPtrAddRef(ptr)</code>という別の関数に移行されました。また、これらの関数には、参照カウントをインクリメントしないバージョンもあります：<code>ObjPtr(obj)</code>、<code>ObjFromPtr(ptr)</code>。</p>
 <p>OnClipboardChangeラベルが存在する場合、自動的に呼び出されることはなくなりました。代わりにv1.1.20で追加された<a href="lib/OnClipboardChange.htm">OnClipboardChange</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。</p>
 <p><a href="lib/OnError.htm">OnError</a>に名前ではなく、関数オブジェクトを要求するようになりました。後述の「<a href="#error-handling">エラー処理</a>」もご覧ください。</p>
 <p>OnExitコマンドは削除されました。代わりにv1.1.20で追加された<a href="lib/OnExit.htm">OnExit</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。A_ExitReasonも削除され、その値はOnExitコールバック関数のパラメータとして利用できます。</p>
 <p><a href="lib/OnMessage.htm">OnMessageは</a>、関数名（文字列）が渡されたときに使用されていた、メッセージごとの単一関数モードがなくなり、参照による関数のみを受け入れるようになりました。<code>OnMessage(x, MyFunc)</code>を使用します。<em>MyFunc</em>は文字通り関数の名前ですが、v1と同等のものは<code>OnMessage(x, Func("MyFunc"))</code>で、<code>OnMessage(x, "MyFunc")</code>と異なり、他の関数がメッセージxを監視し続けることができることに注意してください。<code>OnMessage(x,"")</code>と<code>OnMessage(x)</code>がエラーになったので、メッセージの監視を止めるには、<code>OnMessage(x, MyFunc, 0)</code>を使います。失敗した場合、OnMessageは例外を投げます。</p>
-<p><a href="lib/Pause.htm">Pause</a>は、ホットキーの1行目で使用すると<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の適用除外になるため、<code>#p::Pause</code>は、一時停止を切り替えるのに適さなくなりました。Therefore, <code>Pause()</code> now only pauses the current thread (for combinations like ListVars/Pause), while <code>Pause(Value)</code> now always operates on the underlying thread. <em>Value</em> must be 0, 1 or -1. 第2パラメータを削除しました。</p>
-<p><a href="lib/PixelSearch.htm">PixelSearch</a>と <a href="lib/PixelGetColor.htm">PixelGetColor</a>は、他の関数との整合性のために、BGRの代わりにRGB値を使用します。どちらの関数も、問題が発生すると例外をスローし、ErrorLevelを設定しなくなりました。PixelSearch returns 1 (true) if the color was found. PixelSearchのスローモードは、デスクトップコンポジションとの非互換性により、ほとんどの最新システムで使用できないため、削除されました。</p>
-<p><a href="lib/PostMessage.htm">PostMessage</a>:後述の<a href="#SendMessage">SendMessage</a>を参照してください。</p>
+<p><a href="lib/Pause.htm">Pause</a>は、ホットキーの1行目で使用すると<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の適用除外になるため、<code>#p::Pause</code>は、一時停止を切り替えるのに適さなくなりました。したがって、<code>Pause()</code>は現在のスレッドを一時停止するだけになり（ListVars/Pauseのような組み合わせの場合）、<code>Pause(Value)</code>は常に基本スレッドで動作するようになりました。<em>Value</em>は、0、1または-1でなければならない。第2パラメータを削除しました。</p>
+<p><a href="lib/PixelSearch.htm">PixelSearch</a>と <a href="lib/PixelGetColor.htm">PixelGetColor</a>は、他の関数との整合性のために、BGRの代わりにRGB値を使用します。どちらの関数も、問題が発生すると例外をスローし、ErrorLevelを設定しなくなりました。PixelSearchは、その色が見つかった場合、1（true）を返します。PixelSearchのスローモードは、デスクトップコンポジションとの非互換性により、ほとんどの最新システムで使用できないため、削除されました。</p>
+<p><a href="lib/PostMessage.htm">PostMessage</a>：後述の<a href="#SendMessage">SendMessage</a>を参照してください。</p>
 <p><a href="lib/Random.htm">Random</a>は、オペレーティングシステムの乱数発生器を利用し、いくつかの制限を解除し、より便利に使用できるように改良されました。</p>
 <ul>
 <li>符号付き整数値の64ビット全範囲をサポートするようになりました（32ビットから増加）。</li>
-<li>Floating-point numbers are generated from a 53-bit random integer, instead of a 32-bit random integer, and should be greater than or equal to <em>Min</em> and lesser than <em>Max</em> (but floating-point rounding errors can theoretically produce equal to <em>Max</em>).</li>
+<li>浮動小数点数は、32ビット乱数ではなく53ビット乱数から生成され、<em>Min</em>以上<em>Max</em>未満でなければなりません（ただし、浮動小数点数の丸め誤差により、理論上は<em>Max</em>と等しくなる場合があります）。</li>
 <li>パラメータはすでに任意の順序で指定することができましたが、最初のパラメータだけを指定すると、他のバウンドが2147483647ではなく0にデフォルト設定されるようになりました。例えば、<code>Random(9)</code>は0から9の間の数を返します。</li>
 <li>両パラメータを省略した場合、戻り値は0～2147483647の整数ではなく、0.0（包含）～1.0（概ね排他）の浮動小数点数です。</li>
 <li>乱数生成器の種付けはシステムが自動的に行い、手動で種付けする方法は提供しないため、<em>NewSeed</em>パラメータに代わるものはない。</li>
 </ul>
-<p><a href="lib/RegExMatch.htm">RegExMatch</a>のオプションOとPが削除され、O（オブジェクト）モードが必須となりました。RegExMatch オブジェクトが列挙型（for-loop）に対応しました。マッチオブジェクトの構文が変更されました：</p>
+<p><a href="lib/RegExMatch.htm">RegExMatch</a>のオプションOとPが削除され、O（オブジェクト）モードが必須となりました。RegExMatch オブジェクトが列挙型（forループ）に対応しました。マッチオブジェクトの構文が変更されました：</p>
 <ul>
-<li>__Getは、<code>match.subpat</code>（<em>subpatは</em>サブパターン/キャプチャグループの名前）という省略法を実装するために使用されます。プロパティが<em>継承</em>されている場合、__Getが呼び出されなくなったため、以下のサブパターン名は省略構文で使用できなくなりました：Pos, Len, Name, Count, Mark. (例えば、<code>match.Len</code>は常にマッチ全体の長さを返し、キャプチャした文字列は返しません)。</li>
+<li>__Getは、<code>match.subpat</code>（<em>subpatは</em>サブパターン/キャプチャグループの名前）という省略法を実装するために使用されます。プロパティが<em>継承</em>されている場合、__Getが呼び出されなくなったため、以下のサブパターン名は省略構文で使用できなくなりました：Pos、Len、Name、Count、Mark。（例えば、<code>match.Len</code>は常にマッチ全体の長さを返し、キャプチャした文字列は返しません。）</li>
 <li>元々、マッチオブジェクトはプロパティの代わりにメソッドを持ち、プロパティはサブパターン名のために予約できるようになっていました。新しい言語の動作では、<code>match.name</code>はデフォルトで関数を返すことになるため、メソッドはプロパティに置き換えられ、または補完されました：
 <ul>
 <li>Pos、Len、Nameがプロパティとメソッドになりました。</li>
-<li>Name now requires one parameter to avoid confusion (<code>match.Name</code> throws an error).</li>
+<li>Nameは混乱を避けるため、1つのパラメータを必要とするようになりました（<code>match.Name</code>はエラーを投げます）。</li>
 <li>カウントとマークはプロパティのみとなりました。</li>
 <li>Valueは削除されました。<code>match.Value()</code>の代わりに<code>match.0</code>または<code>match[]</code>を、<code>match.Value(N)</code>の代わりに<code>match[N]</code>を使ってください。</li>
 </ul>
 </li>
 </ul>
-<p>RegisterCallback was renamed to <a href="lib/CallbackCreate.htm">CallbackCreate</a> and changed to better utilize <a href="Functions.htm#closures">closures</a>:</p>
+<p>RegisterCallbackは<a href="lib/CallbackCreate.htm">CallbackCreate</a>に名称変更し、<a href="Functions.htm#closures">クロージャ</a>をより活用できるように変更しました：</p>
 <ul>
 <li><a href="misc/Functor.htm">関数オブジェクト</a>をサポートするようになりました（関数名はサポートしなくなりました）。</li>
-<li>Removed <em>EventInfo</em> parameter (use a <a href="Functions.htm#closures">closure</a> or <a href="misc/Functor.htm#BoundFunc">bound function</a> instead).</li>
+<li><em>EventInfo</em>パラメータを削除しました（代わりに<a href="Functions.htm#closures">クロージャ</a>または<a href="misc/Functor.htm#BoundFunc">バウンド関数</a>を使用します）。</li>
 <li>可変型コールバック関数の特殊な挙動を削除し、<code>&amp;</code>オプション（パラメータリストのアドレスを渡す）を追加しました。</li>
 <li>コールバックメモリを解放し、関連する関数オブジェクトを解放するための<code>CallbackFree(Address)</code>を追加しました。</li>
 </ul>
-<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合されます。Instead of <code>RootKey, SubKey</code>, write <code>RootKey\SubKey</code>. To connect to a remote registry, use <code>\\ComputerName\RootKey\SubKey</code> instead of <code>\\ComputerName:RootKey, SubKey</code>.</p>
+<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合されます。<code>RootKey, SubKey</code>の代わりに、<code>RootKeyKey\SubKey</code>と書いてください。リモートレジストリに接続する場合は<code>\\ComputerName:RootKey, SubKey</code>の代わりに<code>\\ComputerName\RootKey\SubKey</code>を使用します。</p>
 <p>RegWriteのパラメータは、IniWriteのように<em>Value</em>を最初に置くように並び替えました（ただし、<em>Value</em>が唯一のパラメータだったシングルパラメータモードには影響しません）。</p>
 <p><em>KeyName</em>が省略され、現在のループREGアイテムがサブキーである場合、RegDelete、RegRead、RegWriteはそのサブキー内の値に対して動作するようになりました。つまり、<em>KeyName</em>のデフォルトは<code>A_LoopRegKey "\" A_LoopRegName</code>です（A_LoopRegKeyはA_LoopRegSubKeyに統合されているので注意してください）。以前は以下のように振る舞っていました：</p>
 <ul>
@@ -679,16 +679,16 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/RegRead.htm">RegRead</a>に、IniRead のような<em>Default</em>パラメータが追加されました。</p>
 <p>RegReadには、出力変数の後に値の種類を指定する、文書化されていない5パラメータモードがありました。これは削除されました。</p>
 <p>スクリプトがstdinから読み込まれた場合、<a href="lib/Reload.htm">Reload</a>は何もしないようになりました。</p>
-<p><a href="lib/Run.htm">Run</a> and <a href="lib/Run.htm">RunWait</a> no longer recognize the UseErrorLevel option as ErrorLevel was removed. Use <a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a> instead. <a href="Variables.htm#LastError">A_LastError</a> is set unconditionally, and can be inspected after an exception is caught/suppressed. RunWaitは、終了コードを返します。</p>
+<p>ErrorLevelが削除されたため、<a href="lib/Run.htm">Run</a>および<a href="lib/Run.htm">RunWait</a>が UseErrorLevelオプションを認識しなくなりました。代わりに<a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a>を使用します。<a href="Variables.htm#LastError">A_LastError</a>は無条件に設定され、例外が捕捉/抑制された後に検査することができます。RunWaitは、終了コードを返します。</p>
 <p><a href="lib/Send.htm">Send</a>（およびその亜種）は、ホットキーおよび<a href="lib/Click.htm">Click</a>と一致する方法で<code>{LButton}</code>と <code>{RButton}</code>を解釈するようになりました。つまり、ユーザーがシステム設定でボタンを入れ替えても、LButtonがプライマリボタン、RButtonがセカンダリボタンになります。</p>
 <p id="SendMessage"><a href="lib/SendMessage.htm">SendMessageと</a> <a href="lib/PostMessage.htm">PostMessage</a>では、wParamとlParamが整数またはPtrプロパティを持つオブジェクトである必要があります。以前は、<code>"</code>で始まる式であればアドレスで文字列が渡されましたが、それ以外の文字列は整数に強制されていました。変数のアドレス（以前は<code>&amp;var</code>、現在は<code>StrPtr(var)</code>）を渡しても、変数の長さを更新しなくなりました（<code>VarSetStrCapacity(&amp;var, -1)</code>を使用してください）。</p>
 <p>SendMessageとPostMessageは、失敗（またはタイムアウト）時に例外を投げるようになり、ErrorLevelを設定しないようになりました。SendMessageは、メッセージの返信を返します。</p>
-<p><a href="lib/SetTimer.htm">SetTimer</a>はラベル名や関数名をサポートしなくなりましたが、式が使えるようになり、関数は名前で直接参照できるようになったので、使い方は非常に似ています：<code>SetTimer MyFunc</code>. オブジェクトを受け取る他の関数と同様に、SetTimerもオブジェクトを返す式が使えるようになりました（以前は変数参照が必要でした）。</p>
+<p><a href="lib/SetTimer.htm">SetTimer</a>はラベル名や関数名をサポートしなくなりましたが、式が使えるようになり、関数は名前で直接参照できるようになったので、使い方は非常に似ています：<code>SetTimer MyFunc</code>。オブジェクトを受け取る他の関数と同様に、SetTimerもオブジェクトを返す式が使えるようになりました（以前は変数参照が必要でした）。</p>
 <p><a href="lib/Sort.htm">Sort</a>は、以下の変更を受けました：</p>
 <ul>
-<li><em>VarName</em>パラメータは、柔軟性を持たせるために、入出力パラメータに分割されました。Usage is now <code>Output := Sort(Input [, Options, Callback])</code>.</li>
+<li><em>VarName</em>パラメータは、柔軟性を持たせるために、入出力パラメータに分割されました。使い方は、<code>Output := Sort(Input [, Options, Callback])</code>になりました。</li>
 <li>また、2つの項目が同数である場合、自動的に元の項目の順番がタイブレーカーとして使用され、より安定した結果が得られるようになりました。</li>
-<li><code>C</code>オプションで、他の関数（<code>CL</code>以外）の<em>CaseSense</em>パラメータと同等の接尾辞を受け付けるようになりました：<code>CLocale CLogical COn C1 COff C0</code>. 特に、「論理」比較モードのサポートが新しくなりました。</li>
+<li><code>C</code>オプションで、他の関数（<code>CL</code>以外）の<em>CaseSense</em>パラメータと同等の接尾辞を受け付けるようになりました：<code>CLocale CLogical COn C1 COff C0</code>。特に、「論理」比較モードのサポートが新しくなりました。</li>
 </ul>
 <p id="Sound"><a href="lib/Sound.htm">サウンド機能</a>：SoundGetとSoundSetは、Vista+のサウンドAPIの機能によりマッチするように改訂され、XPのサポートを取りやめました。</p>
 <ul>
@@ -700,29 +700,29 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>デバイス名やコンポーネント名を取得するための<a href="lib/SoundGetName.htm">SoundGetName</a>を追加しました。</li>
 <li>COMインターフェースを取得するための<a href="lib/SoundGetInterface.htm">SoundGetInterface</a>を追加しました。</li>
 </ul>
-<p><a href="lib/StrGet.htm">StrGet</a>:If <em>Length</em> is negative, its absolute value indicates the exact number of characters to convert, including any binary zeros that the string might contain - in other words, the result is always a string of exactly that length. <em>Length</em>が正の場合、変換後の文字列はv1のように最初の2進数ゼロで終了します。</p>
-<p><a href="lib/StrGet.htm">StrGet</a>/<a href="lib/StrPut.htm">StrPut</a>:The <em>Address</em> parameter can be an object with the <em>Ptr</em> and <em>Size</em> properties, such as the new <a href="lib/Buffer.htm">Buffer object</a>. The read/write is automatically limited by <em>Size</em> (which is in bytes). <em>Length</em>も指定された場合は、<em>Size</em>（UTF-16の場合は2倍）を超えてはいけません。</p>
-<p>StrPut's return value is now in bytes, so it can be passed directly to <code>Buffer()</code>.</p>
+<p><a href="lib/StrGet.htm">StrGet</a>：<em>Length</em>が負の場合、その絶対値は、文字列が含むかもしれない2進数のゼロを含む、変換する正確な文字数を示します。言い換えれば、結果は常に正確にその長さの文字列になります。<em>Length</em>が正の場合、変換後の文字列はv1のように最初の2進数ゼロで終了します。</p>
+<p><a href="lib/StrGet.htm">StrGet</a>/<a href="lib/StrPut.htm">StrPut</a>：<em>Address</em>パラメータには、新しい<a href="lib/Buffer.htm">Bufferオブジェクト</a>のような<em>Ptr</em>と <em>Size</em>プロパティを持つオブジェクトを指定することができます。読み書きが自動的に制限されるのは、<em>Size</em>（単位はバイト）です。<em>Length</em>も指定された場合は、<em>Size</em>（UTF-16の場合は2倍）を超えてはいけません。</p>
+<p>StrPutの戻り値がバイト単位になったので、<code>Buffer()</code>に直接渡すことができます。</p>
 <p><a href="lib/StrReplace.htm">StrReplace</a>では、<em>OutputVarCount</em>の代わりに<em>CaseSense</em>パラメータが追加され、パラメータが1つ右に移動し、<em>Limit</em>がそれに続いています。</p>
-<p><a href="lib/Suspend.htm">Suspend</a>:ホットキーやホットストリングの最初の行をSuspendの呼び出しにすることで、自動的にSuspendが免除されるようになることはなくなりました。代わりに、<code>#SuspendExempt</code>または<code>S</code>オプションを使用してください。"Permit" パラメータ値は無効となりました。</p>
+<p><a href="lib/Suspend.htm">Suspend</a>：ホットキーやホットストリングの最初の行をSuspendの呼び出しにすることで、自動的にSuspendが免除されるようになることはなくなりました。代わりに、<code>#SuspendExempt</code>または<code>S</code>オプションを使用してください。"Permit" パラメータ値は無効となりました。</p>
 <p><a href="lib/Switch.htm">Switch</a>は、デフォルトで文字列の大文字小文字を区別して比較するようになりました。また、大文字小文字を区別するモードを上書きし、（数値ではなく）文字列の比較を強制する<em>CaseSense</em>パラメータがあります。以前はStringCaseSenseがOnに変更された場合のみ大文字と小文字を区別していました。</p>
 <p><a href="lib/SysGet.htm">SysGet</a>のサブコマンドは数値のみとなり、その他のサブコマンドは関数に分割されました。詳しくは後述の「<a href="#sub-commands">サブコマンド</a>」をご覧ください。</p>
-<p><a href="lib/TrayTip.htm">TrayTip</a>'s usage has changed to <code>TrayTip [Text, Title, Options]</code>. <em>Options</em> is a string of zero or more case-insensitive options delimited by a space or tab. The options are <code>Iconx</code>, <code>Icon!</code>, <code>Iconi</code>, <code>Mute</code> and/or any numeric value as before. TrayTip now shows even if <em>Text</em> is omitted (which is now harder to do by accident than in v1). The <em>Timeout</em> parameter no long exists (it had no effect on Windows Vista or later). スクリプトは、NIIF_USER (0x4) と NIIF_LARGE_ICON (0x20) フラグを組み合わせて (0x24) 使用し、トレイアイコンの大きいバージョンを通知に含めることができるようになります。NIIF_USER (0x4) は、小さなアイコンのために単独で使用することもできますが、すべてのOSで一貫した結果を得ることができない場合があります。</p>
-<p>設定されていない変数を読み込むとエラーが発生するようになったため、#Warn UseUnsetLocal と UseUnsetGlobal は削除されました。<a href="lib/IsSet.htm">IsSet</a> can be used to avoid the error and <a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a> or <a href="lib/OnError.htm">OnError</a> can be used to handle it.</p>
+<p><a href="lib/TrayTip.htm">TrayTip</a>の使い方が、<code>TrayTip [Text, Title, Options]</code>に変更になりました。<em>Options</em>は、スペースまたはタブで区切られた、0個以上の大文字小文字を区別しないオプションの文字列です。オプションは、<code>Iconx</code>、<code>Icon！</code>、<code>Iconi</code>、<code>Mute</code>、および以前のように任意の数値です。<em>Text</em>が省略されてもTrayTipが表示されるようになった（v1より誤ってやってしまいにくくなりました）。<em>Timeout</em>パラメータは、もはや存在しません（Windows Vista以降では効果がありませんでした）。スクリプトは、NIIF_USER (0x4) と NIIF_LARGE_ICON (0x20) フラグを組み合わせて (0x24) 使用し、トレイアイコンの大きいバージョンを通知に含めることができるようになります。NIIF_USER (0x4) は、小さなアイコンのために単独で使用することもできますが、すべてのOSで一貫した結果を得ることができない場合があります。</p>
+<p>設定されていない変数を読み込むとエラーが発生するようになったため、#Warn UseUnsetLocal と UseUnsetGlobal は削除されました。<a href="lib/IsSet.htm">IsSet</a>でエラーを回避し、<a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a>または<a href="lib/OnError.htm">OnError</a>で処理することができます。</p>
 <p><a href="lib/_Warn.htm#VarUnset">#Warn VarUnset</a>を追加しました。デフォルトは MsgBox です。無効化されていない場合、各変数への最初の非動的参照で、直接の非動的代入や参照演算子（&amp;）の対象として使用されたり、IsSetに直接渡されたりすることがない場合に警告が表示されます。</p>
-<p><a href="lib/_Warn.htm#Unreachable">#Warn Unreachable</a> no longer considers lines following an <a href="lib/Exit.htm">Exit</a> call to be unreachable, as Exit is now an ordinary function.</p>
-<p>トップレベルのクラスが割り当てによって上書きされることがなくなったため、#Warn ClassOverwriteは削除されました。(ただし、ローカル変数によって暗黙的にシャドウされることができるようになりました。これは#Warn LocalSameAsGlobalで検出できます)。</p>
+<p>Exit が通常の関数になったため、<a href="lib/_Warn.htm#Unreachable">#Warn Unreachable</a>で<a href="lib/Exit.htm">Exit</a>呼び出しに続く行を到達不能と見なさないようにしました。</p>
+<p>トップレベルのクラスが割り当てによって上書きされることがなくなったため、#Warn ClassOverwriteは削除されました。（ただし、ローカル変数によって暗黙的にシャドウされることができるようになりました。これは#Warn LocalSameAsGlobalで検出できます。）</p>
 <p><a href="lib/WinActivate.htm">WinActivate</a>は、ウィンドウのアクティブ化に初めて失敗した後、<code>{Alt up}</code>を送信するようになりました。これにより、タスクバーのボタンが点滅する現象が軽減されることがテストで確認されています。詳しくはドキュメントをご覧ください。</p>
-<p><a href="lib/WinClose.htm">WinClose</a> and <a href="lib/WinKill.htm">WinKill</a>: For <em>SecondsToWait</em>, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
+<p><a href="lib/WinClose.htm">WinClose</a>、<a href="lib/WinKill.htm">WinKill</a>：<em>SecondsToWait</em>については、0を指定しても0.5を指定したのと同じではなく、可能な限り短い待ち時間を生成するようになりました。</p>
 <p><a href="lib/WinSetTitle.htm">WinSetTitle</a>と <a href="lib/WinMove.htm">WinMove</a>は、他のWin関数と同じパラメータ順序を使用します。つまり、<em>WinTitle、WinText、ExcludeTitle、ExcludeText</em>は、常に一緒に（パラメータリストの最後に）まとめられ、記憶に残りやすくなっています。</p>
-<p>The <em>WinTitle</em> parameter of various functions can now accept a HWND (must be a pure integer) or an object with a <em>Hwnd</em> property, such as a <a href="lib/Gui.htm">Gui object</a>. <a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> is ignored in such cases, except when used with <a href="lib/WinWait.htm">WinWait</a> or <a href="lib/WinWaitClose.htm">WinWaitClose</a>.</p>
+<p>各種関数の<em>WinTitle</em>パラメータに、HWND（純粋な整数でなければならない）または<a href="lib/Gui.htm">Guiオブジェクト</a>のような<em>Hwnd</em>プロパティを持つオブジェクトを受け取ることができるようになりました。<a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> is ignored in such cases, except when used with <a href="lib/WinWait.htm">WinWait</a> or <a href="lib/WinWaitClose.htm">WinWaitClose</a>.</p>
 <p><a href="lib/WinMove.htm">WinMove</a>では、<code class="no-highlight">DEFAULT</code>というリテラルワードに対する特別な処理を行わなくなりました。パラメータを省略するか、代わりに空文字列を指定します（v1、v2ともに有効です）。</p>
-<p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitClose now sets the <a href="misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, so if WinWaitClose times out, it returns 0 (false) and <code>WinExist()</code> returns the last window it found. For <em>Timeout</em>, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.</p>
+<p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitCloseが<a href="misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>を設定するようになったので、WinWaitCloseがタイムアウトした場合は0（false）を返し、<code>WinExist()</code>は最後に見つかったウィンドウを返すようになりました。<em>Timeout</em>については、0を指定しても0.5を指定したのと同じではなく、可能な限り短い待ち時間を生成するようになりました。</p>
 <p><strong>アンソートです：</strong></p>
 <p><a href="lib/InStr.htm">InStr</a>、<a href="lib/SubStr.htm">SubStr</a>、<a href="lib/RegExMatch.htm">RegExMatch</a>、<a href="lib/RegExReplace.htm">RegExReplaceの</a> <em>StartingPos</em>が負の場合、末尾からの位置と解釈されます。位置-1が最後の文字で、位置0は無効です（v1では位置0が最後の文字でしたが）。</p>
 <p>これまでOn/OffやOn/Off/Toggle（他の文字列は不可）を受け付けていた機能では、代わりに1/0/-1が必要となります。OnとOffは、通常、<code>True</code>と <code>False</code>に置き換えられるでしょう。On/Offを返していた変数が1/0を返すようになり、式でより便利になりました。</p>
 <ul>
-<li><a href="lib/_UseHook.htm">#UseHook</a>と <a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>は <code>1</code>、<code>0</code>、<code>True</code>、<code>False</code>を許可します。(他と違い、実際には表現に対応していません)。</li>
+<li><a href="lib/_UseHook.htm">#UseHook</a>と <a href="lib/_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>は <code>1</code>、<code>0</code>、<code>True</code>、<code>False</code>を許可します。（他と違い、実際には表現に対応していません。）</li>
 <li><a href="lib/ListLines.htm">ListLines</a> allows omitted or boolean.</li>
 <li><a href="lib/ControlSetChecked.htm">ControlSetChecked</a>、<a href="lib/ControlSetEnabled.htm">ControlSetEnabled</a>、<a href="lib/Pause.htm">Pause</a>、<a href="lib/Suspend.htm">Suspend</a>、<a href="lib/WinSetAlwaysOnTop.htm">WinSetAlwaysOnTop</a>、<a href="lib/WinSetEnabled.htm">WinSetEnabled</a>では、<code>1</code>、<code>0</code>、<code>-1</code>が可能です。</li>
 <li><a href="Variables.htm#DetectHiddenWindows">A_DetectHiddenWindows</a>、<a href="Variables.htm#DetectHiddenText">A_DetectHiddenText</a>、<a href="Variables.htm#StoreCapsLockMode">A_StoreCapsLockMode</a>は、booleanを使用します（対応する関数も同様です）。</li>
@@ -748,12 +748,12 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p>DllCallがStrまたはWStrとして渡された変数の長さを更新するとき、文字列が適切にヌル終端されていないかどうかを検出し（バッファオーバーランが発生した可能性が高い）、安全な実行が保証されないため、エラーメッセージでプログラムを終了させるようにしました。</p>
 <p><code>AStr</code>（接尾辞なし）は入力専用になりました。バッファは入力文字列と同じ大きさしかないため、通常、出力パラメータには使えませんでした。AutoHotkeyがANSI用にコンパイルされている場合は、AStrではなくWStrに適用されますが、公式v2リリースはUnicode用にしかコンパイルされません。</p>
 <p>関数が<code>Str*</code>、<code>AStr*</code>、または<code>WStr*</code>パラメータに新しいアドレスを書き込む場合、DllCallは、元の文字列の長さ（おそらく変更されていない）を単に更新するのではなく、対応する変数が提供されている場合は新しい文字列を代入するようになりました。このタイプのパラメータは、通常、入力文字列を変更するために使用されるのではなく、新しいアドレスで文字列を返すために使用されます。</p>
-<p>DllCall now accepts an object for any <code>Ptr</code> parameter and the <em>Function</em> parameter; the object must have a <em>Ptr</em> property. For buffers allocated by the script, the new <a href="lib/Buffer.htm">Buffer object</a> is preferred over a variable. For <code>Ptr*</code>, the parameter's new value is assigned back to the object's <em>Ptr</em> property. This allows constructs such as <code>DllCall(..., "Ptr*", unk := IUnknown())</code>, which reduces repetition compared to <code>DllCall(..., "Ptr*", punk), unk := IUnknown(punk)</code>, and can be used to ensure any output from the function is properly freed (even if an exception is thrown due to the <code>HRESULT</code> return type, although typically the function would not output a non-null pointer in that case).</p>
+<p>DllCallは、<code>Ptr</code>パラメータと<em>Function</em>パラメータにオブジェクトを受け付けるようになりました（オブジェクトは<em>Ptr</em>プロパティを持つ必要があります）。スクリプトによって割り当てられたバッファについては、変数よりも新しい<a href="lib/Buffer.htm">Bufferオブジェクト</a>が優先されます。<code>Ptr*</code>の場合、パラメータの新しい値は、オブジェクトの<em>Ptr</em>プロパティに再び割り当てられます。これにより、<code>DllCall(..., "Ptr*", unk := IUnknown()) </code>のような構成が可能になり、<code>DllCall(..., "Ptr*", punk), unk := IUnknown(punk)</code>と比較して繰り返しが少なく、関数からの出力が適切に解放されるように使用できます（<code>HRESULT</code>戻り値型のために例外がスローされても、通常その場合関数は非 NULL ポインタを出力しないでしょう）。</p>
 <p>DllCallでは、数値型パラメータの値が数値であることが要求されるようになり、数値以外または空文字列が与えられた場合は例外がスローされます。特に、出力パラメータに接尾辞として * または P を使用した場合、出力変数の初期化が必要となる。</p>
-<p>スクリプトが数値を含むプレーンな変数を渡す場合、接尾辞に * または P を持つ数値パラメーターの出力値（もしあれば）は無視されます。To receive the output value, pass a <a href="Concepts.htm#variable-references">VarRef</a> such as <code>&amp;myVar</code> or an object with a <em>Ptr</em> property.</p>
+<p>スクリプトが数値を含むプレーンな変数を渡す場合、接尾辞に * または P を持つ数値パラメーターの出力値（もしあれば）は無視されます。出力値を受け取るには、<a href="Concepts.htm#variable-references">&amp;myVar</a>などの <code>VarRef</code>や <em>Ptr</em>プロパティを持つオブジェクトを渡します。</p>
 <p>新しい<code>HRESULT</code>の戻り値は、関数が失敗した場合（<code>int &lt; 0</code>または<code>uint &amp; 0x80000000</code>）、例外をスローするものです。これは、実際に<code>HRESULT</code>を返す関数にのみ使用する必要があります。</p>
 <h4 id="loop-sub-commands">ループサブコマンド</h4>
-<p>サブコマンドキーワードは文字どおり書かなければなりません。引用符で囲むことはできず、変数や式にすることはできません。その他のパラメータはすべて式です。All loop sub-commands now support <a href="lib/Block.htm#otb">OTB</a>.</p>
+<p>サブコマンドキーワードは文字どおり書かなければなりません。引用符で囲むことはできず、変数や式にすることはできません。その他のパラメータはすべて式です。すべてのループサブコマンドが<a href="lib/Block.htm#otb">OTB</a>に対応しました。</p>
 <p>削除：</p>
 <pre class="no-highlight">Loop, FilePattern [, IncludeFolders, Recurse]
 Loop, RootKey [, Key, IncludeSubkeys, Recurse]
@@ -767,10 +767,10 @@ Loop Reg, KeyName [, Mode]
 <h4 id="inputbox">InputBox</h4>
 <pre>InputBoxObj := InputBox([Prompt, Title, Options, Default])
 </pre>
-<p><em>Options</em>パラメータは、Guiのコントロールオプションと同様に、スペースまたはタブで区切られた0個以上の大文字と小文字を区別しないオプションの文字列を受け付けます。例えば、サポートされているすべてのオプションが含まれます：<code>"x0 y0 w100 h100 T10.0 Password*"</code>. <code>T</code>はタイムアウト、<code>Password</code>は同等のEditコントロールオプションと同じ使用法です。</p>
+<p><em>Options</em>パラメータは、Guiのコントロールオプションと同様に、スペースまたはタブで区切られた0個以上の大文字と小文字を区別しないオプションの文字列を受け付けます。例えば、サポートされているすべてのオプションが含まれます：<code>"x0 y0 w100 h100 T10.0 Password*"</code>。<code>T</code>はタイムアウト、<code>Password</code>は同等のEditコントロールオプションと同じ使用法です。</p>
 <p>幅と高さのオプションは、クライアント領域（タイトルバーとウィンドウフレームを除く領域）のサイズを設定するようになり、テーマへの依存度が低くなりました。</p>
 <p><em>Title</em>パラメータが空文字列の場合、タイトルは空白となります。ユーザー定義関数のオプションパラメータと同様に、完全に省略された場合のみ、<a href="Variables.htm#ScriptName">A_ScriptName</a>がデフォルトとなります。</p>
-<p><em>InputBoxObj</em> is an object with the properties <em>Result</em> (containing "OK", "Cancel" or "Timeout") and <em>Value</em>.</p>
+<p><em>InputBoxObj</em>は、<em>Result</em>（"OK"、"Cancel"、"Timeout"を含む）および<em>Value</em>のプロパティを持つオブジェクトです。</p>
 <h4 id="msgbox">MsgBox</h4>
 <pre>Result := MsgBox([Text, Title, Options])
 </pre>
@@ -787,19 +787,19 @@ Loop Reg, KeyName [, Mode]
 <p><em>Title</em>パラメータが空文字列の場合、タイトルは空白となります。ユーザー定義関数のオプションパラメータと同様に、完全に省略された場合のみ、<a href="Variables.htm#ScriptName">A_ScriptName</a>がデフォルトとなります。</p>
 <h4 id="sub-commands">Sub-Commands</h4>
 <p>Control、ControlGet、Drive、DriveGet、WinGet、WinSet、Processのサブコマンドは個別の機能に置き換えられ、メインコマンドは削除されました。一部の機能については、名称および使用方法を変更しています。新しい使い方は以下の通りです：</p>
-<pre><em>; Where ...は、オプションのControl、WinTitleなどを意味します。</em>
+<pre><em>; ここで、...はオプションのControl、WinTitleなどを意味する。</em>
 
 Bool  := ControlGetChecked(...)
 Bool  := ControlGetEnabled(...)
 Bool  := ControlGetVisible(...)
-Int   := ControlGetIndex(...)  <em>; For Tab, LB, CB, DDL</em>
+Int   := ControlGetIndex(...)  <em>; Tab、LB、CB、DDL用</em>
 Str   := ControlGetChoice(...)
 Arr   := ControlGetItems(...)
 Int   := ControlGetStyle(...)
 Int   := ControlGetExStyle(...)
 Int   := ControlGetHwnd(...)
 
-ControlSetChecked(TrueFalseToggle, ...)
+         ControlSetChecked(TrueFalseToggle, ...)
          ControlSetEnabled(TrueFalseToggle, ...)
          ControlShow(...)
          ControlHide(...)
@@ -807,7 +807,7 @@ ControlSetChecked(TrueFalseToggle, ...)
          ControlSetExStyle(Value, ...)
          ControlShowDropDown(...)
          ControlHideDropDown(...)
-         ControlChooseIndex(Index, ...)  <em>; Also covers Tab</em>
+         ControlChooseIndex(Index, ...)  <em>; Tabもカバー</em>
 Index := ControlChooseString(Str, ...)
 
 Index := ControlFindItem(Str, ...)
@@ -823,7 +823,7 @@ Str   := EditGetSelectedText(...)
 
 Str   := ListViewGetContent([Options, ...])
 
-DriveEject([Drive])
+         DriveEject([Drive])
          DriveRetract([Drive])
          DriveLock(Drive)
          DriveUnlock(Drive)
@@ -839,7 +839,7 @@ Str   := DriveGetStatusCD(Drive)
 Int   := DriveGetCapacity(Path)
 Int   := DriveGetSpaceFree(Path)
 
-<em>; Where ...は、オプションのWinTitleなどを意味します。</em>
+<em>; ここで、...はオプションのWinTitleなどを意味する。</em>
 
 Int   := WinGetID(...)
 Int   := WinGetIDLast(...)
@@ -856,7 +856,7 @@ Str   := WinGetTransColor(...)
 Int   := WinGetStyle(...)
 Int   := WinGetExStyle(...)
 
-WinSetTransparent(N [, ...])
+         WinSetTransparent(N [, ...])
          WinSetTransColor("Color [N]" [, ...]),
          WinSetAlwaysOnTop([TrueFalseToggle := 1, ...])
          WinSetStyle(Value [, ...])
@@ -864,7 +864,7 @@ WinSetTransparent(N [, ...])
          WinSetEnabled(Value [, ...])
          WinSetRegion(Value [, ...])
 
-WinRedraw(...)
+         WinRedraw(...)
          WinMoveBottom(...)
          WinMoveTop(...)
 
@@ -873,7 +873,7 @@ PID   := ProcessClose(PID_or_Name)
 PID   := ProcessWait(PID_or_Name [, Timeout])
 PID   := ProcessWaitClose(PID_or_Name [, Timeout])
 
-ProcessSetPriority(Priority [, PID_or_Name])
+         ProcessSetPriority(Priority [, PID_or_Name])
 </pre>
 <p><a href="lib/ProcessExist.htm">ProcessExist</a>、<a href="lib/ProcessClose.htm">ProcessClose</a>、<a href="lib/ProcessWait.htm">ProcessWait</a>、<a href="lib/ProcessWaitClose.htm">ProcessWaitClose</a>は、ErrorLevelを設定しなくなり、代わりにPIDを返すようになりました。</p>
 <p>他のどの関数もErrorLevelを設定しません。その代わり、失敗すると例外を投げます。多くの場合、失敗の原因は対象となるウィンドウやコントロールが見つからなかったことにあります。</p>
@@ -894,35 +894,35 @@ Primary := MonitorGetPrimary()
 Name    := MonitorGetName([N])
 </pre>
 <h3 id="new-functions">新機能のご紹介</h3>
-<p><code>Buffer([ByteCount, FillByte])</code> (calling the Buffer class) creates and returns a <code>Buffer</code> object encapsulating a block of memory with a size of <em>ByteCount</em> bytes, initialized only if <em>FillByte</em> is specified. <code>BufferObj.Ptr</code>はアドレスを返し、<code>BufferObj.Size</code>はバイト単位のサイズを返すか設定します（メモリブロックの再割り当て）。Any object with <em>Ptr</em> and <em>Size</em> properties can be passed to <a href="lib/NumPut.htm">NumPut</a>, <a href="lib/NumGet.htm">NumGet</a>, <a href="lib/StrPut.htm">StrPut</a>, <a href="lib/StrGet.htm">StrGet</a>, <a href="lib/File.htm#RawRead">File.RawRead</a>, <a href="lib/File.htm#RawWrite">File.RawWrite</a> and <a href="lib/FileAppend.htm">FileAppend</a>. Any object with a <em>Ptr</em> property can be passed to <a href="lib/DllCall.htm">DllCall</a> parameters with <code>Ptr</code> type, <a href="lib/SendMessage.htm">SendMessage</a> and <a href="lib/PostMessage.htm">PostMessage</a>.</p>
-<p><code>CaretGetPos([&amp;OutputVarX, &amp;OutputVarY])</code> retrieves the current coordinates of the caret (text insertion point). これにより、XとYの座標が常に一致し、予期せぬ動作（A_CaretX/Yが現在のCoordModeにない値を返すなど）を引き起こすキャッシュがないことが保証されます。</p>
+<p><code>Buffer([ByteCount, FillByte])</code> (calling the Buffer class) creates and returns a <code>Buffer</code> object encapsulating a block of memory with a size of <em>ByteCount</em> bytes, initialized only if <em>FillByte</em> is specified. <code>BufferObj.Ptr</code>はアドレスを返し、<code>BufferObj.Size</code>はバイト単位のサイズを返すか設定します（メモリブロックの再割り当て）。<em>Ptr</em>と<em>Size</em>プロパティを持つオブジェクトは、<a href="lib/NumPut.htm">NumPut</a>、<a href="lib/NumGet.htm">NumGet</a>、<a href="lib/StrPut.htm">StrPut</a>、<a href="lib/StrGet.htm">StrGet</a>、<a href="lib/File.htm#RawRead">File.RawRead</a>、<a href="lib/File.htm#RawWrite">File.RawWrite</a>、<a href="lib/FileAppend.htm">FileAppend</a>に渡すことができます。<em>Ptr</em>プロパティを持つオブジェクトであれば、<a href="lib/DllCall.htm">Ptr</a>型の<code>DllCall</code>パラメータ、<a href="lib/SendMessage.htm">SendMessage</a>、<a href="lib/PostMessage.htm">PostMessage</a>に渡すことができます。</p>
+<p><code>CaretGetPos([&amp;OutputVarX, &amp;OutputVarY])</code>は、キャレット（テキスト挿入点）の現在の座標を取得します。これにより、XとYの座標が常に一致し、予期せぬ動作（A_CaretX/Yが現在のCoordModeにない値を返すなど）を引き起こすキャッシュがないことが保証されます。</p>
 <p><code>ClipboardAll([Data, Size])</code>は、クリップボード上のすべてのデータを含むオブジェクトを作成します（オプションとして、クリップボードの現在の内容を使用する代わりに、以前にクリップボードから取得したデータを受け入れることができます）。クリップボードファイルのデータを読み込む方法と書き込む方法は異なります。データ形式は同じですが、データサイズが常に32ビットであるため、32ビットと64ビットのビルド間でデータを移植することができます。詳しくはv2のドキュメントをご覧ください。</p>
-<p><code>ComCall(offset, comobj, ...)</code> is equivalent to <code>DllCall(NumGet(NumGet(comobj.ptr) + offset * A_Index), "ptr", comobj.ptr, ...)</code>, but with the return type defaulting to <code>HRESULT</code> rather than <code>Int</code>.</p>
-<p><a href="lib/ComObject.htm">ComObject</a>（旧ComObjCreate）と<a href="lib/ComObjQuery.htm">ComObjQuery</a>は、IIDが指定されていても、ラッパーオブジェクトを返すようになりました。ComObjQuery permits the first parameter to be any object with a <em>Ptr</em> property.</p>
+<p><code>ComCall(offset, comobj, ...)</code>は<code>DllCall(NumGet(comobj.ptr) + offset * A_Index), "ptr", comobj.ptr, ...)</code>と同等ですが、戻り値の型のデフォルトが<code>Int</code>でなく<code>HRESULT</code>となっています。</p>
+<p><a href="lib/ComObject.htm">ComObject</a>（旧ComObjCreate）と<a href="lib/ComObjQuery.htm">ComObjQuery</a>は、IIDが指定されていても、ラッパーオブジェクトを返すようになりました。ComObjQueryでは、第1パラメータに<em>Ptr</em>プロパティを持つ任意のオブジェクトを指定することができます。</p>
 <p><a href="lib/ControlGetClassNN.htm">ControlGetClassNN</a>は、指定されたコントロールの ClassNN を返します。</p>
-<p><a href="lib/ControlSend.htm">ControlSendText</a>, equivalent to ControlSendRaw but using Text mode instead of Raw mode.</p>
-<p><code>DirExist(FilePattern)</code>, with usage similar to FileExist. Note that a wildcard check like <code>InStr(FileExist("MyFolder\*"), "D")</code> with <em>MyFolder</em> containing files and subfolders will only tell you whether the <u>first</u> matching file is a folder, not whether a folder exists.</p>
-<p><code>Float(Value)</code>:上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
-<p><code>InstallKeybdHook([Install, Force])</code> and <code>InstallMouseHook([Install, Force])</code> replace the corresponding directives, for increased flexibility.</p>
-<p><code>Integer(Value)</code>:上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
-<p id="isXXX"><a href="lib/Is.htm">IsXXX</a>: The legacy command "if Var is Type" has been replaced with a series of functions: IsAlnum, IsAlpha, IsDigit, IsFloat, IsInteger, IsLower, IsNumber, IsSpace, IsUpper, IsXDigit. With the exception of IsFloat, IsInteger and IsNumber, an exception is thrown if the parameter is not a string, as implicit conversion to string may cause counter-intuitive results.</p>
-<p><code>IsSet(Var)</code>, <code>IsSetRef(&amp;Ref)</code>: Returns 1 (true) if the variable has been assigned a value (even if that value is an empty string), otherwise 0 (false). If 0 (false), attempting to read the variable within an expression would throw an error.</p>
-<p><code>Menu()</code>/<code>MenuBar()</code>は、v1 Menu サブコマンドに対応する以下のメンバを持つ新しい Menu/MenuBar オブジェクトを返します。Methods:<a href="lib/Menu.htm#Add">Add</a>, <a href="lib/Menu.htm#AddStandard"><strong>Add</strong>Standard</a>, <a href="lib/Menu.htm#Check">Check</a>, <a href="lib/Menu.htm#Delete">Delete</a>, <a href="lib/Menu.htm#Disable">Disable</a>, <a href="lib/Menu.htm#Enable">Enable</a>, <a href="lib/Menu.htm#Insert">Insert</a>, <a href="lib/Menu.htm#Rename">Rename</a>, <a href="lib/Menu.htm#SetColor"><strong>Set</strong>Color</a>, <a href="lib/Menu.htm#SetIcon"><strong>Set</strong>Icon</a>, <a href="lib/Menu.htm#Show">Show</a>, <a href="lib/Menu.htm#ToggleCheck">ToggleCheck</a>, <a href="lib/Menu.htm#ToggleEnable">ToggleEnable</a>, <a href="lib/Menu.htm#Uncheck">Uncheck</a>. プロパティー：<a href="lib/Menu.htm#ClickCount"><strong>ClickCount</strong></a>、<a href="lib/Menu.htm#Default">Default</a>、<a href="lib/Menu.htm#Handle">Handle</a>（MenuGetHandleを置き換えたもの）。<a href="Variables.htm#TrayMenu">A_TrayMenu</a>は、Menu オブジェクトも返します。UseErrorLevelモード、グローバルメニュー名、メニュー自体の明示的な削除はありません（すべての参照が解放されたときに起こります；<a href="lib/Menu.htm#Delete">Delete</a>メソッドはv1 DeleteAllと同等です）。ラベルはサポートされておらず、ファンクションオブジェクトのみです。<a href="lib/Menu.htm#AddStandard">AddStandard</a>メソッドは、標準的なメニュー項目を追加し、カスタム項目と同様に個別に変更することができます。v1とは異なり、Win32メニューはオブジェクトが削除されたときのみ破棄されます。</p>
+<p><a href="lib/ControlSend.htm">ControlSendText</a>は。ControlSendRawと同等ですが、Rawモードの代わりにTextモードを使用します。</p>
+<p><code>DirExist(FilePattern)</code>、使い方はFileExistと同様です。Note that a wildcard check like <code>InStr(FileExist("MyFolder\*"), "D")</code> with <em>MyFolder</em> containing files and subfolders will only tell you whether the <u>first</u> matching file is a folder, not whether a folder exists.</p>
+<p><code>Float(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
+<p><code>InstallKeybdHook(Install, Force)</code>と<code>InstallMouseHook(Install, Force)</code>は、柔軟性を高めるために、対応するディレクティブを置き換えるものです。</p>
+<p><code>Integer(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
+<p id="isXXX"><a href="lib/Is.htm">IsXXX</a>： レガシーコマンドである「if Var is Type」は、一連の関数に置き換えられています：IsAlnum、IsAlpha、IsDigit、IsFloat、IsInteger、IsLower、IsNumber、IsSpace、IsUpper、IsXDigit。IsFloat、IsInteger、IsNumberを除き、パラメータが文字列でない場合、暗黙のうちに文字列に変換すると直感的でない結果を引き起こす可能性があるため、例外がスローされます。</p>
+<p><code>IsSet(Var)</code>、<code>IsSetRef(&amp;Ref)</code>：変数に値が割り当てられている場合（その値が空文字列であっても）1（true）を、そうでない場合0（false）を返します。0（false）の場合、式の中で変数を読み込もうとするとエラーが発生します。</p>
+<p><code>Menu()</code>/<code>MenuBar()</code>は、v1 Menu サブコマンドに対応する以下のメンバを持つ新しい Menu/MenuBar オブジェクトを返します。メソッド：<a href="lib/Menu.htm#Add">Add</a>、<a href="lib/Menu.htm#AddStandard"><strong>Add</strong>Standard</a>、<a href="lib/Menu.htm#Check">Check</a>、<a href="lib/Menu.htm#Delete">Delete</a>、<a href="lib/Menu.htm#Disable">Disable</a>、<a href="lib/Menu.htm#Enable">Enable</a>、<a href="lib/Menu.htm#Insert">Insert</a>、<a href="lib/Menu.htm#Rename">Rename</a>、<a href="lib/Menu.htm#SetColor"><strong>Set</strong>Color</a>、<a href="lib/Menu.htm#SetIcon"><strong>Set</strong>Icon</a>、<a href="lib/Menu.htm#Show">Show</a>、<a href="lib/Menu.htm#ToggleCheck">ToggleCheck</a>、<a href="lib/Menu.htm#ToggleEnable">ToggleEnable</a>、<a href="lib/Menu.htm#Uncheck">Uncheck</a>。プロパティー：<a href="lib/Menu.htm#ClickCount"><strong>ClickCount</strong></a>、<a href="lib/Menu.htm#Default">Default</a>、<a href="lib/Menu.htm#Handle">Handle</a>（MenuGetHandleを置き換えたもの）。<a href="Variables.htm#TrayMenu">A_TrayMenu</a>は、Menu オブジェクトも返します。UseErrorLevelモード、グローバルメニュー名、メニュー自体の明示的な削除はありません（すべての参照が解放されたときに起こります；<a href="lib/Menu.htm#Delete">Delete</a>メソッドはv1 DeleteAllと同等です）。ラベルはサポートされておらず、ファンクションオブジェクトのみです。<a href="lib/Menu.htm#AddStandard">AddStandard</a>メソッドは、標準的なメニュー項目を追加し、カスタム項目と同様に個別に変更することができます。v1とは異なり、Win32メニューはオブジェクトが削除されたときのみ破棄されます。</p>
 <p><code>MenuFromHandle(Handle)</code> retrieves the Menu or MenuBar object corresponding to a Win32 menu handle, if it was created by AutoHotkey.</p>
-<p><code>Number(Value)</code>:上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
-<p><code>Persistent([Persist])</code> replaces the corresponding directive, increasing flexibility.</p>
-<p><code>RegDeleteKey([KeyName])</code> deletes a registry key. (RegDeleteは、レジストリループですべてのパラメータを省略する場合を除き、値のみを削除するようになりました)。</p>
-<p><a href="lib/Send.htm#SendText">SendText</a>, equivalent to SendRaw but using Text mode instead of Raw mode.</p>
-<p><code>StrCompare(String1, String2 [, CaseSense])</code> returns -1 (String1 is less than String2), 0 (equal) or 1 (greater than). <em>CaseSense</em>は"Locale"にすることができます。</p>
-<p><code>String(Value)</code>:上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
-<p><code>StrPtr(Value)</code> returns the address of a string. v1のaddress-ofとは異なり、リテラル文字列と一時的な文字列で使用することができます。</p>
+<p><code>Number(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
+<p><code>Persistent(Persist)</code>は、対応するディレクティブを置き換えることで、柔軟性を高めています。</p>
+<p><code>RegDeleteKey([KeyName])</code>は、レジストリキーを削除します。（RegDeleteは、レジストリループですべてのパラメータを省略する場合を除き、値のみを削除するようになりました。）</p>
+<p><a href="lib/Send.htm#SendText">SendRaw</a>と同等ですが、RawモードではなくTextモードを使用する<a href="lib/Send.htm#SendText">SendText</a>です。</p>
+<p><code>StrCompare(String1, String2 [, CaseSense]) は</code>、-1（String1 は String2 よりも小さい）、0（等しい）、1（より大きい）を返します。<em>CaseSense</em>は"Locale"にすることができます。</p>
+<p><code>String(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
+<p><code>StrPtr(Value)</code>は、文字列のアドレスを返します。v1のaddress-ofとは異なり、リテラル文字列と一時的な文字列で使用することができます。</p>
 <p><code>SysGetIPAddresses()</code>は、削除されたA_IPAddress変数に相当するIPアドレスの配列を返すものです。<code>A_IPAddress%N%</code>を参照するたびに、すべてのアドレスを検索しますが、1つしか返さないため、複数のアドレスを検索すると、必要以上に指数関数的に時間がかかります。返された配列は、0個以上の要素を持つことができます。</p>
 <p><code>TraySetIcon([FileName, IconNumber, Freeze])</code>は、"Menu Tray, Icon"を置き換えます。</p>
-<p><code>VarSetStrCapacity(&amp;TargetVar [, RequestedCapacity])</code> replaces the v1 VarSetCapacity, but is intended for use only with UTF-16 strings (such as to optimize repeated concatenation); therefore <em>RequestedCapacity</em> and the return value are in characters, not bytes.</p>
+<p><code>VarSetStrCapacity(&amp;TargetVar [, RequestedCapacity]) </code>は、v1 VarSetCapacity を置き換えますが、（繰り返し連結の最適化など）UTF-16文字列にのみ使用することを意図しており、したがって<em>RequestedCapacity</em>と戻り値はバイトではなく文字です。</p>
 <p><code>VerCompare(A, B)</code>は、<a href="lib/_Requires.htm">#Requires</a>と同じアルゴリズムで2つのバージョン文字列を比較します。</p>
-<p><code>WinGetClientPos([&amp;OutX, &amp;OutY, &amp;OutWidth, &amp;OutHeight, WinTitle, ...])</code> retrieves the position and size of the window's client area, in screen coordinates.</p>
+<p><code>WinGetClientPos([&amp;OutX, &amp;OutY, &amp;OutWidth, &amp;OutHeight, WinTitle, ...])</code>ウィンドウのクライアント領域の位置とサイズを画面座標で取得します。</p>
 <h3 id="new-directives">新しいディレクティブ</h3>
-<p><code>#DllLoad [FileOrDirName]</code>:スクリプトの実行を開始する前に、DLLまたはEXEファイルをロードします。</p>
+<p><code>#DllLoad [FileOrDirName]</code>：スクリプトの実行を開始する前にDLLまたはEXEファイルをロードします。</p>
 <h3 id="built-in-variables">組み込みの変数</h3>
 <p><a href="Variables.htm#AhkPath">A_AhkPath</a>は、スクリプトがコンパイルされている場合でも、常に現在の実行ファイル/インタプリタのパスを返します。以前は、ベースファイルとしてBINファイルを使用した場合、コンパイルされたスクリプトのパスを返していましたが、v2.0リリースではBINファイルを含まないようになりました。</p>
 <p><a href="Variables.htm#IsCompiled">A_IsCompiled</a>は、スクリプトがコンパイルされていない場合、""の代わりに0を返します。</p>
@@ -932,39 +932,39 @@ Name    := MonitorGetName([N])
 <p>数値を返す組み込み変数が、<a href="Concepts.htm#strings">文字列</a>ではなく、<a href="Concepts.htm#numbers">整数</a>で返すようになりました。</p>
 <p>改名：</p>
 <ul>
-<li>A_LoopFileFullPath →<a href="lib/LoopFiles.htm#LoopFilePath">A_LoopFilePath</a>（Loopのパラメータが相対パスだった場合、相対パスを返すので、「フルパス」は誤解を招きます。）</li>
+<li>A_LoopFileFullPath →<a href="lib/LoopFiles.htm#LoopFilePath">A_LoopFilePath</a>（Loopのパラメータが相対パスだった場合、相対パスを返すので、「フルパス」は誤解を招きます）</li>
 <li>A_LoopFileLongPath → <a href="lib/LoopFiles.htm#LoopFileFullPath">A_LoopFileFullPath</a></li>
 <li>Clipboard → <a href="lib/A_Clipboard.htm">A_Clipboard</a></li>
 </ul>
 <p>削除：</p>
 <ul>
-<li>ClipboardAll（<a href="lib/ClipboardAll.htm">ClipboardAll</a>関数に置き換えます。）</li>
-<li>ComSpec（<a href="Variables.htm#ComSpec">A_ComSpecを</a>使用します。）</li>
-<li>ProgramFiles（<a href="Variables.htm#ProgramFiles">A_ProgramFilesを</a>使用します。）</li>
+<li>ClipboardAll（<a href="lib/ClipboardAll.htm">ClipboardAll</a>関数に置き換えます）</li>
+<li>ComSpec（<a href="Variables.htm#ComSpec">A_ComSpecを</a>使用します）</li>
+<li>ProgramFiles（<a href="Variables.htm#ProgramFiles">A_ProgramFilesを</a>使用します）</li>
 <li>A_AutoTrim</li>
 <li>A_BatchLines</li>
-<li>A_CaretX, A_CaretY（<a href="lib/CaretGetPos.htm">CaretGetPos</a>を使用します。）</li>
-<li>A_DefaultGui, A_DefaultListView, A_DefaultTreeView</li>
+<li>A_CaretX、A_CaretY（<a href="lib/CaretGetPos.htm">CaretGetPos</a>を使用します）</li>
+<li>A_DefaultGui、A_DefaultListView、A_DefaultTreeView</li>
 <li>A_ExitReason</li>
 <li>A_FormatFloat</li>
 <li>A_FormatInteger</li>
 <li>A_Gui、A_GuiControl、A_GuiControlEvent、A_GuiEvent、A_GuiX、A_GuiY、A_GuiWidth、A_GuiHeight（すべて<a href="lib/GuiOnEvent.htm">イベントハンドラ</a>のパラメータに置き換えます）</li>
-<li>A_IPAddress1、A_IPAddress2、A_IPAddress3、A_IPAddress4（<a href="lib/SysGetIPAddresses.htm">SysGetIPAddresses</a>を使用します。）</li>
-<li>A_IsUnicode (v2 は常に Unicode です。<code>StrLen(Chr(0xFFFF))</code>で置き換えるか、<code>global A_IsUnicode := 1</code>で再定義できます)</li>
+<li>A_IPAddress1、A_IPAddress2、A_IPAddress3、A_IPAddress4（<a href="lib/SysGetIPAddresses.htm">SysGetIPAddresses</a>を使用します）</li>
+<li>A_IsUnicode（v2 は常に Unicode です。<code>StrLen(Chr(0xFFFF))</code>で置き換えるか、<code>global A_IsUnicode := 1</code>で再定義できます）</li>
 <li>A_StringCaseSense</li>
 <li>A_ThisLabel</li>
-<li>A_ThisMenu、A_ThisMenuItem、A_ThisMenuItemPos（<a href="lib/Menu.htm#Add">メニューアイテムコールバックのパラメータを</a>使用します。）</li>
-<li>A_LoopRegSubKey（<a href="lib/LoopReg.htm#vars">A_LoopRegKey</a>にルートキーとサブキーが含まれるようになりました。）</li>
-<li>真と偽（まだ存在しますが、現在はキーワードのみで、変数ではありません。）</li>
+<li>A_ThisMenu、A_ThisMenuItem、A_ThisMenuItemPos（<a href="lib/Menu.htm#Add">メニューアイテムコールバックのパラメータを</a>使用します）</li>
+<li>A_LoopRegSubKey（<a href="lib/LoopReg.htm#vars">A_LoopRegKey</a>にルートキーとサブキーが含まれるようになりました）</li>
+<li>真と偽（まだ存在しますが、現在はキーワードのみで、変数ではありません）</li>
 </ul>
 <p>追加：</p>
 <ul>
-<li><a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>(読み書き可能。"Menu Tray, MainWindow/NoMainWindow"を置換)</li>
-<li><a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a> (#HotkeyIntervalを置換)</li>
-<li><a href="Variables.htm#HotkeyModifierTimeout">A_HotkeyModifierTimeout</a> (#HotkeyModifierTimeoutを置換)</li>
-<li><a href="Variables.htm#InitialWorkingDir">A_InitialWorkingDir</a>(以下の「<a href="#default-settings">初期設定</a>」を参照)</li>
-<li><a href="Variables.htm#MaxHotkeysPerInterval">A_MaxHotkeysPerInterval</a>（#MaxHotkeysPerIntervalを置き換えます。）</li>
-<li><a href="Variables.htm#MenuMaskKey">A_MenuMaskKey</a>（#MenuMaskKeyを置き換える。）</li>
+<li><a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>（読み書き可能。「Menu Tray、MainWindow/NoMainWindow」を置換）</li>
+<li><a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>（#HotkeyIntervalを置換）</li>
+<li><a href="Variables.htm#HotkeyModifierTimeout">A_HotkeyModifierTimeout</a>（#HotkeyModifierTimeoutを置換）</li>
+<li><a href="Variables.htm#InitialWorkingDir">A_InitialWorkingDir</a>（以下の「<a href="#default-settings">初期設定</a>」を参照）</li>
+<li><a href="Variables.htm#MaxHotkeysPerInterval">A_MaxHotkeysPerInterval</a>（#MaxHotkeysPerIntervalを置き換えます）</li>
+<li><a href="Variables.htm#MenuMaskKey">A_MenuMaskKey</a>（#MenuMaskKeyを置き換える）</li>
 </ul>
 <p>以下の組み込み変数に値を割り当てることができます：</p>
 <ul>
@@ -977,63 +977,63 @@ Name    := MonitorGetName([N])
 <li><a href="Variables.htm#FileEncoding">A_FileEncoding</a>(また、""の代わりに "CP0"を返すようになり、割り当て時に "CP"のプレフィックスを省略することができるようになりました)</li>
 <li><a href="Variables.htm#IconHidden">A_IconHidden</a></li>
 <li><a href="Variables.htm#IconTip">A_IconTip</a>(また、ツールチップがデフォルトまたは空であっても、常に反映されるようになりました)</li>
-<li><a href="Variables.htm#Index">A_Index</a>:カウントループの場合、この値を変更すると、何回繰り返し実行されるかに影響します。(組み込み変数のグローバルな性質は、Enumerator関数がForループで見るべきインデックスを設定できることを意味します)。</li>
+<li><a href="Variables.htm#Index">A_Index</a>：カウントループの場合、この値を変更すると、何回繰り返し実行されるかに影響します。（組み込み変数のグローバルな性質は、Enumerator関数がForループで見るべきインデックスを設定できることを意味します。）</li>
 <li><a href="Variables.htm#KeyDelay">A_KeyDelay</a></li>
 <li><a href="Variables.htm#KeyDelayPlay">A_KeyDelayPlay</a></li>
 <li><a href="Variables.htm#KeyDelay">A_KeyDuration</a></li>
 <li><a href="Variables.htm#KeyDelayPlay">A_KeyDurationPlay</a></li>
-<li><a href="Variables.htm#LastError">A_LastError</a>:Win32 SetLastError()関数を呼び出します。また、符号なし値を返すようになりました。</li>
+<li><a href="Variables.htm#LastError">A_LastError</a>：Win32 SetLastError()関数を呼び出します。また、符号なし値を返すようになりました。</li>
 <li><a href="Variables.htm#ListLines">A_ListLines</a></li>
 <li><a href="Variables.htm#MouseDelay">A_MouseDelay</a></li>
 <li><a href="Variables.htm#MouseDelay">A_MouseDelayPlay</a></li>
 <li><a href="Variables.htm#RegView">A_RegView</a></li>
-<li><a href="Variables.htm#ScriptName">A_ScriptName</a>:デフォルトのダイアログのタイトルを変更します。</li>
+<li><a href="Variables.htm#ScriptName">A_ScriptName</a>：デフォルトのダイアログのタイトルを変更します。</li>
 <li><a href="Variables.htm#SendLevel">A_SendLevel</a></li>
 <li><a href="Variables.htm#SendMode">A_SendMode</a></li>
 <li><a href="Variables.htm#StoreCapsLockMode">A_StoreCapsLockMode</a>(また、"On" または "Off" の代わりに 1 または 0 を返すようになりました)</li>
 <li><a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a></li>
 <li><a href="Variables.htm#TitleMatchModeSpeed">A_TitleMatchModeSpeed</a></li>
 <li><a href="Variables.htm#WinDelay">A_WinDelay</a></li>
-<li><a href="Variables.htm#WorkingDir">A_WorkingDir</a>:<a href="lib/SetWorkingDir.htm">SetWorkingDir</a>を呼び出すのと同じです。</li>
+<li><a href="Variables.htm#WorkingDir">A_WorkingDir</a>：<a href="lib/SetWorkingDir.htm">SetWorkingDir</a>を呼び出すのと同じです。</li>
 </ul>
 <h3 id="built-in-objects">組込オブジェクト</h3>
-<p><a href="lib/File.htm">File objects</a> now strictly require property syntax when invoking properties and method syntax when invoking methods. For example, <code>FileObj.Pos(n)</code> is not valid. パラメータが少なすぎたり多すぎたりした場合や、読み取り専用のプロパティに値が割り当てられた場合は、例外が発生します。</p>
-<p>File.Tell() was removed.</p>
-<p><a href="lib/Func.htm#IsByRef">Func.IsByRef()</a> now works with built-in functions.</p>
+<p><a href="lib/File.htm">Fileオブジェクト</a>は、プロパティを呼び出す場合はプロパティ構文、メソッドを呼び出す場合はメソッド構文が厳密に要求されるようになりました。例えば、<code>FileObj.Pos(n)</code>は有効ではありません。パラメータが少なすぎたり多すぎたりした場合や、読み取り専用のプロパティに値が割り当てられた場合は、例外が発生します。</p>
+<p>File.Tell()が削除されました。</p>
+<p><a href="lib/Func.htm#IsByRef">Func.IsByRef()</a>が組み込み関数で動作するようになりました。</p>
 <h2 id="gui">Gui</h2>
 <p>Gui、GuiControl、GuiControlGetは、<a href="lib/Gui.htm#Call">Gui()</a>と<a href="lib/Gui.htm">Gui/</a><a href="lib/GuiControl.htm">GuiControl</a>オブジェクトに置き換えられ、一般により柔軟で一貫性があり、より使いやすくなりました。</p>
-<p>GUIは通常、名前/番号で参照されません（ただし、<code>GuiObj.Name</code>で名前を付けることはできます）。その代わり、GUIオブジェクト（とウィンドウ）は、<code>GuiObj := Gui()</code>のように<code>Gui</code>クラスをインスタンス化することで明示的に作成します。このオブジェクトは、Guiのサブコマンドを置き換えるメソッドとプロパティを持ちます。<a href="lib/Gui.htm#Add">Gui.Add()</a> returns a GuiControl object, which has methods and properties which replace the GuiControl and GuiControlGet commands. One can store this object in a variable, or use <code>GuiObj["Name"]</code> or <a href="lib/GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a> to retrieve the object. また、イベントハンドラ（g-labelの置き換え）が呼ばれるたびに、パラメータとして渡されます。</p>
+<p>GUIは通常、名前/番号で参照されません（ただし、<code>GuiObj.Name</code>で名前を付けることはできます）。その代わり、GUIオブジェクト（とウィンドウ）は、<code>GuiObj := Gui()</code>のように<code>Gui</code>クラスをインスタンス化することで明示的に作成します。このオブジェクトは、Guiのサブコマンドを置き換えるメソッドとプロパティを持ちます。<a href="lib/Gui.htm#Add">Gui.Add()</a>はGuiControlオブジェクトを返し、GuiControlとGuiControlGetコマンドに代わるメソッドとプロパティを持っています。このオブジェクトを変数に格納したり、<code>GuiObj["Name"]</code>や<a href="lib/GuiCtrlFromHwnd.htm">GuiCtrlFromHwnd</a>を使ってオブジェクトを取得することができます。また、イベントハンドラ（g-labelの置き換え）が呼ばれるたびに、パラメータとして渡されます。</p>
 <p>これらのメソッドやプロパティの使い方は、1:1 ではありません。より一貫性のある、より柔軟性のあるものにするため、また、バグや制限を修正するために、多くの部分が改訂されています。</p>
 <p>ターゲットとなるGUIやコントロールオブジェクトは常に指定されるため、「デフォルト」のGUIは存在しない。LV/TV/SBの関数が（コントロールオブジェクトの）メソッドに置き換えられ、複数のListView/TreeViewの利用がより容易になりました。</p>
 <p>イベントに関する情報を含む組み込み変数はありません。これらの情報は、ソースGUIやコントロールを含む、イベントを処理する関数/メソッドにパラメータとして渡されます。</p>
-<p>Controls can still be named and be referenced by name, but it's just a name (used with <code>GuiObj["Name"]</code> and <a href="lib/Gui.htm#Submit">Gui.Submit()</a>), not an associated variable, so there is no need to declare or create a global or static variable. The value is never stored in a variable automatically, but is accessible via <a href="lib/GuiControl.htm#Value">GuiControl.Value</a>. <a href="lib/Gui.htm#Submit">Gui.Submit()</a> returns a new associative array using the control names as keys.</p>
-<p>The <code>v<i>Name</i></code> option now just sets the control's name to <em>Name</em>.</p>
-<p>The <code>+Hwnd<i>VarName</i></code> option has been removed in favour of <a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a>.</p>
-<p>GUIイベントを自動的に処理する "g-labels"やラベル/ファンクションはもう存在しません。スクリプトは、GuiまたはGuiControlの<a href="lib/GuiOnEvent.htm">OnEvent</a>メソッドを呼び出して、関心のある各イベントに登録する必要があります。For example, rather than checking <code>if (A_GuiEvent = "I" &amp;&amp; InStr(ErrorLevel, "F", true))</code> in a g-label, the script would register a handler for the <a href="lib/GuiOnEvent.htm#ItemFocus">ItemFocus</a> event:<code>MyLV.OnEvent("ItemFocus", MyFunction)</code>. <em>MyFunction</em>は、ItemFocusイベントに対してのみ呼び出されることになります。It is not necessary to apply the <code>AltSubmit</code> option to enable additional events.</p>
+<p>コントロールはまだ名前を付けて参照することができますが、それは単なる名前（<code>GuiObj["Name"]</code>と<a href="lib/Gui.htm#Submit">Gui.Submit()</a>で使用）であって関連変数ではないので、グローバル変数や静的変数の宣言や作成は必要ではありません。値が自動的に変数に格納されることはなく、<a href="lib/GuiControl.htm#Value">GuiControl.Value</a>でアクセスすることができます。<a href="lib/Gui.htm#Submit">Gui.Submit()</a>は、コントロール名をキーとする新しい連想配列を返します。</p>
+<p><code>v<i>Name</i></code>オプションは、コントロールの名前を<em>Name</em>に設定するだけになりました。</p>
+<p><a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a>の代わりに、<code>+Hwnd<i>VarName</i></code>オプションが削除されました。</p>
+<p>GUIイベントを自動的に処理する "g-labels"やラベル/ファンクションはもう存在しません。スクリプトは、GuiまたはGuiControlの<a href="lib/GuiOnEvent.htm">OnEvent</a>メソッドを呼び出して、関心のある各イベントに登録する必要があります。例えば、g-labelで<code>if (A_GuiEvent = "I" &amp;&amp; InStr(ErrorLevel, "F", true))</code>をチェックするのではなく、<a href="lib/GuiOnEvent.htm#ItemFocus">ItemFocus</a>イベントに対するハンドラを登録するスクリプトとなります：<code>MyLV.OnEvent("ItemFocus", MyFunction)</code>。<em>MyFunction</em>は、ItemFocusイベントに対してのみ呼び出されることになります。It is not necessary to apply the <code>AltSubmit</code> option to enable additional events.</p>
 <p>配列は、リストボックスの作成時、項目の追加時、選択された項目の取得時など、これまでパイプで区切られたリストが使われていた場所に使用されます。</p>
 <p>スクリプトは、<code>Gui</code>を拡張し、独自のイベントを処理するクラスを定義することができ、すべてのGUIロジックを自己完結させることができます。</p>
 <h3 id="gui-sub-commands">Guiサブコマンド</h3>
-<p><strong>Gui New</strong> → <a href="lib/Gui.htm#Call">Gui()</a>. 空のタイトルを渡すと（省略せずに）、デフォルトのタイトルではなく、空のタイトルが表示されるようになりました。</p>
-<p><strong>Gui Add</strong> → <a href="lib/Gui.htm#Add">Gui.Add() or Gui.Add<em>ControlType</em>()</a>; e.g. <code>GuiObj.Add("Edit")</code> or <code>GuiObj.AddEdit()</code>.</p>
-<p><strong>Gui Show</strong> → <a href="lib/Gui.htm#Show">Gui.Show()</a>, but it has no <em>Title</em> parameter. The title can be specified as a parameter of Gui() or via the Gui.Title property. ただし、ボタンコントロールの場合は、デフォルトのボタンにフォーカスが移動します。</p>
-<p><strong>Gui Submit</strong> → <a href="lib/Gui.htm#Submit">Gui.Submit()</a>. Submit()がすべての「関連変数」を含む新しいオブジェクトを作成し、返すことを除けば、以前と同じように動作します。</p>
-<p><strong>Gui Destroy</strong> → <a href="lib/Gui.htm#Destroy">Gui.Destroy()</a>. オブジェクトはまだ（スクリプトがそれを解放するまで）存在しますが、使用することはできません。新しいGUIを作成する必要があります（必要な場合）。オブジェクトが削除されるとウィンドウも破壊されますが、ウィンドウが表示されている間はオブジェクトが「生かされる」のです。</p>
-<p><strong>Gui Font</strong> → <a href="lib/Gui.htm#SetFont">Gui.SetFont()</a>. It is also possible to set a control's font directly, with GuiControl.SetFont().</p>
-<p><strong>Gui Color</strong> → <a href="lib/Gui.htm#BackColor">Gui.BackColor</a> sets/returns the background color. <em>ControlColor</em>（第2パラメータ）はサポートされていませんが、以前サポートしていたすべてのコントロールは、代わりに<code>+Background</code>オプションで背景を設定することができます。Unlike "Gui Color", Gui.BackColor does not affect Progress controls or disabled/read-only Edit, DDL, ComboBox or TreeView (with <code>-Theme</code>) controls.</p>
-<p><strong>Gui Margin</strong> → <a href="lib/Gui.htm#MarginX">Gui.MarginX</a> and <a href="lib/Gui.htm#MarginY">Gui.MarginY</a> properties.</p>
-<p><strong>Gui Menu</strong> → <a href="lib/Gui.htm#MenuBar">Gui.MenuBar</a> sets/returns a MenuBar object created with <code>MenuBar()</code>.</p>
+<p><strong>Gui New</strong> → <a href="lib/Gui.htm#Call">Gui()</a>。空のタイトルを渡すと（省略せずに）、デフォルトのタイトルではなく、空のタイトルが表示されるようになりました。</p>
+<p><strong>Gui Add</strong> → <a href="lib/Gui.htm#Add">Gui.Add() または Gui.Add<em>ControlType</em>()</a>（例：<code>GuiObj.Add("Edit")</code>または<code>GuiObj.AddEdit()</code>）。</p>
+<p><strong>Gui Show</strong> → <a href="lib/Gui.htm#Show">Gui.Show()</a>ですが、<em>Title</em>パラメータを持ちません。タイトルはGui()のパラメータとして、またはGui.Titleプロパティで指定することができます。ただし、ボタンコントロールの場合は、デフォルトのボタンにフォーカスが移動します。</p>
+<p><strong>Gui Submit</strong> → <a href="lib/Gui.htm#Submit">Gui.Submit()</a>。Submit()がすべての「関連変数」を含む新しいオブジェクトを作成し、返すことを除けば、以前と同じように動作します。</p>
+<p><strong>Gui Destroy</strong> → <a href="lib/Gui.htm#Destroy">Gui.Destroy()</a>。オブジェクトはまだ（スクリプトがそれを解放するまで）存在しますが、使用することはできません。新しいGUIを作成する必要があります（必要な場合）。オブジェクトが削除されるとウィンドウも破壊されますが、ウィンドウが表示されている間はオブジェクトが「生かされる」のです。</p>
+<p><strong>Gui Font</strong> → <a href="lib/Gui.htm#SetFont">Gui.SetFont()</a>。また、GuiControl.SetFont()で、コントロールのフォントを直接設定することも可能です。</p>
+<p><strong>Gui Color</strong> → <a href="lib/Gui.htm#BackColor">Gui.BackColor</a>背景色を設定／返却します。<em>ControlColor</em>（第2パラメータ）はサポートされていませんが、以前サポートしていたすべてのコントロールは、代わりに<code>+Background</code>オプションで背景を設定することができます。Gui。BackColorは、「Gui Color」とは異なり、Progressコントロールや、無効/読み取り専用のEdit、DDL、ComboBox、TreeView（<code>-Theme</code>付き）コントロールには影響しません。</p>
+<p><strong>Gui Margin</strong> → <a href="lib/Gui.htm#MarginX">Gui.MarginX</a>、<a href="lib/Gui.htm#MarginY">Gui.MarginY</a>プロパティです。</p>
+<p><strong>Gui Menu</strong> → <a href="lib/Gui.htm#MenuBar">Gui.MenuBar</a> <code>MenuBar()</code>で作成したMenuBarオブジェクトを設定／返却します。</p>
 <p><strong>Gui Cancel/Hide/Minimize/Maximize/Restore</strong> → 同名のGuiメソッド。</p>
-<p><strong>Gui Flash</strong> → <a href="lib/Gui.htm#Flash">Gui.Flash()</a>, but use <code>false</code> instead of <code>Off</code>.</p>
-<p><strong>Gui Tab</strong> → <a href="lib/GuiControls.htm#Tab_UseTab">GuiControl.UseTab()</a>. デフォルトは、従来通りタブ名のプレフィックスと一致します。第2パラメータにtrueを渡すと、タブ名全体にマッチしますが、v1の「Exact」モードとは異なり、大文字と小文字は区別されません。</p>
-<h3 id="events">イベント情報</h3>
+<p><strong>Gui Flash</strong> → <a href="lib/Gui.htm#Flash">Gui.Flash()</a>ただし、<code>Off</code>の代わりに<code>false</code>を使用します。</p>
+<p><strong>Gui Tab</strong> → <a href="lib/GuiControls.htm#Tab_UseTab">GuiControl.UseTab()</a>を使用します。デフォルトは、従来通りタブ名のプレフィックスと一致します。第2パラメータにtrueを渡すと、タブ名全体にマッチしますが、v1の「Exact」モードとは異なり、大文字と小文字は区別されません。</p>
+<h3 id="events">イベント</h3>
 <p>明示的にサポートされるすべてのGUIおよびGUI制御イベントの詳細については、<a href="lib/GuiOnEvent.htm#Events">イベント（OnEvent）</a>を参照してください。</p>
 <p>Sizeイベントは、0、1、2の代わりに、0、-1、1（<a href="lib/WinGetMinMax.htm">WinGetMinMax</a>と一致）を渡します。</p>
 <p>ContextMenuイベントは、コントロールごとに、またはGUI全体に対して登録することができます。</p>
 <p>DropFilesイベントは、ContextMenuと整合性を取るために、<em>FileArray</em>と <em>Ctrl</em>パラメータを入れ替えました。</p>
 <p>ContextMenuとDropFilesイベントは、ウィンドウ座標の代わりにクライアント座標を使用します（Clientはv2のデフォルト<a href="lib/CoordMode.htm">CoordMode</a>でもあります）。</p>
-<p>The following control events were removed, but detecting them is a simple case of passing the appropriate numeric notification code (defined in the Windows SDK) to <a href="lib/GuiOnNotify.htm">GuiControl.OnNotify()</a>:K、D、d、A、S、s、M、C、E、および、MonthCalの1、2です。</p>
+<p>以下の制御イベントは削除されましたが、これらを検出するには、<a href="lib/GuiOnNotify.htm">GuiControl.OnNotify()</a>に適切な数値通知コード（Windows SDKで定義）を渡すだけで、簡単に検出できます：K、D、d、A、S、s、M、C、E、および、MonthCalの1、2です。</p>
 <p>制御イベントは、イベント名をパラメータとして渡すことはありません（GUIイベントは、そのようなことはありません）。</p>
-<p>Custom's N and Normal events were replaced with <a href="lib/GuiOnNotify.htm">GuiControl.OnNotify()</a> and <a href="lib/GuiOnCommand.htm">GuiControl.OnCommand()</a>, which can be used with any control.</p>
+<p>CustomのNイベントとNormalイベントは、<a href="lib/GuiOnNotify.htm">GuiControl.OnNotify()</a>と<a href="lib/GuiOnCommand.htm">GuiControl.OnCommand()</a>に置き換えられ、あらゆるコントロールで使用できるようになりました。</p>
 <p>リンクのClickイベントは、「Ctrl, Index, HREF or ID」ではなく「Ctrl, ID or Index, HREF」を渡し、Clickコールバックが登録されている場合は、自動的にHREFを実行しないようにしました。</p>
 <p>ListViewのClick、DoubleClick、ContextMenu（右クリックでトリガーされる場合）イベントで、フォーカスされたアイテムではなく、クリックされたアイテム（ない場合は0）を報告するようになりました。</p>
 <p>ListViewのIイベントは、F（ItemFocus）が暗示するため除外されたf（de-focus）イベントを除き、複数の名前のついたイベントに分割されました。</p>
@@ -1045,37 +1045,37 @@ Name    := MonitorGetName([N])
 <p>LV/TV.Add/Modifyはアイテムチェンジイベントを抑制するようになりましたので、そのようなイベントはユーザーアクションまたはSendMessageによってのみ発生します。</p>
 <h3 id="removed">削除</h3>
 <p>+Delimiter<br>
-+Hwnd<em>OutputVar</em> (use <a href="lib/Gui.htm#Hwnd">Gui.Hwnd</a> or <a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a> instead)<br>
++Hwnd<em>OutputVar</em>（<a href="lib/Gui.htm#Hwnd">Gui.Hwnd</a> または <a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a> を代わりに使用してください）<br>
 +Label<br>
 +LastFoundExist<br>
-Gui GuiName:Default</p>
+Gui GuiName: Default</p>
 <h3 id="control-options">Control Options</h3>
 <p>+/-Background は、解釈とサポートがより一貫しています。ListView/TreeView/StatusBar/Progressだけでなく、"Gui Color" をサポートしていたすべてのコントロールが<code>+Background<i>Color</i></code>と <code>+BackgroundDefault</code> （<code>-Background</code>と同義）をサポートしました。</p>
-<p><a href="lib/Gui.htm#Add">Gui.Add()</a> defaults to <code>y+m</code>/<code>x+m</code> instead of <code>yp</code>/<code>xp</code> when <code>xp</code>/<code>yp</code> or <code>xp+0</code>/<code>yp+0</code> is used. つまり、コントロールは全く同じ位置ではなく、前のコントロールの下/右側に配置されます。オフセットが0でない場合は、v1と同じ動作となります。全く同じ位置を使用する場合は、<code>xp yp</code>を一緒に指定してください。</p>
+<p><a href="lib/Gui.htm#Add">Gui.Add</a>は、<code>yp</code>/<code>xp</code>の代わりに<code>xp</code>/<code>p</code>または<code>xp+0</code>/<code>p+0</code>が使用されていた場合は<code>y+m</code>/<code>x+m</code>がデフォルトとなる。つまり、コントロールは全く同じ位置ではなく、前のコントロールの下/右側に配置されます。オフセットが0でない場合は、v1と同じ動作となります。全く同じ位置を使用する場合は、<code>xp yp</code>を一緒に指定してください。</p>
 <p><code>x+m</code>と <code>y+m</code>の後に、<code>x+m+10</code>（<code>x+m10</code>も有効だが、可読性が低い）のような付加的なオフセットを付けることができます。</p>
 <p><code>Choose</code>は、もはやMonthCalの値を指定する冗長な（文書化されていない）方法として機能しません。前回同様、<em>Text</em>パラメータを使用するだけです。</p>
 <h3 id="guicontrolget">GuiControlGet</h3>
 <h4 id="empty-sub-command">空のサブコマンド</h4>
-<p>GuiControlGetの空サブコマンドには2つのモードがありました：というデフォルトのモードと、4番目のパラメータが<code>Text</code>という単語であるテキストモードがあります。コントロールタイプに単一の「値」がない場合、GuiControlGetは<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtexta">GetWindowText</a>の結果を返すのがデフォルトでした（これは必ずしも可視テキストではありません）。コントロールによっては、テキストが表示されていなかったり、テキストの取得をサポートしていなかったりするため、4番目のパラメータを完全に無視することができました。By contrast, <a href="lib/GuiControl.htm#Text">GuiControl.Text</a> returns display text, hidden text (the same text returned by ControlGetText) or nothing at all.</p>
+<p>GuiControlGetの空サブコマンドには2つのモードがありました：というデフォルトのモードと、4番目のパラメータが<code>Text</code>という単語であるテキストモードがあります。コントロールタイプに単一の「値」がない場合、GuiControlGetは<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowtexta">GetWindowText</a>の結果を返すのがデフォルトでした（これは必ずしも可視テキストではありません）。コントロールによっては、テキストが表示されていなかったり、テキストの取得をサポートしていなかったりするため、4番目のパラメータを完全に無視することができました。一方、<a href="lib/GuiControl.htm#Text">GuiControl.Text</a>は、表示テキスト、非表示テキスト（ControlGetTextが返すテキストと同じ）、または全く何も返しません。</p>
 <p>下の表は、GuiControlGetの各モードとコントロールタイプに最も近い同等のプロパティまたは関数を示しています。</p>
 <table class="info">
-<tr><th>Control</th><th>デフォルト</th><th>Text</th><th>Notes</th></tr>
-<tr><td>アクティブX</td><td>.Value</td><td>.Text</td><td>テキストは非表示です。下記をご覧ください。</td></tr>
-<tr><td>ボタン</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>チェックボックス</td><td>.Value</td><td>.Text</td><td></td></tr>
-<tr><td>コンボボックス</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用された場合、Textの代わりにValueを使用する（ただし、Textがリスト項目に一致しない場合、Valueは0を返します）。Textは大文字・小文字の訂正を行い、ControlGetTextはEditフィールドの内容を返します。</td></tr>
-<tr><td>カスタム</td><td colspan="2">.Text</td><td></td></tr>
+<tr><th>コントロール</th><th>デフォルト</th><th>テキスト</th><th>注釈</th></tr>
+<tr><td>ActiveX</td><td>.Value</td><td>.Text</td><td>テキストは非表示です。下記をご覧ください。</td></tr>
+<tr><td>Button</td><td colspan="2">.Text</td><td></td></tr>
+<tr><td>CheckBox</td><td>.Value</td><td>.Text</td><td></td></tr>
+<tr><td>ComboBox</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用された場合、Textの代わりにValueを使用する（ただし、Textがリスト項目に一致しない場合、Valueは0を返します）。Textは大文字・小文字の訂正を行い、ControlGetTextはEditフィールドの内容を返します。</td></tr>
+<tr><td>Custom</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>DateTime</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>DDL</td><td colspan="2">.Text</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。</td></tr>
 <tr><td>Edit</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>ブループボックス</td><td colspan="2">.Text</td><td></td></tr>
+<tr><td>GroupBox</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>Hotkey</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>Link</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>ListBox</td><td>.Text</td><td>ControlGetText()</td><td>AltSubmitが使用されていた場合、Textの代わりにValueを使用します。Textは選択された項目のテキストを返し、ControlGetTextは非表示のテキストを返します。下記をご覧ください。</td></tr>
-<tr><td>リストビュー</td><td colspan="2">.Text</td><td>テキストは非表示です。</td></tr>
+<tr><td>ListView</td><td colspan="2">.Text</td><td>テキストは非表示です。</td></tr>
 <tr><td>MonthCal</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>画像</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>プログレス</td><td colspan="2">.Value</td><td></td></tr>
+<tr><td>Picture</td><td colspan="2">.Value</td><td></td></tr>
+<tr><td>Progress</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>StatusBar</td><td colspan="2">.Text</td><td></td></tr>
@@ -1084,62 +1084,62 @@ Gui GuiName:Default</p>
 <tr><td>TreeView</td><td colspan="2">.Text</td><td>テキストは非表示です。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td></td></tr>
 </table>
-<p>ListBox:複数選択可能なListBoxの場合、TextとValueはパイプで区切られたリストではなく、配列で返されます。</p>
-<p>ActiveX:<a href="lib/GuiControl.htm#Value">GuiControl.Value</a> returns the same object each time, whereas GuiControlGet created a new wrapper object each time. その結果、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の接続を維持するためにActiveXオブジェクトへの参照を保持する必要がなくなりました。</p>
+<p>ListBox：複数選択可能なListBoxの場合、TextとValueはパイプで区切られたリストではなく、配列で返されます。</p>
+<p>ActiveX：<a href="lib/GuiControl.htm#Value">GuiControl.Value</a>は毎回同じオブジェクトを返しますが、GuiControlGetは毎回新しいラッパーオブジェクトを作成しました。その結果、<a href="lib/ComObjConnect.htm">ComObjConnect</a>の接続を維持するためにActiveXオブジェクトへの参照を保持する必要がなくなりました。</p>
 <h4 id="other-sub-commands">その他のサブコマンド</h4>
 <p><strong>Pos</strong> → <a href="lib/GuiControl.htm#GetPos">GuiControl.GetPos()</a></p>
-<p><strong>Focus</strong> → <a href="lib/Gui.htm#FocusedCtrl">Gui.FocusedCtrl</a>; returns a GuiControl object instead of the ClassNN.</p>
+<p><strong>Focus</strong>→<a href="lib/Gui.htm#FocusedCtrl">Gui.FocusedCtrl</a>、ClassNNの代わりにGuiControlオブジェクトを返します。</p>
 <p><strong>FocusV</strong> → <code>GuiObj.FocusedCtrl.Name</code></p>
-<p><strong>Hwnd</strong> → <a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a>; returns a pure integer, not a hexadecimal string.</p>
-<p><strong>Enabled/Visible/Name</strong>→同名のGuiCtrlプロパティ。</p>
+<p><strong>Hwnd</strong> → <a href="lib/GuiControl.htm#Hwnd">GuiControl.Hwnd</a>、16進数の文字列ではなく、純粋な整数を返します。</p>
+<p><strong>Enabled/Visible/Name</strong> → 同名のGuiCtrlプロパティ。</p>
 <h3 id="guicontrol">GuiControl</h3>
-<h4 id="blank-and-text-sub-commands">(ブランク)およびテキストサブコマンド</h4>
+<h4 id="blank-and-text-sub-commands">（ブランク）およびテキストサブコマンド</h4>
 <p>The table below shows the closest equivalent property or method for each mode of GuiControl and control type.</p>
 <table class="info">
-<tr><th>Control</th><th>(Blank)</th><th>Text</th><th>Notes</th></tr>
-<tr><td>アクティブX</td><td colspan="2">N/A</td><td>コマンドは何の効果もありませんでした。</td></tr>
-<tr><td>ボタン</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>チェックボックス</td><td>.Value</td><td>.Text</td><td></td></tr>
-<tr><td>コンボボックス</td><td>.Delete/Add/Choose</td><td>.Text</td><td></td></tr>
-<tr><td>カスタム</td><td colspan="2">.Text</td><td></td></tr>
+<tr><th>コントロール</th><th>（ブランク）</th><th>テキスト</th><th>注釈</th></tr>
+<tr><td>ActiveX</td><td colspan="2">該当なし</td><td>コマンドは何の効果もありませんでした。</td></tr>
+<tr><td>Button</td><td colspan="2">.Text</td><td></td></tr>
+<tr><td>CheckBox</td><td>.Value</td><td>.Text</td><td></td></tr>
+<tr><td>ComboBox</td><td>.Delete/Add/Choose</td><td>.Text</td><td></td></tr>
+<tr><td>Custom</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>DateTime</td><td>.Value</td><td>.SetFormat()</td><td></td></tr>
 <tr><td>DDL</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
 <tr><td>Edit</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>ブループボックス</td><td colspan="2">.Text</td><td></td></tr>
+<tr><td>GroupBox</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>Hotkey</td><td colspan="2">.Value</td><td></td></tr>
 <tr><td>Link</td><td colspan="2">.Text</td><td></td></tr>
 <tr><td>ListBox</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
-<tr><td>リストビュー</td><td colspan="2">N/A</td><td>コマンドは何の効果もありませんでした。</td></tr>
+<tr><td>ListView</td><td colspan="2">該当なし</td><td>コマンドは何の効果もありませんでした。</td></tr>
 <tr><td>MonthCal</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>画像</td><td colspan="2">.Value</td><td></td></tr>
-<tr><td>プログレス</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
+<tr><td>Picture</td><td colspan="2">.Value</td><td></td></tr>
+<tr><td>Progress</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
 <tr><td>Radio</td><td>.Value</td><td>.Text</td><td></td></tr>
 <tr><td>Slider</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
-<tr><td>StatusBar</td><td colspan="2">.TextまたはSB.SetText()</td><td></td></tr>
+<tr><td>StatusBar</td><td colspan="2">.Text または SB.SetText()</td><td></td></tr>
 <tr><td>Tab</td><td colspan="2">.Delete/Add/Choose</td><td></td></tr>
 <tr><td>Text</td><td colspan="2">.Text</td><td></td></tr>
-<tr><td>TreeView</td><td colspan="2">N/A</td><td>コマンドは何の効果もありませんでした。</td></tr>
+<tr><td>TreeView</td><td colspan="2">該当なし</td><td>コマンドは何の効果もありませんでした。</td></tr>
 <tr><td>UpDown</td><td colspan="2">.Value</td><td>接頭辞<code>+</code>の代わりに<code>+=</code>演算子を使用します。</td></tr>
 </table>
 <h4 id="other-sub-commands-1">その他のサブコマンド</h4>
 <p><strong>Move</strong> → <a href="lib/GuiControl.htm#Move">GuiControl.Move()</a></p>
-<p><strong>MoveDraw</strong> → GuiControl.Move(), <a href="lib/GuiControl.htm#Redraw">GuiControl.Redraw()</a></p>
-<p><strong>Focus</strong> → <a href="lib/GuiControl.htm">GuiControl.Focus()</a>, which now uses WM_NEXTDLGCTL instead of SetFocus, so that focusing a Button temporarily sets it as the default, consistent with tabbing to the control.</p>
-<p><strong>Enable/Disable</strong> → set <a href="lib/GuiControl.htm#Enabled">GuiControl.Enabled</a></p>
-<p><strong>Hide/Show</strong> → set <a href="lib/GuiControl.htm#Visible">GuiControl.Visible</a></p>
-<p><strong>Choose</strong> → <a href="lib/GuiControl.htm#Choose">GuiControl.Choose(n)</a>, where n is a pure integer. The <code>|n</code> or <code>||n</code> mode is not supported (use <a href="lib/ControlChooseIndex.htm">ControlChooseIndex</a> instead, if needed).</p>
-<p><strong>ChooseString</strong> → <a href="lib/GuiControl.htm#Choose">GuiControl.Choose(s)</a>, where s is not a pure integer. The <code>|n</code> or <code>||n</code> mode is not supported (use <a href="lib/ControlChooseString.htm">ControlChooseString</a> instead, if needed). If the string matches multiple items in a multi-select ListBox, this method selects them all, not just the first.</p>
+<p><strong>MoveDraw</strong> → GuiControl.Move()、<a href="lib/GuiControl.htm#Redraw">GuiControl.Redraw()</a></p>
+<p><strong>Focus</strong> → <a href="lib/GuiControl.htm">GuiControl.Focus()</a>で、SetFocusの代わりにWM_NEXTDLGCTLを使用するようになり、ボタンにフォーカスすると、コントロールへのタブ操作と同じように一時的にデフォルトとして設定されます。</p>
+<p><strong>Enable/Disable</strong> → <a href="lib/GuiControl.htm#Enabled">GuiControl.Enabled</a>を設定する</p>
+<p><strong>Hide/Show</strong> → <a href="lib/GuiControl.htm#Visible">GuiControl.Visible</a>を設定する</p>
+<p><strong>Choose</strong> → <a href="lib/GuiControl.htm#Choose">GuiControl.Choose(n)</a>、ここでnは純粋な整数です。<code>|n</code>または<code>||n</code>モードには対応していません（必要であれば、代わりに<a href="lib/ControlChooseIndex.htm">ControlChooseIndex</a>を使用してください）。</p>
+<p><strong>ChooseString</strong> → <a href="lib/GuiControl.htm#Choose">GuiControl.Choose(s)</a>、ここでsは純粋な整数ではありません。<code>|n</code>または<code>||n</code>モードには対応していません（必要であれば、代わりに<a href="lib/ControlChooseString.htm">ControlChooseString</a>を使用してください）。If the string matches multiple items in a multi-select ListBox, this method selects them all, not just the first.</p>
 <p><strong>Font</strong> → <a href="lib/GuiControl.htm#SetFont">GuiControl.SetFont()</a></p>
 <p><strong>+/-Option</strong> → <a href="lib/GuiControl.htm#Opt">GuiControl.Opt("+/-Option")</a></p>
 <h3 id="other-changes">その他の変更点</h3>
 <p>Progress Guiコントロールは、デフォルトでPBS_SMOOTHスタイルを持たなくなり、システムのビジュアルスタイルに従ってスタイリングされるようになりました。</p>
-<p>The default margins and control sizes (particularly for Button controls) may differ slightly from v1 when DPI is greater than 100&nbsp;%.</p>
+<p>DPIが100&nbsp;%以上の場合、デフォルトのマージンやコントロールサイズ（特にボタンコントロール）はv1と若干異なる場合があります。</p>
 <p><code>GuiCtrl.Value := "new image.png"</code>で新しい画像の設定に失敗しても、ピクチャーコントロールが現在の画像を削除しないようになりました。ただし、<code>GuiCtrl.Value := ""</code>で現在の画像を削除することは可能です。</p>
 <p><a href="lib/ListView.htm#InsertCol">ListView.InsertCol()</a>'s <em>ColumnNumber</em> parameter can now be omitted, which has the same effect as specifying a column number larger than the number of columns currently in the control.</p>
 <h2 id="error-handling">エラー処理</h2>
 <p>重大なエラーが発生した場合、スクリプトを終了する前に<a href="lib/OnError.htm">OnError</a>が呼び出されるようになりました。スクリプトが実行可能な状態でない可能性がありますが、OnExitと同様に実行を試みます。</p>
 <p>ランタイムエラーで、<code>Exception.What</code>を現在実行中のユーザー定義関数またはサブに設定しなくなりました（ただし、<code>Error()</code>を第2パラメータなしで呼び出すと、この設定は行われます）。これにより、<code>What</code>は、より明確な目的を持つことができます：関数名の場合は、その関数の失敗を示します（関数の呼び出しやパラメータの評価に失敗したわけではありません）。<code>What</code>は、式の評価と制御フローのエラーでは空白になる（他のものも空白になることがある）。</p>
-<p>ランタイムエラーが投げる例外オブジェクトは、新しいErrorクラスまたはより具体的なサブクラスのインスタンスとして識別できるようになりました。Error objects have a <em>Stack</em> property containing a stack trace. <em>What</em>パラメータで実行中の関数名を指定した場合、<em>File</em>と <em>Line</em>は、どの行からその関数が呼び出されたかに基づいて設定されるようになりました。</p>
+<p>ランタイムエラーが投げる例外オブジェクトは、新しいErrorクラスまたはより具体的なサブクラスのインスタンスとして識別できるようになりました。エラーオブジェクトは、スタックトレースを含む<em>Stack</em>プロパティを持ちます。<em>What</em>パラメータで実行中の関数名を指定した場合、<em>File</em>と <em>Line</em>は、どの行からその関数が呼び出されたかに基づいて設定されるようになりました。</p>
 <p>Try-catchの構文が変更され、スクリプトが特定のエラークラスをキャッチし、他のエラークラスをキャッチしないようにすることができるようになりました。詳しくは下記の<a href="#catch">Catch</a>をご覧ください。</p>
 <h3 id="continuable-errors">継続可能なエラー</h3>
 <p>ほとんどの場合、エラーダイアログは、現在のスレッドを継続する（スレッドを終了する）オプションを提供するようになりました。COMエラーが発生した場合、続行しないことを選択するとスレッドが終了するようになりました（スクリプト全体が終了するのではありません）。</p>
@@ -1147,9 +1147,9 @@ Gui GuiName:Default</p>
 <p>コードが継続をサポートしていないケースもあり、継続の選択肢は表示しない方がよいでしょう。また、スクリプトを終了させるためのクリティカルエラーの場合は、このオプションは表示されません。</p>
 <p><a href="lib/OnError.htm">OnError</a>コールバックは、以下の値のいずれかを含む第2パラメータを取るようになりました：</p>
 <ul>
-<li>Return:-1を返すとスレッドを継続し、0と1は以前のように動作します。</li>
-<li>Exit:コンティニュアスには対応していません。ゼロ以外を返すと、それ以降の処理は停止するが、スレッドは終了します。</li>
-<li>ExitApp:これは致命的なエラーです。ゼロ以外を返すと、それ以降の処理は停止するが、スクリプトは終了します。</li>
+<li>Return：-1を返すとスレッドを継続し、0と1は以前のように動作します。</li>
+<li>Exit：コンティニュアスには対応していません。ゼロ以外を返すと、それ以降の処理は停止するが、スレッドは終了します。</li>
+<li>ExitApp：これは致命的なエラーです。ゼロ以外を返すと、それ以降の処理は停止するが、スクリプトは終了します。</li>
 </ul>
 <h3 id="errorlevel">エラーレベル</h3>
 <p>ErrorLevelは削除されました。スクリプトはエラーチェックをせずに書かれることが多いので（おそらく通常）、エラーにErrorLevelを設定する方針では、エラーが検出されないことがよくあります。すぐにエラーメッセージが表示されるのは、少し対立的に見えるかもしれませんが、一般的にはより有用です。</p>
@@ -1159,15 +1159,15 @@ Gui GuiName:Default</p>
 <ul>
 <li>Uオプションによる<a href="lib/Sort.htm">ソート</a>で、重複を除去した数を返さないようになりました。</li>
 <li>The Input command was removed. InputHookに取って代わられました。数行のコードで、ErrorLevelとOutputVarを使用する代わりに、結果を含むInputHookオブジェクトを返す簡単な置換を行うことができます。</li>
-<li><a href="lib/InputBox.htm">InputBox</a> returns an object with <em>Result</em> (OK, Cancel or Timeout) and <em>Value</em> properties.</li>
+<li><a href="lib/InputBox.htm">InputBox</a>は、<em>Result</em>（OK、Cancel、Timeout）および<em>Value</em>のプロパティを持つオブジェクトを返します。</li>
 </ul>
-<p>File functions which previously stored the number of failures in ErrorLevel now throw it in the <em>Extra</em> property of the thrown exception object.</p>
-<p><a href="lib/SendMessage.htm">SendMessage</a> timeout is usually an anomolous condition, so causes a <a href="lib/Error.htm#TimeoutError">TimeoutError</a> to be thrown. <a href="lib/Error.htm#TargetError">TargetError</a> and <a href="lib/Error.htm#OSError">OSError</a> may be thrown under other conditions.</p>
-<p>The UseErrorLevel modes of the <a href="lib/Run.htm">Run</a> and <a href="lib/Hotkey.htm">Hotkey</a> functions were removed. This mode predates the addition of <a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a> to the language. MenuとGuiにもこのモードがありましたが、オブジェクト（ErrorLevelを使用しない）に変更されました。</p>
+<p>これまでErrorLevelに失敗の回数を格納していたファイル関数は、投げられた例外オブジェクトの<em>Extra</em>プロパティにその回数を格納するようになりました。</p>
+<p><a href="lib/SendMessage.htm">SendMessage</a>のタイムアウトは通常異常な状態であるため、<a href="lib/Error.htm#TimeoutError">TimeoutError</a>が投げられる。<a href="lib/Error.htm#TargetError">TargetError</a>および<a href="lib/Error.htm#OSError">OSError</a>は、他の条件下でもスローされることがある。</p>
+<p><a href="lib/Run.htm">Run</a>関数と<a href="lib/Hotkey.htm">Hotkey</a>関数のUseErrorLevelモードが削除されました。このモードは、言語に<a href="lib/Try.htm">Try</a>/<a href="lib/Catch.htm">Catch</a>が追加される以前からありました。MenuとGuiにもこのモードがありましたが、オブジェクト（ErrorLevelを使用しない）に変更されました。</p>
 <h3 id="expressions-1">式</h3>
 <p>など、v1よりも多くのシンタックスエラーに対してロードタイムエラーが発生します：</p>
 <ul>
-<li>空白の括弧（関数名に隣接する場合を除きます。）：例：<code>x ()</code>。</li>
+<li>空白の括弧（関数名に隣接する場合を除きます）、例：<code>x ()</code></li>
 <li>間違った側で使用された、またはオペランドを欠いているプリフィックス演算子（例：<code>x!</code>）</li>
 <li>オペランドが2つ以下の二項演算子。</li>
 <li>オペランドが3つ以下の三項演算子。</li>
@@ -1175,15 +1175,15 @@ Gui GuiName:Default</p>
 </ul>
 <p>以下のいずれかの失敗が発生した場合、例外が発生します（失敗を無視したり、空文字列を生成するのではありません）：</p>
 <ul>
-<li>数値以外の値で計算を試みます。(数値文字列でも可）。</li>
-<li>ゼロで割る、または<code>(-1)**1.5</code>のような無効/非サポートな入力。Note that some cases are newly detected as invalid, such as <code>0**0</code> and <code>a&lt;&lt;b</code> or <code>a&gt;&gt;b</code> where <em>b</em> is not in the range 0..63.</li>
+<li>数値以外の値で計算を試みます。（数値文字列でも可。）</li>
+<li>ゼロで割る、または<code>(-1)**1.5</code>のような無効/非サポートな入力。なお、<code>0**0や</code> <code>a&lt;&lt;b</code>、<code>a&gt;&gt;bの</code>ように<em>b</em>が0.63の範囲にない場合は、新たに無効と判断される場合があります。</li>
 <li>組み込み関数の戻り値、連結、または式の結果のためのメモリ割り当てに失敗します。</li>
 <li>スタックアンダーフロー（通常、構文エラーによって引き起こされる）。</li>
 <li>変数（または配列要素）でないものに代入しようとしましたた。</li>
 <li>読み取り専用変数への代入を試みた。</li>
 <li><code>fn(%empty%)</code> のように、空の名前でダブルデフを試みました。</li>
 <li>動的な関数呼び出しやメソッド呼び出しの実行に失敗した場合。</li>
-<li>値がそのメソッド/プロパティを実装していないため、メソッド/プロパティの呼び出しに失敗します。(v1の連想配列の場合、メソッド呼び出しでのみ発生します)。</li>
+<li>値がそのメソッド/プロパティを実装していないため、メソッド/プロパティの呼び出しに失敗します。（v1の連想配列の場合、メソッド呼び出しでのみ発生します。）</li>
 <li>メモリ割り当ての失敗により、オブジェクト割り当てに失敗しました。</li>
 </ul>
 <p>上記の条件の中には、v1では検出されるが、表現の途中では検出されないものがある。例えば、<code>A_AhkPath := x</code>は、v1で検出されるが、<code>y := x, A_AhkPath := x</code>は、v2でのみ検出されます。</p>
@@ -1203,9 +1203,9 @@ Gui GuiName:Default</p>
 </ul>
 <p>以前は検出されなかったいくつかのエラーに対して例外がスローされ、（以前はErrorLevelの設定によって）誤ってエラーとしてマークされていたいくつかの条件が修正されました。</p>
 <p>一部のエラーメッセージが変更されました。</p>
-<h3 id="catch">キャッチ</h3>
+<h3 id="catch">Catch</h3>
 <p><a href="lib/Catch.htm">Catch</a>の構文が変更され、特定のエラークラスをキャッチする一方、他のエラークラスはキャッチしない（コールスタックのさらに上の別のCatchに制御を移す、またはエラーを報告してスレッドを終了する）方法が提供されました。これまでは、すべての型のスローされた値をキャッチし、型をチェックして再スローする必要がありました。事例：</p>
-<pre><em>; Old (v1には `is` や Error クラスがないため、古い v2.0-a のルールを使ってデモを行う)</em>
+<pre><em>; 古い（v1には「is」やErrorクラスがないため、古い v2.0-a のルールを使ってデモを行う）</em>
 try
     SendMessage msg,,, "Control1", "The Window"
 catch err
@@ -1214,13 +1214,13 @@ catch err
     else
         throw err
 
-<em>; New</em>
+<em>; 新しい</em>
 try
     SendMessage msg,,, "Control1", "The Window"
 catch TimeoutError
     MsgBox "The Window is unresponsive"
 </pre>
-<p>Variations:</p>
+<p>バリエーション：</p>
 <ul>
 <li><code>catch</code>は、Errorインスタンスを捕捉します。</li>
 <li><code>catch as err</code>は、Errorインスタンスを捕捉し、errに代入されます。</li>
@@ -1230,19 +1230,19 @@ catch TimeoutError
 <li><code>catch Any</code>は、何でもキャッチします。</li>
 <li><code>catch (MyError as err)</code>は、他の多くの制御フロー文と同様に、括弧を許可します。</li>
 </ul>
-<p>If <em>Try</em> is used without <em>Finally</em> or <em>Catch</em>, it acts as though it has a <em>Catch</em> with an empty block. Although that sounds like v1, now <em>Catch</em> on its own only catches instances of <a href="lib/Error.htm">Error</a>. In most cases, <em>Try</em> on its own is meant to suppress an Error, so no change needs to be made. However, the direct v2 equivalent of v1's <code>try something()</code> is the following:</p>
+<p><em>Try</em>が <em>Finally</em>や <em>Catch</em>なしで使われた場合、空のブロックで<em>Catch</em>があるかのように動作します。v1のようですが、現在<em>Catch</em>単体では<a href="lib/Error.htm">Error</a>のインスタンスしか捕捉しません。多くの場合、<em>Try</em>単体ではErrorを抑制するためのものなので、変更する必要はありません。However, the direct v2 equivalent of v1's <code>try something()</code> is the following:</p>
 <pre>try something()
 catch Any
 {}
 </pre>
 <p>出力変数名よりもエラーの種類を優先することで、より良いコードを作ることができるかもしれません。期待されるエラーを意図通りに処理し、報告されるべき予期せぬエラーを抑制したり誤処理したりすることはありません。</p>
 <p>すべての型の値が投げられるので、どのようなクラスでもフィルターとして有効です（例：<code>String</code>や <code>Map</code>）。ただし、クラスプロトタイプはロード時に解決されるため、任意の式ではなく完全なクラス名で指定する必要があります（<code>class x extends y</code>の<code>y</code>と同様）。</p>
-<p>While a <em>Catch</em> statement is executing, <code>throw</code> (without parameters) can be used to re-throw the exception (avoiding the need to specify an output variable just for that purpose). これはネストされた<em>Try-Finally</em>内でもサポートされるが、ネストされた<em>Try-Catch</em>内ではサポートされない。The <code>throw</code> does not need to be physically contained by the <em>Catch</em> statement's body; it can be used by a called function.</p>
-<p>An <a href="lib/Else.htm">Else</a> can be present after the last <em>Catch</em>; this is executed if no exception is thrown within <em>Try</em>.</p>
+<p>While a <em>Catch</em> statement is executing, <code>throw</code> (without parameters) can be used to re-throw the exception (avoiding the need to specify an output variable just for that purpose). これはネストされた<em>Try-Finally</em>内でもサポートされるが、ネストされた<em>Try-Catch</em>内ではサポートされない。<code>throw</code>は <em>Catch</em>文の本体に物理的に含まれる必要はなく、呼び出された関数が使用することができます。</p>
+<p>最後の<a href="lib/Else.htm">Catch</a>の後に<em>Else</em>を置くことができる。これは<em>Try</em>の中で例外が投げられない場合に実行されます。</p>
 <h2 id="keyboard-mouse-hotkeys-and-hotstrings">キーボード、マウス、ホットキー、ホットストリング</h2>
 <p>VKからSC、SCからVKへのマッピングがハードコードされることが少なくなり、理論上、従来とは異なるカスタムキーボードレイアウトとの互換性が向上しています。</p>
 <p>キー名「Return」「Break」を削除しました。代わりに「Enter」「Pause」を使ってください。</p>
-<p>キーボードレイアウトDLLからKLLF_ALTGRフラグを読み取ることで、各キーボードレイアウトに<kbd>AltGr</kbd>があるかどうかを常に検出するようにしました。(v1.1.28+のUnicodeビルドでは既にこの方法が使われています。) キーボードフックで<kbd>AltGr</kbd>を検出するフォールバックメソッドは削除されました。</p>
+<p>キーボードレイアウトDLLからKLLF_ALTGRフラグを読み取ることで、各キーボードレイアウトに<kbd>AltGr</kbd>があるかどうかを常に検出するようにしました。（v1.1.28+のUnicodeビルドでは既にこの方法が使われています。）　キーボードフックで<kbd>AltGr</kbd>を検出するフォールバックメソッドは削除されました。</p>
 <p>マウスホイールのホットキーで、<a href="Variables.htm#EventInfo">A_EventInfo</a>を120で割るのではなく、マウスドライバーから報告されたホイールデルタに設定します。一般的には120の倍数ですが、マウスのハードウェア/ドライバによっては、より高い解像度でホイールの動きを報告する場合があります。</p>
 <p>ホットストリングで、<kbd>Shift</kbd>+<kbd>Backspace</kbd>を <kbd>Backspace</kbd>と同じように扱い、ホットストリングバッファ内で<code>`b</code>に転写するようになりました。</p>
 <p>ホットストリングは、複数のコロンの組が存在する場合、最後の組ではなく、最初の組のコロン（<code class="no-highlight">::</code>）を区切り文字として使用します。つまり、コロン（他のコロンに隣接する場合）は、v2ではトリガーテキストでエスケープする必要がありますが、v1では置換でエスケープする必要があります。なお、コロンが奇数個連続する場合、以前の動作では最後のコロンがペアの一部とみなされませんでした。例えば、<code class="no-highlight">::1:::2</code>（<code class="no-highlight">1</code> → <code class="no-highlight">:2</code> ）では動作に変化はありませんが、<code class="no-highlight">::3::::4</code> は <code class="no-highlight">3::</code> → <code class="no-highlight">4</code> となるのではなく、 <code class="no-highlight">3</code>→<code class="no-highlight">::4</code> となっています。</p>
@@ -1274,7 +1274,7 @@ MAX_TOKENSに基づいてサイズ設定されていた式評価器内部の配�
 </ul>
 <p><a href="lib/ListVars.htm">ListVars</a>で、静的変数とローカル変数を分けて表示するようにしました。関数内で宣言されたグローバル変数も静的変数としてリストアップされます（これは新しい実装の詳細による副作用ですが、多くのグローバル変数を持つスクリプトで役に立つかもしれないので残してあります）。</p>
 <p>コードサイズとメンテナンスコストを削減するために、(文書化されていない？) "lazy var" 最適化が削除されました。この最適化により、100,000以上の変数を持つスクリプトのパフォーマンスが改善されました。</p>
-<p><a href="Program.htm#tray-icon">トレイメニュー</a>：「スクリプトの一時停止」やメインウィンドウのメニューオプションとの整合性をとるため、「このスクリプトを再読み込み」「このスクリプトを編集」から「この」という単語を削除しました。</p>
+<p><a href="Program.htm#tray-icon">トレイメニュー</a>：「Pause Script」やメインウィンドウのメニューオプションとの整合性をとるため、「Reload This Script」「Edit This Script」から「This」という単語を削除しました。</p>
 <p>YYYYMMDDHH24MISSタイムスタンプ値の長さが4～14の偶数でない場合、無効と判断されるようになりました（包括的）。</p>
 <h3 id="persistence">永続性</h3>
 <p>スクリプトは、以下の条件のうち少なくとも1つが満たされている間、「<a href="lib/Persistent.htm">永続的</a>」です：</p>
@@ -1305,7 +1305,7 @@ MAX_TOKENSに基づいてサイズ設定されていた式評価器内部の配�
 <h3 id="threads">スレッド</h3>
 <p><a href="misc/Threads.htm">スレッド</a>は、15ミリ秒ではなく17ミリ秒の中断不能タイムアウトで始まります。システムのティックカウントは最小15または16のステップで更新されるため、15は低すぎます。つまり、ティックカウントが正確に間違ったタイミングで更新されると、実質的に時間が経過していないにもかかわらず、スレッドが中断される可能性があります。</p>
 <p>スレッドが中断されずにスタートした場合、中断されないタイムアウトが先に切れても、少なくとも1行が実行されるまで中断されないようになりました（例えば、スレッドがスタートした直後に、他のプロセスにCPU時間を与えるために、システムがプロセスを中断した場合）。</p>
-<p><a href="lib/_MaxThreads.htm">#MaxThreads</a>と <a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>は、最初の行が以下の関数のいずれかであるサブルーチンの例外を作らないようになりました：<a href="lib/ExitApp.htm">ExitApp</a>, <a href="lib/Pause.htm">Pause</a>, <a href="lib/Edit.htm">Edit</a>, <a href="lib/Reload.htm">Reload</a>, <a href="lib/KeyHistory.htm">KeyHistory</a>, <a href="lib/ListLines.htm">ListLines</a>, <a href="lib/ListVars.htm">ListVars</a>, または <a href="lib/ListHotkeys.htm">ListHotkeys</a>.</p>
+<p><a href="lib/_MaxThreads.htm">#MaxThreads</a>と<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>は、最初の行が以下の関数のいずれかであるサブルーチンの例外を作らないようになりました：<a href="lib/ExitApp.htm">ExitApp</a>、<a href="lib/Pause.htm">Pause</a>、<a href="lib/Edit.htm">Edit</a>、<a href="lib/Reload.htm">Reload</a>、<a href="lib/KeyHistory.htm">KeyHistory</a>、<a href="lib/ListLines.htm">ListLines</a>、<a href="lib/ListVars.htm">ListVars</a>、<a href="lib/ListHotkeys.htm">ListHotkeys</a>。</p>
 <h3 id="default-settings">デフォルトの設定</h3>
 <ul>
 <li id="NoEnv">#NoEnv はデフォルトの動作なので、ディレクティブ自体が削除されました。同等の組み込み変数がない場合は、代わりに<a href="lib/EnvGet.htm">EnvGet</a>を使用します。</li>

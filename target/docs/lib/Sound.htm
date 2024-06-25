@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Sound Functions | AutoHotkey v2</title>
+<title>サウンド機能｜AutoHotkey v2</title>
 <meta name="description" content="SoundGet 関数と SoundSet 関数の使用法の詳細。" />
 <meta name="ahk:equiv-v1" content="lib/SoundSet.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -36,7 +36,7 @@
   <tr><td>ステレオ・ミックス（HDオーディオの例）</td><td>Speakersエンドポイントに出力されている音声をキャプチャする。</td></tr>
 </table>
 <p>デバイス名は通常、"Speakers"のようなエンドポイント名と、括弧内のオーディオドライバ名で構成される。スクリプトは、完全な名前を使用することも、"Mic"や "Microphone"のように名前の先頭部分だけを使用することもできる。オーディオドライバの名前は固定されていますが、エンドポイント名は管理者がサウンドコントロールパネルからいつでも変更することができます。</p>
-<p id="mmsys">デバイスはサウンドコントロールパネルに一覧表示され、コマンドラインから <code>mmsys.cpl</code> を実行するか、ファイル名を指定して実行ダイアログ (<kbd>Win</kbd>+<kbd>R</kbd>) または <a href="Run.htm">Run</a> 機能で開くことができます。デフォルトでは、コントロールパネルは有効でプラグインされているデバイス（該当する場合）のみをリストアップしますが、これは右クリックメニューで変更できます。AutoHotkeyは、プラグインされていないデバイスは検出しますが、無効になっているデバイスは検出しません。</p>
+<p id="mmsys">デバイスはサウンドコントロールパネルに一覧表示され、コマンドラインから <code>mmsys.cpl</code> を実行するか、ファイル名を指定して実行ダイアログ（<kbd>Win</kbd>+<kbd>R</kbd>）または <a href="Run.htm">Run</a> 機能で開くことができます。デフォルトでは、コントロールパネルは有効でプラグインされているデバイス（該当する場合）のみをリストアップしますが、これは右クリックメニューで変更できます。AutoHotkeyは、プラグインされていないデバイスは検出しますが、無効になっているデバイスは検出しません。</p>
 
 <h2 id="components">コンポーネント</h2>
 <p>コンポーネントは、サウンドデバイスのプロパティダイアログのLevelsタブに表示されている通りです。</p>
@@ -76,7 +76,7 @@
       <li>1からサポートするデバイスの総数までの数値（整数）。</li>
       <li>デバイスの表示名。フルネームまたは先頭部分（大文字と小文字は区別されない）。例えば、<code>"Speakers"</code>または<code>"Speakers (Example HD Audio)"</code>です。</li>
       <li>上記と同様だが、コロンと整数が続き、1が一致する名前を持つ最初のデバイスとなる。例えば、<code>"Speakers:2"</code>は、"Speakers"で始まる名前を持つ2台目のデバイスを示す。これは、同じ名前のデバイスが複数存在する場合や、表示名にコロンが含まれる場合など、<em>Deviceが</em>曖昧になる場合にのみ必要です。</li>
-      <li>空白または省略したときは、初期値はシステムのデフォルトの再生デバイス（必ずしもデバイス1である必要はありません。）になります。</li>
+      <li>空白または省略したときは、初期値はシステムのデフォルトの再生デバイス（必ずしもデバイス1である必要はありません）になります。</li>
     </ul>
     <p><a href="#ExSoundcard">サウンドカード解析スクリプト</a>は、使用する名前や番号を決定するのに役立つかもしれません。</p>
   </dd>
@@ -85,7 +85,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExSoundcard">
-<p><a class="ex_number" href="#ExSoundcard"></a> サウンドカードの分析以下のスクリプトを使用して、使用可能なオーディオデバイスとコンポーネント名、および各デバイスまたはコンポーネントがボリュームおよび/またはミュートコントロールをサポートしているかどうかを検出します。結果はシンプルなListViewに表示されます。現在の音量とミュートの設定が取得できる場合は表示されますが、リアルタイムで更新されるわけではありません。</p>
+<p><a class="ex_number" href="#ExSoundcard"></a> サウンドカードの分析。以下のスクリプトを使用して、使用可能なオーディオデバイスとコンポーネント名、および各デバイスまたはコンポーネントがボリュームおよび/またはミュートコントロールをサポートしているかどうかを検出します。結果はシンプルなListViewに表示されます。現在の音量とミュートの設定が取得できる場合は表示されますが、リアルタイムで更新されるわけではありません。</p>
 <pre filename="soundcard.ahk">
 scGui := Gui(, "Sound Components")
 scLV := scGui.Add('ListView', "w600 h400"
@@ -101,22 +101,22 @@ loop
     catch  <em>; No more devices.</em>
         break
     
-<em>; Qualify names with ":index" where needed.</em>
+    <em>; Qualify names with ":index" where needed.</em>
     devName := Qualify(devName, devMap, dev)
     
-<em>; Retrieve master volume and mute setting, if possible.</em>
+    <em>; Retrieve master volume and mute setting, if possible.</em>
     vol := mute := ""
     try vol := Round(SoundGetVolume( , dev), 2)
     try mute := SoundGetMute( , dev)
     
-<em>; Display the master settings only if at least one was retrieved.</em>
+    <em>; Display the master settings only if at least one was retrieved.</em>
     if vol != "" || mute != ""
         scLV.Add("", "", dev, devName, vol, mute)
     
-<em>; For each component, first query its name.</em>
+    <em>; For each component, first query its name.</em>
     cmpMap := Map()
     
-loop
+    loop
     {
         try
             cmpName := SoundGetName(cmp := A_Index, dev)

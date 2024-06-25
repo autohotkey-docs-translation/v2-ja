@@ -22,13 +22,13 @@
   <dt>&amp;TargetVar</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>変数への参照。事例：<code>VarSetStrCapacity(&amp;MyVar, 1000)</code>. これは、<code>Array%i%</code>などの動的変数や<a href="../Functions.htm#ByRef">関数の ByRef パラメータ</a>にすることもできます。</p>
+    <p>変数への参照。事例：<code>VarSetStrCapacity(&amp;MyVar, 1000)</code>。これは、<code>Array%i%</code>などの動的変数や<a href="../Functions.htm#ByRef">関数の ByRef パラメータ</a>にすることもできます。</p>
   </dd>
 
   <dt>RequestedCapacity</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>省略されたときは、変数の現在の容量が返され、その内容は変更されません。そうでなければ、現在変数に入っているものはすべて失われます（変数は空白になります。）。</p>
+    <p>省略されたときは、変数の現在の容量が返され、その内容は変更されません。そうでなければ、現在変数に入っているものはすべて失われます（変数は空白になります）。</p>
     <p><em>RequestedCapacity</em>には、調整後に変数が保持できる文字数を指定する。<em>RequestedCapacity</em>には内部ゼロターミネータは含まれない。例えば、1を指定すると、内部ターミネーターに加えて1文字まで保持することができる。注：この変数は、スクリプトが後で大きな値を代入した場合に自動的に拡張されます。</p>
     <p>この関数は、単に変数の最小容量を確保するために呼ばれることが多いので、パフォーマンス上の理由から、<em>RequestedCapacity</em>が0のときだけ変数を縮小する。言い換えれば、変数の容量がすでに<em>RequestedCapacity</em>より大きい場合、それは減少しない（しかし、一貫性のために変数はまだ空白にされる）。</p>
     <p>したがって、変数を明示的に縮小するには、まず<code>VarSetStrCapacity(&amp;Var, 0)</code>でメモリを解放し、次に<code>VarSetStrCapacity(&amp;Var, NewCapacity)</code>を使う。</p>
@@ -41,7 +41,7 @@
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-<p>This function returns the number of characters that <em>TargetVar</em> can now hold, which will be greater than or equal to <em>RequestedCapacity</em>.</p>
+<p>この関数は、<em>TargetVar</em>が現在保持できる文字数を返し、これは<em>RequestedCapacity</em>以上となる。</p>
 
 <h2 id="Failure">Failure</h2>
 <p>例外は、以下のいずれかの条件でスローされる：</p>
@@ -56,7 +56,7 @@
 <p>この関数は、漸進的な連結によって文字列を構築する際のパフォーマンスを向上させるために使用できる。これは、文字列の最終的な長さがある程度わかっていれば、何度も自動的にリサイズすることを避けられるからである。その場合、<em>RequestedCapacity</em>は正確である必要はない：容量が小さすぎる場合でも、パフォーマンスは改善され、容量がなくなると変数は自動拡張を開始する。容量が大きすぎる場合、メモリの一部が無駄になるが、<code>VarSetStrCapacity(&amp;Var, 0)</code>または<code>Var := ""</code>によって操作後にすべてのメモリを解放できるため、一時的なものに過ぎない。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Buffer.htm">Buffer object</a>, <a href="DllCall.htm">DllCall</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a></p>
+<p><a href="Buffer.htm">Bufferオブジェクト</a>、<a href="DllCall.htm">DllCall</a>、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExConcat">
 <p><a class="ex_number" href="#ExConcat"></a> <em>MyVar</em>に、十分なスペースを確保して最適化する。</p>
@@ -70,7 +70,7 @@ Loop
 </div>
 
 <div class="ex" id="ExDllCall">
-<p><a class="ex_number" href="#ExDllCall"></a> 変数を使用して、<a href="DllCall.htm">DllCall</a>を介して外部関数から文字列を受け取る。(特にUnicode以外の文字列を扱う場合は、<a href="Buffer.htm#ExString">Bufferオブジェクト</a>を使用する方が好ましいかもしれないことに注意してください)。</p>
+<p><a class="ex_number" href="#ExDllCall"></a> 変数を使用して、<a href="DllCall.htm">DllCall</a>を介して外部関数から文字列を受け取る。（特にUnicode以外の文字列を扱う場合は、<a href="Buffer.htm#ExString">Bufferオブジェクト</a>を使用する方が好ましいかもしれないことに注意してください。）</p>
 <pre>max_chars := 10
 
 Loop 2
@@ -78,32 +78,32 @@ Loop 2
     <em>; Allocate space for use with DllCall.</em>
     VarSetStrCapacity(&amp;buf, max_chars)
 
-if (A_Index = 1)
+    if (A_Index = 1)
         <em>; Alter the variable indirectly via DllCall.</em>
         DllCall("wsprintf", <span class="red">"Ptr", StrPtr(buf)</span>, "Str", "0x%08x", "UInt", 4919, "CDecl")
     else
         <em>; Use "str" to update the length automatically:</em>
         DllCall("wsprintf", <span class="blue">"Str", buf</span>, "Str", "0x%08x", "UInt", 4919, "CDecl")
 
-<em>; Concatenate a string to demonstrate why the length needs to be updated:</em>
+    <em>; Concatenate a string to demonstrate why the length needs to be updated:</em>
     wrong_str := buf . "&lt;end&gt;"
     wrong_len := StrLen(buf)
 
-<em>; Update the variable's length.</em>
+    <em>; Update the variable's length.</em>
     VarSetStrCapacity(&amp;buf, -1)
 
-right_str := buf . "&lt;end&gt;"
+    right_str := buf . "&lt;end&gt;"
     right_len := StrLen(buf)
 
-MsgBox
+    MsgBox
     (
     "Before updating
-      String:" wrong_str "
-      Length:" wrong_len "
+      String: " wrong_str "
+      Length: " wrong_len "
 
-After updating
-      String:" right_str "
-      Length:" right_len
+    After updating
+      String: " right_str "
+      Length: " right_len
     )
 }
 </pre>

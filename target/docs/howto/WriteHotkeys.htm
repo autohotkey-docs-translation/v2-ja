@@ -12,7 +12,7 @@
 <body>
 <h1>ホットキーの書き方</h1>
 <p>ホットキーは、アクションをトリガーするキーまたはキーの組み合わせです。例えば、<kbd>Win</kbd>+<kbd>E</kbd>は、通常ファイルエクスプローラーを起動し、<kbd>F1</kbd>はアプリ固有のヘルプ機能を起動することが多い。AutoHotkeyは、どこでも使えるホットキー、<em>または</em>、特定のアプリ内だけで使えるホットキーを定義し、コードで表現できるあらゆるアクションを実行することができる機能を備えています。</p>
-<p>ホットキーを定義する最も一般的な方法は、<em>ホットキー名</em>の後にダブルコロン、そしてアクションを記述することです。</p>
+<p>ホットキーを定義する最も一般的な方法は、<em>ホットキー名</em>の後にダブルコロン、そしてアクションを記述することです：</p>
 <pre>#n::Run "notepad"</pre>
 <p>この例では、<kbd>Win</kbd>+<kbd>N</kbd>を押すたびにメモ帳を実行するホットキーを定義しています。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」をご覧ください。</p>
 <p>プログラムの実行については、「<a href="RunPrograms.htm">プログラムを実行する方法</a>」をご覧ください。</p>
@@ -28,7 +28,7 @@
 <p>ダブルコロンホットキーに続くブロックは暗黙のうちに<a href="../Functions.htm">関数</a>本体となりますが、これは独自の<a href="../Concepts.htm#variables">変数</a>を定義する場合にのみ重要です。とりあえず、ブロックは複数の行を1つのアクションや<em>ステートメント</em>としてまとめるために使われるということだけは知っておいてください（このことについて詳しく知りたい方は、「<a href="../Concepts.htm#control-flow">コントロールフロー</a>」を参照してください）。</p>
 
 <h2 id="Basic_Hotkeys">基本的なホットキー</h2>
-<p>ほとんどのホットキーでは、<em>ホットキー名</em>は、オプションの修飾記号の直後に1つの文字または記号が続くか、または<a href="../KeyList.htm">キー名</a>で構成されています。上の例で、次のように変更してみてください。</p>
+<p>ほとんどのホットキーでは、<em>ホットキー名</em>は、オプションの修飾記号の直後に1つの文字または記号が続くか、または<a href="../KeyList.htm">キー名</a>で構成されています。上の例で、次のように変更してみてください：</p>
 <ul>
   <li><code>#</code>を削除すると<kbd>N</kbd>を単独で押したときにホットキーが有効になります。何か問題が発生した場合は、いつでも<a href="RunExamples.htm#bailing-out">スクリプトを終了</a>できることを念頭に置いておいてください。</li>
   <li><code>#</code>を、Ctrlの<code>^</code>、Altの<code>!</code>、Shiftの<code>+</code>に置き換えたり、組み合わせを試したりしてください。</li>
@@ -36,26 +36,26 @@
   <li><code>n</code>を他の文字や記号（<code>:</code>を除く）に置き換えてください。</li>
   <li><code>n</code>を <a href="../KeyList.htm">キーリスト</a>の任意の名前に置き換えてください。</li>
 </ul>
-<p class="note"><strong>注:</strong> <code>::</code>の前の最後の文字は、修飾記号として解釈されることはありません。</p>
+<p class="note"><strong>注：</strong><code>::</code>の前の最後の文字は、修飾記号として解釈されることはありません。</p>
 <p>この形式のホットキーでは、組み合わせの最後のキーだけを1文字で書いたり、その名前をフルスペルで書いたりすることができます。事例：</p>
 <ul>
-  <li><code>#::</code>は、ハッシュキー又はその記号に関連する組み合わせで起動するホットキーを作成することができます。（USレイアウトでは <kbd>Shift</kbd>+<kbd>3</kbd>）</li>
+  <li><code>#::</code>は、ハッシュキー又はその記号に関連する組み合わせで起動するホットキーを作成することができます。（USレイアウトでは <kbd>Shift</kbd>+<kbd>3</kbd>）。</li>
   <li><code>##::</code>は、上記のようなホットキーを作成しますが、Windowsキーも保持している場合にのみ有効です。</li>
   <li><code>LWin::</code>は、他の修飾キーを使わずに、左のWindowsキーを押し下げることで起動するホットキーを作成します。</li>
 </ul>
-<p>一般的な修飾語は、Ctrl (<code>^</code>)、Alt（<code>!</code>）、Shift（<code>+</code>）、および、Win（<code>#</code>）です。</p>
+<p>一般的な修飾語は、Ctrl（<code>^</code>）、Alt（<code>!</code>）、Shift（<code>+</code>）、Win（<code>#</code>）です。</p>
 <p>記号<code>&lt;</code>と<code>&gt;</code>は、上記の4つの修飾子のいずれかに接頭して、そのキーの左または右のバリアントを指定することができます。修飾子の組み合わせ<code>&lt;^&gt;!</code>は、オペレーティングシステムが LCtrl と RAlt の組み合わせとして実装しているため、AltGr キー（キーボードレイアウトに存在する場合）に対応します。</p>
-<p>その他のモディファイアは</p>
+<p>その他のモディファイアは：</p>
 <ul>
   <li><code>*</code>(<a href="../Hotkeys.htm#wildcard">ワイルドカード</a>）により、ホットキーに記号が含まれていない修飾キーを押していても、ホットキーが発火するようになります。</li>
-  <li><code>~</code> (<a href="../Hotkeys.htm#Tilde">no-suppress</a>) は、ホットキーがそのキーのネイティブ機能をブロックするのを防ぎます。</li>
-  <li><code>$</code> (<a href="../Hotkeys.htm#prefixdollar">use hook</a>) は、キー送信時の意図しないループを防止し、場合によってはホットキーの信頼性を高めることができます。</li>
+  <li><code>~</code>（<a href="../Hotkeys.htm#Tilde">no-suppress</a>）は、ホットキーがそのキーのネイティブ機能をブロックするのを防ぎます。</li>
+  <li><code>$</code>（<a href="../Hotkeys.htm#prefixdollar">use hook</a>）は、キー送信時の意図しないループを防止し、場合によってはホットキーの信頼性を高めることができます。</li>
 </ul>
 <p>押したときではなく、離したときにのみホットキーを起動させる場合は、<a href="../Hotkeys.htm#keyup">UP 接尾辞</a>にします。</p>
-<p><strong>関連:</strong> <a href="../Hotkeys.htm#Symbols">ホットキー修飾記号</a>、<a href="../KeyList.htm">キーのリスト</a></p>
+<p><strong>関連：</strong><a href="../Hotkeys.htm#Symbols">ホットキー修飾記号</a>、<a href="../KeyList.htm">キーのリスト</a></p>
 
 <h2 id="Context-sensitive_Hotkeys">文脈依存のホットキー</h2>
-<p><a href="../lib/_HotIf.htm">#HotIf</a>ディレクティブは、以下のように、ホットキーが有効になるために満たすべき条件を指定するために使用することができます。</p>
+<p><a href="../lib/_HotIf.htm">#HotIf</a>ディレクティブは、以下のように、ホットキーが有効になるために満たすべき条件を指定するために使用することができます：</p>
 <ul>
   <li>ホットキーを押したときに、特定のアプリのウィンドウがアクティブになっている場合。</li>
   <li>ホットキーを押したときにCapsLockがオンになっている場合。</li>
@@ -71,24 +71,24 @@
 <p>ホットキーを押すたびに評価される<a href="../Language.htm#expressions">式</a>を書くことで、条件を定義することができます。式が<a href="../Concepts.htm#boolean">trueと評価</a>された場合、そのホットキーの動作が実行されます。</p>
 <p>ホットキーが出現するたびに、または<em>ホットキーのバリエーション</em>ごとに異なる条件を指定することで、同じホットキーを複数回使用することができます。ホットキーを押すと、プログラムは条件が満たされた最初のホットキーバリアント、または条件のないもの（上の例では最後の<code>#c::</code>など）を実行します。</p>
 <p>ホットキーの条件が満たされず、ホットキーの無条件変形がない場合、ホットキーがそもそも定義されていないかのように、キー入力はアクティブウィンドウに引き継がれます。例えば、上記の例の実行中にメモ帳がアクティブで<em>ない</em>場合、<kbd>Ctrl</kbd>+<kbd>A</kbd>は通常の機能（おそらく「すべて選択」）を実行します。</p>
-<p>例題に次のような変更を加えてみてください。</p>
+<p>例題に次のような変更を加えてみてください：</p>
 <ul>
   <li><code>WinActive</code>を <code>WinExist</code>に置き換えて、メモ帳が起動していれば、メモ帳にフォーカスがなくても、ホットキーが有効になるようにしました。</li>
   <li>条件を<code>GetKeyState("CapsLock", "T")</code>に置き換え、CapsLockがオンになっている間だけホットキーが有効になるようにします。</li>
   <li>ウェブブラウザやエディタなど、他のウィンドウ用の別の^aまたは#cホットキーを追加します。なお、この例では英語以外のシステムでも動作するように<a href="../misc/WinTitle.htm#ahk_class">ahk_class</a>を使用していますが、必要であればこれを削除してウィンドウのタイトルを使用することも可能です。</li>
 </ul>
 <p>ホットキーで操作するウィンドウを正しく特定するためには、ウィンドウのタイトル以外の基準で判断する必要がある場合があります。詳しくは、「<a href="ManageWindows.htm">Windowsを管理する方法</a>」をご覧ください。</p>
-<p><strong>関連:</strong> <a href="../lib/_HotIf.htm">#HotIf</a>、<a href="../Language.htm#expressions">Expressions</a>、<a href="../lib/WinActive.htm">WinActive</a></p>
+<p><strong>関連：</strong><a href="../lib/_HotIf.htm">#HotIf</a>、<a href="../Language.htm#expressions">Expressions</a>、<a href="../lib/WinActive.htm">WinActive</a></p>
 
 <h2 id="Custom_Combinations">カスタムコンビネーション</h2>
 <p><em>カスタムコンビネーション</em>とは、通常は組み合わせて使用することを想定していない2つのキーを組み合わせたホットキーのことです。例えば、<code>Numpad0 &amp; Numpad1::</code>は、Numpad0を押しながらNumpad1を押したときに起動するホットキーを定義しています。</p>
-<p>カスタムコンビネーションでキーをプレフィックスとして使用する場合、AutoHotkeyは、修飾キーとしての使用の妨げになるため、キーの通常の機能を有効にしたくないと仮定しています。キーの正常な機能を回復させるには、2つの方法があります。</p>
+<p>カスタムコンビネーションでキーをプレフィックスとして使用する場合、AutoHotkeyは、修飾キーとしての使用の妨げになるため、キーの通常の機能を有効にしたくないと仮定しています。キーの正常な機能を回復させるには、2つの方法があります：</p>
 <ol>
   <li><code>Numpad0::Send "{Numpad0}"</code>など、別のホットキーを使って、キー本来の機能を再現します。デフォルトでは、Numpad0を<em>離した</em>ときに、Numpad0とNumpad1を組み合わせて押さなかった場合にのみ、ホットキーが有効になります。</li>
-  <li><code>~Numpad0 &amp; Numpad1::</code>のように、組み合わせの前に<a href="../Hotkeys.htm#Tilde">tilde (~)</a>を付けます。ただし、<code>Numpad0::</code>も定義している場合は、チルダによって、Numpad0を離したときではなく、後者のホットキーがすぐに有効になるようにします。</li>
+  <li><code>~Numpad0 &amp; Numpad1::</code>のように、組み合わせの前に<a href="../Hotkeys.htm#Tilde">チルダ（~）</a>を付けます。ただし、<code>Numpad0::</code>も定義している場合は、チルダによって、Numpad0を離したときではなく、後者のホットキーがすぐに有効になるようにします。</li>
 </ol>
 <p class="note"><strong>注：</strong>カスタムの組み合わせは、ちょうど2つのキー/マウスボタンの組み合わせにのみ対応しており、Alt、Win、Ctrl、Shiftのための<code>!#^+</code>など、他の修飾子との組み合わせはできない。</p>
-<p>AutoHotkeyは2つ以上のキーのカスタムコンビネーションに直接対応していませんが、<a href="../lib/_HotIf.htm">#HotIf</a>を使用することで同様の最終結果を得ることができます。以下の例を実行すると、<kbd>Ctrl</kbd>+<kbd>CapsLock</kbd>+<kbd>Space</kbd>または<kbd>Ctrl</kbd>+<kbd>Space</kbd>+<kbd>CapsLock</kbd>を押すと、メッセージが表示されるはずです。</p>
+<p>AutoHotkeyは2つ以上のキーのカスタムコンビネーションに直接対応していませんが、<a href="../lib/_HotIf.htm">#HotIf</a>を使用することで同様の最終結果を得ることができます。以下の例を実行すると、<kbd>Ctrl</kbd>+<kbd>CapsLock</kbd>+<kbd>Space</kbd>または<kbd>Ctrl</kbd>+<kbd>Space</kbd>+<kbd>CapsLock</kbd>を押すと、メッセージが表示されるはずです：</p>
 <pre>#HotIf GetKeyState("Ctrl")
 Space &amp; CapsLock::
 CapsLock &amp; Space::MsgBox "Success!"</pre>

@@ -21,7 +21,7 @@
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p><em>ColorID</em>に一致する最初のピクセルの X 座標と Y 座標を格納する出力変数への参照（一致しない場合、変数は空白にされます）。Coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change that.</p>
+    <p><em>ColorID</em>に一致する最初のピクセルの X 座標と Y 座標を格納する出力変数への参照（一致しない場合、変数は空白にされます）。座標は、<a href="CoordMode.htm">CoordMode</a>関数を使用して変更した場合を除いて、アクティブウィンドウのクライアント領域を基準にしています。</p>
   </dd>
 
   <dt>X1, Y1</dt>
@@ -39,13 +39,13 @@
   <dt>ColorID</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>検索するカラーIDを指定します。This is typically expressed as a hexadecimal number in Red-Green-Blue (RGB) format. 事例：<code>0x9d6346</code>. カラーIDは、Window Spy（トレイメニューからアクセス可能）または<a href="PixelGetColor.htm">PixelGetColor</a>を使用して決定することができます。</p>
+    <p>検索するカラーIDを指定します。これは通常、赤緑青（RGB）形式の16進数で表現されます。事例：<code>0x9d6346</code>。カラーIDは、Window Spy（トレイメニューからアクセス可能）または<a href="PixelGetColor.htm">PixelGetColor</a>を使用して決定することができます。</p>
   </dd>
 
   <dt>Variation</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>省略したときの初期値は0です。Otherwise, specify a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of the color. For example, if 2 is specified and <em>ColorID</em> is 0x444444, any color from 0x424242 to 0x464646 will be considered a match. このパラメータは、求める色が常に全く同じ色合いでない場合に有効です。255色のバリエーションを指定した場合、すべての色が一致します。</p>
+    <p>省略したときの初期値は0です。Otherwise, specify a number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation in either direction for the intensity of the red, green, and blue components of the color. 例えば、2が指定され、<em>ColorID</em>が0x444444の場合、0x424242から0x464646までのすべての色が一致するとみなされます。このパラメータは、求める色が常に全く同じ色合いでない場合に有効です。255色のバリエーションを指定した場合、すべての色が一致します。</p>
   </dd>
 
 </dl>
@@ -65,10 +65,10 @@
 <p>検索する領域が大きく、高い頻度で検索を繰り返す場合、CPU時間を多く消費する可能性があります。これを緩和するために、面積を最小限に抑えます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="PixelGetColor.htm">PixelGetColor</a>, <a href="ImageSearch.htm">ImageSearch</a>, <a href="CoordMode.htm">CoordMode</a>, <a href="MouseGetPos.htm">MouseGetPos</a></p>
+<p><a href="PixelGetColor.htm">PixelGetColor</a>、<a href="ImageSearch.htm">ImageSearch</a>、<a href="CoordMode.htm">CoordMode</a>、<a href="MouseGetPos.htm">MouseGetPos</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> Searches a region of the active window for a pixel and stores in <em>Px</em> and <em>Py</em> the X and Y coordinates of the first pixel that matches the specified color with 3 shades of variation.</p>
+<p><a class="ex_number" href="#ExBasic"></a> アクティブウィンドウの領域をピクセルで検索し、指定された色に3階調のバリエーションで一致する最初のピクセルのXとY座標を<em>Px</em>と <em>Py</em>に格納します。</p>
 <pre>if PixelSearch(&amp;Px, &amp;Py, 200, 200, 300, 300, 0x9d6346, 3)
     MsgBox "A color within 3 shades of variation was found at X" Px " Y" Py
 else

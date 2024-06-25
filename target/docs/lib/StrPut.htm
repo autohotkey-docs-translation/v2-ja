@@ -44,14 +44,14 @@ ReqBufSize   := <span class="func">StrPut</span>(String <span class="optional">,
     <p><em>Length</em>がゼロか、変換後の投影長（変換が不要な場合はソース文字列の長さ）より小さい場合、例外がスローされる。</p>
     <p><em>Length</em> must not be omitted when <em>Target</em> is a plain memory address, unless the buffer size is known to be sufficient, such as if the buffer was allocated based on a previous call to StrPut with the same <em>String</em> and <em>Encoding</em>.</p>
     <p><em>Target</em>がオブジェクトの場合、<code><i>Target</i>.Size</code>から計算されるバッファサイズを超える<em>Length</em>を指定すると、変換後の文字列がバッファ内に収まる場合でもエラーとみなされます。</p>
-    <p class="warning"><strong>Note:</strong> When <em>Encoding</em> is specified, <em>Length</em> should be the size of the buffer (in characters), <u>not</u> the length of <em>String</em> or a substring, as conversion may increase its length.</p>
+    <p class="warning"><strong>注意：</strong><em>Encoding</em>が指定されている場合、<em>Length</em>はバッファのサイズ（文字数）であるべきで、<u>String</u>や部分文字列の長さでは<em>ない</em>はずです。</p>
     <p class="warning"><strong>注：</strong> <em>長さ</em>は文字単位で測定されるが、バッファ・サイズは通常バイト単位で測定される。バッファサイズをバイト単位で指定するには、<em>Target</em>パラメータに<a href="Buffer.htm">Buffer</a>ライクなオブジェクトを使用します。</p>
   </dd>
 
   <dt>Encoding</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, the string is simply copied or measured without any conversion taking place. Otherwise, specify the target encoding; for example, <code>"UTF-8"</code>, <code>"UTF-16"</code> or <code>"CP936"</code>. For numeric identifiers, the prefix "CP" can be omitted only in 4-parameter mode. Specify an empty string or <code>"CP0"</code> to use the system default ANSI code page.</p>
+    <p>If omitted, the string is simply copied or measured without any conversion taking place. そうでない場合は、ターゲット・エンコーディングを指定する。例えば、<code>"UTF-8"</code>、<code>"UTF-16"</code>、<code>"CP936"</code>などである。For numeric identifiers, the prefix "CP" can be omitted only in 4-parameter mode. システム・デフォルトのANSIコード・ページを使用する場合は、空文字列または<code>"CP0"</code>を指定する。</p>
   </dd>
 
 </dl>
@@ -69,7 +69,7 @@ ReqBufSize   := <span class="func">StrPut</span>(String <span class="optional">,
 <p><i>String</i>パラメータは常に現在の実行ファイルの<a href="../Concepts.htm#string-encoding">ネイティブエンコーディング</a>を使用すると仮定されるのに対し、<i>Encoding</i>は指定された<i>Target</i>に書き込まれる文字列のエンコーディングを指定することに注意してください。<em>Encoding</em>が指定されていない場合、文字列は変換されることなく、単にコピーまたは測定される。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="../Concepts.htm#string-encoding">String Encoding</a>, <a href="StrGet.htm">StrGet</a>, <a href="../Compat.htm">Binary Compatibility</a>, <a href="FileEncoding.htm">FileEncoding</a>, <a href="DllCall.htm">DllCall</a>, <a href="Buffer.htm">Buffer object</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a></p>
+<p><a href="../Concepts.htm#string-encoding">文字列のエンコード</a>、<a href="StrGet.htm">StrGet</a>、<a href="../Compat.htm">バイナリ互換性</a>、<a href="FileEncoding.htm">FileEncoding</a>、<a href="DllCall.htm">DllCall</a>、<a href="Buffer.htm">Bufferオブジェクト</a>、<a href="VarSetStrCapacity.htm">VarSetStrCapacity</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExNumEnc">

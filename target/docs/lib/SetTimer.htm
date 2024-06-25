@@ -30,13 +30,13 @@
   <dt>Period</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted and the timer does not exist, it will be created with a period of 250. If omitted and the timer already exists, it will be <a href="#reset">reset</a> at its former period unless <em>Priority</em> is specified. Otherwise, the absolute value of this parameter is used as the <a href="#Precision">approximate</a> number of milliseconds that must pass before the timer is executed. The timer will be automatically <a href="#reset">reset</a>. 自動で繰り返す設定や、1回だけ実行する設定も可能です：</p>
+    <p>If omitted and the timer does not exist, it will be created with a period of 250. If omitted and the timer already exists, it will be <a href="#reset">reset</a> at its former period unless <em>Priority</em> is specified. Otherwise, the absolute value of this parameter is used as the <a href="#Precision">approximate</a> number of milliseconds that must pass before the timer is executed. タイマーは自動的に<a href="#reset">リセット</a>されます。自動で繰り返す設定や、1回だけ実行する設定も可能です：</p>
     <ul>
       <li><em>Period</em>が0より大きい場合、スクリプトによって明示的に無効にされるまで、タイマーは自動的に繰り返されます。</li>
-      <li id="once"><em>Period</em>が0より小さい場合、タイマーは1回だけ実行されます。For example, specifying -100 would call <em>Function</em> 100&nbsp;ms from now then delete the timer as though <code>SetTimer <i>Function</i>, 0</code> had been used.</li>
+      <li id="once"><em>Period</em>が0より小さい場合、タイマーは1回だけ実行されます。例えば、-100を指定すると、<em>SetTimer</em>Function<code>, 0を<i>使用した場合と同様に、今から100&nbsp;ms後に</i>Function</code>を呼び出し、タイマーを削除します。</li>
       <li><em>Period</em>が0の場合、タイマーは削除の対象となります。このタイマーによって開始されたスレッドがまだ実行中であれば、スレッドの終了後にタイマーは削除され（再有効化されていない限り）、それ以外の場合は直ちに削除されます。いずれの場合も、タイマーの以前の<em>Period</em>と <em>Priority</em>は保持されない。</li>
     </ul>
-    <p>The absolute value of <em>Period</em> must be no larger than 4294967295&nbsp;ms (49.7 days).</p>
+    <p><em>Period</em>の絶対値は、4294967295&nbsp;ms（49.7日）以下でなければならない。</p>
   </dd>
 
   <dt>Priority</dt>
@@ -51,22 +51,22 @@
 <h2 id="Remarks">備考</h2>
 <p>タイマーは非同期で実行されるため、スクリプトがウィンドウを待っていたり、ダイアログを表示していたり、他のタスクで忙しかったりしても、指定した頻度（間隔）で実行されるため便利です。例えば、ユーザーがアイドル状態になったときに何らかのアクションを起こす（<a href="../Variables.htm#TimeIdle">A_TimeIdle</a>で反映される）、不要なウィンドウが表示されたらすぐに閉じるなど、さまざまな使い方があります。</p>
 <p>タイマーは、スクリプトが同時に複数のタスクを実行しているように錯覚させるかもしれませんが、そうではありません。その代わり、タイムドファンクションは他のスレッドと同じように扱われます：<a href="../Hotkeys.htm">ホットキーのサブルーチン</a>など、他のスレッドに割り込んだり、割り込まれたりする可能性があります。詳しくは「<a href="../misc/Threads.htm">スレッド</a>」をご覧ください。</p>
-<p>Whenever a timer is created or updated with a new period, its function will not be called right away; its time period must expire first. If you wish the timer's first execution to be immediate, call the timer's function directly (however, this will not start a new thread like the timer itself does; so settings such as <a href="SendMode.htm">SendMode</a> will not start off at their defaults).</p>
-<p id="reset"><strong>Reset:</strong> If SetTimer is used on an existing timer, the timer is reset (unless <em>Priority</em> is specified and <em>Period</em> is omitted); in other words, the entirety of its period must elapse before its function will be called again.</p>
-<p id="Precision"><strong>Timer precision:</strong> Due to the granularity of the OS's time-keeping system, <em>Period</em> is typically rounded up to the nearest multiple of 10 or 15.6 milliseconds (depending on the type of hardware and drivers installed). <a href="Sleep.htm#ExShorterSleep">DllCall+timeBeginPeriod+Sleep</a>のように、Loop+Sleepでより短い遅延を達成することもできる。</p>
-<p id="Reliability"><strong>Reliability:</strong> A timer might not be able to run at the expected time under the following conditions:</p>
+<p>タイマーを作成したり、新しい周期で更新したりすると、その関数はすぐに呼び出されることはありません。タイマーの初回実行を即座に行いたい場合は、タイマーの関数を直接呼び出します（ただし、タイマーのように新しいスレッドを開始しないので、<a href="SendMode.htm">SendMode</a>などの設定はデフォルトのままでは始まりません）。</p>
+<p id="reset"><strong>リセット：</strong>SetTimerを既存のタイマーに使用した場合、タイマーはリセットされる（<em>Priority</em>が指定され、<em>Period</em>が省略された場合を除く）、言い換えれば、その関数が再び呼び出される前にその期間の全体が経過する必要がある。</p>
+<p id="Precision"><strong>タイマー精度：</strong>OSの時間管理システムの粒度のため、<em>Period</em>は通常10または15.6ミリ秒の最も近い倍数に切り上げられます（インストールされているハードウェアとドライバの種類に依存します）。<a href="Sleep.htm#ExShorterSleep">DllCall+timeBeginPeriod+Sleep</a>のように、Loop+Sleepでより短い遅延を達成することもできる。</p>
+<p id="Reliability"><strong>信頼性：</strong>以下のような条件下では、タイマーが期待通りの時刻に作動しないことがあります：</p>
 <ol>
   <li>他のアプリケーションがCPUに大きな負荷をかけている。</li>
   <li>再びタイマー期間が終了しても、タイマーの機能は作動しています。</li>
   <li>他に競合するタイマーが多すぎる。</li>
   <li>タイマーが他の<a href="../misc/Threads.htm">スレッド</a>、すなわち他のタイマー付き関数、<a href="../Hotkeys.htm">ホットキーサブルーチン</a>、または<a href="Menu.htm">カスタムメニュー項目</a>によって中断された（これは<a href="Critical.htm">Critical</a>によって回避することができます）。このとき、割り込みスレッドが終了するまでに長い時間がかかると、その間、割り込みタイマーは事実上無効となります。ただし、他のタイマーは、最初のタイマーを中断した<a href="../misc/Threads.htm">スレッド</a>に割り込んで実行し続ける。</li>
-  <li>The script is uninterruptible as a result of <a href="Critical.htm">Critical</a> or <a href="Thread.htm">Thread Interrupt/Priority</a>. この間、タイマーは作動しません。その後、スクリプトが再び中断可能になると、期限を過ぎたタイマーはできるだけ早く1回実行し、その後通常のスケジュールを再開します。</li>
+  <li><a href="Critical.htm">Critical</a>または<a href="Thread.htm">Thread Interrupt/Priority</a>の結果、スクリプトは中断されない。この間、タイマーは作動しません。その後、スクリプトが再び中断可能になると、期限を過ぎたタイマーはできるだけ早く1回実行し、その後通常のスケジュールを再開します。</li>
 </ol>
-<p>Although timers will operate when the script is <a href="Suspend.htm">suspended</a>, they will not run if the <a href="../misc/Threads.htm">current thread</a> has <a href="Thread.htm#NoTimers">Thread NoTimers</a> in effect or whenever any thread is <a href="Pause.htm">paused</a>. In addition, they do not operate when the user is navigating through one of the script's menus (such as the <a href="../Program.htm#tray-icon">tray icon</a> menu or a menu bar).</p>
+<p>タイマーは、スクリプトが<a href="Suspend.htm">中断</a>されても動作しますが、<a href="../misc/Threads.htm">現在のスレッド</a>が <a href="Thread.htm#NoTimers">Thread NoTimers</a>を有効にしている場合、またはいずれかのスレッドが<a href="Pause.htm">一時停止</a>された場合は、タイマーは動作しません。また、ユーザーがスクリプトのメニュー（<a href="../Program.htm#tray-icon">トレイアイコン</a>メニューやメニューバーなど）を操作しているときは、動作しません。</p>
 <p>タイマーは、スクリプトの現在の活動を一時的に中断することで動作するため、長い中断が望ましくない場合は、タイマーの機能を短く保つ（すぐに終了するようにする）必要があります。</p>
-<p id="otherremarks"><strong>Other remarks:</strong> A temporary timer might often be disabled by its own function (see examples at the bottom of this page).</p>
+<p id="otherremarks"><strong>その他の備考：</strong>一時的なタイマーは、それ自体の機能で無効になることが多いかもしれません（このページの下の方にある例を参照してください）。</p>
 <p>タイマーから関数が呼び出されると、<a href="SendMode.htm">SendMode</a>などの設定は常にデフォルト値で新しくスタートします。これらのデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時に変更することができます。</p>
-<p>If <a href="../Hotkeys.htm">hotkey</a> response time is crucial (such as in games) and the script contains any timers whose functions take longer than about 5&nbsp;ms to execute, use the following function to avoid any chance of a 15&nbsp;ms delay. このような遅延は、タイマースレッドが中断しない期間にある瞬間にホットキーが押された場合に発生します：</p>
+<p>ゲームなどで<a href="../Hotkeys.htm">ホットキー</a>の反応時間が重要で、スクリプトにタイマーが含まれていて、その関数の実行に約5ミリ秒以上かかる場合は、以下の関数を使用して15ミリ秒の遅延を回避してください。このような遅延は、タイマースレッドが中断しない期間にある瞬間にホットキーが押された場合に発生します：</p>
 <pre><a href="Thread.htm">Thread</a> "Interrupt", 0  <em>; Make all threads always-interruptible.</em></pre>
 <p>タイマーが機能実行中に無効化された場合、その機能は完了するまで継続されます。</p>
 <p><a href="KeyHistory.htm">KeyHistory</a>機能は、タイマーの存在と現在有効なタイマーの数を表示します。</p>
@@ -94,7 +94,7 @@ Alert1()
 {
     if not WinExist("Video Conversion", "Process Complete")
         return
-    <em>; それ以外の場合。</em>
+    <em>; それ以外の場合：</em>
     SetTimer , 0  <em>; i.e. the timer turns itself off here.</em>
     MsgBox "The video conversion is finished."
 }</pre>
@@ -116,7 +116,7 @@ KeyWinC(ThisHotkey)  <em>; This is a <a href="../Hotkeys.htm#Function">named fun
     winc_presses := 1
     SetTimer After400, -400 <em>; Wait for more presses within a 400 millisecond window.</em>
 
-After400()  <em>; This is a <a href="../Functions.htm#nested">nested function</a>.</em>
+    After400()  <em>; This is a <a href="../Functions.htm#nested">nested function</a>.</em>
     {
         if winc_presses = 1 <em>; The key was pressed once.</em>
         {

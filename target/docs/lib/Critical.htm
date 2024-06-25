@@ -22,9 +22,9 @@
   <dt>OnOffNumeric</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If blank or omitted, it defaults to <em>On</em>. それ以外の場合は、以下のいずれかを指定します。</p>
-    <p><strong>On:</strong> The <a href="../misc/Threads.htm">current thread</a> is made critical, meaning that it cannot be interrupted by another thread.</p>
-    <p><strong>Off:</strong> The current thread immediately becomes interruptible, regardless of the settings of <a href="Thread.htm#Interrupt">Thread Interrupt</a>. 詳しくは<a href="#Off">クリティカルオフ</a>をご覧ください。</p>
+    <p>空白または省略された場合、デフォルトで<em>On</em>になります。それ以外の場合は、以下のいずれかを指定します：</p>
+    <p><strong>On：</strong><a href="../misc/Threads.htm">現在のスレッド</a>は、他のスレッドによって中断されないことを意味するクリティカルにされます。</p>
+    <p><strong>Off：</strong><a href="Thread.htm#Interrupt">Thread Interrupt</a>の設定に関係なく、現在のスレッドは直ちに割り込み可能な状態になります。詳しくは<a href="#Off">クリティカルオフ</a>をご覧ください。</p>
     <p><strong>(Numeric):</strong> Specify a positive number to turn on Critical but also change the number of milliseconds between checks of the internal message queue. 詳しくは、「<a href="#Interval">メッセージチェックの間隔</a>」を参照してください。0を指定すると、Criticalがオフになります。-1 を指定すると、Critical は有効になりますが、メッセージチェックは無効になります。</p>
   </dd>
 </dl>
@@ -38,28 +38,28 @@
 <p><a href="MsgBox.htm">メッセージボックス</a>などのダイアログが表示されると、クリティカルスレッドが割り込み可能になる。しかし、<a href="Thread.htm#Interrupt">Thread Interrupt</a>とは異なり、ユーザーがダイアログを解除した後、スレッドは再びクリティカルになる。</p>
 
 <h2 id="Off">Critical Off</h2>
-<p>バッファリングされたイベントが新しいスレッドの開始を待っているとき、<code>Critical "Off"</code>を使用しても、現在のスレッドが直ちに中断されることはありません。その代わり、割り込みが発生するまでに平均5ミリ秒の時間が経過することになります。This makes it more than 99.999&nbsp;% likely that at least one line after <code>Critical "Off"</code> will execute before an interruption. <code><a href="Sleep.htm">Sleep</a> -1</code>や、まだ存在しないウィンドウの<a href="WinWait.htm">WinWait</a>などのディレイによって、強制的に割り込みを即座に発生させることができます。</p>
+<p>バッファリングされたイベントが新しいスレッドの開始を待っているとき、<code>Critical "Off"</code>を使用しても、現在のスレッドが直ちに中断されることはありません。その代わり、割り込みが発生するまでに平均5ミリ秒の時間が経過することになります。これにより、<code>Critical "Off"</code>以降の少なくとも1行が割り込み前に実行される可能性が99.999&nbsp;%以上となります。<code><a href="Sleep.htm">Sleep</a> -1</code>や、まだ存在しないウィンドウの<a href="WinWait.htm">WinWait</a>などのディレイによって、強制的に割り込みを即座に発生させることができます。</p>
 <p><code>Critical "Off"</code>は、クリティカルでないスレッドでも、現在のスレッドの無停止期間をキャンセルし、<a href="GuiOnEvent.htm#Size">サイズ</a>などのイベントをより早く、より予測的に処理することができるようにします。</p>
 
 <h2 id="Settings">Thread Settings</h2>
 <p>現在のCriticalの設定を保存・復元する方法については、<a href="../Variables.htm#IsCritical">A_IsCritical</a>を参照してください。ただし、Criticalはスレッド固有の設定なので、Criticalなスレッドが終了すると、その下にある/再開されたスレッド（もしあれば）は自動的にNoncriticalになります。そのため、スレッドを終了する直前に<code>Critical "Off"</code>を行う必要はありません。</p>
-<p>If Critical is not used by <a href="../Scripts.htm#auto">the auto-execute thread</a>, all threads start off as noncritical (though the settings of <a href="Thread.htm#Interrupt">Thread Interrupt</a> will still apply). By contrast, if the auto-execute thread turns on Critical but never turns it off, every newly launched <a href="../misc/Threads.htm">thread</a> (such as a <a href="../Hotkeys.htm">hotkey</a>, <a href="Menu.htm">custom menu item</a>, or <a href="SetTimer.htm">timed</a> subroutine) starts off critical.</p>
-<p><a href="Thread.htm#NoTimers">Thread NoTimers</a> is similar to Critical except that it only prevents interruptions from <a href="SetTimer.htm">timers</a>.</p>
+<p><a href="../Scripts.htm#auto">自動実行スレッド</a>でCriticalが使用されない場合、すべてのスレッドはノンクリティカルとしてスタートします（ただし、<a href="Thread.htm#Interrupt">Thread Interrupt</a>の設定はそのまま適用されます）。対照的に、自動実行スレッドがクリティカルをオンにし、決してオフにしない場合、新しく起動した<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべてクリティカルからスタートします。</p>
+<p><a href="Thread.htm#NoTimers">Thread NoTimers</a>は、<a href="SetTimer.htm">タイマー</a>からの割り込みを防ぐだけで、Criticalと似ています。</p>
 
 <h2 id="Interval">メッセージチェックの間隔</h2>
-<p>第1パラメータに正の数を指定すると（例：<code>Critical 30</code>）、Criticalがオンになりますが、内部メッセージキューのチェック間の最小ミリ秒数が変更されます。If unspecified, the default is 16 milliseconds while Critical is On, and 5&nbsp;ms while Critical is Off. 間隔を広げると、メッセージ/イベントの到着が延期され、<a href="../misc/Threads.htm">現在のスレッド</a>が終了するまでの時間が長くなります。This reduces the possibility that certain <a href="OnMessage.htm">OnMessage callbacks</a> and <a href="GuiOnEvent.htm">GUI events</a> will be lost due to "thread already running". ただし、<a href="Sleep.htm">Sleep</a>や <a href="WinWait.htm">WinWait</a>などの待機する関数は、この設定に関係なくメッセージをチェックします（回避策は<code>DllCall("Sleep", "UInt", 500)</code>)。</p>
-<p>この設定は、以下に影響します。</p>
+<p>第1パラメータに正の数を指定すると（例：<code>Critical 30</code>）、Criticalがオンになりますが、内部メッセージキューのチェック間の最小ミリ秒数が変更されます。指定がない場合、デフォルトはCriticalがOnのときは16ミリ秒、CriticalがOffのときは5ミリ秒です。間隔を広げると、メッセージ/イベントの到着が延期され、<a href="../misc/Threads.htm">現在のスレッド</a>が終了するまでの時間が長くなります。This reduces the possibility that certain <a href="OnMessage.htm">OnMessage callbacks</a> and <a href="GuiOnEvent.htm">GUI events</a> will be lost due to "thread already running". ただし、<a href="Sleep.htm">Sleep</a>や <a href="WinWait.htm">WinWait</a>などの待機する関数は、この設定に関係なくメッセージをチェックします（回避策は<code>DllCall("Sleep", "UInt", 500)</code>)。</p>
+<p>この設定は、以下に影響します：</p>
 <ul>
   <li>プリエンプティブメッセージチェック（各コード行の実行前に発生する可能性がある。</li>
   <li><a href="Send.htm">送信</a>、ファイル、ダウンロード操作時に定期的にメッセージチェックを行う。</li>
 </ul>
 <p>スクリプトの一時停止中や待機中のメッセージチェックの頻度には影響しません。</p>
 <p>システムティックカウントは一般的に15.6ミリ秒の粒度を持つため、デルタ値の最小値は一般的に少なくとも15または16となる。前回のチェックからの期間が設定した間隔を<em>超えないと</em>、次のチェックはできません。例えば、16を設定すると、17以上の刻みの変化が必要となります。メッセージチェックは15.6ミリ秒のウィンドウの中でいつでも発生する可能性があるので、1から16の間のどの設定でも、1つのインターバル内に2つのメッセージチェックを許可することができます。</p>
-  <p class="note"><strong>Note:</strong> Increasing the message-check interval too much may reduce the responsiveness of various events such as <a href="Gui.htm">GUI</a> window repainting.</p>
+  <p class="note"><strong>注意：</strong>メッセージチェックの間隔を広げすぎると、<a href="Gui.htm">GUI</a>ウィンドウの再描画など各種イベントの応答性が低下する場合があります。</p>
 <p><code>Critical -1</code>は、クリティカルをオンにするが、メッセージチェックを無効にします。これは、スリープ、ディレイ、ウェイトの実行中にプログラムがメッセージをチェックすることを妨げるものではありません。<a href="OnMessage.htm">OnMessage</a>コールバックで特定のタイプのメッセージを処理するときなど、メッセージのディスパッチが現在実行中のコードに干渉する可能性がある場合に便利です。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Thread.htm">Thread (function)</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="Hotkey.htm">Hotkey</a>, <a href="Menu.htm">Menu object</a>, <a href="SetTimer.htm">SetTimer</a></p>
+<p><a href="Thread.htm">Thread（関数）</a>、<a href="../misc/Threads.htm">スレッド</a>、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>、<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>、<a href="OnMessage.htm">OnMessage</a>、<a href="CallbackCreate.htm">CallbackCreate</a>、<a href="Hotkey.htm">Hotkey</a>、<a href="Menu.htm">Menuオブジェクト</a>、<a href="SetTimer.htm">SetTimer</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -69,7 +69,7 @@
     Critical
     ToolTip "No new threads will launch until after this ToolTip disappears."
     Sleep 3000
-    ToolTip  <em>;チップを切る。</em>
+    ToolTip  <em>; チップを切る。</em>
     return <em>; ホットキー機能から戻ると、そのスレッドが終了します。再開される基礎となるスレッドは、定義上、非クリティカルなものです。</em>
 }</pre>
 </div>

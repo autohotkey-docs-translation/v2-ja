@@ -39,9 +39,9 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p id="cdecl">ほとんどの関数は「C」呼び出し規約ではなく、標準呼び出し規約を使用しているため、<em>Cdecl</em>という言葉は通常省略されます（wsprintfのように様々な数の引数を受け付ける関数は例外です）。なお、オブジェクト指向のC++関数の多くは<i>thiscall</i>の規約を使用していますが、これはサポートされていません。</p>
-      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきです。単語と単語の間は、スペースまたはタブで区切る。事例：<code>"Cdecl Str"</code>.</p>
+      <p>存在する場合、<em>Cdecl</em>という単語は、（もしあれば）戻り値の型の前に記載されるべきです。単語と単語の間は、スペースまたはタブで区切る。事例：<code>"Cdecl Str"</code>。</p>
       <p>64ビットコードには個別の "C" 呼び出し規約が存在しないため、<i>Cdecl</i>を指定することができますが、AutoHotkeyの64ビットビルドには何の効果もありません。</p>
-      <p><em>ReturnType</em>:関数が32ビット符号付き整数（Int）、BOOL、または何も返さない場合は、<em>ReturnType</em>を省略することができる。それ以外の場合は、以下の<a href="#types">型式表</a>からいずれかの引数型を指定します。<a href="#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
+      <p><em>ReturnType</em>：関数が32ビット符号付き整数（Int）、BOOL、または何も返さない場合は、<em>ReturnType</em>を省略することができる。それ以外の場合は、以下の<a href="#types">型式表</a>からいずれかの引数型を指定します。<a href="#asterisk">接尾辞のアスタリスク</a>にも対応しています。</p>
   </dd>
 
 </dl>
@@ -59,12 +59,12 @@
 <tr id="str">
 <td>Str</td>
 <td>
-  <p><code>"Blue"</code>などの文字列や<code>MyVar</code>、あるいは<code>&amp;MyVar</code>などの<a href="../Concepts.htm#variable-references">VarRef</a>を指定します。呼び出された関数が文字列を変更し、引数が裸の変数または VarRef である場合、その内容が更新されます。例えば、次のように呼び出すと、<em>MyVar</em>の中身を大文字に変換します：<code>DllCall("CharUpper", "Str", <i>MyVar</i>)</code>.</p>
+  <p><code>"Blue"</code>などの文字列や<code>MyVar</code>、あるいは<code>&amp;MyVar</code>などの<a href="../Concepts.htm#variable-references">VarRef</a>を指定します。呼び出された関数が文字列を変更し、引数が裸の変数または VarRef である場合、その内容が更新されます。例えば、次のように呼び出すと、<em>MyVar</em>の中身を大文字に変換します：<code>DllCall("CharUpper", "Str", <i>MyVar</i>)</code>。</p>
   <p>関数がパラメータの入力値よりも長い文字列を保存するように設計されている場合（またはパラメータが出力のみの場合）、推奨される方法は、<a href="#ExWsprintf">wsprintfの例</a>のように、<a href="Buffer.htm">Buffer</a>を作成し、<a href="#ptr">Ptr</a>型を使ってそれを渡し、関数が戻った後に<a href="StrGet.htm">StrGet</a>を使って文字列を取得する方法です。</p>
-  <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。This can be achieved by calling <code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, 123)</code>, where 123 is the number of 16-bit units (loosely referred to as characters) that <em>MyVar</em> must be able to hold. 戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
+  <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。ここで、123は<em>MyVar</em>が保持しなければならない16ビット単位（緩やかに文字と呼ばれる）の数である、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, 123)</code>を呼び出すことで実現できる。戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
   <p><em>Str</em>引数は、数値（<code>i+1</code>など）に評価される<a href="../Variables.htm#Expressions">式</a>であってはならない。もしそうであれば、関数は呼び出されず、<a href="Error.htm#TypeError">TypeError</a>が投げられる。</p>
   <p id="strp">めったに使われない<a href="#asterisk">Str*</a>arg型は、文字列のアドレスを含む一時変数のアドレスを渡します。関数が一時変数に新しいアドレスを書き込むと、<a href="../Concepts.htm#variable-references">VarRef</a>が渡された場合、新しい文字列はスクリプトの変数にコピーされます。これは、"TCHAR **"や "LPTSTR *"のようなものを期待する関数で使用することができます。しかし、関数がメモリを確保し、呼び出し側がそれを解放することを期待する場合（<a href="https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>を呼び出すなど）、代わりに<code>Ptr*</code>arg型を使用する必要があります。</p>
-  <p class="note"><strong>Note:</strong> When passing a string to a function, be aware what <a href="../Compat.htm#DllCall"><i>type</i> of string</a> the function expects.</p></td>
+  <p class="note"><strong>注意：</strong>関数に文字列を渡すときは、その関数がどの<a href="../Compat.htm#DllCall"><i>型</i></a>の<a href="../Compat.htm#DllCall">文字列</a>を期待しているかを意識してください。</p></td>
 </tr>
 <tr>
   <td><span id="wstr"></span>WStr</td>
@@ -115,19 +115,19 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
   <p>Ptr*パラメータにオブジェクトが渡された場合、呼び出し前にオブジェクトの<code>Ptr</code>プロパティの値が取得され、この値を含む一時変数のアドレスが関数に渡されます。関数が戻った後、新しい値はオブジェクトの<code>Ptr</code>プロパティに再び割り当てられます。</p>
   <p><i>Ptr</i>は接尾辞に*やPを付けて使うこともできます。LPVOID*などを使ってポインタを出力する関数と一緒に使う必要があります。</p>
   <p><i>UPtr</i>も有効ですが、AutoHotkeyは符号なし64ビット整数をサポートしていないため、32ビットビルドでは符号なしのみです。</p>
-  <p class="note"><strong>Note:</strong> To pass a <strong>NULL</strong> handle or pointer, pass the integer 0.</p></td>
+  <p class="note"><strong>注意：</strong><strong>NULL</strong>ハンドルまたはポインタを渡す場合は、整数0を渡します。</p></td>
 </tr>
 <tr id="asterisk">
-  <td>* or P<br>
-    (suffix)</td>
-  <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>.</p>
+  <td>*またはP<br>
+    （接尾）</td>
+  <td><p>上記の型のいずれかにアスタリスク（オプションでその前にスペース）を付けると、値そのものではなく、引数のアドレスが渡されます（呼び出された関数は、それを受け入れるように設計されていなければなりません）。このような引数の値は関数によって変更される可能性があるため、引数として<a href="../Concepts.htm#variable-references">VarRef</a>を渡すと、関数が戻った後にその変数の内容が更新されます。例えば、次の呼び出しでは、MyVarの内容をアドレスでMyFunctionに渡しますが、MyFunctionによる変更を反映してMyVarも更新されます：<code>DllCall("MyDll\MyFunction", "Int*", &amp;MyVar)</code>。</p>
     <p>一般に、関数が "LP "で始まる引数型や戻り値を持つ場合、アスタリスクが使用されます。最も一般的な例はLPDWORDで、これはDWORDへのポインタです。DWORDは符号なし32ビット整数なので、LPDWORDを表すには "UInt*"または "UIntP "を使用します。LPTSTRのような文字列型、LPRECTのような構造体へのポインタ、配列にはアスタリスクを使うべきではありません。これらには、文字列、アドレス、<a href="Buffer.htm">Buffer</a>のどれを渡すかによって、<a href="#str">"Str"</a>または<a href="#ptr">"Ptr"</a>を使うべきです。</p>
-    <p class="note"><strong>Note:</strong> "Char*" is not the same as <a href="#str">"Str"</a> because "Char*" passes the address of an 8-bit number, whereas <a href="#str">"Str"</a> passes the address of a series of characters, which may be either 16-bit (Unicode) or 8-bit (for "AStr"), depending on the version of AutoHotkey. 同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
+    <p class="note"><strong>注意：</strong>"Char*"は<a href="#str">"Str"</a>と同じではありません。"Char*"は8ビット数値のアドレスを渡すのに対し、<a href="#str">"Str"</a>は一連の文字のアドレスを渡しますが、これはAutoHotkeyのバージョンによって16ビット（ユニコード）または8ビット（"AStr"の場合）であることがあります。同様に、"UInt*"は32ビット数値のアドレスを渡すので、関数が値の配列や32ビットより大きな構造体を期待する場合は使用しないでください。</p>
     <p>AutoHotkeyの変数には固定型がないため、関数に渡されるアドレスは、呼び出し元の変数ではなく、一時メモリを指しています。</p>
     </td>
 </tr>
 <tr id="unsigned">
-  <td>U (prefix)</td>
+  <td>U（接頭）</td>
   <td><p>上記の整数型の前にUを付けると、符号なし整数（UInt64、UInt、UShort、UChar）として解釈されます。厳密には、valueで渡される引数がunsignedかsignedかは関係ないので、戻り値や<a href="#asterisk">アスタリスク変数</a>にのみ必要です（Int64を除く）。</p>
     <p>符号なし引数に負の整数を指定した場合、整数は符号なし領域へ回り込みます。例えば、-1をUIntとして送信した場合、0xFFFFFFFとなります。</p>
     <p>関数で生成される<em>符号なし</em>64ビット整数はサポートされていません。したがって、0x800000000000以上の数値を扱う場合は、U接頭辞を省略し、関数から受け取った負の値を大きな整数として解釈してください。例えば、Int64として-1を返す関数は、UInt64を返すように設計されている場合、実際には0xFFFFFFFFFFFFを返すことになります。</p>
@@ -145,14 +145,14 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 <h2 id="error">エラー</h2>
 <p>DllCallは、以下のいずれかの条件下で<a href="Error.htm">Error</a>を投げる：</p>
 <ul>
-  <li><a href="Error.htm#OSError">OSError</a>:<a href="#HRESULT">HRESULT</a>戻り値が使用され、関数がエラー値（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）を返しました。<code>Exception.Extra</code>には、16進数のエラーコードが含まれます。</li>
-  <li><a href="Error.htm#TypeError">TypeError</a>:<em>[DllFile\]Function</em>パラメータは、浮動小数点数です。文字列または正の整数が必要です。</li>
-  <li><a href="Error.htm#ValueError">ValueError</a>:<a href="#types">戻り値の型</a>、または指定された<a href="#types">argの型</a>のいずれかが無効です。</li>
-  <li><a href="Error.htm#TypeError">TypeError</a>:引数に予期せぬ型の値が渡された。例えば、文字列（<a href="#str">str</a>）引数に数値として評価される<a href="../Variables.htm#Expressions">式</a>が渡された、数値引数に数値以外の文字列が渡された、<a href="#ptr">Ptr</a>型で<em>ない</em>引数にオブジェクトが渡された、などです。</li>
-  <li><a href="Error.htm">Error</a>:指定された<em>DllFile</em>は、アクセスまたはロードできませんでした。<em>DllFile</em>に明示的なパスが指定されていない場合、そのファイルはシステムのPATHまたは<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>に存在する必要があります。このエラーは、ユーザーがファイルにアクセスする権限がない場合、またはAutoHotkeyが32ビットでDLLが64ビットの場合、またはその逆の場合にも発生することがあります。</li>
-  <li><a href="Error.htm">Error</a>:指定された関数はDLL内に見つかりませんでした。</li>
-  <li><a href="Error.htm">Error</a>:関数は呼び出されましたが、致命的な例外が発生して異常終了しました。<code>Exception.Extra</code>は例外コードを含む。例えば、0xC0000005は "アクセス違反"を意味します。このような場合、スレッドは（<a href="Try.htm">try</a>が使用されていない場合）中止されますが、<a href="#asterisk">アスタリスク</a>変数はまだ更新されます。致命的な例外の例としては、NULL（0）のような無効なポインタを再参照することが挙げられます。<a href="#cdecl">Cdecl</a>関数は、次の段落で説明するようなエラーを発生させることはないので、引数が少なすぎる場合に例外を発生させることがあります。</li>
-  <li><a href="Error.htm">Error</a>:関数を呼び出したが、渡された引数が多すぎたり少なすぎたりした。<code>Exception.Extra</code>には、引数リストが不正確であったバイト数が格納されます。正の値の場合、引数が多すぎる（または引数が大きすぎる）か、<a href="#cdecl">CDecl</a>が必要な呼び出しです。負の値であれば、渡された引数が少なすぎる。このような状況は、機能の確実な動作のために修正する必要があります。このエラーの存在は、例外が発生したことを示す場合もあります。なお、x64の呼び出し規約により、64ビットビルドではこのエラーは発生しない。</li>
+  <li><a href="Error.htm#OSError">OSError</a>：<a href="#HRESULT">HRESULT</a>戻り値が使用され、関数がエラー値（<a href="https://learn.microsoft.com/windows/win32/api/winerror/nf-winerror-failed">FAILED マクロ</a>で定義）を返しました。<code>Exception.Extra</code>には、16進数のエラーコードが含まれます。</li>
+  <li><a href="Error.htm#TypeError">TypeError</a>：<em>[DllFile\]Function</em>パラメータは、浮動小数点数です。文字列または正の整数が必要です。</li>
+  <li><a href="Error.htm#ValueError">ValueError</a>：<a href="#types">戻り値の型</a>、または指定された<a href="#types">argの型</a>のいずれかが無効です。</li>
+  <li><a href="Error.htm#TypeError">TypeError</a>：引数に予期せぬ型の値が渡された。例えば、文字列（<a href="#str">str</a>）引数に数値として評価される<a href="../Variables.htm#Expressions">式</a>が渡された、数値引数に数値以外の文字列が渡された、<a href="#ptr">Ptr</a>型で<em>ない</em>引数にオブジェクトが渡された、などです。</li>
+  <li><a href="Error.htm">Error</a>：指定された<em>DllFile</em>は、アクセスまたはロードできませんでした。<em>DllFile</em>に明示的なパスが指定されていない場合、そのファイルはシステムのPATHまたは<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>に存在する必要があります。このエラーは、ユーザーがファイルにアクセスする権限がない場合、またはAutoHotkeyが32ビットでDLLが64ビットの場合、またはその逆の場合にも発生することがあります。</li>
+  <li><a href="Error.htm">Error</a>：指定された関数はDLL内に見つかりませんでした。</li>
+  <li><a href="Error.htm">Error</a>：関数は呼び出されましたが、致命的な例外が発生して異常終了しました。<code>Exception.Extra</code>は例外コードを含む。例えば、0xC0000005は "アクセス違反"を意味します。このような場合、スレッドは（<a href="Try.htm">try</a>が使用されていない場合）中止されますが、<a href="#asterisk">アスタリスク</a>変数はまだ更新されます。致命的な例外の例としては、NULL（0）のような無効なポインタを再参照することが挙げられます。<a href="#cdecl">Cdecl</a>関数は、次の段落で説明するようなエラーを発生させることはないので、引数が少なすぎる場合に例外を発生させることがあります。</li>
+  <li><a href="Error.htm">Error</a>：関数を呼び出したが、渡された引数が多すぎたり少なすぎたりした。<code>Exception.Extra</code>には、引数リストが不正確であったバイト数が格納されます。正の値の場合、引数が多すぎる（または引数が大きすぎる）か、<a href="#cdecl">CDecl</a>が必要な呼び出しです。負の値であれば、渡された引数が少なすぎる。このような状況は、機能の確実な動作のために修正する必要があります。このエラーの存在は、例外が発生したことを示す場合もあります。なお、x64の呼び出し規約により、64ビットビルドではこのエラーは発生しない。</li>
 </ul>
 
 <h2 id="except">ネイティブの例外とA_LastError</h2>
@@ -171,7 +171,7 @@ DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約�
 Loop 500
     DllCall(<strong>MulDivProc</strong>, "Int", 3, "Int", 4, "Int", 3)</pre>
 <p>DllCallの第1パラメータが<code>"MulDiv"</code>などのリテラル文字列で、その関数を含むDLLがスクリプトの開始前に通常ロードされているか、<a href="_DllLoad.htm">#DllLoad</a>で正常にロードされていれば、文字列は自動的に関数アドレスに解決されます。このビルトイン最適化は、上に示した例よりも効果的です。</p>
-<p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を"<a href="#str">str</a>"としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr(MyVar)</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>.</p>
+<p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を"<a href="#str">str</a>"としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr(MyVar)</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>。</p>
 
 <h2 id="struct">構造体・配列</h2>
 <p>構造体とは、メモリ上に隣接して格納された<em>メンバー</em>（フィールド）の集合体です。ほとんどのメンバーが整数になる傾向があります。</p>
@@ -183,7 +183,7 @@ Loop 500
 <p>実際の使用方法については、「<a href="#ExStruct">構造例</a>」を参照してください。</p>
 
 <h2 id="limits">既知の制限事項</h2>
-<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1) Pass <em>MyVar</em> as a <a href="#str">"Str"</a> argument rather than as a Ptr/address; 2) Call <code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(&amp;MyVar, -1)</code> to update the variable's internally-stored length after calling DllCall.</p>
+<p>変数の文字列アドレス（<code>StrPtr(MyVar)</code>など）が関数に渡され、その関数が変数の内容の長さを変更した場合、その変数のその後の使用が正しく動作しないことがあります。この問題を解決するには、次のいずれかを行ってください：1)<em>MyVar</em>をPtr/アドレスとしてではなく、<a href="#str">"Str"</a>引数として渡す。2) DllCallを呼び出した後、<code><a href="VarSetStrCapacity.htm#neg1">VarSetStrCapacity</a>(&amp;MyVar, -1)</code>を呼んで変数の内部に保存された長さを更新します。</p>
 <p>関数によって変数に格納された2進数のゼロは、ターミネーターとして機能し、ほとんどの組み込み関数によってゼロの右側のすべてのデータがアクセスまたは変更されるのを防ぐことができます。しかし、このようなデータは、<a href="StrPtr.htm">StrPtr</a>で文字列のアドレスを取得し、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a>、<a href="StrGet.htm">StrGet</a>、<a href="StrPut.htm">StrPut</a>、DllCall自身など他の関数に渡すことで操作することができます。</p>
 <p>渡された文字列のアドレスを返す関数が、期待とは異なるメモリーアドレスに同一の文字列を返すことがあります。例えば、プログラミング言語で<code>CharLower(CharUpper(MyVar))</code>を呼び出すと、<em>MyVar</em>の内容が小文字に変換されます。しかし、DllCallで同じことをすると、CharLowerが<em>MyVar</em>と同じ内容の別の/一時的な文字列を操作したため、次の呼び出しの後、<em>MyVar</em>は大文字になります：</p>
 <pre>MyVar := "ABC"
@@ -200,7 +200,7 @@ result := DllCall("CharLower", "<strong><u>Str</u></strong>", DllCall("CharUpper
 <p>しかし、AutoHotkeyは、<a href="https://learn.microsoft.com/dotnet/standard/native-interop/com-callable-wrapper">COM呼び出し可能なラッパー</a>を通してCLRを利用することができます。ライブラリが一般的なCOMコンポーネントとしても登録されていない限り、まずCLR自体をDllCallで手動で初期化する必要があります。For details, see <a href="https://www.autohotkey.com/boards/viewtopic.php?t=4633">.NET Framework Interop</a>.</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="../Compat.htm#DllCall">Binary Compatibility</a>, <a href="Buffer.htm">Buffer object</a>, <a href="ComCall.htm">ComCall</a>, <a href="PostMessage.htm">PostMessage</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a>, <a href="Run.htm">Run</a>, <a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>, <a href="../Functions.htm">Functions</a>, <a href="SysGet.htm">SysGet</a>, <a href="_DllLoad.htm">#DllLoad</a>, <a href="https://learn.microsoft.com/windows/win32/apiindex/windows-api-list">Windows API Index</a></p>
+<p><a href="../Compat.htm#DllCall">バイナリ互換性</a>、<a href="Buffer.htm">Bufferオブジェクト</a>、<a href="ComCall.htm">ComCall</a>、<a href="PostMessage.htm">PostMessage</a>、<a href="OnMessage.htm">OnMessage</a>、<a href="CallbackCreate.htm">CallbackCreate</a>、<a href="Run.htm">Run</a>、<a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>、<a href="../Functions.htm">関数</a>、<a href="SysGet.htm">SysGet</a>、<a href="_DllLoad.htm">#DllLoad</a>、<a href="https://learn.microsoft.com/windows/win32/apiindex/windows-api-list">Windows API インデックス</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExMessageBox">
@@ -233,7 +233,7 @@ MsgBox Format("{:010}", 432)
 </div>
 
 <div class="ex" id="ExQPC">
-<p><a class="ex_number" href="#ExQPC"></a> Demonstrates QueryPerformanceCounter(), which gives more precision than <a href="../Variables.htm#TickCount">A_TickCount</a>'s 10&nbsp;ms.</p>
+<p><a class="ex_number" href="#ExQPC"></a> <a href="../Variables.htm#TickCount">A_TickCount</a>の10&nbsp;msより精度の高いQueryPerformanceCounter()のデモを行います。</p>
 <pre>DllCall("QueryPerformanceFrequency", "Int64*", &amp;freq := 0)
 DllCall("QueryPerformanceCounter", "Int64*", &amp;CounterBefore := 0)
 Sleep 1000
@@ -252,7 +252,7 @@ F1 up::
     static SPI_SETMOUSESPEED := 0x71
     static OrigMouseSpeed := 0
     
-switch ThisHotkey
+    switch ThisHotkey
     {
     case "F1":
         <em>; 現在の速度を取得し、後で復元できるようにする：</em>
@@ -261,8 +261,8 @@ switch ThisHotkey
         DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", 3, "UInt", 0)
         KeyWait "F1"  <em>; キーボードのオートリピートがDllCallを繰り返し実行するのを防ぐことができます。</em>
         
-case "F1 up":
-DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", OrigMouseSpeed, "UInt", 0)  <em>; 元の速度に戻す。</em>
+    case "F1 up":
+        DllCall("SystemParametersInfo", "UInt", SPI_SETMOUSESPEED, "UInt", 0, "Ptr", OrigMouseSpeed, "UInt", 0)  <em>; 元の速度に戻す。</em>
     }
 }</pre>
 </div>
@@ -316,7 +316,7 @@ if !hFile
 Buf := Buffer(StrSize)
 DllCall("ReadFile", "Ptr", hFile, "Ptr", Buf, "UInt", Buf.Size, "UIntP", &amp;BytesActuallyRead := 0, "Ptr", 0)
 DllCall("CloseHandle", "Ptr", hFile)  <em>; ファイルを閉じる。</em>
-MsgBox "The following string was read from the file:" StrGet(Buf)</pre>
+MsgBox "The following string was read from the file: " StrGet(Buf)</pre>
 </div>
 
 <div class="ex" id="ExHideCursor">
@@ -341,15 +341,15 @@ SystemCursor(cmd)  <em>; cmd = "Show|Hide|Toggle|Reload"</em>
                 , "Int", 32, "Int", 32
                 , "Ptr", Buffer(32*4, 0xFF)
                 , "Ptr", Buffer(32*4, 0))
-            c[id] := {default:h_default, blank:h_blank}
+            c[id] := {default: h_default, blank: h_blank}
         }
     }
     switch cmd
     {
-    case "Show":visible := true
-    case "Hide":visible := false
-    case "Toggle":visible := !visible
-    default:return
+    case "Show": visible := true
+    case "Hide": visible := false
+    case "Toggle": visible := !visible
+    default: return
     }
     for id, handles in c
     {
@@ -380,7 +380,7 @@ MsgBox Format("Left {1} Top {2} Right {3} Bottom {4}", L, T, R, B)</pre>
       , "Int", A_ScreenWidth//2   <em>; right</em>
       , "Int", A_ScreenHeight//2  <em>; bottom</em>
       , Rect)
-hDC := DllCall("GetDC", "Ptr", 0, "Ptr")  <em>;デスクトップのデバイスコンテキストを取得する場合は、0を渡す。</em>
+hDC := DllCall("GetDC", "Ptr", 0, "Ptr")  <em>; デスクトップのデバイスコンテキストを取得する場合は、0を渡す。</em>
 hBrush := DllCall("CreateSolidBrush", "UInt", 0x0000FF, "Ptr")  <em>; 赤のブラシ（0x0000FFはBGR形式）を作成します。</em>
 DllCall("FillRect", "Ptr", hDC, "Ptr", Rect, "Ptr", hBrush)  <em>; 指定された矩形を上記のブラシで塗りつぶす。</em>
 DllCall("ReleaseDC", "Ptr", 0, "Ptr", hDC)  <em>; クリーンアップ。</em>
@@ -401,9 +401,9 @@ SetSystemTime(YYYYMMDDHHMISS)
     UTC_Delta := Round(-UTC_Delta/60)  <em>; 正確を期すため、分単位に丸めて表示します。</em>
     YYYYMMDDHHMISS := DateAdd(YYYYMMDDHHMISS, UTC_Delta, "Minutes")  <em>; UTC に変換するためのオフセットを適用します。</em>
 
-SystemTime := Buffer(16)  <em>; この構造体は8個のUShortで構成されています。</em>
+    SystemTime := Buffer(16)  <em>; この構造体は8個のUShortで構成されています。</em>
 
-<a href="NumPut.htm">NumPut</a>( "UShort", SubStr(YYYYMMDDHHMISS, 1, 4)  <em>; YYYY (year)</em>
+    <a href="NumPut.htm">NumPut</a>( "UShort", SubStr(YYYYMMDDHHMISS, 1, 4)  <em>; YYYY (year)</em>
           , "UShort", SubStr(YYYYMMDDHHMISS, 5, 2)  <em>; MM (month of year, 1-12)</em>
           , "UShort", 0                             <em>; Unused (day of week)</em>
           , "UShort", SubStr(YYYYMMDDHHMISS, 7, 2)  <em>; DD (day of month)</em>
@@ -413,9 +413,9 @@ SystemTime := Buffer(16)  <em>; この構造体は8個のUShortで構成され�
           , "UShort", 0                             <em>; Unused (millisecond)</em>
           , SystemTime)
 
-return DllCall("SetSystemTime", "Ptr", SystemTime)
+    return DllCall("SetSystemTime", "Ptr", SystemTime)
 }</pre>
-<p>その他の構造例</p>
+<p>その他の構造例：</p>
 <ul>
   <li>DllCallを使用してTCP/IPサーバーにネットワーク接続し、そこからデータを受信する方法のデモについては、<a href="../scripts/index.htm#WinLIRC">WinLIRCクライアントスクリプト</a>を参照してください。</li>
   <li>The operating system offers standard dialog boxes that prompt the user to pick a font, color, or icon. These dialogs use structures and can be displayed via DllCall in combination with <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">comdlg32\ChooseFont</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646912(v=vs.85)">comdlg32\ChooseColor</a>, or <a href="https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg">shell32\PickIconDlg</a>. Search the forums for examples.</li>
@@ -426,12 +426,12 @@ return DllCall("SetSystemTime", "Ptr", SystemTime)
 <p><a class="ex_number" href="#ExTaskbar"></a> アクティブなウィンドウを3秒間、タスクバーから削除します。<a href="ComCall.htm#ExTaskbar">同等のComCallの例</a>と比較してみてください。</p>
 <pre><em>/*
   <a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist">ITaskbarListの</a>VTableにあるメソッドです：
-IUnknown:
-0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
-      1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a> の代わりに使用
+    IUnknown:
+      0 QueryInterface  -- <a href="ComObjQuery.htm">ComObjQuery</a>の代わりに使用
+      1 AddRef          -- <a href="ObjAddRef.htm">ObjAddRef</a>の代わりに使用
       2 Release         -- <a href="ObjAddRef.htm">ObjRelease</a>の代わりに使用
     ITaskbarList:
-3 HrInit
+      3 HrInit
       4 AddTab
       5 DeleteTab
       6 ActivateTab

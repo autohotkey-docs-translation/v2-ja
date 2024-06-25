@@ -23,24 +23,24 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
       <p>省略したときは、初期設定は0となります。次のオプションが何も設定されないのと同じです。そうでなければ、数字または次の文字を指定します。文字の後に数字が組み合わされることもあります。例えば、<code>"M"</code>、"<code>1</code>、<code>"M1"</code>はすべて有効です（ただし、同等ではありません）。</p>
-      <p id="D"><strong>D:</strong> Select Folder (Directory). Dを指定すると、ファイルではなくフォルダーを選択できるようになります。このダイアログは、ファイルを選択するときとほぼ同じ機能を持ちますが、フィルターには対応していません（<em>フィルター</em>は省略されるか空白になります。）</p>
-      <p id="M"><strong>M:</strong> Multi-select. Mを指定すると、シフトクリックコントロールクリックなどで複数のファイルを選択できるようになります。この場合、戻り値は文字列ではなく、<a href="Array.htm">配列</a>になります。個々のファイルを取り出すには、このページ下部の例を参照してください。</p>
-      <p id="S"><strong>S:</strong> Save dialog. Sを指定すると、ダイアログに常に「開く」ボタンの代わりに「保存」ボタンが表示されるようになります。</p>
+      <p id="D"><strong>D：</strong>フォルダー（ディレクトリ）を選択します。Dを指定すると、ファイルではなくフォルダーを選択できるようになります。このダイアログは、ファイルを選択するときとほぼ同じ機能を持ちますが、フィルターには対応していません（<em>Filter</em>は省略されるか空白になります）。</p>
+      <p id="M"><strong>M：</strong> マルチセレクトです。Mを指定すると、シフトクリックコントロールクリックなどで複数のファイルを選択できるようになります。この場合、戻り値は文字列ではなく、<a href="Array.htm">配列</a>になります。個々のファイルを取り出すには、このページ下部の例を参照してください。</p>
+      <p id="S"><strong>S：</strong>保存ダイアログです。Sを指定すると、ダイアログに常に「開く」ボタンの代わりに「保存」ボタンが表示されるようになります。</p>
       <p>以下の数字を使用することができます。複数を有効にするには。、それらを足し算します。例えば、1と2を使う場合は、数字の3を指定します。</p>
-      <p><strong>1:</strong> File Must Exist<br>
-        <strong>2:</strong> Path Must Exist<br>
-        <strong>8:</strong>新しいファイルを作成するかどうかを確認します。<br>
-        <strong>16:</strong>ファイルを上書きするかどうか確認します。<br>
-        <strong>32:</strong> Shortcuts (.lnk files) are selected as-is rather than being resolved to their targets. また、このオプションは、フォルダーショートカットによるフォルダーへのナビゲーションを防止します。</p>
-      <p>As the "Prompt to Overwrite" option is supported only by the Save dialog, specifying that option without the "Prompt to Create" option also puts the S option into effect. Similarly, the "Prompt to Create" option has no effect when the S option is present. 24を指定すると、ダイアログでサポートされているどのタイプのプロンプトも有効になります。</p>
+      <p><strong>1：</strong>ファイルが存在する必要がある<br>
+        <strong>2：</strong>パスは存在しなければならない<br>
+        <strong>8：</strong>新しいファイルを作成するかどうかを確認します<br>
+        <strong>16：</strong>ファイルを上書きするかどうか確認します<br>
+        <strong>32：</strong>ショートカット（.lnkファイル）は、ターゲットに解決されるのではなく、そのまま選択されます。また、このオプションは、フォルダーショートカットによるフォルダーへのナビゲーションを防止します。</p>
+      <p>上書き保存を促す」オプションは保存ダイアログでのみサポートされているため、「作成を促す」オプションを指定せずにこのオプションを指定すると、Sオプションも有効になります。同様に、Sオプションがある場合、"Prompt to Create"オプションは効果を発揮しません。24を指定すると、ダイアログでサポートされているどのタイプのプロンプトも有効になります。</p>
   </dd>
 
   <dt>RootDir\Filename</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>If blank or omitted, the starting directory will be a default that might depend on the OS version (it will likely be the directory most recently selected by the user during a prior use of FileSelect). Otherwise, specify one or both of the following:</p>
-      <p><strong>RootDir:</strong> The root (starting) directory, which is assumed to be a subfolder in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path is not specified.</p>
-      <p><strong>Filename:</strong> The default filename to initially show in the dialog's edit field. 裸のファイル名（パスなし）のみが表示されます。To ensure that the dialog is properly shown, ensure that no illegal characters are present (such as <code>/&lt;|:"</code>).</p>
+      <p><strong>RootDir：</strong>ルート（開始）ディレクトリ。絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>のサブフォルダとみなされます。</p>
+      <p><strong>Filename：</strong>ダイアログの編集フィールドに最初に表示されるデフォルトのファイル名です。裸のファイル名（パスなし）のみが表示されます。ダイアログが正しく表示されるように、不正な文字（<code>/&lt;|:"</code>など）が存在しないことを確認してください。</p>
       <p>例：</p>
       <pre>"C:\My Pictures\Default Image Name.gif"  <em>; <i>RootDir</i>と<i>Filename</i>の両方が存在します。</em>
 "C:\My Pictures"  <em>; <i>RootDir</i>のみ存在します。</em>
@@ -75,7 +75,7 @@
 <p>GUIウィンドウは、<a href="Gui.htm#OwnDialogs">+OwnDialogs</a>オプションにより、モーダルファイル選択ダイアログを表示することができる。モーダルダイアログは、ダイアログが解除されるまで、ユーザーがGUIウィンドウと対話するのを防ぎます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="DirSelect.htm">DirSelect</a>, <a href="MsgBox.htm">MsgBox</a>, <a href="InputBox.htm">InputBox</a>, <a href="ToolTip.htm">ToolTip</a>, <a href="Gui.htm">GUI</a>, <a href="../misc/CLSID-List.htm">CLSID List</a>, <a href="LoopParse.htm">parsing loop</a>, <a href="SplitPath.htm">SplitPath</a></p>
+<p><a href="DirSelect.htm">DirSelect</a>、<a href="MsgBox.htm">MsgBox</a>、<a href="InputBox.htm">InputBox</a>、<a href="ToolTip.htm">ToolTip</a>、<a href="Gui.htm">GUI</a>、<a href="../misc/CLSID-List.htm">CLSIDリスト</a>、<a href="LoopParse.htm">解析ループ</a>、<a href="SplitPath.htm">SplitPath</a></p>
 <p>また、OSには、フォント、色、アイコンの選択を促すダイアログボックスが標準装備されています。These dialogs can be displayed via <a href="DllCall.htm">DllCall</a> in combination with <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">comdlg32\ChooseFont</a>, <a href="https://learn.microsoft.com/previous-versions/windows/desktop/legacy/ms646912(v=vs.85)">comdlg32\ChooseColor</a>, or <a href="https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg">shell32\PickIconDlg</a>. Search the forums for examples.</p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

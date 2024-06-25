@@ -29,7 +29,7 @@
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>ゲームなどの特殊なアプリケーションでは、キーを押した後、離すまでの間に遅延が必要な場合があります。</p>
     <p>If omitted, the current press duration is retained. Otherwise, specify the time in milliseconds. 全く遅延させないときは-1を指定し、可能な限り最小の遅延を認めるときは0を指定します。ただし、<em>Play</em>パラメータが存在する場合は、0と-1の両方で遅延は発生しません。</p>
-    <p class="note"><strong>Note:</strong> <em>PressDuration</em> also produces a delay after any change to the modifier key state (Ctrl, Alt, Shift, and Win) needed to support the keys being sent.</p>
+    <p class="note"><strong>注意：</strong><em>PressDuration</em>は、送信されるキーをサポートするために必要な修飾キー状態（Ctrl、Alt、Shift、Win）の変更後にも遅延を発生させることができます。</p>
   </dd>
 
   <dt>Play</dt>
@@ -41,8 +41,8 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>If SetKeyDelay is not used, the default delay is 10 for the traditional SendEvent mode and -1 for <a href="Send.htm#SendPlayDetail">SendPlay mode</a>. The default press duration is -1 for both modes.</p>
-<p>SetKeyDelay is not obeyed by <a href="Send.htm#SendInputDetail">SendInput</a>; there is no delay between keystrokes in that mode. This same is true for <a href="Send.htm">Send</a> when <a href="SendMode.htm">SendMode Input</a> is in effect.</p>
+<p>SetKeyDelay関数を使用しないときは、遅延の初期値はは、従来のSendEventモードでは 10、<a href="Send.htm#SendPlayDetail">SendPlayモード</a>では-1です。The default press duration is -1 for both modes.</p>
+<p>SetKeyDelayは<a href="Send.htm#SendInputDetail">SendInput</a>では従わない。そのモードではキーストローク間の遅延はない。これは、<a href="Send.htm">SendMode Input</a>が有効な場合の<a href="SendMode.htm">Send</a>も同様である。</p>
 <p><a href="Send.htm">Send</a>または<a href="ControlSend.htm">ControlSend</a>でキーストロークを送信するたびに、短い遅延（スリープ）が自動的に行われます。これはスクリプトの信頼性を高めるためで、キー入力が殺到するとウィンドウが追いつかなくなることがあるためです。</p>
 <p>遅延（スリープ）中は、現在のスレッドを<a href="../misc/Threads.htm#Interrupt">中断できない</a>ようにする。</p>
 <p>OSの時間管理システムの粒度の関係で、遅延は10や15の倍数に切り上げられる場合があります。</p>
@@ -51,7 +51,7 @@
 <p>組込変数<strong>A_KeyDelay</strong>には、Send/SendEvent モードの<em>Delay</em>の現在の設定値が格納される。<strong>A_KeyDuration</strong> contains the setting for <em>PressDuration</em>, while <strong>A_KeyDelayPlay</strong> and <strong>A_KeyDurationPlay</strong> contain the settings for <a href="Send.htm#SendPlayDetail">SendPlay</a>.</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
-<p><a href="Send.htm">Send</a>, <a href="ControlSend.htm">ControlSend</a>, <a href="SendMode.htm">SendMode</a>, <a href="SetMouseDelay.htm">SetMouseDelay</a>, <a href="SetControlDelay.htm">SetControlDelay</a>, <a href="SetWinDelay.htm">SetWinDelay</a>, <a href="Click.htm">Click</a></p>
+<p><a href="Send.htm">Send</a>、<a href="ControlSend.htm">ControlSend</a>、<a href="SendMode.htm">SendMode</a>、<a href="SetMouseDelay.htm">SetMouseDelay</a>、<a href="SetControlDelay.htm">SetControlDelay</a>、<a href="SetWinDelay.htm">SetWinDelay</a>、<a href="Click.htm">Click</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> <a href="Send.htm">Send</a>または<a href="ControlSend.htm">ControlSend</a>で送信される各キーストロークの後に、可能な限り小さな遅延が発生するようにします。</p>

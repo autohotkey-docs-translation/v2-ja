@@ -31,7 +31,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If omitted and "OK" is the only button present, it defaults to the string "Press OK to continue.". If omitted in any other case, it defaults to an empty string. Otherwise, specify the text to display inside the message box.</p>
-    <p><a href="../misc/EscapeChar.htm">エスケープシーケンス</a>は、特殊文字を表すために使用することができます。例えば、`nは改行文字を示し、現在の行を終了して新しい行を開始します。Thus, using <code>text1`n`ntext2</code> would create a blank line between text1 and text2.</p>
+    <p><a href="../misc/EscapeChar.htm">エスケープシーケンス</a>は、特殊文字を表すために使用することができます。例えば、`nは改行文字を示し、現在の行を終了して新しい行を開始します。したがって、<code>text1`n`ntext2</code>を使用すると、text1とtext2の間に空白行ができる。</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
   </dd>
 
@@ -46,8 +46,8 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, it defaults to 0 (only an OK button is displayed). Otherwise, specify a combination (sum) of values or a string of one or more options from the tables below to indicate the type of message box and the possible button combinations.</p>
     <p>さらに、以下のオプションを0個以上指定することができます：</p>
-    <p id="OwnerOption"><strong>Owner:</strong> To specify an <a href="#Owner">owner window</a> for the message box, use the word Owner followed immediately by a HWND (window ID).</p>
-    <p id="Timeout"><strong>T:</strong> Timeout. 指定した時間内にユーザーがメッセージボックスを閉じなかった場合、自動的に閉じるようにするには、文字Tの後にタイムアウトを秒単位で指定します（小数点以下も可）。この値が2147483（24.8日）を超えた場合、2147483に設定されます。メッセージボックスがタイムアウトした場合、<a href="#Result">戻り値</a>はTimeoutという文字になります。</p>
+    <p id="OwnerOption"><strong>Owner：</strong>メッセージボックスの<a href="#Owner">オーナーウィンドウ</a>を指定するには、Ownerという単語の直後にHWND（ウィンドウID）を使用します。</p>
+    <p id="Timeout"><strong>T：</strong>タイムアウト。指定した時間内にユーザーがメッセージボックスを閉じなかった場合、自動的に閉じるようにするには、文字Tの後にタイムアウトを秒単位で指定します（小数点以下も可）。この値が2147483（24.8日）を超えた場合、2147483に設定されます。メッセージボックスがタイムアウトした場合、<a href="#Result">戻り値</a>はTimeoutという文字になります。</p>
   </dd>
 
 </dl>
@@ -55,67 +55,67 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
 <h2 id="Options"><em>Options</em>パラメータに設定する値</h2>
 <p><em>Options</em>パラメータには、以下のグループからの数値の組み合わせ（合計）をオペレーティングシステムのMessageBox関数に直接渡すか、0個以上の大文字小文字を区別しないオプションを少なくとも1つのスペースまたはタブで区切った文字列を指定することができます。また、1つ以上の数値オプションを文字列に含めることができます。</p>
 
-<h3 id="Group_1_Buttons">Group #1: Buttons</h3>
-<p>To indicate the buttons displayed in the message box, add <u>one</u> of the following values:</p>
+<h3 id="Group_1_Buttons">グループ1：ボタン</h3>
+<p>メッセージボックスに表示されるボタンを指示するために、以下の値の<u>いずれか</u>を追加します：</p>
 <table class="info">
   <tr>
-    <th class="sized1">機能</th>
-    <th class="sized2 right">Dec</th>
-    <th class="sized2 right">Hex</th>
-    <th>String</th>
+    <th class="sized1">関数</th>
+    <th class="sized2 right">十進法</th>
+    <th class="sized2 right">十六進法</th>
+    <th>文字列</th>
   </tr>
   <tr>
-    <td>OK（つまり、OKボタンのみが表示されます。）</td>
+    <td>OK</td>
     <td class="right">0</td>
     <td class="right">0x0</td>
-    <td><code>OK</code> or <code>O</code></td>
+    <td><code>OK</code>または<code>O</code></td>
   </tr>
   <tr>
-    <td>OK, Cancel</td>
+    <td>OK、キャンセル</td>
     <td class="right">1</td>
     <td class="right">0x1</td>
-    <td><code>OKCancel</code>, <code>O/C</code> or <code>OC</code></td>
+    <td><code>OKCancel</code>、<code>O/C</code>または<code>OC</code></td>
   </tr>
   <tr>
-    <td>Abort, Retry, Ignore</td>
+    <td>中止(A)、再試行(R)、無視(I)</td>
     <td class="right">2</td>
     <td class="right">0x2</td>
-    <td><code>AbortRetryIgnore</code>, <code>A/R/I</code> or <code>ARI</code></td>
+    <td><code>AbortRetryIgnore</code>、<code>A/R/I</code>または<code>ARI</code></td>
   </tr>
   <tr>
-    <td>Yes, No, Cancel</td>
+    <td>はい(Y)、いいえ(N)、キャンセル</td>
     <td class="right">3</td>
     <td class="right">0x3</td>
-    <td><code>YesNoCancel</code>, <code>Y/N/C</code> or <code>YNC</code></td>
+    <td><code>YesNoCancel</code>、<code>Y/N/C</code>または<code>YNC</code></td>
   </tr>
   <tr>
-    <td>Yes, No</td>
+    <td>はい(Y)、いいえ(N)</td>
     <td class="right">4</td>
     <td class="right">0x4</td>
-    <td><code>YesNo</code>, <code>Y/N</code> or <code>YN</code></td>
+    <td><code>YesNo</code>、<code>Y/N</code>または<code>YN</code></td>
   </tr>
   <tr>
-    <td>Retry, Cancel</td>
+    <td>再試行(R)、キャンセル</td>
     <td class="right">5</td>
     <td class="right">0x5</td>
-    <td><code>RetryCancel</code>, <code>R/C</code> or <code>RC</code></td>
+    <td><code>RetryCancel</code>、<code>R/C</code>または<code>RC</code></td>
   </tr>
   <tr>
-    <td>Cancel, Try Again, Continue</td>
+    <td>キャンセル、再実行(T)、続行(C)</td>
     <td class="right">6</td>
     <td class="right">0x6</td>
-    <td><code>CancelTryAgainContinue</code>, <code>C/T/C</code> or <code>CTC</code></td>
+    <td><code>CancelTryAgainContinue</code>、<code>C/T/C</code>または<code>CTC</code></td>
   </tr>
 </table>
 
-<h3 id="Group_2_Icon">Group #2: Icon</h3>
-<p>To display an icon in the message box, add <u>one</u> of the following values:</p>
+<h3 id="Group_2_Icon">グループ2：アイコン</h3>
+<p>メッセージボックスにアイコンを表示するには、次の値の<u>いずれか</u>を追加します：</p>
 <table class="info">
   <tr>
-    <th class="sized1">機能</th>
-    <th class="sized2 right">Dec</th>
-    <th class="sized2 right">Hex</th>
-    <th>String</th>
+    <th class="sized1">関数</th>
+    <th class="sized2 right">十進法</th>
+    <th class="sized2 right">十六進法</th>
+    <th>文字列</th>
   </tr>
   <tr>
     <td>Icon Hand (stop/error)</td>
@@ -143,14 +143,14 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
   </tr>
 </table>
 
-<h3 id="Group_3_Default_Button">Group #3: Default Button</h3>
-<p>To indicate the default button, add <u>one</u> of the following values:</p>
+<h3 id="Group_3_Default_Button">グループ3：デフォルトボタン</h3>
+<p>デフォルトのボタンを示すには、以下の値の<u>いずれか</u>を追加します：</p>
 <table class="info">
   <tr>
-    <th class="sized1">機能</th>
-    <th class="sized2 right">Dec</th>
-    <th class="sized2 right">Hex</th>
-    <th>String</th>
+    <th class="sized1">関数</th>
+    <th class="sized2 right">十進法</th>
+    <th class="sized2 right">十六進法</th>
+    <th>文字列</th>
   </tr>
   <tr>
     <td>第2ボタンをデフォルトにする</td>
@@ -165,69 +165,69 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
     <td><code>Default3</code></td>
   </tr>
   <tr>
-    <td>第4ボタンをデフォルトにする<br>(<a href="#Help">ヘルプボタン</a>があることが必要です)</td>
+    <td>第4ボタンをデフォルトにする<br>（<a href="#Help">ヘルプボタン</a>があることが必要です）</td>
     <td class="right">768</td>
     <td class="right">0x300</td>
     <td><code>Default4</code></td>
   </tr>
 </table>
 
-<h3 id="Group_4_Modality">Group #4: Modality</h3>
-<p>To indicate the modality of the dialog box, add <u>one</u> of the following values:</p>
+<h3 id="Group_4_Modality">グループ4：モダリティ</h3>
+<p>ダイアログボックスのモダリティを示すために、以下の値の<u>いずれか</u>を追加します：</p>
 <table class="info">
   <tr>
-    <th class="sized1">機能</th>
-    <th class="sized2 right">Dec</th>
-    <th class="sized2 right">Hex</th>
-    <th>String</th>
+    <th class="sized1">関数</th>
+    <th class="sized2 right">十進法</th>
+    <th class="sized2 right">十六進法</th>
+    <th>文字列</th>
   </tr>
   <tr>
     <td>システムモーダル（常に上部に表示される）</td>
     <td class="right">4096</td>
     <td class="right">0x1000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
   </tr>
   <tr>
     <td>Task Modal</td>
     <td class="right">8192</td>
     <td class="right">0x2000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
   </tr>
   <tr>
-    <td>常時トップ（スタイル WS_EX_TOPMOST）<br>(システムモーダル同様、タイトルバーアイコンが省略されています)</td>
+    <td>常時トップ（スタイル WS_EX_TOPMOST）<br>（システムモーダル同様、タイトルバーアイコンが省略されています）</td>
     <td class="right">262144</td>
     <td class="right">0x40000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
   </tr>
 </table>
 
-<h3 id="Group_5_Other_Options">Group #5:その他のオプション</h3>
-<p>To specify other options, add <u>one or more</u> of the following values:</p>
+<h3 id="Group_5_Other_Options">グループ5：その他のオプション</h3>
+<p>その他のオプションを指定する場合は、以下の値を<u>1つ以上</u>追加してください：</p>
 <table class="info">
   <tr>
-    <th class="sized1">機能</th>
-    <th class="sized2 right">Dec</th>
-    <th class="sized2 right">Hex</th>
-    <th>String</th>
+    <th class="sized1">関数</th>
+    <th class="sized2 right">十進法</th>
+    <th class="sized2 right">十六進法</th>
+    <th>文字列</th>
   </tr>
   <tr id="Help">
     <td>ヘルプボタンを追加します（下記備考参照）</td>
     <td class="right">16384</td>
     <td class="right">0x4000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
     
   </tr>
   <tr>
     <td>テキストを右寄せにします</td>
     <td class="right">524288</td>
     <td class="right">0x80000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
   </tr>
   <tr>
     <td>ヘブライ語/アラビア語の右から左への読み方</td>
     <td class="right">1048576</td>
     <td class="right">0x100000</td>
-    <td>N/A</td>
+    <td>該当なし</td>
   </tr>
 </table>
 
@@ -244,7 +244,7 @@ Result := <span class="func">MsgBox</span>(<span class="optional">Text, Title, O
   <li>Ignore</li>
   <li>TryAgain</li>
   <li>Continue</li>
-  <li>タイムアウト（メッセージボックスがタイムアウトした場合、"timeout"という単語が返されます。）</li>
+  <li>Timeout（メッセージボックスがタイムアウトした場合、"timeout"という単語が返されます）</li>
 </ul>
 <p>ダイアログを表示できなかった場合は、空文字列が返されます。これは通常、<a href="#max">MsgBoxの制限</a>に達した場合にのみ発生しますが、その他の異常なケースでも発生する可能性があります。</p>
 
@@ -264,17 +264,17 @@ else
 if MsgBox("Retry or cancel?",, "R/C") = "Retry"
     MsgBox("You pressed Retry.")</pre>
 <p>To customize the names of the buttons, see <a href="../scripts/index.htm#MsgBoxButtonNames">Changing MsgBox's Button Names</a>.</p>
-<p class="note"><strong>Note:</strong> Pressing <kbd>Ctrl</kbd>+<kbd>C</kbd> while a message box is active will copy its text to the clipboard. これは、AutoHotkeyで作成されたメッセージボックスだけでなく、すべてのメッセージボックスに適用されます。</p>
-<p id="Owner"><strong>Using MsgBox with GUI windows:</strong> A GUI window may display a <em>modal</em> message box by means of the <a href="Gui.htm#OwnDialogs">OwnDialogs option</a>. <em>モーダルメッセージボックス</em>は、メッセージボックスが解除されるまで、ユーザーがGUIウィンドウと対話することを妨げます。この場合、上表からシステムモード、タスクモードのオプションを指定する必要はありません。</p>
+<p class="note"><strong>注意：</strong>メッセージボックスがアクティブな状態で<kbd>Ctrl</kbd>+<kbd>C</kbd>を押すと、そのテキストがクリップボードにコピーされます。これは、AutoHotkeyで作成されたメッセージボックスだけでなく、すべてのメッセージボックスに適用されます。</p>
+<p id="Owner"><strong>GUIウィンドウでMsgBoxを使用：</strong>GUIウィンドウは、<a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>により、<em>モーダルメッセージボックス</em>を表示することができる。<em>モーダルメッセージボックス</em>は、メッセージボックスが解除されるまで、ユーザーがGUIウィンドウと対話することを妨げます。この場合、上表からシステムモード、タスクモードのオプションを指定する必要はありません。</p>
 <p><a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>が有効で<em>ない</em>場合、Task Modalオプション（8192）を使用すると、ユーザーがメッセージボックスを解除するまで、スクリプトのすべてのウィンドウを無効にすることができます。</p>
 <p><code>Owner<i>HWND</i></code>オプションが指定されている場合は、他の設定より優先されます。<i>HWND</i>には、スクリプトが所有していないウィンドウのHWNDも指定することができます。</p>
-<p><strong>The Help button:</strong> When the Help button option (16384) is present in <em>Options</em>, pressing the Help button will have no effect unless both of the following are true:</p>
+<p><strong>ヘルプボタン：</strong><em>Options</em>でヘルプボタンオプション（16384）がある場合、以下の両方が成立していないと、ヘルプボタンを押しても効果がありません：</p>
 <ol>
   <li>メッセージボックスは、<a href="Gui.htm#OwnDialogs">OwnDialogsオプション</a>により、GUIウィンドウに所有されます。</li>
-  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。事例：<code><a href="OnMessage.htm">OnMessage</a>(0x0053, WM_HELP)</code>. WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
+  <li>スクリプトはWM_HELPメッセージ(0x0053)を監視しています。事例：<code><a href="OnMessage.htm">OnMessage</a>(0x0053, WM_HELP)</code>。WM_HELP関数が呼び出されると、別のウィンドウやメッセージボックスを表示するなどの手段でユーザーを誘導することができる。</li>
 </ol>
-<p><strong>The Close button (in the message box's title bar):</strong> Since the message box is a built-in feature of the operating system, its X button is enabled only when certain buttons are present. If there is only an OK button, clicking the X button is the same as pressing OK. Otherwise, the X button is disabled unless there is a Cancel button, in which case clicking the X is the same as pressing Cancel.</p>
-<p id="max"><strong>Maximum 7 ongoing calls:</strong> The <a href="../misc/Threads.htm">thread</a> displaying a message box can typically be interrupted, allowing the new thread to display its own message box before the previous call returns. MsgBoxの呼び出しは最大7回まで可能ですが、7回目を超えると<a href="Error.htm">Error</a>が投げられます。中断されたスレッドでMsgBoxを呼び出すと、スレッドが再開されるまで戻ることができないことに注意してください。</p>
+<p><strong>閉じるボタン（メッセージボックスのタイトルバー内）：</strong>メッセージボックスはOSの組み込み機能なので、そのXボタンは特定のボタンが存在する場合にのみ有効になります。OKボタンしかない場合は、XボタンをクリックするとOKを押したのと同じになります。それ以外の場合は、キャンセルボタンがない限りXボタンは無効で、その場合はXをクリックするとキャンセルを押したのと同じことになります。</p>
+<p id="max"><strong>最大で7回の通話が可能：</strong>メッセージボックスを表示している<a href="../misc/Threads.htm">スレッド</a>は、通常、中断することができ、前の呼び出しが戻る前に新しいスレッドが独自のメッセージボックスを表示することができます。MsgBoxの呼び出しは最大7回まで可能ですが、7回目を超えると<a href="Error.htm">Error</a>が投げられます。中断されたスレッドでMsgBoxを呼び出すと、スレッドが再開されるまで戻ることができないことに注意してください。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="InputBox.htm">InputBox</a>, <a href="FileSelect.htm">FileSelect</a>, <a href="DirSelect.htm">DirSelect</a>, <a href="ToolTip.htm">ToolTip</a>, <a href="Gui.htm">Gui object</a></p>
@@ -299,10 +299,10 @@ if MsgBox("Retry or cancel?",, "R/C") = "Retry"
 <pre>
 MsgBox "
   (
-    The first parameter is displayed as the message.
-The second parameter becomes the window title.
-The third parameter determines the type of message box.
-)", "Window Title", "iconi"
+    最初のパラメーターがメッセージとして表示される。
+    2番目のパラメータはウィンドウのタイトルになります。
+    3番目のパラメータはメッセージボックスのタイプを決定します。
+  )", "ウィンドウタイトル", "iconi"
 </pre>
 </div>
 
@@ -323,12 +323,12 @@ else if (result = "No")
 </div>
 
 <div class="ex" id="ExExpr">
-<p><a class="ex_number" href="#ExExpr"></a> メッセージに変数や部分式を含める。こちらもご覧ください：<a href="../Variables.htm#concat">Concatenation</a></p>
+<p><a class="ex_number" href="#ExExpr"></a> メッセージに変数や部分式を含める。こちらも参照のこと：<a href="../Variables.htm#concat">連結</a></p>
 <pre>
 var := 10
-MsgBox "The initial value is:" var
-MsgBox "The result is:" var * 2
-MsgBox <a href="Format.htm">Format</a>("The result is:{1}", var * 2)
+MsgBox "The initial value is: " var
+MsgBox "The result is: " var * 2
+MsgBox <a href="Format.htm">Format</a>("The result is: {1}", var * 2)
 </pre>
 </div>
 </body>

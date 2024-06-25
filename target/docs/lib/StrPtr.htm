@@ -30,12 +30,12 @@
 <p>この関数は、<em>Value</em>の現在のメモリアドレスを返す。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>アドレスの寿命と、そのアドレスに対してどの操作が有効かは、<em>Value</em>がこの関数にどのように渡されたかに依存する。以下のコード例に示すように、3つのケースがある。In all cases, if the string will <u>not</u> be modified, the return value can be passed <em>directly</em> to a <a href="DllCall.htm">DllCall</a> function or <a href="SendMessage.htm">SendMessage</a>.</p>
+<p>アドレスの寿命と、そのアドレスに対してどの操作が有効かは、<em>Value</em>がこの関数にどのように渡されたかに依存する。以下のコード例に示すように、3つのケースがある。どのような場合でも、文字列が変更され<u>ない</u>場合は、戻り値を<em>直接</em> <a href="DllCall.htm">DllCall</a>関数または<a href="SendMessage.htm">SendMessage</a>に渡すことができます。</p>
 <pre>Ptr := StrPtr(MyVar)</pre>
 <p><em>Value</em>が <code>MyVar</code>のような変数参照（組み込み変数ではない）の場合、戻り値はその変数の内部文字列バッファのメモリアドレスとなる。<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar)</code>は、終端のヌル文字を除いたバッファのサイズを<strong>文字数</strong>で返します。</p>
 <p>このアドレスは、変数が解放される<em>のみ</em>か、<a href="../Variables.htm#AssignOp">代入演算子</a>によって再代入されるか、組み込み関数に渡されるまで有効であるとみなされるべきである。ローカル変数は自動的に解放されるため、関数の<a href="../Functions.htm#Local">ローカル</a>変数の内容のアドレスは、関数が戻った後は無効となる。</p>
 <p>このアドレスは、<a href="DllCall.htm#struct">構造体</a>や他の変数に格納し、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>に間接的に渡したり、他の方法で使用したりすることができる。</p>
-<p>スクリプトは、<a href="NumPut.htm">NumPut</a>、<a href="DllCall.htm">DllCall</a>、または<a href="SendMessage.htm">SendMessage</a>にアドレスを渡すことで、間接的に文字列の値を変更することができる。If the length of the string is changed this way, the variable's internal length property must be updated by calling <code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, -1)</code>.</p>
+<p>スクリプトは、<a href="NumPut.htm">NumPut</a>、<a href="DllCall.htm">DllCall</a>、または<a href="SendMessage.htm">SendMessage</a>にアドレスを渡すことで、間接的に文字列の値を変更することができる。この方法で文字列の長さを変更する場合は、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, -1)</code>を呼び出して、変数内部の長さプロパティを更新する必要があります。</p>
 <pre>Ptr := StrPtr("literal string")</pre>
 <p>リテラル文字列のアドレスは、プログラムが終了するまで有効である。スクリプトは文字列を変更しようとしてはならない。このアドレスは、<a href="DllCall.htm#struct">構造体</a>や他の変数に格納し、<a href="DllCall.htm">DllCall</a>や <a href="SendMessage.htm">SendMessage</a>に間接的に渡したり、他の方法で使用することができる。</p>
 <pre>SendMessage 0x000C, 0, StrPtr(A_ScriptName " changed this title"),, "A"</pre>
@@ -49,7 +49,7 @@
 <p>上記で明示的にカバーされていない場合、文字列は一時的なものだと考えて差し支えない。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>, <a href="DllCall.htm">DllCall</a>, <a href="SendMessage.htm">SendMessage</a>, <a href="Buffer.htm">Buffer object</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a></p>
+<p><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>、<a href="DllCall.htm">DllCall</a>、<a href="SendMessage.htm">SendMessage</a>、<a href="Buffer.htm">Bufferオブジェクト</a>、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a></p>
 
 
 </body>

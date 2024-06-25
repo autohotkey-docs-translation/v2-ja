@@ -21,9 +21,9 @@
   <dt>KeyName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>レジストリキーのフルネームです。例：<code>"HKLM\Software\SomeApplication"</code>.</p>
-    <p>キーは、HKEY_LOCAL_MACHINE (または HKLM), HKEY_USERS (または HKU), HKEY_CURRENT_USER (または HKCU), HKEY_CLASSES_ROOT (または HKCR), or HKEY_CURRENT_CONFIG (または HKCC)で始まらなければなりません。</p>
-    <p><a href="#remote">リモートレジストリ</a>にアクセスするには、<code>"\\workstation01\HKLM"</code>のようにコンピューター名とバックスラッシュを前に追加してください。.</p>
+    <p>レジストリキーのフルネームです。例：<code>"HKLM\Software\SomeApplication"</code>。</p>
+    <p>キーは、HKEY_LOCAL_MACHINE（または HKLM）、HKEY_USERS（または HKU）、HKEY_CURRENT_USER（または HKCU）、HKEY_CLASSES_ROOT（または HKCR）、またはHKEY_CURRENT_CONFIG（または HKCC）で始まらなければなりません。</p>
+    <p><a href="#remote">リモートレジストリ</a>にアクセスするには、<code>"\\workstation01\HKLM"</code>のようにコンピューター名とバックスラッシュを前に追加してください。</p>
   </dd>
   
   <dt>Mode</dt>
@@ -41,11 +41,11 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>A registry loop is useful when you want to operate on a collection registry values or subkeys, one at a time. 値とサブキーは逆順（下から上）に取得されるため、ループを中断させることなく、<a href="RegDelete.htm">RegDelete</a>と <a href="RegDeleteKey.htm">RegDeleteKey</a>をループ内で使用することができます。</p>
-<p id="vars">The following variables exist within any registry loop. If an inner registry loop is enclosed by an outer registry loop, the innermost loop's registry item will take precedence:</p>
+<p>レジストリループは、レジストリ値やサブキーのコレクションを一度に1つずつ操作したい場合に便利です。値とサブキーは逆順（下から上）に取得されるため、ループを中断させることなく、<a href="RegDelete.htm">RegDelete</a>と <a href="RegDeleteKey.htm">RegDeleteKey</a>をループ内で使用することができます。</p>
+<p id="vars">どのレジストリ-ループ内にも、以下の変数が存在します。内側のレジストリループが外側のレジストリループで囲まれている場合、最も内側のループのレジストリ項目が優先されます：</p>
 <table class="info">
   <tr>
-    <th abbr="Var">変数</th>
+    <th abbr="変数">変数</th>
     <th abbr="説明">説明</th>
   </tr>
   <tr>
@@ -54,21 +54,21 @@
   </tr>
   <tr>
     <td>A_LoopRegType</td>
-    <td>現在検索されているアイテムのタイプで、以下の単語のいずれかです：KEY（つまり、現在検索されている項目は値ではなくサブキー）、REG_SZ、REG_EXPAND_SZ、REG_MULTI_SZ、REG_DWORD、REG_QWORD、REG_BINARY、REG_LINK、REG_RESOURCE_LIST、REG_FULL_RESOURCE_DESCRIPTOR、 REG_RESOURCE_REQUIREMENTS_LIST、 REG_DWORD_BIG_ENDIAN （ほとんどのWindowsハードでは稀でしょうね。）現在検索されている項目が不明なタイプの場合、空となります。</td>
+    <td>現在検索されているアイテムのタイプで、以下の単語のいずれかです：KEY（つまり、現在検索されている項目は値ではなくサブキー）、REG_SZ、REG_EXPAND_SZ、REG_MULTI_SZ、REG_DWORD、REG_QWORD、REG_BINARY、REG_LINK、REG_RESOURCE_LIST、REG_FULL_RESOURCE_DESCRIPTOR、 REG_RESOURCE_REQUIREMENTS_LIST、REG_DWORD_BIG_ENDIAN （ほとんどのWindowsハードでは稀でしょうね）。現在検索されている項目が不明なタイプの場合、空となります。</td>
   </tr>
   <tr>
     <td>A_LoopRegKey</td>
-    <td>現在のループ項目が含まれるキーのフルネーム。For remote registry access, this value will <u>not</u> include the computer name.</td>
+    <td>現在のループ項目が含まれるキーのフルネーム。リモートレジストリアクセスの場合、この値にはコンピュータ名は含まれ<u>ません</u>。</td>
   </tr>
   <tr>
     <td>A_LoopRegTimeModified</td>
     <td>現在のサブキーまたはその値のいずれかが最後に変更された時刻。Format <a href="FileSetTime.htm">YYYYMMDDHH24MISS</a>. 現在検索されている項目がサブキーでない場合（すなわち<em>A_LoopRegType</em>がKEYという単語でない場合）、この変数は空となります。</td>
   </tr>
 </table>
-<p>When used inside a registry loop, the following functions can be used in a simplified way to indicate that the currently retrieved item should be operated upon:</p>
+<p>レジストリループ内で使用する場合、以下の関数を簡略化して使用することで、現在検索されている項目が操作されるべきことを示すことができます：</p>
 <table class="info">
   <tr>
-    <th style="min-width: 11em;">Syntax</th>
+    <th style="min-width: 11em;">構文</th>
     <th abbr="説明">説明</th>
   </tr>
   <tr>
@@ -99,12 +99,12 @@
   <li>ユーザー名のドメイン、ワークグループ、権限によっては、レジストリへのリモートアクセスに先立ち、ドライブのマッピングなど、共有デバイスへの接続が必要な場合があります。レジストリへのアクセスや編集を許可されたリモートユーザー名とパスワードを使用して、このような接続を行うと、副次的にリモートレジストリアクセスが可能になる場合があります。</li>
   <li>すでに別のユーザーとしてターゲットコンピュータに接続している場合（たとえば、ユーザーGuestでマップされたドライブ）、リモートレジストリ機能で再接続して現在ログオンしているユーザー名で再認証するために、その接続を終了する必要がある場合があります。</li>
 </ul>
-<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Reg "HKLM\Software\AutoHotkey", "V" {</code>.</p>
+<p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Reg "HKLM\Software\AutoHotkey", "V" {</code>。</p>
 <p><a href="Block.htm">ブロック</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」をご覧ください。</p>
 <p>このループには、オプションで<a href="Else.htm">Else</a>文が続くことがあり、指定されたタイプのレジストリ項目が見つからなかった場合（つまり、ループがゼロ回繰り返された場合）に実行されます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Loop.htm">Loop</a>, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a>, <a href="Block.htm">Blocks</a>, <a href="RegRead.htm">RegRead</a>, <a href="RegWrite.htm">RegWrite</a>, <a href="RegDelete.htm">RegDelete</a>, <a href="RegDeleteKey.htm">RegDeleteKey</a>, <a href="SetRegView.htm">SetRegView</a></p>
+<p><a href="Loop.htm">Loop</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、<a href="Block.htm">ブロック</a>、<a href="RegRead.htm">RegRead</a>、<a href="RegWrite.htm">RegWrite</a>、<a href="RegDelete.htm">RegDelete</a>、<a href="RegDeleteKey.htm">RegDeleteKey</a>、<a href="SetRegView.htm">SetRegView</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -121,7 +121,7 @@
 
 <div class="ex" id="ExTest">
 <p><a class="ex_number" href="#ExTest"></a> 動作するテストスクリプトです。</p>
-<pre>Loop Reg, "HKCUSoftware", "Microsoft", "R KV"  <em>;キーと値を再帰的に取得します。</em>
+<pre>Loop Reg, "HKCUSoftware", "Microsoft", "R KV"  <em>; キーと値を再帰的に取得します。</em>
 {
     if A_LoopRegType = "key"
         value := ""
@@ -146,12 +146,12 @@ RegSearch(Target)
 {
     Loop Reg, "HKEY_LOCAL_MACHINE", "KVR"
     {
-        if !CheckThisRegItem()  <em>;停止を指示されました。</em>
+        if !CheckThisRegItem()  <em>; 停止を指示されました。</em>
             return
     }
     Loop Reg, "HKEY_USERS", "KVR"
     {
-        if !CheckThisRegItem()  <em>;停止を指示されました。</em>
+        if !CheckThisRegItem()  <em>; 停止を指示されました。</em>
             return
     }
     Loop Reg, "HKEY_CURRENT_CONFIG", "KVR"
@@ -164,7 +164,7 @@ RegSearch(Target)
     ; combined view of keys from HKEY_LOCAL_MACHINE and HKEY_CURRENT_USER, so
     ; searching all three isn't necessary.</em>
 
-CheckThisRegItem()
+    CheckThisRegItem()
     {
         if A_LoopRegType = "KEY"  <em>; 鍵の名前もチェックしたい場合は、この2行を削除してください。</em>
             return true
@@ -177,10 +177,10 @@ CheckThisRegItem()
             Result := MsgBox(
             (
             "The following match was found:
-" A_LoopRegKey "\" A_LoopRegName "
+            " A_LoopRegKey "\" A_LoopRegName "
             Value = " RegValue "
             
-Continue?"
+            Continue?"
             ),, "y/n")
             if Result = "No"
                 return false  <em>; 発信者に検索をやめるように伝える。</em>

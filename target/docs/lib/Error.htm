@@ -20,15 +20,15 @@
 <ul>
   <li><a href="#Standard_Properties">Standard Properties</a></li>
   <li><a href="#new">Error()</a></li>
-  <li><a href="#error-types">Error Types</a></li>
+  <li><a href="#error-types">エラータイプ</a></li>
   <li><a href="#Related">関連</a></li>
 </ul>
 
 <h2 id="Standard_Properties">Standard Properties</h2>
-<p id="Message"><strong>Message:</strong>エラーメッセージです。</p>
-<p id="What"><strong>What:</strong>何が例外を発生させたか。これは通常、関数の名前ですが、式のエラー（数値以外の値で数学演算子を使用した場合など）によりスローされる例外の場合は空白になります。</p>
+<p id="Message"><strong>Message：</strong>エラーメッセージです。</p>
+<p id="What"><strong>What：</strong>何が例外を発生させたか。これは通常、関数の名前ですが、式のエラー（数値以外の値で数学演算子を使用した場合など）によりスローされる例外の場合は空白になります。</p>
 <p id="Extra"><strong>Extra：</strong>エラーに関連する文字列がある場合、その値。この値が空でない文字列に変換できる場合、標準エラーダイアログは、"Specifically:"の後にこの文字列を含む行を表示します。</p>
-<p id="File"><strong>File:</strong>エラーが発生した行、または Error オブジェクトが構築された行を含むスクリプトファイルのフルパス。</p>
+<p id="File"><strong>File：</strong>エラーが発生した行、または Error オブジェクトが構築された行を含むスクリプトファイルのフルパス。</p>
 <p id="Line"><strong>Line：</strong>エラーが発生した行番号、またはErrorオブジェクトが構築された行番号です。</p>
 <p id="Stack"><strong>Stack：</strong>Errorオブジェクトが構築された時点のコールスタックを表す文字列です。各行の書式は、次のようにすることができる：</p>
 <dl>
@@ -45,10 +45,10 @@
 <h2 id="new">Error()</h2>
 <p>Error オブジェクトを作成します。</p>
 <pre class="Syntax">NewError := <span class="func"><i>Error</i></span>(Message <span class="optional">, What, Extra</span>)</pre>
-<p><em><strong>エラー</strong></em>は、「<a href="#error-types">エラータイプ</a>」に記載されているサブクラスのいずれかに置き換えることができる。ただし、サブクラスによっては、異なるパラメータを取る場合もあります。</p>
+<p><em><strong>Error</strong></em>は、「<a href="#error-types">エラータイプ</a>」に記載されているサブクラスのいずれかに置き換えることができる。ただし、サブクラスによっては、異なるパラメータを取る場合もあります。</p>
 <p>パラメータは上記のプロパティに直接対応しますが、__NewメソッドをオーバーライドするErrorサブクラスでは異なる場合があります。</p>
 <p><em>Message</em>と <em>Extra</em>は文字列に変換されます。例外が発生し、捕捉されなかった場合は、エラーダイアログで表示されます。</p>
-<p><em>What</em> エラーの原因を示します。任意の文字列を指定できますが、負整数または実行中の関数名である必要があります。1を指定すると現在の関数、-2を指定するとその関数を呼び出した関数、といった具合です。l;スクリプトが<a href="../Scripts.htm#ahk2exe">コンパイル</a>されたり、値が有効なスタックフレームを特定できない場合、値は単に文字列に変換され、<code>NewError.What</code>に代入されます。それ以外の場合は、特定されたスタックフレームを以下のように使用して、他のプロパティを決定します：</p>
+<p><em>What</em> エラーの原因を示します。任意の文字列を指定できますが、負整数または実行中の関数名である必要があります。1を指定すると現在の関数、-2を指定するとその関数を呼び出した関数、といった具合です。スクリプトが<a href="../Scripts.htm#ahk2exe">コンパイル</a>されたり、値が有効なスタックフレームを特定できない場合、値は単に文字列に変換され、<code>NewError.What</code>に代入されます。それ以外の場合は、特定されたスタックフレームを以下のように使用して、他のプロパティを決定します：</p>
 <ul>
   <li><code>NewError.What</code>には、関数の名前が含まれています。</li>
   <li><code>NewError.Line</code>と <code>NewError.File</code>は、関数を<em>呼び出した</em>行を示します。</li>
@@ -68,7 +68,7 @@
 try
     MyFunction(1, -1)  <em>; err.Lineはこの行を示します。</em>
 catch ValueError as err
-    MsgBox Format("{1}:{2}.`n`nFile:`t{3}`nLine:`t{4}`nWhat:`t{5}`nStack:`n{6}"
+    MsgBox Format("{1}: {2}.`n`nFile:`t{3}`nLine:`t{4}`nWhat:`t{5}`nStack:`n{6}"
         , type(err), err.Message, err.File, err.Line, err.What, err.Stack)</pre>
 <pre>try
     SomeFunction()
@@ -79,12 +79,12 @@ SomeFunction() {
     throw Error("Fail", -1)
 }</pre>
 
-<h2 id="error-types">Error Types</h2>
+<h2 id="error-types">エラータイプ</h2>
 
 <p><strong>Errorの</strong>サブクラスとして、以下のものが予め定義されています：</p>
 <ul>
   <li id="MemoryError"><strong>MemoryError：</strong>メモリの割り当てに失敗しました。</li>
-  <li id="OSError"><strong>OSError：</strong>Win32関数への内部関数呼び出しに失敗しました。<strong>メッセージ</strong>には、オペレーティングシステムによって生成されたエラーコードと説明が含まれます。OSErrors には、エラーコードを格納する<strong>Number</strong>プロパティが追加されています。Calling <code>OSError(Code)</code> where <em>Code</em> is numeric sets <em>Number</em> and <em>Message</em> based on the given OS-defined error code. If <em>Code</em> is omitted, it defaults to <a href="../Variables.htm#LastError">A_LastError</a>. For example, <code>OSError(5).Message</code> returns "(5) Access is denied."</li>
+  <li id="OSError"><strong>OSError：</strong>Win32関数への内部関数呼び出しに失敗しました。<strong>メッセージ</strong>には、オペレーティングシステムによって生成されたエラーコードと説明が含まれます。OSErrors には、エラーコードを格納する<strong>Number</strong>プロパティが追加されています。Calling <code>OSError(Code)</code> where <em>Code</em> is numeric sets <em>Number</em> and <em>Message</em> based on the given OS-defined error code. <em>Code</em>が省略された場合、デフォルトは<a href="../Variables.htm#LastError">A_LastError</a>となります。For example, <code>OSError(5).Message</code> returns "(5) Access is denied."</li>
   <li id="TargetError"><strong>TargetError：</strong>ターゲットが見つからなかったため、関数が失敗しました。<strong>メッセージ</strong>は、ウィンドウ、コントロール、メニュー、ステータスバーなど、どのような対象であるかを示します。</li>
   <li id="TimeoutError"><strong>TimeoutError：</strong><a href="SendMessage.htm">SendMessageが</a>タイムアウトしました。</li>
   <li id="TypeError"><strong>TypeError：</strong>関数、プロパティの割り当て、またはその他の操作の入力として、予期しないタイプの値が使用されました。通常、<strong>Message</strong>は期待される型と実際の型を示し、<strong>Extra</strong>は誤った値を表す文字列を含みます。</li>
@@ -103,7 +103,7 @@ SomeFunction() {
 <p>また、エラーは、ベースとなるErrorクラスを使用してスローされます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="Throw.htm">Throw</a>, <a href="Try.htm">Try</a>, <a href="Catch.htm">Catch</a>, <a href="Finally.htm">Finally</a>, <a href="OnError.htm">OnError</a></p>
+<p><a href="Throw.htm">Throw</a>、<a href="Try.htm">Try</a>、<a href="Catch.htm">Catch</a>、<a href="Finally.htm">Finally</a>、<a href="OnError.htm">OnError</a></p>
 
 </body>
 </html>

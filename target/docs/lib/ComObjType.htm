@@ -29,20 +29,20 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If omitted, an integer <a href="#vt">variant type code</a> indicating the type of value contained by the COM wrapper object will be retrieved. Otherwise, specify one of the following strings indicating the type information to retrieve:</p>
-    <p><strong>Name:</strong> The name of the object's default interface.</p>
-    <p><strong>IID:</strong> The globally unique identifier (GUID) of the object's default interface.</p>
-    <p><strong>Class:</strong> The object's class name. Note that this is not the same as a Prog ID (a Prog ID is a name used to identify the class in the system registry, or for <a href="ComObject.htm">ComObject</a>).</p>
-    <p><strong>CLSID:</strong> The globally unique identifier (GUID) of the object's class. Classes are often registered by CLSID under the <code>HKCR\CLSID</code> registry key.</p>
+    <p><strong>Name：</strong>オブジェクトのデフォルトインターフェイスの名前。</p>
+    <p><strong>IID：</strong>オブジェクトのデフォルトインターフェースのグローバル一意識別子（GUID）です。</p>
+    <p><strong>Class：</strong>オブジェクトのクラス名。Prog IDとは異なることに注意してください（Prog IDはシステムレジストリでクラスを識別するために使用する名前、または<a href="ComObject.htm">ComObject</a>のための名前です）。</p>
+    <p><strong>CLSID：</strong>オブジェクトのクラスのグローバル一意識別子（GUID）です。クラスは、CLSIDによって<code>HKCRCLSID</code>レジストリキーの下に登録されることが多い。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-<p>The return value depends on the value of <em>InfoType</em>. いずれかのパラメータが無効な場合、または要求された型情報を取得できなかった場合は、空文字列が返されます。</p>
+<p>戻り値は、<em>InfoType</em>の値に依存します。いずれかのパラメータが無効な場合、または要求された型情報を取得できなかった場合は、空文字列が返されます。</p>
 
 <h2 id="vt">バリアント型定数</h2>
-<p>COMは、基本的なデータ型を識別するために、以下の値を使用します。</p>
+<p>COMは、基本的なデータ型を識別するために、以下の値を使用します：</p>
 <pre>
 VT_EMPTY     :=      0  <em>; 値なし</em>
 VT_NULL      :=      1  <em>; SQL-style Null</em>
@@ -58,7 +58,7 @@ VT_ERROR     :=    0xA  <em>; エラーコード(32ビット整数)</em>
 VT_BOOL      :=    0xB  <em>; 真(-1)または偽(0)の論理型。</em>
 VT_VARIANT   :=    0xC  <em>; <a href="https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-variant">VARIANT</a>(VT_ARRAYまたはVT_BYREFとの組み合わせが必要)</em>
 VT_UNKNOWN   :=    0xD  <em>; IUnknown インターフェースポインタ</em>
-VT_DECIMAL   :=    0xE  <em>;（サポートされていません）</em>
+VT_DECIMAL   :=    0xE  <em>; （サポートされていません）</em>
 VT_I1        :=   0x10  <em>; 8ビット符号付き整数</em>
 VT_UI1       :=   0x11  <em>; 8ビット符号無し整数</em>
 VT_UI2       :=   0x12  <em>; 16ビット符号無し整数</em>
@@ -80,11 +80,11 @@ VT_BYREF     := 0x4000  <em>; 別のタイプの値へのポインタ</em>
 <h2 id="General_Remarks">総論</h2>
 <p>ほとんどの場合、COMオブジェクトのメソッドまたはプロパティからの戻り値は、AutoHotkeyがサポートする適切なデータ型に変換されます。特に扱われていない型は、<a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a>によって文字列に強制されます。もしこれが失敗したり、Variant型にVT_ARRAYやVT_BYREFフラグが含まれている場合、代わりに値とその型の両方を含むオブジェクトが返されます。</p>
 <p>任意の変数<i>x</i>に対して、<code>ComObjType(x)</code>が整数を返す場合、<i>x</i>はCOMオブジェクトラッパーを含む。</p>
-<p>If <em>InfoType</em> is <code>"Name"</code> or <code>"IID"</code>, type information is retrieved via the <a href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfo">IDispatch::GetTypeInfo</a> interface method. <em>ComObj</em>のバリアントタイプはVT_DISPATCHでなければならない。</p>
-<p>If <em>InfoType</em> is <code>"Class"</code> or <code>"CLSID"</code>, type information is retrieved via the <a href="https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo-getclassinfo">IProvideClassInfo::GetClassInfo</a> interface method. <em>ComObjの</em>バリアントタイプはVT_DISPATCHまたはVT_UNKNOWNでなければならず、オブジェクトはIProvideClassInfoインターフェースを実装しなければならない（実装していないオブジェクトもある）。</p>
+<p><em>InfoType</em>が<code>"Name"</code>または<code>"IID"</code>の場合、<a href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfo">IDispatch::GetTypeInfo</a>インタフェースメソッドにより型情報を取得します。<em>ComObj</em>のバリアントタイプはVT_DISPATCHでなければならない。</p>
+<p><em>InfoType</em>が<code>"Class"</code>または<code>"CLSID"</code>の場合、型情報は<a href="https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo-getclassinfo">IProvideClassInfo::GetClassInfo</a>インタフェースメソッドにより取得されます。<em>ComObjの</em>バリアントタイプはVT_DISPATCHまたはVT_UNKNOWNでなければならず、オブジェクトはIProvideClassInfoインターフェースを実装しなければならない（実装していないオブジェクトもある）。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="ComObjValue.htm">ComObjValue</a>, <a href="ComValue.htm">ComValue</a>, <a href="ComObject.htm">ComObject</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjActive.htm">ComObjActive</a></p>
+<p><a href="ComObjValue.htm">ComObjValue</a>、<a href="ComValue.htm">ComValue</a>、<a href="ComObject.htm">ComObject</a>、<a href="ComObjGet.htm">ComObjGet</a>、<a href="ComObjActive.htm">ComObjActive</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

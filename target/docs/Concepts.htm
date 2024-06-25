@@ -54,14 +54,14 @@ Exception handling
 
 <h2 id="values">値</h2>
 <p><em>値</em>とは、簡単に言えば、プログラム内の情報のことです。例えば、送信するキーや実行するプログラムの名前、ホットキーが押された回数、起動するウィンドウのタイトルなど、プログラムやスクリプトの中で何らかの意味を持つものを指定します。</p>
-<p>AutoHotkeyは、このようなタイプの値をサポートしています。</p>
+<p>AutoHotkeyは、このようなタイプの値をサポートしています：</p>
 <ul>
   <li><a href="#strings">文字列</a>（テキスト）</li>
   <li><a href="#numbers">数字</a>（整数、浮動小数点数）</li>
   <li><a href="#objects">オブジェクト</a></li>
 </ul>
 <p><a href="lib/Type.htm">Type</a>関数は、値の型を決定するために使用することができます。</p>
-<p>その他、関連する概念もあります。</p>
+<p>その他、関連する概念もあります：</p>
 <ul>
   <li><a href="#boolean">ブーリアン</a></li>
   <li><a href="#nothing">Nothing</a></li>
@@ -74,7 +74,7 @@ Exception handling
 <p>文字列の仕組みについてのより詳しい説明は、「<a href="#string-encoding">文字列のエンコード</a>」をご覧ください。</p>
 
 <h3 id="numbers">数字</h3>
-<p>AutoHotkeyは、これらの数値フォーマットに対応しています。</p>
+<p>AutoHotkeyは、これらの数値フォーマットに対応しています：</p>
 <ul>
   <li><code>123</code>、<code>00123</code>、<code>-1</code>などの10進数整数。</li>
   <li><code>0x7B</code>、<code>0x007B</code>、<code>-0x1</code>などの16進数の整数値。</li>
@@ -88,19 +88,19 @@ Exception handling
 
 <h3 id="boolean">ブーリアン</h3>
 <p><em>ブーリアン</em>値は、<em>true</em>または<em>false</em>のいずれかになります。ブール値は、式の<em>真偽</em>など、正確に2つの可能な状態を持つものを表現するために使用されます。例えば、<code>(x &lt;= y)</code>という式は、xがyより小さいか等しい場合に<em>true</em>となる。ブーリアン値は、<em>イエス</em>か <em>ノー</em>か、<em>オン</em>か <em>オフ</em>か、<em>ダウン</em>か <em>アップ</em>か（<a href="lib/GetKeyState.htm">GetKeyState</a>のように）などを表すこともできる。</p>
-<p>AutoHotkeyには特定のブーリアン型がないため、整数値である<code>0</code>を使用して偽を、<code>1</code>を使用して真を表します。値が真か偽のどちらかであることが要求される場合、空白またはゼロの値は偽とみなされ、他のすべての値は真とみなされます。(オブジェクトは常に真とみなされます）。</p>
+<p>AutoHotkeyには特定のブーリアン型がないため、整数値である<code>0</code>を使用して偽を、<code>1</code>を使用して真を表します。値が真か偽のどちらかであることが要求される場合、空白またはゼロの値は偽とみなされ、他のすべての値は真とみなされます。（オブジェクトは常に真とみなされます。）</p>
 <p><code>true</code>と <code>false</code>という言葉は、1と0を含む<a href="#built-in-variables">組み込み変数</a>です。これらは、スクリプトをより読みやすくするために使用することができます。</p>
 
 <h3 id="nothing">Nothing</h3>
 <p>AutoHotkeyには、他の言語で見られるような、<em>無、</em><em>null</em>、<em>nil</em>、<em>undefined</em>を一意に表す値がありません。</p>
-<p>null "または "undefined "値を生成する代わりに、値を持たない変数、プロパティ、配列要素、マップアイテムを読み込もうとすると、<a href="lib/Error.htm#UnsetError">UnsetError</a>がスローされる。これにより、NULL値を暗黙のうちにコード内に伝播させる場合よりも、より簡単にエラーを特定することができます。こちらもご覧ください：<a href="#uninitialized-variables">未初期化変数</a>。</p>
+<p>「null」または「undefined」値を生成する代わりに、値を持たない変数、プロパティ、配列要素、マップアイテムを読み込もうとすると、<a href="lib/Error.htm#UnsetError">UnsetError</a>がスローされる。これにより、NULL値を暗黙のうちにコード内に伝播させる場合よりも、より簡単にエラーを特定することができます。こちらもご覧ください：<a href="#uninitialized-variables">未初期化変数</a>。</p>
 <p>関数の<a href="Language.htm#optional-parameters">オプションパラメータ</a>は、関数が呼び出されたときに<em>省略</em>することができます。その場合、関数は動作を変更するか、デフォルト値を使用します。パラメータは通常、コードから文字通り省略することで省略されますが、<code>unset</code>キーワードを使用することで明示的または条件付きで省略することも可能です。この特別なシグナルは、<a href="Variables.htm#maybe">maybe演算子（<em>var</em><strong>?</strong>）</a>を用いて明示的にしか伝搬できなません。未設定のパラメータは、関数が実行される前に自動的にそのデフォルト値（もしあれば）を受け取ります。</p>
 <p>主に歴史的な理由から、戻り値が明示されていない関数など、他の言語でnullやundefinedの値が使用される場合に、空文字列が使用されることがあります。</p>
 <p><a href="#variables">変数</a>や <a href="#parameters">パラメータ</a>が「空」または「ブランク」と言われる場合、それは通常、空文字列（長さがゼロの文字列）を意味します。これは、場合によっては同じ効果をもたらすかもしれませんが、パラメータを省略することとは異なります。</p>
 
 <h3 id="objects">オブジェクト</h3>
 <p><em>オブジェクト</em>は、AutoHotkeyの複合データ型または抽象データ型です。オブジェクトは、任意の数の<em>プロパティ</em>（取得または設定可能）と <a href="#methods"><em>メソッド</em></a>(呼び出し可能）で構成されます。各プロパティやメソッドの名称や効果は、特定のオブジェクトやオブジェクトの種類に依存します。</p>
-<p>オブジェクトには以下の属性があります。</p>
+<p>オブジェクトには以下の属性があります：</p>
 <ul>
   <li>オブジェクトは含まれるものではなく、<a href="#references-to-objects">参照</a>されるものです。例えば、<code>alpha := []</code>は、新しい<a href="lib/Array.htm">Array</a>を作成し、<em>alpha</em>に参照を格納します。<code>bravo := alpha</code>は、オブジェクトではなく参照を<code>bravo</code>にコピーするので、両者は同じオブジェクトを参照します。配列や変数がオブジェクトを含んでいると言われるとき、実際に含んでいるのはオブジェクトへの参照します。</li>
   <li>2つのオブジェクトの参照は、同じオブジェクトを参照している場合のみ、等しく比較されます。</li>
@@ -109,7 +109,7 @@ Exception handling
   <li>オブジェクトが想定外の文脈で使用された場合、空文字列として扱われることがあります。例えば、<code>MsgBox(myObject)</code>は、空のMsgBoxを表示します。それ以外の場合は、<a href="lib/Error.htm#TypeError">TypeError</a>が投げられることがあります（将来的には、これが標準になるはずです）。</li>
 </ul>
 <p class="note"><strong>注：</strong> <a href="lib/Object.htm">Object</a>から派生したすべてのオブジェクトは、さらに共有の動作、プロパティ、メソッドを持ちます。</p>
-<p>オブジェクトの使われ方としては、以下のようなものがあります。</p>
+<p>オブジェクトの使われ方としては、以下のようなものがあります：</p>
 <ul>
   <li>アイテムや<em>要素</em>のコレクションを含むこと。例えば、<a href="lib/Array.htm">Array</a>は項目の列を含み、<a href="lib/Map.htm">Map</a>はキーと値を関連付ける。オブジェクトは、複数の値を1つの値として扱ったり、1つの変数に代入したり、関数に渡したり、関数から戻したりすることができます。</li>
   <li>現実的なもの、概念的なものを表現すること。事例：XとYのプロパティを持つ画面上の位置、Name、PhoneNumber、EmailAddressなどのプロパティを持つアドレス帳の連絡先です。オブジェクトは、他のオブジェクトと組み合わせることで、より複雑な情報の集合を表現することができます。</li>
@@ -119,15 +119,15 @@ Exception handling
 <p>オブジェクト（特に<a href="Objects.htm#Custom_Classes">クラス</a>）を適切に使用することで、<em>モジュール化</em>された <em>再利用可能</em>なコードを作成することができます。モジュール化されたコードは、通常、テスト、理解、保守が容易です。例えば、他のセクションの詳細を知ることなく、またそのセクションに対応する変更を加えることなく、コードのあるセクションを改良または修正することができます。再利用可能なコードは、同じまたは類似のタスクのコードを何度も書いたりテストしたりする必要がないため、時間を節約することができます。</p>
 
 <h3 id="object-protocol">オブジェクトプロトコル</h3>
-<p class="note">このセクションでは、後のセクションでカバーされるこれらの概念に基づいています。<a href="#variables">変数</a>、<a href="#functions">関数</a></p>
-<p>オブジェクトは、<em>メッセージパッシング</em>の原理で動作します。オブジェクトのコードや変数が実際にどこにあるのかわからないので、「<em>foo</em>を要求」「<em>bar</em>の実行に遷移」といったメッセージをオブジェクトに渡し、オブジェクトがそのメッセージに応答するのを待つしかない。AutoHotkeyのオブジェクトは、以下の基本的なメッセージに対応しています。</p>
+<p class="note">このセクションでは、後のセクションでカバーされるこれらの概念に基づいています：<a href="#variables">変数</a>、<a href="#functions">関数</a></p>
+<p>オブジェクトは、<em>メッセージパッシング</em>の原理で動作します。オブジェクトのコードや変数が実際にどこにあるのかわからないので、「<em>foo</em>を要求」「<em>bar</em>の実行に遷移」といったメッセージをオブジェクトに渡し、オブジェクトがそのメッセージに応答するのを待つしかない。AutoHotkeyのオブジェクトは、以下の基本的なメッセージに対応しています：</p>
 <ul>
   <li>プロパティを<strong>取得</strong>します。</li>
   <li><code>:=</code>で示されるプロパティを<strong>設定</strong>します。</li>
   <li><code>()</code>で示される<a href="#methods">メソッド</a><strong>を呼び出す</strong>。</li>
 </ul>
 <p><em>プロパティ</em>とは、設定や取得が可能な、オブジェクトの何らかの側面です。例えば、<a href="lib/Array.htm">Array</a>には、配列の要素数に相当する<a href="lib/Array.htm#Length">Length</a>プロパティがあります。プロパティを定義すれば、どんな意味でも持つことができます。一般的にプロパティは<a href="#variables">変数</a>のように動作しますが、その値は要求に応じて計算され、実際にはどこにも保存されないかもしれません。</p>
-<p>各メッセージには以下の内容が含まれており、通常はプロパティやメソッドが<a href="#call">呼び出される</a>場所に書かれています。</p>
+<p>各メッセージには以下の内容が含まれており、通常はプロパティやメソッドが<a href="#call">呼び出される</a>場所に書かれています：</p>
 <ul>
   <li>プロパティまたはメソッドの名前です。</li>
   <li>どのようなアクションが実行されるか、どのように値が保存されるか、どの値が返されるかに影響を与える可能性のあるゼロまたは複数の<a href="#parameters">パラメータ</a>。例えば、プロパティは配列のインデックスやキーを取ることができる。</li>
@@ -139,7 +139,7 @@ value := myObj.propertyName[arg1]
 </pre>
 <p>オブジェクトは、<em>デフォルトプロパティ</em>を持つことができます。これは、プロパティ名なしで角括弧が使用されたときに呼び出されます。事例：</p>
 <pre>value := myObj[arg1]</pre>
-<p>一般に<strong>Set</strong>は代入と同じ意味を持つので、同じ演算子を使います。</p>
+<p>一般に<strong>Set</strong>は代入と同じ意味を持つので、同じ演算子を使います：</p>
 <pre>
 myObj.name := value
 myObj.name[arg1, arg2, ..., argN] := value
@@ -148,8 +148,8 @@ myObj[arg1, arg2, ..., argN] := value
 
 <h2 id="variables">変数</h2>
 <p>変数は、名前を値のプレースホルダーとして使用することができます。どの値かは、スクリプトの実行中に繰り返し変更される可能性があります。例えば、ホットキーは変数<code>press_count</code>を使って押された回数をカウントし、<code>press_count</code>が3の倍数のとき（3回押すごとに）別のキーを送信することができます。一度しか値が代入されない変数でも、役に立つことがあります。例えば、<code>WebBrowserTitle</code>という変数を使えば、好みのウェブブラウザを変更したり、ソフトウェアのアップデートで<a href="misc/WinTitle.htm">タイトル</a>や <a href="misc/WinTitle.htm#ahk_class">ウィンドウクラス</a>が変わったりしたときに、コードを簡単に更新することができるようにすることができます。</p>
-<p>AutoHotkeyでは、変数を使用するだけで変数が作成されます。各変数は永久に単一の<a href="#values">データ型</a>に制限される<em>こと</em>はなく、代わりに任意の型の値を保持することができます。文字列、数値、オブジェクトのいずれかを指定します。値が割り当てられていない変数を読み込もうとするとエラーとなるため、<a href="#uninitialized-variables">変数の初期化</a>は重要です。</p>
-<p>変数には主に3つの側面があります。</p>
+<p>AutoHotkeyでは、変数を使用するだけで変数が作成されます。各変数は永久に単一の<a href="#values">データ型</a>に制限される<em>こと</em>はなく、代わりに任意の型の値を保持することができます：文字列、数値、またはオブジェクト。値が割り当てられていない変数を読み込もうとするとエラーとなるため、<a href="#uninitialized-variables">変数の初期化</a>は重要です。</p>
+<p>変数には主に3つの側面があります：</p>
 <ul>
   <li>変数の<em>名前</em>です。</li>
   <li>変数そのものです。</li>
@@ -163,14 +163,14 @@ myObj[arg1, arg2, ..., argN] := value
 <h3 id="uninitialized-variables"><span id="uninitialised-variables"></span>未初期化の変数</h3>
 <p>変数を<em>初期化</em>するとは、その変数に開始値を割り当てることです。まだ値が割り当てられていない変数は、<em>uninitialized</em>（略して<em>unset</em>）です。初期化されていない変数を読み込もうとすると、エラーとみなされます。これにより、名前の間違いや課題の忘れ物などのミスを発見することができます。</p>
 <p><a href="lib/IsSet.htm">IsSet</a>は、グローバル変数やスタティック変数の初回使用時の初期化など、変数が初期化されているかどうかを判断するために使用することができます。</p>
-<p>変数の<em>設定を解除</em>するには、直接代入（<code>:=</code>）と<code>unset</code>キーワードまたは<a href="Variables.htm#maybe">maybe（<em>var</em>?）演算子</a>事例：<code>Var := unset</code>, <code>Var1 := (Var2?)</code>.</p>
+<p>変数の<em>設定を解除</em>するには、直接代入（<code>:=</code>）と<code>unset</code>キーワードまたは<a href="Variables.htm#maybe">maybe（<em>var</em>?）演算子</a>。事例：<code>Var := unset</code>、<code>Var1 := (Var2?)</code>。</p>
 <p>変数に値がない場合、<a href="Variables.htm#or-maybe">or-maybe演算子(??)</a>を使ってデフォルト値を提供することができる。例えば、<code>MyVar ?? "Default"</code> は、<code>IsSet(MyVar) ? MyVar : "Default"</code>と同等です。</p>
 
 <h3 id="built-in-variables">組み込みの変数</h3>
 <p>プログラムには便利な変数が多数組み込まれており、どのスクリプトからも参照することができます。注意書きがある場合を除き、これらの変数は読み取り専用です。つまり、スクリプトでその内容を直接変更することはできません。慣習上、これらの変数のほとんどは接頭辞<code>A_</code>で始まります。</p>
 <p><a href="Variables.htm#KeyDelay">A_KeyDelay</a>や <a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a>などの一部の変数は、スクリプトの動作を制御する設定を表し、<a href="misc/Threads.htm">各スレッド</a>で別々の値を保持します。これにより、新しいスレッドで起動したサブルーチン（ホットキー、メニュー、タイマーなど）が、他のスレッドに影響を与えずに設定を変更することができます。</p>
 <p>特殊な変数の中には、定期的に更新されるのではなく、スクリプトがその変数を参照するたびに、その値が取得または計算されるものがあります。例えば、<a href="lib/A_Clipboard.htm">A_Clipboard</a>はクリップボードの現在の内容をテキストとして取得し、<a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkey</a>はホットキーが押されてから経過したミリ秒数を計算します。</p>
-<p>関連:<a href="Variables.htm#BuiltIn">組み込み変数のリスト</a></p>
+<p>関連：<a href="Variables.htm#BuiltIn">組み込み変数のリスト</a>。</p>
 
 <h3 id="environment-variables">環境変数</h3>
 <p>環境変数は、オペレーティングシステムによって管理されます。コマンドプロンプトで「SET」と入力してEnterを押すと、その一覧を見ることができます。</p>
@@ -181,7 +181,7 @@ myObj[arg1, arg2, ..., argN] := value
 <h3 id="variable-references">変数参照（VarRef）</h3>
 <p>式中では、<a href="Variables.htm#AssignOp">代入</a>や <a href="Variables.htm#ref">参照演算子（&amp;）</a>の対象でない限り、各変数参照はその内容に自動的に解決されます。つまり、<code>myFunction(myVar)</code>を呼び出すと、<em>myVar</em>の値が<em>myFunction</em>に渡され、変数そのものは渡されません。この場合、関数は<em>myVar</em>と同じ値を持つ独自のローカル変数（パラメータ）を持つことになりますが、<em>myVar</em>に新しい値を代入することはできません。要するに、パラメータは<em>値</em>で渡されるのです。</p>
 <p><a href="Variables.htm#ref">参照演算子（&amp;）</a>により、変数を値のように扱うことができます。<code>&amp;myVar</code>は VarRef を生成し、他の値と同様に使用することができます。他の変数やプロパティに代入する、配列に挿入する、関数に渡す、関数から返す、など。VarRef は、元のターゲット変数への代入や、<a href="Variables.htm#deref">参照解除</a>による値の取得に使用することができます。</p>
-<p>関数パラメータは，パラメータ名の前にアンパサンド（&amp;）を付けることで，便宜上<a href="Functions.htm#ByRef">ByRef</a>とすることができます．これは、呼び出し側がVarRefを渡す必要があり、関数自身がパラメータを参照するだけで（パーセント記号なしで）VarRefを「参照解除」できるようにします。</p>
+<p>関数パラメータは，パラメータ名の前にアンパサンド（&amp;）を付けることで，便宜上<a href="Functions.htm#ByRef">ByRef</a>とすることができます。これは、呼び出し側がVarRefを渡す必要があり、関数自身がパラメータを参照するだけで（パーセント記号なしで）VarRefを「参照解除」できるようにします。</p>
 <pre>class VarRef extends Any</pre>
 <p>VarRefクラスには現在、定義済みのメソッドやプロパティはありませんが、<code>value is VarRef</code>を使用して、値がVarRefであるかどうかをテストすることが可能です。</p>
 <p>VarRefをCOMメソッドのパラメータとして使用する場合、オブジェクトそのものは渡されません。代わりに、その値は一時的なVARIANTにコピーされ、<code>VT_BYREF|VT_VARIANT</code>の<a href="lib/ComObjType.htm#vt">バリアントタイプ</a>を使って渡されます。メソッドが戻ると、新しい値が VarRef に代入されます。</p>
@@ -192,14 +192,14 @@ myObj[arg1, arg2, ..., argN] := value
 
 <h3 id="Related">関連</h3>
 <ul>
-  <li><a href="Variables.htm#Intro">変数</a>:基本的な使い方と例</li>
-  <li><a href="Variables.htm#cap">可変容量・メモリ</a>。制限事項の詳細はこちら</li>
+  <li><a href="Variables.htm#Intro">変数</a>：基本的な使い方と例。</li>
+  <li><a href="Variables.htm#cap">可変容量・メモリ</a>：制限事項の詳細はこちら。</li>
 </ul>
 
 <h2 id="functions">関数</h2>
 <p><em>関数</em>とは、スクリプトが<em>何かを行う</em>ための基本的な手段です。</p>
 <p>機能にはさまざまな目的があります。単純な計算を行うだけの関数もあれば、ウィンドウを移動させるなど、すぐに目に見える効果を持つ関数もあります。AutoHotkeyの強みの一つは、スクリプトがいくつかの関数を呼び出すだけで、他のプログラムを自動化したり、その他多くの一般的なタスクを実行したりすることができる手軽さです。例として、<a href="lib/index.htm">機能一覧</a>をご覧ください。</p>
-<p>この文書では、一般的な単語が、経験のない人にはわからないように使われていることがあります。以下に、機能に関して頻繁に使用される単語やフレーズを紹介します。</p>
+<p>この文書では、一般的な単語が、経験のない人にはわからないように使われていることがあります。以下に、機能に関して頻繁に使用される単語やフレーズを紹介します：</p>
 <dl>
   <dt id="call">関数を呼び出す</dt>
   <dd><p>関数を<em>呼び出す</em>と、プログラムはその関数を起動、実行、評価します。つまり、<em>関数呼び出し</em>は、スクリプトから関数に一時的に制御を移します。関数が目的を果たすと、スクリプトに制御を<em>戻す</em>。つまり、関数呼び出しに続くコードは、関数が完了するまで実行されない。</p>
@@ -211,10 +211,10 @@ myObj[arg1, arg2, ..., argN] := value
   <dt id="return-a-value">値を返す</dt>
   <dd><p>関数は値を<em>返す</em>ので、関数の結果を<em>返り値</em>と呼ぶことが多い。例えば、<a href="lib/StrLen.htm">StrLen</a>は文字列の文字数を返します。関数は、結果が複数ある場合など、結果を変数に格納することもあります（「<a href="Functions.htm#return">値を返す</a>」を参照）。</p></dd>
   <dt id="command">コマンド</dt>
-  <dd><p>関数コールは、プログラムに特定の動作を<em>命令</em>する場合など、<em>コマンド</em>と呼ばれることもあります。(歴史的な理由から、<em>コマンド</em>は、括弧が省略され、戻り値が破棄される、関数を呼び出す特定のスタイルを指す場合があります。ただし、これは厳密には<a href="Language.htm#function-call-statements">関数呼び出し文</a>である)。</p></dd>
+  <dd><p>関数コールは、プログラムに特定の動作を<em>命令</em>する場合など、<em>コマンド</em>と呼ばれることもあります。（歴史的な理由から、<em>コマンド</em>は、括弧が省略され、戻り値が破棄される、関数を呼び出す特定のスタイルを指す場合があります。ただし、これは厳密には<a href="Language.htm#function-call-statements">関数呼び出し文</a>である。)</p></dd>
 </dl>
-<p>関数は通常、パラメータを特定の順序で記述することを想定しているため、各パラメータ値の意味は、カンマで区切られたパラメータリスト内の位置に依存します。一部のパラメータは省略可能で、その場合はパラメータを空白にすることができますが、それに続くカンマは、残りのすべてのパラメータも省略される場合にのみ省略することができます。例えば、<a href="lib/ControlSend.htm">ControlSend</a>の構文は以下の通りです。</p>
-<pre class="Syntax"><span class="func">ControlSend</span>Keys<span class="optional">, Control , WinTitle , WinText , ExcludeTitle , ExcludeText</span>
+<p>関数は通常、パラメータを特定の順序で記述することを想定しているため、各パラメータ値の意味は、カンマで区切られたパラメータリスト内の位置に依存します。一部のパラメータは省略可能で、その場合はパラメータを空白にすることができますが、それに続くカンマは、残りのすべてのパラメータも省略される場合にのみ省略することができます。例えば、<a href="lib/ControlSend.htm">ControlSend</a>の構文は以下の通りです：</p>
+<pre class="Syntax"><span class="func">ControlSend</span> Keys <span class="optional">, Control, WinTitle, WinText, ExcludeTitle, ExcludeText</span>
 </pre>
 <p>角括弧は、囲んだパラメータがオプションであることを示します（括弧自体は実際のコードに表示されるべきではありません）。ただし、通常はターゲットウィンドウも指定する必要があります。事例：</p>
 <pre>
@@ -236,15 +236,15 @@ ControlSend "^{Home}",, "A"          <em>; 正しいです。制御が省略さ�
   <dt id="cf-body">本体</dt>
   <dd><p>制御フロー文の<em>本体</em>は、それが適用される文または文のグループです。例えば、<a href="lib/If.htm">if文</a>の本文は、特定の条件を満たした場合にのみ実行されます。</p></dd>
 </dl>
-<p>例えば、こんな簡単な命令を考えてみましょう。</p>
+<p>例えば、こんな簡単な命令を考えてみましょう：</p>
 <ol>
   <li>メモ帳を開く</li>
   <li>メモ帳が画面に表示されるのを待つ</li>
   <li>"Hello, world!"と入力する</li>
 </ol>
-<p>一歩ずつ進んで、その一歩が終わったら次のステップに進む。同じように、プログラムやスクリプトの制御は、通常、あるステートメントから次のステートメントへと流れます。しかし、既存のメモ帳のウィンドウに入力する場合はどうでしょうか。この改訂版の検討：</p>
+<p>一歩ずつ進んで、その一歩が終わったら次のステップに進む。同じように、プログラムやスクリプトの制御は、通常、あるステートメントから次のステートメントへと流れます。しかし、既存のメモ帳のウィンドウに入力する場合はどうでしょうか？この改訂版の検討：</p>
 <ol>
-  <li>メモ帳が起動していない場合。
+  <li>メモ帳が起動していない場合：
 <ol>
   <li>メモ帳を開く</li>
   <li>メモ帳が画面に表示されるのを待つ</li>
@@ -257,8 +257,8 @@ ControlSend "^{Home}",, "A"          <em>; 正しいです。制御が省略さ�
 </li>
   <li>"Hello, world!"と入力する</li>
 </ol>
-<p>そこで、メモ帳を開くか、メモ帳を起動するかは、すでに起動しているかどうかで判断しています。#1 は<em>条件文</em>であり、<em>if文</em>とも呼ばれる。つまり、ある条件を満たした場合にのみ、その<em>本体</em>（#1.1～#1.2）を実行するのです。#2は<em>else文</em>であり、前の<em>if文</em>（#1）の条件が満たされない場合にのみ、その本体（#2.1）を実行します。条件によって、制御は2通りの<em>流れ</em>になります。#1 （trueのとき） → #1.1 → #1.2 → #3; or #1 （falseのとき） → #2 (else) → #2.1 → #3.</p>
-<p>上記の指示は、以下のコードに変換することができます。</p>
+<p>そこで、メモ帳を開くか、メモ帳を起動するかは、すでに起動しているかどうかで判断しています。#1 は<em>条件文</em>であり、<em>if文</em>とも呼ばれる。つまり、ある条件を満たした場合にのみ、その<em>本体</em>（#1.1～#1.2）を実行するのです。#2は<em>else文</em>であり、前の<em>if文</em>（#1）の条件が満たされない場合にのみ、その本体（#2.1）を実行します。条件によって、制御は2通りの<em>流れ</em>になります：#1 (if true) → #1.1 → #1.2 → #3、または #1 (if false) → #2 (else) → #2.1 → #3。</p>
+<p>上記の指示は、以下のコードに変換することができます：</p>
 <pre>if (not WinExist("ahk_class Notepad"))
 {
     Run "Notepad"
@@ -268,13 +268,13 @@ else
     WinActivate "ahk_class Notepad"
 Send "Hello, world{!}"
 </pre>
-<p>説明書では、インデントとナンバリングを使ってステートメントをグループ化しました。スクリプトはちょっと違うんです。インデントはコードを読みやすくしますが、AutoHotkeyではステートメントのグループ化には影響しません。その代わりに、上の図のように中括弧で囲むことでステートメントをグループ化します。これは<a href="lib/Block.htm"><em>ブロック</em></a>と呼ばれるものです。 </p>
+<p>説明書では、インデントとナンバリングを使ってステートメントをグループ化しました。スクリプトはちょっと違うんです。インデントはコードを読みやすくしますが、AutoHotkeyではステートメントのグループ化には影響しません。その代わりに、上の図のように中括弧で囲むことでステートメントをグループ化します。これは<a href="lib/Block.htm"><em>ブロック</em></a>と呼ばれるものです。</p>
 <p class="note">構文についての詳細、つまりAutoHotkeyで制御フロー文を書いたり認識したりする方法については、「<a href="Language.htm#control-flow">制御フロー</a>」を参照してください。</p>
 
 <h2 id="details">詳細</h2>
 
 <h3 id="string-encoding">文字列のエンコード</h3>
-<p>文字列の各文字は、その<em>序数</em>（<em>文字コード</em>）と呼ばれる数字で表現されます。例えば、値 "Abc"は次のように表現されます。</p>
+<p>文字列の各文字は、その<em>序数</em>（<em>文字コード</em>）と呼ばれる数字で表現されます。例えば、値 "Abc"は次のように表現されます：</p>
 <table class="info" style="width: 8em; text-align: center">
   <tr><td>A</td><td>b</td><td>c</td></tr>
   <tr><td>65</td><td>98</td><td>99</td><td>0</td></tr>
@@ -282,10 +282,10 @@ Send "Hello, world{!}"
 <p><strong>エンコーディング：</strong>文字列の<em>エンコーディング</em>は、記号を序数に、序数をバイトにマッピングする方法を定義します。エンコーディングには様々なものがありますが、AutoHotkeyがサポートするものはすべてASCIIをサブセットとして含んでいるため、文字コード0～127は常に同じ意味を持ちます。例えば、'A'は常に文字コード65を持つ。</p>
 <p id="null-termination"><strong>ヌル文字の終端：</strong>各文字列は「ヌル文字」で終端されます。言い換えれば、序列値がゼロの文字が文字列の終わりを示します。文字列の長さはヌル終端の位置から推測できますが、AutoHotkeyはパフォーマンスのため、また文字列の長さの範囲内でヌル文字を許可するために、長さも保存します。</p>
 <p class="warning"><strong>注：</strong>ヌル終端処理に依存しているため、多くの組み込み関数とほとんどの式演算子はヌル文字が埋め込まれた文字列をサポートせず、代わりに最初のヌル文字までしか読みません。ただし、連結、<code>==</code>、<code>!==</code>、<code>Chr(0)</code>、<a href="lib/StrLen.htm">StrLen</a>、<a href="lib/SubStr.htm">SubStr</a>、代入、パラメータ値、<a href="lib/Return.htm">戻り値</a>など、文字列の基本操作はサポートされています。</p>
-<p id="native-encoding"><strong>ネイティブエンコーディング：</strong>AutoHotkeyは様々なエンコーディングのテキストを扱う方法を提供していますが、組み込み関数、そしてある程度言語自体が、すべて文字列値がある特定のエンコーディングであることを前提としています。これを<em>ネイティブエンコード</em>と呼びます。ネイティブエンコードは、AutoHotkeyのバージョンによって異なります。</p>
+<p id="native-encoding"><strong>ネイティブエンコーディング：</strong>AutoHotkeyは様々なエンコーディングのテキストを扱う方法を提供していますが、組み込み関数、そしてある程度言語自体が、すべて文字列値がある特定のエンコーディングであることを前提としています。これを<em>ネイティブエンコード</em>と呼びます。ネイティブエンコードは、AutoHotkeyのバージョンによって異なります：</p>
 <ul>
   <li>
-<p>AutoHotkeyのUnicodeバージョンはUTF-16を使用します。UTF-16文字列の最小の要素は2バイト（16ビット）です。0から65535（U+FFFF）の範囲のユニコード文字は、同じ値の単一の16ビットコードユニットで表され、65536（U+10000）から1114111（U+10FFFF）の範囲の文字は、<em>サロゲートペア</em>で表されます。(サロゲートペアやその符号化・復号化の方法については、インターネットで検索してください）。</p>
+<p>AutoHotkeyのUnicodeバージョンはUTF-16を使用します。UTF-16文字列の最小の要素は2バイト（16ビット）です。0から65535（U+FFFF）の範囲のユニコード文字は、同じ値の単一の16ビットコードユニットで表され、65536（U+10000）から1114111（U+10FFFF）の範囲の文字は、<em>サロゲートペア</em>で表されます。（サロゲートペアやその符号化・復号化の方法については、インターネットで検索してください。）</p>
 </li>
   <li>
 <p>AutoHotkeyのANSIバージョンは、システムロケールまたは「非Unicodeプログラム用の言語」システム設定に依存する、システムデフォルトのANSIコードページを使用します。ANSI文字列の最小の要素は1バイトです。ただし、コードページによっては、複数バイトのシーケンスで表現される文字（これらは常に非ASCII文字である）が含まれています。</p>
@@ -298,13 +298,13 @@ Send "Hello, world{!}"
 <p>AutoHotkeyのANSI版とUnicode版の違いに対応するためのテクニックは、「<a href="Compat.htm#Format">Unicode vs ANSI</a>」で紹介されています。</p>
 
 <h3 id="pure-numbers">純粋数</h3>
-<p><em>純粋数</em>または<em>2進数</em>は、コンピュータのCPUが直接演算処理できる形式でメモリに格納されているものです。ほとんどの場合、AutoHotkeyは必要に応じて数値文字列と純粋な数値の間を自動的に変換し、2つのタイプを区別することはほとんどありません。AutoHotkeyでは、主に純粋な数値に対して2つのデータ型を使用します。</p>
+<p><em>純粋数</em>または<em>2進数</em>は、コンピュータのCPUが直接演算処理できる形式でメモリに格納されているものです。ほとんどの場合、AutoHotkeyは必要に応じて数値文字列と純粋な数値の間を自動的に変換し、2つのタイプを区別することはほとんどありません。AutoHotkeyでは、主に純粋な数値に対して2つのデータ型を使用します：</p>
 <ul>
   <li>64ビット符号付き整数<em>（int64</em>）。</li>
   <li>64ビット2進数浮動小数点数（国際標準規格IEEE754の<em>double</em>または<em>binary64</em>形式）。</li>
 </ul>
 <p>These data types affect the range and precision of pure numeric values for variables, properties, array/map elements and indices, function parameters and return values, and temporary results of operators in an expression. 算術演算子と関数は、64 ビットの整数演算または浮動小数点演算を実行します。ビット演算子は、64ビット整数演算を実行します。</p>
-<p>つまり、スクリプトは以下のような制約の影響を受けます。</p>
+<p>つまり、スクリプトは以下のような制約の影響を受けます：</p>
 <ul>
   <li>
 <p>つまり、-9223372036854775808（-0x800000000000、または，-2<sup>63</sup>）から9223372036854775807（0x7FFFFFFFFF、または、2<sup>63</sup>-1）の範囲内でなければなりません。式中の整数定数がこの範囲外にある場合、下位64ビットのみが使用される（値は切り捨てられる）。文字列の中に大きな値を含めることができますが、文字列を数値に変換しようとすると（数学の演算で使用するなど）、同様に切り捨てられます。</p>
@@ -318,22 +318,22 @@ Send "Hello, world{!}"
 MsgBox 0.1 + 0           <em>; 0.10000000000000001</em>
 MsgBox 0.1 + 0.2         <em>; 0.30000000000000004</em>
 MsgBox 0.3 + 0           <em>; 0.29999999999999999</em>
-MsgBox 0.1 + 0.2 = 0.3   <em>; 0 (not equal)</em>
+MsgBox 0.1 + 0.2 = 0.3   <em>; 0（ノットイコール）</em>
 </pre>
 <p>その対策として、直接の比較を避け、代わりに違いを比較することがあります。事例：</p>
 <pre>MsgBox Abs((0.1 + 0.2) - (0.3)) &lt; 0.0000000000000001
 </pre>
-<p>また、文字列に変換するなどして、比較の前に丸めを明示的に適用する方法もある。精度を指定しながら行う方法は一般的に2つあり、どちらも以下に示すとおりです。</p>
+<p>また、文字列に変換するなどして、比較の前に丸めを明示的に適用する方法もある。精度を指定しながら行う方法は一般的に2つあり、どちらも以下に示すとおりです：</p>
 <pre>MsgBox Round(0.1 + 0.2, 15) = Format("{:.15f}", 0.3)
 </pre>
 
 <h3 id="names">名称</h3>
 <p>AutoHotkeyでは、変数、関数、<a href="lib/GroupAdd.htm">ウィンドウグループ</a>、クラス、プロパティ、メソッドなど、さまざまなものの命名に同じルールを採用しています。ルールは以下の通りです。</p>
 <p><strong>大文字と小文字の区別：</strong>ASCII 文字の場合、なし。例えば、<code>CurrentDate</code>は <code>currentdate</code>と同じです。ただし、'Ä'などの大文字の非ASCII文字は、現在のユーザーのロケールに関係なく、小文字の対応する文字と同等とはみなさ<em>れない</em>。これにより、スクリプトが複数のロケール間で一貫した動作をするようになります。</p>
-<p><strong>最大文字数：</strong>253文字</p>
-<p><strong>使用できる文字:</strong>文字、数字、アンダースコア、非ASCII文字。ただし、数字で始めることができるのはプロパティ名のみです。</p>
-<p id="reserved-words"><strong>予約語：</strong> <code>as</code>,<code>and</code>,<code>contains</code>,<code>false</code>,<code>in</code>,<code>is</code>,<code>IsSet</code>,<code>not</code>,<code>or</code>,<code>super</code>,<code>true</code>,<code>unset</code>. これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
-<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>, <code>Case</code>, <code>Catch</code>, <code>Continue</code>, <code>Else</code>, <code>Finally</code>, <code>For</code>, <code>Global</code>, <code>Goto</code>, <code>If</code>, <code>Local</code>, <code>Loop</code>, <code>Return</code>, <code>Static</code>, <code>Switch</code>, <code>Throw</code>, <code>Try</code>, <code>Until</code>, <code>While</code></p>
+<p><strong>最大文字数：</strong>253文字。</p>
+<p><strong>使用できる文字：</strong>文字、数字、アンダースコア、非ASCII文字。ただし、数字で始めることができるのはプロパティ名のみです。</p>
+<p id="reserved-words"><strong>予約語：</strong> <code>as</code>、<code>and</code>、<code>contains</code>、<code>false</code>、<code>in</code>、<code>is</code>、<code>IsSet</code>、<code>not</code>、<code>or</code>、<code>super</code>、<code>true</code>、<code>unset</code>。これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
+<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>、<code>Case</code>、<code>Catch</code>、<code>Continue</code>、<code>Else</code>、<code>Finally</code>、<code>For</code>、<code>Global</code>、<code>Goto</code>、<code>If</code>、<code>Local</code>、<code>Loop</code>、<code>Return</code>、<code>Static</code>、<code>Switch</code>、<code>Throw</code>、<code>Try</code>、<code>Until</code>、<code>While</code></p>
 <p>プロパティ名、メソッド名、ウィンドウグループ名には予約語を使用することができる。</p>
 
 <h3 id="references-to-objects">オブジェクトへの参照</h3>

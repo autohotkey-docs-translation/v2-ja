@@ -12,7 +12,7 @@
 
 <h1>GroupDeactivate</h1>
 
-<p>Similar to <a href="GroupActivate.htm">GroupActivate</a> except activates the next window <u>not</u> in the group.</p>
+<p><a href="GroupActivate.htm">GroupActivate</a>と似ていますが、グループ内に<u>ない</u>次のウィンドウをアクティブにします。</p>
 
 <pre class="Syntax"><span class="func">GroupDeactivate</span> GroupName <span class="optional">, Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -27,20 +27,20 @@
   <dt>Mode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, the function activates the oldest non-member window. そうでなければ、次の文字を指定します。</p>
+    <p>If blank or omitted, the function activates the oldest non-member window. そうでなければ、次の文字を指定します：</p>
     <p><strong>R：</strong>最も新しい非メンバーウィンドウ（最も最近アクティブになったウィンドウ）がアクティブになりますが、この関数が与えられたときにグループのメンバーがアクティブである場合に限られます。"R"は、一時的に関係ない作業に切り替えるケースに有効です。<a href="GroupActivate.htm">GroupActivate</a>、GroupDeactivate、<a href="GroupClose.htm">GroupClose</a>でグループに戻ると、最も古いウィンドウではなく、直近で作業していたウィンドウがアクティブになります。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>GroupDeactivate causes the first window that does <u>not</u> match any of the group's window specifications to be activated. 2回目にGroupDeactivateを使用すると、シリーズの次のウィンドウがアクティブになり、以下同様です。通常、GroupDeactivateはホットキーに割り当てられており、そのキーを押すことでウィンドウ遷移の動作が自動化されるようになっています。</p>
+<p>GroupDeactivateは、グループのウィンドウ仕様のいずれにも合致<u>しない</u>最初のウィンドウをアクティブにします。2回目にGroupDeactivateを使用すると、シリーズの次のウィンドウがアクティブになり、以下同様です。通常、GroupDeactivateはホットキーに割り当てられており、そのキーを押すことでウィンドウ遷移の動作が自動化されるようになっています。</p>
 <p>この機能は、ほぼ常時起動しているお気に入りのウィンドウが集まっているような場合に有効です。これらのウィンドウをグループ化することで、GroupDeactivateを使って、お気に入り以外のウィンドウを訪問し、閉じるかどうかを決定することができます。これにより、手動で行うよりもはるかに早くデスクトップをクリーンアップすることができます。</p>
 <p>GroupDeactivateは、<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd>のシステムホットキーと同様の方法でウィンドウを選択します。具体的：</p>
 <ul>
   <li>特定のダイアログやツールウィンドウなど、所有するウィンドウは評価されません。ただし、オーナーウィンドウがアクティブ化の対象となる場合、オーナーがより最近アクティブ化した場合を除き、最も最近アクティブ化したオーナーウィンドウが代わりにアクティブ化されます。これは、<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastactivepopup">GetLastActivePopup</a>を呼び出すことで決定されます。</li>
   <li>WS_EX_TOPMOST または WS_EX_NOACTIVATE スタイルを持つウィンドウはスキップされます。</li>
-  <li>WS_EX_TOOLWINDOW スタイルを持ち、WS_EX_APPWINDOW スタイルを持たないウィンドウはスキップされます。(これらのウィンドウは、一般的にAlt-Tabやタスクバーも省略されます)。</li>
+  <li>WS_EX_TOOLWINDOW スタイルを持ち、WS_EX_APPWINDOW スタイルを持たないウィンドウはスキップされます。（これらのウィンドウは、一般的にAlt-Tabやタスクバーも省略されます。）</li>
   <li>無効化されたウィンドウは、そのウィンドウが所有するウィンドウ（モーダルダイアログなど）がウィンドウ自身よりも最近アクティブだった場合を除き、スキップされます。</li>
   <li>隠れているウィンドウ、隠されているウィンドウはスキップされます。</li>
   <li>デスクトップはスキップされます。</li>
@@ -48,11 +48,11 @@
 <p>WS_EX_TOPMOST のスタイルによりタスクバーはスキップされますが、他に対象となるウィンドウがなく、アクティブなウィンドウがグループに一致する場合にアクティブ化されます。</p>
 <p>ウィンドウグループの詳細については、<a href="GroupAdd.htm">GroupAdd</a>をご覧ください。</p>
 <h2 id="Related">関連</h2>
-<p><a href="GroupAdd.htm">GroupAdd</a>, <a href="GroupActivate.htm">GroupActivate</a>, <a href="GroupClose.htm">GroupClose</a></p>
+<p><a href="GroupAdd.htm">GroupAdd</a>、<a href="GroupActivate.htm">GroupActivate</a>、<a href="GroupClose.htm">GroupClose</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> ウィンドウグループのメンバーでない最も古いウィンドウをアクティブにします。</p>
-<pre>GroupDeactivate "MyFavoriteWindows"<em>;デスクトップをきれいにするために、お気に入りでないウィンドウを訪問します。</em></pre>
+<pre>GroupDeactivate "MyFavoriteWindows"  <em>; デスクトップをきれいにするために、お気に入りでないウィンドウを訪問します。</em></pre>
 </div>
 
 </body>

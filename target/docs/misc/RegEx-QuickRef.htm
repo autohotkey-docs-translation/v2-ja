@@ -20,7 +20,7 @@
 
 <h2 id="fundamentals">基礎</h2>
 <p><strong>どこでもマッチする：</strong>デフォルトでは、正規表現は検索される文字列内の<em>任意</em>の部分文字列にマッチします。例えば、正規表現<span class="regex">abc</span>は、<span class="subj">abc</span>123、123<span class="subj">abc</span>、123<span class="subj">abc</span>xyzのどれにもマッチします。最初か最後だけにマッチさせるは、<a href="#anchor">アンカー</a>を使います。</p>
-<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
 <p><strong>大文字と小文字を区別する：</strong>デフォルトでは、正規表現は大文字と小文字を区別します。これは "i"オプションで変更できる。たとえば、<span class="regex">i)abc</span>というパターンは、大文字小文字を区別せずに "abc"を検索する。その他の修飾語については以下を参照のこと。</p>
 
 <h2 id="Options">オプション（大文字と小文字を区別）</h2>
@@ -36,15 +36,15 @@
   </tr>
   <tr id="Multiline">
     <td class="center bold">m</td>
-    <td><p>Multiline. <em>ヘイスタック</em>を連続した1行としてではなく、（改行が含まれている場合は）個々の行の集まりとして表示する。具体的には以下のような変更である：</p>
-      <p>1)サーカムフレックス (^) は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>Haystack</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
-      <p>2)ドル記号 ($) は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
+    <td><p>Multiline。<em>ヘイスタック</em>を連続した1行としてではなく、（改行が含まれている場合は）個々の行の集まりとして表示する。具体的には以下のような変更である：</p>
+      <p>1)サーカムフレックス（^）は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>Haystack</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
+      <p>2)ドル記号（$）は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
       <p>例えば、パターン<span class="regex"><span class="red">m)</span>^abc$</span>はxyz`r`n<span class="subj">abc</span>にマッチする。しかし、"m"オプションがなければマッチしない。</p>
       <p>"D"オプションは "m"があると無視される。</p></td>
   </tr>
   <tr id="opt_s">
     <td class="center bold">s</td>
-    <td>DotAll. これにより、ピリオド（.）は改行を含むすべての文字にマッチするようになる（通常は改行にはマッチしない）。ただし、CRLF改行シーケンス（`r`n）にマッチさせるには、1つではなく2つのドットが必要である。このオプションに関係なく、<span class="regex">[^a]</span>のような否定クラスは常に改行にマッチする。</td>
+    <td>DotAll。これにより、ピリオド（.）は改行を含むすべての文字にマッチするようになる（通常は改行にはマッチしない）。ただし、CRLF改行シーケンス（`r`n）にマッチさせるには、1つではなく2つのドットが必要である。このオプションに関係なく、<span class="regex">[^a]</span>のような否定クラスは常に改行にマッチする。</td>
   </tr>
   <tr id="opt_x">
     <td class="center bold">x</td>
@@ -56,7 +56,7 @@
   </tr>
   <tr id="opt_D">
     <td class="center bold">D</td>
-    <td><em>Haystack</em>の最後の項目が改行であっても、ドル記号（$）を強制的に<em>Haystack</em>の最後にマッチさせる。このオプションがない場合、$は最後の改行の直前（改行がある場合）にマッチする。注："m"オプションがある場合、このオプションは無視される。</td>
+    <td><em>Haystack</em>の最後の項目が改行であっても、ドル記号（$）を強制的に<em>Haystack</em>の最後にマッチさせる。このオプションがない場合、$は最後の改行の直前（改行がある場合）にマッチする。注：「m」オプションがある場合、このオプションは無視される。</td>
   </tr>
   <tr id="opt_J">
     <td class="center bold">J</td>
@@ -64,11 +64,11 @@
   </tr>
   <tr id="opt_U">
     <td class="center bold">U</td>
-    <td>Ungreedy. 量化子<strong>*</strong>,<strong>?</strong>,<strong>+</strong>および<strong>{min,max}</strong>は、マッチを形成するために絶対に必要な文字だけを消費し、残りの文字はパターンの次の部分に使用できるようにする。"U"オプションが有効でない場合、個々の量化詞の後にクエスチョンマークを付けることで、欲張らないようにすることができる。逆に "U"<em>が</em>有効な場合、疑問符は個々の量化詞を貪欲にする。</td>
+    <td>Ungreedy。量化子<strong>*</strong>,<strong>?</strong>,<strong>+</strong>および<strong>{min,max}</strong>は、マッチを形成するために絶対に必要な文字だけを消費し、残りの文字はパターンの次の部分に使用できるようにする。"U"オプションが有効でない場合、個々の量化詞の後にクエスチョンマークを付けることで、欲張らないようにすることができる。逆に "U"<em>が</em>有効な場合、疑問符は個々の量化詞を貪欲にする。</td>
   </tr>
   <tr id="opt_extra">
     <td class="center bold">X</td>
-    <td>PCRE_EXTRA. Perlと互換性のないPCREの機能を有効にする。現在のところ、このような機能は、パターン中のバックスラッシュの後に特別な意味を持たない文字が続くと例外がスローされるということだけである。このオプションは、未使用のバックスラッシュ・シーケンスを将来の使用のために確保するのに役立つ。このオプションがない場合、バックスラッシュの後に特別な意味を持たない文字が続いても、リテラルとして扱われる（例えば、 \g と g は両方ともリテラル g として認識される）。このオプションに関係なく、特別な意味を持たない非アルファベットのバックスラッシュ シーケンスは常にリテラルとして扱われる(例： \/ と / は両方ともフォワードスラッシュとして認識される)。</td>
+    <td>PCRE_EXTRA。Perlと互換性のないPCREの機能を有効にする。現在のところ、このような機能は、パターン中のバックスラッシュの後に特別な意味を持たない文字が続くと例外がスローされるということだけである。このオプションは、未使用のバックスラッシュ・シーケンスを将来の使用のために確保するのに役立つ。このオプションがない場合、バックスラッシュの後に特別な意味を持たない文字が続いても、リテラルとして扱われる（例えば、 \g と g は両方ともリテラル g として認識される）。このオプションに関係なく、特別な意味を持たない非アルファベットのバックスラッシュ シーケンスは常にリテラルとして扱われる(例： \/ と / は両方ともフォワードスラッシュとして認識される)。</td>
   </tr>
   <tr id="Study">
     <td class="center bold">S</td>
@@ -80,14 +80,14 @@
   </tr>
   <tr id="NEWLINE_ANY">
     <td class="center bold">`a</td>
-    <td><p>追加の改行マーカーを認識できるようにする。デフォルトでは、`r`n, `n と `r のみが認識される。このオプションを有効にすると、`v/VT/垂直タブ/chr(0xB), `f/FF/formfeed/chr(0xC), NEL/next-line/chr(0x85), LS/line separator/chr(0x2028), PS/paragraph separator/chr(0x2029) も認識される。</p>
-      <p>a, `n, `r オプションは<a href="#anchor">アンカー (^ と $)</a>と<a href="#dot">ドット/ピリオドパターン</a>の動作に影響する。</p>
-      <p>また、`aは(*BSR_UNICODE)を有効にしており、これにより \Rはどんな改行にもマッチするようになる。デフォルトで\Rは、`n, `r, `r`nにマッチする：`a)(*BSR_ANYCRLF)</p>
+    <td><p>追加の改行マーカーを認識できるようにする。デフォルトでは、`r`n、`n と `r のみが認識される。このオプションを有効にすると、`v/VT/垂直タブ/chr(0xB)、`f/FF/formfeed/chr(0xC)、NEL/next-line/chr(0x85)、LS/line separator/chr(0x2028)、PS/paragraph separator/chr(0x2029) も認識される。</p>
+      <p>a、`n、`r オプションは<a href="#anchor">アンカー（^ と $）</a>と<a href="#dot">ドット/ピリオドパターン</a>の動作に影響する。</p>
+      <p>また、`aは(*BSR_UNICODE)を有効にしており、これにより \Rはどんな改行にもマッチするようになる。デフォルトで\Rは、`n、`r、`r`nにマッチする：`a)(*BSR_ANYCRLF)</p>
     </td>
   </tr>
   <tr id="opt_esc_n">
     <td class="center bold">`n</td>
-    <td>単独の改行 (`n) を唯一の改行マーカーとして認識させる (上記参照)。</td>
+    <td>単独の改行（`n）を唯一の改行マーカーとして認識させる（上記参照）。</td>
   </tr>
   <tr id="opt_esc_r">
     <td class="center bold">`r</td>
@@ -104,7 +104,7 @@
   </tr>
 	<tr id="dot">
 		<td class="center bold">.</td>
-		<td>デフォルトでは、ドットは `r (キャリッジリターン) または `n (ラインフィード) 以外の任意の1文字にマッチするが、これは<a href="#opt_s">DotAll (s)</a>、<a href="#opt_esc_n">ラインフィード (`n)</a>、<a href="#opt_esc_r">キャリッジリターン (`r)</a>、または<a href="#NEWLINE_ANY">`a</a>オプションを使うことで変更できる。例えば、<span class="regex">ab.</span>は<span class="subj">abc</span>と <span class="subj">abz</span>と <span class="subj">ab_</span>にマッチする。</td>
+		<td>デフォルトでは、ドットは `r（キャリッジリターン）または `n（ラインフィード）以外の任意の1文字にマッチするが、これは<a href="#opt_s">DotAll（s）</a>、<a href="#opt_esc_n">ラインフィード（`n）</a>、<a href="#opt_esc_r">キャリッジリターン（`r）</a>、または<a href="#NEWLINE_ANY">`a</a>オプションを使うことで変更できる。例えば、<span class="regex">ab.</span>は<span class="subj">abc</span>と <span class="subj">abz</span>と <span class="subj">ab_</span>にマッチする。</td>
 	</tr>
 	<tr>
 		<td class="center bold">*</td>
@@ -128,7 +128,7 @@
 	  <td class="center bold">[...]</td>
 	  <td><p><strong>文字のクラス：</strong>角括弧は文字のリストまたは範囲（または両方）を囲む。例えば、<span class="regex">[abc]</span>は「a、b、cのいずれか1文字」を意味する。例えば、<span class="regex">[a-z]</span>は「小文字のaからzの間にある任意の1文字（含む）」を意味します。例えば、<span class="regex">[a-zA-Z0-9_]</span>は「英数字またはアンダースコアである任意の1文字」を意味する。</p>
 	    <p>文字クラスは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、または<strong>{min,max}</strong>に続くことができる。たとえば、<span class="regex">[0-9]+</span>は、任意の数字が1つ以上出現した場合にマッチする。したがって、<span class="subj">xyz</span>123にはマッチするが、abcxyzにはマッチしない。</p>
-        <p>以下のPOSIX名前付き集合も、<strong>[[:xxx:]]</strong>形式でサポートされている：alnum, alpha, ascii (0-127), blank (space or tab), cntrl (control character), digit (0-9), xdigit (hex digit), print, graph (print excluding space), punct, lower, upper, space (whitespace), word (same as <a href="#word">\w</a>).</p>
+        <p>The following POSIX named sets are also supported via the form <strong>[[:xxx:]]</strong>, where xxx is one of the following words: alnum, alpha, ascii (0-127), blank (space or tab), cntrl (control character), digit (0-9), xdigit (hex digit), print, graph (print excluding space), punct, lower, upper, space (whitespace), word (same as <a href="#word">\w</a>).</p>
         <p>文字クラス内では、クラス内で特別な意味を持つ場合を除いて文字をエスケープする必要はない； 例：<span class="regex">[\^a]</span>、<span class="regex">[a\-b]</span>、<span class="regex">[\a]]</span>、<span class="regex">[\\a]</span>。。</p></td>
   </tr>
 	<tr>
@@ -170,11 +170,11 @@
 	      <li>評価の順番を決める。例えば、<span class="regex">(Sun|Mon|Tues|Wednes|Thurs|Fri|Satur)day</span>は、どの日の名前にもマッチする。</li>
 	      <li><strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>のいずれかを<em>シリーズ</em>に適用する。たとえば、<span class="regex">(abc)+</span>は、文字列 "abc"の1つ以上の出現にマッチする。したがって、<span class="subj">abcabc123</span>にはマッチするが、ab123やbc123にはマッチしない。</li>
           <li id="capture"><span class="regex">abc<span class="red">(.*)</span>xyz</span>のドットスターのようなサブパターンをキャプチャする。例えば、<a href="../lib/RegExMatch.htm">RegExMatch</a>は各サブパターンにマッチする部分文字列を<a href="../lib/RegExMatch.htm#MatchObject">出力配列</a>に格納する。同様に、<a href="../lib/RegExReplace.htm">RegExReplace</a>では、各サブパターンにマッチする部分文字列を、$1のような<a href="../lib/RegExReplace.htm#BackRef">後方参照</a>を通じて結果に再挿入することができる。サブパターンを捕捉する副作用を伴わずに括弧を使用するには、括弧内の最初の2文字に<strong>?:</strong>を指定する：<span class="regex">(<span class="red">?:</span>.*)</span></li>
-	      <li><a href="#Options">オプション</a>をその場で変更例えば、<span class="regex">(?im)</span>は、パターン（またはサブパターン内で発生した場合はサブパターン）の残りの部分の大文字小文字を区別しないオプションと複数行オプションをオンにします。逆に、<span class="regex">(?-im)</span>は両方をオフにする。DPS`r`n`aを除くすべてのオプションがサポートされている。</li>
+	      <li><a href="#Options">オプション</a>をその場で変更。例えば、<span class="regex">(?im)</span>は、パターン（またはサブパターン内で発生した場合はサブパターン）の残りの部分の大文字小文字を区別しないオプションと複数行オプションをオンにします。逆に、<span class="regex">(?-im)</span>は両方をオフにする。DPS`r`n`aを除くすべてのオプションがサポートされている。</li>
 	    </ul></td>
   </tr>
 	<tr>
-	  <td class="center bold">\t<br>\r<br>etc.</td>
+	  <td class="center bold">\t<br>\r<br>その他</td>
 	  <td><p>これらのエスケープシーケンスは特殊文字を表す。最も一般的なのは、<strong>\t</strong>（タブ）、<strong>\r</strong>（キャリッジリターン）、<strong>\n</strong>（ラインフィード）。AutoHotkeyでは、このような場合、バックスラッシュの代わりにアクセント記号(`)を使用することもできます。<strong>\xhh</strong> 形式のエスケープシーケンスもサポートしており、 <em>hh</em> は00からFFまでのANSI文字の16進コードである。</p>
       <p><strong>\R</strong>は、<code>`r`n</code>、<code>`n</code>、<code>`r</code>にマッチする(ただし、<a href="#class">文字クラス</a>内では単に "R"となる)。</p></td>
   </tr>
@@ -185,11 +185,11 @@
   </tr>
   <tr id="UCP">
     <td class="center bold">(*UCP)</td>
-    <td><p>性能上、\d, \D, \s, \S, \w, \W, \b および \Bは、デフォルトではASCII文字としてしか認識しません。パターンが<strong>(*UCP)</strong>で始まる場合、Unicodeプロパティがどの文字がマッチするかを決定するために使用されます。例えば \wは<span class="regex">[\p{L}\p{N}_]</span>と等価になり、\dは<span class="regex">\p{Nd}</span>と等価になる。</p>
+    <td><p>性能上、\d、\D、\s、\S、\w、\W、\b および \Bは、デフォルトではASCII文字としてしか認識しません。パターンが<strong>(*UCP)</strong>で始まる場合、Unicodeプロパティがどの文字がマッチするかを決定するために使用されます。例えば \wは<span class="regex">[\p{L}\p{N}_]</span>と等価になり、\dは<span class="regex">\p{Nd}</span>と等価になる。</p>
     </td>
   </tr>
 </table>
-<p><strong>貪欲：</strong>デフォルトでは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>, and <strong>{min,max}</strong>は貪欲で、パターン全体を満たす<em>最後</em>の文字まですべての文字を消費する。その代わりに、可能性のある<em>最初</em>の文字で止めさせるには、その後にクエスチョンマークを付ける。例えば <span class="regex">&lt;.+&gt;</span>(クエスチョンマークがない）の意味："&lt;の後に任意の文字が1つ以上続き、その後に&gt;が続くものを検索する". このパターンが、<span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>文字列<em>全体</em>にマッチしないようにするには、プラス記号にクエスチョンマークを追加する：<span class="regex">&lt;.+<span class="red">?</span>&gt;</span>. これにより、マッチは最初の'&gt;'で止まり、最初のタグ<span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>にマッチする。</p>
+<p><strong>貪欲：</strong>デフォルトでは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>は貪欲で、パターン全体を満たす<em>最後</em>の文字まですべての文字を消費する。その代わりに、可能性のある<em>最初</em>の文字で止めさせるには、その後にクエスチョンマークを付ける。例えば <span class="regex">&lt;.+&gt;</span>（クエスチョンマークがない）の意味：「&lt;の後に任意の文字が1つ以上続き、その後に&gt;が続くものを検索する」。このパターンが、<span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>文字列<em>全体</em>にマッチしないようにするには、プラス記号にクエスチョンマークを追加する：<span class="regex">&lt;.+<span class="red">?</span>&gt;</span>。これにより、マッチは最初の'&gt;'で止まり、最初のタグ<span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>にマッチする。</p>
 <p><strong>ルックアヘッドとルックビハインドのアサーション：</strong>グループ<span class="regex">(?=...)</span>,<span class="regex">(?!..)</span>,<span class="regex">(?&lt;=...)</span>,<span class="regex">(?&lt;!..)</span>は、条件を満たすことを要求するが、文字を消費しないので、<em>アサーション</em>と呼ばれる。たとえば、<span class="regex">abc(?=.*xyz)</span>は、文字列xyzが文字列abcの右側のどこかに存在することを必要とするルックアヘッド・アサーションである（存在しない場合、パターン全体がマッチするとはみなされない）。<span class="regex">(?=...)</span>は、指定されたパターンが存在することを要求するため、<em>正</em>のルックアヘッドと呼ばれる。逆に、<span class="regex">(?!...)</span>は、指定されたパターンが存在<em>しない</em>ことを要求するため、<em>負</em>のルックアヘッドとなる。同様に、<span class="regex">(?&lt;=...)</span>と<span class="regex">(?&lt;!..)</span>は、それぞれ正と負の<em>ルックビハインド</em>である。なぜなら、彼らは現在位置の右ではなく<em>左</em>を見るからである。<strong>*</strong>、<strong>?</strong>、<strong>+</strong>のような大小さまざまな量化子をサポートしていないため、ルックアヘッドよりもルックビハインドは制限されている。エスケープシーケンス<strong>\K</strong>は、マッチした最終文字列から前にマッチした文字が省略されるため、ルックビハインド・ アサーションに似ている。例えば、<span class="regex">foo\Kbar</span>は"foobar"にマッチするが、"bar"にマッチしたと報告する。</p>
 <p><strong>関連</strong>正規表現は<a href="../lib/RegExMatch.htm">RegExMatch</a>、<a href="../lib/RegExReplace.htm">RegExReplace</a>、<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>でサポートされています。</p>
 <p class="note"><strong>最後に：</strong>このページでは、一般的に使用されるRegExの機能のほとんどに触れていますが、条件付きサブパターンなど、他にも調べたい機能がたくさんあります。PCREマニュアルの完全版は<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>にあります。</p>

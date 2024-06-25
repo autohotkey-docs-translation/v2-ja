@@ -33,7 +33,7 @@
 b::a</pre>
 <p>上記の例では小文字を使用しているが、これは対応する大文字もリマップするため、ほとんどの目的には小文字が推奨される（つまり、<kbd>CapsLock</kbd>が「オン」または<kbd>Shift</kbd>が押されたままだと大文字が送信される）。対照的に、右側に大文字を指定すると、強制的に大文字になる。例えば、次の行では、"a"または "A"を入力すると、大文字の "B"が表示される（<kbd>CapsLock</kbd>がオフの場合）：</p>
 <pre>a::B</pre>
-<p>逆に、左サイドに含まれていて右サイドに含まれていないモディファイアは、キーが送信されると自動的に解除される。For example, the following two lines would produce a lowercase "b" when you press either <kbd>Shift</kbd>+<kbd>A</kbd> or <kbd>Ctrl</kbd>+<kbd>A</kbd>:</p>
+<p>逆に、左サイドに含まれていて右サイドに含まれていないモディファイアは、キーが送信されると自動的に解除される。例えば、次の2行は、<kbd>Shift</kbd>+<kbd>A</kbd>または<kbd>Ctrl</kbd>+<kbd>A</kbd>を押すと小文字の "b"が表示される：</p>
 <pre>A::b
 ^a::b</pre>
 
@@ -135,7 +135,7 @@ a::b
 }</pre>
 <p>ただし、上記のホットキーは以下の状況で変化する：</p>
 <ol>
-  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>:The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
+  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>: The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
   <li>キーボードのキーがマウスボタンにリマップされる場合（例：<code>RCtrl::RButton</code>）、上記のホットキーはSetKeyDelayの代わりにSetMouseDelayを使用します。さらに、上記の最初のホットキーは以下のように置き換えられ、キーボードのオートリピート機能によるマウスクリックの繰り返しを防ぎます：
     <pre>*RCtrl::
 {
@@ -181,12 +181,12 @@ Hotkey "*a up", "Off"</pre>
     SendEvent "{Blind}{RButton up}"
 }</pre>
 <h2 id="registry">レジストリの "スキャンコードマップ"によるリマッピング</h2>
-<p><strong>メリット</strong></p>
+<p><strong>メリット：</strong></p>
 <ul>
   <li>レジストリの再マッピングは、一般的に<a href="#Remap">AutoHotkeyの再マッピング</a>よりも純粋で効果的です。例えば、より幅広いゲームで動作し、<a href="#AltTab">alt-tabの問題</a>がなく、AutoHotkeyのフックホットキーを使用することができます（AutoHotkeyのリマッピングには<a href="#HookHotkeys">回避策</a>が必要です）。</li>
   <li>レジストリエントリを手動で作成する場合（以下で説明）、キーボードのリマッピングに外部ソフトウェアはまったく必要ありません。<a href="https://www.bleepingcomputer.com/download/keytweak/">KeyTweak</a>を使ってレジストリエントリを作成しても、（AutoHotkeyと違って）KeyTweakは常に起動している必要はありません。</li>
 </ul>
-<p><strong>デメリット</strong></p>
+<p><strong>デメリット：</strong></p>
 <ul>
   <li>レジストリの再マッピングは比較的永続的である：変更を元に戻したり、新しい変更を有効にするには再起動が必要です。</li>
   <li>その効果は世界的だ：特定のユーザー、アプリケーション、ロケールに特化したリマッピングを作成することはできません。</li>

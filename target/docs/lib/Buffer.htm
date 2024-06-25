@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Buffer Object - 定義と使用法｜AutoHotkey v2</title>
-<meta name="description" content="Buffer Objectは、DllCall、構造体、StrPut、生のファイルI/Oなどの高度な技術で使用するためのメモリブロックをカプセル化します。" />
+<title>Bufferオブジェクト - 定義と使用法｜AutoHotkey v2</title>
+<meta name="description" content="Bufferオブジェクトは、DllCall、構造体、StrPut、生のファイルI/Oなどの高度な技術で使用するためのメモリブロックをカプセル化します。" />
 <meta name="ahk:equiv-v1" content="lib/VarSetCapacity.htm" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,35 +11,35 @@
 </head>
 <body>
 
-<h1>Buffer Object</h1>
+<h1>Bufferオブジェクト</h1>
 <pre class="NoIndent">class Buffer extends Object</pre>
 
 <p>DllCall、構造体、StrPut、生のファイルI/Oなどの高度な技術で使用するために、メモリブロックをカプセル化します。</p>
-<p>Buffer Objectは、通常<a href="#Call">Buffer()</a>を呼び出して作成しますが、<a href="FileRead.htm">FileRead</a>で"RAW"オプションを付けて返すこともできます。</p>
+<p>Bufferオブジェクトは、通常<a href="#Call">Buffer()</a>を呼び出して作成しますが、<a href="FileRead.htm">FileRead</a>で"RAW"オプションを付けて返すこともできます。</p>
 <pre>BufferObj := Buffer(ByteCount)</pre>
 <p><a href="ClipboardAll.htm">ClipboardAll</a>は、BufferのサブタイプであるClipboardAllを返す。</p>
 <pre>class ClipboardAll extends Buffer</pre>
 
-<p>"Buffer"はクラスそのものなので、以下ではあらゆるBufferオブジェクトのプレースホルダとして "BufferObj"を使用します。</p>
+<p>「Buffer」はクラスそのものなので、以下ではあらゆるBufferオブジェクトのプレースホルダとして 「BufferObj」を使用します。</p>
 <p><a href="Object.htm">Object</a>から継承されたメソッドやプロパティに加え、Bufferオブジェクトは以下の定義済みプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul>
   <li><a href="#like">バッファ的オブジェクト</a></li>
-  <li><a href="#StaticMethods">静的メソッドです</a>:
+  <li><a href="#StaticMethods">静的メソッドです</a>：
     <ul>
-      <li><a href="#Call">Call</a>:Creates a new Buffer object.</li>
+      <li><a href="#Call">Call</a>：新しいBufferオブジェクトを作成します。</li>
     </ul>
   </li>
-  <li><a href="#Methods">メソッド</a>:
+  <li><a href="#Methods">メソッド</a>：
     <ul>
-      <li><a href="#__New">__New</a>:バッファの割り当てまたは再割り当てを行い、オプションでバッファを埋めます。</li>
+      <li><a href="#__New">__New</a>：バッファの割り当てまたは再割り当てを行い、オプションでバッファを埋めます。</li>
     </ul>
   </li>
-  <li><a href="#Properties">プロパティ</a>:
+  <li><a href="#Properties">プロパティ</a>：
     <ul>
-      <li><a href="#Ptr">Ptr</a>:バッファの現在のメモリアドレスを取得します。</li>
-      <li><a href="#Size">Size</a>:バッファのサイズをバイト単位で取得または設定します。</li>
+      <li><a href="#Ptr">Ptr</a>：バッファの現在のメモリアドレスを取得します。</li>
+      <li><a href="#Size">Size</a>：バッファのサイズをバイト単位で取得または設定します。</li>
     </ul>
   </li>
   <li><a href="#Related">関連</a></li>
@@ -52,7 +52,7 @@
 
 <h2 id="StaticMethods">静的メソッド</h2>
 <div class="methodShort" id="Call"><h3>Call</h3>
-<p>Creates a new Buffer object.</p>
+<p>新しいBufferオブジェクトを作成します。</p>
 <pre class="Syntax">BufferObj := Buffer(<span class="optional">ByteCount, FillByte</span>)
 BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCount, FillByte</span>)</pre>
 <h4 id="Call_Parameters">パラメータ</h4>
@@ -92,7 +92,7 @@ BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCo
 <div class="methodShort" id="Ptr"><h3>Ptr</h3>
 <p>バッファの現在のメモリアドレスを取得します。</p>
 <pre class="Syntax">CurrentPtr := BufferObj.<span class="func">Ptr</span></pre>
-<p><em>CurrentPtr</em> is an <a href="../Concepts.htm#numbers">integer</a> representing the buffer's current memory address. This address becomes invalid when the buffer is freed or reallocated. 無効なアドレスは使用しないでください。The buffer is not freed until the Buffer object's <a href="../Objects.htm#Reference_Counting">reference count</a> reaches zero, but it is reallocated when its <a href="#Size">Size</a> is changed.</p>
+<p><em>CurrentPtr</em> is an <a href="../Concepts.htm#numbers">integer</a> representing the buffer's current memory address. This address becomes invalid when the buffer is freed or reallocated. 無効なアドレスは使用しないでください。バッファはBufferオブジェクトの<a href="../Objects.htm#Reference_Counting">参照カウント</a>が0になるまで解放されませんが、<a href="#Size">Size</a>が変更されると再割り当てされます。</p>
 </div>
 
 <div class="methodShort" id="Size"><h3>Size</h3>
@@ -100,16 +100,16 @@ BufferObj := Buffer.<span class="func">Call</span>(<span class="optional">ByteCo
 <pre class="Syntax">CurrentByteCount := BufferObj.<span class="func">Size</span></pre>
 <pre class="Syntax">BufferObj.<span class="func">Size</span> := NewByteCount</pre>
 <p><em>CurrentByteCount</em> and <em>NewByteCount</em> are an <a href="../Concepts.htm#numbers">integer</a> representing the buffer's size, in bytes. バッファのアドレスは通常、そのサイズが変更されるたびに変更されます。サイズが小さくなった場合、バッファ内のデータは切り捨てられますが、残りのバイトは保存されます。サイズが大きくなっても、すべてのデータは保存され、新しいバイトの値は任意です（パフォーマンス上の理由から、初期化されません）。</p>
-<p>A <a href="Error.htm#MemoryError">MemoryError</a> is thrown if the memory could not be allocated, such as if <em>NewByteCount</em> is unexpectedly large or the system is low on virtual memory.</p>
+<p><em>NewByteCount</em>が予想外に大きい場合や、システムの仮想メモリが不足している場合など、メモリを確保できなかった場合は<a href="Error.htm#MemoryError">MemoryError</a>がスローされます。</p>
 <p><em>CurrentByteCount</em> is always the exact value it was given either by <a href="#__New">__New</a> or by a previous assignment.</p>
 </div>
 
 <h2 id="Related">関連</h2>
-<p><a href="DllCall.htm">DllCall</a>, <a href="NumPut.htm">NumPut</a>, <a href="NumGet.htm">NumGet</a>, <a href="StrPut.htm">StrPut</a>, <a href="StrGet.htm">StrGet</a>, <a href="File.htm#RawRead">File.RawRead</a>, <a href="File.htm#RawWrite">File.RawWrite</a>, <a href="ClipboardAll.htm">ClipboardAll</a></p>
+<p><a href="DllCall.htm">DllCall</a>、<a href="NumPut.htm">NumPut</a>、<a href="NumGet.htm">NumGet</a>、<a href="StrPut.htm">StrPut</a>、<a href="StrGet.htm">StrGet</a>、<a href="File.htm#RawRead">File.RawRead</a>、<a href="File.htm#RawWrite">File.RawWrite</a>、<a href="ClipboardAll.htm">ClipboardAll</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExString">
-<p><a class="ex_number" href="#ExString"></a> Uses a Buffer to receive a string from an external function via <a href="DllCall.htm">DllCall</a>.</p>
+<p><a class="ex_number" href="#ExString"></a> Bufferを使って、<a href="DllCall.htm">DllCall</a>で外部関数から文字列を受け取ります。</p>
 <pre>
 max_chars := 11
 

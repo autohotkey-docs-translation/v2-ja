@@ -30,7 +30,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#values">任意</a></p>
     <p>ラップする値。</p>
-    <p>これが純粋な整数で、<em>VarType</em>が VT_R4, VT_R8, VT_DATE, VT_CY でない場合、その値が直接使われます。特に VT_BSTR, VT_DISPATCH, VT_UNKNOWN はポインタ値で初期化できる。</p>
+    <p>これが純粋な整数で、<em>VarType</em>が VT_R4、VT_R8、VT_DATE、VT_CY でない場合、その値が直接使われます。特に VT_BSTR、VT_DISPATCH、VT_UNKNOWN はポインタ値で初期化できる。</p>
     <p>それ以外の場合は、通常のCOMメソッド呼び出しと同じルールで、一時的なVARIANTに値がコピーされます。ソースバリアントタイプが<em>VarType</em>と等しくない場合、<em>wFlags</em>の値0を持つ<a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a>を呼び出すことで変換が試みられます。変換に失敗した場合は、例外が発生します。</p>
   </dd>
 
@@ -59,14 +59,14 @@
 
 <h2 id="ByRef">ByRef</h2>
 <p>もし、ラッパーオブジェクトの <a href="ComObjType.htm#vt"><em>VarType</em></a>はVT_BYREF(0x4000)フラグを含むので、空カッコ<code>[]</code>で参照値の読み書きが可能です。</p>
-<p>参照を作成する場合、<em>Value</em>には、指定された型の値を格納するのに十分な容量を持つ変数またはバッファのメモリアドレスが必要です。例えば、以下のようにすれば、VBScriptの関数が書き込むことができる変数を作成することができます。</p>
+<p>参照を作成する場合、<em>Value</em>には、指定された型の値を格納するのに十分な容量を持つ変数またはバッファのメモリアドレスが必要です。例えば、以下のようにすれば、VBScriptの関数が書き込むことができる変数を作成することができます：</p>
 <pre>vbuf := Buffer(24, 0)
 vref := ComValue(0x400C, vbuf.ptr)  <em>; 0x400C は、VT_BYREF と VT_VARIANT の組み合わせです。</em>
 
 vref[] := "in value"
 sc.Run("Example", vref)  <em>; scは、<a href="#ExByRef">以下の例</a>のように初期化する必要があります。</em>
 MsgBox vref[]</pre>
-<p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。この場合VT_VARIANTなので、<a href="DllCall.htm">DllCall</a>で <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a>を呼び出すか、もっと簡単な方法で解放することができます。<code>vref[] := 0</code>のように整数を代入します。</p>
+<p>なお、<code>vref[]</code>やCOMメソッドで新しい値を代入すると、以前の値はすべて解放されますが、最終的な値は自動的に解放されるわけではありません。値を解放するには、その値がどのタイプであるかを知る必要があります。この場合VT_VARIANTなので、<a href="DllCall.htm">DllCall</a>で <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear">VariantClear</a>を呼び出すか、もっと簡単な方法で解放することができます：<code>vref[] := 0</code>のように整数を代入します。</p>
 <p>上記のようにメソッドがVT_BYREFとVT_VARIANTの組み合わせを受け付ける場合、<a href="../Concepts.htm#variable-references">VarRef</a>を代わりに使用することができます。事例：</p>
 <pre>some_var := "in value"
 sc.Run("Example", &amp;some_var)
@@ -78,10 +78,10 @@ MsgBox some_var</pre>
 <p>VT_UNKNOWNからVT_DISPATCHへの変換では、<a href="https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)">IUnknown::QueryInterface</a>が呼び出され、オリジナルとは異なるインターフェースポインタが生成される場合があり、オブジェクトがIDispatchを実装しない場合は例外が投げられる。一方、<em>Value</em>が整数で<em>VarType</em>がVT_DISPATCHの場合は、値が直接使用されるため、IDispatch互換のインターフェースポインタである必要があります。</p>
 <p>ラッパーオブジェクトの<em>VarType</em>は<a href="ComObjType.htm">ComObjType</a>で取得することができます。</p>
 <p>ラッパーオブジェクトの<em>値</em>は、<a href="ComObjValue.htm">ComObjValue</a>を使用して取得することができます。</p>
-<p><b>既知の制限事項：</b>COMオブジェクトがラップされるたびに、新しいラッパーオブジェクトが作成されます。Comparisons and assignments such as <code>obj1 == obj2</code> and <code>arr[obj1] := value</code> treat the two wrapper objects as unique, even when they contain the same variant type and value.</p>
+<p><b>既知の制限事項：</b>COMオブジェクトがラップされるたびに、新しいラッパーオブジェクトが作成されます。<code>obj1 == obj2</code>や<code>arr[obj1] := value</code>のような比較や代入は、同じバリアント型や値を含んでいても、2つのラッパーオブジェクトをユニークなものとして扱います。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="ComObjFromPtr.htm">ComObjFromPtr</a>, <a href="ComObject.htm">ComObject</a>, <a href="ComObjGet.htm">ComObjGet</a>, <a href="ComObjConnect.htm">ComObjConnect</a>, <a href="ComObjFlags.htm">ComObjFlags</a>, <a href="ObjAddRef.htm">ObjAddRef/ObjRelease</a>, <a href="ComObjQuery.htm">ComObjQuery</a>, <a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getactiveobject">GetActiveObject (Microsoft Docs)</a></p>
+<p><a href="ComObjFromPtr.htm">ComObjFromPtr</a>、<a href="ComObject.htm">ComObject</a>、<a href="ComObjGet.htm">ComObjGet</a>、<a href="ComObjConnect.htm">ComObjConnect</a>、<a href="ComObjFlags.htm">ComObjFlags</a>、<a href="ObjAddRef.htm">ObjAddRef/ObjRelease</a>、<a href="ComObjQuery.htm">ComObjQuery</a>、<a href="https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getactiveobject">GetActiveObject (Microsoft Docs)</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExByRef">
@@ -104,26 +104,26 @@ var[] := "in value"
 sc.Run("Example", var.ref)
 MsgBox var[]
 
-<em>; 同じことをもう一度、よりダイレクトに。</em>
+<em>; 同じことをもう一度、よりダイレクトに：</em>
 variant_buf := Buffer(24, 0)  <em>; VARIANTのために十分な大きさのバッファを作成します。</em>
 var := ComValue(0x400C, variant_buf.ptr)  <em>; VARIANTへの参照を行う。</em>
 var[] := "in value"
 sc.Run("Example", var)  <em>; VT_BYREF ComValueそのものを渡す。[] や .ref は使わない。</em>
 MsgBox var[]
 <em>; VARIANTが文字列やオブジェクトを含む場合は、明示的に解放する必要があります。
-; VariantClearを呼び出すか、純粋な数値を代入することで対応します。</em>
+; VariantClearを呼び出すか、純粋な数値を代入することで対応します：</em>
 var[] := 0
 
-<em>; メソッドがVT_BYREF|VT_VARIANTを受け入れる場合、最も簡単な方法です。</em>
- var[] := "in value"
+<em>; メソッドがVT_BYREF|VT_VARIANTを受け入れる場合、最も簡単な方法です：</em>
+var[] := "in value"
 sc.Run("Example", &amp;var)
 MsgBox var
 
 
-<em>; ComVar:ByRef: 値を渡すために使用できるオブジェクト。
-; this[]は値を取得します。
-; this[] := Val が値を設定します。
-; this.ref は COM メソッドに渡すための ByRef オブジェクトを取得します。</em>
+<em>; ComVar：ByRef値を渡すために使用できるオブジェクト。
+;   this[]は値を取得します。
+;   this[] := Val が値を設定します。
+;   this.ref は COM メソッドに渡すための ByRef オブジェクトを取得します。</em>
 class ComVar {
     __new(vType := 0xC) {
         <em>; VARIANTのメモリを確保し、値を保持します。VARIANTは、次のような場合でも使用されます。

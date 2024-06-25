@@ -25,7 +25,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>ホットストリングのトリガー文字列で、その前に<a href="../Hotstrings.htm">通常のコロン</a>と <a href="../Hotstrings.htm#Options">オプション文字</a>が入ります。例えば、<code>"::btw"</code>または<code>":*:]d"</code>です。</p>
-    <p><em>文字列</em>は、<a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>、<a href="../Hotstrings.htm#Question">単語の区別 (?)</a>、活性化基準（<a href="_HotIf.htm">#HotIf</a>または<a href="HotIf.htm">HotIf</a>で設定）、トリガー文字列を考慮して、既存のホットストリングと一致させることができます。例えば、<code>"::btw"</code>と<code>"::BTW"</code>は、デフォルトで大文字小文字を区別するモードが有効になっていなければ一致しますが、<code>":C:btw"</code>と<code>":C:BTW"</code>は決して一致しません。The <code>C</code> and <code>?</code> options may be included in <em>String</em> or set as defaults by the <a href="_Hotstring.htm">#Hotstring</a> directive or a previous use of <em>NewOptions</em>.</p>
+    <p><em>文字列</em>は、<a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>、<a href="../Hotstrings.htm#Question">単語の区別（?）</a>、活性化基準（<a href="_HotIf.htm">#HotIf</a>または<a href="HotIf.htm">HotIf</a>で設定）、トリガー文字列を考慮して、既存のホットストリングと一致させることができます。例えば、<code>"::btw"</code>と<code>"::BTW"</code>は、デフォルトで大文字小文字を区別するモードが有効になっていなければ一致しますが、<code>":C:btw"</code>と<code>":C:BTW"</code>は決して一致しません。The <code>C</code> and <code>?</code> options may be included in <em>String</em> or set as defaults by the <a href="_Hotstring.htm">#Hotstring</a> directive or a previous use of <em>NewOptions</em>.</p>
     <p>hotstringが既に存在する場合、<em>String</em>で指定されたオプションは有効になり、それ以外のオプションはそのままになります。ただし、<code>C</code>や <code>?</code>が付いたホットストリングは他のホットストリングと区別して考えるため、これらのオプションを追加したり削除したりすることはできません。代わりに、既存のホットストリングをオフにして、新しいホットストリングを作成します。</p>
     <p>Hotstring関数またはスクリプトの<a href="../Hotstrings.htm">ダブルコロン構文</a>でホットストリングを最初に作成すると、そのトリガー文字列とオプション文字のシーケンスが、<a href="../Hotstrings.htm#ThisHotkey">ThisHotkey</a>に反映されるそのホットストリングの永久的な名前となります。この名前は、後にHotstring関数が異なるオプション文字でHotstringにアクセスしても、変更されることはありません。</p>
   </dd>
@@ -39,24 +39,24 @@
     <pre class="NoIndent">MyCallback(HotstringName) { ...</pre>
     <p>Although the name you give the parameter does not matter, it is assigned the <a href="../Hotstrings.htm#ThisHotkey">hotstring name</a>.</p>
     <p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
-    <p>Hotstrings defined with the <a href="../Hotstrings.htm">double-colon syntax</a> automatically use the parameter name <code>ThisHotkey</code>. Hotstrings can also be <a href="../Hotstrings.htm#Function">assigned a function name</a> without the Hotstring function.</p>
+    <p><a href="../Hotstrings.htm">ダブルコロン構文</a>で定義されたHotstringsは、自動的にパラメータ名<code>ThisHotkey</code>を使用します。Hotstringは、Hotstringの機能を使わずに、<a href="../Hotstrings.htm#Function">関数</a>名を割り当てることもできます。</p>
     <p>After reassigning the function of a hotstring, its original function can only be restored if it was <a href="../Hotstrings.htm#Function">given a name</a>.</p>
-    <p class="note"><strong>Note:</strong> If this parameter is specified but the hotstring is disabled from a previous use of this function, the hotstring will remain disabled. To prevent this, specify <code>"On"</code> for <em>OnOffToggle</em>.</p>
+    <p class="note"><strong>注意：</strong>このパラメータを指定しても、以前にこの機能を使用したときにホットストリングが無効になっていた場合は、ホットストリングは無効のままとなります。To prevent this, specify <code>"On"</code> for <em>OnOffToggle</em>.</p>
   </dd>
 
   <dt>OnOffToggle</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
     <p>以下のいずれかの値：</p>
-    <p><strong>On</strong> または <strong>1</strong> (true):ホットストリングを有効にします。</p>
-    <p><strong>Off</strong> または <strong>0</strong> (false):ホットストリングを無効化します。</p>
-    <p><strong>Toggle</strong> または <strong>-1</strong>:ホットストリングを反対の状態（有効または無効）に設定します。</p>
+    <p><strong>On</strong> または <strong>1</strong>（true）：ホットストリングを有効にします。</p>
+    <p><strong>Off</strong> または <strong>0</strong>（false）：ホットストリングを無効化します。</p>
+    <p><strong>Toggle</strong> または <strong>-1</strong>：ホットストリングを反対の状態（有効または無効）に設定します。</p>
   </dd>
 
   <dt>NewOptions</dt>
   <dd id="NewOptions">
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>その後に作成されるホットストリングに新しいデフォルトオプションを設定するには、Hotstring関数にオプションを先頭や末尾のコロンを付けずに渡します。事例：<code>Hotstring "T"</code>.</p>
+    <p>その後に作成されるホットストリングに新しいデフォルトオプションを設定するには、Hotstring関数にオプションを先頭や末尾のコロンを付けずに渡します。事例：<code>Hotstring "T"</code>。</p>
     <p><a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>や<a href="../Hotstrings.htm#Question">単語の区別（？）</a>をオンにすると、それ以降にHotstring関数を呼び出したときに、どの既存のホットストリングが見つかるかにも影響します。例えば、<code>Hotstring ":T:btw"</code>はデフォルトで<code>::BTW</code>を検索しますが、<code>Hotstring "C"</code>または<code><a href="_Hotstring.htm">#Hotstring</a> C</code>が有効な場合は検索しません。これは、相互に排他的なオプションを渡すことによって、元に戻したり上書きしたりすることができます。例えば、<code>C0</code>と <code>C1</code>は<code>C</code>を上書きします。</p>
   </dd>
 
@@ -73,7 +73,7 @@
 <ul>
   <li><a href="#EndChars">EndChars</a>: Retrieves or modifies the set of ending characters.</li>
   <li><a href="#MouseReset">MouseReset</a>: Controls whether mouse clicks reset the hotstring recognizer.</li>
-  <li><a href="#Reset">Reset</a>:ホットストリングレコグナイザーを即座にリセットします。</li>
+  <li><a href="#Reset">Reset</a>：ホットストリングレコグナイザーを即座にリセットします。</li>
 </ul>
 
 <h3 id="EndChars">EndChars</h3>
@@ -88,7 +88,7 @@ MsgBox "The previous value was: " prev_chars</pre>
 <h3 id="MouseReset">MouseReset</h3>
 <p>マウスクリックでホットストリング認識機能がリセットされるかどうかを制御するグローバル設定を取得または変更します（<a href="../Hotstrings.htm#NoMouse">ここ</a>で説明）。</p>
 <pre class="Syntax">OldValue := <span class="func">Hotstring</span>("MouseReset" <span class="optional">, NewValue</span>)</pre>
-<p><em>NewValue</em> should be 1 (true) to enable mouse click detection and resetting of the hotstring recognizer, or 0 (false) to disable it. 戻り値は、この関数が呼び出される前に有効であった設定値です。</p>
+<p><em>NewValue</em>は、マウスクリックの検出とホットストリング認識器のリセットを有効にする場合は 1（true）、無効にする場合は 0（false）を指定します。戻り値は、この関数が呼び出される前に有効であった設定値です。</p>
 <p>本機能による変更で正当化される場合は、<a href="InstallMouseHook.htm">マウス</a>フックの取り付け、取り外しが可能です。</p>
 <p><a href="_Hotstring.htm">#Hotstring NoMouse</a> も、この設定に影響し、<em>NewValue</em>に<code>false</code>を指定することと同じです。</p>
 
@@ -121,7 +121,7 @@ Hotstring "::btw", "back to work"
 HotIfWinActive
 Hotstring "::btw", "by the way"</pre>
 <p>ホットストリングの複数のバリアントが発火の対象となる場合、最も早く作成されたものだけが発火します。</p>
-<p>For more information, see <a href="HotIf.htm">HotIf</a>.</p>
+<p>詳しくは、<a href="HotIf.htm">HotIf</a>をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="../Hotstrings.htm">Hotstrings</a>, <a href="_HotIf.htm">#HotIf</a>, <a href="../Variables.htm#ThisHotkey">A_ThisHotkey</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="Suspend.htm">Suspend</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Thread.htm">Thread</a>, <a href="Critical.htm">Critical</a></p>
@@ -146,7 +146,7 @@ Hotstring "::btw", "by the way"</pre>
         return
     }
     <em>; CRLFやLFを`nに置き換えて、"send-raw "ホットストリングで使用することができます：
-; 他の文字も同様です。
+    ; 他の文字も同様です。
     ; rawモードでは問題ありません：</em>
     ClipContent := StrReplace(A_Clipboard, "``", "````")  <em>;  以下の他の置換と干渉しないように、この置換を最初に行います。</em>
     ClipContent := StrReplace(ClipContent, "`r`n", "``n")
@@ -166,12 +166,12 @@ ShowInputBox(DefaultValue)
     (
     表示された挿入口に略号を入力してください。また、必要に応じて、置換テキストを編集することもできます。
 
-記入例：:T:btw`::by the way
+    Example entry: :T:btw`::by the way
     )", "New Hotstring",, DefaultValue)
     if IB.Result = "Cancel"  <em>; ユーザがキャンセルを押した。</em>
         return
 
-if RegExMatch(IB.Value, "(?P&lt;Label&gt;:.*?:(?P&lt;Abbreviation&gt;.*?))::(?P&lt;Replacement&gt;.*)", &amp;Entered)
+    if RegExMatch(IB.Value, "(?P&lt;Label&gt;:.*?:(?P&lt;Abbreviation&gt;.*?))::(?P&lt;Replacement&gt;.*)", &amp;Entered)
     {
         if !Entered.Abbreviation
             MsgText := "You didn't provide an abbreviation"
@@ -186,14 +186,14 @@ if RegExMatch(IB.Value, "(?P&lt;Label&gt;:.*?:(?P&lt;Abbreviation&gt;.*?))::(?P&
     else
         MsgText := "The hotstring appears to be improperly formatted"
 
-if IsSet(MsgText)
+    if IsSet(MsgText)
     {
         Result := MsgBox(MsgText ". Would you like to try again?",, 4)
         if Result = "Yes"
             ShowInputBox(DefaultValue)
     }
     
-MoveCaret()
+    MoveCaret()
     {
         WinWait "New Hotstring"
         <em>; そうでない場合は、入力ボックスの挿入点をユーザーが略語を入力する場所に移動させます。</em>

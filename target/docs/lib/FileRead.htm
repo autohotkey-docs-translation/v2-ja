@@ -28,11 +28,11 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>以下の文字列のうち、0個以上。各オプションと次のオプションは、1つのスペースまたはタブで区切ってください。事例：<code>"`n m5000 UTF-8"</code></p>
-    <p><strong>Encoding:</strong> Specify any of the encoding names accepted by <a href="FileEncoding.htm">FileEncoding</a> (excluding the empty string) to use that encoding if the file lacks a UTF-8 or UTF-16 byte order mark. 省略された場合、デフォルトは<a href="../Variables.htm#FileEncoding">A_FileEncoding</a>となる。</p>
-    <p><strong>RAW:</strong> Specify the word RAW (case-insensitive) to read the file's content as <a href="#Binary">raw binary data</a> and return a <a href="Buffer.htm">Buffer</a> object instead of a string. このオプションは、以前に指定されたエンコーディングを上書きし、その逆もまた然りです。</p>
-    <p><strong>m1024:</strong> If this option is omitted, the entire file is loaded unless there is insufficient memory, in which case an error message is shown and the thread exits (but <a href="Try.htm">Try</a> can be used to avoid this). それ以外の場合は、1024を10進数または16進数のバイト数に置き換えてください。これより大きなファイルの場合は、その先頭部分のみを読み込みます。</p>
-    <p class="note"><strong>Note:</strong> This might result in the last line ending in a naked carriage return (`r) rather than `r`n.</p>
-    <p><strong>`n</strong>(改行文字)：キャリッジリターンとラインフィード(`r`n)をラインフィード(`n)に置き換える。しかし、この翻訳はパフォーマンスを低下させるので、通常は必要ありません。例えば、`r`nを含むテキストは、<a href="StrReplace.htm">Gui Editコントロール</a>に追加するのに適したフォーマットになっています。以下の<a href="LoopParse.htm">解析ループ</a>は、各行の末尾が `r`n であろうと `n だけであろうと、正しく動作します：<code>Loop Parse, MyFileContents, "`n", "`r"</code>.</p>
+    <p><strong>エンコード：</strong><a href="FileEncoding.htm">FileEncoding</a>が受け付けるエンコーディング名（空文字列を除く）を指定すると、ファイルに UTF-8 または UTF-16 のバイト順マークがない場合に、そのエンコーディングを使用します。省略された場合、デフォルトは<a href="../Variables.htm#FileEncoding">A_FileEncoding</a>となる。</p>
+    <p><strong>RAW：</strong>RAW（大文字と小文字を区別しない）を指定すると、ファイルの内容を<a href="#Binary">生のバイナリデータ</a>として読み込み、文字列の代わりに<a href="Buffer.htm">Buffer</a>オブジェクトを返します。このオプションは、以前に指定されたエンコーディングを上書きし、その逆もまた然りです。</p>
+    <p><strong>m1024：</strong>このオプションを省略すると、メモリ不足でない限りファイル全体が読み込まれ、その場合はエラーメッセージが表示されてスレッドが終了します（ただし、<a href="Try.htm">Try</a>を使用することでこれを回避できます）。それ以外の場合は、1024を10進数または16進数のバイト数に置き換えてください。これより大きなファイルの場合は、その先頭部分のみを読み込みます。</p>
+    <p class="note"><strong>注意：</strong>その結果、最終行の末尾が `r`n ではなく、裸のキャリッジリターン（`r）になってしまうかもしれません。</p>
+    <p><strong>`n</strong>（改行文字）：キャリッジリターンとラインフィード（`r`n）をラインフィード（`n）に置き換える。しかし、この翻訳はパフォーマンスを低下させるので、通常は必要ありません。例えば、`r`nを含むテキストは、<a href="StrReplace.htm">Gui Editコントロール</a>に追加するのに適したフォーマットになっています。以下の<a href="LoopParse.htm">解析ループ</a>は、各行の末尾が `r`n であろうと `n だけであろうと、正しく動作します：<code>Loop Parse, MyFileContents, "`n", "`r"</code>。</p>
   </dd>
   
 </dl>
@@ -43,13 +43,13 @@
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p>ファイルのオープンや読み取りに問題があった場合、<a href="Error.htm#OSError">OSError</a>がスローされます。</p>
-<p>A file greater than 4 GB in size will cause a <a href="Error.htm#MemoryError">MemoryError</a> to be thrown unless the *m option is present, in which case the leading part of the file is loaded. また、要求されたデータ量を格納するのに十分なメモリをプログラムが割り当てられない場合、MemoryErrorがスローされます。</p>
+<p>4GBを超えるサイズのファイルは、*mオプションが存在しない限り、<a href="Error.htm#MemoryError">MemoryError</a>が発生し、この場合、ファイルの先頭部分が読み込まれる。また、要求されたデータ量を格納するのに十分なメモリをプログラムが割り当てられない場合、MemoryErrorがスローされます。</p>
 <p><a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が設定されます。</p>
 
 <h2 id="Binary">バイナリデータの読み取り</h2>
 <p><code>RAW</code>オプションを使用した場合、戻り値は、ファイルの未修正の内容を含む<a href="Buffer.htm">Buffer</a>オブジェクトとなる。オブジェクトの<a href="Buffer.htm#Size">Size</a>プロパティは、読み込んだバイト数を返します。<a href="NumGet.htm">NumGet</a>または<a href="StrGet.htm">StrGet</a>を使用して、バッファからデータを取得することができます。事例：</p>
 <pre>buf := FileRead(A_AhkPath, "RAW")
-if StrGet(buf, 2, "cp0") == "MZ"  <em>; 実行ファイルのように見えるが...。</em>
+if StrGet(buf, 2, "cp0") == "MZ"  <em>; 実行ファイルのように見えるが...</em>
 {
     <em>; COFF ファイルのヘッダーからマシンタイプを読み込みます。</em>
     machine := NumGet(buf, NumGet(buf, 0x3C, "uint") + 4, "ushort")
@@ -68,7 +68,7 @@ buf := ""</pre>
 <p><a href="FileOpen.htm">FileOpen</a>は、ファイル全体をメモリに読み込むことなく、ファイルの特定の位置でデータを読み書きするなど、FileReadより高度な機能を提供します。機能一覧は、「<a href="File.htm">ファイルオブジェクト</a>」を参照してください。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="FileEncoding.htm">FileEncoding</a>, <a href="FileOpen.htm">FileOpen</a>/<a href="File.htm">File Object</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="FileGetSize.htm">FileGetSize</a>, <a href="FileAppend.htm">FileAppend</a>, <a href="IniRead.htm">IniRead</a>, <a href="Sort.htm">Sort</a>, <a href="Download.htm">Download</a></p>
+<p><a href="FileEncoding.htm">FileEncoding</a>、<a href="FileOpen.htm">FileOpen</a>/<a href="File.htm">Fileオブジェクト</a>、<a href="LoopRead.htm">ファイル読み込みループ</a>、<a href="FileGetSize.htm">FileGetSize</a>、<a href="FileAppend.htm">FileAppend</a>、<a href="IniRead.htm">IniRead</a>、<a href="Sort.htm">Sort</a>、<a href="Download.htm">Download</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">

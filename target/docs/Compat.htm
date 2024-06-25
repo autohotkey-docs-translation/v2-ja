@@ -26,8 +26,8 @@
 </ul>
 
 <h2 id="Format">ユニコードとANSIの比較</h2>
-<p class="note"><strong>注：</strong>このセクションは、ドキュメントの他の部分でカバーされているトピックを構築しています。<a href="Concepts.htm#strings">文字列</a>、<a href="Concepts.htm#string-encoding">文字列のエンコード</a>。</p>
-<p>文字列（テキスト値）の中で、各文字の数値文字コードとサイズ（バイト数）は、文字列の<a href="Concepts.htm#string-encoding">エンコーディング</a>に依存します。これらの詳細は、通常、次のいずれかを実行するスクリプトで重要です。</p>
+<p class="note"><strong>注：</strong>このセクションは、ドキュメントの他の部分でカバーされているトピックを構築しています：<a href="Concepts.htm#strings">文字列</a>、<a href="Concepts.htm#string-encoding">文字列のエンコード</a>。</p>
+<p>文字列（テキスト値）の中で、各文字の数値文字コードとサイズ（バイト数）は、文字列の<a href="Concepts.htm#string-encoding">エンコーディング</a>に依存します。これらの詳細は、通常、次のいずれかを実行するスクリプトで重要です：</p>
 <ul>
   <li><a href="#DllCall">DllCall</a>で外部関数に文字列を渡します。</li>
   <li><a href="lib/PostMessage.htm">PostMessage</a>や <a href="lib/SendMessage.htm">SendMessage</a>で文字列を渡す。</li>
@@ -36,7 +36,7 @@
 </ul>
 <p>AutoHotkey v2はネイティブでUnicode（UTF-16）を使用しますが、一部の外部ライブラリやウィンドウメッセージではANSI文字列を必要とする場合があります。</p>
 <p><strong>ANSI：</strong>1文字が<strong>1バイト</strong>（8ビット）です。127以上の文字コードは、お使いのシステムの言語設定（または、ファイルへの書き込みなど、テキストをエンコードする際に選択されたコードページ）に依存します。</p>
-<p><strong>ユニコード:</strong>各文字は<strong>2バイト</strong>（16ビット）です。文字コードは、<a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a>形式で定義されたものです。</p>
+<p><strong>Unicode：</strong>各文字は<strong>2バイト</strong>（16ビット）です。文字コードは、<a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a>形式で定義されたものです。</p>
 <p class="Indent"><em>意味：</em>技術的には、一部のUnicode文字は<i>2つ</i>の16ビットコードユニットで表され、集合的に "サロゲートペア "として知られています。同様に、いくつかの<a href="https://learn.microsoft.com/windows/win32/intl/code-pages">ANSIコードページ</a>（一般に<a href="https://learn.microsoft.com/windows/win32/intl/double-byte-character-sets">ダブルバイト文字セット</a>として知られている）には、いくつかのダブルバイト文字が含まれています。しかし、実用上の理由から、これらはほとんどの場合、2つの個別のユニット（簡単のために「文字」と呼ばれる）として扱われます。</p>
 
 <h3 id="Buffer">Buffer</h3>
@@ -49,30 +49,30 @@ ansi_buf := Buffer(required_bytes)
 StrPut(source_string, ansi_buf)</pre>
 
 <h3 id="DllCall">DllCall</h3>
-<p>"Str"型が使用される場合、現在のビルドのネイティブフォーマットの文字列を意味します。関数によっては、特定の形式の文字列を要求したり、返したりすることがあるため、次のような文字列型を用意しています。</p>
+<p>"Str"型が使用される場合、現在のビルドのネイティブフォーマットの文字列を意味します。関数によっては、特定の形式の文字列を要求したり、返したりすることがあるため、次のような文字列型を用意しています：</p>
 <table class="info">
   <tr><th>&nbsp;</th><th class="center">文字サイズ</th><th>C / Win32 Types</th><th>エンコード</th></tr>
-  <tr><td class="Syntax center">WStr</td><td class="center">16-bit</td><td>wchar_t*, WCHAR*, LPWSTR, LPCWSTR</td><td>UTF-16</td></tr>
-  <tr><td class="Syntax center">AStr</td><td class="center">8-bit</td><td>char*, CHAR*, LPSTR, LPCSTR</td><td>ANSI（システムデフォルトのANSIコードページ）</td></tr>
-  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>AutoHotkey v2 の<b>WStr</b>に相当します。</td></tr>
+  <tr><td class="Syntax center">WStr</td><td class="center">16-bit</td><td>wchar_t*、WCHAR*、LPWSTR、LPCWSTR</td><td>UTF-16</td></tr>
+  <tr><td class="Syntax center">AStr</td><td class="center">8-bit</td><td>char*、CHAR*、LPSTR、LPCSTR</td><td>ANSI（システムデフォルトのANSIコードページ）</td></tr>
+  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*、LPTSTR、LPCTSTR</td><td>AutoHotkey v2 の<b>WStr</b>に相当します。</td></tr>
 </table>
 <p>パラメータに "Str" または "WStr" を使用した場合、文字列のアドレスが関数に渡されます。"AStr"の場合、文字列の一時的なANSIコピーが作成され、そのアドレスが代わりに渡されます。バッファは入力文字列を保持するのに十分な大きさしかないため、原則として "AStr"を出力パラメータに使用するべきではありません。</p>
 <p class="note"><b>注：</b>"AStr"および "WStr"は、パラメータおよび関数の戻り値に対して同様に有効です。</p>
-<p>一般に、スクリプトがDllCallを介して、文字列をパラメータとして受け付ける関数を呼び出す場合、以下のアプローチのうちの1つ以上を取る必要があります。</p>
+<p>一般に、スクリプトがDllCallを介して、文字列をパラメータとして受け付ける関数を呼び出す場合、以下のアプローチのうちの1つ以上を取る必要があります：</p>
 <ol>
-  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に "Str"型を使用します。例えば、DeleteFile関数は、<code>DeleteFileA</code>と <code>DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileW</code>を試行します。
+  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に "Str"型を使用します。例えば、DeleteFile関数は、<code>DeleteFileA</code>と <code>DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileW</code>を試行します：
   <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
 DllCall("DeleteFile", "Str", filename)</pre>
   <p>どちらの場合も、修正されていない元の文字列のアドレスが関数に渡されます。</p>
   <p>DllCallは、元の名前の関数が見つからなかった場合にのみ、Wサフィックスを追加するため、この方法が裏目に出る場合もあります。例えば、shell32.dllはExtractIconExW、ExtractIconExA、ExtractIconExをサフィックスなしでエクスポートし、最後の2つは同等です。その場合、Wサフィックスを省略すると、ANSIバージョンが呼び出されることになります。</p></li>
-  <li>関数が入力として特定のタイプの文字列を受け入れる場合、スクリプトは適切な文字列タイプを使用することができます。
+  <li>関数が入力として特定のタイプの文字列を受け入れる場合、スクリプトは適切な文字列タイプを使用することができます：
   <pre>DllCall("DeleteFileA", "AStr", filename)
 DllCall("DeleteFileW", "WStr", filename)</pre></li>
   <li>関数に出力用の文字列パラメータがある場合、スクリプトは<a href="#Buffer">上記</a>のようにバッファを確保し、それを関数に渡す必要があります。パラメータが入力を受け付ける場合、スクリプトは入力文字列を適切な形式に変換する必要があります。このために<a href="lib/StrPut.htm">StrPut</a>を使用することができます。</li>
 </ol>
 
 <h3 id="NumPutGet">NumPut / NumGet</h3>
-<p>NumPutまたはNumGetが文字列と共に使用される場合、オフセットと型は与えられた文字列の型に対して正しくなければならない。以下は目安としてお使いください。</p>
+<p>NumPutまたはNumGetが文字列と共に使用される場合、オフセットと型は与えられた文字列の型に対して正しくなければならない。以下は目安としてお使いください：</p>
 <pre><em>;  8-bit/ANSI   strings:  size_of_char=1  type_of_char="UChar"
 ; 16-bit/UTF-16 strings:  size_of_char=2  type_of_char="UShort"</em>
 <i>n</i>th_char := NumGet(buffer_or_address, (<i>n</i>-1)*size_of_char, type_of_char)
@@ -80,7 +80,7 @@ NumPut(type_of_char, <i>n</i>th_char, buffer_or_address, (<i>n</i>-1)*size_of_ch
 <p>最初の文字については、<em>n</em>は値1でなければならない。</p>
 
 <h2 id="ptr">ポインタサイズ</h2>
-<p>ポインターは32ビットビルドでは4バイト、64ビットビルドでは8バイトです。構造体やDllCallを使用するスクリプトは、両方のプラットフォームで正しく実行するために、これを考慮する必要があります。影響を受ける具体的な地域は以下の通りです。</p>
+<p>ポインターは32ビットビルドでは4バイト、64ビットビルドでは8バイトです。構造体やDllCallを使用するスクリプトは、両方のプラットフォームで正しく実行するために、これを考慮する必要があります。影響を受ける具体的な地域は以下の通りです：</p>
 <ul>
   <li>1つ以上のポインタを含む構造体のフィールドのオフセット計算を行う。</li>
   <li>1つ以上のポインタを含む構造体のサイズを計算します。</li>

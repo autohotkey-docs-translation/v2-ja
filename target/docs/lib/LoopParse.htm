@@ -32,8 +32,8 @@
 <pre class="no-highlight">"first field",SecondField,"the word ""special"" is quoted literally",,"last field, has literal comma"</pre>
       <p>Otherwise, specify one or more characters (case-sensitive), each of which is used to determine where the boundaries between substrings occur.</p>
       <p>デリミタ文字は、部分文字列自体の一部とはみなされません。In addition, if there is nothing between a pair of delimiter characters within the input string, the corresponding substring will be empty.</p>
-      <p>事例：<code>','</code>（カンマ）は、カンマが出現するたびに文字列を分割することになります。Similarly, <code>A_Space A_Tab</code> would start a new substring every time a space or tab is encountered in the input string.</p>
-      <p>文字列を文字ではなく区切り文字として使用するには、まず<a href="StrReplace.htm">StrReplace</a>を使用して、文字列のすべての出現箇所を、テキスト内で文字通り使用されることのない単一の文字（例えば、これらの特殊文字のいずれか）に置き換えます：<code>¢¤¥¦§©ª«®µ¶</code>. 文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
+      <p>事例：<code>','</code>（カンマ）は、カンマが出現するたびに文字列を分割することになります。同様に、<code>A_Space A_Tab</code>は、入力文字列の中でスペースやタブに遭遇するたびに新しい部分文字列を開始します。</p>
+      <p>文字列を文字ではなく区切り文字として使用するには、まず<a href="StrReplace.htm">StrReplace</a>を使用して、文字列のすべての出現箇所を、テキスト内で文字通り使用されることのない単一の文字（例えば、これらの特殊文字のいずれか）に置き換えます：<code>¢¤¥¦§©ª«®µ¶</code>。文字列&lt;br&gt; をデリミタとして使用する例を考えてみましょう：</p>
       <pre>NewHTML := StrReplace(HTMLString, "&lt;br&gt;", "¢")
 Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析します。</em>
 {
@@ -45,7 +45,7 @@ Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析しま
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, no characters will be excluded. Otherwise, specify a list of characters (case-sensitive) to exclude from the beginning and end of each substring. 例えば、<em>OmitChars</em>が <code>A_Space A_Tab</code>の場合、検索されたすべての部分文字列の先頭と末尾からスペースとタブが削除されます（中央は削除されない）。</p>
-    <p>If <em>DelimiterChars</em> is blank, <em>OmitChars</em> indicates which characters should be excluded from consideration (the loop will not see them).</p>
+    <p><em>DelimiterChars</em>が空白の場合、<em>OmitChars</em>は考慮から除外されるべき文字を示します（ループはそれらを見ません）。</p>
   </dd>
 
 </dl>
@@ -57,10 +57,10 @@ Loop Parse, NewHTML, "¢" <em>; セント記号を元に文字列を解析しま
 <p>入力文字列やそのフィールドのサイズに制限はありません。</p>
 <p>解析前にフィールドを別の順序で並べるには、<a href="Sort.htm">ソート</a>機能を使用します。</p>
 <p><a href="Block.htm">ブロック</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、A_Index変数（どのタイプのループにも存在する）については、「<a href="Loop.htm">Loop</a>」をご覧ください。</p>
-<p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。Note that the loop always has at least one iteration unless <em>String</em> is empty or <em>DelimiterChars</em> is omitted and all characters in <em>String</em> are included in <em>OmitChars</em>.</p>
+<p>ループの後に<a href="Else.htm">Else</a>文が続くこともあり、ループの反復回数がゼロの場合に実行されます。なお、<em>String</em>が空であるか、<em>DelimiterChars</em>が省略され、<em>String</em>のすべての文字が<em>OmitChars</em>に含まれない限り、ループは常に少なくとも1回繰り返されます。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="StrSplit.htm">StrSplit</a>, <a href="LoopRead.htm">file-reading loop</a>, <a href="Loop.htm">Loop</a>, <a href="Break.htm">Break</a>, <a href="Continue.htm">Continue</a>, <a href="Block.htm">Blocks</a>, <a href="Sort.htm">Sort</a>, <a href="FileSetAttrib.htm">FileSetAttrib</a>, <a href="FileSetTime.htm">FileSetTime</a></p>
+<p><a href="StrSplit.htm">StrSplit</a>、<a href="LoopRead.htm">ファイル読み込みループ</a>、<a href="Loop.htm">Loop</a>、<a href="Break.htm">Break</a>、<a href="Continue.htm">Continue</a>、<a href="Block.htm">ブロック</a>、<a href="Sort.htm">Sort</a>、<a href="FileSetAttrib.htm">FileSetAttrib</a>、<a href="FileSetTime.htm">FileSetTime</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
@@ -118,7 +118,7 @@ Loop Parse, Colors, ",|;"
     <em>; Retrieve the delimiter character found by the parsing loop.</em>
     DelimiterChar := SubStr(Colors, Position, 1)
 
-MsgBox "Field:" A_LoopField "`nDelimiter character:" DelimiterChar
+    MsgBox "Field: " A_LoopField "`nDelimiter character: " DelimiterChar
 }</pre>
 </div>
 

@@ -13,7 +13,7 @@
 <body>
 <h1>v1.0からv1.1への変更</h1>
 
-<p>この文書では、AutoHotkey v1.0とv1.1の間の変更点を詳細に説明します。この変更により、スクリプトの動作が異なる場合がありますので、古いコードを読んだり更新したりする際に覚えておくことが重要かもしれません。こちらもご覧ください：<a href="v2-changes.htm">v1.1からv2.0への変更点</a>。</p>
+<p>この文書では、AutoHotkey v1.0とv1.1の間の変更点を詳細に説明します。この変更により、スクリプトの動作が異なる場合がありますので、古いコードを読んだり更新したりする際に覚えておくことが重要かもしれません。こちらも参照のこと：<a href="v2-changes.htm">v1.1からv2.0への変更点</a>。</p>
 <p>AutoHotkey v1.1は「AutoHotkey_L」とも呼ばれ、AutoHotkey v1.0は「AutoHotkey Basic」と後付で表記された。AutoHotkey_Lの古いバージョンでは1.0.*のバージョン番号が使われているものもあるので、わかりやすくするために、このドキュメントではバージョン番号ではなく名前でAutoHotkeyの2つのブランチを参照しています。</p>
 
 <h2 id="toc">目次</h2>
@@ -21,19 +21,19 @@
 <ul>
   <li><a href="#Syntax_Errors">特定の構文エラーが許容されなくなった</a></li>
   <li><a href="#FileRead">FileReadが破損したバイナリデータを返すことがある</a></li>
-  <li><a href="#Names">変数名や関数名には、[, ]や?</a></li>
+  <li><a href="#Names">変数名や関数名には、[、]や？</a></li>
   <li><a href="#DPIScale">GUIではDPIスケーリングがデフォルトで有効になる</a></li>
 </ul>
 <p>中程度のインパクト：</p>
 <ul>
   <li><a href="#Transform">Transformの<em>Unicode</em>サブコマンドは、Unicodeバージョンでは利用できない</a></li>
-  <li><a href="#Default_Script">AutoHotkey.iniの代わりにAutoHotkey.ahkが起動します。</a></li>
-  <li><a href="#SetFormat">SetFormat、Integer、<strong>H</strong>は大文字小文字を区別します。</a></li>
-  <li><a href="#LastError">A_LastErrorは、より多くのコマンドによって変更されます。</a></li>
+  <li><a href="#Default_Script">AutoHotkey.iniの代わりにAutoHotkey.ahkが起動します</a></li>
+  <li><a href="#SetFormat">SetFormat, Integer, <strong>H</strong>は大文字小文字を区別します</a></li>
+  <li><a href="#LastError">A_LastErrorは、より多くのコマンドによって変更されます</a></li>
   <li><a href="#MsgBox">MsgBoxの方がカンマの扱いが安定している</a></li>
   <li><a href="#GuiOwner">Gui +Owner overrides additional styles</a></li>
-  <li><a href="#Tilde">~Tildeは、カスタムモディファイアキーの動作に影響を与えます。</a></li>
-  <li><a href="#ComboUpDown"><code>x &amp; y::</code>でxを離すと<code>x::</code>と<code>x up::</code>の両方が発射されます。</a></li>
+  <li><a href="#Tilde">~Tildeは、カスタムモディファイアキーの動作に影響を与えます</a></li>
+  <li><a href="#ComboUpDown"><code>x &amp; y::</code>でxを離すと<code>x::</code>と<code>x up::</code>の両方が発射されます</a></li>
 </ul>
 <p>影響が少ない：</p>
 <ul>
@@ -41,8 +41,8 @@
   <li><a href="#Window_Groups">GroupActivateでErrorLevelが設定され、GroupAddの<em>Label</em>が動作するのは異なる</a></li>
   <li><a href="#Run">RunとRunWaitで<em>Target</em>の解釈は異なる</a></li>
   <li><a href="#ControlZ">Control-Zはファイル終了として解釈されない</a></li>
-  <li><a href="#IsCompiled">A_IsCompiled は常に読み取り専用です。</a></li>
-  <li><a href="#DllCall">DllCallは、より多くのケースでAまたはWのサフィックスを試します。</a></li>
+  <li><a href="#IsCompiled">A_IsCompiled は常に読み取り専用です</a></li>
+  <li><a href="#DllCall">DllCallは、より多くのケースでAまたはWのサフィックスを試します</a></li>
 </ul>
 
 <span id="Validation"></span><h2 id="Syntax_Errors">シンタックスエラー</h2>
@@ -54,28 +54,28 @@
 
 <h2 id="Names">変数名と関数名</h2>
 <p><code>[</code>、<code>]</code>、<code>?</code>は<a href="Language.htm#expressions">式で</a>使うために予約されているため、変数名には使えません。その結果、（<a href="Variables.htm#ternary">3項演算</a>で使用される）<code>?</code>は、両脇にスペースを必要としなくなった。これらの文字を変数名に使用したv1.0のコードは、v1.1では新しい解釈を持つことになり、エラーとして検出されない可能性があります。</p>
-<p>関連:<a href="Language.htm#operators-for-objects">Operators for Objects</a>, <a href="v2-changes.htm#names">Names (Changes from v1.1 to v2.0)</a></p>
+<p>Related: <a href="Language.htm#operators-for-objects">Operators for Objects</a>, <a href="v2-changes.htm#names">Names (Changes from v1.1 to v2.0)</a></p>
 
 <h2 id="DPIScale">DPIスケーリング</h2>
-<p>スクリプトGUIでは、<a href="lib/Gui.htm#DPIScale">DPIスケーリング</a>がデフォルトで有効になっており、<a href="Variables.htm#ScreenDPI">システムのDPI設定</a>に応じたスケーリングが行われるようになっています。If enabled and the system DPI setting is not 96 (100&nbsp;%), positions and sizes accepted by or returned from Gui methods/properties are not compatible with other functions. DPIスケーリングを無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。</p>
+<p>スクリプトGUIでは、<a href="lib/Gui.htm#DPIScale">DPIスケーリング</a>がデフォルトで有効になっており、<a href="Variables.htm#ScreenDPI">システムのDPI設定</a>に応じたスケーリングが行われるようになっています。有効で、システムのDPI設定が96（100&nbsp;%）でない場合、Guiのメソッド/プロパティで受け入れたり、そこから返したりする位置やサイズは、他の関数と互換性がありません。DPIスケーリングを無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。</p>
 
 <h2 id="Transform">Transform</h2>
 <p><i>Transform</i>のサブコマンドの一部が変更されたり、使用できなくなったりします：</p>
 <ul>
-  <li><em>Transform Unicode</em> is available only in ANSI versions of AutoHotkey. Unicodeのテキストをクリップボードに割り当てるには、通常の割り当てを使用します。こちらもご覧ください：<a href="lib/StrPut.htm">StrPut</a>/<a href="lib/StrGet.htm">StrGet</a>.</li>
-  <li><em>Transform HTML</em> supports additional features in Unicode versions of AutoHotkey_L.</li>
+  <li><em>Transform Unicode</em>はAutoHotkeyのANSIバージョンでのみ利用可能です。Unicodeのテキストをクリップボードに割り当てるには、通常の割り当てを使用します。こちらもご覧ください：<a href="lib/StrPut.htm">StrPut</a>/<a href="lib/StrGet.htm">StrGet</a>。</li>
+  <li><em>Transform HTML</em>はAutoHotkey_LのUnicodeバージョンで追加機能をサポートしています。</li>
 </ul>
-<p><em>Transform</em> itself was removed in v2.0.</p>
+<p><em>Transform</em>自体はv2.0で削除されました。</p>
 
 <h2 id="Default_Script">デフォルトのスクリプト</h2>
 <p>スクリプトを指定せずにAutoHotkey_Lを起動した場合、.iniファイルではなく、.ahkファイルがデフォルトで読み込まれる。このファイルの名前は、現在の実行ファイルのファイル名に依存します。詳しくは、「<a href="Scripts.htm#defaultfile">スクリプトのファイル名</a>」をご覧ください。</p>
 
-<h2 id="SetFormat">SetFormat、Integer[Fast]、H</h2>
+<h2 id="SetFormat">SetFormat, Integer[Fast], H</h2>
 <p>大文字のHを使用した場合、16進数のA～Fも大文字になります。AutoHotkey Basicでは、常に小文字の数字が出力されます。</p>
-<p><em>SetFormat</em> itself was removed in v2.0. <code>Format("0x{:x}", n)</code> produces lowercase a-f while <code>Format("0x{:X}", n)</code> produces uppercase A-F.</p>
+<p><em>SetFormat</em>自体はv2.0で削除されました。<code>Format("0x{:x}", n)</code>では小文字のa-fが、<code>Format("0x{:X}", n)</code>では大文字のA-Fが生成されます。</p>
 
 <h2 id="LastError">A_LastError</h2>
-<p>以下のコマンドでは、デバッグを支援するために<a href="Variables.htm#LastError">A_LastError</a>を設定するようにしました：FileAppend, FileRead, FileReadLine, FileDelete, FileCopy, FileMove, FileGetAttrib/Time/Size/Version, FileSetAttrib/Time, FileCreateDir, RegRead, RegWrite, RegDelete. これらのコマンドを使用すると、A_LastErrorの以前の値は上書きされます。</p>
+<p>以下のコマンドでは、デバッグを支援するために<a href="Variables.htm#LastError">A_LastError</a>を設定するようにしました：FileAppend、FileRead、FileReadLine、FileDelete、FileCopy、FileMove、FileGetAttrib/Time/Size/Version、FileSetAttrib/Time、FileCreateDir、RegRead、RegWrite、RegDelete。これらのコマンドを使用すると、A_LastErrorの以前の値は上書きされます。</p>
 <p>v2.0では、A_LastErrorはIniRead、IniWrite、IniDeleteでも設定されます。</p>
 
 <h2 id="MsgBox">MsgBox</h2>
@@ -91,7 +91,7 @@
 <p>チルダ接頭辞が使われている場合を除き、カスタム修飾キーにキーダウンホットキーとキーアップホットキーの両方が定義されている場合、キーが離されたときに両方が発火することになります。例えば、<code>x &amp; y::</code>では、これまで<code>x::</code>が発射されることはなかったが、xを離すと<code>x::</code>と<code>x up::</code>の両方が発射されるようにします。</p>
 
 <h2 id="IfIs">If Var is [not] Type</h2>
-<p><em>If Var is [not] Type</em> identified certain (possibly locale-specific) non-ASCII characters as alphabetic/uppercase/lowercase by default in v1.0, whereas it did so in v1.1 only if <em>StringCaseSense Locale</em> was used. Similarly, the <a href="lib/Is.htm">Is<em>Type</em></a> functions in v2.0 only identify non-ASCII characters as alphabetic if the second parameter is <code>"Locale"</code>.</p>
+<p><em>If Var is [not] Type</em>はv1では特定の（おそらくロケール固有の）非 ASCII 文字をデフォルトでアルファベット/アッパーケース/小文字として識別しましたが、 v1.1 では <em>StringCaseSense Locale</em> が使われている場合にのみそうしていました。同様に、v2.0の<a href="lib/Is.htm">Is<em>Type</em></a>関数は、第2パラメータが<code>"Locale"</code>の場合にのみ非ASCII文字をアルファベットとして識別します。</p>
 
 <h2 id="Window_Groups">ウィンドウズ・グループ</h2>
 <p><a href="lib/GroupActivate.htm">GroupActivate</a>でErrorLevelを設定するのはv1.1のみで、v1.0やv2.0では設定しない。</p>
@@ -101,7 +101,7 @@
 <p>AutoHotkey_Lでは、<a href="lib/Run.htm">Run</a>コマンドと<a href="lib/Run.htm">RunWait</a>コマンドが<em>Target</em>パラメータを解釈する方法がいくつか強化されています。これにより、以前は動作しなかったものが動作するようになりますが、ごく稀に、AutoHotkey Basicで既に動作していたスクリプトにも影響を与える場合があります。新しい動作は以下の通りです：</p>
 <ul>
   <li><i>Target</i>が引用符で始まる場合、次の引用符までのすべてがアクションとみなされ、通常は実行可能なファイルです。</li>
-  <li>それ以外の場合、スペースで終わる最初の部分文字列で、既存のファイルか、.exe, .bat, .com, .cmd, .htaで終わるものが、アクションとみなされます。これにより、.ahk、.vbs、.lnkなどのファイルタイプでパラメータを受け付けることができるようになり、かつ、wordpad.exeなどの「既知の」実行ファイルを、以前のバージョンのように絶対パスなしで起動できるようになりました。</li>
+  <li>それ以外の場合、スペースで終わる最初の部分文字列で、既存のファイルか、.exe、.bat、.com、.cmd、.htaで終わるものが、アクションとみなされます。これにより、.ahk、.vbs、.lnkなどのファイルタイプでパラメータを受け付けることができるようになり、かつ、wordpad.exeなどの「既知の」実行ファイルを、以前のバージョンのように絶対パスなしで起動できるようになりました。</li>
 </ul>
 
 <h2 id="ControlZ">Control-Z</h2>

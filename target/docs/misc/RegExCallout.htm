@@ -18,16 +18,16 @@
 
 <h2 id="toc">目次</h2>
 <ul>
-    <li><a href="#syntax">Syntax</a></li>
+    <li><a href="#syntax">構文</a></li>
     <li><a href="#callout-functions">RegEx コールアウト関数</a></li>
     <li><a href="#EventInfo">EventInfo</a></li>
     <li><a href="#auto">Auto-Callout</a></li>
     <li><a href="#remarks">備考</a></li>
 </ul>
 
-<h2 id="syntax">Syntax</h2>
+<h2 id="syntax">構文</h2>
 
-<p>AutoHotkeyのRegExコールアウトの構文は、<span class="regex">(?C<em>数値</em>:<em>関数</em>)</span>で、<em>数値</em>と<em>関数</em>の両方はオプションです。コロン':'は、<em>Function</em>が指定されている場合のみ許可され、<em>Number</em>が省略されている場合はオプションである。<em>Function</em>が指定されているが<a href="Functor.htm">関数オブジェクト</a>の名前でない場合、コンパイル・エラーが発生し、パターンマッチングは開始されない。</p>
+<p>AutoHotkeyのRegExコールアウトの構文は、<span class="regex">(?C<em>Number</em>:<em>Function</em>)</span>で、<em>数値</em>と<em>関数</em>の両方はオプションです。コロン「:」は、<em>Function</em>が指定されている場合のみ許可され、<em>Number</em>が省略されている場合はオプションである。<em>Function</em>が指定されているが<a href="Functor.htm">関数オブジェクト</a>の名前でない場合、コンパイル・エラーが発生し、パターンマッチングは開始されない。</p>
 
 <p><em>Function</em>が省略された場合、<b>pcre_callout</b>というデフォルトのRegExコールアウト関数が定義されなければなりません。<em>pcre_callout</em>が定義されていない場合、<em>Function</em>を省略したRegExコールアウトは無視される。</p>
 
@@ -90,7 +90,7 @@ if (version &gt;= 2)
 
 <h2 id="auto">Auto-Callout</h2>
 
-<p>Including <strong>C</strong> in the options of the pattern enables the auto-callout mode. このモードでは、<span class="regex">(? C255)</span>は、パターン内の各項目の前に挿入される。たとえば、次のテンプレートを使用して正規表現をデバッグできます。</p>
+<p>Including <strong>C</strong> in the options of the pattern enables the auto-callout mode. このモードでは、<span class="regex">(? C255)</span>は、パターン内の各項目の前に挿入される。たとえば、次のテンプレートを使用して正規表現をデバッグできます：</p>
 <pre><em>; Call RegExMatch with auto-callout option C.</em>
 RegExMatch("xxxabc123xyz", "C)abc.*xyz")
 
@@ -104,17 +104,17 @@ pcre_callout(Match, CalloutNumber, FoundPos, Haystack, NeedleRegEx)
     pattern_position  := NumGet(A_EventInfo, 28 + pad + A_PtrSize*3, "Int")
     next_item_length  := NumGet(A_EventInfo, 32 + pad + A_PtrSize*3, "Int")
 
-<em>; Point out &gt;&gt;current match&lt;&lt;.</em>
+    <em>; Point out &gt;&gt;current match&lt;&lt;.</em>
     _HAYSTACK:=SubStr(Haystack, 1, start_match)
         . "&gt;&gt;" SubStr(Haystack, start_match + 1, current_position - start_match)
         . "&lt;&lt;" SubStr(Haystack, current_position + 1)
     
-<em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
+    <em>; Point out &gt;&gt;next item to be evaluated&lt;&lt;.</em>
     _NEEDLE:=  SubStr(NeedleRegEx, 1, pattern_position)
         . "&gt;&gt;" SubStr(NeedleRegEx, pattern_position + 1, next_item_length)
         . "&lt;&lt;" SubStr(NeedleRegEx, pattern_position + 1 + next_item_length)
     
-ListVars
+    ListVars
     <em>; 続けるにはPauseボタンを押してください。</em>
     Pause
 }</pre>

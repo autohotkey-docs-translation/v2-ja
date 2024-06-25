@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>File Object - メソッドとプロパティ｜AutoHotkey v2</title>
+<title>Fileオブジェクト - メソッドとプロパティ｜AutoHotkey v2</title>
 <meta name="description" content="The file object provides an interface for file input/output, such as reading or writing text or retrieving its length." />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,37 +10,37 @@
 </head>
 <body>
 
-<h1>File Object</h1>
+<h1>Fileオブジェクト</h1>
 <pre class="NoIndent">class File extends Object</pre>
 
 <p>Provides an interface for file input/output, such as reading or writing text or retrieving its length. <a href="FileOpen.htm">FileOpen</a>は、このタイプのオブジェクトを返します。</p>
 
-<p>"File"はクラスそのものなので、以下ではあらゆるFileオブジェクトのプレースホルダとして "FileObj"を使用します。</p>
+<p>「File」はクラスそのものなので、以下ではあらゆるFileオブジェクトのプレースホルダとして 「FileObj」を使用します。</p>
 <p><a href="Object.htm">Object</a>から継承されたメソッドとプロパティに加えて、Fileオブジェクトは以下の定義済みのメソッドとプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
 <ul class="indent">
-  <li><a href="#Methods">メソッド</a>:
+  <li><a href="#Methods">メソッド</a>：
     <ul>
-      <li><a href="#Read">Read</a>:ファイルから文字列を読み出し、ファイルポインタを進める。</li>
-      <li><a href="#Write">Write</a>:文字列をファイルに書き込み、ファイルポインタを進める。</li>
-      <li><a href="#ReadLine">ReadLine</a>:ファイルからテキストを1行読み出し、ファイルポインタを進める。</li>
+      <li><a href="#Read">Read</a>：ファイルから文字列を読み出し、ファイルポインタを進める。</li>
+      <li><a href="#Write">Write</a>：文字列をファイルに書き込み、ファイルポインタを進める。</li>
+      <li><a href="#ReadLine">ReadLine</a>：ファイルからテキストを1行読み出し、ファイルポインタを進める。</li>
       <li><a href="#WriteLine">WriteLine</a>: Writes a line of text to the file and advances the file pointer.</li>
-      <li><a href="#ReadNum">Read<em>NumType</em></a>:ファイルから数値を読み出し、ファイルポインタを進める。</li>
-      <li><a href="#WriteNum">Write<em>NumType</em></a>:ファイルに数値を書き込み、ファイルポインタを進める。</li>
-      <li><a href="#RawRead">RawRead</a>:ファイルから生のバイナリデータをメモリに読み込んで、ファイルポインタを進める。</li>
-      <li><a href="#RawWrite">RawWrite</a>:ファイルに生のバイナリデータを書き込み、ファイルポインタを進める。</li>
-      <li><a href="#Seek">Seek</a>:ファイルポインタを移動します。</li>
-      <li><a href="#Close">Close</a>:ファイルを閉じ、キャッシュ内のデータをディスクにフラッシュし、共有ロックを解除します。</li>
+      <li><a href="#ReadNum">Read<em>NumType</em></a>：ファイルから数値を読み出し、ファイルポインタを進める。</li>
+      <li><a href="#WriteNum">Write<em>NumType</em></a>：ファイルに数値を書き込み、ファイルポインタを進める。</li>
+      <li><a href="#RawRead">RawRead</a>：ファイルから生のバイナリデータをメモリに読み込んで、ファイルポインタを進める。</li>
+      <li><a href="#RawWrite">RawWrite</a>：ファイルに生のバイナリデータを書き込み、ファイルポインタを進める。</li>
+      <li><a href="#Seek">Seek</a>：ファイルポインタを移動します。</li>
+      <li><a href="#Close">Close</a>：ファイルを閉じ、キャッシュ内のデータをディスクにフラッシュし、共有ロックを解除します。</li>
     </ul>
   </li>
-  <li><a href="#Properties">プロパティ</a>:
+  <li><a href="#Properties">プロパティ</a>：
     <ul>
-      <li><a href="#Pos">Pos</a>:ファイルポインタの位置を取得または設定します。</li>
-      <li><a href="#Length">Length</a>:ファイルサイズを取得または設定します。</li>
+      <li><a href="#Pos">Pos</a>：ファイルポインタの位置を取得または設定します。</li>
+      <li><a href="#Length">Length</a>：ファイルサイズを取得または設定します。</li>
       <li><a href="#AtEOF">AtEOF</a>: Retrieves a non-zero number if the file pointer has reached the end of the file.</li>
-      <li><a href="#Encoding">Encoding</a>:このファイルオブジェクトが使用するテキストエンコーディングを取得または設定します。</li>
-      <li><a href="#Handle">Handle</a>:DllCallで使用することを目的としたシステムファイルハンドルを取得することができます。</li>
+      <li><a href="#Encoding">Encoding</a>：このファイルオブジェクトが使用するテキストエンコーディングを取得または設定します。</li>
+      <li><a href="#Handle">Handle</a>：DllCallで使用することを目的としたシステムファイルハンドルを取得することができます。</li>
     </ul>
   </li>
 </ul>
@@ -55,7 +55,7 @@
   <dt>Characters</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>省略された場合、ファイルの残りの部分が読み込まれ、1つの文字列として返されます。Otherwise, specify the maximum number of characters to read. Fileオブジェクトがコンソールバッファやパイプなどの非シーキングデバイスへのハンドルから作成された場合、このパラメータを省略すると、メソッドが失敗するか、現在利用可能なデータのみを返すことがあります。</p>
+    <p>省略された場合、ファイルの残りの部分が読み込まれ、1つの文字列として返されます。それ以外の場合は、読み込む最大文字数を指定する。Fileオブジェクトがコンソールバッファやパイプなどの非シーキングデバイスへのハンドルから作成された場合、このパラメータを省略すると、メソッドが失敗するか、現在利用可能なデータのみを返すことがあります。</p>
   </dd>
 </dl>
 <h4 id="Read_Return_Value">戻り値</h4>
@@ -107,9 +107,9 @@
 <div class="methodShort" id="ReadNum"><h3>Read<i>NumType</i></h3>
 <p>ファイルから数値を読み出し、ファイルポインタを進める。</p>
 <pre class="Syntax">Num := FileObj.<span class="func">Read<i>NumType</i></span>()</pre>
-<p><em>NumType</em>は、UInt, Int, Int64, Short, UShort, Char, UChar, Double, Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
+<p><em>NumType</em>は、UInt、Int、Int64、Short、UShort、Char、UChar、Double、Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
 <h4 id="ReadNum_Return_Value">戻り値</h4>
-<p>型：<a href="../Concepts.htm#numbers">Integer</a>, <a href="../Concepts.htm#numbers">Float</a> or <a href="../Concepts.htm#nothing">String (empty)</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a>, <a href="../Concepts.htm#numbers">Float</a> or <a href="../Concepts.htm#nothing">String (empty)</a></p>
 <p>On success, this method returns a number. On failure, it returns an empty string.</p>
 <h4 id="ReadNum_Remarks">備考</h4>
 <p>読み込んだバイト数が0でなく、<em>NumType</em>のサイズより小さい場合、不足するバイトは0とみなされます。</p>
@@ -118,7 +118,7 @@
 <div class="methodShort" id="WriteNum"><h3>Write<i>NumType</i></h3>
 <p>ファイルに数値を書き込み、ファイルポインタを進める。</p>
 <pre class="Syntax">BytesWritten := FileObj.<span class="func">Write<i>NumType</i></span>(Num)</pre>
-<p><em>NumType</em>は、UInt, Int, Int64, Short, UShort, Char, UChar, Double, Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
+<p><em>NumType</em>は、UInt、Int、Int64、Short、UShort、Char、UChar、Double、Float のいずれかです。これらの型名は、<a href="DllCall.htm#types">DllCall</a>と同じ意味を持ちます。</p>
 <h4 id="WriteNum_Parameters">パラメータ</h4><dl>
   <dt>Num</dt>
   <dd>
@@ -161,7 +161,7 @@
 <dl>
   <dt>Data</dt>
   <dd>
-    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>、<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>のいずれか</p>
+    <p>型：<a href="../Concepts.htm#objects">オブジェクト</a>、<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
     <p>バイナリデータを含む<a href="Buffer.htm">Buffer</a>のようなオブジェクトまたは文字列、またはメモリアドレス。オブジェクトまたは文字列が指定された場合、<em>Bytes</em>はオプションであり、デフォルトはバッファまたは文字列のサイズです。それ以外の場合は、<em>Bytes</em>も指定する必要があります。</p>
   </dd>
   <dt>Bytes</dt>
@@ -190,9 +190,9 @@
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted, it defaults to 2 when <em>Distance</em> is negative and 0 otherwise. Otherwise, specify one of the following numbers to indicate the starting point for the file pointer move:</p>
     <ul>
-      <li>0 (SEEK_SET):ファイルの先頭です。<i>距離</i>は、0以上でなければならない。</li>
-      <li>1 (SEEK_CUR):ファイルポインタの現在位置。</li>
-      <li>2 (SEEK_END):ファイル終了。<i>距離</i>は、通常、マイナスになるはずです。</li>
+      <li>0（SEEK_SET）：ファイルの先頭です。<i>距離</i>は、0以上でなければならない。</li>
+      <li>1（SEEK_CUR）：ファイルポインタの現在位置。</li>
+      <li>2（SEEK_END）：ファイル終了。<i>距離</i>は、通常、マイナスになるはずです。</li>
     </ul>
   </dd>
 </dl>
@@ -235,18 +235,18 @@
 <pre class="Syntax">CurrentEncoding := FileObj.<span class="func">Encoding</span></pre>
 <pre class="Syntax">FileObj.<span class="func">Encoding</span> := NewEncoding</pre>
   <p><em>NewEncoding</em>には、数値のコードページ識別子（<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">Microsoft Docs</a>を参照）または以下の文字列のいずれかを指定します。</p>
-  <p><em>CurrentEncoding</em> is one of the following strings:</p>
+  <p><em>CurrentEncoding</em>は、以下の文字列のいずれかである：</p>
   <ul>
-	<li><code class="no-highlight">UTF-8</code>:Unicode UTF-8、CP65001 と同等です。</li>
-	<li><code class="no-highlight">UTF-16</code>:CP1200 に相当するリトルエンディアンバイトオーダーの Unicode UTF-16 です。</li>
-	<li><code>CP<i>nnn</i></code>:数値識別子<i>nnn</i>を持つコードページです。</li>
+	<li><code class="no-highlight">UTF-8</code>：Unicode UTF-8、CP65001 と同等です。</li>
+	<li><code class="no-highlight">UTF-16</code>：CP1200 に相当するリトルエンディアンバイトオーダーの Unicode UTF-16 です。</li>
+	<li><code>CP<i>nnn</i></code>：数値識別子<i>nnn</i>を持つコードページです。</li>
   </ul>
-  <p><em>CurrentEncoding</em> is never a value with the <code>-RAW</code> suffix, regardless of how the file was opened or whether it contains a byte order mark (BOM). <em>NewEncoding</em>を設定しても、BOMが追加されたり削除されたりすることはありません。通常、BOMは最初にファイルを作成するときに書き込まれるためです。</p>
+  <p><em>CurrentEncoding</em>は、ファイルの開き方やバイトオーダーマーク（BOM）の有無にかかわらず、接尾辞<code>-RAW</code>を持つ値ではありません。<em>NewEncoding</em>を設定しても、BOMが追加されたり削除されたりすることはありません。通常、BOMは最初にファイルを作成するときに書き込まれるためです。</p>
   <p><em>NewEncoding</em>に<code class="no-highlight">UTF-8-RAW</code>または<code class="no-highlight">UTF-16-RAW</code>を指定することは有効ですが、<code>-RAW</code> という接尾辞は無視されます。これは<code>FileObj.Encoding</code>にのみ適用され、<a href="FileOpen.htm">FileOpen</a>には適用されません。</p>
 </div>
 
 <div class="methodShort" id="Handle"><h3>Handle</h3>
-  <p>Returns a system file handle, intended for use with <a href="DllCall.htm">DllCall</a>. See <a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.</p>
+  <p><a href="DllCall.htm">DllCall</a>で使用することを目的としたシステムファイルハンドルを返します。<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilea">CreateFile</a>を参照してください。</p>
 <pre class="Syntax">Handle := FileObj.<span class="func">Handle</span></pre>
 <p>ファイルオブジェクトは、内部的に読み書きをバッファリングします。データがオブジェクトの内部バッファに書き込まれている場合、ハンドルが返される前にディスクにコミットされます。If the buffer contains data read from file, it is discarded and the actual file pointer is reset to the logical position indicated by the <a href="#Pos">Pos</a> property.</p></div>
 

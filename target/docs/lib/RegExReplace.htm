@@ -34,7 +34,7 @@
   <dt>Replacement</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>If blank or omitted, <em>NeedleRegEx</em> will be replaced with blank (empty), meaning it will be omitted from the return value. Otherwise, specify the string to be substituted for each match, which is plain text (not a regular expression).</p>
+    <p>空白または省略したときは、<em>NeedleRegEx</em>は空白（空）に置き換えられ、戻り値から省略されます。Otherwise, specify the string to be substituted for each match, which is plain text (not a regular expression).</p>
     <p id="BackRef">This parameter may include backreferences like $1, which brings in the substring from <em>Haystack</em> that matched the first <a href="../misc/RegEx-QuickRef.htm#subpat">subpattern</a>. 最も単純な後方参照は$0から$9で、$0はパターン全体に一致した部分文字列、$1は最初の部分パターンに一致した部分文字列、$2は2番目、といった具合になります。For backreferences greater than 9 (and optionally those less than or equal to 9), enclose the number in braces; e.g. ${10}, ${11}, and so on. <a href="RegExMatch.htm#NamedSubPat">名前付きサブパターン</a>の場合は、名前を中括弧で囲みます（例：${SubpatternName}）。リテラルで$を指定する場合は$$を使用します（このような特別な扱いが必要な文字はこの文字だけで、バックスラッシュは何もエスケープする必要はありません）。</p>
     <p>サブパターンの大文字と小文字を変換するには、$の後に次のいずれかの文字を記述します：Uまたはu（大文字）、Lまたはl（小文字）、Tまたはt（タイトルケース、各単語の最初の文字を大文字にし、他を小文字にしたもの）。例えば、$U1と$U{1}は、どちらも最初のサブパターンの大文字を転写する。</p>
     <p>存在しない後方参照や、<em>Haystack</em>で何もマッチしなかったもの<span class="regex">(abc)|(xyz)</span>のサブパターンの1つなど）は、空文字列として書き出されます。</p>
@@ -55,7 +55,7 @@
   <dt>StartingPos</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>If omitted, it defaults to 1 (the beginning of <em>Haystack</em>). それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。If <em>StartingPos</em> is beyond the length of <em>Haystack</em>, the search starts at the empty string that lies at the end of <em>Haystack</em> (which typically results in no replacements).</p>
+    <p>If omitted, it defaults to 1 (the beginning of <em>Haystack</em>). それ以外の場合は、2文字目から始める場合は2、3文字目から始める場合は3、といった具合に指定します。<em>StartingPos</em>が <em>Haystack</em>の長さを超えている場合、<em>Haystack</em>の末尾にある空の文字列から検索を開始します（通常、置換されない結果になります）。</p>
     <p>負の<em>StartingPos</em>を指定すると、その位置で右からスタートする。例えば、-1は最後の文字から、-2はその次の文字から始まります。<em>StartingPos</em>が <em>Haystack</em>の左端を越えようとした場合、<em>Haystack</em>の全てが検索される。</p>
     <p>0を指定すると、<em>Haystack</em>の末尾、つまり最後の文字の右側の位置から開始します。これは、<code>(?&lt;=a)</code>のようなゼロ幅のアサーションで使用することができます。</p>
     <p><em>StartingPos</em>の値にかかわらず、戻り値は常に<em>Haystack</em>の完全なコピーです。唯一の違いは、<em>StartingPos</em>が1の場合に起こるであろうことと比較して、その左側の多くが変更されていないかもしれないということです。</p>
@@ -83,12 +83,12 @@
 <p>パフォーマンスを向上させるため、最近使用された100個の正規表現をメモリ上にキャッシュしておく（コンパイルされた状態）。</p>
 <p><a href="../misc/RegEx-QuickRef.htm#Study">学習オプション(S)</a>は、（ループ内などで）何度も使用される正規表現のパフォーマンスを向上させることができる場合があります。</p>
 <h2 id="Remarks">備考</h2>
-<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。However, any of the characters in the set <code>\.*?+[{|()^$</code> must be preceded by a backslash to be seen as literal. 例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。事例：<span class="regex">\QLiteral Text\E</span>.</p>
+<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
 <p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。For example, <span class="regex">`t</span> is the same as <span class="regex">\t</span> except when the <a href="../misc/RegEx-QuickRef.htm#opt_x">x option</a> is used.</p>
 <p>正規表現の基本を学ぶ（またはパターン構文の記憶を取り戻す）には、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <h2 id="Related">関連</h2>
 <p><a href="RegExMatch.htm">RegExMatch</a>, <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>, <a href="../misc/RegExCallout.htm">Regular Expression Callouts</a>, <a href="StrReplace.htm">StrReplace</a>, <a href="InStr.htm">InStr</a></p>
-<p>テキストデータの一般的なソース：<a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
+<p>Common sources of text data: <a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
 <h2 id="Examples">例</h2>
 <p>一般的なRegExの例については、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <div class="ex" id="ExDollar">

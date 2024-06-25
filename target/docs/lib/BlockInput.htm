@@ -23,25 +23,25 @@
   <dt>OnOff</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>すべてのユーザー入力を無条件でブロックするモードです。以下のいずれかの値を指定します。</p>
-    <p><strong>On</strong> or <strong>1</strong> (<a href="../Variables.htm#True">true</a>):ユーザーがコンピューターと対話することができない（マウスやキーボードの入力が効果を発揮しない）状態です。</p>
-    <p><strong>Off</strong> or <strong>0</strong> (<a href="../Variables.htm#False">false</a>):入力が再有効化されます。</p>
+    <p>すべてのユーザー入力を無条件でブロックするモードです。以下のいずれかの値を指定します：</p>
+    <p><strong>On</strong> または <strong>1</strong>（<a href="../Variables.htm#True">true</a>）：ユーザーがコンピューターと対話することができない（マウスやキーボードの入力が効果を発揮しない）状態です。</p>
+    <p><strong>Off</strong> または <strong>0</strong>（<a href="../Variables.htm#False">false</a>）：入力が再有効化されます。</p>
   </dd>
   <dt>SendMouse</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>このモードは、特定の送信および/またはマウス機能の実行中にのみ、ユーザー入力をブロックします。次のいずれかの単語を指定します。</p>
-    <p><strong>Send:</strong> The user's keyboard and mouse input is ignored while a <a href="Send.htm">SendEvent</a> is in progress (including <a href="Send.htm">Send</a> and <a href="Send.htm">SendText</a> if <code>SendMode "Event"</code> has been used). これにより、ユーザーのキー入力が模擬キー入力の流れを乱すことを防いでいます。送信終了後、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされていた場合を除く）。</p>
-    <p><strong>Mouse:</strong> The user's keyboard and mouse input is ignored while a <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, or <a href="MouseClickDrag.htm">MouseClickDrag</a> is in progress (the traditional <a href="SendMode.htm">SendEvent mode</a> only). これにより、ユーザーのマウスの動きやクリックが、シミュレートされたマウスイベントを乱すことを防ぐことができます。マウス操作が終了すると、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされている場合を除く）。</p>
-    <p><strong>SendAndMouse:</strong> A combination of the above two modes.</p>
-    <p><strong>Default:</strong> Turns off both the <em>Send</em> and the <em>Mouse</em> modes, but does not change the current state of input blocking. 例えば、現在<code>BlockInput "On"</code>が有効な場合、<code>BlockInput "Default"</code>を使用しても、これをオフにすることはできません。</p>
+    <p>このモードは、特定の送信および/またはマウス機能の実行中にのみ、ユーザー入力をブロックします。次のいずれかの単語を指定します：</p>
+    <p><strong>Send：</strong><a href="Send.htm">SendEvent</a>（<code>SendMode "Event"</code>が使用されている場合は<a href="Send.htm">Send</a>と <a href="Send.htm">SendText</a>を含む）の実行中は、ユーザーのキーボードとマウス入力は無視されます。これにより、ユーザーのキー入力が模擬キー入力の流れを乱すことを防いでいます。送信終了後、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされていた場合を除く）。</p>
+    <p><strong>Mouse：</strong><a href="Click.htm">Click</a>、<a href="MouseMove.htm">MouseMove</a>、<a href="MouseClick.htm">MouseClick</a>、または、<a href="MouseClickDrag.htm">MouseClickDrag</a>の実行中は、ユーザーのキーボードやマウスの入力は無視されます（従来の<a href="SendMode.htm">SendEventモード</a>の場合のみ）。これにより、ユーザーのマウスの動きやクリックが、シミュレートされたマウスイベントを乱すことを防ぐことができます。マウス操作が終了すると、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされている場合を除く）。</p>
+    <p><strong>SendAndMouse：</strong>上記2つのモードを組み合わせたもの。</p>
+    <p><strong>Default：</strong><em>送信</em>モードと<em>マウス</em>モードの両方をオフにしますが、入力ブロックの現在の状態は変更しません。例えば、現在<code>BlockInput "On"</code>が有効な場合、<code>BlockInput "Default"</code>を使用しても、これをオフにすることはできません。</p>
   </dd>
   <dt id="MouseMove">MouseMove</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>このモードは、マウスカーソルの移動のみをブロックします。次のいずれかの単語を指定します。</p>
-    <p><strong>MouseMove:</strong> The mouse cursor will not move in response to the user's physical movement of the mouse (DirectInput applications are a possible exception). スクリプトがこの機能を初めて使用するとき、<a href="InstallMouseHook.htm">マウスフック</a>がインストールされます（まだインストールされていない場合）。マウスフックは、次に<a href="Suspend.htm">サスペンド</a>または<a href="Hotkey.htm">ホットキー</a>機能を使用するまで設置されたままとなり、ホットキーやホットストリングで必要とされない場合は、その時点で削除されます（<a href="_Hotstring.htm">#Hotstring NoMouse</a>を参照）。</p>
-    <p><strong>MouseMoveOff:</strong> Allows the user to move the mouse cursor.</p>
+    <p>このモードは、マウスカーソルの移動のみをブロックします。次のいずれかの単語を指定します：</p>
+    <p><strong>MouseMove：</strong>マウスカーソルは、ユーザーのマウスの物理的な動きに反応して動くことはありません（DirectInputアプリケーションは例外となる可能性があります）。スクリプトがこの機能を初めて使用するとき、<a href="InstallMouseHook.htm">マウスフック</a>がインストールされます（まだインストールされていない場合）。マウスフックは、次に<a href="Suspend.htm">サスペンド</a>または<a href="Hotkey.htm">ホットキー</a>機能を使用するまで設置されたままとなり、ホットキーやホットストリングで必要とされない場合は、その時点で削除されます（<a href="_Hotstring.htm">#Hotstring NoMouse</a>を参照）。</p>
+    <p><strong>MouseMoveOff：</strong>マウスカーソルの移動を許可します。</p>
   </dd>
 
 </dl>
@@ -50,20 +50,20 @@
 <p>BlockInputの3つのモード（<em>OnOff</em>、<em>SendMouse</em>、<em>MouseMove</em>）は、それぞれ独立して動作します。例えば、<code>BlockInput "On"</code>は、<em>SendMouse</em>からのワードの1つが有効であっても、<code>BlockInput "Off"</code>が使われるまで、入力をブロックし続けます。他の例として、<code>BlockInput "On"</code>と<code>BlockInput "MouseMove"</code>の両方が有効な場合、両方がオフになるまでマウスの移動がブロックされることがあります。</p>
 <p class="note"><strong>注：</strong>UACが有効になっていたり、スクリプトが管理者として実行されていない場合、<em>OnOff</em>と <em>SendMouse</em>モードは効果がない場合があります。詳しくは、<a href="../FAQ.htm#uac">FAQ</a>を参照してください。</p>
 <p>BlockInputよりも、<code><a href="SendMode.htm">SendMode</a> "Input"</code>や<code><a href="SendMode.htm">SendMode</a> "Play"</code>を使用した方が、キー入力やマウスクリックが途切れることなく行える場合があります。これは、BlockInputとは異なり、これらのモードでは送信中にユーザーが入力したものを破棄せず、代わりにそれらのキーストロークをバッファリングして後に送信するためです。BlockInputを避けることで、次の段落で説明するスティッキングキーを回避することもできます。</p>
-<p>ユーザーがキーを押しているときにBlockInputがアクティブになると、そのキーが "stuck down"になってしまうことがあります。この例では、BlockInputをオンにする前にキーが解放されるのを待つことで、これを回避することができます。</p>
+<p>ユーザーがキーを押しているときにBlockInputがアクティブになると、そのキーが "stuck down"になってしまうことがあります。この例では、BlockInputをオンにする前にキーが解放されるのを待つことで、これを回避することができます：</p>
 <pre>^!p::
 {
     KeyWait "Control"  <em>; キーが解除されるのを待ちます。  ホットキーのモディファイアごとに1つのKeyWaitを使用します。</em>
     KeyWait "Alt"
     BlockInput true
-    <em>; ... キー操作やマウスクリックを送信する...</em>
+    <em>; ...キー操作やマウスクリックを送信する...</em>
     BlockInput false
 }</pre>
 <p>BlockInputが有効な場合、ユーザー入力はブロックされますが、AutoHotkeyはキーストロークやマウスクリックをシミュレートできます。ただし、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>を押すと、Windows APIの機能により、入力が再有効化されます。</p>
-<p>BlockInputがオンの場合でも、ある種の<a href="_UseHook.htm">フックホットキー</a>はトリガーすることができます。Examples include <code>MButton</code> (mouse hook) and <code>LWin &amp; Space</code> (keyboard hook with explicit prefix rather than modifiers <code>$#</code>).</p>
+<p>BlockInputがオンの場合でも、ある種の<a href="_UseHook.htm">フックホットキー</a>はトリガーすることができます。例えば、<code>MButton</code>（マウスフック）、<code>LWin &amp; Space</code>（キーボードフック、修飾語<code>$#</code>ではなく明示的な接頭語を持つ）などがあります。</p>
 <p>スクリプトが終了すると、入力は自動的に再有効化されます。</p>
 <h2 id="Related">関連</h2>
-<p><a href="SendMode.htm">SendMode</a>, <a href="Send.htm">Send</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, <a href="MouseClickDrag.htm">MouseClickDrag</a></p>
+<p><a href="SendMode.htm">SendMode</a>、<a href="Send.htm">Send</a>、<a href="Click.htm">Click</a>、<a href="MouseMove.htm">MouseMove</a>、<a href="MouseClick.htm">MouseClick</a>、<a href="MouseClickDrag.htm">MouseClickDrag</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> BlockInputをONにした状態でF5を送るとメモ帳が開き、時刻や日付を貼り付けることができます。なお、BlockInputは、スクリプトが管理者として実行されている場合にのみ動作する可能性があります。</p>

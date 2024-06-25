@@ -15,7 +15,7 @@
 <p>画像ファイル名の代わりにアイコンやビットマップハンドルを使うには、以下の構文を使います：</p>
 <pre class="Syntax">HBITMAP:<i>BitmapHandle</i>
 HICON:<i>IconHandle</i></pre>
-<p>Replace <em>BitmapHandle</em> or <em>IconHandle</em> with the actual handle value. 例えば、<code>"hicon:" handle</code>のように、<em>handle</em>はアイコンハンドルを含む変数である。</p>
+<p><em>BitmapHandle</em>または<em>IconHandle</em>を実際のハンドル値に置き換える。例えば、<code>"hicon:" handle</code>のように、<em>handle</em>はアイコンハンドルを含む変数である。</p>
 <p>以下のものがこの構文をサポートしている：</p>
 <ul>
   <li><a href="../lib/GuiControls.htm#Picture">Gui.AddPicture</a>（ピクチャコントロールのコンテンツを設定する場合は<a href="../lib/GuiControl.htm#Value">GuiCtrl.Value</a>）。</li>
@@ -23,10 +23,10 @@ HICON:<i>IconHandle</i></pre>
   <li><a href="../lib/LoadPicture.htm">LoadPicture</a></li>
   <li><a href="../lib/GuiControls.htm#SB_SetIcon">SB.SetIcon</a></li>
   <li><a href="../lib/ImageSearch.htm">ImageSearch</a></li>
-  <li><a href="../lib/TraySetIcon.htm">TraySetIcon</a> or <a href="../lib/Menu.htm#SetIcon">Menu.SetIcon</a></li>
+  <li><a href="../lib/TraySetIcon.htm">TraySetIcon</a>または<a href="../lib/Menu.htm#SetIcon">Menu.SetIcon</a></li>
 </ul>
 <p>ビットマップやアイコンのハンドルは、メモリ上のビットマップやアイコンを識別する数値です。ほとんどの場合、AutoHotkeyがファイルから画像を読み込み、不要になったら画像を解放します。上に示した構文は、スクリプトがウィンドウにWM_GETICONメッセージを送るなどして、他のソースからアイコンやビットマップハンドルを取得するときに使用するためのものです。また、<a href="../lib/LoadPicture.htm">LoadPicture</a>と組み合わせて使用することで、ファイルから画像を何度も読み込むことを避けることができます。</p>
-<p>デフォルトでは、AutoHotkeyは画像をファイルから読み込んだものとしてハンドルを扱います。例えば、ピクチャコントロールで使用されているビットマップは、GUIが破棄されると削除されますし、画像のサイズを変更する必要がある場合は、通常すぐに削除されます。これを避けるには、コロンとハンドルの間にアスタリスクを入れる。事例：<code>"hbitmap:*" handle</code>. ImageSearchを除き、この関数は強制的に画像のコピーを取ります。</p>
+<p>デフォルトでは、AutoHotkeyは画像をファイルから読み込んだものとしてハンドルを扱います。例えば、ピクチャコントロールで使用されているビットマップは、GUIが破棄されると削除されますし、画像のサイズを変更する必要がある場合は、通常すぐに削除されます。これを避けるには、コロンとハンドルの間にアスタリスクを入れる。For example: <code>"hbitmap:*" handle</code>. ImageSearchを除き、この関数は強制的に画像のコピーを取ります。</p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExHICON">
@@ -43,9 +43,9 @@ fileinfo := Buffer(fisize := A_PtrSize + 688)
 Loop Files, pattern, "FD"
 {
     <em>; Add a menu item for each file.</em>
-    Fmenu.Add A_LoopFileName, (*) =&gt; "" <em>; Do nothing.</em>
+    Fmenu.Add A_LoopFileName, (*) =&gt; "" <em>; 何もしません。</em>
     
-<em>; Get the file's icon.</em>
+    <em>; Get the file's icon.</em>
     if DllCall("shell32\SHGetFileInfoW", "WStr", A_LoopFileFullPath
         , "UInt", 0, "Ptr", fileinfo, "UInt", fisize, "UInt", 0x100)
     {

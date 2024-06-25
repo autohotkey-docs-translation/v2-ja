@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<h1>Long Paths</h1>
+<h1>ロングパス</h1>
 
 <p>一般的に、プログラムは2種類のパス長制限の影響を受ける：</p>
 <ol>
@@ -29,7 +29,7 @@
 <p>特に正規化だ：</p>
 <ul>
   <li><code>dir\file.ext</code>, <code>\file.ext</code>, <code>C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
-  <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。  </li>
+  <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。</li>
   <li>コンポーネント/ディレクトリのセパレータを正規化し、<code>/</code>を <code>\</code>に置き換え、冗長なセパレータを削除します。</li>
   <li>コンポーネント（<code>dir.\file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
 </ul>
@@ -41,7 +41,7 @@
     DllCall("GetFullPathName", "str", path, "uint", cc, "ptr", buf, "ptr", 0)
     return StrGet(buf)
 }</pre>
-<p><code>\\?\</code>接頭辞を持つパスも、この関数で正規化できる。しかし、その場合、作業ディレクトリは決して使用されず、ルートは<code>\\?\</code> (例えは、<code>\\?\C:\..</code>は、<code>\\?\</code>に解決され、<code>C:\..</code>は、<code>C:\</code>に解決される。).</p>
+<p><code>\\?\</code>接頭辞を持つパスも、この関数で正規化できる。しかし、その場合、作業ディレクトリは決して使用されず、ルートは<code>\\?\</code>（例えは、<code>\\?\C:\..</code>は、<code>\\?\</code>に解決され、<code>C:\..</code>は、<code>C:\</code>に解決される）。</p>
 
 <h2 id="limitations">既知の制限事項</h2>
 <p>パス自体が259文字に制限されていない場合でも、各コンポーネント（ファイル名またはディレクトリ名）は、ファイルシステムによって課されるハードリミット（通常は255文字）を超えることはできません。</p>
@@ -56,7 +56,7 @@
   <li><a href="../lib/FileRecycle.htm">FileRecycle</a></li>
   <li><a href="../lib/SoundPlay.htm">SoundPlay</a>（この場合は127文字まで）</li>
   <li><a href="../lib/DriveSetLabel.htm">DriveSetLabel</a>および<a href="../lib/Drive.htm">DriveGet のバリエーション</a>(<a href="../lib/DriveGetType.htm">DriveGetType</a>を除く)</li>
-  <li>特殊なフォルダー・パス（長いパスはどのみち不可能かもしれない）を返す組み込み変数：<a href="../Variables.htm#AppData">A_AppData</a>, <a href="../Variables.htm#Desktop">A_Desktop</a>, <a href="../Variables.htm#MyDocuments">A_MyDocuments</a>, <a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>, <a href="../Variables.htm#Programs">A_Programs</a>, <a href="../Variables.htm#StartMenu">A_StartMenu</a>, <a href="../Variables.htm#Startup">A_Startup</a> and Common variants, <a href="../Variables.htm#Temp">A_Temp</a> and <a href="../Variables.htm#WinDir">A_WinDir</a></li>
+  <li>特殊なフォルダー・パス（長いパスはどのみち不可能かもしれない）を返す組み込み変数：<a href="../Variables.htm#AppData">A_AppData</a>、<a href="../Variables.htm#Desktop">A_Desktop</a>、<a href="../Variables.htm#MyDocuments">A_MyDocuments</a>、<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>、<a href="../Variables.htm#Programs">A_Programs</a>、<a href="../Variables.htm#StartMenu">A_StartMenu</a>、<a href="../Variables.htm#Startup">A_Startup</a>およびCommonバリアント、<a href="../Variables.htm#Temp">A_Temp</a>、<a href="../Variables.htm#WinDir">A_WinDir</a></li>
 </ul>
 <p><a href="../lib/SetWorkingDir.htm">SetWorkingDir</a>と <a href="../Variables.htm#WorkingDir">A_WorkingDir</a>は、<code>\\?\</code>接頭辞が使用できないため、Windows 10のロング・パス認識が有効な場合にのみロング・パスに対応します。作業ディレクトリがMAX_PATHを超えると、<a href="../lib/Run.htm">Run</a>でプログラムを起動できなくなる。これらの制限はOSによって課される。</p>
 <p>MAX_PATHを超えるフルパスで実行ファイルを実行することはできないようです。そうなると、より長い実行可能パスをサポートすることを目的とした変更を完全にテストすることはできない。そのため、MAX_PATHの制限は以下のように残されている：</p>
@@ -64,7 +64,7 @@
   <li><a href="WinTitle.htm#ahk_exe">ahk_exe</a></li>
   <li>デフォルトのスクリプトのパスで、現在の実行ファイルのパスに基づいている。</li>
   <li>AutoHotkeyのインストールディレクトリの取得。コンパイルされたスクリプトで<a href="../Variables.htm#AhkPath">A_AhkPath</a>によって使用され、Window Spyまたはヘルプファイルを起動するために使用されます。</li>
-  <li><a href="../lib/WinGetProcessPath.htm">WinGetProcessPath</a>.</li>
+  <li><a href="../lib/WinGetProcessPath.htm">WinGetProcessPath</a>。</li>
   <li><a href="../lib/WinGetProcessName.htm">WinGetProcessName</a>（これは名前部分にのみ適用され、NTFSは255文字までの名前しかサポートしないので、理論的には問題ない）。</li>
 </ul>
 <p>エラーメッセージに表示される長い<a href="../lib/_Include.htm">#Include</a>パスは、任意に切り捨てられる可能性があります。</p>

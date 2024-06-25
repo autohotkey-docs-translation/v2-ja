@@ -24,10 +24,10 @@
   <dt>MatchMode</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>以下のいずれかの値を指定します。</p>
-    <p><strong>1:</strong>ウィンドウのタイトルは、指定された<em>WinTitle</em>で始まらなければ一致しない。</p>
+    <p>以下のいずれかの値を指定します：</p>
+    <p><strong>1：</strong>ウィンドウのタイトルは、指定された<em>WinTitle</em>で始まらなければ一致しない。</p>
     <p><strong>2：</strong>デフォルトの動作。ウィンドウのタイトルは、その中のどこかに<em>WinTitle</em>を含んでいても一致する。</p>
-    <p><strong>3:</strong>ウィンドウのタイトルは<em>WinTitle</em>と完全に一致しなければならない。</p>
+    <p><strong>3：</strong>ウィンドウのタイトルは<em>WinTitle</em>と完全に一致しなければならない。</p>
     <p id="RegEx"><strong>RegEx:</strong> Changes <em>WinTitle</em>, <em>WinText</em>, <em>ExcludeTitle</em>, and <em>ExcludeText</em> to accept <a href="../misc/RegEx-QuickRef.htm">regular expressions</a>, e.g. <code><a href="WinActivate.htm">WinActivate</a> "Untitled.*Notepad"</code>. RegExは<a href="../misc/WinTitle.htm#ahk_class">ahk_class</a>と <a href="../misc/WinTitle.htm#ahk_exe">ahk_exe</a>にも適用されます。例えば、<code>"ahk_class IEFrame"</code>は、クラス名に<em>IEFrame</em>が含まれるウィンドウを検索します（デフォルトでは、正規表現はターゲット文字列の<em>どこでも</em>マッチを見つけるからです）。<em>WinTitle</em>の場合、各コンポーネントは別々で、例えば<code>"i)^untitled ahk_class i)^notepad$ ahk_pid " mypid</code>では、<code>i)^untitled</code>と<code>i)^notepad$</code>は別々の正規表現パターンであり、<code>mypid</code>は常に数値で比較される（正規表現パターンではない）。<em>WinText</em>の場合、各テキスト要素（つまり各コントロールのテキスト）は別々にRegExと照合されるため、複数のテキスト要素にまたがる照合はできません。</p>
     <p>上記のモードは、<em>WinTitle</em>と同様に<em>ExcludeTitle</em>にも影響する。例えば、モード3では、ウィンドウのタイトルが<em>ExcludeTitle</em>と完全に一致するウィンドウを除外する必要があります。</p>
     <p>Of the modes, <i>only</i> RegEx mode affects the non-title window matching criteria <a href="../misc/WinTitle.htm#ahk_class">ahk_class</a> and <a href="../misc/WinTitle.htm#ahk_exe">ahk_exe</a>. Those matching criteria will operate identically in any of the numbered modes.</p>
@@ -37,8 +37,8 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p><em>WinText</em>と <em>ExcludeText</em>パラメータをどのようにマッチさせるかを示すために、以下の単語のいずれかを指定する：</p>
-    <p><strong>Fast:</strong>デフォルトの動作。パフォーマンスはスローモードよりも大幅に向上するかもしれないが、ある種のコントロールは検出されない。例えば、テキストは通常、静的コントロールとボタンコントロールの中で検出されるが、スクリプトによって所有されていない限り、編集コントロールは検出されない。</p>
-    <p><strong>Slow:</strong>かなり遅くなるが、<a href="https://learn.microsoft.com/windows/win32/winmsg/wm-gettext">WM_GETTEXT</a>メッセージに応答するすべてのコントロールで動作する。</p>
+    <p><strong>Fast：</strong>デフォルトの動作。パフォーマンスはスローモードよりも大幅に向上するかもしれないが、ある種のコントロールは検出されない。例えば、テキストは通常、静的コントロールとボタンコントロールの中で検出されるが、スクリプトによって所有されていない限り、編集コントロールは検出されない。</p>
+    <p><strong>Slow：</strong>かなり遅くなるが、<a href="https://learn.microsoft.com/windows/win32/winmsg/wm-gettext">WM_GETTEXT</a>メッセージに応答するすべてのコントロールで動作する。</p>
   </dd>
 
 </dl>
@@ -57,7 +57,7 @@
 <pre>SetTitleMatchMode 2
 SetTitleMatchMode "Slow"</pre>
 <p>組み込み変数<strong>A_TitleMatchMode</strong>と<strong>A_TitleMatchModeSpeed</strong>には、現在の設定が格納されています。</p>
-<p>Regardless of the current match mode, <em>WinTitle</em>, <em>WinText</em>, <em>ExcludeTitle</em> and <em>ExcludeText</em> are case-sensitive. 唯一の例外は、<code>"<strong>i)</strong>untitled - notepad"</code>のようなRegExモードの<a href="../misc/RegEx-QuickRef.htm#Options">大文字小文字を区別しないオプション</a>である。</p>
+<p>現在のマッチモードに関わらず、<em>WinTitle</em>、<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>は大文字と小文字を区別する。唯一の例外は、<code>"<strong>i)</strong>untitled - notepad"</code>のようなRegExモードの<a href="../misc/RegEx-QuickRef.htm#Options">大文字小文字を区別しないオプション</a>である。</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>
 <p><a href="../misc/WinTitle.htm">The WinTitle Parameter</a>, <a href="SetWinDelay.htm">SetWinDelay</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="RegExMatch.htm">RegExMatch</a></p>
