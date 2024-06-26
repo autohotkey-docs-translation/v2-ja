@@ -42,12 +42,12 @@
 <p>アクティブ・ウィンドウが非表示で、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>がオフになっている場合、マッチするとはみなされない。その代わり、マッチング・ウインドウがあれば、それが表示される。</p>
 <p>他のウィンドウをアクティブにした直後にウィンドウをアクティブにすると、システムによってはタスクバーのボタンが点滅し始めることがあります（OSや設定によって異なります）。これを防ぐために、<a href="_WinActivateForce.htm">#WinActivateForce</a>を使ってください。</p>
 <p><strong>既知の問題：</strong>スクリプトがリモートデスクトップ経由でアクセスされているコンピュータまたはサーバー上で実行されている場合、リモートデスクトップクライアントが最小化されていると、WinActivateがハングすることがあります。回避策のひとつは、<a href="ControlSend.htm">ControlSend</a>や <a href="ControlClick.htm">ControlClick</a>のような、ウィンドウのアクティブ化を必要としない組み込み関数を使うことです。もう1つの可能な回避策は、ローカル/クライアントコンピュータで以下のレジストリ設定を適用することです：</p>
-<pre><em>HKCUをHKLMに変更し、このシステムのすべてのユーザーに影響を与える。</em>
+<pre><em>; HKCUをHKLMに変更し、このシステムのすべてのユーザーに影響を与える。</em>
 RegWrite "REG_DWORD", "HKCU\Software\Microsoft\Terminal Server Client"
     , "RemoteDesktop_SuppressWhenMinimized", 2</pre>
 
 <h2 id="Related">関連</h2>
-<p><a href="WinActivateBottom.htm">WinActivateBottom</a>, <a href="_WinActivateForce.htm">#WinActivateForce</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>, <a href="WinExist.htm">WinExist</a>, <a href="WinActive.htm">WinActive</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="WinClose.htm">WinClose</a>, <a href="GroupActivate.htm">GroupActivate</a>, <a href="Win.htm">Win functions</a></p>
+<p><a href="WinActivateBottom.htm">WinActivateBottom</a>、<a href="_WinActivateForce.htm">#WinActivateForce</a>、<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>、<a href="../misc/WinTitle.htm#LastFoundWindow">ラストファウンドウィンドウ</a>、<a href="WinExist.htm">WinExist</a>、<a href="WinActive.htm">WinActive</a>、<a href="WinWaitActive.htm">WinWaitActive</a>、<a href="WinWait.htm">WinWait</a>、<a href="WinWaitClose.htm">WinWaitClose</a>、<a href="WinClose.htm">WinClose</a>、<a href="GroupActivate.htm">GroupActivate</a>、<a href="Win.htm">Win関数</a></p>
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
 <p><a class="ex_number" href="#ExBasic"></a> メモ帳があればそれを起動し、なければ電卓を起動する。</p>

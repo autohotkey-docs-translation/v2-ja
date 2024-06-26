@@ -487,7 +487,7 @@ this.__set(name, args, value)</pre>
 <li>SetBatchLines（-1がデフォルトの動作になりました）</li>
 <li>SetEnv</li>
 <li>SetFormat（<a href="lib/Format.htm">Format</a>は文字列の書式設定に使用できます）</li>
-<li>SoundGet/SoundSet（<a href="#Sound">サウンド機能</a>参照）</li>
+<li>SoundGet/SoundSet（<a href="#Sound">Sound関数</a>参照）</li>
 <li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）</li>
 <li>SplashImage（<a href="lib/Gui.htm">Gui</a>を使用）</li>
 <li>SplashTextOn/Off（<a href="lib/Gui.htm">Gui</a>を使用）</li>
@@ -552,7 +552,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p class="note">セクションタイトルについて：v2にはコマンドはなく、関数だけです。タイトルは両バージョンを指しています。</p>
 <p>SendEventメソッドでAltイベントを送信したときに、<a href="lib/BlockInput.htm">BlockInput</a>が一瞬だけ無効になることがなくなりました。これはもともと、Windows XPの一部のバージョンで、BlockInputが人工的なAltイベントをブロックしてしまうというバグを回避するために行われたものです。</p>
 <p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返します。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>
-<p><a href="lib/ClipWait.htm">ClipWait</a>は、待ち時間が終了した場合は0（false）を、そうでない場合は1（true）を返すようになりました。ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
+<p><a href="lib/ClipWait.htm">ClipWait</a>は、待ち時間が終了した場合は0 (false)を、そうでない場合は1 (true)を返すようになりました。ErrorLevelを削除しました。0を指定しても、0.5を指定したのと同じではなく、最短の待ち時間が発生するようになりました。</p>
 <p><code>ComObj()</code>：この機能は、ワイルドカードのような名前で、さまざまな接尾辞をつけることができました。<code>ComObjActive(CLSID)</code>,<code>ComObjParameter(vt, value)</code>,<code>ComObjEnwrap(dsp)</code>のように、特定の種類のパラメータでよく使われる名前もありました。その代わり、関数やクラスが別々になり、ワイルドカードの名前もなくなりました。詳細は「<a href="#com-objects-comobject">COMオブジェクト（ComObject）</a>」を参照してください。</p>
 <p>Control：<a href="lib/Control.htm">Control関数</a>、<a href="lib/SendMessage.htm">SendMessage</a>と<a href="lib/PostMessage.htm">PostMessage</a>で使用される<a href="lib/Control.htm#Parameter"><em>Control</em>パラメータに</a>いくつかの変更が加えられました：</p>
 <ul>
@@ -611,7 +611,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/_HotIf.htm">#HotIf</a>（旧#If）は、1つのパラメータ（ThisHotkey）を持つ関数を暗黙のうちに作成するようになりました。すべての関数のデフォルトとして、この関数は<a href="Functions.htm#AssumeLocal">assume-local</a>です。式はローカル変数の作成とグローバル変数の読み込みが可能ですが、式に宣言を含めることができないため、グローバル変数に直接代入することはできません。</p>
 <p>#HotIfは、<a href="lib/WinActive.htm">WinActive</a>や <a href="lib/WinExist.htm">WinExist</a>への単純な呼び出しをフックスレッドで直接評価できるように最適化されています（v1では#IfWinが、<a href="lib/HotIf.htm">HotIfWin</a>は現在もそうです）。これにより、パフォーマンスが向上し、スクリプトがビジー／無反応の場合に問題が発生するリスクを低減することができます。この最適化は、<a href="lib/WinActive.htm">WinActive</a>または<a href="lib/WinExist.htm">WinExist</a>への単一の呼び出しと最大2つのパラメータを含む式に適用され、各パラメータは単純な引用文字列で、結果はオプションで<code>!</code> または <code>not</code>で反転されます。例えば、<code>#HotIf WinActive("Chrome")</code>や<code>#HotIf !WinExist("Popup") </code>のようなものです。これらの場合、任意の基準の組み合わせを持つ最初の表現は、表現またはウィンドウ基準のいずれかによって特定することができます。例えば、<code>HotIf '!WinExist("Popup")'</code>と<code>HotIfWinNotExist "Popup"</code>は同じホットキー変種を参照しています。</p>
 <p><code>KeyHistory N</code>は、キーヒストリーを表示するのではなく、キーヒストリーバッファーのサイズを変更します。これは"#KeyHistory N"に置き換わるものです。</p>
-<p><a href="lib/ImageSearch.htm">ImageSearch</a>は、画像が見つかった場合は 1（true）、見つからなかった場合は 0（false）を返し、検索ができなかった場合は例外を投げる。ErrorLevelが設定されていない。</p>
+<p><a href="lib/ImageSearch.htm">ImageSearch</a>は、画像が見つかった場合は 1 (true)、見つからなかった場合は 0 (false)を返し、検索ができなかった場合は例外を投げる。ErrorLevelが設定されていない。</p>
 <p><a href="lib/IniDelete.htm">IniDelete</a>、<a href="lib/IniRead.htm">IniRead</a>、<a href="lib/IniWrite.htm">IniWrite</a>は、<a href="Variables.htm#LastError">A_LastError</a>をオペレーティングシステムのGetLastError()関数の結果に設定します。</p>
 <p>要求されたキー、セクション、ファイルが見つからず、<em>Default</em>パラメータが省略された場合、<a href="lib/IniRead.htm">IniRead</a>は例外を投げる。<em>Default</em>に値が与えられた場合、<code>""</code>でも例外は発生しない。</p>
 <p><a href="lib/InputHook.htm">InputHook</a>が <kbd>Shift</kbd>+<kbd>Backspace</kbd>を <kbd>Backspace</kbd>と同じように扱うようになり、代わりに<code>`b</code>に転写されるようになりました。</p>
@@ -622,7 +622,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>例えば、<code>InStr(a, b,, -1, 2)</code>は左から右へ検索するようになりました。右から左へ検索する場合は、<code>InStr(a, b,, -1, -2)</code>を使用します。</li>
 <li>なお、<em>StartingPos</em>が-1の場合は、v2の最後の文字であり、v1の2番目の最後の文字であることを意味します。上の例がv1（v2.0-a033～v2.0-a136ではなく）のものであれば、新しいコードは<code>InStr(a, b, -2, -2)</code>になるはずです。</li>
 </ul>
-<p><a href="lib/KeyWait.htm">KeyWait</a>は、待ち時間が終了した場合は0（false）を、そうでない場合は1（true）を返すようになりました。ErrorLevelを削除しました。</p>
+<p><a href="lib/KeyWait.htm">KeyWait</a>は、待ち時間が終了した場合は0 (false)を、そうでない場合は1 (true)を返すようになりました。ErrorLevelを削除しました。</p>
 <p><a href="lib/MouseClick.htm">MouseClick</a>と <a href="lib/MouseClickDrag.htm">MouseClickDrag</a>は、マウスボタンの入れ替えに関するシステム設定の影響を受けなくなりました。"Left"は常にプライマリボタン、"Right"はセカンダリボタンです。</p>
 <p><a href="lib/MsgBox.htm">MsgBox</a>は、最もよく使われるパラメータを優先し、使いやすさを向上させるために構文が変更されました。使い方の概要は、さらに下の<a href="#msgbox">MsgBox</a>を参照してください。</p>
 <p><a href="lib/NumPut.htm">NumPut</a>/<a href="lib/NumGet.htm">NumGet</a>：変数を直接渡す場合、その変数の内部文字列バッファのアドレスは使用されなくなります。そのため、アドレスを含む変数を直接渡すことができる（v1では<code>var+0</code>のようなものが必要であったが）。スクリプトによって割り当てられたバッファの場合、変数よりも新しい<a href="lib/Buffer.htm">Bufferオブジェクト</a>が優先されます。任意のオブジェクトを使用できますが、<em>Ptr</em>と <em>Size</em>プロパティを持つ必要があります。</p>
@@ -633,7 +633,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p>OnExitコマンドは削除されました。代わりにv1.1.20で追加された<a href="lib/OnExit.htm">OnExit</a>関数を使用してください。名前ではなく、関数オブジェクトを要求するようになりました。A_ExitReasonも削除され、その値はOnExitコールバック関数のパラメータとして利用できます。</p>
 <p><a href="lib/OnMessage.htm">OnMessageは</a>、関数名（文字列）が渡されたときに使用されていた、メッセージごとの単一関数モードがなくなり、参照による関数のみを受け入れるようになりました。<code>OnMessage(x, MyFunc)</code>を使用します。<em>MyFunc</em>は文字通り関数の名前ですが、v1と同等のものは<code>OnMessage(x, Func("MyFunc"))</code>で、<code>OnMessage(x, "MyFunc")</code>と異なり、他の関数がメッセージxを監視し続けることができることに注意してください。<code>OnMessage(x,"")</code>と<code>OnMessage(x)</code>がエラーになったので、メッセージの監視を止めるには、<code>OnMessage(x, MyFunc, 0)</code>を使います。失敗した場合、OnMessageは例外を投げます。</p>
 <p><a href="lib/Pause.htm">Pause</a>は、ホットキーの1行目で使用すると<a href="lib/_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>の適用除外になるため、<code>#p::Pause</code>は、一時停止を切り替えるのに適さなくなりました。したがって、<code>Pause()</code>は現在のスレッドを一時停止するだけになり（ListVars/Pauseのような組み合わせの場合）、<code>Pause(Value)</code>は常に基本スレッドで動作するようになりました。<em>Value</em>は、0、1または-1でなければならない。第2パラメータを削除しました。</p>
-<p><a href="lib/PixelSearch.htm">PixelSearch</a>と <a href="lib/PixelGetColor.htm">PixelGetColor</a>は、他の関数との整合性のために、BGRの代わりにRGB値を使用します。どちらの関数も、問題が発生すると例外をスローし、ErrorLevelを設定しなくなりました。PixelSearchは、その色が見つかった場合、1（true）を返します。PixelSearchのスローモードは、デスクトップコンポジションとの非互換性により、ほとんどの最新システムで使用できないため、削除されました。</p>
+<p><a href="lib/PixelSearch.htm">PixelSearch</a>と <a href="lib/PixelGetColor.htm">PixelGetColor</a>は、他の関数との整合性のために、BGRの代わりにRGB値を使用します。どちらの関数も、問題が発生すると例外をスローし、ErrorLevelを設定しなくなりました。PixelSearchは、その色が見つかった場合、1 (true)を返します。PixelSearchのスローモードは、デスクトップコンポジションとの非互換性により、ほとんどの最新システムで使用できないため、削除されました。</p>
 <p><a href="lib/PostMessage.htm">PostMessage</a>：後述の<a href="#SendMessage">SendMessage</a>を参照してください。</p>
 <p><a href="lib/Random.htm">Random</a>は、オペレーティングシステムの乱数発生器を利用し、いくつかの制限を解除し、より便利に使用できるように改良されました。</p>
 <ul>
@@ -662,7 +662,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>可変型コールバック関数の特殊な挙動を削除し、<code>&amp;</code>オプション（パラメータリストのアドレスを渡す）を追加しました。</li>
 <li>コールバックメモリを解放し、関連する関数オブジェクトを解放するための<code>CallbackFree(Address)</code>を追加しました。</li>
 </ul>
-<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合されます。<code>RootKey, SubKey</code>の代わりに、<code>RootKeyKey\SubKey</code>と書いてください。リモートレジストリに接続する場合は<code>\\ComputerName:RootKey, SubKey</code>の代わりに<code>\\ComputerName\RootKey\SubKey</code>を使用します。</p>
+<p>レジストリ関数（<a href="lib/RegRead.htm">RegRead</a>、<a href="lib/RegWrite.htm">RegWrite</a>、<a href="lib/RegDelete.htm">RegDelete</a>）：v1.1.21+で追加された新しい構文が唯一の構文となりました。ルートキーとサブキーが結合されます。<code>RootKey, SubKey</code>の代わりに、<code>RootKey\SubKey</code>と書いてください。リモートレジストリに接続する場合は<code>\\ComputerName:RootKey, SubKey</code>の代わりに<code>\\ComputerName\RootKey\SubKey</code>を使用します。</p>
 <p>RegWriteのパラメータは、IniWriteのように<em>Value</em>を最初に置くように並び替えました（ただし、<em>Value</em>が唯一のパラメータだったシングルパラメータモードには影響しません）。</p>
 <p><em>KeyName</em>が省略され、現在のループREGアイテムがサブキーである場合、RegDelete、RegRead、RegWriteはそのサブキー内の値に対して動作するようになりました。つまり、<em>KeyName</em>のデフォルトは<code>A_LoopRegKey "\" A_LoopRegName</code>です（A_LoopRegKeyはA_LoopRegSubKeyに統合されているので注意してください）。以前は以下のように振る舞っていました：</p>
 <ul>
@@ -690,7 +690,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <li>また、2つの項目が同数である場合、自動的に元の項目の順番がタイブレーカーとして使用され、より安定した結果が得られるようになりました。</li>
 <li><code>C</code>オプションで、他の関数（<code>CL</code>以外）の<em>CaseSense</em>パラメータと同等の接尾辞を受け付けるようになりました：<code>CLocale CLogical COn C1 COff C0</code>。特に、「論理」比較モードのサポートが新しくなりました。</li>
 </ul>
-<p id="Sound"><a href="lib/Sound.htm">サウンド機能</a>：SoundGetとSoundSetは、Vista+のサウンドAPIの機能によりマッチするように改訂され、XPのサポートを取りやめました。</p>
+<p id="Sound"><a href="lib/Sound.htm">Sound関数</a>：SoundGetとSoundSetは、Vista+のサウンドAPIの機能によりマッチするように改訂され、XPのサポートを取りやめました。</p>
 <ul>
 <li>サポートされていないコントロールタイプを削除しました。</li>
 <li>レガシーミキサーコンポーネントタイプを削除しました。</li>
@@ -717,7 +717,7 @@ StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.ht
 <p><a href="lib/WinSetTitle.htm">WinSetTitle</a>と <a href="lib/WinMove.htm">WinMove</a>は、他のWin関数と同じパラメータ順序を使用します。つまり、<em>WinTitle、WinText、ExcludeTitle、ExcludeText</em>は、常に一緒に（パラメータリストの最後に）まとめられ、記憶に残りやすくなっています。</p>
 <p>各種関数の<em>WinTitle</em>パラメータに、HWND（純粋な整数でなければならない）または<a href="lib/Gui.htm">Guiオブジェクト</a>のような<em>Hwnd</em>プロパティを持つオブジェクトを受け取ることができるようになりました。<a href="lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> is ignored in such cases, except when used with <a href="lib/WinWait.htm">WinWait</a> or <a href="lib/WinWaitClose.htm">WinWaitClose</a>.</p>
 <p><a href="lib/WinMove.htm">WinMove</a>では、<code class="no-highlight">DEFAULT</code>というリテラルワードに対する特別な処理を行わなくなりました。パラメータを省略するか、代わりに空文字列を指定します（v1、v2ともに有効です）。</p>
-<p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitCloseが<a href="misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>を設定するようになったので、WinWaitCloseがタイムアウトした場合は0（false）を返し、<code>WinExist()</code>は最後に見つかったウィンドウを返すようになりました。<em>Timeout</em>については、0を指定しても0.5を指定したのと同じではなく、可能な限り短い待ち時間を生成するようになりました。</p>
+<p><a href="lib/WinWait.htm">WinWait</a>、<a href="lib/WinWaitClose.htm">WinWaitClose</a>、<a href="lib/WinWaitActive.htm">WinWaitActive</a>、<a href="lib/WinWaitActive.htm">WinWaitNotActiveは</a>、待ちが終了した場合（タイムアウトが終了しなかった場合）、非ゼロを返します。ErrorLevelを削除しました。WinWait、WinWaitActiveは、見つかったウィンドウのHWNDを返します。WinWaitCloseが<a href="misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>を設定するようになったので、WinWaitCloseがタイムアウトした場合は0 (false)を返し、<code>WinExist()</code>は最後に見つかったウィンドウを返すようになりました。<em>Timeout</em>については、0を指定しても0.5を指定したのと同じではなく、可能な限り短い待ち時間を生成するようになりました。</p>
 <p><strong>アンソートです：</strong></p>
 <p><a href="lib/InStr.htm">InStr</a>、<a href="lib/SubStr.htm">SubStr</a>、<a href="lib/RegExMatch.htm">RegExMatch</a>、<a href="lib/RegExReplace.htm">RegExReplaceの</a> <em>StartingPos</em>が負の場合、末尾からの位置と解釈されます。位置-1が最後の文字で、位置0は無効です（v1では位置0が最後の文字でしたが）。</p>
 <p>これまでOn/OffやOn/Off/Toggle（他の文字列は不可）を受け付けていた機能では、代わりに1/0/-1が必要となります。OnとOffは、通常、<code>True</code>と <code>False</code>に置き換えられるでしょう。On/Offを返していた変数が1/0を返すようになり、式でより便利になりました。</p>
@@ -906,7 +906,7 @@ Name    := MonitorGetName([N])
 <p><code>InstallKeybdHook(Install, Force)</code>と<code>InstallMouseHook(Install, Force)</code>は、柔軟性を高めるために、対応するディレクティブを置き換えるものです。</p>
 <p><code>Integer(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>
 <p id="isXXX"><a href="lib/Is.htm">IsXXX</a>： レガシーコマンドである「if Var is Type」は、一連の関数に置き換えられています：IsAlnum、IsAlpha、IsDigit、IsFloat、IsInteger、IsLower、IsNumber、IsSpace、IsUpper、IsXDigit。IsFloat、IsInteger、IsNumberを除き、パラメータが文字列でない場合、暗黙のうちに文字列に変換すると直感的でない結果を引き起こす可能性があるため、例外がスローされます。</p>
-<p><code>IsSet(Var)</code>、<code>IsSetRef(&amp;Ref)</code>：変数に値が割り当てられている場合（その値が空文字列であっても）1（true）を、そうでない場合0（false）を返します。0（false）の場合、式の中で変数を読み込もうとするとエラーが発生します。</p>
+<p><code>IsSet(Var)</code>、<code>IsSetRef(&amp;Ref)</code>：変数に値が割り当てられている場合（その値が空文字列であっても）1 (true)を、そうでない場合0 (false)を返します。0 (false)の場合、式の中で変数を読み込もうとするとエラーが発生します。</p>
 <p><code>Menu()</code>/<code>MenuBar()</code>は、v1 Menu サブコマンドに対応する以下のメンバを持つ新しい Menu/MenuBar オブジェクトを返します。メソッド：<a href="lib/Menu.htm#Add">Add</a>、<a href="lib/Menu.htm#AddStandard"><strong>Add</strong>Standard</a>、<a href="lib/Menu.htm#Check">Check</a>、<a href="lib/Menu.htm#Delete">Delete</a>、<a href="lib/Menu.htm#Disable">Disable</a>、<a href="lib/Menu.htm#Enable">Enable</a>、<a href="lib/Menu.htm#Insert">Insert</a>、<a href="lib/Menu.htm#Rename">Rename</a>、<a href="lib/Menu.htm#SetColor"><strong>Set</strong>Color</a>、<a href="lib/Menu.htm#SetIcon"><strong>Set</strong>Icon</a>、<a href="lib/Menu.htm#Show">Show</a>、<a href="lib/Menu.htm#ToggleCheck">ToggleCheck</a>、<a href="lib/Menu.htm#ToggleEnable">ToggleEnable</a>、<a href="lib/Menu.htm#Uncheck">Uncheck</a>。プロパティー：<a href="lib/Menu.htm#ClickCount"><strong>ClickCount</strong></a>、<a href="lib/Menu.htm#Default">Default</a>、<a href="lib/Menu.htm#Handle">Handle</a>（MenuGetHandleを置き換えたもの）。<a href="Variables.htm#TrayMenu">A_TrayMenu</a>は、Menu オブジェクトも返します。UseErrorLevelモード、グローバルメニュー名、メニュー自体の明示的な削除はありません（すべての参照が解放されたときに起こります；<a href="lib/Menu.htm#Delete">Delete</a>メソッドはv1 DeleteAllと同等です）。ラベルはサポートされておらず、ファンクションオブジェクトのみです。<a href="lib/Menu.htm#AddStandard">AddStandard</a>メソッドは、標準的なメニュー項目を追加し、カスタム項目と同様に個別に変更することができます。v1とは異なり、Win32メニューはオブジェクトが削除されたときのみ破棄されます。</p>
 <p><code>MenuFromHandle(Handle)</code> retrieves the Menu or MenuBar object corresponding to a Win32 menu handle, if it was created by AutoHotkey.</p>
 <p><code>Number(Value)</code>：上記のさらに上の「<a href="#types">タイプ</a>」を参照してください。</p>

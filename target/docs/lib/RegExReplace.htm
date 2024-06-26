@@ -27,7 +27,7 @@
   <dt>NeedleRegEx</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>検索するパターンで、Perl互換正規表現（PCRE）です。パターンの<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>がある場合は、文字列の先頭に含める必要があり、その後に閉じ括弧が続きます。例えば、<span class="regex"><span class="red">i)</span>abc.*123</span>というパターンは、大文字小文字を区別しないオプションをオンにし、"abc "の後に任意の文字が0回以上出現し、その後に "123 "が続くものを検索対象とします。オプションがない場合、")"はオプションです。例えば、<span class="regex">)abcは</span> <span class="regex">abcと</span>同等です。</p>
+    <p>検索するパターンで、Perl互換正規表現（PCRE）です。パターンの<a href="../misc/RegEx-QuickRef.htm#Options">オプション</a>がある場合は、文字列の先頭に含める必要があり、その後に閉じ括弧が続きます。例えば、<span class="regex"><span class="red">i)</span>abc.*123</span>というパターンは、大文字小文字を区別しないオプションをオンにし、「abc」の後に任意の文字が0回以上出現し、その後に「123」が続くものを検索対象とします。オプションがない場合、「）」はオプションです。例えば、<span class="regex">)abc</span>は<span class="regex">abc</span>と同等です。</p>
     <p><em>NeedleRegEx</em>はバイナリーゼロを含むことができませんが、<em>Haystack</em>内のバイナリーゼロに一致させるために、パターン<code>\x00</code>を使用することができます。</p>
   </dd>
 
@@ -73,7 +73,7 @@
   <li>パターンに構文エラーがある場合。</li>
   <li>正規表現の<em>実行</em>中にエラーが発生しました。</li>
 </ul>
-<p>詳しくは、「<a href="RegExMatch.htm#Errors">RegExMatch</a>」をご覧ください。</p>
+<p>詳しくは、<a href="RegExMatch.htm#Errors">RegExMatch</a>をご覧ください。</p>
 
 <h2 id="Options">Options</h2>
 <p>See <a href="../misc/RegEx-QuickRef.htm#Options">RegEx Quick Reference</a> for options such as <span class="regex"><span class="red">i)</span>abc</span>, which turns off case-sensitivity.</p>
@@ -81,28 +81,28 @@
 <p>単純な部分文字列の置換には、RegExReplaceよりも高速な<a href="StrReplace.htm">StrReplace</a>を使用します。</p>
 <p>最大置換数がわかっている場合、<em>Limit</em>パラメータにそれを指定すると、検索を早期に停止できるため、パフォーマンスが向上します（これにより、操作中のシステムのメモリ負荷も軽減される可能性があります）。例えば、大きな文字列の先頭付近に1つしかマッチしないことが分かっている場合、制限値1を指定します。</p>
 <p>パフォーマンスを向上させるため、最近使用された100個の正規表現をメモリ上にキャッシュしておく（コンパイルされた状態）。</p>
-<p><a href="../misc/RegEx-QuickRef.htm#Study">学習オプション(S)</a>は、（ループ内などで）何度も使用される正規表現のパフォーマンスを向上させることができる場合があります。</p>
+<p><a href="../misc/RegEx-QuickRef.htm#Study">学習オプション（S）</a>は、（ループ内などで）何度も使用される正規表現のパフォーマンスを向上させることができる場合があります。</p>
 <h2 id="Remarks">備考</h2>
-<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">.</span>はリテラルピリオド、<span class="regex">.</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\E.を使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
-<p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号(`)またはバックスラッシュ(\)でエスケープすることができます。For example, <span class="regex">`t</span> is the same as <span class="regex">\t</span> except when the <a href="../misc/RegEx-QuickRef.htm#opt_x">x option</a> is used.</p>
+<p>abc123 のようなほとんどの文字は、正規表現の中で文字通り使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>はリテラルピリオド、<span class="regex">\\</span>はリテラルバックスラッシュです。エスケープを回避するには、\Q...\Eを使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
+<p>正規表現の中で、タブや改行などの特殊文字は、アクセント記号（`）またはバックスラッシュ（\）でエスケープすることができます。For example, <span class="regex">`t</span> is the same as <span class="regex">\t</span> except when the <a href="../misc/RegEx-QuickRef.htm#opt_x">x option</a> is used.</p>
 <p>正規表現の基本を学ぶ（またはパターン構文の記憶を取り戻す）には、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <h2 id="Related">関連</h2>
-<p><a href="RegExMatch.htm">RegExMatch</a>, <a href="../misc/RegEx-QuickRef.htm">RegEx Quick Reference</a>, <a href="../misc/RegExCallout.htm">Regular Expression Callouts</a>, <a href="StrReplace.htm">StrReplace</a>, <a href="InStr.htm">InStr</a></p>
-<p>Common sources of text data: <a href="FileRead.htm">FileRead</a>, <a href="Download.htm">Download</a>, <a href="A_Clipboard.htm">A_Clipboard</a>, <a href="GuiControls.htm#Edit">GUI Edit controls</a></p>
+<p><a href="RegExMatch.htm">RegExMatch</a>、<a href="../misc/RegEx-QuickRef.htm">正規表現クイックリファレンス</a>、<a href="../misc/RegExCallout.htm">正規表現の吹き出し</a>、<a href="StrReplace.htm">StrReplace</a>、<a href="InStr.htm">InStr</a></p>
+<p>テキストデータの一般的なソース：<a href="FileRead.htm">FileRead</a>、<a href="Download.htm">Download</a>、<a href="A_Clipboard.htm">A_Clipboard</a>、<a href="GuiControls.htm#Edit">GUI Edit コントロール</a></p>
 <h2 id="Examples">例</h2>
 <p>一般的なRegExの例については、<a href="../misc/RegEx-QuickRef.htm">RegExクイックリファレンス</a>をご覧ください。</p>
 <div class="ex" id="ExDollar">
-<p><a class="ex_number" href="#ExDollar"></a> "abc123xyz" を報告するのは、$が末尾にのみマッチングを許可しているからです。</p>
+<p><a class="ex_number" href="#ExDollar"></a> 「abc123xyz」を報告するのは、$が末尾にのみマッチングを許可しているからです。</p>
 <pre>MsgBox RegExReplace("abc123123", "123$", "xyz")</pre>
 </div>
 
 <div class="ex" id="ExCaseInsens">
-<p><a class="ex_number" href="#ExCaseInsens"></a> 大文字小文字を区別しないオプションで一致したため、"123 "を報告します。</p>
+<p><a class="ex_number" href="#ExCaseInsens"></a> 大文字小文字を区別しないオプションで一致したため、「123」を報告します。</p>
 <pre>MsgBox RegExReplace("abc123", "i)^ABC")</pre>
 </div>
 
 <div class="ex" id="ExBackref">
-<p><a class="ex_number" href="#ExBackref"></a> 1ドルの<a href="#BackRef">バックリファレンス</a>によって「aaaXYZzzz」を報告する。</p>
+<p><a class="ex_number" href="#ExBackref"></a> $1<a href="#BackRef">バックリファレンス</a>によって「aaaXYZzzz」を報告する。</p>
 <pre>MsgBox RegExReplace("abcXYZ123", "abc(.*)123", "aaa$1zzz")</pre>
 </div>
 

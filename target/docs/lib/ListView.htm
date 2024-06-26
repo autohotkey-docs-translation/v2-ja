@@ -57,11 +57,11 @@ LV_DoubleClick(LV, RowNumber)
     ToolTip("You double-clicked row number " RowNumber ". Text: '" RowText "'")
 }</pre>
 <h2 id="Options">Optionsパラメータのオプションとスタイル</h2>
-<p><strong>Background：</strong> <em>Background（背景）：Background</em>（背景）という語の直後に色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（0x接頭辞は任意）を指定。例：<code>BackgroundSilver</code>、<code>BackgroundFFDD99</code>。このオプションがない場合、ListViewの初期値はシステムのデフォルトの背景色になります。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。例えば、<code>LV.Opt("+BackgroundDefault")</code>でListViewをデフォルトの色に戻すことができる。</p>
+<p><strong>Background：</strong>単語<em>Background</em>の直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>BackgroundSilver</code>、<code>BackgroundFFDD99</code>。このオプションがない場合、ListViewの初期値はシステムのデフォルトの背景色になります。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。例えば、<code>LV.Opt("+BackgroundDefault")</code>でListViewをデフォルトの色に戻すことができる。</p>
 <p><strong>C：</strong>テキストの色。文字Cの直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>cRed</code>、<code>cFF2211</code>、<code>c0xFF2211</code>、<code>cDefault</code>。</p>
 <p id="Checked"><strong>チェック付き：</strong>各行の左側にチェックボックスを提供します。行を<a href="#Add">追加</a>する際、そのオプションに<em>Check</em>という単語を指定すると、スタートするボックスがチェックされていない状態ではなく、チェックされた状態になります。ユーザーは、チェックボックスをクリックするか、スペースバーを押して、行のチェックを入れたり外したりすることができます。</p>
 <p id="Count"><strong>Count：</strong><em>Count</em>の後に、ListViewが最終的に含む行の総数を指定します。これは制限ではありません：を超える行を追加することができます。その代わり、このオプションはコントロールへのヒントとして機能し、行を追加するたびにメモリを確保するのではなく、一度だけメモリを確保することができます。さらにパフォーマンスを向上させるには、大量の行を追加する前に<code>LV.Opt("-Redraw")</code>、追加後に<code>LV.Opt("+Redraw")</code>を使用します。詳しくは「<a href="GuiControl.htm#redraw-remarks">再描画</a>」をご覧ください。</p>
-<p><strong>グリッド（Grid）：</strong>行と列の境界を視覚的に示すための水平線と垂直線を提供します。</p>
+<p><strong>Grid：</strong>行と列の境界を視覚的に示すための水平線と垂直線を提供します。</p>
 <p><strong>Hdr：</strong>ヘッダー（列のタイトルを含む特別な最上段）を省略する場合は、<code>-Hdr</code>（マイナスHdr）を指定します。後から見えるようにするには、<code>LV.Opt("+Hdr")</code>を使用します。</p>
 <p id="LVS_EX"><strong>LV：</strong>文字列 <em>LV</em> の後に<a href="../misc/Styles.htm#LVS_EX">拡張リストビュースタイル</a>の番号を指定する。これらのスタイルは、一般的な拡張スタイルとは全く別のものです。例えば、<code>-E0x200</code>を指定すると、汎用拡張スタイルWS_EX_CLIENTEDGEを削除して、コントロールのデフォルトボーダーをなくすことができます。一方、<code>-LV0x20</code>を指定すると、<a href="#frs">LVS_EX_FULLROWSELECT</a>が削除される。</p>
 <p><strong>LV0x10：</strong><code>LV0x10</code>を指定すると、ユーザーがカラムヘッダーを左右にドラッグして並び替えることができなくなります。しかし、列の物理的な並び替えは、スクリプトが見る列の順序に影響を与えないので、通常はこれを行う必要はありません。例えば、ユーザーが物理的に他の列の右に移動させたとしても、スクリプトから見て最初の列は常に列1です。</p>
@@ -71,7 +71,7 @@ LV_DoubleClick(LV, RowNumber)
 <p id="NoSort"><strong>NoSort：</strong>ユーザーがカラムヘッダをクリックしたときに発生する自動ソートをオフにします。However, the header will still behave visually like a button (unless the <a href="#NoSortHdr">NoSortHdr</a> option above has been specified). また、<a href="GuiOnEvent.htm#ColClick">ColClick</a>イベントは引き続き発生するので、スクリプトはカスタムソートなどのアクションで応答することができます。</p>
 <p id="ReadOnly"><strong>ReadOnly：</strong>を指定します。各行の1列目のテキストの編集を許可する場合は、<code>-ReadOnly</code>（マイナスリードオンリー）を指定します。行を編集するには、行を選択してから<kbd>F2</kbd>キーを押します（下記の<a href="#WantF2">WantF2</a>オプションを参照してください）。また、行を一度クリックして選択し、半秒以上待ってから同じ行をもう一度クリックすると、編集することができます。</p>
 <p><strong>R：</strong>高さの列（作成時）。Rの文字の後に、コントロール内のスペースを確保するための行数を指定します。例えば、<code>R10</code>とすると、コントロールは10列の高さになります。レポートビュー以外の<a href="#View">ビューモード</a>でListViewを作成した場合、コントロールはテキストの列ではなく、アイコンの列に合うようにサイズ調整されます。注：ListViewの行に<a href="#IL">アイコン</a>を追加すると、各行の高さが高くなるため、このオプションは不正確となります。</p>
-<p id="Sort"><strong>ソート：</strong>コントロールは、最初のカラムの内容に従ってアルファベット順にソートされた状態で保持されます。</p>
+<p id="Sort"><strong>Sort：</strong>コントロールは、最初のカラムの内容に従ってアルファベット順にソートされた状態で保持されます。</p>
 <p id="SortDesc"><strong>SortDesc：</strong>降順以外は上記と同じ。</p>
 <p id="WantF2"><strong>WantF2：</strong><kbd>F2</kbd>が現在フォーカスしている行を<a href="#ReadOnly">編集</a>できないようにするには、<code>-WantF2</code>（マイナスWantF2）を指定する。この設定は、<a href="#ReadOnly">-ReadOnly</a>も有効でない限り無視される。</p>
 <p><strong>(無名数字スタイル）：</strong>上記以外のスタイルはほとんど使用されないため、名称を付けない。一覧は<a href="../misc/Styles.htm#ListView">ListViewのスタイルの表</a>を参照してください。</p>
@@ -559,7 +559,7 @@ LV_Enter(*) {
 <p>リストビューのサイズ変更、非表示、フォント変更などの操作を行うには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を参照してください。</p>
 <p>外部のListView（スクリプトが所有していないもの）からテキストを抽出するには、<a href="ListViewGetContent.htm">ListViewGetContent</a>を使用します。</p>
 <h2 id="Related">関連</h2>
-<p><a href="TreeView.htm">TreeView</a>, <a href="GuiControls.htm">Other Control Types</a>, <a href="Gui.htm#Call">Gui()</a>, <a href="GuiOnEvent.htm#ContextMenu">ContextMenu event</a>, <a href="Gui.htm">Gui object</a>, <a href="GuiControl.htm">GuiControl object</a>, <a href="../misc/Styles.htm#ListView">ListView styles table</a></p>
+<p><a href="TreeView.htm">TreeView</a>、<a href="GuiControls.htm">その他のコントロールタイプ</a>、<a href="Gui.htm#Call">Gui()</a>、<a href="GuiOnEvent.htm#ContextMenu">ContextMenuイベント</a>、<a href="Gui.htm">Guiオブジェクト</a>、<a href="GuiControl.htm">GuiControlオブジェクト</a>、<a href="../misc/Styles.htm#ListView">ListViewのスタイルの表</a></p>
 <h2 id="Examples">例</h2>
 
 <div class="ex" id="ExAllRows">
@@ -611,7 +611,7 @@ ContextMenu := Menu()
 ContextMenu.Add("Open", ContextOpenOrProperties)
 ContextMenu.Add("Properties", ContextOpenOrProperties)
 ContextMenu.Add("Clear from ListView", ContextClearRows)
-ContextMenu.Default := "Open"  <em>; "開く "を太字にし、ダブルクリックでも同じことができることを示すようにする。</em>
+ContextMenu.Default := "Open"  <em>; 「Open」を太字にし、ダブルクリックでも同じことができることを示すようにする。</em>
 
 <em>; ウィンドウを表示する：</em>
 MyGui.Show()
@@ -699,8 +699,8 @@ SwitchView(*)
     if not IconView
         LV.Opt("+Icon")        <em>; アイコン表示に切り替えます。</em>
     else
-        LV.Opt("+Report")        <em>; 詳細ビューに切り替えます。</em>
-    IconView := not IconView    <em>; 次回に備え、反転させる。</em>
+        LV.Opt("+Report")      <em>; 詳細ビューに切り替えます。</em>
+    IconView := not IconView   <em>; 次回に備え、反転させる。</em>
 }
 
 RunFile(LV, RowNumber)
@@ -739,7 +739,7 @@ ContextOpenOrProperties(ItemName, *)  <em>; ユーザーがコンテキストメ
         MsgBox("Could not perform requested action on " FileDir "\" FileName ".")
 }
 
-ContextClearRows(*)   <em>; ユーザーがコンテキストメニューで "Clear"を選択しました。</em>
+ContextClearRows(*)  <em>; ユーザーがコンテキストメニューで "Clear"を選択しました。</em>
 {
     RowNumber := 0  <em>; これにより、最初の反復は先頭から検索を開始することになる。</em>
     Loop
@@ -750,7 +750,7 @@ ContextClearRows(*)   <em>; ユーザーがコンテキストメニューで "Cl
         RowNumber := LV.GetNext(RowNumber - 1)
         if not RowNumber  <em>; 上記は0を返したので、もう選択された行はない。</em>
             break
-        LV.Delete(RowNumber)   <em>; ListViewから行を消去します。</em>
+        LV.Delete(RowNumber)  <em>; ListViewから行を消去します。</em>
     }
 }
 

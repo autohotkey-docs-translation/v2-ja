@@ -20,11 +20,11 @@
 
 <h2 id="fundamentals">基礎</h2>
 <p><strong>どこでもマッチする：</strong>デフォルトでは、正規表現は検索される文字列内の<em>任意</em>の部分文字列にマッチします。例えば、正規表現<span class="regex">abc</span>は、<span class="subj">abc</span>123、123<span class="subj">abc</span>、123<span class="subj">abc</span>xyzのどれにもマッチします。最初か最後だけにマッチさせるは、<a href="#anchor">アンカー</a>を使います。</p>
-<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\E.を使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
-<p><strong>大文字と小文字を区別する：</strong>デフォルトでは、正規表現は大文字と小文字を区別します。これは "i"オプションで変更できる。たとえば、<span class="regex">i)abc</span>というパターンは、大文字小文字を区別せずに "abc"を検索する。その他の修飾語については以下を参照のこと。</p>
+<p><strong>エスケープ文字：</strong>abc123のようなほとんどの文字は、正規表現の中で文字どおり使用することができます。しかし、<code>\.*?+[{|()^$</code> の集合に含まれる文字は、リテラルとみなされるためには、その前にバックスラッシュが必要です。例えば、<span class="regex">\.</span>は、リテラルピリオドで、<span class="regex">\\</span>はリテラルバックスラッシュである。エスケープを回避するには、\Q...\Eを使用します。For example: <span class="regex">\QLiteral Text\E</span>.</p>
+<p><strong>大文字と小文字を区別する：</strong>デフォルトでは、正規表現は大文字と小文字を区別します。これは「i」オプションで変更できる。たとえば、<span class="regex">i)abc</span>というパターンは、大文字小文字を区別せずに「abc」を検索する。その他の修飾語については以下を参照のこと。</p>
 
 <h2 id="Options">オプション（大文字と小文字を区別）</h2>
-<p>正規表現の冒頭で、以下のオプションを0個以上指定し、その後に閉じ括弧を付ける。例えば<span class="regex"><span class="red">im)</span>abc</span>というパターンは、大文字小文字を区別せず、複数行のオプションをつけて "abc"を検索する（オプションがない場合は括弧を省略できる）。この構文は伝統に反するが、特別な区切り文字（スラッシュなど）を必要としないので、パターン内部でそのような区切り文字をエスケープする必要はない。さらに、オプションの解析が容易になるため、パフォーマンスが向上する。</p>
+<p>正規表現の冒頭で、以下のオプションを0個以上指定し、その後に閉じ括弧を付ける。例えば<span class="regex"><span class="red">im)</span>abc</span>というパターンは、大文字小文字を区別せず、複数行のオプションをつけて「abc」を検索する（オプションがない場合は括弧を省略できる）。この構文は伝統に反するが、特別な区切り文字（スラッシュなど）を必要としないので、パターン内部でそのような区切り文字をエスケープする必要はない。さらに、オプションの解析が容易になるため、パフォーマンスが向上する。</p>
 <table class="info">
   <tr>
     <th class="center">オプション</th>
@@ -37,10 +37,10 @@
   <tr id="Multiline">
     <td class="center bold">m</td>
     <td><p>Multiline。<em>ヘイスタック</em>を連続した1行としてではなく、（改行が含まれている場合は）個々の行の集まりとして表示する。具体的には以下のような変更である：</p>
-      <p>1)サーカムフレックス（^）は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>Haystack</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
-      <p>2)ドル記号（$）は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
-      <p>例えば、パターン<span class="regex"><span class="red">m)</span>^abc$</span>はxyz`r`n<span class="subj">abc</span>にマッチする。しかし、"m"オプションがなければマッチしない。</p>
-      <p>"D"オプションは "m"があると無視される。</p></td>
+      <p>1）サーカムフレックス（^）は、すべての内部改行の直後にマッチし、常にマッチする<em>ヘイスタック</em>の開始部分にもマッチする（ただし、<em>Haystack</em>の<em>最後</em>の改行の後にはマッチしない）。</p>
+      <p>2）ドル記号（$）は、<em>Haystack</em>の改行の前にマッチします（常にマッチする末尾にもマッチします）。</p>
+      <p>例えば、パターン<span class="regex"><span class="red">m)</span>^abc$</span>はxyz`r`n<span class="subj">abc</span>にマッチする。しかし、「m」オプションがなければマッチしない。</p>
+      <p>「D」オプションは「m」があると無視される。</p></td>
   </tr>
   <tr id="opt_s">
     <td class="center bold">s</td>
@@ -48,11 +48,11 @@
   </tr>
   <tr id="opt_x">
     <td class="center bold">x</td>
-    <td>パターン内の空白文字は、エスケープされているか文字クラス内にある場合を除き、無視される。`n と `t は PCRE に到達した時点で、すでに生の/リテラルな空白文字であるため無視されます(対照的に、 \n と\t は PCRE のエスケープシーケンスであるため無視されません)。"x"オプションは、文字クラス外のエスケープされていない"#"と次の改行文字の間の文字も無視する。これにより、複雑なパターンの中にコメントを入れることが可能になる。ただし、これはデータ文字にのみ適用され、条件付きサブパターンを開始する(?(,のような特殊文字列の中に空白が現れることはない。</td>
+    <td>パターン内の空白文字は、エスケープされているか文字クラス内にある場合を除き、無視される。`n と `t は PCRE に到達した時点で、すでに生の/リテラルな空白文字であるため無視されます（対照的に、 \n と\t は PCRE のエスケープシーケンスであるため無視されません）。「x」オプションは、文字クラス外のエスケープされていない「#」と次の改行文字の間の文字も無視する。これにより、複雑なパターンの中にコメントを入れることが可能になる。ただし、これはデータ文字にのみ適用され、条件付きサブパターンを開始する「(?(」、のような特殊文字列の中に空白が現れることはない。</td>
   </tr>
   <tr id="opt_A">
     <td class="center bold">A</td>
-    <td>つまり、<em>Haystack</em>の先頭でのみマッチする。ほとんどの条件下では、これは"^"のような手段でパターンを明示的に固定することと同じである。</td>
+    <td>つまり、<em>Haystack</em>の先頭でのみマッチする。ほとんどの条件下では、これは「^」のような手段でパターンを明示的に固定することと同じである。</td>
   </tr>
   <tr id="opt_D">
     <td class="center bold">D</td>
@@ -64,11 +64,11 @@
   </tr>
   <tr id="opt_U">
     <td class="center bold">U</td>
-    <td>Ungreedy。量化子<strong>*</strong>,<strong>?</strong>,<strong>+</strong>および<strong>{min,max}</strong>は、マッチを形成するために絶対に必要な文字だけを消費し、残りの文字はパターンの次の部分に使用できるようにする。"U"オプションが有効でない場合、個々の量化詞の後にクエスチョンマークを付けることで、欲張らないようにすることができる。逆に "U"<em>が</em>有効な場合、疑問符は個々の量化詞を貪欲にする。</td>
+    <td>Ungreedy。量化子<strong>*</strong>、<strong>?</strong>、<strong>+</strong>および<strong>{min,max}</strong>は、マッチを形成するために絶対に必要な文字だけを消費し、残りの文字はパターンの次の部分に使用できるようにする。「U」オプションが有効でない場合、個々の量化詞の後にクエスチョンマークを付けることで、欲張らないようにすることができる。逆に「U」<em>が</em>有効な場合、疑問符は個々の量化詞を貪欲にする。</td>
   </tr>
   <tr id="opt_extra">
     <td class="center bold">X</td>
-    <td>PCRE_EXTRA。Perlと互換性のないPCREの機能を有効にする。現在のところ、このような機能は、パターン中のバックスラッシュの後に特別な意味を持たない文字が続くと例外がスローされるということだけである。このオプションは、未使用のバックスラッシュ・シーケンスを将来の使用のために確保するのに役立つ。このオプションがない場合、バックスラッシュの後に特別な意味を持たない文字が続いても、リテラルとして扱われる（例えば、 \g と g は両方ともリテラル g として認識される）。このオプションに関係なく、特別な意味を持たない非アルファベットのバックスラッシュ シーケンスは常にリテラルとして扱われる(例： \/ と / は両方ともフォワードスラッシュとして認識される)。</td>
+    <td>PCRE_EXTRA。Perlと互換性のないPCREの機能を有効にする。現在のところ、このような機能は、パターン中のバックスラッシュの後に特別な意味を持たない文字が続くと例外がスローされるということだけである。このオプションは、未使用のバックスラッシュ・シーケンスを将来の使用のために確保するのに役立つ。このオプションがない場合、バックスラッシュの後に特別な意味を持たない文字が続いても、リテラルとして扱われる（例えば、 \g と g は両方ともリテラル g として認識される）。このオプションに関係なく、特別な意味を持たない非アルファベットのバックスラッシュ シーケンスは常にリテラルとして扱われる（例：「\/」と「/」は両方ともフォワードスラッシュとして認識される）。</td>
   </tr>
   <tr id="Study">
     <td class="center bold">S</td>
@@ -91,7 +91,7 @@
   </tr>
   <tr id="opt_esc_r">
     <td class="center bold">`r</td>
-    <td>キャリッジリターン(`r)を唯一の改行マーカーとして認識させる(上記参照)。</td>
+    <td>キャリッジリターン（`r）を唯一の改行マーカーとして認識させる（上記参照）。</td>
   </tr>
 </table>
 <p class="note"><strong>注：</strong>各オプションと次のオプションを区切るために、オプションでスペースとタブを使用することができます。</p>
@@ -99,7 +99,7 @@
 <h2 id="Common">よく使われる記号と構文</h2>
 <table class="info">
   <tr>
-    <th class="center">Element</th>
+    <th class="center">要素</th>
     <th abbr="説明">説明</th>
   </tr>
 	<tr id="dot">
@@ -108,28 +108,28 @@
 	</tr>
 	<tr>
 		<td class="center bold">*</td>
-		<td><p>アスタリスクは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個以上にマッチする。例えば、<span class="regex">a*</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。また、"a "をまったく含まない文字列の先頭にもマッチする。</p>
+		<td><p>アスタリスクは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個以上にマッチする。例えば、<span class="regex">a*</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。また、「a 」をまったく含まない文字列の先頭にもマッチする。</p>
 	      <p><strong>ワイルドカード：</strong>ドットスターパターン<span class="regex">.*</span>は、0個以上の<em>任意</em>の文字（改行 `r と `n を除く）にマッチするため、最も寛容なパターンの1つである。例えば、<span class="regex">abc.*123</span>は<span class="subj">abcAnything123</span>にも<span class="subj">abc123</span>にもマッチする。</p>		  </td>
 	</tr>
 	<tr>
 	  <td class="center bold">?</td>
-	  <td>クエスチョンマークは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個または1個にマッチする。これは「前の項目はオプションである」と考えてほしい。例えば、<span class="regex">colou?r</span>は、"u"がオプションなので、<span class="subj">colorと</span> <span class="subj">colourの</span>両方にマッチする。</td>
+	  <td>クエスチョンマークは、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の0個または1個にマッチする。これは「前の項目はオプションである」と考えてほしい。例えば、<span class="regex">colou?r</span>は、「u」がオプションなので、<span class="subj">color</span>と<span class="subj">colour</span>の両方にマッチする。</td>
   </tr>
 	<tr>
 	  <td class="center bold">+</td>
-	  <td>プラス記号は、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の1つ以上にマッチする。例えば<span class="regex">a+</span>は <span class="subj">ab</span>と<span class="subj">aaab</span>にマッチする。しかし、<span class="regex">a*</span>や <span class="regex">a?</span>とは異なり、<span class="regex">a+</span>パターンは "a"文字のない文字列の先頭ではマッチしない。</td>
+	  <td>プラス記号は、直前の文字、<a href="#class">クラス</a>、<a href="#subpat">サブパターン</a>の1つ以上にマッチする。例えば<span class="regex">a+</span>は <span class="subj">a</span>bと<span class="subj">aaa</span>bにマッチする。しかし、<span class="regex">a*</span>や <span class="regex">a?</span>とは異なり、<span class="regex">a+</span>パターンは「a」文字のない文字列の先頭ではマッチしない。</td>
   </tr>
 	<tr>
 	  <td class="center bold">{min,max}</td>
-	  <td><p>直前の文字、<a href="#class">クラス</a>、または<a href="#subpat">サブパターン</a>の<em>最小</em>出現回数から<em>最大</em>出現回数の間にマッチする。たとえば、<span class="regex">a{1,2}</span>は <span class="subj">ab</span>にマッチするが、<span class="subj">aa</span>abの最初の2つのaにしかマッチしない。</p>
+	  <td><p>直前の文字、<a href="#class">クラス</a>、または<a href="#subpat">サブパターン</a>の<em>最小</em>出現回数から<em>最大</em>出現回数の間にマッチする。たとえば、<span class="regex">a{1,2}</span>は <span class="subj">a</span>bにマッチするが、<span class="subj">aa</span>abの最初の2つのaにしかマッチしない。</p>
         <p>また、{3}はちょうど3回、{3<strong>,</strong>}は3回以上という意味である。注：指定された数値は65536以下でなければならず、最初の数値は2番目の数値以下でなければならない。</p></td>
   </tr>
 	<tr id="class">
 	  <td class="center bold">[...]</td>
 	  <td><p><strong>文字のクラス：</strong>角括弧は文字のリストまたは範囲（または両方）を囲む。例えば、<span class="regex">[abc]</span>は「a、b、cのいずれか1文字」を意味する。例えば、<span class="regex">[a-z]</span>は「小文字のaからzの間にある任意の1文字（含む）」を意味します。例えば、<span class="regex">[a-zA-Z0-9_]</span>は「英数字またはアンダースコアである任意の1文字」を意味する。</p>
-	    <p>文字クラスは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、または<strong>{min,max}</strong>に続くことができる。たとえば、<span class="regex">[0-9]+</span>は、任意の数字が1つ以上出現した場合にマッチする。したがって、<span class="subj">xyz</span>123にはマッチするが、abcxyzにはマッチしない。</p>
+	    <p>文字クラスは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、または<strong>{min,max}</strong>に続くことができる。たとえば、<span class="regex">[0-9]+</span>は、任意の数字が1つ以上出現した場合にマッチする。したがって、xyz<span class="subj">123</span>にはマッチするが、abcxyzにはマッチしない。</p>
         <p>The following POSIX named sets are also supported via the form <strong>[[:xxx:]]</strong>, where xxx is one of the following words: alnum, alpha, ascii (0-127), blank (space or tab), cntrl (control character), digit (0-9), xdigit (hex digit), print, graph (print excluding space), punct, lower, upper, space (whitespace), word (same as <a href="#word">\w</a>).</p>
-        <p>文字クラス内では、クラス内で特別な意味を持つ場合を除いて文字をエスケープする必要はない； 例：<span class="regex">[\^a]</span>、<span class="regex">[a\-b]</span>、<span class="regex">[\a]]</span>、<span class="regex">[\\a]</span>。。</p></td>
+        <p>文字クラス内では、クラス内で特別な意味を持つ場合を除いて文字をエスケープする必要はない、例：<span class="regex">[\^a]</span>、<span class="regex">[a\-b]</span>、<span class="regex">[\a]]</span>、<span class="regex">[\\a]</span>。</p></td>
   </tr>
 	<tr>
 	  <td class="center bold">[^...]</td>
@@ -141,7 +141,7 @@
   </tr>
 	<tr>
 	  <td class="center bold">\s</td>
-	  <td>スペース、タブ、改行(`r と `n)を中心とした空白文字1文字にマッチする。逆に、<strong>大文字</strong>は「空白<em>以外</em>の文字」を意味する。</td>
+	  <td>スペース、タブ、改行（`r と `n）を中心とした空白文字1文字にマッチする。逆に、<strong>大文字</strong>は「空白<em>以外</em>の文字」を意味する。</td>
   </tr>
 	<tr id="word">
 	  <td class="center bold">\w</td>
@@ -150,14 +150,14 @@
 	<tr id="anchor">
 	  <td class="center bold">^<br>$</td>
 	  <td><p>サーカムフレックス（^）とドル記号（$）は、文字を消費しないので<em>アンカー</em>と呼ばれる。</p>
-	    <p><strong>^</strong>は、行の先頭でマッチすることを要求するために、パターンの先頭に現れることがある。例えば、<span class="regex">^abc</span>は <span class="subj">abc123</span>にマッチするが、123abcにはマッチしない。</p>
-	    <p>パターンの最後に<strong>$</strong>を付けると、行の最後にマッチすることを要求することができる。例えば、<span class="regex">abc$</span>は<span class="subj">123</span>abcにマッチするが、abc123にはマッチしない。</p>
+	    <p><strong>^</strong> は、行の先頭でマッチすることを要求するために、パターンの先頭に現れることがある。例えば、<span class="regex">^abc</span>は <span class="subj">abc</span>123にマッチするが、123abcにはマッチしない。</p>
+	    <p><strong>$</strong> は、行の末尾でマッチすることを要求するために、パターンの末尾に表示することができる。例えば、<span class="regex">abc$</span>は123<span class="subj">abc</span>にマッチするが、abc123にはマッチしない。</p>
       <p>2つのアンカーを組み合わせることもできる。例えば、<span class="regex">^abc$</span>は <span class="subj">abc</span>はマッチする（つまり、その前後に他の文字があってはならない）。</p>
-      <p>検索対象のテキストが複数の行を含む場合、<a href="#Multiline">"m "オプション</a>を使って、アンカーをテキスト全体ではなく各行に適用させることができる。例えば、<span class="regex">m)^abc$は</span>123`r`nabc<span class="subj">`</span>r`n789にマッチする。しかし、"m"オプションがなければマッチしない。</p></td>
+      <p>検索対象のテキストが複数の行を含む場合、<a href="#Multiline">「m」オプション</a>を使って、アンカーをテキスト全体ではなく各行に適用させることができる。例えば、<span class="regex">m)^abc$</span>は123`r`n<span class="subj">abc</span>`r`n789にマッチする。しかし、「m」オプションがなければマッチしない。</p></td>
   </tr>
 	<tr>
 	  <td class="center bold">\b</td>
-	  <td><strong>\b</strong>は「単語の境界」を意味し、文字を消費しないのでアンカーのようなものだ。現在の文字の<a href="#word">単語文字としての状態</a>が、前の文字と逆であることを要求する。これは通常、他の単語の中に現れる単語と誤ってマッチングするのを避けるために使われる。例えば、<span class="regex">\bcat\b"</span>は、"catfish"にマッチしないが、<span class="subj">cat</span>は、句読点や空白に関係なくマッチする。キャピタル<strong>\B</strong>はその逆である：この場合、現在の文字が単語境界に<em>ない</em>ことが必要である。</td>
+	  <td><strong>\b</strong> は「単語の境界」を意味し、文字を消費しないのでアンカーのようなものだ。現在の文字の<a href="#word">単語文字（\w）としての状態</a>が、前の文字と逆であることを要求する。これは通常、他の単語の中に現れる単語と誤ってマッチングするのを避けるために使われる。例えば、<span class="regex">\bcat\b</span>は、「catfish」にマッチしないが、<span class="subj">cat</span>は、句読点や空白に関係なくマッチする。キャピタル<strong>\B</strong>はその逆である：この場合、現在の文字が単語境界に<em>ない</em>ことが必要である。</td>
   </tr>
 	<tr>
 	  <td class="center bold">|</td>
@@ -168,7 +168,7 @@
 	  <td><p>括弧で囲まれた項目は、最も一般的に使用される：</p>
 	    <ul>
 	      <li>評価の順番を決める。例えば、<span class="regex">(Sun|Mon|Tues|Wednes|Thurs|Fri|Satur)day</span>は、どの日の名前にもマッチする。</li>
-	      <li><strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>のいずれかを<em>シリーズ</em>に適用する。たとえば、<span class="regex">(abc)+</span>は、文字列 "abc"の1つ以上の出現にマッチする。したがって、<span class="subj">abcabc123</span>にはマッチするが、ab123やbc123にはマッチしない。</li>
+	      <li><strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>のいずれかを<em>シリーズ</em>に適用する。たとえば、<span class="regex">(abc)+</span>は、文字列「abc」の1つ以上の出現にマッチする。したがって、<span class="subj">abcabc</span>123にはマッチするが、ab123やbc123にはマッチしない。</li>
           <li id="capture"><span class="regex">abc<span class="red">(.*)</span>xyz</span>のドットスターのようなサブパターンをキャプチャする。例えば、<a href="../lib/RegExMatch.htm">RegExMatch</a>は各サブパターンにマッチする部分文字列を<a href="../lib/RegExMatch.htm#MatchObject">出力配列</a>に格納する。同様に、<a href="../lib/RegExReplace.htm">RegExReplace</a>では、各サブパターンにマッチする部分文字列を、$1のような<a href="../lib/RegExReplace.htm#BackRef">後方参照</a>を通じて結果に再挿入することができる。サブパターンを捕捉する副作用を伴わずに括弧を使用するには、括弧内の最初の2文字に<strong>?:</strong>を指定する：<span class="regex">(<span class="red">?:</span>.*)</span></li>
 	      <li><a href="#Options">オプション</a>をその場で変更。例えば、<span class="regex">(?im)</span>は、パターン（またはサブパターン内で発生した場合はサブパターン）の残りの部分の大文字小文字を区別しないオプションと複数行オプションをオンにします。逆に、<span class="regex">(?-im)</span>は両方をオフにする。DPS`r`n`aを除くすべてのオプションがサポートされている。</li>
 	    </ul></td>
@@ -176,12 +176,12 @@
 	<tr>
 	  <td class="center bold">\t<br>\r<br>その他</td>
 	  <td><p>これらのエスケープシーケンスは特殊文字を表す。最も一般的なのは、<strong>\t</strong>（タブ）、<strong>\r</strong>（キャリッジリターン）、<strong>\n</strong>（ラインフィード）。AutoHotkeyでは、このような場合、バックスラッシュの代わりにアクセント記号(`)を使用することもできます。<strong>\xhh</strong> 形式のエスケープシーケンスもサポートしており、 <em>hh</em> は00からFFまでのANSI文字の16進コードである。</p>
-      <p><strong>\R</strong>は、<code>`r`n</code>、<code>`n</code>、<code>`r</code>にマッチする(ただし、<a href="#class">文字クラス</a>内では単に "R"となる)。</p></td>
+      <p><strong>\R</strong> は、<code>`r`n</code>、<code>`n</code>、<code>`r</code>にマッチする（ただし、<a href="#class">文字クラス</a>内では単に「R」となる）。</p></td>
   </tr>
   <tr id="slashP">
     <td class="center bold">\p{xx}<br>\P{xx}<br>\X</td>
-    <td><p>Unicode 文字のプロパティ。<strong>\p{xx}</strong>はxx プロパティを持つ文字にマッチしますが、<strong>\P{xx}</strong>は xx プロパティを<i>持たない</i>任意の文字にマッチします。例えば、<span class="regex">\pL</span>は任意の文字にマッチし、<span class="regex">\p{Lu}"</span>は任意の大文字にマッチします。<strong>\X</strong>は、Unicode シーケンスを形成する任意の数の文字にマッチします。</p>
-    <p>サポートされているプロパティ名の全リストとその他の詳細については、<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>で" \p{xx}" を検索してください。</p></td>
+    <td><p>Unicode 文字のプロパティ。<strong>\p{xx}</strong>はxx プロパティを持つ文字にマッチしますが、<strong>\P{xx}</strong>は xx プロパティを<i>持たない</i>任意の文字にマッチします。例えば、<span class="regex">\pL</span>は任意の文字にマッチし、<span class="regex">\p{Lu}</span>は任意の大文字にマッチします。<strong>\X</strong>は、Unicode シーケンスを形成する任意の数の文字にマッチします。</p>
+    <p>サポートされているプロパティ名の全リストとその他の詳細については、<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>で「\p{xx}」を検索してください。</p></td>
   </tr>
   <tr id="UCP">
     <td class="center bold">(*UCP)</td>
@@ -189,9 +189,9 @@
     </td>
   </tr>
 </table>
-<p><strong>貪欲：</strong>デフォルトでは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>は貪欲で、パターン全体を満たす<em>最後</em>の文字まですべての文字を消費する。その代わりに、可能性のある<em>最初</em>の文字で止めさせるには、その後にクエスチョンマークを付ける。例えば <span class="regex">&lt;.+&gt;</span>（クエスチョンマークがない）の意味：「&lt;の後に任意の文字が1つ以上続き、その後に&gt;が続くものを検索する」。このパターンが、<span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>文字列<em>全体</em>にマッチしないようにするには、プラス記号にクエスチョンマークを追加する：<span class="regex">&lt;.+<span class="red">?</span>&gt;</span>。これにより、マッチは最初の'&gt;'で止まり、最初のタグ<span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>にマッチする。</p>
-<p><strong>ルックアヘッドとルックビハインドのアサーション：</strong>グループ<span class="regex">(?=...)</span>,<span class="regex">(?!..)</span>,<span class="regex">(?&lt;=...)</span>,<span class="regex">(?&lt;!..)</span>は、条件を満たすことを要求するが、文字を消費しないので、<em>アサーション</em>と呼ばれる。たとえば、<span class="regex">abc(?=.*xyz)</span>は、文字列xyzが文字列abcの右側のどこかに存在することを必要とするルックアヘッド・アサーションである（存在しない場合、パターン全体がマッチするとはみなされない）。<span class="regex">(?=...)</span>は、指定されたパターンが存在することを要求するため、<em>正</em>のルックアヘッドと呼ばれる。逆に、<span class="regex">(?!...)</span>は、指定されたパターンが存在<em>しない</em>ことを要求するため、<em>負</em>のルックアヘッドとなる。同様に、<span class="regex">(?&lt;=...)</span>と<span class="regex">(?&lt;!..)</span>は、それぞれ正と負の<em>ルックビハインド</em>である。なぜなら、彼らは現在位置の右ではなく<em>左</em>を見るからである。<strong>*</strong>、<strong>?</strong>、<strong>+</strong>のような大小さまざまな量化子をサポートしていないため、ルックアヘッドよりもルックビハインドは制限されている。エスケープシーケンス<strong>\K</strong>は、マッチした最終文字列から前にマッチした文字が省略されるため、ルックビハインド・ アサーションに似ている。例えば、<span class="regex">foo\Kbar</span>は"foobar"にマッチするが、"bar"にマッチしたと報告する。</p>
-<p><strong>関連</strong>正規表現は<a href="../lib/RegExMatch.htm">RegExMatch</a>、<a href="../lib/RegExReplace.htm">RegExReplace</a>、<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>でサポートされています。</p>
+<p><strong>貪欲：</strong>デフォルトでは、<strong>*</strong>、<strong>?</strong>、<strong>+</strong>、<strong>{min,max}</strong>は貪欲で、パターン全体を満たす<em>最後</em>の文字まですべての文字を消費する。その代わりに、可能性のある<em>最初</em>の文字で止めさせるには、その後にクエスチョンマークを付ける。例えば <span class="regex">&lt;.+&gt;</span>（クエスチョンマークがない）の意味：「&lt;の後に任意の文字が1つ以上続き、その後に&gt;が続くものを検索する」。このパターンが、<span class="subj"><span class="red"><strong>&lt;</strong></span>em&gt;text&lt;/em<span class="red"><strong>&gt;</strong></span></span>文字列<em>全体</em>にマッチしないようにするには、プラス記号にクエスチョンマークを追加する：<span class="regex">&lt;.+<span class="red">?</span>&gt;</span>。これにより、マッチは最初の「&gt;」で止まり、最初のタグ<span class="subj"><span class="red"><strong>&lt;</strong></span>em<span class="red"><strong>&gt;</strong></span></span>にマッチする。</p>
+<p><strong>ルックアヘッドとルックビハインドのアサーション：</strong>グループ<span class="regex">(?=...)</span>、<span class="regex">(?!..)</span>、<span class="regex">(?&lt;=...)</span>、<span class="regex">(?&lt;!...)</span>は、条件を満たすことを要求するが、文字を消費しないので、<em>アサーション</em>と呼ばれる。たとえば、<span class="regex">abc(?=.*xyz)</span>は、文字列xyzが文字列abcの右側のどこかに存在することを必要とするルックアヘッド・アサーションである（存在しない場合、パターン全体がマッチするとはみなされない）。<span class="regex">(?=...)</span>は、指定されたパターンが存在することを要求するため、<em>正</em>のルックアヘッドと呼ばれる。逆に、<span class="regex">(?!...)</span>は、指定されたパターンが存在<em>しない</em>ことを要求するため、<em>負</em>のルックアヘッドとなる。同様に、<span class="regex">(?&lt;=...)</span>と<span class="regex">(?&lt;!...)</span>は、それぞれ正と負の<em>ルックビハインド</em>である。なぜなら、彼らは現在位置の右ではなく<em>左</em>を見るからである。<strong>*</strong>、<strong>?</strong>、<strong>+</strong>のような大小さまざまな量化子をサポートしていないため、ルックアヘッドよりもルックビハインドは制限されている。エスケープシーケンス<strong>\K</strong>は、マッチした最終文字列から前にマッチした文字が省略されるため、ルックビハインド・ アサーションに似ている。例えば、<span class="regex">foo\Kbar</span>は「foobar」にマッチするが、「bar」にマッチしたと報告する。</p>
+<p><strong>関連：</strong>正規表現は<a href="../lib/RegExMatch.htm">RegExMatch</a>、<a href="../lib/RegExReplace.htm">RegExReplace</a>、<a href="../lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>でサポートされています。</p>
 <p class="note"><strong>最後に：</strong>このページでは、一般的に使用されるRegExの機能のほとんどに触れていますが、条件付きサブパターンなど、他にも調べたい機能がたくさんあります。PCREマニュアルの完全版は<a href="http://www.pcre.org/pcre.txt">www.pcre.org/pcre.txt</a>にあります。</p>
 
 </body>

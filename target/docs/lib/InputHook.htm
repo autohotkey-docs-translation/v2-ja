@@ -22,8 +22,8 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>A string of zero or more of the following options (in any order, with optional spaces in between):</p>
-    <p id="option-b"><strong>B：</strong><a href="#BackspaceIsUndo">BackspaceIsUndo</a>を0（false）に設定し、<kbd>Backspace</kbd>を無視するようにします。</p>
-    <p id="option-c"><strong>C：</strong><a href="#CaseSensitive">CaseSensitive</a>を1（true）に設定し、<em>MatchList</em>の大文字小文字を区別するようにします。</p>
+    <p id="option-b"><strong>B：</strong><a href="#BackspaceIsUndo">BackspaceIsUndo</a>を0 (false)に設定し、<kbd>Backspace</kbd>を無視するようにします。</p>
+    <p id="option-c"><strong>C：</strong><a href="#CaseSensitive">CaseSensitive</a>を1 (true)に設定し、<em>MatchList</em>の大文字小文字を区別するようにします。</p>
     <p id="option-i"><strong>I：</strong><a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
     <p id="option-l"><strong>L：</strong>長さの制限（例：<code>L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、<a href="#EndReason">EndReason</a>にはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
     <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。This can be useful in combination with <a href="#OnChar">OnChar</a>, <a href="#OnKeyDown">OnKeyDown</a>, <a href="#KeyOpt">KeyOpt</a> or the <em>EndKeys</em> parameter.</p>
@@ -36,8 +36,8 @@ if (ih.Input = CtrlC)
     MsgBox "You pressed Control-C."</pre>
     <p class="note"><strong>注意：</strong><kbd>Ctrl</kbd>+<kbd>A</kbd>から<kbd>Ctrl</kbd>+<kbd>Z</kbd>は、<a href="Chr.htm">Chr(1)</a> から <a href="Chr.htm">Chr(26)</a>に対応しています。また、Mオプションを使用すると、入力中に<kbd>Ctrl</kbd>+<kbd>←</kbd>などの一部のキーボードショートカットが誤動作する場合があります。</p>
     <p id="option-t"><strong>T：</strong><a href="#Timeout">タイムアウト</a>を設定します（例：<code>T3</code>または<code class="no-highlight">T2.5</code>）。</p>
-    <p id="vis"><strong>V：</strong><a href="#VisibleText">VisibleText</a>、<a href="#VisibleNonText">VisibleNonText</a>を1（true）に設定します。通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
-    <p id="asterisk"><strong>*：</strong>ワイルドカード。<a href="#FindAnywhere">FindAnywhere</a>を1（true）に設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
+    <p id="vis"><strong>V：</strong><a href="#VisibleText">VisibleText</a>、<a href="#VisibleNonText">VisibleNonText</a>を1 (true)に設定します。通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
+    <p id="asterisk"><strong>*：</strong>ワイルドカード。<a href="#FindAnywhere">FindAnywhere</a>を1 (true)に設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
     <p id="E"><strong>E：</strong>一文字の終了キーをキーコードではなく、文字コードで扱います。これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。It also prevents key combinations which don't actually produce the given end characters from ending input; for example, if @ is an end key, on the US layout <kbd>Shift</kbd>+<kbd>2</kbd> will trigger it but <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd> will not (if the <a href="#E">E option</a> is used). If the <a href="#option-c">C option</a> is also used, the end character is case-sensitive.</p>
   </dd>
 
@@ -67,7 +67,7 @@ if (ih.Input = CtrlC)
 <p><a href="Send.htm">送信された</a>キーストロークの<a href="SendLevel.htm">送信レベル</a>がInputHookの<a href="#MinSendLevel">MinSendLevel</a>以下の場合、<a href="Send.htm">送信された</a>キーストロークは無視されます。このような場合、キーストロークは、スタックの下位にある入力によって処理される可能性がある。</p>
 <p>複数のInputHooksを<a href="#MinSendLevel">MinSendLevel</a>と組み合わせて使用することで、送信されたキーストロークと実際のキーストロークの両方を個別に収集することができます。</p>
 
-<h2 id="object">InputHook Object</h2>
+<h2 id="object">InputHookオブジェクト</h2>
 <p>InputHook関数は、以下のメソッドとプロパティを持つInputHookオブジェクトを返します。</p>
 「InputHook」はクラスそのものなので、以下ではあらゆるInputHookオブジェクトのプレースホルダとして 「InputHookObj」を使用します。
 <ul class="indent">
@@ -406,7 +406,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
   <li>このVKまたはSCに対して<a href="#KeyOpt-v">Vオプション</a>が有効な場合、抑制されません。</li>
   <li>このVKまたはSCに対して<a href="#KeyOpt-s">Sオプション</a>が有効である場合は、抑制されます。</li>
   <li>キーが<a href="../KeyList.htm#modifier">標準の修飾キー</a>、または<kbd>CapsLock</kbd>、<kbd>NumLock</kbd>、<kbd>ScrollLock</kbd>の場合は、抑制されません。</li>
-  <li>キーがテキストを生成するかどうかに応じて、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>が参照されます。プロパティが0（false）の場合、キーは抑制されます。どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</li>
+  <li>キーがテキストを生成するかどうかに応じて、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>が参照されます。プロパティが0 (false)の場合、キーは抑制されます。どのキーがテキストを生成するものとしてカウントされるかの詳細については、<a href="#VisibleText">VisibleText</a>を参照してください。</li>
 </ul>
 <p><a href="InstallKeybdHook.htm">キーボードフック</a>は、入力中は必要ですが、入力終了時に不要になれば自動的にアンインストールされます。</p>
 <p>このスクリプトは、入力が進行している間は<a href="../Scripts.htm#persistent">自動的に永続化</a>されるため、実行中の<a href="../misc/Threads.htm">スレッド</a>がない場合でも入力の監視を継続します。入力が終了すると、スクリプトは自動的に終了することがあります（実行中のスレッドがなく、他の理由でスクリプトが永続的でない場合）。</p>
@@ -446,7 +446,7 @@ OutputVar := ih.Input
 </ul>
 
 <h2 id="Related">関連</h2>
-<p><a href="KeyWait.htm">KeyWait</a>, <a href="../Hotstrings.htm">Hotstrings</a>, <a href="InputBox.htm">InputBox</a>, <a href="InstallKeybdHook.htm">InstallKeybdHook</a>, <a href="../misc/Threads.htm">Threads</a></p>
+<p><a href="KeyWait.htm">KeyWait</a>、<a href="../Hotstrings.htm">ホットストリング</a>、<a href="InputBox.htm">InputBox</a>、<a href="InstallKeybdHook.htm">InstallKeybdHook</a>、<a href="../misc/Threads.htm">スレッド</a></p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExKeyWaitAny">
@@ -489,7 +489,7 @@ KeyWaitCombo(Options:="")
 </pre>
 </div>
 <div class="ex" id="ExSac">
-<p><a class="ex_number" href="#ExSac"></a> Simple auto-complete: any day of the week. 駄洒落はさておき、これはほぼ機能的な例です。スクリプトを実行し、今日の入力を開始し、<kbd>Tab</kbd>キーを押して完了するか、<kbd>Esc</kbd>キーを押して終了するだけでよいです。</p>
+<p><a class="ex_number" href="#ExSac"></a> シンプルなオートコンプリート：曜日を問わず。駄洒落はさておき、これはほぼ機能的な例です。スクリプトを実行し、今日の入力を開始し、<kbd>Tab</kbd>キーを押して完了するか、<kbd>Esc</kbd>キーを押して終了するだけでよいです。</p>
 <pre>WordList := "Monday`nTuesday`nWednesday`nThursday`nFriday`nSaturday`nSunday"
 
 Suffix := ""

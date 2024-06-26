@@ -41,10 +41,10 @@ P2C2C1 := TV.Add("Child 2's first child", P2C2)
 
 MyGui.Show  <em>; Show the window and its TreeView.</em></pre>
 <h2 id="Options">Optionsパラメータのオプションとスタイル</h2>
-<p><strong>Background：</strong> <em>Background（背景）：Background</em>（背景）という語の直後に色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（0x接頭辞は任意）を指定。例：<code>BackgroundSilver</code>、<code>BackgroundFFDD99</code>。このオプションが存在しない場合、TreeViewはシステムのデフォルトの背景色に初期設定されます。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。例えば、TreeViewは<code>TV.Opt("+BackgroundDefault")</code>でデフォルトの色に戻すことができます。</p>
-<p><strong>ボタン：</strong><code>-Buttons</code>（マイナスボタン）を指定すると、子アイテムを持つ各アイテムの左にプラスボタンやマイナスボタンが表示されなくなります。</p>
+<p><strong>Background：</strong>単語<em>Background</em>の直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>BackgroundSilver</code>、<code>BackgroundFFDD99</code>。このオプションが存在しない場合、TreeViewはシステムのデフォルトの背景色に初期設定されます。<code>BackgroundDefault</code>または<code>-Background</code>を指定すると、システムのデフォルトの背景色（通常は白）が適用される。例えば、TreeViewは<code>TV.Opt("+BackgroundDefault")</code>でデフォルトの色に戻すことができます。</p>
+<p><strong>Buttons：</strong><code>-Buttons</code>（マイナスButtons）を指定すると、子アイテムを持つ各アイテムの左にプラスボタンやマイナスボタンが表示されなくなります。</p>
 <p><strong>C：</strong>テキストの色。文字Cの直後に、色名（<a href="../misc/Colors.htm">カラーチャート</a>参照）またはRGB値（接頭辞0xは任意）を指定します。例：<code>cRed</code>、<code>cFF2211</code>、<code>c0xFF2211</code>、<code>cDefault</code>。</p>
-<p id="Checked"><strong>チェック済み：</strong>各項目の左側にチェックボックスがあります。項目を<a href="#Add">追加</a>する際、オプションに<em>Check</em>という単語を指定すると、チェックされていないボックスではなく、チェックされたボックスが開始されます。ユーザーは、チェックボックスをクリックするか、スペースバーを押して、項目のチェックを入れたり外したりすることができます。TreeViewのどのアイテムが現在チェックされているかを調べるには、<a href="#GetNext">GetNextメソッド</a>または<a href="#Get">Getメソッド</a>を呼び出します。</p>
+<p id="Checked"><strong>Checked：</strong>各項目の左側にチェックボックスがあります。項目を<a href="#Add">追加</a>する際、オプションに<em>Check</em>という単語を指定すると、チェックされていないボックスではなく、チェックされたボックスが開始されます。ユーザーは、チェックボックスをクリックするか、スペースバーを押して、項目のチェックを入れたり外したりすることができます。TreeViewのどのアイテムが現在チェックされているかを調べるには、<a href="#GetNext">GetNextメソッド</a>または<a href="#Get">Getメソッド</a>を呼び出します。</p>
 <p><strong>HScroll：</strong> <code>-HScroll</code>（マイナスHScroll）を指定すると、コントロールの水平スクロールが無効になります（さらに、コントロールは水平スクロールバーを表示しません）。</p>
 <p id="ImageList"><strong>ImageList：</strong>TreeViewにアイコンを追加する手段です。<em>ImageList</em>という語の直後に、以前に<a href="ListView.htm#IL_Create">IL_Create</a>をコールして返されたImageListIDを指定する。このオプションはTreeViewを作成するときにのみ効果があります（ただし、<a href="#SetImageList">SetImageListメソッド</a>には、この制限はありません）。以下はその例である：</p>
 <pre>MyGui := Gui()
@@ -110,13 +110,13 @@ TV_Edit(TV, Item)
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
-    <p id="Bold"><strong>太字：</strong>項目名を太字で表示します。後でアイテムのボールドを解除するには、<code>TV.Modify(ItemID, "-Bold")</code>を使用します。<em>Boldの</em>直後に、開始状態を示す0または1を続けることもできる。</p>
-    <p id="Check"><strong>チェック</strong>TreeViewに<a href="#Checked">チェックボックス</a>がある場合）アイテムの左にチェックマークを表示します。後でチェックを外すには、<code>TV.Modify(ItemID, "-Check")</code>を使用します。<em>Check</em>の直後に、開始状態を示す0または1を続けることもできる。つまり、<code>"Check"</code>も<code>"Check" <strong>.</strong> VarContainingOne</code>は同じである（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>である）。</p>
-    <p id="Expand"><strong>展開する：</strong>アイテムを展開し、その子アイテムを表示します。後でアイテムを折りたたむには、<code>TV.Modify(ItemID, "-Expand")</code>を使用します。子供がいない場合、<a href="#Modify">Modify メソッド</a>はアイテムの ID ではなく 0 を返します。対照的に、<a href="#Add">Addメソッド</a>は、後でそのアイテムに子供が追加された場合に備えて、そのアイテムを拡張されたものとしてマークする。下の<a href="#Select">「選択」</a>オプションとは異なり、項目を展開してもその親項目は自動的に展開されません。最後に、<em>Expand</em>の直後に、開始状態を示す0または1を続けることもできる。言い換えれば、<code>"Expand"</code>も<code>"Expand" <strong>.</strong> VarContainingOne</code>は同じである。</p>
+    <p id="Bold"><strong>Bold：</strong>項目名を太字で表示します。後でアイテムのボールドを解除するには、<code>TV.Modify(ItemID, "-Bold")</code>を使用します。<em>Bold</em>の直後に、開始状態を示す0または1を続けることもできる。</p>
+    <p id="Check"><strong>Check：</strong>TreeViewに<a href="#Checked">チェックボックス</a>がある場合）アイテムの左にチェックマークを表示します。後でチェックを外すには、<code>TV.Modify(ItemID, "-Check")</code>を使用します。<em>Check</em>の直後に、開始状態を示す0または1を続けることもできる。つまり、<code>"Check"</code>も<code>"Check" <strong>.</strong> VarContainingOne</code>は同じである（ここで使われているピリオドは<a href="../Variables.htm#concat">連結演算子</a>である）。</p>
+    <p id="Expand"><strong>Expand：</strong>アイテムを展開し、その子アイテムを表示します。後でアイテムを折りたたむには、<code>TV.Modify(ItemID, "-Expand")</code>を使用します。子供がいない場合、<a href="#Modify">Modify メソッド</a>はアイテムの ID ではなく 0 を返します。対照的に、<a href="#Add">Addメソッド</a>は、後でそのアイテムに子供が追加された場合に備えて、そのアイテムを拡張されたものとしてマークする。下の<a href="#Select">「選択」</a>オプションとは異なり、項目を展開してもその親項目は自動的に展開されません。最後に、<em>Expand</em>の直後に、開始状態を示す0または1を続けることもできる。言い換えれば、<code>"Expand"</code>も<code>"Expand" <strong>.</strong> VarContainingOne</code>は同じである。</p>
     <p><strong>First | Sort | N：</strong>これらのオプションは<a href="#Add">Addメソッド</a>にのみ適用されます。新しいアイテムの位置は、その兄弟アイテム（<em>兄弟アイテム</em>とは、同じレベルにある他のアイテムのことです）との相対的な位置関係で指定されます。これらのオプションがない場合、新しい項目は最後/最下部の兄弟として追加されます。そうでない場合は、<em>First</em>という単語を指定して、その項目を最初の兄弟／一番上の兄弟として追加するか、<em>Sort</em>という単語を指定して、その項目をアルファベット順に兄弟の中に挿入する。プレーンな整数<em>N</em>が指定された場合、それは新しい項目を挿入する兄弟のID番号とみなされる（<em>N</em>が唯一のオプションの場合、引用符で囲む必要はない）。</p>
-    <p><strong>Icon（アイコン）：</strong> <em>Icon（アイコン</em>）という単語と、アイテム名の左に表示されるこのアイテムのアイコンの番号を指定します。このオプションがない場合、<a href="#ImageList">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示するには、ImageList のアイコンの数より大きい数を指定します。コントロールにイメージリストがない場合、アイコンは表示されず、アイコンのためのスペースも確保されません。</p>
-    <p id="Select"><strong>選択：</strong>項目を選択します。一度に1つの項目しか選択できないため、以前に選択されていた項目は自動的に選択解除される。さらに、このオプションは、必要に応じて、その親を展開することによって、新しく選択された項目を明らかにする。現在の選択範囲を知るには、<a href="#GetSelection">GetSelectionメソッド</a>を呼び出します。</p>
-    <p><strong>並べ替え：</strong> <a href="#Modify">Modify メソッド</a>の場合、このオプションは、指定された項目の子をアルファベット順に並べ替えます。代わりにすべてのトップレベル項目をソートするには、<code>TV.Modify(0, "Sort")</code>を使用します。子供がいない場合は、変更された項目のIDの代わりに0が返される。</p>
+    <p><strong>Icon：</strong> <em>Icon（アイコン</em>）という単語と、アイテム名の左に表示されるこのアイテムのアイコンの番号を指定します。このオプションがない場合、<a href="#ImageList">ImageList</a>の最初のアイコンが使われます。空白のアイコンを表示するには、ImageList のアイコンの数より大きい数を指定します。コントロールにイメージリストがない場合、アイコンは表示されず、アイコンのためのスペースも確保されません。</p>
+    <p id="Select"><strong>Select：</strong>項目を選択します。一度に1つの項目しか選択できないため、以前に選択されていた項目は自動的に選択解除される。さらに、このオプションは、必要に応じて、その親を展開することによって、新しく選択された項目を明らかにする。現在の選択範囲を知るには、<a href="#GetSelection">GetSelectionメソッド</a>を呼び出します。</p>
+    <p><strong>Sort：</strong> <a href="#Modify">Modify メソッド</a>の場合、このオプションは、指定された項目の子をアルファベット順に並べ替えます。代わりにすべてのトップレベル項目をソートするには、<code>TV.Modify(0, "Sort")</code>を使用します。子供がいない場合は、変更された項目のIDの代わりに0が返される。</p>
     <p><strong>Vis：</strong>必要に応じて、TreeViewをスクロールしたり、親を展開したりして、アイテムが完全に表示されるようにします。</p>
     <p><strong>VisFirst：</strong>上記と同じですが、TreeViewもスクロールされ、可能であればアイテムが一番上に表示されます。このオプションは通常、<a href="#Add">Addメソッド</a>よりも<a href="#Modify">Modifyメソッド</a>で使用した方が効果的です。</p>
   </dd>
@@ -372,7 +372,7 @@ ButtonOK(*) {
 <p>TreeViewのサイズ変更、非表示、フォント変更などのアクションを実行するには、<a href="GuiControl.htm">GuiControlオブジェクト</a>を参照してください。</p>
 <p>Tree View eXtension (TVX) はTreeViewを拡張し、移動、挿入、削除をサポートします。It is demonstrated at <a href="https://www.autohotkey.com/board/topic/17497-">this archived forum thread</a>.</p>
 <h2 id="Related">関連</h2>
-<p><a href="ListView.htm">ListView</a>, <a href="GuiControls.htm">Other Control Types</a>, <a href="Gui.htm#Call">Gui()</a>, <a href="GuiOnEvent.htm#ContextMenu">ContextMenu event</a>, <a href="GuiControl.htm">Gui object</a>, <a href="GuiControl.htm">GuiControl object</a>, <a href="../misc/Styles.htm#TreeView">TreeView styles table</a></p>
+<p><a href="ListView.htm">ListView</a>、<a href="GuiControls.htm">その他のコントロールタイプ</a>、<a href="Gui.htm#Call">Gui()</a>、<a href="GuiOnEvent.htm#ContextMenu">ContextMenuイベント</a>、<a href="GuiControl.htm">Guiオブジェクト</a>、<a href="GuiControl.htm">GuiControlオブジェクト</a>、<a href="../misc/Styles.htm#TreeView">TreeViewのスタイルの表</a></p>
 
 <h2 id="Examples">例</h2>
 
