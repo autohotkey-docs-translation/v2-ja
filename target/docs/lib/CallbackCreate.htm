@@ -32,7 +32,7 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, a new <a href="../misc/Threads.htm">thread</a> will be started each time <em>Function</em> is called, the standard calling convention will be used, and the parameters will be passed individually to <em>Function</em>. Otherwise, specify one or more of the following options. 各オプションと次のオプションはスペースで区切ってください（例：<code>"C Fast"</code>）。</p>
     <p id="Fast"><strong>Fast</strong> または <strong>F</strong>：<em>Function</em>が呼び出されるたびに新しい<a href="../misc/Threads.htm">スレッド</a>を開始するのを避けることができます。この方が性能は良いのですが、<em>Address</em>が呼び出されるスレッドが変化する場合（例えば、コールバックが着信メッセージによってトリガーされる場合）には、この方法は避けなければなりません。これは、<em>Function</em>が呼び出された時にたまたま実行されていたスレッドの<a href="../Variables.htm#LastError">A_LastError</a>や <a href="../misc/WinTitle.htm#LastFoundWindow">last-found window</a>などのグローバル設定を変更することができるようになるためです。詳しくは、「<a href="#Threads">備考</a>」をご覧ください。</p>
-    <p><strong>CDecl</strong> または <strong>C</strong>：<em>Addressを</em>"C "呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略されます。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
+    <p><strong>CDecl</strong> または <strong>C</strong>：<em>Address</em>を「C」呼び出し規則に準拠させる。コールバックでは標準の呼び出し規約の方がはるかに一般的なので、これは通常省略されます。このオプションは、x64呼び出し規約を使用するAutoHotkeyの64ビットバージョンでは無視されます。</p>
     <p><strong>&amp;：</strong>個々のパラメータではなく、パラメータリストのアドレス（1つの整数）を<em>Function</em>に渡すようにします。パラメータ値は、<a href="NumGet.htm">NumGet</a>を用いて取得することができる。標準の32ビット呼び出し規約を使用する場合、<em>ParamCount</em>はパラメータリストのサイズをDWORD（バイト数を4で割った値）で指定する必要があります。</p>
   </dd>
 
@@ -54,7 +54,7 @@
   <li><em>Function</em>がオブジェクトでない、または<code>MinParams</code>プロパティも<code>Call</code>メソッドも持っていない。</li>
   <li><em>関数</em>には <code>MinParams</code>プロパティがあり、コールバックが供給するパラメータの数を超えています。</li>
   <li><em>ParamCount</em>は否定的です。</li>
-  <li><em>ParamCountは</em>省略され、更に1)<em>Function</em>に <code>MinParams</code>プロパティがない、または2)<code>&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
+  <li><em>ParamCount</em>は省略され、更に1)<em>Function</em>に <code>MinParams</code>プロパティがない、または2)<code>&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
 </ul>
 
 <a id="The_Callback_Functions_Parameters"></a>
@@ -146,7 +146,7 @@ SetWindowLong := A_PtrSize=8 ? "SetWindowLongPtr" : "SetWindowLong"
 
 WindowProcNew := CallbackCreate(WindowProc)  <em>; サブクラス作成時のfast-modeは避けてください。</em>
 WindowProcOld := DllCall(SetWindowLong, "Ptr", MyGui.Hwnd, "Int", -4  <em>; -4 は GWL_WNDPROC</em>
-    , "Ptr", WindowProcNew, "Ptr") <em>; 戻り値は "Ptr"または "UPtr"対 "Int"に設定する必要があります。</em>
+    , "Ptr", WindowProcNew, "Ptr") <em>; 戻り値は「Ptr」または「UPtr」対「Int」に設定する必要があります。</em>
 
 MyGui.Show
 

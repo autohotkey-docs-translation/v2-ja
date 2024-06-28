@@ -33,7 +33,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <ul>
   <li>Firstly, the obvious: the program couldn't be launched.</li>
   <li>ダイアログには「Action」と「Params」が表示されていますが、「Action」の横には私たちのコマンドライン全体が表示され、「Params」は空になっています。つまり、Run関数は、プログラム名の終わりとパラメータの始まりを知らないのです。</li>
-  <li>"システムは指定されたファイルを見つけることができません"（英語版システムにおいて）。おそらく、システムは「wordpad」を見つけられなかったのでしょうが、本当に言っているのは、「wordpad C:\・・・」というようなファイルが存在しない、ということなのでしょう。</li>
+  <li>「The system cannot find the file specified」（英語版システムにおいて）。おそらく、システムは「wordpad」を見つけられなかったのでしょうが、本当に言っているのは、「wordpad C:\…」というようなファイルが存在しない、ということなのでしょう。</li>
 </ul>
 <p>しかし、なぜメモ帳が使えたのでしょうか？notepad」と「wordpad」のどちらかを単独で実行しても動作しますが、その理由は異なります。wordpad.exeはnotepad.exeと異なり、環境変数PATHに記載されている各ディレクトリを確認しても見つけることができない。別の方法で探すことも可能で、その場合はRun関数でプログラム名とパラメータを分離する必要があります。</p>
 <p>そこで、この場合、Run関数には、次のような形で、ちょっとした手助けが必要です：</p>
@@ -60,7 +60,7 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>ほとんどのプログラムは、引用符を一種のトグルとして解釈し、「スペースはパラメーターを終了する」と「スペースはパラメーターに含まれる」の間でモードを切り替えます。つまり、<code>Run 'my.exe "A B"'</code>は一般的に <code>Run 'my.exe A" "B'</code> と同等です。そこで、スラッシュの問題を回避する別の方法として、<code>Run 'my.exe "A"\ B'</code>のように、パラメータ全体ではなく<em>スペース</em>を引用するか、スラッシュの前で引用を終了します。</p>
 
 <h2 id="Including_Variables">変数を含む</h2>
-<p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、"Program Files" ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
+<p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、「Program Files」ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
 <pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
 Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
 <p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結します。事例：</p>
@@ -81,8 +81,8 @@ Send "^e"  <em>; Ctrl+Eはイメージのプロパティダイアログを開き
 
 <h2 id="System_Verbs">システム動詞</h2>
 <p><a href="../lib/Run.htm#verbs">システム動詞</a>とは、システムやアプリケーションが特定のファイルタイプに対して登録するアクションのことです。これらは通常、エクスプローラーのファイルの右クリックメニューで利用できますが、実際の名前はメニューに表示されるテキストと必ずしも一致しません。例えば、AutoHotkeyスクリプトには、スクリプトをエディタで開く「edit」動詞と、（Ahk2Exeがインストールされていれば）スクリプトを<a href="../Scripts.htm#ahk2exe">コンパイル</a>する「compile」動詞があります。</p>
-<p>"Edit "は、Runがデフォルトで認識する一般的な動詞のリストの1つで、次のように、単語の後にスペースとファイル名を書くだけで使用することができます：</p>
-<pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Editに</a>相当します。</em></pre>
+<p>「Edit」は、Runがデフォルトで認識する一般的な動詞のリストの1つで、次のように、単語の後にスペースとファイル名を書くだけで使用することができます：</p>
+<pre>Run 'edit ' A_ScriptFullPath  <em>; 一般的に<a href="../lib/Edit.htm">Edit</a>に相当します。</em></pre>
 <p>システムに登録されている動詞は、以下のように*接頭辞をつけることで実行することができます：</p>
 <pre>Run '*Compile-Gui ' A_ScriptFullPath</pre>
 <p>Ahk2Exeがインストール済のときは、現在のスクリプトがあらかじめ選択された状態でAhk2Exe Guiが開かれます。</p>
@@ -92,8 +92,8 @@ Send "^e"  <em>; Ctrl+Eはイメージのプロパティダイアログを開き
 <p>場合によっては、プログラムを起動する前に<a href="../lib/EnvSet.htm">EnvSet</a>で環境変数を設定し、プログラムの動作に影響を与えたり、情報を渡したりすることができます。また、スクリプトは<a href="../lib/EnvGet.htm">EnvGet</a>を使用して、親プロセスから継承した環境変数を読み込むことができます。</p>
 <p>64ビットシステムでは、スクリプトを実行するEXEが32ビットか64ビットかに応じて、スクリプト自身の環境が大きく変化します。32ビットプロセスは、環境変数が異なるだけでなく、互換性のために<a href="https://learn.microsoft.com/windows/win32/winprog64/file-system-redirector">ファイルシステムのリダイレクト</a>が行われている。</p>
 <pre>Run "cmd /k set pro"</pre>
-<p>上の例では、"pro"で始まるすべての環境変数を表示するコマンドプロンプトを表示しています。32ビットスクリプトから実行した場合、<code>PROCESSOR_ARCHITECTURE=x86</code>、<code>ProgramFiles=C:\Program Files (x86)</code> と表示されると思います。タイトルは"C:\Windows\System32\cmd.exe"ですが、これは嘘で、本当は "C:\Windows\SysWow64\cmd.exe"にある32ビット版なのです。</p>
-<p>このような単純なケースでは、"System32" のリダイレクトを回避する最も簡単な方法は、代わりに"SysNative" を使用することです。ただし、これは64ビットシステム上の32ビットプロセスからしか動作しないので、条件付きで行う必要があります。以下の例を64ビットシステムで実行すると、スクリプトが32ビットであっても、64ビットのコマンドプロンプトが表示されます：</p>
+<p>上の例では、「pro」で始まるすべての環境変数を表示するコマンドプロンプトを表示しています。32ビットスクリプトから実行した場合、<code>PROCESSOR_ARCHITECTURE=x86</code>、<code>ProgramFiles=C:\Program Files (x86)</code> と表示されると思います。タイトルは"C:\Windows\System32\cmd.exe"ですが、これは嘘で、本当は "C:\Windows\SysWow64\cmd.exe"にある32ビット版なのです。</p>
+<p>このような単純なケースでは、「System32」のリダイレクトを回避する最も簡単な方法は、代わりに「SysNative」を使用することです。ただし、これは64ビットシステム上の32ビットプロセスからしか動作しないので、条件付きで行う必要があります。以下の例を64ビットシステムで実行すると、スクリプトが32ビットであっても、64ビットのコマンドプロンプトが表示されます：</p>
 <pre>if FileExist(A_WinDir "\SysNative")
     Run A_WinDir "\SysNative\cmd.exe /k set pro"
 else

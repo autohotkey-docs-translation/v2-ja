@@ -27,7 +27,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>送信するキーのシーケンス。</p>
-    <p>デフォルトでは（つまり、SendTextも<a href="#Raw">Rawモード</a>も <a href="#Text">Textモード</a>も使用しない場合）、文字<code>^+!#{}</code>は特別な意味を持つ。文字<code>^+!#</code>は、修飾キー<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>を表します。次のキーにしか影響しません。対応する修飾キーを単独で送信する場合は、キー名を中括弧で囲んでください。キーを押したり離したりするだけなら、以下のようにキー名の後に "down"や "up"をつけてください。</p>
+    <p>デフォルトでは（つまり、SendTextも<a href="#Raw">Rawモード</a>も <a href="#Text">Textモード</a>も使用しない場合）、文字<code>^+!#{}</code>は特別な意味を持つ。文字<code>^+!#</code>は、修飾キー<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>を表します。次のキーにしか影響しません。対応する修飾キーを単独で送信する場合は、キー名を中括弧で囲んでください。キーを押したり離したりするだけなら、以下のようにキー名の後に「down」や「up」をつけてください。</p>
     <style>
       #modifierkeys td:not(:last-child) {
         white-space: nowrap;
@@ -74,7 +74,7 @@
     </table>
     <p class="note"><strong>注意：</strong><kbd>Shift</kbd>を送ると大文字が出るように、<code>A</code>はプログラムによっては<code>a</code>とは違う効果が出ます。例えば、<code>!A</code>は <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>、および、<code>!a</code>は、<kbd>Alt</kbd>+<kbd>A</kbd>を押します。迷ったときは小文字を使います。</p>
     <p>文字<code>{}</code>は、<a href="#keynames">キー名やその他のオプション</a>を囲んだり、特殊文字を文字通りに送信するために使用します。例えば、<code>{Tab}</code> は <kbd>Tab</kbd>、<code>{!}</code>は文字通りのエクスクラメーションマークです。</p>
-    <p>ASCII文字（a-zまたはA-Z）を中括弧で囲むと、その文字が現在のキーボードレイアウトに存在しない場合でも、対応する仮想キーコードとして送信されます。つまり、<code>Send "a"</code>は"a"が出るが、<code>Send "{a}"</code>をと"a"が出るかどうかは、キーボードの配列によって異なります。詳しくは、<a href="#AZ">下記の備考</a>をご覧ください。</p>
+    <p>ASCII文字（a-zまたはA-Z）を中括弧で囲むと、その文字が現在のキーボードレイアウトに存在しない場合でも、対応する仮想キーコードとして送信されます。つまり、<code>Send "a"</code>は「a」が出るが、<code>Send "{a}"</code>をと「a」が出るかどうかは、キーボードの配列によって異なります。詳しくは、<a href="#AZ">下記の備考</a>をご覧ください。</p>
   </dd>
 
 </dl>
@@ -106,7 +106,7 @@
   <li><a href="A_MenuMaskKey.htm">Menu masking</a>は無効です。つまり、Sendは、予防のために送信されるはずの余分なキーストロークを省略します：1) Winキー操作時のスタートメニュー表示（LWin/RWin）、2) Altキー操作時のメニューバー起動。ただし、ブラインドモードでは、フックホットキー起動後のキーボードフックによるマスキングは防げません。</li>
   <li>送信は、テキストに<kbd>L</kbd>キーが含まれていても、<kbd>Win</kbd>の解除を待たずに送信します。これは通常、Sendがシステムの「ワークステーションをロック」ホットキー（<kbd>Win</kbd>+<kbd>L</kbd>）をトリガーするのを防ぐために行われるものです。See <a href="../Hotkeys.htm#win-l">Hotkeys</a> for details.</li>
 </ul>
-<p id="blind-exclude">"Blind"の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
+<p id="blind-exclude">「Blind」の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
 <p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。例えば、<code>a::b</code>の再マッピングでは、次のようになります：1)「a」と入力したときに「b」、2) 大文字の「A」と入力したときに「B」、3)  <kbd>Ctrl</kbd>+<kbd>B</kbd>と入力したときに<kbd>Ctrl</kbd>+<kbd>A</kbd>。ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
 <p><code>{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code>{Blind}{Text}</code>を使用してください。</p>
 <p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail">SendPlay</a>で完全にサポートされているわけではありません。</p>
@@ -402,7 +402,7 @@
   </tr>
   <tr>
     <td>{Browser_Favorites}</td>
-    <td>ブラウザの "お気に入り"ボタンを選択</td>
+    <td>ブラウザの「お気に入り」ボタンを選択</td>
   </tr>
   <tr>
     <td>{Browser_Home}</td>
@@ -466,7 +466,7 @@
   </tr>
   <tr id="Click">
     <td>{Click [Options]}</td>
-    <td><a href="Click.htm">クリック</a>機能と同じオプションを使って、マウスクリックを送信します。例えば、<code>Send "{Click}"</code>はマウスカーソルの現在位置でマウスの左ボタンを1回クリックし、<code>Send "{Click 100 200}"</code>は座標100、200（<a href="CoordMode.htm">CoordModeに</a>基づく）でクリックします。クリックせずにマウスを移動させる場合は、座標の後に0を指定します（例：<code>Send "{Click 100 200 0}"</code>）。マウスクリックの遅延時間は<a href="SetMouseDelay.htm">SetMouseDelay</a>で決定されます（<a href="SetKeyDelay.htm">SetKeyDelay</a>ではありません）。</td>
+    <td><a href="Click.htm">クリック</a>機能と同じオプションを使って、マウスクリックを送信します。例えば、<code>Send "{Click}"</code>はマウスカーソルの現在位置でマウスの左ボタンを1回クリックし、<code>Send "{Click 100 200}"</code>は座標100、200（<a href="CoordMode.htm">CoordMode</a>に基づく）でクリックします。クリックせずにマウスを移動させる場合は、座標の後に0を指定します（例：<code>Send "{Click 100 200 0}"</code>）。マウスクリックの遅延時間は<a href="SetMouseDelay.htm">SetMouseDelay</a>で決定されます（<a href="SetKeyDelay.htm">SetKeyDelay</a>ではありません）。</td>
   </tr>
   <tr id="mouse-buttons">
     <td>{WheelDown}、{WheelUp}、{WheelLeft}、{WheelRight}、{LButton}、{RButton}、{MButton}、{XButton1}、{XButton2}</td>

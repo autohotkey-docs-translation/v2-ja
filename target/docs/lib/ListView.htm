@@ -147,7 +147,7 @@ LV_DoubleClick(LV, RowNumber)
   <dt>RowNumber</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a></p>
-    <p>新たに挿入された行の行番号。<em>RowNumber</em>以下の行は、新しい行のためのスペースを確保するために下方にシフトされます。<em>RowNumberが</em>リストの行数より大きい場合（2147483647でも）、新しい行はリストの末尾に追加されます。</p>
+    <p>新たに挿入された行の行番号。<em>RowNumber</em>以下の行は、新しい行のためのスペースを確保するために下方にシフトされます。<em>RowNumber</em>がリストの行数より大きい場合（2147483647でも）、新しい行はリストの末尾に追加されます。</p>
   </dd>
   <dt>Options</dt>
   <dd>
@@ -243,7 +243,7 @@ LV_DoubleClick(LV, RowNumber)
     <p id="Case"><strong>Case：</strong>カラムのソートは大文字と小文字を区別します（<a href="#Text">テキスト</a>カラムにのみ影響します）。<em>Case</em>、<em>CaseLocale</em>、<em>Logical</em>の各オプションが省略された場合、大文字のA〜Zは小文字と同一とみなされ、ソートが行われます。</p>
     <p><strong>CaseLocale：</strong>カラムのソートは、現在のユーザーのロケールに基づき、大文字と小文字を区別しません（<a href="#Text">テキスト</a>カラムにのみ影響します）。例えば、ほとんどの英語と西ヨーロッパのロケールでは、A-Zの文字とÄやÜなどのANSI文字が小文字と同じように扱われます。また、この方法では、「coop」と「co-op」のような単語が一緒になるようにハイフンやアポストロフィーを処理する「ワードソート」を使用しています。</p>
     <p id="Desc"><strong>Desc：</strong>降順。ユーザーが初めてソートするときは、列は降順で始まります。</p>
-    <p id="Logical"><strong>Logical：</strong><em>CaseLocale</em>と同じですが、テキスト中の数字列が単なる文字ではなく、真の数字として扱われる点が異なります。例えば、文字列 "T33"は "T4"よりも大きいと判断されるでしょう。<em>Logical</em>と <em>Case</em>は現在相互排他的です：直近で指定されたものだけが有効になります。</p>
+    <p id="Logical"><strong>Logical：</strong><em>CaseLocale</em>と同じですが、テキスト中の数字列が単なる文字ではなく、真の数字として扱われる点が異なります。例えば、文字列「T33」は「T4」よりも大きいと判断されるでしょう。<em>Logical</em>と <em>Case</em>は現在相互排他的です：直近で指定されたものだけが有効になります。</p>
     <p><strong>NoSort：</strong>このカラムをユーザーがクリックしても、自動的にソートされないようにします。しかし、<a href="GuiOnEvent.htm#ColClick">ColClick</a>イベントはまだ発生するので、スクリプトはカスタムソートなどのアクションで応答することができます。一部の列だけでなく、すべての列のソートを無効にするには、リストビューのオプションに<a href="#NoSort">NoSort</a>を含めます。</p>
     <p><strong>Sort：</strong>カラムを即座に昇順でソートします（<a href="#Desc">Desc</a>オプションがあっても）。</p>
     <p><strong>SortDesc：</strong>カラムをすぐに降順にソートします。</p>
@@ -720,7 +720,7 @@ ShowContextMenu(LV, Item, IsRightClick, X, Y)  <em>; 右クリックまたはApp
     ContextMenu.Show(X, Y)
 }
 
-ContextOpenOrProperties(ItemName, *)  <em>; ユーザーがコンテキストメニューの "Open"または "Properties"を選択した。</em>
+ContextOpenOrProperties(ItemName, *)  <em>; ユーザーがコンテキストメニューの「Open」または「Properties」を選択した。</em>
 {
     <em>; For simplicitly, operate upon only the focused row rather than all selected rows:</em>
     FocusedRowNumber := LV.GetNext(0, "F")  <em>; Find the focused row.</em>
@@ -730,7 +730,7 @@ ContextOpenOrProperties(ItemName, *)  <em>; ユーザーがコンテキストメ
     FileDir := LV.GetText(FocusedRowNumber, 2)  <em>; 2番目のフィールドのテキストを取得します。</em>
     try
     {
-        if (ItemName = "Open")  <em>; ユーザーはコンテキストメニューから "Open"を選択した。</em>
+        if (ItemName = "Open")  <em>; ユーザーはコンテキストメニューから「Open」を選択した。</em>
             Run(FileDir "\" FileName)
         else
             Run("properties " FileDir "\" FileName)
@@ -739,7 +739,7 @@ ContextOpenOrProperties(ItemName, *)  <em>; ユーザーがコンテキストメ
         MsgBox("Could not perform requested action on " FileDir "\" FileName ".")
 }
 
-ContextClearRows(*)  <em>; ユーザーがコンテキストメニューで "Clear"を選択しました。</em>
+ContextClearRows(*)  <em>; ユーザーがコンテキストメニューで「Clear」を選択しました。</em>
 {
     RowNumber := 0  <em>; これにより、最初の反復は先頭から検索を開始することになる。</em>
     Loop

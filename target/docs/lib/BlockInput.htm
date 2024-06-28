@@ -50,7 +50,7 @@
 <p>BlockInputの3つのモード（<em>OnOff</em>、<em>SendMouse</em>、<em>MouseMove</em>）は、それぞれ独立して動作します。例えば、<code>BlockInput "On"</code>は、<em>SendMouse</em>からのワードの1つが有効であっても、<code>BlockInput "Off"</code>が使われるまで、入力をブロックし続けます。他の例として、<code>BlockInput "On"</code>と<code>BlockInput "MouseMove"</code>の両方が有効な場合、両方がオフになるまでマウスの移動がブロックされることがあります。</p>
 <p class="note"><strong>注：</strong>UACが有効になっていたり、スクリプトが管理者として実行されていない場合、<em>OnOff</em>と <em>SendMouse</em>モードは効果がない場合があります。詳しくは、<a href="../FAQ.htm#uac">FAQ</a>を参照してください。</p>
 <p>BlockInputよりも、<code><a href="SendMode.htm">SendMode</a> "Input"</code>や<code><a href="SendMode.htm">SendMode</a> "Play"</code>を使用した方が、キー入力やマウスクリックが途切れることなく行える場合があります。これは、BlockInputとは異なり、これらのモードでは送信中にユーザーが入力したものを破棄せず、代わりにそれらのキーストロークをバッファリングして後に送信するためです。BlockInputを避けることで、次の段落で説明するスティッキングキーを回避することもできます。</p>
-<p>ユーザーがキーを押しているときにBlockInputがアクティブになると、そのキーが "stuck down"になってしまうことがあります。この例では、BlockInputをオンにする前にキーが解放されるのを待つことで、これを回避することができます：</p>
+<p>ユーザーがキーを押しているときにBlockInputがアクティブになると、そのキーが「stuck down」になってしまうことがあります。この例では、BlockInputをオンにする前にキーが解放されるのを待つことで、これを回避することができます：</p>
 <pre>^!p::
 {
     KeyWait "Control"  <em>; キーが解除されるのを待ちます。  ホットキーのモディファイアごとに1つのKeyWaitを使用します。</em>

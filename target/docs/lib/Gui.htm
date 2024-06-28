@@ -17,7 +17,7 @@
 <p>Provides an interface to create a window, add controls, modify the window, and retrieve information about the window. このようなウィンドウは、データ入力フォームやカスタムユーザーインターフェイスとして使用することができます。</p>
 <p>Guiオブジェクトは<a href="#Call">Gui()</a>で作成し、<a href="GuiFromHwnd.htm">GuiFromHwnd</a>で取得することができます。</p>
 
-<p>"Gui"はクラスそのものなので、以下ではあらゆるGuiオブジェクトのプレースホルダー（例では変数名）として "MyGui"を使用します。</p>
+<p>「Gui」はクラスそのものなので、以下ではあらゆるGuiオブジェクトのプレースホルダー（例では変数名）として「MyGui」を使用します。</p>
 <p>Guiオブジェクトは、<a href="Object.htm">Object</a>から継承されたメソッドやプロパティに加え、以下のような定義済みのメソッドやプロパティを持ちます。</p>
 
 <h2 id="toc">目次</h2>
@@ -332,7 +332,7 @@ MyGui.Move(x-10,, w+20)</pre>
   <p><strong>Border：</strong>ウィンドウの周囲に細い線のボーダーを提供します。これは一般的ではありません。</p>
   <p><strong>Caption</strong>（デフォルトで存在します）：タイトルバーと太いウィンドウのボーダー/エッジを提供します。<a href="WinSetTransColor.htm">WinSetTransColor</a>を使用するウィンドウからキャプションを削除する場合、TransColorを設定した後に削除してください。</p>
   <p><strong>Disabled：</strong>ウィンドウを無効化し、ユーザーがそのコントロールと対話することを防ぎます。他のウィンドウを所有するウィンドウでよく使われます（「<a href="#Owner">所有者</a>」参照）。</p>
-  <p id="DPIScale"><strong>DPIScale：</strong>デフォルトで有効になっている<a href="../misc/DPIScaling.htm">DPIスケーリング</a>を無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。DPIスケーリングが有効な場合、Guiおよび<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティに渡されたり、そこから取得された座標やサイズは、<a href="../Variables.htm#ScreenDPI">画面のDPI</a>に基づいて自動的にスケーリングされます。例えば、DPIが144（150&nbsp;%）の場合、<code>MyGui.Show("w100")</code>でGuiを150（100 * 1.5）ピクセル幅にし、マウスや<a href="WinMove.htm">WinMove</a>でウィンドウを200ピクセル幅にリサイズすると<code>MyGui.GetClientPos(,,&amp;W)</code>で<em>Wに</em>133（200 // 1.5）設定します。<a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a>は、システムの現在の DPI を含んでいます。</p>
+  <p id="DPIScale"><strong>DPIScale：</strong>デフォルトで有効になっている<a href="../misc/DPIScaling.htm">DPIスケーリング</a>を無効にするには、<code>MyGui.Opt("-DPIScale")</code>を使用します。DPIスケーリングが有効な場合、Guiおよび<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティに渡されたり、そこから取得された座標やサイズは、<a href="../Variables.htm#ScreenDPI">画面のDPI</a>に基づいて自動的にスケーリングされます。例えば、DPIが144（150&nbsp;%）の場合、<code>MyGui.Show("w100")</code>でGuiを150（100 * 1.5）ピクセル幅にし、マウスや<a href="WinMove.htm">WinMove</a>でウィンドウを200ピクセル幅にリサイズすると<code>MyGui.GetClientPos(,,&amp;W)</code>で<em>W</em>に133（200 // 1.5）設定します。<a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a>は、システムの現在の DPI を含んでいます。</p>
   <p>DPIスケーリングはGuiと<a href="GuiControl.htm">GuiControl</a>のメソッド/プロパティにのみ適用されるので、ControlGetPosやWinGetPosのような他のソースから直接得られる座標は動作しません。対処法はいくつもあります：</p>
   <ul>
     <li>可能な限り、ハードコードされた座標の使用を避けます。例えば、コントロールの位置指定に<a href="#xp">XP</a>、<a href="#xs">XS</a>、<a href="#xm">XM</a>、<a href="#PosPlusMargin">X+M</a>オプションを使い、高さをピクセルではなく<a href="#R">テキストの行数</a>で指定します。</li>
@@ -343,7 +343,7 @@ MyGui.Move(x-10,, w+20)</pre>
   <pre>MyGui.Opt("+LastFound")
 WinSetTransColor(CustomColor " 150", MyGui)
 MyGui.Show()</pre>
-  <p id="MaximizeBox"><strong>MaximizeBox：</strong>タイトルバーの最大化ボタンを有効にします。これは、下記の<em>Resizeの</em>一部としても含まれています。</p>
+  <p id="MaximizeBox"><strong>MaximizeBox：</strong>タイトルバーの最大化ボタンを有効にします。これは、下記の<em>Resize</em>の一部としても含まれています。</p>
   <p id="MinimizeBox"><strong>MinimizeBox</strong>（デフォルトで存在）：タイトルバーの最小化ボタンを有効にします。</p>
   <p id="MinSize"><strong>MinSize</strong> および <strong>MaxSize</strong>：ユーザーがウィンドウの端をドラッグしてサイズを変更するときなど、ウィンドウの最小および最大サイズを決定します。Specify <code>+MinSize</code> and/or <code>+MaxSize</code> (i.e. without suffix) to use the window's current size as the limit (if the window has no current size, it will use the size from the first use of <a href="#Show">Gui.Show</a>). または、幅の後にXを付け、その後に高さを付けます：<code>MyGui.Opt("+Resize +MinSize640x480")</code>。寸法はピクセル単位で、ウィンドウのクライアント領域（ボーダー、タイトルバー、<a href="#MenuBar">メニューバー</a>を除く）の大きさを指定します。各数値を16進数ではなく、10進数で指定します。</p>
   <p>幅または高さのどちらかを省略して変更しないことも可能です（例：<code>+MinSize640x</code>、<code>+MinSizex480</code>）。さらに、Min/MaxSizeを複数回指定することで、一方の次元にウィンドウの現在のサイズを、他方の次元に明示的なサイズを使用することができます。例えば、<code>+MinSize +MinSize640x</code>は、高さにウィンドウの現在のサイズ、幅に640を使用します。</p>
@@ -815,7 +815,7 @@ LoadNewImage(*)
     else <em>; 2番目のラジオが選択されている：画面に合わせて画像をリサイズします。</em>
     {
         Width := A_ScreenWidth - 28  <em>; 内側にボーダーや余白のスペースを確保するため、28をマイナスします。</em>
-        Height := -1  <em>; "アスペクト比を保つ"が一番良さそうです。</em>
+        Height := -1  <em>; 「アスペクト比を保つ」が一番良さそうです。</em>
     }
     MyPic.Value := Format("*w{1} *h{2} {3}", Width, Height, Image)  <em>; 画像を読み込みます。</em>
     MyGui.Title := Image
@@ -888,7 +888,7 @@ MenuFileSaveAs(*)
     global CurrentFileName := saveContent(SelectedFileName)
 }
 
-MenuFileExit(*)  <em>; ユーザーはファイルメニューから "Exit"を選択しました。</em>
+MenuFileExit(*)  <em>; ユーザーはファイルメニューから 「Exit」を選択しました。</em>
 {
     WinClose()
 }

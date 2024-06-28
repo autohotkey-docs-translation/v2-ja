@@ -20,14 +20,14 @@
   <li>「<strong>隠し</strong>窓はどうするんだ？」</li>
 </ul>
 <p>必要条件：Winspector Spy（<a href="https://www.softpedia.com/get/Security/Security-Related/Winspector.shtml">ここにある</a>）</p>
-<p>最初の例として、<a href="../lib/MenuSelect.htm">MenuSelect</a>がOutlook Expressの "New Message "ウィンドウのメニューバーで動作しないことに注意してください。つまり、このコードは機能しない：</p>
+<p>最初の例として、<a href="../lib/MenuSelect.htm">MenuSelect</a>がOutlook Expressの「New Message」ウィンドウのメニューバーで動作しないことに注意してください。つまり、このコードは機能しない：</p>
 <pre>MenuSelect "New Message",, "&amp;Insert", "&amp;Picture..."</pre>
 <p>しかし、<a href="../lib/PostMessage.htm">PostMessage</a>は仕事をこなすことができる：</p>
 <pre>PostMessage 0x0111, 40239, 0, , "New Message"</pre>
 <p>魅力的に機能する！でも、あれは一体何なんだ？0x0111は<a href="SendMessageList.htm">wm_commandメッセージ</a>の16進コードであり、40239はこの特定のウィンドウがメニュー項目の'Insert Picture'選択として理解するコードである。では、40239のような値を見つける方法を説明しよう：</p>
 <ol>
-  <li>Winspector Spyと "New Message"ウィンドウを開きます。</li>
-  <li>Winspector Spyのウィンドウから十字線を "New Message"ウィンドウのタイトルバー（Winspector Spyのオーバーレイで覆われていない部分）にドラッグする。</li>
+  <li>Winspector Spyと「New Message」ウィンドウを開きます。</li>
+  <li>Winspector Spyのウィンドウから十字線を「New Message」ウィンドウのタイトルバー（Winspector Spyのオーバーレイで覆われていない部分）にドラッグする。</li>
   <li>左側のリストで選択したウィンドウを右クリックし、「メッセージ」を選択します。</li>
   <li>空白のウィンドウを右クリックし、「Edit message filter」を選択する。</li>
   <li>'filter all'ボタンを押して、左のリストにある'wm_command'をダブルクリックする。こうすることで、このメッセージだけを監視することができる。</li>

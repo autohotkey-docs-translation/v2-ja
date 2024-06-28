@@ -55,7 +55,7 @@
 {
     <a href="lib/Return.htm">return</a> x + y
 }</pre>
-<p>上記は、"Add"という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
+<p>上記は、「Add」という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
 <pre>Var := Add(2, 3)  <em>; Varに数字5が格納されます。</em></pre>
 <p>また、関数は戻り値を保存せずに呼び出すことができます：</p>
 <pre>Add(2, 3)
@@ -135,7 +135,7 @@ Greet(title?) {
     MsgBox("Hello!", title?)
 }
 
-Greet "Greeting"  <em>; タイトルは "Greeting"です。</em>
+Greet "Greeting"  <em>; タイトルは「Greeting」です。</em>
 Greet             <em>; タイトルはA_ScriptName</em>
 </pre>
 
@@ -198,7 +198,7 @@ returnObject() {
 MsgBox Join("`n", "one", "two", "three")</pre>
 <p>可変型関数が呼び出されると、関数の最終パラメータに格納されているオブジェクトを介して、余剰パラメータにアクセスすることができます。最初の余剰パラメータは<code>params[1]</code>に、2番目のパラメータは<code>params[2]</code>に、といった具合に。<a href="lib/Array.htm">配列</a>なので、<code>params.<a href="lib/Array.htm#Length">Length</a></code>でパラメータの数を決定することができます。</p>
 <p>非可変型関数を、その関数が受け入れる以上のパラメータで呼び出そうとすると、エラーとみなされます。余ったパラメータを格納する配列を作成すること<em>なく</em>、関数が任意の数のパラメータを受け取ることを許可するには、最後のパラメータとして<code>*</code>を記述します（パラメータ名を指定しない）。</p>
-<p class="warning"><strong>注：</strong>"可変型"パラメータは、フォーマルパラメータリストの最後にのみ出現することができます。</p>
+<p class="warning"><strong>注：</strong>「可変型」パラメータは、フォーマルパラメータリストの最後にのみ出現することができます。</p>
 
 <h3 id="VariadicCall">可変型関数の呼び出し</h3>
 <p>可変型関数は可変数のパラメータを<i>受け取る</i>ことができますが、関数呼び出しに同じ構文を適用することで、パラメータの配列を<i>任意</i>の関数に渡すことができます：</p>
@@ -244,7 +244,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     <strong>global</strong> DataDir := Dir  <em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
 }
 </pre>
-<p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を "global"とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
+<p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を「global」とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
 <pre>SetDefaults()
 {
     <strong>global</strong>
@@ -263,7 +263,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 }</pre>
 <p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>。Static declarations are evaluated the same as <a href="#Local">local</a> declarations, except that after a static initializer (or group of combined initializers) is successfully evaluated, it is effectively removed from the flow of control and will not execute a second time.</p>
 <p>ネストした関数は、外側の関数の非静的なローカル変数を取り込まないように、<a href="#static-functions">静的に宣言</a>することができます。</p>
-<p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を "static"とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。事例：</p>
+<p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を「static」とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。事例：</p>
 <pre>GetFromStaticArray(WhichItemNumber)
 {
     <strong>static</strong>
@@ -348,10 +348,10 @@ outer("title")
     x := "outer value"
     static inner() {
         x := "inner value"  <em>; innerのローカルに変数を作成します。</em>
-        MsgBox type(inner)  <em>; "Func"と表示されます。</em>
+        MsgBox type(inner)  <em>; 「Func」と表示されます。</em>
     }
     inner()
-    MsgBox x  <em>; "outer value"を表示する</em>
+    MsgBox x  <em>; 「outer value」を表示する</em>
 }
 outer()</pre>
 <p>静的関数は、明示的に静的と宣言されていない限り、自身のボディの外にある他のネストした関数を参照することはできません。なお、関数が<a href="#AssumeStatic">assume-static</a>であっても、関数パラメータを参照すれば、non-staticの入れ子関数はクロージャになる可能性があります。</p>
@@ -417,7 +417,7 @@ timertest()
 <p>関数を呼び出しても新しい<a href="misc/Threads.htm">スレッド</a>は始まらないので、関数で<a href="lib/SendMode.htm">SendMode</a>や <a href="lib/SetTitleMatchMode.htm">SetTitleMatchMode</a>などの設定を変更すると、その呼び出し元にも反映されます。</p>
 <p>関数内で使用すると、<a href="lib/ListVars.htm">ListVars</a>は関数の<a href="#Local">ローカル変数</a>をその内容とともに表示します。This can help <a href="Scripts.htm#debug">debug a script</a>.</p>
 <h2 id="Style_and_Naming_Conventions">スタイルと命名規則</h2>
-<p>複雑な関数は、特殊な変数に明確な接頭辞をつけると読みやすく、保守しやすくなります。例えば、関数のパラメータリストの各パラメータに "p"や "p_"という先頭の名前を付けると、特に数十個の<a href="#Local">ローカル変数</a>が競合している関数では、その特殊性が一目瞭然になる。同様に、<a href="#ByRef">ByRefパラメータ</a>には接頭辞 "r"または "r_"を、<a href="#static">静的変数には</a>"s"または "s_"を使用することができる。</p>
+<p>複雑な関数は、特殊な変数に明確な接頭辞をつけると読みやすく、保守しやすくなります。例えば、関数のパラメータリストの各パラメータに「p」や「p_」という先頭の名前を付けると、特に数十個の<a href="#Local">ローカル変数</a>が競合している関数では、その特殊性が一目瞭然になる。同様に、<a href="#ByRef">ByRefパラメータ</a>には接頭辞「r」または「r_」を、<a href="#static">静的変数には</a>「s」または「s_」を使用することができる。</p>
 <p>機能定義に<a href="lib/Block.htm#otb">One True Brace（OTB）スタイル</a>をオプションで使用することができる。事例：</p>
 <pre>Add(x, y) {
     return x + y

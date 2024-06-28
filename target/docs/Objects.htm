@@ -217,7 +217,7 @@ thing_test(this) {
 <p>ベース・オブジェクトは一般にプロトタイプとも呼ばれるが、「クラスの<a href="lib/Class.htm#Prototype">プロトタイプ</a>」はクラスのすべてのインスタンスがベースとするオブジェクトを意味し、「ベース」はインスタンスがベースとするオブジェクトを意味する。</p>
 <p class="note">AutoHotkeyのオブジェクトデザインは、主にJavaScriptとLuaの影響を受けており、C#も少し含まれています。JavaScriptの<code><i>obj</i>.__proto__</code>の代わりに<code><i>obj</i>.base</code>を使い、JavaScriptの<code><i>func</i>.prototype</code>の代わりに<code><i>cls</i>.Prototype</code>を使います。（クラス・オブジェクトはコンストラクタ関数の代わりに使われる。）</p>
 
-<p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>x is Array</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が "Array"を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
+<p>オブジェクトのベースは、そのタイプやクラスを識別するためにも使われる。例えば、<code>x := []</code>は<code>Array.Prototype</code>に<em>基づく</em>オブジェクトを作成する。これは、<code>x is Array</code>であり、<code>x.HasBase(Array.Prototype)</code>が真であり、<code>type(x)</code>が「Array」を返すことを意味する。各クラスのPrototypeはベース・クラスのPrototypeに基づいているので、<code>x.HasBase(Object.Prototype)</code>も真になる。</p>
 <p>Objectのインスタンスや派生クラスはすべてベース・オブジェクトになることができるが、オブジェクトは同じネイティブ・タイプを持つオブジェクトの<a href="lib/Object.htm#Base">ベースとしてのみ割り当てる</a>ことができる。これは、組み込みメソッドが常にオブジェクトのネイティブ・タイプを識別し、正しいバイナリ構造を持つオブジェクトに対してのみ操作できるようにするためである。</p>
 <p>ベース・オブジェクトは2つの異なる方法で定義できる：</p>
 <ul>
@@ -433,7 +433,7 @@ class GMem<span id="GMem"></span>
         DllCall("GlobalFree", "Ptr", this.ptr)
     }
 }</pre>
-<p>__Deleteは、"__Class"というプロパティを所有するオブジェクトに対しては呼び出されません。<a href="lib/Class.htm#Prototype">プロトタイプ・オブジェクト</a>はデフォルトでこのプロパティを持っている。</p>
+<p>__Deleteは、「__Class」というプロパティを所有するオブジェクトに対しては呼び出されません。<a href="lib/Class.htm#Prototype">プロトタイプ・オブジェクト</a>はデフォルトでこのプロパティを持っている。</p>
 <p>Deleteの実行中に例外または実行時エラーがスローされ、__Delete内で処理されない場合、__Deleteは新しい<a href="misc/Threads.htm">スレッド</a>から呼び出されたかのように動作します。つまり、エラー・ダイアログが表示され、__Deleteが戻るが、スレッドは終了しない（すでに終了していた場合を除く）。</p>
 <p>トレイメニューや<a href="lib/ExitApp.htm">ExitApp</a>など、何らかの手段でスクリプトが直接終了した場合、まだ戻っていない関数はその機会を得られない。したがって、これらの関数のローカル変数によって参照されるオブジェクトは解放されないので、__Deleteは呼び出されません。Temporary references on the expression evaluation stack are also not released under such circumstances.</p>
 <p>スクリプトが終了すると、グローバル変数と静的変数に含まれるオブジェクトは、実装で定義された任意の順序で自動的に解放されます。この処理中に__Deleteが呼ばれた場合、グローバル変数やスタティック変数はすでに解放されている可能性があるが、オブジェクト自身が含む参照はまだ有効である。したがって、__Deleteは完全に自己完結型とし、グローバル変数や静的変数に依存しないのがベストである。</p>
