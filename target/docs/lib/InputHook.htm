@@ -27,14 +27,15 @@
     <p id="option-i"><strong>I：</strong><a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
     <p id="option-l"><strong>L：</strong>長さの制限（例：<code>L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、<a href="#EndReason">EndReason</a>にはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
     <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。This can be useful in combination with <a href="#OnChar">OnChar</a>, <a href="#OnKeyDown">OnKeyDown</a>, <a href="#KeyOpt">KeyOpt</a> or the <em>EndKeys</em> parameter.</p>
-    <p id="option-m"><strong>M：</strong><kbd>Ctrl</kbd>+<kbd>A</kbd> から<kbd>Ctrl</kbd>+<kbd>Z</kbd>のような修飾されたキー操作は、実際のASCII文字に対応する場合に認識され、転写されます。<kbd>Ctrl</kbd>+<kbd>C</kbd>を認識するこの例について考えてみましょう：</p>
+    <p id="option-m"><strong>M:</strong> Allows a greater range of modified keypresses to produce text. Normally, a key is treated as non-text if it is modified by any combination <em>other than</em> <kbd>Shift</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd> (i.e. <kbd>AltGr</kbd>) or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd> (i.e. <kbd>AltGr</kbd>+<kbd>Shift</kbd>). This option causes translation to be attempted for other combinations of modifiers. Consider this example, which typically recognizes <kbd>Ctrl</kbd>+<kbd>C</kbd>:</p>
     <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納します。</em>
 ih := InputHook("L1 M")
 ih.Start()
 ih.Wait()
 if (ih.Input = CtrlC)
     MsgBox "You pressed Control-C."</pre>
-    <p class="note"><strong>注意：</strong><kbd>Ctrl</kbd>+<kbd>A</kbd>から<kbd>Ctrl</kbd>+<kbd>Z</kbd>は、<a href="Chr.htm">Chr(1)</a> から <a href="Chr.htm">Chr(26)</a>に対応しています。また、Mオプションを使用すると、入力中に<kbd>Ctrl</kbd>+<kbd>←</kbd>などの一部のキーボードショートカットが誤動作する場合があります。</p>
+    <p>By default, the system maps <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> to ASCII control characters <a href="Chr.htm">Chr(1)</a> through <a href="Chr.htm">Chr(26)</a>. Other translations may be defined by the system or the active window's keyboard layout. Translation may ignore any modifier key for which the keyboard layout does not define a modifier bitmask. For example, <kbd>Win</kbd>+<kbd>E</kbd> typically transcribes to "e" if the M option is used.</p>
+    <p>The M option might cause some keyboard shortcuts such as <kbd>Ctrl</kbd>+<kbd>←</kbd> to misbehave while an Input is in progress.</p>
     <p id="option-t"><strong>T：</strong><a href="#Timeout">タイムアウト</a>を設定します（例：<code>T3</code>または<code class="no-highlight">T2.5</code>）。</p>
     <p id="vis"><strong>V：</strong><a href="#VisibleText">VisibleText</a>、<a href="#VisibleNonText">VisibleNonText</a>を1 (true)に設定します。通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
     <p id="asterisk"><strong>*：</strong>ワイルドカード。<a href="#FindAnywhere">FindAnywhere</a>を1 (true)に設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>

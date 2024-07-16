@@ -14,6 +14,10 @@
 <p><a href="v2-changes.htm">v1.1からv2.0への変更点</a>は、v1.1とv2.0の相違点をカバーしています。</p>
 <p>変更点の技術的な詳細については、<a href="https://github.com/AutoHotkey/AutoHotkey/tree/alpha">GitHub</a>を参照してください。</p>
 
+<h2 id="v2.0.18">2.0.18 - 2024年7月6日</h2>
+<p>GetClipboardDataがNULLを返したときにA_Clipboardが警告なしに終了するのを修正しました。</p>
+<p><code>a.b[c] := d</code>でセッターがないとき、<code>a.b</code>のゲッターを呼び出すように修正しました。</p>
+
 <h2 id="v2.0.17">2.0.17 - 2024年6月5日</h2>
 <p>DescoladaによるWinTextパラメータの最適化を実装しました。
 [<a href="https://github.com/AutoHotkey/AutoHotkey/pull/335">PR #335</a>]</p>
@@ -22,7 +26,7 @@
 <p>varが未設定のときにTypeErrorではなくUnsetErrorをスローするようにincrement/decrement演算子を修正しました。</p>
 <p>プロパティがそれ自身を削除するときにプロパティの名前を安全に割り当てるようにOwnPropsを修正しました。
 </p>
-<p>Fixed breakpoints to work in arrow functions under a control flow statement without a block.</p>
+<p>ブロックのない制御フローステートメント中のアロー関数でブレークポイント機能するよう修正しました。</p>
 <p>関数からステップアウトするときに、呼出行でブレークするようにデバッガを修正しました。
 （この動作はリビジョン31で追加され、v1.1.30.00で壊れました。）</p>
 <p>新しいスレッドとして呼び出された関数からのステップアウトするときは、次の行に到達するまで待つのではなく中断された行でブレークするようになりました。</p>
@@ -48,7 +52,7 @@
 <p>Click関数が整数を返す問題を修正しました。</p>
 <p><code><i>key</i>::try {</code>がエラーとして検出される問題を修正しました。</p>
 <p>ホットストリング<code>:B0*O:XY::Z</code>が、XZではなく正しくXYZと出力されるように修正しました。</p>
-<p>Fixed Send to leave any prior <code>{<i>modifier</i> Down}</code> in effect even if the key happens to be physically held down.</p>
+<p>キーが物理的に押されたままになったとしてもそれ以前の<code>{<i>modifier</i> Down}&lt;//c0&gt; が有効なままになるようSendを修正しました。</p>
 <p>メニューポップアップが表示されたときにフォーカスするスクリプトの信頼性が向上しました。</p>
 
 <p><strong>デバッガの改善：</strong></p>
@@ -160,13 +164,13 @@
 <p><code>x is y</code>がスローするTypeErrorを「Object」ではなく「Class」と表示するように修正しました。</p>
 <p>1023文字を超える条件をサポートするようWinTitleを修正しました。</p>
 <p><code>&amp;ref</code> が同じ変数の異なるエイリアスで使用されている場合の問題を修正しました。</p>
-<p>Fixed optional parameter default expressions (other than simple literal values) preventing the use of assume-global/assume-static.</p>
+<p>単純なリテラル値以外のオプションのパラメーターのデフォルト式がassume-global/assume-staticの使用を妨げる問題を修正しました。</p>
 
 <h2 id="v2.0.5">2.0.5 - 2023年8月12日</h2>
 <p>オブジェクトがCOM経由で列挙されたときに、誤った参照カウントがメモリリークを引き起こす問題を修正しました。[PR# 325]</p>
 <p>__Enumへの内部呼び出しが__Callを呼び出していたのを修正しました。</p>
 <p>パラメータ#65535を参照するエラーメッセージを修正しました。</p>
-<p>Fixed incorrect IEnumVARIANT return count.</p>
+<p>IEnumVARIANTが返す数が誤っているのを修正しました。</p>
 <p>Download関数がOSErrorのエラーコードが0以外にもかかわらず、OSError(0)をスローするのを修正しました。</p>
 <p>ListViewコントロールのAdd/Insert/Modifyメソッドに最小数のパラメータが渡されたときにクラッシュする問題を修正しました。</p>
 <p>スタックトレースがErrorサブクラスの__newへの呼び出しを除外するように修正しました。</p>

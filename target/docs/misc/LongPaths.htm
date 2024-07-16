@@ -28,10 +28,10 @@
 <p>基礎となるシステム機能でサポートされている場合、例えば<code>\\?\C:\My Folder</code>"のように、<code>\\?\</code>という接頭辞を付けると、32,767文字に制限されます。しかし、これは<a href="https://learn.microsoft.com/archive/blogs/jeremykuhne/path-normalization">パスの正規化</a>をスキップすることによって行われる。通常、正規化によって削除または変更されるパスの一部の要素は、代わりにファイルの実際のパスの一部になります。これにより、「通常の」プログラムがアクセスできないパスが作成される可能性があるため、注意が必要である。</p>
 <p>特に正規化だ：</p>
 <ul>
-  <li><code>dir\file.ext</code>, <code>\file.ext</code>, <code>C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
+  <li><code class="no-highlight">dir\file.ext</code>, <code class="no-highlight">\file.ext</code>, <code class="no-highlight">C:file.ext</code> のような相対パスを解決する（スラッシュがないことに注意）。</li>
   <li><code>\..</code> や <code>\.</code> のような相対コンポーネントを解決する。</li>
   <li>コンポーネント/ディレクトリのセパレータを正規化し、<code>/</code>を <code>\</code>に置き換え、冗長なセパレータを削除します。</li>
-  <li>コンポーネント（<code>dir.\file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
+  <li>コンポーネント（<code class="no-highlight">dir.\file</code>）の末尾のピリオド1個や、末尾のスペースやピリオド（<code>dir\filename . .</code>）など、特定の文字をトリムする。</li>
 </ul>
 <p>パスは、プレフィックスを適用する前に、以下に定義する関数で<a href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>に渡すことで、明示的に正規化することができます。事例：</p>
 <pre>MsgBox "\\?\" NormalizePath("..\file.ext")</pre>

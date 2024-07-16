@@ -114,7 +114,11 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
   <p>Ptrパラメータにオブジェクトが渡された場合、そのオブジェクトの<code>Ptr</code>プロパティの値が使用されます。そのようなプロパティが存在しない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。通常、オブジェクトは<a href="Buffer.htm">Buffer</a>となります。</p>
   <p>Ptr*パラメータにオブジェクトが渡された場合、呼び出し前にオブジェクトの<code>Ptr</code>プロパティの値が取得され、この値を含む一時変数のアドレスが関数に渡されます。関数が戻った後、新しい値はオブジェクトの<code>Ptr</code>プロパティに再び割り当てられます。</p>
   <p><i>Ptr</i>は接尾辞に*やPを付けて使うこともできます。LPVOID*などを使ってポインタを出力する関数と一緒に使う必要があります。</p>
-  <p><i>UPtr</i>も有効ですが、AutoHotkeyは符号なし64ビット整数をサポートしていないため、32ビットビルドでは符号なしのみです。</p>
+  <p><i>UPtr</i> is also valid, with the following limitations:</p>
+  <ul>
+    <li>It is only unsigned in 32-bit builds as AutoHotkey does not support unsigned 64-bit integers.</li>
+    <li>Objects are not permitted.</li>
+  </ul>
   <p class="note"><strong>注意：</strong><strong>NULL</strong>ハンドルまたはポインタを渡す場合は、整数0を渡します。</p></td>
 </tr>
 <tr id="asterisk">

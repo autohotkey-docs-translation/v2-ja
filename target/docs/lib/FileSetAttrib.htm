@@ -21,8 +21,8 @@
   <dt>Attributes</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>変えるべき属性。例えば、<code>+HA-R</code>。</p>
-    <p>アトリビュートのオン、オフ、トグルを簡単に行うには、以下のアトリビュート文字の1つ以上の前に、それぞれプラス記号（+）、マイナス記号（-）、キャレット（^）を付けます：</p>
+    <p>変えるべき属性。For example, <code>"+HA-R"</code>.</p>
+    <p>To easily turn on, turn off or toggle attributes, prefix one or more of the following attribute letters with a plus (+), minus (-) or caret (^) symbol, respectively:</p>
     <ul>
       <li>R = READONLY</li>
       <li>A = ARCHIVE</li>
@@ -32,7 +32,7 @@
       <li>O = OFFLINE</li>
       <li>T = TEMPORARY</li>
     </ul>
-    <p class="note"><strong>注：</strong> 現在、この関数で圧縮されたファイルを変更することはできません。</p>
+    <p>If no symbol precedes the attribute letters, the file's attributes are replaced with the given attributes. See <a href="#ExReplace">example #5</a>. To remove all attributes, use <code>"N"</code> on its own.</p>
   </dd>
 
   <dt>FilePattern</dt>
@@ -58,6 +58,9 @@
 <p>ファイルの変更に失敗した場合、<a href="Error.htm">Error</a>がThrowされ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗した回数が設定されます。</p>
 <p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含みます。</p>
 
+<h2 id="Remarks">備考</h2>
+<p>The compression state of files cannot be changed with this function.</p>
+
 <h2 id="Related">関連</h2>
 <p><a href="FileGetAttrib.htm">FileGetAttrib</a>、<a href="FileGetTime.htm">FileGetTime</a>、<a href="FileSetTime.htm">FileSetTime</a>、<a href="FileGetSize.htm">FileGetSize</a>、<a href="FileGetVersion.htm">FileGetVersion</a>、<a href="LoopFiles.htm">ファイルループ</a></p>
 <h2 id="Examples">例</h2>
@@ -79,6 +82,11 @@
 <div class="ex" id="ExRecurse">
 <p><a class="ex_number" href="#ExRecurse"></a> Cドライブ上のすべての.iniファイルを再帰的に検索してその「アーカイブ」属性をオンにします。</p>
 <pre>FileSetAttrib "+A", "C:\*.ini", "R"</pre>
+</div>
+
+<div class="ex" id="ExReplace">
+<p><a class="ex_number" href="#ExReplace"></a> Copies the attributes of <em>file2</em> to <em>file1</em>, i.e. it adds any attributes that <em>file2</em> has and removes any attributes that <em>file2</em> does not have.</p>
+<pre>FileSetAttrib(FileGetAttrib(file2), file1)</pre>
 </div>
 
 </body>
