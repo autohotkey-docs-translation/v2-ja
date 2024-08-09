@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>ListLines - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="ListLines機能は、行のロギングを有効または無効にしたり、最近実行されたスクリプトの行を表示したりする機能です。" />
+<meta name="description" content="ListLines関数は、ログをとるのを有効または無効にしたり、最近実行されたスクリプトの行を表示したりします。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>ListLines</h1>
 
-<p>行のロギングを有効または無効にしたり、最近実行されたスクリプトの行を表示したりします。</p>
+<p>ログをとるのを有効または無効にしたり、最近実行されたスクリプトの行を表示したりします。</p>
 
 <pre class="Syntax"><span class="func">ListLines</span> <span class="optional">Mode</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,9 +21,9 @@
   <dt>Mode</dt>
   <dd>
       <p>型：<a href="../Concepts.htm#boolean">整数（ブーリアン）</a></p>
-      <p>省略した場合は、直近に実行された行の履歴を表示します。Otherwise, specify one of the following numbers, which affects only the behavior of the <a href="../misc/Threads.htm">current thread</a> as follows:</p>
-      <p><strong>1</strong> (true)：ヒストリーの中で、その後に実行された行を含みます。</p>
-      <p><strong>0</strong> (false)：その後に実行された行を履歴から省略します。</p></dd>
+      <p>省略したときは、最後に実行された行の履歴を表示します。そうでないときは、次のいずれかの数値を指定します。これは次のように<a href="../misc/Threads.htm">現在のスレッド</a>の動作にのみ影響します。</p>
+      <p><strong>1</strong> (true)：その後に実行された行を履歴に含めます。</p>
+      <p><strong>0</strong> (false)：その後に実行された行は履歴に含めません。</p></dd>
 
 </dl>
 
@@ -32,7 +32,7 @@
 <p>この関数は、前の設定を返します。0 (false)または1 (true)のいずれかです。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>If ListLines is not used to affect line logging, the default setting is 1 (true).</p>
+<p>ListLinesを使用してログをとるのに影響を与えないときは、デフォルト設定は 1 (true) です。</p>
 <p><code>ListLines</code>（パラメータなし）は、<a href="../Program.htm#main-window">メインウィンドウ</a>の「View-&gt;Lines most recently executed」メニュー項目を選択することと同等です。<a href="../Scripts.htm#debug">スクリプトのデバッグ</a>に役立てることができます。</p>
 <p><code>ListLines False</code>と<code>ListLines True</code>を使用すると、履歴から一部の行を選択的に省略することができ、履歴が早くいっぱいになるのを防ぐことができます（高速反復の多いループの場合など）。ListLinesを呼んでいた行も、ごちゃごちゃしないように、行履歴から削除しています。また、ラインロギングを有効にしている間は、パフォーマンスが数％低下する場合があります。</p>
 <p>ListLinesモードが変更されると、現在の行（一般にListLinesを呼び出した、またはA_ListLinesに割り当てられた行）が行履歴から省かれる。</p>
