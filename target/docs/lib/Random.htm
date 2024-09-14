@@ -21,35 +21,35 @@
   <dt>A, B</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-    <p>両方が省略された場合、デフォルトは0.0～1.0となる。パラメータを1つだけ指定した場合、もう1つのパラメータのデフォルトは0になります。Otherwise, specify the minimum and maximum number to be generated, in either order.</p>
-    <p>整数の場合、最小値と最大値の両方が、返される可能性のある数値の集合に含まれます。64ビット整数の全範囲をサポートしています。</p>
-    <p>浮動小数点数の場合、一般的に最大値は除外されます。</p>
+    <p>両方とも省略されたときの初期値は、0.0～1.0です。パラメータを1つだけ指定したとき、もう1つのパラメータの初期値は0になります。そうでなければ、生成する最小値と最大値を指定します。順序はどちらでも構いません。</p>
+    <p>整数のときは、最小値と最大値の両方が返される可能性のある数値の集合に含まれます。64ビット整数の全範囲をサポートしています。</p>
+    <p>浮動小数点数のときは、通常、最大値は除かれます。</p>
   </dd>
 
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#numbers">浮動小数点数</a></p>
-<p>この関数は、擬似乱数（本当の乱数を模した数値であるが、実際には次の数値の決定・推測を極めて困難にする複雑な計算式に基づいた数値）を返すものである。</p>
-<p><em>A</em>または<em>B</em>のどちらかが浮動小数点数であるか、または両方が省略された場合、結果は浮動小数点数となる。そうでない場合は、結果は整数になります。</p>
+<p>この関数は、擬似乱数（本当の乱数を模した数値であるが、実際には次の数値の決定・推測を極めて困難にする複雑な計算式に基づいた数値）を返します。</p>
+<p><em>A</em>または<em>B</em>のいずれかが浮動小数点数であるか、または両方が省略されたときに、戻り値は浮動小数点数になります。そうでないときは、戻り値は整数になります。</p>
 
 <h2 id="Remarks">備考</h2>
 <p>指定された範囲内のすべての数値は、ほぼ同じ確率で生成されます。</p>
-<p>Although the specified maximum value is excluded by design when returning a floating point number, it may in theory be returned due to floating point rounding errors. これは確認されておらず、選ばれた境界が2**53より大きい場合にのみ可能かもしれません。また、最大2**53個の可能な値（例えば0.0から1.0の範囲）があるため、下限値を正確に生成する確率は一般に非常に低いことに注意してください。</p>
+<p>指定された最大値は浮動小数点数を返すときに設計上除外されますが、理論的には浮動小数点の丸め誤差が原因で返される可能性があります。これは確認されておらず、選ばれた境界が2**53より大きい場合にのみ可能かもしれません。また、最大2**53個の可能な値（例えば0.0から1.0の範囲）があるため、下限値を正確に生成する確率は一般に非常に低いことに注意してください。</p>
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ExBasic">
-<p><a class="ex_number" href="#ExBasic"></a> 1～10 の範囲のランダムな整数を生成し，<var>N</var>に格納する。</p>
+<p><a class="ex_number" href="#ExBasic"></a> 1～10 の範囲でランダムな整数を生成し，<var>N</var>に格納します。</p>
 <pre>N := Random(1, 10)</pre>
 </div>
 
 <div class="ex" id="ExOne">
-<p><a class="ex_number" href="#ExOne"></a> 0～9の範囲の乱数整数を生成し、<var>N</var>に格納する。</p>
+<p><a class="ex_number" href="#ExOne"></a> 0～9の範囲でランダムな整数を生成し、<var>N</var>に格納します。</p>
 <pre>N := Random(9)</pre>
 </div>
 
 <div class="ex" id="ExFloat">
-<p><a class="ex_number" href="#ExFloat"></a> 0.0～1.0 の範囲でランダムな浮動小数点数を生成し、<var>fraction</var>に格納する。</p>
+<p><a class="ex_number" href="#ExFloat"></a> 0.0～1.0 の範囲でランダムな浮動小数点数を生成し、<var>fraction</var>に格納します。</p>
 <pre>fraction := Random(0.0, 1.0)
 fraction := Random()  <em>; 上の行と同じです。</em></pre>
 </div>
