@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head>
-<title>Overriding or Disabling External Hotkeys | AutoHotkey v2</title>
-<meta name="description" content="Learn how to override or disable hotkeys owned by Windows or another application." />
+<title>ホットキーの上書きと無効化｜AutoHotkey v2</title>
+<meta name="description" content="ウィンドウズやほかのアプリケーションのホットキーを上書きしたり無効にしたりする方法を学びます。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -10,27 +10,27 @@
 </head>
 
 <body>
-<h1>Overriding or Disabling External Hotkeys</h1>
+<h1>ホットキーの上書きと無効化</h1>
 
-<p>レジストリを以下のように変更することで、<kbd>Win</kbd>+<kbd>L</kbd>と<kbd>Win</kbd>+<kbd>U</kbd>以外のすべてのWindows内蔵ホットキーを無効にすることができる（すべてのOSで動作するはずだが、おそらく再起動が必要）：</p>
+<p>レジストリを次のように変更することで<kbd>Win</kbd>+<kbd>L</kbd>と<kbd>Win</kbd>+<kbd>U</kbd>以外のすべてのWindowsのホットキーを無効にすることができます（全てののOSで動作するはずですが、おそらく再起動が必要です）：</p>
 <pre class="no-highlight">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
 NoWinKeys REG_DWORD 0x00000001 (1)</pre>
-<p>しかし、それらをすべて無効にするだけでなく、それ以上のことをしたいのであれば、続きを読んでほしい。</p>
-<p>他のアプリケーションが所有するホットキーは、スクリプトのアクションに割り当てるだけで、オーバーライドしたり無効にしたりできます。この機能の最も一般的な使い方は、ウィンドウズ自体に組み込まれているホットキーを変更することだ。例えば、<kbd>Win</kbd>+<kbd>E</kbd>（ウィンドウズ・エクスプローラーを起動するショートカット・キー）に他の動作をさせたい場合は、こうする：</p>
+<p>しかし、それらをすべて無効にするだけでなくそれ以上のことをしたいのであれば、続きを読んでください。</p>
+<p>他のアプリケーションのホットキーは、スクリプトのアクションに割り当てるだけで、上書きしたり無効にしたりすることができます。この機能の最も一般的な使い方は、ウィンドウズ自体に組み込まれているホットキーを変更することです。例えば、<kbd>Win</kbd>+<kbd>E</kbd>（ウィンドウズ・エクスプローラーを起動するショートカットキー）に他の動作をさせたい場合は、こうします：</p>
 <pre>#e::MsgBox "This hotkey is now owned by the script."</pre>
-<p>次の例では、RUNウィンドウを開くのに使われる<kbd>Win</kbd>+<kbd>R</kbd>ホットキーが完全に無効になっている：</p>
+<p>次の例では、RUNウィンドウを開くのに使われる<kbd>Win</kbd>+<kbd>R</kbd>ホットキーが完全に無効になっています：</p>
 <pre>#r::return</pre>
-<p>同様に、両方の<kbd>Win</kbd>を無効にするには、次のようにする：</p>
+<p>同様に、両方の<kbd>Win</kbd>を無効にするには、次のようにします：</p>
 <pre>LWin::return
 RWin::return</pre>
 <p>アプリケーションの非グローバルホットキー（つまり、そのアプリケーションがアクティブウィンドウであるときにのみ機能するショートカットキー）を無効にしたり変更したりするには、次の例を参考にしてください。<kbd>Ctrl</kbd>+<kbd>P</kbd>（印刷）をメモ帳でのみ無効にし、他のすべての種類のウィンドウでは有効なままにしておきます：</p>
 <pre>$^p::
 {
 	if WinActive("ahk_class Notepad")
-		return  <em>; i.e. do nothing, which causes Ctrl+P to do nothing in Notepad.</em>
+		return  <em>; つまり、何もしない。Ctrl+Pは、メモ帳では何もしません。</em>
 	Send "^p"
 }</pre>
-<p>上記の例では、ホットキーがアクティブにならずに「自分自身を送信」できるように、$接頭辞が必要です（そうしないと、無限ループに関する警告ダイアログが表示されます）。こちらも参照のこと：<a href="../Hotkeys.htm#Context">文脈依存のホットキー</a>。</p>
-<p>上記の例を「Override.ahk」のような新しいテキストファイルにコピーし、そのファイルを起動することで試すことができる。Alternatively, if your browser supports it, you can download any of them as a script file by clicking the <span style="font-family: icons;">↓</span> button which appears in the top-right of the code block when you hover your mouse over it.</p>
+<p>上記の例では、ホットキーがアクティブにならずに「自分自身を送信」できるように、$接頭辞が必要です（そうしないと、無限ループに関する警告ダイアログが表示されます）。こちらも参照のしてください：<a href="../Hotkeys.htm#Context">文脈依存のホットキー</a>。</p>
+<p>上記の例を「Override.ahk」のような新しいテキストファイルにコピーし、そのファイルを起動すますることで試すことができます。または、ブラウザがサポートしている場合は、マウスをコードブロックの上に置いたときにコードブロックの右上に表示される<span style="font-family: icons;">↓</span>ボタンをクリックして、スクリプトファイルとしてダウンロードできます。</p>
 </body>
 </html>
