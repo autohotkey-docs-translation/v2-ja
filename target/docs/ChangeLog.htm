@@ -145,15 +145,15 @@
 
 <h2 id="v2.0.7">2.0.7 - 2023年9月2日</h2>
 <p>X1とY1を省略できるようにMouseClickDrag関数を修正しました。</p>
-<p>Fixed mouse AltTab hotkeys not suppressing execution of a prefix hotkey, such as <code>1::</code> for <code>1 &amp; WheelDown::AltTab</code>. （v2.0.4で生じた不具合）</p>
+<p>マウスのAltTabホットキーが、<code>1 &amp; WheelDown::AltTab</code>に<code>1::</code>を割り当てるようなプレフィックスホットキーの実行を抑制しないように修正されました。（v2.0.4で生じた不具合）</p>
 <p>Fixed hook hotkeys not recognizing modifiers which are pressed down by SendInput.</p>
 <p>Fixed A_AhkPath to not be reliant on the case/format of the command line used to launch the process.</p>
 <p>Fixed heap corruption during window searches involving groups. （v2.0.6で生じた不具合）</p>
 <p><strong>ランチャー</strong></p>
-<p>Fixed #Requires not being detected if followed by a comment other than <code>; prefer <i>xxx</i></code>. （v2.0.6で生じた不具合）</p>
+<p>#Requires の後に<code>; prefer <i>xxx</i></code>以外のコメントが続くと、#Requiresが検出されない問題を修正しました。（v2.0.6で生じた不具合）</p>
 <p>複数行にわたって自動で置換するホットストリングを誤って解釈する構文チェックを修正しました。</p>
 <p><strong>Window Spy</strong></p>
-<p>Changed font to Segoe UI size 9, consistent with Dash.</p>
+<p>フォントを9ポイントのSegoe UIに変更てDashと統一しました。</p>
 
 <h2 id="v2.0.6">2.0.6 - 2023年8月30日</h2>
 <p><code>x.y</code>が<code>x.y()</code>として振る舞ってしまうなどのCOM呼び出しの曖昧さを修正しました。</p>
@@ -176,30 +176,30 @@
 <p>スタックトレースがErrorサブクラスの__newへの呼び出しを除外するように修正しました。</p>
 
 <h2 id="v2.0.4">2.0.4 - 2023年7月3日</h2>
-<p>エラー/警告ダイアログのリロードボタンを、現在のスクリプトインスタンスが終了していなくても、明示的にダイアログを閉じるように変更。</p>
-<p><code>finally</code>ブロック内でアクセスすると変数が空白に表示される原因となっていた<code>return var</code>の最適化を削除。</p>
-<p>デフォルト(Switch)でコロンの前にスペースが入るように修正。</p>
-<p>Array.Prototype.RemoveAtで、Lengthが<code>unset</code>または<code>var?</code>。</p>
-<p>ComObjectが2番目の変数のみ指定されたforループに渡されるとクラッシュする問題を修正。</p>
+<p>エラー/警告ダイアログのリロードボタンを、現在のスクリプトインスタンスが終了していなくても、明示的にダイアログを閉じるように変更しました。</p>
+<p><code>finally</code>ブロック内でアクセスすると変数が空白に表示される原因となっていた<code>return var</code>の最適化を削除しました。</p>
+<p>デフォルト(Switch)でコロンの前にスペースが入るように修正しました。</p>
+<p>Array.Prototype.RemoveAt が<code>unset</code>または<code>var?</code>でLengthが「明示的に省略」された場合に削除された値を返すように修正しました。</p>
+<p>ComObjectが2番目の変数のみ指定されたforループに渡されるとクラッシュする問題を修正しました。</p>
 <p><strong>v1.1.37.00およびv1.1.37.01からの変更をマージ：</strong></p>
-<p>COMのメソッドとプロパティの呼び出しで、大きな整数をVT_R8（浮動小数点）ではなくVT_I8として渡すように変更。32ビット範囲の整数はVT_I4として渡される。</p>
+<p>COMのメソッドとプロパティの呼び出しで、大きな整数をVT_R8（浮動小数点）ではなくVT_I8として渡すように変更しました。32ビット範囲の整数はVT_I4として渡されます。</p>
 <p>IDispatchでラップされたAutoHotkeyオブジェクトで、多変数の列挙子（forループ）のサポートを追加しました。オブジェクトを呼び出すスクリプトとオブジェクト自体の両方が、サポートされているAutoHotkeyバージョンを実行している必要があります。</p>
-<p>AutoHotkeyメソッドがIDispatch（COM）を介して呼び出された場合、省略されたパラメータが「オプション引数マーカー」ではなく、デフォルト値を受け取るように修正されました。逆変換は、以前のバージョンでCOMメソッドを<em>呼び出す</em>ときにすでに行われていた。</p>
-<p><code>VerCompare(a, "&gt;" b)</code>を修正し、コードサイズをわずかに縮小。</p>
-<p>AltTab関連のロードタイムエラーを他のエラーと矛盾しないように修正。</p>
-<p>ComObjectラッパーがオブジェクト/COM経由で呼び出された場合にスローされるエラーが正しく伝搬されない問題を修正。</p>
-<p>ホットキーGUIコントロールを修正し、記号 <code>^</code>、<code>!</code>と<code>+</code>をホットキーとして設定できるようにした。</p>
-<p>ホットキーコントロールの値がシンボルに設定されている場合、修飾子が含まれるように修正。</p>
+<p>AutoHotkeyメソッドがIDispatch（COM）を介して呼び出された場合、省略されたパラメータが「オプション引数マーカー」ではなく、デフォルト値を受け取るように修正しました。逆変換は、以前のバージョンでCOMメソッドを<em>呼び出す</em>ときにすでに行われていた。</p>
+<p><code>VerCompare(a, "&gt;" b)</code>を修正し、コードサイズをわずかに縮小させました。</p>
+<p>AltTab関連のロードタイムエラーを他のエラーと矛盾しないように修正しました。</p>
+<p>ComObjectラッパーがオブジェクト/COM経由で呼び出された場合にスローされるエラーが正しく伝搬されない問題を修正しました。</p>
+<p>ホットキーGUIコントロールを修正し、記号 <code>^</code>、<code>!</code>と<code>+</code>をホットキーとして設定できるようにしました。</p>
+<p>ホットキーコントロールの値がシンボルに設定されている場合、修飾子が含まれるように修正しました。</p>
 <p>InputHook.KeyOpt()が単一の文字で誤動作する可能性があったのを修正しました。</p>
 <ul>
-<li>オプションの削除は、対応するSCに影響を与えない可能性がある。</li>
+<li>オプションの削除は、対応するSCに影響を与えない可能性があります。</li>
 <li>オプションはsc000にも適用される可能性がある。</li>
 </ul>
-<p>カスタムコンボで、<code>a &amp; b::</code>、<code>a::</code>、<code>a up::</code>のようなホットキーのセットが、#HotIfで<code>a::</code>だけが無効になっている場合、<kbd>a</kbd>のリリースを抑制できないバグを修正。</p>
+<p>カスタムコンボで、<code>a &amp; b::</code>、<code>a::</code>、<code>a up::</code>のようなホットキーのセットが、#HotIfで<code>a::</code>だけが無効になっている場合、<kbd>a</kbd>のリリースを抑制できないバグを修正しました。</p>
 <p>キーダウンイベントがホットキーによって正しく抑制されるが、SendLevel &gt; 0で追加のキーダウンを送信すると、送信されたイベントが#InputLevelによって無視されても、それに続くキーアップが抑制されないというバグを修正した。</p>
-<p><code>a &amp; b::</code> が存在するが #HotIf によって無効化されている場合、<code>a &amp; b up::</code>が <kbd>b</kbd>を抑制しないように修正。</p>
+<p><code>a &amp; b::</code> が存在するが #HotIf によって無効化されている場合、<code>a &amp; b up::</code>が <kbd>b</kbd>を抑制しないように修正しました。</p>
 <p>競合状態によりホットキーが起動しない問題を修正しました。もし<code>~*RWin::</code>のようなモディファイアホットキーがSendやGetKeyStateを呼び出すのが早すぎると、OSはRWinがダウンしていないと報告する可能性があり、フックのモディファイアの状態が「修正」され、ホットキーが誤って発火したり、発火しなかったりします。この現象は、他のキーボードフックがスクリプト自身のフックよりも最近にインストールされた場合にのみ発生する可能性がある。その場合、他のフックのスレッドが再開して戻るまで、OSはキーの状態を更新しないからだ。</p>
-<p>ホットストリングが#HotIfで設定されたLast Found Windowを使用するように修正した。</p>
+<p>ホットストリングが#HotIfで設定されたLast Found Windowを使用するように修正しました。</p>
 <p>OSが自動的にフックをアンインストールした場合、キーボードまたはマウスフックを再インストールしようとすると失敗する問題を修正しました。このような試みを行うには、やはり一定の条件を満たす必要がある。</p>
 <p>組み込み IDispatch 用にキャッシュされた COM プロパティ名の割り当てが最適化されました。</p>
 <p>DLL として AutoHotkey のビルド設定をサポートするようにコードをリファクタリングしました。</p>
