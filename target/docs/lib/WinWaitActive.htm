@@ -14,8 +14,8 @@
 
 <p>指定されたウィンドウがアクティブになるまで、またはアクティブでなくなるまで待ちます。</p>
 
-<pre class="Syntax"><span class="func">WinWaitActive</span> <span class="optional">WinTitle, WinText, Timeout, ExcludeTitle, ExcludeText</span>
-<span class="func">WinWaitNotActive</span> <span class="optional">WinTitle, WinText, Timeout, ExcludeTitle, ExcludeText</span></pre>
+<pre class="Syntax">HWND := <span class="func">WinWaitActive</span>(<span class="optional">WinTitle, WinText, Timeout, ExcludeTitle, ExcludeText</span>)
+Boolean := <span class="func">WinWaitNotActive</span>(<span class="optional">WinTitle, WinText, Timeout, ExcludeTitle, ExcludeText</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
@@ -24,7 +24,7 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p>もしこれらの項目が未設定または省略されたときは、<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>が使用されます。そうでないときは、<em>WinTitle</em>に <a href="../misc/WinTitle.htm">ウィンドウタイトルまたはターゲットウィンドウを識別するための他の基準</a>、および/または<em>WinText</em>にターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
-    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数 と <a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>関数と<a href="DetectHiddenText.htm">DetectHiddenText</a>関数で変更しない限り、初期設定では非表示ウィンドウは検出されず、非表示テキストは検出されます。<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>関数で変更しない限り、初期設定ではウィンドウのタイトルはその中のどこかに<em>WinTitle</em>または<em>ExcludeTitle</em>を含んでいれば一致します。</p>
   </dd>
 
   <dt>Timeout</dt>
@@ -36,9 +36,9 @@
 </dl>
 
 <h2 id="Return_Value">戻り値</h2>
-<p>型：<a href="../Concepts.htm#numbers">整数</a></p>
+<p>Type: <a href="../Concepts.htm#numbers">Integer</a> or <a href="../Concepts.htm#boolean">Integer (boolean)</a></p>
 <p>WinWaitActiveは、条件にマッチすればアクティブなウィンドウの<a href="../misc/WinTitle.htm#ahk_id">HWND（ユニークID）</a>を返し、関数がタイムアウトしたときは0を返します。</p>
-<p>WinWaitNotActiveは、アクティブなウィンドウが条件に一致しないときは1を返し、関数がタイムアウトしたときは0を返します。</p>
+<p>WinWaitNotActive returns 1 (true) if the active window does not match the criteria, or 0 (false) if the function timed out.</p>
 
 <h2 id="Remarks">備考</h2>
 <p>アクティブウィンドウが関数の期待値を満たしている場合、関数は<em>タイムアウト</em>まで待ちません。その代わり、スクリプトを再開できるように、即座にリターンします。</p>

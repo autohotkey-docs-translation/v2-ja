@@ -49,8 +49,9 @@
   </li>
   <li><a href="#library">ライブラリ</a>
     <ul>
-      <li><a href="#removed-details">Removed Commands (Details)</a></li>
-      <li><a href="#modified-commandsfunctions">変更されたコマンド/ファンクション</a></li>
+      <li><a href="#lib-removed">Removed Commands, Functions &amp; Directives</a></li>
+      <li><a href="#lib-renamed">Renamed Commands, Functions &amp; Directives</a></li>
+      <li><a href="#lib-modified">Modified Commands, Functions &amp; Directives</a></li>
       <li><a href="#new-functions">新機能のご紹介</a></li>
       <li><a href="#new-directives">新しいディレクティブ</a></li>
       <li><a href="#built-in-variables">組み込みの変数</a></li>
@@ -442,113 +443,391 @@ this.__set(name, args, value)</pre>
 <p>関数/メソッドは、パラメータをByRef（<code>&amp;</code>付き）で宣言するか、明示的に再参照することで、値を割り当てることができます。</p>
 <p>例えば、<code>VT_BYREF|VT_BOOL</code>型のパラメータは、以前はComObjRefオブジェクトを受け取り、<code>pbCancel[] := true</code>または<code>NumPut(-1, ComObjValue(pbCancel), "short")</code>という値が割り当てられたはずです。これで、パラメータを<code>&amp;bCancel</code>と定義して<code>bCancel := true</code>のように代入することも、<code>pbCancel</code>と定義して<code>%pbCancel% := true</code>のように代入することもできるようになりました。</p>
 <h2 id="library">ライブラリ</h2>
-<p>削除：</p>
-<ul>
-<li>Asc()（<a href="lib/Ord.htm">Ord</a>使用）</li>
-<li>AutoTrim（<a href="lib/Trim.htm">Trim</a>使用）</li>
-<li>ComObjMissing()（代わりに2つの連続したカンマを書きます）</li>
-<li>ComObjUnwrap()（代わりに<a href="lib/ComObjValue.htm">ComObjValue</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用）</li>
-<li>ComObjEnwrap()（代わりに<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用し、必要に応じて<a href="lib/ObjAddRef.htm">ObjAddRef</a>を使用）</li>
-<li>ComObjError()</li>
-<li>ComObjXXX() ここで、XXXは明示的に定義されたComObj関数以外のものです（代わりに<a href="lib/ComObjActive.htm">ComObjActive</a>、<a href="lib/ComValue.htm">ComValue</a>、<a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a>を使用してください）。</li>
-<li>ControlSendRaw （代わりに<code>ControlSend "{Raw}"</code>または<a href="lib/ControlSend.htm">ControlSendText</a>を使用します）</li>
-<li>EnvDiv</li>
-<li>EnvMult</li>
-<li>EnvUpdate（有用性は非常に低く、単純な<a href="lib/SendMessage.htm">SendMessage</a>に置き換えることができます）</li>
-<li>Exception（<a href="lib/Error.htm">Error</a>または適切なサブクラスを使用）</li>
-<li>FileReadLine（ファイル<a href="lib/LoopFiles.htm">読み込みループ</a>または<a href="lib/FileOpen.htm">FileOpen</a>を使用します）</li>
-<li>Func（<code>MyFunc</code>のように直接参照を使用します）</li>
-<li>Gosub</li>
-<li>Gui、GuiControl、GuiControlGet（<a href="#gui">Gui</a>の項参照）</li>
-<li>IfEqual</li>
-<li>IfExist</li>
-<li>IfGreater</li>
-<li>IfGreaterOrEqual</li>
-<li>IfInString</li>
-<li>IfLess</li>
-<li>IfLessOrEqual</li>
-<li>IfMsgBox（<a href="lib/MsgBox.htm">MsgBox</a>はボタン名を返すようになりました）</li>
-<li>IfNotEqual</li>
-<li>IfNotExist</li>
-<li>IfNotInString</li>
-<li>IfWinActive</li>
-<li>IfWinExist</li>
-<li>IfWinNotActive</li>
-<li>IfWinNotExist</li>
-<li>If between/is/in/contains（ただし、<a href="#isXXX">isXXX</a>を参照）</li>
-<li>Input（<a href="lib/InputHook.htm">InputHook</a>を使用）</li>
-<li>IsByRef (see <a href="Functions.htm#NoIsByRef">ByRef limitations</a>)</li>
-<li>IsFunc</li>
-<li>Menu（<a href="lib/Menu.htm">Menu/MenuBarクラス</a>、<a href="lib/TraySetIcon.htm">TraySetIcon</a>、<a href="Variables.htm#IconTip">A_IconTip</a>、<a href="Variables.htm#IconHidden">A_IconHidden</a>、<a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>を使用します）</li>
-<li>MenuGetHandle（<a href="lib/Menu.htm#Handle">Menu.Handle</a>を使用します）</li>
-<li>MenuGetName（メニュー名がないため、<a href="lib/MenuFromHandle.htm">MenuFromHandle</a>が最も近い代替となる）</li>
-<li>Progress （<a href="lib/Gui.htm">Gui</a>を使用）</li>
-<li>SendRaw （代わりに<code>Send "{Raw}"</code>または<a href="lib/Send.htm#SendText">SendText</a>を使用します）</li>
-<li>SetBatchLines（-1がデフォルトの動作になりました）</li>
-<li>SetEnv</li>
-<li>SetFormat（<a href="lib/Format.htm">Format</a>は文字列の書式設定に使用できます）</li>
-<li>SoundGet/SoundSet（<a href="#Sound">Sound関数</a>参照）</li>
-<li>SoundGetWaveVolume/SoundSetWaveVolume（バランスに関してSoundGet/SoundSetと若干異なる動作をするが、どちらもバランスは保たれない）</li>
-<li>SplashImage（<a href="lib/Gui.htm">Gui</a>を使用）</li>
-<li>SplashTextOn/Off（<a href="lib/Gui.htm">Gui</a>を使用）</li>
-<li>StringCaseSense（各種パラメータを使用）</li>
-<li>StringGetPos（<a href="lib/InStr.htm">InStr</a>を使用）</li>
-<li>StringLeft<br>
-StringLen<br>
-StringMid<br>
-StringRight<br>
-StringTrimLeft<br>
-StringTrimRight -- これらのコマンドの代わりに<a href="lib/SubStr.htm">SubStr</a>を使用します。</li>
-<li>StringReplace（代わりに<a href="lib/StrReplace.htm">StrReplace</a>を使用します）</li>
-<li>StringSplit（代わりに<a href="lib/StrSplit.htm">StrSplit</a>を使用します）</li>
-<li>Transform</li>
-<li>VarSetCapacity （バイナリデータ/構造体には<a href="lib/Buffer.htm">Bufferオブジェクト</a>を、UTF-16文字列には<a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a>を使用します）</li>
-<li>WinGetActiveStats</li>
-<li>WinGetActiveTitle</li>
-<li>#CommentFlag</li>
-<li>#Delimiter</li>
-<li>#DerefChar</li>
-<li>#EscapeChar</li>
-<li>#HotkeyInterval（<a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a>を使用）</li>
-<li>#HotkeyModifierTimeout（<a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a>を使用）</li>
-<li>#IfWinActive、#IfWinExist、#IfWinNotActive、#IfWinNotExist<a href="lib/_HotIf.htm#optimization">（#HotIf Optimization</a>参照）</li>
-<li>#InstallKeybdHook（<a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a>関数を使用）</li>
-<li>#InstallMouseHook（<a href="lib/InstallMouseHook.htm">InstallMouseHook</a>関数を使用）</li>
-<li>#KeyHistory （<code>KeyHistory N</code>を使用します）</li>
-<li>#LTrim</li>
-<li>#MaxHotkeysPerInterval （<a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a>を使用します）</li>
-<li>#MaxMem（各変数の最大容量が無制限になりました）</li>
-<li>#MenuMaskKey （<a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a>を使用します）</li>
-<li>#NoEnv（現在のデフォルトの動作）</li>
-</ul>
-<p>改名：</p>
-<ul>
-<li>ComObjCreate() → <a href="lib/ComObject.htm">ComObject</a>であり、今はクラスになっています</li>
-<li>ComObjParameter() → <a href="lib/ComValue.htm">ComValue</a>であり、現在はクラスになっています</li>
-<li>DriveSpaceFree → <a href="lib/DriveGetSpaceFree.htm">DriveGetSpaceFree</a></li>
-<li>EnvAdd → <a href="lib/DateAdd.htm">DateAdd</a></li>
-<li>EnvSub → <a href="lib/DateDiff.htm">DateDiff</a></li>
-<li>FileCopyDir → <a href="lib/DirCopy.htm">DirCopy</a></li>
-<li>FileCreateDir → <a href="lib/DirCreate.htm">DirCreate</a></li>
-<li>FileMoveDir → <a href="lib/DirMove.htm">DirMove</a></li>
-<li>FileRemoveDir → <a href="lib/DirDelete.htm">DirDelete</a></li>
-<li>FileSelectFile → <a href="lib/FileSelect.htm">FileSelect</a></li>
-<li>FileSelectFolder → <a href="lib/DirSelect.htm">DirSelect</a></li>
-<li>#If → <a href="lib/_HotIf.htm">#HotIf</a></li>
-<li>#IfTimeout → <a href="lib/_HotIfTimeout.htm">HotIfTimeout</a></li>
-<li>StringLower → <a href="lib/StrLower.htm">StrLower</a> および <a href="lib/StrLower.htm">StrTitle</a></li>
-<li>StringUpper → <a href="lib/StrLower.htm">StrUpper</a> および <a href="lib/StrLower.htm">StrTitle</a></li>
-<li>UrlDownloadToFile → <a href="lib/Download.htm">Download</a></li>
-<li>WinMenuSelectItem → <a href="lib/MenuSelect.htm">MenuSelect</a></li>
-<li>LV, TV and SB functions → methods of <a href="lib/GuiControl.htm">GuiControl</a></li>
-<li>File.__Handle → <a href="lib/File.htm#Handle">File.Handle</a></li>
-</ul>
-<h3 id="removed-details">Removed Commands (Details)</h3>
-<p>全リストは上記をご覧ください。</p>
-<p id="EnvUpdate">EnvUpdateは削除されましたが、以下のようにSendMessageの単純な呼び出しに置き換えることができます：</p>
-<pre>SendMessage(0x1A, 0, StrPtr("Environment"), 0xFFFF)</pre>
-<p id="StringCaseSense">StringCaseSenseが削除されたため、<code>!=</code>は常に大文字小文字を区別せず（ただし<code>!==</code>は大文字小文字を区別しない非等号のために追加）、<code>=</code>も <code>!=</code>もASCII文字に対してのみ大文字を無視します。任意のモードで文字列を比較できる<a href="lib/StrCompare.htm">StrCompare</a>を追加しました。様々な文字列関数に<em>CaseSense</em>パラメータが追加され、大文字小文字の区別やロケールモードを指定することができるようになりました。</p>
-<h3 id="modified-commandsfunctions">変更されたコマンド/ファンクション</h3>
+<span id="removed-details"></span><h3 id="lib-removed">Removed Commands, Functions &amp; Directives</h3>
+<table class="info">
+  <tr>
+    <th style="width:13em">削除</th>
+    <th>Note</th>
+  </tr>
+  <tr>
+    <td>Asc()</td>
+    <td>Use <a href="lib/Ord.htm">Ord</a> instead.</td>
+  </tr>
+  <tr>
+    <td>AutoTrim</td>
+    <td>Use <a href="lib/Trim.htm">Trim</a> instead.</td>
+  </tr>
+  <tr>
+    <td>ComObjMissing()</td>
+    <td>Write two consecutive commas instead.</td>
+  </tr>
+  <tr>
+    <td>ComObjUnwrap()</td>
+    <td>Use <a href="lib/ComObjValue.htm">ComObjValue</a> instead, and <a href="lib/ObjAddRef.htm">ObjAddRef</a> if needed.</td>
+  </tr>
+  <tr>
+    <td>ComObjEnwrap()</td>
+    <td>Use <a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a> instead, and <a href="lib/ObjAddRef.htm">ObjAddRef</a> if needed.</td>
+  </tr>
+  <tr>
+    <td>ComObjError()</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>ComObjXXX()</td>
+    <td>If XXX is anything other than one of the explicitly defined ComObj functions, use <a href="lib/ComObjActive.htm">ComObjActive</a>, <a href="lib/ComValue.htm">ComValue</a> or <a href="lib/ComObjFromPtr.htm">ComObjFromPtr</a> instead.</td>
+  </tr>
+  <tr>
+    <td>ControlSendRaw</td>
+    <td>Use <code>ControlSend "{Raw}"</code> or <a href="lib/ControlSend.htm">ControlSendText</a> instead.</td>
+  </tr>
+  <tr>
+    <td>EnvDiv</td>
+    <td>Use <a href="Variables.htm#MulDiv"><code>/</code></a> or <a href="Variables.htm#AssignOp"><code>/=</code></a> instead, e.g. <code>a /= b</code>.</td>
+  </tr>
+  <tr>
+    <td>EnvMult</td>
+    <td>Use <a href="Variables.htm#MulDiv"><code>*</code></a> or <a href="Variables.htm#AssignOp"><code>*=</code></a> instead, e.g. <code>a *= b</code>.</td>
+  </tr>
+  <tr id="EnvUpdate">
+    <td>EnvUpdate</td>
+    <td>It is of very limited usefulness and can be replaced with a simple <a href="lib/SendMessage.htm">SendMessage</a> as follows: <code>SendMessage(0x1A, 0, StrPtr("Environment"), 0xFFFF)</code>.</td>
+  </tr>
+  <tr>
+    <td>Exception</td>
+    <td>Use <a href="lib/Error.htm">Error</a> or an appropriate subclass.</td>
+  </tr>
+  <tr>
+    <td>FileReadLine</td>
+    <td>Use a <a href="lib/LoopFiles.htm">file-reading loop</a> or <a href="lib/FileOpen.htm">FileOpen</a> instead.</td>
+  </tr>
+  <tr>
+    <td>Func</td>
+    <td>Use a direct reference like <code>MyFunc</code> instead.</td>
+  </tr>
+  <tr>
+    <td>Gosub</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Gui<br>GuiControl<br>GuiControlGet</td>
+    <td>See <a href="#gui">Gui</a> further below.</td>
+  </tr>
+  <tr>
+    <td>IfEqual</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#equal"><code>=</code></a> instead, e.g. <code>if a = b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfExist</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/FileExist.htm">FileExist</a> instead, e.g. <code>if FileExist(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfGreater</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#compare"><code>&gt;</code></a> instead, e.g. <code>if a &gt; b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfGreaterOrEqual</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#compare"><code>&gt;=</code></a> instead, e.g. <code>if a &gt;= b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfInString</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/InStr.htm">InStr</a> instead, e.g. <code>if InStr(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfLess</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#compare"><code>&lt;</code></a> instead, e.g. <code>if a &lt; b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfLessOrEqual</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#compare"><code>&lt;=</code></a> instead, e.g. <code>if a &lt;= b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfMsgBox</td>
+    <td><a href="lib/MsgBox.htm">MsgBox</a> now returns the button name.</td>
+  </tr>
+  <tr>
+    <td>IfNotEqual</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="Variables.htm#equal"><code>!=</code></a> instead, e.g. <code>if a != b</code>.</td>
+  </tr>
+  <tr>
+    <td>IfNotExist</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/FileExist.htm">FileExist</a> instead, e.g. <code>if not FileExist(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfNotInString</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/InStr.htm">InStr</a> instead, e.g. <code>if not InStr(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfWinActive</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/WinActive.htm">WinActive</a> instead, e.g. <code>if WinActive(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfWinExist</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/WinExist.htm">WinExist</a> instead, e.g. <code>if WinExist(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfWinNotActive</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/WinActive.htm">WinActive</a> instead, e.g. <code>if not WinActive(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>IfWinNotExist</td>
+    <td>Use <a href="lib/If.htm">If</a> and <a href="lib/WinExist.htm">WinExist</a> instead, e.g. <code>if not WinExist(...)</code>.</td>
+  </tr>
+  <tr>
+    <td>If between</td>
+    <td>See <a href="lib/If.htm#ExIfBetween">If example #5</a>.</td>
+  </tr>
+  <tr>
+    <td>If in/contains</td>
+    <td>See <a href="lib/If.htm#ExIfInContains">If example #6</a>.</td>
+  </tr>
+  <tr>
+    <td>If is</td>
+    <td>See <a href="#isXXX">isXXX</a> further below.</td>
+  </tr>
+  <tr>
+    <td>Input</td>
+    <td>Use <a href="lib/InputHook.htm">InputHook</a> instead.</td>
+  </tr>
+  <tr>
+    <td>IsByRef</td>
+    <td>See <a href="Functions.htm#NoIsByRef">ByRef limitations</a>.</td>
+  </tr>
+  <tr>
+    <td>IsFunc</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Menu</td>
+    <td>Use the <a href="lib/Menu.htm">Menu/MenuBar class</a>, <a href="lib/TraySetIcon.htm">TraySetIcon</a>, <a href="Variables.htm#IconTip">A_IconTip</a>, <a href="Variables.htm#IconHidden">A_IconHidden</a> and <a href="Variables.htm#AllowMainWindow">A_AllowMainWindow</a>.</td>
+  </tr>
+  <tr>
+    <td>MenuGetHandle</td>
+    <td>Use <a href="lib/Menu.htm#Handle">Menu.Handle</a> instead.</td>
+  </tr>
+  <tr>
+    <td>MenuGetName</td>
+    <td>There are no menu names; <a href="lib/MenuFromHandle.htm">MenuFromHandle</a> is the closest replacement.</td>
+  </tr>
+  <tr>
+    <td>Progress</td>
+    <td>Use <a href="lib/Gui.htm">Gui</a> instead.</td>
+  </tr>
+  <tr>
+    <td>SendRaw</td>
+    <td>Use <code>Send "{Raw}"</code> or <a href="lib/Send.htm#SendText">SendText</a> instead.</td>
+  </tr>
+  <tr>
+    <td>SetBatchLines</td>
+    <td>-1 is now the default behaviour.</td>
+  </tr>
+  <tr>
+    <td>SetEnv</td>
+    <td>Use <a href="Variables.htm#AssignOp"><code>:=</code></a> instead.</td>
+  </tr>
+  <tr>
+    <td>SetFormat</td>
+    <td><a href="lib/Format.htm">Format</a> can be used to format a string.</td>
+  </tr>
+  <tr>
+    <td>SoundGet<br>SoundSet</td>
+    <td>See <a href="#Sound">Sound functions</a> further below.</td>
+  </tr>
+  <tr>
+    <td>SoundGetWaveVolume<br>SoundSetWaveVolume</td>
+    <td>They have slightly different behaviour than SoundGet and SoundSet regarding balance, but neither one preserves balance.</td>
+  </tr>
+  <tr>
+    <td>SplashImage</td>
+    <td>Use <a href="lib/Gui.htm">Gui</a> instead.</td>
+  </tr>
+  <tr>
+    <td>SplashTextOn/Off</td>
+    <td>Use <a href="lib/Gui.htm">Gui</a> instead.</td>
+  </tr>
+  <tr id="StringCaseSense">
+    <td>StringCaseSense</td>
+    <td><code>!=</code> is always case-insensitive (but <code>!==</code> was added for case-sensitive not-equal), and both <code>=</code> and <code>!=</code> only ignore case for ASCII characters. 任意のモードで文字列を比較できる<a href="lib/StrCompare.htm">StrCompare</a>を追加しました。様々な文字列関数に<em>CaseSense</em>パラメータが追加され、大文字小文字の区別やロケールモードを指定することができるようになりました。</td>
+  </tr>
+  <tr>
+    <td>StringGetPos</td>
+    <td>Use <a href="lib/InStr.htm">InStr</a> instead.</td>
+  </tr>
+  <tr>
+    <td>StringLeft<br>StringLen<br>StringMid<br>StringRight<br>StringTrimLeft<br>StringTrimRight</td>
+    <td>Use <a href="lib/SubStr.htm">SubStr</a> instead.</td>
+  </tr>
+  <tr>
+    <td>StringReplace</td>
+    <td>Use <a href="lib/StrReplace.htm">StrReplace</a> instead.</td>
+  </tr>
+  <tr>
+    <td>StringSplit</td>
+    <td>Use <a href="lib/StrSplit.htm">StrSplit</a> instead.</td>
+  </tr>
+  <tr>
+    <td>Transform</td>
+    <td>Use <a href="lib/Math.htm">math functions</a> and <a href="Variables.htm#Operators">operators</a> instead. For Transform Deref, see <a href="lib/RegExMatch.htm#ExDeref">RegExMatch example #8</a>. For Transform HTML, see <a href="scripts/index.htm#HTML_Entities_Encoding">HTML Entities Encoding</a>.</td>
+  </tr>
+  <tr>
+    <td>VarSetCapacity</td>
+    <td>Use a <a href="lib/Buffer.htm">Buffer object</a> for binary data/structs and <a href="lib/VarSetStrCapacity.htm">VarSetStrCapacity</a> for UTF-16 strings.</td>
+  </tr>
+  <tr>
+    <td>WinGetActiveStats</td>
+    <td>Use <a href="lib/WinGetTitle.htm">WinGetTitle</a> and <a href="lib/WinGetPos.htm">WinGetPos</a> instead.</td>
+  </tr>
+  <tr>
+    <td>WinGetActiveTitle</td>
+    <td>Use <a href="lib/WinGetTitle.htm">WinGetTitle</a> instead, e.g. <code>WinGetTitle "A"</code>.</td>
+  </tr>
+  <tr>
+    <td>#CommentFlag</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>#Delimiter</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>#DerefChar</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>#EscapeChar</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>#HotkeyInterval</td>
+    <td>Use <a href="Variables.htm#HotkeyInterval">A_HotkeyInterval</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#HotkeyModifierTimeout</td>
+    <td>Use <a href="lib/A_HotkeyModifierTimeout.htm">A_HotkeyModifierTimeout</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#IfWinActive<br>#IfWinExist<br>#IfWinNotActive<br>#IfWinNotExist</td>
+    <td>See <a href="lib/_HotIf.htm#optimization">#HotIf Optimization</a>.</td>
+  </tr>
+  <tr>
+    <td>#InstallKeybdHook</td>
+    <td>Use <a href="lib/InstallKeybdHook.htm">InstallKeybdHook</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#InstallMouseHook</td>
+    <td>Use <a href="lib/InstallMouseHook.htm">InstallMouseHook</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#KeyHistory</td>
+    <td>Use <code>KeyHistory N</code> instead.</td>
+  </tr>
+  <tr>
+    <td>#LTrim</td>
+    <td>Use the <a href="Scripts.htm#LTrim">LTrim</a> option instead if needed.</td>
+  </tr>
+  <tr>
+    <td>#MaxHotkeysPerInterval</td>
+    <td>Use <a href="lib/A_MaxHotkeysPerInterval.htm">A_MaxHotkeysPerInterval</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#MaxMem</td>
+    <td>Maximum capacity of each variable is now unlimited.</td>
+  </tr>
+  <tr>
+    <td>#MenuMaskKey</td>
+    <td>Use <a href="lib/A_MenuMaskKey.htm">A_MenuMaskKey</a> instead.</td>
+  </tr>
+  <tr>
+    <td>#NoEnv</td>
+    <td>It is now the default behaviour.</td>
+  </tr>
+</table>
+
+<h3 id="lib-renamed">Renamed Commands, Functions &amp; Directives</h3>
+<table class="info">
+  <tr>
+    <th style="width:13em">v1 Name</th>
+    <th>v2 Name</th>
+  </tr>
+  <tr>
+    <td>ComObjCreate()</td>
+    <td><a href="lib/ComObject.htm">ComObject</a>, which is a class now</td>
+  </tr>
+  <tr>
+    <td>ComObjParameter()</td>
+    <td><a href="lib/ComValue.htm">ComValue</a>, which is a class now</td>
+  </tr>
+  <tr>
+    <td>DriveSpaceFree</td>
+    <td><a href="lib/DriveGetSpaceFree.htm">DriveGetSpaceFree</a></td>
+  </tr>
+  <tr>
+    <td>EnvAdd</td>
+    <td><a href="lib/DateAdd.htm">DateAdd</a></td>
+  </tr>
+  <tr>
+    <td>EnvSub</td>
+    <td><a href="lib/DateDiff.htm">DateDiff</a></td>
+  </tr>
+  <tr>
+    <td>FileCopyDir</td>
+    <td><a href="lib/DirCopy.htm">DirCopy</a></td>
+  </tr>
+  <tr>
+    <td>FileCreateDir</td>
+    <td><a href="lib/DirCreate.htm">DirCreate</a></td>
+  </tr>
+  <tr>
+    <td>FileMoveDir</td>
+    <td><a href="lib/DirMove.htm">DirMove</a></td>
+  </tr>
+  <tr>
+    <td>FileRemoveDir</td>
+    <td><a href="lib/DirDelete.htm">DirDelete</a></td>
+  </tr>
+  <tr>
+    <td>FileSelectFile</td>
+    <td><a href="lib/FileSelect.htm">FileSelect</a></td>
+  </tr>
+  <tr>
+    <td>FileSelectFolder</td>
+    <td><a href="lib/DirSelect.htm">DirSelect</a></td>
+  </tr>
+  <tr>
+    <td>#If</td>
+    <td><a href="lib/_HotIf.htm">#HotIf</a></td>
+  </tr>
+  <tr>
+    <td>#IfTimeout</td>
+    <td><a href="lib/_HotIfTimeout.htm">HotIfTimeout</a></td>
+  </tr>
+  <tr>
+    <td>StringLower</td>
+    <td><a href="lib/StrLower.htm">StrLower</a> and <a href="lib/StrLower.htm">StrTitle</a></td>
+  </tr>
+  <tr>
+    <td>StringUpper</td>
+    <td><a href="lib/StrLower.htm">StrUpper</a> and <a href="lib/StrLower.htm">StrTitle</a></td>
+  </tr>
+  <tr>
+    <td>UrlDownloadToFile</td>
+    <td><a href="lib/Download.htm">Download</a></td>
+  </tr>
+  <tr>
+    <td>WinMenuSelectItem</td>
+    <td><a href="lib/MenuSelect.htm">MenuSelect</a></td>
+  </tr>
+  <tr>
+    <td>LV, TV and SB functions</td>
+    <td>methods of <a href="lib/GuiControl.htm">GuiControl</a></td>
+  </tr>
+  <tr>
+    <td>File.__Handle</td>
+    <td><a href="lib/File.htm#Handle">File.Handle</a></td>
+  </tr>
+</table>
+
+<span id="modified-commandsfunctions"></span><h3 id="lib-modified">Modified Commands, Functions &amp; Directives</h3>
 <p class="note">セクションタイトルについて：v2にはコマンドはなく、関数だけです。タイトルは両バージョンを指しています。</p>
 <p>SendEventメソッドでAltイベントを送信したときに、<a href="lib/BlockInput.htm">BlockInput</a>が一瞬だけ無効になることがなくなりました。これはもともと、Windows XPの一部のバージョンで、BlockInputが人工的なAltイベントをブロックしてしまうというバグを回避するために行われたものです。</p>
 <p><code>Chr(0)</code>は、2進数の0を含む、長さ1の文字列を返します。これは、文字列の2進数ゼロのサポートが改善された結果です。</p>

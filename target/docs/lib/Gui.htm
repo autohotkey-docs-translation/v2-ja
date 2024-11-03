@@ -341,7 +341,7 @@ MyGui.Move(x-10,, w+20)</pre>
   </ul>
   <p id="LastFound"><strong>LastFound：</strong>ウィンドウを<a href="../misc/WinTitle.htm#LastFoundWindow">最後に見つかったウィンドウ</a>に設定します（ただし、<a href="GuiOnEvent.htm#Threads">GUIスレッド</a>では自動的に行われるため不要）。これにより、<a href="WinGetStyle.htm">WinGetStyle</a>や <a href="WinSetTransparent.htm">WinSetTransparent</a>などの関数が、ウィンドウが隠れていても操作できるようになります（つまり、<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>は不要です）。これは、ウィンドウを表示する前にウィンドウのプロパティを変更する場合に特に有効です。事例：</p>
   <pre>MyGui.Opt("+LastFound")
-WinSetTransColor(CustomColor " 150", MyGui)
+WinSetTransColor(CustomColor " 150")
 MyGui.Show()</pre>
   <p id="MaximizeBox"><strong>MaximizeBox：</strong>タイトルバーの最大化ボタンを有効にします。これは、下記の<em>Resize</em>の一部としても含まれています。</p>
   <p id="MinimizeBox"><strong>MinimizeBox</strong>（デフォルトで存在）：タイトルバーの最小化ボタンを有効にします。</p>
@@ -350,7 +350,7 @@ MyGui.Show()</pre>
   <p>MinSizeと MaxSizeが一度も使われていない場合、オペレーティングシステムのデフォルトが使われます（同様に、<code>MyGui.Opt("-MinSize -MaxSize")</code>でデフォルトに戻ることができます）。注：の場合、ユーザーによるサイズ変更を可能にするために、ウィンドウには<a href="#Resize">+Resize</a>が必要です。</p>
   <p id="OwnDialogs"><strong>OwnDialogs：</strong><code>MyGui.Opt("+OwnDialogs")</code>は、その後に表示される<a href="MsgBox.htm">MsgBox</a>、<a href="InputBox.htm">InputBox</a>、<a href="FileSelect.htm">FileSelect</a>、<a href="DirSelect.htm">DirSelect</a>ダイアログをウィンドウで所有するための<a href="../misc/Threads.htm">各スレッド</a>（ボタンコントロールのイベント処理関数など）で指定する必要があります。このようなダイアログはモーダルであり、ユーザーはダイアログを閉じるまでGUIウィンドウと対話することができません。By contrast, <a href="ToolTip.htm">ToolTip</a> windows do not become modal even though they become owned; they will merely stay always on top of their owner. いずれの場合も、所有するダイアログやウィンドウは、そのGUIウィンドウが<a href="#Destroy">破棄</a>されると自動的に破棄されます。</p>
   <p>他の<a href="../misc/Threads.htm">スレッド</a>に影響を与えないため、通常、この設定をオフに戻す必要はありません。ただし、スレッドが所有と未所有の両方のダイアログを表示する必要がある場合は、<code>MyGui.Opt("-OwnDialogs")</code>によってこの設定をオフにすることができます。</p>
-  <p id="Owner"><strong>Owner:</strong> Use <code>+Owner</code> to make the window owned by another. 所有するウィンドウは、デフォルトではタスクバーボタンがなく、表示されているときは常に所有者の上に表示されます。また、所有者が破壊されると自動的に破壊されます。<code>+Owner</code>は、所有するウィンドウが作成される前でも後でも使用できます。<code>+Owner</code>の使い方には、以下の2通りがあります：</p>
+  <p id="Owner"><strong>Owner:</strong> Use <code>+Owner</code> to make the window owned by another. 所有するウィンドウは、デフォルトではタスクバーボタンがなく、表示されているときは常に所有者の上に表示されます。It is also automatically destroyed when its owner is destroyed, as long as the owner was created by the same script (i.e. has the same <a href="../misc/WinTitle.htm#ahk_pid">process ID</a>). <code>+Owner</code> can be used before or after the owned window is created. There are two ways to use <code>+Owner</code>, as shown below:</p>
   <pre>MyGui.Opt("+Owner" OtherGui.Hwnd)  <em>; GUIを<i>OtherGui</i>の所有にする。</em>
 MyGui.Opt("+Owner")  <em>; タスクバーボタンの表示を防ぐため、GUIを<a href="../Variables.htm#ScriptHwnd">スクリプトのメインウィンドウ</a>に所有させる。</em></pre>
   <p><code>+Owner</code>は、任意のトップレベルウィンドウの<a href="#Hwnd">HWND</a>にすぐに続くことができます。</p>

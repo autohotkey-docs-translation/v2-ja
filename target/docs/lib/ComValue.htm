@@ -87,7 +87,7 @@ MsgBox some_var</pre>
 <div class="ex" id="ExByRef">
 <p><a class="ex_number" href="#ExByRef"></a> COM関数にVARIANT ByRefを渡します。</p>
 <pre>
-<em>; 前文 - ScriptControlはAutoHotkeyの32ビット版を必要とします。</em>
+#Requires AutoHotkey v2 32-bit <em>; 32-bit for ScriptControl.</em>
 code := "
 (
 Sub Example(Var)
@@ -132,7 +132,7 @@ class ComVar {
         <em>; 変数 ByRef の受け渡しに使用できるオブジェクトを作成します。</em>
         this.ref := ComValue(0x4000|vType, this.var.ptr + (vType=0xC ? 0 : 8))
         <em>; VariantClear のバリアントタイプを格納します（VT_VARIANT でない場合）。</em>
-        if Type != 0xC
+        if vType != 0xC
             NumPut "ushort", vType, this.var
     }
     __item {

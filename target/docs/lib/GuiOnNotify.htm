@@ -27,13 +27,14 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
     <p>イベントが発生したときに呼び出す関数、メソッド、またはオブジェクトを指定します。</p>
-    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前であってもよい。それ以外の場合は、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければならない。</p>
-    <p id="Callback_Parameters">コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
+    <p>GUIにイベントシンクがある場合（つまり<a href="Gui.htm#Call">Gui()</a>の<em>EventObj</em>パラメータが指定されている場合）、このパラメータはイベントシンクに属するメソッドの名前になります。そうでないときは、このパラメータは<a href="../misc/Functor.htm">関数オブジェクト</a>でなければなりません。</p>
+    <p id="Callback_Parameters">コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できます：</p>
     <pre class="NoIndent">MyCallback(GuiCtrl, lParam) { ...</pre>
-    <p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+    <p>パラメータに与える名前は重要ではありませんが、以下の値が順次割り当てられます：</p>
     <ol>
-      <li>The <a href="GuiControl.htm">GuiControl object</a> of the current GUI control.</li>
-      <li>The address of a notification structure derived from <a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>. その正確な種類は、制御の種類と通知コードに依存します。構造体が通知に関する追加情報を含む場合、コールバックは<a href="NumGet.htm">NumGet</a>および/または<a href="StrGet.htm">StrGet</a>でそれを取得することができます。</li>
+      <li>現在のGUI コントロールの<a href="GuiControl.htm">GuiControl オブジェクト</a>。
+</li>
+      <li><a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>から派生した通知構造体のアドレス。その正確な種類は、制御の種類と通知コードに依存します。構造体が通知に関する追加情報を含む場合、コールバックは<a href="NumGet.htm">NumGet</a>および/または<a href="StrGet.htm">StrGet</a>でそれを取得することができます。</li>
     </ol>
     <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
     <p><a href="GuiOnEvent.htm#Callback_Parameters">OnEventの注意事項</a>である、<code>this</code>とバインドされた関数に関する注意事項は、OnNotifyにも適用されました。</p>

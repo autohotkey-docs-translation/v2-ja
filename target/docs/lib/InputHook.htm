@@ -56,7 +56,7 @@ if (ih.Input = CtrlC)
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>カンマで区切られたキーフレーズのリストで、どれか一つでもあれば入力は終了します（この場合、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。マッチングを行うには、ユーザーが入力した内容全体がフレーズの1つと正確に一致する必要があります（<a href="#asterisk">* option</a>が存在する場合を除きます）。また、<strong>区切りであるカンマの周りにあるスペースやタブ</strong>は、マッチ文字列の一部であることを意味し、<strong>重要な</strong>意味を持ちます。例えば、<em>MatchList</em>が <code>ABC , XYZ</code>の場合、ユーザーはABCの後かXYZの前にスペースを入力しなければ、マッチングが発生しません。</p>
-    <p>カンマが2つ続くと、文字通りのカンマ1つとなります。例えば、次のようにすると、文字列の末尾にリテラルコンマが1つ入ることになります：<code>string1,,,string2</code>。同様に、次のリストには、その中にリテラルなカンマを持つ項目が1つだけ含まれています：<code>single,,item</code>。</p>
+    <p>カンマが2つ続くと、文字通りのカンマ1つとなります。For example, the following would produce a single literal comma at the end of string1: <code>string1,,,string2</code>. 同様に、次のリストには、その中にリテラルなカンマを持つ項目が1つだけ含まれています：<code>single,,item</code>。</p>
     <p><em>MatchList</em>の項目は個々のパラメータとして扱われないため、リストをすべて変数に格納することができます。例えば、<em>MatchList</em>は <code>List1 "," List2 "," List3</code>からなり、それぞれの変数にマッチフレーズの大きなサブリストが含まれていることがあります。</p>
   </dd>
 
@@ -223,10 +223,10 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnEnd</span></pre>
 <pre class="Syntax">InputHookObj.<span class="func">OnEnd</span> := MyCallback</pre>
 <p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
-<p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+<p>コールバックは 1 つのパラメーターを受け取り、次のように<a href="../Functions.htm#intro">定義</a>できます。</p>
 <pre class="NoIndent">MyCallback(InputHookObj) { ...</pre>
 <p>Although the name you give the parameter does not matter, it is assigned a reference to the InputHook object.</p>
-<p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
+<p>対応する情報が必要ないときはコールバックのパラメータを省略することができますが、その場合は<code>MyCallback(*)</code>のようにアスタリスクを指定する必要があります。</p>
 <p>この関数は新しい<a href="../misc/Threads.htm">スレッド</a>として呼び出されるため、<a href="SendMode.htm">SendMode</a>や <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>などの設定にデフォルト値が設定され、新しい状態で開始されます。</p>
 </div>
 
@@ -235,9 +235,9 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <pre class="Syntax">MyCallback := InputHookObj.<span class="func">OnChar</span></pre>
 <pre class="Syntax">InputHookObj.<span class="func">OnChar</span> := MyCallback</pre>
 <p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
-<p>コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
+<p>コールバックは2つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できます：</p>
 <pre class="NoIndent">MyCallback(InputHookObj, Char) { ...</pre>
-<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<p>パラメータに与える名前は重要ではありませんが、以下の値が順次割り当てられます：</p>
 <ol>
   <li>InputHookオブジェクトへの参照。</li>
   <li>A string containing the character (or multiple characters, see below for details).</li>
@@ -255,7 +255,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
 <p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
 <pre class="NoIndent">MyCallback(InputHookObj, VK, SC) { ...</pre>
-<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<p>パラメータに与える名前は重要ではありませんが、以下の値が順次割り当てられます：</p>
 <ol>
   <li>InputHookオブジェクトへの参照。</li>
   <li>An integer representing the virtual key code of the key.</li>
@@ -275,7 +275,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <p><em>MyCallback</em> is the <a href="../misc/Functor.htm">function object</a> to call. An empty string means no function object.</p>
 <p>コールバックは3つのパラメーターを受け取り、以下のように<a href="../Functions.htm#intro">定義</a>できる：</p>
 <pre class="NoIndent">MyCallback(InputHookObj, VK, SC) { ...</pre>
-<p>パラメータに与える名前は重要ではないが、以下の値が順次割り当てられる：</p>
+<p>パラメータに与える名前は重要ではありませんが、以下の値が順次割り当てられます：</p>
 <ol>
   <li>InputHookオブジェクトへの参照。</li>
   <li>An integer representing the virtual key code of the key.</li>

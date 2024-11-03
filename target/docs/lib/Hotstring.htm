@@ -35,10 +35,10 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../misc/Functor.htm">関数オブジェクト</a></p>
     <p>If omitted and <em>String</em> already exists as a hotstring, its replacement will not be changed. ホットストリングのオプションだけを変更したり、オン/オフを切り替えたりするのに便利です。Otherwise, specify the replacement string or a callback.</p>
     <p>If <em>Replacement</em> is a function, it is called (as a new <a href="../misc/Threads.htm">thread</a>) when the hotstring triggers.</p>
-    <p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>コールバックは 1 つのパラメーターを受け取り、次のように<a href="../Functions.htm#intro">定義</a>できます。</p>
     <pre class="NoIndent">MyCallback(HotstringName) { ...</pre>
     <p>Although the name you give the parameter does not matter, it is assigned the <a href="../Hotstrings.htm#ThisHotkey">hotstring name</a>.</p>
-    <p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
+    <p>対応する情報が必要ないときはコールバックのパラメータを省略することができますが、その場合は<code>MyCallback(*)</code>のようにアスタリスクを指定する必要があります。</p>
     <p><a href="../Hotstrings.htm">ダブルコロン構文</a>で定義されたHotstringsは、自動的にパラメータ名<code>ThisHotkey</code>を使用します。Hotstringは、Hotstringの機能を使わずに、<a href="../Hotstrings.htm#Function">関数</a>名を割り当てることもできます。</p>
     <p>After reassigning the function of a hotstring, its original function can only be restored if it was <a href="../Hotstrings.htm#Function">given a name</a>.</p>
     <p class="note"><strong>注意：</strong>このパラメータを指定しても、以前にこの機能を使用したときにホットストリングが無効になっていた場合は、ホットストリングは無効のままとなります。To prevent this, specify <code>"On"</code> for <em>OnOffToggle</em>.</p>
@@ -124,7 +124,7 @@ Hotstring "::btw", "by the way"</pre>
 <p>詳しくは、<a href="HotIf.htm">HotIf</a>をご覧ください。</p>
 
 <h2 id="Related">関連</h2>
-<p><a href="../Hotstrings.htm">ホットストリング</a>、<a href="_HotIf.htm">#HotIf</a>、<a href="../Variables.htm#ThisHotkey">A_ThisHotkey</a>、<a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>、<a href="Suspend.htm">Suspend</a>、<a href="../misc/Threads.htm">スレッド</a>、<a href="Thread.htm">Thread</a>、<a href="Critical.htm">Critical</a></p>
+<p><a href="../Hotstrings.htm">Hotstrings</a>, <a href="HotIf.htm">HotIf</a>, <a href="../Variables.htm#ThisHotkey">A_ThisHotkey</a>, <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a>, <a href="Suspend.htm">Suspend</a>, <a href="../misc/Threads.htm">Threads</a>, <a href="Thread.htm">Thread</a>, <a href="Critical.htm">Critical</a>, <a href="Hotkey.htm">Hotkey function</a></p>
 
 <h2 id="Examples">例</h2>
 
@@ -154,7 +154,7 @@ Hotstring "::btw", "by the way"</pre>
     ClipContent := StrReplace(ClipContent, "`t", "``t")
     ClipContent := StrReplace(ClipContent, "`;", "```;")
     A_Clipboard := ClipboardOld  <em>; クリップボードの以前の内容を復元します。</em>
-    ShowInputBox(":T:`::" ClipContent)
+    ShowInputBox(":T:::" ClipContent)
 }
 
 ShowInputBox(DefaultValue)
@@ -166,7 +166,7 @@ ShowInputBox(DefaultValue)
     (
     表示された挿入口に略号を入力してください。また、必要に応じて、置換テキストを編集することもできます。
 
-    Example entry: :T:btw`::by the way
+    Example entry: :T:btw::by the way
     )", "New Hotstring",, DefaultValue)
     if IB.Result = "Cancel"  <em>; ユーザがキャンセルを押した。</em>
         return

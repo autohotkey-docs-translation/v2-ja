@@ -20,17 +20,18 @@
   <dt>Callback</dt>
   <dd>
     <p>型：<a href="../misc/Functor.htm">機能オブジェクト</a></p>
-    <p>The function to call.</p>
-    <p>The callback accepts one parameter and can be <a href="../Functions.htm#intro">defined</a> as follows:</p>
+    <p>呼び出される関数です。</p>
+    <p>コールバックは 1 つのパラメーターを受け取り、次のように<a href="../Functions.htm#intro">定義</a>できます。</p>
     <pre class="NoIndent">MyCallback(DataType) { ...</pre>
     <p>パラメータに付ける名前は重要ではありませんが、次のいずれかの番号が割り当てられます。</p>
     <ul>
-      <li>0 = クリップボードが空っぽになりました。</li>
-      <li>1 = クリップボードにテキストとして表現できるものが入っている（エクスプローラーウィンドウから<a href="A_Clipboard.htm#CopiedFiles">コピーされたファイル</a>も含まれる）。</li>
-      <li>2 = クリップボードには、画像など、まったくテキスト以外のものが入っています。</li>
+      <li>0 = クリップボードは空です。</li>
+      <li>1 = クリップボードにテキストとして表現できるものが格納されています。エクスプローラーウィンドウから<a href="A_Clipboard.htm#CopiedFiles">コピーされたファイル</a>も含まれます。</li>
+      <li>2 = クリップボードには、画像など、テキストではないものが格納されています。</li>
     </ul>
-    <p>You can omit the callback's parameter if the corresponding information is not needed, but in this case an asterisk must be specified, e.g. <code>MyCallback(*)</code>.</p>
-    <p>If this is the last or only callback, the return value is ignored. Otherwise, it can return a non-zero integer to prevent subsequent callbacks from being called.</p>
+    <p>対応する情報が必要ないときはコールバックのパラメータを省略することができますが、その場合は<code>MyCallback(*)</code>のようにアスタリスクを指定する必要があります。</p>
+    <p>これが最後のコールバックか唯一のコールバックのときは、戻り値は無視されます。
+そうでなければ、後続のコールバックが呼び出されないように、0以外の整数を返すことができます。</p>
   </dd>
   
   <dt>AddRemove</dt>
@@ -47,8 +48,8 @@
 </dl>
 
 <h2 id="Remarks">備考</h2>
-<p>If the clipboard changes while a callback is already running, that notification event is lost. これが好ましくない場合は、<a href="Critical.htm">Critical</a>を使用します。ただし、この場合、OnClipboardChangeスレッドの実行中に発生する他の<a href="../misc/Threads.htm">スレッド</a>（ホットキーの押下など）もバッファリング/ディファーされます。</p>
-<p>If the script itself changes the clipboard, the callbacks are typically not executed immediately; that is, statements immediately below the statement that changed the clipboard are likely to execute beforehand. To force the callbacks to execute immediately, use a short delay such as <code><a href="Sleep.htm">Sleep</a> 20</code> after changing the clipboard.</p>
+<p>コールバックの実行中にクリップボードが変更されたときは、その通知イベントは失われます。これが好ましくない場合は、<a href="Critical.htm">Critical</a>を使用します。ただし、この場合、OnClipboardChangeスレッドの実行中に発生する他の<a href="../misc/Threads.htm">スレッド</a>（ホットキーの押下など）もバッファリング/ディファーされます。</p>
+<p>スクリプト自体がクリップボードを変更したときは、通常、コールバックはすぐには実行されません。つまり、クリップボードを変更したステートメントのすぐ下にあるステートメントは、事前に実行される可能性があります。コールバックを直ちに実行させるには、クリップボードを変更した後、<code><a href="Sleep.htm">Sleep</a> 20&lt;//c0&gt; のような短い遅延を使用します。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="A_Clipboard.htm">A_Clipboard</a>、<a href="OnExit.htm">OnExit</a>、<a href="OnMessage.htm">OnMessage</a>、<a href="CallbackCreate.htm">CallbackCreate</a></p>
