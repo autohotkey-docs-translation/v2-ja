@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>MouseGetPos - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="MouseGetPos関数は、マウスカーソルの現在位置と、オプションでマウスカーソルが乗っているウィンドウとコントロールを取得します。" />
+<meta name="description" content="MouseGetPos関数は、マウスカーソルの現在位置を取得します。また、オプションでどのウィンドウとコントロール上にカーソルがあるのかを取得します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>MouseGetPos</h1>
 
-<p>マウスカーソルの現在位置を取得し、オプションでどのウィンドウとコントロールにカーソルを置いているかを取得します。</p>
+<p>マウスカーソルの現在位置を取得します。また、オプションでどのウィンドウとコントロール上にカーソルがあるのかを取得します。</p>
 
 <pre class="Syntax"><span class="func">MouseGetPos</span> <span class="optional">&amp;OutputVarX, &amp;OutputVarY, &amp;OutputVarWin, &amp;OutputVarControl, Flag</span></pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -21,27 +21,28 @@
   <dt>&amp;OutputVarX, &amp;OutputVarY</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>省略したときは、対応する値は保存されません。そうでないときは、X座標とY座標を格納する出力変数への参照を指定します。The retrieved coordinates are relative to the active window's client area unless <a href="CoordMode.htm">CoordMode</a> was used to change to screen coordinates.</p>
+    <p>省略したときは、対応する値は保存されません。そうでないときは、X座標とY座標を格納する出力変数への参照を指定します。取得した座標は、<a href="CoordMode.htm">CoordMode</a>関数で変更されない限りアクティブウィンドウのクライアント領域を基準にします。</p>
   </dd>
 
   <dt>&amp;OutputVarWin</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>省略したときは、対応する値は保存されません。Otherwise, specify a reference to the output variable in which to store the <a href="../misc/WinTitle.htm#ahk_id">unique ID number</a> of the window under the mouse cursor. ウィンドウを決定できない場合、この変数は空白になります。</p>
+    <p>省略したときは、対応する値は保存されません。そうでないときは、マウスカーソルがあるウィンドウの<a href="../misc/WinTitle.htm#ahk_id">一意の ID 番号</a>を格納する出力変数への参照を指定します。ウィンドウを決定できない場合、この変数は空白になります。</p>
     <p>ウィンドウがアクティブでなくても検出されます。隠しウィンドウは検出できません。</p>
   </dd>
 
   <dt>&amp;OutputVarControl</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#variable-references">VarRef</a></p>
-    <p>省略したときは、対応する値は保存されません。Otherwise, specify a reference to the output variable in which to store the name (ClassNN) of the control under the mouse cursor. 制御が決定できない場合は、この変数を空白とします。</p>
-    <p>コントロールの名前は、常にWindow Spyが表示する名前と一致する必要があります。マウスカーソルの下にあるウィンドウがアクティブでなくても、コントロールは検出されます。</p>
+    <p>省略したときは、対応する値は保存されません。そうでなければ、マウスカーソルがあるコントロールの名前（ClassNN）を格納する出力変数への参照を指定します。制御が決定できない場合は、この変数を空白とします。</p>
+    <p>コントロールの名前は、常にWindow Spyが表示する名前と一致する必要があります。マウスカーソルがあるウィンドウがアクティブでなくても、コントロールは検出されます。</p>
   </dd>
 
   <dt>Flag</dt>
   <dd>
     <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
-    <p>If omitted, it defaults to 0, meaning the function uses the default method to determine <em>OutputVarControl</em> and stores the control's ClassNN. Otherwise, specify a combination (sum) of the following numbers:</p>
+    <p>省略したときは既定値は0になり、関数は既定のメソッドを使用して <em>OutputVarControl</em> を決定し、コントロールのClassNNを格納します。
+そうでなければ、次の数値の組み合わせ （合計） を指定します。</p>
     <p><strong>1：</strong><em>OutputVarControl</em>を決定するために、より単純な方法を使用します。SysEditやTextPadなどのMDI（Multiple Document Interface）アプリケーションのアクティブ／最上位の子ウィンドウを正しく取得することができるようになりました。ただし、GroupBoxコントロール内のコントロールの検出など、他の目的では精度が落ちます。</p>
     <p><strong>2：</strong><a href="ControlGetClassNN.htm">コントロールのClassNN</a>ではなく、<a href="ControlGetHwnd.htm">コントロールのHWND</a>を <em>OutputVarControl</em>に格納します。</p>
     <p>例えば、両方のオプションを有効にするには、<em>Flag</em>パラメータを3に設定する必要があります。</p>
@@ -64,7 +65,7 @@ MsgBox "The cursor is at X" xpos " Y" ypos</pre>
 </div>
 
 <div class="ex" id="ExWatchCursor">
-<p><a class="ex_number" href="#ExWatchCursor"></a> Shows the HWND, class name, title and controls of the window currently under the mouse cursor.</p>
+<p><a class="ex_number" href="#ExWatchCursor"></a> マウスカーソルがあるウィンドウのHWND、クラス、タイトル、コントロールを表示します。</p>
 <pre>SetTimer WatchCursor, 100
 
 WatchCursor()
