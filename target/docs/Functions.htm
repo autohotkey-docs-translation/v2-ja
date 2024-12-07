@@ -55,7 +55,7 @@
 {
     <a href="lib/Return.htm">return</a> x + y
 }</pre>
-<p>上記は、「Add」という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。事例：</p>
+<p>上記は、「Add」という名前の関数（大文字小文字を区別しない）を作成し、それを呼び出す人は正確に2つのパラメータ（xとy）を提供しなければならないと定めていることから、関数<em>定義</em>として知られています。関数を呼び出すには、その結果を<a href="Variables.htm#AssignOp"><code>:=</code>演算子</a>で変数に代入します。例：</p>
 <pre>Var := Add(2, 3)  <em>; Varに数字5が格納されます。</em></pre>
 <p>また、関数は戻り値を保存せずに呼び出すことができます：</p>
 <pre>Add(2, 3)
@@ -85,7 +85,7 @@ Swap(&amp;Left, &amp;Right)
     Right := temp
 }</pre>
 <p>上記の例では、<code>&amp;</code>を使用することで、呼び出し側が<a href="Concepts.htm#variable-references">VarRef</a>を渡す必要があります。各パラメーターは、VarRefで表される変数のエイリアスになります。つまり、パラメータも呼び出し側の変数も、メモリ上の同じ内容を参照しているのです。これにより、Swap関数は、<em>左</em>の内容を<em>右</em>に移動したり、逆に右の内容を右に移動したりして、呼び出し側の変数を変更することができます。</p>
-<p>一方、上記の例で<em>ByRef</em>を使用しなかった場合、<em>Left</em>と <em>Right</em>は呼び出し元の変数のコピーとなるため、Swap関数は外部に影響を与えることはありません。しかし、その代わりに、各 VarRef を明示的に<a href="Variables.htm#deref">非参照</a>にするように関数を変更することができます。事例：</p>
+<p>一方、上記の例で<em>ByRef</em>を使用しなかった場合、<em>Left</em>と <em>Right</em>は呼び出し元の変数のコピーとなるため、Swap関数は外部に影響を与えることはありません。しかし、その代わりに、各 VarRef を明示的に<a href="Variables.htm#deref">非参照</a>にするように関数を変更することができます。例：</p>
 <pre>Swap(Left, Right)
 {
     temp := %Left%
@@ -129,7 +129,7 @@ MyFunc(p?) {  <em>; MyFunc(p := unset) に相当します。</em>
 MyFunc(42)
 MyFunc
 </pre>
-<p>パラメータに値がないのに読み込もうとすると、<a href="Concepts.htm#uninitialized-variables">初期化されていない変数</a>と同じようにエラーとみなされます。オプションのパラメータに値がない場合でも他の関数に渡すには、<a href="Variables.htm#maybe">maybe演算子（<em>var</em><strong>?</strong>）</a>。事例：</p>
+<p>パラメータに値がないのに読み込もうとすると、<a href="Concepts.htm#uninitialized-variables">初期化されていない変数</a>と同じようにエラーとみなされます。オプションのパラメータに値がない場合でも他の関数に渡すには、<a href="Variables.htm#maybe">maybe演算子（<em>var</em><strong>?</strong>）</a>。例：</p>
 <pre>
 Greet(title?) {
     MsgBox("Hello!", title?)
@@ -229,14 +229,14 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <p>また、<code>local</code>キーワードで変数を宣言したり、関数のモードを変更することで、デフォルトをオーバーライドすることもできます（下図）。</p>
 
 <h3 id="Global">グローバル変数</h3>
-<p id="AssignLocal"><a href="#AssumeLocal">想定ローカル</a>関数内の変数参照は、それが読み込まれるだけであれば、グローバル変数に解決される可能性があります。ただし、変数が代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用された場合、デフォルトで自動的にローカルになります。これにより、関数は関数内で宣言することなく、グローバル変数の読み込みや、グローバル関数や組み込み関数の呼び出しを行うことができます。また、代入されるローカル変数の名前がグローバル変数と一致する場合に、意図しない副作用からスクリプトを保護します。事例：</p>
+<p id="AssignLocal"><a href="#AssumeLocal">想定ローカル</a>関数内の変数参照は、それが読み込まれるだけであれば、グローバル変数に解決される可能性があります。ただし、変数が代入や<a href="Variables.htm#ref">参照演算子(&amp;)</a>で使用された場合、デフォルトで自動的にローカルになります。これにより、関数は関数内で宣言することなく、グローバル変数の読み込みや、グローバル関数や組み込み関数の呼び出しを行うことができます。また、代入されるローカル変数の名前がグローバル変数と一致する場合に、意図しない副作用からスクリプトを保護します。例：</p>
 <pre>LogToFile(TextToLog)
 {
     <em>; LogFileNameは、以前この関数の外のどこかで値を与えられていました。
     ; FileAppend は、組み込み関数を含む事前定義されたグローバル変数です。</em>
     FileAppend TextToLog "`n", LogFileName
 }</pre>
-<p>それ以外の場合、関数内で既存のグローバル変数を参照する（または新規に作成する）には、その変数を使用する前にグローバル変数として宣言します。事例：</p>
+<p>それ以外の場合、関数内で既存のグローバル変数を参照する（または新規に作成する）には、その変数を使用する前にグローバル変数として宣言します。例：</p>
 <pre>SetDataDir(Dir)
 {
     <strong>global</strong> LogFileName
@@ -244,7 +244,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
     <strong>global</strong> DataDir := Dir  <em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
 }
 </pre>
-<p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を「global」とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
+<p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を「global」とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。例：</p>
 <pre>SetDefaults()
 {
     <strong>global</strong>
@@ -253,7 +253,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 }</pre>
 
 <h3 id="static">スタティック変数</h3>
-<p>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。事例：</p>
+<p>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。例：</p>
 <pre>LogToFile(TextToLog)
 {
     <strong>static</strong> LoggedLines := 0
@@ -263,7 +263,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 }</pre>
 <p id="InitStatic">静的変数は、宣言と同じ行で、<code>:=</code>と任意の<a href="Variables.htm#Expressions">式</a>で続けて初期化することができる。事例：<code>static X:=0, Y:="fox"</code>。Static declarations are evaluated the same as <a href="#Local">local</a> declarations, except that after a static initializer (or group of combined initializers) is successfully evaluated, it is effectively removed from the flow of control and will not execute a second time.</p>
 <p>ネストした関数は、外側の関数の非静的なローカル変数を取り込まないように、<a href="#static-functions">静的に宣言</a>することができます。</p>
-<p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を「static」とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。事例：</p>
+<p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を「static」とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。例：</p>
 <pre>GetFromStaticArray(WhichItemNumber)
 {
     <strong>static</strong>
@@ -312,7 +312,7 @@ static TotalAttempts := 0, PrevResult</pre>
 <p><a href="Variables.htm#ternary">三項条件演算子（?:）</a>も、ロス分岐を評価しないことで短絡させる。</p>
 
 <h2 id="nested">ネストされた関数</h2>
-<p><em>ネストされた</em>関数は、他の関数の中で定義されたものです。事例：</p>
+<p><em>ネストされた</em>関数は、他の関数の中で定義されたものです。例：</p>
 <pre>
 outer(x) {
     inner(y) {
@@ -343,7 +343,7 @@ outer("title")
 <p>各関数定義は、関数そのものを含む読み取り専用の変数、つまり<a href="lib/Func.htm">Func</a>または<a href="#closures">Closure</a>オブジェクトを作成します。使用例については、以下をご覧ください。</p>
 
 <h3 id="static-functions">スタティック関数</h3>
-<p>つまり、外側の関数を呼び出すたびに、同じ<a href="lib/Func.htm">Func</a>を参照することになります。キーワード<code>static</code>は、入れ子になった関数を明示的にstaticと宣言するために使用します。この場合、外側の関数のstaticでないローカル変数は無視されます。事例：</p>
+<p>つまり、外側の関数を呼び出すたびに、同じ<a href="lib/Func.htm">Func</a>を参照することになります。キーワード<code>static</code>は、入れ子になった関数を明示的にstaticと宣言するために使用します。この場合、外側の関数のstaticでないローカル変数は無視されます。例：</p>
 <pre>outer() {
     x := "outer value"
     static inner() {
@@ -358,7 +358,7 @@ outer()</pre>
 
 <h3 id="closures">クロージャ</h3>
 <p><em>クロージャ</em>とは、<em id="free-vars">自由</em>変数の集合に束縛されたネストされた関数のことです。自由変数は、外側の関数のローカル変数で、ネストした関数でも使用されます。クロージャは、1つまたは複数のネストした関数が、外側の関数が戻った後でも、外側の関数と変数を共有することを可能にします。</p>
-<p>クロージャを作るには、外側の関数の変数を参照する入れ子関数を定義するだけです。事例：</p>
+<p>クロージャを作るには、外側の関数の変数を参照する入れ子関数を定義するだけです。例：</p>
 <pre>
 make_greeter(f)
 {
@@ -373,7 +373,7 @@ g := make_greeter("Hello, {}!")
 g(A_UserName)
 g("World")
 </pre>
-<p>クロージャは、<a href="lib/SetTimer.htm">SetTimer</a>や<a href="lib/Hotkey.htm">Hotkey</a>などの組み込み関数で使用することもできます。事例：</p>
+<p>クロージャは、<a href="lib/SetTimer.htm">SetTimer</a>や<a href="lib/Hotkey.htm">Hotkey</a>などの組み込み関数で使用することもできます。例：</p>
 <pre>
 app_hotkey(keyname, app_title, app_path)
 {
@@ -393,7 +393,7 @@ app_hotkey "#w", "ahk_class WordPadClass", "wordpad.exe"
 </pre>
 <p>入れ子になった関数は、外側の関数の非静的なローカル変数をキャプチャすれば、自動的にクロージャとなります。クロージャそのものに対応する変数（<code>activate</code>など）も非静的なローカル変数なので、クロージャを参照するネストした関数は自動的にクロージャになります。</p>
 <p>外側の関数を呼び出すたびに、以前の呼び出しとは異なる新しいクロージャが作成されます。</p>
-<p id="circular-closure">It is best not to store a reference to a closure in any of the outer function's free variables, since that creates a <a href="Objects.htm#refs-problems">reference cycle</a> which must be broken (such as by clearing the variable) before the closure can be freed. However, a closure may safely refer to itself and other closures by their original variables without creating a problematic reference cycle. 事例：</p>
+<p id="circular-closure">It is best not to store a reference to a closure in any of the outer function's free variables, since that creates a <a href="Objects.htm#refs-problems">reference cycle</a> which must be broken (such as by clearing the variable) before the closure can be freed. However, a closure may safely refer to itself and other closures by their original variables without creating a problematic reference cycle. 例：</p>
 <pre>
 timertest() {
     x := "tock!"
@@ -418,7 +418,7 @@ timertest()
 <p>関数内で使用すると、<a href="lib/ListVars.htm">ListVars</a>は関数の<a href="#Local">ローカル変数</a>をその内容とともに表示します。This can help <a href="Scripts.htm#debug">debug a script</a>.</p>
 <h2 id="Style_and_Naming_Conventions">スタイルと命名規則</h2>
 <p>複雑な関数は、特殊な変数に明確な接頭辞をつけると読みやすく、保守しやすくなります。例えば、関数のパラメータリストの各パラメータに「p」や「p_」という先頭の名前を付けると、特に数十個の<a href="#Local">ローカル変数</a>が競合している関数では、その特殊性が一目瞭然になる。同様に、<a href="#ByRef">ByRefパラメータ</a>には接頭辞「r」または「r_」を、<a href="#static">静的変数には</a>「s」または「s_」を使用することができる。</p>
-<p>機能定義に<a href="lib/Block.htm#otb">One True Brace（OTB）スタイル</a>をオプションで使用することができる。事例：</p>
+<p>機能定義に<a href="lib/Block.htm#otb">One True Brace（OTB）スタイル</a>をオプションで使用することができる。例：</p>
 <pre>Add(x, y) {
     return x + y
 }</pre>

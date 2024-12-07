@@ -80,7 +80,7 @@ class WB_events {
 
 <h2 id="Button">Button</h2>
 <p>A pushbutton, which can be pressed to trigger an action.  In this case, the last parameter is the name of the button (shown on the button itself), which may include linefeeds (`n) to start new lines.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyBtn := MyGui.Add("Button", "Default w80", "OK")
 MyBtn.OnEvent("Click", MyBtn_Click)  <em>; クリックされたときにMyBtn_Clickをコールします。</em></pre>
 <p>あるいは：</p>
@@ -92,7 +92,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; クリックされたときにMyBtn_C
 <p>Whenever the user clicks the button or presses <kbd>Space</kbd> or <kbd>Enter</kbd> while it has the focus, the <a href="GuiOnEvent.htm#Click">Click</a> event is raised.</p>
 <p>The <a href="GuiOnEvent.htm#DoubleClick">DoubleClick</a>, <a href="GuiOnEvent.htm#Focus">Focus</a> and <a href="GuiOnEvent.htm#LoseFocus">LoseFocus</a> events are also supported. As these events are only raised if the control has the BS_NOTIFY (0x4000) style, it is added automatically by <a href="GuiOnEvent.htm">OnEvent</a>.</p>
 <p id="DefaultButton">The example above includes the word <strong>Default</strong> in its <em>Options</em> to make "OK" the default button. The default button's <a href="GuiOnEvent.htm#Click">Click event</a> is automatically triggered whenever the user presses <kbd>Enter</kbd>, except when the keyboard focus is on a different button or a multi-line edit control having the <a href="#WantReturn">WantReturn</a> style. To later change the default button to another button, follow this example, which makes the Cancel button become the default: <code>MyGui["Cancel"].<a href="GuiControl.htm#Opt">Opt</a>("+Default")</code>. To later change the window to have no default button, follow this example: <code>MyGui["OK"].Opt("-Default")</code>.</p>
-<p>An ampersand (&amp;) may be used in the button name to underline one of its letters. 事例：</p>
+<p>An ampersand (&amp;) may be used in the button name to underline one of its letters. 例：</p>
 <pre>MyGui.Add("Button",, "&amp;Pause")</pre>
 <p>In the example above, the letter P will be underlined, which allows the user to press <kbd>Alt</kbd>+<kbd>P</kbd> as <a href="Gui.htm#ShortcutKey">shortcut key</a>. To display a literal ampersand, specify two consecutive ampersands (&amp;&amp;).</p>
 
@@ -100,7 +100,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; クリックされたときにMyBtn_C
 
 <a id="Checkbox"></a><h2 id="CheckBox">CheckBox</h2>
 <p>A small box that can be checked or unchecked to represent On/Off, Yes/No, etc.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("CheckBox", "vShipToBillingAddress", "Ship to billing address?")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddCheckBox("vShipToBillingAddress", "Ship to billing address?")</pre>
@@ -115,7 +115,7 @@ MyBtn.OnEvent("Click", MyBtn_Click)  <em>; クリックされたときにMyBtn_C
 
 <h2 id="ComboBox">ComboBox</h2>
 <p>Same as DropDownList but also permits free-form text to be entered as an alternative to picking an item from the list.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("ComboBox", "vColorChoice", ["Red","Green","Blue"])</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddComboBox("vColorChoice", ["Red","Green","Blue"])</pre>
@@ -193,7 +193,7 @@ IPCtrlGetAddress(GuiCtrl)
 
 <h2 id="DateTime">DateTime</h2>
 <p>A box that looks like a single-line edit control but instead accepts a date and/or time. A drop-down calendar is also provided.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("DateTime", "vMyDateTime", "LongDate")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddDateTime("vMyDateTime", "LongDate")</pre>
@@ -237,7 +237,7 @@ IPCtrlGetAddress(GuiCtrl)
 
 <a id="DDL"></a><h2 id="DropDownList">DropDownList（またはDDL）</h2>
 <p>A list of choices that is displayed in response to pressing a small button.  In this case, the last parameter of <a href="Gui.htm#Add">MyGui.Add</a> is an <a href="Array.htm">Array</a> like <code>["Choice1","Choice2","Choice3"]</code>.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("DropDownList", "vColorChoice", ["Black","White","Red"])</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddDropDownList("vColorChoice", ["Black","White","Red"])</pre>
@@ -258,7 +258,7 @@ MyGui.Show("h70")</pre>
 
 <h2 id="Edit">Edit</h2>
 <p>ユーザーが自由にテキストを入力できる領域。</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Edit", "r9 vMyEdit w135", "Text to appear inside the edit control (omit this parameter to start off empty).")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddEdit("r9 vMyEdit w135", "Text to appear inside the edit control (omit this parameter to start off empty).")</pre>
@@ -268,7 +268,7 @@ MyGui.Show("h70")</pre>
 <p>複数行の編集コントロールで改行するには、最後のパラメータ（contents）に単独のラインフィード（`n）またはキャリッジリターンとラインフィード（`r`n）を指定します。どちらの方法も、Editコントロールの中にリテラルな`r`nペアを生成します。しかし、<a href="Gui.htm#Submit">MyGui.Submit</a>や <a href="GuiControl.htm#Value">GuiCtrl.Value</a>でコントロールの内容を取得する場合、テキスト内の各`r`nは常にプレーンなラインフィード（`n）に変換されます。この行末変換を回避するためには、<a href="GuiControl.htm#Text">GuiCtrl.Text</a>を使用します。テキストをファイルに書き出すには、この例に従います：<code><a href="FileAppend.htm">FileAppend</a>(MyEdit.Text, "C:\Saved File.txt")</code>。</p>
 <p>コントロールがワードラッピングを有効にしている場合（複数行編集コントロールのデフォルト）、ユーザーが入力する際に発生するラップは、改行文字を生成しません（<kbd>Enter</kbd>だけがそれを行うことができます）。</p>
 <p>Whenever the user changes the control's content, the <a href="GuiOnEvent.htm#Change">Change</a> event is raised.</p>
-<p>TIP: To load a text file into an Edit control, use <a href="FileRead.htm">FileRead</a> and <a href="GuiControl.htm#Value">GuiCtrl.Value</a>. 事例：</p>
+<p>TIP: To load a text file into an Edit control, use <a href="FileRead.htm">FileRead</a> and <a href="GuiControl.htm#Value">GuiCtrl.Value</a>. 例：</p>
 <pre>MyEdit := MyGui.Add("Edit", "R20")
 MyEdit.Value := FileRead("C:\My File.txt")</pre>
 
@@ -291,7 +291,7 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 
 <h2 id="GroupBox">GroupBox</h2>
 <p>A rectangular border/frame, often used around other controls to indicate they are related. In this case, the last parameter is the title of the box, which if present is displayed at its upper-left edge.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("GroupBox", "w200 h100", "Geographic Criteria")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddGroupBox("w200 h100", "Geographic Criteria")</pre>
@@ -302,7 +302,7 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 
 <h2 id="Hotkey">Hotkey</h2>
 <p>A box that looks like a single-line edit control but instead accepts a keyboard combination pressed by the user. For example, if the user presses <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> on an English keyboard layout, the box would display "Ctrl + Alt + C".</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Hotkey", "vChosenHotkey")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddHotkey("vChosenHotkey")</pre>
@@ -329,7 +329,7 @@ MyEdit.Value := FileRead("C:\My File.txt")</pre>
 
 <h2 id="Link">Link</h2>
 <p>A text control that can contain links similar to those found in a web browser. Within the control's text, enclose the link text within <code>&lt;A&gt;</code> and <code>&lt;/A&gt;</code> to create a clickable link. Although this looks like HTML, Link controls only support the opening <code>&lt;A&gt;</code> tag (optionally with an ID and/or HREF attribute) and closing <code>&lt;/A&gt;</code> tag.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Link",, 'This is a &lt;a href="https://www.autohotkey.com"&gt;link&lt;/a&gt;')
 MyGui.Add("Link",, 'Links may be used anywhere in the text like &lt;a id="A"&gt;this&lt;/a&gt; or &lt;a id="B"&gt;that&lt;/a&gt;')</pre>
 <p>あるいは：</p>
@@ -359,7 +359,7 @@ MyGui.Show()</pre>
 
 <h2 id="ListBox">ListBox</h2>
 <p>A relatively tall box containing a list of choices that can be selected. In this case, the last parameter of <a href="Gui.htm#Add">MyGui.Add</a> is an <a href="Array.htm">Array</a> like <code>["Choice1","Choice2","Choice3"]</code>.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("ListBox", "r5 vColorChoice", ["Red","Green","Blue"])</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddListBox("r5 vColorChoice", ["Red","Green","Blue"])</pre>
@@ -386,7 +386,7 @@ MyGui.Show()</pre>
 
 <h2 id="ListView">ListView</h2>
 <p>リストビューは、オペレーティングシステムが提供する最も精巧なコントロールの1つです。最も分かりやすい形としては、行と列の表形式で表示され、最も一般的な例としては、エクスプローラーのファイルやフォルダのリスト（詳細表示）があります。</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("ListView", "r20 w700", ["Name","In Folder","Size (KB)","Type"])</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddListView("r20 w700", ["Name","In Folder","Size (KB)","Type"])</pre>
@@ -396,7 +396,7 @@ MyGui.Show()</pre>
 
 <h2 id="MonthCal">MonthCal</h2>
 <p>A tall and wide control that displays all the days of the month in calendar format. The user may select a single date or a range of dates.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("MonthCal", "vMyCalendar")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddMonthCal("vMyCalendar")</pre>
@@ -421,7 +421,7 @@ MyGui.Show()</pre>
 
 <a id="Pic"></a><h2 id="Picture">Picture（またはPic）</h2>
 <p>An area containing an image (see last two paragraphs for supported file types). The last parameter is the filename of the image, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Picture", "w300 h-1", "C:\My Pictures\Company Logo.gif")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddPicture("w300 h-1", "C:\My Pictures\Company Logo.gif")</pre>
@@ -431,7 +431,7 @@ MyGui.Show()</pre>
 <p id="IconSupport"><strong>Icons, cursors, and animated cursors:</strong> Icons and cursors may be loaded from the following types of files: ICO, CUR, ANI, EXE, DLL, CPL, SCR, and other types that contain icon resources. To use an icon group other than the first one in the file, include in <em>Options</em> the word Icon followed by the number of the group. 次の例では、2番目のアイコングループのデフォルトアイコンが使用されることになります：<code>MyGui.Add("Picture", "Icon2", "C:\My Application.exe")</code>。</p>
 <p id="PicAltSubmit">Specifying the word <strong>AltSubmit</strong> in <em>Options</em> tells the program to use Microsoft's GDIPlus.dll to load the image, which might result in a different appearance for GIF, BMP, and icon images. For example, it would load a GIF that has a transparent background as a transparent bitmap, which allows the <a href="Gui.htm#BackgroundTrans">BackgroundTrans</a> option to take effect (but icons support transparency without AltSubmit).</p>
 <p>Formats supported without the use of GDIPlus include GIF, JPG, BMP, ICO, CUR, and ANI images. GDIPlus is used by default for other image formats, such as PNG, TIF, Exif, WMF and EMF.</p>
-<p><strong>Animated GIFs:</strong> Although animated GIF files can be displayed in a picture control, they will not actually be animated. To solve this, use the AniGIF DLL (which is free for non-commercial use) as demonstrated at the <a href="https://www.autohotkey.com/boards/viewtopic.php?t=6457">AutoHotkey Forums</a>. Alternatively, the <a href="#ActiveX">ActiveX</a> control type can be used. 事例：</p>
+<p><strong>Animated GIFs:</strong> Although animated GIF files can be displayed in a picture control, they will not actually be animated. To solve this, use the AniGIF DLL (which is free for non-commercial use) as demonstrated at the <a href="https://www.autohotkey.com/boards/viewtopic.php?t=6457">AutoHotkey Forums</a>. Alternatively, the <a href="#ActiveX">ActiveX</a> control type can be used. 例：</p>
 <pre><em>; Specify below the path to the GIF file to animate (local files are allowed too):</em>
 pic := "http://www.animatedgif.net/cartoons/A_5odie_e0.gif"
 MyGui := Gui()
@@ -441,7 +441,7 @@ MyGui.Show</pre>
 
 <h2 id="Progress">Progress</h2>
 <p>A dual-color bar typically used to indicate how much progress has been made toward the completion of an operation.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Progress", "w200 h20 cBlue vMyProgress", 75)</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddProgress("w200 h20 cBlue vMyProgress", 75)</pre>
@@ -462,7 +462,7 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 
 <h2 id="Radio">Radio</h2>
 <p>A radio button is a small empty circle that can be checked (on) or unchecked (off).</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Radio", "vMyRadioGroup", "Wait for all items to be in stock before shipping.")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddRadio("vMyRadioGroup", "Wait for all items to be in stock before shipping.")</pre>
@@ -478,7 +478,7 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 
 <h2 id="Slider">Slider</h2>
 <p>A sliding bar that the user can move along a vertical or horizontal track. The standard volume control in the taskbar's tray is an example of a slider.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Slider", "vMySlider", 50)</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddSlider("vMySlider", 50)</pre>
@@ -532,7 +532,7 @@ MyGui["MyProgress"].Value := 50  <em>; Set the current position to 50.</em></pre
 
 <h2 id="StatusBar">StatusBar</h2>
 <p>A row of text and/or icons attached to the bottom of a window, which is typically used to report changing conditions.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>SB := MyGui.Add("StatusBar",, "Bar's starting text (omit to start off empty).")
 SB.SetText("There are " . RowCount . " rows selected.")</pre>
 <p>あるいは：</p>
@@ -606,7 +606,7 @@ SB.SetText("There are " . RowCount . " rows selected.")</pre>
   <li><strong>Tab2:</strong> Fixes rare redrawing problems in the original "Tab" control but introduces <a href="#Tab2_Issues">some other problems</a>.</li>
   <li><strong>Tab:</strong> Retained for backward compatibility because of <a href="#Tab_vs">differences in behavior</a> between Tab2/Tab3 and Tab.</li>
 </ul>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Tab3",, ["General","View","Settings"])</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddTab3(, ["General","View","Settings"])</pre>
@@ -694,7 +694,7 @@ Tab.UseTab("Name", true)  <em>; Same as above but requires exact match (not case
 
 <h2 id="Text">Text</h2>
 <p>ユーザーが編集できない、境界のないテキストを含む領域。他のコントロールのラベルに使用されることが多い。</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Text",, "Please enter your name:")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddText(, "Please enter your name:")</pre>
@@ -703,7 +703,7 @@ Tab.UseTab("Name", true)  <em>; Same as above but requires exact match (not case
 <p>この場合、最後のパラメータは表示する文字列となります。新しい行を開始するための改行(`n)を含むことができる。また、1本の長い線を、<a href="../Scripts.htm#continuation">継続部</a>によっていくつかの短い線に分割することができます。</p>
 <p>If a width (W) is specified in <em>Options</em> but no <a href="Gui.htm#R">rows (R)</a> or height (H), the control's text will be word-wrapped as needed, and the control's height will be set automatically.</p>
 
-<p>ユーザーがテキストをクリックしたことを検出するには、<a href="GuiOnEvent.htm#Click">Click イベント</a>を使用します。事例：</p>
+<p>ユーザーがテキストをクリックしたことを検出するには、<a href="GuiOnEvent.htm#Click">Click イベント</a>を使用します。例：</p>
 <pre>MyGui := Gui()
 FakeLink := MyGui.Add("Text", "", "Click here to launch Google.")
 FakeLink.SetFont("underline cBlue")
@@ -718,7 +718,7 @@ LaunchGoogle(*) {
 }</pre>
 <p>テキストコントロールは<a href="GuiOnEvent.htm#DoubleClick">DoubleClickイベント</a>にも対応しています。</p>
 <p id="SS_NOTIFY">SS_NOTIFY（0x100）スタイルを持つTextコントロールだけがクリックやダブルクリックの通知を送るので、<a href="GuiOnEvent.htm">OnEvent</a>はClickやDoubleClickコールバックが登録されると自動的にこのスタイルを追加します。SS_NOTIFYスタイルは、コントロールがダブルクリックされたときに、OSが自動的にコントロールのテキストをクリップボードにコピーするようにします。</p>
-<p>本文中でアンパサンド（&amp;）を使用し、1文字に下線を引くことができる。事例：</p>
+<p>本文中でアンパサンド（&amp;）を使用し、1文字に下線を引くことができる。例：</p>
 <pre>MyGui.Add("Text",, "&amp;First Name:")
 MyGui.Add("Edit")</pre>
 <p>上の例では、Fという文字に下線が引かれ、ユーザーは<a href="Gui.htm#ShortcutKey">ショートカットキー</a> <kbd>Alt</kbd>+<kbd>F</kbd>を押すことで、テキストコントロールの後に追加された最初の入力可能なコントロールにキーボードフォーカスを設定することができるようになります。アンパサンドを表示させる場合は、アンパサンド（&amp;&amp;）を2つ連続して指定します。アンパサンドに対する特別な処理をすべて無効にするには、コントロールのオプションに<a href="../misc/Styles.htm#SS_NOPREFIX">0x80</a>を含めます。</p>
@@ -726,7 +726,7 @@ MyGui.Add("Edit")</pre>
 
 <h2 id="TreeView">TreeView</h2>
 <p>A TreeView displays a hierarchy of items by indenting child items beneath their parents. 最も一般的な例は、エクスプローラーのドライブとフォルダーのツリーである。</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("TreeView", "r10")</pre>
 <p>あるいは：</p>
 <pre>MyGui.AddTreeView("r10")</pre>
@@ -736,7 +736,7 @@ MyGui.Add("Edit")</pre>
 
 <h2 id="UpDown">UpDown</h2>
 <p>A pair of arrow buttons that the user can click to increase or decrease a value. By default, an UpDown control automatically snaps onto the previously added control. This previous control is known as the UpDown's <em>buddy control</em>. The most common example is a "spinner", which is an UpDown attached to an <a href="#Edit">Edit control</a>.</p>
-<p>事例：</p>
+<p>例：</p>
 <pre>MyGui.Add("Edit")
 MyGui.Add("UpDown", "vMyUpDown Range1-10", 5)</pre>
 <p>あるいは：</p>

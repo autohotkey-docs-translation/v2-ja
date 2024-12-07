@@ -31,9 +31,9 @@
 <p>技術的には、SendTextは実際にはキーストロークではなく、Unicodeの文字パケットを送信するため、<kbd>Shift</kbd>+<kbd>2</kbd> or <kbd>AltGr</kbd>+<kbd>a</kbd>のようなキーコンビネーションで通常入力される文字に対してより信頼性が高くなります。</p>
 
 <h3 id="Rules_of_quoted_strings">引用符で囲まれた文字列のルール</h3>
-<p>SendTextは、テキストをそのまま送信しますが、<a href="../Language.htm">言語</a>のルールに注意してください。例えば、<a href="../Language.htm#strings">リテラルテキスト</a>は引用符（ダブル<code>"</code>またはシングル<code>'</code>」）で囲む必要があり、引用符そのものはSendText関数には「見えない」のです。文字通りの引用符を送るには、逆のタイプの引用符で囲むとよいでしょう。事例：</p>
+<p>SendTextは、テキストをそのまま送信しますが、<a href="../Language.htm">言語</a>のルールに注意してください。例えば、<a href="../Language.htm#strings">リテラルテキスト</a>は引用符（ダブル<code>"</code>またはシングル<code>'</code>」）で囲む必要があり、引用符そのものはSendText関数には「見えない」のです。文字通りの引用符を送るには、逆のタイプの引用符で囲むとよいでしょう。例：</p>
 <pre>^2::SendText 'Quote marks are also known as "quotes".'</pre>
-<p>または、<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>を使用します。引用符で囲まれた文字列の中では、<code>`"</code>はリテラル<code>"</code>に、<code>`'</code>はリテラル<code>'</code>に変換されます。事例：</p>
+<p>または、<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>を使用します。引用符で囲まれた文字列の中では、<code>`"</code>はリテラル<code>"</code>に、<code>`'</code>はリテラル<code>'</code>に変換されます。例：</p>
 <pre>^3::{
     SendText "Double quote (`")"
     SendText 'Single quote (`')'
@@ -46,7 +46,7 @@
 <h3 id="Sending_keys_and_key_combinations">キーとキーの組み合わせの送信</h3>
 <p><a href="../lib/Send.htm">SendText</a>はテキストをそのまま送信するのに適していますが、<kbd>Left</kbd>や <kbd>Home</kbd>のようなテキストを生成しないキーは送信できません。<a href="../lib/Send.htm">Send</a>、<a href="../lib/Send.htm">SendInput</a>、<a href="../lib/Send.htm">SendPlay</a>、<a href="../lib/Send.htm">SendEvent</a>、<a href="../lib/ControlSend.htm">ControlSend</a>は、テキストとキーの組み合わせ、またはテキストを生成しないキーの両方を送信できます。そのために、次のようなシンボルに特別な意味を持たせている：<code>^!+#{}</code></p>
 <p>最初の4つの記号は、標準的な修飾キーであるCtrl（<code>^</code>）、Alt（<code>!</code>）、Shift（<code>+</code>）、Win（<code>#</code>）に対応しています。これらは組み合わせて使うことができますが、それ以外は次のキーにしか影響しません。</p>
-<p>キーを名前で送る場合、または上記の記号のいずれかを文字どおり送る場合は、中括弧で囲んでください。事例：</p>
+<p>キーを名前で送る場合、または上記の記号のいずれかを文字どおり送る場合は、中括弧で囲んでください。例：</p>
 <ul>
   <li><code>^+{Left}</code>は<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Left</kbd>です</li>
   <li><code>^{+}{Left}</code>は<kbd>Ctrl</kbd>+<kbd>+</kbd>の後に<kbd>Left</kbd>が続きます</li>
@@ -122,7 +122,7 @@
     「Join」オプションを使用しない限り。
 )"</pre>
 <p>一般的にかなり高速ですが、SendTextはまだ各文字を一度に送信する必要があり、Sendは一般的に少なくとも2倍のメッセージ（<em>キーダウン・キーアップ</em>）を送信する必要があります。そのため、大量のテキストを送信する際には、顕著な遅延が発生します。また、遅延が長くなると、ユーザーの入力と衝突したり、キーボードのフォーカスがずれたり、その他の条件が変化するリスクが高くなるため、信頼性が低くなる可能性があります。</p>
-<p>一般的には、クリップボードにテキストを置き、それを<em>貼り付ける</em>方が、より速く、より確実です。事例：</p>
+<p>一般的には、クリップボードにテキストを置き、それを<em>貼り付ける</em>方が、より速く、より確実です。例：</p>
 <pre>^1::{
     old_clip := ClipboardAll()  <em>; クリップボードの内容をすべて保存する</em>
     A_Clipboard := "

@@ -54,7 +54,7 @@
       <li><a href="#lib-modified">Modified Commands, Functions &amp; Directives</a></li>
       <li><a href="#new-functions">新機能のご紹介</a></li>
       <li><a href="#new-directives">新しいディレクティブ</a></li>
-      <li><a href="#built-in-variables">組み込みの変数</a></li>
+      <li><a href="#built-in-variables">組込変数</a></li>
       <li><a href="#built-in-objects">組込オブジェクト</a></li>
     </ul>
   </li>
@@ -276,7 +276,7 @@
 <p><code>*/</code> を行末に置いて複数行のコメントを終了できるようになり、他の言語での <code>/* */</code> の動作に関する共通の混乱点を解決しました。曖昧さが生じる恐れがあるため（例えば、<code>*/</code>で終わるホットストリングでは）、<code>*/</code>の前に<code>/*</code>がないものは無視されるようになりました（AHK_L revision 54での変更点を取り消します）。</p>
 <p>64ビット符号付き整数のサポート範囲外の整数定数や数値文字列は、最小/最大値で上限が設定されるのではなく、オーバーフロー/ラップアラウンドするようになりました。これは数学の演算子と一致しているので、<code>9223372036854775807+1 == 9223372036854775808</code>（ただしどちらも-9223372036854775808が出ます）。これにより、64ビット値に対するビット演算が容易になります。</p>
 <p>数値文字列の場合、数字の前にスペースとタブ以外の空白文字が許されるケースは少なくなっています。一般的なルールとして（v1、v2ともに）スペースとタブのみが許可されていますが、Cランタイムライブラリの規約により他の空白文字が許容される場合もあります。</p>
-<p><a href="lib/Else.htm">Else</a> can now be used with <a href="Language.htm#loop-statement">loops of any type</a> and <a href="lib/Catch.htm">Catch</a>. For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <em>Catch</em>、<em>Try</em>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<em>Catch</em>がなくても実行されません）。そのため、<em>Else</em>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。事例：</p>
+<p><a href="lib/Else.htm">Else</a> can now be used with <a href="Language.htm#loop-statement">loops of any type</a> and <a href="lib/Catch.htm">Catch</a>. For loops の場合は、ループの反復回数が0回だった場合に実行されます。For <em>Catch</em>、<em>Try</em>内で例外が発生しなかった場合に実行されます（エラーや値が発生した場合は、値のクラスに合致する<em>Catch</em>がなくても実行されません）。そのため、<em>Else</em>を中括弧なしで使用する場合、以前のバージョンと解釈が異なる場合があります。例：</p>
 <pre>if condition
 {
     while condition
@@ -1202,7 +1202,7 @@ Name    := MonitorGetName([N])
 <p><code>WinGetClientPos([&amp;OutX, &amp;OutY, &amp;OutWidth, &amp;OutHeight, WinTitle, ...])</code>ウィンドウのクライアント領域の位置とサイズを画面座標で取得します。</p>
 <h3 id="new-directives">新しいディレクティブ</h3>
 <p><code>#DllLoad [FileOrDirName]</code>：スクリプトの実行を開始する前にDLLまたはEXEファイルをロードします。</p>
-<h3 id="built-in-variables">組み込みの変数</h3>
+<h3 id="built-in-variables">組込変数</h3>
 <p><a href="Variables.htm#AhkPath">A_AhkPath</a>は、スクリプトがコンパイルされている場合でも、常に現在の実行ファイル/インタプリタのパスを返します。以前は、ベースファイルとしてBINファイルを使用した場合、コンパイルされたスクリプトのパスを返していましたが、v2.0リリースではBINファイルを含まないようになりました。</p>
 <p><a href="Variables.htm#IsCompiled">A_IsCompiled</a>は、スクリプトがコンパイルされていない場合、""の代わりに0を返します。</p>
 <p><a href="Variables.htm#OSVersion">A_OSVersion</a>は常に<code>major.minor.build</code>という形式の文字列を返し、例えば Windows 7 SP1 では<code>6.1.7601</code>となります。A_OSTypeは、NT系のみ対応しているため、削除されました。</p>
@@ -1483,7 +1483,7 @@ Gui GuiName: Default</p>
 <p>以前は検出されなかったいくつかのエラーに対して例外がスローされ、（以前はErrorLevelの設定によって）誤ってエラーとしてマークされていたいくつかの条件が修正されました。</p>
 <p>一部のエラーメッセージが変更されました。</p>
 <h3 id="catch">Catch</h3>
-<p><a href="lib/Catch.htm">Catch</a>の構文が変更され、特定のエラークラスをキャッチする一方、他のエラークラスはキャッチしない（コールスタックのさらに上の別のCatchに制御を移す、またはエラーを報告してスレッドを終了する）方法が提供されました。これまでは、すべての型のスローされた値をキャッチし、型をチェックして再スローする必要がありました。事例：</p>
+<p><a href="lib/Catch.htm">Catch</a>の構文が変更され、特定のエラークラスをキャッチする一方、他のエラークラスはキャッチしない（コールスタックのさらに上の別のCatchに制御を移す、またはエラーを報告してスレッドを終了する）方法が提供されました。これまでは、すべての型のスローされた値をキャッチし、型をチェックして再スローする必要がありました。例：</p>
 <pre><em>; 古い（v1には「is」やErrorクラスがないため、古い v2.0-a のルールを使ってデモを行う）</em>
 try
     SendMessage msg,,, "Control1", "The Window"

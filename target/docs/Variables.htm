@@ -16,57 +16,57 @@
 <ul>
   <li><a href="#Intro">変数</a></li>
   <li><a href="#Expressions">式</a></li>
-  <li><a href="#Operators">式の演算子</a></li>
-  <li><a href="#BuiltIn">組み込みの変数</a></li>
+  <li><a href="#Operators">式の中での演算子</a></li>
+  <li><a href="#BuiltIn">組込変数</a></li>
   <li><a href="#cap">可変容量とメモリー</a></li>
 </ul>
 <span id="Variables"></span><h2 id="Intro">変数</h2>
-<p>変数がどのように機能するかについての一般的な説明と詳細については、<a href="Concepts.htm#variables">変数</a>を参照してください。</p>
-<p id="assigning"><strong>変数への値の格納</strong>文字列や数値を変数に格納するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>の後に数値や引用符で囲まれた文字列、その他の型の<a href="Language.htm#expressions">式を</a>続けます。事例：</p>
+<p>変数がどのように機能するかについての一般的な説明と詳細については、<a href="Concepts.htm#variables">変数</a>をご覧ください。</p>
+<p id="assigning"><strong>変数への値の格納：</strong>文字列や数値を変数に格納するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>の後に数値や引用符で囲まれた文字列、その他の型の<a href="Language.htm#expressions">式</a>を続けます。例：</p>
 <pre>MyNumber := 123
 MyString := "This is a literal string."
 CopyOfVar := Var</pre>
 <p>変数を明示的に削除することはできませんが、空文字列などの新しい値を代入することで、以前の値を解放することができます：</p>
 <pre>MyVar := ""</pre>
-<p>変数に値を割り当てるには、<a href="#ref">その参照</a>を取り、<a href="#deref">double-deref</a>を使ったり、関数に渡したりして間接的に行うこともできます。事例：</p>
+<p>変数に対して<a href="#ref">その参照を取得</a>して<a href="#deref">double-deref</a>を使用するか関数に渡すことで、間接的に値を割り当てることもできます。例：</p>
 <pre><a href="lib/MouseGetPos.htm">MouseGetPos</a> &amp;x, &amp;y</pre>
 <p>値を割り当てられていない変数の値を読み込もうとするとエラーになります。<a href="lib/IsSet.htm">IsSet</a>はこの状態を検出するために使われます。</p>
-<p id="retrieving"><strong>変数の内容の取得</strong>変数の内容を文字列に含めるには、<a href="#concat">連結か</a> <a href="lib/Format.htm">書式</a>を使う。事例：</p>
+<p id="retrieving"><strong>変数の内容の取得：</strong>変数の内容を文字列に含めるには、<a href="#concat">連結</a>か<a href="lib/Format.htm">Format</a>関数を使います。例：</p>
 <pre><a href="lib/MsgBox.htm">MsgBox</a> "The value of Var is " . Var . "."
 MsgBox "The value in the variable named Var is " Var "."
 MsgBox Format("Var has the value {1}.", Var)
 </pre>
-<p>部分式も同じように文字列と組み合わせることができる。事例：</p>
+<p>部分式も同じように文字列と組み合わせることができます。例：</p>
 <pre>MsgBox("The sum of X and Y is " . (X + Y))
 </pre>
 <p><strong>変数の比較：</strong>さまざまな種類の比較に関する重要な注意事項については、以下の式のセクションをお読みください。</p>
 <h2 id="Expressions">式</h2>
-<p class="note">構造化された概要と詳細な説明については、<a href="Language.htm#expressions">エクスプレッション</a>をご覧ください。</p>
+<p class="note">構造化された概要と詳細な説明については、<a href="Language.htm#expressions">式</a>をご覧ください。</p>
 <p>式は、一連の変数、リテラル文字列、リテラル数値に対して、演算を実行するために使用されます。</p>
-<p>式中のプレーンワードは変数名として解釈されます。したがって、リテラル文字列は変数と区別するために二重引用符で囲む必要があります。事例：</p>
+<p>式中のプレーンワードは変数名として解釈されます。したがって、リテラル文字列は変数と区別するために二重引用符で囲む必要があります。例：</p>
 <pre>if (CurrentSetting &gt; 100 or FoundColor != "Blue")
     MsgBox "The setting is too high or the wrong color is present."</pre>
-<p>上の例では、「Blue」はリテラル文字列なので引用符で囲まれています。しまシングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能します。従って、リテラル文字列の中に<em>実際</em>の引用符を含めるには、引用符を<a href="misc/EscapeChar.htm">エスケープ</a>するか、文字列を反対のタイプの引用符で囲みます。事例：</p>
+<p>上の例では、「Blue」はリテラル文字列なので引用符で囲まれています。シングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能します。従って、リテラル文字列の中に<em>実際</em>の引用符を含めるには、引用符を<a href="misc/EscapeChar.htm">エスケープ</a>するか、文字列を反対のタイプの引用符で囲みます。例：</p>
 <pre>MsgBox "She said, `"An apple a day.`""
 MsgBox 'She said, "An apple a day."'</pre>
-<p><strong>空の文字列：</strong>式の中で空の文字列を指定するには、空の引用符のペアを使用します。例えば、<code>if (MyVar != "")</code>というステートメントは、<em>MyVar</em>が空白でなければ真となる。</p>
-<p><strong>式の結果を格納する：</strong>結果を変数に代入するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>を使う。事例：</p>
+<p><strong>空文字列：</strong>式の中で空文字列を指定するには、空の引用符のペアを使用します。例えば、<code>if (MyVar != "")</code>というステートメントは、<em>MyVar</em>が空白でなければ真となります。</p>
+<p><strong>式の結果の格納：</strong>結果を変数に代入するには、<a href="#AssignOp">コロンと等号の演算子（:=）</a>を使います。例：</p>
 <pre>NetPrice := Price * (1 - Discount/100)</pre>
-<p id="Boolean"><strong>ブール値：</strong>式がtrueまたはfalseに評価される必要がある場合（IF文など）、空白またはゼロの結果はfalseとみなされ、それ以外の結果はtrueとみなされる。例えば、ItemCountが空白か0の場合のみ、<code>if ItemCount</code>式が偽になる。同様に、<code>if not ItemCount</code>式は逆の結果をもたらす。</p>
-<p>NOT/&gt;/=/&lt;などの演算子は、自動的に真か偽の値を生成する：真なら1、偽なら0となる。しかし、AND/OR演算子は常に入力値のいずれかを生成する。例えば以下の式では、A_Indexが5より大きい場合は変数<em>Done</em>に1が代入され、それ以外の場合は<em>FoundIt</em>の値が代入される：</p>
+<p id="Boolean"><strong>ブール値：</strong>IF文など式が真偽で評価される必要があるときは、空白またはゼロは偽とみなされ、それ以外の結果は真とみなされます。例えば、ItemCountが空白か0の場合のみ<code>if ItemCount</code>式は偽になります。同様に、<code>if not ItemCount</code>式は逆に真になります。</p>
+<p>NOT/&gt;/=/&lt;などの演算子は、自動的に真か偽の値を生成します：真なら1、偽なら0となります。ただし、AND/OR演算子は常に入力値のいずれかを生成します。例えば、以下の式ではA_Indexが5より大きいときは変数<em>Done</em>に1が代入され、それ以外のときは<em>FoundIt</em>の値が代入されます：</p>
 <pre>Done := A_Index &gt; 5 or FoundIt</pre>
-<p>上で示唆したように、変数を空白にするか0を代入するだけで、偽の値を保持することができる。これを利用するために、<code>if Done</code>という省略記法を使えば、変数Doneが真か偽かをチェックすることができる。</p>
-<p><span id="True"></span><span id="False"></span>式では、キーワード<em>true</em>と <em>false</em>は1と0に解決される。これらの例は、スクリプトをより読みやすくするために使われます：</p>
+<p>上で示唆したように、変数に空白にするか0を代入するだけで、偽とすることができます。。これを利用するために、<code>if Done</code>という省略記法を使えば、変数Doneが真か偽かをチェックすることができます。</p>
+<p><span id="True"></span><span id="False"></span>式では、キーワード<em>true</em>と <em>false</em>は1と0に解決される。これらの例は、スクリプトをより読みやすくするために使われます。</p>
 <pre>CaseSensitive := false
 ContinueSearch := true</pre>
-<p id="numbers"><strong>整数と浮動小数点：</strong>整数と浮動小数点：式の中で、小数点または科りま数法を含む数値は浮動小数点とみなされ、そうでない場合は整数となります。加算や乗算など、ほとんどの演算子では、入力のどちらかが浮動小数点数であれば、結果も浮動小数点数になります。</p>
-<p>式内でも非式内でも、整数は16進数か10進数のどちらかの形式で書くことができる。16進数はすべて接頭辞0xで始まる。例えば、<code>Sleep 0xFF</code>は <code>Sleep 255</code>に相当する。浮動小数点数は、小数点の有無にかかわらず、科学表記で書くこともできる（例：<code>1e4</code>や <code>-2.1E-4</code>）。</p>
-<p>式内では、<code>128</code>、<code>0x7F</code>、<code>1.0</code>などの引用符で囲まれていないリテラル数値は、スクリプトの実行を開始する前に純粋な数値に変換されるため、数値を文字列に変換すると元のリテラル値とは異なる値が生成される可能性があります。事例：</p>
+<p id="numbers"><strong>整数と浮動小数点：</strong>式の中で、小数点または科学的記数法を含む数値は浮動小数点とみなされ、そうでないときは整数となります。加算や乗算などのほとんどの演算子では、入力のどちらかが浮動小数点数であれば結果も浮動小数点数になります。</p>
+<p>式の中でもそうでなくても、整数は16進数と10進数のどちらの形式でも書くことができます。16進数はすべて接頭辞0xで始まります。例えば、<code>Sleep 0xFF</code>は <code>Sleep 255</code>に相当します。浮動小数点数は、小数点の有無にかかわらず科学的記数法で書くことができます。（例：<code>1e4</code>や <code>-2.1E-4</code>）。</p>
+<p>式の中では<code>128</code>、<code>0x7F</code>、<code>1.0</code>などの引用符で囲まれていないリテラル数値はスクリプトの実行を開始する前に純粋な数値に変換されるため、数値を文字列に変換すると元のリテラル値とは異なる値が生成される可能性があります。例：</p>
 <pre>MsgBox(0x7F)  <em>; 128と表示します。</em>
 MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
 
-<h2 id="Operators">式の演算子</h2>
-<p class="note">演算子に関する一般的な情報については、「<a href="Language.htm#operators">演算子</a>」を参照のこと。</p>
+<h2 id="Operators">式の中での演算子</h2>
+<p class="note">演算子に関する一般的な情報については、「<a href="Language.htm#operators">演算子</a>」を参照してください。</p>
 <p>以下に記す場合を除き、空白の値（空文字列）または数値以外の値が算術演算に含まれる場合、ゼロとはみなされ<strong>ません</strong>。代わりに<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。<a href="lib/Try.htm">Try</a>を使用しない場合、処理されなかった例外はデフォルトでエラーダイアログを表示します。</p>
 
 <h3 id="operators">式演算子（優先順位の降順）</h3>
@@ -257,7 +257,7 @@ MsgBox(A || B || C) <em>; Shows "0" (C).</em></pre>
     <td class="center bold">??</td>
     <td>
       <p><strong>あるいは</strong>、合体演算子と呼ばれるものかもしれない。左オペランド（変数でなければならない）に値があれば、それが結果となり、右分岐はスキップされる。そうでない場合は、右オペランドが結果になる。言い換えれば、<code>A ?? B</code>は、条件が<code>IsSet(A)</code>であることを除けば、<code>A || B</code>（<a href="#or">論理和</a>）のように振る舞う。</p>
-      <p>これは通常、変数やオプショナル・パラメータにまだ値がないことが分かっている場合に、デフォルト値を提供するために使われる。事例：</p>
+      <p>これは通常、変数やオプショナル・パラメータにまだ値がないことが分かっている場合に、デフォルト値を提供するために使われる。例：</p>
       <pre>MsgBox MyVar ?? "Default value"</pre>
       <p>変数が<a href="Concepts.htm#uninitialized-variables">初期化されていない</a>ことも想定されるので、そのような場合でもエラーは発生しない。<code>IsSet(A) ? A : B</code>と異なり、変数への他の参照があるが代入がない場合、ロード時に<a href="lib/_Warn.htm#VarUnset">VarUnset 警告</a>が表示されることがあります。</p>
     </td>
@@ -365,7 +365,7 @@ sumfn := Sum</pre>
   </tr>
 </table>
 
-<h2 id="BuiltIn">組み込みの変数</h2>
+<h2 id="BuiltIn">組込変数</h2>
 <p>以下の変数はプログラムに組み込まれており、どのスクリプトからも参照できる。</p>
 <p class="note">一般的な情報については、<a href="Concepts.htm#built-in-variables">組み込み変数</a>を参照してください。</p>
 <h3 id="BuiltIn_TOC">目次</h3>
@@ -555,7 +555,7 @@ AhkPath := InstallDir ? InstallDir "\AutoHotkey.exe" : ""</pre>
   </tr>
   <tr id="TickCount">
     <td>A_TickCount</td>
-    <td><p>システムが起動してから経過したミリ秒数（最大49.7日）。A_TickCountを変数に格納することで、最新のA_TickCountの値からその変数を引くことで、後で経過時間を計測することができる。事例：</p>
+    <td><p>システムが起動してから経過したミリ秒数（最大49.7日）。A_TickCountを変数に格納することで、最新のA_TickCountの値からその変数を引くことで、後で経過時間を計測することができる。例：</p>
         <pre>StartTime := A_TickCount
 Sleep 1000
 ElapsedTime := A_TickCount - StartTime
@@ -700,7 +700,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   <tr id="TimeIdle">
     <td>A_TimeIdle</td>
     <td>
-      <p>システムが最後にキーボードやマウスなどの入力を受け取ってから経過したミリ秒数。これは、ユーザーが不在かどうかを判断するのに便利である。ユーザーからの物理的な入力や、<strong>何等か</strong>のプログラムやスクリプト（<a href="lib/Send.htm">Send</a>関数や<a href="lib/MouseMove.htm">MouseMove</a>関数など）によって生成された人工的な入力は、この値をゼロに戻す。この値は10刻みで増加する傾向があるため、他の値と等しいかどうかはチェックしない。その代わりに、別の値より大きいか小さいかをチェックする。事例：</p>
+      <p>システムが最後にキーボードやマウスなどの入力を受け取ってから経過したミリ秒数。これは、ユーザーが不在かどうかを判断するのに便利である。ユーザーからの物理的な入力や、<strong>何等か</strong>のプログラムやスクリプト（<a href="lib/Send.htm">Send</a>関数や<a href="lib/MouseMove.htm">MouseMove</a>関数など）によって生成された人工的な入力は、この値をゼロに戻す。この値は10刻みで増加する傾向があるため、他の値と等しいかどうかはチェックしない。その代わりに、別の値より大きいか小さいかをチェックする。例：</p>
       <pre>if A_TimeIdle &gt; 600000
     MsgBox "Last activity was 10 minutes ago"</pre>
     </td>
@@ -772,13 +772,13 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="ComSpec">
     <td>A_ComSpec</td>
-    <td><p>Contains the same string as the ComSpec environment variable, which is usually the full path to the command prompt executable (cmd.exe). <a href="lib/Run.htm">Run/RunWait</a>と一緒に使われることが多い。事例：</p>
+    <td><p>Contains the same string as the ComSpec environment variable, which is usually the full path to the command prompt executable (cmd.exe). <a href="lib/Run.htm">Run/RunWait</a>と一緒に使われることが多い。例：</p>
       <pre class="NoIndent no-highlight">C:\Windows\system32\cmd.exe</pre>
     </td>
   </tr>
   <tr id="Temp">
     <td>A_Temp</td>
-    <td><p>一時ファイルを保存するフォルダのフルパスと名前。これは、以下のいずれかの場所から取得される（順番に）：1) <a href="Concepts.htm#environment-variables">環境変数</a>TMP、TEMP、またはUSERPROFILE、2) Windowsディレクトリ。事例：</p>
+    <td><p>一時ファイルを保存するフォルダのフルパスと名前。これは、以下のいずれかの場所から取得される（順番に）：1) <a href="Concepts.htm#environment-variables">環境変数</a>TMP、TEMP、またはUSERPROFILE、2) Windowsディレクトリ。例：</p>
     <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Local\Temp</pre>
   </td>
   </tr>
@@ -828,77 +828,77 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   <tr id="AppData">
     <td>A_AppData</td>
     <td>
-      <p>現在のユーザーのアプリケーション固有データを含むフォルダーのフルパスと名前。事例：</p>
+      <p>現在のユーザーのアプリケーション固有データを含むフォルダーのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming</pre>
     </td>
   </tr>
   <tr id="AppDataCommon">
     <td>A_AppDataCommon</td>
     <td>
-      <p>全ユーザーのアプリケーション固有データを含むフォルダのフルパスと名前。事例：</p>
+      <p>全ユーザーのアプリケーション固有データを含むフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\ProgramData</pre>
     </td>
   </tr>
   <tr id="Desktop">
     <td>A_Desktop</td>
     <td>
-      <p>現在のユーザーのデスクトップファイルを含むフォルダーのフルパスと名前。事例：</p>
+      <p>現在のユーザーのデスクトップファイルを含むフォルダーのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\Desktop</pre>
     </td>
   </tr>
   <tr id="DesktopCommon">
     <td>A_DesktopCommon</td>
     <td>
-      <p>全ユーザーのデスクトップファイルを含むフォルダーのフルパスと名前。事例：</p>
+      <p>全ユーザーのデスクトップファイルを含むフォルダーのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\Public\Desktop</pre>
     </td>
   </tr>
   <tr id="StartMenu">
     <td>A_StartMenu</td>
     <td>
-      <p>現在のユーザーのスタートメニューフォルダのフルパスと名前。事例：</p>
+      <p>現在のユーザーのスタートメニューフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu</pre>
     </td>
   </tr>
   <tr id="StartMenuCommon">
     <td>A_StartMenuCommon</td>
     <td>
-      <p>全ユーザーのスタートメニューフォルダのフルパスと名前。事例：</p>
+      <p>全ユーザーのスタートメニューフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu</pre>
     </td>
   </tr>
   <tr id="Programs">
     <td>A_Programs</td>
     <td>
-      <p>現在のユーザーのスタートメニューにあるProgramsフォルダのフルパスと名前。事例：</p>
+      <p>現在のユーザーのスタートメニューにあるProgramsフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs</pre>
     </td>
   </tr>
   <tr id="ProgramsCommon">
     <td>A_ProgramsCommon</td>
     <td>
-      <p>全ユーザーのスタートメニューにあるProgramsフォルダのフルパスと名前。事例：</p>
+      <p>全ユーザーのスタートメニューにあるProgramsフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu\Programs</pre>
   </td>
   </tr>
   <tr id="Startup">
     <td>A_Startup</td>
     <td>
-      <p>現在のユーザーのスタートメニューにあるスタートアップフォルダのフルパスと名前。事例：</p>
+      <p>現在のユーザーのスタートメニューにあるスタートアップフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</pre>
   </td>
   </tr>
   <tr id="StartupCommon">
     <td>A_StartupCommon</td>
     <td>
-      <p>全ユーザーのスタートメニューのスタートアップフォルダのフルパスと名前。事例：</p>
+      <p>全ユーザーのスタートメニューのスタートアップフォルダのフルパスと名前。例：</p>
       <pre class="NoIndent no-highlight">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</pre>
   </td>
   </tr>
   <tr id="MyDocuments">
     <td>A_MyDocuments</td>
     <td>
-      <p>現在のユーザーの「My Documents」フォルダのフルパスと名前。類似の変数の多くとは異なり、フォルダがドライブのルートである場合、最後のバックスラッシュは含まれない（例えば、<code>M:\</code>ではなく<code>M:</code>が含まれる）。事例：</p>
+      <p>現在のユーザーの「My Documents」フォルダのフルパスと名前。類似の変数の多くとは異なり、フォルダがドライブのルートである場合、最後のバックスラッシュは含まれない（例えば、<code>M:\</code>ではなく<code>M:</code>が含まれる）。例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\Documents</pre>
   </td>
   </tr>

@@ -43,7 +43,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2, "Untitled - Notepad"</pre>
 <pre>WinMinimize "A"</pre>
 
 <h2 id="lfw">ラストファウンドウィンドウ</h2>
-<p><a href="../lib/WinWait.htm">WinWait</a>、<a href="../lib/WinExist.htm">WinExist</a>、<a href="../lib/WinActive.htm">WinActive</a>、<a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../lib/WinWaitActive.htm">WinWaitNotActive</a>は、一致するウィンドウを見つけると、そのウィンドウを <a href="../misc/WinTitle.htm#LastFoundWindow"><em>ラストファウンドウインドウ</em></a>に設定します。ほとんどのウィンドウ関数では、ウィンドウのタイトル（および関連するパラメータ）を省略することができ、その場合、最後に見つかったウィンドウをデフォルトとして使用します。事例：</p>
+<p><a href="../lib/WinWait.htm">WinWait</a>、<a href="../lib/WinExist.htm">WinExist</a>、<a href="../lib/WinActive.htm">WinActive</a>、<a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../lib/WinWaitActive.htm">WinWaitNotActive</a>は、一致するウィンドウを見つけると、そのウィンドウを <a href="../misc/WinTitle.htm#LastFoundWindow"><em>ラストファウンドウインドウ</em></a>に設定します。ほとんどのウィンドウ関数では、ウィンドウのタイトル（および関連するパラメータ）を省略することができ、その場合、最後に見つかったウィンドウをデフォルトとして使用します。例：</p>
 <pre>Run "notepad.exe"
 WinWait "Untitled - Notepad"
 WinActivate
@@ -61,7 +61,7 @@ WinMove 0, 0, A_ScreenWidth/4, A_ScreenHeight/2</pre>
 <p><strong>関連：</strong><a href="../misc/WinTitle.htm#ahk_class">ahk_class</a></p>
 
 <h2 id="exe">プロセス名/パス</h2>
-<p>Windowsは、「ahk_exe」という単語の後にプロセスの名前またはパスを付けることで、それを作成したプロセスによって識別することができます。事例：</p>
+<p>Windowsは、「ahk_exe」という単語の後にプロセスの名前またはパスを付けることで、それを作成したプロセスによって識別することができます。例：</p>
 <pre>Run "notepad.exe"
 WinWait "ahk_exe notepad.exe"
 WinActivate
@@ -105,7 +105,7 @@ if WinWait("ahk_pid " notepad_pid,, 5)
 }</pre>
 <p>if文の下の<a href="../lib/Block.htm">ブロック</a>は、WinWaitが一致するウィンドウを見つけた場合のみ実行されます。タイムアウトした場合、そのブロックはスキップされ、閉じ波括弧の後（その後にコードがある場合）に実行が継続されます。</p>
 <p>なお、「WinWait」の後の括弧は、関数の結果を<a href="../Language.htm#expressions">式</a>（<a href="../lib/If.htm">if文</a>の条件など）で使用したい場合に必要です。<a href="../Language.htm#function-calls">関数の呼び出し</a>そのものが、関数の結果の代用品と考えることができます。例えば、WinWaitがタイムアウト前にマッチを見つけた場合、結果は非ゼロとなる。<code>if 1</code>はif文の下のブロックを実行し、<code>if 0</code>はそれをスキップします。</p>
-<p>別の書き方としては、待ち時間がタイムアウトしたら早めにリターンします（言い換えれば、アボートします）。事例：</p>
+<p>別の書き方としては、待ち時間がタイムアウトしたら早めにリターンします（言い換えれば、アボートします）。例：</p>
 <pre>Run "notepad.exe",,, &amp;notepad_pid
 if !WinWait("ahk_pid " notepad_pid,, 5)
     return

@@ -92,7 +92,7 @@ MyArray := Array(Item1, Item2, ..., ItemN)</pre>
 <pre>RemovedValue := MyArray.RemoveAt(Index)</pre>
 <p><a href="lib/Array.htm#Pop">Pop</a>メソッドを使って最後の項目を削除する：</p>
 <pre>RemovedValue := MyArray.Pop()</pre>
-<p><a href="lib/Array.htm#Length">Length</a>は、配列の項目数を返します。配列の中身をループするには、インデックスを使う方法と、Forループを使う方法がある。事例：</p>
+<p><a href="lib/Array.htm#Length">Length</a>は、配列の項目数を返します。配列の中身をループするには、インデックスを使う方法と、Forループを使う方法がある。例：</p>
 <pre>MyArray := ["one", "two", "three"]
 
 <em>; Iterate from 1 to the end of the array:</em>
@@ -141,20 +141,20 @@ MyObject.Property[Parameters] := Value</pre>
 <p>オブジェクトはインデックスをサポートすることもある：<code>MyArray[Index]</code>は、実際には<code>MyArray</code>の<a href="#__Item">__Item</a>プロパティを呼び出し、<code>Index</code>をパラメータとして渡す。</p>
 
 <h3 id="object-literal">オブジェクト・リテラル</h3>
-<p>オブジェクト・リテラルを<a href="Language.htm#expressions">式</a>の中で使うと、即席のオブジェクトを作ることができる。オブジェクト・リテラルは、カンマで区切られた名前と値のペアのリストを中括弧（<code>{}</code>）で囲んだものである。各ペアは、コロン（<code>:</code>）で区切られたリテラル（引用符で囲まれていない）<a href="Concepts.htm#names">プロパティ名</a>と値（サブ式）で構成されます。事例：</p>
+<p>オブジェクト・リテラルを<a href="Language.htm#expressions">式</a>の中で使うと、即席のオブジェクトを作ることができる。オブジェクト・リテラルは、カンマで区切られた名前と値のペアのリストを中括弧（<code>{}</code>）で囲んだものである。各ペアは、コロン（<code>:</code>）で区切られたリテラル（引用符で囲まれていない）<a href="Concepts.htm#names">プロパティ名</a>と値（サブ式）で構成されます。例：</p>
 <pre>Coord := {X: 13, Y: 240}</pre>
 <p>これは等価だ：</p>
 <pre>Coord := Object()
 Coord.X := 13
 Coord.Y := 240</pre>
 <p>各名前と値のペアは、値のプロパティを定義させるが、例外として<a href="lib/Object.htm#Base">Base</a>を設定することができる（通常の代入と同じ制限がある）。</p>
-<p><a href="Variables.htm#deref">名前の置換</a>は、<a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>を評価することによってプロパティ名を決定することができます。事例：</p>
+<p><a href="Variables.htm#deref">名前の置換</a>は、<a href="Language.htm#expressions">式</a>または<a href="Concepts.htm#variables">変数</a>を評価することによってプロパティ名を決定することができます。例：</p>
 <pre>parts := StrSplit("key = value", "=", " ")
 pair := {%parts[1]%: parts[2]}
 MsgBox pair.key</pre>
 
 <h3 id="Usage_Freeing_Objects">オブジェクトの解放</h3>
-<p>スクリプトは明示的にオブジェクトを解放しない。オブジェクトへの最後の参照が解放されると、オブジェクトは自動的に解放される。変数に格納された参照は、その変数に他の値が代入されると自動的に解放される。事例：</p>
+<p>スクリプトは明示的にオブジェクトを解放しない。オブジェクトへの最後の参照が解放されると、オブジェクトは自動的に解放される。変数に格納された参照は、その変数に他の値が代入されると自動的に解放される。例：</p>
 <pre>obj := {}  <em>;  オブジェクトを生成します。</em>
 obj := ""  <em>;  最後の参照を解放します。つまり、オブジェクトを破棄します。</em></pre>
 <p>同様に、プロパティや配列要素に格納された参照は、そのプロパティや配列要素に他の値が割り当てられたり、オブジェクトから削除されたりすると解放される。</p>
@@ -174,7 +174,7 @@ x := "", y := ""             <em>; Without the above line, this would not free t
 <h2 id="Extended_Usage">延長使用</h2>
 
 <h3 id="Usage_Arrays_of_Arrays">配列の配列</h3>
-<p>「多次元」配列はサポートされていないが、スクリプトは複数の配列やマップを組み合わせることができる。事例：</p>
+<p>「多次元」配列はサポートされていないが、スクリプトは複数の配列やマップを組み合わせることができる。例：</p>
 <pre>
 grid := [[1,2,3],
          [4,5,6],
@@ -182,7 +182,7 @@ grid := [[1,2,3],
 MsgBox grid[1][3] <em>; 3</em>
 MsgBox grid[3][2] <em>; 8</em>
 </pre>
-<p id="Array2D">カスタム・オブジェクトは、<a href="#__Item">__Item</a>プロパティを定義することで、多次元サポートを実装することができます。事例：</p>
+<p id="Array2D">カスタム・オブジェクトは、<a href="#__Item">__Item</a>プロパティを定義することで、多次元サポートを実装することができます。例：</p>
 <pre>
 class Array2D extends Array {
     __new(x, y) {
@@ -433,7 +433,7 @@ MsgBox Env["PATH"]</pre>
   <li>パラメータがある場合、<code><i>object</i>[<i>params</i>]</code>は<code><i>object</i>.__Item[<i>params</i>]</code>と等価である。</li>
   <li><code><i>object</i>[]</code>は<code><i>object</i>.__Item</code>と等価である。</li>
 </ul>
-<p>事例：</p>
+<p>例：</p>
 <pre>
 obj := {}
 obj[] := Map()     <em>; Equivalent to obj.__Item := Map()</em>
@@ -444,7 +444,7 @@ MsgBox obj["base"]                  <em>; 10</em>
 <p class="note"><strong>注：</strong> <code>obj.prop[]</code>のように明示的なプロパティ名が空括弧と組み合わされているときは、それは2つの別々の操作として扱われます：まず<code>obj.prop</code>を取得し、次に結果のデフォルト・プロパティを呼び出します。これは言語構文の一部であり、オブジェクトに依存するものではない。</p>
 
 <h3 id="Custom_NewDelete">コンストラクタとデストラクタ</h3>
-<p><a href="lib/Class.htm#Call"><em>ClassName</em>()</a>のデフォルト実装によってオブジェクトが生成されるたびに、新しいオブジェクトの<code>__New</code>メソッドが呼び出されます。<code><i>ClassName</i>()</code>に渡されたパラメータはすべて<code>__New</code>に転送されるため、オブジェクトの初期内容や構築方法に影響を与える可能性があります。オブジェクトが破棄されると、<code>__Delete</code>が呼ばれる。事例：</p>
+<p><a href="lib/Class.htm#Call"><em>ClassName</em>()</a>のデフォルト実装によってオブジェクトが生成されるたびに、新しいオブジェクトの<code>__New</code>メソッドが呼び出されます。<code><i>ClassName</i>()</code>に渡されたパラメータはすべて<code>__New</code>に転送されるため、オブジェクトの初期内容や構築方法に影響を与える可能性があります。オブジェクトが破棄されると、<code>__Delete</code>が呼ばれる。例：</p>
 <pre>m1 := GMem(0, 10)
 m2 := {base: GMem.Prototype}, m2.__New(0, 30)
 
@@ -543,13 +543,13 @@ class <i>ClassName</i> {
 <p>通常、<code>x is Any</code>はAutoHotkeyの型階層内のどの値に対してもtrueになりますが、COMオブジェクトに対してはfalseになることに注意してください。</p>
 
 <h3 id="primitive-extension">プロパティとメソッドの追加</h3>
-<p>プロパティとメソッドは、その型のプロトタイプ・オブジェクトを修正することによって、与えられた型のすべての値に対して追加することができる。しかし、プリミティブ値はObjectではなく、独自のプロパティやメソッドを持つことができないため、プリミティブプロトタイプオブジェクトは<code>Object.Prototype</code>から派生しません。つまり、<a href="lib/Object.htm#DefineProp">DefineProp</a>や <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>といったメソッドは、デフォルトではアクセスできない。間接的に呼ばれることもある。事例：</p>
+<p>プロパティとメソッドは、その型のプロトタイプ・オブジェクトを修正することによって、与えられた型のすべての値に対して追加することができる。しかし、プリミティブ値はObjectではなく、独自のプロパティやメソッドを持つことができないため、プリミティブプロトタイプオブジェクトは<code>Object.Prototype</code>から派生しません。つまり、<a href="lib/Object.htm#DefineProp">DefineProp</a>や <a href="lib/Object.htm#HasOwnProp">HasOwnProp</a>といったメソッドは、デフォルトではアクセスできない。間接的に呼ばれることもある。例：</p>
 <pre>
 DefProp := {}.DefineProp
 DefProp( "".base, "Length", { get: StrLen } )
 MsgBox A_AhkPath.length " == " StrLen(A_AhkPath)
 </pre>
-<p>プリミティブ値はそのプロトタイプから値プロパティを継承できますが、スクリプトがプリミティブ値に値プロパティを設定しようとすると例外がスローされます。事例：</p>
+<p>プリミティブ値はそのプロトタイプから値プロパティを継承できますが、スクリプトがプリミティブ値に値プロパティを設定しようとすると例外がスローされます。例：</p>
 <pre>"".base.test := 1  <em>; Don't try this at home.</em>
 MsgBox "".test  <em>; 1</em>
 "".test := 2  <em>; エラー：プロパティは読み取り専用です。</em></pre>
