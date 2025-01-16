@@ -35,7 +35,7 @@
 }</pre>
 <p>上記では、中括弧はホットキーの<a href="Functions.htm">関数体</a>を定義する役割を果たします。また、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするために、ダブルコロンと同じ行に開始ブレースを指定することができる。ただし、ホットキーが1つの行だけを実行する必要がある場合は、その行をダブルコロンの右側にリストアップすることができます。つまり、中括弧は暗黙の了解なのです：</p>
 <pre>#n::Run "notepad"</pre>
-<p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンは除外されます）。例：</p>
+<p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンは除外されます）。事例：</p>
 <pre>#n::MsgBox ThisHotkey  <em>; レポート #n</em></pre>
 <p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
 <p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を示すために<code>^!s</code>を使用しています：</p>
@@ -87,7 +87,7 @@
   </tr>
   <tr id="AltGr">
     <td class="center bold">&lt;^&gt;!</td>
-    <td><p><kbd>AltGr</kbd>（<a href="https://en.wikipedia.org/wiki/AltGr_key">オルタネートグラフ、代替グラフィック</a>）。キーボードレイアウトに右<kbd>Alt</kbd>キーの代わりに<kbd>AltGr</kbd>がある場合、この一連の記号は通常<kbd>AltGr</kbd>を表すために使用することができます。例：</p>
+    <td><p><kbd>AltGr</kbd>（<a href="https://en.wikipedia.org/wiki/AltGr_key">オルタネートグラフ、代替グラフィック</a>）。キーボードレイアウトに右<kbd>Alt</kbd>キーの代わりに<kbd>AltGr</kbd>がある場合、この一連の記号は通常<kbd>AltGr</kbd>を表すために使用することができます。事例：</p>
       <pre>&lt;^&gt;!m::MsgBox "You pressed AltGr+m."
 &lt;^&lt;!m::MsgBox "You pressed LeftControl+LeftAlt+m."</pre>
       <p>また、<kbd>AltGr</kbd>自体をホットキーにするには、以下のホットキーを使用します（上記のようなホットキーが存在しない状態）：</p>
@@ -95,7 +95,7 @@
   </tr>
   <tr id="wildcard">
     <td class="center bold">*</td>
-    <td><p>ワイルドカード：余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピング</a>とセットで使われることが多いです。例：</p>
+    <td><p>ワイルドカード：余分なモディファイアが押されていても、ホットキーを発射します。キーやボタンの<a href="misc/Remap.htm">リマッピング</a>とセットで使われることが多いです。事例：</p>
       <pre>*#c::Run "calc.exe"  <em>; Win+C、Shift+Win+C、Ctrl+Win+Cなど、すべてこのホットキーがトリガーされます。</em>
 *ScrollLock::Run "notepad"  <em>; 修飾キーが押されていても、ScrollLockを押すとこのホットキーが起動します。</em></pre>
       <p>ワイルドカードホットキーは、ワイルドカードホットキーに取って代わられたホットキーと同様に、常にキーボードフックを使用します。例えば、<code>*a::</code>があると、<code>^a::</code>は常にフックを使用するようになります。</p></td>
@@ -133,13 +133,13 @@ AppsKey Up::ToolTip
       <p>「Up」は、この例のように通常のホットキーでも使用することができます：<code>^!r Up::MsgBox "You pressed and released Ctrl+Alt+R"</code>。<a href="#combo">組み合わせホットキー</a>（例：<code>F1 &amp; e Up::</code>）でも動作します</p>
       <p>制限：1)「Up」は<a href="KeyList.htm#Controller">コントローラーのボタン</a>では動作しない。2)「Up」ホットキーに対応する通常のホットキー/ダウンホットキーがない場合、そのキーが完全に引き継がれ、押したままになるのを防ぐ。これを防ぐ一つの方法は、<a href="#Tilde">チルダの接頭辞</a>を付けることです（例えば、<code>~LControl up::</code>）</p>
       <p>「Up」ホットキーとそのキーダウンの対応するもの（ある場合）は、常にキーボードフックを使用します。</p>
-      <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。例：</p>
+      <p>これに関連して、上記と似た手法として、ホットキーをプレフィックスキーにする方法があります。この利点は、ホットキーは離すと起動しますが、押している間に他のキーを押さなかった場合にのみ起動することです。事例：</p>
       <pre>LControl &amp; F1::return  <em>; 少なくとも1回は「&amp;」の前に使うことで、left-controlを接頭辞とします。</em>
 LControl::MsgBox "You released LControl without having used it to modify any other key."</pre></td>
   </tr>
 </table>
 <p class="note"><strong>注：</strong>キーボートとマウス・ジョイスティックのボタンのリストは、<a href="KeyList.htm">キーリスト</a>をご覧ください。</p>
-<p>複数のホットキーを縦に重ねて、同じ動作をさせることができます。例：</p>
+<p>複数のホットキーを縦に重ねて、同じ動作をさせることができます。事例：</p>
 <pre>^Numpad0::
 ^Numpad1::
 {
@@ -150,7 +150,7 @@ LControl::MsgBox "You released LControl without having used it to modify any oth
 <pre>RWin::return</pre>
 
 <h2 id="Context">文脈依存のホットキー</h2>
-<p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用すると、特定の条件によってホットキーに異なる動作をさせることができます（または全くさせないこともできます）。例：</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用すると、特定の条件によってホットキーに異なる動作をさせることができます（または全くさせないこともできます）。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 ^a::MsgBox "You pressed Ctrl-A while Notepad is active. Pressing Ctrl-A in any other window will pass the Ctrl-A keystroke to that window."
 #c::MsgBox "You pressed Win-C while Notepad is active."
@@ -179,7 +179,7 @@ Numpad0 &amp; Numpad2::Run "Notepad"</pre>
 Numpad0::Send "{Numpad0}"  <em>; Numpad0 の<i>リリース</i>でNumpad0 のキーストロークを生成させる。以下のコメント参照。</em></pre>
 <p><strong>リリース時に発射：</strong>上記のカスタムコンビネーションホットキーが存在する場合、Numpad0を<em>離す</em>と指示されたアクションが実行されますが、Numpad0を押している間に他のキーを押していない場合に限られます。この動作は、いずれかのホットキーに<a href="#Tilde">チルダ接頭辞</a>を付けることで回避できます。</p>
 <p id="combo_mods"><strong>モディファイア：</strong>通常のホットキーとは異なり、カスタムの組み合わせは、デフォルトで<a href="#wildcard">ワイルドカード（*）</a>モディファイアを持つように動作します。例えば、<code>1 &amp; 2::</code>は、<kbd>1</kbd>と<kbd>2</kbd>を押したときに<kbd>Ctrl</kbd>または<kbd>Alt</kbd>が押されていても起動しますが、<code>^1::</code>は<kbd>Ctrl</kbd>+<kbd>1</kbd>で起動し、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>では起動しないでしょう。</p>
-<p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIf</a>と <a href="lib/GetKeyState.htm">GetKeyState</a>を使用して検出することができますが、結果は一貫していない場合があります。例：</p>
+<p>3つ以上のキーの組み合わせはサポートされていません。キーボードのハードウェアがサポートする組み合わせは、通常<a href="lib/_HotIf.htm">#HotIf</a>と <a href="lib/GetKeyState.htm">GetKeyState</a>を使用して検出することができますが、結果は一貫していない場合があります。事例：</p>
 <pre><em>; AppsKey と Alt を任意の順番で押して、スラッシュ（/）を押します。</em>
 #HotIf GetKeyState("AppsKey", "P")
 Alt &amp; /::MsgBox "Hotkey activated."
@@ -226,7 +226,7 @@ RControl &amp; Enter::ShiftAltTab  <em>; 右クリックを離すことなく、
 <p>最後に、マウスホイールのホットキーはダウンイベントのみを生成するため（アップイベントは生成しない）、<a href="#keyup">キーアップホットキー</a>として使用することはできません。</p>
 
 <h2 id="Remarks">ホットキーのヒントと備考</h2>
-<p>それぞれのテンキーは、<kbd>NumLock</kbd>の状態に応じて2つの異なるホットキーサブルーチンを起動させることができます。また、テンキーは状態に関係なく同じサブルーチンを起動するようにすることもできます。例：</p>
+<p>それぞれのテンキーは、<kbd>NumLock</kbd>の状態に応じて2つの異なるホットキーサブルーチンを起動させることができます。また、テンキーは状態に関係なく同じサブルーチンを起動するようにすることもできます。事例：</p>
 <pre>NumpadEnd::
 Numpad1::
 {

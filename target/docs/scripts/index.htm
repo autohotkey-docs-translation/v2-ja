@@ -21,7 +21,6 @@
   <li><a href="#EasyWindowDrag">簡単なウィンドウのドラッグ</a></li>
   <li><a href="#EasyWindowDrag_(KDE)">簡単なウィンドウドラッグ（KDEスタイル）</a></li>
   <li><a href="#FavoriteFolders">お気に入りフォルダへの簡単アクセス</a></li>
-  <li><a href="#IntelliSense">インテリセンス</a></li>
   <li><a href="#ControllerMouse">コントローラーをマウスとして使う</a></li>
   <li><a href="#ControllerTest">コントローラー・テスト・スクリプト</a></li>
   <li><a href="#KeyboardOnScreen">オンスクリーンキーボード</a></li>
@@ -57,11 +56,6 @@
 <p>Savageのv1スクリプトに基づく</p>
 <p>ある種のウィンドウがアクティブな状態でマウスの中ボタンをクリックすると、このスクリプトはお気に入りのフォルダのメニューを表示する。お気に入りを選択すると、スクリプトは即座にアクティブウィンドウ内のそのフォルダに切り替わります。以下のウィンドウタイプがサポートされています：1) 標準的なファイルを開く、またはファイルを保存するダイアログ、2) エクスプローラーウィンドウ、3) コンソール（コマンドプロンプト）ウィンドウ。このメニューはオプションで、サポートされていないウィンドウタイプにも表示することができ、その場合、選択したお気に入りは新しいエクスプローラーウィンドウとして開かれます。</p>
 <p class="show_code"><a href="FavoriteFolders.ahk">コードを表示</a></p>
-
-<h2 id="IntelliSense">インテリセンス</h2>
-<p>Rajatのv1スクリプトに基づく</p>
-<p>このスクリプトは、あなたがAutoHotkeyスクリプトを編集している間、監視します。コンマやスペースが続くコマンドを入力すると、そのコマンドのパラメータ・リストが表示される。さらに、<kbd>Ctrl</kbd>+<kbd>F1</kbd>（またはお好みの他のホットキー）を押すと、ヘルプファイルにそのコマンドのページが表示されます。パラメータリストを解除するには、<kbd>Esc</kbd>または<kbd>Enter</kbd>を押す。</p>
-<p class="show_code"><a href="IntelliSense.ahk">コードを表示</a></p>
 
 <h2 id="ControllerMouse">コントローラーをマウスとして使う</h2>
 <p>このスクリプトは、コントローラー（ゲームパッド、ジョイスティックなど）を3ボタンマウスに変換する。各ボタンをマウスボタンと同じようにドラッグすることができ、CPU時間をほとんど消費しない。Also, it will move the cursor faster depending on how far you push the stick from center. スクリプトの上部でさまざまな設定をパーソナライズできる。</p>
@@ -136,7 +130,7 @@
 <p class="loading_code" style="display: none;">コードを読み込む...</p>
 
 <script>
-if (!isIE8)
+if (!!-[1,]) // Exclude Internet Explorer 8 or below
   addOnClickEvent();
 
 function addOnClickEvent() {

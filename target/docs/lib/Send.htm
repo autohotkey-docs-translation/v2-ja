@@ -82,8 +82,9 @@
 <h2 id="Send_variants">Send variants</h2>
 <p><strong>Send：</strong>デフォルトでは、SendはSendInputと同義ですが、<a href="SendMode.htm">SendMode</a>によってSendEventやSendPlayと同義にすることができます。</p>
 <p><strong>SendText：</strong>Sendと似ていますが、<em>Keys</em>のすべての文字が解釈され、文字通り送信されます。詳しくは、「<a href="#Text">テキストモード</a>」をご覧ください。</p>
-<p><strong id="SendInput">SendInput</strong>、<strong id="SendPlay">SendPlay</strong>：SendInputとSendPlayはSendEventと同じ構文を使用しますが、一般的により高速で信頼性が高いです。また、送信中にキーボードやマウスを操作した場合、バッファリングが行われるため、ユーザーのキー入力と送信中のキー入力が混在することを防ぐことができます。<a href="SendMode.htm">SendMode</a>を使用することで、SendをSendInputやSendPlayと同義にすることができます。各モードの詳細については、後述の<a href="#SendInputDetail">SendInput</a>および<a href="#SendPlayDetail">SendPlay</a>を参照してください。</p>
-<p id="SendEvent"><strong>SendEvent：</strong>SendEventは、Windowsのkeybd_event関数（詳細はMicrosoft Docsを検索）を使用してキーストロークを送信します。キー入力の送信速度は、<a href="SetKeyDelay.htm">SetKeyDelay</a>で決定されます。<a href="SendMode.htm">SendMode</a>を使用することで、SendをSendEventまたはSendPlayと同義にすることができます。</p>
+<p><strong id="SendInput">SendInput:</strong> SendInput uses the same syntax as SendEvent but is generally faster and more reliable. In addition, it buffers any physical keyboard or mouse activity during the send, which prevents the user's keystrokes from being interspersed with those being sent. <a href="SendMode.htm">SendMode</a> can be used to make Send synonymous with SendInput. See <a href="#SendInputDetail">SendInput</a> for details.</p>
+<p id="SendPlay"><strong>SendPlay:</strong> Deprecated. Similar to SendInput, except that it may have no effect at all on Windows 11 and later, or if <a href="https://en.wikipedia.org/wiki/User_Account_Control">User Account Control (UAC)</a> is enabled, even if the script is running as an administrator. See <a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a> for details.</p>
+<p id="SendEvent"><strong>SendEvent：</strong>SendEventは、Windowsのkeybd_event関数（詳細はMicrosoft Docsを検索）を使用してキーストロークを送信します。キー入力の送信速度は、<a href="SetKeyDelay.htm">SetKeyDelay</a>で決定されます。<a href="SendMode.htm">SendMode</a> can be used to make Send synonymous with SendEvent.</p>
 
 <h2 id="Special_modes">Special modes</h2>
 <p>以下のモードは、<em>Keys</em>の文字の解釈や、Send、SendInput、SendPlay、SendEvent、<a href="ControlSend.htm">ControlSendなどの</a>キー送信関数の動作に影響を与えます。これらのモードは、<em>Keys</em>の<code>{x}</code>として指定する必要があり、xはRaw、Text、Blindのいずれかです。例えば、<code>{Raw}</code>です。</p>
@@ -109,7 +110,7 @@
 <p id="blind-exclude">「Blind」の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
 <p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。例えば、<code>a::b</code>の再マッピングでは、次のようになります：1)「a」と入力したときに「b」、2) 大文字の「A」と入力したときに「B」、3)  <kbd>Ctrl</kbd>+<kbd>B</kbd>と入力したときに<kbd>Ctrl</kbd>+<kbd>A</kbd>。ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
 <p><code>{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code>{Blind}{Text}</code>を使用してください。</p>
-<p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail">SendPlay</a>で完全にサポートされているわけではありません。</p>
+<p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a>で完全にサポートされているわけではありません。</p>
 
 <h2 id="keynames">キー名</h2>
 <p>次の表は、送信可能な特殊キーの一覧です（各キー名は、中括弧で囲む必要があります）：</p>
@@ -490,11 +491,11 @@
 </table>
 
 <h2 id="Repeating_or_Holding_Down_a_Key">鍵盤の繰り返しや長押し</h2>
-<p id="repeat"><strong>キー操作のリピート：</strong>中括弧で囲んで、キーの名前と、それを繰り返す回数を指定します。例：</p>
+<p id="repeat"><strong>キー操作のリピート：</strong>中括弧で囲んで、キーの名前と、それを繰り返す回数を指定します。事例：</p>
 <pre>Send "{DEL 4}"  <em>; Presses the Delete key 4 times.</em>
 Send "{S 30}"   <em>; Sends 30 uppercase S characters.</em>
 Send "+{TAB 4}"  <em>; Presses Shift-Tab 4 times.</em></pre>
-<p id="Down"><strong>キーを押したままにしたり離したりするには：</strong>キーの名前の後に<strong>Down</strong>または<strong>Up</strong>という単語を中括弧で囲みます。例：</p>
+<p id="Down"><strong>キーを押したままにしたり離したりするには：</strong>キーの名前の後に<strong>Down</strong>または<strong>Up</strong>という単語を中括弧で囲みます。事例：</p>
 <pre>Send "{b down}{b up}"
 Send "{TAB down}{TAB up}"
 Send "{Up down}"  <em>; Presses down the up-arrow key.</em>
@@ -527,7 +528,7 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 </ul>
 <p>現在のキーボードレイアウトにその文字が存在する場合、そのレイアウトがその文字に関連付けるキーコードとして常に送信されます（<a href="#SendText">テキストモード</a>が使用されていない場合、その文字は他の手段で送信されます）。つまり、上記のセクションは、ロシア語のような非ラテン語ベースのレイアウトにのみ関係します。</p>
 <p id="mask"><strong>モディファイアの状態：</strong>Sendは、<kbd>Win</kbd>または<kbd>Alt</kbd>修飾キーの状態を変更する必要がある場合（ユーザーがこれらのキーのいずれかを保持している場合など）、スタートメニューやウィンドウメニューが表示されないようにするために追加のキーストローク（デフォルトでは<kbd>Ctrl</kbd>）を注入することができます。詳しくは、<a href="A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照してください。</p>
-<p><strong>BlockInputとSendInput/SendPlayの比較：</strong><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーが物理的に入力したキーストロークがシミュレーションされたキーストロークの流れを中断するのを防ぐことができますが、キーストロークとマウスクリックが中断しないように<a href="#SendInputDetail">SendInput</a>または<a href="#SendPlayDetail">SendPlay</a>を使用する方がよい場合があります。これは、BlockInputとは異なり、SendInput/Playは送信中にユーザーが入力したものを破棄せず、そのようなキー入力をバッファリングして後から送信するためです。</p>
+<p><strong>BlockInputとSendInput/SendPlayの比較：</strong><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーが物理的に入力したキーストロークがシミュレーションされたキーストロークの流れを中断するのを防ぐことができますが、キーストロークとマウスクリックが中断しないように<a href="#SendInputDetail">SendInput</a>または<a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a>を使用する方がよい場合があります。これは、BlockInputとは異なり、SendInput/Playは送信中にユーザーが入力したものを破棄せず、そのようなキー入力をバッファリングして後から送信するためです。</p>
 <p>大量のキーを送信する場合、<a href="../Scripts.htm#continuation">継続部分</a>を使用することで、可読性と保守性を向上させることができます。</p>
 <p>オペレーティング システムでは、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> の組み合わせのシミュレーションはできないので、<code>Send "^!{Delete}"</code> などの操作を行ったとしても、何の影響もありません。。</p>
 <p>アクティブウィンドウが管理者権限で実行され、スクリプトが管理者権限で実行されていない場合、<b>送信しても効果がない場合</b>があります。これは、User Interface Privilege Isolationと呼ばれるセキュリティの仕組みによるものです。</p>
@@ -535,13 +536,13 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <h2 id="SendInputDetail">SendInput</h2>
 <p>SendInputは、その優れた速度と信頼性から、一般的にキーストロークやマウスクリックを送信する方法として好まれています。Under most conditions, SendInput is nearly instantaneous, even when sending long strings. SendInputは非常に高速なので、他のウィンドウが不意に現れてキー入力を傍受される機会が少なく、信頼性も高いです。SendInput中にユーザーが入力したものは、その後まで延期されるため、信頼性はさらに向上します。</p>
 <p>他の送信モードと異なり、オペレーティングシステムではSendInputは約5000文字に制限されています（オペレーティングシステムのバージョンや性能設定により異なる場合があります）。この制限を超えた文字や事象は送信されません。</p>
-<p class="note"><strong>注：</strong>SendInputは、オペレーティングシステムがこのモードでの遅延をサポートしないため、SetKeyDelayを無視します。ただし、後述の条件でSendInputが<a href="#SendEvent">SendEvent</a>に戻る場合は、<code><a href="SetKeyDelay.htm">SetKeyDelay</a> -1, 0</code> を使用します（SendEventのKeyDelayが <code>-1,-1</code> の場合は <code>-1,-1</code> を使用します）。SendInputが<a href="#SendPlayDetail">SendPlay</a>に戻ると、SendPlayのKeyDelayを使用します。</p>
+<p class="note"><strong>注：</strong>SendInputは、オペレーティングシステムがこのモードでの遅延をサポートしないため、SetKeyDelayを無視します。ただし、後述の条件でSendInputが<a href="#SendEvent">SendEvent</a>に戻る場合は、<code><a href="SetKeyDelay.htm">SetKeyDelay</a> -1, 0</code> を使用します（SendEventのKeyDelayが <code>-1,-1</code> の場合は <code>-1,-1</code> を使用します）。SendInputが<a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a>に戻ると、SendPlayのKeyDelayを使用します。</p>
 <p id="SendInputHook">If the script has a <a href="InstallKeybdHook.htm">low-level keyboard hook</a> installed, SendInput automatically uninstalls it prior to executing and reinstalls it afterward. As a consequence, SendInput generally cannot trigger the script's own hook hotkeys or <a href="InputHook.htm">InputHooks</a>. The hook is temporarily uninstalled because its presence would otherwise disable all of SendInput's advantages, making it inferior to both SendPlay and SendEvent. However, this can only be done for the script's own hook, and is not done if an external hook is detected as described below.</p>
-<p id="SendInputUnavail">SendInputを実行しているスクリプト<em>以外</em>のスクリプトに<a href="InstallKeybdHook.htm">低レベルのキーボードフック</a>がインストールされている場合、SendInputは自動的に<a href="#SendEvent">SendEvent</a>（<code><a href="SendMode.htm">SendMode</a> "InputThenPlay"</code>が有効な場合は<a href="#SendPlayDetail">SendPlay</a>）に戻されます。これは、外部フックの存在によってSendInputの利点がすべて無効になり、SendPlayとSendEventの両方に劣ることになるためである。ただし、SendInputはAutoHotkey v1.0.43+以外のプログラムでは低レベルフックを検出できないため、これらの場合は復帰せず、SendPlay/Eventより信頼性が低くなります。</p>
+<p id="SendInputUnavail">SendInputを実行しているスクリプト<em>以外</em>のスクリプトに<a href="InstallKeybdHook.htm">低レベルのキーボードフック</a>がインストールされている場合、SendInputは自動的に<a href="#SendEvent">SendEvent</a>（<code><a href="SendMode.htm">SendMode</a> "InputThenPlay"</code>が有効な場合は<a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a>）に戻されます。これは、外部フックの存在によってSendInputの利点がすべて無効になり、SendPlayとSendEventの両方に劣ることになるためである。ただし、SendInputはAutoHotkey v1.0.43+以外のプログラムでは低レベルフックを検出できないため、これらの場合は復帰せず、SendPlay/Eventより信頼性が低くなります。</p>
 <p>SendInputが<a href="#Click">{Click}</a>などの手段でマウスクリックを送信し、<code><a href="CoordMode.htm">CoordMode</a> "Mouse", "Window"</code>または<code>CoordMode "Mouse", "Client"</code>が有効な場合、すべてのクリックは、送信開始時にアクティブだったウィンドウに対する相対移動となります。そのため、SendInputが意図的に別のウィンドウをアクティブにした場合（alt-tabなどの手段）、同じ関数内でのその後のクリックの座標が、古いウィンドウではなく新しいウィンドウに対するものであった場合、間違った座標になります。</p>
 
 <h2 id="SendPlayDetail">SendPlay</h2>
-<p class="warning"><strong>警告</strong>SendPlayは、UACが有効な場合、スクリプトが管理者として実行されていても、全く効果がない場合があります。詳しくは、<a href="../FAQ.htm#uac">FAQ</a>をご覧ください。</p>
+<p class="warning"><strong>Deprecated:</strong> SendPlay may have no effect at all on Windows 11 and later, or if <a href="https://en.wikipedia.org/wiki/User_Account_Control">User Account Control (UAC)</a> is enabled, even if the script is running as an administrator (for more information, refer to the <a href="../FAQ.htm#uac">FAQ</a>).</p>
 <p>SendPlayの最大の特徴は、他のモードよりも幅広いゲームにおいて、キーストロークやマウスクリックを「再生」できることです。例えば、あるゲームでは、<a href="../Hotstrings.htm#SendMode">SendPlayオプション</a>があるときだけ<a href="../Hotstrings.htm#SendMode">hotstrings</a>を受け入れることができます。</p>
 <p>3つの送信モードのうち、SendPlayはキー操作やマウスクリックそのものをシミュレートしていないため、最も珍しいものです。その代わりに、アクティブなウィンドウに直接流れる一連のイベント（メッセージ）を作成します（<a href="ControlSend.htm">ControlSend</a>と似ていますが、より低いレベルです）。その結果、SendPlayはホットキーやホットストリングをトリガーしません。</p>
 <p><a href="#SendInputDetail">SendInput</a>と同様に、SendPlayのキー入力は、ユーザーが入力したキー入力が挟まれることはありません。そのため、SendPlay中にユーザーが何かを入力することがあっても、そのキー入力はその後まで延期されます。</p>
@@ -550,7 +551,7 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p>SendPlayは、標準設定の<a href="SetKeyDelay.htm">SetKeyDelay</a>と <a href="SetMouseDelay.htm">SetMouseDelay</a>を使用しません。その代わり、デフォルトでは全く遅延しないようになっていますが、以下の例のように変更することが可能です：</p>
 <pre><a href="SetKeyDelay.htm">SetKeyDelay</a> 0, 10, "Play"  <em>; Note that both 0 and -1 are the same in SendPlay mode.</em>
 <a href="SetMouseDelay.htm">SetMouseDelay</a> 10, "Play"</pre>
-<p>SendPlayは、<kbd>CapsLock</kbd>、<kbd>NumLock</kbd>、<kbd>ScrollLock</kbd>のオン/オフを切り替えることができません。同様に、キーストロークがスクリプト自身のウィンドウに送信されない限り、<a href="GetKeyState.htm">GetKeyState</a>によって見られるキーの状態を変更することはできません。その場合でも、左右の修飾キー（例：RControl）の変更は、中立の対応するキー（例：Control）を介してのみ検出することができます。また、SendPlayには<a href="SendMode.htm#Play">SendModeのページ</a>で説明されている他の制限があります。</p>
+<p>SendPlayは、<kbd>CapsLock</kbd>、<kbd>NumLock</kbd>、<kbd>ScrollLock</kbd>のオン/オフを切り替えることができません。同様に、キーストロークがスクリプト自身のウィンドウに送信されない限り、<a href="GetKeyState.htm">GetKeyState</a>によって見られるキーの状態を変更することはできません。その場合でも、左右の修飾キー（例：RControl）の変更は、中立の対応するキー（例：Control）を介してのみ検出することができます。また、SendPlayには<a href="SendMode.htm">SendModeのページ</a>で説明されている他の制限があります。</p>
 <p><a href="#SendInputDetail">SendInput</a>や<a href="#SendEvent">SendEvent</a>とは異なり、ユーザーは<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>または<kbd>Ctrl</kbd>+<kbd>Esc</kbd>を押してSendPlayを中断できます。この場合、残りのキー入力は送信されませんが、SendPlayが正常に完了したかのようにスクリプトの実行は継続されます。</p>
 <p>SendPlayはLWinとRWinイベントを送ることができますが、それらはオペレーティングシステム本来の機能を果たすのではなく、アクティブウィンドウに直接送られます。これを回避するためには、<a href="#SendEvent">SendEvent</a>を使用します。例えば、<code>SendEvent "#r"</code>は、スタートメニューの実行ダイアログを表示します。</p>
 

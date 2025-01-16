@@ -21,7 +21,7 @@
   <dt>Text</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
-    <p>If blank or omitted, <em>Filename</em> will be created as an empty file (but if the file already exists, its modification time will be updated). Otherwise, specify the text or raw binary data to append to the file. テキストには改行文字(`n)を含めることができる。また、1本の長い線を、<a href="../Scripts.htm#continuation">継続部</a>によっていくつかの短い線に分割することができます。</p>
+    <p>ファイルに追加するテキストまたは生のバイナリデータです。テキストには改行文字(`n)を含めることができる。また、1本の長い線を、<a href="../Scripts.htm#continuation">継続部</a>によっていくつかの短い線に分割することができます。</p>
     <p><a href="Buffer.htm">Buffer</a>のようなオブジェクトを渡して、生のバイナリデータを付加することができる。ファイルを作成する場合、<em>オプション</em>で「UTF-8」または「UTF-16」を指定した場合のみ、BOM（Byte Order Mark）が書き込まれます。<a href="../Variables.htm#FileEncoding">デフォルトのエンコーディング</a>は無視され、<em>Options</em>に関係なく、オブジェクトが含むデータはそのまま書き込まれます。<a href="Buffer.htm#Ptr">Ptr</a>プロパティと<a href="Buffer.htm#Size">Size</a>プロパティを実装しているオブジェクトであれば、どのようなものでも使用可能です。</p>
   </dd>
 
@@ -31,7 +31,7 @@
     <p>If omitted, the output file of the innermost enclosing <a href="LoopRead.htm">file-reading loop</a> will be used (if available). Otherwise, specify the name of the file to be appended, which is assumed to be in <a href="../Variables.htm#WorkingDir">A_WorkingDir</a> if an absolute path isn't specified. 保存先ディレクトリはすでに存在している必要があります。</p>
     <p id="stdout"><strong>標準出力（stdout）：</strong><em>Filename</em>にアスタリスク（*）を指定すると、<em>Text</em>は標準出力（stdout）に送られます。このようなテキストは、ファイルにリダイレクトしたり、別のEXEにパイプしたり、<a href="_ErrorStdOut.htm">おしゃれなテキストエディター</a>でキャプチャしたりすることができます。例えば、以下のようにコマンドプロンプトで入力した場合は有効です：</p>
       <pre class="no-highlight">"%ProgramFiles%\AutoHotkey\AutoHotkey.exe" "My Script.ahk" &gt;"Error Log.txt"</pre>
-    <p>ただし、stdoutに送られたテキストは、起動したコマンドプロンプトには表示されません。これは、1）<a href="../misc/Ahk2ExeDirectives.htm#ConsoleApp">Ahk2Exe ConsoleAppディレクティブ</a>でスクリプトをコンパイルする、または2）スクリプトの出力を他のコマンドやプログラムにパイプすることで回避することができます。例：</p>
+    <p>ただし、stdoutに送られたテキストは、起動したコマンドプロンプトには表示されません。これは、1）<a href="../misc/Ahk2ExeDirectives.htm#ConsoleApp">Ahk2Exe ConsoleAppディレクティブ</a>でスクリプトをコンパイルする、または2）スクリプトの出力を他のコマンドやプログラムにパイプすることで回避することができます。事例：</p>
       <pre class="no-highlight">"%ProgramFiles%\AutoHotkey\AutoHotkey.exe" "My Script.ahk" |more</pre>
       <pre class="no-highlight">For /F "tokens=*" %L in ('""%ProgramFiles%\AutoHotkey\AutoHotkey.exe" "My Script .ahk""') do @Echo %L</pre>
     <p><em>Filename</em>にアスタリスク（**）を2つ指定すると、<em>Text</em>は標準エラーストリーム（stderr）に送信されます。</p>
@@ -55,7 +55,7 @@
 <h2 id="Remarks">備考</h2>
 <p>既存のファイルを上書きする場合は、FileAppendを使用する前に<a href="FileDelete.htm">FileDelete</a>でファイルを削除してください。</p>
 <p>テキストが追加された後、ターゲットファイルは自動的に閉じられます（FileAppendが<a href="LoopRead.htm">ファイルの読み書きのループ</a>内でシングルパラメータモードで使用されている場合を除く）。</p>
-<p>アペンドモードの<a href="FileOpen.htm">FileOpen</a>は、FileAppendよりも制御性が高く、毎回ファイルを開いて閉じるのではなく、開いたままにしておくことができます。追記モードでファイルを開いたら、<code>file.<a href="File.htm#Write">Write</a>(string)</code>を使って文字列を追記します。ファイルオブジェクトは、<a href="File.htm#RawWrite">RawWrite</a>/<a href="File.htm#RawRead">RawRead</a>または<a href="File.htm#WriteNum">Write<i>Num</i></a>/<a href="File.htm#ReadNum">Read<i>Num</i></a>によるバイナリI/Oもサポートしています。</p>
+<p>アペンドモードの<a href="FileOpen.htm">FileOpen</a>は、FileAppendよりも制御性が高く、毎回ファイルを開いて閉じるのではなく、開いたままにしておくことができます。Once a file is opened in append mode, use <code>FileObj.<a href="File.htm#Write">Write</a>(Str)</code> to append the string. ファイルオブジェクトは、<a href="File.htm#RawWrite">RawWrite</a>/<a href="File.htm#RawRead">RawRead</a>または<a href="File.htm#WriteNum">Write<i>Num</i></a>/<a href="File.htm#ReadNum">Read<i>Num</i></a>によるバイナリI/Oもサポートしています。</p>
 <h2 id="Related">関連</h2>
 <p><a href="FileEncoding.htm">FileEncoding</a>、<a href="FileOpen.htm">FileOpen</a>/<a href="File.htm">Fileオブジェクト</a>、<a href="FileRead.htm">FileRead</a>、<a href="LoopRead.htm">ファイル読み込みループ</a>、<a href="IniWrite.htm">IniWrite</a>、<a href="FileDelete.htm">FileDelete</a>、<a href="OutputDebug.htm">OutputDebug</a>、<a href="../Scripts.htm#continuation">継続セクション</a></p>
 <h2 id="Examples">例</h2>

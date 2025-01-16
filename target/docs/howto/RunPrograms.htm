@@ -17,7 +17,7 @@
 <p>この例では、メモ帳を起動します。試す方法は、「<a href="RunExamples.htm">サンプルコードを実行する方法</a>」を参照してください。</p>
 <p>この段階では、ホットキー（言い換えれば、キーボードショートカットの割り当て）を定義していないので、すぐに指示が実行されます。この場合、スクリプトは他にすることがないので、自動的に終了します。学習しながら便利なホットキーを作りたい方は、まず「<a href="WriteHotkeys.htm">ホットキーの書き方</a>」をご覧ください。</p>
 <p class="note"><strong>注：</strong>「実行」は、ドキュメント、フォルダ、URLを開くためにも使用できます。</p>
-<p>他のプログラムを起動する場合は、上記の例のパスを起動したいプログラムのパスに置き換えるだけです。プログラムによってはパスがシステムに登録されているものもあり、その場合は拡張子「.exe」の有無にかかわらず、プログラムのファイル名だけを渡すことで対応できます（場合によっては拡張子「.exe」のないものもあります）。例：</p>
+<p>他のプログラムを起動する場合は、上記の例のパスを起動したいプログラムのパスに置き換えるだけです。プログラムによってはパスがシステムに登録されているものもあり、その場合は拡張子「.exe」の有無にかかわらず、プログラムのファイル名だけを渡すことで対応できます（場合によっては拡張子「.exe」のないものもあります）。事例：</p>
 <pre>Run "notepad"</pre>
 
 <h2 id="Command-line_Parameters">コマンドラインパラメーター</h2>
@@ -63,9 +63,9 @@ Run "notepad C:\Program Files\AutoHotkey\license.txt"
 <p>コマンドラインには、しばしばいくつかの<a href="../Concepts.htm#variables">変数</a>を含める必要があります。例えば、「Program Files」ディレクトリの場所はシステムによって異なることがあり、スクリプトは<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>変数を使用することでこれを考慮することができます。変数にコマンドライン全体が含まれている場合は、その変数をRun関数に渡すだけで実行できます。</p>
 <pre>Run A_ComSpec  <em>; コマンドプロンプト（ほとんどの場合cmd.exe）を起動します。</em>
 Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></pre>
-<p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結します。例：</p>
+<p>引用符で囲まれた文字列の<em>中</em>に変数を入れてもうまくいかないので、代わりに<a href="../Variables.htm#concat">連結</a>を使ってリテラル文字列と変数を連結します。事例：</p>
 <pre>Run 'notepad.exe "' A_MyDocuments '\AutoHotkey.ahk"'</pre>
-<p><a href="../lib/Format.htm">Format</a>関数で置換することもできます。例：</p>
+<p><a href="../lib/Format.htm">Format</a>関数で置換することもできます。事例：</p>
 <pre>Run Format('notepad.exe "{1}\AutoHotkey.ahk"', A_MyDocuments)</pre>
 <p class="note"><strong>注：</strong>Formatは、0やスペースによるパディングや、数値を10進数ではなく16進数でフォーマットするなど、追加のフォーマットを同時に実行することができます。</p>
 
@@ -74,7 +74,7 @@ Run A_MyDocuments  <em>; ユーザーのDocumentsフォルダを開く。</em></
 <p><em>WorkingDir</em>は、新しいプロセスの作業ディレクトリを指定します。プログラムに相対パスを指定した場合は、このディレクトリからの相対パスとなります。コマンドラインパラメータの相対パスもこのディレクトリからの相対パスであることが多いが、それはプログラムによって異なる。</p>
 <pre>Run "cmd", "C:\"  <em>; コマンドプロンプトをC:\ に開きます。</em></pre>
 <p><em>オプション</em>は、プログラムを画面にポップアップさせるのではなく、最小化または非表示にして実行するために使用できることが多いですが、プログラムによっては無視されることもあります。</p>
-<p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われます。例：</p>
+<p><em>OutputVarPID</em>はプロセスIDを与えるもので、<a href="../lib/WinWait.htm">WinWait</a>や <a href="../lib/WinWaitActive.htm">WinWaitActive</a>、<a href="../misc/WinTitle.htm#ahk_pid">ahk_pid</a>とともに、プログラムが画面にウィンドウを表示するまで待つ、あるいはそのウィンドウの一つを特定するためによく使われます。事例：</p>
 <pre>Run "mspaint",,, &amp;pid
 WinWaitActive "ahk_pid " pid
 Send "^e"  <em>; Ctrl+Eはイメージのプロパティダイアログを開きます。</em></pre>

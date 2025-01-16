@@ -164,12 +164,12 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 <p>組込変数<a href="../Variables.htm#LastError">A_LastError</a>には、オペレーティングシステムのGetLastError()関数の結果が格納されます。</p>
 
 <h2 id="load">パフォーマンス</h2>
-<p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。例：</p>
+<p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。事例：</p>
 <pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; ループ内でDllCallしてライブラリを読み込む必要を回避。</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
 DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約のため、使用後はDLLをアンロードすることがあります。</em></pre>
-<p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。例：</p>
+<p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。事例：</p>
 <pre><em>; 次の例では、DLLがまだロードされていない場合、GetModuleHandleの代わりにLoadLibraryを使用してください。</em>
 <strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
 Loop 500
@@ -454,8 +454,7 @@ DllCall(vtable(tbl.ptr,5), "ptr", tbl, "ptr", activeHwnd)  <em>; tbl.<a href="ht
 Sleep 3000
 DllCall(vtable(tbl.ptr,4), "ptr", tbl, "ptr", activeHwnd)  <em>; tbl.<a href="https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-addtab">AddTab</a>(activeHwnd)</em>
 
-<em>; ラップされていないインターフェイスポインタは、手動で解放する必要があります。</em>
-ObjRelease(tbl.ptr)
+<em>; Interface pointer will be freed automatically.</em>
 
 vtable(ptr, n) {
     <em>; NumGet(ptr, "ptr") は、オブジェクトの仮想関数のアドレスを返します。

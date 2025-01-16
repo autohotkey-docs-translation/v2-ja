@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>Try - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="Try文は、実行時エラーやThrow文によって投げられる値に対して、1つ以上の文をガードする。" />
+<meta name="description" content="Tryステートメントは、実行時エラーやThrowステートメントでスローされた値からステートメントを保護します。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>Try</h1>
 
-<p><a href="Throw.htm">Throw</a>ステートメントによってスローされる実行時エラーや値に対して、1 つ以上の<a href="../Concepts.htm#statement">ステートメント</a>をガードします。</p>
+<p>Tryステートメントは、実行時エラーや<a href="Throw.htm">Throw</a>ステートメントでスローされた値から<a href="../Concepts.htm#statement">ステートメント</a>を保護します</p>
 
 <pre class="Syntax"><span class="func">Try</span> <i>Statement</i></pre>
 <pre class="Syntax" style="line-height: 100%"><span class="func">Try</span>
@@ -20,16 +20,16 @@
     <i>Statements</i>
 }</pre>
 <h2 id="Remarks">備考</h2>
-<p>The <em>Try</em> statement is usually followed by a <a href="Block.htm">block</a> (one or more <a href="../Concepts.htm#statement">statements</a> enclosed in braces). 実行する文が1つだけの場合は、<em>Try</em>と同じ行か次の行に記述し、中括弧は省略できる。<em>Try</em>がエラーをキャッチしたときだけ実行するコードを指定するには、1つ以上の<a href="Catch.htm">Catch</a>ステートメントを使用します。</p>
-<p><em>Catch</em>や <em>Finally</em>を使わずに<em>Try</em>を使うと、空のブロックで<code>catch Error</code>を実行するのと同じことになる。</p>
-<p>実行時エラーが発生した場合、<a href="Throw.htm">Throw</a>文またはプログラムによって値が投げられる。<em>Try</em>ブロックまたは<em>Try</em>ブロックによって呼び出された関数の内部から値がスローされると、以下のことが起こる：</p>
+<p>通常、<em>Try</em>ステートメントの後には 1 つの<a href="Block.htm">ブロック</a>（中括弧で囲まれた 1 つ以上の<a href="../Concepts.htm#statement">ステートメント</a>）が続きます。実行する文が1つだけのときは、<em>Try</em>と同じ行か次の行に記述すれば中括弧は省略できます。<em>Try</em>がエラーをキャッチしたときだけ実行するコードを指定するには、1つ以上の<a href="Catch.htm">Catch</a>ステートメントを使用します。</p>
+<p><em>Catch</em>や <em>Finally</em>を使わずに<em>Try</em>を使うと、空のブロックで<code>catch Error</code>を実行するのと同じことになります。</p>
+<p>実行時エラーが発生したときは、<a href="Throw.htm">Throw</a>文またはプログラムによって値がスローされます。<em>Try</em>ブロックまたはそれに呼び出された関数の内部から値がスローされると、以下のことが起きます：</p>
 <ul>
-  <li>スローされた値のクラスと一致する<a href="Catch.htm">Catch</a>文があれば、実行はその文に移される。</li>
-  <li>一致する<em>Catch</em>文がなく、<a href="Finally.htm">Finally</a>文がある場合、その文は実行されるが、それが終了すると、値は自動的に再びスローされる。</li>
+  <li>スローされた値のクラスと一致する<a href="Catch.htm">Catch</a>文があれば、その文が実行されます。</li>
+  <li>一致する<em>Catch</em>文がないが<a href="Finally.htm">Finally</a>文があるときは、その文が実行されますが、それが終了すると、値が自動的に再びスローされます。</li>
   <li>一致する<em>Catch</em>文または<em>Finally</em>文がない場合、値は自動的に再度スローされる（前述のように<em>Catch</em>または<em>Finally</em>がまったくない場合を除く）。</li>
 </ul>
 <p>最後の<em>Catch</em>は、オプションで次のように続けることができます。 <a href="Else.htm"><em>Else</em></a>。例外がスローされることなく（<em>Return</em>や<em>Break</em>などで制御が他に移ることなく）<em>Try</em>文が完了すると、<em>Else</em>文が実行される。<em>Else</em>文でスローされた例外は、関連する<em>Try</em>文では処理されませんが、それを囲んでいる<em>Try</em>文によって処理される場合があります。<em>Finally</em>も存在できるが、<em>Else</em>の後に置かなければならず、常に最後に実行される。</p>
-<p><a href="Block.htm#otb">One True Brace（OTB）スタイル</a>は、オプションで<em>Try</em>ステートメントと一緒に使用することができます。例：</p>
+<p><a href="Block.htm#otb">One True Brace（OTB）スタイル</a>は、オプションで<em>Try</em>ステートメントと一緒に使用することができます。事例：</p>
 <pre>try {
     ...
 } catch Error as err {
@@ -45,7 +45,7 @@
 
 <h2 id="Examples">例</h2>
 <div class="ex" id="ex_basic">
-<p><a class="ex_number" href="#ex_basic"></a> <em>Try-Catch</em>と <em>Throw</em>の基本概念を示す。</p>
+<p><a class="ex_number" href="#ex_basic"></a> <em>Try-Catch</em>と <em>Throw</em>の基本概念を示します。</p>
 <pre>try  <em>; Attempts to execute code.</em>
 {
     HelloWorld

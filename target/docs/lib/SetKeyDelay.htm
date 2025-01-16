@@ -42,12 +42,12 @@
 
 <h2 id="Remarks">備考</h2>
 <p>SetKeyDelay関数を使用しないときは、遅延の初期値はは、従来のSendEventモードでは 10、<a href="Send.htm#SendPlayDetail">SendPlayモード</a>では-1です。The default press duration is -1 for both modes.</p>
-<p>SetKeyDelayは<a href="Send.htm#SendInputDetail">SendInput</a>では従わない。そのモードではキーストローク間の遅延はない。これは、<a href="Send.htm">SendMode Input</a>が有効な場合の<a href="SendMode.htm">Send</a>も同様である。</p>
+<p>SetKeyDelayは<a href="Send.htm#SendInputDetail">SendInput</a>では従わない。そのモードではキーストローク間の遅延はない。これは、<a href="Send.htm">SendMode Input</a>が有効な場合の<a href="SendMode.htm#Input">Send</a>も同様である。</p>
 <p><a href="Send.htm">Send</a>または<a href="ControlSend.htm">ControlSend</a>でキーストロークを送信するたびに、短い遅延（スリープ）が自動的に行われます。これはスクリプトの信頼性を高めるためで、キー入力が殺到するとウィンドウが追いつかなくなることがあるためです。</p>
 <p>遅延（スリープ）中は、現在のスレッドを<a href="../misc/Threads.htm#Interrupt">中断できない</a>ようにする。</p>
 <p>OSの時間管理システムの粒度の関係で、遅延は10や15の倍数に切り上げられる場合があります。</p>
 <p>Send/SendEventモードでは、遅延が0の場合、内部的にSleep(0)が実行され、スクリプトのタイムスライスの残りを必要とする他のプロセスに提供します。ない場合は、Sleep(0)は全くスリープしない。これに対して、遅延が-1のときは、決してスリープすることはありません。信頼性を高めるために、-1の代わりに0を推奨します。</p>
-<p>遅延を-1に設定すると、従来の<a href="SendMode.htm">SendEventモードを</a>使用する場合、スクリプトのプロセス優先度がキーストロークの送信速度に重要な要素となる。スクリプトの優先度を上げるには、<code><a href="ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>を使用します。この場合、通常、<a href="WinActivate.htm">アクティブウィンドウ</a>が処理できる速度よりも速くキーストロークが送信されることになりますが、システムは自動的にバッファリングします。バッファリングされたキー入力は、<a href="Send.htm">Send</a>関数が完了した後も（ウィンドウがアクティブでなくなっても）ターゲットウィンドウに到着し続けます。これは、同じウィンドウに送信される後続のキー入力が、すでにバッファにあるキー入力の後ろにキューイングされるため、通常、無害です。</p>
+<p>遅延を-1に設定すると、従来の<a href="SendMode.htm#Event">SendEventモードを</a>使用する場合、スクリプトのプロセス優先度がキーストロークの送信速度に重要な要素となる。スクリプトの優先度を上げるには、<code><a href="ProcessSetPriority.htm">ProcessSetPriority</a> "High"</code>を使用します。この場合、通常、<a href="WinActivate.htm">アクティブウィンドウ</a>が処理できる速度よりも速くキーストロークが送信されることになりますが、システムは自動的にバッファリングします。バッファリングされたキー入力は、<a href="Send.htm">Send</a>関数が完了した後も（ウィンドウがアクティブでなくなっても）ターゲットウィンドウに到着し続けます。これは、同じウィンドウに送信される後続のキー入力が、すでにバッファにあるキー入力の後ろにキューイングされるため、通常、無害です。</p>
 <p>組込変数<strong>A_KeyDelay</strong>には、Send/SendEvent モードの<em>Delay</em>の現在の設定値が格納される。<strong>A_KeyDuration</strong> contains the setting for <em>PressDuration</em>, while <strong>A_KeyDelayPlay</strong> and <strong>A_KeyDurationPlay</strong> contain the settings for <a href="Send.htm#SendPlayDetail">SendPlay</a>.</p>
 <p>新しく起動する<a href="../misc/Threads.htm">スレッド</a>（<a href="../Hotkeys.htm">ホットキー</a>、<a href="Menu.htm">カスタムメニュー項目</a>、<a href="SetTimer.htm">時間指定</a>サブルーチンなど）はすべて、この機能のデフォルト設定で新しくスタートします。このデフォルトは、<a href="../Scripts.htm#auto">スクリプト起動</a>時にこの関数を使用することで変更することができます。</p>
 <h2 id="Related">関連</h2>

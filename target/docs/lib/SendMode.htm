@@ -22,12 +22,12 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>次のいずれかの単語を指定します：</p>
-    <p><strong>Event:</strong> Switches to the <a href="Send.htm#SendEvent">SendEvent</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>.</p>
-    <p><strong>Input:</strong> Uses the <a href="Send.htm#SendInput">SendInput</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>. 既知の制限事項：</p>
+    <p id="Event"><strong>Event:</strong> Switches to the <a href="Send.htm#SendEvent">SendEvent</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>.</p>
+    <p id="Input"><strong>Input:</strong> Uses the <a href="Send.htm#SendInput">SendInput</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>. 既知の制限事項：</p>
     <ul>
       <li>Windows Explorerでは、<kbd>Alt</kbd>+<kbd>←</kbd>などの特定のナビゲーションホットキーのSendInputのシミュレーションが無視されます。これを回避するには、<code>SendEvent "!{Left}"</code>または<code>SendInput "{Backspace}"</code>のいずれかを使用します。</li>
     </ul>
-    <p><strong>InputThenPlay：</strong>SendInputが使用<a href="Send.htm#SendInputUnavail">できない</a>場合にEventモードに戻るのではなく、Playモード（下記）に戻る点を除き、上記と同じ。これにより、SendInputが使用できない場合は、<a href="Send.htm#SendInput">SendInput機能</a>自体がPlayモードに戻るようにもなっています。</p>
+    <p id="InputThenPlay"><strong>InputThenPlay：</strong>SendInputが使用<a href="Send.htm#SendInputUnavail">できない</a>場合にEventモードに戻るのではなく、Playモード（下記）に戻る点を除き、上記と同じ。これにより、SendInputが使用できない場合は、<a href="Send.htm#SendInput">SendInput機能</a>自体がPlayモードに戻るようにもなっています。</p>
     <p id="Play"><strong>Play:</strong> Switches to the <a href="Send.htm#SendPlay">SendPlay</a> method for <a href="Send.htm">Send</a>, <a href="Send.htm">SendText</a>, <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>. 既知の制限事項：</p>
     <ul>
       <li>現在のキーボードレイアウトに存在しない文字（英語のÔなど）は、送信できません。これを回避するためには、<a href="Send.htm#SendEvent">SendEvent</a>を使用します。</li>
@@ -45,7 +45,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p>If SendMode is not used, the default mode is <em>Input</em>.</p>
-<p>Since SendMode also changes the mode of <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>, there may be times when you wish to use a different mode for a particular mouse event. 一番簡単なのは<a href="Send.htm#Click">{クリック}</a>で行う方法です。例：</p>
+<p>Since SendMode also changes the mode of <a href="Click.htm">Click</a>, <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a>, and <a href="MouseClickDrag.htm">MouseClickDrag</a>, there may be times when you wish to use a different mode for a particular mouse event. 一番簡単なのは<a href="Send.htm#Click">{クリック}</a>で行う方法です。事例：</p>
 <pre>SendEvent "{Click 100 200}"  <em>; SendEvent uses the older, traditional method of clicking.</em></pre>
 <p><a href="../Scripts.htm#auto">スクリプト起動</a>時にSendModeを使用した場合、<a href="../misc/Remap.htm">キーボードとマウスのリマッピング</a>にも影響します。特に、<code>SendMode "Play"</code>をリマッピングで使用する場合は、<a href="../misc/Remap.htm#SendPlay">SendPlayリマッピングの制限</a>を参照してください。</p>
 <p>組込変数<strong>A_SendMode</strong>には、現在の設定が格納されています。</p>

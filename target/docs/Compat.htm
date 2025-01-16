@@ -40,10 +40,10 @@
 <p class="Indent"><em>意味：</em>技術的には、一部のUnicode文字は<i>2つ</i>の16ビットコードユニットで表され、集合的に「サロゲートペア」として知られています。同様に、いくつかの<a href="https://learn.microsoft.com/windows/win32/intl/code-pages">ANSIコードページ</a>（一般に<a href="https://learn.microsoft.com/windows/win32/intl/double-byte-character-sets">ダブルバイト文字セット</a>として知られている）には、いくつかのダブルバイト文字が含まれています。しかし、実用上の理由から、これらはほとんどの場合、2つの個別のユニット（簡単のために「文字」と呼ばれる）として扱われます。</p>
 
 <h3 id="Buffer">Buffer</h3>
-<p><a href="lib/Buffer.htm">バッファ</a>を割り当てる際には、必要なエンコーディングに応じた正しい<em>バイト</em>数を計算するように注意してください。例：</p>
+<p><a href="lib/Buffer.htm">バッファ</a>を割り当てる際には、必要なエンコーディングに応じた正しい<em>バイト</em>数を計算するように注意してください。事例：</p>
 <pre>ansi_buf := Buffer(capacity_in_chars)
 utf16_buf := Buffer(capacity_in_chars * 2)</pre>
-<p><a href="lib/StrPut.htm">StrPut</a>でANSIまたはUTF-8の文字列をバッファに書き込む場合、ANSIまたはUTF-8の長さがネイティブ（UTF-16）の長さと異なる場合があるので、バッファのサイズを決めるのに<a href="lib/StrLen.htm">StrLen</a>を使用しないでください。代わりに、<a href="lib/StrPut.htm#ExEncoding">StrPut</a>を使用して必要なバッファサイズを計算します。例：</p>
+<p><a href="lib/StrPut.htm">StrPut</a>でANSIまたはUTF-8の文字列をバッファに書き込む場合、ANSIまたはUTF-8の長さがネイティブ（UTF-16）の長さと異なる場合があるので、バッファのサイズを決めるのに<a href="lib/StrLen.htm">StrLen</a>を使用しないでください。代わりに、<a href="lib/StrPut.htm#ExEncoding">StrPut</a>を使用して必要なバッファサイズを計算します。事例：</p>
 <pre>required_bytes := StrPut(source_string, "cp0")
 ansi_buf := Buffer(required_bytes)
 StrPut(source_string, ansi_buf)</pre>

@@ -38,7 +38,7 @@ b::a</pre>
 ^a::b</pre>
 
 <h3 id="RemapMouse">マウスリマッピング</h3>
-<p>キーボードの代わりにマウスをリマップするには、同じ方法を使います。例：</p>
+<p>キーボードの代わりにマウスをリマップするには、同じ方法を使います。事例：</p>
 <table class="info">
   <tr>
     <th style="min-width: 11em;">例</th>
@@ -96,7 +96,7 @@ b::a</pre>
 <p>これらの例を「Remap.ahk」のような新しいテキストファイルにコピーし、ファイルを起動することで試すことができる。</p>
 <p>キーとマウスボタンの名前の完全なリストは、<a href="../KeyList.htm">キーリスト</a>を参照してください。</p>
 <h2 id="remarks">備考</h2>
-<p><a href="../lib/_HotIf.htm">#HotIf</a>ディレクティブは、選択したリマッピングを指定したウィンドウでのみ（または指定した条件が満たされている間）有効にするために使用できます。例：</p>
+<p><a href="../lib/_HotIf.htm">#HotIf</a>ディレクティブは、選択したリマッピングを指定したウィンドウでのみ（または指定した条件が満たされている間）有効にするために使用できます。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
 #HotIf  <em>; This puts subsequent remappings and hotkeys in effect for all windows.</em></pre>
@@ -107,19 +107,19 @@ a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
   <li>デスティネーションキーまたはボタンは、オリジンキーを押し続けている間、押し続けられる。ただし、リマッピングに対応していないゲームもあります。その場合、キーボードとマウスはリマッピングされていないものとして動作します。</li>
   <li>リマップされたキーは、押したまま自動リピートされます（マウスボタンにリマップされたキーを除く）。</li>
 </ul>
-<p id="HookHotkeys">リマップキーは通常のホットキーをトリガーできますが、デフォルトではマウスホットキーや<a href="../lib/_UseHook.htm">フックホットキー</a>をトリガーすることはできません（どのホットキーが「フック」なのかは<a href="../lib/ListHotkeys.htm">ListHotkeys</a>を使って調べてください）。例えば、<code>a::b</code>のリマッピングが有効な場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>を押すと、<code>^!b</code>がフックホットキーでない場合のみ<code>^!b</code>ホットキーがトリガーされます。<code>^!b</code>がフックホットキーである場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>で<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>と同じ動作をさせたい場合は、<code>^!a</code>をホットキーとして定義できます。例：</p>
+<p id="HookHotkeys">リマップキーは通常のホットキーをトリガーできますが、デフォルトではマウスホットキーや<a href="../lib/_UseHook.htm">フックホットキー</a>をトリガーすることはできません（どのホットキーが「フック」なのかは<a href="../lib/ListHotkeys.htm">ListHotkeys</a>を使って調べてください）。例えば、<code>a::b</code>のリマッピングが有効な場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>を押すと、<code>^!b</code>がフックホットキーでない場合のみ<code>^!b</code>ホットキーがトリガーされます。<code>^!b</code>がフックホットキーである場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>で<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>と同じ動作をさせたい場合は、<code>^!a</code>をホットキーとして定義できます。事例：</p>
 <pre>a::b
 ^!a::
 ^!b::ToolTip "You pressed " ThisHotkey
 </pre>
-<p>Alternatively, <a href="../lib/_InputLevel.htm">#InputLevel</a> can be used to override the default behaviour. 例：</p>
+<p>Alternatively, <a href="../lib/_InputLevel.htm">#InputLevel</a> can be used to override the default behaviour. 事例：</p>
 <pre>#InputLevel 1
 a::b
 
 #InputLevel 0
 ^!b::ToolTip "You pressed " ThisHotkey
 </pre>
-<p id="SendPlay"><a href="../Scripts.htm#auto">スクリプト起動</a>時に<a href="../lib/SendMode.htm">SendMode</a>が使用されると、すべてのリマッピングに影響する。しかし、リマッピングは<a href="../lib/Send.htm#blind">Send "{Blind}"</a>を使用し、<a href="../lib/SendMode.htm">SendPlayモードは</a>{Blind}を完全にはサポートしていないため、一部のリマッピングはSendPlayモードでは正しく機能しない可能性があります（特に<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>）。これを回避するには、リマッピングがある場合は、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に<code>SendMode "Play"</code>を使用しないようにします。そして、スクリプト中の他の場所で、関数<a href="../lib/Send.htm#SendPlay">SendPlay</a>対Sendを使う。あるいは、リマッピングをホットキーに変換し（後述）、SendEvent対Sendを明示的に呼び出すこともできる。</p>
+<p id="SendPlay"><a href="../Scripts.htm#auto">スクリプト起動</a>時に<a href="../lib/SendMode.htm">SendMode</a>が使用されると、すべてのリマッピングに影響する。しかし、リマッピングは<a href="../lib/Send.htm#blind">Send "{Blind}"</a>を使用し、<a href="../lib/SendMode.htm#Play">SendPlayモードは</a>{Blind}を完全にはサポートしていないため、一部のリマッピングはSendPlayモードでは正しく機能しない可能性があります（特に<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>）。これを回避するには、リマッピングがある場合は、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に<code>SendMode "Play"</code>を使用しないようにします。そして、スクリプト中の他の場所で、関数<a href="../lib/Send.htm#SendPlay">SendPlay</a>対Sendを使う。あるいは、リマッピングをホットキーに変換し（後述）、SendEvent対Sendを明示的に呼び出すこともできる。</p>
 <p id="EscapeBrace"><em>DestinationKey</em>が <code>{</code>の場合は、<code>x::`{</code>のように<a href="EscapeChar.htm">エスケープ</a>しなければならない。そうでない場合は、<a href="../Hotkeys.htm">ホットキー</a>の機能の開始ブレースとして解釈される。</p>
 <p id="actually">スクリプトが起動すると、各リマッピングは<a href="../Hotkeys.htm">ホットキー</a>のペアに変換されます。例えば、<code>a::b</code>を含むスクリプトは、実際には代わりに以下の2つのホットキーを含む：</p>
 <pre>*a::

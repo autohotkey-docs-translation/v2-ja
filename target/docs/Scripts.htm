@@ -73,7 +73,7 @@ ProductIsAvailable := (Color = "Red") <strong>?</strong>
     ProductIsAvailableInColor(Product, Color)</pre>
 <p>上の例で使われているインデントは任意だが、どの行がその上の行に属するかを示すことで、より明瞭になるかもしれない。また、上記の例の行間や行末に空行や<a href="Language.htm#comments">コメント</a>を追加してもよい。</p>
 <p>継続演算子は、自動置換ホットストリングや<a href="lib/_HotIf.htm">#HotIf</a>以外のディレクティブでは使用できません。</p>
-<p id="continuation-expr"><strong>囲みによる継続：</strong>ある行に式や関数・プロパティの定義があり、その定義が閉じていない<code>(</code>/<code>[</code>/<code>{</code>場合、開閉記号の数が釣り合うまで後続の行と結合される。言い換えれば、括弧、ブラケット、ブレースで囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができる。例：</p>
+<p id="continuation-expr"><strong>囲みによる継続：</strong>ある行に式や関数・プロパティの定義があり、その定義が閉じていない<code>(</code>/<code>[</code>/<code>{</code>場合、開閉記号の数が釣り合うまで後続の行と結合される。言い換えれば、括弧、ブラケット、ブレースで囲まれた部分式は、ほとんどの場合、自動的に複数行にまたがることができる。事例：</p>
 <pre>
 myarray := [
   "item 1",
@@ -88,7 +88,7 @@ MsgBox(
 <p>継続表現は両方のタイプの<a href="Language.htm#comments">コメント</a>を含むことができる。</p>
 <p>継続表現は通常の<a href="#continuation-section">継続セクション</a>を含むことができる。したがって、式を含むすべての行と同様に、エスケープされていない開括弧（<code>(</code>）で始まる行は、同じ行に閉括弧（<code>)</code>）がない限り、継続セクションの開始とみなされる。</p>
 <p>引用符で囲まれた文字列は、この方法だけでは複数行にまたがることはできない。ただし、上記を参照のこと。</p>
-<p>囲みによる継続は、継続演算子と組み合わせることができる。例：</p>
+<p>囲みによる継続は、継続演算子と組み合わせることができる。事例：</p>
 <pre>myarray :=  <em>; The assignment operator causes continuation.</em>
 [  <em>; Brackets enclose the following two lines.</em>
   "item 1",
@@ -100,13 +100,13 @@ MsgBox(
   <li>オブジェクト・リテラルは法律上、<code>)</code>または<code>]</code>に続くことはできないので、中括弧がこれらの記号のどちらかに続く場合（空白を除く）、（関数やプロパティ定義のような）ブロックの開始として解釈される。</li>
   <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code>for x <strong>in</strong> {</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code>Loop {</code>の中括弧は常にブロック開始であり、<code>If {</code>と <code>While {</code>は常にエラーである。</li>
 </ul>
-<p>中括弧は、本文を必要としない関数呼び出し、式、制御フロー文であれば、行の継続のために安全に使うことができる。例：</p>
+<p>中括弧は、本文を必要としない関数呼び出し、式、制御フロー文であれば、行の継続のために安全に使うことができる。事例：</p>
 <pre>myfn() {
     return {
         key: "value"
     }
 }</pre>
-<p id="continuation-section"><strong>継続セクション：</strong>この方法は、多数の行を統合する場合や、行が他の方法に適さない場合に使用する。このメソッドは<a href="Hotstrings.htm">自動置換ホットストリング</a>に特に有効ですが、どんな<a href="Variables.htm#Expressions">式</a>にも使えます。例：</p>
+<p id="continuation-section"><strong>継続セクション：</strong>この方法は、多数の行を統合する場合や、行が他の方法に適さない場合に使用する。このメソッドは<a href="Hotstrings.htm">自動置換ホットストリング</a>に特に有効ですが、どんな<a href="Variables.htm#Expressions">式</a>にも使えます。事例：</p>
 <pre><em>; EXAMPLE #1:</em>
 Var := "
 (
@@ -138,7 +138,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 
 <h3 id="continuation-remarks">備考</h3>
 <p>`n（改行）や `t（タブ）などの<a href="misc/EscapeChar.htm">エスケープシーケンス</a>は、<a href="#accent">アクセント（`）オプション</a>が指定されている場合を除き、継続セクションの内部でサポートされています。</p>
-<p><a href="#CommentOption">commentオプション</a>がない場合、セミコロンと/*..*/コメントは、リテラルテキストとみなされるため、継続セクションの内部ではサポートされない。ただし、セクションの最下行と最上行にコメントを入れることができる。例：</p>
+<p><a href="#CommentOption">commentオプション</a>がない場合、セミコロンと/*..*/コメントは、リテラルテキストとみなされるため、継続セクションの内部ではサポートされない。ただし、セクションの最下行と最上行にコメントを入れることができる。事例：</p>
 <pre>FileAppend "   <em>; Comment.
 ; Comment.</em>
 ( LTrim Join    <em>; Comment.</em>
@@ -240,7 +240,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
         <td class="warning">使用する .bin ファイル。デフォルトは、GUIインターフェイスで最後に保存された.binファイル名です。</td>
       </tr>
     </table>
-    <p>例：</p>
+    <p>事例：</p>
     <pre class="no-highlight">Ahk2Exe.exe /in "MyScript.ahk" /icon "MyIcon.ico"</pre>
   </li>
 </ul>
@@ -363,7 +363,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
   <tr id="SlashScript">
     <td>/script</td>
     <td>
-      <p>.exeファイルに基づいてコンパイルされたスクリプトで使用する場合、このスイッチは、プログラムがメインの埋め込みスクリプトを無視するようにします。これにより、コンパイルされたスクリプト.exeは、メインスクリプト以外の外部スクリプトファイルや埋め込みスクリプトを実行できるようになる。コンパイル済みスクリプトでは通常サポートされていないその他のスイッチも使用できるが、このスイッチの右側に記載する必要がある。例：</p>
+      <p>.exeファイルに基づいてコンパイルされたスクリプトで使用する場合、このスイッチは、プログラムがメインの埋め込みスクリプトを無視するようにします。これにより、コンパイルされたスクリプト.exeは、メインスクリプト以外の外部スクリプトファイルや埋め込みスクリプトを実行できるようになる。コンパイル済みスクリプトでは通常サポートされていないその他のスイッチも使用できるが、このスイッチの右側に記載する必要がある。事例：</p>
       <pre class="no-highlight">CompiledScript.exe /script /ErrorStdOut MyScript.ahk "Script's arg 1"</pre>
       <p>現在の実行ファイルにスクリプトが埋め込まれていない場合、このスイッチは許可されるが、何の効果もない。</p>
       <p>このスイッチは、.binファイルに基づいてコンパイルされたスクリプトではサポートされていません。</p>

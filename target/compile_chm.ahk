@@ -76,6 +76,7 @@ INDEX_CreateHHK(data)
     sc := ComObject("ScriptControl")
     sc.Language := "JScript"
     sc.ExecuteStatement(data)
+    data := sc.Eval("indexData")
     content := "
     (
     <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
@@ -83,11 +84,12 @@ INDEX_CreateHHK(data)
     <body>
     )"
     content .= "`n<ul>`n"
-    for item in sc.Eval("indexData")
+    Loop data.length
     {
+        i := A_Index - 1
         content .= '<li><object type="text/sitemap">'
-        content .= '<param name="Name" value="' EncodeHTML(item.0) '">'
-        content .= '<param name="Local" value="docs/' EncodeHTML(item.1) '">'
+        content .= '<param name="Name" value="' EncodeHTML(data.%i%.0) '">'
+        content .= '<param name="Local" value="docs/' EncodeHTML(data.%i%.1) '">'
         content .= "</object>`n"
     }
     content .= "</ul>"

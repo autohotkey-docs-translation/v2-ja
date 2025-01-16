@@ -43,7 +43,7 @@
 }</pre>
 <p>上記では、中括弧は各ホットストリングの関数本体を定義する役割を果たします。左中括弧は、<a href="lib/Block.htm#otb">OTB (One True Brace) スタイル</a>をサポートするために、二重コロンと同じ行に指定することもできます。</p>
 <p>上の2つの例は自動置換ホットストリングでないにもかかわらず、入力した略語はデフォルトで消去されます。これは自動バックスペースによって行われますが、<a href="#b0">b0オプション</a>によって無効にすることができます。</p>
-<p id="ThisHotkey">ホットストリングがトリガーされると、ホットストリングの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンを除いたものです）。例：</p>
+<p id="ThisHotkey">ホットストリングがトリガーされると、ホットストリングの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンを除いたものです）。事例：</p>
 <pre>:X:btw::MsgBox ThisHotkey  <em>; メッセージボックスに「:X:btw」と表示されます。</em></pre>
 <p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
 
@@ -60,7 +60,7 @@
   <li>ホットストリングの最初のコロンのペアの間にオプションを挟みます。次の例では、Cと*オプション（大文字と小文字が区別され、「エンディングキャラクターは不要」）をこのホットストリングのみに対して有効にします：<code>:<strong>c*</strong>:j@::john@somedomain.com</code>。</li>
 </ol>
 <p>以下のリストでは、各オプションについて説明します。上記の方法で複数のオプションを指定するときは、オプションの間にスペースを任意に含めることができます。</p>
-<p id="Asterisk"><strong>*</strong>（アスタリスク）：ホットストリングのトリガーには、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などのエンディングキャラクターは必要ありません。例：</p>
+<p id="Asterisk"><strong>*</strong>（アスタリスク）：ホットストリングのトリガーには、<kbd>Space</kbd>、<kbd>.</kbd>、<kbd>Enter</kbd>などのエンディングキャラクターは必要ありません。事例：</p>
 <pre>:*:j@::jsmith@somedomain.com</pre>
 <p>上の例では、@を入力した瞬間に置換する文字列（jsmith@somedomain.com）を送信します。<a href="lib/_Hotstring.htm">#Hotstringディレクティブ</a>を使用するときは、このオプションをオフに戻すには<strong>*0</strong>を使用します。</p>
 <p id="Question"><strong>?</strong>（クエスチョンマーク）：ホットストリングは、他の単語の中にあっても発動します。つまり、直前に入力された文字が英数字である場合、ホットストリングは発動します。例えば、<code>:?:al::airline</code>がホットストリングである場合、「practical 」と入力すると、「practicairline 」が出力されます。このオプションをオフに戻すには、<strong>?0</strong>を使用します。</p>
@@ -81,9 +81,9 @@
 <p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>：ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象外</a>にする場合は、Sを指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code>S</code>または<code>#SuspendExempt</code>のいずれかがホットストリングを免除します。つまり、指令を上書きするには、ホットストリング内で<code>S0</code>を明示的に使用する必要がある。</p>
 <p id="SendMode"><strong>SI</strong> または <strong>SP</strong> または <strong>SE</strong>：<a href="#auto">自動置換ホットストリング</a>がキー入力を送信する方法を設定します。これらのオプションは相互に排他的です：同時に1つだけ有効にすることができます。以下、各オプションについて説明します：</p>
 <ul>
-  <li>SIは<a href="lib/Send.htm#SendInputDetail">SendInput</a>の略で、通常、他のモードよりも速度や信頼性に優れています。もう一つの利点は、以下のSendPlayと同様に、SendInputはホットストリングの<a href="#auto">自動置換テキスト</a>中に入力したものを延期することです。これにより、自分のキー入力と交換者のキー入力が混在することを防ぎます。SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合、ホットストリングは自動的にSendPlayを代わりに使用します。</li>
-  <li>SPは<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>の略で、より幅広いゲームでホットストリングが使えるようになる可能性があります。</li>
-  <li>SEは<a href="lib/Send.htm#SendEvent">SendEvent</a>の略です。</li>
+  <li id="SI">SIは<a href="lib/Send.htm#SendInputDetail">SendInput</a>の略で、通常、他のモードよりも速度や信頼性に優れています。もう一つの利点は、以下のSendPlayと同様に、SendInputはホットストリングの<a href="#auto">自動置換テキスト</a>中に入力したものを延期することです。これにより、自分のキー入力と交換者のキー入力が混在することを防ぎます。SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合、ホットストリングは自動的にSendPlayを代わりに使用します。</li>
+  <li id="SP">SPは<a href="lib/Send.htm#SendPlayDetail">SendPlay</a>の略で、より幅広いゲームでホットストリングが使えるようになる可能性があります。</li>
+  <li id="SE">SEは<a href="lib/Send.htm#SendEvent">SendEvent</a>の略です。</li>
 </ul>
 <p>上記のオプションを使用しない場合、デフォルトのモードはSendInputです。ただし、SIオプションとは異なり、SendInputが利用できない場合はSendPlayの代わりにSendEventが使用されます。</p>
 <p id="T"><strong>T：</strong><a href="lib/Send.htm#SendText">テキストモード</a>を使って、置換テキストを送信します。つまり、{Enter}を<kbd>Enter</kbd>、^cを<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せず、各文字をキーストロークに変換せずに、文字コードで送信します。このオプションは、<a href="#continuation">継続セクション</a>を持つホットストリングに自動的に適用されます。このオプションをオフに戻すには<strong>T0</strong>または<strong>R0</strong>を使用し、<strong>R</strong>でオーバーライドします。</p>
@@ -96,7 +96,7 @@
 }</pre>
 <p>上記にはZオプションがないので、111（3つの連続した1）を入力すると、真ん中の1が最初のトリガーの<em>最後</em>の文字でありながら、2番目のトリガーの<em>最初</em>の文字でもあるため、ホットストリングが2回トリガーされます。b0の前に文字Zを追加することで、ホットストリングを2回発動させるためには、3回ではなく4回1を入力する必要があります。このオプションをオフに戻すには、<strong>Z0</strong>を使用します。</p>
 <h2 id="continuation">ロングリプレイスメント</h2>
-<p>大量の置換テキストを生成するHotstringsは、<a href="Scripts.htm#continuation">継続セクション</a>を使用することで、より読みやすく、保守的にすることができます。例：</p>
+<p>大量の置換テキストを生成するHotstringsは、<a href="Scripts.htm#continuation">継続セクション</a>を使用することで、より読みやすく、保守的にすることができます。事例：</p>
 <pre>::text1::
 (
 上下の括弧の間のテキストは、文字通りに扱われます。
@@ -105,7 +105,7 @@
 )</pre>
 <p>これらのデフォルトの動作を変更する方法については、<a href="Scripts.htm#continuation">続きのセクション</a>を参照してください。また、継続セクションがあると、ホットストリングのデフォルトが<a href="#T">テキスト</a>モードになります。この特別なデフォルトを上書きする唯一の方法は、継続セクションを持つ各ホットストリングで反対側のオプションを指定することです（例えば、<code>:t0:text1::</code> or <code>:r:text2::</code>など）。</p>
 <h2 id="variant">文脈依存型ホットストリング</h2>
-<p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用することで、選択したホットストリングをコンテキストセンシティブにすることができます。このようなホットストリングは、アクティブなウィンドウの種類などの条件によって、異なる置換を送信したり、異なるアクションを実行したり、まったく何もしなかったりします。例：</p>
+<p><a href="lib/_HotIf.htm">#HotIf</a>ディレクティブを使用することで、選択したホットストリングをコンテキストセンシティブにすることができます。このようなホットストリングは、アクティブなウィンドウの種類などの条件によって、異なる置換を送信したり、異なるアクションを実行したり、まったく何もしなかったりします。事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad")
 ::btw::This replacement text will appear only in Notepad.
 #HotIf

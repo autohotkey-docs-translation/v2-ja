@@ -32,7 +32,7 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>このモードは、特定の送信および/またはマウス機能の実行中にのみ、ユーザー入力をブロックします。次のいずれかの単語を指定します：</p>
     <p><strong>Send：</strong><a href="Send.htm">SendEvent</a>（<code>SendMode "Event"</code>が使用されている場合は<a href="Send.htm">Send</a>と <a href="Send.htm">SendText</a>を含む）の実行中は、ユーザーのキーボードとマウス入力は無視されます。これにより、ユーザーのキー入力が模擬キー入力の流れを乱すことを防いでいます。送信終了後、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされていた場合を除く）。</p>
-    <p><strong>Mouse：</strong><a href="Click.htm">Click</a>、<a href="MouseMove.htm">MouseMove</a>、<a href="MouseClick.htm">MouseClick</a>、または、<a href="MouseClickDrag.htm">MouseClickDrag</a>の実行中は、ユーザーのキーボードやマウスの入力は無視されます（従来の<a href="SendMode.htm">SendEventモード</a>の場合のみ）。これにより、ユーザーのマウスの動きやクリックが、シミュレートされたマウスイベントを乱すことを防ぐことができます。マウス操作が終了すると、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされている場合を除く）。</p>
+    <p><strong>Mouse：</strong><a href="Click.htm">Click</a>、<a href="MouseMove.htm">MouseMove</a>、<a href="MouseClick.htm">MouseClick</a>、または、<a href="MouseClickDrag.htm">MouseClickDrag</a>の実行中は、ユーザーのキーボードやマウスの入力は無視されます（従来の<a href="SendMode.htm#Event">SendEventモード</a>の場合のみ）。これにより、ユーザーのマウスの動きやクリックが、シミュレートされたマウスイベントを乱すことを防ぐことができます。マウス操作が終了すると、入力は再び有効になります（以前に<code>BlockInput "On"</code>を使用してブロックされている場合を除く）。</p>
     <p><strong>SendAndMouse：</strong>上記2つのモードを組み合わせたもの。</p>
     <p><strong>Default：</strong><em>送信</em>モードと<em>マウス</em>モードの両方をオフにしますが、入力ブロックの現在の状態は変更しません。例えば、現在<code>BlockInput "On"</code>が有効な場合、<code>BlockInput "Default"</code>を使用しても、これをオフにすることはできません。</p>
   </dd>
@@ -49,7 +49,7 @@
 <h2 id="Remarks">備考</h2>
 <p>BlockInputの3つのモード（<em>OnOff</em>、<em>SendMouse</em>、<em>MouseMove</em>）は、それぞれ独立して動作します。例えば、<code>BlockInput "On"</code>は、<em>SendMouse</em>からのワードの1つが有効であっても、<code>BlockInput "Off"</code>が使われるまで、入力をブロックし続けます。他の例として、<code>BlockInput "On"</code>と<code>BlockInput "MouseMove"</code>の両方が有効な場合、両方がオフになるまでマウスの移動がブロックされることがあります。</p>
 <p class="note"><strong>注：</strong>UACが有効になっていたり、スクリプトが管理者として実行されていない場合、<em>OnOff</em>と <em>SendMouse</em>モードは効果がない場合があります。詳しくは、<a href="../FAQ.htm#uac">FAQ</a>を参照してください。</p>
-<p>BlockInputよりも、<code><a href="SendMode.htm">SendMode</a> "Input"</code>や<code><a href="SendMode.htm">SendMode</a> "Play"</code>を使用した方が、キー入力やマウスクリックが途切れることなく行える場合があります。これは、BlockInputとは異なり、これらのモードでは送信中にユーザーが入力したものを破棄せず、代わりにそれらのキーストロークをバッファリングして後に送信するためです。BlockInputを避けることで、次の段落で説明するスティッキングキーを回避することもできます。</p>
+<p>In preference to BlockInput, it is often better to use the sending modes <a href="SendMode.htm#Input">SendInput</a> or <a href="SendMode.htm#Play">SendPlay</a> so that keystrokes and mouse clicks become uninterruptible. これは、BlockInputとは異なり、これらのモードでは送信中にユーザーが入力したものを破棄せず、代わりにそれらのキーストロークをバッファリングして後に送信するためです。BlockInputを避けることで、次の段落で説明するスティッキングキーを回避することもできます。</p>
 <p>ユーザーがキーを押しているときにBlockInputがアクティブになると、そのキーが「stuck down」になってしまうことがあります。この例では、BlockInputをオンにする前にキーが解放されるのを待つことで、これを回避することができます：</p>
 <pre>^!p::
 {
