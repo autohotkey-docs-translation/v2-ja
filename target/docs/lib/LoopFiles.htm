@@ -23,7 +23,15 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-      <p>ワイルドカードとして、アスタリスクとクエスチョンマークの両方がサポートされています。ファイルのロング/ノーマル名または<a href="#LoopFileShortName">8.3ショート名の</a>いずれかにパターンがある場合、一致することになります。</p>
+      <p id="wildcards">Both asterisks (<code>*</code>) and question marks (<code>?</code>) are supported as wildcards. <code>*</code> matches zero or more characters and <code>?</code> matches any single character. Usage examples:</p>
+      <ul>
+        <li><code>*.*</code> or <code>*</code> matches all files.</li>
+        <li><code>*.htm</code> matches files with the extension .htm, .html, etc.</li>
+        <li><code>*.</code> matches files without an extension.</li>
+        <li><code>log?.txt</code> matches e.g. log1.txt but not log10.txt.</li>
+        <li><code>*report*</code> matches any filename containing the word "report".</li>
+      </ul>
+      <p>ファイルのロング/ノーマル名または<a href="#LoopFileShortName">8.3ショート名の</a>いずれかにパターンがある場合、一致することになります。</p>
       <p>このパラメータが単一のファイルまたはフォルダ（すなわちワイルドカードなし）で、<em>Mode</em>にRが含まれる場合、指定されたファイル名が検索対象の複数のフォルダに現れると、複数の一致が検出されます。</p>
       <p>259文字以上のパターンは、<a href="../misc/LongPaths.htm">システムの制限（MAX_PATH）</a>により、ファイルの検索に失敗する場合があります。この制限は、いくつかの条件を満たした上で、<code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィクスを</a>使用することで回避することができます。</p>
   </dd>

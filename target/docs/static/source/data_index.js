@@ -1207,7 +1207,7 @@ indexData = [
   ["Wheel hotkeys for mouse","Hotkeys.htm#Wheel"],
   ["Wheel, simulating rotation","lib/Click.htm"],
   ["While","lib/While.htm",3,"E"],
-  ["wildcards (for files & folders)","lib/LoopFiles.htm"],
+  ["wildcards (for files & folders)","lib/LoopFiles.htm#wildcards"],
   ["Win functions","lib/Win.htm"],
   ["WinActivate","lib/WinActivate.htm",2],
   ["WinActivateBottom","lib/WinActivateBottom.htm",2],

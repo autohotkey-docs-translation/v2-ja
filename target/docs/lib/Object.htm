@@ -28,7 +28,7 @@
   <li><a href="#Methods">メソッド</a>：
     <ul>
       <li><a href="#Clone">Clone</a>：オブジェクトのシャローコピーを返す。</li>
-      <li><a href="#DefineProp">DefineProp</a>：新しい自身のプロパティを定義する。</li>
+      <li><a href="#DefineProp">DefineProp</a>: Defines or modifies an own property.</li>
       <li><a href="#DeleteProp">DeleteProp</a>：オブジェクトから自身のプロパティを削除する。</li>
       <li><a href="#GetOwnPropDesc">GetOwnPropDesc</a>：DefinePropと互換性のある、与えられた自身のプロパティの記述子を返します。</li>
       <li><a href="#HasOwnProp">HasOwnProp</a>：オブジェクトが指定された名前のプロパティを所有している場合、1 (true)を返します。</li>
@@ -70,7 +70,7 @@ Obj := Object.<span class="func">Call</span>()</pre>
 </div>
 
 <div class="methodShort" id="DefineProp"><h3>DefineProp</h3>
-<p>新しい自身のプロパティを定義する。</p>
+<p>Defines or modifies an own property.</p>
 <pre class="Syntax">Obj := Obj.<span class="func">DefineProp</span>(Name, Descriptor)</pre>
 <h4 id="DefineProp_Parameters">パラメータ</h4>
 <dl>
@@ -82,10 +82,11 @@ Obj := Object.<span class="func">Call</span>()</pre>
   <dt>Descriptor</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
-    <p>以下のいずれかの自プロパティを持つオブジェクト、または<em>Get</em>と<em>Set</em>の両方を持つオブジェクト：</p>
+    <p>To define or modify a dynamic property, specify an object with one or more of the following own properties:</p>
     <p><strong>Get：</strong>プロパティの値が取得されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。</p>
     <p><strong>Set：</strong>プロパティに値が割り当てられたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。その第2パラメータは、割り当てられる値である。</p>
     <p><strong>Call：</strong>プロパティが呼び出されたときに呼び出される<a href="../misc/Functor.htm">関数オブジェクト</a>です。</p>
+    <p>To define a value property, specify an object with the following own property:</p>
     <p><strong>Value：</strong>プロパティに割り当てる任意の値。</p>
   </dd>
 </dl>
@@ -93,8 +94,9 @@ Obj := Object.<span class="func">Call</span>()</pre>
 <p>型：<a href="../Concepts.htm#objects">オブジェクト</a></p>
 <p>This method returns the target object.</p>
 <h4 id="DefineProp_Remarks">備考</h4>
-<p>この方法は、バリュープロパティをダイナミックプロパティに、またはその逆に変換するために使用することができますが、バリューとアクセッサ関数の両方を指定することはできません。</p>
-<p>アクセサー関数を省略した場合、動作はベースオブジェクトから継承されます。</p>
+<p>Defining a value property overwrites any existing value or accessor functions.</p>
+<p>Defining a dynamic property overwrites any existing value, but retains any existing accessor functions which aren't specified by the descriptor.</p>
+<p>If a dynamic property lacks any one of the accessor functions, behavior is inherited from a base object.</p>
 <ul>
   <li>継承された値プロパティは、値を返すか呼び出すか、あるいは<code>this</code>に新しい値を格納するアクセッサ関数のセットと同等です。新しい値は、<code>this</code>自体の動的プロパティを上書きし、継承されたアクセッサ関数を上書きすることに注意してください。</li>
   <li><em>Set</em>や値が定義されていない、または継承されていない場合、プロパティを設定しようとすると例外が発生します。</li>
