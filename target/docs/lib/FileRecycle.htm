@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <title>FileRecycle - 構文と使用法｜AutoHotkey v2</title>
-<meta name="description" content="FileRecycle機能は、ファイルやディレクトリを可能な限りごみ箱に送ったり、永久に削除したりする機能です。" />
+<meta name="description" content="FileRecycle関数は、ファイルやディレクトリを可能な限りごみ箱に送ったり、永久に削除したりします。" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../static/theme.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 
 <h1>FileRecycle</h1>
 
-<p>ファイルやディレクトリを可能な限りごみ箱に送るか、永久に削除します。</p>
+<p>ファイルやディレクトリを可能な限りごみ箱に送ったり、永久に削除したりします。</p>
 
 <pre class="Syntax"><span class="func">FileRecycle</span> FilePattern</pre>
 <h2 id="Parameters">パラメータ</h2>
@@ -22,13 +22,13 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>単一のファイル名、または <code>"C:\Temp\*.tmp"</code> のようなワイルドカードパターンを指定します。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-      <p>Both asterisks (<code>*</code>) and question marks (<code>?</code>) are supported as wildcards. <code>*</code> matches zero or more characters and <code>?</code> matches any single character. Usage examples:</p>
+      <p>アスタリスク（<code>*</code>）とクエスチョンマーク（<code>?</code>）は、ワイルドカードとして使用できます。<code>*</code>は0以上の文字と、クエスチョンマークは<code>?</code>1文字とマッチします。使用例：</p>
       <ul>
-        <li><code>*.*</code> or <code>*</code> matches all files.</li>
-        <li><code>*.htm</code> matches files with the extension .htm, .html, etc.</li>
-        <li><code>*.</code> matches files without an extension.</li>
-        <li><code>log?.txt</code> matches e.g. log1.txt but not log10.txt.</li>
-        <li><code>*report*</code> matches any filename containing the word "report".</li>
+        <li><code>*.*</code>と<code>*</code>は、全てのファイルにマッチします。</li>
+        <li><code>*.htm</code>は、.htmや.htmlなどの拡張子を持つファイルにマッチします。</li>
+        <li><code>*.</code>は、拡張子がないファイルにマッチします。</li>
+        <li><code>log?.txt</code>は、例えばlog1.txtにはマッチしますが、log10.txtにはマッチしません。</li>
+        <li><code>*report*</code>は、ファイル名に"report"を含むあらゆるファイルにマッチします。</li>
       </ul>
       <p>ディレクトリ全体をリサイクルする場合は、末尾のバックスラッシュを除いた名前を指定します。</p>
   </dd>
@@ -39,11 +39,11 @@
 <p>失敗した場合は例外がスローされます。</p>
 
 <h2 id="Remarks">備考</h2>
-<p>実際の作業には<a href="https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfileoperationa">SHFileOperation</a>が使用されます。この機能は、ファイルが大きすぎてリサイクルできない場合、ファイルを永久に削除することがあります。</p>
+<p>実際の作業には<a href="https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfileoperationa">SHFileOperation</a>が使用されます。この関数は、ファイルが大きすぎてリサイクルできない場合、ファイルを永久に削除することがあります。</p>
 <p>など、他の理由でファイルをリサイクルできない場合、警告なしにファイルを永久に削除することがあります：</p>
 <ul>
   <li>リムーバブルドライブ上にあるファイルです。</li>
-  <li><code>NukeOnDelete</code>レジストリ値によって、ごみ箱が無効化されている。</li>
+  <li><code>NukeOnDelete</code>などのレジストリ値によってごみ箱は無効化されます。</li>
 </ul>
 <h2 id="Related">関連</h2>
 <p><a href="FileRecycleEmpty.htm">FileRecycleEmpty</a>、<a href="FileDelete.htm">FileDelete</a>、<a href="FileCopy.htm">FileCopy</a>、<a href="FileMove.htm">FileMove</a></p>
