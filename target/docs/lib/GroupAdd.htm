@@ -29,20 +29,20 @@
     <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
     <p><em>WinTitle</em>には <a href="../misc/WinTitle.htm">ウィンドウのタイトル</a>、またはターゲットウィンドウを識別するための<a href="../misc/WinTitle.htm">他の基準</a>、<em>WinText</em>にはターゲットウィンドウの単一のテキスト要素からの部分文字列（付属のWindow Spyユーティリティを使えばわかります）を指定します。</p>
     <p><em>ExcludeTitle</em>と<em>ExcludeText</em>はウィンドウのタイトルまたはテキストで除外するために使用します。指定の仕方は<em>WinTitle</em>と<em>WinText</em>に似ていますが、<em>ExcludeTitle</em>はウィンドウのタイトル以外の基準（ウィンドウクラスやHWNDなど）を認識しません。</p>
-    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。Although <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="DetectHiddenText.htm">DetectHiddenText</a> and <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a> do not directly affect the behavior of this function, they do affect the other group functions such as <a href="GroupActivate.htm">GroupActivate</a> and <a href="GroupClose.htm">GroupClose</a>. また、他の関数の<a href="../misc/WinTitle.htm">WinTitle</a>でahk_groupを使用する場合にも影響します。</p>
+    <p>ウィンドウのタイトルとテキストは大文字と小文字を区別します。<a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>、 <a href="DetectHiddenText.htm">DetectHiddenText</a>、<a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>は、この関数の動作に直接の影響はありませんが<a href="GroupActivate.htm">GroupActivate</a>や<a href="GroupClose.htm">GroupClose</a>など、ほかのグループ関数に影響があります。また、他の関数の<a href="../misc/WinTitle.htm">WinTitle</a>でahk_groupを使用する場合にも影響します。</p>
   </dd>
 
 </dl>
 
 <h2 id="Remarks">備考</h2>
 <p>この機能を使用するたびに、グループに新しいルールが追加されます。つまり、グループとは、ウィンドウの固定されたリストではなく、一連の基準で構成されているのです。その後、<a href="GroupActivate.htm">GroupActivate</a>などの機能でグループが使用されると、デスクトップ上の各ウィンドウがこれらの各条件に照合されます。ウィンドウがグループ内の条件のいずれかに一致する場合、一致とみなされます。</p>
-<p>ウィンドウグループは、通常、関連するウィンドウの集合体を束ねるために使用されます。これは、多くの関連するウィンドウを含むタスクや、多くのサブウィンドウを所有するアプリケーションに便利です。例えば、グラフィックプログラムやテキストエディタの多くのインスタンスを頻繁に使用する場合、ホットキーの<a href="GroupActivate.htm">GroupActivate</a>を使用すると、alt-tabやタスクバーボタンを使用してそれらのインスタンスを探すことなく、一度にそれぞれのプログラムのインスタンスを訪問できます。</p>
-<p>各グループのエントリーは一度だけ追加する必要があるため、この機能は通常、<a href="../Scripts.htm#auto">スクリプトの起動</a>時に使用されます。重複したエントリーをグループに追加しようとする試みは無視されます。</p>
+<p>ウィンドウグループは、通常、関連するウィンドウの集合体を束ねるために使用されます。これは、多くの関連するウィンドウを含むタスクや、多くのサブウィンドウがあるアプリケーションに便利です。例えば、グラフィックプログラムやテキストエディタの多くのインスタンスを頻繁に使用する場合、ホットキーの<a href="GroupActivate.htm">GroupActivate</a>を使用すると、alt-tabやタスクバーボタンを使用してそれらのインスタンスを探すことなく、一度にそれぞれのプログラムのインスタンスを訪問できます。</p>
+<p>各グループのエントリーは一度だけ追加する必要があるため、この機能は通常<a href="../Scripts.htm#auto">スクリプトの起動</a>時に使用されます。重複したエントリーをグループに追加しようとしても無視されます。</p>
 <p>グループ内の<u>すべて</u>のウィンドウ（特別なProgram Managerウィンドウを除く）を含めるには、次の例を使用します：</p>
 <pre>GroupAdd "AllWindows"</pre>
 <p><em>WinTitle</em>パラメータに<code>ahk_group MyGroupName</code>を指定することで、すべてのウィンドウ関数がウィンドウグループに対して操作できるようになります。<a href="WinMinimize.htm">WinMinimize</a>、<a href="WinMaximize.htm">WinMaximize</a>、<a href="WinRestore.htm">WinRestore</a>、<a href="WinHide.htm">WinHide</a>、<a href="WinShow.htm">WinShow</a>、<a href="WinClose.htm">WinClose</a>、<a href="WinKill.htm">WinKill</a>関数は、グループの<u>すべて</u>のウィンドウに対して作用します。その代わりに、一番上のウィンドウだけを操作する場合は、次のようにします：</p>
 <pre>WinHide WinExist("ahk_group <strong>MyGroup</strong>")</pre>
-<p>By contrast, other windowing functions such as <a href="WinActivate.htm">WinActivate</a> and <a href="WinExist.htm">WinExist</a> will operate only upon the topmost window of the group.</p>
+<p>それに対して、<a href="WinActivate.htm">WinActivate</a>や<a href="WinExist.htm">WinExist</a>などの他のウィンドウ関数は、グループの最上位ウィンドウにのみ作用します。</p>
 <h2 id="Related">関連</h2>
 <p><a href="GroupActivate.htm">GroupActivate</a>、<a href="GroupDeactivate.htm">GroupDeactivate</a>、<a href="GroupClose.htm">GroupClose</a></p>
 <h2 id="Examples">例</h2>
