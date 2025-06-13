@@ -27,8 +27,8 @@
   <dt>Speed</dt>
   <dd>
     <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
-    <p>省略されたときは、<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>で設定された速度（設定されていないときは2）が初期値として使用されます。そうでないときは、マウスを動かす速度を0（最速） から100（最低）の範囲で指定します。スピードを0にすると、マウスが瞬時に動きます。</p>
-    <p><em>Speed</em> is ignored for the modes <a href="SendMode.htm#Input">SendInput</a> and <a href="SendMode.htm#Play">SendPlay</a>; they move the mouse instantaneously (though <a href="SetMouseDelay.htm">SetMouseDelay</a> has a mode that applies to SendPlay). To visually move the mouse more slowly -- such as a script that performs a demonstration for an audience -- use <code><a href="Send.htm#Click">SendEvent "{Click 100 200}"</a></code> or <code><a href="SendMode.htm">SendMode</a> "Event"</code> (optionally in conjuction with <a href="BlockInput.htm">BlockInput</a>).</p>
+    <p>省略されたときは、<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>で設定された速度（設定されていないときは2）が初期値として使用されます。そうでないときは、マウスを動かす速度を0（最速） から100（最低）の範囲で指定します。speedを0にすると、マウスが移動します。</p>
+    <p><em>Speed</em>の設定は、<a href="SendMode.htm#Input">SendInput</a>関数と<a href="SendMode.htm#Play">SendPlay</a>関数では無視され、マウスは瞬時に移動します。（ただし、<a href="SetMouseDelay.htm">SetMouseDelay</a>関数には、SendPlayに適用されるモードがあります。）To visually move the mouse more slowly -- such as a script that performs a demonstration for an audience -- use <code><a href="Send.htm#Click">SendEvent "{Click 100 200}"</a></code> or <code><a href="SendMode.htm">SendMode</a> "Event"</code> (optionally in conjuction with <a href="BlockInput.htm">BlockInput</a>).</p>
   </dd>
 
   <dt>Relative</dt>
@@ -42,7 +42,7 @@
 
 <h2 id="Remarks">備考</h2>
 <p><a href="SendMode.htm">SendMode</a>で設定された送信方式を使用します。</p>
-<p><a href="SendMode.htm#Play">SendPlayモード</a>は、他のモードに比べ、より幅広いゲームにおいてマウスイベントを正常に発生させることができます。また、アプリケーションやゲームによっては、マウスの動きが速いと追従性が悪くなることがあります。The <em>Speed</em> parameter or <a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a> can be used to reduce the speed (in <a href="SendMode.htm#Event">SendEvent mode</a> only).</p>
+<p><a href="SendMode.htm#Play">SendPlayモード</a>は、他のモードに比べ、より幅広いゲームにおいてマウスイベントを正常に発生させることができます。また、アプリケーションやゲームによっては、マウスの動きが速いと追従性が悪くなることがあります。<em>Speed</em>パラメータや<a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a>関数で、マウススピードを落とすことができます（<a href="SendMode.htm#Event">SendEvent mode</a> のみ）。</p>
 <p><a href="BlockInput.htm">BlockInput</a>関数を使用すると、ユーザーによる物理的なマウス操作が、マウス関数によって生成されるシミュレーションマウスイベントを妨害することを防ぐことができます。However, this is generally not needed for the modes <a href="SendMode.htm#Input">SendInput</a> and <a href="SendMode.htm#Play">SendPlay</a> because they automatically postpone the user's physical mouse activity until afterward.</p>
 <p>マウスを動かすたびに自動で遅延が発生します（<a href="SendMode.htm#Input">SendInputモードは</a>除く）。ディレイの長さを変更する場合は、<a href="SetMouseDelay.htm">SetMouseDelay</a>を使用します。</p>
 <p>以下は、特定のマルチモニター構成でより良く機能する可能性のある、マウスカーソルを移動する別の方法です：</p>
