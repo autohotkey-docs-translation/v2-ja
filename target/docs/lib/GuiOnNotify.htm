@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+<html lang="jac">
 <head>
 <title>OnNotify (GUI) - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="GuiControlオブジェクトのOnNotifyメソッドは、WM_NOTIFYメッセージで制御通知を受信したときに呼び出す関数やメソッドを登録するものです。" />
@@ -39,13 +39,13 @@
     <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
     <p><a href="GuiOnEvent.htm#Callback_Parameters">OnEventの注意事項</a>である、<code>this</code>とバインドされた関数に関する注意事項は、OnNotifyにも適用されました。</p>
     <p id="Callback_Return_Value">イベントに対して複数のコールバックが登録されているときは、コールバックは空でない値を返し、残りのコールバックが呼ばれないようにすることができます。</p>
-    <p>The callback's return value may have additional meaning, depending on the notification. 例えば、ListViewの通知<a href="https://learn.microsoft.com/windows/win32/controls/lvn-beginlabeledit">LVN_BEGINLABELEDIT</a>（-175または-105）は、コールバックがTRUE（1）を返す場合、ユーザーがラベルを編集できないようにします。</p>
+    <p>通知内容によっては、コールバックの戻り値が追加の意味を持つことがあります。例えば、ListViewの通知<a href="https://learn.microsoft.com/windows/win32/controls/lvn-beginlabeledit">LVN_BEGINLABELEDIT</a>（-175または-105）は、コールバックがTRUE（1）を返す場合、ユーザーがラベルを編集できないようにします。</p>
   </dd>
   
   <dt>AddRemove</dt>
   <dd>
     <p>Type: <a href="../Concepts.htm#numbers">Integer</a></p>
-    <p>省略されたときは、初期値は 1 です。それ以外の場合は、次のいずれかの番号を指定してください：</p>
+    <p>省略したときは、初期値は 1 です。そうでないときはは、次のいずれかの番号を指定します：</p>
     <ul>
       <li>1 = 以前に登録されたコールバックの後にコールバックを呼び出します。</li>
       <li>-1 = 以前に登録されたコールバックより先にコールバックを呼び出します。</li>
@@ -57,11 +57,11 @@
 <h2 id="WM_NOTIFY">WM_NOTIFY</h2>
 <p>ある種のコントロールは、興味深いイベントが発生したり、コントロールがプログラムから情報を要求されたりすると、<a href="https://learn.microsoft.com/windows/win32/controls/wm-notify">WM_NOTIFY</a>メッセージを送信します。このメッセージの<em>lParam</em>パラメータは、通知に関する情報を含む構造体へのポインタを含みます。構造の種類は、通知コードと通知を行ったコントロールの種類によって異なりますが、常に<a href="https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a>をベースにしています。</p>
 <p>どの通知が利用可能か（もしあれば）、どのような構造を提供し、どのように戻り値を解釈するかについては、コントロールのドキュメントを参照してください。<a href="https://learn.microsoft.com/windows/win32/controls/individual-control-info">コントロールライブラリ (Microsoft Docs)</a>には、Windows共通の各コントロールへのリンクが含まれています。通知コード（数字）は、Windows SDK、またはインターネットで検索して確認できます。</p>
-<p>AutoHotkeyは、<em>idFrom</em>と <em>hwndFrom</em>フィールドを使用して、どのコントロールが通知を送信したかを識別し、適切なオブジェクトにディスパッチするために使用します。<em>コード</em>フィールドには、通知コードが入ります。これらはコールバックの登録に使用した<em>GuiCtrl</em>と <em>NotifyCode</em>と一致する必要があるため、スクリプトに役立つことはほとんどない。</p>
+<p>AutoHotkeyは、<em>idFrom</em>と <em>hwndFrom</em>フィールドを使用して、どのコントロールが通知を送信したかを識別し、適切なオブジェクトにディスパッチするために使用します。<em>コード</em>フィールドには、通知コードが入ります。これらはコールバックの登録に使用した<em>GuiCtrl</em>と<em>NotifyCode</em>に一致しなければならないため、ほとんどスクリプトに役立つことはありません。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="GuiOnEvent.htm">OnEvent</a>に関するこれらの注意は、OnNotifyにも適用されます：<a href="GuiOnEvent.htm#Threads">スレッド</a>、<a href="GuiOnEvent.htm#Destroying_the_GUI">GUIを破壊</a>します。</p>
-<p><a href="GuiOnCommand.htm">OnCommand</a>は、WM_COMMANDメッセージとして送信される通知に対して使用することができる。</p>
+<p><a href="GuiOnCommand.htm">OnCommand</a>は、WM_COMMANDメッセージとして送信される通知に対して使用することができます。</p>
 
 </body>
 </html>
