@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>関数 - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="関数全般、パラメータ、戻り値、組み込み関数、変種関数などの詳細を説明します。" />
@@ -239,25 +239,25 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <p>それ以外の場合、関数内で既存のグローバル変数を参照する（または新規に作成する）には、その変数を使用する前にグローバル変数として宣言します。事例：</p>
 <pre>SetDataDir(Dir)
 {
-    <strong>global</strong> LogFileName
+    global LogFileName
     LogFileName := Dir . "\My.log"
-    <strong>global</strong> DataDir := Dir  <em>; <a href="#DeclareInit">後述</a>するアサインメントと組み合わせた宣言を行います。</em>
+    global DataDir := Dir  <em>; Declaration combined with assignment, described <a href="#DeclareInit">below</a>.</em>
 }
 </pre>
 <p id="AssumeGlobal"><strong>アシュームグローバルモード：</strong>ある関数が多数のグローバル変数にアクセスしたり作成したりする必要がある場合、その関数の最初の行を「global」とすることで、（パラメータを除く）すべての変数がグローバルであると仮定するよう定義することができます。事例：</p>
 <pre>SetDefaults()
 {
-    <strong>global</strong>
-    MyGlobal := 33  <em>; グローバル変数に33を代入します。必要であれば、まず変数を作成します。</em>
-    local x, y:=0, z  <em>; ローカル変数はこのモードで宣言する必要があります。そうしないとグローバル変数とみなされます。</em>
+    global
+    MyGlobal := 33  <em>; Assigns 33 to a global variable, first creating the variable if necessary.</em>
+    local x, y:=0, z  <em>; Local variables must be declared in this mode, otherwise they would be assumed global.</em>
 }</pre>
 
 <h3 id="static">スタティック変数</h3>
 <p>静的変数は常に暗黙のローカル変数ですが、呼び出しの間にその値が記憶されるため、ローカル変数とは異なります。事例：</p>
 <pre>LogToFile(TextToLog)
 {
-    <strong>static</strong> LoggedLines := 0
-    LoggedLines += 1  <em>; 現地でタリーを維持する（その価値はコール間で記憶される）。</em>
+    static LoggedLines := 0
+    LoggedLines += 1  <em>; Maintain a tally locally (its value is remembered between calls).</em>
     global LogFileName
     FileAppend LoggedLines ": " TextToLog "`n", LogFileName
 }</pre>
@@ -266,9 +266,9 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <p id="AssumeStatic"><strong>アシュームスタティックモード：</strong>関数の最初の行を「static」とすることで、宣言されていないローカル変数はすべて（パラメータを除いて）静的であると仮定するように定義することができる。事例：</p>
 <pre>GetFromStaticArray(WhichItemNumber)
 {
-    <strong>static</strong>
-    static FirstCallToUs := true  <em>; 静的宣言のイニシャライザは一度だけ実行されます。</em>
-    if FirstCallToUs  <em>; 最初の呼び出し時には静的配列を作成し、それ以降の呼び出し時には作成しない。</em>
+    static
+    static FirstCallToUs := true  <em>; Each static declaration's initializer still runs only once.</em>
+    if FirstCallToUs  <em>; Create a static array during the first call, but not on subsequent calls.</em>
     {
         FirstCallToUs := false
         StaticArray := []
@@ -284,7 +284,7 @@ MsgBox Join("`n", <b class="blue">substrings*</b>)</pre>
 <pre>global LogFileName, MaxRetries := 5
 static TotalAttempts := 0, PrevResult</pre>
 <p id="DeclareInit">変数は、宣言と同じ行で、代入を続けて初期化することができる。<a href="#InitStatic">静的イニシャライザ</a>とは異なり、ローカルとグローバルのイニシャライザは、関数が呼ばれるたびに実行されます。つまり、<code>local x := 0</code>のような行は、2つの行を別々に書いたのと同じ効果がある：<code>local x</code>に続いて<code>x := 0</code>。どのような<a href="Variables.htm#AssignOp">代入演算子</a>でも使用できますが、<code>global HitCount += 1</code>のような複合代入では、変数にあらかじめ値が代入されていることが必要です。</p>
-<p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>static</em>という言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロック</a>やELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。<code>Array1</code>や<code>Array99</code>などの変数への非動的な参照は、すでにアドレスに解決されているため、<code>global Array%i%</code> のような動的な宣言は不可能です。</p>
+<p>スクリプトの起動時に<em>local</em>、<em>global</em>、<em>static</em>という言葉が即座に処理されるため、<a href="lib/If.htm">IF文</a>によって変数を条件付きで宣言することができない。つまり、IFの<a href="lib/Block.htm">ブロック</a>やELSEの<a href="lib/Block.htm">ブロック</a>内の宣言は、関数全体に対して無条件に効力を発揮します（ただし、宣言に含まれる初期化子は条件付きで残っています）。A dynamic declaration such as <code>global MyArray%i%</code> is not possible, since all non-dynamic references to variables such as <code>MyArray1</code> or <code>MyArray99</code> would have already been resolved to addresses.</p>
 
 <h2 id="DynCall">関数を動的に呼び出す</h2>
 <p>関数呼び出し式は通常、リテラル関数名で始まりますが、呼び出しの対象は、<a href="misc/Functor.htm">関数オブジェクト</a>を生成する任意の式にすることができます。<code>GetKeyState("Shift")</code>という式では、<em>GetKeyState</em>は実際には変数参照ですが、通常は組み込み関数を含む読み取り専用変数を指します。</p>
@@ -306,8 +306,8 @@ static TotalAttempts := 0, PrevResult</pre>
 <p>上の例では、<em>ColorName</em>変数が空の場合、FindColor()関数が呼ばれることはありません。これは、<em>AND</em>の左辺が<em>false</em>であるため、その右辺は最終的な結果を<em>true</em>にすることができないからです。</p>
 <p>このため、ある関数が<em>AND</em>や <em>OR</em>の右辺で呼び出された場合、その関数が生み出す副作用（グローバル変数の内容の変更など）が発生しない可能性があることを認識しておくことが重要です。</p>
 <p>また、短絡的な評価は、ネストした<em>AND</em>と<em>OR</em>にカスケードすることに注意する必要があります。例えば、以下の式では、<em>ColorName</em>が空白の場合は、左端の比較のみが行われます。そうすると、左辺だけで最終的な答えが確実に決まるからです：</p>
-<pre>if (ColorName = "" <u>OR</u> FindColor(ColorName, Region1) <u>OR</u> FindColor(ColorName, Region2))
-    break   <em>; 検索するものがない、または一致するものが見つかった。</em></pre>
+<pre>if (ColorName = "" OR FindColor(ColorName, Region1) OR FindColor(ColorName, Region2))
+    break   <em>; Nothing to search for, or a match was found.</em></pre>
 <p>上記の例で示したように、一般的に高価な（時間のかかる）関数は、パフォーマンスを高めるために<em>AND</em>または<em>OR</em>の右辺で呼び出す必要があります。また、関数のパラメータに空文字列などの不適切な値が渡された場合に、その関数が呼び出されないようにすることも可能です。</p>
 <p><a href="Variables.htm#ternary">三項条件演算子（?:）</a>も、ロス分岐を評価しないことで短絡させる。</p>
 

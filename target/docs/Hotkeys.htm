@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>ホットキー - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="一般的なホットキー、修飾記号、文脈依存型ホットキー、カスタムコンビネーション、マウスホイールホットキー、ファンクションホットキーなどの詳細について説明します。" />
@@ -38,7 +38,7 @@
 <p id="ThisHotkey">ホットキーがトリガーされると、ホットキーの名前が<code>ThisHotkey</code>という最初のパラメータとして渡されます（末尾のコロンは除外されます）。事例：</p>
 <pre>#n::MsgBox ThisHotkey  <em>; レポート #n</em></pre>
 <p>一部の例外を除き、組み込み変数<a href="Variables.htm#ThisHotkey">A_ThisHotkey</a>と同様です。パラメータ名は、<a href="#Function">名前付き関数</a>を使用することで変更することができます。</p>
-<p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を示すために<code>^!s</code>を使用しています：</p>
+<p>1つのホットキーで複数のモディファイアを使用する場合は、連続してリストアップしてください（順番は関係ありません）。次の例では、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>を示すために<code class="no-highlight">^!s</code>を使用しています：</p>
 <pre>^!s::
 {
     <a href="lib/Send.htm">Send</a> "Sincerely,{enter}John Smith"  <em>; この行は、アクティブ（最前面）ウィンドウにキーストロークを送信します。</em>
@@ -280,12 +280,12 @@ WheelUp::ShiftAltTab</pre>
 #HotIf WinExist("ahk_group AltTabWindow")  <em>; alt-tab メニューが画面上に存在することを示します。</em>
 *MButton::Send "{Blind}{Escape}"  <em>; Altが押されていても押されていなくても発射されるように、*の接頭辞を付けています。</em>
 #HotIf</pre>
-<p>スクリプトで<code>{Alt Down}</code>を送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code>{Alt Up}</code>も送信する必要がある場合があります。</p>
+<p>スクリプトで<code class="no-highlight">{Alt Down}</code>を送信した場合（Alt-Tabメニューを呼び出すなど）、次の例のように<code class="no-highlight">{Alt Up}</code>も送信する必要がある場合があります。</p>
 
 <h3 id="AltTabRemarks">総論</h3>
 <p>現在、Alt-tabの特殊な動作は、上記の例のようにホットキーに直接割り当てる必要があります（つまり、機能のように使用することはできません）。彼らは<span class="red"><a href="lib/_HotIf.htm">#HotIf</a>の影響</span>を受けません。</p>
-<p>alt-tabアクションは、<code>up</code>キーワードが使用されているかどうかにかかわらず、キーダウンおよび/またはキーアップで有効になる可能性があり、同じキー上の他のアクションと組み合わせることはできません。例えば、<code>F1::AltTabMenu</code>と<code>F1 up::OtherAction()</code>の両方を使用することはサポートされていません。</p>
-<p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code>ahk_group AltTabWindow</code>を使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code>ahk_group AltTabWindow</code>は、お使いのシステムに適した<code>ahk_class</code>に置き換えることができます。</p>
+<p>alt-tabアクションは、<code class="no-highlight">up</code>キーワードが使用されているかどうかにかかわらず、キーダウンおよび/またはキーアップで有効になる可能性があり、同じキー上の他のアクションと組み合わせることはできません。例えば、<code>F1::AltTabMenu</code>と<code>F1 up::OtherAction()</code>の両方を使用することはサポートされていません。</p>
+<p id="AltTabWindow">また、alt-tabのカスタムアクションをホットキーで作成することも可能です。alt-tabメニューのアイデンティティはOSのバージョンによって異なるため、以下のようにウィンドウグループを使用すると便利な場合があります。<code class="no-highlight">ahk_group AltTabWindow</code>を使用する上下の例では、<a href="Scripts.htm#auto">スクリプト起動</a>時にこのウィンドウグループが定義されていることが期待されます。あるいは、<code class="no-highlight">ahk_group AltTabWindow</code>は、お使いのシステムに適した<code class="no-highlight">ahk_class</code>に置き換えることができます。</p>
 <pre>GroupAdd "AltTabWindow", "ahk_class MultitaskingViewFrame"  <em>; Windows 10</em>
 GroupAdd "AltTabWindow", "ahk_class TaskSwitcherWnd"  <em>; Windows Vista、7、8.1</em>
 GroupAdd "AltTabWindow", "ahk_class #32771"  <em>; オールド、またはクラシックなalt-tabを有効にした場合。</em></pre>

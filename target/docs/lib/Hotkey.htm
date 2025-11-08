@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Hotkey - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="Hotkey関数は、スクリプトの実行中にホットキーを作成、変更、有効化、または無効化する機能です。" />
@@ -23,9 +23,9 @@
   <dt>KeyName</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p><a href="../Hotkeys.htm#Symbols">修飾記号</a>を含む、ホットキーの起動キーの名前。例えば、<kbd>Win</kbd>+<kbd>C</kbd>のホットキーには<code>#c</code>を指定します。</p>
+    <p><a href="../Hotkeys.htm#Symbols">修飾記号</a>を含む、ホットキーの起動キーの名前。For example, specify <code>"#c"</code> for the <kbd>Win</kbd>+<kbd>C</kbd> hotkey.</p>
     <p>If <em>KeyName</em> already exists as a hotkey -- either by the Hotkey function or a <a href="../Hotkeys.htm">double-colon label</a> in the script -- that hotkey will be updated with the values of the function's other parameters.</p>
-    <p><em>既存</em>のホットキーを指定する場合、<em>KeyName</em>の大文字と小文字は区別されません。ただし、キーの名前は既存のホットキーと同じスペルでなければなりません（例：この目的ではEscはEscapeと同じではありません）。また、<code>^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。<a href="GetKeyName.htm">GetKeyName</a>を使用して、キー名の標準的な綴りを取得することができます。</p>
+    <p><em>既存</em>のホットキーを指定する場合、<em>KeyName</em>の大文字と小文字は区別されません。ただし、キーの名前は既存のホットキーと同じスペルでなければなりません（例：この目的ではEscはEscapeと同じではありません）。また、<code class="no-highlight">^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。<a href="GetKeyName.htm">GetKeyName</a>を使用して、キー名の標準的な綴りを取得することができます。</p>
     <p>When a hotkey is first created -- either by the Hotkey function or the <a href="../Hotkeys.htm">double-colon syntax</a> in the script -- its key name and the ordering of its modifier symbols becomes the permanent name of that hotkey as reflected by <a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>. この名前は、ホットキーのすべての<a href="_HotIf.htm#variant">バリエーション</a>で共有され、ホットキー機能が後で異なるシンボル順序でホットキーにアクセスしても変更されることはありません。</p>
     <p>ホットキーバリアントがすでに存在する場合、<em>KeyName</em>が<a href="../Hotkeys.htm#Tilde">チルダ（~）接頭辞を</a>含むか含まないかによって、その動作が更新されます。</p>
     <p>既存のホットキーに<a href="../Hotkeys.htm#prefixdollar">ユースフック（$）プレフィックス</a>を追加することができます。この接頭辞は、ホットキーのすべてのバリエーションに影響し、削除することはできません。</p>
@@ -59,11 +59,11 @@
       <p>A string of zero or more of the following options with optional spaces in between. 事例：<code>"On B0"</code>。</p>
       <p><strong>On：</strong>ホットキーが現在無効になっている場合は、有効にします。</p>
       <p><strong>Off：</strong>ホットキーが現在有効になっている場合は、無効にします。これは、通常、初期状態では無効な状態のホットキーを作成するために使用されます。</p>
-      <p><strong>B</strong> または <strong>B0</strong>:Bを指定すると、<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>で説明したように、ホットキーをバッファリングします。このタイプのバッファリングを無効にする場合は、<code>B0</code>（Bに数字0）を指定します。</p>
+      <p><strong>B</strong> または <strong>B0</strong>:Bを指定すると、<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>で説明したように、ホットキーをバッファリングします。このタイプのバッファリングを無効にする場合は、<code class="no-highlight">B0</code>（Bに数字0）を指定します。</p>
       <p><strong>P</strong><em>n</em>：文字Pの後にホットキーの<a href="../misc/Threads.htm">スレッド優先順位</a>を指定します。ホットキー作成時にPオプションが省略された場合は、0が使用されます。</p>
       <p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>：Sを指定すると、ホットキーが<a href="Suspend.htm">サスペンド</a>を<a href="_SuspendExempt.htm">免除</a>するようになり、サスペンドをオフにするためにホットキーを使用できるようになります。S0（Sに数字の0）を指定すると、免除が解除され、ホットキーが中断できるようになります。</p>
-      <p><strong>T</strong><em>n</em>:<a href="_MaxThreadsPerHotkey.htm">MaxThreadsPerHotkey</a>で説明したように、このホットキーで許可するスレッド数を文字Tの後に続けて指定します。事例：<code>T5</code>。</p>
-      <p><strong>I</strong><em>n</em>（InputLevel）：文字I（またはi）の後にホットキーの<a href="_InputLevel.htm">入力</a>レベルを指定します。事例：<code>I1</code>。</p>
+      <p><strong>T</strong><em>n</em>:<a href="_MaxThreadsPerHotkey.htm">MaxThreadsPerHotkey</a>で説明したように、このホットキーで許可するスレッド数を文字Tの後に続けて指定します。事例：<code class="no-highlight">T5</code>。</p>
+      <p><strong>I</strong><em>n</em>（InputLevel）：文字I（またはi）の後にホットキーの<a href="_InputLevel.htm">入力</a>レベルを指定します。事例：<code class="no-highlight">I1</code>。</p>
       <p>オプション文字が省略され、ホットキーがすでに存在する場合、それらのオプションは変更されません。しかし、ホットキーがまだ存在しない場合、つまりこの機能によって作成されようとしている場合、オプションは直近で有効だったものがデフォルトとなります。例えば、スクリプトの一番下にある<a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a>のインスタンスが使用されます。<a href="_MaxThreadsBuffer.htm">MaxThreadsBuffer</a>がスクリプトに表示されていない場合は、そのデフォルト設定（この場合はOFF）が使用されます。</p>
       </dd>
 
@@ -81,11 +81,11 @@
   <tr>
     <td rowspan="4"><a href="Error.htm#ValueError">ValueError</a></td>
     <td>無効なキー名です。</td>
-    <td><em>KeyName</em>パラメータは、現在のキーボードレイアウト/言語で認識されていない、またはサポートされていない1つまたは複数のキーを指定します。<a href="Error.htm#Extra">Exception.Extra</a>には、キー名が含まれます。例えば、<code>!Entre</code>の "Entre"。</td>
+    <td><em>KeyName</em>パラメータは、現在のキーボードレイアウト/言語で認識されていない、またはサポートされていない1つまたは複数のキーを指定します。<a href="Error.htm#Extra">Exception.Extra</a>には、キー名が含まれます。例えば、<code class="no-highlight">!Entre</code>の "Entre"。</td>
   </tr>
   <tr>
     <td>未対応のプレフィックスキーです。</td>
-    <td>例えば、<code>WheelDown &amp; Enter</code>のようなホットキーの接頭辞としてマウスホイールを使用することはサポートされていません。<a href="Error.htm#Extra">Exception.Extra</a>にはプレフィックスキーが含まれています。</td>
+    <td>例えば、<code class="no-highlight">WheelDown &amp; Enter</code>のようなホットキーの接頭辞としてマウスホイールを使用することはサポートされていません。<a href="Error.htm#Extra">Exception.Extra</a>にはプレフィックスキーが含まれています。</td>
   </tr>
   <tr>
     <td>このAltTabホットキーは、正確に1つの修飾語/接頭辞を持つ必要があります。</td>
@@ -119,7 +119,7 @@ catch TargetError
 
 <h2 id="Remarks">備考</h2>
 <p><a href="HotIf.htm">現在のHotIf設定</a>は、Hotkey機能が動作するホットキーの<a href="#variant">バリアント</a>を決定します。</p>
-<p>アクティブなウィンドウの種類に応じて選択したホットキーやホットストリングを自動的に無効にすることを目的とする場合、<code>Hotkey "^!c", "Off"</code> は通常、<a href="WinActive.htm">WinActive</a>/<a href="WinExist.htm">WinExist</a>（またはその動的対応である<a href="HotIf.htm#IfWin">HotIfWinActive/Exist</a>）で<a href="_HotIf.htm">#HotIf</a>を使用するより利便性が低くなります。</p>
+<p>If the goal is to disable selected hotkeys automatically based on the type of window that is active, <code>Hotkey "^!c", "Off"</code> is usually less convenient than using <a href="_HotIf.htm">#HotIf</a> with <a href="WinActive.htm">WinActive</a>/<a href="WinExist.htm">WinExist</a> (or their dynamic counterparts <a href="HotIf.htm#IfWin">HotIfWinActive/Exist</a>).</p>
 <p><a href="../Hotkeys.htm">ダブルコロン構文</a>でホットキーを作成すると、スクリプトの起動時に一括してホットキーを有効にできるため、ホットキー機能を使用するよりもパフォーマンスが向上します（1つずつ有効にするのではありません）。したがって、この機能は、スクリプトの実行が開始されるまでキー名がわからないホットキーだけを作成するために使用するとよいでしょう。例えば、スクリプトのホットキーで様々なアクションを行う場合、<a href="IniRead.htm">INI</a>ファイルで設定することが可能です。</p>
 <p>スクリプトが<a href="Suspend.htm">サスペンド</a>されている場合、新しく追加/有効になったホットキーも、サスペンドがオフになるまでサスペンドされます（<a href="Suspend.htm">サスペンド</a>セクションで説明したように免除される場合を除く）。</p>
 <p><a href="InstallKeybdHook.htm">キーボード</a>や <a href="InstallMouseHook.htm">マウス</a>のフックは、本機能による変更で正当化される場合、取り付けまたは取り外しが可能です。</p>
@@ -135,7 +135,7 @@ Hotkey "^!c", MyFuncForWordPad
 HotIfWinActive
 Hotkey "^!c", MyFuncForAllOtherWindows</pre>
 <p>ホットキーの複数のバリエーションが発火の対象となる場合、最も早く作成されたものだけが発火します。The exception to this is the global variant (the one with no HotIf criteria): It always has the lowest precedence, and thus will fire only if no other variant is eligible.</p>
-<p>重複するホットキーを作成する場合、<code>^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。例えば、<code>"^!c "</code>は<code>"!^c "</code>と同じです。ただし、キーは一貫したスペルで表記する必要があります。例えば、<em>Esc</em>はこの目的では<em>Escape</em>と同じではありません（ただし、ケースは重要ではありません）。最後に、<a href="../Hotkeys.htm#wildcard">ワイルドカード接頭辞(*)</a>を持つホットキーは、ワイルドカードでないものと全く別物です。例えば、「<code>*F1</code>」と「<code>F1</code>」は、それぞれ独自のバリエーションを持つことになります。</p>
+<p>重複するホットキーを作成する場合、<code class="no-highlight">^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。例えば、<code>"^!c "</code>は<code>"!^c "</code>と同じです。ただし、キーは一貫したスペルで表記する必要があります。例えば、<em>Esc</em>はこの目的では<em>Escape</em>と同じではありません（ただし、ケースは重要ではありません）。最後に、<a href="../Hotkeys.htm#wildcard">ワイルドカード接頭辞(*)</a>を持つホットキーは、ワイルドカードでないものと全く別物です。例えば、「<code>*F1</code>」と「<code>F1</code>」は、それぞれ独自のバリエーションを持つことになります。</p>
 <p>For more information, see <a href="HotIf.htm">HotIf</a> and <a href="_HotIf.htm#general-remarks">#HotIf's General Remarks</a>.</p>
 
 <h2 id="Related">関連</h2>

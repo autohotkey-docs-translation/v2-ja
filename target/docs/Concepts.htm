@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>概念と慣習｜AutoHotkey v2</title>
 <meta name="description" content="AutoHotkeyで使用される一般的な概念や慣習について、コードよりも説明に重点を置いて詳しく説明します。" />
@@ -80,7 +80,7 @@ Exception handling
   <li><code>0x7B</code>、<code>0x007B</code>、<code>-0x1</code>などの16進数の整数値。</li>
   <li><code>3.14159</code>のような10進数の浮動小数点数。</li>
 </ul>
-<p>16進数の場合は、ドキュメントに記載されている場合を除き、<code>0x</code>または<code>0X</code>のプレフィックスを使用する必要があります。この接頭辞は、<code>+</code>または<code>-</code>記号がある場合はその後に、先行するゼロの前に書かなければならない。例えば、<code>0x001</code>は有効ですが、<code>000x1</code>は無効です。</p>
+<p>16進数の場合は、ドキュメントに記載されている場合を除き、<code>0x</code>または<code>0X</code>のプレフィックスを使用する必要があります。この接頭辞は、<code>+</code>または<code>-</code>記号がある場合はその後に、先行するゼロの前に書かなければならない。例えば、<code>0x001</code>は有効ですが、<code class="no-highlight">000x1</code>は無効です。</p>
 <p>小数点のある数値は、小数部が0であっても、常に浮動小数点とみなされます。例えば、<code>42</code>と <code>42.0</code>は通常互換性がありますが、常に互換性があるわけではありません。科学表記も認識されるが（例：<code>1.0e4</code> 、<code>-2.1E-4</code>）、小数点以下がない場合でも常に浮動小数点数の数値が生成されます。</p>
 <p>ユーザーの地域設定でカンマが指定されている場合でも、小数点以下の区切り記号は常にドットです。</p>
 <p id="number-default-format">数値を文字列に変換した場合、10進数でフォーマットされます。浮動小数点数は、完全な精度でフォーマットされます（ただし、余分な末尾のゼロは削除されます）ので、場合によっては<a href="#float-imprecision">不正確</a>であることがわかります。数値文字列を別の形式で出力する場合は、<a href="lib/Format.htm">Format</a>関数を使用します。浮動小数点数は、<a href="lib/Math.htm#Round">Round</a>関数を使って整形することも可能です。</p>
@@ -167,7 +167,7 @@ myObj[arg1, arg2, ..., argN] := value
 <p>変数に値がない場合、<a href="Variables.htm#or-maybe">or-maybe演算子(??)</a>を使ってデフォルト値を提供することができる。例えば、<code>MyVar ?? "Default"</code> は、<code>IsSet(MyVar) ? MyVar : "Default"</code>と同等です。</p>
 
 <h3 id="built-in-variables">組込変数</h3>
-<p>プログラムには便利な変数が多数組み込まれており、どのスクリプトからも参照することができます。注意書きがある場合を除き、これらの変数は読み取り専用です。つまり、スクリプトでその内容を直接変更することはできません。慣習上、これらの変数のほとんどは接頭辞<code>A_</code>で始まります。</p>
+<p>プログラムには便利な変数が多数組み込まれており、どのスクリプトからも参照することができます。注意書きがある場合を除き、これらの変数は読み取り専用です。つまり、スクリプトでその内容を直接変更することはできません。慣習上、これらの変数のほとんどは接頭辞<code class="no-highlight">A_</code>で始まります。</p>
 <p><a href="Variables.htm#KeyDelay">A_KeyDelay</a>や <a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a>などの一部の変数は、スクリプトの動作を制御する設定を表し、<a href="misc/Threads.htm">各スレッド</a>で別々の値を保持します。これにより、新しいスレッドで起動したサブルーチン（ホットキー、メニュー、タイマーなど）が、他のスレッドに影響を与えずに設定を変更することができます。</p>
 <p>特殊な変数の中には、定期的に更新されるのではなく、スクリプトがその変数を参照するたびに、その値が取得または計算されるものがあります。例えば、<a href="lib/A_Clipboard.htm">A_Clipboard</a>はクリップボードの現在の内容をテキストとして取得し、<a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkey</a>はホットキーが押されてから経過したミリ秒数を計算します。</p>
 <p>関連：<a href="Variables.htm#BuiltIn">組み込み変数のリスト</a>。</p>
@@ -294,7 +294,7 @@ Send "Hello, world{!}"
 <p class="note"><strong>注：</strong>AutoHotkey v2はネイティブでUnicodeを使用し、ANSIバージョンはありません。</p>
 <p id="character"><strong>文字：</strong>一般に、この文書の他の部分では、文字列の最小単位を意味する用語「文字」を使用しています。ANSI文字列ではバイト、Unicode（UTF-16）文字列では16ビットコード単位です。実用的な理由から、文字列の長さや文字列内の位置は、完全なUnicode文字でなくても、これらの固定サイズのユニットをカウントして測定されます。</p>
 <p><a href="lib/FileRead.htm">FileRead</a>、<a href="lib/FileAppend.htm">FileAppend</a>、<a href="lib/FileOpen.htm">FileOpen</a>、<a href="lib/File.htm">Fileオブジェクト</a>は、特定のエンコーディングを持つファイル内のテキストの読み書きの方法を提供します。</p>
-<p><a href="lib/StrGet.htm">StrGet</a>、<a href="lib/StrPut.htm">StrPut</a>関数は、文字列をネイティブエンコーディングと他の指定されたエンコーディングの間で変換するために使用することができます。しかし、これらは通常、データ構造や<a href="lib/DllCall.htm">DllCall</a>関数との組み合わせでのみ有効です。<a href="lib/DllCall.htm">DllCall</a>に直接渡される文字列や<a href="lib/DllCall.htm">DllCall</a>から渡される文字列は、<code>AStr</code>または<code>WStr</code>パラメータ型を使用してANSIまたはUTF-16に変換することができます。</p>
+<p><a href="lib/StrGet.htm">StrGet</a>、<a href="lib/StrPut.htm">StrPut</a>関数は、文字列をネイティブエンコーディングと他の指定されたエンコーディングの間で変換するために使用することができます。しかし、これらは通常、データ構造や<a href="lib/DllCall.htm">DllCall</a>関数との組み合わせでのみ有効です。<a href="lib/DllCall.htm">DllCall</a>に直接渡される文字列や<a href="lib/DllCall.htm">DllCall</a>から渡される文字列は、<code class="no-highlight">AStr</code>または<code class="no-highlight">WStr</code>パラメータ型を使用してANSIまたはUTF-16に変換することができます。</p>
 <p>AutoHotkeyのANSI版とUnicode版の違いに対応するためのテクニックは、「<a href="Compat.htm#Format">Unicode vs ANSI</a>」で紹介されています。</p>
 
 <h3 id="pure-numbers">純粋数</h3>
@@ -332,8 +332,8 @@ MsgBox 0.1 + 0.2 = 0.3   <em>; 0（ノットイコール）</em>
 <p><strong>大文字と小文字の区別：</strong>ASCII 文字の場合、なし。例えば、<code>CurrentDate</code>は <code>currentdate</code>と同じです。ただし、'Ä'などの大文字の非ASCII文字は、現在のユーザーのロケールに関係なく、小文字の対応する文字と同等とはみなさ<em>れない</em>。これにより、スクリプトが複数のロケール間で一貫した動作をするようになります。</p>
 <p><strong>最大文字数：</strong>253文字。</p>
 <p><strong>使用できる文字：</strong>文字、数字、アンダースコア、非ASCII文字。ただし、数字で始めることができるのはプロパティ名のみです。</p>
-<p id="reserved-words"><strong>予約語：</strong> <code>as</code>、<code>and</code>、<code>contains</code>、<code>false</code>、<code>in</code>、<code>is</code>、<code>IsSet</code>、<code>not</code>、<code>or</code>、<code>super</code>、<code>true</code>、<code>unset</code>。これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
-<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>、<code>Case</code>、<code>Catch</code>、<code>Continue</code>、<code>Else</code>、<code>Finally</code>、<code>For</code>、<code>Global</code>、<code>Goto</code>、<code>If</code>、<code>Local</code>、<code>Loop</code>、<code>Return</code>、<code>Static</code>、<code>Switch</code>、<code>Throw</code>、<code>Try</code>、<code>Until</code>、<code>While</code></p>
+<p id="reserved-words"><strong>予約語：</strong> <code class="no-highlight">as</code>、<code>and</code>、<code class="no-highlight">contains</code>、<code>false</code>、<code class="no-highlight">in</code>、<code>is</code>、<code>IsSet</code>、<code>not</code>、<code>or</code>、<code>super</code>、<code>true</code>、<code>unset</code>。これらの単語は、将来の使用やその他の特定の目的のために予約されています。</p>
+<p>宣言キーワードや制御フロー文の名前も、主に間違いを検出するために予約されています。包含：<code>Break</code>、<code class="no-highlight">Case</code>、<code>Catch</code>、<code>Continue</code>、<code>Else</code>、<code>Finally</code>、<code>For</code>、<code>Global</code>、<code>Goto</code>、<code>If</code>、<code>Local</code>、<code>Loop</code>、<code>Return</code>、<code>Static</code>、<code>Switch</code>、<code>Throw</code>、<code>Try</code>、<code>Until</code>、<code>While</code></p>
 <p>プロパティ名、メソッド名、ウィンドウグループ名には予約語を使用することができる。</p>
 
 <h3 id="references-to-objects">オブジェクトへの参照</h3>

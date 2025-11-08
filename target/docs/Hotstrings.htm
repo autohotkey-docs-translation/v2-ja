@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>ホットストリング - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="ホットストリング全般、エンディングキャラクター、オプション、ロングリプレイスメント、文脈依存型ホットストリング、関数ホットストリングなどについての詳細を説明します。" />
@@ -78,7 +78,7 @@
 <p id="Pn"><strong>Pn：</strong>ホットストリングの<a href="misc/Threads.htm">優先順位</a>（例：P1）。このめったに使われないオプションは、<a href="#auto">自動置換ホットストリング</a>には影響しません。</p>
 <p id="raw"><strong>R：</strong>つまり、{Enter}を<kbd>Enter</kbd>に、^cを<kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換せずに、<a href="lib/Send.htm#SendRaw">生</a>のまま置換テキストを送信します。<strong>R0</strong>でこのオプションをオフに戻すか、<strong>T</strong>で上書きしてください。</p>
 <p class="note"><strong>注：</strong> <a href="#T">テキストモード</a>の方が信頼性が高い場合があります。RとTのオプションは相互に排他的です。</p>
-<p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>：ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象外</a>にする場合は、Sを指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code>S</code>または<code>#SuspendExempt</code>のいずれかがホットストリングを免除します。つまり、指令を上書きするには、ホットストリング内で<code>S0</code>を明示的に使用する必要がある。</p>
+<p id="SuspendExempt"><strong>S</strong> または <strong>S0</strong>：ホットストリングを<a href="lib/Suspend.htm">サスペンド</a><a href="lib/_SuspendExempt.htm">対象外</a>にする場合は、Sを指定します。S0（Sに数字の0）を指定すると、免除が解除され、ホットストリングが中断できるようになります。デフォルトのオプションとして適用される場合、<code class="no-highlight">S</code>または<code>#SuspendExempt</code>のいずれかがホットストリングを免除します。つまり、指令を上書きするには、ホットストリング内で<code class="no-highlight">S0</code>を明示的に使用する必要がある。</p>
 <p id="SendMode"><strong>SI</strong> または <strong>SP</strong> または <strong>SE</strong>：<a href="#auto">自動置換ホットストリング</a>がキー入力を送信する方法を設定します。これらのオプションは相互に排他的です：同時に1つだけ有効にすることができます。以下、各オプションについて説明します：</p>
 <ul>
   <li id="SI">SIは<a href="lib/Send.htm#SendInputDetail">SendInput</a>の略で、通常、他のモードよりも速度や信頼性に優れています。もう一つの利点は、以下のSendPlayと同様に、SendInputはホットストリングの<a href="#auto">自動置換テキスト</a>中に入力したものを延期することです。これにより、自分のキー入力と交換者のキー入力が混在することを防ぎます。SendInputが<a href="lib/Send.htm#SendInputUnavail">利用できない</a>場合、ホットストリングは自動的にSendPlayを代わりに使用します。</li>
@@ -118,7 +118,7 @@
 
 <h2 id="remarks">備考</h2>
 <p>現在、置換テキスト内の<a href="Variables.htm#Expressions">式</a>はサポートされていません。これを回避するためには、このようなホットストリングを<a href="#auto">自動置換</a>しないようにします。Instead, use the <a href="lib/Send.htm">Send</a> function in the body of the hotstring or in combination with the <a href="#X">X (execute) option</a>.</p>
-<p>To send an extra space or tab after a replacement, include the <a href="misc/EscapeChar.htm">escape sequence</a> <code>`s</code> or <code>`t</code> at the end of the replacement, e.g. <code>:*:btw::by the way`s</code>.</p>
+<p>To send an extra space or tab after a replacement, include the <a href="misc/EscapeChar.htm">escape sequence</a> <code class="no-highlight">`s</code> or <code class="no-highlight">`t</code> at the end of the replacement, e.g. <code>:*:btw::by the way`s</code>.</p>
 <p id="ReplaceBrace"><a href="#T">Text</a>モードや<a href="#raw">Raw</a>モードを使用しない自動置換ホットストリングの場合、<code>{</code>だけ、またはホワイトスペースだけで先行するものを送信するには、2つのブラケットで囲む必要があります。例えば<code>:*:brace::{{}</code>と<code>:*:space_brace:: {{}</code>。それ以外の場合は、<a href="lib/Block.htm#otb">OTB（One True Brace）スタイル</a>をサポートするホットストリングの機能のためのオープニングブレースと解釈されます。</p>
 <p id="NoMouse">デフォルトでは、マウスの左ボタンまたは右ボタンをクリックすると、ホットストリング認識機能がリセットされます。つまり、スクリプトは全く新しいホットストリングを待ち始め、以前に入力したものは考慮されなくなります（これが望ましくない場合は、スクリプトのどこかに<code><a href="lib/_Hotstring.htm">#Hotstring</a> NoMouse</code>という行を指定してください）。クリックするたびにテキスト挿入点（キャレット）が移動したり、キーボードフォーカスが新しいコントロール/フィールドに設定されるのが普通なので、この「マウスクリックでリセット」動作がデフォルトになっています。このような場合、通常は、以下のようにすることが望ましい：1)ホットストリングが<a href="#Question">クエスチョンマークオプション</a>を欠いていても発射します。2)マウスをクリックした後に入力したものが、誤って前に入力したものと有効な略語を形成した場合に発射されるのを防止します。</p>
 <p id="focus-reset">ホットストリングレコグナイザーは、文字が入力されるたびにアクティブなウィンドウをチェックし、以前とは異なるウィンドウがアクティブな場合はリセットされます。アクティブウィンドウが変更され、文字が入力される前に元に戻った場合、変更は検出されません（ただし、他の理由でホットストリング認識装置がリセットされる場合があります）。ホットストリングレコグナイザーをリセットするには、次のようにします。 <code><a href="lib/Hotstring.htm#Reset">Hotstring "Reset"</a></code>。</p>

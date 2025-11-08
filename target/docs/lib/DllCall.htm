@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>DllCall - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="DllCall関数は、Windows標準のAPI関数など、DLL内部の関数を呼び出します。" />
@@ -26,7 +26,7 @@
       <p>指定された名前の関数が見つからない場合は、自動的に「W」（ユニコード）の接尾辞が付加されます。例えば、<code>"MessageBox"</code>は<code>"MessageBoxW"</code>と同じです。</p>
       <p>DLLを<em>繰り返し</em>呼び出す場合、<a href="#load">あらかじめロードして</a>おくことでパフォーマンスを飛躍的に向上させることができます。</p>
       <p>このパラメータは、呼び出す関数のアドレスとして解釈される整数値のみからなることもあります。このようなアドレスのソースには、<a href="#COM">COM</a>と <a href="CallbackCreate.htm">CallbackCreate</a>があります。</p>
-      <p>このパラメータがオブジェクトである場合、オブジェクトの<code>Ptr</code>プロパティの値が使用されます。そのようなプロパティが存在しない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。</p>
+      <p>このパラメータがオブジェクトである場合、オブジェクトの<code class="no-highlight">Ptr</code>プロパティの値が使用されます。そのようなプロパティが存在しない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。</p>
   </dd>
 
   <dt>Type1, Arg1</dt>
@@ -63,7 +63,7 @@
   <p>関数がパラメータの入力値よりも長い文字列を保存するように設計されている場合（またはパラメータが出力のみの場合）、推奨される方法は、<a href="#ExWsprintf">wsprintfの例</a>のように、<a href="Buffer.htm">Buffer</a>を作成し、<a href="#ptr">Ptr</a>型を使ってそれを渡し、関数が戻った後に<a href="StrGet.htm">StrGet</a>を使って文字列を取得する方法です。</p>
   <p>そうでない場合は、関数を呼び出す前に、変数が十分な大きさであることを確認します。ここで、123は<em>MyVar</em>が保持しなければならない16ビット単位（緩やかに文字と呼ばれる）の数である、<code><a href="VarSetStrCapacity.htm">VarSetStrCapacity</a>(&amp;MyVar, 123)</code>を呼び出すことで実現できる。戻り時に変数がヌル終端でない場合は、バッファオーバーランによりメモリが破壊された可能性が高いので、エラーメッセージを表示してプログラムを終了します。これは通常、変数の容量が不足していることを意味します。</p>
   <p><em>Str</em>引数は、数値（<code>i+1</code>など）に評価される<a href="../Variables.htm#Expressions">式</a>であってはならない。もしそうであれば、関数は呼び出されず、<a href="Error.htm#TypeError">TypeError</a>が投げられる。</p>
-  <p id="strp">めったに使われない<a href="#asterisk">Str*</a>arg型は、文字列のアドレスを含む一時変数のアドレスを渡します。関数が一時変数に新しいアドレスを書き込むと、<a href="../Concepts.htm#variable-references">VarRef</a>が渡された場合、新しい文字列はスクリプトの変数にコピーされます。これは、「TCHAR **」や「LPTSTR *」のようなものを期待する関数で使用することができます。しかし、関数がメモリを確保し、呼び出し側がそれを解放することを期待する場合（<a href="https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>を呼び出すなど）、代わりに<code>Ptr*</code>arg型を使用する必要があります。</p>
+  <p id="strp">めったに使われない<a href="#asterisk">Str*</a>arg型は、文字列のアドレスを含む一時変数のアドレスを渡します。関数が一時変数に新しいアドレスを書き込むと、<a href="../Concepts.htm#variable-references">VarRef</a>が渡された場合、新しい文字列はスクリプトの変数にコピーされます。これは、「TCHAR **」や「LPTSTR *」のようなものを期待する関数で使用することができます。しかし、関数がメモリを確保し、呼び出し側がそれを解放することを期待する場合（<a href="https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>を呼び出すなど）、代わりに<code class="no-highlight">Ptr*</code>arg型を使用する必要があります。</p>
   <p class="note"><strong>注意：</strong>関数に文字列を渡すときは、その関数がどの<a href="../Compat.htm#DllCall"><i>型</i></a>の<a href="../Compat.htm#DllCall">文字列</a>を期待しているかを意識してください。</p></td>
 </tr>
 <tr>
@@ -111,8 +111,8 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 <tr id="ptr">
   <td>Ptr</td>
   <td><p><a href="../Variables.htm#PtrSize">ポインタサイズ</a>の整数で、スクリプトを実行するexeが32ビットか64ビットかに応じて、IntまたはInt64に相当します。<i>Ptr</i>は、配列や構造体へのポインタ（RECT*やLPPOINTなど）や、ほとんどすべてのハンドル（HWND、HBRUSH、HBITMAPなど）に使用する必要があります。パラメータがLPDWORDやint*のような単一の数値へのポインタの場合、一般に「Ptr」の代わりに*またはP接尾辞を使用する必要があります。</p>
-  <p>Ptrパラメータにオブジェクトが渡された場合、そのオブジェクトの<code>Ptr</code>プロパティの値が使用されます。そのようなプロパティが存在しない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。通常、オブジェクトは<a href="Buffer.htm">Buffer</a>となります。</p>
-  <p>Ptr*パラメータにオブジェクトが渡された場合、呼び出し前にオブジェクトの<code>Ptr</code>プロパティの値が取得され、この値を含む一時変数のアドレスが関数に渡されます。関数が戻った後、新しい値はオブジェクトの<code>Ptr</code>プロパティに再び割り当てられます。</p>
+  <p>Ptrパラメータにオブジェクトが渡された場合、そのオブジェクトの<code class="no-highlight">Ptr</code>プロパティの値が使用されます。そのようなプロパティが存在しない場合、<a href="Error.htm#PropertyError">PropertyError</a>が投げられる。通常、オブジェクトは<a href="Buffer.htm">Buffer</a>となります。</p>
+  <p>Ptr*パラメータにオブジェクトが渡された場合、呼び出し前にオブジェクトの<code class="no-highlight">Ptr</code>プロパティの値が取得され、この値を含む一時変数のアドレスが関数に渡されます。関数が戻った後、新しい値はオブジェクトの<code class="no-highlight">Ptr</code>プロパティに再び割り当てられます。</p>
   <p><i>Ptr</i>は接尾辞に*やPを付けて使うこともできます。LPVOID*などを使ってポインタを出力する関数と一緒に使う必要があります。</p>
   <p><i>UPtr</i> is also valid, with the following limitations:</p>
   <ul>
@@ -165,15 +165,15 @@ str := StrGet(buf, "cp0")  <em>; バッファからANSI文字列を取得しま�
 
 <h2 id="load">パフォーマンス</h2>
 <p>DLLを繰り返し呼び出す場合、明示的にロードすることでパフォーマンスを飛躍的に向上させることができます（<em>User32などの<a href="#std">標準的なDLL</a>は常に常駐しているため必要ありません</em>）。この方法によって、DllCallが内部でLoadLibraryとFreeLibraryを毎回呼び出す必要を回避することができます。事例：</p>
-<pre>hModule := DllCall("<strong>LoadLibrary</strong>", "Str", "MyFunctions.dll", "Ptr")  <em>; ループ内でDllCallしてライブラリを読み込む必要を回避。</em>
+<pre>hModule := DllCall("LoadLibrary", "Str", "MyFunctions.dll", "Ptr")  <em>; Avoids the need for DllCall in the loop to load the library.</em>
 Loop Files, "C:\My Documents\*.*", "R"
     result := DllCall("MyFunctions\BackupFile", "Str", A_LoopFilePath)
-DllCall("<strong>FreeLibrary</strong>", "Ptr", hModule)  <em>; メモリ節約のため、使用後はDLLをアンロードすることがあります。</em></pre>
+DllCall("FreeLibrary", "Ptr", hModule)  <em>; To conserve memory, the DLL may be unloaded after using it.</em></pre>
 <p>; 関数のアドレスをあらかじめ調べておくことで、さらに高速なパフォーマンスを実現することができます。事例：</p>
 <pre><em>; 次の例では、DLLがまだロードされていない場合、GetModuleHandleの代わりにLoadLibraryを使用してください。</em>
-<strong>MulDivProc</strong> := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "<strong>kernel32</strong>", "Ptr"), "AStr", "<strong>MulDiv</strong>", "Ptr")
+MulDivProc := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "kernel32", "Ptr"), "AStr", "MulDiv", "Ptr")
 Loop 500
-    DllCall(<strong>MulDivProc</strong>, "Int", 3, "Int", 4, "Int", 3)</pre>
+    DllCall(MulDivProc, "Int", 3, "Int", 4, "Int", 3)</pre>
 <p>DllCallの第1パラメータが<code>"MulDiv"</code>などのリテラル文字列で、その関数を含むDLLがスクリプトの開始前に通常ロードされているか、<a href="_DllLoad.htm">#DllLoad</a>で正常にロードされていれば、文字列は自動的に関数アドレスに解決されます。このビルトイン最適化は、上に示した例よりも効果的です。</p>
 <p>最後に、文字列の長さを変えない関数に文字列変数を渡す場合、変数を「<a href="#str">str</a>」としてではなく、<a href="StrPtr.htm">アドレス</a>で渡す（例：<code>StrPtr(MyVar)</code>）ことでパフォーマンスが向上します（特に文字列が非常に長い場合）。次の例は、文字列を大文字に変換するものです：<code>DllCall("CharUpper", "<strong>Ptr</strong>", StrPtr(MyVar), "Ptr")</code>。</p>
 
@@ -215,7 +215,7 @@ MsgBox "You pressed button #" WhichButton</pre>
 
 <div class="ex" id="ExWallpaper">
 <p><a class="ex_number" href="#ExWallpaper"></a> デスクトップの壁紙を、指定したビットマップ（.bmp）ファイルに変更します。</p>
-<pre>DllCall("SystemParametersInfo", "UInt", 0x14, "UInt", 0, "Str", A_WinDir <strong>.</strong> "\winnt.bmp", "UInt", 1)</pre>
+<pre>DllCall("SystemParametersInfo", "UInt", 0x14, "UInt", 0, "Str", A_WinDir . "\winnt.bmp", "UInt", 1)</pre>
 </div>
 
 <div class="ex" id="ExIsWindowVisible">

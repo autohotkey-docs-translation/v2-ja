@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>FileOpen - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="FileOpen 関数は、ファイルを開いて特定のコンテンツを読み込んだり、新しいコンテンツを書き込んだりすることができます。" />
@@ -44,7 +44,7 @@ FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a>または<a href="../Concepts.htm#numbers">整数</a></p>
     <p>If omitted, the default encoding (as set by <a href="FileEncoding.htm">FileEncoding</a> or CP0 otherwise) will be used. If blank, it defaults to CP0 (the system default ANSI code page). Otherwise, specify the encoding or code page to use for text I/O, e.g. <code>"UTF-8"</code>, <code>"UTF-16"</code>, <code>"CP936"</code> or <code>936</code>.</p>
-    <p>If the file contains a UTF-8 or UTF-16 byte order mark (BOM), or if the <code>h</code> (handle) flag is used, this parameter and the default encoding will be ignored, unless the file is being opened with write-only access (i.e. the previous contents of the file are being discarded).</p>
+    <p>If the file contains a UTF-8 or UTF-16 byte order mark (BOM), or if the <code class="no-highlight">h</code> (handle) flag is used, this parameter and the default encoding will be ignored, unless the file is being opened with write-only access (i.e. the previous contents of the file are being discarded).</p>
   </dd>
 
 </dl>
@@ -103,7 +103,7 @@ FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
     <td class="center">-rwd</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td>読み取り、書き込み、および削除のアクセスに対してファイルをロックします。<code>r</code>、<code>w</code>、<code>d</code>の組み合わせは自由です。<code>-</code>を指定することは、<code>-rwd</code>を指定することと同じです。完全に省略された場合、デフォルトはすべてのアクセスを共有します。</td>
+    <td>読み取り、書き込み、および削除のアクセスに対してファイルをロックします。<code class="no-highlight">r</code>、<code class="no-highlight">w</code>、<code class="no-highlight">d</code>の組み合わせは自由です。<code class="no-highlight">-</code>を指定することは、<code class="no-highlight">-rwd</code>を指定することと同じです。完全に省略された場合、デフォルトはすべてのアクセスを共有します。</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -143,13 +143,13 @@ FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
     <td class="center">`n</td>
     <td class="right">4</td>
     <td class="right">0x4</td>
-    <td>読むときは<code>`r`n</code>を<code>`n</code>に、書くときは<code>`n</code>を<code>`r`n</code>に置き換えてください。</td>
+    <td>読むときは<code class="no-highlight">`r`n</code>を<code class="no-highlight">`n</code>に、書くときは<code class="no-highlight">`n</code>を<code class="no-highlight">`r`n</code>に置き換えてください。</td>
   </tr>
   <tr>
     <td class="center">`r</td>
     <td class="right">8</td>
     <td class="right">0x8</td>
-    <td>読み取り時にスタンドアロンの<code>`r</code>を<code>`n</code>に置き換える。</td>
+    <td>読み取り時にスタンドアロンの<code class="no-highlight">`r</code>を<code class="no-highlight">`n</code>に置き換える。</td>
   </tr>
 </table>
 
@@ -161,7 +161,7 @@ FileOpen("**", "w")  <em>; 標準エラー用</em></pre>
 <p>ファイルを開くことができない場合は、<a href="Error.htm#OSError">OSError</a>が投げられる。</p>
 
 <h2 id="Remarks">備考</h2>
-<p><a href="File.htm#ReadLine">File.ReadLine</a>は、<code>`n</code>、<code>`r`n</code>、<code>`r</code>を常に行末としてサポートし、<code>`r</code>または<code>`n</code>オプションが使用されているかどうかにかかわらず、その戻り値にそれらを含めないようにします。このオプションは、<a href="File.htm#Read">File.Read</a>によって返されたテキスト、<a href="File.htm#Write">File.Write</a>または<a href="File.htm#WriteLine">File.WriteLine</a>によって書き込まれたテキスト内の行末の変換にのみ影響します。</p>
+<p><a href="File.htm#ReadLine">File.ReadLine</a>は、<code class="no-highlight">`n</code>、<code class="no-highlight">`r`n</code>、<code class="no-highlight">`r</code>を常に行末としてサポートし、<code class="no-highlight">`r</code>または<code class="no-highlight">`n</code>オプションが使用されているかどうかにかかわらず、その戻り値にそれらを含めないようにします。このオプションは、<a href="File.htm#Read">File.Read</a>によって返されたテキスト、<a href="File.htm#Write">File.Write</a>または<a href="File.htm#WriteLine">File.WriteLine</a>によって書き込まれたテキスト内の行末の変換にのみ影響します。</p>
 <p>When a UTF-8 or UTF-16 file is created, a byte order mark (BOM) is written to the file <u>unless</u> <em>Encoding</em> or the default encoding (as set by <a href="FileEncoding.htm">FileEncoding</a>) is <code>"UTF-8-RAW"</code> or <code>"UTF-16-RAW"</code>.</p>
 <p>UTF-8またはUTF-16のバイトオーダーマーク（BOM）を含むファイルを読み込みアクセスで開いた場合、ファイルポインタをBOMの後に配置することで出力から除外されるようにしました。そのため、<a href="File.htm#Pos">File.Pos</a>では、ファイルを開いた直後に3や2を報告することがあります。</p>
 <p>If necessary, the write buffer can be flushed using <a href="File.htm#Read">File.Read</a> such as <code>FileObj.Read(0)</code>. See <a href="#ExStreams">example #3</a> below.</p>

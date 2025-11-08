@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>TrayTip - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="The TrayTip function shows a balloon message window or, on Windows 10 and later, a toast notification near the tray icon." />
@@ -30,7 +30,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, the text will be entirely omitted from the traytip, making it vertically shorter. Otherwise, specify the message to display. Only the first 255 characters will be displayed.</p>
-    <p>キャリッジリターン(`r)またはラインフィード(`n)を使って複数行のテキストを作成することができる。For example: <code>Line1`nLine2</code>.</p>
+    <p>キャリッジリターン(`r)またはラインフィード(`n)を使って複数行のテキストを作成することができる。For example: <code class="no-highlight">Line1`nLine2</code>.</p>
     <p><em>Text</em>が長い場合、<a href="../Scripts.htm#continuation">継続セクション</a>によっていくつかの短い行に分割することができ、読みやすさと保守性を向上させることができるかもしれません。</p>
   </dd>
 
@@ -61,19 +61,19 @@
         <td>Info icon</td>
         <td class="right">1</td>
         <td class="right">0x1</td>
-        <td><code>Iconi</code></td>
+        <td><code class="no-highlight">Iconi</code></td>
       </tr>
       <tr>
         <td>Warning icon</td>
         <td class="right">2</td>
         <td class="right">0x2</td>
-        <td><code>Icon!</code></td>
+        <td><code class="no-highlight">Icon!</code></td>
       </tr>
       <tr>
         <td>Error icon</td>
         <td class="right">3</td>
         <td class="right">0x3</td>
-        <td><code>Iconx</code></td>
+        <td><code class="no-highlight">Iconx</code></td>
       </tr>
       <tr>
         <td><a href="TraySetIcon.htm">Tray icon</a></td>
@@ -85,7 +85,7 @@
         <td>通知音を鳴らさない。</td>
         <td class="right">16</td>
         <td class="right">0x10</td>
-        <td><code>Mute</code></td>
+        <td><code class="no-highlight">Mute</code></td>
       </tr>
       <tr>
         <td>アイコンの大きいバージョンを使用してください。</td>
@@ -126,7 +126,7 @@ HideTrayTip() {
 <img src="../static/dlg_traytip.png" alt="TrayTip" />
 <p id="Windows10"><strong>Windows 10 and later</strong> replace all balloon windows with toast notifications by default (this can be overridden via group policy). TrayTipを複数回呼び出すと、通常、各通知が最後の通知を置き換えるのではなく、複数の通知が「キュー」に入れられます。</p>
 <p>TrayTipは、スクリプトに<a href="../Program.htm#tray-icon">トレイアイコン</a>がない場合（<a href="_NoTrayIcon.htm">#NoTrayIcon</a>または<code><a href="../Variables.htm#IconHidden">A_IconHidden</a> := true</code>を使用）には効果がありません。また、以下のREG_DWORD値が存在し、0に設定されている場合、TrayTipは効果を発揮しません：</p>
-<pre>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced &gt;&gt; EnableBalloonTips</pre>
+<pre class="no-highlight">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced &gt;&gt; EnableBalloonTips</pre>
 <p>関連して、ユーザーがスクリプトの<a href="../Program.htm#tray-icon">トレイアイコン</a>にマウスを置くと、ツールチップが表示される。このツールチップの内容は、以下の方法で変更できる：<code><a href="../Variables.htm#IconTip">A_IconTip</a> := "私の新しいテキスト"</code>。</p>
 
 <h2 id="Related">関連</h2>
@@ -160,6 +160,27 @@ RefreshTrayTip  <em>; Call it once to get it started right away.</em>
 RefreshTrayTip()
 {
     TrayTip "This is a more permanent traytip.", "Refreshed traytip", "Mute"
+}</pre>
+</div>
+
+<div class="ex" id="ExOnMessage">
+<p><a class="ex_number" href="#ExOnMessage"></a> Shows a message box whenever a traytip is left-clicked, timed out, closed, shown, queued, or disappeared. Press <kbd>F1</kbd> to test this example. For details, see <a href="https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon (Microsoft Docs)</a>.</p>
+<pre>OnMessage 0x404, AHK_NOTIFYICON
+
+F1::TrayTip("foo", "bar")
+
+AHK_NOTIFYICON(wParam, lParam, msg, hwnd)
+{
+    if (hwnd != A_ScriptHwnd)
+        return
+    if (lParam = 1029) <em>; NIN_BALLOONUSERCLICK</em>
+        MsgBox "Traytip was left-clicked."
+    if (lParam = 1028) <em>; NIN_BALLOONTIMEOUT</em>
+        MsgBox "Traytip timed out or was closed or right-clicked."
+    if (lParam = 1026) <em>; NIN_BALLOONSHOW</em>
+        MsgBox "Traytip was shown or queued."
+    if (lParam = 1027) <em>; NIN_BALLOONHIDE</em>
+        MsgBox "Traytip disappeared, but not due to timeout or user interaction."
 }</pre>
 </div>
 

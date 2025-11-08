@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>オブジェクト - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="オブジェクトの使用方法、新しいタイプのオブジェクトの定義、AutoHotkeyでのオブジェクトの動作に関するその他の詳細。" />
@@ -314,7 +314,7 @@ other.test()</pre>
     ShorterProperty =&gt; <i>Expression which calculates property value</i>
 }
 </pre>
-<p>スクリプトがロードされると、<a href="lib/Class.htm">Class</a>オブジェクトが構築され、<i>ClassName</i>という名前の<a href="Functions.htm#Global">グローバル</a>定数（読み取り専用変数）に格納されます。<code>extends BaseClassName</code>がある場合、<i>BaseClassName</i>は他のクラスの完全な名前でなければならない。各クラスの完全な名前は<code><i>ClassName</i>.Prototype.__Class</code>に格納されます。</p>
+<p>スクリプトがロードされると、<a href="lib/Class.htm">Class</a>オブジェクトが構築され、<i>ClassName</i>という名前の<a href="Functions.htm#Global">グローバル</a>定数（読み取り専用変数）に格納されます。<code class="no-highlight">extends BaseClassName</code>がある場合、<i>BaseClassName</i>は他のクラスの完全な名前でなければならない。各クラスの完全な名前は<code><i>ClassName</i>.Prototype.__Class</code>に格納されます。</p>
 <p>クラス自体は変数を通してアクセスされるため、クラス名を使用してクラスを参照し、同じコンテキストで別の変数（クラスのインスタンスを保持するなど）を作成することはできません。例えば、<code>box := Box()</code>は、<code>box</code>も <code>Box</code>も同じものに解決されるため、機能しない。この方法でトップ・レベルの（入れ子になっていない）クラスを再割り当てしようとすると、ロード・タイム・エラーになります。</p>
 <p>この文書では、「クラス」という単語は通常、<code>class</code>キーワードで構築されたクラス・オブジェクトを意味する。</p>
 <p>クラス定義には、変数宣言、メソッド定義、ネストされたクラス定義を含めることができます。</p>
@@ -346,7 +346,7 @@ class NestedClass
 <p>クラスを入れ子にすることは、外側のクラスとの特定の関係を意味するものではない。ネストされたクラスは自動的にインスタンス化されないし、ネストされたクラスのインスタンスは、スクリプトが明示的にその接続を行わない限り、アウター・クラスのインスタンスとの接続を持たない。</p>
 <p>Each nested class definition produces a dynamic property with <em>get</em> and <em>call</em> accessor functions instead of a simple value property. This is to support the following behaviour (where class X contains the nested class Y):</p>
 <ul>
-<li><code>X.Y()</code> does not pass X to <code>X.Y.Call</code> and ultimately <code>__New</code>, which would otherwise happen because this is the normal behaviour for function objects called as methods (which is how the nested class is being used here).</li>
+<li><code>X.Y()</code> does not pass X to <code>X.Y.Call</code> and ultimately <code class="no-highlight">__New</code>, which would otherwise happen because this is the normal behaviour for function objects called as methods (which is how the nested class is being used here).</li>
 <li><code>X.Y := 1</code>はデフォルトでエラーとなります（プロパティは読み取り専用です）。</li>
 <li>初めて参照または呼び出すと、クラスが初期化されます。</li>
 </ul>
@@ -428,7 +428,7 @@ Method()
 
 Env["PATH"] .= ";" A_ScriptDir  <em>; Only affects this script and child processes.</em>
 MsgBox Env["PATH"]</pre>
-<p><code>__Item</code> is effectively a default property name (if such a property has been defined):</p>
+<p><code class="no-highlight">__Item</code> is effectively a default property name (if such a property has been defined):</p>
 <ul>
   <li>パラメータがある場合、<code><i>object</i>[<i>params</i>]</code>は<code><i>object</i>.__Item[<i>params</i>]</code>と等価である。</li>
   <li><code><i>object</i>[]</code>は<code><i>object</i>.__Item</code>と等価である。</li>
@@ -444,7 +444,7 @@ MsgBox obj["base"]                  <em>; 10</em>
 <p class="note"><strong>注：</strong> <code>obj.prop[]</code>のように明示的なプロパティ名が空括弧と組み合わされているときは、それは2つの別々の操作として扱われます：まず<code>obj.prop</code>を取得し、次に結果のデフォルト・プロパティを呼び出します。これは言語構文の一部であり、オブジェクトに依存するものではない。</p>
 
 <h3 id="Custom_NewDelete">コンストラクタとデストラクタ</h3>
-<p><a href="lib/Class.htm#Call"><em>ClassName</em>()</a>のデフォルト実装によってオブジェクトが生成されるたびに、新しいオブジェクトの<code>__New</code>メソッドが呼び出されます。<code><i>ClassName</i>()</code>に渡されたパラメータはすべて<code>__New</code>に転送されるため、オブジェクトの初期内容や構築方法に影響を与える可能性があります。オブジェクトが破棄されると、<code>__Delete</code>が呼ばれる。事例：</p>
+<p>Whenever an object is created by the default implementation of <a href="lib/Class.htm#Call"><em>ClassName</em>()</a>, the new object's __New method is called in order to allow custom initialization. Any parameters passed to <code><i>ClassName</i>()</code> are forwarded to __New, so can affect the object's initial content or how it is constructed. When an object is destroyed, __Delete is called. 事例：</p>
 <pre>m1 := GMem(0, 10)
 m2 := {base: GMem.Prototype}, m2.__New(0, 30)
 
@@ -519,8 +519,8 @@ class <i>ClassName</i> {
 <p>メタファンクションは以下の場合には呼び出されない：</p>
 <ul>
   <li><code>x[y]</code>：プロパティ名なしで角括弧を使用すると、<a href="#__Item">__Item</a>プロパティのみが呼び出されます。</li>
-  <li><code>x()</code>：オブジェクト自体を呼び出すと、<code>Call</code>メソッドが呼び出されるだけである。これには、<a href="lib/SetTimer.htm">SetTimer</a>や <a href="lib/Hotkey.htm">Hotkey</a>などの組込関数による内部呼び出しも含まれる。</li>
-  <li>他のメタファンクションやダブルアンダースコアメソッドへの内部呼び出しは<code>__Call</code>をトリガーしない。</li>
+  <li><code>x()</code>: Calling the object itself only invokes the Call method. This includes internal calls made by built-in functions such as <a href="lib/SetTimer.htm">SetTimer</a> and <a href="lib/Hotkey.htm">Hotkey</a>.</li>
+  <li>他のメタファンクションやダブルアンダースコアメソッドへの内部呼び出しは<code class="no-highlight">__Call</code>をトリガーしない。</li>
 </ul>
 
 <h4 id="Dynamic_Properties">ダイナミック・プロパティ</h4>
@@ -568,7 +568,7 @@ c := ""             <em>; Bob is deleted...</em>
 </pre>
 <p>式内の関数、メソッド、または演算子によって返された一時参照は、その式の評価が完了または中止された後に解放されます。次の例では、新しい<a href="#GMem">GMem</a>オブジェクトはMsgBoxが返った後にのみ解放される：</p>
 <pre>MsgBox <a href="lib/DllCall.htm">DllCall</a>("GlobalSize", "ptr", GMem(0, 20).ptr, "ptr")  <em>; 20</em></pre>
-<p class="note"><strong>注：</strong>この例では、<a href="lib/DllCall.htm#ptr">Ptr</a>arg型が<code>Ptr</code>プロパティを持つオブジェクトを許可しているため、<code>.ptr</code>を省略することができました。しかし、上に示したパターンは、他のプロパティ名でも機能する。</p>
+<p class="note"><strong>Note:</strong> In this example, <code>.ptr</code> could have been omitted since the <a href="lib/DllCall.htm#ptr">Ptr</a> arg type permits objects with a Ptr property. しかし、上に示したパターンは、他のプロパティ名でも機能する。</p>
 <p>オブジェクトへの最後の参照が解放されるときにコードを実行するには、<a href="#Custom_NewDelete">__Delete</a>メタ関数を実装します。</p>
 <h4 id="refs-problems">Problems with Reference Counting</h4>
 <p>Relying solely on reference counting sometimes creates catch-22 situations: an object is designed to free its resources when deleted, but would only be deleted if its resources are first freed. Specifically, this occurs when those resources are other objects or functions which retain a reference to the object, often indirectly.</p>

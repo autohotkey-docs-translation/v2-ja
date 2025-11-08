@@ -298,7 +298,6 @@ indexData = [
   ["Button controls (GUI)","lib/GuiControls.htm#Button"],
   ["button list (mouse and controller)","KeyList.htm"],
   ["button state","lib/GetKeyState.htm"],
-  ["ByRef","Functions.htm#ByRef",5,"",true],
   ["caching (concepts)","Concepts.htm#caching"],
   ["Call method (Array)","lib/Array.htm#Call",7],
   ["Call method (Buffer)","lib/Buffer.htm#Call",7],

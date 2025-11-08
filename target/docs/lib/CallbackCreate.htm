@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>CallbackCreate - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="CallbackCreate関数は、呼び出されたときにスクリプト内の関数に呼び出しをリダイレクトするマシンコードアドレスを作成します。" />
@@ -51,10 +51,10 @@
 <h2 id="Error_Handling">エラー処理</h2>
 <p>以下のいずれかの条件下で、この関数は失敗し、例外をスローします：</p>
 <ul>
-  <li><em>Function</em>がオブジェクトでない、または<code>MinParams</code>プロパティも<code>Call</code>メソッドも持っていない。</li>
-  <li><em>関数</em>には <code>MinParams</code>プロパティがあり、コールバックが供給するパラメータの数を超えています。</li>
+  <li><em>Function</em>がオブジェクトでない、または<code class="no-highlight">MinParams</code>プロパティも<code class="no-highlight">Call</code>メソッドも持っていない。</li>
+  <li><em>関数</em>には <code class="no-highlight">MinParams</code>プロパティがあり、コールバックが供給するパラメータの数を超えています。</li>
   <li><em>ParamCount</em>は否定的です。</li>
-  <li><em>ParamCount</em>は省略され、更に1)<em>Function</em>に <code>MinParams</code>プロパティがない、または2)<code>&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
+  <li><em>ParamCount</em>は省略され、更に1)<em>Function</em>に <code class="no-highlight">MinParams</code>プロパティがない、または2)<code class="no-highlight">&amp;</code>オプションが標準32ビット呼び出し規約で使用されている。</li>
 </ul>
 
 <a id="The_Callback_Functions_Parameters"></a>
@@ -84,7 +84,7 @@ wParam := wParam &lt;&lt; 32 &gt;&gt; 32</pre>
 <pre>MyString := StrGet(MyParameter)</pre>
 <p>入力されたパラメータが構造体のアドレスである場合、<a href="DllCall.htm#struct">DllCall構造体</a>の手順に従って、個々のメンバーを抽出することができます。</p>
 
-<p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code>&amp;</code> option is used, <em>Function</em> receives the <i>address</i> of the first callback parameter. 事例：</p>
+<p id="Indirect"><strong>Receiving parameters by address:</strong> If the <code class="no-highlight">&amp;</code> option is used, <em>Function</em> receives the <i>address</i> of the first callback parameter. 事例：</p>
 <pre>
 callback := CallbackCreate(TheFunc, "F&amp;", 3)  <em>; パラメータリストのサイズは32ビットで指定する必要があります。</em>
 DllCall(callback, "float", 10.5, "int64", 42)

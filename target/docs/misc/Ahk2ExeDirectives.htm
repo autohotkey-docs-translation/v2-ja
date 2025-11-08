@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>スクリプトコンパイラディレクティブ｜AutoHotkey v2</title>
 <meta name="description" content="スクリプトコンパイラディレクティブにより、Ahk2Exeでどのようにスクリプトをコンパイルするかの詳細を指定することができます。" />
@@ -48,7 +48,7 @@
   <li>コンパイルのいくつかの雑多な面を微調整する能力。</li>
   <li>コンパイルされたスクリプトからコードセクションを削除する機能。</li>
 </ul>
-<p>スクリプトコンパイラは、ソーススクリプト内の特別なコメントを探し、コンパイラディレクティブとして認識します。すべてのコンパイラディレクティブは<code>@Ahk2Exe-</code>という文字列で始まり、その前にコメントフラグ (通常は<code>;</code>) が付きます。</p>
+<p>スクリプトコンパイラは、ソーススクリプト内の特別なコメントを探し、コンパイラディレクティブとして認識します。すべてのコンパイラディレクティブは<code class="no-highlight">@Ahk2Exe-</code>という文字列で始まり、その前にコメントフラグ (通常は<code class="no-highlight">;</code>) が付きます。</p>
 
 <h2 id="IgnoreKeep">スクリプトの動作を制御するディレクティブ</h2>
 <p>ディレクティブで囲むことによって、コンパイルされたスクリプトからコードセクションを削除することができる：</p>
@@ -68,7 +68,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 
 <h2 id="Directives">実行メタデータを制御するディレクティブ</h2>
 <h3 id="Intro2">はじめに</h3>
-<p>これらのディレクティブのパラメータでは、以下のエスケープシーケンスがサポートされています：<code>``</code>、<code>`,</code>、<code>`n</code>、<code>`r</code>、<code>`t</code>。カンマは、パラメータの位置に関係なく、<em>常</em>にエスケープする必要がある。「整数」とは、符号なし16ビット整数（0～0xFFFF）を指す。</p>
+<p>これらのディレクティブのパラメータでは、以下のエスケープシーケンスがサポートされています：<code class="no-highlight">``</code>、<code class="no-highlight">`,</code>、<code class="no-highlight">`n</code>、<code class="no-highlight">`r</code>、<code class="no-highlight">`t</code>。カンマは、パラメータの位置に関係なく、<em>常</em>にエスケープする必要がある。「整数」とは、符号なし16ビット整数（0～0xFFFF）を指す。</p>
 
 <p>必要であれば、ディレクティブパラメータは、変数名を<code>%</code>記号で囲むことによって、以下の標準組み込み変数のリストを参照することができます：</p>
 <p id="group1"><strong>グループ1：</strong><a href="../Variables.htm#AhkPath">A_AhkPath</a>、<a href="../Variables.htm#AppData">A_AppData</a>、<a href="../Variables.htm#AppDataCommon">A_AppDataCommon</a>、<a href="../Variables.htm#ComputerName">A_ComputerName</a>、<a href="../Variables.htm#ComSpec">A_ComSpec</a>、<a href="../Variables.htm#Desktop">A_Desktop</a>、<a href="../Variables.htm#DesktopCommon">A_DesktopCommon</a>、<a href="../Variables.htm#MyDocuments">A_MyDocuments</a>、<a href="../Variables.htm#ProgramFiles">A_ProgramFiles</a>、<a href="../Variables.htm#Programs">A_Programs</a>、<a href="../Variables.htm#ProgramsCommon">A_ProgramsCommon</a>、<a href="../Variables.htm#ScriptDir">A_ScriptDir</a>、<a href="../Variables.htm#ScriptFullPath">A_ScriptFullPath</a>、<a href="../Variables.htm#ScriptName">A_ScriptName</a>、<a href="../Variables.htm#Space">A_Space</a>、<a href="../Variables.htm#StartMenu">A_StartMenu</a>、<a href="../Variables.htm#StartMenuCommon">A_StartMenuCommon</a>、<a href="../Variables.htm#Startup">A_Startup</a>、<a href="../Variables.htm#StartupCommon">A_StartupCommon</a>、<a href="../Variables.htm#Tab">A_Tab</a>、<a href="../Variables.htm#Temp">A_Temp</a>、<a href="../Variables.htm#UserName">A_UserName</a>、<a href="../Variables.htm#WinDir">A_WinDir</a>。</p>
@@ -81,27 +81,27 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 
 <p id="PriorLine">また、特殊変数<strong>A_PriorLine</strong>には、現在のコンパイラ指令の直前のソース行が格納される。空白やコメントだけの行は無視され、コンパイラ指令の行も無視される。この変数は、スクリプトのソースから定数情報を「抜き取り」、後のコンパイラのディレクティブで使用するために使うことができる。例えば、頻繁に変更される可能性のあるスクリプトのバージョン番号にアクセスするような場合である。この方法でバージョン番号にアクセスするということは、バージョン番号をソースコードの中で一度だけ変更すればよく、その変更は必要なディレクティブにコピーされるということです。（詳細は以下のRegExの例を参照。）</p>
 
-<p>また、以下に説明する<a href="#Let">Let</a>ディレクティブと<a href="#Obey">Obey</a>ディレクティブを使用して、特別なユーザー変数を<code>U_<i>Name</i></code>形式で作成することもできます。</p>
+<p>また、以下に説明する<a href="#Let">Let</a>ディレクティブと<a href="#Obey">Obey</a>ディレクティブを使用して、特別なユーザー変数を<code class="no-highlight">U_<i>Name</i></code>形式で作成することもできます。</p>
 
 <p>すべての変数は、<a href="#AddResource">AddResource</a>ディレクティブのパラメータとして利用できるだけでなく、以下の<a href="#AddResource">AddResource</a>ディレクティブに与えられたRT_MENU、RT_DIALOG、RT_STRING、RT_ACCELERATORS、RT_HTML、RT_MANIFESTファイルからアクセスすることができます。</p>
 
 <p>必要であれば、上記の変数から返される値は、組み込み変数名の末尾の<code>%</code>より前に、チルダ<code>~</code>で区切られた2つまでのパラメータ（p2とp3と呼ばれる）を含めることで操作できる。p2 と p3 パラメータは、<a href="../lib/RegExReplace.htm">RegExReplace</a>関数の 2 番目と 3 番目のパラメータでリテラルとして使用され、返される値を操作します。（<a href="RegEx-QuickRef.htm">RegExクイックリファレンス</a>参照。）　p3はオプションであることに注意。</p>
 
-<p>p2またはp3にチルダをデータとして含めるには、チルダの前にバックチック、すなわち<code>`~</code>を付ける。バックティック文字をp2またはp3のデータとして含めるには、それをダブルにする<code>``</code>。</p>
+<p>p2またはp3にチルダをデータとして含めるには、チルダの前にバックチック、すなわち<code class="no-highlight">`~</code>を付ける。バックティック文字をp2またはp3のデータとして含めるには、それをダブルにする<code class="no-highlight">``</code>。</p>
 
 <strong>RegEx の例：</strong>
 <ul>
   <li>
-    <pre class="NoIndent">%A_ScriptName~\.[^\.]+$~.exe%</pre>
-    <p>これは、実際のスクリプト名では、拡張子とその前の完全停止を<code>.exe</code>に置き換えます。<br>（<code>\.[^\.]+$~.exe</code>は、<code>.</code>の後に<code>.</code>以外の文字が1文字以上続くか、文字列の末尾が<code>.exe</code>であるかをスキャンし、<code>.exe</code>に置き換えることを意味する）</p>
+    <pre class="NoIndent no-highlight">%A_ScriptName~\.[^\.]+$~.exe%</pre>
+    <p>これは、実際のスクリプト名では、拡張子とその前の完全停止を<code class="no-highlight">.exe</code>に置き換えます。<br>（<code class="no-highlight">\.[^\.]+$~.exe</code>は、<code>.</code>の後に<code>.</code>以外の文字が1文字以上続くか、文字列の末尾が<code class="no-highlight">.exe</code>であるかをスキャンし、<code class="no-highlight">.exe</code>に置き換えることを意味する）</p>
   </li>
   <li>
     <p>ソース行に続いて、次のような2つのコンパイラ指令があるとする：</p>
     <pre>CodeVersion := "1.2.3.4", company := "My Company"</pre>
     <pre><em>;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%</em></pre>
     <pre><em>;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%</em></pre>
-    <p>これらのディレクティブはバージョン番号<code class="no-highlight">1.2.3.4</code>を特殊変数<code>U_version</code>にコピーし、会社名<code>My Company</code>を特殊変数<code>U_company</code>にコピーして、後で他のディレクティブで使えるようにします。<br>
-    （最初の正規表現の<code class="no-highlight">{1}</code>は2番目の正規表現の<code class="no-highlight">{3}</code>に変更され、会社名を抽出するために3番目の<code>"</code>の後を選択する。）</p>
+    <p>これらのディレクティブはバージョン番号<code class="no-highlight">1.2.3.4</code>を特殊変数<code class="no-highlight">U_version</code>にコピーし、会社名<code class="no-highlight">My Company</code>を特殊変数<code class="no-highlight">U_company</code>にコピーして、後で他のディレクティブで使えるようにします。<br>
+    （最初の正規表現の<code class="no-highlight">{1}</code>は2番目の正規表現の<code class="no-highlight">{3}</code>に変更され、会社名を抽出するために3番目の<code class="no-highlight">"</code>の後を選択する。）</p>
   </li>
 </ul>
 <p><strong>その他の例：</strong>ダウンロードして調べることができる他の実例は、<a href="https://github.com/AutoHotkey/Ahk2Exe/releases/tag/DemoCode_1">ここ</a>から入手できる。</p>
@@ -117,17 +117,17 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 </dl>
 <p>以下は、一般的な標準リソースタイプと、それをデフォルトでトリガーするエクステンションのリストです。</p>
 <ul>
-  <li>2（RT_BITMAP）：<code>.bmp</code>、<code>.dib</code></li>
+  <li>2（RT_BITMAP）：<code class="no-highlight">.bmp</code>、<code class="no-highlight">.dib</code></li>
   <li>4（RT_MENU）</li>
   <li>5（RT_DIALOG）</li>
   <li>6（RT_STRING）</li>
   <li>9（RT_ACCELERATORS）</li>
   <li>10（RT_RCDATA）：他のすべてのエクステンション。</li>
   <li>11（RT_MESSAGETABLE）</li>
-  <li>12（RT_GROUP_CURSOR）：<code>.cur</code>（未対応）</li>
-  <li>14（RT_GROUP_ICON）：<code>.ico</code></li>
-  <li>23（RT_HTML）：<code>.htm</code>、<code>.html</code>、<code>.mht</code></li>
-  <li>24（RT_MANIFEST）：<code>.manifest</code>。リソース名が指定されていない場合、デフォルトは<code>1</code>です</li>
+  <li>12（RT_GROUP_CURSOR）：<code class="no-highlight">.cur</code>（未対応）</li>
+  <li>14（RT_GROUP_ICON）：<code class="no-highlight">.ico</code></li>
+  <li>23（RT_HTML）：<code class="no-highlight">.htm</code>、<code class="no-highlight">.html</code>、<code class="no-highlight">.mht</code></li>
+  <li>24（RT_MANIFEST）：<code class="no-highlight">.manifest</code>。If the name for the resource is not specified, it defaults to 1.</li>
 </ul>
 <p><strong>例1：</strong>（<a href="#SetMainIcon">メインアイコン</a>以外の）標準アイコンを置き換える場合：</p>
 <pre><em>;@Ahk2Exe-AddResource Icon1.ico, 160  ; Replaces 'H on blue'
@@ -147,9 +147,9 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <span class="func">;@Ahk2Exe-Base</span> [Path\]Name <span class="optional">, [Exe_path\][Name], Codepage</span></pre>
 <dl>
   <dt>[Path\]Name</dt>
-  <dd>使用する*.binまたは*.exeファイル。拡張子が与えられない場合は、<code>.bin</code>とみなされる。絶対パスが指定されていない場合、ファイルはコンパイラー自身のディレクトリにある（または相対的な）ものとみなされる。DOSマスクは<em>Name</em>に指定することができる。例えば、3 つすべてについては <code>ANSI*</code>、<code class="no-highlight">Unicode 32*</code>、<code class="no-highlight">Unicode 64*</code>、または<code>*bit</code>です。コンパイラーは、マッチした*.binまたは*.exeファイルごとに実行される。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。</dd>
+  <dd>使用する*.binまたは*.exeファイル。拡張子が与えられない場合は、<code class="no-highlight">.bin</code>とみなされる。絶対パスが指定されていない場合、ファイルはコンパイラー自身のディレクトリにある（または相対的な）ものとみなされる。DOSマスクは<em>Name</em>に指定することができる。例えば、3 つすべてについては <code class="no-highlight">ANSI*</code>、<code class="no-highlight">Unicode 32*</code>、<code class="no-highlight">Unicode 64*</code>、または<code class="no-highlight">*bit</code>です。コンパイラーは、マッチした*.binまたは*.exeファイルごとに実行される。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。</dd>
   <dt>[Exe_path\][Name]</dt>
-  <dd><i>(オプション)</i>.exeに付けるファイル名。提供された拡張子はすべて<code>.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。（このパラメータは<a href="#ExeName">ExeName</a>ディレクティブで上書きすることができます。）</dd>
+  <dd><i>(オプション)</i>.exeに付けるファイル名。提供された拡張子はすべて<code class="no-highlight">.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。ビルトイン変数の置換は、上記<a href="#group1">グループ1</a>のものでなければならない。（このパラメータは<a href="#ExeName">ExeName</a>ディレクティブで上書きすることができます。）</dd>
   <dt>Codepage</dt>
   <dd><i>(オプション)</i> スクリプトファイルの処理に使われるデフォルトの<a href="https://learn.microsoft.com/windows/win32/intl/code-page-identifiers">コードページ</a>を上書きする。（スクリプトはユニコードのバイトオーダーマーク（BOM）で始まるはずなので、このパラメータの使用は不要です。）</dd>
 </dl>
@@ -163,7 +163,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Cont</span> Text</pre>
 <dl>
   <dt>Text</dt>
-  <dd>その行が処理される前に、前の指示行に追加されるテキスト。テキストは<code>Cont</code>キーワードに続く半角スペースの後に始まる。</dd>
+  <dd>その行が処理される前に、前の指示行に追加されるテキスト。テキストは<code class="no-highlight">Cont</code>キーワードに続く半角スペースの後に始まる。</dd>
 </dl>
 
 <h3 id="Debug">Debug</h3>
@@ -179,7 +179,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <pre class="Syntax"><span class="func">;@Ahk2Exe-ExeName</span> [Path\][Name]</pre>
 <dl>
   <dt>[Path\][Name]</dt>
-  <dd>The .exe file name. 提供された拡張子はすべて<code>.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。</dd>
+  <dd>The .exe file name. 提供された拡張子はすべて<code class="no-highlight">.exe</code>に置き換えられます。パスが指定されていない場合、.exeはスクリプト・フォルダーに作成されます。名前を指定しない場合、.exeはデフォルトの名前になる。</dd>
 </dl>
 <strong>例：</strong>
 <pre><em>;@Ahk2Exe-Obey U_bits, = %A_PtrSize% * 8
@@ -187,11 +187,11 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 ;@Ahk2Exe-ExeName %A_ScriptName~\.[^\.]+$%_%U_type%_%U_bits%</em></pre>
 
 <h3 id="Let">Let</h3>
-<p>組み込み変数（上記参照）と同様に、<code>%<i>U</i>_Name%</code>でアクセスできる 1 つ以上のユーザー変数を作成（または変更）します。</p>
+<p>組み込み変数（上記参照）と同様に、<code class="no-highlight">%<i>U</i>_Name%</code>でアクセスできる 1 つ以上のユーザー変数を作成（または変更）します。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Let</span> Name = Value <span class="optional">, Name = Value, ...</span></pre>
 <dl>
   <dt>Name</dt>
-  <dd>変数名（先頭の<code>U_</code>はあってもなくてもよい）。</dd>
+  <dd>変数名（先頭の<code class="no-highlight">U_</code>はあってもなくてもよい）。</dd>
   <dt>Value</dt>
   <dd>使用する値。</dd>
 </dl>
@@ -209,11 +209,11 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 ;@Ahk2Exe-%U_V%        %A_AhkVersion%%A_PriorLine~U)^(.+")(.*)".*$~$2%</em></pre>
 
 <h3 id="Obey">Obey</h3>
-<p><code>U_<i>Name</i></code> の結果を持つ、孤立した AutoHotkey コマンドまたは式に従います。</p>
+<p><code class="no-highlight">U_<i>Name</i></code> の結果を持つ、孤立した AutoHotkey コマンドまたは式に従います。</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-Obey</span> Name, CmdOrExp <span class="optional">, Extra</span></pre>
 <dl>
   <dt>Name</dt>
-  <dd>結果を受け取る変数名（先頭の<code>U_</code>はあってもなくてもよい）。</dd>
+  <dd>結果を受け取る変数名（先頭の<code class="no-highlight">U_</code>はあってもなくてもよい）。</dd>
   <dt>CmdOrExp</dt>
   <dd>
     <p>従えという命令や表現。</p>
@@ -223,10 +223,10 @@ MsgBox "This message appears in both the compiled and uncompiled script"
     <pre><em>;@Ahk2Exe-Obey U_type, = "%A_IsUnicode%" ? "Unicode" : "ANSI"</em></pre>
     <p>式はコマンド形式で書くことができる。</p>
     <pre><em>;@Ahk2Exe-Obey U_bits, U_bits := %A_PtrSize% * 8</em></pre>
-    <p>必要であれば、複数のコマンドや式を<code>`n</code>で区切ってください。</p>
+    <p>必要であれば、複数のコマンドや式を<code class="no-highlight">`n</code>で区切ってください。</p>
   </dd>
   <dt>Extra</dt>
-  <dd><i>(オプション）</i>返す追加結果の数を指定する数値（1～9）。例えば、extra = 2の場合、結果は<code>U_<i>name</i></code>、<code class="no-highlight">U_<i>name</i>1</code>、<code class="no-highlight">U_<i>name</i>2</code>で返される。<code><i>name</i></code>の値は、まず式やコマンドによって設定されなければならない。</dd>
+  <dd><i>(オプション）</i>返す追加結果の数を指定する数値（1～9）。例えば、extra = 2の場合、結果は<code class="no-highlight">U_<i>name</i></code>、<code class="no-highlight">U_<i>name</i>1</code>、<code class="no-highlight">U_<i>name</i>2</code>で返される。<code class="no-highlight"><i>name</i></code>の値は、まず式やコマンドによって設定されなければならない。</dd>
 </dl>
 
 <h3 id="PostExec">PostExec</h3>
@@ -234,7 +234,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <pre class="Syntax"><span class="func">;@Ahk2Exe-PostExec</span> Program [parameters] <span class="optional">, When, WorkingDir, Hidden, IgnoreErrors</span></pre>
 <dl>
   <dt>Program [parameters]</dt>
-  <dd>実行するプログラムとパラメータ。処理された.exeファイルへのアクセスを許可するには、<code>"%A_WorkFileName%"</code>のように、引用符で囲まれたパラメータとして特殊変数<a href="#WorkFileName">A_WorkFileName</a>を指定する。プログラムが.exeを変更した場合、変更された.exeは、プログラムによって<code>%A_WorkFileName%</code>で指定された入力ファイルに戻される必要があります。（。exeにはバイナリデータが含まれることに注意。）</dd>
+  <dd>実行するプログラムとパラメータ。処理された.exeファイルへのアクセスを許可するには、<code>"%A_WorkFileName%"</code>のように、引用符で囲まれたパラメータとして特殊変数<a href="#WorkFileName">A_WorkFileName</a>を指定する。プログラムが.exeを変更した場合、変更された.exeは、プログラムによって<code class="no-highlight">%A_WorkFileName%</code>で指定された入力ファイルに戻される必要があります。（。exeにはバイナリデータが含まれることに注意。）</dd>
   <dt>When</dt>
   <dd>
     <p><i>(オプション)</i> <a href="../Scripts.htm#mpress">圧縮が</a>実行される前に実行する場合は空白のままにします。そうでない場合は、以下のように圧縮後に実行する数値を設定する：</p>
@@ -256,7 +256,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 <pre><em>;@Ahk2Exe-Obey U_au, = "%A_IsUnicode%" ? 2 : 1    ; Script ANSI or Unicode?
 ;@Ahk2Exe-PostExec "BinMod.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  "%U_au%2.&gt;AUTOHOTKEY SCRIPT&lt;. DATA              "</em></pre>
-<p><strong>例 2：</strong>UPX で圧縮された .exe を<code>UPX -d</code>で解凍できないようにする例です：</p>
+<p><strong>例 2：</strong>UPX で圧縮された .exe を<code class="no-highlight">UPX -d</code>で解凍できないようにする例です：</p>
 <pre><em>;@Ahk2Exe-PostExec "BinMod.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  "11.UPX." "1.UPX!.", 2</em></pre>
 <p>（<a href="https://github.com/AutoHotkey/Ahk2Exe/blob/master/BinMod.ahk">BinMod.ahk</a>スクリプトには他にも例がある。）</p>
@@ -275,7 +275,7 @@ MsgBox "This message appears in both the compiled and uncompiled script"
 </dl>
 
 <h3 id="SetMainIcon">メインアイコンの設定</h3>
-<p>コンパイルに使用されるカスタム EXE アイコンを上書きします。（他のアイコンを変更するには、<a href="#AddResource">AddResource</a>の例を参照のこと。）　このディレクティブは、GUIまたはCLIで指定されたアイコンファイルによって上書きされることがある。The new icon might not be immediately visible in Windows Explorer if the compiled file existed before with a different icon, however the new icon can be shown by selecting <code>Refresh Windows Icons</code> from the Ahk2Exe <code>File</code> menu.</p>
+<p>コンパイルに使用されるカスタム EXE アイコンを上書きします。（他のアイコンを変更するには、<a href="#AddResource">AddResource</a>の例を参照のこと。）　このディレクティブは、GUIまたはCLIで指定されたアイコンファイルによって上書きされることがある。The new icon might not be immediately visible in Windows Explorer if the compiled file existed before with a different icon, however the new icon can be shown by selecting <code class="no-highlight">Refresh Windows Icons</code> from the Ahk2Exe <code class="no-highlight">File</code> menu.</p>
 <pre class="Syntax"><span class="func">;@Ahk2Exe-SetMainIcon</span> <span class="optional">IcoFile</span></pre>
 <dl>
   <dt>IcoFile</dt>

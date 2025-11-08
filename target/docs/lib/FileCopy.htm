@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>FileCopy - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="FileCopy 関数は、1 つまたは複数のファイルをコピーします。" />
@@ -22,13 +22,13 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>SourcePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-    <p>アスタリスク（<code>*</code>）とクエスチョンマーク（<code>?</code>）は、ワイルドカードとして使用できます。<code>*</code>は0以上の文字と、クエスチョンマークは<code>?</code>1文字とマッチします。使用例：</p>
+    <p>アスタリスク（<code class="no-highlight">*</code>）とクエスチョンマーク（<code class="no-highlight">?</code>）は、ワイルドカードとして使用できます。<code class="no-highlight">*</code>は0以上の文字と、クエスチョンマークは<code class="no-highlight">?</code>1文字とマッチします。使用例：</p>
     <ul>
-      <li><code>*.*</code>と<code>*</code>は、全てのファイルにマッチします。</li>
-      <li><code>*.htm</code>は、.htmや.htmlなどの拡張子を持つファイルにマッチします。</li>
-      <li><code>*.</code>は、拡張子がないファイルにマッチします。</li>
-      <li><code>log?.txt</code>は、例えばlog1.txtにはマッチしますが、log10.txtにはマッチしません。</li>
-      <li><code>*report*</code>は、ファイル名に"report"を含むあらゆるファイルにマッチします。</li>
+      <li><code class="no-highlight">*.*</code>と<code class="no-highlight">*</code>は、全てのファイルにマッチします。</li>
+      <li><code class="no-highlight">*.htm</code>は、.htmや.htmlなどの拡張子を持つファイルにマッチします。</li>
+      <li><code class="no-highlight">*.</code>は、拡張子がないファイルにマッチします。</li>
+      <li><code class="no-highlight">log?.txt</code>は、例えばlog1.txtにはマッチしますが、log10.txtにはマッチしません。</li>
+      <li><code class="no-highlight">*report*</code>は、ファイル名に"report"を含むあらゆるファイルにマッチします。</li>
     </ul>
   </dd>
 
@@ -36,7 +36,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>絶対パスが指定されていない場合は、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあると仮定される、保存先の名前またはパターン。</p>
-    <p>この場合、ファイル名の最初のアスタリスク（<code>*</code>）は、拡張子を除いたソースファイル名に置き換えられ、最後のフルストップ（<code>.</code>）以降の最初のアスタリスクは、ソースファイルの拡張子に置き換えられます。アスタリスクがあっても拡張子が省略された場合は、ソースファイルの拡張子が使用されます。</p>
+    <p>この場合、ファイル名の最初のアスタリスク（<code class="no-highlight">*</code>）は、拡張子を除いたソースファイル名に置き換えられ、最後のフルストップ（<code class="no-highlight">.</code>）以降の最初のアスタリスクは、ソースファイルの拡張子に置き換えられます。アスタリスクがあっても拡張子が省略された場合は、ソースファイルの拡張子が使用されます。</p>
     <p>既存のファイル名を残したまま単純にコピーする場合は、以下の例のようにフォルダ名のみを指定します：</p>
     <pre>FileCopy "C:\*.txt", "C:\My Folder"</pre>
     <pre>FileCopy "C:\*.txt", "C:\My Folder\*.*"</pre>
@@ -55,7 +55,7 @@
 </dl>
 
 <h2 id="Error_Handling">エラー処理</h2>
-<p>ファイルのコピーに失敗した場合、<a href="Error.htm">Error</a>がスローされ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。ファイルが見つからなかった場合、<em>SourcePattern</em>にワイルドカード<code>*</code>と<code>?</code>がない場合のみ、エラーが発生します。つまり、<code>"*.txt"</code>のようなワイルドカードパターンのコピーは、どのファイルにもマッチしない場合に成功したとみなされます。</p>
+<p>ファイルのコピーに失敗した場合、<a href="Error.htm">Error</a>がスローされ、<a href="Error.htm#Extra">Extra</a>プロパティには失敗の回数が設定されます。ファイルが見つからなかった場合、<em>SourcePattern</em>にワイルドカード<code class="no-highlight">*</code>と<code class="no-highlight">?</code>がない場合のみ、エラーが発生します。つまり、<code>"*.txt"</code>のようなワイルドカードパターンのコピーは、どのファイルにもマッチしない場合に成功したとみなされます。</p>
 <p><a href="FileMove.htm">FileMove</a>と異なり、ファイルを自分自身にコピーすることは、上書きモードが有効であっても、常にエラーとしてカウントされます。</p>
 <p>ファイルが見つかった場合、<a href="../Variables.htm#LastError">A_LastError</a>には0（ゼロ）または最後の失敗の直後のオペレーティングシステムのGetLastError()関数の結果が設定されます。それ以外の場合、A_LastError は、ファイルが見つからなかった理由を示す可能性のあるエラーコードを含みます。</p>
 

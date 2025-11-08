@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>InputHook - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="InputHook関数は、キーボード入力の収集や傍受に使用できるオブジェクトを作成します。" />
@@ -24,9 +24,9 @@
     <p>A string of zero or more of the following options (in any order, with optional spaces in between):</p>
     <p id="option-b"><strong>B：</strong><a href="#BackspaceIsUndo">BackspaceIsUndo</a>を0 (false)に設定し、<kbd>Backspace</kbd>を無視するようにします。</p>
     <p id="option-c"><strong>C：</strong><a href="#CaseSensitive">CaseSensitive</a>を1 (true)に設定し、<em>MatchList</em>の大文字小文字を区別するようにします。</p>
-    <p id="option-i"><strong>I：</strong><a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code>I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
-    <p id="option-l"><strong>L：</strong>長さの制限（例：<code>L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、<a href="#EndReason">EndReason</a>にはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
-    <p><code>L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。This can be useful in combination with <a href="#OnChar">OnChar</a>, <a href="#OnKeyDown">OnKeyDown</a>, <a href="#KeyOpt">KeyOpt</a> or the <em>EndKeys</em> parameter.</p>
+    <p id="option-i"><strong>I：</strong><a href="#MinSendLevel">MinSendLevel</a>を1または所定の値に設定し、この値以下の<a href="SendLevel.htm">送信</a>レベルを持つ入力は無視されるようにします。例えば、<code class="no-highlight">I2</code>は、レベルが0（デフォルト）または1の入力は無視し、レベル2の入力を捕捉することができます。</p>
+    <p id="option-l"><strong>L：</strong>長さの制限（例：<code class="no-highlight">L5</code>）。入力の最大許容長を示します。テキストがこの長さに達すると、入力は終了し、<a href="#EndReason">EndReason</a>にはMaxという単語が設定されます（ただし、テキストが<em>MatchList</em>のフレーズのいずれかに一致する場合は、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。未指定の場合、長さの上限は1023となります。</p>
+    <p><code class="no-highlight">L0</code>を指定すると、テキストの収集と長さの制限が無効になりますが、どのキーがテキストを生成しているとカウントされるかは影響しません（「<a href="#VisibleText">VisibleText</a>」を参照）。This can be useful in combination with <a href="#OnChar">OnChar</a>, <a href="#OnKeyDown">OnKeyDown</a>, <a href="#KeyOpt">KeyOpt</a> or the <em>EndKeys</em> parameter.</p>
     <p id="option-m"><strong>M:</strong> Allows a greater range of modified keypresses to produce text. Normally, a key is treated as non-text if it is modified by any combination <em>other than</em> <kbd>Shift</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd> (i.e. <kbd>AltGr</kbd>) or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd> (i.e. <kbd>AltGr</kbd>+<kbd>Shift</kbd>). This option causes translation to be attempted for other combinations of modifiers. Consider this example, which typically recognizes <kbd>Ctrl</kbd>+<kbd>C</kbd>:</p>
     <pre>CtrlC := Chr(3)  <em>; CtrlCの文字をCtrlC varに格納します。</em>
 ih := InputHook("L1 M")
@@ -36,7 +36,7 @@ if (ih.Input = CtrlC)
     MsgBox "You pressed Control-C."</pre>
     <p>By default, the system maps <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> to ASCII control characters <a href="Chr.htm">Chr(1)</a> through <a href="Chr.htm">Chr(26)</a>. Other translations may be defined by the system or the active window's keyboard layout. Translation may ignore any modifier key for which the keyboard layout does not define a modifier bitmask. For example, <kbd>Win</kbd>+<kbd>E</kbd> typically transcribes to "e" if the M option is used.</p>
     <p>Mオプションを使用すると、入力中に<kbd>Ctrl</kbd>+<kbd>←</kbd>などの一部のキーボードショートカットが誤動作する場合があります。</p>
-    <p id="option-t"><strong>T：</strong><a href="#Timeout">タイムアウト</a>を設定します（例：<code>T3</code>または<code class="no-highlight">T2.5</code>）。</p>
+    <p id="option-t"><strong>T：</strong><a href="#Timeout">タイムアウト</a>を設定します（例：<code class="no-highlight">T3</code>または<code class="no-highlight">T2.5</code>）。</p>
     <p id="vis"><strong>V：</strong><a href="#VisibleText">VisibleText</a>、<a href="#VisibleNonText">VisibleNonText</a>を1 (true)に設定します。通常、ユーザーの入力はブロックされます（システムから隠されます）。ユーザーのキー入力をアクティブウィンドウに送るには、このオプションを使用します。</p>
     <p id="asterisk"><strong>*：</strong>ワイルドカード。<a href="#FindAnywhere">FindAnywhere</a>を1 (true)に設定し、ユーザーが入力した内容のどこにでもマッチを見つけることができるようにします。</p>
     <p id="E"><strong>E：</strong>一文字の終了キーをキーコードではなく、文字コードで扱います。これにより、アクティブウィンドウのキーボードレイアウトがスクリプトのキーボードレイアウトと異なる場合、より一貫した結果が得られます。It also prevents key combinations which don't actually produce the given end characters from ending input; for example, if @ is an end key, on the US layout <kbd>Shift</kbd>+<kbd>2</kbd> will trigger it but <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>2</kbd> will not (if the <a href="#E">E option</a> is used). If the <a href="#option-c">C option</a> is also used, the end character is case-sensitive.</p>
@@ -46,17 +46,17 @@ if (ih.Input = CtrlC)
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>0個以上のキーのリストで、どれかが押されると入力が終了します（終了キー自体は入力バッファに書き込まれません）。When an Input is terminated this way, <a href="#EndReason">EndReason</a> is set to the word EndKey and <a href="#EndKey">EndKey</a> is set to the name of the key.</p>
-    <p><em>EndKeys</em> uses a format similar to the <a href="Send.htm">Send</a> function. 例えば、<code>{Enter}.{Esc}</code>と指定すると、<kbd>Enter</kbd>、<kbd>.</kbd>、<kbd>Esc</kbd>のいずれかが入力を終了させることになる。中括弧そのものを終了キーとして使用する場合は、<code>{{}</code>と <code>{}}</code>を指定します。</p>
-    <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end keys, specify the left and/or right version of the key, not the neutral version. 例えば、<code>{Control}</code>ではなく、<code>{LControl}{RControl}</code>を指定します。</p>
-    <p>Although modified keys such as <kbd>Alt</kbd>+<kbd>C</kbd> (!c) are not supported, non-alphanumeric characters such as <code>?!:@&amp;{}</code> by default require <kbd>Shift</kbd> or <kbd>AltGr</kbd> to be pressed or not pressed depending on how the character is normally typed. If the <a href="#E">E option</a> is present, single character key names are interpreted as characters instead, and in those cases the modifier keys must be in the correct state to produce that character. When both the <a href="#E">E option</a> and <a href="#option-m">M option</a> are used, <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are supported by including the corresponding ASCII control characters in <em>EndKeys</em>.</p>
-    <p><code>{vkFF}</code> や <code>{sc001}</code>のような明示的なキーコードを指定することも可能です。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。Its key code can be determined by following the steps at the bottom of the <a href="../KeyList.htm#SpecialKeys">key list page</a>.</p>
+    <p><em>EndKeys</em> uses a format similar to the <a href="Send.htm">Send</a> function. For example, specifying <code>"{Enter}.{Esc}"</code> would cause either <kbd>Enter</kbd>, <kbd>.</kbd>, or <kbd>Esc</kbd> to terminate the Input. 中括弧そのものを終了キーとして使用する場合は、<code class="no-highlight">{{}</code>と <code class="no-highlight">{}}</code>を指定します。</p>
+    <p>To use <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, or <kbd>Shift</kbd> as end keys, specify the left and/or right version of the key, not the neutral version. For example, specify <code>"{LControl}{RControl}"</code> rather than <code>"{Control}"</code>.</p>
+    <p>Although modified keys such as <kbd>Alt</kbd>+<kbd>C</kbd> (!c) are not supported, non-alphanumeric characters such as <code class="no-highlight">?!:@&amp;{}</code> by default require <kbd>Shift</kbd> or <kbd>AltGr</kbd> to be pressed or not pressed depending on how the character is normally typed. If the <a href="#E">E option</a> is present, single character key names are interpreted as characters instead, and in those cases the modifier keys must be in the correct state to produce that character. When both the <a href="#E">E option</a> and <a href="#option-m">M option</a> are used, <kbd>Ctrl</kbd>+<kbd>A</kbd> through <kbd>Ctrl</kbd>+<kbd>Z</kbd> are supported by including the corresponding ASCII control characters in <em>EndKeys</em>.</p>
+    <p><code class="no-highlight">{vkFF}</code> や <code class="no-highlight">{sc001}</code>のような明示的なキーコードを指定することも可能です。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。Its key code can be determined by following the steps at the bottom of the <a href="../KeyList.htm#SpecialKeys">key list page</a>.</p>
   </dd>
 
   <dt id="MatchList">MatchList</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-    <p>カンマで区切られたキーフレーズのリストで、どれか一つでもあれば入力は終了します（この場合、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。マッチングを行うには、ユーザーが入力した内容全体がフレーズの1つと正確に一致する必要があります（<a href="#asterisk">* option</a>が存在する場合を除きます）。また、<strong>区切りであるカンマの周りにあるスペースやタブ</strong>は、マッチ文字列の一部であることを意味し、<strong>重要な</strong>意味を持ちます。例えば、<em>MatchList</em>が <code>ABC , XYZ</code>の場合、ユーザーはABCの後かXYZの前にスペースを入力しなければ、マッチングが発生しません。</p>
-    <p>カンマが2つ続くと、文字通りのカンマ1つとなります。For example, the following would produce a single literal comma at the end of string1: <code>string1,,,string2</code>. 同様に、次のリストには、その中にリテラルなカンマを持つ項目が1つだけ含まれています：<code>single,,item</code>。</p>
+    <p>カンマで区切られたキーフレーズのリストで、どれか一つでもあれば入力は終了します（この場合、<a href="#EndReason">EndReason</a>にはMatchという単語が設定されます）。マッチングを行うには、ユーザーが入力した内容全体がフレーズの1つと正確に一致する必要があります（<a href="#asterisk">* option</a>が存在する場合を除きます）。また、<strong>区切りであるカンマの周りにあるスペースやタブ</strong>は、マッチ文字列の一部であることを意味し、<strong>重要な</strong>意味を持ちます。For example, if <em>MatchList</em> is <code>"ABC , XYZ"</code>, the user must type a space after ABC or before XYZ to cause a match.</p>
+    <p>カンマが2つ続くと、文字通りのカンマ1つとなります。For example, the following would produce a single literal comma at the end of string1: <code>"string1,,,string2"</code>. Similarly, the following list contains only a single item with a literal comma inside it: <code>"single,,item"</code>.</p>
     <p><em>MatchList</em>の項目は個々のパラメータとして扱われないため、リストをすべて変数に格納することができます。例えば、<em>MatchList</em>は <code>List1 "," List2 "," List3</code>からなり、それぞれの変数にマッチフレーズの大きなサブリストが含まれていることがあります。</p>
   </dd>
 
@@ -117,22 +117,22 @@ if (ih.Input = CtrlC)
   <dt>Keys</dt>
   <dd>
   <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-  <p>キーの一覧です。中括弧は、<a href="Send.htm">送信</a>機能と同様に、キー名、仮想キーコード、スキャンコードを囲むために使用されます。例えば、<code>{Enter}.{{}</code>は、<kbd>Enter</kbd>, <kbd>.</kbd> および <kbd>{</kbd>に適用されます。キーを名前、<code>{vkNN}</code>、または<code>{scNNN}</code>で指定すると、3つの異なる結果が得られます；詳細は以下を参照してください。</p>
-  <p id="all-keys">Specify the string <code>{All}</code> (case-insensitive) on its own to apply <em>KeyOptions</em> to all VK and all SC, including <code>{vkE7}</code> and <code>{sc000}</code> as described below. その後、KeyOptを2回目に呼び出すと、特定のキーからオプションを削除することができます。</p>
-  <p id="sc000">Specify <code>{sc000}</code> to apply <em>KeyOptions</em> to all events which lack a scan code.</p>
-  <p id="vke7">Specify <code>{vkE7}</code> to apply <em>KeyOptions</em> to Unicode events, such as those sent by <code>SendEvent "{U+221e}"</code> or <code>SendEvent "{Text}∞"</code>.</p>
+  <p>キーの一覧です。中括弧は、<a href="Send.htm">送信</a>機能と同様に、キー名、仮想キーコード、スキャンコードを囲むために使用されます。For example, <code>"{Enter}.{{}"</code> would apply to <kbd>Enter</kbd>, <kbd>.</kbd> and <kbd>{</kbd>. キーを名前、<code class="no-highlight">{vkNN}</code>、または<code class="no-highlight">{scNNN}</code>で指定すると、3つの異なる結果が得られます；詳細は以下を参照してください。</p>
+  <p id="all-keys">Specify the string <code>"{All}"</code> (case-insensitive) on its own to apply <em>KeyOptions</em> to all VK and all SC, including <code class="no-highlight">{vkE7}</code> and <code class="no-highlight">{sc000}</code> as described below. その後、KeyOptを2回目に呼び出すと、特定のキーからオプションを削除することができます。</p>
+  <p id="sc000">Specify <code class="no-highlight">{sc000}</code> to apply <em>KeyOptions</em> to all events which lack a scan code.</p>
+  <p id="vke7">Specify <code class="no-highlight">{vkE7}</code> to apply <em>KeyOptions</em> to Unicode events, such as those sent by <code>SendEvent "{U+221e}"</code> or <code>SendEvent "{Text}∞"</code>.</p>
   </dd>
   <dt>KeyOptions</dt>
   <dd>
   <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
   <p>以下の1文字オプションのうち1つ以上（スペースとタブは無視されます）。</p>
-  <p id="KeyOpt-minus"><strong>-</strong>（マイナス）：<code>-</code>に続くオプションのうち、次の<code>+</code>まで削除します。</p>
-  <p id="KeyOpt-plus"><strong>+</strong>（プラス）：それ以外の場合は、何の効果もなく、以前の<code>-</code>をキャンセルします。</p>
-  <p id="KeyOpt-e"><strong>E:</strong> End key. If enabled, pressing the key terminates Input, sets <a href="#EndReason">EndReason</a> to the word EndKey and <a href="#EndKey">EndKey</a> to the key's normalized name. Unlike the <em>EndKeys</em> parameter, the state of <kbd>Shift</kbd> or <kbd>AltGr</kbd> is ignored. 例えば、<code>@</code>と <code class="no-highlight">2</code>はどちらもUSキーボードレイアウトの<code>{vk32}</code>と同等です。</p>
+  <p id="KeyOpt-minus"><strong>-</strong>（マイナス）：<code class="no-highlight">-</code>に続くオプションのうち、次の<code class="no-highlight">+</code>まで削除します。</p>
+  <p id="KeyOpt-plus"><strong>+</strong>（プラス）：それ以外の場合は、何の効果もなく、以前の<code class="no-highlight">-</code>をキャンセルします。</p>
+  <p id="KeyOpt-e"><strong>E:</strong> End key. If enabled, pressing the key terminates Input, sets <a href="#EndReason">EndReason</a> to the word EndKey and <a href="#EndKey">EndKey</a> to the key's normalized name. Unlike the <em>EndKeys</em> parameter, the state of <kbd>Shift</kbd> or <kbd>AltGr</kbd> is ignored. 例えば、<code class="no-highlight">@</code>と <code class="no-highlight">2</code>はどちらもUSキーボードレイアウトの<code class="no-highlight">{vk32}</code>と同等です。</p>
   <p id="KeyOpt-i"><strong>I：</strong>テキストの無視。このキーによって通常生成されるテキストはすべて無視され、キーは非テキストキーとして扱われる（<a href="#VisibleNonText">VisibleNonText</a>参照）。そのキーが通常テキストを生成しない場合、効果はありません。</p>
   <p id="KeyOpt-n"><strong>N:</strong> Notify. キーが押されるたびに<a href="#OnKeyDown">OnKeyDown</a>および<a href="#OnKeyUp">OnKeyUp</a>コールバックが呼び出されるようにします。</p>
-  <p id="KeyOpt-s"><strong>S：</strong>キーを処理した後、サプレス（ブロック）します。<code>-S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code>+S</code>は <code>-V</code>を意味します。</p>
-  <p id="KeyOpt-v"><strong>V:</strong> Visible. キーが抑制される（ブロックされる）のを防ぐ。<code>-V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code>+V</code>は <code>-S</code>を意味します。</p>
+  <p id="KeyOpt-s"><strong>S：</strong>キーを処理した後、サプレス（ブロック）します。<code class="no-highlight">-S</code>が使用されるまでは、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>に優先します。<code class="no-highlight">+S</code>は <code class="no-highlight">-V</code>を意味します。</p>
+  <p id="KeyOpt-v"><strong>V:</strong> Visible. キーが抑制される（ブロックされる）のを防ぐ。<code class="no-highlight">-V</code>が使用されるまで、<a href="#VisibleText">VisibleText</a>または<a href="#VisibleNonText">VisibleNonText</a>をオーバーライドします。<code class="no-highlight">+V</code>は <code class="no-highlight">-S</code>を意味します。</p>
   </dd>
 </dl>
 <h4 id="KeyOpt_Remarks">備考</h4>
@@ -179,7 +179,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <div class="methodShort" id="EndKey"><h3>EndKey</h3>
 <p>Input を終了させるために押された<a href="#EndKeys">終了キー</a>の名前を返します。</p>
 <pre class="Syntax">KeyName := InputHookObj.<span class="func">EndKey</span></pre>
-<p>Note that EndKey returns the "normalized" name of the key regardless of how it was written in the <em>EndKeys</em> parameter. 例えば、<code>{Esc}</code>と <code>{vk1B}</code>はどちらも<code>Escape</code>を生成します。<a href="GetKeyName.htm">GetKeyName</a>を使用すると、正規化された名前を取得することができます。</p>
+<p>Note that EndKey returns the "normalized" name of the key regardless of how it was written in the <em>EndKeys</em> parameter. 例えば、<code class="no-highlight">{Esc}</code>と <code class="no-highlight">{vk1B}</code>はどちらも<code class="no-highlight">Escape</code>を生成します。<a href="GetKeyName.htm">GetKeyName</a>を使用すると、正規化された名前を取得することができます。</p>
 <p><a href="#E">E オプション</a>が使用された場合、EndKey は入力された実際の文字を返します（該当する場合）。それ以外の場合は、スクリプトのアクティブなキーボードレイアウトに従って、キー名が決定されます。</p>
 <p>EndKey は、<a href="#EndReason">EndReason</a>が「EndKey」でない場合、空文字列を返す。</p>
 </div>
@@ -188,9 +188,9 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
 <p>Input終了時に論理的にダウンしていたモディファイアの文字列を返します。</p>
 <pre class="Syntax">Mods := InputHookObj.<span class="func">EndMods</span></pre>
 <p>すべてのモディファイアが論理的にダウン（押された）した場合、完全な文字列は次のようになります：</p>
-<pre>&lt;^&gt;^&lt;!&gt;!&lt;+&gt;+&lt;#&gt;#</pre>
+<pre class="no-highlight">&lt;^&gt;^&lt;!&gt;!&lt;+&gt;+&lt;#&gt;#</pre>
 <p>これらの修飾語は、<a href="../Hotkeys.htm">ホットキー</a>の場合と同じ意味を持ちます。各モディファイアは必ず &lt;（左）または &gt; （右）で修飾されます。対応するキー名は以下の通りです：LCtrl、RCtrl、LAlt、RAlt、LShift、RShift、LWin、RWin。</p>
-<p><a href="InStr.htm">InStr</a>は、与えられた修飾語（<code>&gt;!</code>や <code>^</code>など）が存在するかどうかをチェックするために使用することができます。次の行で、<em>Mods</em>を <code>^!+#</code>のような中立的な修飾語の文字列に変換することができます：</p>
+<p><a href="InStr.htm">InStr</a>は、与えられた修飾語（<code class="no-highlight">&gt;!</code>や <code class="no-highlight">^</code>など）が存在するかどうかをチェックするために使用することができます。次の行で、<em>Mods</em>を <code class="no-highlight">^!+#</code>のような中立的な修飾語の文字列に変換することができます：</p>
 <pre>Mods := RegExReplace(Mods, "[&lt;&gt;](.)(?:&gt;\1)?", "$1")</pre>
 <p>一瞬のタイミングのため、このプロパティは、Inputが終了した直後や<a href="#OnEnd">OnEnd</a>コールバックで使用されても、<a href="GetKeyState.htm">GetKeyState</a>よりも信頼性が高い場合があります。</p>
 </div>
@@ -243,7 +243,7 @@ InputHookObj.KeyOpt("{vkE7}{sc000}", "-I")  <em>; except Unicode events.</em></p
   <li>A string containing the character (or multiple characters, see below for details).</li>
 </ol>
 <p>対応する情報が不要な場合、コールバックのパラメータリストの最後から1つ以上のパラメータを省略することができますが、この場合、<code>MyCallback(Param1, *)</code>のように、最後のパラメータとしてアスタリスクを指定する必要があります。</p>
-<p>複数の文字が存在することは、最後のキー押下の前にデッドキーが使用されていたことを示しますが、2つのキーは1つの文字に変換することができませんでした。例えば、あるキーボードレイアウトでは、<kbd>`</kbd><kbd>e</kbd>は <code>è</code>を、<kbd>`</kbd><kbd>z</kbd>は <code>`z</code>を出力します。</p>
+<p>複数の文字が存在することは、最後のキー押下の前にデッドキーが使用されていたことを示しますが、2つのキーは1つの文字に変換することができませんでした。例えば、あるキーボードレイアウトでは、<kbd>`</kbd><kbd>e</kbd>は <code class="no-highlight">è</code>を、<kbd>`</kbd><kbd>z</kbd>は <code class="no-highlight">`z</code>を出力します。</p>
 <p>終了キーが押されても、この関数が呼び出されることはありません。</p>
 </div>
 
@@ -441,9 +441,9 @@ OutputVar := ih.Input
 <p>後方互換性に関連するいくつかの相違点があります：</p>
 <ul>
   <li>Inputコマンドは、キーボードレイアウトによっては他の文字が小文字であっても、エンドキー<kbd>A</kbd>-<kbd>Z</kbd>を大文字で保存します。<a href="Send.htm">Send</a>に値を渡すと、プレーンなキーストロークではなく、シフトしたキーストロークが生成されます。一方、InputHookの<a href="#EndKeys">EndKeys</a>プロパティは、常に正規化された名前を返します。つまり、<kbd>Shift</kbd>や他の修飾子を使わずにキーを押したときに生じるどの文字も、正規化された名前を返します。</li>
-  <li><p><em>EndKeys</em>で使用されるキー名が、2つの物理キー（<kbd>NumpadUp</kbd>と <kbd>Up</kbd>など）で共有されるVKに対応する場合、Inputコマンドは主キーをVKで、副キーをSCで処理するが、InputHookは両方をSCで処理します。VKによる鍵の取り扱いに<code>{vkNN}</code>表記を用いることができます。</p>
-  <p>終了キーがVKで処理される場合、両方の物理キーでInputを終了させることができます。例えば、<code>{NumpadUp}</code>の場合、Inputコマンドは<kbd>Up</kbd>を押すことで終了しますが、ErrorLevelはVKのみを考慮するため、<code>EndKey:NumpadUp</code>となります。</p>
-  <p>エンドキーがSCで処理される場合、Inputコマンドは常に任意のVKの既知のセカンダリSCに対して名前を生成し、それ以外のキーに対しては常に<code>sc<i>NNN</i></code>を生成する（たとえ名前を持っていても）。これに対して、InputHookはキーに名前がある場合に名前を生成します。</p></li>
+  <li><p>If a key name used in <em>EndKeys</em> corresponds to a VK which is shared between two physical keys (such as <code class="no-highlight">NumpadUp</code> and <code class="no-highlight">Up</code>), the Input command handles the primary key by VK and the secondary key by SC, whereas InputHook handles both by SC. VKによる鍵の取り扱いに<code class="no-highlight">{vkNN}</code>表記を用いることができます。</p>
+  <p>終了キーがVKで処理される場合、両方の物理キーでInputを終了させることができます。For example, <code class="no-highlight">{NumpadUp}</code> would cause the Input command to be terminated by pressing the <kbd>↑</kbd> arrow key on the main keyboard, but ErrorLevel would contain <code class="no-highlight">EndKey:NumpadUp</code> since only the VK is considered.</p>
+  <p>エンドキーがSCで処理される場合、Inputコマンドは常に任意のVKの既知のセカンダリSCに対して名前を生成し、それ以外のキーに対しては常に<code class="no-highlight">sc<i>NNN</i></code>を生成する（たとえ名前を持っていても）。これに対して、InputHookはキーに名前がある場合に名前を生成します。</p></li>
 </ul>
 
 <h2 id="Related">関連</h2>
@@ -533,7 +533,7 @@ ih.Start()
 ih.Wait()</pre>
 </div>
 <div class="ex" id="ExHotkey">
-<p><a class="ex_number" href="#ExHotkey"></a> This is a working hotkey example. Since the hotkey has the tilde (~) prefix, its own keystroke will pass through to the active window. Thus, if you type <code>[btw</code> (or one of the other match phrases) in any editor, the script will automatically perform an action of your choice (such as replacing the typed text). For an alternative version of this example, see <a href="Switch.htm#ExInput">Switch</a>.</p>
+<p><a class="ex_number" href="#ExHotkey"></a> This is a working hotkey example. Since the hotkey has the tilde (~) prefix, its own keystroke will pass through to the active window. Thus, if you type <code class="no-highlight">[btw</code> (or one of the other match phrases) in any editor, the script will automatically perform an action of your choice (such as replacing the typed text). For an alternative version of this example, see <a href="Switch.htm#ExInput">Switch</a>.</p>
 <pre>~[::
 {
     msg := ""

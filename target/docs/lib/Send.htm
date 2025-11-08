@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Send - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="Send、SendText、SendInput、SendPlay、SendEvent関数は、アクティブウィンドウにキーストロークやマウスクリックのシミュレーションを送信します。" />
@@ -27,7 +27,7 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>送信するキーのシーケンス。</p>
-    <p>デフォルトでは（つまり、SendTextも<a href="#Raw">Rawモード</a>も <a href="#Text">Textモード</a>も使用しない場合）、文字<code>^+!#{}</code>は特別な意味を持つ。文字<code>^+!#</code>は、修飾キー<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>を表します。次のキーにしか影響しません。対応する修飾キーを単独で送信する場合は、キー名を中括弧で囲んでください。キーを押したり離したりするだけなら、以下のようにキー名の後に「down」や「up」をつけてください。</p>
+    <p>デフォルトでは（つまり、SendTextも<a href="#Raw">Rawモード</a>も <a href="#Text">Textモード</a>も使用しない場合）、文字<code class="no-highlight">^+!#{}</code>は特別な意味を持つ。文字<code class="no-highlight">^+!#</code>は、修飾キー<kbd>Ctrl</kbd>、<kbd>Shift</kbd>、<kbd>Alt</kbd>、<kbd>Win</kbd>を表します。次のキーにしか影響しません。対応する修飾キーを単独で送信する場合は、キー名を中括弧で囲んでください。キーを押したり離したりするだけなら、以下のようにキー名の後に「down」や「up」をつけてください。</p>
     <style>
       #modifierkeys td:not(:last-child) {
         white-space: nowrap;
@@ -72,8 +72,8 @@
         <td><code>Send "#e"</code> は、<kbd>Win</kbd>を押しながら<kbd>E</kbd>を押します</td>
       </tr>
     </table>
-    <p class="note"><strong>注意：</strong><kbd>Shift</kbd>を送ると大文字が出るように、<code>A</code>はプログラムによっては<code>a</code>とは違う効果が出ます。例えば、<code>!A</code>は <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>、および、<code>!a</code>は、<kbd>Alt</kbd>+<kbd>A</kbd>を押します。迷ったときは小文字を使います。</p>
-    <p>文字<code>{}</code>は、<a href="#keynames">キー名やその他のオプション</a>を囲んだり、特殊文字を文字通りに送信するために使用します。例えば、<code>{Tab}</code> は <kbd>Tab</kbd>、<code>{!}</code>は文字通りのエクスクラメーションマークです。</p>
+    <p class="note"><strong>注意：</strong><kbd>Shift</kbd>を送ると大文字が出るように、<code class="no-highlight">A</code>はプログラムによっては<code class="no-highlight">a</code>とは違う効果が出ます。例えば、<code class="no-highlight">!A</code>は <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>、および、<code class="no-highlight">!a</code>は、<kbd>Alt</kbd>+<kbd>A</kbd>を押します。迷ったときは小文字を使います。</p>
+    <p>文字<code class="no-highlight">{}</code>は、<a href="#keynames">キー名やその他のオプション</a>を囲んだり、特殊文字を文字通りに送信するために使用します。例えば、<code class="no-highlight">{Tab}</code> は <kbd>Tab</kbd>、<code class="no-highlight">{!}</code>は文字通りのエクスクラメーションマークです。</p>
     <p>ASCII文字（a-zまたはA-Z）を中括弧で囲むと、その文字が現在のキーボードレイアウトに存在しない場合でも、対応する仮想キーコードとして送信されます。つまり、<code>Send "a"</code>は「a」が出るが、<code>Send "{a}"</code>をと「a」が出るかどうかは、キーボードの配列によって異なります。詳しくは、<a href="#AZ">下記の備考</a>をご覧ください。</p>
   </dd>
 
@@ -87,19 +87,19 @@
 <p id="SendEvent"><strong>SendEvent：</strong>SendEventは、Windowsのkeybd_event関数（詳細はMicrosoft Docsを検索）を使用してキーストロークを送信します。キー入力の送信速度は、<a href="SetKeyDelay.htm">SetKeyDelay</a>で決定されます。<a href="SendMode.htm">SendMode</a> can be used to make Send synonymous with SendEvent.</p>
 
 <h2 id="Special_modes">Special modes</h2>
-<p>以下のモードは、<em>Keys</em>の文字の解釈や、Send、SendInput、SendPlay、SendEvent、<a href="ControlSend.htm">ControlSendなどの</a>キー送信関数の動作に影響を与えます。これらのモードは、<em>Keys</em>の<code>{x}</code>として指定する必要があり、xはRaw、Text、Blindのいずれかです。例えば、<code>{Raw}</code>です。</p>
+<p>以下のモードは、<em>Keys</em>の文字の解釈や、Send、SendInput、SendPlay、SendEvent、<a href="ControlSend.htm">ControlSendなどの</a>キー送信関数の動作に影響を与えます。これらのモードは、<em>Keys</em>の<code class="no-highlight">{x}</code>として指定する必要があり、xはRaw、Text、Blindのいずれかです。例えば、<code class="no-highlight">{Raw}</code>です。</p>
 
 <h3 id="Raw">Raw mode</h3>
-<p id="SendRaw">Rawモードは<code>{Raw}</code>で有効にすることができ、<code>{Enter}</code>を <kbd>Enter</kbd>、<code>^c</code>を <kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換するのではなく、特殊文字<code>^+!#{}</code>を含む後続のすべての文字が文字通り解釈されるようになります。例えば、<code>Send "{Raw}{Tab}"</code>は、<kbd>Tab</kbd>の代わりに<code>{Tab}</code>を送信します。</p>
+<p id="SendRaw">Rawモードは<code class="no-highlight">{Raw}</code>で有効にすることができ、<code class="no-highlight">{Enter}</code>を <kbd>Enter</kbd>、<code class="no-highlight">^c</code>を <kbd>Ctrl</kbd>+<kbd>C</kbd>などに変換するのではなく、特殊文字<code class="no-highlight">^+!#{}</code>を含む後続のすべての文字が文字通り解釈されるようになります。例えば、<code>Send "{Raw}{Tab}"</code>は、<kbd>Tab</kbd>の代わりに<code class="no-highlight">{Tab}</code>を送信します。</p>
 <p>Rawモードは、<a href="../misc/EscapeChar.htm">エスケープシーケンス</a>や <a href="../Variables.htm#Expressions">式</a>の解釈には影響しません。例えば、<code>Send "{Raw}``100`%"</code>は、文字列<code class="no-highlight">`100%</code>を送信します。</p>
 
 <h3 id="Text">テキストモード</h3>
-<p id="SendText">テキストモードは<code>{Text}</code>、SendText、<a href="ControlSend.htm">ControlSendText</a>のいずれかで有効にすることができ、Rawモードと似ていますが、文字（<code>`r</code>、<code>`n</code>、<code>`t</code>、<code>`b</code>以外）をキーコードに変換しようとしないことを除いて、残りのすべての文字に対して<a href="#fallback">フォールバックメソッド</a>が使用されます。SendEvent、SendInput、<a href="ControlSend.htm">ControlSend</a>については、文字が正しい修飾子の状態に依存することが少なくなるため、信頼性が向上する。このモードは、ブラインドモードと組み合わせることで、修飾キーを離さないようにすることができます：<code>Send "{Blind}{Text}テキスト"</code>。ただし、アプリケーションによっては、修飾キーが解放されている必要があります。</p>
-<p><code>`n</code>、<code>`r</code>、<code>`r`n</code>は、デフォルトの動作やRawモードが<code>`r`n</code>を2つの<kbd>Enter</kbd>に変換するのとは異なり、すべて1つの<kbd>Enter</kbd>に変換されます。<code>`t</code>は <kbd>Tab</kbd>に、<code>`b</code>は <kbd>Backspace</kbd>に変換されますが、それ以外の文字は変換されずに送信されます。</p>
-<p>ブラインドモードと同様に、テキストモードは<a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>を無視し（つまり、<kbd>CapsLock</kbd>の状態は変化しない）、<a href="../Hotkeys.htm#win-l"><kbd>Win</kbd>が解除されるのを待つ</a>ことはありません。これは、テキストモードが通常<kbd>CapsLock</kbd>の状態に依存せず、システムの<kbd>Win</kbd>+<kbd>L</kbd>ホットキーをトリガーすることができないためです。ただし、<em>Keys</em>が <code>{Text}</code>または<code>{Blind}{Text}</code>で始まる場合のみ適用されます。</p>
+<p id="SendText">テキストモードは<code class="no-highlight">{Text}</code>、SendText、<a href="ControlSend.htm">ControlSendText</a>のいずれかで有効にすることができ、Rawモードと似ていますが、文字（<code class="no-highlight">`r</code>、<code class="no-highlight">`n</code>、<code class="no-highlight">`t</code>、<code class="no-highlight">`b</code>以外）をキーコードに変換しようとしないことを除いて、残りのすべての文字に対して<a href="#fallback">フォールバックメソッド</a>が使用されます。SendEvent、SendInput、<a href="ControlSend.htm">ControlSend</a>については、文字が正しい修飾子の状態に依存することが少なくなるため、信頼性が向上する。このモードは、ブラインドモードと組み合わせることで、修飾キーを離さないようにすることができます：<code>Send "{Blind}{Text}テキスト"</code>。ただし、アプリケーションによっては、修飾キーが解放されている必要があります。</p>
+<p><code class="no-highlight">`n</code>、<code class="no-highlight">`r</code>、<code class="no-highlight">`r`n</code>は、デフォルトの動作やRawモードが<code class="no-highlight">`r`n</code>を2つの<kbd>Enter</kbd>に変換するのとは異なり、すべて1つの<kbd>Enter</kbd>に変換されます。<code class="no-highlight">`t</code>は <kbd>Tab</kbd>に、<code class="no-highlight">`b</code>は <kbd>Backspace</kbd>に変換されますが、それ以外の文字は変換されずに送信されます。</p>
+<p>ブラインドモードと同様に、テキストモードは<a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a>を無視し（つまり、<kbd>CapsLock</kbd>の状態は変化しない）、<a href="../Hotkeys.htm#win-l"><kbd>Win</kbd>が解除されるのを待つ</a>ことはありません。これは、テキストモードが通常<kbd>CapsLock</kbd>の状態に依存せず、システムの<kbd>Win</kbd>+<kbd>L</kbd>ホットキーをトリガーすることができないためです。ただし、<em>Keys</em>が <code class="no-highlight">{Text}</code>または<code class="no-highlight">{Blind}{Text}</code>で始まる場合のみ適用されます。</p>
 
 <h3 id="Blind">ブラインドモード</h3>
-<p id="blind">ブラインドモードは<code>{Blind}</code>で有効にすることができ、通常、期待通りに動作させるために自動的に行われる多くのことを無効にすることで、スクリプトをよりコントロールできるようにします。ブラインドモードを有効にするには、文字列の最初の項目として<code>{Blind}</code>を指定する必要があります。以下のような効果があります：</p>
+<p id="blind">ブラインドモードは<code class="no-highlight">{Blind}</code>で有効にすることができ、通常、期待通りに動作させるために自動的に行われる多くのことを無効にすることで、スクリプトをよりコントロールできるようにします。ブラインドモードを有効にするには、文字列の最初の項目として<code class="no-highlight">{Blind}</code>を指定する必要があります。以下のような効果があります：</p>
 <ul>
   <li>ブラインドモードは、修飾キー（Alt、Ctrl、Shift、Win）がダウンポジションでスタートした場合、修飾キーが<a href="#blind-exclude">除外されて</a>いない限り、解放を回避する。例えば、ホットキー<code>+s::Send "{Blind}abc"</code>は、ユーザーが<kbd>Shift</kbd>を押しているため、abc ではなく ABC を送信します。</li>
   <li>修飾キーは、ユーザーが物理的に押したままでも、センドがホットキーの修飾をオフにできるように、別の方法で復元されます。例えば、<code>^space::Send "{Ctrl up}"</code>は、ユーザーが物理的に<kbd>Ctrl</kbd>を押したままであれば、自動的に<kbd>Ctrl</kbd>を押し下げますが、<code>^space::Send "{Blind}{Ctrl up}"</code>では、物理的には下がっていても、論理的には<kbd>Ctrl</kbd>が上がっていることがあります。</li>
@@ -107,9 +107,9 @@
   <li><a href="A_MenuMaskKey.htm">Menu masking</a>は無効です。つまり、Sendは、予防のために送信されるはずの余分なキーストロークを省略します：1) Winキー操作時のスタートメニュー表示（LWin/RWin）、2) Altキー操作時のメニューバー起動。ただし、ブラインドモードでは、フックホットキー起動後のキーボードフックによるマスキングは防げません。</li>
   <li>送信は、テキストに<kbd>L</kbd>キーが含まれていても、<kbd>Win</kbd>の解除を待たずに送信します。これは通常、Sendがシステムの「ワークステーションをロック」ホットキー（<kbd>Win</kbd>+<kbd>L</kbd>）をトリガーするのを防ぐために行われるものです。See <a href="../Hotkeys.htm#win-l">Hotkeys</a> for details.</li>
 </ul>
-<p id="blind-exclude">「Blind」の後に1つ以上の修飾記号(<code>!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code>{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
+<p id="blind-exclude">「Blind」の後に1つ以上の修飾記号(<code class="no-highlight">!#^+</code>)を付けると、必要に応じてそれらの修飾記号が自動的に解除されるようになる場合があります。例えば、<code>*^a::Send "{Blind^}b"</code> は、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>ではなく、<kbd>Shift</kbd>+<kbd>B</kbd>を送信しますが、<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> が押し付けられた場合。<code class="no-highlight">{Blind!#^+}</code>は、必要に応じてすべてのモディファイアを解除することができますが、Blindモードの他の効果を有効にします。</p>
 <p>ブラインドモードは、<a href="../misc/Remap.htm">キーを再マッピング</a>する際に内部で使用されます。例えば、<code>a::b</code>の再マッピングでは、次のようになります：1)「a」と入力したときに「b」、2) 大文字の「A」と入力したときに「B」、3)  <kbd>Ctrl</kbd>+<kbd>B</kbd>と入力したときに<kbd>Ctrl</kbd>+<kbd>A</kbd>。ソースキーに修飾子が指定されている場合（ソースキーが大文字の場合は<kbd>Shift</kbd>を含む）、上記のように除外される。例えば、<code>^a::b</code>は、<kbd>Ctrl</kbd>+<kbd>B</kbd>ではなく、通常の<kbd>B</kbd>を出力します。</p>
-<p><code>{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code>{Blind}{Text}</code>を使用してください。</p>
+<p><code class="no-highlight">{Blind}</code>はSendTextや<a href="ControlSend.htm">ControlSendText</a>ではサポートされていませんので、代わりに<code class="no-highlight">{Blind}{Text}</code>を使用してください。</p>
 <p>ブラインドモードは、特に修飾キー（Ctrl、Alt、Shift、Win）を扱う場合、<a href="#SendPlayDetail" class="deprecated" title="Deprecated. Use SendInput instead.">SendPlay</a>で完全にサポートされているわけではありません。</p>
 
 <h2 id="keynames">キー名</h2>
@@ -293,7 +293,9 @@
   </tr>
   <tr id="asc">
     <td>{ASC nnnnn}</td>
-    <td><p><kbd>Alt</kbd>+nnnnのキーパッドの組み合わせを送信します。キーボードに存在しない特殊文字を生成するために使用することができます。To generate printable ASCII characters or other characters from <a href="https://en.wikipedia.org/wiki/Code_page_437">code page 437</a>, specify a number between 1 and 255. ANSI文字（ほとんどの言語で標準）を生成するには、128から255までの数字を指定しますが、その前に先頭の0を付けます（例：{Asc 0133}）。</p>
+    <td><p><kbd>Alt</kbd>+nnnnのキーパッドの組み合わせを送信します。キーボードに存在しない特殊文字を生成するために使用することができます。</p>
+    <p>To generate printable ASCII characters or other characters from the system's OEM (DOS) code page, specify a number between 1 and 255. <code>DllCall("GetOEMCP", "UInt")</code> returns the current OEM code page number, such as <a href="https://en.wikipedia.org/wiki/Code_page_437">437 (United States)</a> or <a href="https://en.wikipedia.org/wiki/Code_page_850">850 (Western Europe)</a>.</p>
+    <p>To generate ANSI characters (standard in most languages), specify a number between 128 and 255, but precede it with a leading zero, e.g. <code class="no-highlight">{Asc 0133}</code>. <code>DllCall("GetACP", "UInt")</code> returns the current ANSI code page number, such as <a href="https://en.wikipedia.org/wiki/Windows-1252">1252 (United States, Western Europe, etc.)</a>.</p>
     <p>256から65535までの数字（先頭のゼロを含まない）を指定することで、ユニコード文字を生成することができます。ただし、すべてのアプリケーションで対応しているわけではありません。代替案については、以下のセクションを参照してください。</p></td>
   </tr>
   <tr id="Unicode">
@@ -478,15 +480,15 @@
   </tr>
   <tr>
     <td>{Blind}</td>
-    <td><a href="#blind">ブラインド</a>モードを有効にします。これは、一般的に期待通りに動作するように、通常自動的に行われる多くのことを無効にすることで、スクリプトをより制御できるようにするものです。<code>{Blind}</code>は文字列の先頭に出現する必要があります。</td>
+    <td><a href="#blind">ブラインド</a>モードを有効にします。これは、一般的に期待通りに動作するように、通常自動的に行われる多くのことを無効にすることで、スクリプトをより制御できるようにするものです。<code class="no-highlight">{Blind}</code>は文字列の先頭に出現する必要があります。</td>
   </tr>
   <tr>
     <td>{Raw}</td>
-    <td>以下の文字が文字通りに解釈される<a href="#SendRaw">Rawモード</a>を有効にします：<code>^+!#{}</code>。Although <code>{Raw}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
+    <td>以下の文字が文字通りに解釈される<a href="#SendRaw">Rawモード</a>を有効にします：<code class="no-highlight">^+!#{}</code>。Although <code class="no-highlight">{Raw}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
   </tr>
   <tr>
     <td>{Text}</td>
-    <td>キーストロークではなく、文字のストリームを送信する<a href="#SendText">テキストモード</a>を有効にします。Rawモードと同様に、Textモードでは、以下の文字が文字通りに解釈されます：<code>^+!#{}</code>。Although <code>{Text}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
+    <td>キーストロークではなく、文字のストリームを送信する<a href="#SendText">テキストモード</a>を有効にします。Rawモードと同様に、Textモードでは、以下の文字が文字通りに解釈されます：<code class="no-highlight">^+!#{}</code>。Although <code class="no-highlight">{Text}</code> need not occur at the beginning of the string, once specified, it stays in effect for the remainder of the string.</td>
   </tr>
 </table>
 
@@ -523,8 +525,8 @@ Send "{Tab up}"  <em>; Release the key.</em></pre>
 <p class="warning"><strong>注：</strong>上記の方法で送信された文字は、通常、キーボードショートカットやホットキーは作動しません。</p>
 <p id="AZ">a-zまたはA-Z（ASCII文字）の範囲にある文字については、現在のキーボードレイアウトに存在しない各文字を、文字として、または対応する仮想キーコード（vk41～vk5A）として送信することができます：</p>
 <ul>
-  <li>裸の文字が送られる場合（つまり、修飾語や中括弧がない場合）、または<a href="#Raw">Raw</a>モードが有効な場合は、文字として送信されます。例えば、<code>Send "{Raw}Regards"</code>は所望のテキストを送信します。<kbd>R</kbd>（vk52）を押すと他の文字（ロシア語レイアウトでは<kbd>К</kbd>など）が出てくるが、期待通りのテキストが送られる。この場合、先行送信でモディファイアキーが有効になっていない限り、<code>{Raw}</code>は省略可能です。</li>
-  <li>送信機能によって1つ以上の修飾キーが有効になっている場合、または文字が中括弧で囲まれている場合は、キーコード（文字が大文字の場合は<kbd>Shift</kbd>で修飾）として送信されます。これにより、スクリプトは標準的なキーボードショートカットを簡単に起動することができます。例えば、<code>^c</code>と<code>{Ctrl down}c{Ctrl up}</code>は標準の<kbd>Ctrl</kbd>+<kbd>C</kbd>ショートカットを有効にし、<code>{c}</code>は<code>{vk43}</code>と同等です。</li>
+  <li>裸の文字が送られる場合（つまり、修飾語や中括弧がない場合）、または<a href="#Raw">Raw</a>モードが有効な場合は、文字として送信されます。例えば、<code>Send "{Raw}Regards"</code>は所望のテキストを送信します。<kbd>R</kbd>（vk52）を押すと他の文字（ロシア語レイアウトでは<kbd>К</kbd>など）が出てくるが、期待通りのテキストが送られる。この場合、先行送信でモディファイアキーが有効になっていない限り、<code class="no-highlight">{Raw}</code>は省略可能です。</li>
+  <li>送信機能によって1つ以上の修飾キーが有効になっている場合、または文字が中括弧で囲まれている場合は、キーコード（文字が大文字の場合は<kbd>Shift</kbd>で修飾）として送信されます。これにより、スクリプトは標準的なキーボードショートカットを簡単に起動することができます。例えば、<code class="no-highlight">^c</code>と<code class="no-highlight">{Ctrl down}c{Ctrl up}</code>は標準の<kbd>Ctrl</kbd>+<kbd>C</kbd>ショートカットを有効にし、<code class="no-highlight">{c}</code>は<code class="no-highlight">{vk43}</code>と同等です。</li>
 </ul>
 <p>現在のキーボードレイアウトにその文字が存在する場合、そのレイアウトがその文字に関連付けるキーコードとして常に送信されます（<a href="#SendText">テキストモード</a>が使用されていない場合、その文字は他の手段で送信されます）。つまり、上記のセクションは、ロシア語のような非ラテン語ベースのレイアウトにのみ関係します。</p>
 <p id="mask"><strong>モディファイアの状態：</strong>Sendは、<kbd>Win</kbd>または<kbd>Alt</kbd>修飾キーの状態を変更する必要がある場合（ユーザーがこれらのキーのいずれかを保持している場合など）、スタートメニューやウィンドウメニューが表示されないようにするために追加のキーストローク（デフォルトでは<kbd>Ctrl</kbd>）を注入することができます。詳しくは、<a href="A_MenuMaskKey.htm">A_MenuMaskKey</a>を参照してください。</p>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Hotstring - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="Hotstring機能は、スクリプトの実行中にHotstringを作成、変更、有効化、無効化する機能です。" />
@@ -25,8 +25,8 @@
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>ホットストリングのトリガー文字列で、その前に<a href="../Hotstrings.htm">通常のコロン</a>と <a href="../Hotstrings.htm#Options">オプション文字</a>が入ります。例えば、<code>"::btw"</code>または<code>":*:]d"</code>です。</p>
-    <p><em>文字列</em>は、<a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>、<a href="../Hotstrings.htm#Question">単語の区別（?）</a>、活性化基準（<a href="_HotIf.htm">#HotIf</a>または<a href="HotIf.htm">HotIf</a>で設定）、トリガー文字列を考慮して、既存のホットストリングと一致させることができます。例えば、<code>"::btw"</code>と<code>"::BTW"</code>は、デフォルトで大文字小文字を区別するモードが有効になっていなければ一致しますが、<code>":C:btw"</code>と<code>":C:BTW"</code>は決して一致しません。The <code>C</code> and <code>?</code> options may be included in <em>String</em> or set as defaults by the <a href="_Hotstring.htm">#Hotstring</a> directive or a previous use of <em>NewOptions</em>.</p>
-    <p>hotstringが既に存在する場合、<em>String</em>で指定されたオプションは有効になり、それ以外のオプションはそのままになります。ただし、<code>C</code>や <code>?</code>が付いたホットストリングは他のホットストリングと区別して考えるため、これらのオプションを追加したり削除したりすることはできません。代わりに、既存のホットストリングをオフにして、新しいホットストリングを作成します。</p>
+    <p><em>文字列</em>は、<a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>、<a href="../Hotstrings.htm#Question">単語の区別（?）</a>、活性化基準（<a href="_HotIf.htm">#HotIf</a>または<a href="HotIf.htm">HotIf</a>で設定）、トリガー文字列を考慮して、既存のホットストリングと一致させることができます。例えば、<code>"::btw"</code>と<code>"::BTW"</code>は、デフォルトで大文字小文字を区別するモードが有効になっていなければ一致しますが、<code>":C:btw"</code>と<code>":C:BTW"</code>は決して一致しません。The <code class="no-highlight">C</code> and <code class="no-highlight">?</code> options may be included in <em>String</em> or set as defaults by the <a href="_Hotstring.htm">#Hotstring</a> directive or a previous use of <em>NewOptions</em>.</p>
+    <p>hotstringが既に存在する場合、<em>String</em>で指定されたオプションは有効になり、それ以外のオプションはそのままになります。ただし、<code class="no-highlight">C</code>や <code class="no-highlight">?</code>が付いたホットストリングは他のホットストリングと区別して考えるため、これらのオプションを追加したり削除したりすることはできません。代わりに、既存のホットストリングをオフにして、新しいホットストリングを作成します。</p>
     <p>Hotstring関数またはスクリプトの<a href="../Hotstrings.htm">ダブルコロン構文</a>でホットストリングを最初に作成すると、そのトリガー文字列とオプション文字のシーケンスが、<a href="../Hotstrings.htm#ThisHotkey">ThisHotkey</a>に反映されるそのホットストリングの永久的な名前となります。この名前は、後にHotstring関数が異なるオプション文字でHotstringにアクセスしても、変更されることはありません。</p>
   </dd>
 
@@ -57,7 +57,7 @@
   <dd id="NewOptions">
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>その後に作成されるホットストリングに新しいデフォルトオプションを設定するには、Hotstring関数にオプションを先頭や末尾のコロンを付けずに渡します。事例：<code>Hotstring "T"</code>。</p>
-    <p><a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>や<a href="../Hotstrings.htm#Question">単語の区別（？）</a>をオンにすると、それ以降にHotstring関数を呼び出したときに、どの既存のホットストリングが見つかるかにも影響します。例えば、<code>Hotstring ":T:btw"</code>はデフォルトで<code>::BTW</code>を検索しますが、<code>Hotstring "C"</code>または<code><a href="_Hotstring.htm">#Hotstring</a> C</code>が有効な場合は検索しません。これは、相互に排他的なオプションを渡すことによって、元に戻したり上書きしたりすることができます。例えば、<code>C0</code>と <code>C1</code>は<code>C</code>を上書きします。</p>
+    <p><a href="../Hotstrings.htm#C">大文字小文字の区別（C）</a>や<a href="../Hotstrings.htm#Question">単語の区別（？）</a>をオンにすると、それ以降にHotstring関数を呼び出したときに、どの既存のホットストリングが見つかるかにも影響します。例えば、<code>Hotstring ":T:btw"</code>はデフォルトで<code class="no-highlight">::BTW</code>を検索しますが、<code>Hotstring "C"</code>または<code><a href="_Hotstring.htm">#Hotstring</a> C</code>が有効な場合は検索しません。これは、相互に排他的なオプションを渡すことによって、元に戻したり上書きしたりすることができます。例えば、<code class="no-highlight">C0</code>と <code class="no-highlight">C1</code>は<code class="no-highlight">C</code>を上書きします。</p>
   </dd>
 
   <dt>SubFunction, Value1</dt>
@@ -113,7 +113,7 @@ catch TargetError
 <p>Once a script has at least one hotstring, it becomes <a href="../Scripts.htm#persistent">persistent</a>, meaning that <a href="ExitApp.htm">ExitApp</a> rather than <a href="Exit.htm">Exit</a> should be used to terminate it.</p>
 
 <h2 id="variant">バリアント（複製）ホットストリング</h2>
-<p>各定義が異なる<a href="HotIf.htm">HotIf</a>基準、<a href="../Hotstrings.htm#C">大文字小文字</a>の区別（<code>C</code> vs. <code>C0</code>/<code>C1</code>）、または、<a href="../Hotstrings.htm#Question">単語の区別</a>（<code>?</code>）を持つ場合、特定のホットストリングを複数回作成することができます。これらは<em>ホットストリング・バリアント</em>と呼ばれています。事例：</p>
+<p>各定義が異なる<a href="HotIf.htm">HotIf</a>基準、<a href="../Hotstrings.htm#C">大文字小文字</a>の区別（<code class="no-highlight">C</code> vs. <code class="no-highlight">C0</code>/<code class="no-highlight">C1</code>）、または、<a href="../Hotstrings.htm#Question">単語の区別</a>（<code class="no-highlight">?</code>）を持つ場合、特定のホットストリングを複数回作成することができます。これらは<em>ホットストリング・バリアント</em>と呼ばれています。事例：</p>
 <pre>HotIfWinActive "ahk_group CarForums"
 Hotstring "::btw", "behind the wheel"
 HotIfWinActive "Inter-Office Chat"

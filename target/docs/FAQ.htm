@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,8 +77,8 @@
 <p class="note"><strong>注：</strong>Windows 11では、これらのオプションの一部は通常サブメニューに追いやられ、「その他のオプションを表示」を選択することでアクセスすることができます。</p>
 <p>例えば、<em>Open With</em>を使用して.ahkファイルを開くためのデフォルトプログラムを変更した場合など、これらのオプションは現在のユーザーのプロファイルの設定によって上書きされることがあります。以下のレジストリキーを削除することで、改善されます：</p>
 <pre class="no-highlight">HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.ahk\UserChoice</pre>
-<p>この<a href="misc/remove-userchoice.reg" download="remove-userchoice.reg">レジストリパッチ</a>を適用するか、AutoHotkeyのインストールディレクトリから<code>UX\reset-assoc.ahk</code>を実行すれば上記のレジストリキーを削除できます。</p>
-<p>また、AutoHotkeyを再インストールするか、AutoHotkeyのインストールディレクトリから<code>UX\install.ahk</code>を実行して、デフォルトレジストリ値を修復する必要がある場合もあります。</p>
+<p>この<a href="misc/remove-userchoice.reg" download="remove-userchoice.reg">レジストリパッチ</a>を適用するか、AutoHotkeyのインストールディレクトリから<code class="no-highlight">UX\reset-assoc.ahk</code>を実行すれば上記のレジストリキーを削除できます。</p>
+<p>また、AutoHotkeyを再インストールするか、AutoHotkeyのインストールディレクトリから<code class="no-highlight">UX\install.ahk</code>を実行して、デフォルトレジストリ値を修復する必要がある場合もあります。</p>
 
 <h3 id="vista">以前のバージョンでは動作していたのに、Windows<em>xxx</em>では私のスクリプトが動作しないのはなぜですか？</h3>
 <p>以下のように、この問題には様々なバリエーションがあります：</p>
@@ -125,7 +125,7 @@
 <p>非ASCII文字は、選択したエンコーディングによって異なる2値で表現されます。このような文字を正しく解釈するためには、テキストエディタとAutoHotkeyが、いわば<em>同じコードページ</em>にある必要があります。AutoHotkey v2は、すべてのスクリプトファイルのデフォルトをUTF-8に設定していますが、これは<a href="Scripts.htm#cp">/CPコマンドラインスイッチ</a>で上書きすることができます。</p>
 <p>It is recommended to save the script as UTF-8 with BOM (byte order mark) to ensure that editors (and maybe other applications) can determine with certainty that the file is indeed UTF-8. Without BOM, the editor has to guess the encoding of the file, which can sometimes be wrong.</p>
 <p>メモ帳でUTF-8として保存するには、「名前を付けて保存」ダイアログの「<em>エンコード</em>」ドロップダウンから、<em>UTF-8</em>または<em>UTF-8 with BOM</em>を選択します。Note that Notepad in Windows 10 v1903 and later defaults to <em>UTF-8</em> (without BOM).</p>
-<p>To read other UTF-8 files which lack a byte order mark (BOM), use <code><a href="lib/FileEncoding.htm">FileEncoding</a> "UTF-8-RAW"</code>, the <code>*P65001</code> option with <a href="lib/FileRead.htm">FileRead</a>, or <code>"UTF-8-RAW"</code> for the third parameter of <a href="lib/FileOpen.htm">FileOpen</a>. The <code>-RAW</code> suffix can be omitted, but in that case any newly created files will have a BOM.</p>
+<p>To read other UTF-8 files which lack a byte order mark (BOM), use <code><a href="lib/FileEncoding.htm">FileEncoding</a> "UTF-8-RAW"</code>, the <code class="no-highlight">*P65001</code> option with <a href="lib/FileRead.htm">FileRead</a>, or <code>"UTF-8-RAW"</code> for the third parameter of <a href="lib/FileOpen.htm">FileOpen</a>. The <code class="no-highlight">-RAW</code> suffix can be omitted, but in that case any newly created files will have a BOM.</p>
 <p>なお、標準のINI関数でアクセスしたINIファイルはUTF-8をサポートしていませんので、ANSIまたはUTF-16で保存する必要があります。</p>
 
 <h3 id="games">特定のゲームで<a href="Hotstrings.htm">ホットストリング</a>、<a href="lib/Send.htm">Send</a>関数、<a href="lib/Click.htm">Click</a>関数が動作しないのはなぜですか？</h3>
@@ -273,7 +273,7 @@ Submit(*)
 <p>PCを起動するたびにスクリプト（または任意のプログラム）が自動的に起動するようにするには、いくつかの方法があります。最も簡単なのは、スタートアップフォルダにスクリプトのショートカットを配置することです：</p>
 <ol>
   <li>スクリプトファイルを探し、選択し、<kbd>Ctrl</kbd>+<kbd>C</kbd>を押します。</li>
-  <li><kbd>Win</kbd>+<kbd>R</kbd>を押して「ファイル名を指定して実行」ダイアログを開き、「<code>shell:startup</code>」と入力して「OK」または「<kbd>Enter</kbd>」をクリックします。これにより、現在のユーザーのスタートアップフォルダが開かれます。代わりに全ユーザーのフォルダを開くには、<code>shell:common startup</code>と入力します（ただし、この場合は管理者でないと進めません）。</li>
+  <li><kbd>Win</kbd>+<kbd>R</kbd>を押して「ファイル名を指定して実行」ダイアログを開き、「<code class="no-highlight">shell:startup</code>」と入力して「OK」または「<kbd>Enter</kbd>」をクリックします。これにより、現在のユーザーのスタートアップフォルダが開かれます。代わりに全ユーザーのフォルダを開くには、<code class="no-highlight">shell:common startup</code>と入力します（ただし、この場合は管理者でないと進めません）。</li>
   <li>ウィンドウ内で右クリックし、「ショートカットの貼り付け」をクリックします。これで、スクリプトへのショートカットがスタートアップフォルダに入るはずです。</li>
 </ol>
 <h3 id="HotMouse">マウスのボタンがホットキーとして機能しないので困っています。何かアドバイスはありますか？</h3>
@@ -281,7 +281,7 @@ Submit(*)
 <p> 第4ボタン（XButton1）と第5ボタン（XButton2）は、マウスドライバーによってクリックがシステムから<a href="lib/KeyHistory.htm">見える</a>ようになっていれば、割り当て可能な場合があります。もし見えない場合、あるいはマウスに5つ以上のボタンがある場合、マウスに付属のソフトウェア（コントロールパネルやスタートメニューからアクセスできる場合もあります）を使って、これらのボタンを押すたびにキーストロークを送信するように設定してみてはいかがでしょうか？このようなキーストロークは、スクリプトのホットキーとして定義することができます。例えば、第4ボタンで<kbd>Ctrl</kbd>+<kbd>F1</kbd>を送信するように設定すると、スクリプトで<code>^F1::</code>を使って間接的にそのボタンをホットキーとして設定することができます。</p>
 <p>第4ボタンと第5ボタンが<a href="lib/KeyHistory.htm">見えない</a>5ボタンマウスをお使いの場合は、マウスドライバーをOSに付属のデフォルトドライバーに変更してみてください。これは、あなたの特定のマウスにそのようなドライバがあり、あなたのマウスのカスタムソフトウェアによって提供される機能なしで生きることができることを前提としています。</p>
 <h3 id="HotSymb">TabとSpaceをホットキーとして定義する方法は？</h3>
-<p>キーの文字ではなく、キーの名前（Tab、Space）を使用します。例えば、<code>#Space</code>は<kbd>Win</kbd>+<kbd>Space</kbd>、<code>^!Tab</code>は<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Tab</kbd>です。</p>
+<p>キーの文字ではなく、キーの名前（Tab、Space）を使用します。例えば、<code class="no-highlight">#Space</code>は<kbd>Win</kbd>+<kbd>Space</kbd>、<code class="no-highlight">^!Tab</code>は<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Tab</kbd>です。</p>
 <h3 id="Remap">キーやマウスのボタンを別のキーになるようにリマップするにはどうすればよいですか？</h3>
 <p>これについては、<a href="misc/Remap.htm">リマッピング</a>のページで説明しています。</p>
 <h3 id="DoublePress">キーやボタンの二度押しを検出するにはどうすればよいですか？</h3>
@@ -300,7 +300,7 @@ Submit(*)
 <p>Numpad0をプレフィックスキーにする、次の例を考えてみましょう：</p>
 <pre>Numpad0 &amp; Numpad1::MsgBox "You pressed Numpad1 while holding down Numpad0."</pre>
 <p>さて、Numpad0が上記のようなホットキーの起動に使われなかったときは、いつでも本物のNumpad0のキーストロークを送るようにするには、以下のホットキーを追加してください：</p>
-<pre> $Numpad0::Send "{Numpad0}"</pre>
+<pre>$Numpad0::Send "{Numpad0}"</pre>
 <p>プレフィックス$は、無限ループに関する警告ダイアログを防ぐために必要です（ホットキーが「自分自身を送信」するため）。また、鍵が<strong>離された</strong>時点で上記の動作が発生します。</p>
 <h3 id="HotOverride">Win+U（ユーティリティマネージャ）やWin+R（ファイル名を指定して実行）など、Windowsに内蔵されているショートカットキーを変更したり無効にしたりするには、どうしたらよいですか？</h3>
 <p>以下はその<a href="misc/Override.htm">例</a>です。</p>

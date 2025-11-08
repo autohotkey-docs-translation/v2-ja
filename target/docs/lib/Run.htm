@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Run / RunWait - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="Run関数とRunWait関数は、外部プログラムを実行します。RunWaitは、プログラムが終了するまで待ってから続行します。" />
@@ -77,7 +77,7 @@ catch
   <li>If no verb is specified, <em>Target</em> is passed as-is to the <em>lpCommandLine</em> parameter of <a href="https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessw">CreateProcess</a>.</li>
   <li>If a verb is specified or CreateProcess fails, and <a href="RunAs.htm">RunAs</a> is not in effect, <a href="https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecuteexw">ShellExecuteEx</a> is attempted.</li>
 </ul>
-<p>If <em>Target</em> specifies a name but not a directory, the system will search for and launch the file if it is integrated ("known"), e.g. by being contained in one of the PATH folders. The exact search order depends on whether CreateProcess and/or ShellExecuteEx is called. If CreateProcess is called, the application directory (which contains the AutoHotkey interpreter or compiled script) takes precedence over the working directory specified by <em>WorkingDir</em>. To avoid this, specify the directory; e.g. <code>.\program.exe</code>.</p>
+<p>If <em>Target</em> specifies a name but not a directory, the system will search for and launch the file if it is integrated ("known"), e.g. by being contained in one of the PATH folders. The exact search order depends on whether CreateProcess and/or ShellExecuteEx is called. If CreateProcess is called, the application directory (which contains the AutoHotkey interpreter or compiled script) takes precedence over the working directory specified by <em>WorkingDir</em>. To avoid this, specify the directory; e.g. <code class="no-highlight">.\program.exe</code>.</p>
 <p>When ShellExecuteEx is being attempted, <em>Target</em> is interpreted as follows:</p>
 <ul>
   <li>The substring of <em>Target</em> ending at the first space or tab may be either a <a href="#verbs">predefined verb name</a> or an asterisk followed by a verb name. If present, the optional asterisk, verb name and a single delimiting space or tab are excluded from further consideration. Verb names containing spaces or tabs are not supported, but symbols such as hyphen are permitted.</li>
@@ -152,12 +152,12 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 MsgBox "A_IsAdmin: " A_IsAdmin "`nCommand line: " full_command_line</pre>
 <p>ユーザーが<a href="https://en.wikipedia.org/wiki/User_Account_Control">ユーザーアカウント制御（UAC）</a>ダイアログをキャンセルしたとき、またはその他の理由で実行に失敗したときは、スクリプトは終了します。</p>
 <p><a href="../Scripts.htm#SlashR">/restart</a>を使用すると、ExitAppが呼び出される前にスクリプトの新しいインスタンスが開始されても、<a href="_SingleInstance.htm">単一インスタンス</a>のプロンプトが表示されないようにします。</p>
-<p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code>/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code>/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
+<p>UACが無効の場合、<em>*RunAs</em>は昇格させずにプロセスを起動します。コマンドラインで<code class="no-highlight">/restart</code>をチェックすることで、その場合にスクリプトが暴走ループに入らないようにします。なお、<code class="no-highlight">/restart</code>は組み込みのスイッチなので、<a href="../Scripts.htm#cmd_args">コマンドラインパラメータの配列</a>には含まれません。</p>
 <p>この例は、スクリプトの必要性に応じて変更することができます：</p>
 <ul>
   <li>スクリプトにどうしても管理者権限が必要な場合、<em>*RunAs</em>でスクリプトの昇格に失敗した場合（UACが無効になっている場合など）に備えて、<a href="../Variables.htm#IsAdmin">A_IsAdmin</a>を2回目もチェックします。</li>
   <li>ユーザーがUACプロンプトをキャンセルしてもスクリプトを実行し続けるために、<a href="ExitApp.htm">ExitApp</a>をtryブロックに移動します。</li>
-  <li>再起動に失敗した場合（スクリプトファイルが変更または削除された場合など）でもスクリプトを実行し続けるには、ExitAppを削除して、Runの代わりにRunWaitを使用します。成功すると、<code>/restart</code>によって新しいインスタンスが古いインスタンスを終了させます。失敗すると、新しいインスタンスは終了し、RunWaitが戻ります。</li>
+  <li>再起動に失敗した場合（スクリプトファイルが変更または削除された場合など）でもスクリプトを実行し続けるには、ExitAppを削除して、Runの代わりにRunWaitを使用します。成功すると、<code class="no-highlight">/restart</code>によって新しいインスタンスが古いインスタンスを終了させます。失敗すると、新しいインスタンスは終了し、RunWaitが戻ります。</li>
 </ul>
 <p>AutoHotkeyのインストーラは、<em>.ahk</em>ファイルに対して<em>RunAs</em>動詞を登録しており、<code>Run "*RunAs script.ahk"</code>でスクリプトを管理者として起動できます。</p>
 

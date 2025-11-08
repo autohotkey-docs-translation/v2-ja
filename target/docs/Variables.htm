@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>変数と式 - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="変数、式、演算子、組み込み変数、変数の容量とメモリについて詳しく説明します。" />
@@ -43,7 +43,7 @@ MsgBox Format("Var has the value {1}.", Var)
 <h2 id="Expressions">式</h2>
 <p class="note">構造化された概要と詳細な説明については、<a href="Language.htm#expressions">式</a>をご覧ください。</p>
 <p>式は、一連の変数、リテラル文字列、リテラル数値に対して、演算を実行するために使用されます。</p>
-<p>式中のプレーンワードは変数名として解釈されます。したがって、リテラル文字列は変数と区別するために二重引用符で囲む必要があります。事例：</p>
+<p>式中のプレーンワードは変数名として解釈されます。Consequently, literal strings must be enclosed in single or double quotes to distinguish them from variables. 事例：</p>
 <pre>if (CurrentSetting &gt; 100 or FoundColor != "Blue")
     MsgBox "The setting is too high or the wrong color is present."</pre>
 <p>上の例では、「Blue」はリテラル文字列なので引用符で囲まれています。シングルクオートマーク（'）とダブルクオートマーク（"）は、シングルクオートマークで囲まれた文字列がリテラルダブルクオートマークを含むことができ、その逆も可能であることを除いて、同じように機能します。従って、リテラル文字列の中に<em>実際</em>の引用符を含めるには、引用符を<a href="misc/EscapeChar.htm">エスケープ</a>するか、文字列を反対のタイプの引用符で囲みます。事例：</p>
@@ -90,7 +90,7 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
   </tr>
   <tr id="objdot">
     <td class="center bold">x.y<br>x.%z%</td>
-    <td><strong>会員アクセス</strong>。オブジェクト<i>x</i>の値の取得、設定、メソッドの呼び出し。<i>y</i>はリテラル名、<em>z</em>は名前として評価される式。<a href="Objects.htm#Usage_Objects">オブジェクト構文</a>を参照のこと。</td>
+    <td><strong>会員アクセス</strong>。Get, set or call a property of object <i>x</i>, where <i>y</i> is a literal name and <em>z</em> is an expression which evaluates to a name. See <a href="Objects.htm#Usage_Objects">object syntax</a> for more details.</td>
   </tr>
   <tr id="maybe">
     <td class="center"><em>var</em><strong>?</strong></td>
@@ -125,7 +125,7 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
     <td>
       <p><strong>単項マイナス（-）：</strong>オペランドの符号を反転します。</p>
       <p><strong>単項プラス（+）：</strong> <code>+N</code>は <code>-(-N)</code>と等価。これは純粋な数値に適用しても何の効果もないが、数値文字列を純粋な数値に変換するために使うことができる。</p>
-      <p><strong>論理否定（!）：</strong>オペランドが空白または0の場合、論理否定を適用した結果は1、つまり「真」を意味する。そうでなければ、結果は0（偽）である。事例：<code>!x or !(y and z)</code>。注：「NOT」は<strong>!</strong>と同義だが、<strong>!</strong>の方が優先順位が高い。<code><strong>!!</strong>Var</code>のような連続する単項演算子は、右から左の順番で評価されるため許される。</p>
+      <p><strong>論理否定（!）：</strong>オペランドが空白または0の場合、論理否定を適用した結果は1、つまり「真」を意味する。そうでなければ、結果は0（偽）である。事例：<code>!x or !(y and z)</code>。注：「NOT」は<strong>!</strong>と同義だが、<strong>!</strong>の方が優先順位が高い。Consecutive unary operators such as <code>!!Var</code> are allowed because they are evaluated in right-to-left order.</p>
       <p><strong>Bitwise-not（~）：</strong>オペランドの各ビットを反転する。64ビットの符号付き整数を使用するため、正の入力値は常に負の結果を与え、その逆も同様である。例えば、<code>~0xf0f</code>は-0xf10 (-3856)と評価され、これは2進数で0xfffffffffffff0f0と等価である。符号なし32ビット値が意図されている場合、<code><i>result</i> &amp; 0xffffffff</code>で結果を切り捨てることができる。オペランドが浮動小数点値の場合、<a href="lib/Error.htm#TypeError">TypeError</a>がスローされます。</p>
       <p id="ref"><strong>参照（&amp;）：</strong>変数への参照を表す値である VarRef を作成します。VarRefを使えば、ターゲット変数に間接的にアクセスできる。例えば、<code>ref := &amp;target</code>の後に<code>%ref% := 1</code>を続けると、<em>target</em>に値1が割り当てられる。VarRefは通常関数に渡されるが、配列やプロパティに格納することもできる。こちらも参照のこと：<a href="#deref">デリファレンス</a>、<a href="Functions.htm#ByRef">ByRef</a>。</p>
       <p><a href="lib/A_Clipboard.htm">A_Clipboard</a>のような組み込み変数への参照は、組み込み関数の<em>OutputVar</em>パラメータに直接渡される場合を除き、現在サポートされていません。</p>
@@ -184,11 +184,11 @@ MsgBox(1.00)  <em>; 1.0と表示します。</em></pre>
   <tr id="concat">
     <td class="center bold">.</td>
     <td>
-      <p><strong>連結</strong>。ピリオド(ドット)の両側に少なくとも1つのスペースまたはタブを入れ、2つの項目を1つの文字列にまとめる。ピリオドを省略しても同じ結果が得られる <code>x <strong>-</strong>y</code>のように曖昧な場合や、右側の項目の先頭に ++ や -- がある場合を除く）。ドットが省略された場合、マージされる項目の間には少なくとも1つのスペースまたはタブが必要です。</p>
-      <pre>Var := "The color is " <strong>.</strong> FoundColor  <em>; Explicit concat</em>
+      <p><strong>連結</strong>。ピリオド(ドット)の両側に少なくとも1つのスペースまたはタブを入れ、2つの項目を1つの文字列にまとめる。You may also omit the period to achieve the same result (except where ambiguous such as <code>x -y</code>, or when the item on the right side has a leading ++ or --). ドットが省略された場合、マージされる項目の間には少なくとも1つのスペースまたはタブが必要です。</p>
+      <pre>Var := "The color is " . FoundColor  <em>; Explicit concat</em>
 Var := "The color is " FoundColor    <em>; Auto-concat</em>
 </pre>
-      <p>部分式は連結することもできる。For example: <code>Var := "The net price is " <strong>.</strong> Price * (1 - Discount/100)</code>.</p>
+      <p>部分式は連結することもできる。For example: <code>Var := "The net price is " . Price * (1 - Discount/100)</code>.</p>
       <p>ピリオド（またはその他の演算子）で始まる行は、自動的にその上の行<a href="Scripts.htm#continuation">に追加</a>される。</p>
       <p>各入力の<a href="lib/StrLen.htm">全長</a>は、たとえ2進数のゼロが含まれていても使用される。例えば、<code>Chr(0x2010) Chr(0x0000) Chr(0x4030)</code>は以下のバイト列を生成する（UTF-16-LEエンコーディングによる）：0x10、0x20、0、0、0x30、0x40。結果には、長さに含まれないヌル・ターミネーター（2進数のゼロ）が追加される。</p>
       <p><strong>その他の使い方：</strong>ピリオド（ドット）の右にスペースまたはタブがない場合、リテラル<a href="#numbers">浮動小数点数</a>または<a href="#objdot">メンバアクセス</a>として解釈される。例えば、<code>1.1</code>と<code>(.5)</code>は数値、<code>A_Args.Has(3)</code>はメソッド呼び出し、<code>A_Args.Length</code>はプロパティアクセスである。</p>
@@ -219,13 +219,13 @@ Var := "The color is " FoundColor    <em>; Auto-concat</em>
   <tr>
     <td class="center bold">IS<br>IN<br>CONTAINS</td>
     <td id="is">
-      <p><code><i>Value</i> <strong>is</strong> <i>Class</i></code> yields 1 (true) if <em>Value</em> is an instance of <em>Class</em>, otherwise 0 (false). <em>Class</em> must be an <a href="lib/Object.htm">Object</a> with an own <a href="lib/Class.htm#Prototype">Prototype</a> property, but typically the property is defined implicitly by a class definition. この操作は一般的に<code>HasBase(<i>Value</i>, <i>Class</i>.Prototype)</code>と等価です。</p>
-      <p><code id="in"><strong>in</strong></code>と<code id="contains"><strong>contains</strong></code>は将来の使用のために予約されている。</p>
+      <p><code><i>Value</i> is <i>Class</i></code> yields 1 (true) if <em>Value</em> is an instance of <em>Class</em>, otherwise 0 (false). <em>Class</em> must be an <a href="lib/Object.htm">Object</a> with an own <a href="lib/Class.htm#Prototype">Prototype</a> property, but typically the property is defined implicitly by a class definition. This operation is generally equivalent to <code>HasBase(<i>Value</i>, <i>Class</i>.Prototype)</code>.</p>
+      <p><code id="in" class="no-highlight">in</code> and <code id="contains" class="no-highlight">contains</code> are reserved for future use.</p>
     </td>
   </tr>
   <tr id="not">
     <td class="center bold">NOT</td>
-    <td><strong>論理否定</strong>。優先順位が低いことを除けば、これは<strong>!</strong>演算子と同様である。例えば、<code>not (x = 3 or y = 3)</code>は<code><strong>!</strong>(x = 3 or y = 3)</code>と同じである。</td>
+    <td><strong>論理否定</strong>。優先順位が低いことを除けば、これは<strong>!</strong>演算子と同様である。For example, <code>not (x = 3 or y = 3)</code> is the same as <code>!(x = 3 or y = 3)</code>.</td>
   </tr>
     <tr id="and">
       <td class="center bold">AND<br>
@@ -285,7 +285,7 @@ MsgBox(A || B || C) <em>; Shows "0" (C).</em></pre>
         &lt;&lt;=<br>
         &gt;&gt;&gt;=
     </td>
-    <td><p><strong>アサイン</strong>。変数の内容に演算を行い、結果を同じ変数に戻す。最も単純な代入演算子はコロン等号（:=）で、式の結果を変数に格納する。他の演算子の動作については、この表の関連項目を参照のこと。例えば、<code>Var //= 2</code>は、<em>Var</em>を2で割る<a href="#IntegerDivide">整数除算</a>を実行し、結果を<em>Var</em>に戻す。同様に、<code>Var <strong>.=</strong> "abc"</code>は、<code>Var := Var <strong>.</strong> "abc"</code>である。</p>
+    <td><p><strong>アサイン</strong>。変数の内容に演算を行い、結果を同じ変数に戻す。最も単純な代入演算子はコロン等号（:=）で、式の結果を変数に格納する。他の演算子の動作については、この表の関連項目を参照のこと。例えば、<code>Var //= 2</code>は、<em>Var</em>を2で割る<a href="#IntegerDivide">整数除算</a>を実行し、結果を<em>Var</em>に戻す。Similarly, <code>Var .= "abc"</code> is a shorthand way of writing <code>Var := Var . "abc"</code>.</p>
       <p>他のほとんどの演算子とは異なり、代入は右から左に評価される。その結果、<code>Var1 := Var2 := 0</code>のような行は、まず<em>Var2</em>に0を代入し、次に<em>Var2</em>を<em>Var1</em>に代入する。</p>
     <p>代入が他の演算子の入力として使われる場合、その値は変数そのものとなる。例えば、<code>(Var+=2) &gt; 50</code>という式は、<em>Var</em>の新しく増加した値が50より大きい場合に真となる。また、<code>&amp;(Var := "初期値")</code>のように、代入と<a href="#ref">参照演算子</a>を組み合わせることも有効である。</p>
     <p>代入演算子の優先順位は、構文エラーを回避したり、より直感的な動作を提供したりする場合に、自動的に引き上げられる。事例：<code>not x:=y</code>は<code>not (x:=y)</code>と評価される。また、<code class="no-highlight">x==y &amp;&amp; z:=1</code>1は、<code class="no-highlight">x==y &amp;&amp; (z:=1)</code>と評価され、xがyと等しくない場合に<a href="Functions.htm#ShortCircuit">短絡する</a>。同様に、<code>++Var := X</code>は <code>++(Var := X)</code>と評価され、<code>Z&gt;0 ? X:=2 : Y:=2</code>は<code>Z&gt;0 ? (X:=2) : (Y:=2)</code>と評価される。</p>
@@ -314,7 +314,7 @@ sumfn := Sum</pre>
   </tr>
   <tr id="comma">
     <td class="center bold">,</td>
-    <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。事例：<code>x:=1<strong>,</strong> y+=2<strong>,</strong> ++index, MyFunc()</code>。このようなステートメントは、左から右の順に実行される。</p>
+    <td><p><strong>コンマ（複数ステートメント）</strong>。カンマは、1行に複数の部分式を記述するために使用することができる。これは、複数の割り当てや関数コールをグループ化するためによく使われる。For example: <code>x:=1, y+=2, ++index, MyFunc()</code>. このようなステートメントは、左から右の順に実行される。</p>
       <p class="note"><strong>注：</strong>カンマ（またはその他の演算子）で始まる行は、自動的にその上の行に<a href="Scripts.htm#continuation">追加</a>される。</p>
       <p>カンマは、関数呼び出しや制御フロー文のパラメータを区切るためにも使われる。複数ステートメント式をパラメータ・リストに含めるには、括弧で囲む。例えば、<code>MyFn((x, y))</code>はxとyの両方を評価するが、MyFnの最初の唯一のパラメーターとしてyを渡す。</p>
     </td>
@@ -343,6 +343,13 @@ sumfn := Sum</pre>
   </tr>
   <tr>
     <td class="center" style="white-space: nowrap;"><p><em>(式)</em><strong>()</strong></p></td>
+  </tr>
+  <tr id="method-call">
+    <td class="center"><p>x<strong>.y()</strong></p></td>
+    <td>
+      <p><strong>Method call</strong>. The target object <em>x</em> is an expression, while <em>y</em> is a literal property name. There must be no space on either side of the method name, but the dot can be preceded by whitespace, including line breaks.</p>
+      <p>The object <em>x</em> is implicitly passed as the first parameter of the method's function. This normally corresponds to <code>this</code> and should not be explicitly defined in a <a href="Objects.htm#Custom_Classes_method">method definition</a>, but any other type of <a href="Language.htm#functions">function definition</a> must account for it in the parameter list.</p>
+    </td>
   </tr>
   <tr>
     <td class="center">Fn(<strong><em>Params</em>*</strong>)</td>
@@ -811,12 +818,12 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   </tr>
   <tr id="WinDir">
     <td>A_WinDir</td>
-    <td>Windowsのディレクトリ。事例：<code>C:\Windows</code></td>
+    <td>Windowsのディレクトリ。事例：<code class="no-highlight">C:\Windows</code></td>
   </tr>
   <tr id="ProgramFiles">
     <td>A_ProgramFiles</td>
     <td>
-      <p>Program Filesディレクトリ（例：<code>C:\Program Files</code>または<code>C:\Program Files (x86)</code>）。これは通常、<em>ProgramFiles</em> <a href="Concepts.htm#environment-variables">環境変数</a>と同じである。</p>
+      <p>Program Filesディレクトリ（例：<code class="no-highlight">C:\Program Files</code>または<code class="no-highlight">C:\Program Files (x86)</code>）。これは通常、<em>ProgramFiles</em> <a href="Concepts.htm#environment-variables">環境変数</a>と同じである。</p>
       <p><a href="#Is64bitOS">64ビット・システム</a>では（32ビット・システムではなく）、以下が適用される：</p>
       <ul>
         <li>スクリプトを実行している実行ファイル（EXE）が 32 ビットの場合、A_ProgramFiles は「Program Files (x86)」ディレクトリのパスを返します。</li>
@@ -898,7 +905,7 @@ MsgBox ElapsedTime " milliseconds have elapsed."</pre>
   <tr id="MyDocuments">
     <td>A_MyDocuments</td>
     <td>
-      <p>現在のユーザーの「My Documents」フォルダのフルパスと名前。類似の変数の多くとは異なり、フォルダがドライブのルートである場合、最後のバックスラッシュは含まれない（例えば、<code>M:\</code>ではなく<code>M:</code>が含まれる）。事例：</p>
+      <p>現在のユーザーの「My Documents」フォルダのフルパスと名前。類似の変数の多くとは異なり、フォルダがドライブのルートである場合、最後のバックスラッシュは含まれない（例えば、<code class="no-highlight">M:\</code>ではなく<code class="no-highlight">M:</code>が含まれる）。事例：</p>
       <pre class="NoIndent no-highlight">C:\Users\&lt;UserName&gt;\Documents</pre>
   </td>
   </tr>
@@ -922,7 +929,8 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
   </tr>
   <tr id="ScreenDPI">
     <td>A_ScreenDPI</td>
-    <td>画面幅に沿った1論理インチあたりのピクセル数。複数のディスプレイモニターがあるシステムでは、この値はすべてのモニターで同じになります。ほとんどのシステムでは96です。システムのテキストサイズ（DPI）の設定によります。GUIの<a href="lib/Gui.htm#DPIScale">-DPIScale</a>オプションも参照してください。</td>
+    <td><p>画面幅に沿った1論理インチあたりのピクセル数。This is typically 96 if the display scale is set to 100&nbsp;%. In a system with multiple displays, this value corresponds to the primary display at the time the program started.</p>
+    <p>See also <a href="misc/DPIScaling.htm">DPI Scaling</a> and the GUI's <a href="lib/Gui.htm#DPIScale">-DPIScale</a> option.</p></td>
   </tr>
 </table>
 <h3 id="misc">その他</h3>
@@ -970,7 +978,7 @@ VirtualHeight := <a href="lib/SysGet.htm">SysGet</a>(79)
   </tr>
   <tr id="Index">
     <td>A_Index</td>
-    <td>現在のループの繰り返し回数（64ビット整数）を取得または設定するために使用できる。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先されます。A_Indexは<a href="Language.htm#loop-statement">すべてのループ</a>の内部で機能するが、ループの外部では0を含む。<a href="lib/Loop.htm">Loop</a>のようなカウントループの場合、A_Indexを変更すると、実行される反復回数に影響する。</td>
+    <td>現在のループの繰り返し回数（64ビット整数）を取得または設定するために使用できる。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。ループがループで囲まれているときは、内側のループが優先されます。A_Indexは<a href="Language.htm#loop-statement">すべてのループ</a>の内部で機能するが、ループの外部では0を含む。<a href="lib/Loop.htm">Loop</a>のようなカウントループの場合、A_Indexを変更すると、実行される反復回数に影響する。</td>
   </tr>
   <tr>
     <td>A_LoopFileName、他</td>

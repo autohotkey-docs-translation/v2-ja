@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>IniRead - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="IniRead関数は、標準フォーマットの.iniファイルから値、セクション、またはセクション名のリストを読み取ります。" />
@@ -15,8 +15,8 @@
 <p>標準フォーマットの.iniファイルから値、セクション、またはセクション名のリストを読み込みます。</p>
 
 <pre class="Syntax">Value := <span class="func">IniRead</span>(Filename, Section, Key <span class="optional">, Default</span>)
-Section := <span class="func">IniRead</span>(Filename, Section)
-SectionNames := <span class="func">IniRead</span>(Filename)</pre>
+Section := <span class="func">IniRead</span>(Filename, Section <span class="optional">,, Default</span>)
+SectionNames := <span class="func">IniRead</span>(Filename <span class="optional">,,, Default</span>)</pre>
 <h2 id="Parameters">パラメータ</h2>
 <dl>
 
@@ -48,9 +48,13 @@ SectionNames := <span class="func">IniRead</span>(Filename)</pre>
 
 <h2 id="Return_Value">戻り値</h2>
 <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
-<p>この関数は、指定されたキーの実際の値を返します。値が取得できない場合は、<em>Default</em>パラメータで示されるデフォルト値が返されます。</p>
-<p><em>Key</em>パラメータが省略された場合は、セクション全体を返します。コメントや空行は省略されます。セクションの最初の65,533文字のみが検索されます。</p>
-<p><em>Key</em>および<em>Section</em>パラメータが省略された場合，セクション名をラインフィード(<code>`n</code>)で区切ったリストを返します。</p>
+<p>This function returns one of the following depending on the <em>Key</em> and <em>Section</em> parameters:</p>
+<ul>
+  <li>If both parameters are specified, this function returns the actual value of the specified key.</li>
+  <li>If <em>Key</em> is omitted, this function returns an entire section. コメントや空行は省略されます。セクションの最初の65,533文字のみが検索されます。</li>
+  <li>If <em>Key</em> and <em>Section</em> are omitted, this function returns a linefeed (<code class="no-highlight">`n</code>) delimited list of section names.</li>
+</ul>
+<p>If none of these can be retrieved, the default value indicated by the <em>Default</em> parameter is returned.</p>
 
 <h2 id="Error_Handling">エラー処理</h2>
 <p><em>Default</em>が省略された場合のみ、失敗時に<a href="Error.htm#OSError">OSError</a>が投げられます。</p>
@@ -60,7 +64,7 @@ SectionNames := <span class="func">IniRead</span>(Filename)</pre>
 <p>オペレーティングシステムは、取得した文字列から先頭と末尾のスペース/タブを自動的に省略します。これを防ぐには、文字列をシングルクォートまたはダブルクォートで囲んでください。最も外側にあるシングルクォートまたはダブルクォートのセットも省略されるが、クォートマーク内のスペースは保持されました。</p>
 <p>65,535文字より長い値は、一貫性のない結果になる可能性が高いです。</p>
 <p>標準的なiniファイルは次のようなものです：</p>
-<pre>[SectionName]
+<pre class="no-highlight">[SectionName]
 Key=Value</pre>
 <p><b>ユニコード：</b>IniReadとIniWriteは、値の読み書きに外部関数<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestring">GetPrivateProfileString</a>と<a href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa">WritePrivateProfileString</a>に依存しています。これらの関数は、UTF-16ファイルでのみUnicodeをサポートし、それ以外のファイルではシステムのデフォルトのANSIコードページを使用するものとします。</p>
 <h2 id="Related">関連</h2>

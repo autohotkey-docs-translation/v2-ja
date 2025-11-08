@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>#HotIf - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="#HotIfディレクティブは、コンテキストに応じたホットキーとホットストリングを作成します。They perform a different action (or none at all) depending on any condition (an expression)." />
@@ -23,20 +23,20 @@
   <dt>Expression</dt>
   <dd>
     <p>型：<a href="../Concepts.htm#boolean">論理値</a></p>
-    <p>If omitted, subsequently-created hotkeys and hotstrings are not context-sensitive. Otherwise, specify any valid <a href="../Variables.htm#Expressions">expression</a>. これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
+    <p>If omitted, subsequently defined hotkeys/hotstrings are not context-sensitive. Otherwise, specify any valid <a href="../Variables.htm#Expressions">expression</a>. これは、1つのパラメータ（<a href="../Hotkeys.htm#ThisHotkey">ThisHotkey</a>）を持つ暗黙の関数の戻り値になります。この関数はグローバル変数を直接変更することはできませんが（通常通り<a href="../Functions.htm#AssumeLocal">想定ローカル</a>であり、宣言を含むことができないため）、グローバル変数を変更する他の関数を呼び出すことができます。</p>
   </dd>
 
 </dl>
 
 <h2 id="howto">基本操作</h2>
-<p>The #HotIf directive sets the expression which will be used by subsequently created <a href="../Hotkeys.htm">hotkeys</a> and <a href="../Hotstrings.htm">hotstrings</a> to determine whether they should activate. This expression is evaluated when the hotkey's key, mouse button or combination is pressed, when the hotstring's abbreviation is typed, or at other times when the program needs to know whether the hotkey or hotstring is active.</p>
-<p>To make context-sensitive hotkeys and hotstrings, simply precede them with the #HotIf directive. 事例：</p>
+<p>The #HotIf directive sets the expression which will be used by subsequently defined <a href="../Hotkeys.htm">hotkeys</a> and <a href="../Hotstrings.htm">hotstrings</a> to determine whether they should activate. This expression is evaluated when the hotkey's key, mouse button or combination is pressed, when the hotstring's abbreviation is typed, or at other times when the program needs to know whether the hotkey/hotstring is active.</p>
+<p>To make context-sensitive hotkeys/hotstrings, simply precede them with the #HotIf directive. 事例：</p>
 <pre>#HotIf WinActive("ahk_class Notepad") or WinActive(MyWindowTitle)
 #Space::MsgBox "You pressed Win+Spacebar in Notepad or " MyWindowTitle
 :X:btw::MsgBox "You typed btw in Notepad or " MyWindowTitle</pre>
-<p>#HotIf指令は位置指定：#HotIfは、次の#HotIfディレクティブまで、スクリプト内で物理的にその下にあるすべてのホットキーとホットストリングに影響を及ぼします。</p>
+<p>The #HotIf directive is positional: it affects all hotkeys/hotstrings physically beneath it in the script, until the next #HotIf directive.</p>
 <p class="warning"><strong>注：</strong> <a href="If.htm">if文</a>とは異なり、中括弧は#HotIf指示文では効果がありません。</p>
-<p>The #HotIf directive only affects hotkeys and hotstrings created via the double-colon syntax, such as <code>^!c::</code> or <code>::btw::</code>. For hotkeys and hotstrings created via the <a href="Hotkey.htm">Hotkey</a> or <a href="Hotstring.htm">Hotstring</a> function, use the <a href="HotIf.htm">HotIf</a> function.</p>
+<p>The #HotIf directive only affects hotkeys/hotstrings defined via the double-colon syntax, such as <code>#Space::</code> or <code>::btw::</code>. For hotkeys/hotstrings created via the <a href="Hotkey.htm">Hotkey</a> or <a href="Hotstring.htm">Hotstring</a> function, use the <a href="HotIf.htm">HotIf</a> function.</p>
 <p>文脈依存性をオフにするには、#HotIfを無表現で指定します。事例：</p>
 <pre>#HotIf</pre>
 <p>他のディレクティブと同様に、#HotIfは条件付きで実行することはできません。</p>
@@ -55,9 +55,9 @@ Enter::Send "!o"  <em>; Enterキーを押すと、選択したリマインダー
 #HotIf
 ^!c::MsgBox "You pressed Control+Alt+C in a window other than Notepad/WordPad."</pre>
 <p>複数のバリアントが発射対象となる場合、スクリプトの先頭に最も近いものだけが発射されます。ただし、グローバルバリアント（HotIfの基準がないもの）については例外です：常に最も低い優先順位を持つので、他の variant が適格でない場合にのみ発火します（この例外は<a href="../Hotstrings.htm">ホットストリング</a>には適用されません）。</p>
-<p>重複するホットキーを作成する場合、<code>^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。例えば、<code>^!c</code>は<code>!^c</code>と同じです。ただし、キーは一貫したスペルで表記する必要があります。例えば、<em>Esc</em>はこの目的では<em>Escape</em>と同じではありません（ただし、ケースは重要ではありません）。また、<a href="../Hotkeys.htm#wildcard">ワイルドカード接頭辞(*)</a>を持つホットキーは、ワイルドカードでないものと全く別物です。例えば、<code>*F1</code>と<code>F1</code>は、それぞれ独自のバリアントセットを持っているでしょう。</p>
+<p>重複するホットキーを作成する場合、<code class="no-highlight">^!+#</code>などの<a href="../Hotkeys.htm#Symbols">修飾記号</a>の順番は関係ありません。例えば、<code class="no-highlight">^!c</code>は<code class="no-highlight">!^c</code>と同じです。ただし、キーは一貫したスペルで表記する必要があります。例えば、<em>Esc</em>はこの目的では<em>Escape</em>と同じではありません（ただし、ケースは重要ではありません）。また、<a href="../Hotkeys.htm#wildcard">ワイルドカード接頭辞(*)</a>を持つホットキーは、ワイルドカードでないものと全く別物です。例えば、<code class="no-highlight">*F1</code>と<code class="no-highlight">F1</code>は、それぞれ独自のバリアントセットを持っているでしょう。</p>
 
-<p>A <a href="GroupAdd.htm">window group</a> can be used to make a hotkey or hotstring execute for a group of windows. 事例：</p>
+<p>A <a href="GroupAdd.htm">window group</a> can be used to make a hotkey/hotstring execute for a group of windows. 事例：</p>
 <pre>
 GroupAdd "MyGroup", "ahk_class Notepad"
 GroupAdd "MyGroup", "ahk_class WordPadClass"
@@ -65,13 +65,13 @@ GroupAdd "MyGroup", "ahk_class WordPadClass"
 #HotIf WinActive("ahk_group MyGroup")
 #z::MsgBox "You pressed Win+Z in either Notepad or WordPad."
 </pre>
-<p>To create hotkey or hotstring variants dynamically (while the script is running), see <a href="HotIf.htm">HotIf</a>.</p>
+<p>To create hotkey/hotstring variants dynamically (while the script is running), see <a href="HotIf.htm">HotIf</a>.</p>
 
 <h2 id="expression-evaluation">式評価</h2>
-<p>When the hotkey's key, mouse or controller button combination is pressed or the hotstring's abbreviation is typed, the #HotIf expression is evaluated to determine if the hotkey or hotstring should activate.</p>
+<p>When the hotkey's key, mouse or controller button combination is pressed or the hotstring's abbreviation is typed, the #HotIf expression is evaluated to determine if the hotkey/hotstring should activate.</p>
 <p class="warning"><strong>Note:</strong> Scripts should not assume that the expression is only evaluated when the hotkey's key is pressed (see below).</p>
-<p>この式は、プログラムがホットキーが有効かどうかを知る必要があるときに評価されることもあります。例えば、<code>a &amp; b::</code> のようなカスタムの組み合わせの #HotIf 式は、プレフィックスキー（この例では<code>a</code>）が押されたときに評価され、カスタム修飾キーとして機能するかどうかを判断することができます。</p>
-<p class="warning" id="lag"><strong>Note:</strong> Use of #HotIf in an unresponsive script may cause input lag or break hotkeys and hotstrings (see below).</p>
+<p>この式は、プログラムがホットキーが有効かどうかを知る必要があるときに評価されることもあります。例えば、<code>a &amp; b::</code> のようなカスタムの組み合わせの #HotIf 式は、プレフィックスキー（この例では<code class="no-highlight">a</code>）が押されたときに評価され、カスタム修飾キーとして機能するかどうかを判断することができます。</p>
+<p class="warning" id="lag"><strong>Note:</strong> Use of #HotIf in an unresponsive script may cause input lag or break hotkeys/hotstrings (see below).</p>
 <p>#HotIf指令には、さらにいくつかの注意事項があります：</p>
 <ul>
   <li>キーボードやマウスの入力は、通常、式の評価が完了するか<a href="_HotIfTimeout.htm">タイムアウト</a>するまでバッファリング（遅延）されます。</li>
@@ -91,7 +91,7 @@ GroupAdd "MyGroup", "ahk_class WordPadClass"
   <li>空白と括弧は、式がプリコンパイルされるときに完全に処理されるため、この最適化に影響しません。</li>
 </ul>
 <p>これらの条件を満たす式は、プログラムによって直接評価され、<a href="ListLines.htm">ListLines</a>には表示されません。</p>
-<p>Before the <a href="Hotkey.htm">Hotkey</a> or <a href="Hotstring.htm">Hotstring</a> function is used to modify an existing hotkey or hotstring variant, typically the <a href="HotIf.htm">HotIf</a> function must be used with the original expression text. ただし、所定の条件の組み合わせを持つ最初のユニークな表現は、その条件によって参照することも可能です。事例：</p>
+<p>Before the <a href="Hotkey.htm">Hotkey</a> or <a href="Hotstring.htm">Hotstring</a> function is used to modify an existing hotkey/hotstring variant, typically the <a href="HotIf.htm">HotIf</a> function must be used with the original expression text. ただし、所定の条件の組み合わせを持つ最初のユニークな表現は、その条件によって参照することも可能です。事例：</p>
 <pre>
 HotIfWinExist "ahk_class Notepad"
 Hotkey "#n", "Off"  <em>; ホットキーをオフにします。</em>
@@ -101,14 +101,14 @@ Hotkey "#n", "On"   <em>; 同じホットキーを再びオンにします。</e
 #HotIf WinExist("ahk_class Notepad")
 #n::WinActivate
 </pre>
-<p>なお、変数を使用した場合は、表現として失格となる。If the variable's value never changes after the hotkey or hotstring is created, there are two strategies for minimizing the risk of lag or other issues inherent to #HotIf:</p>
+<p>なお、変数を使用した場合は、表現として失格となる。If the variable's value never changes after the hotkey/hotstring is created, there are two strategies for minimizing the risk of lag or other issues inherent to #HotIf:</p>
 <ul>
-  <li>Use <code class="no-highlight"><a href="HotIf.htm#IfWin">HotIfWin...</a>(MyTitleVar)</code> to set the criteria and <code class="no-highlight"><a href="Hotkey.htm">Hotkey</a>(KeyName, Action)</code> or <code class="no-highlight"><a href="Hotstring.htm">Hotstring</a>(String, Replacement)</code> to create the hotkey or hotstring variant.</li>
+  <li>Use <code class="no-highlight"><a href="HotIf.htm#IfWin">HotIfWin...</a>(MyTitleVar)</code> to set the criteria and <code class="no-highlight"><a href="Hotkey.htm">Hotkey</a>(KeyName, Action)</code> or <code class="no-highlight"><a href="Hotstring.htm">Hotstring</a>(String, Replacement)</code> to create the hotkey/hotstring variant.</li>
   <li>定数式は<code>#HotIf WinActive("ahk_group MyGroup")</code>のようにし、スクリプト内の別の場所で<code><a href="GroupAdd.htm">GroupAdd</a> "MyGroup", MyTitleVar</code>でウィンドウグループを定義します。</li>
 </ul>
 
 <h2 id="general-remarks">総論</h2>
-<p>また、#HotIfは、適切な場合、プレフィックスキーを本来の機能に戻します（<a href="../Hotkeys.htm#prefix">プレフィックスキー</a>は、<code>a &amp; b</code>のようなホットキーの<kbd>A</kbd>です）。この現象は、指定したプリフィクスに対して有効なホットキーがない場合に発生します。</p>
+<p>#HotIf also restores prefix keys to their native function when appropriate (a <a href="../Hotkeys.htm#prefix">prefix key</a> is <kbd>A</kbd> in a hotkey such as <code>a &amp; b::</code>). この現象は、指定したプリフィクスに対して有効なホットキーがない場合に発生します。</p>
 <p>ホットキーが#HotIfによって現在無効になっている場合、そのキーまたはマウスボタンは、<a href="KeyHistory.htm">KeyHistory</a>の「Type」列に「#」文字で表示されます。This can help <a href="../Scripts.htm#debug">debug a script</a>.</p>
 <p><a href="../Hotkeys.htm#alttab">Alt-tabのホットキー</a>は、#HotIfの影響を受けません：これらはすべてのウィンドウで有効です。</p>
 <p><a href="../misc/WinTitle.htm#LastFoundWindow">Last Found Window</a>は、#HotIfで設定することができます。事例：</p>

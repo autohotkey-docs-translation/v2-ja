@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Loop Files - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="Loop Filesステートメントは、指定されたファイルまたはフォルダを1つずつ取得します。" />
@@ -23,17 +23,17 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>単一のファイルまたはフォルダの名前、または<code>"C:\Temp\*.tmp"</code>のようなワイルドカードパターンです。<em>FilePattern</em>は、絶対パスが指定されない場合、<a href="../Variables.htm#WorkingDir">A_WorkingDir</a>にあるとみなされます。</p>
-      <p id="wildcards">アスタリスク（<code>*</code>）とクエスチョンマーク（<code>?</code>）は、ワイルドカードとして使用できます。<code>*</code>は0以上の文字と、クエスチョンマークは<code>?</code>1文字とマッチします。使用例：</p>
+      <p id="wildcards">アスタリスク（<code class="no-highlight">*</code>）とクエスチョンマーク（<code class="no-highlight">?</code>）は、ワイルドカードとして使用できます。<code class="no-highlight">*</code>は0以上の文字と、クエスチョンマークは<code class="no-highlight">?</code>1文字とマッチします。使用例：</p>
       <ul>
-        <li><code>*.*</code>と<code>*</code>は、全てのファイルにマッチします。</li>
-        <li><code>*.htm</code>は、.htmや.htmlなどの拡張子を持つファイルにマッチします。</li>
-        <li><code>*.</code>は、拡張子がないファイルにマッチします。</li>
-        <li><code>log?.txt</code>は、例えばlog1.txtにはマッチしますが、log10.txtにはマッチしません。</li>
-        <li><code>*report*</code>は、ファイル名に"report"を含むあらゆるファイルにマッチします。</li>
+        <li><code class="no-highlight">*.*</code>と<code class="no-highlight">*</code>は、全てのファイルにマッチします。</li>
+        <li><code class="no-highlight">*.htm</code>は、.htmや.htmlなどの拡張子を持つファイルにマッチします。</li>
+        <li><code class="no-highlight">*.</code>は、拡張子がないファイルにマッチします。</li>
+        <li><code class="no-highlight">log?.txt</code>は、例えばlog1.txtにはマッチしますが、log10.txtにはマッチしません。</li>
+        <li><code class="no-highlight">*report*</code>は、ファイル名に"report"を含むあらゆるファイルにマッチします。</li>
       </ul>
       <p>ファイルのロング/ノーマル名または<a href="#LoopFileShortName">8.3ショート名の</a>いずれかにパターンがある場合、一致することになります。</p>
       <p>このパラメータが単一のファイルまたはフォルダ（すなわちワイルドカードなし）で、<em>Mode</em>にRが含まれる場合、指定されたファイル名が検索対象の複数のフォルダに現れると、複数の一致が検出されます。</p>
-      <p>259文字以上のパターンは、<a href="../misc/LongPaths.htm">システムの制限（MAX_PATH）</a>により、ファイルの検索に失敗する場合があります。この制限は、いくつかの条件を満たした上で、<code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィクスを</a>使用することで回避することができます。</p>
+      <p>259文字以上のパターンは、<a href="../misc/LongPaths.htm">システムの制限（MAX_PATH）</a>により、ファイルの検索に失敗する場合があります。この制限は、いくつかの条件を満たした上で、<code class="no-highlight">\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィクスを</a>使用することで回避することができます。</p>
   </dd>
 
   <dt>Mode</dt>
@@ -134,7 +134,7 @@ Loop Parse, FileList, "`n"
 <p>259文字より長いファイルパターンは、以下のうち少なくとも1つが成立している場合にのみサポートされます：</p>
 <ul>
   <li><a href="../misc/LongPaths.htm">ロングパスサポート</a>が有効になっている（Windows 10 バージョン1607以降が必要）。</li>
-  <li><code>\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィックス</a>を使用します（注意事項あり）。</li>
+  <li><code class="no-highlight">\\?\</code> <a href="../misc/LongPaths.htm#prefix">ロングパスプリフィックス</a>を使用します（注意事項あり）。</li>
 </ul>
 <p>それ以外の場合、259文字より長いファイルパターンは、ファイルやフォルダーを見つけることができません。この制限は、<em>FilePattern</em>と、サブフォルダへの再帰中に使用される一時的なパターンの両方に適用されます。</p>
 <p id="otb">オプションで、オープンブレースを下ではなく同じラインに表示させるOTB（One True Brace）スタイルを採用することも可能です。事例：<code>Loop Files "*.txt", "R" {</code>。</p>

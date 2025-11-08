@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>Menu/MenuBarオブジェクト - メソッドとプロパティ｜AutoHotkey v2</title>
 <meta name="description" content="The Menu/MenuBar object provides an interface to create and modify a menu or menu bar, add and modify menu items, and retrieve information about the menu or menu bar." />
@@ -107,7 +107,7 @@ MyMenuBar := MenuBar.<span class="func">Call</span>()
   <dd>
     <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
     <p>If blank or omitted, it defaults to no options. Otherwise, specify one or more options from the list below (not case-sensitive). 各オプションと次のオプションはスペースまたはタブで区切る。オプションを削除する場合は、オプションの前にマイナス記号を付けます。オプションを追加する場合は、プラス記号を使用することができますが、必須ではありません。</p>
-    <p><strong>P</strong><em>n</em>: Specify for <em>n</em> the menu item's <a href="../misc/Threads.htm">thread priority</a>, e.g. <code>P1</code>. メニュー項目を追加する際にこのオプションを省略した場合、優先順位は標準のデフォルトである0になります。メニュー項目を更新する際に省略した場合、その項目の優先順位は変更されません。優先順位として10進数（16進数ではない）を使用します。</p>
+    <p><strong>P</strong><em>n</em>: Specify for <em>n</em> the menu item's <a href="../misc/Threads.htm">thread priority</a>, e.g. <code class="no-highlight">P1</code>. メニュー項目を追加する際にこのオプションを省略した場合、優先順位は標準のデフォルトである0になります。メニュー項目を更新する際に省略した場合、その項目の優先順位は変更されません。優先順位として10進数（16進数ではない）を使用します。</p>
     <p><strong>Radio：</strong>項目にチェックが入っている場合は、チェックマークの代わりに箇条書きを使用します。</p>
     <p><strong>Right：</strong>メニューバー内で項目が右寄せになります。これは<a href="Gui.htm#MenuBar">メニューバーだけに</a>適用され、ポップアップメニューやサブメニューには適用されません。</p>
     <p><strong>Break：</strong>ポップアップメニューの新しい列を開始する項目です。</p>
@@ -160,9 +160,9 @@ MyMenuBar := MenuBar.<span class="func">Call</span>()
   <tr><td>&amp;Pause Script</td><td>9</td><td>2</td></tr>
   <tr><td>E&amp;xit</td><td>10</td><td>3</td></tr>
 </table>
-<p>コンパイルされたスクリプトには、デフォルトで最後の3つだけが含まれています。AddStandardを呼び出したときに<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が1の場合のみ、<code>&amp;Open</code>が含まれます（その場合、3列目に示す位置に1を追加します）。トレイメニューに標準項目が含まれている場合、<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が変更されるたびに、<code>&amp;Open</code>が挿入または削除されます。その他のメニューでは、<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が 0 の場合、<code>&amp;Open</code>の効果はありません。</p>
+<p>コンパイルされたスクリプトには、デフォルトで最後の3つだけが含まれています。AddStandardを呼び出したときに<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が1の場合のみ、<code class="no-highlight">&amp;Open</code>が含まれます（その場合、3列目に示す位置に1を追加します）。トレイメニューに標準項目が含まれている場合、<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が変更されるたびに、<code class="no-highlight">&amp;Open</code>が挿入または削除されます。その他のメニューでは、<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>が 0 の場合、<code class="no-highlight">&amp;Open</code>の効果はありません。</p>
 <p>各標準項目は、その機能に対応する内部メニュー項目IDを持つが、それ以外は他のメニュー項目と同様に変更または削除することができます。AddStandardは、名前ではなくIDで既存アイテムを検出します。<a href="#Add">Add</a>メソッドを使用して標準メニューに関連するコールバック関数を変更した場合、そのメニューには新しい一意のIDが割り当てられ、もはや標準メニューとはみなされない。</p>
-<p>トレイメニューに<code>&amp;Open</code>項目を追加すると、その項目がまだない場合はデフォルトの項目となります。</p>
+<p>トレイメニューに<code class="no-highlight">&amp;Open</code>項目を追加すると、その項目がまだない場合はデフォルトの項目となります。</p>
 </div>
 
 <div class="methodShort" id="Check">
@@ -408,13 +408,13 @@ MyMenuBar := MenuBar.<span class="func">Call</span>()
 <p><em>CurrentDefault</em> is the name of the default menu item, or an empty string if there is no default.</p>
 <p><em>MenuItemName</em> is the name or position of a menu item. <a href="#MenuItemName">MenuItemName</a>」を参照。<em>MenuItemName</em>が空文字列の場合、デフォルトは存在しない。</p>
 <p>デフォルトの項目を設定すると、その項目のフォントが太くなります（トレイメニュー以外のメニューでデフォルトの項目を設定することは、現在のところ純粋な外観上の問題です）。When the user double-clicks the <a href="../Program.htm#tray-icon">tray icon</a>, its default menu item is selected (even if the item is disabled). デフォルトがない場合、ダブルクリックしても効果はありません。</p>
-<p>トレイメニューのデフォルト項目は、存在する場合、最初は<code>&amp;Open</code>です。<a href="#AddStandard">AddStandard</a>の呼び出しや<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>の変更によってトレイメニューに<code>&amp;Open</code>を追加すると、すでになかった場合はデフォルトのアイテムになることもあります。</p>
+<p>トレイメニューのデフォルト項目は、存在する場合、最初は<code class="no-highlight">&amp;Open</code>です。<a href="#AddStandard">AddStandard</a>の呼び出しや<a href="../Variables.htm#AllowMainWindow">A_AllowMainWindow</a>の変更によってトレイメニューに<code class="no-highlight">&amp;Open</code>を追加すると、すでになかった場合はデフォルトのアイテムになることもあります。</p>
 <p>デフォルトの項目が削除された場合、メニューには何もない状態になります。</p>
 </div>
 
 <div class="methodShort" id="Handle">
 <h3>Handle</h3>
-<p><a href="#Win32_Menus">Win32メニュー</a>のハンドル（<code>HMENU</code>型ハンドル）を、必要に応じて構築して返します。</p>
+<p><a href="#Win32_Menus">Win32メニュー</a>のハンドル（<code class="no-highlight">HMENU</code>型ハンドル）を、必要に応じて構築して返します。</p>
 <pre class="Syntax">Handle := MyMenu.<span class="func">Handle</span></pre>
 <p>返されたハンドルは、Win32メニューが破棄されるまで有効であり、通常Menuオブジェクトが解放されたときに発生する。メニューが破壊されると、オペレーティングシステムは、スクリプトまたは他のプログラムによってその後に作成されたすべてのメニューにハンドル値を再割り当てすることができます。</p>
 </div>
@@ -429,7 +429,7 @@ MyMenuBar := MenuBar.<span class="func">Call</span>()
 <h2 id="Win32_Menus">Win32メニュー</h2>
 <p>Windowsは、標準的な外観と動作を持つメニューを作成、変更、表示するための<a href="https://learn.microsoft.com/windows/win32/menurc/menus">一連の関数と通知を</a>提供します。これらの関数を用いて作成されたメニューを<em>Win32メニュー</em>と呼ぶことにします。</p>
 <p>メニューに項目が追加されたり、変更されたりすると、各項目の名前とその他のプロパティがMenuオブジェクトに保存されます。Win32メニューは、メニューまたはその親メニューがGUIに添付されるか、表示される最初の時に構築されます。メニューオブジェクトが削除されたとき（参照カウントがゼロになったとき）に、自動的に破棄されます。</p>
-<p><a href="#Handle">Menu.Handle</a>は、Win32メニューのハンドル（<code>HMENU</code>型ハンドル）を、必要に応じて構築して返します。</p>
+<p><a href="#Handle">Menu.Handle</a>は、Win32メニューのハンドル（<code class="no-highlight">HMENU</code>型ハンドル）を、必要に応じて構築して返します。</p>
 <p>Win32の関数で直接メニューに加えられた修正は、スクリプトのMenuオブジェクトには反映されないので、ビルトインメソッドでアイテムが修正されると、失われる可能性があります。</p>
 <p>各メニューには、最初にメニューに追加されるときにIDが割り当てられます。スクリプトは、アイテムが特定のIDを受け取ることに依存することはできませんが、<a href="#ExDllCall">例5</a>で示すようにGetMenuItemIDを使用して、アイテムのIDを取得することができます。このIDはMenuオブジェクトでは使用できませんが、<a href="https://learn.microsoft.com/windows/win32/menurc/menus">Win32</a>の各種<a href="https://learn.microsoft.com/windows/win32/menurc/menus">機能</a>で使用することができます。</p>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>プログラムの使い方｜AutoHotkey v2</title>
 <meta name="description" content="スクリプトの作成、編集、実行、トレイアイコン、メインウィンドウ、コマンドラインの使用方法、移植性、インストーラーオプションの詳細について説明します。" />
@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>プログラムの使用</h1>
-<p>AutoHotkeyは単独では何もしません。スクリプトが必要です。スクリプトとは、プログラムの指示を含む拡張子が<code>.ahk</code>のプレーンテキストファイルのことで、コンフィギュレーションファイルのようなものですが、より強力なものです。スクリプトでできることは1つのアクションを実行して終了することだけですが、ほとんどのスクリプトでは、いくつかの<a href="Hotkeys.htm">ホットキー</a>を定義し、各ホットキーの後に、そのホットキーが押されたときに実行される1つまたは複数のアクションを記述します。</p>
+<p>AutoHotkeyは単独では何もしません。スクリプトが必要です。スクリプトとは、プログラムの指示を含む拡張子が<code class="no-highlight">.ahk</code>のプレーンテキストファイルのことで、コンフィギュレーションファイルのようなものですが、より強力なものです。スクリプトでできることは1つのアクションを実行して終了することだけですが、ほとんどのスクリプトでは、いくつかの<a href="Hotkeys.htm">ホットキー</a>を定義し、各ホットキーの後に、そのホットキーが押されたときに実行される1つまたは複数のアクションを記述します。</p>
 <pre>#z::Run "https://www.autohotkey.com"  <em>; Win+Z</em>
 
 ^!n::  <em>; Ctrl+Alt+N</em>
@@ -44,10 +44,10 @@
 <h2 id="create">スクリプトの作成</h2>
 <p>スクリプト・ファイルを作成する一般的な方法はいくつかあります：</p>
 <ul>
-  <li>メモ帳（またはお好みの<a href="misc/Editors.htm">テキストエディタ</a>）で、拡張子<code>.ahk</code>のファイルを保存します。システムによっては、エディタが別の拡張子（.txtなど）を追加しないように名前を引用符で囲む必要があります。
+  <li>メモ帳（またはお好みの<a href="misc/Editors.htm">テキストエディタ</a>）で、拡張子<code class="no-highlight">.ahk</code>のファイルを保存します。システムによっては、エディタが別の拡張子（.txtなど）を追加しないように名前を引用符で囲む必要があります。
   <p class="note">ASCII以外の文字が含まれる場合は、必ずBOM付きのUTF-8として保存してください。詳細は<a href="FAQ.htm#nonascii">FAQ</a>を参照。</p></li>
-  <li>エクスプローラで、スクリプトを保存するフォルダの何もない場所で右クリックし、[<strong>新規</strong>作成]から[<strong>AutoHotkeyスクリプト</strong>]を選択します。次に、スクリプトの名前を入力します（拡張子<code>.ahk</code>が表示されている場合は、消さないように注意してください）。</li>
-  <li><a href="#dash">Dash</a>で［<a href="#newscript">新規スクリプト</a>］を選択し、スクリプトの名前（拡張子<code>.ahk</code>を除く）を入力して、［<em>作成</em>］または［<em>編集</em>］をクリックします。スクリプトの作成に使用するテンプレートと保存場所は、このウィンドウで設定でき、必要に応じてデフォルトに設定することもできます。</li>
+  <li>エクスプローラで、スクリプトを保存するフォルダの何もない場所で右クリックし、[<strong>新規</strong>作成]から[<strong>AutoHotkeyスクリプト</strong>]を選択します。次に、スクリプトの名前を入力します（拡張子<code class="no-highlight">.ahk</code>が表示されている場合は、消さないように注意してください）。</li>
+  <li><a href="#dash">Dash</a>で［<a href="#newscript">新規スクリプト</a>］を選択し、スクリプトの名前（拡張子<code class="no-highlight">.ahk</code>を除く）を入力して、［<em>作成</em>］または［<em>編集</em>］をクリックします。スクリプトの作成に使用するテンプレートと保存場所は、このウィンドウで設定でき、必要に応じてデフォルトに設定することもできます。</li>
 </ul>
 <p class="note">スクリプトの書き方については<a href="Language.htm">スクリプト言語</a>を参照してください。</p>
 
@@ -203,7 +203,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <ul>
   <li>チェックされるのはメインファイルのみ。</li>
   <li>v1では<code>/****/</code>のような行を含めることは合法だが、v2では行末の<code>*/</code>はコメントを閉じるだけなので、このような行があるとスクリプトの大部分が（ランチャーとv1インタープリターの両方によって）無視される可能性がある。</li>
-  <li>チェックされるのはシンタックスだけで、セマンティクスはチェックされない。例えば、<code>xyz,</code>はv2では無効なので、v1では有効なコマンドとみなされる。<code>xyz 1</code>は、v2ではファンクション・ステートメントになり得るが、v1でも有効なコマンドであると見なされるため、無視される。</li>
+  <li>チェックされるのはシンタックスだけで、セマンティクスはチェックされない。例えば、<code class="no-highlight">xyz,</code>はv2では無効なので、v1では有効なコマンドとみなされる。<code class="no-highlight">xyz 1</code>は、v2ではファンクション・ステートメントになり得るが、v1でも有効なコマンドであると見なされるため、無視される。</li>
   <li>検出されるパターンは、実質的に1つのバージョンにおける構文エラーであるため、実際の構文エラーや正しくない構文が混在するスクリプトは、誤認識される可能性がある。</li>
 </ul>
 <p class="note"><strong>注：</strong>メインファイルの先頭に<a href="lib/_Requires.htm">#Requires</a>を付けて必須バージョンを宣言することで、曖昧さをなくすことができる。</p>
@@ -216,7 +216,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <h3 id="launcher-criteria">基準</h3>
 <p>同じバージョン番号の複数のインタープリターが見つかった場合、ランチャーはあらかじめ設定された、またはユーザーが定義した基準に従って、それらのインタープリターをランク付けすることができます。基準は、カンマで区切られた部分文字列のリストとして表すことができ、それぞれの部分文字列の前に「!」を付けて、マッチを否定することもできる。どの部分文字列がマッチしたかに基づいてスコアが計算され、左端の部分文字列が最も優先される。</p>
 <p>ただし、「UIA」は例外で、ファイル名に「_UIA」が含まれる場合にマッチする。</p>
-<p>例えば、<code>_H, 64, !ANSI</code>は、AutoHotkey_Hがあればそれを選び、システムと互換性があれば64ビットを選び、最後にANSIよりもUnicodeを選びます。</p>
+<p>例えば、<code class="no-highlight">_H, 64, !ANSI</code>は、AutoHotkey_Hがあればそれを選び、システムと互換性があれば64ビットを選び、最後にANSIよりもUnicodeを選びます。</p>
 <p>Launcher Settings GUIでは、「Unicode 32-bit」などのオプションがドロップダウンリストに表示されますが、部分文字列のリストは手動で入力することができます。</p>
 <p>追加の（優先順位の高い）条件は、<a href="#SlashRunWith">/RunWith</a>launcherスイッチを使ってコマンドラインで指定できる。</p>
 <p>スクリプト内で<a href="lib/_Requires.htm">#Requires</a>ディレクティブを使用することで、条件を指定することができます（対象のAutoHotkeyバージョンでサポートされている場合）。事例：</p>
@@ -233,7 +233,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 
 <h3 id="launcher-cmd">コマンドラインの使用法</h3>
 <p>ランチャーは、.ahkファイルがデフォルトでランチャーを使用するように設定されていない場合や、ランチャーの動作をより細かく制御したい場合に、コマンドラインで明示的に実行することができる。ランチャーがコンパイルされている場合、追加のランチャースイッチを除いて、その使用方法は基本的にAutoHotkey.exeと同じです。それ以外の場合、コマンドラインでの使用形式は以下の通り：</p>
-<pre>AutoHotkeyUX.exe launcher.ahk [<i>Switches</i>] [<i>Script Filename</i>] [<i>Script Parameters</i>]</pre>
+<pre class="no-highlight">AutoHotkeyUX.exe launcher.ahk [<i>Switches</i>] [<i>Script Filename</i>] [<i>Script Parameters</i>]</pre>
 <p>通常、AutoHotkeyインストレーションのUXサブディレクトリにあるAutoHotkeyUX.exeとlauncher.ahkへのパスには、フルパスと引用符を使用します。AutoHotkeyUX.exe（単なるコピーです）の代わりに、AutoHotkey32.exeまたはAutoHotkey64.exeの適切なバージョンを使用できます。</p>
 <p><em>スイッチ</em>には、<a href="Scripts.htm#cmd">標準的なスイッチ</a>と以下のランチャー専用スイッチを混在させることができる：</p>
 <table class="info">
@@ -244,18 +244,18 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
   </tr>
   <tr id="SlashRunWith">
     <td>/RunWith <em>基準</em></td>
-    <td>スクリプトの起動に使用する実行ファイルを決定するための追加<a href="#launcher-criteria">基準</a>を指定します。例えば、<code>/RunWith UIA</code>。</td>
+    <td>スクリプトの起動に使用する実行ファイルを決定するための追加<a href="#launcher-criteria">基準</a>を指定します。例えば、<code class="no-highlight">/RunWith UIA</code>。</td>
   </tr>
   <tr id="SlashWhich">
     <td>/Which</td>
     <td>
       <p>ランチャーがスクリプトを実行する代わりに、使用するインタープリターを特定し、それを返すようにする。</p>
       <p>ランチャーの終了コードは、#Requiresまたはシンタックス（シンタックス検出が有効な場合）で識別される場合はメジャーバージョン番号（1または2）、そうでない場合は0です。</p>
-      <p>Stdoutは、<code>`n</code>で終端された以下のUTF-8文字列を受け取る：</p>
+      <p>Stdoutは、<code class="no-highlight">`n</code>で終端された以下のUTF-8文字列を受け取る：</p>
       <ul>
         <li>バージョン番号。もし#Requiresが検出された場合、「v」を除いた数字が指定される。それ以外の場合は、終了コードと同じ整数で、バージョンが検出されなかった場合を除き、0であればユーザーにプロンプトが表示されたことを示し、1または2であれば起動設定で設定されたユーザーの優先バージョンを示す。</li>
         <li>インタープリターEXEが見つかった場合に使用するパス。ユーザーにプロンプトが表示されるか、互換性のあるインタープリターが見つからなかった場合は空白になる。</li>
-        <li>ランチャーが挿入するコマンドライン・スイッチなど<code>/CP65001</code>など）。</li>
+        <li>ランチャーが挿入するコマンドライン・スイッチなど<code class="no-highlight">/CP65001</code>など）。</li>
       </ul>
       <p>今後、追加ラインが返される可能性もある。</p>
     </td>
@@ -279,7 +279,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 <p>リスト内のテンプレートを右クリックすると、以下のオプションが表示されます：</p>
 <ul>
   <li>Edit template：デフォルトのエディタでテンプレートを開く。プリインストールされているテンプレートの場合、オリジナルを開く代わりに編集可能なコピーが作成されます。</li>
-  <li>Hide template：GUIに表示されないテンプレートのリストにテンプレート名を追加します。テンプレートの非表示を解除するには、<code>HKCU\Software\AutoHotkey\New\HideTemplate</code>から対応するレジストリ値を削除する。</li>
+  <li>Hide template：GUIに表示されないテンプレートのリストにテンプレート名を追加します。テンプレートの非表示を解除するには、<code class="no-highlight">HKCU\Software\AutoHotkey\New\HideTemplate</code>から対応するレジストリ値を削除する。</li>
   <li>Set as default：デフォルトで選択されるテンプレートを設定します。</li>
 </ul>
 <p>デフォルトでは、ファイルを作成した後、Ctrlキーを押し続けない限り、GUIは閉じます。</p>
@@ -300,7 +300,7 @@ else if SubStr(A_LineFile, 1, 1) = "*" &amp;&amp; A_LineFile != "*#1"
 Description = Descriptive text
 Execute = true|false|1|0
 */</pre>
-<p>上記のように、INIセクションが<code>/*</code>で始まり、<code>*/</code>で終わる場合、作成されたファイルには含まれない。</p>
+<p>上記のように、INIセクションが<code class="no-highlight">/*</code>で始まり、<code class="no-highlight">*/</code>で終わる場合、作成されたファイルには含まれない。</p>
 <p><strong>Description</strong>は任意である。GUIでは、ファイル名の他にこの文字も表示される。</p>
 <p><strong>Execute</strong> は任意である。trueに設定された場合、テンプレートスクリプトが実行され、<code>A_Args[1]</code>には作成されるファイルのパスが、<code>A_Args[2]</code>にはユーザーがクリックしたボタンに応じて「Create」または「Edit」が格納されます。テンプレート・スクリプトは、ファイルを作成し、該当する場合は編集用に開くことが期待される。テンプレートスクリプトが他のファイルを<code>#include</code>する必要がある場合、それらをサブディレクトリに置くことで、テンプレートリストに表示されないようにすることができる。</p>
 
@@ -317,7 +317,7 @@ Execute = true|false|1|0
 <p>v1とv2を一緒にインストールする方法は2つある：</p>
 <ol>
   <li>まずv1をインストールし、次にv2をインストールする。その場合、カレントパスに依存する外部ツールやショートカットが壊れないように、v1ファイルはインストールディレクトリのルートに残される。</li>
-  <li>追加バージョンとしてv1をインストールする。v1.1.34.03以降のインストーラーを実行すると、このオプションが表示されます。あるいは、後述の<code>/install</code>スイッチを使う。各バージョンはそれぞれのサブディレクトリにインストールされる。</li>
+  <li>追加バージョンとしてv1をインストールする。v1.1.34.03以降のインストーラーを実行すると、このオプションが表示されます。あるいは、後述の<code class="no-highlight">/install</code>スイッチを使う。各バージョンはそれぞれのサブディレクトリにインストールされる。</li>
 </ol>
 <p>v1.1.34.02以前のインストーラ（またはv1.1.34.03以降のカスタムインストール）を実行すると、バージョン番号、アンインストーラエントリ、ファイルタイプ登録の一部など、v2インストーラによってレジストリに設定された値の一部が上書きされます。v1のアンインストーラーも登録されますが、これは両方のバージョンを正しくアンインストールすることができません。v2を再登録するには、任意のv2インストーラを再実行するか、AutoHotkey32.exeまたはAutoHotkey64.exeを使用してUXinstall.ahkを実行します。</p>
 
@@ -325,20 +325,20 @@ Execute = true|false|1|0
 <p>v1のインストールとは異なり、インストール時にデフォルトのバージョンは選択されません。デフォルトはランチャーによってより動的に処理され、ユーザーごとに設定できる。</p>
 
 <h3 id="installcmd">コマンドラインの使用法</h3>
-<p><em>DESTINATION</em>ディレクトリーに直接インストールするには、ソース・ディレクトリー内から、以下のように<code>/installto</code>または<code>/to</code>（2つのスイッチは交換可能）を使用する。ダウンロードしたsetup.exeか、ダウンロードしたzipなどから展開したファイルを使用する。</p>
-<pre>AutoHotkey_setup.exe /installto "%DESTINATION%"</pre>
-<pre>AutoHotkey32.exe UX\install.ahk /to "%DESTINATION%"</pre>
+<p><em>DESTINATION</em>ディレクトリーに直接インストールするには、ソース・ディレクトリー内から、以下のように<code class="no-highlight">/installto</code>または<code class="no-highlight">/to</code>（2つのスイッチは交換可能）を使用する。ダウンロードしたsetup.exeか、ダウンロードしたzipなどから展開したファイルを使用する。</p>
+<pre class="no-highlight">AutoHotkey_setup.exe /installto "%DESTINATION%"</pre>
+<pre class="no-highlight">AutoHotkey32.exe UX\install.ahk /to "%DESTINATION%"</pre>
 <p><em>SOURCE</em>（AutoHotkey*.exeファイルを含むディレクトリ）から追加バージョンをインストールするには、現在のインストールディレクトリ内で以下を実行します（必要に応じてAutoHotkey32.exeのパスを調整します）：</p>
-<pre>AutoHotkey32.exe UX\install.ahk /install "%SOURCE%"</pre>
-<p>上記の完全なコマンド文字列は、<code class="no-highlight">%1</code>をソースディレクトリの代用として、<code>HKLM\Software\AutoHotkey</code>または<code>HKCU\Software\AutoHotkey</code>の下で<em>InstallCommand</em>として登録される。このレジストリ値を使用する方が、将来的により安全かもしれない。</p>
+<pre class="no-highlight">AutoHotkey32.exe UX\install.ahk /install "%SOURCE%"</pre>
+<p>上記の完全なコマンド文字列は、<code class="no-highlight">%1</code>をソースディレクトリの代用として、<code class="no-highlight">HKLM\Software\AutoHotkey</code>または<code class="no-highlight">HKCU\Software\AutoHotkey</code>の下で<em>InstallCommand</em>として登録される。このレジストリ値を使用する方が、将来的により安全かもしれない。</p>
 <p>現在のインストールを再登録する：</p>
-<pre>AutoHotkey32.exe UX\install.ahk</pre>
+<pre class="no-highlight">AutoHotkey32.exe UX\install.ahk</pre>
 <p>アンインストールする：</p>
-<pre>AutoHotkey32.exe UX\install.ahk /uninstall</pre>
+<pre class="no-highlight">AutoHotkey32.exe UX\install.ahk /uninstall</pre>
 <p>または、以下のレジストリキーのいずれかから<em>QuietUninstallString</em>の値を読み取り、実行する：</p>
-<pre>HKLM\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey
+<pre class="no-highlight">HKLM\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey
 HKCU\Microsoft\Windows\CurrentVersion\Uninstall\AutoHotkey</pre>
-<p><code>/silent</code>スイッチを使用すると、警告ダイアログや確認ダイアログが表示されず、インストール完了時に<a href="#dash">Dash</a>が表示されなくなります。以下のアクションは、警告なしに自動的に実行されることがあります：</p>
+<p><code class="no-highlight">/silent</code>スイッチを使用すると、警告ダイアログや確認ダイアログが表示されず、インストール完了時に<a href="#dash">Dash</a>が表示されなくなります。以下のアクションは、警告なしに自動的に実行されることがあります：</p>
 <ul>
   <li>AutoHotkey*.exeが上書きされるようにスクリプトを終了します。</li>
   <li>インストーラによって以前に登録されていないか、登録後に変更されたファイルを上書きする。</li>

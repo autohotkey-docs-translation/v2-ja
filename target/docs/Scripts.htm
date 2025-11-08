@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>スクリプト - 定義と使用法｜AutoHotkey v2</title>
 <meta name="description" content="スクリプト全般、長い行の分割、スクリプトのコンパイル、コマンドラインパラメータの渡し方、コードページ、デバッグについて詳しく学ぶ。" />
@@ -51,25 +51,25 @@
 </ul>
 <p id="continuation-line"><strong>継続演算子：</strong>カンマまたはその他の<a href="Variables.htm#Operators">式演算子</a>（++と--を除く）で始まる行は、その直上の行に自動的にマージされる。同様に、式演算子で終わる行は、自動的にその下の行にマージされる。次の例では、2行目はコンマで始まっているため、1行目に追加される：</p>
 <pre>FileAppend "This is the text to append.`n"   <em>; A comment is allowed here.</em>
-    <strong>,</strong> A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em></pre>
+    , A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em></pre>
 <p>同様に、次の2行は「and」または「or」で始まるので、1行にまとめられる：</p>
 <pre>if Color = "Red" or Color = "Green"  or Color = "Blue"   <em>; Comment.</em>
-    <strong>or</strong> Color = "Black" or Color = "Gray" or Color = "White"   <em>; Comment.</em>
-    <strong>and</strong> ProductIsAvailableInColor(Product, Color)   <em>; Comment.</em></pre>
+    or Color = "Black" or Color = "Gray" or Color = "White"   <em>; Comment.</em>
+    and ProductIsAvailableInColor(Product, Color)   <em>; Comment.</em></pre>
 <p><a href="Variables.htm#ternary">三項演算子も</a>良い候補である：</p>
 <pre>ProductIsAvailable := (Color = "Red")
-    <strong>?</strong> false  <em>; We don't have any red products, so don't bother calling the function.</em>
-    <strong>:</strong> ProductIsAvailableInColor(Product, Color)</pre>
+    ? false  <em>; We don't have any red products, so don't bother calling the function.</em>
+    : ProductIsAvailableInColor(Product, Color)</pre>
 <p>以下の例は上記と同等である：</p>
-<pre>FileAppend "This is the text to append.`n"<strong>,</strong>   <em>; A comment is allowed here.</em>
+<pre>FileAppend "This is the text to append.`n",   <em>; A comment is allowed here.</em>
     A_ProgramFiles "\SomeApplication\LogFile.txt"  <em>; Comment.</em>
 
-if Color = "Red" or Color = "Green"  or Color = "Blue" <strong>or</strong>   <em>; Comment.</em>
-    Color = "Black" or Color = "Gray" or Color = "White" <strong>and</strong>   <em>; Comment.</em>
+if Color = "Red" or Color = "Green"  or Color = "Blue" or   <em>; Comment.</em>
+    Color = "Black" or Color = "Gray" or Color = "White" and   <em>; Comment.</em>
     ProductIsAvailableInColor(Product, Color)   <em>; Comment.</em>
 
-ProductIsAvailable := (Color = "Red") <strong>?</strong>
-    false <strong>:</strong> <em>; We don't have any red products, so don't bother calling the function.</em>
+ProductIsAvailable := (Color = "Red") ?
+    false : <em>; We don't have any red products, so don't bother calling the function.</em>
     ProductIsAvailableInColor(Product, Color)</pre>
 <p>上の例で使われているインデントは任意だが、どの行がその上の行に属するかを示すことで、より明瞭になるかもしれない。また、上記の例の行間や行末に空行や<a href="Language.htm#comments">コメント</a>を追加してもよい。</p>
 <p>継続演算子は、自動置換ホットストリングや<a href="lib/_HotIf.htm">#HotIf</a>以外のディレクティブでは使用できません。</p>
@@ -96,9 +96,9 @@ MsgBox(
 ]</pre>
 <p>行末のブレース（<code>{</code>）は、<a href="Language.htm#object-literal">オブジェクト・リテラル</a>の開始ではなく、ブロックの開始（<a href="lib/Block.htm#otb">OTBスタイル</a>）として解釈されるべきであるとプログラムが判断した場合、継続を引き起こさない。具体的には（優先順位の高い順に）：</p>
 <ul>
-  <li>中括弧の前に閉じない<code>(</code>/<code>[</code>/<code>{</code>がある場合、中括弧はブロックの開始と解釈されることはない。例えば、<code>If ({</code>のブレースはオブジェクト・リテラルの開始である。</li>
+  <li>中括弧の前に閉じない<code>(</code>/<code>[</code>/<code>{</code>がある場合、中括弧はブロックの開始と解釈されることはない。例えば、<code class="no-highlight">If ({</code>のブレースはオブジェクト・リテラルの開始である。</li>
   <li>オブジェクト・リテラルは法律上、<code>)</code>または<code>]</code>に続くことはできないので、中括弧がこれらの記号のどちらかに続く場合（空白を除く）、（関数やプロパティ定義のような）ブロックの開始として解釈される。</li>
-  <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code>for x <strong>in</strong> {</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code>Loop {</code>の中括弧は常にブロック開始であり、<code>If {</code>と <code>While {</code>は常にエラーである。</li>
+  <li>ボディを必要とする（したがってOTBをサポートする）<a href="Language.htm#control-flow">制御フロー文の</a>場合、中括弧は、<code>:= {</code>や <code class="no-highlight">for x <strong>in</strong> {</code>のような演算子が先行する場合に限り、オブジェクト・リテラルの開始とすることができる。特に、<code class="no-highlight">Loop {</code>の中括弧は常にブロック開始であり、<code class="no-highlight">If {</code>と <code class="no-highlight">While {</code>は常にエラーである。</li>
 </ul>
 <p>中括弧は、本文を必要としない関数呼び出し、式、制御フロー文であれば、行の継続のために安全に使うことができる。事例：</p>
 <pre>myfn() {
@@ -107,7 +107,7 @@ MsgBox(
     }
 }</pre>
 <p id="continuation-section"><strong>継続セクション：</strong>この方法は、多数の行を統合する場合や、行が他の方法に適さない場合に使用する。このメソッドは<a href="Hotstrings.htm">自動置換ホットストリング</a>に特に有効ですが、どんな<a href="Variables.htm#Expressions">式</a>にも使えます。事例：</p>
-<pre><em>; EXAMPLE #1:</em>
+<pre><em>; EXAMPLE #1 - inside a quoted/literal string:</em>
 Var := "
 (
 A line of text.
@@ -116,24 +116,41 @@ By default, the hard carriage return (Enter) between the previous line and this 
 Additionally, "quote marks" are <a href="#continuation_quotes">automatically escaped</a> when appropriate.
 )"
 
-<em>; EXAMPLE #2:</em>
+; EXAMPLE #2 - outside a quoted/literal string:
+Var :=
+(
+"Same as above, except that quote marks are not automatically escaped.
+Specify variables as follows: " Var "
+A line of text."
+)
+
+<em>; EXAMPLE #3:</em>
 FileAppend "
 (
 Line 1 of the text.
 Line 2 of the text. By default, a linefeed (`n) is present between lines.
-)", A_Desktop "\My File.txt"</pre>
+)", A_Desktop "\My File.txt"
+
+<em>; EXAMPLE #4:</em>
+FormatStr := "
+(
+Another way of using variables with a continuation section.
+Input value 1: {1}
+Input value 2: {2}
+)"
+MsgBox Format(FormatStr, A_TickCount, A_Now)</pre>
 <p>上記の例では、一連の線は上下に括弧で囲まれている。これは<em>継続区間</em>として知られている。閉じ括弧の後のコードも（区切り記号なしで）他の行と結合されるが、開き括弧と閉じ括弧は含まれないことに注意。</p>
 <p>継続セクションの上の行が<a href="Concepts.htm#names">名前</a>文字で終わっており、そのセクションが引用符で囲まれた文字列で始まっていない場合、名前と継続セクションの内容を区切るために、1つのスペースが自動的に挿入される。</p>
-<p id="continuation_quotes">上記の例のように、引用符で囲まれた文字列の中で継続セクションが始まる場合、引用符は自動的にエスケープされる（つまり、リテラル文字として解釈される）。それ以外の場合、引用符は通常と同じように機能する。つまり、継続セクションは引用符で囲まれた文字列を含むことができる。</p>
+<p id="continuation_quotes">Quote marks are automatically escaped (i.e. they are interpreted as literal characters) if the continuation section starts inside a quoted/literal string, as in the examples except #2 above. Otherwise, quote marks act as they do normally; that is, continuation sections can contain expressions with quoted strings, as in the example #2 above.</p>
 <p id="continuation_defaults">デフォルトでは、継続セクション内の最初の行のインデントに基づいて、先頭のスペースやタブが省略される。最初の行にスペースとタブが混在している場合、最初の種類の文字だけがインデントとして扱われます。もし、ある行が最初の行より小さくインデントされたり、間違った文字でインデントされた場合、その行のすべての先頭の空白はそのまま残されます。 </p>
 <p>By default, trailing spaces or tabs are omitted.</p>
 <p>継続セクションのデフォルトの動作は、セクションの開始括弧の右側に以下のオプションを1つ以上含めることで上書きすることができる。複数のオプションがある場合は、それぞれをスペースで区切る。事例：<code class="no-highlight">( LTrim Join|</code>。</p>
-<p id="Join"><strong>Join</strong><em>String</em>：線をどのようにつなげるかを指定します。If this option is not used, each line except the last will be followed by a linefeed character (`n). If <em>String</em> is omitted, lines are connected directly to each other without any characters in between. Otherwise, specify for <em>String</em> a string of up to 15 characters. 例えば、<code>Join`s</code>は最後の行を除く各行の後にスペースを挿入する。他の例としては、行と行の間にCR+LFを挿入する<code>Join`r`n</code>がある。同様に、<code>Join|</code>は行間にパイプを挿入する。To have the final line in the section also ended by <em>String</em>, include a blank line immediately above the section's closing parenthesis.</p>
+<p id="Join"><strong>Join</strong><em>String</em>：線をどのようにつなげるかを指定します。If this option is not used, each line except the last will be followed by a linefeed character (`n). If <em>String</em> is omitted, lines are connected directly to each other without any characters in between. Otherwise, specify for <em>String</em> a string of up to 15 characters. 例えば、<code class="no-highlight">Join`s</code>は最後の行を除く各行の後にスペースを挿入する。他の例としては、行と行の間にCR+LFを挿入する<code class="no-highlight">Join`r`n</code>がある。同様に、<code class="no-highlight">Join|</code>は行間にパイプを挿入する。To have the final line in the section also ended by <em>String</em>, include a blank line immediately above the section's closing parenthesis.</p>
 <p id="LTrim"><strong>LTrim：</strong>各行の先頭のスペースとタブをすべて削除する。<a href="#continuation_defaults">デフォルトの「スマート」な振る舞い</a>のため、これは通常不要である。</p>
 <p id="LTrim0"><strong>LTrim0</strong>（LTrimの後に0が続く）：行頭のスペースとタブの省略をオフにする。</p>
 <p id="RTrim0"><strong>RTrim0</strong>（RTrimの後に0が続く）：行末のスペースとタブの省略をオフにする。</p>
 <p id="CommentOption"><strong>Comments</strong>（または <strong>Comment</strong> または <strong>Com</strong> または <strong>C</strong>）：継続セクション内での<a href="Language.htm#comments">セミコロン・コメント</a>を許可する（ただし<code>/*..*/</code>は不可）。そのようなコメントは（その左にあるスペースやタブとともに）、リテラルテキストとして扱われるのではなく、結合結果から完全に省略される。各コメントは、行の右側に表示することも、それ自体で改行することもできる。</p>
-<p id="accent"><strong>`</strong>（アクセント）：各バックティック文字を<a href="misc/EscapeChar.htm">エスケープ文字</a>としてではなく、文字通りに扱う。また、<code>`r</code>や<code>`t</code>のような明示的に指定されたエスケープシーケンスも変換されなくなる。</p>
+<p id="accent"><strong>`</strong>（アクセント）：各バックティック文字を<a href="misc/EscapeChar.htm">エスケープ文字</a>としてではなく、文字通りに扱う。また、<code class="no-highlight">`r</code>や<code class="no-highlight">`t</code>のような明示的に指定されたエスケープシーケンスも変換されなくなる。</p>
 <p id="non-continuation"><strong>(</strong> または <strong>)</strong>：最初の開始括弧の右側に開始括弧または閉じ括弧がある場合（<a href="#Join">Join</a>オプションのパラメータを除く）、その行は継続セクションの開始ではなく、式として再解釈される。これにより、<code>(x.y)[z]()</code>のような式を行頭で使用できるようになり、また、<a href="#continuation-expr">複数行の式</a>を <code>((</code>や<code>(MyFunc(</code>のように行で始めることもできる。</p>
 
 <h3 id="continuation-remarks">備考</h3>
@@ -145,7 +162,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
     &nbsp;; This is <strong>not</strong> a comment; it is literal. Include the word <i>Comments</i> in the line above to make it a comment.
 )", "C:\File.txt"   <em>; Comment.</em></pre>
 <p>上記の結果、セミコロンを継続セクション内で<a href="misc/EscapeChar.htm">エスケープ</a>する必要はない。</p>
-<p>閉じ括弧は継続セクションの終わりを示すので、リテラルな閉じ括弧で行を開始するには、その前にアクセント記号/バックチックを付ける：<code>`)</code>。ただし、<a href="#accent">アクセント(`)オプション</a>との併用はできない。</p>
+<p>閉じ括弧は継続セクションの終わりを示すので、リテラルな閉じ括弧で行を開始するには、その前にアクセント記号/バックチックを付ける：<code class="no-highlight">`)</code>。ただし、<a href="#accent">アクセント(`)オプション</a>との併用はできない。</p>
 <p>継続セクションの直後に、別の継続セクションの開括弧を含む行を続けることができる。これにより、1つのラインを構築する過程で、上記のオプションを変化させることができる。</p>
 <p><a href="lib/_Include.htm">Include</a>による継続セクションの断片的な構築はサポートされていない。</p>
 
@@ -155,7 +172,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <a href="Variables.htm#MyDocuments">A_MyDocuments</a> "\AutoHotkey\Lib\"  <em>; User library.</em>
 "directory-of-the-currently-running-AutoHotkey.exe\Lib\"  <em>; Standard library.</em></pre>
 <p>ライブラリフォルダは上記の順序で検索されます。</p>
-<p>例えば、スクリプトに<code>#Include &lt;MyLib&gt;</code>という行が含まれていると、プログラムはローカル・ ライブラリから「MyLib.ahk」という名前のファイルを探す。そこで見つからなければ、ユーザー・ライブラリーを探し、次に標準ライブラリーを探す。それでも一致するものが見つからず、ライブラリ名にアンダースコア（例：<code>MyPrefix_MyFunc</code>）が含まれている場合、プログラムは接頭辞（例：<code>MyPrefix.ahk</code>）だけで再度検索を行います。</p>
+<p>例えば、スクリプトに<code>#Include &lt;MyLib&gt;</code>という行が含まれていると、プログラムはローカル・ ライブラリから「MyLib.ahk」という名前のファイルを探す。そこで見つからなければ、ユーザー・ライブラリーを探し、次に標準ライブラリーを探す。それでも一致するものが見つからず、ライブラリ名にアンダースコア（例：<code class="no-highlight">MyPrefix_MyFunc</code>）が含まれている場合、プログラムは接頭辞（例：<code class="no-highlight">MyPrefix.ahk</code>）だけで再度検索を行います。</p>
 <p>通常、ライブラリ・ファイルには、ファイル名と同じ名前の関数やクラスが1つだけ含まれるのが通例だが、そのファイルによってのみ呼び出されるプライベート関数が含まれることもある。しかし、このような関数は、グローバル名前空間に存在するため、かなり明確な名前を持つ必要がある。</p>
 
 <h2 id="ahk2exe">スクリプトをEXEに変換（Ahk2Exe）</h2>
@@ -221,11 +238,11 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
       </tr>
       <tr id="SlashGui">
         <td>/gui</td>
-        <td>すぐにコンパイルする代わりにGUIを表示する。その他のパラメーターは、GUIで最後に保存した設定を上書きするために使用できる。<code>/in</code> is optional in this case.</td>
+        <td>すぐにコンパイルする代わりにGUIを表示する。その他のパラメーターは、GUIで最後に保存した設定を上書きするために使用できる。<code class="no-highlight">/in</code> is optional in this case.</td>
       </tr>
       <tr id="SlashGuiSilent">
         <td>/silent [verbose]</td>
-        <td>すべてのメッセージ・ボックスを無効にし、代わりに標準エラー・ストリーム（stderr）にエラーを出力する。stderrが失敗した場合は、標準出力ストリーム（stdout）にエラーを出力する。その他のメッセージも標準出力に出力される。オプションで<code>verbose</code>と入力すると、ステータス・メッセージを標準出力にも出力する。</td>
+        <td>すべてのメッセージ・ボックスを無効にし、代わりに標準エラー・ストリーム（stderr）にエラーを出力する。stderrが失敗した場合は、標準出力ストリーム（stdout）にエラーを出力する。その他のメッセージも標準出力に出力される。オプションで<code class="no-highlight">verbose</code>と入力すると、ステータス・メッセージを標準出力にも出力する。</td>
       </tr>
       <tr id="SlashAhk">
         <td class="warning"><strong>非推奨：</strong><br>/ahk <i>file_name</i></td>
@@ -270,13 +287,13 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
 <p>詳しくは<a href="misc/Ahk2ExeDirectives.htm">スクリプト・コンパイラ・ディレクティブ</a>を参照してください。</p>
 
 <h3 id="mpress">コンパイル済みスクリプトの圧縮</h3>
-<p>Ahk2Exeはコンパイルされたスクリプトを圧縮するためにMPRESSまたはUPXフリーウェアをオプションで使用します。<strong>MPRESS.exe</strong>および/または<strong>UPX.exe</strong>がAutoHotkeyがインストールされた「Compiler」サブフォルダにコピーされている場合、<code>/compress</code>パラメータまたはGUI設定の指示に従い、どちらかを使用して.exeを圧縮することができます。 </p>
+<p>Ahk2Exeはコンパイルされたスクリプトを圧縮するためにMPRESSまたはUPXフリーウェアをオプションで使用します。<strong>MPRESS.exe</strong>および/または<strong>UPX.exe</strong>がAutoHotkeyがインストールされた「Compiler」サブフォルダにコピーされている場合、<code class="no-highlight">/compress</code>パラメータまたはGUI設定の指示に従い、どちらかを使用して.exeを圧縮することができます。 </p>
 <p><strong>MPRESS:</strong> <a href="https://www.autohotkey.com/mpress/mpress_web.htm">archived official website</a> (downloads and information) | <a href="https://www.autohotkey.com/mpress/mpress.219.zip">direct download</a> (95 KB)</p>
 <p><strong>UPX:</strong> <a href="https://upx.github.io/">official website</a> (downloads and information)</p>
 <p><strong>注：</strong>スクリプトの実行ファイルを圧縮すると、メモ帳のようなプレーンテキストエディタやPEリソースエディタを使って、スクリプトのソースコードを気軽に閲覧することができなくなりますが、そのような目的に特化したツールによってソースコードが抽出されることは防げません。</p>
 
 <h3 id="information">背景情報</h3>
- <p>以下のフォルダ構成がサポートされており、実行バージョンの<code>Ahk2Exe.exe</code>は、以下に示す1つ目の \compilerディレクトリにあります：</p>
+ <p>以下のフォルダ構成がサポートされており、実行バージョンの<code class="no-highlight">Ahk2Exe.exe</code>は、以下に示す1つ目の \compilerディレクトリにあります：</p>
 <pre class="no-highlight">\AutoHotkey
    AutoHotkeyA32.exe
    AutoHotkeyU32.exe
@@ -294,15 +311,15 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
       AutoHotkey32.exe
       AutoHotkey64.exe</pre>
 <p>ベースファイル検索アルゴリズムは、Ahk2Exeの起動時に短時間実行され、以下のように動作します：</p>
-<p>修飾されたAutoHotkeyの.exeファイルとすべての.binファイルは、コンパイラのディレクトリ、コンパイラの親ディレクトリ、および<code>AutoHotkey</code>または<code>V</code>で始まり、<code>AutoHotkey_H</code>で始まらないディレクトリ名を持つコンパイラの兄弟ディレクトリで検索されます。選択されたディレクトリは再帰的に検索される。検出されたAutoHotkey.exeファイルは除外され、AutoHotkeyA32.exe、AutoHotkey64.exeなどのファイルと、検出されたすべての.binファイルが残ります。含まれるすべての.exeファイルは、<code>AutoHotkey</code>で始まる名前と、<code>AutoHotkey</code>という単語を含むファイル説明が必要で、バージョンは<code class="no-highlight">1.1.34+</code>または<code class="no-highlight">2.0-a135+</code>でなければなりません。</p>
+<p>修飾されたAutoHotkeyの.exeファイルとすべての.binファイルは、コンパイラのディレクトリ、コンパイラの親ディレクトリ、および<code class="no-highlight">AutoHotkey</code>または<code class="no-highlight">V</code>で始まり、<code class="no-highlight">AutoHotkey_H</code>で始まらないディレクトリ名を持つコンパイラの兄弟ディレクトリで検索されます。選択されたディレクトリは再帰的に検索される。検出されたAutoHotkey.exeファイルは除外され、AutoHotkeyA32.exe、AutoHotkey64.exeなどのファイルと、検出されたすべての.binファイルが残ります。含まれるすべての.exeファイルは、<code class="no-highlight">AutoHotkey</code>で始まる名前と、<code class="no-highlight">AutoHotkey</code>という単語を含むファイル説明が必要で、バージョンは<code class="no-highlight">1.1.34+</code>または<code class="no-highlight">2.0-a135+</code>でなければなりません。</p>
 <p>コンパイルを成功させるには、AutoHotkeyインタプリタのバージョンも（ユーティリティとして）必要で、同様のアルゴリズムで選択されます。ほとんどの場合、使用されるインタープリターのバージョンは、ユーザーがコンパイル用に選択したベースファイルのバージョンと一致する。</p>
 
 
 <h2 id="cmd">スクリプトにコマンドラインパラメータを渡す</h2>
 <p>スクリプトはコマンドラインパラメーターをサポートする。形式：</p>
-<pre>AutoHotkey.exe [<i>Switches</i>] [<i>Script Filename</i>] [<i>Script Parameters</i>]</pre>
+<pre class="no-highlight">AutoHotkey.exe [<i>Switches</i>] [<i>Script Filename</i>] [<i>Script Parameters</i>]</pre>
 <p>また、コンパイルされたスクリプトの場合、フォーマットは次のようになる：</p>
-<pre>CompiledScript.exe [<i>Switches</i>] [<i>Script Parameters</i>]</pre>
+<pre class="no-highlight">CompiledScript.exe [<i>Switches</i>] [<i>Script Parameters</i>]</pre>
 <p><strong>Switches：</strong>以下のうち0個以上：</p>
 <table class="info">
   <tr><th>Switch</th><th>意味</th><th class="wrap" abbr="Compiled?">Works compiled?</th></tr>
@@ -381,7 +398,7 @@ Line 2 of the text. By default, a linefeed (`n) is present between lines.
   <li><a href="lib/_SingleInstance.htm">#SingleInstance</a>はデフォルトでオフになっている。</li>
 </ul>
 <p>例については<a href="lib/Run.htm#ExecScript">ExecScript()</a>を参照。</p>
-<p>現在の実行ファイルに<a href="Program.htm#embedded-scripts">スクリプトが埋め込まれて</a>いる場合、このパラメータには、アスタリスクの後に埋め込みスクリプトのリソース名またはIDを付けることができる。コンパイル済みスクリプトの場合（つまり、ID #1の埋め込みスクリプトが存在する場合）、このパラメータの前に<code>/script</code>スイッチを付ける必要があります。</p>
+<p>現在の実行ファイルに<a href="Program.htm#embedded-scripts">スクリプトが埋め込まれて</a>いる場合、このパラメータには、アスタリスクの後に埋め込みスクリプトのリソース名またはIDを付けることができる。コンパイル済みスクリプトの場合（つまり、ID #1の埋め込みスクリプトが存在する場合）、このパラメータの前に<code class="no-highlight">/script</code>スイッチを付ける必要があります。</p>
 <p><strong>スクリプトのパラメータ：</strong>スクリプトに渡す文字列を、空白で区切って指定します。スペースを含むパラメータは引用符で囲む。空文字列をパラメータとして渡したい場合は、連続する2つの引用符を指定する。リテラル引用符は、その前にバックスラッシュ（ \")を付けることで渡すことができる。その結果、引用符で囲まれたパラメータ（"C:\My Documents<span class="red">\"</span>など）の末尾のスラッシュは、リテラル引用符として扱われます（つまり、スクリプトは "C:\My Documents<span class="red">"</span>という文字列を受け取ります）。このような引用符を削除するには、<code>A_Args[1] := <a href="lib/StrReplace.htm">StrReplace</a>(A_Args[1], '"')</code>を使用する。</p>
 <p id="cmd_args">入力パラメータがある場合は、組み込み変数<strong>A_Args</strong>に配列として格納され、<a href="Objects.htm#Usage_Simple_Arrays">配列構文</a>を使ってアクセスできる。<code>A_Args[1]</code>は最初のパラメーターを含む。以下の例では、渡されるパラメーターが少なすぎる場合にスクリプトを終了している：</p>
 <pre>if A_Args.Length &lt; 3

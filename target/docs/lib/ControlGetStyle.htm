@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>ControlGetStyle / ControlGetExStyle - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="ControlGetStyle関数およびControlGetExStyle関数は、指定されたコントロールのスタイルまたは拡張スタイルを表す整数を返します。" />
@@ -23,7 +23,7 @@ ExStyle := <span class="func">ControlGetExStyle</span>(Control <span class="opti
     <dt>Control</dt>
     <dd>
         <p>型：<a href="../Concepts.htm#strings">文字列</a>、<a href="../Concepts.htm#numbers">整数</a>または<a href="../Concepts.htm#objects">オブジェクト</a></p>
-        <p>コントロールのClassNN、テキスト、HWND、または<code>Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは<a href="Control.htm#Parameter">Controlパラメータ</a>をご覧ください。</p>
+        <p>コントロールのClassNN、テキスト、HWND、または<code class="no-highlight">Hwnd</code>プロパティを持つオブジェクトを指します。詳しくは<a href="Control.htm#Parameter">Controlパラメータ</a>をご覧ください。</p>
     </dd>
     <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
     <dd>
@@ -43,6 +43,7 @@ ExStyle := <span class="func">ControlGetExStyle</span>(Control <span class="opti
 
 <h2 id="Remarks">備考</h2>
 <p>スタイルの一部については、<a href="../misc/Styles.htm">スタイル表</a>をご覧ください。</p>
+<p>ControlGetExStyleは、WS_EX_CLIENTEDGE（0x200）などの汎用拡張スタイルのみを取得します。コントロール固有の拡張スタイルを取得するには、<a href="SendMessage.htm">SendMessage</a>を使用します。例：<code>SendMessage (0x1037, 0, 0, <i>MyListView</i>)</code>。ここで、0x1037は <a href="https://learn.microsoft.com/windows/win32/controls/lvm-getextendedlistviewstyle">LVM_GETEXTENDEDLISTVIEWSTYLE</a> です。AutoHotkeyで作成された<a href="ListView.htm">ListView</a>の場合、この例は 48 (0x30) を返します。これは、<a href="../misc/Styles.htm#LVS_EX_FULLROWSELECT">LVS_EX_FULLROWSELECT</a> (0x20) と <a href="../misc/Styles.htm#LVS_EX_HEADERDRAGDROP">LVS_EX_HEADERDRAGDROP</a> (0x10) の組み合わせである 48 (0x30) を返します。ただし、拡張 ListView スタイルが事前に変更されていない場合に限ります。</p>
 
 <h2 id="Related">関連</h2>
 <p><a href="ControlSetStyle.htm">ControlSetStyle / ControlSetExStyle</a>、<a href="WinGetStyle.htm">WinGetStyle / WinGetExStyle</a>、<a href="../misc/Styles.htm">スタイル表</a>、<a href="Control.htm">Control関数</a></p>

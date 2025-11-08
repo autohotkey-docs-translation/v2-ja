@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>バイナリ互換性｜AutoHotkey v2</title>
 <meta name="description" content="本書では、外部ライブラリとの連携や、コントロールやウィンドウへのメッセージ送信の際に重要となるトピックをいくつか紹介します。" />
@@ -60,7 +60,7 @@ StrPut(source_string, ansi_buf)</pre>
 <p class="note"><b>注：</b>「AStr」および「WStr」は、パラメータおよび関数の戻り値に対して同様に有効です。</p>
 <p>一般に、スクリプトがDllCallを介して、文字列をパラメータとして受け付ける関数を呼び出す場合、以下のアプローチのうちの1つ以上を取る必要があります：</p>
 <ol>
-  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に「Str」型を使用します。例えば、DeleteFile関数は、<code>DeleteFileA</code>と <code>DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code>DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code>DeleteFileW</code>を試行します：
+  <li>Unicode（W）版とANSI（A）版の両方が利用可能な場合、WまたはAの接尾辞を省略し、入力パラメータまたは戻り値に「Str」型を使用します。例えば、DeleteFile関数は、<code class="no-highlight">DeleteFileA</code>と <code class="no-highlight">DeleteFileW</code>としてkernel32.dllからエクスポートされます。<code class="no-highlight">DeleteFile</code>自体は実際には存在しないので、DllCallは自動的に<code class="no-highlight">DeleteFileW</code>を試行します：
   <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
 DllCall("DeleteFile", "Str", filename)</pre>
   <p>どちらの場合も、修正されていない元の文字列のアドレスが関数に渡されます。</p>

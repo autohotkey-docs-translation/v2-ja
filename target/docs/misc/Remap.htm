@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>リマッピングキー（キーボード、マウス、コントローラ）｜AutoHotkey v2</title>
 <meta name="description" content="マウスやコントローラーのボタンもリマップできる無料のキーボードリマッパー。また、キー操作やマウスクリックを送信することで、繰り返し作業を自動化することもできる。">
@@ -26,7 +26,7 @@
 <h2 id="intro">はじめに</h2>
 <p><strong>制限</strong>以下に説明するAutoHotkeyのリマッピング機能は、一般的にWindowsレジストリ経由で直接リマッピングするほど純粋で効果的ではありません。各アプローチの利点と欠点については、<a href="#registry">レジストリの再マッピング</a>を参照のこと。</p>
 <h2 id="Remap">キーボードとマウスのリマッピング</h2>
-<p>組み込みの再マッピング機能の構文は<code>OriginKey::DestinationKey</code>です。例えば、以下の行だけで構成される<a href="../Scripts.htm">スクリプト</a>は、<kbd>A</kbd>を <kbd>B</kbd>のように動作させる：</p>
+<p>組み込みの再マッピング機能の構文は<code class="no-highlight">OriginKey::DestinationKey</code>です。例えば、以下の行だけで構成される<a href="../Scripts.htm">スクリプト</a>は、<kbd>A</kbd>を <kbd>B</kbd>のように動作させる：</p>
 <pre>a::b</pre>
 <p>上記の例では、<kbd>B</kbd>自体は変更されていない。<kbd>B</kbd>は、次の例のように他のキーにリマップしない限り、「b」キーストロークを送信し続ける：</p>
 <pre>a::b
@@ -107,7 +107,7 @@ a::b  <em>; Makes the 'a' key send a 'b' key, but only in Notepad.</em>
   <li>デスティネーションキーまたはボタンは、オリジンキーを押し続けている間、押し続けられる。ただし、リマッピングに対応していないゲームもあります。その場合、キーボードとマウスはリマッピングされていないものとして動作します。</li>
   <li>リマップされたキーは、押したまま自動リピートされます（マウスボタンにリマップされたキーを除く）。</li>
 </ul>
-<p id="HookHotkeys">リマップキーは通常のホットキーをトリガーできますが、デフォルトではマウスホットキーや<a href="../lib/_UseHook.htm">フックホットキー</a>をトリガーすることはできません（どのホットキーが「フック」なのかは<a href="../lib/ListHotkeys.htm">ListHotkeys</a>を使って調べてください）。例えば、<code>a::b</code>のリマッピングが有効な場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>を押すと、<code>^!b</code>がフックホットキーでない場合のみ<code>^!b</code>ホットキーがトリガーされます。<code>^!b</code>がフックホットキーである場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>で<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>と同じ動作をさせたい場合は、<code>^!a</code>をホットキーとして定義できます。事例：</p>
+<p id="HookHotkeys">リマップキーは通常のホットキーをトリガーできますが、デフォルトではマウスホットキーや<a href="../lib/_UseHook.htm">フックホットキー</a>をトリガーすることはできません（どのホットキーが「フック」なのかは<a href="../lib/ListHotkeys.htm">ListHotkeys</a>を使って調べてください）。例えば、<code>a::b</code>のリマッピングが有効な場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>を押すと、<code class="no-highlight">^!b</code>がフックホットキーでない場合のみ<code class="no-highlight">^!b</code>ホットキーがトリガーされます。<code class="no-highlight">^!b</code>がフックホットキーである場合、<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>で<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>と同じ動作をさせたい場合は、<code class="no-highlight">^!a</code>をホットキーとして定義できます。事例：</p>
 <pre>a::b
 ^!a::
 ^!b::ToolTip "You pressed " ThisHotkey
@@ -135,7 +135,7 @@ a::b
 }</pre>
 <p>ただし、上記のホットキーは以下の状況で変化する：</p>
 <ol>
-  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code>{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>: The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
+  <li>送信元キーが左<kbd>Ctrl</kbd>、送信先キーが<kbd>Alt</kbd>の場合、<code>Send "{Blind}{LAlt DownR}"</code>という行は、<code>Send "{Blind}<strong>{LCtrl up}</strong>{LAlt DownR}"</code>に置き換えられる。ソースが右<kbd>Ctrl</kbd>の場合も、<code class="no-highlight">{RCtrl up}</code>が使われる以外は同じである。This is done to ensure that the system translates Alt-key combinations as though <kbd>Ctrl</kbd> is not being held down, but it also causes the remapping to override any prior {Ctrl down}. <span class="ver">[v2.0.8+]</span>: The unsuppressed Ctrl key-up is still sent for backward-compatibility, but is no longer needed for its original purpose. The side effect can be avoided by replacing the remapping with an explicit pair of hotkeys as demonstrated above.</li>
   <li>キーボードのキーがマウスボタンにリマップされる場合（例：<code>RCtrl::RButton</code>）、上記のホットキーはSetKeyDelayの代わりにSetMouseDelayを使用します。さらに、上記の最初のホットキーは以下のように置き換えられ、キーボードのオートリピート機能によるマウスクリックの繰り返しを防ぎます：
     <pre>*RCtrl::
 {
@@ -145,19 +145,19 @@ a::b
 }</pre>
   </li>
   <li>ソースが<a href="../Hotkeys.htm#combo">カスタムの組み合わせ</a>である場合、ワイルドカード修飾子（*）はホットキーが機能するように省略されます。</li>
-  <li>If any of the modifier symbols in <code>!#^+</code> are applied to the source key and not the destination key, they are inserted after the word "Blind" to allow those modifiers to be released by Send. For example, <code>^a::b</code> would use <code>{Blind^}</code>. <code>&lt;^a::b</code> would also use <code>{Blind^}</code>, which may produce unexpected results if used in combination with RCtrl. For details, see <a href="../lib/Send.htm#blind">Blind mode</a>.</li>
+  <li>If any of the modifier symbols in <code class="no-highlight">!#^+</code> are applied to the source key and not the destination key, they are inserted after the word "Blind" to allow those modifiers to be released by Send. For example, <code>^a::b</code> would use <code class="no-highlight">{Blind^}</code>. <code>&lt;^a::b</code> would also use <code class="no-highlight">{Blind^}</code>, which may produce unexpected results if used in combination with RCtrl. For details, see <a href="../lib/Send.htm#blind">Blind mode</a>.</li>
 </ol>
-<p>上記のホットキーでは、SetKeyDelayの2番目のパラメータ（<a href="../lib/SetKeyDelay.htm#dur">押す時間</a>）が省略されていることに注意してください。これは、<code>{b down}</code>や <code>{b up}</code>のような下方向のみ、上方向のみのイベントには、プレス・デュレーションが適用されないからである。ただし、修飾キー（Shift、Ctrl、Alt、Win）の状態の変化には適用され、<code>a::B</code>や <code>a::^b</code>のようなリマッピングに影響する。その結果、<a href="../Scripts.htm#auto">スクリプトの起動</a>時にスクリプトが有効にするプレスデュレーションは、そのような再マッピングすべてに適用される。</p>
+<p>上記のホットキーでは、SetKeyDelayの2番目のパラメータ（<a href="../lib/SetKeyDelay.htm#dur">押す時間</a>）が省略されていることに注意してください。これは、<code class="no-highlight">{b down}</code>や <code class="no-highlight">{b up}</code>のような下方向のみ、上方向のみのイベントには、プレス・デュレーションが適用されないからである。ただし、修飾キー（Shift、Ctrl、Alt、Win）の状態の変化には適用され、<code>a::B</code>や <code>a::^b</code>のようなリマッピングに影響する。その結果、<a href="../Scripts.htm#auto">スクリプトの起動</a>時にスクリプトが有効にするプレスデュレーションは、そのような再マッピングすべてに適用される。</p>
 <p>リマッピングは前述のようにホットキーに変換されるため、<a href="../lib/Suspend.htm">サスペンド</a>機能はそれらに影響する。同様に、<a href="../lib/Hotkey.htm">ホットキー</a>機能はリマッピングを無効にしたり変更したりすることができる。例えば、以下の2つの関数は<code>a::b</code>のリマッピングを無効にする。</p>
 <pre>Hotkey "*a", "Off"
 Hotkey "*a up", "Off"</pre>
 <p id="AltTab">Alt-tabの問題：キーやマウスボタンを<kbd>Alt</kbd>にリマップした場合、そのキーはおそらくAltタブがうまくできないだろう。可能な回避策は、<code>*Tab::Send "{Blind}{Tab}"</code>というホットキーを追加することです。しかし、これは本物の <kbd>Alt</kbd> を使って alt-tab するのを邪魔する可能性が高いので注意してください。したがって、リマップキーや<a href="../Hotkeys.htm#alttab">alt-tabホットキー</a>のみでalt-tabを行う場合にのみ使用すべきである。</p>
-<p>In addition to the keys and mouse buttons on the <a href="../KeyList.htm">Key List</a> page, the source key may also be a virtual key (VKnn) or scan code (SCnnn) as described in the <a href="../KeyList.htm#SpecialKeys">Special Keys</a> section. デスティネーション・キーについても同様であるが、バーチャル・キーの後にスキャン・コードを指定することもできる。例えば、<code>sc01e::vk42sc030</code>は、ほとんどのキーボードレイアウトでは<code>a::b</code>と等価である。</p>
+<p>In addition to the keys and mouse buttons on the <a href="../KeyList.htm">Key List</a> page, the source and destination keys may also be a virtual key (VKnn) or scan code (SCnnn) as described in the <a href="../KeyList.htm#SpecialKeys">Special Keys</a> section. For example, <code>sc01e::vk42</code> is equivalent to <code>a::b</code> on most keyboard layouts.</p>
 <p>キーをリマップするのではなく、無効にするには、単に<a href="../lib/Return.htm">returns</a>ホットキーにします。例えば、<code>F1::return</code>は <kbd>F1</kbd>を無効にする。</p>
 <p>以下のキーは、内蔵リマッピング方式ではサポートされていない：</p>
 <ul>
   <li>マウスホイール（WheelUp/Down/Left/Right）。</li>
-  <li>デスティネーションキー名として「Pause」（組み込み関数の名前と一致するため）。代わりに<code>vk13</code>または対応するスキャンコードを使用してください。</li>
+  <li>デスティネーションキー名として「Pause」（組み込み関数の名前と一致するため）。代わりに<code class="no-highlight">vk13</code>または対応するスキャンコードを使用してください。</li>
   <li>中括弧{}をデスティネーション・キーとする。代わりに<a href="../lib/Send.htm#vk">VK/SCメソッド</a>を使用する。例えば、<code>x::+sc01A</code>と<code>y::+sc01B</code>。</li>
 </ul>
 <h2 id="moving-the-mouse-cursor">キーボードによるマウスカーソルの移動</h2>

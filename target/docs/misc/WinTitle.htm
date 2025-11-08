@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>WinTitleと最後に表示されたウィンドウ｜AutoHotkey v2</title>
 <meta name="description" content="このページでは、組み込み関数の WinTitle パラメータで使用できる、ターゲット・ウィンドウを決定するための基準を示します。" />
@@ -42,18 +42,18 @@
 <p id="CharLimit">In <span class="ver">[v2.0.6+]</span>, it is no longer the case that only the first 1023 characters of the specified window title, <a href="#ahk_class">ahk_class</a> criterion value, and <a href="#ahk_exe">ahk_exe</a> criterion value are considered for matching purposes. Exceeding the length no longer leads to unexpected results, which rarely occurs, but may be encountered more often if a very long RegEx pattern is used.</p>
 
 <h2 id="ActiveWindow">A（アクティブウィンドウ）</h2>
-<p><var>WinTitle</var>にはアルファベット<code>A</code>を使用し、他の3つのウィンドウ・パラメーター（<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>）を省略すると、アクティブなウィンドウに対して動作する。</p>
+<p><var>WinTitle</var>にはアルファベット<code class="no-highlight">A</code>を使用し、他の3つのウィンドウ・パラメーター（<em>WinText</em>、<em>ExcludeTitle</em>、<em>ExcludeText</em>）を省略すると、アクティブなウィンドウに対して動作する。</p>
 <p>以下の例では、アクティブウィンドウのユニークID（HWND）を取得し、報告している：</p>
 <pre>MsgBox WinExist("A")</pre>
 <p>次の例では、アクティブウィンドウを最大化するために押すホットキーを作成します：</p>
 <pre>#Up::WinMaximize "A"  <em>; Win+Up</em></pre>
 
 <h2 id="ahk_">ahk_基準</h2>
-<p>次の ahk_ 基準を1つ以上（オプションでウィンドウのタイトルに加えて）指定し、それぞれを <u>1</u> スペースかタブで区切る（それ以外のスペースかタブは、前の基準のリテラル部分として扱われる）。ahk_基準は常に、ahk_キーワードとその基準値から成り、0個以上の空白またはタブで区切られる。For example, <code>ahk_class Notepad</code> identifies a Notepad window.</p>
+<p>次の ahk_ 基準を1つ以上（オプションでウィンドウのタイトルに加えて）指定し、それぞれを <u>1</u> スペースかタブで区切る（それ以外のスペースかタブは、前の基準のリテラル部分として扱われる）。ahk_基準は常に、ahk_キーワードとその基準値から成り、0個以上の空白またはタブで区切られる。For example, <code class="no-highlight">ahk_class Notepad</code> identifies a Notepad window.</p>
 <p>ahk_キーワードとその基準値は、スペースやタブで区切る必要はない。これは主に、変数と組み合わせてahk_基準を指定するときに便利です。例えば、<code>"ahk_pid " PID</code>の代わりに<code>"ahk_pid" PID</code>を指定することができる。しかし、それ以外の場合は、読みやすさを向上させるために、少なくとも1つのスペースかタブを区切りとして使用することが推奨される。</p>
 
 <h3 id="ahk_class">ahk_class（ウィンドウクラス）</h3>
-<p>ウィンドウクラスでウィンドウを識別するには<var>WinTitle</var>の<code>ahk_class <var>ClassName</var></code>を使う。</p>
+<p>ウィンドウクラスでウィンドウを識別するには<var>WinTitle</var>の<code class="no-highlight">ahk_class <var>ClassName</var></code>を使う。</p>
 <p>ウィンドウ・クラスは、システムがウィンドウを作成するためのテンプレートとして使用する属性のセットです。言い換えれば、ウィンドウのクラス名は、それがどの<em>タイプ</em>のウィンドウであるかを識別する。ウィンドウクラスはWindow Spyで公開したり、<a href="../lib/WinGetClass.htm">WinGetClass</a>で取得することができます。RegEx<a href="../lib/SetTitleMatchMode.htm">タイトル・マッチ・モード</a>が有効な場合、<var>ClassName</var>は<a href="RegEx-QuickRef.htm">正規表現</a>を受け付けます。</p>
 <p>Window classes are case-sensitive, except when using the <a href="RegEx-QuickRef.htm#opt_i">i) modifier</a> in a RegEx pattern.</p>
 <p>次の例は、コンソール・ウィンドウ（cmd.exeなど）をアクティブにします：</p>
@@ -63,10 +63,10 @@
 
 <h3 id="ahk_id">ahk_id（ユニークID/HWND）</h3>
 <p>各ウィンドウやコントロールには固有のIDがあり、HWND（ウィンドウへのハンドルの略）としても知られている。This ID can be used to identify the window or control even if its title or text changes.</p>
-<p>Use <code>ahk_id <var>HWND</var></code> or a pure HWND (as an <a href="../Concepts.htm#numbers">Integer</a> or an <a href="../Objects.htm">Object</a> with a HWND property) in <var>WinTitle</var> to identify a window or control by its unique ID.</p>
-<p>When using <code>ahk_id <var>HWND</var></code>, <a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> affects whether hidden top-level windows are detected, but hidden controls are always detected. When using pure HWNDs, hidden windows are always detected regardless of DetectHiddenWindows. <a href="../lib/WinWait.htm">WinWait</a> and <a href="../lib/WinWaitClose.htm">WinWaitClose</a> are an exception, where both <code>ahk_id <var>HWND</var></code> and pure HWNDs are affected by DetectHiddenWindows.</p>
-<p><code>ahk_id <var>HWND</var></code> can also be combined with other criteria that the given window must match. 例えば、<code>WinExist("ahk_id " ahwnd " ahk_class " aclass)</code>は、ウィンドウが（DetectHiddenWindowsに従って）「検出」され、そのウィンドウクラスが<var>aclass</var>に含まれる文字列と一致する場合、<var>ahwnd</var>を返す。</p>
-<p>ウィンドウのIDは通常、<a href="../lib/WinExist.htm">WinExist</a>または<a href="../lib/WinGetID.htm">WinGetID</a>で取得する。コントロールのIDは通常、<a href="../lib/ControlGetHwnd.htm">ControlGetHwnd</a>、<a href="../lib/MouseGetPos.htm">MouseGetPos</a>、または<a href="../lib/DllCall.htm">DllCall</a>で取得します。<a href="../lib/Gui.htm">Gui</a>と <a href="../lib/GuiControl.htm">GuiControl</a>オブジェクトは<code>Hwnd</code>プロパティを持っているので、<var>WinTitle</var>で直接使うことができます。</p>
+<p>Use <code class="no-highlight">ahk_id <var>HWND</var></code> or a pure HWND (as an <a href="../Concepts.htm#numbers">Integer</a> or an <a href="../Objects.htm">Object</a> with a HWND property) in <var>WinTitle</var> to identify a window or control by its unique ID.</p>
+<p>When using <code class="no-highlight">ahk_id <var>HWND</var></code>, <a href="../lib/DetectHiddenWindows.htm">DetectHiddenWindows</a> affects whether hidden top-level windows are detected, but hidden controls are always detected. When using pure HWNDs, hidden windows are always detected regardless of DetectHiddenWindows. <a href="../lib/WinWait.htm">WinWait</a> and <a href="../lib/WinWaitClose.htm">WinWaitClose</a> are an exception, where both <code class="no-highlight">ahk_id <var>HWND</var></code> and pure HWNDs are affected by DetectHiddenWindows.</p>
+<p><code class="no-highlight">ahk_id <var>HWND</var></code> can also be combined with other criteria that the given window must match. 例えば、<code>WinExist("ahk_id " ahwnd " ahk_class " aclass)</code>は、ウィンドウが（DetectHiddenWindowsに従って）「検出」され、そのウィンドウクラスが<var>aclass</var>に含まれる文字列と一致する場合、<var>ahwnd</var>を返す。</p>
+<p>ウィンドウのIDは通常、<a href="../lib/WinExist.htm">WinExist</a>または<a href="../lib/WinGetID.htm">WinGetID</a>で取得する。コントロールのIDは通常、<a href="../lib/ControlGetHwnd.htm">ControlGetHwnd</a>、<a href="../lib/MouseGetPos.htm">MouseGetPos</a>、または<a href="../lib/DllCall.htm">DllCall</a>で取得します。<a href="../lib/Gui.htm">Gui</a>と <a href="../lib/GuiControl.htm">GuiControl</a>オブジェクトは<code class="no-highlight">Hwnd</code>プロパティを持っているので、<var>WinTitle</var>で直接使うことができます。</p>
 <p>以下の例は、<var>VarContainingID</var>に格納された一意のIDによってウィンドウを操作する：</p>
 <pre><em>; Pass an <a href="../Concepts.htm#numbers">Integer</a>.</em>
 WinActivate Integer(VarContainingID)
@@ -83,20 +83,20 @@ WinActivate "ahk_id " VarContainingID
 <p>オブジェクトにHWNDプロパティがないか、プロパティの値が整数でない場合、<a href="../lib/Error.htm#PropertyError">PropertyError</a>または<a href="../lib/Error.htm#TypeError">TypeError</a>がスローされます。</p>
 
 <h3 id="ahk_pid">ahk_pid（プロセスID）</h3>
-<p><var>WinTitle</var>で<code>ahk_pid <var>PID</var></code>を使用して、特定のプロセスに属するウィンドウを識別する。プロセス識別子（PID）は通常、<a href="../lib/WinGetPID.htm">WinGetPID</a>、<a href="../lib/Run.htm">Run</a>または<a href="../lib/Process.htm">Process関数</a>で取得される。ウィンドウのプロセスIDは、ウィンドウ・スパイで知ることができる。</p>
+<p><var>WinTitle</var>で<code class="no-highlight">ahk_pid <var>PID</var></code>を使用して、特定のプロセスに属するウィンドウを識別する。プロセス識別子（PID）は通常、<a href="../lib/WinGetPID.htm">WinGetPID</a>、<a href="../lib/Run.htm">Run</a>または<a href="../lib/Process.htm">Process関数</a>で取得される。ウィンドウのプロセスIDは、ウィンドウ・スパイで知ることができる。</p>
 <p>次の例は、<var>VarContainingPID</var>に格納されたプロセスIDによってウィンドウをアクティブにする：</p>
 <pre>WinActivate "ahk_pid " VarContainingPID</pre>
 
 <h3 id="ahk_exe">ahk_exe（プロセス名/パス）</h3>
-<p><var>WinTitle</var>の<code>ahk_exe <var>ProcessNameOrPath</var></code>を使って、与えられた名前やパスを持つプロセスに属するウィンドウを特定する。</p>
-<p><a href="#ahk_pid">ahk_pid 基準</a>が特定のプロセスに限定されるのに対して、 ahk_exe 基準は、与えられた文字列と一致する名前またはフルパスを持つ すべてのプロセスを考慮する。RegEx<a href="../lib/SetTitleMatchMode.htm">タイトル・マッチング・モード</a>が有効な場合、<var>ProcessNameOrPath</var>は、プロセスのフル・パスにマッチしなければならない<a href="RegEx-QuickRef.htm">正規表現</a>を受け付ける。それ以外の場合は、大文字と小文字を区別しない名前またはフルパスを受け付ける。例えば、<code>ahk_exe notepad.exe</code>は、<code>ahk_exe C:\Windows\Notepad.exe</code>、<code>ahk_exe C:\Windows\System32\Notepad.exe</code>などのバリエーションをカバーする。ウィンドウのプロセス名は、ウィンドウ・スパイ（Window Spy）を通じて知ることができる。</p>
+<p><var>WinTitle</var>の<code class="no-highlight">ahk_exe <var>ProcessNameOrPath</var></code>を使って、与えられた名前やパスを持つプロセスに属するウィンドウを特定する。</p>
+<p><a href="#ahk_pid">ahk_pid 基準</a>が特定のプロセスに限定されるのに対して、 ahk_exe 基準は、与えられた文字列と一致する名前またはフルパスを持つ すべてのプロセスを考慮する。RegEx<a href="../lib/SetTitleMatchMode.htm">タイトル・マッチング・モード</a>が有効な場合、<var>ProcessNameOrPath</var>は、プロセスのフル・パスにマッチしなければならない<a href="RegEx-QuickRef.htm">正規表現</a>を受け付ける。それ以外の場合は、大文字と小文字を区別しない名前またはフルパスを受け付ける。例えば、<code class="no-highlight">ahk_exe notepad.exe</code>は、<code class="no-highlight">ahk_exe C:\Windows\Notepad.exe</code>、<code class="no-highlight">ahk_exe C:\Windows\System32\Notepad.exe</code>などのバリエーションをカバーする。ウィンドウのプロセス名は、ウィンドウ・スパイ（Window Spy）を通じて知ることができる。</p>
 <p>次の例は、プロセス名でメモ帳ウィンドウをアクティブにする：</p>
 <pre>WinActivate "ahk_exe notepad.exe"</pre>
 <p>次の例は上記と同じだが、<a href="RegEx-QuickRef.htm">正規表現</a>を使っている（動作させるには、RegExの<a href="../lib/SetTitleMatchMode.htm">タイトルマッチングモード</a>をあらかじめオンにしておく必要があることに注意）：</p>
 <pre>WinActivate "ahk_exe i)\\notepad\.exe$"  <em>; Match the name part of the full path.</em></pre>
 
 <h3 id="ahk_group">ahk_group（窓グループ）</h3>
-<p><var>WinTitle</var>の <code>ahk_group <var>GroupName</var></code>を使用して、以前に定義された<a href="../lib/GroupAdd.htm">ウィンドウグループ</a>に含まれるルールに一致するウィンドウを特定する。</p>
+<p><var>WinTitle</var>の <code class="no-highlight">ahk_group <var>GroupName</var></code>を使用して、以前に定義された<a href="../lib/GroupAdd.htm">ウィンドウグループ</a>に含まれるルールに一致するウィンドウを特定する。</p>
 <p><a href="../lib/WinMinimize.htm">WinMinimize</a>、<a href="../lib/WinMaximize.htm">WinMaximize</a>、<a href="../lib/WinRestore.htm">WinRestore</a>、<a href="../lib/WinHide.htm">WinHide</a>、<a href="../lib/WinShow.htm">WinShow</a>、<a href="../lib/WinClose.htm">WinClose</a>、<a href="../lib/WinKill.htm">WinKill</a>は、グループの<u>すべて</u>のウィンドウに対して作用します。By contrast, the other windowing functions such as <a href="../lib/WinActivate.htm">WinActivate</a> and <a href="../lib/WinExist.htm">WinExist</a> will operate only upon the topmost window of the group.</p>
 <p>次の例は、ウィンドウ・グループで定義された条件に一致するウィンドウをアクティブにします：</p>
 <pre><em>; Define the group: Windows Explorer windows</em>

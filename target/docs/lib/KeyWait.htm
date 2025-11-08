@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>KeyWait - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="The KeyWait function waits for a key or mouse/controller button to be released or pressed down." />
@@ -22,7 +22,7 @@
   <dd>
       <p>型：<a href="../Concepts.htm#strings">文字列</a></p>
       <p>This can be just about any single character from the keyboard or one of the key names from the <a href="../KeyList.htm">key list</a>, such as a mouse/controller button. Controller attributes other than buttons are not supported.</p>
-      <p>また、<code>vkFF</code>のような明示的な仮想鍵コードを指定することもできる。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。その仮想キーコードは、<a href="../KeyList.htm#SpecialKeys">キー一覧ページ</a>の下部にある手順で決定することができます。</p></dd>
+      <p>また、<code class="no-highlight">vkFF</code>のような明示的な仮想鍵コードを指定することもできる。これは、キーに名前がなく、押しても何も表示されないような場合に便利です。その仮想キーコードは、<a href="../KeyList.htm#SpecialKeys">キー一覧ページ</a>の下部にある手順で決定することができます。</p></dd>
 
   <dt>Options</dt>
   <dd>
@@ -31,7 +31,7 @@
       <p>Otherwise, specify a string of one or more of the following options (in any order, with optional spaces in between):</p>
       <p><strong>D：</strong>キーが押し下げられるのを待ちます。</p>
       <p><strong>L：</strong>キーの論理状態（OSやアクティブウィンドウがキーがあると信じている状態）を確認します（物理状態と同じとは限りません）。This option is ignored for controller buttons.</p>
-      <p><strong>T:</strong> Timeout (e.g. <code>T3</code>). タイムアウトして0を返すまでの待ち時間を示す秒数です。キーまたはボタンが指定された状態になった場合、この関数はタイムアウトを待たずに終了します。代わりに、すぐに1が返されます。</p>
+      <p><strong>T:</strong> Timeout (e.g. <code class="no-highlight">T3</code>). タイムアウトして0を返すまでの待ち時間を示す秒数です。キーまたはボタンが指定された状態になった場合、この関数はタイムアウトを待たずに終了します。代わりに、すぐに1が返されます。</p>
       <p>タイムアウト値には、2.5などの浮動小数点数を指定できますが、0x03などの16進数値を指定してはいけません。</p></dd>
 
 </dl>
@@ -94,7 +94,7 @@ KeyWait "Alt"</pre>
 <p><a class="ex_number" href="#ExDouble"></a> キーがダブルプレスされたことを検出します（ダブルクリックに似ています）。KeyWaitは、RControlキーを押しながら他のキーを変更する際に、キーボードのオートリピート機能が不要な二度押しを発生させないようにするために使用します。これは、ホットキーのスレッドを実行し続けることで、#MaxThreadsPerHotkeyがデフォルト設定の1であることを頼りに、自動繰り返しをブロックすることで実現します。For a more elaborate script that distinguishes between single, double and triple-presses, see <a href="SetTimer.htm#ExampleCount">SetTimer example #3</a>.</p>
 <pre>~RControl::
 {
-    if (A_PriorHotkey != "~RControl" or A_TimeSincePriorHotkey &gt; 400)
+    if (A_PriorHotkey != ThisHotkey or A_TimeSincePriorHotkey &gt; 400)
     {
         <em>; プレスの間隔が空きすぎて、ダブルプレスになっていません。</em>
         KeyWait "RControl"

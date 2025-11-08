@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>スクリプト言語｜AutoHotkey v2</title>
 <meta name="description" content="コメント、式、制御フロー文、スクリプトの構造など、言語に関する詳細を学ぶことができます。" />
@@ -106,8 +106,8 @@ MsgBox "This line is not commented out."
 <h3 id="strings">文字列 / テキスト</h3>
 <p class="note">文字列の一般的な説明については、<a href="Concepts.htm#strings">文字列</a>を参照してください。</p>
 <p><em>ストリング</em>または<em>文字列</em>とは、単なるテキスト値のことです。式中、リテラルテキストは、変数名や他の式と区別するために、シングルクォーテーションまたはダブルクォーテーションで囲む必要があります。これはしばしば<em>引用リテラル文字列</em>、あるいは単に<em>引用文字列</em>と呼ばれる。例えば、<code>"これは引用符で囲まれた文字列です"</code>そして<code>'これはそうです'</code>という具合です。</p>
-<p>引用符で囲まれた文字列の中に<em>実際</em>の引用符を含めるには、<code>`"</code>または<code>`'</code> <a href="misc/EscapeChar.htm#quote">エスケープシーケンスを</a>使用するか、反対のタイプの引用符でその文字を囲みます。事例：<code>'She said, "An apple a day."'</code>。</p>
-<p>引用符で囲まれた文字列には、<code>`t</code>（タブ）、<code>`n</code>（ラインフィード）、<code>`r</code>（キャリッジリターン）といった他の<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を含めることができます。</p>
+<p>引用符で囲まれた文字列の中に<em>実際</em>の引用符を含めるには、<code class="no-highlight">`"</code>または<code class="no-highlight">`'</code> <a href="misc/EscapeChar.htm#quote">エスケープシーケンスを</a>使用するか、反対のタイプの引用符でその文字を囲みます。事例：<code>'She said, "An apple a day."'</code>。</p>
+<p>引用符で囲まれた文字列には、<code class="no-highlight">`t</code>（タブ）、<code class="no-highlight">`n</code>（ラインフィード）、<code class="no-highlight">`r</code>（キャリッジリターン）といった他の<a href="misc/EscapeChar.htm">エスケープシーケンス</a>を含めることができます。</p>
 
 <h3 id="variables">変数</h3>
 <p class="note">変数の基本的な説明と一般的な詳細については、<a href="Concepts.htm#variables">変数</a>を参照してください。</p>
@@ -132,7 +132,7 @@ MsgBox "This line is not commented out."
 <p>読み取り専用の<a href="Variables.htm#BuiltIn">組み込み変数</a>とは異なり、<a href="#dynamic-variables">動的参照</a>で返すことはできません。</p>
 
 <h3 id="operators">演算子</h3>
-<p><em>演算子</em>は、<code>+</code>や <code>:=</code>などの記号や記号群、または<code>and</code>、<code>or</code>、<code>not</code>、<code>is</code>、<code>in</code>、<code>contains</code>のいずれかの単語の形をとる。1つ、2つ、3つの値を入力として受け取り、結果として値を返します。演算子の入力として使用される値または部分式を<em>オペランド</em>と呼ぶ。</p>
+<p><em>演算子</em>は、<code>+</code>や <code>:=</code>などの記号や記号群、または<code>and</code>、<code>or</code>、<code>not</code>、<code>is</code>、<code class="no-highlight">in</code>、<code class="no-highlight">contains</code>のいずれかの単語の形をとる。1つ、2つ、3つの値を入力として受け取り、結果として値を返します。演算子の入力として使用される値または部分式を<em>オペランド</em>と呼ぶ。</p>
 <ul>
   <li><em>単項</em>演算子は、演算子によって、1つのオペランドの前か後に書かれます。例えば、<code>-x</code>または、<code>not keyIsDown</code>。</li>
   <li><em>二項</em>演算子は、2つのオペランドの間に記述されます。例えば、<code>1+1</code> または <code>2 * 5</code>。</li>
@@ -183,10 +183,10 @@ Run("notepad.exe", , , &amp;notepadPID)
 <h3 id="operators-for-objects">オブジェクトの演算子</h3>
 <p>このほかにも、以下に示すように、上記の分類に当てはまらない、あるいは表現の他の部分の意味に影響を与えるような記号が表現に使用されています。これらはすべて、何らかの形で<em>オブジェクト</em>に関係するものです。各コンストラクトがどのような働きをするのか、詳しく説明するためには、さらに多くの概念を導入する必要があり、このセクションの範囲外です。</p>
 <p><code>Alpha.Beta</code>は <em>メンバー</em>アクセスと呼ばれることが多い。<em>Alpha</em>は普通の変数で、関数呼び出しや、オブジェクトを返す他の部分式に置き換えることができる。評価されると、オブジェクトに「プロパティ<em>Beta</em>の値を教えて」「この値をプロパティ<em>Beta</em>に格納して」「<em>Beta</em>という名前のメソッドを呼び出して」という要求が送られます。つまり、<em>Beta</em>はオブジェクトに対して意味を持つ名前であり、ローカル変数やグローバル変数ではありません。</p>
-<p><code>Alpha.Beta()</code>は、上記の通り、<em>メソッド呼び出し</em>です。特定の場合、括弧を省略することができます。「<a href="#function-call-statements">関数呼び出しステートメント</a>」を参照してください。</p>
+<p><code>Alpha.Beta()</code> is a <em>method call</em>. <em>Alpha</em> is implicitly passed as a parameter, but this is normally hidden from view as each method definition implicitly defines a parameter named <code>this</code>. The parentheses can be omitted in specific cases; see <a href="#function-call-statements">Function Call Statements</a>.</p>
 <p><code>Alpha.Beta[Param]</code>は、リクエストに追加のパラメータを含む特別な会員アクセスの形態です。<em>Beta</em>が単純な名前であるのに対し、<em>Param</em>は通常の変数や部分式、あるいはカンマで区切られた部分式のリスト（関数のパラメータリストと同じ）です。<a href="Functions.htm#VariadicCall">変則的な呼び出し</a>が可能です。</p>
 <p><code>Alpha.%vBeta%</code>、<code>Alpha.%vBeta%[Param]</code>、および<code>Alpha.%vBeta%()</code>もメンバーアクセスですが、<em>vBeta</em>は変数または副式です。これにより、スクリプトの実行中にプロパティやメソッドの名前を決定することができます。この方法でメソッドを呼び出す場合は、括弧を付ける必要があります。</p>
-<p><code>Alpha[Index]</code>は、<code>Index</code>をパラメータとして、<code>Alpha</code>の<em>デフォルトのプロパティ</em>にアクセスします。この場合、<em>Alpha</em>と <em>Index</em>はいずれも変数であり、事実上あらゆる部分式に置き換えることができる。この構文は、通常、<a href="lib/Array.htm">Array</a>や <a href="lib/Map.htm">Map</a>の要素を取得するために使用されます。</p>
+<p><code>Alpha[Index]</code> typically invokes the <a href="Objects.htm#__Item">__Item</a> property of <code>Alpha</code>, giving <code>Index</code> as a parameter. この場合、<em>Alpha</em>と <em>Index</em>はいずれも変数であり、事実上あらゆる部分式に置き換えることができる。この構文は、通常、<a href="lib/Array.htm">Array</a>や <a href="lib/Map.htm">Map</a>の要素を取得するために使用されます。For COM objects, this invokes the <em>default property</em> by ID (DISPID_VALUE), so is different to explicitly specifying the __Item property.</p>
 <p id="array-literal"><code>[A, B, C]</code>は、初期内容A、B、C（この場合はすべて変数）を持つ<a href="lib/Array.htm">配列</a>を作成し、Aは要素1です。</p>
 <p id="object-literal"><code>{Prop1： Value1, Prop2：Value2}</code>文字通り<em>Prop1</em>と<em>Prop2</em>という名前のプロパティを持つ<a href="lib/Object.htm">Object</a>を作成します。値は、後で前述の<em>メンバーアクセス</em>構文を使用して取得することができます。プロパティ名を式として評価する場合は、パーセント記号で囲みます。例えば：<code>{%NameVar%: ValueVar}</code>。</p>
 <p><code>MyFunc(Params*)</code>は、<a href="Functions.htm#VariadicCall">可変長引数関数呼び出し</a>です。アスタリスクは、関数のパラメータリストの最後にある閉じ括弧の直前でなければなりません。<em>Params</em>は、<a href="lib/Array.htm">Array</a>または他の列挙可能なオブジェクトを返す変数または部分式でなければなりません。<code>Params*</code>はどこでも使えるわけではありませんが、配列リテラル（<code>[A, B, C, ArrayToAppend*]</code>）やプロパティのパラメータリスト（<code>Alpha.Beta[Params*]</code>や<code>Alpha[Params*]</code>）で使用することが可能です。</p>
@@ -259,7 +259,7 @@ Run("notepad.exe", , , &amp;notepadPID)
 <p><a href="lib/Continue.htm">Continue</a>は、現在のループ反復の残りをスキップして、新しいループを開始します。</p>
 <p><a href="lib/Until.htm">Until</a>は、式がtrueと評価されたときにループを終了させる。式は、各反復の後に評価されます。</p>
 <p id="named-loops"><a href="#labels">ラベル</a>は、<a href="lib/Continue.htm">Continue</a>や <a href="lib/Break.htm">Break</a>のループに「命名する」ために使うことができます。これにより、<a href="lib/Goto.htm">Goto</a>を使用しなくても、スクリプトを簡単に続行したり、任意の数の入れ子ループから抜け出したりすることができます。</p>
-<p>組込変数<strong>A_Index</strong>には、現在のループの繰り返し回数が格納されます。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。内側ループが外側ループで囲まれている場合、内側ループが優先されます。A_Indexは、すべての種類のループの内部で機能しますが、ループの外部では0を含みます。</p>
+<p>組込変数<strong>A_Index</strong>には、現在のループの繰り返し回数が格納されます。ループ本体が最初に実行されるときに1を含む。2回目には2が入り、以下同様です。ループがループで囲まれているときは、内側のループが優先されます。A_Indexは、すべての種類のループの内部で機能しますが、ループの外部では0を含みます。</p>
 <p>一部のループタイプでは、他の組み込み変数が現在のループアイテム（レジストリキー/値、ファイル、部分文字列、テキスト行）に関する情報を返します。これらの変数は、A_LoopFileNameやA_LoopReadLineなど、<strong>A_Loop</strong>で始まる名前を持っています。これらの値は常に、該当するタイプの最も最近に開始された（しかしまだ停止していない）ループに対応します。例えば、A_LoopFieldは、ファイルやレジストリのループ内で使用されていても、最も内側の解析ループの現在の部分文字列を返します。</p>
 <pre>t := "column 1`tcolumn 2`nvalue 1`tvalue 2"
 Loop Parse t, "`n"

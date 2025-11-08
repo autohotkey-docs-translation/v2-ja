@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>ComObjActive - 構文と使用法｜AutoHotkey v2</title>
 <meta name="description" content="ComObjActive関数は、登録されているCOMオブジェクトを取得します。" />
@@ -40,11 +40,12 @@
 <div class="ex" id="ExWord">
 <p><a class="ex_number" href="#ExWord"></a> Microsoft Wordが起動している場合、アクティブな文書を表示します。以下で使用するCOMオブジェクトとそのプロパティの詳細については、<a href="https://learn.microsoft.com/office/vba/api/Word.Application">Word.Applicationオブジェクト (Microsoft Docs)</a>をご覧ください。</p>
 <pre>
-word := ComObjActive("Word.Application")
-if !word
+try word := ComObjActive("Word.Application")
+if not IsSet(word)
     MsgBox "Word isn't open."
 else
-    MsgBox word.ActiveDocument.FullName</pre>
+    MsgBox word.ActiveDocument.FullName
+</pre>
 </div>
 
 </body>

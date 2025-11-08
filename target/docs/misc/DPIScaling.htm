@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="jac">
+<html lang="ja">
 <head>
 <title>DPIスケーリング｜AutoHotkey v2</title>
 <meta name="description" content="DPIスケーリングに関する問題を説明する。" />
@@ -13,19 +13,24 @@
 <h1>DPIスケーリング</h1>
 
 <p>DPIスケーリングは、オペレーティングシステムまたはアプリケーションによって実行される機能で、ディスプレイの「ドット/インチ」設定に比例してコンテンツの視覚的サイズを拡大する。一般的には、ディスプレイ解像度の異なるシステム上でも同じ物理的サイズでコンテンツを表示したり、少なくとも非常に高解像度のディスプレイでも使用できるようにする。コンテンツをより大きく快適に読むために、DPI設定を大きくすることがある。</p>
-<p><a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a>は、プライマリ画面の DPI 設定を返す。</p>
+<p><a href="../Variables.htm#ScreenDPI">A_ScreenDPI</a> typically returns the DPI setting which the primary display had at the time the script started. This is known as the "system DPI", although processes started at different times can have different values.</p>
 <p>AutoHotkeyに関連するDPIスケーリングには2種類あります：GUI DPIスケーリングとOS DPIスケーリング。</p>
 
 <h2 id="Gui_DPI_Scaling">GUI DPIスケーリング</h2>
 <p>自動スケーリングは、デフォルトでGuiとGuiControlのメソッド/プロパティによって実行されるため、ハードコードされた位置、サイズ、マージンを持つGUIスクリプトは、高DPIスクリーン上で適切にスケーリングされる傾向があります。これがスクリプトの邪魔になる場合、あるいはスクリプトが独自のスケーリングを行う場合は、自動スケーリングを無効にすることができる。詳細は<a href="../lib/Gui.htm#DPIScale">-DPIScale</a>オプションを参照。</p>
 
 <h2 id="OS_DPI_Scaling">OSのDPIスケーリング</h2>
-<p>DPIを意識していないアプリケーションの場合、オペレーティング・システムは、特定のシステム関数に渡されたり返されたりする座標を自動的にスケーリングします。このタイプのスケーリングは、すべてのスクリーンのDPI設定が同じでない複数のスクリーンを持つシステムでのみAutoHotkeyに影響します。</p>
+<p>DPIを意識していないアプリケーションの場合、オペレーティング・システムは、特定のシステム関数に渡されたり返されたりする座標を自動的にスケーリングします。This type of scaling typically affects AutoHotkey in two scenarios:</p>
+<ul>
+  <li>Systems with multiple monitors where not all monitors are set to the same scale.</li>
+  <li>Whenever the display scale setting differs from what it was when the program started.</li>
+</ul>
+<p>The exact scaling done depends on which system function is being called, the DPI awareness of the script and potentially the DPI awareness of the target window.</p>
 
 <h3 id="Per-Monitor_DPI_Awareness">モニターごとのDPI認識</h3>
 <p>Windows 8.1以降では、セカンダリスクリーンは異なるDPI設定を持つことができ、「モニターごとのDPI対応」アプリケーションは、ウィンドウがスクリーン間を移動するときに動的に適応し、現在表示されているスクリーンのDPIに従ってウィンドウを拡大縮小することが期待されています。</p>
 <p>モニターごとのDPIを意識しないアプリケーションの場合、システムはビットマップのスケーリングを実行し、ウィンドウがスクリーン間を移動するときにサイズを変更できるようにします。そして、アプリケーションが期待するグローバルDPI設定にスケーリングされた座標とサイズを報告することで、アプリケーションからこれを隠します。例えば、11インチの4Kスクリーンでは、96dpi（100%）で表示するようにデザインされたGUIはほとんど使用不可能だが、200%アップスケールすれば使用可能になる。</p>
-<p>AutoHotkeyはモニターごとのスケーリングを行うようには設計されていないため、モニターごとのDPIを認識するようにマークされていません。これは、たとえば、GUIウィンドウを100 %のDPIを持つ大きな外部スクリーンと200 %のDPIを持つ小さなスクリーンの間で移動させるときに便利です。しかし、自動スケーリングには否定的な意味合いもある。</p>
+<p>AutoHotkey v2.0 is not designed to perform per-monitor scaling, and therefore has not been marked as per-monitor DPI-aware. これは、たとえば、GUIウィンドウを100 %のDPIを持つ大きな外部スクリーンと200 %のDPIを持つ小さなスクリーンの間で移動させるときに便利です。しかし、自動スケーリングには否定的な意味合いもある。</p>
 <p>システムの自動スケーリングが機能するように、<a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-movewindow">MoveWindow</a>や <a href="https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrect">GetWindowRect</a>などのシステム関数は、それらが受け取るか返す座標を自動的にスケーリングします。AutoHotkeyがこれらの関数を使用して外部ウィンドウを操作する場合、座標がプライマリスクリーン上にない場合、しばしば予期しない結果が生じます。さらに混乱を招くことに、いくつかの関数は、スクリプトの最後にアクティブになったウィンドウがどのスクリーンに表示されていたかに基づいて座標をスケーリングする。</p>
 
 <h2 id="Workarounds">回避策</h2>
@@ -33,10 +38,54 @@
 <p>モニターごとのDPI認識を有効にするには、通常DPIスケーリングの影響を受ける関数を使用する前に、以下の関数を呼び出します：</p>
 <pre>DllCall("SetThreadDpiAwarenessContext", "ptr", -3, "ptr")</pre>
 <p>Windows 10のバージョン1703以降では、-3を-4に置き換えて「Per Monitor v2」モードを有効にすることができます。これにより、ダイアログやメニュー、ツールチップなどの拡大縮小が可能になります。しかし、非クライアント領域（タイトル・バー）も拡大縮小されるため、スクリプトが（<a href="https://learn.microsoft.com/windows/win32/hidpi/wm-dpichanged">WM_DPICHANGEDメッセージに</a>応答するなどして）調整するように設計されていない限り、ウィンドウのクライアント領域が小さくなりすぎる可能性があります。これは、GUIを作成する前にコンテキストを-3に設定し、ツールチップ、メニュー、ダイアログを作成する前に-4に設定することで回避できます。</p>
-<p>ユーザーがスクリプトのウィンドウを移動しているときや、スクリプトがダイアログを表示しているときに、スレッドのDPI認識が一時的に変更されることがあります。そのため、DPIに依存する機能を使用する前に、DPIを設定するのが最も安全です。</p>
+
+<h3 id="New_Threads">New Threads</h3>
+<p>When the <a href="https://learn.microsoft.com/windows/win32/winmsg/window-procedures">window procedure</a> for a window is called by the system, it automatically sets the current DPI awareness context to whichever context was in use when the window was created. The context for a new <a href="Threads.htm">script thread</a> therefore depends on whether it was launched directly from AutoHotkey's message loop or via a window procedure.</p>
+<ul>
+  <li>Under typical conditions, posted messages are handled directly from AutoHotkey's message loop, which means that whatever context was already in effect remains in effect. This includes most events which start new script threads, such as hotkeys, hotstrings and timers.</li>
+  <li>Script threads corresponding to sent (not posted) messages are started from within the window procedure, which means that the context is always set based on the target window.</li>
+  <li>Posted messages are typically dispatched to a window procedure if they are received during a modal message loop. Modal message loops are (for example) used by modal dialog boxes and menus, or while the user is moving a window or performing drag-drop.</li>
+  <li>Non-GUI events are associated with the script's <a href="../Program.htm#main-window">main window</a>, and therefore receive the program-default DPI awareness context. This is usually as set in the program's manifest, but could be overridden by application compatibility settings.</li>
+</ul>
+
+<h3 id="Mixed_Settings">Mixed Settings</h3>
+<p>A per-monitor DPI aware GUI window is expected to adjust automatically when it receives a <a href="https://learn.microsoft.com/windows/win32/hidpi/wm-dpichanged">WM_DPICHANGED message</a>. AutoHotkey v2.0 GUI windows do not respond to this message by default. If correctly implementing this type of dynamic scaling is too difficult, a simpler alternative is to temporarily disable per-monitor DPI awareness immediately prior to creating the GUI. 事例：</p>
+<pre><em>; Set the "system DPI aware" mode which is the default in AutoHotkey v2.0:</em>
+try dac := DllCall("SetThreadDpiAwarenessContext", 'ptr', -2, 'ptr')
+<em>; Create the GUI, which will permanently be "system DPI aware":</em>
+MyGui := Gui()
+<em>; Restore the previous mode for any subsequent function calls:</em>
+IsSet(dac) &amp;&amp; DllCall("SetThreadDpiAwarenessContext", 'ptr', dac, 'ptr')
+</pre>
+<p>The additional lines have no effect if the OS does not support SetThreadDpiAwarenessContext or the program was already in system DPI aware mode.</p>
+<p>If only some of the GUI's controls do not scale well, system DPI aware (or DPI unaware) controls can be hosted on a per-monitor DPI aware window. Mixed hosting must be enabled prior to creating the window (requires Windows 10 version 1803 or later):</p>
+<pre><em>; Create a GUI window which can host less-aware child windows:</em>
+try dhb := DllCall("SetThreadDpiHostingBehavior", 'int', 1)
+MyGui := Gui()
+IsSet(dhb) &amp;&amp; DllCall("SetThreadDpiHostingBehavior", 'int', dhb)
+
+<em>; Add a "system DPI aware" control:</em>
+try dac := DllCall("SetThreadDpiAwarenessContext", 'ptr', -2, 'ptr')
+MyListView := MyGui.AddListView()
+IsSet(dac) &amp;&amp; DllCall("SetThreadDpiAwarenessContext", 'ptr', dac, 'ptr')
+</pre>
 
 <h3 id="Compiled_Scripts">コンパイル済みスクリプト</h3>
-<p>モニタごとの DPI 認識は、コンパイルされたスクリプトのマニフェストリソースの <code>&lt;dpiAware&gt;</code>要素の内容を<code>true</code>（基本のAutoHotkey実行ファイルに設定されているデフォルト）から<code>true/pm</code>に変更することで、プロセス全体で有効にすることができます。</p>
+<p>Per-monitor DPI awareness can be enabled process-wide by setting the "dpiAware" and "dpiAwareness" elements in the compiled script's manifest (an embedded XML resource). For details of the proper use and effect of these settings, see <a href="https://learn.microsoft.com/windows/win32/hidpi/setting-the-default-dpi-awareness-for-a-process#setting-default-awareness-with-the-application-manifest">Setting default awareness with the application manifest</a>. For example, the manifest in AutoHotkey v2.0.19 includes the following:</p>
+<pre class="no-highlight">&lt;v3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings"
+                 xmlns:ws2="http://schemas.microsoft.com/SMI/2016/WindowsSettings"&gt;
+  &lt;dpiAware&gt;true&lt;/dpiAware&gt;
+  &lt;ws2:longPathAware&gt;true&lt;/ws2:longPathAware&gt;
+&lt;/v3:windowsSettings&gt;</pre>
+<p>As explained in the Microsoft documentation, it may be desirable to include both "dpiAware" and "dpiAwareness", which belong to different XML namespaces. As "longPathAware" and "dpiAwareness" belong to the same namespace, the XML can be optimized by moving some things around. The following enables per-monitor DPI awareness (v2 if available, otherwise v1):</p>
+<pre class="no-highlight">&lt;v3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings"&gt;
+  &lt;dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings"&gt;true/pm&lt;/dpiAware&gt;
+  &lt;dpiAwareness&gt;PerMonitorV2&lt;/dpiAwareness&gt;
+  &lt;longPathAware&gt;true&lt;/longPathAware&gt;
+&lt;/v3:windowsSettings&gt;</pre>
+
+<h3 id="Compatibility_Settings">Compatibility Settings</h3>
+<p>The program's default DPI awareness can be overridden by compatibility settings, which can be set in the properties of an AutoHotkey executable file, in the properties of a shortcut file, or by setting the <code class="no-highlight">__COMPAT_LAYER</code> environment variable to include the keyword <code class="no-highlight">DpiUnaware</code> or the keyword <code class="no-highlight">HighDpiAware</code>. Enabling DPI awareness using this method may have unwanted effects; in particular, MsgBox windows may not adjust automatically when moved between screens.</p>
 
 </body>
 </html>
